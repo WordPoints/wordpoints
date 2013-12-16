@@ -1,0 +1,3 @@
+<?php
+
+// Peek-a-boo!

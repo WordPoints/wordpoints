@@ -1,0 +1,167 @@
+/*
+ * Table
+ */
+table.dataTable {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+}
+
+table.dataTable thead th {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+table.dataTable td.center,
+table.dataTable td.dataTables_empty {
+	text-align: center;
+}
+
+table.dataTable tr.odd {
+	background-color: #f3f4ff;
+}
+
+table.dataTable tr.even {
+	background-color: white;
+}
+
+/*
+ * Table wrapper
+ */
+.dataTables_wrapper {
+	position: relative;
+	clear: both;
+	*zoom: 1;
+	margin: 10px 0;
+}
+
+/*
+ * Page length menu
+ */
+.dataTables_length {
+	float: left;
+}
+
+/*
+ * Filter
+ */
+.dataTables_filter {
+	float: right;
+	text-align: right;
+	margin-bottom: 5px;
+}
+
+/*
+ * Table information
+ */
+.dataTables_info {
+	clear: both;
+	float: left;
+}
+
+/*
+ * Pagination
+ */
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+	margin-top: 5px;
+}
+
+.dataTables_paginate a {
+	margin: 2px 3px;
+	color: #222;
+}
+
+/* Full number pagination */
+.paging_full_numbers {
+	height: 22px;
+	line-height: 22px;
+}
+
+.paging_full_numbers a:active {
+	outline: none
+}
+
+.paging_full_numbers a:hover {
+	text-decoration: none;
+}
+
+.paging_full_numbers a.paginate_button,
+.paging_full_numbers a.paginate_active {
+	border: 1px solid #ddd;
+	padding: 2px 5px;
+	margin: 0 3px;
+	cursor: pointer;
+	*cursor: hand;
+	color: #333;
+	box-shadow: 0px 0px 1px #e1e1e1;
+}
+
+.paging_full_numbers a.paginate_button {
+	background-color: #ddd;
+}
+
+.paging_full_numbers a.paginate_button:hover {
+	background-color: #fff;
+}
+
+.paging_full_numbers a.paginate_active {
+	background-color: #fff;
+	color: #555;
+}
+
+.paging_full_numbers a.paginate_active:hover {
+	cursor: default;
+}
+
+.paging_full_numbers a.paginate_button_disabled {
+	color: #ccc;
+	border: 1px solid #ddd;
+	cursor: default;
+	background-color: #eee;
+}
+
+.paging_full_numbers a.paginate_button_disabled:hover {
+	cursor: default;
+	background-color: #eee;
+}
+
+/*
+ * Processing indicator
+ */
+.dataTables_processing {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 250px;
+	height: 30px;
+	margin-left: -125px;
+	margin-top: -15px;
+	padding: 14px 0 2px 0;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #999;
+	font-size: 14px;
+	background-color: white;
+}
+
+/*
+ * Sorting
+ */
+table.dataTable thead th:active,
+table.dataTable thead td:active {
+	outline: none;
+}
+
+/*
+ * Scrolling
+ */
+.dataTables_scroll {
+	clear: both;
+}
+
+.dataTables_scrollBody {
+	*margin-top: -1px;
+	-webkit-overflow-scrolling: touch;
+}

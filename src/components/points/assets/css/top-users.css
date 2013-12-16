@@ -1,0 +1,24 @@
+/**
+ * WordPoints top users table styles.
+ *
+ * @package WordPoints\Points
+ * @since 1.0.0
+ */
+
+/* Center avatars vertically. */
+.wordpoints-points-top-users .avatar {
+	vertical-align: middle;
+}
+
+/*
+ * Widget-specific styles.
+ */
+.widget_wordpoints_top_users_widget .wordpoints-points-top-users {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+.widget_wordpoints_top_users_widget .wordpoints-points-top-users td {
+    padding: 5px;
+    border-top: 1px solid #ccc;
+}

@@ -1,0 +1,37 @@
+/**
+ * Legacy hook styles for WP 3.7.
+ *
+ * @package WordPoints\Points\Administration
+ * @since 1.1.0
+ */
+
+.js #hooks-right .in-hook-title,
+.js .points-type-name-arrow {
+	background: url("../images/arrows.png") no-repeat scroll 3px 16px transparent;
+	width: 20px;
+	height: 30px;
+    top: 0;
+    bottom: 0;
+    right: 5px;
+    position: absolute;
+}
+
+.js #hooks-right .hook-title:hover .in-hook-title,
+.js .points-type-name:hover .points-type-name-arrow {
+	background: url("../images/arrows-dark.png") no-repeat scroll 3px 16px transparent;
+}
+
+#hooks-right .hook-control-edit:before,
+.hooks-chooser li.hooks-chooser-selected:before,
+.hooks-chooser li:focus:before,
+.js .points-type-name-arrow:before,
+.hook-top a.hook-action:after {
+	display: none;
+}
+
+.hooks-chooser li.hooks-chooser-selected:focus:before {
+	content: '√';
+	font: inherit;
+	left: 10px;
+	top: 10px;
+}

@@ -85,6 +85,8 @@ class WordPoints_Uninstall_Test extends WordPoints_Uninstall_UnitTestCase {
 		$this->assertTableExists( $wpdb->wordpoints_points_logs );
 		$this->assertTableExists( $wpdb->wordpoints_points_log_meta );
 
+		$this->assertArrayHasKey( 'points', WordPoints_Components::instance()->get_active() );
+
 		/**
 		 * Run install tests.
 		 *

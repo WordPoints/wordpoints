@@ -634,7 +634,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					}
 
 					if ( ! empty( $module_data['module_uri'] ) ) {
-						$module_meta[] = '<a href="' . $module_data['module_uri'] . '" title="' . esc_attr__( 'Visit module site', 'wordpoints' ) . '">' . __( 'Visit module site', 'wordpoints' ) . '</a>';
+						$module_meta[] = '<a href="' . $module_data['module_uri'] . '">' . __( 'Visit module site', 'wordpoints' ) . '</a>';
 					}
 
 					/**

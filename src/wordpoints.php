@@ -153,10 +153,10 @@ if ( is_admin() ) {
  *
  * @action plugins_loaded
  */
-function wordpoints_load_textdoomain() {
+function wordpoints_load_textdomain() {
 
-	load_plugin_textdomain( 'wordpoints', false, WORDPOINTS_DIR . '/languages/' );
+	load_plugin_textdomain( 'wordpoints', false, plugin_basename( WORDPOINTS_DIR ) . '/languages/' );
 }
-add_action( 'plugins_loaded', 'wordpoints_load_textdoomain' );
+add_action( 'plugins_loaded', 'wordpoints_load_textdomain' );
 
 // end of file /wordpoints.php

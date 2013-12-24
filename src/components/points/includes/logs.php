@@ -310,7 +310,7 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 
 	?>
 
-	<table class="wordpoints-points-logs widefat<?php echo $extra_classes; ?>">
+	<table class="wordpoints-points-logs widefat<?php echo esc_attr( $extra_classes ); ?>">
 		<thead><tr><th scope="col"><?php echo $columns['user']; ?></th><th scope="col"><?php echo $columns['points']; ?></th><th scope="col"><?php echo $columns['description']; ?></th><th scope="col"><?php echo $columns['time']; ?></th></tr></thead>
 		<tfoot><tr><th scope="col"><?php echo $columns['user']; ?></th><th scope="col"><?php echo $columns['points']; ?></th><th scope="col"><?php echo $columns['description']; ?></th><th scope="col"><?php echo $columns['time']; ?></th></tr></tfoot>
 		<tbody>

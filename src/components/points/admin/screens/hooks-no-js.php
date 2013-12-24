@@ -63,13 +63,12 @@ if ( isset( $_GET['addnew'] ) ) {
 $name = esc_html( $hook->get_name() );
 
 // Show the hook form.
-$width = ' style="width:' . $hook->get_option( 'width' ) . 'px"';
 
 ?>
 
 <div class="wrap">
 	<h2><?php echo esc_html( __( 'Points Hooks', 'wordpoints' ) ); ?></h2>
-	<div class="edithook"<?php echo $width; ?>>
+	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
 		<h3><?php printf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ); ?></h3>
 
 		<form action="admin.php?page=wordpoints_points_hooks" method="post">

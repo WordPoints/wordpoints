@@ -19,9 +19,9 @@ if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = '';
 }
 
-$page = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
-$module = isset( $_REQUEST['module'] ) ? $_REQUEST['module'] : '';
-$s = isset( $_REQUEST['s'] ) ? urlencode( $_REQUEST['s'] ) : '';
+$page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
+$module = ( isset( $_REQUEST['module'] ) ) ? $_REQUEST['module'] : '';
+$s      = ( isset( $_REQUEST['s'] ) ) ? urlencode( $_REQUEST['s'] ) : '';
 
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ), $_SERVER['REQUEST_URI'] );
@@ -58,7 +58,7 @@ switch ( $action ) {
 							'_error_nonce' => wp_create_nonce( 'module-activation-error_' . $module ),
 							'module' => $module,
 							'error' => true,
-							'charsout' => strlen( $result->get_error_data() )
+							'charsout' => strlen( $result->get_error_data() ),
 						)
 						, $redirect_url
 					)
@@ -115,7 +115,7 @@ switch ( $action ) {
 			exit;
 		}
 
-		$redirect =  self_admin_url( 'admin.php?page=wordpoints_modules&error=true' );
+		$redirect = self_admin_url( 'admin.php?page=wordpoints_modules&error=true' );
 
 		foreach ( $modules as $module ) {
 
@@ -320,9 +320,9 @@ switch ( $action ) {
 							}
 
 							// Get modules list from that folder
-							if ( $folder_modules = wordpoints_get_modules( '/' . dirname($module) ) ) {
+							if ( $folder_modules = wordpoints_get_modules( '/' . dirname( $module ) ) ) {
 
-								foreach( $folder_modules as $module_file => $data ) {
+								foreach ( $folder_modules as $module_file => $data ) {
 
 									$module_info[ $module_file ] = _wordpoints_get_module_data_markup_translate( $module_file, $data );
 									$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
@@ -344,7 +344,7 @@ switch ( $action ) {
 					}
 				?>
 
-				<p><?php echo _n( 'You are about to remove the following module:', 'You are about to remove the following modules:', $modules_to_delete, 'wordpoints' ); ?></p>
+				<p><?php echo esc_html( _n( 'You are about to remove the following module:', 'You are about to remove the following modules:', $modules_to_delete, 'wordpoints' ) ); ?></p>
 					<ul class="ul-disc">
 
 						<?php
@@ -361,7 +361,7 @@ switch ( $action ) {
 								} else {
 
 									/* translators: 1: module name, 2: module author */
-									echo '<li>', sprintf( __('<strong>%1$s</strong> by <em>%2$s</em>', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name']) ), '</li>';
+									echo '<li>', sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em>', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), '</li>';
 								}
 							}
 						?>

@@ -429,7 +429,6 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 // Miscellaneous.
 //
 
-if ( defined( 'WORDPOINTS_SYMLINK' ) ) {
 /**
  * Fix URLs where WordPress doesn't follow symlinks.
  *
@@ -447,7 +446,9 @@ function wordpoints_symlink_fix( $url, $path, $plugin ) {
 
 	return $url;
 }
-add_filter( 'plugins_url', 'wordpoints_symlink_fix', 10, 3 );
+
+if ( defined( 'WORDPOINTS_SYMLINK' ) ) {
+	add_filter( 'plugins_url', 'wordpoints_symlink_fix', 10, 3 );
 }
 
 /**

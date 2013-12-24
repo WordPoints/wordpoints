@@ -378,7 +378,7 @@ final class WordPoints_Points_Hooks {
 		if ( ! $points_type ) {
 
 			$points_type = array();
-			$add_new = 1;
+			$add_new     = 1;
 		}
 
 		$points_type = array_merge(
@@ -462,11 +462,11 @@ final class WordPoints_Points_Hooks {
 							<input class="widefat" type="text" name="points-name" class="points-name" value="<?php echo esc_attr( $points_type['name'] ); ?>" />
 						</p>
 						<p>
-							<label for="points-prefix"><?php echo $prefix; ?></label>
+							<label for="points-prefix"><?php echo esc_html( $prefix ); ?></label>
 							<input class="widefat" type="text" name="points-prefix" class="points-prefix" value="<?php echo esc_attr( $points_type['prefix'] ); ?>" />
 						</p>
 						<p>
-							<label for="points-suffix"><?php echo $suffix; ?></label>
+							<label for="points-suffix"><?php echo esc_html( $suffix ); ?></label>
 							<input class="widefat" type="text" name="points-suffix" class="points-suffix" value="<?php echo esc_attr( $points_type['suffix'] ); ?>" />
 						</p>
 
@@ -545,7 +545,7 @@ final class WordPoints_Points_Hooks {
 
 			if ( $multi_number ) {
 
-				$query_arg['num'] = $multi_number;
+				$query_arg['num']  = $multi_number;
 				$query_arg['base'] = $id_base;
 			}
 
@@ -568,7 +568,7 @@ final class WordPoints_Points_Hooks {
 			$id_format = "{$id_base}-__i__";
 		}
 
-		$title = esc_html( strip_tags( $hook->get_name() ) );
+		$title    = esc_html( strip_tags( $hook->get_name() ) );
 		$has_form = true;
 
 		echo $options['_before_hook'];
@@ -648,7 +648,7 @@ final class WordPoints_Points_Hooks {
 			if ( ! isset( self::$hooks[ $hook_id ] ) )
 				continue;
 
-			$hook = self::$hooks[ $hook_id ];
+			$hook    = self::$hooks[ $hook_id ];
 			$options = $hook->get_options();
 
 			$options['_display'] = 'instance';

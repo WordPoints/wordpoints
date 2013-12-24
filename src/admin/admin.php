@@ -168,7 +168,7 @@ function wordpoints_show_admin_message( $message, $type = 'updated' ) {
 
 	?>
 
-	<div id="message" class="<?php echo $type; ?>">
+	<div id="message" class="<?php echo sanitize_html_class( $type, 'updated' ); ?>">
 		<p>
 			<?php echo $message; ?>
 		</p>
@@ -225,18 +225,18 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 		echo '<h2>', esc_html( sprintf( __( 'WordPoints - %s', 'wordpoints' ), $tabs[ $current ] ) ), '</h2>';
 	}
 
-    echo '<h2 class="nav-tab-wrapper">';
+	echo '<h2 class="nav-tab-wrapper">';
 
 	$page = rawurlencode( $_GET['page'] );
 
-    foreach ( $tabs as $tab => $name ) {
+	foreach ( $tabs as $tab => $name ) {
 
-        $class = ( $tab == $current ) ? ' nav-tab-active' : '';
+		$class = ( $tab == $current ) ? ' nav-tab-active' : '';
 
-        echo '<a class="nav-tab', $class, '" href="?page=', $page, '&amp;tab=', rawurlencode( $tab ), '">', esc_html( $name ), '</a>';
-    }
+		echo '<a class="nav-tab', $class, '" href="?page=', $page, '&amp;tab=', rawurlencode( $tab ), '">', esc_html( $name ), '</a>';
+	}
 
-    echo '</h2>';
+	echo '</h2>';
 }
 
 /**
@@ -250,8 +250,8 @@ function wordpoints_install_modules_upload() {
 
 	<h4><?php _e( 'Install a module in .zip format', 'wordpoints' ); ?></h4>
 	<p class="install-help"><?php _e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
-	<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo self_admin_url( 'update.php?action=upload-wordpoints-module' ); ?>">
-		<?php wp_nonce_field( 'wordpoints-module-upload'); ?>
+	<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ); ?>">
+		<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
 		<label class="screen-reader-text" for="modulezip"><?php _e( 'Module zip file', 'wordpoints' ); ?></label>
 		<input type="file" id="modulezip" name="modulezip" />
 		<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
@@ -279,7 +279,7 @@ function wordpoints_upload_module_zip() {
 	$file_upload = new File_Upload_Upgrader( 'modulezip', 'package' );
 
 	$title = __( 'Upload WordPoints Module', 'wordpoints' );
-	$parent_file = 'admin.php';
+	$parent_file  = 'admin.php';
 	$submenu_file = 'admin.php';
 
 	require_once ABSPATH . 'wp-admin/admin-header.php';
@@ -300,7 +300,7 @@ function wordpoints_upload_module_zip() {
 
 	$result = $upgrader->install( $file_upload->package );
 
-	if ( $result || is_wp_error($result) ) {
+	if ( $result || is_wp_error( $result ) ) {
 		$file_upload->cleanup();
 	}
 

@@ -7,6 +7,10 @@
  * @since 1.0.1
  */
 
+if ( ! class_exists( 'WordPoints_Selenium2TestCase' ) ) {
+	return;
+}
+
 /**
  * Module UI test case.
  *

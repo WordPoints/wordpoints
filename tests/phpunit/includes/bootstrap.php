@@ -78,11 +78,4 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-unittestc
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-uninstall-unittestcase.php';
 
-/**
- * Selenium 2 test case, integrated with WP_UnitTestCase.
- *
- * @since 1.0.1
- */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-selenium2testcase.php';
-
 // end of file /tests/phpunit/includes/bootstrap.php

@@ -74,6 +74,15 @@ class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
     				. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for installation instructions.'
     				. PHP_EOL
     			);
+
+    		} else {
+
+    			/**
+				 * Selenium 2 test case, integrated with WP_UnitTestCase.
+				 *
+				 * @since 1.0.1
+				 */
+				require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-selenium2testcase.php';
     		}
 
 			if ( ! defined( 'WORDPOINTS_TEST_BROWSER' ) ) {

@@ -52,11 +52,11 @@ class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
 		if ( $uninstall_message )
 			echo 'Not running WordPoints install/uninstall tests... To execute these, use --group uninstall.' . PHP_EOL;
 
-    	if ( $ui_message ) {
+		if ( $ui_message ) {
 
-    		echo 'Not running WordPoints UI tests... To execute these, use --group ui.' . PHP_EOL;
+			echo 'Not running WordPoints UI tests... To execute these, use --group ui.' . PHP_EOL;
 
-    	} else {
+		} else {
 
 			echo 'Running WordPoints UI tests...', PHP_EOL;
 
@@ -68,22 +68,22 @@ class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
 				);
 			}
 
-    		if ( ! class_exists( 'PHPUnit_Extensions_Selenium2TestCase' ) ) {
+			if ( ! class_exists( 'PHPUnit_Extensions_Selenium2TestCase' ) ) {
 
-    			exit( 'Error: Unable to run the tests, the PHPUnit Selenium extension is not installed.'
-    				. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for installation instructions.'
-    				. PHP_EOL
-    			);
+				exit( 'Error: Unable to run the tests, the PHPUnit Selenium extension is not installed.'
+					. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for installation instructions.'
+					. PHP_EOL
+				);
 
-    		} else {
+			} else {
 
-    			/**
+				/**
 				 * Selenium 2 test case, integrated with WP_UnitTestCase.
 				 *
 				 * @since 1.0.1
 				 */
 				require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-selenium2testcase.php';
-    		}
+			}
 
 			if ( ! defined( 'WORDPOINTS_TEST_BROWSER' ) ) {
 
@@ -94,22 +94,22 @@ class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
 				);
 			}
 
-    		if ( ! wordpointstests_selenium_is_running() ) {
+			if ( ! wordpointstests_selenium_is_running() ) {
 
-    			echo 'Attempting to start Selenium...', PHP_EOL;
+				echo 'Attempting to start Selenium...', PHP_EOL;
 
-    			if ( ! wordpointstests_start_selenium() ) {
+				if ( ! wordpointstests_start_selenium() ) {
 
-    				exit( 'Error: Unable to run the tests, Selenium does not appear to be running.'
+					exit( 'Error: Unable to run the tests, Selenium does not appear to be running.'
 						. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for instructions.'
 						. PHP_EOL
-    				);
-    			}
+					);
+				}
 
-    			echo 'Selenium started successfully...' . PHP_EOL;
-    		}
-    	}
-    }
+				echo 'Selenium started successfully...' . PHP_EOL;
+			}
+		}
+	}
 }
 
 // end of file /tests/phpunit/includes/class-wordpoints-phpunit-textui-command.php

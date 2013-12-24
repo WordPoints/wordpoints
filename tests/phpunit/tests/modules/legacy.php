@@ -98,7 +98,7 @@ class WordPoints_Modules_Legacy_Test extends WP_UnitTestCase {
 		$this->assertFalse( $modules->activate( 'test_4' ) );
 		$this->assertTrue( $modules->is_active( 'test_4' ) );
 		$this->assertArrayNotHasKey( 'test_4', $modules->get_active() );
-// TODO		$this->assertEquals( 1, did_action( 'wordpoints_module_activate-test_4' ) );
+		// TODO $this->assertEquals( 1, did_action( 'wordpoints_module_activate-test_4' ) );
 		$this->assertTrue( $modules->deactivate( 'test_4' ) );
 	}
 

@@ -59,7 +59,7 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 
 		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook', array( 'approve' => 10, 'disapprove' => 10 ) );
 
-		$user_id = $this->factory->user->create();
+		$user_id    = $this->factory->user->create();
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,

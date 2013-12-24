@@ -120,39 +120,35 @@ $errors = array(
 
 			<?php
 
-				$i = 0;
+			$i = 0;
 
-				foreach ( $points_types as $slug => $points_type ) {
+			foreach ( $points_types as $slug => $points_type ) {
 
-					$wrap_class = 'hooks-holder-wrap';
-					if ( ! empty( $points_type['class'] ) )
-						$wrap_class .= ' points-type-' . $points_type['class'];
+				$wrap_class = 'hooks-holder-wrap';
+				if ( ! empty( $points_type['class'] ) )
+					$wrap_class .= ' points-type-' . $points_type['class'];
 
-					if ( $i )
-						$wrap_class .= ' closed';
+				if ( $i )
+					$wrap_class .= ' closed';
 
-					?>
+				?>
 
-					<div class="<?php echo esc_attr( $wrap_class ); ?>">
-						<div class="points-type-name">
-							<div class="points-type-name-arrow"><br /></div>
-							<h3><?php echo esc_html( $points_type['name'] ); ?><span class="spinner"></span></h3>
-						</div>
-						<?php WordPoints_Points_Hooks::list_by_points_type( $slug ); // Show the control forms for each of the hooks in this points type. ?>
+				<div class="<?php echo esc_attr( $wrap_class ); ?>">
+					<div class="points-type-name">
+						<div class="points-type-name-arrow"><br /></div>
+						<h3><?php echo esc_html( $points_type['name'] ); ?><span class="spinner"></span></h3>
 					</div>
+					<?php WordPoints_Points_Hooks::list_by_points_type( $slug ); // Show the control forms for each of the hooks in this points type. ?>
+				</div>
 
-					<?php
+				<?php
 
-					$i++;
-				}
+				$i++;
+			}
 
-				$closed = '';
-
-				if ( $i > 0 )
-					$closed .= 'closed';
 			?>
 
-			<div class="hooks-holder-wrap new-points-type <?php echo $closed; ?>">
+			<div class="hooks-holder-wrap new-points-type <?php echo ( $i > 0 ) ? 'closed' : ''; ?>">
 				<div class="points-type-name">
 					<div class="points-type-name-arrow"><br /></div>
 					<h3><?php esc_html_e( 'Add New Points Type', 'wordpoints' ); ?><span class="spinner"></span></h3>

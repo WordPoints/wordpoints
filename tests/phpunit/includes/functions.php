@@ -130,7 +130,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
 	} else {
 
 		$sidebar_id = key( $sidebars );
-		$sidebar = array_shift( $sidebars );
+		$sidebar    = array_shift( $sidebars );
 	}
 
 	$sidebar[] = $id_base . '-' . $multi_number;
@@ -211,7 +211,7 @@ function wordpointstests_ui_user() {
 		$user_id = $user_factory->create(
 			array(
 				'user_login' => 'wordpoints_ui_tester',
-				'user_email' => 'wordpoints.ui.tester@example.com'
+				'user_email' => 'wordpoints.ui.tester@example.com',
 			)
 		);
 
@@ -243,7 +243,7 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir, $link_name = null
 			return false;
 	}
 
-    return true;
+	return true;
 }
 
 // end of file /tests/phpunit/includes/functions.php

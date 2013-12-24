@@ -478,7 +478,7 @@ class WordPoints_Points_Logs_Query {
 
 		} elseif ( 'array' == $var_type ) {
 
-			$diff = array_diff( $_fields, $this->_fields );
+			$diff    = array_diff( $_fields, $this->_fields );
 			$_fields = array_intersect( $this->_fields, $_fields );
 
 			if ( ! empty( $diff ) )
@@ -554,7 +554,7 @@ class WordPoints_Points_Logs_Query {
 
 			if ( isset( $_points ) && ! wordpoints_int( $this->_args['points'] ) ) {
 
-				wordpoints_debug_message( "'points' must be an integer, " . gettype( $_points ) . " given",  __METHOD__, __FILE__, __LINE__ );
+				wordpoints_debug_message( "'points' must be an integer, " . gettype( $_points ) . ' given',  __METHOD__, __FILE__, __LINE__ );
 
 			} else {
 
@@ -611,7 +611,7 @@ class WordPoints_Points_Logs_Query {
 		if ( ! empty( $meta_args ) ) {
 
 			$this->meta_query = new WP_Meta_Query();
- 			$this->meta_query->parse_query_vars( $meta_args );
+			$this->meta_query->parse_query_vars( $meta_args );
 
 			add_filter( 'sanitize_key', array( $this, 'meta_query_meta_table_id_filter' ) );
 			$meta_query = $this->meta_query->get_sql( 'wordpoints_points_log_', $wpdb->wordpoints_points_logs, 'id', $this );
@@ -676,7 +676,7 @@ class WordPoints_Points_Logs_Query {
 
 		global $wpdb;
 
-		$order = $this->_args['order'];
+		$order    = $this->_args['order'];
 		$order_by = $this->_args['orderby'];
 
 		if ( 'none' == $order_by ) {
@@ -694,7 +694,7 @@ class WordPoints_Points_Logs_Query {
 			if ( isset( $this->_args['meta_type'] ) ) {
 
 				$meta_type = $this->meta_query->get_cast_for_type( $this->_args['meta_type'] );
-				$order_by = "CAST({$wpdb->wordpoints_points_log_meta}.meta_value AS {$meta_type}";
+				$order_by  = "CAST({$wpdb->wordpoints_points_log_meta}.meta_value AS {$meta_type}";
 
 			} else {
 

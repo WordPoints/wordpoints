@@ -203,7 +203,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		if ( $orderby ) {
 
 			$orderby = ucfirst( $orderby );
-			$order = strtoupper( $order );
+			$order   = strtoupper( $order );
 
 			uasort( $this->items, array( $this, '_order_callback' ) );
 		}
@@ -216,10 +216,12 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			$this->items = array_slice( $this->items, $start, $modules_per_page );
 		}
 
-		$this->set_pagination_args( array(
-			'total_items' => $total_this_page,
-			'per_page'    => $modules_per_page,
-		) );
+		$this->set_pagination_args(
+			array(
+				'total_items' => $total_this_page,
+				'per_page'    => $modules_per_page,
+			)
+		);
 	}
 
 	/**
@@ -564,9 +566,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$class = ( $is_active ) ? 'active' : 'inactive';
 
-		$checkbox_id =  "checkbox_" . md5( $module_data['name'] );
+		$checkbox_id = 'checkbox_' . md5( $module_data['name'] );
 
-		$checkbox = "<label class='screen-reader-text' for='" . $checkbox_id . "' >" . sprintf( __( 'Select %s', 'wordpoints' ), $module_data['name'] ) . "</label>"
+		$checkbox = "<label class='screen-reader-text' for='" . $checkbox_id . "' >" . sprintf( __( 'Select %s', 'wordpoints' ), $module_data['name'] ) . '</label>'
 			. "<input type='checkbox' name='checked[]' value='" . esc_attr( $module_file ) . "' id='" . $checkbox_id . "' />";
 
 		$description = '<p>' . ( $module_data['description'] ? $module_data['description'] : '&nbsp;' ) . '</p>';
@@ -608,7 +610,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				case 'name':
 					echo "<td class='module-title'{$style}><strong>{$module_name}</strong>";
 					echo $this->row_actions( $actions, true );
-					echo "</td>";
+					echo '</td>';
 				break;
 
 				case 'description':
@@ -653,7 +655,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 					echo implode( ' | ', $module_meta );
 
-					echo "</div></td>";
+					echo '</div></td>';
 				break;
 
 				default:
@@ -668,13 +670,13 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					 * @param array  $module_data The module's info.
 					 */
 					do_action( 'wordpoints_manage_modules_custom_column', $column_name, $module_file, $module_data );
-					echo "</td>";
+					echo '</td>';
 
 			} // switch ( $column_name )
 
 		} // foreach ( $columns )
 
-		echo "</tr>";
+		echo '</tr>';
 
 		/**
 		 * After each row in the module list table.

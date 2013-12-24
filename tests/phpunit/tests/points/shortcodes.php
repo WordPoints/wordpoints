@@ -35,9 +35,6 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 		}
 
 		// Check output with valid parameters.
-		$output_3 =
-	 	$matches =
-
 		$this->assertTag(
 			array(
 				'tag'        => 'table',
@@ -54,14 +51,14 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 				  'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 3 )
 			)
-	 	);
+		);
 
 		// Check failures with a normal user.
 		$old_current_user = wp_get_current_user();
 		$new_current_user = wp_set_current_user( $user_ids[0] );
 		$new_current_user->set_role( 'subscriber' );
 
- 		$this->assertEmpty(
+		$this->assertEmpty(
 			wordpointstests_do_shortcode_func(
 				  'wordpoints_points_top'
 				, array( 'points_type' => 'idontexist' )
@@ -82,9 +79,9 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 		$shortcode_error = array(
 			'tag' => 'p',
 			'attributes' => array(
-	 			'class' => 'wordpoints-shortcode-error',
-	 		),
-	 	);
+				'class' => 'wordpoints-shortcode-error',
+			),
+		);
 
 		$this->assertTag(
 			$shortcode_error
@@ -148,8 +145,8 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 			array(
 				'tag'        => 'table',
 				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat'
-				)
+					'class' => 'wordpoints-points-logs widefat',
+				),
 			)
 			, wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
@@ -180,7 +177,7 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 		$new_current_user = wp_set_current_user( $user_id );
 		$new_current_user->set_role( 'subscriber' );
 
- 		$this->assertEmpty(
+		$this->assertEmpty(
 			wordpointstests_do_shortcode_func(
 				  'wordpoints_points_logs'
 				, array( 'points_type' => 'idontexist' )
@@ -200,9 +197,9 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 		$shortcode_error = array(
 			'tag' => 'p',
 			'attributes' => array(
-	 			'class' => 'wordpoints-shortcode-error',
-	 		),
-	 	);
+				'class' => 'wordpoints-shortcode-error',
+			),
+		);
 
 		$this->assertTag(
 			$shortcode_error

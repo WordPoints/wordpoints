@@ -193,9 +193,18 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 
 		wp_cache_add_global_groups(
 			array(
-				'users', 'userlogins', 'usermeta', 'user_meta', 'site-transient',
-				'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss',
-				'global-posts', 'blog-id-cache'
+				'users',
+				'userlogins',
+				'usermeta',
+				'user_meta',
+				'site-transient',
+				'site-options',
+				'site-lookup',
+				'blog-lookup',
+				'blog-details',
+				'rss',
+				'global-posts',
+				'blog-id-cache',
 			)
 		);
 

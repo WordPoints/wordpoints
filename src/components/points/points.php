@@ -9,7 +9,7 @@
 
 global $wpdb;
 
-$wpdb->wordpoints_points_logs = "{$wpdb->base_prefix}wordpoints_points_logs";
+$wpdb->wordpoints_points_logs     = "{$wpdb->base_prefix}wordpoints_points_logs";
 $wpdb->wordpoints_points_log_meta = "{$wpdb->base_prefix}wordpoints_points_log_meta";
 
 /**

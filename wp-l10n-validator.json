@@ -51,7 +51,34 @@
 		"$this->the_field_name": true
 	},
 	"ignored-strings": [
+		"-",
+		"_",
+		"=",
+		">",
+		"<>",
+		"!=",
+		">=",
+		"<=",
+		"][",
+		"&amp;tab=",
+		"%points%",
+		"adding-modules",
 		"admin.php",
-		"NOT IN"
+		"nav-tab-active",
+		"hook-",
+		"wordpoints_hook-",
+		"hook-content",
+		"hook-control-noform",
+		"id",
+		"SELECT",
+		"SELECT COUNT(*)",
+		"SELECT COUNT",
+		"DESC",
+		"ASC",
+		"WHERE",
+		"NOT IN",
+		"LIMIT 1",
+		"widefat",
+		"ALL"
 	]
 }

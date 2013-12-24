@@ -33,23 +33,23 @@ if ( isset( $_GET['error'] ) ) {
 
 		if ( isset( $_GET['module'] ) && wp_verify_nonce( $_GET['_error_nonce'], "module-activation-error_{$_GET['module']}" ) ) {
 
-			 $error_message .= '<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=' . esc_attr( $_GET['module'] ) . '&amp;_wpnonce=' . esc_attr( $_GET['_error_nonce'] ) .'"></iframe>';
+			$error_message .= '<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=' . esc_attr( $_GET['module'] ) . '&amp;_wpnonce=' . esc_attr( $_GET['_error_nonce'] ) .'"></iframe>';
 		}
 	}
 
 } elseif ( isset( $_GET['deleted'] ) ) {
 
-		$user_ID = get_current_user_id();
-		$delete_result = get_transient( 'wordpoints_modules_delete_result_' . $user_ID );
+	$user_ID = get_current_user_id();
+	$delete_result = get_transient( 'wordpoints_modules_delete_result_' . $user_ID );
 
-		// Delete it once we're done.
-		delete_transient( 'wordpoints_modules_delete_result_' . $user_ID );
+	// Delete it once we're done.
+	delete_transient( 'wordpoints_modules_delete_result_' . $user_ID );
 
-		if ( is_wp_error( $delete_result ) ) {
-			$error_message = sprintf( __( 'Module could not be deleted due to an error: %s', 'wordpoints' ), $delete_result->get_error_message() );
-		} else {
-			$message = __( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' );
-		}
+	if ( is_wp_error( $delete_result ) ) {
+		$error_message = sprintf( __( 'Module could not be deleted due to an error: %s', 'wordpoints' ), $delete_result->get_error_message() );
+	} else {
+		$message = __( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' );
+	}
 
 } elseif ( isset( $_GET['activate'] ) ) {
 
@@ -84,7 +84,7 @@ if ( isset( $error_message ) ) {
 $title = esc_html( __( 'WordPoints Modules', 'wordpoints' ) );
 
 if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) {
-	$title .= '<a href="' . self_admin_url( 'admin.php?page=wordpoints_install_modules' ) . '" class="add-new-h2">' . esc_html_x( 'Add New', 'module' ) . '</a>';
+	$title .= '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '" class="add-new-h2">' . esc_html_x( 'Add New', 'module' ) . '</a>';
 }
 
 if ( ! empty( $_REQUEST['s'] ) ) {

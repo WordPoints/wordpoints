@@ -59,7 +59,7 @@ if ( isset( $_POST['wordpoints_settings_nonce'] ) && wp_verify_nonce( $_POST['wo
 					<label for="excluded_users"><?php _e( 'Excluded Users', 'wordpoints' ); ?></label>
 				</th>
 				<td>
-					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo implode( ', ', wordpoints_get_array_option( 'wordpoints_excluded_users' ) ); ?>" />
+					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo esc_attr( implode( ', ', wordpoints_get_array_option( 'wordpoints_excluded_users' ) ) ); ?>" />
 				</td>
 			</tr>
 		</tbody>

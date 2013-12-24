@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-/* global ajaxurl, isRtl */
+/* global ajaxurl, isRtl, WordPointsHooksL10n */
 
 /**
  * @var object WordPointsHooks
@@ -27,11 +27,11 @@ WordPointsHooks = {
 
 		var rem,
 			the_id,
-			self = this;
+			self = this,
 			chooser = $( '.hooks-chooser' ),
 			selectPointsType = chooser.find( '.hooks-chooser-points-types' ),
 			points_types = $( 'div.hooks-sortables' ),
-			isRTL = !! ( 'undefined' != typeof isRtl && isRtl ),
+			isRTL = !! ( 'undefined' !== typeof isRtl && isRtl ),
 			margin = ( isRtl ? 'marginRight' : 'marginLeft' );
 
 		// Require confirmation for points type delete.
@@ -68,8 +68,9 @@ WordPointsHooks = {
 		// Set the height of the points types.
 		points_types.each( function () {
 
-			if ( $( this ).parent().hasClass( 'inactive' ) )
+			if ( $( this ).parent().hasClass( 'inactive' ) ) {
 				return true;
+			}
 
 			var h = 50,
 				H = $( this ).children( '.hook' ).length;
@@ -99,8 +100,9 @@ WordPointsHooks = {
 
 						css.width = w + 30 + 'px';
 
-						if ( inside.closest( 'div.hook-liquid-right' ).length )
+						if ( inside.closest( 'div.hook-liquid-right' ).length ) {
 							css[ margin ] = 235 - w + 'px';
+						}
 
 						hook.css( css );
 					}
@@ -143,8 +145,9 @@ WordPointsHooks = {
 
 			WordPointsHooks.appendTitle( this );
 
-			if ( $( 'p.hook-error', this ).length )
+			if ( $( 'p.hook-error', this ).length ) {
 				$( 'a.hook-action', this ).click();
+			}
 		});
 
 		// Make hooks draggable.
@@ -196,10 +199,10 @@ WordPointsHooks = {
 
 				if ( inside.css( 'display' ) === 'block' ) {
 					inside.hide();
-                    $( this ).sortable( 'refreshPositions' );
-                }
+					$( this ).sortable( 'refreshPositions' );
+				}
 
-                if ( ! $wrap.hasClass('closed') ) {
+				if ( ! $wrap.hasClass('closed') ) {
 
 					// Lock all open points types' min-height when starting to drag.
 					// Prevents jumping when dragging a hook from an open points type to a closed points type below.
@@ -291,7 +294,7 @@ WordPointsHooks = {
 			tolerance: 'pointer',
 			accept: function ( o ) {
 
-				return $( o ).parent().attr( 'id' ) != 'hook-list';
+				return $( o ).parent().attr( 'id' ) !== 'hook-list';
 			},
 			drop: function ( e, ui ) {
 
@@ -303,9 +306,10 @@ WordPointsHooks = {
 				ui.draggable.addClass( 'deleting' );
 				$( 'div.hook-placeholder' ).hide();
 
-				if ( ui.draggable.hasClass( 'ui-sortable-helper' ) )
+				if ( ui.draggable.hasClass( 'ui-sortable-helper' ) ) {
 					$( '#removing-hook' ).show().children( 'span' )
 						.html( ui.draggable.find( 'div.hook-title' ).children( 'h4' ).html() );
+				}
 			},
 			out: function ( e, ui ) {
 
@@ -316,7 +320,7 @@ WordPointsHooks = {
 		});
 
 		// Points type chooser.
-        $( '#hooks-right .hooks-holder-wrap' ).each( function( index, element ) {
+		$( '#hooks-right .hooks-holder-wrap' ).each( function( index, element ) {
 
 			var $element = $( element ),
 				name = $element.find( '.points-type-name h3' ).text(),
@@ -402,8 +406,9 @@ WordPointsHooks = {
 	 * @since 1.0.0
 	 */
 	saveOrder : function ( sb ) {
-		if ( sb )
+		if ( sb ) {
 			$( '#' + sb ).closest( 'div.hooks-holder-wrap' ).find( '.spinner:first' ).css( 'display', 'inline-block' );
+		}
 
 		var a = {
 			action: 'wordpoints-points-hooks-order',
@@ -413,8 +418,9 @@ WordPointsHooks = {
 
 		$( 'div.hooks-sortables' ).each( function () {
 
-			if ( $( this ).sortable )
+			if ( $( this ).sortable ) {
 				a['points_types[' + $( this ).attr( 'id' ) + ']'] = $( this ).sortable( 'toArray' ).join( ',' );
+			}
 		});
 
 		$.post( ajaxurl, a, function() {
@@ -444,8 +450,9 @@ WordPointsHooks = {
 			points_type: sb
 		};
 
-		if ( del )
-			a['delete_hook'] = 1;
+		if ( del ) {
+			a.delete_hook = 1;
+		}
 
 		data += '&' + $.param( a );
 
@@ -460,8 +467,9 @@ WordPointsHooks = {
 					id = $( 'input.hook-id', hook ).val();
 					$( '#available-hooks' ).find( 'input.hook-id' ).each( function () {
 
-						if ( $( this ).val() == id )
+						if ( $( this ).val() === id ) {
 							$( this ).closest( 'div.hook' ).show();
+						}
 					});
 				}
 
@@ -492,8 +500,9 @@ WordPointsHooks = {
 				}
 			}
 
-			if ( order )
+			if ( order ) {
 				WordPointsHooks.saveOrder();
+			}
 		});
 	},
 
@@ -506,8 +515,9 @@ WordPointsHooks = {
 
 		var title = $( 'input[id*="-title"]', hook ).val() || '';
 
-		if ( title )
+		if ( title ) {
 			title = ': ' + title.replace( /<[^<>]+>/g, '' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
+		}
 
 		$( hook ).children( '.hook-top' ).children( '.hook-title' ).children()
 			.children( '.in-hook-title' ).html( title );
@@ -522,8 +532,9 @@ WordPointsHooks = {
 
 		$( 'div.hooks-sortables' ).each( function () {
 
-			if ( $( this ).parent().hasClass( 'inactive' ) )
+			if ( $( this ).parent().hasClass( 'inactive' ) ) {
 				return true;
+			}
 
 			var h = 50, H = $( this ).children( '.hook' ).length;
 			h = h + parseInt( H * 48, 10 );
@@ -541,8 +552,10 @@ WordPointsHooks = {
 		hook.children( '.hook-inside' ).find( 'label' ).each( function () {
 
 			var f = $( this ).attr( 'for' );
-			if ( f && f == $( 'input', this ).attr( 'id' ) )
+
+			if ( f && f === $( 'input', this ).attr( 'id' ) ) {
 				$( this ).removeAttr( 'for' );
+			}
 		});
 	},
 

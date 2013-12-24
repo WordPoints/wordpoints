@@ -113,13 +113,11 @@ class WordPoints_Registration_Points_Hook extends WordPoints_Points_Hook {
 
 		$instance = array_merge( $this->defaults, $instance );
 
-		$points = wordpoints_posint( $instance['points'] );
-
 		?>
 
 		<p>
 			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php _ex( 'Points:', 'form label', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo $points; ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
 		</p>
 
 		<?php
@@ -381,22 +379,31 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 
 		$instance = array_merge( $this->defaults, $instance );
 
-		$publish = wordpoints_posint( $instance['publish'] );
-		$trash   = wordpoints_posint( $instance['trash'] );
-
 		?>
 
 		<p>
 			<label for="<?php $this->the_field_id( 'post_type' ); ?>"><?php _e( 'Select post type:', 'wordpoints' ); ?></label>
-			<?php wordpoints_list_post_types( array( 'selected' => $instance['post_type'], 'id' => $this->get_field_id( 'post_type' ), 'name' => $this->get_field_name( 'post_type' ), 'class' => 'widefat' ), array( 'public' => true ) ); ?>
+			<?php
+
+			wordpoints_list_post_types(
+				array(
+					'selected' => $instance['post_type'],
+					'id'       => $this->get_field_id( 'post_type' ),
+					'name'     => $this->get_field_name( 'post_type' ),
+					'class'    => 'widefat'
+				)
+				, array( 'public' => true )
+			);
+
+			?>
 		</p>
 		<p>
 			<label for="<?php $this->the_field_id( 'publish' ); ?>"><?php _e( 'Points added when published:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'publish' ); ?>"  id="<?php $this->the_field_id( 'publish' ); ?>" type="text" value="<?php echo $publish; ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'publish' ); ?>"  id="<?php $this->the_field_id( 'publish' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['publish'] ); ?>" />
 		</p>
 		<p>
 			<label for="<?php $this->the_field_id( 'trash' ); ?>"><?php _e( 'Points removed when deleted:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'trash' ); ?>"  id="<?php $this->the_field_id( 'trash' ); ?>" type="text" value="<?php echo $trash; ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'trash' ); ?>"  id="<?php $this->the_field_id( 'trash' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['trash'] ); ?>" />
 		</p>
 
 		<?php
@@ -521,7 +528,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 		if ( 0 == $comment->user_id )
 			return;
 
-		switch( $comment->comment_approved ) {
+		switch ( $comment->comment_approved ) {
 
 			// Comment hasn't been approved yet.
 			case 0: return;
@@ -567,9 +574,11 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 		} else {
 
-			$detail = wp_trim_words( strip_tags( $comment->comment_content ) );
+			$detail     = wp_trim_words( strip_tags( $comment->comment_content ) );
 			$post_title = get_the_title( $comment->comment_post_ID );
-			$link = '<a href="' . get_comment_link( $comment ) . '">' . ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) ) . '</a>';
+			$link       = '<a href="' . get_comment_link( $comment ) . '">'
+				. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
+				. '</a>';
 
 			/* translators: %s will be the post's title. */
 			return '<span title="' . esc_attr( $detail ) . '">' . sprintf( _x( 'Comment on %s.', 'points log description', 'wordpoints' ), $link ) . '</span>';
@@ -675,18 +684,15 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 		$instance = array_merge( $this->defaults, $instance );
 
-		$approve    = wordpoints_posint( $instance['approve'] );
-		$disapprove = wordpoints_posint( $instance['disapprove'] );
-
 		?>
 
 		<p>
 			<label for="<?php $this->the_field_id( 'approve' ); ?>"><?php _e( 'Points for comment:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'approve' ); ?>"  id="<?php $this->the_field_id( 'approve' ); ?>" type="text" value="<?php echo $approve; ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'approve' ); ?>"  id="<?php $this->the_field_id( 'approve' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['approve'] ); ?>" />
 		</p>
 		<p>
 			<label for="<?php $this->the_field_id( 'disapprove' ); ?>"><?php _e( 'Points subtracted if comment removed:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'disapprove' ); ?>"  id="<?php $this->the_field_id( 'disapprove' ); ?>" type="text" value="<?php echo $disapprove; ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'disapprove' ); ?>"  id="<?php $this->the_field_id( 'disapprove' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['disapprove'] ); ?>" />
 		</p>
 
 		<?php
@@ -856,8 +862,6 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 		$instance = array_merge( $this->defaults, $instance );
 
-		$points = wordpoints_posint( $instance['points'] );
-
 		$dropdown_args = array(
 			'selected' => $instance['period'],
 			'id'       => $this->get_field_id( 'period' ),
@@ -871,7 +875,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 		<p>
 			<label><?php _ex( 'Points:', 'form label', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo $points; ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
 		</p>
 		<p>
 			<label for="<?php $this->the_field_id( 'period' ); ?>"><?php _ex( 'Period:', 'length of time', 'wordpoints' ); ?></label>

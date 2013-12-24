@@ -1,6 +1,8 @@
 WordPoints
 ==========
 
+[![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?branch=master)](https://travis-ci.org/WordPoints/wordpoints)
+
 This is were development of the WordPoints WordPress plugin takes place. To
 download the latest stable release, seek support, or for more information about the
 plugin, see [its home on WordPress.org](http://wordpress.org/plugins/wordpoints/).

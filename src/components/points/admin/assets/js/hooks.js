@@ -31,15 +31,42 @@ WordPointsHooks = {
 			chooser = $( '.hooks-chooser' ),
 			selectPointsType = chooser.find( '.hooks-chooser-points-types' ),
 			points_types = $( 'div.hooks-sortables' ),
-			isRTL = !! ( 'undefined' !== typeof isRtl && isRtl ),
-			margin = ( isRtl ? 'marginRight' : 'marginLeft' );
+			isRtl = !! ( 'undefined' !== typeof isRtl && isRtl ),
+			margin = ( isRtl ? 'marginRight' : 'marginLeft' ),
+			$currentDelete = false;
 
 		// Require confirmation for points type delete.
 		$( '.points-settings .delete' ).click( function( event ) {
 
-			if ( ! confirm( WordPointsHooksL10n.confirmDelete ) ) {
+			if ( ! $currentDelete ) {
+
+				$currentDelete = $( this );
 
 				event.preventDefault();
+
+				$( '<div title="' + WordPointsHooksL10n.confirmTitle + '"><p>' + WordPointsHooksL10n.confirmDelete + '</p></div>' ).dialog({
+					resizable: false,
+					draggable: false,
+					height: 250,
+					modal: true,
+					buttons: [
+						{
+							text: WordPointsHooksL10n.deleteText,
+							click: function() {
+								$( this ).dialog( 'close' );
+								$currentDelete.click();
+								$currentDelete = false;
+							}
+						},
+						{
+							text: WordPointsHooksL10n.cancelText,
+							click: function() {
+								$( this ).dialog( 'close' );
+								$currentDelete = false;
+							}
+						}
+					]
+				});
 			}
 		});
 
@@ -279,10 +306,10 @@ WordPointsHooks = {
 			},
 
 			activate: function() {
- 				$(this).parent().addClass( 'hook-hover' );
- 			},
+				$(this).parent().addClass( 'hook-hover' );
+			},
 
-			deactivate: function( event, ui ) {
+			deactivate: function() {
 				// Remove all min-height added on "start"
 				$(this).css( 'min-height', '' ).parent().removeClass( 'hook-hover' );
 			}
@@ -648,11 +675,11 @@ WordPointsHooks = {
 		}, 250 );
 	},
 
- 	/**
- 	 * Close the points type chooser.
- 	 *
- 	 * @since 1.1.0
- 	 */
+	/**
+	 * Close the points type chooser.
+	 *
+	 * @since 1.1.0
+	 */
 	closeChooser: function() {
 
 		var self = this;
@@ -663,11 +690,11 @@ WordPointsHooks = {
 		});
 	},
 
- 	/**
- 	 * Clear the hook selection.
- 	 *
- 	 * @since 1.1.0
- 	 */
+	/**
+	 * Clear the hook selection.
+	 *
+	 * @since 1.1.0
+	 */
 	clearHookSelection: function() {
 
 		$( '#hooks-left' ).removeClass( 'chooser' );
@@ -675,6 +702,6 @@ WordPointsHooks = {
 	}
 };
 
-$( document ).ready( function ( $ ) { WordPointsHooks.init(); } );
+$( document ).ready( function() { WordPointsHooks.init(); } );
 
 })(jQuery);

@@ -2,9 +2,15 @@
 <ruleset name="WordPress Coding Standards for Plugins">
 	<description>Generally-applicable sniffs for WordPress plugins</description>
 
+	<rule ref="WordPres">
+		<exclude name="WordPress.WhiteSpace.ScopeIndent" /><!-- waiting for upstream changes: WordPress-Coding-Standards/WordPress-Coding-Standards/issues/122 -->
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" /><!-- waitig for upstream changes: WordPress-Coding-Standards/WordPress-Coding-Standards/issues/141 -->
+		<exclude name="WordPress.WhiteSpace.OperatorSpacing" /><!-- waiting for upstream changes: WordPress-Coding-Standards/WordPress-Coding-Standards/issues/68 -->
+		<exclude name="WordPress.Objects.ObjectInstantiation" /><!-- waiting for upstream changes: WordPress-Coding-Standards/WordPress-Coding-Standards/issues/49 -->
+	</rule>
 	<rule ref="WordPress.XSS.EscapeOutput">
 		<properties>
-			<property name="sanitizingFunctions" value="wordpoints_posint">
+			<property name="sanitizingFunctions" type="array" value="wordpoints_posint,sanitize_user_field" />
 		</properties>
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">

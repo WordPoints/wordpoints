@@ -31,8 +31,8 @@ WordPointsHooks = {
 			chooser = $( '.hooks-chooser' ),
 			selectPointsType = chooser.find( '.hooks-chooser-points-types' ),
 			points_types = $( 'div.hooks-sortables' ),
-			isRtl = !! ( 'undefined' !== typeof isRtl && isRtl ),
-			margin = ( isRtl ? 'marginRight' : 'marginLeft' ),
+			isRTL = !! ( 'undefined' !== typeof isRtl && isRtl ),
+			margin = ( isRTL ? 'marginRight' : 'marginLeft' ),
 			$currentDelete = false;
 
 		// Require confirmation for points type delete.

@@ -134,8 +134,9 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function get_handler( $hook_id ) {
 
-		if ( ! isset( self::$hooks[ $hook_id ] ) )
+		if ( ! isset( self::$hooks[ $hook_id ] ) ) {
 			return false;
+		}
 
 		return self::$hooks[ $hook_id ];
 	}
@@ -190,8 +191,10 @@ final class WordPoints_Points_Hooks {
 
 			$id_base = $hook->get_id_base();
 
-			if ( in_array( $id_base, $listed, true ) ) // We already showed this hook.
+			if ( in_array( $id_base, $listed, true ) ) {
+				// We already showed this hook.
 				continue;
+			}
 
 			$listed[] = $id_base;
 			$i++;
@@ -294,10 +297,11 @@ final class WordPoints_Points_Hooks {
 
 		$points_types_hooks = self::get_points_types_hooks();
 
-		if ( isset( $points_types_hooks[ $slug ] ) && is_array( $points_types_hooks[ $slug ] ) )
+		if ( isset( $points_types_hooks[ $slug ] ) && is_array( $points_types_hooks[ $slug ] ) ) {
 			$points_type_hooks = $points_types_hooks[ $slug ];
-		else
+		} else {
 			$points_type_hooks = array();
+		}
 
 		return $points_type_hooks;
 	}
@@ -325,8 +329,9 @@ final class WordPoints_Points_Hooks {
 
 		foreach ( self::get_points_types_hooks( $hook_id ) as $points_type => $hooks ) {
 
-			if ( in_array( $hook_id, $hooks ) )
+			if ( in_array( $hook_id, $hooks ) ) {
 				return $points_type;
+			}
 		}
 
 		return false;
@@ -390,8 +395,9 @@ final class WordPoints_Points_Hooks {
 			,$points_type
 		);
 
-		if ( ! isset( $slug ) && 'hook' == $wrap )
+		if ( ! isset( $slug ) && 'hook' == $wrap ) {
 			$wrap = 'hook-content';
+		}
 
 		switch ( $wrap ) {
 
@@ -493,7 +499,11 @@ final class WordPoints_Points_Hooks {
 
 					<div class="hook-control-actions">
 						<div class="alignleft">
-							<?php if ( ! $add_new ) submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false ); ?>
+							<?php
+								if ( ! $add_new ) {
+									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false );
+								}
+							?>
 							<a class="hook-control-close" href="#close"><?php _e( 'Close', 'wordpoints' ); ?></a>
 						</div>
 						<div class="alignright">
@@ -595,8 +605,8 @@ final class WordPoints_Points_Hooks {
 
 				<input type="hidden" name="hook-id" class="hook-id" value="<?php echo esc_attr( $id_format ); ?>" />
 				<input type="hidden" name="id_base" class="id_base" value="<?php echo esc_attr( $id_base ); ?>" />
-				<input type="hidden" name="hook-width" class="hook-width" value="<?php if ( isset( $options['width'] ) ) echo esc_attr( $options['width'] ); ?>" />
-				<input type="hidden" name="hook-height" class="hook-height" value="<?php if ( isset( $options['height'] ) ) echo esc_attr( $options['height'] ); ?>" />
+				<input type="hidden" name="hook-width" class="hook-width" value="<?php echo ( isset( $options['width'] ) ? esc_attr( $options['width'] ) : '' ); ?>" />
+				<input type="hidden" name="hook-height" class="hook-height" value="<?php echo ( isset( $options['height'] ) ? esc_attr( $options['height'] ) : '' ); ?>" />
 				<input type="hidden" name="hook_number" class="hook_number" value="<?php echo esc_attr( $number ); ?>" />
 				<input type="hidden" name="multi_number" class="multi_number" value="<?php echo esc_attr( $multi_number ); ?>" />
 				<input type="hidden" name="add_new" class="add_new" value="<?php echo esc_attr( $add_new ); ?>" />
@@ -606,7 +616,7 @@ final class WordPoints_Points_Hooks {
 						<a class="hook-control-remove" href="#remove"><?php _e( 'Delete', 'wordpoints' ); ?></a> |
 						<a class="hook-control-close" href="#close"><?php _e( 'Close', 'wordpoints' ); ?></a>
 					</div>
-					<div class="alignright<?php if ( false === $has_form ) echo ' hook-control-noform'; ?>">
+					<div class="alignright<?php echo ( false === $has_form ? ' hook-control-noform' : '' ); ?>">
 						<?php submit_button( __( 'Save', 'wordpoints' ), 'button-primary hook-control-save right', 'savehook', false, array( 'id' => "hook-{$id_format}-savehook" ) ); ?>
 						<span class="spinner"></span>
 					</div>
@@ -638,15 +648,17 @@ final class WordPoints_Points_Hooks {
 	 */
 	private static function _list_by_points_type( $slug ) {
 
-		if ( $slug != '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) )
+		if ( $slug != '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) ) {
 			return;
+		}
 
 		$points_type_hooks = self::get_points_type_hooks( $slug );
 
 		foreach ( $points_type_hooks as $hook_id ) {
 
-			if ( ! isset( self::$hooks[ $hook_id ] ) )
+			if ( ! isset( self::$hooks[ $hook_id ] ) ) {
 				continue;
+			}
 
 			$hook    = self::$hooks[ $hook_id ];
 			$options = $hook->get_options();

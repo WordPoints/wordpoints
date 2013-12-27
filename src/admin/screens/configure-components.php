@@ -24,13 +24,15 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 		switch ( $_GET['message'] ) {
 
 			case '1':
-				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) )
+				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
 					$message = __( 'Component "%s" activated!', 'wordpoints' );
+				}
 			break;
 
 			case '2':
-				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) )
+				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
 					$message = __( 'Component "%s" deactivated!', 'wordpoints' );
+				}
 			break;
 		}
 
@@ -44,13 +46,15 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 		switch ( $_GET['error'] ) {
 
 			case '1':
-				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) )
+				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
 					$message = __( 'The component "%s" could not be activated. Please try again.', 'wordpoints' );
+				}
 			break;
 
 			case '2':
-				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) )
+				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
 					$message = __( 'The component "%s" could not be deactivated. Please try again.', 'wordpoints' );
+				}
 			break;
 		}
 

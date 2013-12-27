@@ -49,8 +49,9 @@ class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
 			}
 		}
 
-		if ( $uninstall_message )
+		if ( $uninstall_message ) {
 			echo 'Not running WordPoints install/uninstall tests... To execute these, use --group uninstall.' . PHP_EOL;
+		}
 
 		if ( $ui_message ) {
 

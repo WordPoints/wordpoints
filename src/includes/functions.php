@@ -36,17 +36,19 @@ function wordpoints_int( &$maybe_int ) {
 		case 'integer': break;
 
 		case 'string':
-			if ( $maybe_int === (string) (int) $maybe_int )
+			if ( $maybe_int === (string) (int) $maybe_int ) {
 				$maybe_int = (int) $maybe_int;
-			else
+			} else {
 				$maybe_int = false;
+			}
 		break;
 
 		case 'double':
-			if ( $maybe_int == (float) (int) $maybe_int )
+			if ( $maybe_int == (float) (int) $maybe_int ) {
 				$maybe_int = (int) $maybe_int;
-			else
+			} else {
 				$maybe_int = false;
+			}
 		break;
 
 		default:
@@ -477,8 +479,9 @@ function wordpoints_dir_include( $dir ) {
 
 	foreach ( glob( $dir . '*/*.php' ) as $file ) {
 
-		if ( preg_match( '~/([^/]+)/\1.php$~', $file ) )
+		if ( preg_match( '~/([^/]+)/\1.php$~', $file ) ) {
 			include_once $file;
+		}
 	}
 }
 
@@ -524,8 +527,12 @@ function wordpoints_get_excluded_users( $context ) {
  */
 function wordpoints_shortcode_error( $message ) {
 
-	if ( ! ( get_post() && current_user_can( 'edit_post', get_the_ID() ) ) && ! current_user_can( 'manage_options' ) )
+	if (
+		! ( get_post() && current_user_can( 'edit_post', get_the_ID() ) )
+		&& ! current_user_can( 'manage_options' )
+	) {
 		return;
+	}
 
 	return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . $message . '</p>';
 }

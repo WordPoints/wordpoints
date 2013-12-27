@@ -119,11 +119,13 @@ function wordpoints_points_logs_shortcode( $atts ) {
 		return wordpoints_shortcode_error( __( 'The "query" attribute of the <code>[wordpoints_points_logs]</code> shortcode must be the slug of a registered points log query. Example: <code>[wordpoints_points_logs <b>query="default"</b> points_type="points"]</code>.', 'wordpoints' ) );
 	}
 
-	if ( false === wordpoints_int( $atts['datatables'] ) )
+	if ( false === wordpoints_int( $atts['datatables'] ) ) {
 		$atts['datatables'] = 1;
+	}
 
-	if ( false === wordpoints_int( $atts['show_users'] ) )
+	if ( false === wordpoints_int( $atts['show_users'] ) ) {
 		$atts['show_users'] = 1;
+	}
 
 	ob_start();
 	wordpoints_show_points_logs_query( $atts['points_type'], $atts['query'], array( 'datatable' => $atts['datatables'], 'show_users' => $atts['show_users'] ) );

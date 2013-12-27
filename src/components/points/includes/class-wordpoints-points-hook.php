@@ -134,8 +134,9 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function get_id( $number = null ) {
 
-		if ( ! isset( $number ) )
+		if ( ! isset( $number ) ) {
 			$number = $this->number;
+		}
 
 		return $this->id_base . '-' . (int) $number;
 	}
@@ -206,8 +207,9 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function set_options( $options ) {
 
-		if ( ! is_array( $options ) )
+		if ( ! is_array( $options ) ) {
 			$options = array();
+		}
 
 		$this->options = $options;
 	}
@@ -242,8 +244,9 @@ abstract class WordPoints_Points_Hook {
 
 		$instances = get_option( $this->option_name );
 
-		if ( ! is_array( $instances ) || empty( $instances ) )
+		if ( ! is_array( $instances ) || empty( $instances ) ) {
 			$instances = array( 0 => array() );
+		}
 
 		unset( $instances['__i__'] );
 
@@ -286,8 +289,9 @@ abstract class WordPoints_Points_Hook {
 		 */
 		$instance = apply_filters( 'wordpoints_points_hook_update_callback', $instance, $new_instance, $old_instance, $this );
 
-		if ( false !== $instance )
+		if ( false !== $instance ) {
 			$all_instances[ $this->number ] = $instance;
+		}
 
 		$this->_save_instances( $all_instances );
 	}

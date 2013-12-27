@@ -64,8 +64,9 @@ class WordPoints_Registration_Points_Hook extends WordPoints_Points_Hook {
 
 		foreach ( $this->get_instances() as $number => $instance ) {
 
-			if ( isset( $instance['points'] ) )
+			if ( isset( $instance['points'] ) ) {
 				wordpoints_add_points( $user_id, $instance['points'], $this->points_type( $number ), 'register' );
+			}
 		}
 	}
 
@@ -187,8 +188,9 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function publish_hook( $new_status, $old_status, $post ) {
 
-		if ( $new_status != 'publish' )
+		if ( $new_status != 'publish' ) {
 			return;
+		}
 
 		foreach ( $this->get_instances() as $number => $instance ) {
 
@@ -390,7 +392,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 					'selected' => $instance['post_type'],
 					'id'       => $this->get_field_id( 'post_type' ),
 					'name'     => $this->get_field_name( 'post_type' ),
-					'class'    => 'widefat'
+					'class'    => 'widefat',
 				)
 				, array( 'public' => true )
 			);
@@ -472,8 +474,9 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function hook( $new_status, $old_status, $comment ) {
 
-		if ( ! $comment->user_id || $old_status == $new_status )
+		if ( ! $comment->user_id || $old_status == $new_status ) {
 			return;
+		}
 
 		if ( 'approved' == $new_status ) {
 
@@ -483,8 +486,15 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 				$points_type = $this->points_type( $number );
 
-				if ( ! $this->awarded_points_already( $comment->comment_ID, $points_type ) )
-					wordpoints_add_points( $comment->user_id, $instance['approve'], $points_type, 'comment_approve', array( 'comment_id' => $comment->comment_ID ) );
+				if ( ! $this->awarded_points_already( $comment->comment_ID, $points_type ) ) {
+					wordpoints_add_points(
+						$comment->user_id
+						, $instance['approve']
+						, $points_type
+						, 'comment_approve'
+						, array( 'comment_id' => $comment->comment_ID )
+					);
+				}
 			}
 
 		} elseif ( 'approved' == $old_status ) {
@@ -525,8 +535,9 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function new_comment_hook( $comment_id, $comment ) {
 
-		if ( 0 == $comment->user_id )
+		if ( 0 == $comment->user_id ) {
 			return;
+		}
 
 		switch ( $comment->comment_approved ) {
 
@@ -752,13 +763,15 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 		$user_id = get_current_user_id();
 
-		if ( ! $user_id )
+		if ( ! $user_id ) {
 			return;
+		}
 
 		$last_visit = get_user_meta( $user_id, 'wordpoints_points_period_start', true );
 
-		if ( ! is_array( $last_visit ) )
+		if ( ! is_array( $last_visit ) ) {
 			$last_visit = array();
+		}
 
 		$now = current_time( 'timestamp' );
 

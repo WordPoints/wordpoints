@@ -77,8 +77,9 @@ function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $conten
 
 	global $shortcode_tags;
 
-	if ( ! isset( $shortcode_tags[ $tag ] ) )
+	if ( ! isset( $shortcode_tags[ $tag ] ) ) {
 		return false;
+	}
 
 	return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
 }
@@ -164,7 +165,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
 function wordpointstests_selenium_is_running() {
 
 	$selenium_running = false;
-	$fp = @fsockopen( 'localhost', 4444 );
+	$fp = fsockopen( 'localhost', 4444 );
 
 	if ( $fp !== false ) {
 
@@ -185,8 +186,9 @@ function wordpointstests_selenium_is_running() {
  */
 function wordpointstests_start_selenium() {
 
-	if ( ! defined( 'WORDPOINTS_TESTS_SELENIUM' ) )
+	if ( ! defined( 'WORDPOINTS_TESTS_SELENIUM' ) ) {
 		return false;
+	}
 
 	$result = shell_exec( 'java -jar ' . escapeshellarg( WORDPOINTS_TESTS_SELENIUM ) );
 
@@ -239,8 +241,9 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir, $link_name = null
 
 		shell_exec( 'ln -s ' . escapeshellarg( $plugin_dir ) . ' ' . escapeshellarg( $link_name ) );
 
-		if ( ! is_link( $link_name ) )
+		if ( ! is_link( $link_name ) ) {
 			return false;
+		}
 	}
 
 	return true;

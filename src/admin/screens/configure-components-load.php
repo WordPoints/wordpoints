@@ -7,8 +7,12 @@
  * @since 1.1.0
  */
 
-if ( wordpoints_admin_get_current_tab() != 'components' || ! isset( $_POST['wordpoints_component'], $_POST['wordpoints_component_action'], $_POST['_wpnonce'] ) )
+if (
+	wordpoints_admin_get_current_tab() != 'components'
+	|| ! isset( $_POST['wordpoints_component'], $_POST['wordpoints_component_action'], $_POST['_wpnonce'] )
+) {
 	return;
+}
 
 $components = WordPoints_Components::instance();
 

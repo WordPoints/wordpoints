@@ -53,8 +53,9 @@ final class WordPoints_Points_Log_Queries {
 	 */
 	private static function init() {
 
-		if ( self::$initialized )
+		if ( self::$initialized ) {
 			return;
+		}
 
 		/**
 		 * Register points logs queries.
@@ -85,8 +86,9 @@ final class WordPoints_Points_Log_Queries {
 	 */
 	public static function register_query( $slug, array $args ) {
 
-		if ( empty( $slug ) || isset( self::$queries[ $slug ] ) )
+		if ( empty( $slug ) || isset( self::$queries[ $slug ] ) ) {
 			return false;
+		}
 
 		self::$queries[ $slug ] = $args;
 
@@ -122,8 +124,9 @@ final class WordPoints_Points_Log_Queries {
 
 		self::init();
 
-		if ( isset( self::$queries[ $query_slug ] ) )
+		if ( isset( self::$queries[ $query_slug ] ) ) {
 			return self::$queries[ $query_slug ];
+		}
 	}
 
 } // class WordPoints_Points_Log_Queries
@@ -183,8 +186,9 @@ function wordpoints_get_points_logs_query_args( $points_type, $query_slug = 'def
 
 	$args = WordPoints_Points_Log_Queries::get_query_args( $query_slug );
 
-	if ( is_null( $args ) || ! wordpoints_is_points_type( $points_type ) )
+	if ( is_null( $args ) || ! wordpoints_is_points_type( $points_type ) ) {
 		return false;
+	}
 
 	$defaults = array(
 		'fields'       => array( 'id', 'user_id', 'points', 'points_type', 'log_type', 'text', 'date' ),
@@ -231,8 +235,9 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
 
 	$args = wordpoints_get_points_logs_query_args( $points_type, $query_slug );
 
-	if ( ! $args )
+	if ( ! $args ) {
 		return false;
+	}
 
 	return new WordPoints_Points_Logs_Query( $args );
 }
@@ -266,8 +271,9 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  */
 function wordpoints_show_points_logs( $logs, array $args = array() ) {
 
-	if ( ! $logs instanceof WordPoints_Points_Logs_Query )
+	if ( ! $logs instanceof WordPoints_Points_Logs_Query ) {
 		return;
+	}
 
 	$defaults = array(
 		'datatable'  => true,

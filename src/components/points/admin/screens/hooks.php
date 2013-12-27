@@ -125,11 +125,13 @@ $errors = array(
 			foreach ( $points_types as $slug => $points_type ) {
 
 				$wrap_class = 'hooks-holder-wrap';
-				if ( ! empty( $points_type['class'] ) )
+				if ( ! empty( $points_type['class'] ) ) {
 					$wrap_class .= ' points-type-' . $points_type['class'];
+				}
 
-				if ( $i )
+				if ( $i ) {
 					$wrap_class .= ' closed';
+				}
 
 				?>
 

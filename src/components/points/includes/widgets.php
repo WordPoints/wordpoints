@@ -120,16 +120,19 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		if ( ! is_user_logged_in() && empty( $instance['text_alt'] ) )
+		if ( ! is_user_logged_in() && empty( $instance['text_alt'] ) ) {
 			return;
+		}
 
 		$this->make_a_points_type( $instance['points_type'] );
 
-		if ( ! $instance['points_type'] )
+		if ( ! $instance['points_type'] ) {
 			return;
+		}
 
-		if ( ! wordpoints_posint( $instance['number_logs'] ) )
+		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
 			$instance['number_logs'] = 0;
+		}
 
 		echo $args['before_widget'];
 
@@ -231,8 +234,9 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		$new_instance['text']     = trim( $new_instance['text'] );
 		$new_instance['alt_text'] = trim( $new_instance['alt_text'] );
 
-		if ( ! wordpoints_posint( $new_instance['number_logs'] ) )
+		if ( ! wordpoints_posint( $new_instance['number_logs'] ) ) {
 			$new_instance['number_logs'] = 0;
+		}
 
 		$this->make_a_points_type( $new_instance['points_type'] );
 
@@ -331,8 +335,9 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 
 		$this->make_a_points_type( $instance['points_type'] );
 
-		if ( ! $instance['points_type'] )
+		if ( ! $instance['points_type'] ) {
 			return;
+		}
 
 		echo $args['before_widget'];
 
@@ -346,13 +351,15 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		if ( empty( $instance['num_users'] ) )
+		if ( empty( $instance['num_users'] ) ) {
 			$instance['num_users'] = $this->defaults['num_users'];
+		}
 
 		$top_users = wordpoints_points_get_top_users( $instance['num_users'], $instance['points_type'] );
 
-		if ( ! $top_users )
+		if ( ! $top_users ) {
 			return;
+		}
 
 		wp_enqueue_style( 'wordpoints-top-users' );
 
@@ -417,8 +424,9 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 
 		$new_instance['title'] = strip_tags( $new_instance['title'] );
 
-		if ( ! wordpoints_posint( $new_instance['num_users'] ) )
+		if ( ! wordpoints_posint( $new_instance['num_users'] ) ) {
 			$new_instance['num_users'] = $this->defaults['num_users'];
+		}
 
 		$this->make_a_points_type( $new_instance['points_type'] );
 
@@ -443,8 +451,9 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 			'class'    => 'widefat',
 		);
 
-		if ( ! wordpoints_posint( $instance['num_users'] ) )
+		if ( ! wordpoints_posint( $instance['num_users'] ) ) {
 			$instance['num_users'] = $this->defaults['num_users'];
+		}
 
 		?>
 
@@ -500,11 +509,13 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		if ( ! wordpoints_is_points_type( $instance['points_type'] ) )
+		if ( ! wordpoints_is_points_type( $instance['points_type'] ) ) {
 			return;
+		}
 
-		if ( ! wordpoints_posint( $instance['number_logs'] ) )
+		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
 			$instance['number_logs'] = $this->defaults['number_logs'];
+		}
 
 		echo $args['before_widget'];
 
@@ -563,8 +574,9 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 
 		$new_instance['title'] = strip_tags( $new_instance['title'] );
 
-		if ( ! wordpoints_posint( $new_instance['number_logs'] ) )
+		if ( ! wordpoints_posint( $new_instance['number_logs'] ) ) {
 			$new_instance['number_logs'] = $this->defaults['number_logs'];
+		}
 
 		$this->make_a_points_type( $new_instance['points_type'] );
 
@@ -589,8 +601,9 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 			'class'    => 'widefat',
 		);
 
-		if ( ! wordpoints_posint( $instance['number_logs'] ) )
+		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
 			$instance['number_logs'] = $this->defaults['number_logs'];
+		}
 
 		?>
 

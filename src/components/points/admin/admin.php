@@ -140,7 +140,6 @@ function wordpoints_admin_points_hooks_help() {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'jquery-ui-dialog' );
 
-
 		wp_enqueue_script(
 			'wordpoints-admin-points-hooks'
 			,plugins_url( 'assets/js/hooks.js', __FILE__ )
@@ -160,8 +159,9 @@ function wordpoints_admin_points_hooks_help() {
 			)
 		);
 
-		if ( wp_is_mobile() )
+		if ( wp_is_mobile() ) {
 			wp_enqueue_script( 'jquery-touch-punch' );
+		}
 	}
 
 	$deps = null;
@@ -196,8 +196,9 @@ add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_admin_po
  */
 function wordpoints_no_js_points_hooks_save() {
 
-	if ( ! isset( $_POST['savehook'] ) && ! isset( $_POST['removehook'] ) )
+	if ( ! isset( $_POST['savehook'] ) && ! isset( $_POST['removehook'] ) ) {
 		return;
+	}
 
 	$hook_id = $_POST['hook-id'];
 
@@ -206,16 +207,18 @@ function wordpoints_no_js_points_hooks_save() {
 	// These are the hooks grouped by points type.
 	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
-	if ( empty( $points_types_hooks ) )
+	if ( empty( $points_types_hooks ) ) {
 		$points_types_hooks = WordPoints_Points_Hooks::get_defaults();
+	}
 
 	$points_type_id = $_POST['points_type'];
 	$id_base        = $_POST['id_base'];
 
-	if ( isset( $points_types_hooks[ $points_type_id ] ) )
+	if ( isset( $points_types_hooks[ $points_type_id ] ) ) {
 		$points_type_hooks = $points_types_hooks[ $points_type_id ];
-	else
+	} else {
 		$points_type_hooks = array();
+	}
 
 	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $id_base );
 
@@ -255,8 +258,9 @@ function wordpoints_no_js_points_hooks_save() {
 
 		} else {
 
-			if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) )
+			if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
 				$new_instance = reset( $_POST[ 'hook-' . $id_base ] );
+			}
 
 			$number = $hook->get_number_by_id( $hook_id );
 		}
@@ -422,11 +426,16 @@ add_action( 'personal_options', 'wordpoints_points_profile_options', 20 );
  */
 function wordpoints_points_profile_options_update( $user_id ) {
 
-	if ( ! current_user_can( 'set_wordpoints_points', $user_id ) )
+	if ( ! current_user_can( 'set_wordpoints_points', $user_id ) ) {
 		return;
+	}
 
-	if ( ! isset( $_POST['wordpoints_points_set_nonce'], $_POST['wordpoints_set_reason'] ) || ! wp_verify_nonce( $_POST['wordpoints_points_set_nonce'], 'wordpoints_points_set_profile' ) )
+	if (
+		! isset( $_POST['wordpoints_points_set_nonce'], $_POST['wordpoints_set_reason'] )
+		|| ! wp_verify_nonce( $_POST['wordpoints_points_set_nonce'], 'wordpoints_points_set_profile' )
+	) {
 		return;
+	}
 
 	foreach ( wordpoints_get_points_types() as $slug => $type ) {
 
@@ -512,8 +521,9 @@ function wordpoints_ajax_points_hooks_order() {
 
 	check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks' );
 
-	if ( ! current_user_can( 'manage_options' ) )
+	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( -1 );
+	}
 
 	// Save hooks order for all points types.
 	if ( is_array( $_POST['points_types'] ) ) {
@@ -530,8 +540,9 @@ function wordpoints_ajax_points_hooks_order() {
 
 				foreach ( $hooks as $order => $hook_id ) {
 
-					if ( strpos( $hook_id, 'hook-' ) === false )
+					if ( strpos( $hook_id, 'hook-' ) === false ) {
 						continue;
+					}
 
 					$points_type_hooks[ $order ] = substr( $hook_id, strpos( $hook_id, '_' ) + 1 );
 				}
@@ -560,8 +571,9 @@ function wordpoints_ajax_save_points_hook() {
 
 	check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks' );
 
-	if ( ! current_user_can( 'manage_options' ) )
+	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( -1 );
+	}
 
 	$error = '<p>' . __( 'An error has occurred. Please reload the page and try again.', 'wordpoints' ) . '</p>';
 
@@ -605,14 +617,16 @@ function wordpoints_ajax_save_points_hook() {
 			// This holds the ID number if the hook is brand new.
 			$number = (int) $_POST['multi_number'];
 
-			if ( ! $number )
+			if ( ! $number ) {
 				wp_die( $error );
+			}
 
 			$hook_id = $id_base . '-' . $number;
 		}
 
-		if ( isset( $points_hooks[ $hook_id ] ) )
+		if ( isset( $points_hooks[ $hook_id ] ) ) {
 			$hook = $points_hooks[ $hook_id ];
+		}
 
 		$settings = ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) ? $_POST[ 'hook-' . $id_base ] : false;
 
@@ -625,8 +639,9 @@ function wordpoints_ajax_save_points_hook() {
 
 			// - We are deleting a hook instance.
 
-			if ( ! isset( $hook ) )
+			if ( ! isset( $hook ) ) {
 				wp_die( $error );
+			}
 
 			$hook->delete_callback( $number );
 
@@ -661,16 +676,18 @@ function wordpoints_ajax_save_points_hook() {
 
 			// - We are updating the settings for an instance of a hook.
 
-			if ( ! isset( $hook ) )
+			if ( ! isset( $hook ) ) {
 				wp_die( $error );
+			}
 
 			$new_instance = ( ! empty( $settings ) ) ? reset( $settings ) : array();
 		}
 
 		$hook->update_callback( wp_unslash( $new_instance ), $number );
 
-		if ( empty( $_POST['add_new'] ) )
+		if ( empty( $_POST['add_new'] ) ) {
 			$hook->form_callback( $number );
+		}
 
 	} // if ( isset( $_POST['points-name'] ) ) {} else
 

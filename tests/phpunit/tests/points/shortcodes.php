@@ -48,7 +48,7 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 				),
 			)
 			, wordpointstests_do_shortcode_func(
-				  'wordpoints_points_top'
+				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 3 )
 			)
 		);
@@ -60,15 +60,14 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEmpty(
 			wordpointstests_do_shortcode_func(
-				  'wordpoints_points_top'
+				'wordpoints_points_top'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
-
 		$this->assertEmpty(
 			wordpointstests_do_shortcode_func(
-				  'wordpoints_points_top'
+				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 'invalid' )
 			)
 		);
@@ -164,8 +163,8 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 			array(
 				'tag'        => 'table',
 				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat datatables hide-user-column'
-				)
+					'class' => 'wordpoints-points-logs widefat datatables hide-user-column',
+				),
 			)
 			, $hidden_user_column
 		);
@@ -179,14 +178,14 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEmpty(
 			wordpointstests_do_shortcode_func(
-				  'wordpoints_points_logs'
+				'wordpoints_points_logs'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
 		$this->assertEmpty(
 			wordpointstests_do_shortcode_func(
-				  'wordpoints_points_logs'
+				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'query' => 'invalid' )
 			)
 		);

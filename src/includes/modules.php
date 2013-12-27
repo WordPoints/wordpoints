@@ -218,10 +218,11 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 			if ( $textdomain ) {
 
-				if ( $module_data['domain_path'] )
+				if ( $module_data['domain_path'] ) {
 					wordpoints_load_module_textdomain( $textdomain, false, dirname( $module_file ) . $module_data['domain_path'] );
-				else
+				} else {
 					wordpoints_load_module_textdomain( $textdomain, false, dirname( $module_file ) );
+				}
 
 				foreach ( array( 'name', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {
 
@@ -256,16 +257,25 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		// Apply markup.
 		if ( $markup ) {
 
-			if ( $module_data['module_uri'] && $module_data['name'] )
-				$module_data['title'] = '<a href="' . $module_data['module_uri'] . '" title="' . esc_attr__( 'Visit module homepage', 'wordpoints' ) . '">' . $module_data['name'] . '</a>';
+			if ( $module_data['module_uri'] && $module_data['name'] ) {
+				$module_data['title'] = '<a href="' . $module_data['module_uri']
+					. '" title="' . esc_attr__( 'Visit module homepage', 'wordpoints' )
+					. '">' . $module_data['name'] . '</a>';
+			}
 
-			if ( $module_data['author_uri'] && $module_data['author'] )
-				$module_data['author'] = '<a href="' . $module_data['author_uri'] . '" title="' . esc_attr__( 'Visit author homepage', 'wordpoints' ) . '">' . $module_data['author'] . '</a>';
+			if ( $module_data['author_uri'] && $module_data['author'] ) {
+				$module_data['author'] = '<a href="' . $module_data['author_uri']
+					. '" title="' . esc_attr__( 'Visit author homepage', 'wordpoints' )
+					. '">' . $module_data['author'] . '</a>';
+			}
 
 			$module_data['description'] = wptexturize( $module_data['description'] );
 
-			if ( $module_data['author'] )
-				$module_data['description'] .= ' <cite>' . sprintf( __( 'By %s.', 'wordpoints' ), $module_data['author'] ) . '</cite>';
+			if ( $module_data['author'] ) {
+				$module_data['description'] .= ' <cite>'
+					. sprintf( __( 'By %s.', 'wordpoints' ), $module_data['author'] )
+					. '</cite>';
+			}
 		}
 
 	} else {
@@ -313,8 +323,9 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 	// Load the textdomain according to the module first.
 	$mofile = $domain . '-' . $locale . '.mo';
 
-	if ( $loaded = load_textdomain( $domain, $path . '/'. $mofile ) )
+	if ( $loaded = load_textdomain( $domain, $path . '/'. $mofile ) ) {
 		return $loaded;
+	}
 
 	// Otherwise, load from the languages directory.
 	$mofile = WP_LANG_DIR . '/wordpoints-modules/' . $mofile;
@@ -373,11 +384,13 @@ function wordpoints_get_modules( $module_folder = '' ) {
 
 					while ( ($subfile = readdir( $modules_subdir )) !== false ) {
 
-						if ( substr( $subfile, 0, 1 ) == '.' )
+						if ( substr( $subfile, 0, 1 ) == '.' ) {
 							continue;
+						}
 
-						if ( substr( $subfile, -4 ) == '.php' )
+						if ( substr( $subfile, -4 ) == '.php' ) {
 							$module_files[] = "$file/$subfile";
+						}
 					}
 
 					closedir( $modules_subdir );

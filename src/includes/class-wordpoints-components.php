@@ -137,8 +137,9 @@ final class WordPoints_Components {
 	 */
 	public static function set_up() {
 
-		if ( isset( self::$instance ) )
+		if ( isset( self::$instance ) ) {
 			return;
+		}
 
 		self::$instance = new WordPoints_Components();
 
@@ -206,8 +207,9 @@ final class WordPoints_Components {
 	 */
 	public function get() {
 
-		if ( ! isset( $this->registered ) )
+		if ( ! isset( $this->registered ) ) {
 			return false;
+		}
 
 		return $this->registered;
 	}
@@ -273,8 +275,9 @@ final class WordPoints_Components {
 
 		$slug = $component['slug'];
 
-		if ( $this->is_registered( $slug ) || empty( $component['name'] ) || empty( $slug ) )
+		if ( $this->is_registered( $slug ) || empty( $component['name'] ) || empty( $slug ) ) {
 			return false;
+		}
 
 		$this->registered[ $slug ] = array_intersect_key( $component, $defaults );
 
@@ -326,8 +329,9 @@ final class WordPoints_Components {
 	 */
 	public function activate( $slug ) {
 
-		if ( ! $this->is_registered( $slug ) )
+		if ( ! $this->is_registered( $slug ) ) {
 			return false;
+		}
 
 		// If this component isn't already active, activate it.
 		if ( ! $this->is_active( $slug ) ) {
@@ -369,8 +373,9 @@ final class WordPoints_Components {
 	 */
 	public function deactivate( $slug ) {
 
-		if ( ! $this->is_registered( $slug ) )
+		if ( ! $this->is_registered( $slug ) ) {
 			return false;
+		}
 
 		if ( $this->is_active( $slug ) ) {
 

@@ -401,8 +401,9 @@ class WordPoints_PHPUnit_Constraint_NoRowsWithPrefix extends PHPUnit_Framework_C
 			"
 		);
 
-		if ( 0 == $rows )
+		if ( 0 == $rows ) {
 			return true;
+		}
 
 		$prefixed_rows = $wpdb->get_col(
 			"
@@ -412,8 +413,9 @@ class WordPoints_PHPUnit_Constraint_NoRowsWithPrefix extends PHPUnit_Framework_C
 			"
 		);
 
-		if ( is_array( $prefixed_rows ) )
+		if ( is_array( $prefixed_rows ) ) {
 			$this->prefixed_rows = array_unique( $prefixed_rows );
+		}
 
 		return false;
 	}

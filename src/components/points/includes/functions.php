@@ -86,8 +86,9 @@ class WordPoints_Points_Types {
 	 */
 	public static function get_type( $slug ) {
 
-		if ( ! self::is_type( $slug ) )
+		if ( ! self::is_type( $slug ) ) {
 			return false;
+		}
 
 		return self::$types[ $slug ];
 	}
@@ -130,13 +131,15 @@ class WordPoints_Points_Types {
 	 */
 	public static function add_type( $settings ) {
 
-		if ( ! is_array( $settings ) || ! isset( $settings['name'] ) )
+		if ( ! is_array( $settings ) || ! isset( $settings['name'] ) ) {
 			return false;
+		}
 
 		$slug = sanitize_key( $settings['name'] );
 
-		if ( empty( $slug ) || self::is_type( $slug ) )
+		if ( empty( $slug ) || self::is_type( $slug ) ) {
 			return false;
+		}
 
 		/**
 		 * Points type settings.
@@ -149,8 +152,9 @@ class WordPoints_Points_Types {
 		 */
 		self::$types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, true );
 
-		if ( ! update_option( 'wordpoints_points_types', self::$types ) )
+		if ( ! update_option( 'wordpoints_points_types', self::$types ) ) {
 			return false;
+		}
 
 		self::_reset();
 
@@ -172,8 +176,9 @@ class WordPoints_Points_Types {
 	 */
 	public static function update_type( $slug, $settings ) {
 
-		if ( ! self::is_type( $slug ) || ! is_array( $settings ) || ! isset( $settings['name'] ) )
+		if ( ! self::is_type( $slug ) || ! is_array( $settings ) || ! isset( $settings['name'] ) ) {
 			return false;
+		}
 
 		/**
 		 * @see WordPoints_Points_Types::new_type()
@@ -212,8 +217,9 @@ class WordPoints_Points_Types {
 	 */
 	public static function delete_type( $slug ) {
 
-		if ( ! self::is_type( $slug ) )
+		if ( ! self::is_type( $slug ) ) {
 			return false;
+		}
 
 		unset( self::$types[ $slug ] );
 
@@ -330,8 +336,9 @@ function wordpoints_update_points_type( $slug, $new_settings ) {
  */
 function wordpoints_delete_points_type( $slug ) {
 
-	if ( ! WordPoints_Points_Types::delete_type( $slug ) )
+	if ( ! WordPoints_Points_Types::delete_type( $slug ) ) {
 		return false;
+	}
 
 	global $wpdb;
 
@@ -381,8 +388,9 @@ function wordpoints_delete_points_type( $slug ) {
  */
 function wordpoints_get_points( $user_id, $type ) {
 
-	if ( ! wordpoints_posint( $user_id ) || ! wordpoints_is_points_type( $type ) )
+	if ( ! wordpoints_posint( $user_id ) || ! wordpoints_is_points_type( $type ) ) {
 		return false;
+	}
 
 	$points = get_user_meta( $user_id, "wordpoints_points-{$type}", true );
 
@@ -429,8 +437,9 @@ function wordpoints_get_points( $user_id, $type ) {
  */
 function wordpoints_get_points_minimum( $type ) {
 
-	if ( ! wordpoints_is_points_type( $type ) )
+	if ( ! wordpoints_is_points_type( $type ) ) {
 		return false;
+	}
 
 	/**
 	 * The minimum number of points.
@@ -466,8 +475,9 @@ function wordpoints_format_points( $points, $type, $context ) {
 	$_points = $points;
 	wordpoints_int( $_points );
 
-	if ( false === $_points || ! wordpoints_is_points_type( $type ) )
+	if ( false === $_points || ! wordpoints_is_points_type( $type ) ) {
 		return $points;
+	}
 
 	/**
 	 * Format points for display.
@@ -500,8 +510,9 @@ function wordpoints_get_formatted_points( $user_id, $type, $context ) {
 
 	$points = wordpoints_get_points( $user_id, $type );
 
-	if ( false === $points )
+	if ( false === $points ) {
 		return false;
+	}
 
 	return wordpoints_format_points( $points, $type, $context );
 }
@@ -526,8 +537,9 @@ function wordpoints_display_points( $user_id, $type, $context ) {
 
 	$points = wordpoints_get_points( $user_id, $type );
 
-	if ( false === $points )
+	if ( false === $points ) {
 		return;
+	}
 
 	echo wordpoints_format_points( $points, $type, $context );
 }
@@ -556,13 +568,15 @@ function wordpoints_get_points_above_minimum( $user_id, $type ) {
 
 	$minimum = wordpoints_get_points_minimum( $type );
 
-	if ( false === $minimum )
+	if ( false === $minimum ) {
 		return false;
+	}
 
 	$points = wordpoints_get_points( $user_id, $type );
 
-	if ( false === $points )
+	if ( false === $points ) {
 		return false;
+	}
 
 	return max( 0, $points - $minimum );
 }
@@ -587,13 +601,15 @@ function wordpoints_get_points_above_minimum( $user_id, $type ) {
  */
 function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
 
-	if ( false === wordpoints_int( $points ) )
+	if ( false === wordpoints_int( $points ) ) {
 		return false;
+	}
 
 	$current = wordpoints_get_points( $user_id, $points_type );
 
-	if ( false === $current )
+	if ( false === $current ) {
 		return false;
+	}
 
 	return wordpoints_alter_points( $user_id, $points - $current, $points_type, $log_type, $meta );
 }
@@ -636,8 +652,14 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  */
 function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
 
-	if ( ! wordpoints_posint( $user_id ) || ! wordpoints_int( $points ) || ! wordpoints_is_points_type( $points_type ) || empty( $log_type ) )
+	if (
+		! wordpoints_posint( $user_id )
+		|| ! wordpoints_int( $points )
+		|| ! wordpoints_is_points_type( $points_type )
+		|| empty( $log_type )
+	) {
 		return false;
+	}
 
 	global $wpdb;
 
@@ -654,8 +676,9 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	$points = apply_filters( 'wordpoints_alter_points', $points, $points_type, $user_id, $log_type, $meta );
 
-	if ( wordpoints_int( $points ) == 0 )
+	if ( wordpoints_int( $points ) == 0 ) {
 		return true;
+	}
 
 	// Get the current points so we can check this won't go below the minimum.
 	$current_points = wordpoints_get_points( $user_id, $points_type );
@@ -691,8 +714,9 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 		wp_cache_delete( $user_id, 'user_meta' );
 	}
 
-	if ( ! $result )
+	if ( ! $result ) {
 		return false;
+	}
 
 	/**
 	 * User points altered.
@@ -719,8 +743,10 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	$log_transaction = apply_filters( 'wordpoints_points_log', true, $user_id, $points, $points_type, $log_type, $meta );
 
-	if ( ! $log_transaction ) // We're not supposed to log this one.
+	if ( ! $log_transaction ) {
+		// We're not supposed to log this one.
 		return true;
+	}
 
 	$result = $wpdb->insert(
 		$wpdb->wordpoints_points_logs,
@@ -830,8 +856,9 @@ function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type,
  */
 function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
 
-	if ( ! wordpoints_posint( $log_id ) || empty( $meta_key ) )
+	if ( ! wordpoints_posint( $log_id ) || empty( $meta_key ) ) {
 		return false;
+	}
 
 	global $wpdb;
 
@@ -864,8 +891,9 @@ function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
  */
 function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = false ) {
 
-	if ( ! wordpoints_posint( $log_id ) )
+	if ( ! wordpoints_posint( $log_id ) ) {
 		return;
+	}
 
 	global $wpdb;
 
@@ -883,8 +911,9 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
 			ARRAY_A
 		);
 
-		if ( ! is_array( $results ) )
+		if ( ! is_array( $results ) ) {
 			return array();
+		}
 
 		$_results = array();
 
@@ -923,8 +952,9 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
 			)
 		);
 
-		if ( $single )
+		if ( $single ) {
 			$result = ( empty( $result ) ) ? '' : reset( $result );
+		}
 
 		return $result;
 	}
@@ -945,15 +975,17 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
  */
 function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $previous = null ) {
 
-	if ( ! wordpoints_posint( $log_id ) || empty( $meta_key ) )
+	if ( ! wordpoints_posint( $log_id ) || empty( $meta_key ) ) {
 		return false;
+	}
 
 	global $wpdb;
 
 	$where = array( 'log_id' => $log_id, 'meta_key' => $meta_key );
 
-	if ( isset( $previous ) )
+	if ( isset( $previous ) ) {
 		$where['meta_value'] = $previous;
+	}
 
 	$result = $wpdb->update(
 		$wpdb->wordpoints_points_log_meta
@@ -979,8 +1011,9 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  */
 function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value = null ) {
 
-	if ( ! wordpoints_posint( $log_id ) )
+	if ( ! wordpoints_posint( $log_id ) ) {
 		return false;
+	}
 
 	global $wpdb;
 
@@ -990,8 +1023,9 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
 
 		$and_where = $wpdb->prepare( ' AND `meta_key` = %s', $meta_key );
 
-		if ( isset( $meta_value ) )
+		if ( isset( $meta_value ) ) {
 			$and_where .= $wpdb->prepare( ' AND `meta_value` = %s' );
+		}
 	}
 
 	$result = $wpdb->query(
@@ -1020,8 +1054,9 @@ function wordpoints_get_default_points_type() {
 
 	$points_type = get_option( 'wordpoints_default_points_type' );
 
-	if ( ! wordpoints_is_points_type( $points_type ) )
+	if ( ! wordpoints_is_points_type( $points_type ) ) {
 		return false;
+	}
 
 	return $points_type;
 }
@@ -1055,8 +1090,9 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
 	 */
 	$text = apply_filters( "wordpoints_points_log-{$log_type}", $text, $user_id, $points, $points_type, $log_type, $meta );
 
-	if ( empty( $text ) )
+	if ( empty( $text ) ) {
 		$text = _x( '(no description)', 'points log', 'wordpoints' );
+	}
 
 	return $text;
 }
@@ -1076,8 +1112,9 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
  */
 function wordpoints_points_get_top_users( $num_users, $points_type ) {
 
-	if ( ! wordpoints_posint( $num_users ) || ! wordpoints_is_points_type( $points_type ) )
+	if ( ! wordpoints_posint( $num_users ) || ! wordpoints_is_points_type( $points_type ) ) {
 		return;
+	}
 
 	global $wpdb;
 
@@ -1121,10 +1158,11 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
  */
 function wordpoints_points_user_cap_filter( $all_capabilities, $capabilities, $args ) {
 
-	if ( in_array( 'set_wordpoints_points', $capabilities ) ) {
-
-		if ( isset( $all_capabilities['manage_options'] ) )
-			$all_capabilities['set_wordpoints_points'] = $all_capabilities['manage_options'];
+	if (
+		in_array( 'set_wordpoints_points', $capabilities )
+		&& isset( $all_capabilities['manage_options'] )
+	) {
+		$all_capabilities['set_wordpoints_points'] = $all_capabilities['manage_options'];
 	}
 
 	return $all_capabilities;
@@ -1185,8 +1223,9 @@ function wordpoints_points_types_dropdown( array $args ) {
 		$points_types[ $slug ] = $settings['name'];
 	}
 
-	if ( isset( $args['options'] ) && is_array( $args['options'] ) )
+	if ( isset( $args['options'] ) && is_array( $args['options'] ) ) {
 		$points_types = $args['options'] + $points_types;
+	}
 
 	$dropdown = new WordPoints_Dropdown_Builder( $points_types, $args );
 

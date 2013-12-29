@@ -30,9 +30,7 @@ include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 function wordpoints_admin_menu() {
 
 	$action = current_filter();
-	$is_network_active = is_plugin_active_for_network(
-		plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' )
-	);
+	$is_network_active = is_wordpoints_network_active();
 
 	$wordpoints = __( 'WordPoints', 'wordpoints' );
 

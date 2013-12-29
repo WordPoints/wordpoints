@@ -432,6 +432,20 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 //
 
 /**
+ * Check if the plugin is network activated.
+ *
+ * @since 1.2.0
+ *
+ * @return bool True if WordPoints is network activated, false otherwise.
+ */
+function is_wordpoints_network_active() {
+
+	return is_plugin_active_for_network(
+		plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' )
+	);
+}
+
+/**
  * Fix URLs where WordPress doesn't follow symlinks.
  *
  * This allows you to define WORDPOINTS_SYMLINK in wp-config.php and have the plugin

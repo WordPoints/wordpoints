@@ -254,6 +254,27 @@ function wordpoints_update_network_option( $option, $value ) {
 }
 
 /**
+ * Delete an option or site option, based on the plugin's activation status.
+ *
+ * If the plugin is network activated on a multisite install, this will delete a
+ * network ('site') option. Otherwise it will delete a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option The name of the option to delete.
+ *
+ * @return bool Whether the option was successfully deleted.
+ */
+function wordpoints_delete_network_option( $option ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return delete_site_option( $option );
+	} else {
+		return delete_option( $option );
+	}
+}
+
+/**
  * Check if a table exists in the database.
  *
  * @since 1.0.0

@@ -187,10 +187,19 @@ function wordpoints_debug_message( $message, $function, $file, $line ) {
  */
 function wordpoints_get_array_option( $option, $context = 'default' ) {
 
-	if ( 'site' == $context ) {
-		$value = get_site_option( $option, array() );
-	} else {
-		$value = get_option( $option, array() );
+	switch ( $context ) {
+
+		case 'default':
+			$value = get_option( $option, array() );
+		break;
+
+		case 'site':
+			$value = get_site_option( $option, array() );
+		break;
+
+		case 'network':
+			$value = wordpoints_get_network_option( $option, array() );
+		break;
 	}
 
 	if ( ! is_array( $value ) ) {
@@ -198,6 +207,50 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Get an option or site option from the database, based on the plugin's status.
+ *
+ * If the plugin is network activated on a multisite install, this will return a
+ * network ('site') option. Otherwise it will return a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option  The name of the option to get.
+ * @param mixed  $default A default value to return if the option isn't found.
+ *
+ * @return mixed The option value if it exists, or $default (false by default).
+ */
+function wordpoints_get_network_option( $option, $default = false ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return get_site_option( $option, $default );
+	} else {
+		return get_option( $option, $default );
+	}
+}
+
+/**
+ * Update an option or site option, based on the plugin's activation status.
+ *
+ * If the plugin is network activated on a multisite install, this will update a
+ * network ('site') option. Otherwise it will update a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option The name of the option to update.
+ * @param mixed  $value  The new value for the option.
+ *
+ * @return mixed The option value if it exists, or $default (false by default).
+ */
+function wordpoints_update_network_option( $option, $value ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return update_site_option( $option, $value );
+	} else {
+		return update_option( $option, $value );
+	}
 }
 
 /**

@@ -514,6 +514,8 @@ function wordpoints_list_post_types( $options, $args = array() ) {
  */
 function is_wordpoints_network_active() {
 
+	require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 	return is_plugin_active_for_network(
 		plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' )
 	);

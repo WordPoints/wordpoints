@@ -28,6 +28,7 @@ delete_metadata( 'user', 0, 'wordpoints_points_period_start', '', true );
 // Points Types.
 delete_option( 'wordpoints_points_types' );
 delete_option( 'wordpoints_default_points_type' );
+delete_site_option( 'wordpoints_default_points_type' );
 
 // Points hooks.
 delete_option( 'wordpoints_points_hooks' );

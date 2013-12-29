@@ -20,7 +20,7 @@ if ( isset( $_POST['wordpoints_settings_nonce'] ) && wp_verify_nonce( $_POST['wo
 		$excluded_users = array_unique( array_filter( $excluded_users, 'wordpoints_posint' ) );
 	}
 
-	update_option( 'wordpoints_excluded_users', $excluded_users );
+	wordpoints_update_network_option( 'wordpoints_excluded_users', $excluded_users );
 
 	/**
 	 * WordPoints settings form submitted.
@@ -59,7 +59,7 @@ if ( isset( $_POST['wordpoints_settings_nonce'] ) && wp_verify_nonce( $_POST['wo
 					<label for="excluded_users"><?php _e( 'Excluded Users', 'wordpoints' ); ?></label>
 				</th>
 				<td>
-					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo esc_attr( implode( ', ', wordpoints_get_array_option( 'wordpoints_excluded_users' ) ) ); ?>" />
+					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo esc_attr( implode( ', ', wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' ) ) ); ?>" />
 				</td>
 			</tr>
 		</tbody>

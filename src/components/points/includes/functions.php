@@ -1052,7 +1052,7 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
  */
 function wordpoints_get_default_points_type() {
 
-	$points_type = get_option( 'wordpoints_default_points_type' );
+	$points_type = wordpoints_get_network_option( 'wordpoints_default_points_type' );
 
 	if ( ! wordpoints_is_points_type( $points_type ) ) {
 		return false;

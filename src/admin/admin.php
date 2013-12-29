@@ -25,51 +25,92 @@ include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
  * @since 1.0.0
  *
  * @action admin_menu
+ * @action network_admin_menu
  */
 function wordpoints_admin_menu() {
 
+	$action = current_filter();
+	$is_network_active = is_wordpoints_network_active();
+
 	$wordpoints = __( 'WordPoints', 'wordpoints' );
 
-	// Main page.
-	add_menu_page(
-		$wordpoints
-		,$wordpoints
-		,'manage_options'
-		,'wordpoints_configure'
-		,'wordpoints_admin_screen_configure'
-	);
+	/*
+	 * If the plugin is network active and we are displaying the network menu, or if
+	 * it isn't and we're displaying the site admin menu, show the settings page.
+	 */
+	if (
+		( $is_network_active && 'network_admin_menu' === $action )
+		|| ( ! $is_network_active && 'admin_menu' === $action )
+	) {
 
-	// Settings page.
-	add_submenu_page(
-		'wordpoints_configure'
-		,__( 'WordPoints - Configure', 'wordpoints' )
-		,__( 'Configure', 'wordpoints' )
-		,'manage_options'
-		,'wordpoints_configure'
-		,'wordpoints_admin_screen_configure'
-	);
+		// Main page.
+		add_menu_page(
+			$wordpoints
+			,$wordpoints
+			,'manage_options'
+			,'wordpoints_configure'
+			,'wordpoints_admin_screen_configure'
+		);
 
-	// Modules page.
-	add_submenu_page(
-		'wordpoints_configure'
-		,__( 'WordPoints - Modules', 'wordpoints' )
-		,__( 'Modules', 'wordpoints' )
-		,'activate_wordpoints_modules'
-		,'wordpoints_modules'
-		,'wordpoints_display_admin_screen'
-	);
+		// Settings page.
+		add_submenu_page(
+			'wordpoints_configure'
+			,__( 'WordPoints - Configure', 'wordpoints' )
+			,__( 'Configure', 'wordpoints' )
+			,'manage_options'
+			,'wordpoints_configure'
+			,'wordpoints_admin_screen_configure'
+		);
 
-	// Module install page.
-	add_submenu_page(
-		'wordpoints_modules'
-		,__( 'WordPoints - Install Modules', 'wordpoints' )
-		,__( 'Install Modules', 'wordpoints' )
-		,'install_wordpoints_modules'
-		,'wordpoints_install_modules'
-		,'wordpoints_admin_screen_install_modules'
-	);
+		// Modules page.
+		add_submenu_page(
+			'wordpoints_configure'
+			,__( 'WordPoints - Modules', 'wordpoints' )
+			,__( 'Modules', 'wordpoints' )
+			,'activate_wordpoints_modules'
+			,'wordpoints_modules'
+			,'wordpoints_display_admin_screen'
+		);
+
+		// Module install page.
+		add_submenu_page(
+			'wordpoints_modules'
+			,__( 'WordPoints - Install Modules', 'wordpoints' )
+			,__( 'Install Modules', 'wordpoints' )
+			,'install_wordpoints_modules'
+			,'wordpoints_install_modules'
+			,'wordpoints_admin_screen_install_modules'
+		);
+
+	} elseif ( 'admin_menu' === $action ) {
+
+		/*
+		 * If we are network-active and displaying the admin menu, don't display the
+		 * settings page, instead display the modules page as the main page.
+		 */
+
+		// Main page.
+		add_menu_page(
+			$wordpoints
+			,$wordpoints
+			,'manage_options'
+			,'wordpoints_configure'
+			,'wordpoints_admin_screen_modules'
+		);
+
+		add_submenu_page(
+			'wordpoints_configure'
+			,__( 'WordPoints - Modules', 'wordpoints' )
+			,__( 'Modules', 'wordpoints' )
+			,'activate_wordpoints_modules'
+			,'wordpoints_configure'
+			,'wordpoints_display_admin_screen'
+		);
+
+	}
 }
 add_action( 'admin_menu', 'wordpoints_admin_menu' );
+add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
 
 /**
  * Display one of the administration screens.
@@ -81,6 +122,21 @@ function wordpoints_display_admin_screen() {
 	$screen = str_replace( 'wordpoints_page_wordpoints_', '', current_filter() );
 
 	require WORDPOINTS_DIR . "admin/screens/{$screen}.php";
+}
+
+/**
+ * Display the modules admin screen.
+ *
+ * @since 1.2.0
+ */
+function wordpoints_admin_screen_modules() {
+
+	/**
+	 * The modules administration screen.
+	 *
+	 * @since 1.1.0
+	 */
+	require WORDPOINTS_DIR . 'admin/screens/modules.php';
 }
 
 /**

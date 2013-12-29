@@ -187,10 +187,19 @@ function wordpoints_debug_message( $message, $function, $file, $line ) {
  */
 function wordpoints_get_array_option( $option, $context = 'default' ) {
 
-	if ( 'site' == $context ) {
-		$value = get_site_option( $option, array() );
-	} else {
-		$value = get_option( $option, array() );
+	switch ( $context ) {
+
+		case 'default':
+			$value = get_option( $option, array() );
+		break;
+
+		case 'site':
+			$value = get_site_option( $option, array() );
+		break;
+
+		case 'network':
+			$value = wordpoints_get_network_option( $option, array() );
+		break;
 	}
 
 	if ( ! is_array( $value ) ) {
@@ -198,6 +207,71 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Get an option or site option from the database, based on the plugin's status.
+ *
+ * If the plugin is network activated on a multisite install, this will return a
+ * network ('site') option. Otherwise it will return a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option  The name of the option to get.
+ * @param mixed  $default A default value to return if the option isn't found.
+ *
+ * @return mixed The option value if it exists, or $default (false by default).
+ */
+function wordpoints_get_network_option( $option, $default = false ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return get_site_option( $option, $default );
+	} else {
+		return get_option( $option, $default );
+	}
+}
+
+/**
+ * Update an option or site option, based on the plugin's activation status.
+ *
+ * If the plugin is network activated on a multisite install, this will update a
+ * network ('site') option. Otherwise it will update a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option The name of the option to update.
+ * @param mixed  $value  The new value for the option.
+ *
+ * @return bool Whether the option was updated successfully.
+ */
+function wordpoints_update_network_option( $option, $value ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return update_site_option( $option, $value );
+	} else {
+		return update_option( $option, $value );
+	}
+}
+
+/**
+ * Delete an option or site option, based on the plugin's activation status.
+ *
+ * If the plugin is network activated on a multisite install, this will delete a
+ * network ('site') option. Otherwise it will delete a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option The name of the option to delete.
+ *
+ * @return bool Whether the option was successfully deleted.
+ */
+function wordpoints_delete_network_option( $option ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return delete_site_option( $option );
+	} else {
+		return delete_option( $option );
+	}
 }
 
 /**
@@ -432,6 +506,22 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 //
 
 /**
+ * Check if the plugin is network activated.
+ *
+ * @since 1.2.0
+ *
+ * @return bool True if WordPoints is network activated, false otherwise.
+ */
+function is_wordpoints_network_active() {
+
+	require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
+	return is_plugin_active_for_network(
+		plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' )
+	);
+}
+
+/**
  * Fix URLs where WordPress doesn't follow symlinks.
  *
  * This allows you to define WORDPOINTS_SYMLINK in wp-config.php and have the plugin
@@ -500,7 +590,7 @@ function wordpoints_dir_include( $dir ) {
  */
 function wordpoints_get_excluded_users( $context ) {
 
-	$user_ids = wordpoints_get_array_option( 'wordpoints_excluded_users' );
+	$user_ids = wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' );
 
 	/**
 	 * Excluded users option.

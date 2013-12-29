@@ -588,7 +588,7 @@ function wordpoints_dir_include( $dir ) {
  */
 function wordpoints_get_excluded_users( $context ) {
 
-	$user_ids = wordpoints_get_array_option( 'wordpoints_excluded_users' );
+	$user_ids = wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' );
 
 	/**
 	 * Excluded users option.

@@ -86,6 +86,7 @@ delete_option( 'wordpoints_data' );
 delete_option( 'wordpoints_active_modules' );
 delete_option( 'wordpoints_active_components' );
 delete_option( 'wordpoints_excluded_users' );
+delete_site_option( 'wordpoints_excluded_users' );
 delete_option( 'wordpoints_recently_activated_modules' );
 delete_site_option( 'wordpoints_sitewide_active_modules' );
 

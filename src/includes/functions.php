@@ -242,7 +242,7 @@ function wordpoints_get_network_option( $option, $default = false ) {
  * @param string $option The name of the option to update.
  * @param mixed  $value  The new value for the option.
  *
- * @return mixed The option value if it exists, or $default (false by default).
+ * @return bool Whether the option was updated successfully.
  */
 function wordpoints_update_network_option( $option, $value ) {
 

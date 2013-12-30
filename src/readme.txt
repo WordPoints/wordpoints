@@ -78,6 +78,11 @@ points are awarded.
 
 == Changelog ==
 
+= 1.1.1 =
+* New: The Brazilian Portugese language file was added to the plugin, thanks to Gabriel Galvao.
+* Fixed: The language files are being loaded properly now.
+* Fixed: The points component is activated by default. (We tried and failed to do that back in 1.0.1).
+
 = 1.1.0 =
 * New: You can now add points hooks to a points type by clicking on the hook and
 choosing the points type to add it to.
@@ -94,6 +99,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+* This update is a maintenance release with some localization and installation
+improvements. It is recommended that all users upgrade.
 
 = 1.1.0 =
 * This update includes improvements to the points hooks UI, and also many improvements

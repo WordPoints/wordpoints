@@ -143,7 +143,7 @@ do_action( 'wordpoints_admin_components_top' );
 			<td><?php echo $component['description'] . $author; ?></td>
 			<td><?php echo $component['version']; ?></td>
 			<td>
-				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>">
+				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>" action="<?php esc_url( self_admin_url( 'page=wordpoints_configure&tab=components' ) ); ?>">
 					<input type="hidden" name="wordpoints_component_action" value="<?php echo esc_attr( $action ); ?>" />
 					<input type="hidden" name="wordpoints_component" value="<?php echo esc_attr( $component['slug'] ); ?>" />
 					<?php wp_nonce_field( "wordpoints_{$action}_component-{$component['slug']}" ); ?>

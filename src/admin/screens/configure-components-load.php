@@ -51,7 +51,7 @@ wp_redirect(
 			'wordpoints_component' => $_POST['wordpoints_component'],
 			'_wpnonce'             => wp_create_nonce( 'wordpoints_component_' . key( $message ) . "-{$_POST['wordpoints_component']}" ),
 		)
-		, admin_url( 'admin.php' )
+		, self_admin_url( 'admin.php' )
 	)
 );
 

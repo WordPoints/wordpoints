@@ -14,25 +14,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-if ( ! defined( 'WORDPOINTS_DIR' ) ) {
-
-	// This likely won't be set, since the plugin isn't active (main file isn't loaded).
-
-	/**
-	 * @see wordpoints.php
-	 */
-	define( 'WORDPOINTS_DIR', plugin_dir_path( __FILE__ ) );
-}
-
-if ( ! defined( 'WORDPOINTS_VERSION' ) ) {
-
-	/**
-	 * @see wordpoints.php
-	 */
-	define( 'WORDPOINTS_VERSION', '1.1.0' );
-}
-
 // Dependencies for the uninstall routine.
+require_once dirname( __FILE__ ) . '/includes/constants.php';
 require_once WORDPOINTS_DIR . 'includes/functions.php';
 require_once WORDPOINTS_DIR . 'includes/modules.php';
 require_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';

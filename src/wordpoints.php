@@ -46,26 +46,6 @@
  */
 
 /**
- * The plugin version.
- *
- * Conforms to {@link http://semver.org/ Semantic Versioning}.
- *
- * @since 1.0.0
- *
- * @const WORDPOINTS_VERSION
- */
-define( 'WORDPOINTS_VERSION', '1.1.0' );
-
-/**
- * You are here.
- *
- * @since 1.0.0
- *
- * @const WORDPOINTS_DIR
- */
-define( 'WORDPOINTS_DIR', plugin_dir_path( __FILE__ ) );
-
-/**
  * Include the activate file on activation.
  *
  * @since 1.0.0
@@ -90,6 +70,13 @@ function wordpoints_activate() {
 	}
 }
 register_activation_hook( __FILE__, 'wordpoints_activate' );
+
+/**
+ * Plugin defined constants.
+ *
+ * @since 1.2.0
+ */
+include_once dirname( __FILE__ ) . '/includes/constants.php';
 
 /**
  * Core functions.

@@ -106,7 +106,6 @@ function wordpoints_admin_menu() {
 			,'wordpoints_configure'
 			,'wordpoints_display_admin_screen'
 		);
-
 	}
 }
 add_action( 'admin_menu', 'wordpoints_admin_menu' );

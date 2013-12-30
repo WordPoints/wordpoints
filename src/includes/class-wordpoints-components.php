@@ -117,7 +117,7 @@ final class WordPoints_Components {
 	 */
 	private function _reset_active() {
 
-		$this->active = wordpoints_get_array_option( 'wordpoints_active_components' );
+		$this->active = wordpoints_get_array_option( 'wordpoints_active_components', 'network' );
 	}
 
 	//
@@ -338,7 +338,7 @@ final class WordPoints_Components {
 
 			$this->active[ $slug ] = 1;
 
-			if ( ! update_option( 'wordpoints_active_components', $this->active ) ) {
+			if ( ! wordpoints_update_network_option( 'wordpoints_active_components', $this->active ) ) {
 
 				$this->_reset_active();
 				return false;
@@ -381,7 +381,7 @@ final class WordPoints_Components {
 
 			unset( $this->active[ $slug ] );
 
-			if ( ! update_option( 'wordpoints_active_components', $this->active ) ) {
+			if ( ! wordpoints_update_network_option( 'wordpoints_active_components', $this->active ) ) {
 
 				$this->_reset_active();
 				return false;

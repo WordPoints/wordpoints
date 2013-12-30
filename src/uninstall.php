@@ -29,7 +29,7 @@ if ( ! defined( 'WORDPOINTS_VERSION' ) ) {
 	/**
 	 * @see wordpoints.php
 	 */
-	define( 'WORDPOINTS_VERSION', '1.1.0' );
+	define( 'WORDPOINTS_VERSION', '1.1.1' );
 }
 
 // Dependencies for the uninstall routine.

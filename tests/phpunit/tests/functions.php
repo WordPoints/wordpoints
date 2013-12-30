@@ -21,7 +21,7 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 	 */
 	public function test_is_wordpoints_network_active() {
 
-		$plugin_file = plugin_basename( WORDPOINTS_DIR . 'wordpoints' );
+		$plugin_file = plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' );
 
 		// Make sure it isn't network active.
 		update_site_option( 'active_sitewide_plugins', array() );

@@ -11,267 +11,51 @@
  */
 
 /**
- * Points types class.
- *
- * The member methods of this class manage points types. Using them, points types can
- * be added or data for existing points types retrieved. However, you should not
- * call the methods of this class directly; use the wrapper function below.
- *
- * @since 1.0.0
- */
-class WordPoints_Points_Types {
-
-	//
-	// Private Vars.
-	//
-
-	/**
-	 * An associative array of points types data.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @type array $types
-	 */
-	private static $types;
-
-	//
-	// Public Methods.
-	//
-
-	/**
-	 * Get all points types.
-	 *
-	 * Returns a multidimensional array of all the points types, indexed by slug.
-	 * Each value is an associative array, with the keys 'name', 'prefix', and
-	 * 'suffix'. Other data may be added by plugins and modules.
-	 *
-	 * Example:
-	 * <code>
-	 * array(
-	 *      'points' => array(
-	 *               'name'   => 'Points',
-	 *               'prefix' => '$',
-	 *               'suffix' => '',
-	 *      ),
-	 *      'another-points' => array(
-	 *               'name'   => 'Another Points',
-	 *               'prefix' => '',
-	 *               'suffix' => 'points',
-	 *      ),
-	 * )
-	 * </code>
-	 *
-	 * @since 1.0.0
-	 *
-	 * @see WordPoints_Points_Types::_set_types() Sets the $types member var.
-	 *
-	 * @return array An array of all points types.
-	 */
-	public static function get() {
-
-		return self::$types;
-	}
-
-	/**
-	 * Get the settings for a single points type.
-	 *
-	 * @see WordPoints_Points_Types::get_types()
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $slug The slug of a points type.
-	 *
-	 * @return array|bool An array of settings for this points type. False on
-	 *         failure.
-	 */
-	public static function get_type( $slug ) {
-
-		if ( ! self::is_type( $slug ) ) {
-			return false;
-		}
-
-		return self::$types[ $slug ];
-	}
-
-	/**
-	 * Get a setting for a type of points.
-	 *
-	 * Examples of points type settings are 'prefix', 'suffix', etc. Custom settings
-	 * may be added as well.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $slug    The points type to retrieve a setting for.
-	 * @param string $setting The setting to retrieve.
-	 *
-	 * @return string|void The value of the setting if it exists, otherwise null.
-	 */
-	public static function get_type_setting( $slug, $setting ) {
-
-		if ( isset( self::$types[ $slug ][ $setting ] ) ) {
-
-			return self::$types[ $slug ][ $setting ];
-		}
-	}
-
-	/**
-	 * Create a new type of points.
-	 *
-	 * This adds a new entry to the array of points types saved in the database.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses sanitize_key() To generate the slug.
-	 * @uses apply_filters()  Calls 'wordpoints_points_settings' with the array of
-	 *       settings for the new points type, and the $new parameter set to true.
-	 *
-	 * @param array $settings The data for this points type.
-	 *
-	 * @return string|bool The slug on success. False on failure.
-	 */
-	public static function add_type( $settings ) {
-
-		if ( ! is_array( $settings ) || ! isset( $settings['name'] ) ) {
-			return false;
-		}
-
-		$slug = sanitize_key( $settings['name'] );
-
-		if ( empty( $slug ) || self::is_type( $slug ) ) {
-			return false;
-		}
-
-		/**
-		 * Points type settings.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array  $settings The settings for a points type.
-		 * @param string $slug     The slug for this points type.
-		 * @param bool   $is_new   Whether this points type is new, or being updated.
-		 */
-		self::$types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, true );
-
-		if ( ! update_option( 'wordpoints_points_types', self::$types ) ) {
-			return false;
-		}
-
-		self::_reset();
-
-		return $slug;
-	}
-
-	/**
-	 * Update the settings for a type of points.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses apply_filters() Calls 'wordpoints_points_settings' with the array of
-	 *       settings for the points type, and the $new parameter set to false.
-	 *
-	 * @param string $slug     The slug for the points type to update.
-	 * @param array  $settings The new settings for this points type.
-	 *
-	 * @return bool False on failure, or if this points type does not exist.
-	 */
-	public static function update_type( $slug, $settings ) {
-
-		if ( ! self::is_type( $slug ) || ! is_array( $settings ) || ! isset( $settings['name'] ) ) {
-			return false;
-		}
-
-		/**
-		 * @see WordPoints_Points_Types::new_type()
-		 */
-		self::$types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, false );
-
-		$result = update_option( 'wordpoints_points_types', self::$types );
-
-		self::_reset();
-
-		return $result;
-	}
-
-	/**
-	 * Check if a type of points exists.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $slug The type of points.
-	 *
-	 * @return bool
-	 */
-	public static function is_type( $slug ) {
-
-		return isset( self::$types[ $slug ] );
-	}
-
-	/**
-	 * Delete a points type.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $slug The slug of the points type to delete.
-	 *
-	 * @return bool Whether the points type was deleted.
-	 */
-	public static function delete_type( $slug ) {
-
-		if ( ! self::is_type( $slug ) ) {
-			return false;
-		}
-
-		unset( self::$types[ $slug ] );
-
-		$result = update_option( 'wordpoints_points_types', self::$types );
-
-		self::_reset();
-
-		return $result;
-	}
-
-	/**
-	 * Set up the $types private var.
-	 *
-	 * You should **never** have to call this method... but *if*, for some
-	 * strange reason you need to manipulate the option directly, you *should* call
-	 * this function. And we need to do that in the unit tests, so that's why this
-	 * method isn't declared private. Nontheless, you *shouldn't* be manipulating the
-	 * option directly. Do so at your own risk.
-	 *
-	 * @since 1.0.0
-	 */
-	public static function _reset() {
-
-		self::$types = wordpoints_get_array_option( 'wordpoints_points_types' );
-	}
-}
-
-// Set up the points types.
-WordPoints_Points_Types::_reset();
-
-/**
  * Check if a points type exists by slug.
  *
  * @since 1.0.0
  *
- * @uses WordPoints_Points_Types::is_type()
+ * @param string $slug Test if this is the slug of a points type.
+ *
+ * @return bool Whether a points type with the given slug exists.
  */
 function wordpoints_is_points_type( $slug ) {
 
-	return WordPoints_Points_Types::is_type( $slug );
+	$points_types = wordpoints_get_points_types();
+
+	return isset( $points_types[ $slug ] );
 }
 
 /**
  * Get all points types.
  *
+ * Returns a multidimensional array of all the points types, indexed by slug.
+ * Each value is an associative array, with the keys 'name', 'prefix', and
+ * 'suffix'. Other data may be added by plugins and modules.
+ *
+ * Example:
+ * <code>
+ * array(
+ *      'points' => array(
+ *               'name'   => 'Points',
+ *               'prefix' => '$',
+ *               'suffix' => '',
+ *      ),
+ *      'another-points' => array(
+ *               'name'   => 'Another Points',
+ *               'prefix' => '',
+ *               'suffix' => 'points',
+ *      ),
+ * )
+ * </code>
+ *
  * @since 1.0.0
  *
- * @uses WordPoints_Points_Types::get()
+ * @return array An array of all points types.
  */
 function wordpoints_get_points_types() {
 
-	return WordPoints_Points_Types::get();
+	return wordpoints_get_array_option( 'wordpoints_points_types', 'network' );
 }
 
 /**
@@ -279,47 +63,111 @@ function wordpoints_get_points_types() {
  *
  * @since 1.0.0
  *
- * @uses WordPoints_Points_Types::get_type()
+ * @param string $slug The slug of a points type.
+ *
+ * @return array|bool An array of settings for this points type. False on failure.
  */
 function wordpoints_get_points_type( $slug ) {
 
-	return WordPoints_Points_Types::get_type( $slug );
+	$points_types = wordpoints_get_points_types();
+
+	if ( ! isset( $points_types[ $slug ] ) ) {
+		return false;
+	}
+
+	return $points_types[ $slug ];
 }
 
 /**
- * Get one of the settings for a points type.
+ * Get a setting for a type of points.
+ *
+ * Examples of points type settings are 'prefix', 'suffix', etc. Custom settings
+ * may be added as well.
  *
  * @since 1.0.0
  *
- * @uses WordPoints_Points_Types::get_type_setting()
+ * @param string $slug    The points type to retrieve a setting for.
+ * @param string $setting The setting to retrieve.
+ *
+ * @return string|void The value of the setting if it exists, otherwise null.
  */
 function wordpoints_get_points_type_setting( $slug, $setting ) {
 
-	return WordPoints_Points_Types::get_type_setting( $slug, $setting );
+	$points_type = wordpoints_get_points_type( $slug );
+
+	if ( isset( $points_type[ $setting ] ) ) {
+		return $points_type[ $setting ];
+	}
 }
 
 /**
- * Create a new points type.
+ * Create a new type of points.
+ *
+ * This adds a new entry to the array of points types saved in the database.
  *
  * @since 1.0.0
  *
- * @uses WordPoints_Points_Types::add_type()
+ * @uses sanitize_key() To generate the slug.
+ *
+ * @param array $settings The data for this points type.
+ *
+ * @return string|bool The slug on success. False on failure.
  */
 function wordpoints_add_points_type( $settings ) {
 
-	return WordPoints_Points_Types::add_type( $settings );
+	if ( ! is_array( $settings ) || ! isset( $settings['name'] ) ) {
+		return false;
+	}
+
+	$slug = sanitize_key( $settings['name'] );
+	$points_types = wordpoints_get_points_types();
+
+	if ( empty( $slug ) || isset( $points_types[ $slug ] ) ) {
+		return false;
+	}
+
+	/**
+	 * Points type settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array  $settings The settings for a points type.
+	 * @param string $slug     The slug for this points type.
+	 * @param bool   $is_new   Whether this points type is new, or being updated.
+	 */
+	$points_types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, true );
+
+	if ( ! wordpoints_update_network_option( 'wordpoints_points_types', $points_types ) ) {
+		return false;
+	}
+
+	return $slug;
 }
 
 /**
- * Update the settings for a points type.
+ * Update the settings for a type of points.
  *
  * @since 1.0.0
  *
- * @uses WordPoints_Points_Types::update_type()
+ * @param string $slug     The slug for the points type to update.
+ * @param array  $settings The new settings for this points type.
+ *
+ * @return bool False on failure, or if this points type does not exist.
  */
-function wordpoints_update_points_type( $slug, $new_settings ) {
+function wordpoints_update_points_type( $slug, $settings ) {
 
-	return WordPoints_Points_Types::update_type( $slug, $new_settings );
+	$points_types = wordpoints_get_points_types();
+
+	if ( ! is_array( $settings ) || ! isset( $points_types[ $slug ], $settings['name'] ) ) {
+		return false;
+	}
+
+	/**
+	 * @see wordpoints_add_points_type()
+	 */
+	$points_types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, false );
+
+	return wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
 }
 
 /**
@@ -336,8 +184,18 @@ function wordpoints_update_points_type( $slug, $new_settings ) {
  */
 function wordpoints_delete_points_type( $slug ) {
 
-	if ( ! WordPoints_Points_Types::delete_type( $slug ) ) {
+	$points_types = wordpoints_get_points_types();
+
+	if ( ! isset( $points_types[ $slug ] ) ) {
 		return false;
+	}
+
+	unset( $points_types[ $slug ] );
+
+	$result = wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
+
+	if ( ! $result ) {
+		return $result;
 	}
 
 	global $wpdb;

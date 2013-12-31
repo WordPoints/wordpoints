@@ -61,9 +61,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_get_returns_empty_array_if_none() {
 
-		delete_option( 'wordpoints_points_types' );
-
-		WordPoints_Points_Types::_reset();
+		wordpoints_delete_network_option( 'wordpoints_points_types' );
 
 		$this->assertEquals( array(), wordpoints_get_points_types() );
 	}
@@ -95,7 +93,10 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 
 		$slug = wordpoints_add_points_type( $points_type );
 
-		$this->assertEquals( array( 'points' => $this->points_data, $slug => $points_type ), get_option( 'wordpoints_points_types' ) );
+		$this->assertEquals(
+			array( 'points' => $this->points_data, $slug => $points_type )
+			, wordpoints_get_network_option( 'wordpoints_points_types' )
+		);
 	}
 
 	//
@@ -112,7 +113,10 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 		$this->points_data['prefix'] = '€';
 		wordpoints_update_points_type( 'points', $this->points_data );
 
-		$this->assertEquals( array( 'points' => $this->points_data ), get_option( 'wordpoints_points_types' ) );
+		$this->assertEquals(
+			array( 'points' => $this->points_data )
+			, wordpoints_get_network_option( 'wordpoints_points_types' )
+		);
 	}
 
 	/**
@@ -150,16 +154,48 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that it deletes the points type.
+	 * Test that it deletes the points type and related stuff.
 	 *
 	 * @since 1.0.0
 	 */
 	public function test_points_type_deleted() {
 
+		$user_id = $this->factory->user->create();
+
+		wordpoints_add_points( $user_id, 10, 'points', 'test', array( 'a' => 1 ) );
+		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook', array( 'points' => 10 ) );
+
 		$was_deleted = wordpoints_delete_points_type( 'points' );
 
 		$this->assertTrue( $was_deleted );
 		$this->assertFalse( wordpoints_is_points_type( 'points' ) );
+		$this->assertEquals( '', get_user_meta( $user_id, 'wordpoints_points-points', true ) );
+		$this->assertEquals( array(), WordPoints_Points_Hooks::get_points_type_hooks( 'points' ) );
+
+		global $wpdb;
+
+		$logs = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+					SELECT COUNT(id)
+					FROM {$wpdb->wordpoints_points_logs}
+					WHERE `user_id` = %d
+				"
+				, $user_id
+			)
+		);
+
+		$this->assertEquals( '0', $logs );
+
+		$meta = $wpdb->get_var(
+			"
+				SELECT COUNT(meta_id)
+				FROM {$wpdb->wordpoints_points_log_meta}
+				WHERE `meta_key` = 'a'
+			"
+		);
+
+		$this->assertEquals( '0', $meta );
 	}
 
 	//

@@ -196,6 +196,13 @@ include_once WORDPOINTS_DIR . 'components/points/includes/widgets.php';
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/logs.php';
 
+/**
+ * Deprecated functions and classes.
+ *
+ * @since 1.2.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/deprecated.php';
+
 if ( is_admin() ) {
 
 	// We are on the administration side of the site.

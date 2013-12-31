@@ -41,9 +41,7 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 			'suffix' => 'pts.',
 		);
 
-		add_option( 'wordpoints_points_types', array( 'points' => $this->points_data ) );
-
-		WordPoints_Points_Types::_reset();
+		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $this->points_data ) );
 	}
 }
 

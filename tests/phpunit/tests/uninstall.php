@@ -38,14 +38,11 @@ class WordPoints_Uninstall_Test extends WordPoints_Uninstall_UnitTestCase {
 		wordpointstests_add_widget( 'wordpoints_points_logs_widget' );
 
 		// Create a points type.
-		add_option(
-			'wordpoints_points_types'
-			, array(
-				'points' => array(
-					'name'   => 'Points',
-					'prefix' => '$',
-					'suffix' => 'pts.',
-				),
+		wordpoints_add_points_type(
+			array(
+				'name'   => 'Points',
+				'prefix' => '$',
+				'suffix' => 'pts.',
 			)
 		);
 

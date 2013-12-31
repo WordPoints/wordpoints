@@ -232,6 +232,30 @@ function wordpoints_get_network_option( $option, $default = false ) {
 }
 
 /**
+ * Add an option or site option, based on the plugin's activation status.
+ *
+ * If the plugin is network activated on a multisite install, this will add a
+ * network ('site') option. Otherwise it will create a regular option.
+ *
+ * @since 1.2.0
+ *
+ * @param string $option   The name of the option to add.
+ * @param mixed  $value    The value for the option.
+ * @param string $autoload Whether to automaticaly load the option. 'yes' (default)
+ *                         or 'no'. Does not apply if WordPoints is network active.
+ *
+ * @return bool Whether the option was added successfully.
+ */
+function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
+
+	if ( is_wordpoints_network_active() ) {
+		return add_site_option( $option, $value );
+	} else {
+		return add_option( $option, $value, '', $autoload );
+	}
+}
+
+/**
  * Update an option or site option, based on the plugin's activation status.
  *
  * If the plugin is network activated on a multisite install, this will update a

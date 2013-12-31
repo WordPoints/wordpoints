@@ -71,6 +71,14 @@ class WordPoints_Option_Test extends WP_UnitTestCase {
 		} else {
 			$this->assertFalse( get_option( 'wordpoints_test' ) );
 		}
+
+		wordpoints_add_network_option( 'another_test', 'test' );
+
+		if ( is_wordpoints_network_active() ) {
+			$this->assertEquals( 'test', get_site_option( 'another_test' ) );
+		} else {
+			$this->assertEquals( 'test', get_option( 'another_test' ) );
+		}
 	}
 }
 

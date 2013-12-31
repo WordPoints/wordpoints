@@ -94,98 +94,12 @@ function wordpoints_points_admin_screen_logs() {
  */
 function wordpoints_admin_points_hooks_help() {
 
-	global $wp_version;
-
-	$screen = get_current_screen();
-
-	$screen->add_help_tab(
-		array(
-			'id'      => 'overview',
-			'title'   => __( 'Overview', 'wordpoints' ),
-			'content' =>
-				'<p>' . __( 'Points Hooks let you award users points by "hooking into" different actions. They can be hooked to any points type that you have created. To create a points type, fill out the Add New Points Type form, and click Save. You can edit the settings for your points type at any time by clicking on the Settings title bar within that points type section.', 'wordpoints' ) . '</p>
-				<p>' . __( "To link a hook to a points type, click on the hook's title bar and select a points type, or drag and drop the hook title bars into the desired points type. By default, only the first points type area is expanded. To populate additional points types, click on their title bars to expand them.", 'wordpoints' ) . '</p>
-				<p>' . __( 'The Available Hooks section contains all the hooks you can choose from. Once you add a hook into a points type, it will open to allow you to configure its settings. When you are happy with the hook settings, click the Save button and the hook will begin awarding points. If you click Delete, it will remove the hook.', 'wordpoints' ) . '</p>'
-		)
-	);
-
-	$screen->add_help_tab(
-		array(
-			'id'      => 'removing-reusing',
-			'title'   => __( 'Removing and Reusing', 'wordpoints' ),
-			'content' =>
-				'<p>' . __( 'If you want to remove the hook but save its setting for possible future use, just drag it into the Inactive Hooks area. You can add them back anytime from there.', 'wordpoints' ) . '</p>
-				<p>' . __( 'Hooks may be used multiple times.', 'wordpoints' ) . '</p>
-				<p>' . __( 'Enabling Accessibility Mode, via Screen Options, allows you to use Add and Edit buttons instead of using drag and drop.', 'wordpoints' ) . '</p>'
-		)
-	);
-
-	$accessibility_mode = get_user_setting( 'wordpoints_points_hooks_access' );
-
-	if ( isset( $_GET['accessibility-mode'] ) ) {
-
-		$accessibility_mode = ( 'on' == $_GET['accessibility-mode'] ) ? 'on' : 'off';
-		set_user_setting( 'wordpoints_points_hooks_access', $accessibility_mode );
-	}
-
-	if ( 'on' == $accessibility_mode ) {
-
-		add_filter( 'admin_body_class', 'wordpoints_points_hooks_access_body_class' );
-
-	} else {
-
-		wp_enqueue_style( 'wordpoints-jquery-ui-dialog', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' );
-
-		wp_enqueue_script( 'jquery-ui-droppable' );
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'jquery-ui-dialog' );
-
-		wp_enqueue_script(
-			'wordpoints-admin-points-hooks'
-			,plugins_url( 'assets/js/hooks.js', __FILE__ )
-			,array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
-			,WORDPOINTS_VERSION
-		);
-
-		wp_localize_script(
-			'wordpoints-admin-points-hooks'
-			,'WordPointsHooksL10n'
-			,array(
-				'confirmDelete' => __( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
-					. ' ' . __( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
-				'confirmTitle'  => __( 'Are you sure?', 'wordpoints' ),
-				'deleteText'    => __( 'Delete', 'wordpoints' ),
-				'cancelText'    => __( 'Cancel', 'wordpoints' ),
-			)
-		);
-
-		if ( wp_is_mobile() ) {
-			wp_enqueue_script( 'jquery-touch-punch' );
-		}
-	}
-
-	$deps = null;
-
-	if ( version_compare( $wp_version, '3.8', '>=' ) ) {
-
-		$deps = array( 'dashicons' );
-
-	} else {
-
-		wp_enqueue_style(
-			'wordpoints-admin-points-hooks-legacy'
-			, plugins_url( 'assets/css/hooks-legacy.css', __FILE__ )
-			, array( 'wordpoints-admin-points-hooks' )
-			, WORDPOINTS_VERSION
-		);
-	}
-
-	wp_enqueue_style(
-		'wordpoints-admin-points-hooks'
-		, plugins_url( 'assets/css/hooks.css', __FILE__ )
-		, $deps
-		, WORDPOINTS_VERSION
-	);
+	/**
+	 * Add help tabs and enqueue scripts and styles for the hooks screen.
+	 *
+	 * @since 1.2.0
+	 */
+	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-load.php';
 }
 add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_admin_points_hooks_help' );
 
@@ -200,104 +114,12 @@ function wordpoints_no_js_points_hooks_save() {
 		return;
 	}
 
-	$hook_id = $_POST['hook-id'];
-
-	check_admin_referer( "save-delete-hook-{$hook_id}" );
-
-	// These are the hooks grouped by points type.
-	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
-
-	if ( empty( $points_types_hooks ) ) {
-		$points_types_hooks = WordPoints_Points_Hooks::get_defaults();
-	}
-
-	$points_type_id = $_POST['points_type'];
-	$id_base        = $_POST['id_base'];
-
-	if ( isset( $points_types_hooks[ $points_type_id ] ) ) {
-		$points_type_hooks = $points_types_hooks[ $points_type_id ];
-	} else {
-		$points_type_hooks = array();
-	}
-
-	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $id_base );
-
-	if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
-
-		// - We are deleting an instance of a hook.
-
-		if ( ! in_array( $hook_id, $points_type_hooks, true ) ) {
-
-			// The hook isn't hooked to this points type, give an error.
-			wp_redirect( admin_url( 'admin.php?page=wordpoints_points_hooks&error=0' ) );
-			exit;
-		}
-
-		// Remove the hook from this points type.
-		$points_types_hooks[ $points_type_id ] = array_diff( $points_type_hooks, array( $hook_id ) );
-
-		$hook->delete_callback( $hook_id );
-
-	} elseif ( isset( $_POST['savehook'] ) && $_POST['savehook'] ) {
-
-		// - We are saving an instance of a hook.
-
-		$number = isset( $_POST['multi_number'] ) ? (int) $_POST['multi_number'] : '';
-
-		if ( $number ) {
-
-			// Search the POST for the instance settings.
-			foreach ( $_POST as $key => $val ) {
-
-				if ( is_array( $val ) && preg_match( '/__i__|%i%/', key( $val ) ) ) {
-
-					$new_instance = array_shift( $val );
-					break;
-				}
-			}
-
-		} else {
-
-			if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-				$new_instance = reset( $_POST[ 'hook-' . $id_base ] );
-			}
-
-			$number = $hook->get_number_by_id( $hook_id );
-		}
-
-		if ( ! isset( $new_instance ) || ! is_array( $new_instance ) ) {
-
-			$new_instance = array();
-		}
-
-		// Update the hook.
-		$hook->update_callback( $new_instance, $number );
-
-		// Add hook it to this points type.
-		if ( ! in_array( $hook_id, $points_type_hooks ) ) {
-
-			$points_type_hooks[] = $hook_id;
-			$points_types_hooks[ $points_type_id ] = $points_type_hooks;
-		}
-
-		// Remove from old points type if it has changed.
-		$old_points_type = WordPoints_Points_Hooks::get_points_type( $hook_id );
-
-		if ( $old_points_type && $old_points_type != $points_type_id && is_array( $points_types_hooks[ $old_points_type ] ) ) {
-
-			$points_types_hooks[ $old_points_type ] = array_diff( $points_types_hooks[ $old_points_type ], array( $hook_id ) );
-		}
-
-	} else {
-
-		wp_redirect( admin_url( 'admin.php?page=wordpoints_points_hooks&error=0' ) );
-		exit;
-	}
-
-	update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
-
-	wp_redirect( admin_url( 'admin.php?page=wordpoints_points_hooks&message=0' ) );
-	exit;
+	/**
+	 * Save the hooks for non-JS/accessibility mode hooks screen.
+	 *
+	 * @since 1.2.0
+	 */
+	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js-load.php';
 }
 add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_no_js_points_hooks_save' );
 

@@ -23,6 +23,7 @@ include_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
  * @since 1.0.0
  *
  * @action admin_menu
+ * @action network_admin_menu
  */
 function wordpoints_points_admin_menu() {
 
@@ -47,6 +48,7 @@ function wordpoints_points_admin_menu() {
 	);
 }
 add_action( 'admin_menu', 'wordpoints_points_admin_menu' );
+add_action( 'network_admin_menu', 'wordpoints_points_admin_menu' );
 
 /**
  * Display the points hooks admin page.

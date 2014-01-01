@@ -252,7 +252,7 @@ div.hook-liquid-right {
 }
 
 div#hooks-right .points-settings {
-	margin: 10px auto;
+	margin: 0 auto;
 }
 
 /*
@@ -391,7 +391,7 @@ div#hooks-right .hook-top {
 }
 
 div#hooks-right .hooks-sortables {
-	padding: 0 8px;
+	padding: 8px;
 	margin-bottom: 9px;
 	position: relative;
 	min-height: 123px;

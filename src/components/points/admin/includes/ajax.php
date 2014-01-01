@@ -78,6 +78,10 @@ function wordpoints_ajax_save_points_hook() {
 
 		// - We are saving the settings for a points type.
 
+		if ( ! current_user_can( 'manage_wordpoints_points_types' ) ) {
+			wp_die( -1 );
+		}
+
 		$settings = array();
 
 		$settings['name']   = trim( $_POST['points-name'] );

@@ -238,7 +238,10 @@ final class WordPoints_Points_Hooks {
 
 			<?php
 
-			self::points_type_form( $points_type );
+			if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
+				self::points_type_form( $points_type );
+			}
+
 			self::_list_by_points_type( $points_type );
 
 			?>

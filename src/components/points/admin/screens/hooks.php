@@ -7,39 +7,43 @@
  * @since 1.0.0
  */
 
-if ( isset( $_POST['add_new'], $_POST['save-points-type'] ) && 1 == (int) $_POST['add_new'] ) {
+if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
-	// - We are creating a new points type.
+	if ( isset( $_POST['add_new'], $_POST['save-points-type'] ) && 1 == (int) $_POST['add_new'] ) {
 
-	unset( $_GET['error'], $_GET['message'] );
+		// - We are creating a new points type.
 
-	$settings = array();
+		unset( $_GET['error'], $_GET['message'] );
 
-	$settings['name']   = trim( $_POST['points-name'] );
-	$settings['prefix'] = ltrim( $_POST['points-prefix'] );
-	$settings['suffix'] = rtrim( $_POST['points-suffix'] );
+		$settings = array();
 
-	if ( ! wordpoints_add_points_type( wp_unslash( $settings ) ) ) {
+		$settings['name']   = trim( $_POST['points-name'] );
+		$settings['prefix'] = ltrim( $_POST['points-prefix'] );
+		$settings['suffix'] = rtrim( $_POST['points-suffix'] );
 
-		// - Unable to create this, give an error.
-		$_GET['error'] = 2;
+		if ( ! wordpoints_add_points_type( wp_unslash( $settings ) ) ) {
+
+			// - Unable to create this, give an error.
+			$_GET['error'] = 2;
+		}
+
+	} elseif ( ! empty( $_POST['delete-points-type'] ) ) {
+
+		// - We are deleting a points type.
+
+		unset( $_GET['error'], $_GET['message'] );
+
+		if ( isset( $_POST['points-slug'] ) && wordpoints_delete_points_type( $_POST['points-slug'] ) ) {
+
+			$_GET['message'] = 1;
+
+		} else {
+
+			$_GET['error'] = 3;
+		}
 	}
 
-} elseif ( ! empty( $_POST['delete-points-type'] ) ) {
-
-	// - We are deleting a points type.
-
-	unset( $_GET['error'], $_GET['message'] );
-
-	if ( isset( $_POST['points-slug'] ) && wordpoints_delete_points_type( $_POST['points-slug'] ) ) {
-
-		$_GET['message'] = 1;
-
-	} else {
-
-		$_GET['error'] = 3;
-	}
-}
+} // if ( current_user_can( 'manage_wordpoints_points_types' ) )
 
 // Get all points types.
 $points_types = wordpoints_get_points_types();
@@ -63,6 +67,14 @@ $errors = array(
 	<h2><?php echo esc_html( _x( 'Points Hooks', 'page title', 'wordpoints' ) ); ?></h2>
 
 	<?php
+
+	if ( empty( $points_types ) && ! current_user_can( 'manage_wordpoints_points_types' ) ) {
+
+		wordpoints_show_admin_error( __( 'No points types have been created yet. Only network administrators can create points types.', 'wordpoints' ) );
+
+		echo '</div>';
+		return;
+	}
 
 	if ( isset( $_GET['message'] ) && isset( $messages[ $_GET['message'] ] ) ) {
 
@@ -148,17 +160,25 @@ $errors = array(
 				$i++;
 			}
 
-			?>
+			if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
-			<div class="hooks-holder-wrap new-points-type <?php echo ( $i > 0 ) ? 'closed' : ''; ?>">
-				<div class="points-type-name">
-					<div class="points-type-name-arrow"><br /></div>
-					<h3><?php esc_html_e( 'Add New Points Type', 'wordpoints' ); ?><span class="spinner"></span></h3>
+				?>
+
+				<div class="hooks-holder-wrap new-points-type <?php echo ( $i > 0 ) ? 'closed' : ''; ?>">
+					<div class="points-type-name">
+						<div class="points-type-name-arrow"><br /></div>
+						<h3><?php esc_html_e( 'Add New Points Type', 'wordpoints' ); ?><span class="spinner"></span></h3>
+					</div>
+					<div class="wordpoints-points-add-new hooks-sortables hook">
+						<?php WordPoints_Points_Hooks::points_type_form(); ?>
+					</div>
 				</div>
-				<div class="wordpoints-points-add-new hooks-sortables hook">
-					<?php WordPoints_Points_Hooks::points_type_form(); ?>
-				</div>
-			</div>
+
+				<?php
+
+			}
+
+			?>
 
 		</div>
 	</div>

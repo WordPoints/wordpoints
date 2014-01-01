@@ -1005,6 +1005,7 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
  * manipulating the $all_capabilities array.
  *
  * @since 1.0.0
+ * @since 1.2.0 Adds the capability 'manage_wordpoints_points_types'.
  *
  * @filter user_has_cap
  *
@@ -1021,6 +1022,18 @@ function wordpoints_points_user_cap_filter( $all_capabilities, $capabilities, $a
 		&& isset( $all_capabilities['manage_options'] )
 	) {
 		$all_capabilities['set_wordpoints_points'] = $all_capabilities['manage_options'];
+	}
+
+	if ( in_array( 'manage_wordpoints_points_types', $capabilities ) ) {
+
+		if ( isset( $all_capabilities['manage_network_options'] ) ) {
+
+			$all_capabilities['manage_wordpoints_points_types'] = $all_capabilities['manage_network_options'];
+
+		} elseif ( ! is_wordpoints_network_active() && isset( $all_capabilities['manage_options'] ) ) {
+
+			$all_capabilities['manage_wordpoints_points_types'] = $all_capabilities['manage_options'];
+		}
 	}
 
 	return $all_capabilities;

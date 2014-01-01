@@ -16,9 +16,20 @@
  */
 function wordpoints_ajax_points_hooks_order() {
 
-	check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks' );
+	if (
+		check_ajax_referer( 'save-network-wordpoints-points-hooks', 'savehooks', false )
+		&& current_user_can( 'manage_network_wordpoints_points_hooks' )
+	) {
 
-	if ( ! current_user_can( 'manage_options' ) ) {
+		// Saving network hooks order, turn on network mode.
+		WordPoints_Points_Hooks::set_network_mode( true );
+
+	} elseif (
+		! check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks', false )
+		|| ! current_user_can( 'manage_options' )
+	) {
+
+		// User doesn't have the required capababilities.
 		wp_die( -1 );
 	}
 
@@ -66,9 +77,20 @@ add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hoo
  */
 function wordpoints_ajax_save_points_hook() {
 
-	check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks' );
+	if (
+		check_ajax_referer( 'save-network-wordpoints-points-hooks', 'savehooks', false )
+		&& current_user_can( 'manage_network_wordpoints_points_hooks' )
+	) {
 
-	if ( ! current_user_can( 'manage_options' ) ) {
+		// Saving network hooks, turn on network mode.
+		WordPoints_Points_Hooks::set_network_mode( true );
+
+	} elseif (
+		! check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks', false )
+		|| ! current_user_can( 'manage_options' )
+	) {
+
+		// User doesn't have the required capababilities.
 		wp_die( -1 );
 	}
 

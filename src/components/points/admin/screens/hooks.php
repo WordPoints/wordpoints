@@ -61,10 +61,16 @@ $errors = array(
 	__( 'Error while deleting.', 'wordpoints' ),
 );
 
+if ( is_network_admin() ) {
+	$title = _x( 'Network Points Hooks', 'page title', 'wordpoints' );
+} else {
+	$title = _x( 'Points Hooks', 'page title', 'wordpoints' );
+}
+
 ?>
 
 <div class="wrap">
-	<h2><?php echo esc_html( _x( 'Points Hooks', 'page title', 'wordpoints' ) ); ?></h2>
+	<h2><?php echo esc_html( $title ); ?></h2>
 
 	<?php
 
@@ -83,6 +89,12 @@ $errors = array(
 	} elseif ( isset( $_GET['error'] ) && isset( $errors[ $_GET['error'] ] ) ) {
 
 		wordpoints_show_admin_error( $errors[ $_GET['error'] ] );
+	}
+
+	if ( is_network_admin() && current_user_can( 'manage_network_wordpoints_points_hooks' ) ) {
+
+		// Display network wide hooks.
+		WordPoints_Points_Hooks::set_network_mode( true );
 	}
 
 	/**
@@ -119,7 +131,14 @@ $errors = array(
 					</h3>
 				</div>
 				<div class="hook-holder inactive hook-holder">
-					<?php WordPoints_Points_Hooks::list_inactive(); ?>
+					<div id="_inactive_hooks" class="hooks-sortables">
+						<div class="points-type-description">
+							<p class="description">
+								<?php _e( 'Drag hooks here to remove them from the points type but keep their settings.', 'wordpoints' ); ?>
+							</p>
+						</div>
+						<?php WordPoints_Points_Hooks::list_by_points_type( '_inactive_hooks' ); ?>
+					</div>
 					<div class="clear"></div>
 				</div>
 			</div>
@@ -152,7 +171,19 @@ $errors = array(
 						<div class="points-type-name-arrow"><br /></div>
 						<h3><?php echo esc_html( $points_type['name'] ); ?><span class="spinner"></span></h3>
 					</div>
-					<?php WordPoints_Points_Hooks::list_by_points_type( $slug ); // Show the control forms for each of the hooks in this points type. ?>
+					<div id="<?php echo esc_attr( $slug ); ?>" class="hooks-sortables">
+
+						<?php
+
+						if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
+							WordPoints_Points_Hooks::points_type_form( $slug );
+						}
+
+						WordPoints_Points_Hooks::list_by_points_type( $slug );
+
+						?>
+
+					</div>
 				</div>
 
 				<?php
@@ -183,7 +214,17 @@ $errors = array(
 		</div>
 	</div>
 	<form action="" method="post">
-		<?php wp_nonce_field( 'save-wordpoints-points-hooks', '_wpnonce_hooks', false ); ?>
+		<?php
+
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			$field = 'save-network-wordpoints-points-hooks';
+		} else {
+			$field = 'save-wordpoints-points-hooks';
+		}
+
+		wp_nonce_field( $field, '_wpnonce_hooks', false );
+
+		?>
 	</form>
 
 	<?php

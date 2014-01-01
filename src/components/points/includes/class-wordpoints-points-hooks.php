@@ -44,6 +44,15 @@ final class WordPoints_Points_Hooks {
 	 */
 	private static $handlers = array();
 
+	/**
+	 * Whether to display network hooks.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type bool $network_mode
+	 */
+	private static $network_mode = false;
+
 	//
 	// Public Methods.
 	//
@@ -221,57 +230,93 @@ final class WordPoints_Points_Hooks {
 	}
 
 	/**
-	 * Display all the hook forms for a points type.
+	 * Display hooks by points type.
 	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 Now displays only the forms for the hooks, not the points type.
 	 *
-	 * @uses WordPoints_Points_Hooks::points_type_form()
-	 * @uses WordPoints_Points_Hooks::_list_by_points_type()
+	 * @uses wordpoints_is_points_type()   To check if $slug is valid.
+	 * @uses self::get_points_type_hooks() To get all hooks for this points type.
 	 *
-	 * @param string $poinst_type The points type slug.
+	 * @param string $slug The slug of the points type to display the hooks for.
+	 *
+	 * @return void
 	 */
-	public static function list_by_points_type( $points_type ) {
+	public static function list_by_points_type( $slug ) {
 
-		?>
+		if ( $slug != '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) ) {
+			return;
+		}
 
-		<div id="<?php echo esc_attr( $points_type ); ?>" class="hooks-sortables">
+		$points_type_hooks = self::get_points_type_hooks( $slug );
 
-			<?php
+		foreach ( $points_type_hooks as $hook_id ) {
 
-			if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
-				self::points_type_form( $points_type );
+			if ( ! isset( self::$hooks[ $hook_id ] ) ) {
+				continue;
 			}
 
-			self::_list_by_points_type( $points_type );
+			$hook    = self::$hooks[ $hook_id ];
+			$options = $hook->get_options();
 
-			?>
+			$options['_display'] = 'instance';
 
-		</div>
+			unset( $options['_add'] );
 
-		<?php
+			// Substitute HTML id and class attributes into _before_hook
+			$classname_ = '_' . $options['_classname'];
+			$classname_ = ltrim( $classname_, '_' );
+
+			$options['_before_hook'] = "<div id='hook-{$slug}_{$hook_id}' class='hook {$classname_}'>";
+			$options['_after_hook']  = '</div>';
+
+			$hook->set_options( $options );
+
+			self::_list_hook( $hook_id, $hook, $slug );
+		}
 	}
 
 	/**
 	 * Display a list of inactive hooks.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @uses WordPoints_Points_Hooks::_list_by_points_type()
+	 * @deprecated 1.2.0
+	 * @deprecated No longer used.
 	 */
 	public static function list_inactive() {
 
-		?>
+		_deprecated_function( __METHOD__, '1.2.0' );
+	}
 
-		<div id="_inactive_hooks" class="hooks-sortables">
-			<div class="points-type-description">
-				<p class="description">
-					<?php _e( 'Drag hooks here to remove them from the points type but keep their settings.', 'wordpoints' ); ?>
-				</p>
-			</div>
-			<?php self::_list_by_points_type( '_inactive_hooks' ); ?>
-		</div>
+	/**
+	 * Set network mode.
+	 *
+	 * When network mode is on, the network-wide hooks will be displayed. This is
+	 * only relevant on multisite installs.
+	 *
+	 * Network mode is off by default.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param bool $on Whether to turn network mode on or off.
+	 */
+	public static function set_network_mode( $on ) {
 
-		<?php
+		self::$network_mode = (bool) $on;
+	}
+
+	/**
+	 * Get the network mode.
+	 *
+	 * @see WordPoints_Points_Hooks::set_network_mode()
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return bool Whether network mode is on.
+	 */
+	public static function get_network_mode() {
+
+		return self::$network_mode;
 	}
 
 	/**
@@ -283,7 +328,13 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function get_points_types_hooks() {
 
-		return wordpoints_get_array_option( 'wordpoints_points_types_hooks' );
+		if ( self::$network_mode ) {
+			$type = 'site';
+		} else {
+			$type = 'default';
+		}
+
+		return wordpoints_get_array_option( 'wordpoints_points_types_hooks', $type );
 	}
 
 	/**
@@ -318,7 +369,11 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function save_points_types_hooks( array $points_types_hooks ) {
 
-		update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
+		if ( self::$network_mode ) {
+			update_site_option( 'wordpoints_points_types_hooks', $points_types_hooks );
+		} else {
+			update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
+		}
 	}
 
 	/**
@@ -635,52 +690,6 @@ final class WordPoints_Points_Hooks {
 		<?php
 
 		echo $options['_after_hook'];
-	}
-
-	/**
-	 * Display hooks by points type.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses wordpoints_is_points_type()   To check if $slug is valid.
-	 * @uses self::get_points_type_hooks() To get all hooks for this points type.
-	 *
-	 * @param string $slug The slug of the points type to display the hooks for.
-	 *
-	 * @return void
-	 */
-	private static function _list_by_points_type( $slug ) {
-
-		if ( $slug != '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) ) {
-			return;
-		}
-
-		$points_type_hooks = self::get_points_type_hooks( $slug );
-
-		foreach ( $points_type_hooks as $hook_id ) {
-
-			if ( ! isset( self::$hooks[ $hook_id ] ) ) {
-				continue;
-			}
-
-			$hook    = self::$hooks[ $hook_id ];
-			$options = $hook->get_options();
-
-			$options['_display'] = 'instance';
-
-			unset( $options['_add'] );
-
-			// Substitute HTML id and class attributes into _before_hook
-			$classname_ = '_' . $options['_classname'];
-			$classname_ = ltrim( $classname_, '_' );
-
-			$options['_before_hook'] = "<div id='hook-{$slug}_{$hook_id}' class='hook {$classname_}'>";
-			$options['_after_hook']  = '</div>';
-
-			$hook->set_options( $options );
-
-			self::_list_hook( $hook_id, $hook, $slug );
-		}
 	}
 
 	/**

@@ -1019,12 +1019,16 @@ function wordpoints_points_user_cap_filter( $all_capabilities, $capabilities, $a
 
 	if (
 		in_array( 'set_wordpoints_points', $capabilities )
+		&& ! isset( $all_capabilities['set_wordpoints_points'] )
 		&& isset( $all_capabilities['manage_options'] )
 	) {
 		$all_capabilities['set_wordpoints_points'] = $all_capabilities['manage_options'];
 	}
 
-	if ( in_array( 'manage_wordpoints_points_types', $capabilities ) ) {
+	if (
+		in_array( 'manage_wordpoints_points_types', $capabilities )
+		&& ! isset( $all_capabilities['manage_wordpoints_points_types'] )
+	) {
 
 		if ( isset( $all_capabilities['manage_network_options'] ) ) {
 
@@ -1034,6 +1038,14 @@ function wordpoints_points_user_cap_filter( $all_capabilities, $capabilities, $a
 
 			$all_capabilities['manage_wordpoints_points_types'] = $all_capabilities['manage_options'];
 		}
+	}
+
+	if (
+		in_array( 'manage_network_wordpoints_points_hooks', $capabilities )
+		&& ! isset( $all_capabilities['manage_network_wordpoints_points_hooks'] )
+		&& isset( $all_capabilities['manage_network_options'] )
+	) {
+		$all_capabilities['manage_network_wordpoints_points_hooks'] = $all_capabilities['manage_network_options'];
 	}
 
 	return $all_capabilities;

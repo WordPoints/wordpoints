@@ -11,6 +11,18 @@ $hook_id = $_POST['hook-id'];
 
 check_admin_referer( "save-delete-hook-{$hook_id}" );
 
+$redirect_path = 'admin.php?page=wordpoints_points_hooks';
+
+if ( is_network_admin() ) {
+
+	WordPoints_Points_Hooks::set_network_mode( true );
+	$redirect_url = network_admin_url( $redirect_path );
+
+} else {
+
+	$redirect_url = admin_url( $redirect_path );
+}
+
 // These are the hooks grouped by points type.
 $points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
@@ -36,7 +48,7 @@ if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
 	if ( ! in_array( $hook_id, $points_type_hooks, true ) ) {
 
 		// The hook isn't hooked to this points type, give an error.
-		wp_redirect( admin_url( 'admin.php?page=wordpoints_points_hooks&error=0' ) );
+		wp_redirect( $redirect_url . '&error=0' );
 		exit;
 	}
 
@@ -97,11 +109,11 @@ if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
 
 } else {
 
-	wp_redirect( admin_url( 'admin.php?page=wordpoints_points_hooks&error=0' ) );
+	wp_redirect( $redirect_url . '&error=0' );
 	exit;
 }
 
-update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
+WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
-wp_redirect( admin_url( 'admin.php?page=wordpoints_points_hooks&message=0' ) );
+wp_redirect( $redirect_url . '&message=0' );
 exit;

@@ -34,6 +34,7 @@ delete_site_option( 'wordpoints_default_points_type' );
 // Points hooks.
 delete_option( 'wordpoints_points_hooks' );
 delete_option( 'wordpoints_points_types_hooks' );
+delete_site_option( 'wordpoints_points_types_hooks' );
 delete_option( 'wordpoints_hook-wordpoints_registration_points_hook' );
 delete_option( 'wordpoints_hook-wordpoints_post_points_hook' );
 delete_option( 'wordpoints_hook-wordpoints_comment_points_hook' );

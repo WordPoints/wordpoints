@@ -27,13 +27,31 @@ final class WordPoints_Points_Hooks {
 	//
 
 	/**
-	 * The points hooks.
+	 * The points hooks, standard or network-wide, depending on network mode.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @type array $hooks
 	 */
 	private static $hooks = array();
+
+	/**
+	 * The standard hooks.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type array $standard_hooks
+	 */
+	private static $standard_hooks = array();
+
+	/**
+	 * The network-wide points hooks.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type array $network_hooks
+	 */
+	private static $network_hooks = array();
 
 	/**
 	 * The registered handler classes.
@@ -98,6 +116,8 @@ final class WordPoints_Points_Hooks {
 			new $handler();
 		}
 
+		self::$hooks = self::$standard_hooks;
+
 		/**
 		 * All points hooks registered and initialized.
 		 *
@@ -117,9 +137,24 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @param WordPoints_Points_Hook $hook The hook object.
 	 */
-	public static function _register( $hook ) {
+	public static function _register_hook( $hook ) {
 
-		self::$hooks[ $hook->get_id() ] = $hook;
+		self::$standard_hooks[ $hook->get_id() ] = $hook;
+	}
+
+	/**
+	 * Register an instance of a network hook.
+	 *
+	 * This function is used by WordPoints_Points_Hooks::init(), and should not be
+	 * called directly.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param WordPoints_Points_Hook $hook The hook object.
+	 */
+	public static function _register_network_hook( $hook ) {
+
+		self::$network_hooks[ $hook->get_id() ] = $hook;
 	}
 
 	/**
@@ -302,7 +337,16 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function set_network_mode( $on ) {
 
-		self::$network_mode = (bool) $on;
+		if ( $on != self::$network_mode ) {
+
+			self::$network_mode = (bool) $on;
+
+			if ( self::$network_mode ) {
+				self::$hooks = self::$network_hooks;
+			} else {
+				self::$hooks = self::$standard_hooks;
+			}
+		}
 	}
 
 	/**

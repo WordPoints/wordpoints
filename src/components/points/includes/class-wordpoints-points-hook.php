@@ -227,7 +227,13 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function next_hook_id_number() {
 
-		return 1 + max( array_keys( $this->get_instances() ) );
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			$type = 'network';
+		} else {
+			$type = 'standard';
+		}
+
+		return 1 + max( array_keys( $this->get_instances( $type ) ) );
 	}
 
 	/**
@@ -236,13 +242,45 @@ abstract class WordPoints_Points_Hook {
 	 * Returns an array of hook instances indexed by ID number. You will need to use
 	 * this to get the settings for each instance of your hook in your hook() method.
 	 *
+	 * By default it returns all instances of a hook, standard and, on multisite
+	 * installs, network-wide. To get only network-wide hooks, set $type to
+	 * 'network'. For only standard hooks, 'standard'. For both, 'all' (default).
+	 * When all instances are being returned, the network instance's ID numbers (the
+	 * keys) are prefixed with 'network_'.
+	 *
 	 * @since 1.0.0
+	 * @since 1.2.0 The $type parameter was added.
+	 *
+	 * @param string $type The type of hooks to retrieve.
 	 *
 	 * @return array The saved instances of this hook.
 	 */
-	final public function get_instances() {
+	final public function get_instances( $type = 'all' ) {
 
-		$instances = get_option( $this->option_name );
+		switch ( $type ) {
+
+			case 'standard':
+				$instances = wordpoints_get_array_option( $this->option_name );
+			break;
+
+			case 'network':
+				if ( is_multisite() ) {
+					$instances = wordpoints_get_array_option( $this->option_name, 'site' );
+				} else {
+					$instances = array();
+				}
+			break;
+
+			case 'all':
+				$instances = wordpoints_get_array_option( $this->option_name );
+
+				if ( is_multisite() ) {
+					foreach ( wordpoints_get_array_option( $this->option_name, 'site' ) as $number => $instance ) {
+						$instances[ 'network_' . $number ] = $instance;
+					}
+				}
+			break;
+		}
 
 		if ( ! is_array( $instances ) || empty( $instances ) ) {
 			$instances = array( 0 => array() );
@@ -252,6 +290,7 @@ abstract class WordPoints_Points_Hook {
 
 		return $instances;
 	}
+
 	/**
 	 * Update an instance's settings.
 	 *
@@ -264,8 +303,14 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function update_callback( $new_instance, $number ) {
 
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			$type = 'network';
+		} else {
+			$type = 'standard';
+		}
+
 		// Get all saved instances of this points hook.
-		$all_instances = $this->get_instances();
+		$all_instances = $this->get_instances( $type );
 
 		$this->_set( $number );
 
@@ -305,8 +350,14 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function delete_callback( $hook_id ) {
 
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			$type = 'network';
+		} else {
+			$type = 'standard';
+		}
+
 		// Get all saved instances of this points hook.
-		$all_instances = $this->get_instances();
+		$all_instances = $this->get_instances( $type );
 
 		$number = $this->get_number_by_id( $hook_id );
 
@@ -331,7 +382,13 @@ abstract class WordPoints_Points_Hook {
 
 		$this->_set( $number );
 
-		$all_instances = $this->get_instances();
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			$type = 'network';
+		} else {
+			$type = 'standard';
+		}
+
+		$all_instances = $this->get_instances( $type );
 
 		if ( 0 == $this->number ) {
 
@@ -388,7 +445,9 @@ abstract class WordPoints_Points_Hook {
 	 * @since 1.0.0
 	 *
 	 * @param string $name    Name for the hook displayed on the configuration page.
-	 * @param array  $options Optional arguments for the hooks' display {
+	 * @param array  $options {
+	 *        Optional arguments for the hooks' display
+	 *
 	 *        @type string $description Shown on the configuration page.
 	 *        @type int    $width       The width of your hook form. Required if
 	 *              more than 250px, but you should stay within that if possible.
@@ -412,12 +471,20 @@ abstract class WordPoints_Points_Hook {
 		$this->options['_before_hook'] = '';
 		$this->options['_after_hook']  = '';
 
-		// Register all instances of this hook.
-		foreach ( array_keys( $this->get_instances() ) as $number ) {
+		// Register all standard instances of this hook.
+		foreach ( array_keys( $this->get_instances( 'standard' ) ) as $number ) {
 
 			$this->_set( $number );
 
-			WordPoints_Points_Hooks::_register( $this );
+			WordPoints_Points_Hooks::_register_hook( $this );
+		}
+
+		// Register all network instances of this hook.
+		foreach ( array_keys( $this->get_instances( 'network' ) ) as $number ) {
+
+			$this->_set( $number );
+
+			WordPoints_Points_Hooks::_register_network_hook( $this );
 		}
 	}
 
@@ -500,7 +567,24 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final protected function points_type( $number ) {
 
-		return WordPoints_Points_Hooks::get_points_type( $this->get_id( $number ) );
+		if ( $network_mode = ( strpos( $number, 'network_' ) === 0 ) ) {
+			$number = (int) str_replace( 'network_', '', $number );
+		}
+
+		$current_mode = WordPoints_Points_Hooks::get_network_mode();
+
+		if ( $current_mode !== $network_mode ) {
+			WordPoints_Points_Hooks::set_network_mode( $network_mode );
+		}
+
+		$points_type = WordPoints_Points_Hooks::get_points_type( $this->get_id( $number ) );
+
+		// Reset network mode if it was changed.
+		if ( $current_mode !== $network_mode ) {
+			WordPoints_Points_Hooks::set_network_mode( $current_mode );
+		}
+
+		return $points_type;
 	}
 
 	//
@@ -531,7 +615,11 @@ abstract class WordPoints_Points_Hook {
 		// This needs to start at 1.
 		unset( $instances[0] );
 
-		update_option( $this->option_name, $instances );
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			update_site_option( $this->option_name, $instances );
+		} else {
+			update_option( $this->option_name, $instances );
+		}
 	}
 }
 

@@ -94,7 +94,11 @@ function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $conten
  */
 function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
 
-	update_option( 'wordpoints_points_types_hooks', array( 'points' => array( $hook_type . '-1' ) ) );
+	if ( WordPoints_Points_Hooks::get_network_mode() ) {
+		update_site_option( 'wordpoints_points_types_hooks', array( 'points' => array( $hook_type . '-1' ) ) );
+	} else {
+		update_option( 'wordpoints_points_types_hooks', array( 'points' => array( $hook_type . '-1' ) ) );
+	}
 
 	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
 

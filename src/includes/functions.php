@@ -677,23 +677,35 @@ function wordpoints_shortcode_error( $message ) {
  */
 function wordpoints_modules_user_cap_filter( $all_capabilities, $capabilities ) {
 
-	if ( in_array( 'install_wordpoints_modules', $capabilities ) && isset( $all_capabilities['install_plugins'] ) ) {
-
+	if (
+		in_array( 'install_wordpoints_modules', $capabilities )
+		&& ! isset( $all_capabilities['install_wordpoints_modules'] )
+		&& isset( $all_capabilities['install_plugins'] )
+	) {
 		$all_capabilities['install_wordpoints_modules'] = $all_capabilities['install_plugins'];
 	}
 
-	if ( in_array( 'manage_ntework_wordpoints_modules', $capabilities ) && isset( $all_capabilities['manage_network_plugins'] ) ) {
-
+	if (
+		in_array( 'manage_ntework_wordpoints_modules', $capabilities )
+		&& ! isset( $all_capabilities['manage_ntework_wordpoints_modules'] )
+		&& isset( $all_capabilities['manage_network_plugins'] )
+	) {
 		$all_capabilities['manage_ntework_wordpoints_modules'] = $all_capabilities['manage_network_plugins'];
 	}
 
-	if ( in_array( 'activate_wordpoints_modules', $capabilities ) && isset( $all_capabilities['activate_plugins'] ) ) {
-
+	if (
+		in_array( 'activate_wordpoints_modules', $capabilities )
+		&& ! isset( $all_capabilities['activate_wordpoints_modules'] )
+		&& isset( $all_capabilities['activate_plugins'] )
+	) {
 		$all_capabilities['activate_wordpoints_modules'] = $all_capabilities['activate_plugins'];
 	}
 
-	if ( in_array( 'delete_wordpoints_modules', $capabilities ) && isset( $all_capabilities['delete_plugins'] ) ) {
-
+	if (
+		in_array( 'delete_wordpoints_modules', $capabilities )
+		&& ! isset( $all_capabilities['delete_wordpoints_modules'] )
+		&& isset( $all_capabilities['delete_plugins'] )
+	) {
 		$all_capabilities['delete_wordpoints_modules'] = $all_capabilities['delete_plugins'];
 	}
 

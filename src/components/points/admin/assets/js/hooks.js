@@ -387,8 +387,8 @@ WordPointsHooks = {
 				});
 
 				selectPointsType.find( 'li' ).on( 'focusin.hooks-chooser', function() {
-					selectPointsType.find( '.hooks-chooser-selected' ).removeClass( 'hooks-chooser-selected' );
-					$( this ).addClass( 'hooks-chooser-selected' );
+					selectPointsType.find( '.hooks-chooser-selected' ).removeClass( 'hooks-chooser-selected wp-ui-highlight' );
+					$( this ).addClass( 'hooks-chooser-selected wp-ui-highlight' );
 				});
 			}
 		});

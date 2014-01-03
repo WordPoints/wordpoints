@@ -35,3 +35,7 @@
 	left: 10px;
 	top: 10px;
 }
+
+.hooks-chooser li.hooks-chooser-selected {
+	background: #2ea2cc;
+}

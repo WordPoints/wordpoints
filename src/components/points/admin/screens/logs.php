@@ -7,10 +7,16 @@
  * @since 1.0.0
  */
 
+if ( is_network_admin() ) {
+	$title = __( 'WordPoints - Network Points Logs', 'wordpoints' );
+} else {
+	$title = __( 'WordPoints - Points Logs', 'wordpoints' );
+}
+
 ?>
 
 <div class="wrap">
-	<h2><?php esc_html_e( 'WordPoints - Points Logs', 'wordpoints' ); ?></h2>
+	<h2><?php echo esc_html( $title ); ?></h2>
 	<p class="wordpoints-admin-panel-desc"><?php _e( 'View recent points transactions.', 'wordpoints' ); ?></p>
 
 	<?php
@@ -40,8 +46,14 @@
 
 			wordpoints_admin_show_tabs( $tabs, false );
 
+			if ( is_network_admin() ) {
+				$query = 'network';
+			} else {
+				$query = 'default';
+			}
+
 			// Get and display the logs based on current points type.
-			wordpoints_show_points_logs_query( wordpoints_admin_get_current_tab( $tabs ) );
+			wordpoints_show_points_logs_query( wordpoints_admin_get_current_tab( $tabs ), $query );
 		}
 
 		/**

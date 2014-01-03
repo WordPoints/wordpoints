@@ -382,6 +382,13 @@ function wordpoints_register_default_points_logs_queries() {
 	 * @since 1.0.0
 	 */
 	wordpoints_register_points_logs_query( 'current_user', array( 'user_id' => get_current_user_id() ) );
+
+	/**
+	 * Return all logs for the whole multisite network.
+	 *
+	 * @since 1.2.0
+	 */
+	wordpoints_register_points_logs_query( 'network', array( 'blog_id' => false ) );
 }
 add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_default_points_logs_queries' );
 

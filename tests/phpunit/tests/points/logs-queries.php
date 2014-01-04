@@ -13,6 +13,7 @@
  * @since 1.0.0
  *
  * @group points
+ * @group points_logs
  */
 class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
@@ -50,6 +51,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertTrue( wordpoints_is_points_logs_query( 'default' ) );
 		$this->assertTrue( wordpoints_is_points_logs_query( 'current_user' ) );
+		$this->assertTrue( wordpoints_is_points_logs_query( 'network' ) );
 	}
 
 	/**
@@ -353,6 +355,56 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
 
 		$this->assertEquals( 0, $query->count() );
+	}
+
+	/**
+	 * Test the blog_* query arg.
+	 *
+	 * @since 1.2.0
+	 */
+	public function test_blog_query_arg() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Tests are not using multisite.' );
+		}
+
+		$user_id = $this->factory->user->create();
+		$blog_id = $this->factory->blog->create();
+
+		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
+
+		switch_to_blog( $blog_id );
+
+		if ( ! is_wordpoints_network_active() ) {
+			wordpoints_add_points_type( array( 'name' => 'points' ) );
+		}
+
+		wordpoints_alter_points( $this->factory->user->create(), 20, 'points', 'test' );
+
+		restore_current_blog();
+
+		$query = new WordPoints_Points_Logs_Query();
+
+		$this->assertEquals( 1, $query->count() );
+		$this->assertEquals( 10, $query->get( 'row' )->points );
+
+		$query = new WordPoints_Points_Logs_Query( array( 'blog_id' => $blog_id ) );
+
+		$this->assertEquals( 1, $query->count() );
+		$this->assertEquals( 20, $query->get( 'row' )->points );
+
+		$query = new WordPoints_Points_Logs_Query( array( 'blog_id' => false ) );
+
+		$this->assertEquals( 2, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query( array( 'blog__in' => array( 1, $blog_id ) ) );
+
+		$this->assertEquals( 2, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query( array( 'blog__not_in' => array( 1 ) ) );
+
+		$this->assertEquals( 1, $query->count() );
+		$this->assertEquals( 20, $query->get( 'row' )->points );
 	}
 }
 

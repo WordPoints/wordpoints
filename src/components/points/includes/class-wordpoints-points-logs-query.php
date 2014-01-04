@@ -197,7 +197,7 @@ class WordPoints_Points_Logs_Query {
 	 *        }
 	 * }
 	 */
-	public function __construct( $args ) {
+	public function __construct( $args = array() ) {
 
 		global $wpdb;
 
@@ -583,12 +583,15 @@ class WordPoints_Points_Logs_Query {
 				$this->_wheres[] = $wpdb->prepare( '`site_id` = %d', $this->_args['site_id'] );
 			}
 
-			if ( wordpoints_posint( $this->_args['blog_id'] ) ) {
+			if ( ! empty( $this->_args['blog__in'] ) || ! empty( $this->_args['blog__not_in'] ) ) {
+
+				$this->_prepare_posint__in( $this->_args['blog__in'], 'blog_id' );
+				$this->_prepare_posint__in( $this->_args['blog__not_in'], 'blog_id', 'NOT IN' );
+
+			} elseif ( wordpoints_posint( $this->_args['blog_id'] ) ) {
+
 				$this->_wheres[] = $wpdb->prepare( '`blog_id` = %d', $this->_args['blog_id'] );
 			}
-
-			$this->_prepare_posint__in( $this->_args['blog__in'], 'blog_id' );
-			$this->_prepare_posint__in( $this->_args['blog__not_in'], 'blog_id', 'NOT IN' );
 		}
 
 		if ( ! empty( $this->_args['date_query'] ) && is_array( $this->_args['date_query'] ) ) {

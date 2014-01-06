@@ -93,7 +93,7 @@ function wordpoints_admin_menu() {
 		add_menu_page(
 			$wordpoints
 			,$wordpoints
-			,'manage_options'
+			,'activate_wordpoints_modules'
 			,'wordpoints_configure'
 			,'wordpoints_admin_screen_modules'
 		);
@@ -104,7 +104,7 @@ function wordpoints_admin_menu() {
 			,__( 'Modules', 'wordpoints' )
 			,'activate_wordpoints_modules'
 			,'wordpoints_configure'
-			,'wordpoints_display_admin_screen'
+			,'wordpoints_admin_screen_modules'
 		);
 	}
 }

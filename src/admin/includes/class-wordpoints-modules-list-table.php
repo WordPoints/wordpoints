@@ -510,7 +510,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					$actions['activate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'activate', $url ), "activate-module_{$module_file}" ) . '" class="edit">' . __( 'Network Activate', 'wordpoints' ) . '</a>';
 				}
 
-				if ( current_user_can( 'delete_wordpoints_modules' ) && ! wordpoints_is_module_active( $module_file ) ) {
+				if ( current_user_can( 'delete_wordpoints_modules' ) && ! is_wordpoints_module_active( $module_file ) ) {
 					$actions['delete'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s, 'bulk-modules' ) . '" class="delete">' . __( 'Delete', 'wordpoints' ) . '</a>';
 				}
 			}

@@ -106,6 +106,18 @@ function wordpoints_admin_menu() {
 			,'wordpoints_configure'
 			,'wordpoints_admin_screen_modules'
 		);
+
+		add_submenu_page(
+			'_wordpoints_hidden'
+			,__( 'WordPoints - Modules', 'wordpoints' )
+			,null
+			,'activate_wordpoints_modules'
+			,'wordpoints_modules'
+			,'wordpoints_admin_screen_modules'
+		);
+
+		add_action( 'load-admin_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
+		add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_screen_modules_load' );
 	}
 }
 add_action( 'admin_menu', 'wordpoints_admin_menu' );

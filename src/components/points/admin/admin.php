@@ -27,9 +27,11 @@ include_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
  */
 function wordpoints_points_admin_menu() {
 
+	$wordpoints_menu = wordpoints_get_main_admin_menu();
+
 	// Hooks page.
 	add_submenu_page(
-		'wordpoints_configure'
+		$wordpoints_menu
 		,__( 'WordPoints - Points Hooks', 'wordpoints' )
 		,__( 'Points Hooks', 'wordpoints' )
 		,'manage_options'
@@ -39,7 +41,7 @@ function wordpoints_points_admin_menu() {
 
 	// Logs page.
 	add_submenu_page(
-		'wordpoints_configure'
+		$wordpoints_menu
 		,__( 'WordPoints - Points Logs', 'wordpoints' )
 		,__( 'Points Logs', 'wordpoints' )
 		,'manage_options'

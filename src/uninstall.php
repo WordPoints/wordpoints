@@ -66,6 +66,7 @@ foreach ( $components->get() as $component => $data ) {
 
 // Delete settings.
 delete_option( 'wordpoints_data' );
+delete_site_option( 'wordpoints_data' );
 delete_option( 'wordpoints_active_modules' );
 delete_option( 'wordpoints_active_components' );
 delete_site_option( 'wordpoints_active_components' );

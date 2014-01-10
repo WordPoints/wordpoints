@@ -55,7 +55,7 @@
 function wordpoints_activate() {
 
 	// Get the plugin version and other data from the database.
-	$wordpoints_data = get_option( 'wordpoints_data' );
+	$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
 
 	if ( ! $wordpoints_data ) {
 

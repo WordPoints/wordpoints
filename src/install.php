@@ -8,7 +8,7 @@
  */
 
 // Add plugin data.
-add_option(
+wordpoints_add_network_option(
 	'wordpoints_data',
 	array(
 		'version'    => WORDPOINTS_VERSION,

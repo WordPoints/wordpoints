@@ -72,7 +72,7 @@ add_action( 'wordpoints_components_register', 'wordpoints_points_component_regis
  */
 function wordpoints_points_component_activate() {
 
-	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
+	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
 
 	if ( ! isset( $wordpoints_data['components']['points']['version'] ) ) {
 
@@ -97,7 +97,7 @@ add_action( 'wordpoints_component_activate-points', 'wordpoints_points_component
  */
 function wordpoints_points_component_uninstall() {
 
-	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
+	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
 
 	if ( isset( $wordpoints_data['components']['points']['version'] ) ) {
 

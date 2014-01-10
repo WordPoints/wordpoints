@@ -73,7 +73,7 @@ class WordPoints_Uninstall_Test extends WordPoints_Uninstall_UnitTestCase {
 
 		$this->install();
 
-		$wordpoints_data = get_option( 'wordpoints_data' );
+		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
 
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'version', $wordpoints_data );

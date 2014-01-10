@@ -71,6 +71,6 @@ if ( ! wordpoints_db_table_exists( $wpdb->wordpoints_points_log_meta ) ) {
 
 $wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;
 
-update_option( 'wordpoints_data', $wordpoints_data );
+wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
 
 // end of file /components/points/install.php

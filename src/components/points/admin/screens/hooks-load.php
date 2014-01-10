@@ -49,7 +49,7 @@ if ( 'on' == $accessibility_mode ) {
 
 } else {
 
-	wp_enqueue_style( 'wordpoints-jquery-ui-dialog', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' );
+	wp_enqueue_style( 'wp-jquery-ui-dialog' );
 
 	wp_enqueue_script( 'jquery-ui-droppable' );
 	wp_enqueue_script( 'jquery-ui-sortable' );

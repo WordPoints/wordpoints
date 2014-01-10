@@ -16,6 +16,7 @@
  * 7. Accessibility mode
  * 8. Points type chooser
  * 9. Wide screen
+ * 10. Delete points dialog
  */
 
 /*
@@ -690,4 +691,22 @@ div#hooks-right .closed .hooks-sortables {
 		width: 100%;
 		margin: 0;
 	}
+}
+
+/*
+ * 10. Delete points dialog.
+ */
+
+.wordpoints-delete-type-dialog .ui-dialog-content {
+    padding: 0 10px;
+}
+
+.wordpoints-delete-type-dialog .button-primary {
+    float: right;
+}
+
+.wordpoints-delete-type-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: none;
+    width: 100%;
+    padding: 0 5px;
 }

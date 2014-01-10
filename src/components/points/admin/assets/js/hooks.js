@@ -45,6 +45,7 @@ WordPointsHooks = {
 				event.preventDefault();
 
 				$( '<div title="' + WordPointsHooksL10n.confirmTitle + '"><p>' + WordPointsHooksL10n.confirmDelete + '</p></div>' ).dialog({
+					dialogClass: 'wp-dialog wordpoints-delete-type-dialog',
 					resizable: false,
 					draggable: false,
 					height: 250,
@@ -52,6 +53,7 @@ WordPointsHooks = {
 					buttons: [
 						{
 							text: WordPointsHooksL10n.deleteText,
+							class: 'button-primary',
 							click: function() {
 								$( this ).dialog( 'close' );
 								$currentDelete.click();
@@ -60,6 +62,7 @@ WordPointsHooks = {
 						},
 						{
 							text: WordPointsHooksL10n.cancelText,
+							class: 'button-secondary',
 							click: function() {
 								$( this ).dialog( 'close' );
 								$currentDelete = false;

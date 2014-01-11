@@ -43,11 +43,44 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 		$user_id = $this->factory->user->create();
 		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
 
+		// Check that points were aded when the post was created.
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
 
+		// Check that the points were removed when the post was deleted.
 		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Make sure points aren't deleted when auto-drafts are deleted.
+		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
+
+		$post_id = $this->factory->post->create(
+			array(
+				'post_author' => $user_id,
+				'post_status' => 'auto-draft',
+			)
+		);
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+
+		/*
+		 * If an auto-draft is moved to the trash, it gets the 'trash' status, so
+		 * in that case just checking the post status is insufficient.
+		 *
+		 * See https://core.trac.wordpress.org/ticket/16116
+		 */
+		$post_id = $this->factory->post->create(
+			array(
+				'post_author' => $user_id,
+				'post_title' => __( 'Auto Draft', 'default' ),
+			)
+		);
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**

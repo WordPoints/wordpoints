@@ -235,6 +235,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 					$instance['post_type'] == 'ALL'
 					|| $instance['post_type'] == $post->post_type
 				)
+				&& $post->post_status !== 'auto-draft'
+				&& $post->post_title !== __( 'Auto Draft', 'default' )
 			) {
 
 				wordpoints_alter_points(

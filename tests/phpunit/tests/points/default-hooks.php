@@ -81,6 +81,20 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 		wp_delete_post( $post_id, true );
 
 		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test the non-public post types like revisions are ignored.
+		$post_id = $this->factory->post->create(
+			array(
+				'post_author' => $user_id,
+				'post_type'   => 'revision',
+			)
+		);
+
+		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**

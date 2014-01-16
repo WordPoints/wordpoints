@@ -22,6 +22,24 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
 /**
+ * The WordPoints version.
+ *
+ * @since 1.2.0
+ *
+ * @const WORDPOINTS_TESTS_VERSION
+ */
+define( 'WORDPOINTS_TESTS_VERSION', '1.2.0-alpha' );
+
+/**
+ * The WP plugin uninstall testing bootstrap.
+ *
+ * We need this so we can check if the uninstall tests are being run.
+ *
+ * @since 1.2.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/uninstall/includes/functions.php';
+
+/**
  * The WordPress tests functions.
  *
  * Clearly, WP_TESTS_DIR should be the path to the WordPress PHPUnit tests checkout.
@@ -43,7 +61,19 @@ require_once getenv( 'WP_TESTS_DIR' ) . 'includes/functions.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/functions.php';
 
-tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
+// If we aren't running the uninstall tests, we need to hook in to load the plugin.
+if ( ! running_wp_plugin_uninstall_tests() ) {
+	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
+}
+
+/**
+ * Checks which groups we are running, and gives helpful messages.
+ *
+ * @since 1.0.1
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-phpunit-util-getopt.php';
+
+new WordPoints_PHPUnit_Util_Getopt( $_SERVER['argv'] );
 
 /**
  * Sets up the WordPress test environment.
@@ -56,13 +86,11 @@ tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
 
 /**
- * Checks which groups we are running, and gives helpful messages.
+ * The bootstrap for the uninstall tests.
  *
- * @since 1.0.1
+ * @since 1.2.0
  */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-phpunit-textui-command.php';
-
-new WordPoints_PHPUnit_TextUI_Command( $_SERVER['argv'] );
+require WORDPOINTS_TESTS_DIR . '/includes/uninstall/bootstrap.php';
 
 /**
  * The WordPoints_Points_UnitTestCase class.

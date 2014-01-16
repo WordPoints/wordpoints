@@ -8,14 +8,27 @@
  */
 
 /**
- * A child class of the PHP test runner.
+ * Check the group long option to see if we are running special groups.
  *
  * Not actually used as a runner. Rather, used to access the protected
  * longOptions property, to parse the arguments passed to the script.
  *
  * @since 1.0.1
+ * @since 1.2.0 No longer extends the PHPUnit_TextUI_Command class.
  */
-class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
+class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
+
+	/**
+	 * The long options we are interested in.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type string[] $longOptions
+	 */
+	protected $longOptions = array(
+	  'exclude-group=',
+	  'group=',
+	);
 
 	/**
 	 * Parse the arguments and give messages about excluded groups.
@@ -24,33 +37,43 @@ class WordPoints_PHPUnit_TextUI_Command extends PHPUnit_TextUI_Command {
 	 */
 	function __construct( $argv ) {
 
-		$options = PHPUnit_Util_Getopt::getopt(
-			$argv
-			,'d:c:hv'
-			,array_keys( $this->longOptions )
-		);
+		array_shift( $argv );
 
-		$uninstall_message = $ui_message = true;
+		$options = array();
 
-		foreach ( $options[0] as $option ) {
+		while ( list( $i, $arg ) = each( $argv ) ) {
 
-			switch ( $option[0] ) {
+			try {
 
-				case '--exclude-group' :
-					$uninstall_message = $ui_message = false;
-				continue 2;
+				if ( strlen( $arg ) > 1 && $arg[0] === '-' && $arg[1] === '-' ) {
+					PHPUnit_Util_Getopt::parseLongOption( substr( $arg, 2 ), $this->longOptions, $options, $argv );
+				}
 
-				case '--group' :
-					$groups = explode( ',', $option[1] );
+			} catch ( PHPUnit_Framework_Exception $e ) {
 
-					$uninstall_message = ! in_array( 'uninstall', $groups );
-					$ui_message        = ! in_array( 'ui', $groups );
-				continue 2;
+				// Right now we don't really care what the arguments are like.
+				continue;
 			}
 		}
 
-		if ( $uninstall_message ) {
-			echo 'Not running WordPoints install/uninstall tests... To execute these, use --group uninstall.' . PHP_EOL;
+		$ui_message = true;
+
+		if ( ! empty( $options[0] ) ) {
+			foreach ( $options[0] as $option ) {
+
+				switch ( $option[0] ) {
+
+					case '--exclude-group' :
+						$ui_message = false;
+					continue 2;
+
+					case '--group' :
+						$groups = explode( ',', $option[1] );
+
+						$ui_message        = ! in_array( 'ui', $groups );
+					continue 2;
+				}
+			}
 		}
 
 		if ( $ui_message ) {

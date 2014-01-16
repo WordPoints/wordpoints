@@ -14,7 +14,54 @@
  *
  * @group uninstall
  */
-class WordPoints_Uninstall_Test extends WordPoints_Uninstall_UnitTestCase {
+class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
+
+	//
+	// Protechted properties.
+	//
+
+	/**
+	 * The full path to the main plugin file.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type string $plugin_file
+	 */
+	protected $plugin_file;
+
+	/**
+	 * The plugin's install function.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type callable $install_function
+	 */
+	protected $install_function = 'wordpoints_activate';
+
+	/**
+	 * Whether the tests are being run with the plugin network-activated.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type bool $network_wide
+	 */
+	protected $network_wide = false;
+
+	//
+	// Public methods.
+	//
+
+	/**
+	 * Set up for the tests.
+	 *
+	 * @since 1.2.0
+	 */
+	public function setUp() {
+
+		$this->plugin_file = dirname( dirname( WORDPOINTS_TESTS_DIR ) ) . '/src/wordpoints.php';
+
+		parent::setUp();
+	}
 
 	/**
 	 * Test installation and uninstallation.
@@ -26,31 +73,42 @@ class WordPoints_Uninstall_Test extends WordPoints_Uninstall_UnitTestCase {
 		global $wpdb;
 
 		/*
-		 * We're going to do some actions here so that we are really testing whether
-		 * everything is properly deleted on uninstall. Uninstalling a fresh install
-		 * is important, but cleaning up the little things is also important. Doing
-		 * this little dance here helps us to make sure we're doing that.
+		 * Install.
 		 */
 
-		// Add each of our widgets.
-		wordpointstests_add_widget( 'wordpoints_points_widget' );
-		wordpointstests_add_widget( 'wordpoints_top_users_widget' );
-		wordpointstests_add_widget( 'wordpoints_points_logs_widget' );
+		// Check the the basic plugin data option was added.
+		if ( $this->network_wide ) {
+			$wordpoints_data = get_site_option( 'wordpoints_data' );
+		} else {
+			$wordpoints_data = get_option( 'wordpoints_data' );
+		}
 
-		// Create a points type.
-		wordpoints_add_points_type(
-			array(
-				'name'   => 'Points',
-				'prefix' => '$',
-				'suffix' => 'pts.',
-			)
-		);
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'version', $wordpoints_data );
+		$this->assertEquals( WORDPOINTS_TESTS_VERSION, $wordpoints_data['version'] );
 
-		// Add each of our points hooks.
-		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_periodic_points_hook' );
+		// Check that the points component is active.
+		if ( $this->network_wide ) {
+			$active_components = get_site_option( 'wordpoints_active_components' );
+		} else {
+			$active_components = get_option( 'wordpoints_active_components' );
+		}
+
+		$this->assertInternalType( 'array', $active_components );
+		$this->assertArrayHasKey( 'points', $active_components );
+
+		// Check that the points tables were added.
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_logs' );
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_log_meta' );
+
+		/**
+		 * Run install tests.
+		 *
+		 * @since 1.0.1
+		 *
+		 * @param WordPoints_Uninstall_Test $testcase The current instance.
+		 */
+		do_action( 'wordpoints_install_tests', $this );
 
 		/*
 		 * Uninstall.
@@ -67,31 +125,6 @@ class WordPoints_Uninstall_Test extends WordPoints_Uninstall_UnitTestCase {
 
 		$this->assertNoOptionsWithPrefix( 'widget_wordpoints' );
 
-		/*
-		 * Install.
-		 */
-
-		$this->install();
-
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
-
-		$this->assertInternalType( 'array', $wordpoints_data );
-		$this->assertArrayHasKey( 'version', $wordpoints_data );
-		$this->assertEquals( WORDPOINTS_VERSION, $wordpoints_data['version'] );
-
-		$this->assertTableExists( $wpdb->wordpoints_points_logs );
-		$this->assertTableExists( $wpdb->wordpoints_points_log_meta );
-
-		$this->assertArrayHasKey( 'points', WordPoints_Components::instance()->get_active() );
-
-		/**
-		 * Run install tests.
-		 *
-		 * @since 1.0.1
-		 *
-		 * @param WordPoints_Uninstall_Test $testcase The current instance.
-		 */
-		do_action( 'wordpoints_install_tests', $this );
 	}
 }
 

@@ -99,11 +99,4 @@ require WORDPOINTS_TESTS_DIR . '/includes/uninstall/bootstrap.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-unittestcase.php';
 
-/**
- * The uninstall test class and helpers.
- *
- * @since 1.0.0
- */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-uninstall-unittestcase.php';
-
 // end of file /tests/phpunit/includes/bootstrap.php

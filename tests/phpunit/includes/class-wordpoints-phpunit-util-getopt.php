@@ -26,8 +26,8 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 	 * @type string[] $longOptions
 	 */
 	protected $longOptions = array(
-	  'exclude-group=',
-	  'group=',
+		'exclude-group=',
+		'group=',
 	);
 
 	/**

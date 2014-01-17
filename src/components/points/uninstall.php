@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Dependencies for the uninstall process.
+require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
+
 global $wpdb;
 
 $wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_logs . '`' );

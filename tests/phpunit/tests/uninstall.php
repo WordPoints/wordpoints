@@ -17,7 +17,7 @@
 class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 	//
-	// Protechted properties.
+	// Protected properties.
 	//
 
 	/**
@@ -59,6 +59,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 	public function setUp() {
 
 		$this->plugin_file = dirname( dirname( WORDPOINTS_TESTS_DIR ) ) . '/src/wordpoints.php';
+		$this->simulation_file = WORDPOINTS_TESTS_DIR . '/includes/usage-simulator.php';
 
 		parent::setUp();
 	}

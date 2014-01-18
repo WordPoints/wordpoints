@@ -45,6 +45,15 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	 */
 	protected $uninstall_function;
 
+	/**
+	 * Full path to a file to simulate plugin usage.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @type string $simulation_file
+	 */
+	protected $simulation_file;
+
 	//
 	// Methods.
 	//
@@ -121,6 +130,27 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Simulate the usage of the plugin, by including a simulation file remotely.
+	 *
+	 * Called by uninstall() to simulate the usage of the plugin. This is useful to
+	 * help make sure that the plugin really uninstalls itself completely, by undoing
+	 * everything that might be done while it is active, not just reversing the un-
+	 * install routine (though in some cases that may be all that is necessary).
+	 *
+	 * @since 0.1.0
+	 */
+	public function simulate_usage() {
+
+		system(
+			WP_PHP_BINARY
+			. ' ' . escapeshellarg( dirname( dirname( __FILE__ ) ) . '/bin/simulate-plugin-use.php' )
+			. ' ' . escapeshellarg( $this->plugin_file )
+			. ' ' . escapeshellarg( $this->simulation_file )
+			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
+		);
+	}
+
+	/**
 	 * Run the plugin's uninstall script.
 	 *
 	 * Call it and then run your uninstall assertions. You should always test
@@ -129,6 +159,16 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	 * @since 0.1.0
 	 */
 	public function uninstall() {
+
+		// If the plugin has a usage simulation file, run it remotely.
+		if ( ! empty( $this->simulation_file ) ) {
+
+			global $wpdb;
+
+			$wpdb->query( 'ROLLBACK' );
+			$this->simulate_usage();
+			$this->start_transaction();
+		}
 
 		// We're going to do real table dropping, not temporary tables.
 		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
@@ -158,6 +198,8 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 		}
 
 		add_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+
+		$this->flush_cache();
 	}
 
 	/**

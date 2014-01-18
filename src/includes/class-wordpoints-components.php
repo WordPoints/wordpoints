@@ -108,18 +108,6 @@ final class WordPoints_Components {
 	 */
 	private function __clone() {}
 
-	/**
-	 * Reset the $active member var.
-	 *
-	 * This resets the array of active modules from the database when it is updated.
-	 *
-	 * @since 1.0.0
-	 */
-	private function _reset_active() {
-
-		$this->active = wordpoints_get_array_option( 'wordpoints_active_components', 'network' );
-	}
-
 	//
 	// Public Methods.
 	//
@@ -142,8 +130,6 @@ final class WordPoints_Components {
 		}
 
 		self::$instance = new WordPoints_Components();
-
-		self::$instance->_reset_active();
 
 		add_action( 'plugins_loaded', array( self::$instance, 'load' ) );
 	}
@@ -223,6 +209,7 @@ final class WordPoints_Components {
 	 */
 	public function get_active() {
 
+		$this->active = wordpoints_get_array_option( 'wordpoints_active_components', 'network' );
 		return $this->active;
 	}
 
@@ -339,8 +326,6 @@ final class WordPoints_Components {
 			$this->active[ $slug ] = 1;
 
 			if ( ! wordpoints_update_network_option( 'wordpoints_active_components', $this->active ) ) {
-
-				$this->_reset_active();
 				return false;
 			}
 
@@ -382,8 +367,6 @@ final class WordPoints_Components {
 			unset( $this->active[ $slug ] );
 
 			if ( ! wordpoints_update_network_option( 'wordpoints_active_components', $this->active ) ) {
-
-				$this->_reset_active();
 				return false;
 			}
 
@@ -412,7 +395,7 @@ final class WordPoints_Components {
 	 */
 	public function is_active( $slug ) {
 
-		$this->_reset_active();
+		$this->get_active();
 
 		$is_active = isset( $this->active[ $slug ] );
 

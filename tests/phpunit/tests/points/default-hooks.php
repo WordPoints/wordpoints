@@ -144,24 +144,31 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 	 */
 	function test_periodic_points_hook() {
 
-		wordpointstests_add_points_hook( 'wordpoints_periodic_points_hook', array( 'period' => DAY_IN_SECONDS, 'points' => 10 ) );
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_periodic_points_hook'
+			, array(
+				'period' => DAY_IN_SECONDS,
+				'points' => 10
+			)
+		);
+
+		if ( ! $hook ) {
+			$this->fail( 'Unable to create a periodic points hook.' );
+		}
 
 		$user_id = $this->factory->user->create();
-
 		wp_set_current_user( $user_id );
+
+		$hook->hook();
 		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
 
-		unset( $GLOBALS['current_user'] );
-
-		wp_set_current_user( $user_id );
+		$hook->hook();
 		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Time machine!
 		update_user_meta( $user_id, 'wordpoints_points_period_start', current_time( 'timestamp' ) - DAY_IN_SECONDS );
 
-		unset( $GLOBALS['current_user'] );
-
-		wp_set_current_user( $user_id );
+		$hook->hook();
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }

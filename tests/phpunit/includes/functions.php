@@ -102,9 +102,13 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
 
 	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
 
-	if ( $hook instanceof WordPoints_Points_Hook ) {
-		$hook->update_callback( $instance, 1 );
+	if ( ! $hook instanceof WordPoints_Points_Hook ) {
+		return false;
 	}
+
+	$hook->update_callback( $instance, 1 );
+
+	return $hook;
 }
 
 /**

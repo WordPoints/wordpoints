@@ -4,7 +4,7 @@
  * Plugin Name: WordPoints
  * Plugin URI: http://wordpoints.org/
  * Description: The ultimate points, ranks and achievements plugin for WordPress.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: J.D. Grimes
  * Author URI: http://codesymphony.co/
  * License: GPLv2
@@ -40,7 +40,7 @@
  *
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
- * @version 1.1.1
+ * @version 1.1.2
  * @license http://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
  * @copyright 2013 J.D. Grimes
  */
@@ -54,7 +54,7 @@
  *
  * @const WORDPOINTS_VERSION
  */
-define( 'WORDPOINTS_VERSION', '1.1.1' );
+define( 'WORDPOINTS_VERSION', '1.1.2' );
 
 /**
  * You are here.

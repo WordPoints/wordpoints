@@ -739,7 +739,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 		parent::init( _x( 'Periodic Points', 'points hook name', 'wordpoints' ), array( 'description' => __( 'Award a user points when they visit your site at least once in a given time period.', 'wordpoints' ) ) );
 
-		add_action( 'set_current_user', array( $this, 'hook' ) );
+		add_action( 'init', array( $this, 'hook' ) );
 
 		add_filter( 'wordpoints_points_log-periodic', array( $this, 'logs' ), 10, 6 );
 	}

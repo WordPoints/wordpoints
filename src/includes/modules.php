@@ -543,7 +543,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	if ( is_multisite() && ( $network_wide || is_network_only_wordpoints_module( $module ) ) ) {
 
 		$network_wide = true;
-		$current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
+		$current = array_keys( wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' ) );
 
 	} else {
 
@@ -938,8 +938,8 @@ function wordpoints_load_modules() {
 
 		$modules_dir = wordpoints_modules_dir();
 
-		if ( ! is_multisite() || ! is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
-			$active_modules = $active_modules + wordpoints_get_array_option( 'wordpoints_active_sitewide_modules', 'site' );
+		if ( is_multisite() && is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
+			$active_modules = array_merge( $active_modules, array_keys( wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' ) ) );
 		}
 
 		foreach ( $active_modules as $module ) {

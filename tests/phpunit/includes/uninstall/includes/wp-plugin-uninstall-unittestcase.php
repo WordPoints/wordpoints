@@ -48,11 +48,20 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	/**
 	 * Full path to a file to simulate plugin usage.
 	 *
-	 * @since 1.2.0
+	 * @since 0.1.0
 	 *
 	 * @type string $simulation_file
 	 */
 	protected $simulation_file;
+
+	/**
+	 * The ID of the blog created for multisite tests.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @type int $_blog_id
+	 */
+	protected $_blog_id;
 
 	//
 	// Methods.
@@ -85,13 +94,15 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	/**
 	 * Clean up after the tests.
 	 *
-	 * @since 1.2.0
+	 * @since 0.2.0
 	 */
 	public function tearDown() {
 
 		parent::tearDown();
 
-		wpmu_delete_blog( $this->_blog_id, true );
+		if ( is_multisite() ) {
+			wpmu_delete_blog( $this->_blog_id, true );
+		}
 	}
 
 	/**
@@ -146,7 +157,7 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 			. ' ' . escapeshellarg( $this->plugin_file )
 			. ' ' . escapeshellarg( $this->install_function )
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
-			. ' ' . is_multisite()
+			. ' ' . (int) is_multisite()
 		);
 	}
 
@@ -168,7 +179,7 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 			. ' ' . escapeshellarg( $this->plugin_file )
 			. ' ' . escapeshellarg( $this->simulation_file )
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
-			. ' ' . is_multisite()
+			. ' ' . (int) is_multisite()
 		);
 	}
 

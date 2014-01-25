@@ -1,10 +1,10 @@
 {
-	"bootstrap": "./tools/wp-l10n-validator/config.php",
-	"textdomain": "wordpoints",
+	"textdomain": { "wordpoints": true, "default": true },
 	"basedir": "./src",
 	"cache": "./tools/wp-l10n-validator/cache.json",
 	"ignores-cache": "./tools/wp-l10n-validator/ignores-cache.json",
 	"ignored-functions": {
+		"wordpoints_add_network_option": true,
 		"wordpoints_add_points": true,
 		"wordpoints_alter_points": true,
 		"wordpoints_debug_message": true,
@@ -28,6 +28,7 @@
 		"WordPoints_Points_Hook::_set": true,
 		"WordPoints_Points_Hook::get_field_id": true,
 		"WordPoints_Points_Hook::get_field_name": true,
+		"WordPoints_Points_Hook::get_instances": true,
 		"WordPoints_Points_Hook::the_field_id": true,
 		"WordPoints_Points_Hook::the_field_name": true,
 		"WordPoints_Points_Hooks::register": true,
@@ -48,7 +49,8 @@
 		"$this->get_field_id": true,
 		"$this->get_field_name": true,
 		"$this->the_field_id": true,
-		"$this->the_field_name": true
+		"$this->the_field_name": true,
+		"$wordpoints_components->activate": true
 	},
 	"ignored-strings": [
 		"-",

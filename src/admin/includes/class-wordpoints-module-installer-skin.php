@@ -89,8 +89,8 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 			}
 		}
 
-		$install_actions['modules_page'] = '<a href="' . self_admin_url( 'admin.php?page=wordpoints_modules' ) . '" target="_parent">' . __( 'Return to Modules page', 'wordpoints' ) . '</a>';
-		$install_actions['install_page'] = '<a href="' . self_admin_url( 'admin.php?page=wordpoints_install_modules' ) . '" target="_parent">' . __( 'Return to Module Installer', 'wordpoints' ) . '</a>';
+		$install_actions['modules_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . __( 'Return to Modules page', 'wordpoints' ) . '</a>';
+		$install_actions['install_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '" target="_parent">' . __( 'Return to Module Installer', 'wordpoints' ) . '</a>';
 
 		/**
 		 * The install module action links.

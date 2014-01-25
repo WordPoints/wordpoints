@@ -442,7 +442,7 @@ $screen->add_help_tab(
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
 			'<p>' . __( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
-			'<p>' . sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your <code>/wp-content/wordpoints-modules</code> directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '</p>'
+			'<p>' . sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your <code>/wp-content/wordpoints-modules</code> directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ) . '</p>'
 	)
 );
 

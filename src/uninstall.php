@@ -64,18 +64,47 @@ foreach ( $components->get() as $component => $data ) {
 	do_action( "wordpoints_uninstall_component-{$component}" );
 }
 
-// Delete settings.
-delete_option( 'wordpoints_data' );
-delete_site_option( 'wordpoints_data' );
-delete_option( 'wordpoints_active_modules' );
-delete_option( 'wordpoints_active_components' );
-delete_site_option( 'wordpoints_active_components' );
-delete_option( 'wordpoints_excluded_users' );
-delete_site_option( 'wordpoints_excluded_users' );
-delete_option( 'wordpoints_recently_activated_modules' );
-delete_site_option( 'wordpoints_sitewide_active_modules' );
+// Delete settings and clear the cache.
+if ( is_multisite() ) {
 
-// Clear cache.
-wp_cache_delete( 'wordpoints_modules' );
+	delete_site_option( 'wordpoints_data' );
+	delete_site_option( 'wordpoints_active_components' );
+	delete_site_option( 'wordpoints_excluded_users' );
+	delete_site_option( 'wordpoints_sitewide_active_modules' );
+
+	global $wpdb;
+
+	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+	$original_blog_id = get_current_blog_id();
+
+	foreach ( $blog_ids as $blog_id ) {
+
+		switch_to_blog( $blog_id );
+
+		delete_option( 'wordpoints_data' );
+		delete_option( 'wordpoints_active_modules' );
+		delete_option( 'wordpoints_active_components' );
+		delete_option( 'wordpoints_excluded_users' );
+		delete_option( 'wordpoints_recently_activated_modules' );
+
+		wp_cache_delete( 'wordpoints_modules' );
+	}
+
+	switch_to_blog( $original_blog_id );
+
+	// See http://wordpress.stackexchange.com/a/89114/27757
+	unset( $GLOBALS['_wp_switched_stack'] );
+
+} else {
+
+	delete_option( 'wordpoints_data' );
+	delete_option( 'wordpoints_active_modules' );
+	delete_option( 'wordpoints_active_components' );
+	delete_option( 'wordpoints_excluded_users' );
+	delete_option( 'wordpoints_recently_activated_modules' );
+
+	wp_cache_delete( 'wordpoints_modules' );
+}
 
 // end of file /uninstall.php

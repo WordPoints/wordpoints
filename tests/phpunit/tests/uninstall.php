@@ -120,13 +120,38 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->assertTableNotExists( $wpdb->wordpoints_points_logs );
 		$this->assertTableNotExists( $wpdb->wordpoints_points_log_meta );
 
-		$this->assertNoOptionsWithPrefix( 'wordpoints' );
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );
-		$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
 
-		$this->assertNoOptionsWithPrefix( 'widget_wordpoints' );
+		if ( is_multisite() ) {
 
-	}
+			global $wpdb;
+
+			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+			$original_blog_id = get_current_blog_id();
+
+			foreach ( $blog_ids as $blog_id ) {
+
+				switch_to_blog( $blog_id );
+
+				$this->assertNoOptionsWithPrefix( 'wordpoints' );
+				$this->assertNoOptionsWithPrefix( 'widget_wordpoints' );
+				$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
+			}
+
+			switch_to_blog( $original_blog_id );
+
+			// See http://wordpress.stackexchange.com/a/89114/27757
+			unset( $GLOBALS['_wp_switched_stack'] );
+
+		} else {
+
+			$this->assertNoOptionsWithPrefix( 'wordpoints' );
+			$this->assertNoOptionsWithPrefix( 'widget_wordpoints' );
+			$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
+		}
+
+	} // function test_uninstall()
 }
 
 // end of file /tests/phpunit/tests/uninstall.php

@@ -69,9 +69,29 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	 */
 	public function setUp() {
 
+		// Create another site on multisite.
+		if ( is_multisite() ) {
+
+			// $this->factory isn't available until after setup.
+			$factory = new WP_UnitTest_Factory;
+			$this->_blog_id = $factory->blog->create();
+		}
+
 		$this->install();
 
 		parent::setUp();
+	}
+
+	/**
+	 * Clean up after the tests.
+	 *
+	 * @since 1.2.0
+	 */
+	public function tearDown() {
+
+		parent::tearDown();
+
+		wpmu_delete_blog( $this->_blog_id, true );
 	}
 
 	/**
@@ -126,6 +146,7 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 			. ' ' . escapeshellarg( $this->plugin_file )
 			. ' ' . escapeshellarg( $this->install_function )
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
+			. ' ' . is_multisite()
 		);
 	}
 
@@ -147,6 +168,7 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 			. ' ' . escapeshellarg( $this->plugin_file )
 			. ' ' . escapeshellarg( $this->simulation_file )
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
+			. ' ' . is_multisite()
 		);
 	}
 

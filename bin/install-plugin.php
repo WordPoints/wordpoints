@@ -10,18 +10,9 @@
 $plugin_file      = $argv[1];
 $install_function = $argv[2];
 $config_file_path = $argv[3];
+$is_multisite     = $argv[4];
 
-require $config_file_path;
-
-unset( $config_file_path );
-
-$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
-$_SERVER['HTTP_HOST'] = WP_TESTS_DOMAIN;
-$PHP_SELF = $GLOBALS['PHP_SELF'] = $_SERVER['PHP_SELF'] = '/index.php';
-
-define( 'WP_USE_THEMES', false );
-
-require ABSPATH . '/wp-settings.php';
+require dirname( __FILE__ ) . '/bootstrap.php';
 
 require $plugin_file;
 

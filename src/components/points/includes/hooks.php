@@ -220,7 +220,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 * @since 1.1.0 The post_type is now passed as metadata when points are awarded.
-	 * @since 1.2.0 Points are only removed if the post type is public.
+	 * @since 1.1.2 Points are only removed if the post type is public.
 	 *
 	 * @action before_delete_post Added by the constructor.
 	 *

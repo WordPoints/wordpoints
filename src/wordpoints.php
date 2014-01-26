@@ -3,7 +3,7 @@
 /**
  * Plugin Name: WordPoints
  * Plugin URI: http://wordpoints.org/
- * Description: The ultimate points, ranks and achievements plugin for WordPress.
+ * Description: Create one or more points systems for your site, and reward user activity.
  * Version: 1.2.0-alpha
  * Author: J.D. Grimes
  * Author URI: http://codesymphony.co/

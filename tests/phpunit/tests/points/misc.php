@@ -116,4 +116,51 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => false ) );
 		$this->assertEquals( 0, $query->count() );
 	}
+
+	/**
+	 * Test that the logs and meta for a blog are deleted when the blog is deleted.
+	 *
+	 * @since 1.2.0
+	 */
+	public function test_logs_tables_cleaned_on_blog_deletion() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Blog deletion tests only apply on multisite.' );
+			return;
+		}
+
+		// Create a blog, and switch to it.
+		$blog_id = $this->factory->blog->create();
+
+		switch_to_blog( $blog_id );
+
+		// Now create a user and give them some points.
+		$user_id = $this->factory->user->create();
+
+		if ( ! is_wordpoints_network_active() ) {
+			wordpoints_add_points_type( array( 'name' => 'points' ) );
+		}
+
+		wordpoints_alter_points( $user_id, 10, 'points', 'test', array( 'test' => 10 ) );
+
+		// Make sure that was a success.
+		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
+		$this->assertEquals( 1, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
+		$this->assertEquals( 1, $query->count() );
+
+		// Back to Kansas.
+		restore_current_blog();
+
+		// Now delete the blog.
+		wpmu_delete_blog( $blog_id );
+
+		// Here is the real test. The logs for the blog should be gone.
+		$query = new WordPoints_Points_Logs_Query( array( 'blog_id' => $blog_id ) );
+		$this->assertEquals( 0, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
+		$this->assertEquals( 0, $query->count() );
+	}
 }

@@ -1170,4 +1170,42 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 }
 add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 
+/**
+ * Delete logs and meta for a blog when it is deleted.
+ *
+ * @since 1.2.0
+ *
+ * @action delete_blog
+ *
+ * @param int $blog_id The ID of the blog being deleted.
+ */
+function wordpoints_delete_points_logs_for_blog( $blog_id ) {
+
+	global $wpdb;
+
+	// Delete log meta.
+	$wpdb->query(
+		$wpdb->prepare(
+			"
+				DELETE
+				FROM {$wpdb->wordpoints_points_log_meta}
+				WHERE log_id IN(
+					SELECT id
+					FROM {$wpdb->wordpoints_points_logs}
+					WHERE blog_id = %d
+				)
+			"
+			,$blog_id
+		)
+	);
+
+	// Now delete the logs.
+	$wpdb->delete(
+		$wpdb->wordpoints_points_logs
+		,array( 'blog_id' => $blog_id )
+		,'%d'
+	);
+}
+add_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
+
 // end of file /components/points/includes/functions.php

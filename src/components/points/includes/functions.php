@@ -1115,4 +1115,59 @@ function wordpoints_points_types_dropdown( array $args ) {
 	$dropdown->display();
 }
 
+/**
+ * Delete points logs and meta when a user is deleted.
+ *
+ * @since 1.2.0
+ *
+ * @action deleted_user
+ *
+ * @param int $user_id The ID of the user just deleted.
+ */
+function wordpoints_delete_points_logs_for_user( $user_id ) {
+
+	global $wpdb;
+
+	$blog_only = '';
+
+	// If the user is only being deleted from a single blog on multisite.
+	if ( is_multisite() && get_userdata( $user_id ) ) {
+		$blog_only = 'AND blog_id = %d';
+	}
+
+	// Delete log meta.
+	$wpdb->query(
+		$wpdb->prepare(
+			"
+				DELETE
+				FROM {$wpdb->wordpoints_points_log_meta}
+				WHERE log_id IN(
+					SELECT id
+					FROM {$wpdb->wordpoints_points_logs}
+					WHERE user_id = %d
+						AND site_id = %d
+						{$blog_only}
+				)
+			"
+			,$user_id
+			,$wpdb->siteid
+			,$wpdb->blogid
+		)
+	);
+
+	$where = array( 'user_id' => $user_id );
+
+	if ( $blog_only != '' ) {
+		$where['blog_id'] = $wpdb->blogid;
+	}
+
+	// Now delete the logs.
+	$wpdb->delete(
+		$wpdb->wordpoints_points_logs
+		,$where
+		,'%d'
+	);
+}
+add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
+
 // end of file /components/points/includes/functions.php

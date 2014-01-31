@@ -8,7 +8,7 @@ A testcase class for testing plugin install and uninstall, with related tools.
 The purpose of this testcase is to allow you to make plugin uninstall testing as
 realistic as possible. WordPress uninstalls plugins when they aren't active, and
 these tools allow you simulate that. The installation is performed remotely, so the
-plugin is not loaded when the tests are run being run.
+plugin is not loaded when the tests are being run.
 
 I created these tools after finding that there was a fatal error in one of my
 plugin's uninstall scripts. Not that I didn't have unit tests for uninstallation. I

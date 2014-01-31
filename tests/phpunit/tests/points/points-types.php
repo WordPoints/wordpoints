@@ -160,6 +160,9 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_points_type_deleted() {
 
+		// Get the meta key now, becuase we can't after the points type is deleted.
+		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
+
 		$user_id = $this->factory->user->create();
 
 		wordpoints_add_points( $user_id, 10, 'points', 'test', array( 'a' => 1 ) );
@@ -169,7 +172,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertTrue( $was_deleted );
 		$this->assertFalse( wordpoints_is_points_type( 'points' ) );
-		$this->assertEquals( '', get_user_meta( $user_id, 'wordpoints_points-points', true ) );
+		$this->assertEquals( '', get_user_meta( $user_id, $meta_key, true ) );
 		$this->assertEquals( array(), WordPoints_Points_Hooks::get_points_type_hooks( 'points' ) );
 
 		global $wpdb;

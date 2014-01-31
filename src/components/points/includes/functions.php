@@ -190,6 +190,8 @@ function wordpoints_delete_points_type( $slug ) {
 		return false;
 	}
 
+	$meta_key = wordpoints_get_points_user_meta_key( $slug );
+
 	unset( $points_types[ $slug ] );
 
 	$result = wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
@@ -220,7 +222,7 @@ function wordpoints_delete_points_type( $slug ) {
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
 
 	// Delete all user points of this type.
-	delete_metadata( 'user', 0, "wordpoints_points-{$slug}", '', true );
+	delete_metadata( 'user', 0, $meta_key, '', true );
 
 	// Delete hooks associated with this points type.
 	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
@@ -230,6 +232,47 @@ function wordpoints_delete_points_type( $slug ) {
 	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
 	return true;
+}
+
+/**
+ * Get the meta key for a points type's user meta.
+ *
+ * The number of points a user has is stored in the user meta. This function was
+ * introduced to allow the meta_key for that value to be retrieved easily internally.
+ * The meta key is "wordpoints_points-{$type}" for single sites, and when network
+ * active on multisite. When not network-active on multisite, the key is prefixed
+ * with the blog's table prefix, to avoid collisions from different blogs.
+ *
+ * Note that because it uses is_wordpoints_network_active(), it can only be trusted
+ * when the plugin is actually active. It won't work when uninstalling, for example.
+ *
+ * Also be careful, because if the points type doesn't exist, false will be
+ * returned.
+ *
+ * @since 1.2.0
+ *
+ * @param string $points_type The slug of the points type to get the meta key for.
+ *
+ * @return string|bool The user meta meta_key for a points type, or false.
+ */
+function wordpoints_get_points_user_meta_key( $points_type ) {
+
+	if ( ! wordpoints_is_points_type( $points_type ) ) {
+		return false;
+	}
+
+	if ( ! is_multisite() || is_wordpoints_network_active() ) {
+
+		$meta_key = "wordpoints_points-{$points_type}";
+
+	} else {
+
+		global $wpdb;
+
+		$meta_key = $wpdb->get_blog_prefix() . "wordpoints_points-{$points_type}";
+	}
+
+	return $meta_key;
 }
 
 /**
@@ -250,7 +293,7 @@ function wordpoints_get_points( $user_id, $type ) {
 		return false;
 	}
 
-	$points = get_user_meta( $user_id, "wordpoints_points-{$type}", true );
+	$points = get_user_meta( $user_id, wordpoints_get_points_user_meta_key( $type ), true );
 
 	return (int) wordpoints_int( $points );
 }
@@ -548,9 +591,11 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 		$points = $minimum - $current_points;
 	}
 
-	if ( '' === get_user_meta( $user_id, "wordpoints_points-{$points_type}", true ) ) {
+	$meta_key = wordpoints_get_points_user_meta_key( $points_type );
 
-		$result = add_user_meta( $user_id, "wordpoints_points-{$points_type}", $points, true );
+	if ( '' === get_user_meta( $user_id, $meta_key, true ) ) {
+
+		$result = add_user_meta( $user_id, $meta_key, $points, true );
 
 	} else {
 
@@ -564,7 +609,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 				",
 				$points,
 				$minimum,
-				"wordpoints_points-{$points_type}",
+				$meta_key,
 				$user_id
 			)
 		);
@@ -985,7 +1030,7 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 				ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
 				LIMIT 0,%d
 			",
-			"wordpoints_points-{$points_type}",
+			wordpoints_get_points_user_meta_key( $points_type ),
 			$num_users
 		)
 	);

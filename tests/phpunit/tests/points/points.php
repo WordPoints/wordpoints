@@ -78,7 +78,7 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_returns_points() {
 
-		update_user_meta( $this->user_id, 'wordpoints_points-points', 23 );
+		update_user_meta( $this->user_id, wordpoints_get_points_user_meta_key( 'points' ), 23 );
 
 		$this->assertEquals( 23, wordpoints_get_points( $this->user_id, 'points' ) );
 	}
@@ -217,6 +217,54 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	public function test_subtract_wont_add() {
 
 		$this->assertFalse( wordpoints_subtract_points( $this->user_id, -5, 'points', 'test' ) );
+	}
+
+	//
+	// Multisite.
+	//
+
+	/**
+	 * Test that multisite behavior is correct.
+	 *
+	 * @since 1.2.0
+	 */
+	public function test_multisite_behaviour() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite must be enabled for these tests.' );
+			return;
+		}
+
+		// Add some points to the user.
+		wordpoints_add_points( $this->user_id, 10, 'points', 'test' );
+
+		$this->assertEquals( 10, wordpoints_get_points( $this->user_id, 'points' ) );
+
+		// Now create another blog and add some points there.
+		$blog_id = $this->factory->blog->create();
+
+		switch_to_blog( $blog_id );
+
+		if ( ! is_wordpoints_network_active() ) {
+			wordpoints_add_points_type( array( 'name' => 'points' ) );
+		}
+
+		wordpoints_add_points( $this->user_id, 10, 'points', 'test' );
+
+		// Check that the points are separate or universal, based on plugin status.
+		if ( is_wordpoints_network_active() ) {
+			$this->assertEquals( 20, wordpoints_get_points( $this->user_id, 'points' ) );
+		} else {
+			$this->assertEquals( 10, wordpoints_get_points( $this->user_id, 'points' ) );
+		}
+
+		restore_current_blog();
+
+		if ( is_wordpoints_network_active() ) {
+			$this->assertEquals( 20, wordpoints_get_points( $this->user_id, 'points' ) );
+		} else {
+			$this->assertEquals( 10, wordpoints_get_points( $this->user_id, 'points' ) );
+		}
 	}
 }
 

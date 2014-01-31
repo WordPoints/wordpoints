@@ -13,7 +13,6 @@
  * @since 1.2.0
  *
  * @group points
- * @group dev
  */
 class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
@@ -162,5 +161,25 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 0, $query->count() );
+	}
+
+	/**
+	 * Test that the correct key is returned for user points metadata.
+	 *
+	 * @since 1.2.0
+	 */
+	public function test_wordpoints_get_points_user_meta_key() {
+
+		global $wpdb;
+
+		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
+
+		if ( ! is_multisite() ) {
+			$this->assertEquals( 'wordpoints_points-points', $meta_key );
+		} elseif ( is_wordpoints_network_active() ) {
+			$this->assertEquals( 'wordpoints_points-points', $meta_key );
+		} else {
+			$this->assertEquals( $wpdb->get_blog_prefix() . 'wordpoints_points-points', $meta_key );
+		}
 	}
 }

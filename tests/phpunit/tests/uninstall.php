@@ -73,6 +73,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		// We've just deleted the tables, so this will have a DB error.
 		remove_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
+
+		parent::tearDown();
 	}
 
 	/**

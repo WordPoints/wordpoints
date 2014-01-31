@@ -193,18 +193,18 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	 */
 	public function uninstall() {
 
+		global $wpdb;
+
+		$wpdb->query( 'ROLLBACK' );
+
 		// If the plugin has a usage simulation file, run it remotely.
 		if ( ! empty( $this->simulation_file ) ) {
 
-			global $wpdb;
-
-			$wpdb->query( 'ROLLBACK' );
 			$this->simulate_usage();
-			$this->start_transaction();
 		}
 
 		// We're going to do real table dropping, not temporary tables.
-		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_table' ) );
 
 		if ( empty( $this->plugin_file ) ) {
 			exit( 'Error: $plugin_file property not set.' . PHP_EOL );
@@ -230,7 +230,7 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 			exit( 'Error: $uninstall_function property not set.' . PHP_EOL );
 		}
 
-		add_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+		add_filter( 'query', array( $this, '_drop_temporary_table' ) );
 
 		$this->flush_cache();
 	}

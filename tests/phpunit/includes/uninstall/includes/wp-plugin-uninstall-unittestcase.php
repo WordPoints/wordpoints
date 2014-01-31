@@ -204,7 +204,14 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 		}
 
 		// We're going to do real table dropping, not temporary tables.
-		remove_filter( 'query', array( $this, '_drop_temporary_table' ) );
+		$drop_temp_tables = array( $this, '_drop_temporary_table' );
+
+		// Back compat. See https://core.trac.wordpress.org/ticket/24800.
+		if ( method_exists( $this, '_drop_temporary_tables' ) ) {
+			$drop_temp_tables = array( $this, '_drop_temporary_tables' );
+		}
+
+		remove_filter( 'query', $drop_temp_tables );
 
 		if ( empty( $this->plugin_file ) ) {
 			exit( 'Error: $plugin_file property not set.' . PHP_EOL );
@@ -229,8 +236,6 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 
 			exit( 'Error: $uninstall_function property not set.' . PHP_EOL );
 		}
-
-		add_filter( 'query', array( $this, '_drop_temporary_table' ) );
 
 		$this->flush_cache();
 	}

@@ -778,7 +778,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 			return;
 		}
 
-		$last_visit = get_user_meta( $user_id, 'wordpoints_points_period_start', true );
+		$last_visit = get_user_option( 'wordpoints_points_period_start', $user_id );
 
 		if ( ! is_array( $last_visit ) ) {
 			$last_visit = array();
@@ -806,7 +806,9 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 		if ( $awarded_points ) {
 
-			update_user_meta( $user_id, 'wordpoints_points_period_start', $last_visit );
+			$global = ( ! is_multisite() || is_wordpoints_network_active() );
+
+			update_user_option( $user_id, 'wordpoints_points_period_start', $last_visit, $global );
 		}
 	}
 

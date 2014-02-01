@@ -166,7 +166,8 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Time machine!
-		update_user_meta( $user_id, 'wordpoints_points_period_start', current_time( 'timestamp' ) - DAY_IN_SECONDS );
+		$global = ( ! is_multisite() || is_wordpoints_network_active() );
+		update_user_option( $user_id, 'wordpoints_points_period_start', current_time( 'timestamp' ) - DAY_IN_SECONDS, $global );
 
 		$hook->hook();
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );

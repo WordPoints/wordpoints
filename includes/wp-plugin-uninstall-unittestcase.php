@@ -305,6 +305,28 @@ abstract class WP_Plugin_Uninstall_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Asserts that no user options with a given prefix exist.
+	 *
+	 * User options are usermeta, prefixed with the current blog's prefix. They are
+	 * mainly used in multisite, or multisite compatible plugins.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param string $prefix  The prefix to check for.
+	 * @param string $message An optional message.
+	 *
+	 * @throws PHPUnit_Framework_AssertionFailedError
+	 */
+	public static function assertNoUserOptionsWithPrefix( $prefix, $message = '' ) {
+
+		global $wpdb;
+
+		$prefix = $wpdb->get_blog_prefix() . $prefix;
+
+		self::assertThat( $prefix, self::tableColumnHasNoRowsWithPrefix( $wpdb->usermeta, 'meta_key', $prefix ), $message );
+	}
+
+	/**
 	 * Asserts that no postmeta with a given prefix exists.
 	 *
 	 * @since 0.1.0

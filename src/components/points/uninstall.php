@@ -48,7 +48,10 @@ if ( is_multisite() ) {
 		foreach ( $points_types as $slug => $settings ) {
 
 			delete_metadata( 'comment', 0, "wordpoints_last_status-{$slug}", '', true );
-			delete_metadata( 'user', 0, $wpdb->get_blog_prefix() . "wordpoints_points-{$slug}", '', true );
+
+			$prefix = $wpdb->get_blog_prefix();
+			delete_metadata( 'user', 0, $prefix . "wordpoints_points-{$slug}", '', true );
+			delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
 		}
 
 		delete_option( 'wordpoints_points_types' );

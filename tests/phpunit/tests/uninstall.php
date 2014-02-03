@@ -147,6 +147,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 				switch_to_blog( $blog_id );
 
+				$this->assertNoUserOptionsWithPrefix( 'wordpoints' );
 				$this->assertNoOptionsWithPrefix( 'wordpoints' );
 				$this->assertNoOptionsWithPrefix( 'widget_wordpoints' );
 				$this->assertNoCommentMetaWithPrefix( 'wordpoints' );

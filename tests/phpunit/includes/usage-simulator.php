@@ -40,6 +40,11 @@ function wordpointstests_simulate_usage() {
 	wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
 	wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 	wordpointstests_add_points_hook( 'wordpoints_periodic_points_hook' );
+
+	// Award some points to a user.
+	$user = get_user_by( 'login', 'admin' );
+
+	wordpoints_add_points( $user->ID, 10, 'points', 'test', array( 'a' => 'a', 'b' => 'b' ) );
 }
 
 // Include the test functions so we can simulate adding points hooks and widgets.

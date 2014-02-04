@@ -27,6 +27,17 @@ function wordpointstests_manually_load_plugin() {
 	require WORDPOINTS_TESTS_DIR . '/../../src/wordpoints.php';
 
 	wordpoints_activate();
+
+	if ( is_multisite() && getenv( 'WORDPOINTS_NETWORK_ACTIVE' ) ) {
+
+		$plugins = get_site_option( 'active_sitewide_plugins' );
+
+		$wordpoints = plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' );
+
+		$plugins[ $wordpoints ] = time();
+
+		update_site_option( 'active_sitewide_plugins', $plugins );
+	}
 }
 
 /**

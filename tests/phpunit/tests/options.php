@@ -44,9 +44,6 @@ class WordPoints_Option_Test extends WP_UnitTestCase {
 		add_site_option( 'wordpoints_test', array( 'site_option' ) );
 
 		$option = wordpoints_get_network_option( 'wordpoints_test' );
-		$array_option = wordpoints_get_array_option( 'wordpoints_test' );
-
-		$this->assertEquals( $option, $array_option );
 
 		if ( is_wordpoints_network_active() ) {
 			$this->assertEquals( array( 'site_option' ), $option );

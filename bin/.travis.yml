@@ -12,8 +12,10 @@ node_js:
 env:
     - WP_VERSION=master WP_MULTISITE=0
     - WP_VERSION=master WP_MULTISITE=1
+    - WP_VERSION=master WP_MULTISITE=1 WORDPOINTS_NETWORK_ACTIVE=1
     - WP_VERSION=latest WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=1
+    - WP_VERSION=latest WP_MULTISITE=1 WORDPOINTS_NETWORK_ACTIVE=1
 
 before_script:
     - export WP_TESTS_DIR=/tmp/wordpress-tests/

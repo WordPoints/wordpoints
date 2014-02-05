@@ -160,7 +160,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 
 		// Make sure that the two logs were added.
-		$query = new WordPoints_Points_Logs_Query( array() );
+		$query = new WordPoints_Points_Logs_Query;
 
 		$logs = $query->get();
 

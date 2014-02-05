@@ -147,6 +147,43 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
+	 * Test the 'id_*' query args.
+	 *
+	 * @since 1.2.0
+	 */
+	function test_id_query_args() {
+
+		// Create a user and add some points to generate some logs.
+		$user_id = $this->factory->user->create();
+
+		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
+		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
+
+		// Make sure that the two logs were added.
+		$query = new WordPoints_Points_Logs_Query( array() );
+
+		$logs = $query->get();
+
+		$this->assertEquals( 2, count( $logs ) );
+
+		// Try the 'id__in' query arg.
+		$query_2 = new WordPoints_Points_Logs_Query( array( 'id__in' => array( $logs[0]->id ) ) );
+
+		$logs_2 = $query_2->get();
+
+		$this->assertEquals( 1, count( $logs_2 ) );
+		$this->assertEquals( $logs[0]->id, $logs_2[0]->id );
+
+		// Try the 'id__not_in' query arg.
+		$query_3 = new WordPoints_Points_Logs_Query( array( 'id__not_in' => array( $logs[0]->id ) ) );
+
+		$logs_3 = $query_3->get();
+
+		$this->assertEquals( 1, count( $logs_3 ) );
+		$this->assertEquals( $logs[1]->id, $logs_3[0]->id );
+	}
+
+	/**
 	 * Test the 'user_*' query args.
 	 *
 	 * @since 1.0.0

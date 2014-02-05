@@ -151,6 +151,7 @@ class WordPoints_Points_Logs_Query {
 	 * @since 1.0.0
 	 * @since 1.1.0 Introduce 'date_query' argument and support for WP_Date_Query.
 	 * @since 1.1.0 Support for WP_Meta_Query. Old meta arguments were deprecated.
+	 * @since 1.2.0 Introduce 'id__in' and 'id__not_in' for log IDs.
 	 *
 	 * @see WP_Date_Query for the proper arguments for $args['date_query'].
 	 * @see WP_Meta_Query for the proper arguments for 'meta_query', 'meta_key', 'meta_value', 'meta_compare', and 'meta_type'.
@@ -163,6 +164,8 @@ class WordPoints_Points_Logs_Query {
 	 *        @type int          $start               The start for the LIMIT clause. Default: 0.
 	 *        @type string       $orderby             The field to use to order the results. Default: 'date'.
 	 *        @type string       $order               The order for the query: ASC or DESC (default).
+	 *        @type int          $id__in              Limit results to these log IDs.
+	 *        @type int          $id__not_in          Exclude all logs with these IDs.
 	 *        @type int          $user_id             Limit results to logs for this user.
 	 *        @type int[]        $user__in            Limit results to logs for these users.
 	 *        @type int[]        $user__not_in        Exclude all logs for these users from the results.
@@ -207,6 +210,8 @@ class WordPoints_Points_Logs_Query {
 			'start'               => 0,
 			'orderby'             => 'date',
 			'order'               => 'DESC',
+			'id__in'              => array(),
+			'id__not_in'          => array(),
 			'user_id'             => 0,
 			'user__in'            => array(),
 			'user__not_in'        => array(),
@@ -511,6 +516,10 @@ class WordPoints_Points_Logs_Query {
 		global $wpdb;
 
 		$this->_wheres = array();
+
+		// Log IDs.
+		$this->_prepare_posint__in( $this->_args['id__in'], 'id' );
+		$this->_prepare_posint__in( $this->_args['id__not_in'], 'id', 'NOT IN' );
 
 		// User
 		if ( wordpoints_posint( $this->_args['user_id'] ) ) {

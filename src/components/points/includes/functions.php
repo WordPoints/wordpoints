@@ -1001,6 +1001,67 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
 }
 
 /**
+ * Regenerate points logs messages.
+ *
+ * @since 1.2.0
+ *
+ * @param array $log_ids The IDs of the logs to regenerate the log messages for.
+ *
+ * @return void
+ */
+function wordpoints_regenerate_points_logs( $log_ids ) {
+
+	if ( empty( $log_ids ) || ! is_array( $log_ids ) ) {
+		return;
+	}
+
+	global $wpdb;
+
+	$logs = new WordPoints_Points_Logs_Query( array( 'id__in' => $log_ids ) );
+	$logs = $logs->get();
+
+	if ( ! is_array( $logs ) ) {
+		return;
+	}
+
+	foreach ( $logs as $log ) {
+
+		$meta = $wpdb->get_results(
+			$wpdb->prepare(
+				"
+					SELECT meta_key, meta_value
+					FROM {$wpdb->wordpoints_points_log_meta}
+					WHERE log_id = %d
+				"
+				, $log->id
+			)
+			, OBJECT_K
+		);
+
+		$meta = wp_list_pluck( $meta, 'meta_value' );
+
+		$new_log_text = wordpoints_render_points_log_text(
+			$log->user_id
+			, $log->points
+			, $log->points_type
+			, $log->log_type
+			, $meta
+		);
+
+		if ( $new_log_text != $log->text ) {
+
+			$wpdb->update(
+				$wpdb->wordpoints_points_logs
+				, array( 'text' => $new_log_text )
+				, array( 'id' => $log->id )
+				, array( '%s' )
+				, array( '%d' )
+			);
+		}
+	}
+}
+
+/**
  * Get the top users with the most points.
  *
  * Note that $num_users only limits the number of results, and fewer results may be

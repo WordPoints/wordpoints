@@ -182,4 +182,52 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 			$this->assertEquals( $wpdb->get_blog_prefix() . 'wordpoints_points-points', $meta_key );
 		}
 	}
+
+	/**
+	 * Test points log regeneration.
+	 *
+	 * @since 1.2.0
+	 */
+	public function test_wordpoints_regenerate_points_logs() {
+
+		// Create a user and add a points log.
+		$user_id = $this->factory->user->create();
+
+		$result = wordpoints_add_points( $user_id, 10, 'points', 'register' );
+
+		$this->assertTrue( $result );
+
+		// Get the log from the database.
+		$log = ( new WordPoints_Points_Logs_Query )->get( 'row' );
+
+		// Check that all is as expected.
+		$this->assertInternalType( 'object', $log );
+		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
+
+		// Now, modify the log text.
+		global $wpdb;
+
+		$wpdb->update(
+			$wpdb->wordpoints_points_logs
+			, array( 'text' => 'Test' )
+			, array( 'id' => $log->id )
+			, array( '%s' )
+			, array( '%d' )
+		);
+
+		// Check that the log was updated.
+		$log = ( new WordPoints_Points_Logs_Query )->get( 'row' );
+
+		$this->assertInternalType( 'object', $log );
+		$this->assertEquals( 'Test', $log->text );
+
+		// Now, regenerate it.
+		wordpoints_regenerate_points_logs( array( $log->id ) );
+
+		// Check that the log was regenerated.
+		$log = ( new WordPoints_Points_Logs_Query )->get( 'row' );
+
+		$this->assertInternalType( 'object', $log );
+		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
+	}
 }

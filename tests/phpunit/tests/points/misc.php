@@ -199,7 +199,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		// Get the log from the database.
 		$log = new WordPoints_Points_Logs_Query;
-		$log->get( 'row' );
+		$log = $log->get( 'row' );
 
 		// Check that all is as expected.
 		$this->assertInternalType( 'object', $log );
@@ -218,7 +218,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		// Check that the log was updated.
 		$log = new WordPoints_Points_Logs_Query;
-		$log->get( 'row' );
+		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( 'Test', $log->text );
@@ -228,7 +228,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		// Check that the log was regenerated.
 		$log = new WordPoints_Points_Logs_Query;
-		$log->get( 'row' );
+		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );

@@ -71,7 +71,7 @@ class WordPoints_Registration_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Display the log entry for a transaction.
+	 * Generate the log entry for a transaction.
 	 *
 	 * @since 1.0.0
 	 *
@@ -262,7 +262,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Display the log entry for a publish post transaction.
+	 * Generate the log entry for a publish post transaction.
 	 *
 	 * @since 1.0.0
 	 *
@@ -318,7 +318,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Display the log entry for a transaction.
+	 * Generate the log entry for a transaction.
 	 *
 	 * The data isn't sanitized here becuase we do that before saving it.
 	 *
@@ -654,7 +654,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Display the log entry for an approve comment transaction.
+	 * Generate the log entry for an approve comment transaction.
 	 *
 	 * @since 1.0.0
 	 *
@@ -716,7 +716,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Display the log entry for a transaction.
+	 * Generate the log entry for a transaction.
 	 *
 	 * @since 1.0.0
 	 *
@@ -985,7 +985,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Display the log entry for a transaction.
+	 * Generate the log entry for a transaction.
 	 *
 	 * @since 1.0.0
 	 *

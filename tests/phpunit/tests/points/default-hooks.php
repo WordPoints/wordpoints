@@ -46,6 +46,17 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 		// Check that points were aded when the post was created.
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
+		// Now convert the post back to a draft.
+		$post = get_post( $post_id );
+		$post->post_status = 'draft';
+		wp_update_post( $post );
+
+		// Publish it again.
+		wp_publish_post( $post->ID );
+
+		// Check that points were not awarded a second time.
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+
 		wp_delete_post( $post_id, true );
 
 		// Check that the points were removed when the post was deleted.

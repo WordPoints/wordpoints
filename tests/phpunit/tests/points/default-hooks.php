@@ -51,6 +51,39 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 		// Check that the points were removed when the post was deleted.
 		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
 
+		// Check that the logs were cleaned up properly.
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'post_publish',
+				'meta_query' => array(
+					array(
+						'key'   => 'post_id',
+						'value' => $post_id,
+					),
+				),
+			)
+		);
+
+		$this->assertEquals( 0, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'post_publish',
+				'meta_query' => array(
+					array(
+						'key'   => 'post_type',
+						'value' => 'post',
+					),
+				),
+			)
+		);
+
+		$this->assertEquals( 1, $query->count() );
+
+		$log = $query->get( 'row' );
+
+		$this->assertEquals( sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), 'Post' ), $log->text );
+
 		// Make sure points aren't deleted when auto-drafts are deleted.
 		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 

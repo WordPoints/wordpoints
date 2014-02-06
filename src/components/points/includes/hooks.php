@@ -171,6 +171,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 
 		add_filter( 'wordpoints_points_log-post_publish', array( $this, 'publish_logs' ), 10, 6 );
 		add_filter( 'wordpoints_points_log-post_delete', array( $this, 'delete_logs' ), 10, 6 );
+
+		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
 	}
 
 	/**
@@ -277,11 +279,26 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function publish_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		$post = get_post( $meta['post_id'], OBJECT, 'display' );
+		$post = null;
+
+		if ( isset( $meta['post_id'] ) ) {
+			$post = get_post( $meta['post_id'], OBJECT, 'display' );
+		}
 
 		if ( null == $post ) {
 
-			return _x( 'Post published.', 'points log description', 'wordpoints' );
+			$post_type = null;
+
+			if ( isset( $meta['post_type'] ) && post_type_exists( $meta['post_type'] ) ) {
+				$post_type = get_post_type_object( $meta['post_type'] );
+			}
+
+			if ( $post_type ) {
+				/* translators: %s is the name of a post type. */
+				return sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name );
+			} else {
+				return _x( 'Post published.', 'points log description', 'wordpoints' );
+			}
 
 		} else {
 
@@ -359,6 +376,70 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 		);
 
 		return ( $query->count() > 0 );
+	}
+
+	/**
+	 * Clean the logs when a post is deleted.
+	 *
+	 * Cleans the metadata for any logs related to this post. The post ID meta field
+	 * is updated in the database, to instead store the post type. If the post type
+	 * isn't available, we just delete those rows.
+	 *
+	 * After the metadata is cleaned up, the affected logs are regenerated.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @action delete_post Added by the constructor.
+	 *
+	 * @param int $post_id The ID of the post being deleted.
+	 *
+	 * @return void
+	 */
+	public function clean_logs_on_post_deletion( $post_id ) {
+
+		global $wpdb;
+
+		$logs_query = new WordPoints_Points_Logs_Query(
+			array(
+				'fields'     => 'id',
+				'log_type'   => 'post_publish',
+				'meta_query' => array(
+					array(
+						'key'   => 'post_id',
+						'value' => $post_id,
+					)
+				)
+			)
+		);
+
+		$log_ids = $logs_query->get( 'col' );
+
+		if ( ! $log_ids ) {
+			return;
+		}
+
+		$post = get_post( $post_id );
+
+		if ( ! $post ) {
+
+			$wpdb->delete(
+				$wpdb->wordpoints_points_log_meta
+				, array( 'meta_key' => 'post_id', 'meta_value' => $post_id )
+				, array( '%s', '%d' )
+			);
+
+		} else {
+
+			$wpdb->update(
+				$wpdb->wordpoints_points_log_meta
+				, array( 'meta_key' => 'post_type', 'meta_value' => $post->post_type )
+				, array( 'meta_key' => 'post_id', 'meta_value' => $post_id )
+				, array( '%s', '%s' )
+				, array( '%s', '%d' )
+			);
+		}
+
+		wordpoints_regenerate_points_logs( $log_ids );
 	}
 
 	/**

@@ -546,6 +546,8 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 		add_filter( 'wordpoints_points_log-comment_approve', array( $this, 'approve_logs' ), 10, 6 );
 		add_filter( 'wordpoints_points_log-comment_disapprove', array( $this, 'disapprove_logs' ), 10, 6 );
+
+		add_action( 'delete_comment', array( $this, 'clean_logs_on_comment_deletion' ) );
 	}
 
 	/**
@@ -669,11 +671,36 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function approve_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		$comment = get_comment( $meta['comment_id'] );
+		$comment = false;
+
+		if ( isset( $meta['comment_id'] ) ) {
+			$comment = get_comment( $meta['comment_id'] );
+		}
 
 		if ( ! $comment ) {
 
-			return '<span title="' . __( 'Comment removed...', 'wordpoints' ) . '">' . _x( 'Comment', 'points log description', 'wordpoints' ) . '</span>';
+			$post = false;
+
+			if ( isset( $meta['post_id'] ) ) {
+				$post = get_post( $meta['post_id'] );
+			}
+
+			if ( $post ) {
+
+				$post_title = get_the_title( $post->ID );
+
+				$link = '<a href="' . get_permalink( $post->ID ) . '">'
+					. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
+					. '</a>';
+
+				$text = sprintf( _x( 'Comment on %s.', 'points log description', 'wordpoints' ), $link );
+
+			} else {
+
+				$text = _x( 'Comment', 'points log description', 'wordpoints' );
+			}
+
+			return '<span title="' . __( 'Comment removed...', 'wordpoints' ) . '">' . $text . '</span>';
 
 		} else {
 
@@ -752,6 +779,70 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Clean the logs on comment deletion.
+	 *
+	 * Cleans the metadata for any logs related to this comment. The comment ID meta
+	 * field is updated in the database, to instead store the post ID of the post the
+	 * comment was on. If the post ID isn't available, we just delete those rows.
+	 *
+	 * Once the metadata is cleaned up, the logs for this comment are regenerated.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @action delete_comment Added by the constructor.
+	 *
+	 * @param int $comment_id The ID of the comment being deleted.
+	 *
+	 * @return void
+	 */
+	public function clean_logs_on_comment_deletion( $comment_id ) {
+
+		global $wpdb;
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'fields'     => 'id',
+				'log_type'   => 'comment_approve',
+				'meta_query' => array(
+					array(
+						'key'   => 'comment_id',
+						'value' => $comment_id,
+					),
+				),
+			)
+		);
+
+		$log_ids = $query->get( 'col' );
+
+		if ( ! $log_ids ) {
+			return;
+		}
+
+		$comment = get_comment( $comment_id );
+
+		if ( ! $comment ) {
+
+			$wpdb->delete(
+				$wpdb->wordpoints_points_log_meta
+				, array( 'meta_key' => 'comment_id', 'meta_value' => $comment_id )
+				, array( '%s', '%d' )
+			);
+
+		} else {
+
+			$wpdb->update(
+				$wpdb->wordpoints_points_log_meta
+				, array( 'meta_key' => 'post_id', 'meta_value' => $comment->comment_post_ID )
+				, array( 'meta_key' => 'comment_id', 'meta_value' => $comment_id )
+				, array( '%s', '%d' )
+				, array( '%s', '%d' )
+			);
+		}
+
+		wordpoints_regenerate_points_logs( $log_ids );
 	}
 
 	/**

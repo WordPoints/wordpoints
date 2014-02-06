@@ -179,6 +179,45 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Check that the logs are cleaned up when a comment is deleted.
+		$comment = get_comment( $comment_id );
+
+		wp_delete_comment( $comment_id, true );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'comment_approve',
+				'meta_key'   => 'comment_id',
+				'meta_value' => $comment_id,
+			)
+		);
+
+		$this->assertEquals( 0, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'comment_approve',
+				'meta_key'   => 'post_id',
+				'meta_value' => $comment->comment_post_ID,
+			)
+		);
+
+		$this->assertEquals( 4, $query->count() );
+
+		$log = $query->get( 'row' );
+
+		$this->assertEquals(
+			'<span title="' . __( 'Comment removed...', 'wordpoints' ) . '">'
+				. sprintf(
+					_x( 'Comment on %s.', 'points log description', 'wordpoints' )
+					, '<a href="' . get_permalink( $comment->comment_post_ID ) . '">'
+						. get_the_title( $comment->comment_post_ID )
+						. '</a>'
+				)
+				. '</span>'
+			, $log->text
+		);
 	}
 
 	/**

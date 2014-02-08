@@ -77,7 +77,11 @@ class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 			wordpoints_add_points( $user_id, 10, 'points', 'test', array( 'test' => $user_id ) );
 		}
 
-		wpmu_delete_user( $user_ids[0] );
+		if ( is_multisite() ) {
+			wpmu_delete_user( $user_ids[0] );
+		} else {
+			wp_delete_user( $user_ids[0] );
+		}
 
 		$this->wordpoints_set_db_version();
 		wordpoints_points_component_update();
@@ -175,8 +179,14 @@ class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 
 		// Check that it doesn't upgrade when we are already at 1.2.0.
 		$user_id = $this->factory->user->create();
+
 		wordpoints_add_points( $user_id, 10, 'points', 'test' );
-		wpmu_delete_user( $user_id );
+
+		if ( is_multisite() ) {
+			wpmu_delete_user( $user_id );
+		} else {
+			wp_delete_user( $user_id );
+		}
 
 		$this->wordpoints_set_db_version( '1.2.0' );
 		wordpoints_points_component_update();

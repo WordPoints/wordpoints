@@ -78,6 +78,13 @@ points are awarded.
 
 == Changelog ==
 
+= 1.2.0 =
+* New: Support for WordPress multisite See [here](http://wordpoints.org/user-guide/multisite/) for full details.
+* New: Network-wide points hooks for multisite.
+* Fixed: Delete the points logs for a user when they are deleted.
+* Fixed: Clean up the points logs for a post when it is deleted, removing the link.
+* Fixed: Clean up the points logs for a comment when it is deleted, removing the link and comment text.
+
 = 1.1.2 =
 * Fixed: The post points hook was awarding points for auto-drafts and post revisions.
 * Fixed: The periodic points hook wasn’t working in some cases.
@@ -104,6 +111,9 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* This is a major update which adds full support for WordPress multisite.
 
 = 1.1.2 =
 * This update is a maintenance release with some fixes for bugs in the periodic and post points hooks and the uninstall routine.

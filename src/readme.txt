@@ -63,8 +63,8 @@ development. Find out more [here](http://wordpoints.org/roadmap/).
 
 = Does WordPoints support Multisite? =
 
-No, the current version hasn't been tested with multisite. I plan to add support for
-it soon, though.
+Yes, WordPoints fully supports multisite. It is recommended that you [read up on it here](http://wordpoints.org/user-guide/multisite/)
+before you install it.
 
 = Why doesn't WordPoints support my old outdated WordPress version? =
 

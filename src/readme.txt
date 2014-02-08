@@ -39,6 +39,8 @@ For more information on that, see the [developer docs](http://wordpoints.org/dev
 
 == Installation ==
 
+Before installing on multisite, it is recommended that you [read this](http://wordpoints.org/user-guide/multisite/).
+
 1. Download and unzip the plugin file
 1. Upload the resulting `/wordpoints/` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress

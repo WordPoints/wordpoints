@@ -28,7 +28,7 @@ define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
  *
  * @const WORDPOINTS_TESTS_VERSION
  */
-define( 'WORDPOINTS_TESTS_VERSION', '1.2.0-alpha' );
+define( 'WORDPOINTS_TESTS_VERSION', '1.2.0' );
 
 /**
  * The WP plugin uninstall testing bootstrap.

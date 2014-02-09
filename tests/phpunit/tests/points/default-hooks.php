@@ -139,7 +139,40 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 		wp_delete_post( $post_id, true );
 
 		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
-	}
+
+		// Test that points are only awarded for the specified post type.
+		wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'post' )
+		);
+
+		$post_id = $this->factory->post->create(
+			array(
+				'post_author' => $user_id,
+				'post_type'   => 'post',
+			)
+		);
+
+		$this->assertEquals( 60, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
+
+		$post_id = $this->factory->post->create(
+			array(
+				'post_author' => $user_id,
+				'post_type'   => 'page',
+			)
+		);
+
+		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals( 40, wordpoints_get_points( $user_id, 'points' ) );
+
+	} // function test_post_points_hook()
 
 	/**
 	 * Test the comments points hook.

@@ -195,6 +195,12 @@ class WordPoints_Included_Points_Hooks_Test extends WordPoints_Points_UnitTestCa
 
 		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
 
+		// Points should not be awarded twice in a row.
+		do_action( 'transition_comment_status', 'approve', 'hold', get_comment( $comment_id ) );
+
+		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that status transitions award/remove points correctly.
 		wp_set_comment_status( $comment_id, 'hold' );
 		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
 

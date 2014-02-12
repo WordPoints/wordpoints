@@ -1,6 +1,30 @@
-/*
- * Table
+/**
+ * Styles for datatables.
+ *
+ * Based on the default styles for datatables.
+ *
+ * @package WordPoints
+ * @since 1.0.0
+ *
+ * Index:
+ * 1. General styles for the table.
+ *  - 1.0 Table styles.
+ *  - 1.1 Table wrapper styles.
+ * 2. Selectors and filters.
+ *  - 2.0 Page length menu.
+ *  - 2.1 Filter.
+ *  - 2.2 Table information.
+ * 3. Pagination.
+ * 4. Processing indicator.
+ * 5. Sorting.
+ * 6. Scrolling.
+ * 7. Avatars.
  */
+
+/**
+ * 1.0 Table
+ */
+
 table.dataTable {
 	margin: 0 auto;
 	clear: both;
@@ -25,9 +49,10 @@ table.dataTable tr.even {
 	background-color: white;
 }
 
-/*
- * Table wrapper
+/**
+ * 1.1 Table wrapper
  */
+
 .dataTables_wrapper {
 	position: relative;
 	clear: both;
@@ -35,33 +60,37 @@ table.dataTable tr.even {
 	margin: 10px 0;
 }
 
-/*
- * Page length menu
+/**
+ * 2.0 Page length menu
  */
+
 .dataTables_length {
 	float: left;
 }
 
-/*
- * Filter
+/**
+ * 2.1 Filter
  */
+
 .dataTables_filter {
 	float: right;
 	text-align: right;
 	margin-bottom: 5px;
 }
 
-/*
- * Table information
+/**
+ * 2.2 Table information
  */
+
 .dataTables_info {
 	clear: both;
 	float: left;
 }
 
-/*
- * Pagination
+/**
+ * 3.0 Pagination
  */
+
 .dataTables_paginate {
 	float: right;
 	text-align: right;
@@ -127,9 +156,10 @@ table.dataTable tr.even {
 	background-color: #eee;
 }
 
-/*
- * Processing indicator
+/**
+ * 4.0 Processing indicator
  */
+
 .dataTables_processing {
 	position: absolute;
 	top: 50%;
@@ -146,17 +176,19 @@ table.dataTable tr.even {
 	background-color: white;
 }
 
-/*
- * Sorting
+/**
+ * 5.0 Sorting
  */
+
 table.dataTable thead th:active,
 table.dataTable thead td:active {
 	outline: none;
 }
 
-/*
- * Scrolling
+/**
+ * 6.0 Scrolling
  */
+
 .dataTables_scroll {
 	clear: both;
 }
@@ -165,6 +197,10 @@ table.dataTable thead td:active {
 	*margin-top: -1px;
 	-webkit-overflow-scrolling: touch;
 }
+
+/**
+ * 7.0 Avatars
+ */
 
 .dataTable .avatar {
 	vertical-align: middle;

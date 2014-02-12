@@ -165,3 +165,9 @@ table.dataTable thead td:active {
 	*margin-top: -1px;
 	-webkit-overflow-scrolling: touch;
 }
+
+.dataTable .avatar {
+	vertical-align: middle;
+	display: inline-block;
+	margin-right: 10px;
+}

@@ -163,13 +163,22 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 			array(
 				'tag'        => 'table',
 				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat datatables hide-user-column',
+					'class' => 'wordpoints-points-logs widefat datatables',
+				),
+				'child'      => array(
+					'tag'   => 'thead',
+					'child' => array(
+						'tag'      => 'tr',
+						'children' => array(
+							'less_than'    => 4,
+							'greater_than' => 2,
+							'only'         => array( 'th' ),
+						),
+					),
 				),
 			)
 			, $hidden_user_column
 		);
-
-		$this->assertTag( array( 'tag' => 'style' ), $hidden_user_column );
 
 		// Check failures with a normal user.
 		$old_current_user = wp_get_current_user();

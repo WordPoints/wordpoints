@@ -226,7 +226,75 @@ class WordPoints_Points_Shortcodes_Test extends WordPoints_Points_UnitTestCase {
 		);
 
 		wp_set_current_user( $old_current_user->ID );
-	}
+
+	} // function test_wordpoints_points_logs_shortcode()
+
+	/**
+	 * Test the points shortcode.
+	 *
+	 * @since 1.3.0
+	 */
+	function test_points_shortcode() {
+
+		$this->assertTrue( shortcode_exists( 'wordpoints_points' ) );
+
+		// Create a user and assign them admin-like capabilities.
+		$user = $this->factory->user->create_and_get();
+		$user->add_cap( 'manage_options' );
+		wp_set_current_user( $user->ID );
+
+		$user_id = $user->ID;
+
+		// Check for an error when no points type is provided.
+		$this->assertTag(
+			array(
+				'tag' => 'p',
+				'attributes' => array(
+					'class' => 'wordpoints-shortcode-error',
+				),
+			)
+			, wordpointstests_do_shortcode_func( 'wordpoints_points' )
+		);
+
+		// Check result when user has no points.
+		$this->assertEquals(
+			'$0pts.'
+			, wordpointstests_do_shortcode_func(
+				'wordpoints_points'
+				, array( 'points_type' => 'points' )
+			)
+		);
+
+		// Check result when user has points.
+		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
+
+		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+
+		$this->assertEquals(
+			'$10pts.'
+			, wordpointstests_do_shortcode_func(
+				'wordpoints_points'
+				, array( 'points_type' => 'points' )
+			)
+		);
+
+		// Now try it with a non-admin user.
+		$user2_id = $this->factory->user->create();
+		wp_set_current_user( $user2_id );
+
+		// There should be no error with an invalid points type.
+		$this->assertEquals( null, wordpointstests_do_shortcode_func( 'wordpoints_points' ) );
+
+		// Now, let's try displaying the points of the other user.
+		$this->assertEquals(
+			'$10pts.'
+			, wordpointstests_do_shortcode_func(
+				'wordpoints_points'
+				, array( 'points_type' => 'points', 'user_id' => $user_id )
+			)
+		);
+
+	} // function test_points_shortcode()
 }
 
 // end of file /tests/phpunit/tests/points/shortcodes.php

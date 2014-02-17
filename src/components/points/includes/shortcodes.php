@@ -133,4 +133,47 @@ function wordpoints_points_logs_shortcode( $atts ) {
 }
 add_shortcode( 'wordpoints_points_logs', 'wordpoints_points_logs_shortcode' );
 
+/**
+ * Display the points of a user.
+ *
+ * @since 1.3.0
+ *
+ * @shortcode wordpoints_points
+ *
+ * @param array $atts {
+ *        The shortcode attributes.
+ *
+ *        @type string $points_type The type of points to display.
+ *        @type int    $user_id     The ID of the user whose points should be
+ *                                  displayed. Defaults to the current user.
+ * }
+ *
+ * @return string The points for the user.
+ */
+function wordpoints_points_shortcode( $atts ) {
+
+	$atts = shortcode_atts(
+		array( 'points_type' => '', 'user_id' => 0 )
+		,$atts
+		,'wordpoints_points'
+	);
+
+	if ( ! wordpoints_is_points_type( $atts['points_type'] ) ) {
+
+		$atts['points_type'] = wordpoints_get_default_points_type();
+
+		if ( ! $atts['points_type'] ) {
+
+			return wordpoints_shortcode_error( __( 'The "points_type" attribute of the <code>[wordpoints_points]</code> shortcode must be the slug of a points type. Example: <code>[wordpoints_points points_type="points"]</code>.', 'wordpoints' ) );
+		}
+	}
+
+	if ( ! wordpoints_posint( $atts['user_id'] ) ) {
+		$atts['user_id'] = get_current_user_id();
+	}
+
+	return wordpoints_get_formatted_points( $atts['user_id'], $atts['points_type'], 'points-shortcode' );
+}
+add_shortcode( 'wordpoints_points', 'wordpoints_points_shortcode' );
+
 // end of file /components/points/includes/shortcodes.php

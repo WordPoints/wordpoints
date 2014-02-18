@@ -89,6 +89,8 @@ if ( is_multisite() ) {
 		delete_option( 'wordpoints_recently_activated_modules' );
 
 		wp_cache_delete( 'wordpoints_modules' );
+
+		wordpoints_remove_custom_caps();
 	}
 
 	switch_to_blog( $original_blog_id );
@@ -105,6 +107,8 @@ if ( is_multisite() ) {
 	delete_option( 'wordpoints_recently_activated_modules' );
 
 	wp_cache_delete( 'wordpoints_modules' );
+
+	wordpoints_remove_custom_caps();
 }
 
 // end of file /uninstall.php

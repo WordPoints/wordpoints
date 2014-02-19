@@ -7,6 +7,23 @@
  * @since 1.0.0
  */
 
+/* @var bool $network_active Defined in the including file. */
+$network_active;
+
+$install_status = ( $network_active ) ? 'network' : 'single';
+
+/**
+ * Defined when the plugin is being installed.
+ *
+ * If the plugin is being network-activated on a multisite install, the value will
+ * be 'network'. Otherwise, the value is 'single'.
+ *
+ * @since 1.3.0
+ *
+ * @const string WORDPOINTS_INSTALLING
+ */
+define( 'WORDPOINTS_INSTALLING', $install_status );
+
 // Add plugin data.
 wordpoints_add_network_option(
 	'wordpoints_data',

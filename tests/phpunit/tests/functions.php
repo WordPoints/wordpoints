@@ -21,6 +21,10 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 	 */
 	public function test_is_wordpoints_network_active() {
 
+		if ( defined( 'WORDPOINTS_INSTALLING' ) ) {
+			$this->markTestSkipped( 'The WORDPOINTS_INSTALLING constant is defined, which overrides the function\'s behavior. This is normal during the tests.' );
+		}
+
 		$plugin_file = plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' );
 
 		// Make sure it isn't network active.

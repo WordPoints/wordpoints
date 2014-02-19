@@ -538,6 +538,10 @@ function wordpoints_list_post_types( $options, $args = array() ) {
  */
 function is_wordpoints_network_active() {
 
+	if ( defined( 'WORDPOINTS_INSTALLING' ) ) {
+		return ( WORDPOINTS_INSTALLING === 'network' );
+	}
+
 	require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
 	return is_plugin_active_for_network(

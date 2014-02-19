@@ -691,26 +691,39 @@ function wordpoints_modules_user_cap_filter( $all_capabilities, $capabilities, $
 add_filter( 'user_has_cap', 'wordpoints_modules_user_cap_filter', 10, 4 );
 
 /**
+ * Get the custom capabilities.
+ *
+ * @since 1.3.0
+ *
+ * @return array The custom capabilities as keys, WP core counterparts as values.
+ */
+function wordpoints_get_custom_caps() {
+
+	return array(
+		'install_wordpoints_modules'        => 'install_plugins',
+		'manage_network_wordpoints_modules' => 'manage_network_plugins',
+		'activate_wordpoints_modules'       => 'activate_plugins',
+		'delete_wordpoints_modules'         => 'delete_plugins',
+	);
+}
+
+/**
  * Add custom capabilities to the desired roles.
  *
  * Used during installation.
  *
  * @since 1.3.0
+ *
+ * @param array $capabilities The capabilities to add as keys, WP core counterparts
+ *                            as values.
  */
-function wordpoints_add_custom_caps() {
+function wordpoints_add_custom_caps( $capabilities ) {
 
 	global $wp_roles;
 
 	if ( ! $wp_roles instanceof WP_Roles ) {
 		$wp_roles = new WP_Roles;
 	}
-
-	$capabilities = array(
-		'install_wordpoints_modules'        => 'install_plugins',
-		'manage_network_wordpoints_modules' => 'manage_network_plugins',
-		'activate_wordpoints_modules'       => 'activate_plugins',
-		'delete_wordpoints_modules'         => 'delete_plugins',
-	);
 
 	foreach ( $wp_roles->role_objects as $role ) {
 
@@ -723,13 +736,15 @@ function wordpoints_add_custom_caps() {
 }
 
 /**
- * Remove the custom capabilities.
+ * Remove custom capabilities.
  *
  * Used during uninstallation.
  *
  * @since 1.3.0
+ *
+ * @param array $capabilities The list of capabilities to remove.
  */
-function wordpoints_remove_custom_caps() {
+function wordpoints_remove_custom_caps( $capabilities ) {
 
 	global $wp_roles;
 
@@ -737,19 +752,11 @@ function wordpoints_remove_custom_caps() {
 		$wp_roles = new WP_Roles;
 	}
 
-	$capabilities = array(
-		'install_wordpoints_modules',
-		'manage_network_wordpoints_modules',
-		'activate_wordpoints_modules',
-		'delete_wordpoints_modules',
-	);
-
 	foreach ( $wp_roles->role_objects as $role ) {
 		foreach ( $capabilities as $custom_cap ) {
 			$role->remove_cap( $custom_cap );
 		}
 	}
-
 }
 
 // end of file /includes/functions.php

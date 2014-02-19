@@ -60,7 +60,7 @@ class WordPoints_Update_Test extends WP_UnitTestCase {
 	public function test_update_to_1_3_0() {
 
 		// First remove the capabilities if they have been added.
-		wordpoints_remove_custom_caps();
+		wordpoints_remove_custom_caps( array_keys( wordpoints_get_custom_caps() ) );
 
 		$administrator = get_role( 'administrator' );
 		$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );

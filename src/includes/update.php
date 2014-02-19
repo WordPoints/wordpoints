@@ -14,6 +14,8 @@
  */
 function wordpoints_update_1_3_0() {
 
+	$capabilities = wordpoints_get_custom_caps();
+
 	if ( is_wordpoints_network_active() ) {
 
 		global $wpdb;
@@ -23,12 +25,12 @@ function wordpoints_update_1_3_0() {
 		foreach ( $blog_ids as $blog_id ) {
 
 			switch_to_blog( $blog_id );
-			wordpoints_add_custom_caps();
+			wordpoints_add_custom_caps( $capabilities );
 			restore_current_blog();
 		}
 
 	} else {
 
-		wordpoints_add_custom_caps();
+		wordpoints_add_custom_caps( $capabilities );
 	}
 }

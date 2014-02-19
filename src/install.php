@@ -18,6 +18,8 @@ wordpoints_add_network_option(
 );
 
 // Add custom capabilities to the correct roles.
+$capabilities = wordpoints_get_custom_caps();
+
 if ( $network_active ) {
 
 	global $wpdb;
@@ -27,13 +29,13 @@ if ( $network_active ) {
 	foreach ( $blog_ids as $blog_id ) {
 
 		switch_to_blog( $blog_id );
-		wordpoints_add_custom_caps();
+		wordpoints_add_custom_caps( $capabilities );
 		restore_current_blog();
 	}
 
 } else {
 
-	wordpoints_add_custom_caps();
+	wordpoints_add_custom_caps( $capabilities );
 }
 
 // Activate the Points component.

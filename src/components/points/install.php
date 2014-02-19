@@ -69,6 +69,11 @@ if ( ! wordpoints_db_table_exists( $wpdb->wordpoints_points_log_meta ) ) {
 	);
 }
 
+// Add custom caps. Multisite is taken care of in the including function.
+if ( ! is_multisite() ) {
+	wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
+}
+
 $wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;
 
 wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );

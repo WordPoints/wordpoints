@@ -72,6 +72,20 @@ add_action( 'wordpoints_components_register', 'wordpoints_points_component_regis
  */
 function wordpoints_points_component_activate() {
 
+	/*
+	 * Regenerate the custom caps every time on multisite, because they depend on
+	 * network activation status.
+	 */
+	if ( is_multisite() ) {
+
+		// The component isn't loaded on activation, so we must include dependencies.
+		include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
+
+		$custom_caps = wordpoints_points_get_custom_caps();
+		wordpoints_remove_custom_caps( array_keys( $custom_caps ) );
+		wordpoints_add_custom_caps( $custom_caps );
+	}
+
 	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
 
 	if ( ! isset( $wordpoints_data['components']['points']['version'] ) ) {
@@ -151,6 +165,10 @@ function wordpoints_points_component_update() {
 
 		case version_compare( '1.2.0', $db_version ):
 			wordpoints_points_update_1_2_0();
+		// fallthru
+
+		case version_compare( '1.3.0', $db_version ):
+			wordpoints_points_update_1_3_0();
 		// fallthru
 	}
 

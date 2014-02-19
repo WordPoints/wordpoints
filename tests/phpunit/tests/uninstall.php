@@ -121,6 +121,13 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_logs' );
 		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_log_meta' );
 
+		// Check that the capabilities were added.
+		$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
+		$this->assertEquals(
+			! $this->network_wide
+			, $administrator->has_cap( 'manage_wordpoints_points_types' )
+		);
+
 		/**
 		 * Run install tests.
 		 *
@@ -162,6 +169,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 				$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
 				$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 				$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+
+				$this->assertFalse( $administrator->has_cap( 'set_wordpoints_points' ) );
 			}
 
 			switch_to_blog( $original_blog_id );
@@ -179,6 +188,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
 			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+
+			$this->assertFalse( $administrator->has_cap( 'set_wordpoints_points' ) );
 		}
 
 	} // function test_uninstall()

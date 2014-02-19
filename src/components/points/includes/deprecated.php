@@ -127,3 +127,30 @@ class WordPoints_Points_Types {
 }
 
 /*#@-*/
+
+/**
+ * Add 'set_wordpoints_points' psuedo capability.
+ *
+ * Filters a user's capabilities, e.g., when current_user_can() is called. Adds
+ * the pseudo-capability 'set_wordpoints_points', which can be checked for as
+ * with any other capability:
+ *
+ * current_user_can( 'set_wordpoints_points' );
+ *
+ * Default is that this will be true if the user can 'manage_options'. Override
+ * this by adding your own filter with a lower priority (e.g., 15), and
+ * manipulating the $all_capabilities array.
+ *
+ * @since 1.0.0
+ * @since 1.2.0 Adds the capability 'manage_wordpoints_points_types'.
+ *
+ * @deprecated 1.3.0
+ *
+ * @see http://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
+ *
+ * @param array $all_capabilities All of the capabilities of a user.
+ */
+function wordpoints_points_user_cap_filter( $all_capabilities ) {
+
+	return $all_capabilities;
+}

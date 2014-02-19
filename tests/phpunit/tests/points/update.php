@@ -208,4 +208,31 @@ class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 		add_action( 'delete_comment', array( $comment_hook, 'clean_logs_on_comment_deletion' ) );
 
 	} // public function test_update_to_1_2_0()
+
+	/**
+	 * Test the update to 1.3.0.
+	 *
+	 * @since 1.3.0
+	 */
+	public function test_update_to_1_3_0() {
+
+		// Remove the custom capabilities.
+		wordpoints_remove_custom_caps( array_keys( wordpoints_points_get_custom_caps() ) );
+
+		// Make sure that was successful.
+		$administrator = get_role( 'administrator' );
+		$this->assertFalse( $administrator->has_cap( 'set_wordpoints_points' ) );
+		$this->assertFalse( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
+
+		// Now simulate the update.
+		$this->wordpoints_set_db_version();
+		wordpoints_points_component_update();
+
+		// Check that the custom capabilities were added.
+		$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
+		$this->assertEquals(
+			! is_wordpoints_network_active()
+			, $administrator->has_cap( 'manage_wordpoints_points_types' )
+		);
+	}
 }

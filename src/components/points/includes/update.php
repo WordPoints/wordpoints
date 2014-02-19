@@ -88,3 +88,14 @@ function wordpoints_points_update_1_2_0() {
 		}
 	}
 }
+
+/**
+ * Update the points component to 1.3.0.
+ *
+ * @since 1.3.0
+ */
+function wordpoints_points_update_1_3_0() {
+
+	// Add the custom caps to the desired roles.
+	wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
+}

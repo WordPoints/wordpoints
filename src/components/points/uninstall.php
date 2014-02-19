@@ -66,6 +66,8 @@ if ( is_multisite() ) {
 		delete_option( 'widget_wordpoints_points_logs_widget' );
 		delete_option( 'widget_wordpoints_top_users_widget' );
 		delete_option( 'widget_wordpoints_points_widget' );
+
+		wordpoints_remove_custom_caps( array_keys( wordpoints_points_get_custom_caps() ) );
 	}
 
 	switch_to_blog( $original_blog_id );
@@ -87,6 +89,8 @@ if ( is_multisite() ) {
 	delete_option( 'widget_wordpoints_points_logs_widget' );
 	delete_option( 'widget_wordpoints_top_users_widget' );
 	delete_option( 'widget_wordpoints_points_widget' );
+
+	wordpoints_remove_custom_caps( array_keys( wordpoints_points_get_custom_caps() ) );
 }
 
 // end of file /components/points/uninstall.php

@@ -1098,65 +1098,20 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 }
 
 /**
- * Add 'set_wordpoints_points' psuedo capability.
+ * Get the custom caps added by the points component.
  *
- * Filters a user's capabilities, e.g., when current_user_can() is called. Adds
- * the pseudo-capability 'set_wordpoints_points', which can be checked for as
- * with any other capability:
+ * @since 1.3.0
  *
- * current_user_can( 'set_wordpoints_points' );
- *
- * Default is that this will be true if the user can 'manage_options'. Override
- * this by adding your own filter with a lower priority (e.g., 15), and
- * manipulating the $all_capabilities array.
- *
- * @since 1.0.0
- * @since 1.2.0 Adds the capability 'manage_wordpoints_points_types'.
- *
- * @filter user_has_cap
- *
- * @see http://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
- *
- * @param array $all_capabilities All of the capabilities of a user.
- * @param array $capabilities     Capabilities to check a user for.
- * @param array $args             Other arguments.
+ * @return array The custom capabilities as keys, WP core counterparts as values.
  */
-function wordpoints_points_user_cap_filter( $all_capabilities, $capabilities, $args ) {
+function wordpoints_points_get_custom_caps() {
 
-	if (
-		in_array( 'set_wordpoints_points', $capabilities )
-		&& ! isset( $all_capabilities['set_wordpoints_points'] )
-		&& isset( $all_capabilities['manage_options'] )
-	) {
-		$all_capabilities['set_wordpoints_points'] = $all_capabilities['manage_options'];
-	}
-
-	if (
-		in_array( 'manage_wordpoints_points_types', $capabilities )
-		&& ! isset( $all_capabilities['manage_wordpoints_points_types'] )
-	) {
-
-		if ( isset( $all_capabilities['manage_network_options'] ) ) {
-
-			$all_capabilities['manage_wordpoints_points_types'] = $all_capabilities['manage_network_options'];
-
-		} elseif ( ! is_wordpoints_network_active() && isset( $all_capabilities['manage_options'] ) ) {
-
-			$all_capabilities['manage_wordpoints_points_types'] = $all_capabilities['manage_options'];
-		}
-	}
-
-	if (
-		in_array( 'manage_network_wordpoints_points_hooks', $capabilities )
-		&& ! isset( $all_capabilities['manage_network_wordpoints_points_hooks'] )
-		&& isset( $all_capabilities['manage_network_options'] )
-	) {
-		$all_capabilities['manage_network_wordpoints_points_hooks'] = $all_capabilities['manage_network_options'];
-	}
-
-	return $all_capabilities;
+	return array(
+		'set_wordpoints_points'                  => 'manage_options',
+		'manage_network_wordpoints_points_hooks' => 'manage_network_options',
+		'manage_wordpoints_points_types'         => ( is_wordpoints_network_active() ) ? 'manage_network_options' : 'manage_options',
+	);
 }
-add_filter( 'user_has_cap', 'wordpoints_points_user_cap_filter', 10, 3 );
 
 /**
  * Format points for display.

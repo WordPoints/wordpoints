@@ -82,8 +82,27 @@ function wordpoints_points_component_activate() {
 		include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
 
 		$custom_caps = wordpoints_points_get_custom_caps();
-		wordpoints_remove_custom_caps( array_keys( $custom_caps ) );
-		wordpoints_add_custom_caps( $custom_caps );
+		$custom_caps_keys = array_keys( $custom_caps );
+
+		if ( is_wordpoints_network_active() ) {
+
+			global $wpdb;
+
+			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+			foreach ( $blog_ids as $blog_id ) {
+
+				switch_to_blog( $blog_id );
+				wordpoints_remove_custom_caps( $custom_caps_keys );
+				wordpoints_add_custom_caps( $custom_caps );
+				restore_current_blog();
+			}
+
+		} else {
+
+			wordpoints_remove_custom_caps( $custom_caps_keys );
+			wordpoints_add_custom_caps( $custom_caps );
+		}
 	}
 
 	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );

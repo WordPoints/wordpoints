@@ -670,22 +670,25 @@ function wordpoints_shortcode_error( $message ) {
  * @see http://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
  *
  * @param array $all_capabilities All of the capabilities of a user.
+ * @param array $capabilities     The capabilities being checked for.
+ * @param array $args             Other arguments.
+ * @param int   $user             The user object.
  *
  * @return array All of the users capabilities.
  */
-function wordpoints_modules_user_cap_filter( $all_capabilities ) {
+function wordpoints_modules_user_cap_filter( $all_capabilities, $capabilities, $args, $user ) {
 
 	if (
 		! isset( $all_capabilities['manage_network_wordpoints_modules'] )
 		&& is_multisite()
-		&& is_super_admin()
+		&& is_super_admin( $user->ID )
 	) {
 		$all_capabilities['manage_network_wordpoints_modules'] = true;
 	}
 
 	return $all_capabilities;
 }
-add_filter( 'user_has_cap', 'wordpoints_modules_user_cap_filter' );
+add_filter( 'user_has_cap', 'wordpoints_modules_user_cap_filter', 10, 4 );
 
 /**
  * Add custom capabilities to the desired roles.

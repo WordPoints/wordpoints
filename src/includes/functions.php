@@ -538,15 +538,23 @@ function wordpoints_list_post_types( $options, $args = array() ) {
  */
 function is_wordpoints_network_active() {
 
-	if ( defined( 'WORDPOINTS_INSTALLING' ) ) {
-		return ( WORDPOINTS_INSTALLING === 'network' );
-	}
-
 	require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
-	return is_plugin_active_for_network(
+	$network_active = is_plugin_active_for_network(
 		plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' )
 	);
+
+	/**
+	 * Filter whether the plugin is network active.
+	 *
+	 * This is primarily used during install, when the above checks won't work. It's
+	 * not really intended for general use.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param bool $network_active Whether WordPoints is network activated.
+	 */
+	return apply_filters( 'is_wordpoints_network_active', $network_active );
 }
 
 /**

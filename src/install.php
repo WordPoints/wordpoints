@@ -10,19 +10,9 @@
 /* @var bool $network_active Defined in the including file. */
 $network_active;
 
-$install_status = ( $network_active ) ? 'network' : 'single';
-
-/**
- * Defined when the plugin is being installed.
- *
- * If the plugin is being network-activated on a multisite install, the value will
- * be 'network'. Otherwise, the value is 'single'.
- *
- * @since 1.3.0
- *
- * @const string WORDPOINTS_INSTALLING
- */
-define( 'WORDPOINTS_INSTALLING', $install_status );
+$filter_func = ( $network_active ) ? '__return_true' : '__return_false';
+var_log( is_wordpoints_network_active() );
+add_filter( 'is_wordpoints_network_active', $filter_func );
 
 // Add plugin data.
 wordpoints_add_network_option(
@@ -59,5 +49,7 @@ if ( $network_active ) {
 $wordpoints_components = WordPoints_Components::instance();
 $wordpoints_components->load();
 $wordpoints_components->activate( 'points' );
+
+remove_filter( 'is_wordpoints_network_active', $filter_func );
 
 // end of file /install.php

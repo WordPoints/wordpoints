@@ -283,3 +283,31 @@ final class WordPoints_Modules {
 
 	/**#@-*/
 }
+
+/**
+ * Add module related capabilities.
+ *
+ * Filters a user's capabilities, e.g., when current_user_can() is called. Adds the
+ * pseudo-capability 'manage_ntework_wordpoints_modules' which can be checked for as
+ * with any other capability:
+ *
+ * current_user_can( 'manage_ntework_wordpoints_modules' );
+ *
+ * Override this by adding your own filter with a lower priority (e.g. 15), and
+ * manipulating the $all_capabilities array.
+ *
+ * @since 1.1.0
+ * @deprecated 1.3.0
+ *
+ * @filter user_has_cap Not any more.
+ *
+ * @see http://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
+ *
+ * @param array $all_capabilities All of the capabilities of a user.
+ *
+ * @return array All of the users capabilities.
+ */
+function wordpoints_modules_user_cap_filter( $all_capabilities ) {
+
+	return $all_capabilities;
+}

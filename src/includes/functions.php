@@ -664,45 +664,6 @@ function wordpoints_shortcode_error( $message ) {
 }
 
 /**
- * Add module related capabilities.
- *
- * Filters a user's capabilities, e.g., when current_user_can() is called. Adds the
- * pseudo-capability 'manage_ntework_wordpoints_modules' which can be checked for as
- * with any other capability:
- *
- * current_user_can( 'manage_ntework_wordpoints_modules' );
- *
- * Override this by adding your own filter with a lower priority (e.g. 15), and
- * manipulating the $all_capabilities array.
- *
- * @since 1.1.0
- *
- * @filter user_has_cap
- *
- * @see http://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
- *
- * @param array $all_capabilities All of the capabilities of a user.
- * @param array $capabilities     The capabilities being checked for.
- * @param array $args             Other arguments.
- * @param int   $user             The user object.
- *
- * @return array All of the users capabilities.
- */
-function wordpoints_modules_user_cap_filter( $all_capabilities, $capabilities, $args, $user ) {
-
-	if (
-		! isset( $all_capabilities['manage_network_wordpoints_modules'] )
-		&& is_multisite()
-		&& is_super_admin( $user->ID )
-	) {
-		$all_capabilities['manage_network_wordpoints_modules'] = true;
-	}
-
-	return $all_capabilities;
-}
-add_filter( 'user_has_cap', 'wordpoints_modules_user_cap_filter', 10, 4 );
-
-/**
  * Get the custom capabilities.
  *
  * @since 1.3.0

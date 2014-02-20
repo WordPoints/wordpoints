@@ -72,14 +72,14 @@ add_action( 'wordpoints_components_register', 'wordpoints_points_component_regis
  */
 function wordpoints_points_component_activate() {
 
+	// The component isn't loaded on activation, so we must include dependencies.
+	include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
+
 	/*
 	 * Regenerate the custom caps every time on multisite, because they depend on
 	 * network activation status.
 	 */
 	if ( is_multisite() ) {
-
-		// The component isn't loaded on activation, so we must include dependencies.
-		include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
 
 		$custom_caps = wordpoints_points_get_custom_caps();
 		$custom_caps_keys = array_keys( $custom_caps );

@@ -11,7 +11,6 @@
 $network_active;
 
 $filter_func = ( $network_active ) ? '__return_true' : '__return_false';
-var_log( is_wordpoints_network_active() );
 add_filter( 'is_wordpoints_network_active', $filter_func );
 
 // Add plugin data.

@@ -45,6 +45,16 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $this->points_data ) );
 	}
+
+	/**
+	 * Clean up after each test.
+	 *
+	 * @since 1.3.0
+	 */
+	public function tearDown() {
+
+		WordPoints_Points_Hooks::set_network_mode( false );
+	}
 }
 
 // end of file /tests/class-wordpoints-points-unittestcase.php

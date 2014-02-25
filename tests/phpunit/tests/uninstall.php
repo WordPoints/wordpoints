@@ -101,6 +101,9 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->assertArrayHasKey( 'version', $wordpoints_data );
 		$this->assertEquals( WORDPOINTS_TESTS_VERSION, $wordpoints_data['version'] );
 
+		// Flush the cache.
+		unset( $GLOBALS['wp_roles'] );
+
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
 		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_modules' ) );
@@ -123,10 +126,12 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		// Check that the capabilities were added.
 		$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
-		$this->assertEquals(
-			! $this->network_wide
-			, $administrator->has_cap( 'manage_wordpoints_points_types' )
-		);
+
+		if ( $this->network_wide ) {
+			$this->assertFalse( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
+		} else {
+			$this->assertTrue( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
+		}
 
 		/**
 		 * Run install tests.

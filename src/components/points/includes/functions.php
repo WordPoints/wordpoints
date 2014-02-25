@@ -1277,4 +1277,23 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 }
 add_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
 
+/**
+ * Display a message with a points type's settings when it uses a custom meta key.
+ *
+ * @since 1.3.0
+ *
+ * @action wordpoints_points_type_form_top
+ *
+ * @param string $points_type The type of points the settings are being shown for.
+ */
+function wordpoints_points_settings_custom_meta_key_message( $points_type ) {
+
+	$custom_key = wordpoints_get_points_type_setting( $points_type, 'meta_key' );
+
+	if ( ! empty( $custom_key ) ) {
+		echo '<p>' . sprintf( __( 'This points type uses a custom meta key: %s', 'wordpoints' ), $custom_key ) . '</p>';
+	}
+}
+add_action( 'wordpoints_points_type_form_top', 'wordpoints_points_settings_custom_meta_key_message' );
+
 // end of file /components/points/includes/functions.php

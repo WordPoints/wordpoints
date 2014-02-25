@@ -52,8 +52,30 @@ if ( is_network_admin() ) {
 				$query = 'default';
 			}
 
+			$current_type = wordpoints_admin_get_current_tab( $tabs );
+
+			/**
+			 * At the top of one of the tabs on the points logs the admin panel.
+			 *
+			 * @since 1.3.0
+			 *
+			 * @param string $points_type The points type the current tab is for.
+			 * @param string $query       The current logs query being performed.
+			 */
+			do_action( 'wordpoints_admin_points_logs_tab', $current_type, $query );
+
 			// Get and display the logs based on current points type.
-			wordpoints_show_points_logs_query( wordpoints_admin_get_current_tab( $tabs ), $query );
+			wordpoints_show_points_logs_query( $current_type, $query );
+
+			/**
+			 * At the bottom of one of the tabs on the points logs the admin panel.
+			 *
+			 * @since 1.3.0
+			 *
+			 * @param string $points_type The points type the current tab is for.
+			 * @param string $query       The current logs query being performed.
+			 */
+			do_action( 'wordpoints_admin_points_logs_tab_after', $current_type, $query );
 		}
 
 		/**

@@ -1296,4 +1296,27 @@ function wordpoints_points_settings_custom_meta_key_message( $points_type ) {
 }
 add_action( 'wordpoints_points_type_form_top', 'wordpoints_points_settings_custom_meta_key_message' );
 
+/**
+ * Show a message on the points logs admin panel when a type uses a custom meta key.
+ *
+ * @since 1.3.0
+ *
+ * @action wordpoints_admin_points_logs_tab
+ *
+ * @param string $points_type The type of points whose logs are being displayed.
+ */
+function wordpoints_points_logs_custom_meta_key_message( $points_type ) {
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$custom_key = wordpoints_get_points_type_setting( $points_type, 'meta_key' );
+
+	if ( ! empty( $custom_key ) ) {
+		wordpoints_show_admin_error( sprintf( __( 'This points type uses a custom meta key ("%s"). If this key is also used by another plugin, changes made by it will not be logged. Only transactions performed by WordPoints are included in the logs.', 'wordpoints' ), $custom_key ) );
+	}
+}
+add_action( 'wordpoints_admin_points_logs_tab', 'wordpoints_points_logs_custom_meta_key_message' );
+
 // end of file /components/points/includes/functions.php

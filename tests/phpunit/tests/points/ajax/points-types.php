@@ -53,8 +53,19 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_Points_AJAX_UnitT
 
 		} catch ( WPAjaxDieStopException $e ) {
 
-			if ( $e->getMessage() !== '' ) {
-				$this->fail( 'Unexpected exception message: "' . $e->getMessage() . '"' );
+			if ( is_wordpoints_network_active() ) {
+
+				if ( $e->getMessage() !== '-1' ) {
+					$this->fail( 'Unexpected exception message: "' . $e->getMessage() . '"' );
+				}
+
+				return;
+
+			} else {
+
+				if ( $e->getMessage() !== '' ) {
+					$this->fail( 'Unexpected exception message: "' . $e->getMessage() . '"' );
+				}
 			}
 		}
 

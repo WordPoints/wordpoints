@@ -96,7 +96,7 @@ function wordpoints_ajax_save_points_hook() {
 
 	$error = '<p>' . __( 'An error has occurred. Please reload the page and try again.', 'wordpoints' ) . '</p>';
 
-	if ( isset( $_POST['points-name'] ) ) {
+	if ( isset( $_POST['points-slug'] ) ) {
 
 		// - We are saving the settings for a points type.
 
@@ -106,16 +106,36 @@ function wordpoints_ajax_save_points_hook() {
 
 		$settings = array();
 
-		$settings['name']   = trim( $_POST['points-name'] );
-		$settings['prefix'] = ltrim( $_POST['points-prefix'] );
-		$settings['suffix'] = rtrim( $_POST['points-suffix'] );
+		if ( isset( $_POST['points-name'] ) ) {
+			$settings['name'] = trim( $_POST['points-name'] );
+		}
 
-		if ( ! wordpoints_update_points_type( $_POST['points-slug'], wp_unslash( $settings ) ) ) {
+		if ( isset( $_POST['points-prefix'] ) ) {
+			$settings['prefix'] = ltrim( $_POST['points-prefix'] );
+		}
+
+		if ( isset( $_POST['points-suffix'] ) ) {
+			$settings['suffix'] = rtrim( $_POST['points-suffix'] );
+		}
+
+		$settings = wp_unslash( $settings );
+
+		$old_settings = wordpoints_get_points_type( $_POST['points-slug'] );
+
+		if ( false === $old_settings ) {
+			wp_die( -1 );
+		}
+
+		if ( is_array( $old_settings ) ) {
+			$settings = array_merge( $old_settings, $settings );
+		}
+
+		if ( ! wordpoints_update_points_type( $_POST['points-slug'], $settings ) ) {
 
 			// If this fails, show the user a message along with the form.
 			echo '<p>' . __( 'An error has occurred. Please try again.', 'wordpoints' ) . '</p>';
 
-			WordPoints_Points_Hooks::points_type_form( $slug, 'none' );
+			WordPoints_Points_Hooks::points_type_form( $_POST['points-slug'], 'none' );
 		}
 
 	} else {

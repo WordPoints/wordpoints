@@ -81,26 +81,29 @@ function wordpoints_points_component_activate() {
 	 */
 	if ( is_multisite() ) {
 
+		global $wpdb;
+
 		$custom_caps = wordpoints_points_get_custom_caps();
 		$custom_caps_keys = array_keys( $custom_caps );
 
-		if ( is_wordpoints_network_active() ) {
+		$network_active = is_wordpoints_network_active();
 
-			global $wpdb;
+		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
-			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		foreach ( $blog_ids as $blog_id ) {
 
-			foreach ( $blog_ids as $blog_id ) {
-
-				switch_to_blog( $blog_id );
-				wordpoints_remove_custom_caps( $custom_caps_keys );
-				wordpoints_add_custom_caps( $custom_caps );
-				restore_current_blog();
-			}
-
-		} else {
+			switch_to_blog( $blog_id );
 
 			wordpoints_remove_custom_caps( $custom_caps_keys );
+
+			if ( $network_active ) {
+				wordpoints_add_custom_caps( $custom_caps );
+			}
+
+			restore_current_blog();
+		}
+
+		if ( ! $network_active ) {
 			wordpoints_add_custom_caps( $custom_caps );
 		}
 	}

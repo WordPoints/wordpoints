@@ -116,7 +116,7 @@ final class WordPoints_Points_Hooks {
 			new $handler();
 		}
 
-		self::$hooks = self::$standard_hooks;
+		self::$hooks = &self::$standard_hooks;
 
 		/**
 		 * All points hooks registered and initialized.
@@ -342,9 +342,9 @@ final class WordPoints_Points_Hooks {
 			self::$network_mode = (bool) $on;
 
 			if ( self::$network_mode ) {
-				self::$hooks = self::$network_hooks;
+				self::$hooks = &self::$network_hooks;
 			} else {
-				self::$hooks = self::$standard_hooks;
+				self::$hooks = &self::$standard_hooks;
 			}
 		}
 	}

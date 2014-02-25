@@ -335,6 +335,17 @@ abstract class WordPoints_Points_Hook {
 		$instance = apply_filters( 'wordpoints_points_hook_update_callback', $instance, $new_instance, $old_instance, $this );
 
 		if ( false !== $instance ) {
+
+			// If this is a new instance, register it.
+			if ( ! isset( $all_instances[ $this->number ] ) ) {
+
+				if ( 'network' === $type ) {
+					WordPoints_Points_Hooks::_register_network_hook( $this );
+				} else {
+					WordPoints_Points_Hooks::_register_hook( $this );
+				}
+			}
+
 			$all_instances[ $this->number ] = $instance;
 		}
 

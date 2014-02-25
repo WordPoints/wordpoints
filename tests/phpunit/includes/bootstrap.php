@@ -99,4 +99,11 @@ require WORDPOINTS_TESTS_DIR . '/includes/uninstall/bootstrap.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-unittestcase.php';
 
+/**
+ * The WordPoints_Points_AJAX_UnitTestCase class.
+ *
+ * @since 1.3.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-ajax-unittestcase.php';
+
 // end of file /tests/phpunit/includes/bootstrap.php

@@ -142,6 +142,10 @@ function wordpoints_ajax_save_points_hook() {
 
 		// - We are creating/updating/deleting an instance of a hook.
 
+		if ( ! isset( $_POST['id_base'], $_POST['hook-id'], $_POST['points_type'], $_POST['hook_number'] ) ) {
+			wp_die( -1 );
+		}
+
 		$id_base        = $_POST['id_base'];
 		$hook_id        = $_POST['hook-id'];
 		$points_type_id = $_POST['points_type'];
@@ -158,12 +162,11 @@ function wordpoints_ajax_save_points_hook() {
 		if ( ! $number ) {
 
 			// This holds the ID number if the hook is brand new.
-			$number = (int) $_POST['multi_number'];
-
-			if ( ! $number ) {
+			if ( ! isset( $_POST['multi_number'] ) || ! wordpoints_posint( $_POST['multi_number'] ) ) {
 				wp_die( $error );
 			}
 
+			$number  = $_POST['multi_number'];
 			$hook_id = $id_base . '-' . $number;
 		}
 

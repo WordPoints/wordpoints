@@ -181,6 +181,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		} else {
 			$this->assertEquals( $wpdb->get_blog_prefix() . 'wordpoints_points-points', $meta_key );
 		}
+
+		// Test that the meta_key points type setting takes precendence when set.
+		$settings = wordpoints_get_points_type( 'points' );
+		$settings['meta_key'] = 'credits';
+		wordpoints_update_points_type( 'points', $settings );
+
+		$this->assertEquals( 'credits', wordpoints_get_points_user_meta_key( 'points' ) );
 	}
 
 	/**

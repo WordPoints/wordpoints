@@ -239,8 +239,9 @@ function wordpoints_delete_points_type( $slug ) {
  *
  * The number of points a user has is stored in the user meta. This function was
  * introduced to allow the meta_key for that value to be retrieved easily internally.
- * The meta key is "wordpoints_points-{$type}" for single sites, and when network
- * active on multisite. When not network-active on multisite, the key is prefixed
+ * If the meta_key setting for the ponits type is set, that is used. Otherwise the
+ * meta key is "wordpoints_points-{$type}" for single sites, and when network
+ * active on multisite; and when not network-active on multisite, the key is prefixed
  * with the blog's table prefix, to avoid collisions from different blogs.
  *
  * Note that because it uses is_wordpoints_network_active(), it can only be trusted
@@ -250,6 +251,7 @@ function wordpoints_delete_points_type( $slug ) {
  * returned.
  *
  * @since 1.2.0
+ * @since 1.3.0 Now checks the meta_key points type setting.
  *
  * @param string $points_type The slug of the points type to get the meta key for.
  *
@@ -261,7 +263,13 @@ function wordpoints_get_points_user_meta_key( $points_type ) {
 		return false;
 	}
 
-	if ( ! is_multisite() || is_wordpoints_network_active() ) {
+	$setting = wordpoints_get_points_type_setting( $points_type, 'meta_key' );
+
+	if ( ! empty( $setting ) ) {
+
+		$meta_key = $setting;
+
+	} elseif ( ! is_multisite() || is_wordpoints_network_active() ) {
 
 		$meta_key = "wordpoints_points-{$points_type}";
 

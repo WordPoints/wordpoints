@@ -11,8 +11,6 @@
  * Test that module headers are properly parsed.
  *
  * @since 1.1.0
- *
- * @todo translation parsing test.
  */
 class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 

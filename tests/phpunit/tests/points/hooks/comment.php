@@ -107,4 +107,43 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		);
 
 	} // public function test_points_awarded_removed()
+
+	/**
+	 * Test that logs are hidden for users who don't have the required capabilities.
+	 *
+	 * @since 1.3.0
+	 */
+	public function test_logs_hidden_for_insufficient_caps() {
+
+		wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'approve' => 10, 'disapprove' => 10 )
+		);
+
+		$post = $this->factory->post->create_and_get(
+			array( 'post_author' => $this->factory->user->create() )
+		);
+
+		$this->factory->comment->create(
+			array(
+				'user_id'         => $this->factory->user->create(),
+				'comment_post_ID' => $post->ID,
+			)
+		);
+
+		// Make the post private.
+		$post->post_status = 'private';
+		wp_update_post( $post );
+
+		wp_set_current_user( $this->factory->user->create() );
+
+		// The log shouldn't be displayed.
+		$this->assertTag(
+			array(
+				'tag' => 'tbody',
+				'content' => 'regexp:/[\r\t]*/',
+			)
+			, wordpoints_points_logs_shortcode( array( 'points_type' => 'points' ) )
+		);
+	}
 }

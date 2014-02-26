@@ -12,7 +12,7 @@
  *
  * @since 1.3.0
  *
- * @group ajaxdev
+ * @group ajax
  */
 class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_UnitTestCase {
 

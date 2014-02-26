@@ -318,7 +318,7 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 		<thead>
 			<tr>
 				<?php if ( $args['show_users'] ) : ?>
-				<th ccolspan="2"><?php echo $columns['user']; ?></th>
+				<th><?php echo $columns['user']; ?></th>
 				<?php endif; ?>
 				<th scope="col"><?php echo $columns['points']; ?></th>
 				<th scope="col"><?php echo $columns['description']; ?></th>
@@ -328,7 +328,7 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 		<tfoot>
 			<tr>
 				<?php if ( $args['show_users'] ) : ?>
-				<th ccolspan="2"><?php echo $columns['user']; ?></th>
+				<th><?php echo $columns['user']; ?></th>
 				<?php endif; ?>
 				<th scope="col"><?php echo $columns['points']; ?></th>
 				<th scope="col"><?php echo $columns['description']; ?></th>

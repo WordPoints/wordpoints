@@ -202,4 +202,36 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals( 30, wordpoints_get_points( $user_id, 'points' ) );
 	}
+
+	/**
+	 * Test that the logs are only displayed to users with the correct caps.
+	 *
+	 * @since 1.3.0
+	 */
+	public function test_logs_hidden_for_insufficient_caps() {
+
+		wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+		);
+
+		$post = $this->factory->post->create_and_get(
+			array( 'post_author' => $this->factory->user->create() )
+		);
+
+		// Make the post private.
+		$post->post_status = 'private';
+		wp_update_post( $post );
+
+		wp_set_current_user( $this->factory->user->create() );
+
+		// The log shouldn't be displayed.
+		$this->assertTag(
+			array(
+				'tag' => 'tbody',
+				'content' => 'regexp:/[\r\t]*/',
+			)
+			, wordpoints_points_logs_shortcode( array( 'points_type' => 'points' ) )
+		);
+	}
 }

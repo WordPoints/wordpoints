@@ -107,6 +107,10 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 	 */
 	public function test_network_as_admin() {
 
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite is required.' );
+		}
+
 		$this->_setRole( 'administrator' );
 
 		// Create some points hooks.
@@ -128,6 +132,10 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 	 * @since 1.3.0
 	 */
 	public function test_network_as_super_admin() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite is required.' );
+		}
 
 		$this->_setRole( 'administrator' );
 		grant_super_admin( get_current_user_id() );

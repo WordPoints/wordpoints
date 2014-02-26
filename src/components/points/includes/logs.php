@@ -343,6 +343,23 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 
 			foreach ( $logs->get() as $log ) {
 
+				/**
+				 * Filter whether the current user can view this points log.
+				 *
+				 * This is a dynamic hook, where the {$log->log_type} portion will
+				 * be the type of this log entry. For example, for a registration log
+				 * it would be 'wordpoints_user_can_view_points_log-register'.
+				 *
+				 * @since 1.3.0
+				 *
+				 * @param bool   $can_view Whether the user can view the log entry
+				 *                         (the default is true).
+				 * @param object $log      The log entry object.
+				 */
+				if ( ! apply_filters( "wordpoints_user_can_view_points_log-{$log->log_type}", true, $log ) ) {
+					continue;
+				}
+
 				$user = get_userdata( $log->user_id );
 
 				?>

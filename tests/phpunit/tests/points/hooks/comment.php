@@ -95,14 +95,12 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		$log = $query->get( 'row' );
 
 		$this->assertEquals(
-			'<span title="' . __( 'Comment removed...', 'wordpoints' ) . '">'
-				. sprintf(
-					_x( 'Comment on %s.', 'points log description', 'wordpoints' )
-					, '<a href="' . get_permalink( $comment->comment_post_ID ) . '">'
-						. get_the_title( $comment->comment_post_ID )
-						. '</a>'
-				)
-				. '</span>'
+			sprintf(
+				_x( 'Comment on %s.', 'points log description', 'wordpoints' )
+				, '<a href="' . get_permalink( $comment->comment_post_ID ) . '">'
+					. get_the_title( $comment->comment_post_ID )
+					. '</a>'
+			)
 			, $log->text
 		);
 

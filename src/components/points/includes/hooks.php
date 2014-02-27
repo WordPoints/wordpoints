@@ -729,19 +729,18 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 				$text = _x( 'Comment', 'points log description', 'wordpoints' );
 			}
 
-			return '<span title="' . __( 'Comment removed...', 'wordpoints' ) . '">' . $text . '</span>';
-
 		} else {
 
-			$detail     = wp_trim_words( strip_tags( $comment->comment_content ) );
 			$post_title = get_the_title( $comment->comment_post_ID );
 			$link       = '<a href="' . get_comment_link( $comment ) . '">'
 				. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
 				. '</a>';
 
 			/* translators: %s will be the post's title. */
-			return '<span title="' . esc_attr( $detail ) . '">' . sprintf( _x( 'Comment on %s.', 'points log description', 'wordpoints' ), $link ) . '</span>';
+			$text = sprintf( _x( 'Comment on %s.', 'points log description', 'wordpoints' ), $link );
 		}
+
+		return $text;
 	}
 
 	/**

@@ -99,7 +99,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'version', $wordpoints_data );
-		$this->assertEquals( WORDPOINTS_TESTS_VERSION, $wordpoints_data['version'] );
+		$this->assertEquals( WORDPOINTS_VERSION, $wordpoints_data['version'] );
 
 		// Flush the cache.
 		unset( $GLOBALS['wp_roles'] );

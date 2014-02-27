@@ -22,15 +22,6 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
 /**
- * The WordPoints version.
- *
- * @since 1.2.0
- *
- * @const WORDPOINTS_TESTS_VERSION
- */
-define( 'WORDPOINTS_TESTS_VERSION', '1.4.0-alpha' );
-
-/**
  * The WP plugin uninstall testing bootstrap.
  *
  * We need this so we can check if the uninstall tests are being run.
@@ -84,6 +75,13 @@ new WordPoints_PHPUnit_Util_Getopt( $_SERVER['argv'] );
  * @since 1.0.0
  */
 require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
+
+/**
+ * Include the plugin's constants so that we can access the current version.
+ *
+ * @since 1.4.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/../../src/includes/constants.php';
 
 /**
  * The bootstrap for the uninstall tests.

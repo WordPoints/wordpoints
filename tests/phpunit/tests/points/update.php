@@ -197,7 +197,7 @@ class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 		// Check that it doesn't upgrade if we are at a higher version.
 		$this->wordpoints_set_db_version( '1.3.0' );
 		wordpoints_points_component_update();
-		$this->assertEquals( '1.3.0', $this->wordpoints_get_db_version() );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
 		$this->assertEquals( 1, $query->count() );

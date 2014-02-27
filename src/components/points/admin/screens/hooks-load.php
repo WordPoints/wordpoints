@@ -17,7 +17,7 @@ $screen->add_help_tab(
 		'id'      => 'overview',
 		'title'   => __( 'Overview', 'wordpoints' ),
 		'content' =>
-			'<p>' . __( 'Points Hooks let you award users points by "hooking into" different actions. They can be hooked to any points type that you have created. To create a points type, fill out the Add New Points Type form, and click Save. You can edit the settings for your points type at any time by clicking on the Settings title bar within that points type section.', 'wordpoints' ) . '</p>
+			'<p>' . __( 'Points Hooks let you award users points by &#8220;hooking into&#8221; different actions. They can be hooked to any points type that you have created. To create a points type, fill out the Add New Points Type form, and click Save. You can edit the settings for your points type at any time by clicking on the Settings title bar within that points type section.', 'wordpoints' ) . '</p>
 			<p>' . __( "To link a hook to a points type, click on the hook's title bar and select a points type, or drag and drop the hook title bars into the desired points type. By default, only the first points type area is expanded. To populate additional points types, click on their title bars to expand them.", 'wordpoints' ) . '</p>
 			<p>' . __( 'The Available Hooks section contains all the hooks you can choose from. Once you add a hook into a points type, it will open to allow you to configure its settings. When you are happy with the hook settings, click the Save button and the hook will begin awarding points. If you click Delete, it will remove the hook.', 'wordpoints' ) . '</p>'
 	)

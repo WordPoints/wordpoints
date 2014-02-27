@@ -346,12 +346,12 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 			if ( ! is_null( $post_type ) ) {
 
 				/* translators: 1 is the post type name, 2 is the post title. */
-				return sprintf( _x( '%1$s "%2$s" deleted.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name, $meta['post_title'] );
+				return sprintf( _x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name, $meta['post_title'] );
 			}
 		}
 
 		/* translators: %s will be the post title. */
-		return sprintf( _x( 'Post "%s" deleted.', 'points log description', 'wordpoints' ), $meta['post_title'] );
+		return sprintf( _x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' ), $meta['post_title'] );
 	}
 
 	/**

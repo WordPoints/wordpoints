@@ -80,6 +80,12 @@ points are awarded.
 
 == Changelog ==
 
+= 1.3.0 =
+* New: User avatars are displayed in the points logs table.
+* New: Added [`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/) shortcode to display a user's points.
+* New: Users' points total may be [stored in a custom meta key](http://wordpoints.org/?p=153), allowing integration with other plugins.
+* Fixed: Logs for posts that have become private or protected are hidden from users who can't access them.
+
 = 1.2.0 =
 * New: Support for WordPress multisite See [here](http://wordpoints.org/user-guide/multisite/) for full details.
 * New: Network-wide points hooks for multisite.
@@ -113,6 +119,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+* This is a feature release which adds the [wordpoints_points] shortcode, among
+other things.
 
 = 1.2.0 =
 * This is a major update which adds full support for WordPress multisite.

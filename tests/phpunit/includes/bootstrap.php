@@ -9,7 +9,7 @@
 
 if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 
-	exit( '$_ENV["WP_TESTS_DIR"] is not set.' );
+	exit( '$_ENV["WP_TESTS_DIR"] is not set.' . PHP_EOL );
 }
 
 /**

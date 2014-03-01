@@ -22,7 +22,7 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
 /**
- * The WP plugin uninstall testing bootstrap.
+ * The WP plugin uninstall testing functions.
  *
  * We need this so we can check if the uninstall tests are being run.
  *

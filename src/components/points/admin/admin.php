@@ -220,7 +220,7 @@ function wordpoints_points_profile_options( $user ) {
 				<th scope="row"><?php echo esc_html( $type['name'] ); ?></th>
 				<td>
 					<input type="hidden" name="<?php echo esc_attr( "wordpoints_points_old-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" />
-					<input type="text" name="<?php echo esc_attr( "wordpoints_points-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" />
+					<input type="text" name="<?php echo esc_attr( "wordpoints_points-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" autocomplete="off" />
 					<input type="checkbox" value="1" name="<?php echo esc_attr( "wordpoints_points_set-{$slug}" ); ?>" />
 				</td>
 			</tr>

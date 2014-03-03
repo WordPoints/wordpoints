@@ -739,12 +739,13 @@ function wordpoints_remove_custom_caps( $capabilities ) {
  *
  * @filter map_meta_cap
  *
- * @param array  $caps The user's capabilities.
- * @param string $cap  The current capability in question.
+ * @param array  $caps    The user's capabilities.
+ * @param string $cap     The current capability in question.
+ * @param int    $user_id The ID of the user whose caps are being checked.
  *
  * @return array The user's capabilities.
  */
-function wordpoints_map_custom_meta_caps( $caps, $cap ) {
+function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
 	switch ( $cap ) {
 		case 'install_wordpoints_modules':
@@ -757,7 +758,9 @@ function wordpoints_map_custom_meta_caps( $caps, $cap ) {
 			}
 		break;
 	}
+
+	return $caps;
 }
-add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 2 );
+add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 3 );
 
 // end of file /includes/functions.php

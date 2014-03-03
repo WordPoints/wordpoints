@@ -732,4 +732,32 @@ function wordpoints_remove_custom_caps( $capabilities ) {
 	}
 }
 
+/**
+ * Map custom meta capabilities.
+ *
+ * @since 1.4.0
+ *
+ * @filter map_meta_cap
+ *
+ * @param array  $caps The user's capabilities.
+ * @param string $cap  The current capability in question.
+ *
+ * @return array The user's capabilities.
+ */
+function wordpoints_map_custom_meta_caps( $caps, $cap ) {
+
+	switch ( $cap ) {
+		case 'install_wordpoints_modules':
+			if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
+				$caps[] = 'do_not_allow';
+			} elseif ( is_multisite() && ! is_super_admin( $user_id ) ) {
+				$caps[] = 'do_not_allow';
+			} else {
+				$caps[] = $cap;
+			}
+		break;
+	}
+}
+add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 2 );
+
 // end of file /includes/functions.php

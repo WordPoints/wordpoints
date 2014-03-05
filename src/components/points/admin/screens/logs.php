@@ -55,7 +55,7 @@ if ( is_network_admin() ) {
 			$current_type = wordpoints_admin_get_current_tab( $tabs );
 
 			/**
-			 * At the top of one of the tabs on the points logs the admin panel.
+			 * At the top of one of the tabs on the points logs admin panel.
 			 *
 			 * @since 1.3.0
 			 *
@@ -68,7 +68,7 @@ if ( is_network_admin() ) {
 			wordpoints_show_points_logs_query( $current_type, $query );
 
 			/**
-			 * At the bottom of one of the tabs on the points logs the admin panel.
+			 * At the bottom of one of the tabs on the points logs admin panel.
 			 *
 			 * @since 1.3.0
 			 *

@@ -79,7 +79,7 @@ class WordPoints_Registration_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @return string The log entry.
 	 */
-	function logs() {
+	public function logs() {
 
 		return _x( 'Registration.', 'points log description', 'wordpoints' );
 	}

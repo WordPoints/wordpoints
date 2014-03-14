@@ -414,19 +414,34 @@ class WordPoints_Dropdown_Builder {
 	/**
 	 * Construct the class with the options and arguments.
 	 *
-	 * @since 1.0.0
+	 * The options may be an associative array with the option values as keys and the
+	 * options' text as values. It can also be an array of arrays or objects, where
+	 * the options' text and value are elements of the array. To specify the key for
+	 * the values and option text, use the 'values_key' and 'options_key' arguments,
+	 * respectively.
 	 *
-	 * @param string[] $options The options for the <select> element.
-	 * @param array    $args {
-	 *        @type string $selected The value selected. Default is none.
-	 *        @type string $id       The value for the id attribute of the element.
-	 *              The default is empty.
-	 *        @type string $name     The value for the name attribute of the element.
-	 *              The default is empty.
-	 *        @type string $class    The value for the class attribute of the
-	 *              element. The default is empty.
+	 * @since 1.0.0
+	 * @since 1.4.0 The $options argument may now be passed as an array of arrays or
+	 *              objects, and the 'options_key' and 'values_key' args were added.
+	 *
+	 * @param (string|array|object)[] $options The options for the <select> element.
+	 * @param array                   $args    {
+	 *        Arguments for the display of the select element.
+	 *
+	 *        @type string $selected         The value selected. Default is none.
+	 *        @type string $id               The value for the id attribute of the
+	 *                                       element. The default is empty.
+	 *        @type string $name             The value for the name attribute of the
+	 *                                       element. The default is empty.
+	 *        @type string $class            The value for the class attribute of the
+	 *                                       element. The default is empty.
 	 *        @type string $show_option_none The text for a "none" option. The value
-	 *              will always be '-1'. Default is empty (does not show an option).
+	 *                                       will always be '-1'. Default is empty
+	 *                                       (does not show an option).
+	 *        @type string $options_key      The key for the option name if each
+	 *                                       option is an array.
+	 *        @type string $values_key       The key for the option value if each
+	 *                                       option is an array or object.
 	 * }
 	 */
 	public function __construct( array $options, array $args ) {
@@ -472,7 +487,13 @@ class WordPoints_Dropdown_Builder {
 
 		foreach ( $this->options as $value => $option ) {
 
-			echo '<option value="', esc_attr( $value ), '"', selected( $value, $this->args['selected'] ), '>', esc_html( $option ), '</option>';
+			if ( isset( $this->args['values_key'], $this->args['options_key'] ) ) {
+				$option = (array) $option;
+				$value = $option[ $this->args['values_key'] ];
+				$option = $option[ $this->args['options_key'] ];
+			}
+
+			echo '<option value="', esc_attr( $value ), '"', selected( $value, $this->args['selected'], false ), '>', esc_html( $option ), '</option>';
 		}
 	}
 

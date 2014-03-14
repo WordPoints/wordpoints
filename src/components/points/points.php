@@ -244,11 +244,32 @@ include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-point
 include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-hook.php';
 
 /**
- * Included points hooks.
+ * The registration points hook
  *
- * @since 1.0.0
+ * @since 1.4.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks.php';
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/registration.php';
+
+/**
+ * The post points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post.php';
+
+/**
+ * The comment points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment.php';
+
+/**
+ * The periodic points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/periodic.php';
 
 /**
  * Points logs query class.

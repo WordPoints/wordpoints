@@ -444,6 +444,74 @@ abstract class WordPoints_Points_Hook {
 		}
 	}
 
+	/**
+	 * Constructs name attributes for use in form() fields.
+	 *
+	 * This function should be used in form() methods to create name attributes for
+	 * fields to be saved by update(). Note that the returned value is escaped with
+	 * esc_attr().
+	 *
+	 * @since 1.0.0
+	 *
+	 * @see WordPoints_Points_Hook::the_field_name()
+	 *
+	 * @param string $field_name Field name.
+	 *
+	 * @return string Name attribute for $field_name.
+	 */
+	final public function get_field_name( $field_name ) {
+
+		return esc_attr( 'hook-' . $this->id_base . '[' . $this->number . '][' . $field_name . ']' );
+	}
+
+	/**
+	 * Echo a name attribute for use in form() fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @uses WordPoints_Points_Hook::get_field_name()
+	 *
+	 * @param string $field_name The field name.
+	 */
+	final public function the_field_name( $field_name ) {
+
+		echo $this->get_field_name( $field_name );
+	}
+
+	/**
+	 * Constructs id attributes for use in form() fields.
+	 *
+	 * This function should be used in form() methods to create id attributes for
+	 * fields to be saved by update(). Note that the returned value is escaped with
+	 * esc_attr().
+	 *
+	 * @since 1.0.0
+	 *
+	 * @seee WordPoints_Points_Hook::the_field_id()
+	 *
+	 * @param string $field_name Field name.
+	 *
+	 * @return string ID attribute for $field_name.
+	 */
+	final public function get_field_id( $field_name ) {
+
+		return esc_attr( 'hook-' . $this->id_base . '-' . $this->number . '-' . $field_name );
+	}
+
+	/**
+	 * Echo an id attribute for use in form() fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @uses WordPoints_Points_Hook::get_field_id()
+	 *
+	 * @param string $field_name The field name.
+	 */
+	final public function the_field_id( $field_name ) {
+
+		echo $this->get_field_id( $field_name );
+	}
+
 	//
 	// Protected Methods.
 	//
@@ -497,74 +565,6 @@ abstract class WordPoints_Points_Hook {
 
 			WordPoints_Points_Hooks::_register_network_hook( $this );
 		}
-	}
-
-	/**
-	 * Constructs name attributes for use in form() fields.
-	 *
-	 * This function should be used in form() methods to create name attributes for
-	 * fields to be saved by update(). Note that the returned value is escaped with
-	 * esc_attr().
-	 *
-	 * @since 1.0.0
-	 *
-	 * @see WordPoints_Points_Hook::the_field_name()
-	 *
-	 * @param string $field_name Field name.
-	 *
-	 * @return string Name attribute for $field_name.
-	 */
-	final protected function get_field_name( $field_name ) {
-
-		return esc_attr( 'hook-' . $this->id_base . '[' . $this->number . '][' . $field_name . ']' );
-	}
-
-	/**
-	 * Echo a name attribute for use in form() fields.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses WordPoints_Points_Hook::get_field_name()
-	 *
-	 * @param string $field_name The field name.
-	 */
-	final protected function the_field_name( $field_name ) {
-
-		echo $this->get_field_name( $field_name );
-	}
-
-	/**
-	 * Constructs id attributes for use in form() fields.
-	 *
-	 * This function should be used in form() methods to create id attributes for
-	 * fields to be saved by update(). Note that the returned value is escaped with
-	 * esc_attr().
-	 *
-	 * @since 1.0.0
-	 *
-	 * @seee WordPoints_Points_Hook::the_field_id()
-	 *
-	 * @param string $field_name Field name.
-	 *
-	 * @return string ID attribute for $field_name.
-	 */
-	final protected function get_field_id( $field_name ) {
-
-		return esc_attr( 'hook-' . $this->id_base . '-' . $this->number . '-' . $field_name );
-	}
-
-	/**
-	 * Echo an id attribute for use in form() fields.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses WordPoints_Points_Hook::get_field_id()
-	 *
-	 * @param string $field_name The field name.
-	 */
-	final protected function the_field_id( $field_name ) {
-
-		echo $this->get_field_id( $field_name );
 	}
 
 	/**

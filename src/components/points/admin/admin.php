@@ -185,6 +185,34 @@ function wordpoints_points_hooks_access_body_class( $classes ) {
 }
 
 /**
+ * Display the hook description field in the hook forms.
+ *
+ * @since 1.4.0
+ *
+ * @action wordpoints_in_points_hook_form
+ *
+ * @param array                  $instance The settings for this hook instance.
+ * @param bool                   $has_form Whether this instance displayed a form.
+ * @param WordPoints_Points_Hook $hook     The points hook object.
+ */
+function wordpoints_points_hook_description_form( $instance, $has_form, $hook ) {
+
+	?>
+
+	<hr />
+
+	<div class="hook-instance-description">
+		<label for="<?php $hook->the_field_name( '_description' ); ?>">Description:</label>
+		<input type="text" id="<?php $hook->the_field_id( '_description' ); ?>" name="<?php $hook->the_field_name( '_description' ); ?>" class="widefat" value="<?php echo esc_attr( $hook->get_description() ); ?>" />
+	</div>
+
+	<br />
+
+	<?php
+}
+add_action( 'wordpoints_in_points_hook_form', 'wordpoints_points_hook_description_form', 10, 3 );
+
+/**
  * Display the user's points on their profile page.
  *
  * @since 1.0.0

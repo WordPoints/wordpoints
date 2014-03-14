@@ -512,6 +512,24 @@ abstract class WordPoints_Points_Hook {
 		echo $this->get_field_id( $field_name );
 	}
 
+	/**
+	 * Retrieve the description for the hook.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @return string The hook's description.
+	 */
+	final public function get_description() {
+
+		$instances = $this->get_instances();
+
+		if ( isset( $instances[ $this->number ]['_description'] ) ) {
+			return $instances[ $this->number ]['_description'];
+		}
+
+		return $this->options['description'];
+	}
+
 	//
 	// Protected Methods.
 	//

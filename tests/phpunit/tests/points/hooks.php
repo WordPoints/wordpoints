@@ -107,4 +107,26 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals( $points, wordpoints_get_points( $user_id, 'points' ) );
 	}
+
+	/**
+	 * Test getting the description of a hook.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_get_hook_description() {
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array( 'points' => 10 )
+		);
+
+		// Description should be the default description of the hook.
+		$this->assertEquals( $hook->get_option( 'description' ), $hook->get_description() );
+
+		// Now set our own custom description.
+		$hook->update_callback( array( 'points' => 10, '_description' => 'Test.' ), 1 );
+
+		// The custom description should be returned.
+		$this->assertEquals( 'Test.', $hook->get_description() );
+	}
 }

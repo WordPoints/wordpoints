@@ -440,6 +440,12 @@ div#hooks-right .closed .hooks-sortables {
 	color: #aaa;
 }
 
+#hooks-right .hook-inside hr {
+    margin: 10px;
+    margin-top: 20px;
+    border-top: 1px #ddd dotted;
+}
+
 /*
  * 7. Accessibility Mode.
  */

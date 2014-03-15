@@ -530,6 +530,37 @@ abstract class WordPoints_Points_Hook {
 		return $this->options['description'];
 	}
 
+	/**
+	 * Get the points type for an instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $number The instance number.
+	 *
+	 * @return string|bool
+	 */
+	final public function points_type( $number ) {
+
+		if ( $network_mode = ( strpos( $number, 'network_' ) === 0 ) ) {
+			$number = (int) str_replace( 'network_', '', $number );
+		}
+
+		$current_mode = WordPoints_Points_Hooks::get_network_mode();
+
+		if ( $current_mode !== $network_mode ) {
+			WordPoints_Points_Hooks::set_network_mode( $network_mode );
+		}
+
+		$points_type = WordPoints_Points_Hooks::get_points_type( $this->get_id( $number ) );
+
+		// Reset network mode if it was changed.
+		if ( $current_mode !== $network_mode ) {
+			WordPoints_Points_Hooks::set_network_mode( $current_mode );
+		}
+
+		return $points_type;
+	}
+
 	//
 	// Protected Methods.
 	//
@@ -583,37 +614,6 @@ abstract class WordPoints_Points_Hook {
 
 			WordPoints_Points_Hooks::_register_network_hook( $this );
 		}
-	}
-
-	/**
-	 * Get the points type for an instance.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $number The instance number.
-	 *
-	 * @return string|bool
-	 */
-	final protected function points_type( $number ) {
-
-		if ( $network_mode = ( strpos( $number, 'network_' ) === 0 ) ) {
-			$number = (int) str_replace( 'network_', '', $number );
-		}
-
-		$current_mode = WordPoints_Points_Hooks::get_network_mode();
-
-		if ( $current_mode !== $network_mode ) {
-			WordPoints_Points_Hooks::set_network_mode( $network_mode );
-		}
-
-		$points_type = WordPoints_Points_Hooks::get_points_type( $this->get_id( $number ) );
-
-		// Reset network mode if it was changed.
-		if ( $current_mode !== $network_mode ) {
-			WordPoints_Points_Hooks::set_network_mode( $current_mode );
-		}
-
-		return $points_type;
 	}
 
 	//

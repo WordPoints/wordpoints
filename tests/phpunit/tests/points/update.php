@@ -13,6 +13,7 @@
  * @since 1.2.0
  *
  * @group points
+ * @group update
  */
 class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 
@@ -235,4 +236,149 @@ class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 			, $administrator->has_cap( 'manage_wordpoints_points_types' )
 		);
 	}
+
+	/**
+	 * Test the update to 1.4.0.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_update_to_1_4_0() {
+
+		// Create a post points hook with the old type of settings.
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+		);
+
+		// Now simulate the update.
+		$this->wordpoints_set_db_version();
+		wordpoints_points_component_update();
+
+		// Test that the post hook instance was updated.
+		$this->assertEquals(
+			array( 1 => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			, $hook->get_instances()
+		);
+
+		// Check that a post delete points hook was created.
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
+
+		$this->assertEquals(
+			array( 1 => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			, $hook->get_instances()
+		);
+
+		// Check that the points-types-hooks list was updated.
+		$this->assertEquals(
+				array(
+					'points' => array(
+						'wordpoints_post_points_hook-1',
+						'wordpoints_post_delete_points_hook-1',
+					)
+				),
+				WordPoints_Points_Hooks::get_points_types_hooks()
+			);
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestIncomplete( 'Multisite update tests require that WordPoints be network-active.' );
+			return;
+		}
+
+		global $wpdb;
+
+		// Create a hook on each site.
+		$this->factory->blog->create();
+
+		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+		foreach ( $blog_ids as $blog_id ) {
+
+			switch_to_blog( $blog_id );
+			wordpointstests_add_points_hook(
+				'wordpoints_post_points_hook'
+				, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+			);
+			restore_current_blog();
+		}
+
+		// Create a network-wide hook.
+		WordPoints_Points_Hooks::set_network_mode( true );
+		wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+		);
+		WordPoints_Points_Hooks::set_network_mode( false );
+
+		// Simulate the update.
+		$this->wordpoints_set_db_version();
+		wordpoints_points_component_update();
+
+		// Check that the hooks for each site were updated.
+		foreach ( $blog_ids as $blog_id ) {
+
+			switch_to_blog( $blog_id );
+
+			// Test that the post hook instance was updated.
+			$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
+
+			$this->assertEquals(
+				array( 1 => array( 'points' => 20, 'post_type' => 'ALL' ) )
+				, $hook->get_instances( 'standard' )
+			);
+
+			// Check that a post delete points hook was created.
+			$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
+
+			$this->assertEquals(
+				array( 1 => array( 'points' => 20, 'post_type' => 'ALL' ) )
+				, $hook->get_instances( 'standard' )
+			);
+
+			// Check that the points-types-hooks list was updated.
+			$this->assertEquals(
+				array(
+					'points' => array(
+						'wordpoints_post_points_hook-1',
+						'wordpoints_post_delete_points_hook-1',
+					)
+				),
+				WordPoints_Points_Hooks::get_points_types_hooks()
+			);
+
+			restore_current_blog();
+		}
+
+		// Test that the network-hook was updated.
+		WordPoints_Points_Hooks::set_network_mode( true );
+
+		// Test that the post hook instance was updated.
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
+
+		$this->assertEquals(
+			array( 1 => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			, $hook->get_instances( 'network' )
+		);
+
+		// Check that a post delete points hook was created.
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
+
+		$this->assertEquals(
+			array( 1 => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			, $hook->get_instances( 'network' )
+		);
+
+		// Check that the points-types-hooks list was updated.
+		$this->assertEquals(
+				array(
+					'points' => array(
+						'wordpoints_post_points_hook-1',
+						'wordpoints_post_delete_points_hook-1',
+					)
+				),
+				WordPoints_Points_Hooks::get_points_types_hooks()
+			);
+
+		WordPoints_Points_Hooks::set_network_mode( false );
+
+	} // public function test_update_to_1_4_0()
 }

@@ -192,6 +192,10 @@ function wordpoints_points_component_update() {
 		case version_compare( '1.3.0', $db_version ):
 			wordpoints_points_update_1_3_0();
 		// fallthru
+
+		case version_compare( '1.4.0', $db_version ):
+			wordpoints_points_update_1_4_0();
+		// fallthru
 	}
 
 	$wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;
@@ -251,11 +255,18 @@ include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-point
 include_once WORDPOINTS_DIR . 'components/points/includes/hooks/registration.php';
 
 /**
- * The post points hook
+ * The post publish points hook
  *
  * @since 1.4.0
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post.php';
+
+/**
+ * The post delete points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post-delete.php';
 
 /**
  * The comment points hook

@@ -579,28 +579,6 @@ function is_wordpoints_network_active() {
 }
 
 /**
- * Fix URLs where WordPress doesn't follow symlinks.
- *
- * This allows you to define WORDPOINTS_SYMLINK in wp-config.php and have the plugin
- * symlinked to the plugins directory of your install.
- *
- * @filter plugins_url
- */
-function wordpoints_symlink_fix( $url, $path, $plugin ) {
-
-	if ( strstr( $plugin, 'wordpoints' ) ) {
-
-		$url = str_replace( WORDPOINTS_SYMLINK, 'wordpoints', $url );
-	}
-
-	return $url;
-}
-
-if ( defined( 'WORDPOINTS_SYMLINK' ) ) {
-	add_filter( 'plugins_url', 'wordpoints_symlink_fix', 10, 3 );
-}
-
-/**
  * Include once all .php files in a directory and subdirectories.
  *
  * Gets the paths of all files in $dir and in any subdirectories of $dir. Paths of

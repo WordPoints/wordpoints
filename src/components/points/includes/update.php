@@ -108,6 +108,12 @@ function wordpoints_points_update_1_3_0() {
  */
 function wordpoints_points_update_1_4_0() {
 
+	// If the points hooks haven't been registered yet, try again later.
+	if ( ! did_action( 'wordpoints_points_hooks_registered' ) ) {
+		add_action( 'wordpoints_points_hooks_registered', __FUNCTION__ );
+		return;
+	}
+
 	/*
 	 * Split the post points hooks into post publish and post delete points hooks.
 	 */

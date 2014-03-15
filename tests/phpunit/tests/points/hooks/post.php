@@ -20,21 +20,25 @@
 class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
-	 * Test that points are added and removed as expected.
+	 * Test that points are added as expected.
 	 *
-	 * @since 1.3.0
+	 * Since 1.3.0 it was called test_points_awarded_removed(). Now the post delete
+	 * hook has been split from the post hook, so we only test that points are
+	 * awarded here.
+	 *
+	 * @since 1.4.0
 	 */
-	public function test_points_awarded_removed() {
+	public function test_points_awarded() {
 
 		wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
-			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
 		$user_id = $this->factory->user->create();
 		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
 
-		// Check that points were aded when the post was created.
+		// Check that points were added when the post was created.
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now convert the post back to a draft.
@@ -50,8 +54,8 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 		wp_delete_post( $post_id, true );
 
-		// Check that the points were removed when the post was deleted.
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		// Check that no points were removed when the post was deleted.
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Check that the logs were cleaned up properly.
 		$query = new WordPoints_Points_Logs_Query(
@@ -86,49 +90,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals( sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), 'Post' ), $log->text );
 
-	} // public function test_points_awarded_removed()
-
-	/**
-	 * Make sure points aren't deleted when auto-drafts are deleted.
-	 *
-	 * @since 1.3.0
-	 */
-	public function test_points_not_deleted_for_auto_drafts() {
-
-		wordpointstests_add_points_hook(
-			'wordpoints_post_points_hook'
-			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
-		);
-
-		$user_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create(
-			array(
-				'post_author' => $user_id,
-				'post_status' => 'auto-draft',
-			)
-		);
-
-		wp_delete_post( $post_id, true );
-
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
-
-		/*
-		 * If an auto-draft is moved to the trash, it gets the 'trash' status, so
-		 * in that case just checking the post status is insufficient.
-		 *
-		 * See https://core.trac.wordpress.org/ticket/16116
-		 */
-		$post_id = $this->factory->post->create(
-			array(
-				'post_author' => $user_id,
-				'post_title' => __( 'Auto Draft', 'default' ),
-			)
-		);
-
-		wp_delete_post( $post_id, true );
-
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
-	}
+	} // public function test_points_awarded()
 
 	/**
 	 * Test the non-public post types like revisions are ignored.
@@ -139,7 +101,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 		wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
-			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
 		$user_id = $this->factory->user->create();
@@ -150,14 +112,8 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			)
 		);
 
+		// Test that no points were awarded.
 		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
-
-		// Set the user's points so that there will be some to delete.
-		wordpoints_set_points( $user_id, 30, 'points', 'test' );
-
-		wp_delete_post( $post_id, true );
-
-		$this->assertEquals( 30, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -169,10 +125,12 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 		wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
-			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'post' )
+			, array( 'points' => 20, 'post_type' => 'post' )
 		);
 
 		$user_id = $this->factory->user->create();
+
+		// Create a post.
 		$post_id = $this->factory->post->create(
 			array(
 				'post_author' => $user_id,
@@ -180,12 +138,10 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			)
 		);
 
+		// Test that points were awarded for the post.
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
-		wp_delete_post( $post_id, true );
-
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
-
+		// Now create a page.
 		$post_id = $this->factory->post->create(
 			array(
 				'post_author' => $user_id,
@@ -193,14 +149,8 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			)
 		);
 
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
-
-		// Set the user's points so that there will be some to delete.
-		wordpoints_set_points( $user_id, 30, 'points', 'test' );
-
-		wp_delete_post( $post_id, true );
-
-		$this->assertEquals( 30, wordpoints_get_points( $user_id, 'points' ) );
+		// Test that no points were awarded for the page.
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**

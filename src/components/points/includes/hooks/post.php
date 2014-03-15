@@ -13,10 +13,12 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
 /**
  * Post points hook.
  *
- * Awards points when a post is published, and/or subtracts them when one is
- * permanently deleted.
+ * Awards points when a post is published.
  *
  * @since 1.0.0
+ * @since 1.4.0 No longer subtracts points when a hook is deleted.
+ *
+ * @see WordPoints_Post_Delete_Points_Hook
  */
 class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 
@@ -27,33 +29,26 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	private $defaults = array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' );
+	private $defaults = array( 'points' => 20, 'post_type' => 'ALL' );
 
 	/**
 	 * Set up the hook.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @uses add_action() To set up the publish_hook() and delete_hook() methods.
-	 * @uses add_filter() To hook up the publish_logs() and delete_logs() methods.
+	 * @uses add_action() To set up the hook() method.
+	 * @uses add_filter() To hook up the logs() method.
 	 */
 	public function __construct() {
 
 		parent::init(
-			_x( 'Post', 'points hook name', 'wordpoints' )
-			,array(
-				'description' => __( 'Add points when a post is published, and/or subtract points when one is permanently deleted.', 'wordpoints' ),
-			)
+			_x( 'Post Publish', 'points hook name', 'wordpoints' )
+			, array( 'description' => __( 'New post published.', 'wordpoints' ) )
 		);
 
 		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
-		add_action( 'delete_post', array( $this, 'delete_hook' ) );
-
 		add_filter( 'wordpoints_points_log-post_publish', array( $this, 'publish_logs' ), 10, 6 );
-		add_filter( 'wordpoints_points_log-post_delete', array( $this, 'delete_logs' ), 10, 6 );
-
 		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
-
 		add_filter( 'wordpoints_user_can_view_points_log-post_publish', array( $this, 'user_can_view' ), 10, 2 );
 	}
 
@@ -62,7 +57,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @action user_register Added by the constructor.
+	 * @action transition_post_status Added by the constructor.
 	 *
 	 * @param string $old_status The old status of the post.
 	 * @param string $new_status The new status of the post.
@@ -94,7 +89,22 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 				&& ! $this->awarded_points_already( $post->ID, $points_type )
 			) {
 
-				wordpoints_alter_points( $post->post_author, $instance['publish'], $points_type, 'post_publish', array( 'post_id' => $post->ID ) );
+				if ( isset( $instance['publish'] ) ) {
+					_deprecated_argument( __METHOD__, '1.4.0', 'The "publish" hook setting is no longer used to hold the value for the points. Use "points" instead.' );
+					$instance['points'] = $instance['publish'];
+				}
+
+				if ( ! isset( $instance['points'] ) ) {
+					continue;
+				}
+
+				wordpoints_alter_points(
+					$post->post_author
+					, $instance['points']
+					, $points_type
+					, 'post_publish'
+					, array( 'post_id' => $post->ID )
+				);
 			}
 		}
 	}
@@ -105,42 +115,14 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 * @since 1.0.0
 	 * @since 1.1.0 The post_type is now passed as metadata when points are awarded.
 	 * @since 1.1.2 Points are only removed if the post type is public.
-	 *
-	 * @action before_delete_post Added by the constructor.
+	 * @deprecated 1.4.0
+	 * @deprecated Use the WordPoints_Post_Delete_Points_Hook instead.
 	 *
 	 * @param int $post_id The post's ID.
 	 */
 	public function delete_hook( $post_id ) {
 
-		$post = get_post( $post_id, OBJECT, 'display' );
-
-		foreach ( $this->get_instances() as $number => $instance ) {
-
-			$instance = array_merge( $this->defaults, $instance );
-
-			if (
-				! empty( $instance['post_type'] )
-				&& (
-					$instance['post_type'] == $post->post_type
-					|| (
-						$instance['post_type'] == 'ALL'
-						&& post_type_exists( $post->post_type )
-						&& get_post_type_object( $post->post_type )->public
-					)
-				)
-				&& $post->post_status !== 'auto-draft'
-				&& $post->post_title !== __( 'Auto Draft', 'default' )
-			) {
-
-				wordpoints_alter_points(
-					$post->post_author
-					, -$instance['trash']
-					, $this->points_type( $number )
-					, 'post_delete'
-					, array( 'post_title' => $post->post_title, 'post_type' => $post->post_type )
-				);
-			}
-		}
+		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::hook()' );
 	}
 
 	/**
@@ -205,8 +187,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 * The data isn't sanitized here becuase we do that before saving it.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @action wordpoints_render_log-post_delete Added by the constructor.
+	 * @deprecated 1.4.0
+	 * @deprecated Use WordPoints_Post_Delete_Points_Hook::logs() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -219,19 +201,15 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function delete_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		if ( isset( $meta['post_type'] ) ) {
+		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::logs()' );
 
-			$post_type = get_post_type_object( $meta['post_type'] );
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
 
-			if ( ! is_null( $post_type ) ) {
-
-				/* translators: 1 is the post type name, 2 is the post title. */
-				return sprintf( _x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name, $meta['post_title'] );
-			}
+		if ( $hook ) {
+			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 		}
 
-		/* translators: %s will be the post title. */
-		return sprintf( _x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' ), $meta['post_title'] );
+		return $text;
 	}
 
 	/**
@@ -243,7 +221,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	 * @param int    $user_id     The ID of the user.
 	 * @param string $points_type The points type to check.
 	 *
-	 * @return bool Whether the user
+	 * @return bool Whether points have been awarded for publishing this post before.
 	 */
 	public function awarded_points_already( $post_id, $points_type ) {
 
@@ -363,14 +341,15 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 
 		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
 
-		wordpoints_posint( $new_instance['publish'] );
-		wordpoints_posint( $new_instance['trash'] );
+		wordpoints_posint( $new_instance['points'] );
 
 		return $new_instance;
 	}
 
 	/**
 	 * Echo the settings update form.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param array $instance Current settings.
 	 *
@@ -399,12 +378,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 			?>
 		</p>
 		<p>
-			<label for="<?php $this->the_field_id( 'publish' ); ?>"><?php _e( 'Points added when published:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'publish' ); ?>"  id="<?php $this->the_field_id( 'publish' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['publish'] ); ?>" />
-		</p>
-		<p>
-			<label for="<?php $this->the_field_id( 'trash' ); ?>"><?php _e( 'Points removed when deleted:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'trash' ); ?>"  id="<?php $this->the_field_id( 'trash' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['trash'] ); ?>" />
+			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php _e( 'Points:', 'wordpoints' ); ?></label>
+			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
 		</p>
 
 		<?php

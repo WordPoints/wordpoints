@@ -134,6 +134,57 @@ function wordpoints_modules_dir() {
 }
 
 /**
+ * Get the URL for the modules directory or to a specific file in that directory.
+ *
+ * @since 1.4.0
+ *
+ * @param string $path   A relative path to a file or folder.
+ * @param string $module A module file that the $path should be relative to.
+ *
+ * @return string The URL for the path passed.
+ */
+function wordpoints_modules_url( $path = '', $module = '' ) {
+
+	// Clean the paths and sanitize them for Win32 installs.
+	foreach ( array( 'path', 'module' ) as $var ) {
+		$$var = str_replace( '\\' ,'/', $$var );
+		$$var = preg_replace( '|/+|', '/', $$var );
+	}
+
+	if ( defined( 'WORDPOINTS_MODULES_URL' ) ) {
+		$url = WORDPOINTS_MODULES_URL;
+	} else {
+		$url = WP_CONTENT_URL . '/wordpoints-modules';
+	}
+
+	$url = set_url_scheme( $url );
+
+	if ( ! empty( $module ) && is_string( $module ) ) {
+
+		$folder = dirname( wordpoints_module_basename( $module ) );
+
+		if ( '.' != $folder ) {
+			$url .= '/' . ltrim( $folder, '/' );
+		}
+	}
+
+	if ( $path && is_string( $path ) ) {
+		$url .= '/' . ltrim( $path, '/' );
+	}
+
+	/**
+	 * Filter the URL of the modules directory.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param string $url The URL of the modules folder.
+	 * @param string $path   A relative path to a file or folder.
+	 * @param string $module A module file that the $path should be relative to.
+	 */
+	return apply_filters( 'wordpoints_modules_url', $url, $path, $module );
+}
+
+/**
  * Get the basename of a module.
  *
  * @since 1.1.0

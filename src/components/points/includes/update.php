@@ -135,6 +135,7 @@ function wordpoints_points_update_1_4_0() {
 
 			switch_to_blog( $blog_id );
 			wordpoints_points_update_1_4_0_split_post_hooks();
+			wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
 			restore_current_blog();
 		}
 

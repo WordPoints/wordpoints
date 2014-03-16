@@ -345,6 +345,11 @@ class WordPoints_Points_Update_Test extends WordPoints_Points_UnitTestCase {
 				WordPoints_Points_Hooks::get_points_types_hooks()
 			);
 
+			// Test that the capability updates neglected in 1.3.0 happen.
+			$administrator = get_role( 'administrator' );
+			$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
+			$this->assertFalse( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
+
 			restore_current_blog();
 		}
 

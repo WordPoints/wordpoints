@@ -16,7 +16,7 @@
  *
  * @const WORDPOINTS_VERSION
  */
-define( 'WORDPOINTS_VERSION', '1.4.0-alpha-2' );
+define( 'WORDPOINTS_VERSION', '1.4.0-alpha-3' );
 
 /**
  * You are here.

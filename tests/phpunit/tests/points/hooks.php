@@ -24,12 +24,16 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	function test_get_and_save() {
 
-		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook', array( 'points' => 10 ) );
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
 		$this->assertEquals(
-			array( 'points' => array( 0 => 'wordpoints_registration_points_hook-1' ) )
+			array( 'points' => array( 0 => $hook->get_id() ) )
 			, $points_types_hooks
 		);
 
@@ -42,12 +46,16 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 		// Network mode.
 		WordPoints_Points_Hooks::set_network_mode( true );
 
-		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook', array( 'points' => 10 ) );
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
 		$this->assertEquals(
-			array( 'points' => array( 0 => 'wordpoints_registration_points_hook-1' ) )
+			array( 'points' => array( 0 => $hook->get_id() ) )
 			, $points_types_hooks
 		);
 
@@ -73,27 +81,40 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Set up.
 		WordPoints_Points_Hooks::set_network_mode( true );
-		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook', array( 'points' => 10 ) );
-		WordPoints_Points_Hooks::set_network_mode( false );
-		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook', array( 'points' => 10 ) );
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
+
+		$hook_1_number = $hook->get_number();
+
+		WordPoints_Points_Hooks::set_network_mode( false );
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
+
+		$hook_2_number = $hook->get_number();
 
 		// Test retrieving all instances.
-		$instances = array( 1 => array( 'points' => 10 ) );
+		$instances = array( $hook_2_number => array( 'points' => 10 ) );
 
 		if ( is_multisite() ) {
-			$instances['network_1'] = array( 'points' => 10 );
+			$instances['network_' . $hook_1_number ] = array( 'points' => 10 );
 		}
 
 		$this->assertEquals( $instances, $hook->get_instances() );
 
 		// Standard instances only.
-		$this->assertEquals( array( 1 => array( 'points' => 10 ) ), $hook->get_instances( 'standard' ) );
+		$this->assertEquals( array( $hook_2_number => array( 'points' => 10 ) ), $hook->get_instances( 'standard' ) );
 
 		// Network instances only.
 		if ( is_multisite() ) {
-			$network_instances = array( 1 => array( 'points' => 10 ) );
+			$network_instances = array( $hook_1_number => array( 'points' => 10 ) );
 		} else {
 			$network_instances = array( 0 => array() );
 		}
@@ -106,7 +127,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 		$points = ( is_multisite() ) ? 20 : 10;
 
 		$this->assertEquals( $points, wordpoints_get_points( $user_id, 'points' ) );
-	}
+
+	} // public function test_network_and_standard_hooks_fired()
 
 	/**
 	 * Test getting the description of a hook.

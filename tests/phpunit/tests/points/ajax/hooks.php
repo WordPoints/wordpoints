@@ -25,13 +25,16 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 
 		$this->_setRole( 'subscriber' );
 
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
+		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
+
 		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['id_base']      = 'wordpoints_registration_points_hook';
 		$_POST['hook-id']      = '';
 		$_POST['points_type']  = 'points';
 		$_POST['hook_number']  = '';
-		$_POST['multi_number'] = 1;
-		$_POST['add_new']      = 1;
+		$_POST['multi_number'] = $hook->next_hook_id_number();
+		$_POST['add_new']      = $hook->next_hook_id_number();
 
 		$_POST['hook-wordpoints_registration_points_hook'] = array(
 			'points' => '10',
@@ -50,13 +53,16 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 
 		$this->_setRole( 'administrator' );
 
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
+		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
+
 		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['id_base']      = 'wordpoints_registration_points_hook';
 		$_POST['hook-id']      = '';
 		$_POST['points_type']  = 'points';
 		$_POST['hook_number']  = '';
-		$_POST['multi_number'] = 1;
-		$_POST['add_new']      = 1;
+		$_POST['multi_number'] = $hook->next_hook_id_number();
+		$_POST['add_new']      = $hook->next_hook_id_number();
 
 		$_POST['hook-wordpoints_registration_points_hook'] = array(
 			array( 'points' => '15' ),
@@ -75,14 +81,13 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$this->assertCount( 1, $hooks );
-		$this->assertEquals( 'wordpoints_registration_points_hook-1', $hooks[0] );
-
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
-		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
+		$this->assertEquals( $hook->get_id(), $hooks[0] );
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
 		$this->assertEquals( array( 'points' => '15' ), $instances[1] );
+
+		$this->assertArrayHasKey( $hook->get_id(), WordPoints_Points_Hooks::get_all() );
 	}
 
 	/**
@@ -102,10 +107,10 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 
 		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['id_base']      = 'wordpoints_registration_points_hook';
-		$_POST['hook-id']      = 'wordpoints_registration_points_hook-1';
+		$_POST['hook-id']      = $hook->get_id();
 		$_POST['points_type']  = 'points';
-		$_POST['hook_number']  = 1;
-		$_POST['multi_number'] = 2;
+		$_POST['hook_number']  = $hook->get_number();
+		$_POST['multi_number'] = $hook->next_hook_id_number();
 		$_POST['add_new']      = 0;
 
 		$_POST['hook-wordpoints_registration_points_hook'] = array(
@@ -130,16 +135,15 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 		);
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
-
-		$this->assertCount( 1, $hooks );
-		$this->assertEquals( 'wordpoints_registration_points_hook-1', $hooks[0] );
-
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
 		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
 
+		$this->assertCount( 1, $hooks );
+		$this->assertEquals( $hook->get_id(), $hooks[0] );
+
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertEquals( array( 'points' => '15' ), $instances[1] );
+		$this->assertEquals( array( 'points' => '15' ), $instances[ $hook->get_number() ] );
 	}
 
 	/**
@@ -157,14 +161,16 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 			, array( 'points' => '20' )
 		);
 
+		$hook_number = $hook->get_number();
+
 		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['id_base']      = 'wordpoints_registration_points_hook';
-		$_POST['hook-id']      = 'wordpoints_registration_points_hook-1';
+		$_POST['hook-id']      = $hook->get_id();
 		$_POST['points_type']  = 'points';
-		$_POST['hook_number']  = 1;
-		$_POST['multi_number'] = 2;
+		$_POST['hook_number']  = $hook_number;
+		$_POST['multi_number'] = $hook->next_hook_id_number();
 		$_POST['add_new']      = 0;
-		$_POST['delete_hook']  = 1;
+		$_POST['delete_hook']  = $hook_number;
 
 		$_POST['hook-wordpoints_registration_points_hook'] = array(
 			array( 'points' => '15' ),
@@ -176,10 +182,12 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 			unset( $e );
 		}
 
-		$this->assertEquals( 'deleted:wordpoints_registration_points_hook-1', $this->_last_response );
+		$this->assertEquals( 'deleted:' . $hook->get_id(), $this->_last_response );
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$this->assertCount( 0, $hooks );
+
+		$this->assertArrayNotHasKey( $hook->get_id(), WordPoints_Points_Hooks::get_all() );
 	}
 
 	/**

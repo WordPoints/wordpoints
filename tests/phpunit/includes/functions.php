@@ -103,17 +103,14 @@ function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $conten
  * Programatically create a new instance of a points hook.
  *
  * @since 1.0.1
+ * @since 1.4.0 Allows more than one hook to be created per test.
  *
  * @param string $hook_type The type of hook to create.
  * @param array  $instance  The arguments for the instance. Optional.
+ *
+ * @return WordPoints_Points_Hook|bool The points hook object, or false on failure.
  */
 function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
-
-	if ( WordPoints_Points_Hooks::get_network_mode() ) {
-		update_site_option( 'wordpoints_points_types_hooks', array( 'points' => array( $hook_type . '-1' ) ) );
-	} else {
-		update_option( 'wordpoints_points_types_hooks', array( 'points' => array( $hook_type . '-1' ) ) );
-	}
 
 	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
 
@@ -121,7 +118,22 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
 		return false;
 	}
 
-	$hook->update_callback( $instance, 1 );
+	$number = $hook->next_hook_id_number();
+
+	if ( WordPoints_Points_Hooks::get_network_mode() ) {
+
+		$points_types_hooks = wordpoints_get_array_option( 'wordpoints_points_types_hooks', 'site' );
+		$points_types_hooks['points'][] = $hook_type . '-' . $number;
+		update_site_option( 'wordpoints_points_types_hooks', $points_types_hooks );
+
+	} else {
+
+		$points_types_hooks = wordpoints_get_array_option( 'wordpoints_points_types_hooks' );
+		$points_types_hooks['points'][] = $hook_type . '-' . $number;
+		update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
+	}
+
+	$hook->update_callback( $instance, $number );
 
 	return $hook;
 }

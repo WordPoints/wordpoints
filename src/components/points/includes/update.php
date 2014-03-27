@@ -176,6 +176,11 @@ function wordpoints_points_update_1_4_0_split_post_hooks() {
 	// Loop through all of the post hook instances.
 	foreach ( $post_publish_hooks as $number => $settings ) {
 
+		// Don't split the hook if it is just a placeholder, or it's already split.
+		if ( 0 == $number || ! isset( $settings['trash'], $settings['publish'] ) ) {
+			continue;
+		}
+
 		if ( ! isset( $settings['post_type'] ) ) {
 			$settings['post_type'] = 'ALL';
 		}

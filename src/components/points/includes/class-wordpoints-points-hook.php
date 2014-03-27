@@ -142,6 +142,21 @@ abstract class WordPoints_Points_Hook {
 	}
 
 	/**
+	 * Get the number for the current hook instance.
+	 *
+	 * The current instance number is only set properly at certain times, such as
+	 * just after saving the instance. So use with care.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @return int|bool The current hook number, or false.
+	 */
+	final public function get_number() {
+
+		return $this->number;
+	}
+
+	/**
 	 * Get the number for a hook by ID.
 	 *
 	 * @since 1.0.0

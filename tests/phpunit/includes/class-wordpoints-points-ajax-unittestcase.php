@@ -47,6 +47,14 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase 
 		);
 
 		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $points_data ) );
+
+		// Unregister any stray hook instances.
+		foreach ( WordPoints_Points_Hooks::get_all() as $hook_id => $hook ) {
+
+			if ( $hook->get_number_by_id( $hook_id ) != 0 ) {
+				WordPoints_Points_Hooks::_unregister_hook( $hook_id );
+			}
+		}
 	}
 
 	/**

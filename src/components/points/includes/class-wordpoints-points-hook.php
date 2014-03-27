@@ -392,6 +392,8 @@ abstract class WordPoints_Points_Hook {
 			unset( $all_instances[ $number ] );
 
 			$this->_save_instances( $all_instances );
+
+			WordPoints_Points_Hooks::_unregister_hook( $hook_id );
 		}
 	}
 

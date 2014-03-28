@@ -196,8 +196,14 @@ function wordpoints_points_update_1_4_0_split_post_hooks() {
 				, $number
 			);
 
+			// Make sure the correct points type is retrieved for network hooks.
+			if ( 'network' === $hook_type ) {
+				$points_type = $post_publish_hook->points_type( 'network_' . $number );
+			} else {
+				$points_type = $post_publish_hook->points_type( $number );
+			}
+
 			// Add this instance to the points-types-hooks list.
-			$points_type = $post_publish_hook->points_type( $number );
 			$points_types_hooks[ $points_type ][] = $post_delete_hook->get_id( $number );
 		}
 

@@ -135,6 +135,7 @@ function wordpoints_points_update_1_4_0() {
 
 			switch_to_blog( $blog_id );
 			wordpoints_points_update_1_4_0_split_post_hooks();
+			wordpoints_points_update_1_4_0_split_comment_hooks();
 			wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
 			restore_current_blog();
 		}
@@ -142,12 +143,14 @@ function wordpoints_points_update_1_4_0() {
 		// Split the network-wide points hooks.
 		WordPoints_Points_Hooks::set_network_mode( true );
 		wordpoints_points_update_1_4_0_split_post_hooks();
+		wordpoints_points_update_1_4_0_split_comment_hooks();
 		WordPoints_Points_Hooks::set_network_mode( $network_mode );
 
 	} else {
 
 		// WordPoints isn't network active, so this will run for each site.
 		wordpoints_points_update_1_4_0_split_post_hooks();
+		wordpoints_points_update_1_4_0_split_comment_hooks();
 	}
 
 	remove_filter( 'wordpoints_points_hook_update_callback', 'wordpoints_points_update_1_4_0_clean_hook_settings', 10, 4 );
@@ -193,7 +196,7 @@ function wordpoints_points_update_1_4_0_split_post_hooks() {
 					'points' => $settings['trash'],
 					'post_type' => $settings['post_type'],
 				)
-				, $number
+				, $post_delete_hook->next_hook_id_number()
 			);
 
 			// Make sure the correct points type is retrieved for network hooks.
@@ -225,19 +228,92 @@ function wordpoints_points_update_1_4_0_split_post_hooks() {
 }
 
 /**
- * Clean the settings for the post points hooks.
+ * Split the commend removed points hooks from the comment points hooks.
  *
  * @since 1.4.0
+ */
+function wordpoints_points_update_1_4_0_split_comment_hooks() {
+
+	if ( WordPoints_Points_Hooks::get_network_mode() ) {
+		$hook_type = 'network';
+	} else {
+		$hook_type = 'standard';
+	}
+
+	$comment_removed_hook  = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
+	$comment_approved_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
+
+	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
+	$comment_approved_hooks = $comment_approved_hook->get_instances( $hook_type );
+
+	// Loop through all of the comment hook instances.
+	foreach ( $comment_approved_hooks as $number => $settings ) {
+
+		// Don't split the hook if it is just a placeholder, or it's already split.
+		if ( 0 == $number || ! isset( $settings['approve'], $settings['disapprove'] ) ) {
+			continue;
+		}
+
+		// If the disapprove points are set, create a comment removed hook instead.
+		if ( isset( $settings['disapprove'] ) && wordpoints_posint( $settings['disapprove'] ) ) {
+
+			$comment_removed_hook->update_callback(
+				array(
+					'points' => $settings['disapprove'],
+				)
+				, $comment_removed_hook->next_hook_id_number()
+			);
+
+			// Make sure the correct points type is retrieved for network hooks.
+			if ( 'network' === $hook_type ) {
+				$points_type = $comment_approved_hook->points_type( 'network_' . $number );
+			} else {
+				$points_type = $comment_approved_hook->points_type( $number );
+			}
+
+			// Add this instance to the points-types-hooks list.
+			$points_types_hooks[ $points_type ][] = $comment_removed_hook->get_id();
+		}
+
+		// If the approve points are set, update the settings of the hook.
+		if ( isset( $settings['approve'] ) && wordpoints_posint( $settings['approve'] ) ) {
+
+			$settings['points'] = $settings['approve'];
+
+			$comment_approved_hook->update_callback( $settings, $number );
+
+		} else {
+
+			// If not, delete this instance.
+			$comment_approved_hook->delete_callback( $comment_approved_hook->get_id( $number ) );
+		}
+	}
+
+	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
+}
+
+/**
+ * Clean the settings for the post and comment points hooks.
+ *
+ * Removes old and no longer used settings from the comment and post points hooks.
+ *
+ * @since 1.4.0
+ *
+ * @filter wordpoints_points_hook_update_callback Added during the update to 1.4.0.
  *
  * @param array                  $instance     The settings for the instance.
  * @param array                  $new_instance The new settings for the instance.
  * @param array                  $old_instance The old settings for the instance.
  * @param WordPoints_Points_Hook $hook         The hook object.
+ *
+ * @return array The filtered instance settings.
  */
 function wordpoints_points_update_1_4_0_clean_hook_settings( $instance, $new_instance, $old_instance, $hook ) {
 
 	if ( $hook instanceof WordPoints_Post_Points_Hook ) {
 		unset( $instance['trash'], $instance['publish'] );
+	} elseif ( $hook instanceof WordPoints_Comment_Points_Hook ) {
+		unset( $instance['approve'], $instance['disapprove'] );
 	}
 
 	return $instance;

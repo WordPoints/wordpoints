@@ -20,18 +20,104 @@
 class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
-	 * Test that points are awarded and removed as expected.
+	 * Test that points are awarded as expected.
 	 *
-	 * @since 1.3.0
+	 * Since 1.3.0 it was called test_points_awarded_removed().
+	 *
+	 * @since 1.4.0
 	 */
-	public function test_points_awarded_removed() {
+	public function test_points_awarded() {
 
 		wordpointstests_add_points_hook(
 			'wordpoints_comment_points_hook'
-			, array( 'approve' => 10, 'disapprove' => 10 )
+			, array( 'points' => 10 )
 		);
 
-		$user_id    = $this->factory->user->create();
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id )
+		);
+
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+			)
+		);
+
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Points should not be awarded twice in a row.
+		do_action( 'transition_comment_status', 'approve', 'hold', get_comment( $comment_id ) );
+
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that points are awarded on transition from hold.
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+				'comment_status'  => 'hold',
+			)
+		);
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 120, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that points are awarded on transition from hold.
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+				'comment_status'  => 'spam',
+			)
+		);
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 130, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that points are awarded on transition from hold.
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+				'comment_status'  => 'trash',
+			)
+		);
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 140, wordpoints_get_points( $user_id, 'points' ) );
+
+	} // public function test_points_awarded()
+
+	/**
+	 * Test that points are awarded again after the comment remove points hook runs.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_points_awarded_again_after_comment_remove_hook_runs() {
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $hook );
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_removed_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Removed_Points_Hook', $hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,
@@ -41,34 +127,49 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 			)
 		);
 
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
-
-		// Points should not be awarded twice in a row.
-		do_action( 'transition_comment_status', 'approve', 'hold', get_comment( $comment_id ) );
-
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Test that status transitions award/remove points correctly.
 		wp_set_comment_status( $comment_id, 'hold' );
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'spam' );
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'trash' );
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
-		// Check that the logs are cleaned up when a comment is deleted.
-		$comment = get_comment( $comment_id );
+	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
+
+	/**
+	 * Test that the logs are cleaned properly when a comment is deleted.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_logs_cleaned_on_comment_deletion() {
+
+		wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10 )
+		);
+
+		$user_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+			)
+		);
 
 		wp_delete_comment( $comment_id, true );
 
@@ -86,25 +187,24 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 			array(
 				'log_type'   => 'comment_approve',
 				'meta_key'   => 'post_id',
-				'meta_value' => $comment->comment_post_ID,
+				'meta_value' => $post_id,
 			)
 		);
 
-		$this->assertEquals( 4, $query->count() );
+		$this->assertEquals( 1, $query->count() );
 
 		$log = $query->get( 'row' );
 
 		$this->assertEquals(
 			sprintf(
 				_x( 'Comment on %s.', 'points log description', 'wordpoints' )
-				, '<a href="' . get_permalink( $comment->comment_post_ID ) . '">'
-					. get_the_title( $comment->comment_post_ID )
+				, '<a href="' . get_permalink( $post_id ) . '">'
+					. get_the_title( $post_id )
 					. '</a>'
 			)
 			, $log->text
 		);
-
-	} // public function test_points_awarded_removed()
+	}
 
 	/**
 	 * Test that logs are hidden for users who don't have the required capabilities.

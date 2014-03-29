@@ -13,11 +13,10 @@ WordPoints_Points_Hooks::register( 'WordPoints_Comment_Points_Hook' );
 /**
  * Comment points hook.
  *
- * This hook will award points when a user leaves a comment. It will remove points if
- * the comment is marked as spam or moved to the trash. If this is done, then points
- * will be awarded again if the action is reversed.
+ * This hook will award points when a user leaves a comment.
  *
  * @since 1.0.0
+ * @since 1.4.0 No longer subtracts points for comment removal.
  */
 class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
@@ -28,7 +27,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	private $defaults = array( 'approve' => 10, 'disapprove' => 10 );
+	private $defaults = array( 'points' => 10 );
 
 	/**
 	 * Initialize the hook.
@@ -36,20 +35,19 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 * @since 1.0.0
 	 *
 	 * @uses add_action() To hook up the hook() and new_comment_hook() methods.
-	 * @uses add_filter() To add the approve_logs() and disapprove_logs() methods.
+	 * @uses add_filter() To add the approve_logs() method.
 	 */
 	public function __construct() {
 
 		parent::init(
 			_x( 'Comment', 'points hook name', 'wordpoints' )
-			, array( 'description' => __( 'Add points when a comment is approved, and/or subtract points when one is removed.', 'wordpoints' ) )
+			, array( 'description' => __( 'Leaving a new comment.', 'wordpoints' ) )
 		);
 
 		add_action( 'transition_comment_status', array( $this, 'hook' ), 10, 3 );
 		add_action( 'wp_insert_comment', array( $this, 'new_comment_hook' ), 10, 2 );
 
 		add_filter( 'wordpoints_points_log-comment_approve', array( $this, 'approve_logs' ), 10, 6 );
-		add_filter( 'wordpoints_points_log-comment_disapprove', array( $this, 'disapprove_logs' ), 10, 6 );
 
 		add_action( 'delete_comment', array( $this, 'clean_logs_on_comment_deletion' ) );
 
@@ -59,10 +57,11 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	/**
 	 * Award points when a comment is approved.
 	 *
-	 * If the comment's status has been transitioned to approved, we award points. If
-	 * the comment's status is being trasitioned from approved, we remove points.
+	 * If the comment's status has been transitioned to approved, we award points.
 	 *
 	 * @since 1.0.0
+	 * @since 1.4.0  No longer removes points if the comment's status is being
+	 *               trasitioned from approved.
 	 *
 	 * @action transition_comment_status Added by the constructor.
 	 *
@@ -84,36 +83,28 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 				$instance = array_merge( $this->defaults, $instance );
 
+				if ( isset( $instance['approve'] ) ) {
+					_deprecated_argument( __METHOD__, '1.4.0', 'The "approve" hook setting is no longer used to hold the value for the points. Use "points" instead.' );
+					$instance['points'] = $instance['approve'];
+				}
+
 				$points_type = $this->points_type( $number );
 
 				if ( ! $this->awarded_points_already( $comment->comment_ID, $points_type ) ) {
 					wordpoints_add_points(
 						$comment->user_id
-						, $instance['approve']
+						, $instance['points']
 						, $points_type
 						, 'comment_approve'
 						, array( 'comment_id' => $comment->comment_ID )
 					);
 				}
 			}
-
-		} elseif ( 'approved' == $old_status ) {
-
-			foreach ( $this->get_instances() as $number => $instance ) {
-
-				$instance = array_merge( $this->defaults, $instance );
-
-				$points_type = $this->points_type( $number );
-
-				wordpoints_subtract_points( $comment->user_id, $instance['disapprove'], $points_type, 'comment_disapprove', array( 'status' => $new_status ) );
-
-				update_comment_meta( $comment->comment_ID, "wordpoints_last_status-{$points_type}", $new_status );
-			}
 		}
 	}
 
 	/**
-	 * New comment hook
+	 * New comment hook.
 	 *
 	 * This function runs whenever a new comment is posted. This is required in
 	 * addition to the hook above, because 'transition_comment_status' isn't
@@ -221,11 +212,11 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Generate the log entry for a transaction.
+	 * Generate the log entry for a disapprove comment transaction.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @action wordpoints_render_log-comment_disapprove Added by the constructor.
+	 * @deprecated 1.4.0
+	 * @deprecated Use WordPoints_Comment_Removed_Points_Hook::logs() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -238,21 +229,15 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function disapprove_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		switch ( $meta['status'] ) {
+		_deprecate_function( __METHOD__, '1.4.0', 'WordPoints_Comment_Removed_Points_Hook::logs()' );
 
-			case 'spam':
-				$message = _x( 'Comment marked as spam.', 'points log description', 'wordpoints' );
-			break;
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'WordPoints_Comment_Removed_Points_Hook' );
 
-			case 'trash':
-				$message = _x( 'Comment moved to trash.', 'points log description', 'wordpoints' );
-			break;
-
-			default:
-				$message = _x( 'Comment unapproved.', 'points log description', 'wordpoints' );
+		if ( $hook ) {
+			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 		}
 
-		return $message;
+		return $text;
 	}
 
 	/**
@@ -389,8 +374,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
 
-		wordpoints_posint( $new_instance['approve'] );
-		wordpoints_posint( $new_instance['disapprove'] );
+		wordpoints_posint( $new_instance['points'] );
 
 		return $new_instance;
 	}
@@ -411,12 +395,8 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 		?>
 
 		<p>
-			<label for="<?php $this->the_field_id( 'approve' ); ?>"><?php _e( 'Points for comment:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'approve' ); ?>"  id="<?php $this->the_field_id( 'approve' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['approve'] ); ?>" />
-		</p>
-		<p>
-			<label for="<?php $this->the_field_id( 'disapprove' ); ?>"><?php _e( 'Points subtracted if comment removed:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'disapprove' ); ?>"  id="<?php $this->the_field_id( 'disapprove' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['disapprove'] ); ?>" />
+			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php _e( 'Points:', 'wordpoints' ); ?></label>
+			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
 		</p>
 
 		<?php

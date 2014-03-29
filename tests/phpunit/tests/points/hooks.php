@@ -79,6 +79,11 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_network_and_standard_hooks_fired() {
 
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite must be enabled.' );
+			return;
+		}
+
 		// Set up.
 		WordPoints_Points_Hooks::set_network_mode( true );
 
@@ -102,31 +107,26 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Test retrieving all instances.
 		$instances = array( $hook_2_number => array( 'points' => 10 ) );
-
-		if ( is_multisite() ) {
-			$instances['network_' . $hook_1_number ] = array( 'points' => 10 );
-		}
+		$instances['network_' . $hook_1_number ] = array( 'points' => 10 );
 
 		$this->assertEquals( $instances, $hook->get_instances() );
 
 		// Standard instances only.
-		$this->assertEquals( array( $hook_2_number => array( 'points' => 10 ) ), $hook->get_instances( 'standard' ) );
+		$this->assertEquals(
+			array( $hook_2_number => array( 'points' => 10 ) )
+			, $hook->get_instances( 'standard' )
+		);
 
 		// Network instances only.
-		if ( is_multisite() ) {
-			$network_instances = array( $hook_1_number => array( 'points' => 10 ) );
-		} else {
-			$network_instances = array( 0 => array() );
-		}
-
-		$this->assertEquals( $network_instances, $hook->get_instances( 'network' ) );
+		$this->assertEquals(
+			array( $hook_1_number => array( 'points' => 10 ) )
+			, $hook->get_instances( 'network' )
+		 );
 
 		// Make sure points are awarded.
 		$user_id = $this->factory->user->create();
 
-		$points = ( is_multisite() ) ? 20 : 10;
-
-		$this->assertEquals( $points, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // public function test_network_and_standard_hooks_fired()
 

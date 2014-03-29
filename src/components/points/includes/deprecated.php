@@ -7,6 +7,32 @@
  * @since 1.2.0
  */
 
+/**
+ * The points logs database table name.
+ *
+ * This table is network-wide on multisite installs.
+ *
+ * @since 1.0.0
+ * @deprecated 1.1.0
+ * @deprecated Use $wpdb->wordpoints_points_logs instead.
+ *
+ * @type string
+ */
+define( 'WORDPOINTS_POINTS_LOGS_DB', $wpdb->wordpoints_points_logs );
+
+/**
+ * The points logs meta database table name.
+ *
+ * This table is network-wide on multisite installs.
+ *
+ * @since 1.0.0
+ * @deprecated 1.1.0
+ * @deprecated Use $wpdb->wordpoints_points_log_meta instead.
+ *
+ * @type string
+ */
+define( 'WORDPOINTS_POINTS_LOG_META_DB', $wpdb->wordpoints_points_log_meta );
+
 /*#@+*
  * @deprecated 1.2.0
  */

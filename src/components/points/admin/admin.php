@@ -319,7 +319,7 @@ function wordpoints_points_profile_options_update( $user_id ) {
 
 		if ( isset( $_POST[ "wordpoints_points_set-{$slug}" ], $_POST[ "wordpoints_points-{$slug}" ], $_POST[ "wordpoints_points_old-{$slug}" ] ) ) {
 
-			wordpoints_alter_points( $user_id, $_POST[ "wordpoints_points-{$slug}" ] - $_POST[ "wordpoints_points_old-{$slug}" ], $slug, 'profile_edit', array( 'user_id' => get_current_user_id(), 'reason' => wp_unslash( $_POST['wordpoints_set_reason'] ) ) );
+			wordpoints_alter_points( $user_id, $_POST[ "wordpoints_points-{$slug}" ] - $_POST[ "wordpoints_points_old-{$slug}" ], $slug, 'profile_edit', array( 'user_id' => get_current_user_id(), 'reason' => esc_html( wp_unslash( $_POST['wordpoints_set_reason'] ) ) ) );
 		}
 	}
 }

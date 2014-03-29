@@ -55,6 +55,36 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 	}
+
+	/**
+	 * Set the version of the points component.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param string $version The version to set. Defaults to 1.0.0.
+	 */
+	protected function set_points_db_version( $version = '1.0.0' ) {
+
+		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		$wordpoints_data['components']['points']['version'] = $version;
+		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+	}
+
+	/**
+	 * Get the version of the points component.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @return string The version of the points component.
+	 */
+	protected function get_points_db_version() {
+
+		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+
+		return ( isset( $wordpoints_data['components']['points']['version'] ) )
+			? $wordpoints_data['components']['points']['version']
+			: '';
+	}
 }
 
 // end of file /tests/class-wordpoints-points-unittestcase.php

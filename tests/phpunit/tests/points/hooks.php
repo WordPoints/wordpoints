@@ -121,7 +121,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals(
 			array( $hook_1_number => array( 'points' => 10 ) )
 			, $hook->get_instances( 'network' )
-		 );
+		);
 
 		// Make sure points are awarded.
 		$user_id = $this->factory->user->create();

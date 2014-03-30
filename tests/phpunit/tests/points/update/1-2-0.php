@@ -202,7 +202,6 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		);
 		$this->assertEquals( 1, $comment_1_query->count() );
 
-
 		// Get the data for the first comment before we delete it.
 		$comment = get_comment( $comment_ids[0] );
 

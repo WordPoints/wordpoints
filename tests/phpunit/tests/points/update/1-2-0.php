@@ -27,6 +27,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 */
 	public function setUpBeforeTests() {
 
+		parent::setUpBeforeTests();
+
 		// Unhook the clean-up funtions.
 		remove_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 
@@ -43,6 +45,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * @since 1.4.0
 	 */
 	public static function tearDownAfterTests() {
+
+		parent::tearDownAfterTests();
 
 		add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 

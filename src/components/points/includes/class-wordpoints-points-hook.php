@@ -600,7 +600,11 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @return string|bool
 	 */
-	final public function points_type( $number ) {
+	final public function points_type( $number = null ) {
+
+		if ( ! isset( $number ) ) {
+			$number = $this->number;
+		}
 
 		if ( $network_mode = ( strpos( $number, 'network_' ) === 0 ) ) {
 			$number = (int) str_replace( 'network_', '', $number );

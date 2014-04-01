@@ -105,7 +105,25 @@ abstract class WordPoints_Points_Hook {
 	abstract protected function form( $instance );
 
 	//
-	// Public Methods.
+	// Protected Non-final Methods.
+	//
+
+	/**
+	 * Generate the description for an instance of a points hook.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param array $instance The settings for the hook instance, or an emtpy array.
+	 *
+	 * @return string The hook instance's description.
+	 */
+	protected function generate_description( $instance = array() ) {
+
+		return $this->options['description'];
+	}
+
+	//
+	// Public Final Methods.
 	//
 
 	/**
@@ -534,17 +552,31 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.4.0
 	 *
+	 * @param string $type The type of description to return. If 'generated', a user-
+	 *                     defined description will not be returned.
+	 *
 	 * @return string The hook's description.
 	 */
-	final public function get_description() {
+	final public function get_description( $type = 'any' ) {
 
 		$instances = $this->get_instances();
 
-		if ( isset( $instances[ $this->number ]['_description'] ) ) {
+		if ( $type !== 'generated' && ! empty( $instances[ $this->number ]['_description'] ) ) {
 			return $instances[ $this->number ]['_description'];
 		}
 
-		return $this->options['description'];
+		$instance = ( isset( $instances[ $this->number ] ) ) ? $instances[ $this->number ] : array();
+
+		/**
+		 * Filter the description for a points hook.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string                 $description The description.
+		 * @param WordPoints_Points_Hook $hook        The points hook object.
+		 * @param array                  $instance    The settings for this instance.
+		 */
+		return apply_filters( 'wordpoints_points_hook_description', $this->generate_description( $instance ), $this, $instance );
 	}
 
 	/**

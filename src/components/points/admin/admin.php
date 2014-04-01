@@ -191,19 +191,22 @@ function wordpoints_points_hooks_access_body_class( $classes ) {
  *
  * @action wordpoints_in_points_hook_form
  *
- * @param array                  $instance The settings for this hook instance.
  * @param bool                   $has_form Whether this instance displayed a form.
+ * @param array                  $instance The settings for this hook instance.
  * @param WordPoints_Points_Hook $hook     The points hook object.
  */
-function wordpoints_points_hook_description_form( $instance, $has_form, $hook ) {
+function wordpoints_points_hook_description_form( $has_form, $instance, $hook ) {
+
+	$description = ( isset( $instance['_description'] ) ) ? $instance['_description'] : '';
 
 	?>
 
 	<hr />
 
 	<div class="hook-instance-description">
-		<label for="<?php $hook->the_field_name( '_description' ); ?>">Description:</label>
-		<input type="text" id="<?php $hook->the_field_id( '_description' ); ?>" name="<?php $hook->the_field_name( '_description' ); ?>" class="widefat" value="<?php echo esc_attr( $hook->get_description() ); ?>" />
+		<label for="<?php $hook->the_field_name( '_description' ); ?>"><?php _ex( 'Description (optional):', 'points hook', 'wordpoints' ); ?></label>
+		<input type="text" id="<?php $hook->the_field_id( '_description' ); ?>" name="<?php $hook->the_field_name( '_description' ); ?>" class="widefat" value="<?php echo esc_attr( $description ); ?>" />
+		<p class="description"><?php printf( _x( 'Default: %s', 'points hook description', 'wordpoints' ), $hook->get_description( 'generated' ) ); ?></p>
 	</div>
 
 	<br />

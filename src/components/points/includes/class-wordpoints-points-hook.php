@@ -98,11 +98,43 @@ abstract class WordPoints_Points_Hook {
 	/**
 	 * Echo the settings update form.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param array $instance Current settings.
 	 *
 	 * @return bool Whether the hook has a form.
 	 */
 	abstract protected function form( $instance );
+
+	//
+	// Public Non-final Methods.
+	//
+
+	/**
+	 * Get the number of points for a particular instance.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param int|string $number The hook number or ID to get the points for.
+	 *
+	 * @return int|bool The number of points for this instance, or false.
+	 */
+	public function get_points( $number = null ) {
+
+		if ( isset( $number ) ) {
+			$number = $this->get_number_by_id( $number );
+		} else {
+			$number = $this->number;
+		}
+
+		$instances = $this->get_instances();
+
+		if ( isset( $instances[ $number ]['points'] ) ) {
+			return $instances[ $number ]['points'];
+		}
+
+		return false;
+	}
 
 	//
 	// Protected Non-final Methods.
@@ -627,7 +659,7 @@ abstract class WordPoints_Points_Hook {
 	}
 
 	//
-	// Protected Methods.
+	// Protected Final Methods.
 	//
 
 	/**
@@ -682,7 +714,7 @@ abstract class WordPoints_Points_Hook {
 	}
 
 	//
-	// Private Methods.
+	// Private Final Methods.
 	//
 
 	/**

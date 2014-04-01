@@ -160,6 +160,26 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
+	 * Get the number of points for an instance of this hook.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param int $number The ID number of the instance.
+	 *
+	 * @return int|bool The number of points, or false.
+	 */
+	public function get_points( $number = null ) {
+
+		$points = parent::get_points( $number );
+
+		if ( $points ) {
+			$points = -$points;
+		}
+
+		return $points;
+	}
+
+	/**
 	 * Update a particular instance of this hook.
 	 *
 	 * @since 1.4.0

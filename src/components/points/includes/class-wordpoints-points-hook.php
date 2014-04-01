@@ -175,6 +175,18 @@ abstract class WordPoints_Points_Hook {
 	}
 
 	/**
+	 * Set the current instance by number or ID.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param int|string $instance_id The number or ID of an instance.
+	 */
+	final public function set_number( $instance_id ) {
+
+		$this->number = $this->get_number_by_id( $instance_id );
+	}
+
+	/**
 	 * Get the number for a hook by ID.
 	 *
 	 * @since 1.0.0
@@ -345,7 +357,7 @@ abstract class WordPoints_Points_Hook {
 		// Get all saved instances of this points hook.
 		$all_instances = $this->get_instances( $type );
 
-		$this->_set( $number );
+		$this->set_number( $number );
 
 		$old_instance = isset( $all_instances[ $this->number ] ) ? $all_instances[ $this->number ] : array();
 
@@ -426,7 +438,7 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function form_callback( $number ) {
 
-		$this->_set( $number );
+		$this->set_number( $number );
 
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {
 			$type = 'network';
@@ -439,7 +451,7 @@ abstract class WordPoints_Points_Hook {
 		if ( 0 == $this->number ) {
 
 			// We echo out a form where 'number' can be set later.
-			$this->_set( '__i__' );
+			$this->set_number( '__i__' );
 			$instance = array();
 
 		} else {
@@ -651,7 +663,7 @@ abstract class WordPoints_Points_Hook {
 		// Register all standard instances of this hook.
 		foreach ( array_keys( $this->get_instances( 'standard' ) ) as $number ) {
 
-			$this->_set( $number );
+			$this->set_number( $number );
 
 			WordPoints_Points_Hooks::_register_hook( $this );
 		}
@@ -659,7 +671,7 @@ abstract class WordPoints_Points_Hook {
 		// Register all network instances of this hook.
 		foreach ( array_keys( $this->get_instances( 'network' ) ) as $number ) {
 
-			$this->_set( $number );
+			$this->set_number( $number );
 
 			WordPoints_Points_Hooks::_register_network_hook( $this );
 		}
@@ -668,18 +680,6 @@ abstract class WordPoints_Points_Hook {
 	//
 	// Private Methods.
 	//
-
-	/**
-	 * Set up an instance of a points hook.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $number The id number of the instance.
-	 */
-	final private function _set( $number ) {
-
-		$this->number = $number;
-	}
 
 	/**
 	 * Save the settings of all the hook's instances.

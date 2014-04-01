@@ -197,6 +197,8 @@ final class WordPoints_Points_Hooks {
 			return false;
 		}
 
+		self::$hooks[ $hook_id ]->set_number( $hook_id );
+
 		return self::$hooks[ $hook_id ];
 	}
 

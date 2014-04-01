@@ -176,4 +176,62 @@ function wordpoints_points_shortcode( $atts ) {
 }
 add_shortcode( 'wordpoints_points', 'wordpoints_points_shortcode' );
 
+/**
+ * Display a list of ways users can earch points.
+ *
+ * @since 1.4.0
+ *
+ * @shortcode wordpoints_how_to_get_points
+ *
+ * @param array $atts {
+ *        The shortcode attributes.
+ *
+ *        @type string $points_type The type of points to display the list for.
+ * }
+ *
+ * @return string A list of points hooks describing how the user can earn points.
+ */
+function wordpoints_how_to_get_points_shortcode( $atts ) {
+
+	$atts = shortcode_atts(
+		array( 'points_type' => '' )
+		, $atts
+		, 'wordpoints_how_to_get_points'
+	);
+
+	if ( ! wordpoints_is_points_type( $atts['points_type'] ) ) {
+
+		$atts['points_type'] = wordpoints_get_default_points_type();
+
+		if ( ! $atts['points_type'] ) {
+
+			return wordpoints_shortcode_error( __( 'The &#8220;points_type&#8221; attribute of the <code>[wordpoints_how_to_get_points]</code> shortcode must be the slug of a points type. Example: <code>[wordpoints_how_to_get_points points_type="points"]</code>.', 'wordpoints' ) );
+		}
+	}
+
+	$hooks = WordPoints_Points_Hooks::get_points_type_hooks( $atts['points_type'] );
+
+	$html = '<table class="wordpoints-how-to-get-points">'
+		. '<thead><th>' . _x( 'Points', 'column name', 'wordpoints' ) . '</th>'
+		. '<th>' . _x( 'Action', 'column name', 'wordpoints' ) . '</th></thead>'
+		. '<tbody>';
+
+	foreach ( $hooks as $hook_id ) {
+
+		$hook = WordPoints_Points_Hooks::get_handler( $hook_id );
+
+		if ( ! $hook ) {
+			continue;
+		}
+
+		$html .= '<tr><td>' . wordpoints_format_points( $hook->get_points(), $hook->points_type(), 'how-to-get-points-shortcode' ) . '</td>'
+			. '<td>' . esc_html( $hook->get_description() ) . '</td></tr>';
+	}
+
+	$html .= '</tbody></table>';
+
+	return $html;
+}
+add_shortcode( 'wordpoints_how_to_get_points', 'wordpoints_how_to_get_points_shortcode' );
+
 // end of file /components/points/includes/shortcodes.php

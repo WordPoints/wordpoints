@@ -39,7 +39,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function __construct() {
 
-		parent::init( _x( 'Periodic Points', 'points hook name', 'wordpoints' ), array( 'description' => __( 'Award a user points when they visit your site at least once in a given time period.', 'wordpoints' ) ) );
+		parent::init( _x( 'Periodic Points', 'points hook name', 'wordpoints' ), array( 'description' => __( 'Visiting the site at least once in a given time period.', 'wordpoints' ) ) );
 
 		add_action( 'init', array( $this, 'hook' ) );
 
@@ -138,6 +138,41 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return $message;
+	}
+
+	/**
+	 * Generate a description for an instance of this hook.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param array $instance The settings for the instance the description is for.
+	 *
+	 * @return string A description for the hook instance.
+	 */
+	protected function generate_description( $instance = array() ) {
+
+		if ( ! empty( $instance['period'] ) ) {
+
+			switch ( $instance['period'] ) {
+
+				case HOUR_IN_SECONDS:
+					return __( 'Visiting the site at least once in an hour.', 'wordpoints' );
+
+				case DAY_IN_SECONDS:
+					return __( 'Visiting the site at least once in a day.', 'wordpoints' );
+
+				case WEEK_IN_SECONDS:
+					return __( 'Visiting the site at least once in a week.', 'wordpoints' );
+
+				case 30 * DAY_IN_SECONDS:
+					return __( 'Visiting the site at least once in a month.', 'wordpoints' );
+
+				default:
+					return __( 'Visiting the site periodically.', 'wordpoints' );
+			}
+		}
+
+		return parent::generate_description( $instance );
 	}
 
 	/**

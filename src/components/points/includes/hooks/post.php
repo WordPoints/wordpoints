@@ -328,6 +328,29 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 	}
 
 	/**
+	 * Generate a description for an instance of this hook.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param array $instance The settings for the instance the description is for.
+	 *
+	 * @return string A description for the hook instance.
+	 */
+	protected function generate_description( $instance = array() ) {
+
+		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
+			$post_type = get_post_type_object( $instance['post_type'] );
+
+			if ( $post_type ) {
+				/* translators: the post type name. */
+				return sprintf( __( 'New %s published.', 'wordpoints' ), $post_type->labels->singular_name );
+			}
+		}
+
+		return parent::generate_description( $instance );
+	}
+
+	/**
 	 * Update a particular instance of this hook.
 	 *
 	 * @since 1.0.0

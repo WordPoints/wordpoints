@@ -207,6 +207,51 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 	}
 
 	/**
+	 * Test that logs are cleaned properly when a post is deleted.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_logs_cleaned_on_post_deletion() {
+
+		wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10 )
+		);
+
+		$user_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+			)
+		);
+
+		wp_delete_comment( $comment_id, true );
+		wp_delete_post( $post_id, true );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'comment_approve',
+				'meta_key'   => 'post_id',
+				'meta_value' => $post_id,
+			)
+		);
+
+		$this->assertEquals( 0, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'log_type'   => 'comment_approve' )
+		);
+		$log = $query->get( 'row' );
+
+		$this->assertEquals(
+			_x( 'Comment', 'points log description', 'wordpoints' )
+			, $log->text
+		);
+	}
+
+	/**
 	 * Test that logs are hidden for users who don't have the required capabilities.
 	 *
 	 * @since 1.3.0

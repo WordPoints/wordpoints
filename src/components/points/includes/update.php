@@ -137,6 +137,7 @@ function wordpoints_points_update_1_4_0() {
 			wordpoints_points_update_1_4_0_split_post_hooks();
 			wordpoints_points_update_1_4_0_split_comment_hooks();
 			wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
+			wordpoints_points_update_1_4_0_clean_points_logs();
 			restore_current_blog();
 		}
 
@@ -151,6 +152,7 @@ function wordpoints_points_update_1_4_0() {
 		// WordPoints isn't network active, so this will run for each site.
 		wordpoints_points_update_1_4_0_split_post_hooks();
 		wordpoints_points_update_1_4_0_split_comment_hooks();
+		wordpoints_points_update_1_4_0_clean_points_logs();
 	}
 
 	remove_filter( 'wordpoints_points_hook_update_callback', 'wordpoints_points_update_1_4_0_clean_hook_settings', 10, 4 );
@@ -317,4 +319,36 @@ function wordpoints_points_update_1_4_0_clean_hook_settings( $instance, $new_ins
 	}
 
 	return $instance;
+}
+
+/**
+ * Clean the comment_approve points logs for posts that have been deleted.
+ *
+ * @since 1.4.0
+ */
+function wordpoints_points_update_1_4_0_clean_points_logs() {
+
+	global $wpdb;
+
+	$post_ids = $wpdb->get_col(
+		"
+			SELECT wpplm.meta_value
+			FROM {$wpdb->wordpoints_points_log_meta} AS wpplm
+			LEFT JOIN {$wpdb->posts} AS p
+				ON p.ID = wpplm.meta_value
+			LEFT JOIN {$wpdb->wordpoints_points_logs} As wppl
+				ON wppl.id = wpplm.log_id
+			WHERE p.ID IS NULL
+				AND wpplm.meta_key = 'post_id'
+				AND wppl.log_type = 'comment_approve'
+		"
+	);
+
+	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
+
+	if ( $post_ids && is_array( $post_ids ) && $hook ) {
+		foreach ( $post_ids AS $post_id ) {
+			$hook->clean_logs_on_post_deletion( $post_id );
+		}
+	}
 }

@@ -412,4 +412,62 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 	} // public function test_network_comment_points_hooks_split()
+
+	/**
+	 * Test comment approve points logs for deleted posts cleaned.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_comment_approve_points_logs_cleaned() {
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10 )
+		);
+
+		remove_action( 'delete_post', array( $hook, 'clean_logs_on_post_deletion' ) );
+
+		// Create a comment, then delete it.
+		$user_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $post_id,
+			)
+		);
+
+		wp_delete_comment( $comment_id, true );
+		wp_delete_post( $post_id, true );
+
+		// Simulate the update.
+		$this->set_points_db_version();
+		wordpoints_points_component_update();
+
+		// Check that the log meta was deleted.
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'comment_approve',
+				'meta_key'   => 'post_id',
+				'meta_value' => $post_id,
+			)
+		);
+
+		$this->assertEquals( 0, $query->count() );
+
+		// Make sure the log text was regenerated.
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'log_type'   => 'comment_approve' )
+		);
+
+		$log = $query->get( 'row' );
+
+		$this->assertEquals(
+			_x( 'Comment', 'points log description', 'wordpoints' )
+			, $log->text
+		);
+
+		add_action( 'delete_post', array( $hook, 'clean_logs_on_post_deletion' ) );
+
+	} // public function test_comment_approve_points_logs_cleaned()
 }

@@ -282,21 +282,38 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 
 		if ( ! $post ) {
 
-			$wpdb->delete(
-				$wpdb->wordpoints_points_log_meta
-				, array( 'meta_key' => 'post_id', 'meta_value' => $post_id )
-				, array( '%s', '%d' )
-			);
+			foreach ( $log_ids as $log_id ) {
+
+				$wpdb->delete(
+					$wpdb->wordpoints_points_log_meta
+					, array(
+						'meta_key'   => 'post_id',
+						'meta_value' => $post_id,
+						'log_id'     => $log_id,
+					)
+					, array( '%s', '%d', '%d' )
+				);
+			}
 
 		} else {
 
-			$wpdb->update(
-				$wpdb->wordpoints_points_log_meta
-				, array( 'meta_key' => 'post_type', 'meta_value' => $post->post_type )
-				, array( 'meta_key' => 'post_id', 'meta_value' => $post_id )
-				, array( '%s', '%s' )
-				, array( '%s', '%d' )
-			);
+			foreach ( $log_ids as $log_id ) {
+
+				$wpdb->update(
+					$wpdb->wordpoints_points_log_meta
+					, array(
+						'meta_key'   => 'post_type',
+						'meta_value' => $post->post_type,
+					)
+					, array(
+						'meta_key'   => 'post_id',
+						'meta_value' => $post_id,
+						'log_id'     => $log_id,
+					)
+					, array( '%s', '%s' )
+					, array( '%s', '%d', '%d' )
+				);
+			}
 		}
 
 		wordpoints_regenerate_points_logs( $log_ids );

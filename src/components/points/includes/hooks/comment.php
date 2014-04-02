@@ -50,6 +50,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 		add_filter( 'wordpoints_points_log-comment_approve', array( $this, 'approve_logs' ), 10, 6 );
 
 		add_action( 'delete_comment', array( $this, 'clean_logs_on_comment_deletion' ) );
+		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
 
 		add_filter( 'wordpoints_user_can_view_points_log-comment_approve', array( $this, 'user_can_view' ), 10, 2 );
 	}
@@ -315,20 +316,91 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 		if ( ! $comment ) {
 
-			$wpdb->delete(
-				$wpdb->wordpoints_points_log_meta
-				, array( 'meta_key' => 'comment_id', 'meta_value' => $comment_id )
-				, array( '%s', '%d' )
-			);
+			foreach ( $log_ids as $log_id ) {
+
+				$wpdb->delete(
+					$wpdb->wordpoints_points_log_meta
+					, array(
+						'meta_key'   => 'comment_id',
+						'meta_value' => $comment_id,
+						'log_id'     => $log_id,
+					)
+					, array( '%s', '%d', '%d' )
+				);
+			}
 
 		} else {
 
-			$wpdb->update(
+			foreach ( $log_ids as $log_id ) {
+
+				$wpdb->update(
+					$wpdb->wordpoints_points_log_meta
+					, array(
+						'meta_key'   => 'post_id',
+						'meta_value' => $comment->comment_post_ID
+					)
+					, array(
+						'meta_key'   => 'comment_id',
+						'meta_value' => $comment_id,
+						'log_id'     => $log_id,
+					)
+					, array( '%s', '%d' )
+					, array( '%s', '%d', '%d' )
+				);
+			}
+		}
+
+		wordpoints_regenerate_points_logs( $log_ids );
+	}
+
+	/**
+	 * Clean the logs when a post is deleted.
+	 *
+	 * Cleans the metadata for any logs related to the post being deleted. The post
+	 * ID meta field is deleted from the database. Once the metadata is cleaned up,
+	 * the logs are regenerated.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @action delete_post Added by the constructor.
+	 *
+	 * @param int $post_id The ID of the post being deleted.
+	 *
+	 * return void
+	 */
+	public function clean_logs_on_post_deletion( $post_id ) {
+
+		global $wpdb;
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'fields'     => 'id',
+				'log_type'   => 'comment_approve',
+				'meta_query' => array(
+					array(
+						'key'   => 'post_id',
+						'value' => $post_id,
+					),
+				),
+			)
+		);
+
+		$log_ids = $query->get( 'col' );
+
+		if ( ! $log_ids ) {
+			return;
+		}
+
+		foreach ( $log_ids as $log_id ) {
+
+			$wpdb->delete(
 				$wpdb->wordpoints_points_log_meta
-				, array( 'meta_key' => 'post_id', 'meta_value' => $comment->comment_post_ID )
-				, array( 'meta_key' => 'comment_id', 'meta_value' => $comment_id )
-				, array( '%s', '%d' )
-				, array( '%s', '%d' )
+				, array(
+					'meta_key'   => 'post_id',
+					'meta_value' => $post_id,
+					'log_id'     => $log_id
+				)
+				, array( '%s', '%d', '%d' )
 			);
 		}
 

@@ -79,9 +79,22 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 			$points_type = $this->points_type( $number );
 
-			if ( ! isset( $last_visit[ $points_type ] ) || $last_visit[ $points_type ] + $instance['period'] <= $now ) {
+			if ( ! $points_type ) {
+				continue;
+			}
 
-				wordpoints_add_points( $user_id, $instance['points'], $points_type, 'periodic', array( 'period' => $instance['period'] ) );
+			if (
+				! isset( $last_visit[ $points_type ] )
+				|| (int)( $last_visit[ $points_type ] / $instance['period'] ) < (int)( $now / $instance['period'] )
+			) {
+
+				wordpoints_add_points(
+					$user_id
+					, $instance['points']
+					, $points_type
+					, 'periodic'
+					, array( 'period' => $instance['period'] )
+				);
 
 				$last_visit[ $points_type ] = $now;
 

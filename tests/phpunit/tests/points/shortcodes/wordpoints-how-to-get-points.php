@@ -62,6 +62,46 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 	}
 
 	/**
+	 * Test that it displays network hooks when network active on multisite.
+	 *
+	 * @since 1.4.0
+	 */
+	public function test_displays_network_hooks() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must be network active.' );
+		}
+
+		// Create some points hooks for the table to display.
+		wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array( 'points' => 10 )
+		);
+
+		WordPoints_Points_Hooks::set_network_mode( true );
+		wordpointstests_add_points_hook(
+			'wordpoints_post_delete_points_hook'
+			, array( 'points' => 20, 'post_type' => 'ALL' )
+		);
+		WordPoints_Points_Hooks::set_network_mode( false );
+
+		// Test that both hooks are displayed in the table.
+		$this->assertTag(
+			array(
+				'tag'        => 'tbody',
+				'children'   => array(
+					'only'  => array( 'tag' => 'tr' ),
+					'count' => 2,
+				),
+			)
+			, wordpointstests_do_shortcode_func(
+				'wordpoints_how_to_get_points'
+				, array( 'points_type' => 'points' )
+			)
+		);
+	}
+
+	/**
 	 * Test that nothing is displayed to a normal user on failure.
 	 *
 	 * @since 1.4.0

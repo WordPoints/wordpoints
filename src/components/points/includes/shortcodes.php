@@ -228,6 +228,27 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 			. '<td>' . esc_html( $hook->get_description() ) . '</td></tr>';
 	}
 
+	if ( is_wordpoints_network_active() ) {
+
+		WordPoints_Points_Hooks::set_network_mode( true );
+
+		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( $atts['points_type'] );
+
+		foreach ( $hooks as $hook_id ) {
+
+			$hook = WordPoints_Points_Hooks::get_handler( $hook_id );
+
+			if ( ! $hook ) {
+				continue;
+			}
+
+			$html .= '<tr><td>' . wordpoints_format_points( $hook->get_points(), $hook->points_type(), 'how-to-get-points-shortcode' ) . '</td>'
+				. '<td>' . esc_html( $hook->get_description() ) . '</td></tr>';
+		}
+
+		WordPoints_Points_Hooks::set_network_mode( false );
+	}
+
 	$html .= '</tbody></table>';
 
 	return $html;

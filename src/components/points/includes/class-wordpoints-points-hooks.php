@@ -109,6 +109,13 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function initialize_hooks() {
 
+		/**
+		 * Points hooks may be registered on this action.
+		 *
+		 * @since 1.4.0
+		 */
+		do_action( 'wordpoints_points_hooks_register' );
+
 		$handlers = array_unique( self::$handlers );
 
 		foreach ( $handlers as $handler ) {

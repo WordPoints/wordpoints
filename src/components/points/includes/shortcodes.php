@@ -212,7 +212,7 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 	$hooks = WordPoints_Points_Hooks::get_points_type_hooks( $atts['points_type'] );
 
 	$html = '<table class="wordpoints-how-to-get-points">'
-		. '<thead><th>' . _x( 'Points', 'column name', 'wordpoints' ) . '</th>'
+		. '<thead><th style="padding-right: 10px">' . _x( 'Points', 'column name', 'wordpoints' ) . '</th>'
 		. '<th>' . _x( 'Action', 'column name', 'wordpoints' ) . '</th></thead>'
 		. '<tbody>';
 

@@ -80,6 +80,15 @@ points are awarded.
 
 == Changelog ==
 
+= 1.4.0 =
+* New: Added [`[wordpoints_how_to_get_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/) shortcode to display a list of active points hooks.
+* New: Override hook descriptions shown by the new how to get points shortcode on the hooks admin screen.
+* Updated: The current number of points a user has is displayed on their admin profile page to administrators in addition to the inputs.
+* Updated: The post points hook has been split in to the Post and Post Delete points hooks.
+* Updated: The comments points hook has been split into the Comment and Comment Removed points hooks.
+* Updated: Calculate the periods for the periodic points hook relative to the calendar instead of the user's last visit.
+* Fixed: Clean the points logs for comment approvals when a post is deleted, removing the dead link to the post.
+
 = 1.3.0 =
 * New: User avatars are displayed in the points logs table.
 * New: Added [`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/) shortcode to display a user's points.
@@ -119,6 +128,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+* This is a feature release, which add the [wordpoints_how_to_get_points] shortcode,
+and other improvements.
 
 = 1.3.0 =
 * This is a feature release which adds the [wordpoints_points] shortcode, among

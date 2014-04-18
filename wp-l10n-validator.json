@@ -26,11 +26,13 @@
 		"wordpoints_subtract_points": true,
 
 		"WordPoints_Points_Hook::_set": true,
+		"WordPoints_Points_Hook::get_description": true,
 		"WordPoints_Points_Hook::get_field_id": true,
 		"WordPoints_Points_Hook::get_field_name": true,
 		"WordPoints_Points_Hook::get_instances": true,
 		"WordPoints_Points_Hook::the_field_id": true,
 		"WordPoints_Points_Hook::the_field_name": true,
+		"WordPoints_Points_Hooks::get_handler_by_id_base": true,
 		"WordPoints_Points_Hooks::register": true,
 		"WordPoints_Points_Hooks::points_type_form": true,
 		"WordPoints_Points_Log_Queries::register_query": true,
@@ -43,6 +45,7 @@
 		"WordPoints_Points_Widget::get_field_id": true,
 		"WordPoints_Points_Widget::get_field_name": true,
 
+		"$hook->get_description": true,
 		"$hook->get_option": true,
 		"$this->_prepare__in": true,
 		"$this->_prepare_posint__in": true,

@@ -27,12 +27,14 @@ displayed on the front end of your site using the [`[wordpoints_points_logs]`](h
 shortcode.
 
 You can also display a list of the top users based on the number of points they have
-using the [`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/) shortcode.
+using the [`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+shortcode.
 
-The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/) that you can use.
+The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/)
+that you can use.
 
-Many more features a planned in the near future, and you can check out the roadmap on
-the plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
+Many more features are planned in the near future, and you can check out the roadmap
+on the plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 
 It is also possible to extend the default functionality of the plugin using modules.
 For more information on that, see the [developer docs](http://wordpoints.org/developer-guide/).
@@ -52,7 +54,7 @@ Before installing on multisite, it is recommended that you [read this](http://wo
 
 Maybe it will soon - just ask for it!
 
-= How can I manually change a users points? =
+= How can I manually change a user's points? =
 
 You can manually adjust a user's points from their profile page in the admin.
 

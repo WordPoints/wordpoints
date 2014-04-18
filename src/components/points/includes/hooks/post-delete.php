@@ -42,7 +42,7 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Points_Hook {
 		parent::init(
 			_x( 'Post Delete', 'points hook name', 'wordpoints' )
 			,array(
-				'description' => __( 'A post is peramently deleted.', 'wordpoints' ),
+				'description' => __( 'A post is permanently deleted.', 'wordpoints' ),
 			)
 		);
 

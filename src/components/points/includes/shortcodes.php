@@ -224,7 +224,13 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 			continue;
 		}
 
-		$html .= '<tr><td>' . wordpoints_format_points( $hook->get_points(), $hook->points_type(), 'how-to-get-points-shortcode' ) . '</td>'
+		$points = $hook->get_points();
+
+		if ( ! $points ) {
+			continue;
+		}
+
+		$html .= '<tr><td>' . wordpoints_format_points( $points, $hook->points_type(), 'how-to-get-points-shortcode' ) . '</td>'
 			. '<td>' . esc_html( $hook->get_description() ) . '</td></tr>';
 	}
 
@@ -242,7 +248,13 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 				continue;
 			}
 
-			$html .= '<tr><td>' . wordpoints_format_points( $hook->get_points(), $hook->points_type(), 'how-to-get-points-shortcode' ) . '</td>'
+			$points = $hook->get_points();
+
+			if ( ! $points ) {
+				continue;
+			}
+
+			$html .= '<tr><td>' . wordpoints_format_points( $points, $hook->points_type(), 'how-to-get-points-shortcode' ) . '</td>'
 				. '<td>' . esc_html( $hook->get_description() ) . '</td></tr>';
 		}
 

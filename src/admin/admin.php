@@ -32,23 +32,14 @@ include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
  */
 function wordpoints_get_main_admin_menu() {
 
-	$action = current_filter();
-	$is_network_active = is_wordpoints_network_active();
+	$slug = 'wordpoints_configure';
 
 	/*
-	 * If the plugin is network active and we are displaying the network menu, or if
-	 * it isn't and we're displaying the site admin menu, the settings page is the
-	 * main one.
+	 * If the plugin is network active and we are displaying the regular admin menu,
+	 * the modules screen should be the main one (the configure menu is only for the
+	 * network admin when network active).
 	 */
-	if (
-		( $is_network_active && 'network_admin_menu' === $action )
-		|| ( ! $is_network_active && 'admin_menu' === $action )
-	) {
-
-		$slug = 'wordpoints_configure';
-
-	} elseif ( 'network_admin_menu' !== $action ) {
-
+	if ( is_wordpoints_network_active() && 'admin_menu' === current_filter() ) {
 		$slug = 'wordpoints_modules';
 	}
 

@@ -144,7 +144,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 			// Comment is 'spam' (or 'trash').
 			default:
-				$new_status = $status;
+				$new_status = $comment->comment_approved;
 				$old_status = 'approved';
 		}
 

@@ -248,7 +248,7 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 				continue;
 			}
 
-			$points = $hook->get_points();
+			$points = $hook->get_points( 'network_' . $hook->get_number() );
 
 			if ( ! $points ) {
 				continue;

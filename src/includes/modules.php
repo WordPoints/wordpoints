@@ -809,11 +809,10 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
  * @since 1.1.0
  *
  * @param array  $modules  A list of modules to delete.
- * @param string $redirect Redirect to page when complete.
  *
  * @return bool|WP_Error True if all modules deleted successfully.
  */
-function wordpoints_delete_modules( $modules, $redirect = '' ) {
+function wordpoints_delete_modules( $modules ) {
 
 	global $wp_filesystem;
 

@@ -34,11 +34,22 @@ if ( isset( $_GET['addnew'] ) ) {
 		// Copy minimal info from an existing instance of this hook to a new instance.
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $_GET['base'] );
 
+		if ( ! $hook ) {
+
+			wordpoints_show_admin_error( __( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+			return;
+		}
+
 		$multi_number = (int) $_GET['num'];
 		$number       = 0;
 		$hook_id      = $hook->get_id( $multi_number );
 		$_hook        = $hook;
 		$id_base      = $hook->get_id_base();
+
+	} else {
+
+		wordpoints_show_admin_error( __( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+		return;
 	}
 
 } else {

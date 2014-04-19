@@ -401,12 +401,12 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
  */
 function wordpoints_get_modules( $module_folder = '' ) {
 
-	if ( ! $cache_plugins = wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) ) {
-		$cache_plugins = array();
+	if ( ! $cache_modules = wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) ) {
+		$cache_modules = array();
 	}
 
-	if ( isset( $cache_plugins[ $module_folder ] ) ) {
-		return $cache_plugins[ $module_folder ];
+	if ( isset( $cache_modules[ $module_folder ] ) ) {
+		return $cache_modules[ $module_folder ];
 	}
 
 	$modules      = array();

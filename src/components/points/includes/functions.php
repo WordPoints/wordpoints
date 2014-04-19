@@ -1132,11 +1132,10 @@ function wordpoints_points_get_custom_caps() {
  * @param string $formatted The formatted points value.
  * @param int    $points    The raw points value.
  * @param string $type      The type of $points.
- * @param string $context   The context in which the value will be displayed.
  *
  * @return string $points formatted with prefix and suffix.
  */
-function wordpoints_format_points_filter( $formatted, $points, $type, $context ) {
+function wordpoints_format_points_filter( $formatted, $points, $type ) {
 
 	$points_type = wordpoints_get_points_type( $type );
 
@@ -1153,7 +1152,7 @@ function wordpoints_format_points_filter( $formatted, $points, $type, $context )
 
 	return $formatted;
 }
-add_filter( 'wordpoints_format_points', 'wordpoints_format_points_filter', 5, 4 );
+add_filter( 'wordpoints_format_points', 'wordpoints_format_points_filter', 5, 3 );
 
 /**
  * Display a dropdown of points types.

@@ -705,7 +705,6 @@ final class WordPoints_Points_Hooks {
 		}
 
 		$title    = esc_html( strip_tags( $hook->get_name() ) );
-		$has_form = true;
 
 		echo $options['_before_hook'];
 

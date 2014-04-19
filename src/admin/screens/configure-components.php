@@ -36,7 +36,7 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 			break;
 		}
 
-		if ( $message ) {
+		if ( isset( $message ) ) {
 
 			wordpoints_show_admin_message( esc_html( sprintf( $message, $components[ $_GET['wordpoints_component'] ]['name'] ) ) );
 		}
@@ -47,20 +47,20 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 			case '1':
 				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
-					$message = __( 'The component &#8220;%s&#8221; could not be activated. Please try again.', 'wordpoints' );
+					$error = __( 'The component &#8220;%s&#8221; could not be activated. Please try again.', 'wordpoints' );
 				}
 			break;
 
 			case '2':
 				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
-					$message = __( 'The component &#8220;%s&#8221; could not be deactivated. Please try again.', 'wordpoints' );
+					$error = __( 'The component &#8220;%s&#8221; could not be deactivated. Please try again.', 'wordpoints' );
 				}
 			break;
 		}
 
-		if ( $error ) {
+		if ( isset( $error ) ) {
 
-			wordpoints_show_admin_error( esc_html( sprintf( $message, $components[ $_GET['wordpoints_component'] ]['name'] ) ) );
+			wordpoints_show_admin_error( esc_html( sprintf( $error, $components[ $_GET['wordpoints_component'] ]['name'] ) ) );
 		}
 	}
 }
@@ -112,6 +112,8 @@ do_action( 'wordpoints_admin_components_top' );
 		} else {
 			$component_name = esc_html( $component['name'] );
 		}
+
+		$author = '';
 
 		if ( $component['author'] != '' ) {
 

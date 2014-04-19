@@ -270,9 +270,9 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 			if ( $textdomain ) {
 
 				if ( $module_data['domain_path'] ) {
-					wordpoints_load_module_textdomain( $textdomain, false, dirname( $module_file ) . $module_data['domain_path'] );
+					wordpoints_load_module_textdomain( $textdomain, dirname( $module_file ) . $module_data['domain_path'] );
 				} else {
-					wordpoints_load_module_textdomain( $textdomain, false, dirname( $module_file ) );
+					wordpoints_load_module_textdomain( $textdomain, dirname( $module_file ) );
 				}
 
 				foreach ( array( 'name', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {
@@ -343,8 +343,9 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
  *
  * @since 1.1.0
  *
- * @param string $domain The module's text domain.
- * @param bool   $module_rel_path The module path relative to the modules directory.
+ * @param string      $domain          The module's text domain.
+ * @param string|bool $module_rel_path The module path relative to the modules
+ *                                     directory where the .mo files are, or false.
  *
  * @return bool Whether the textdoamin was loaded successfully.
  */

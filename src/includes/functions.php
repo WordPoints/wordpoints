@@ -200,6 +200,10 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
 		case 'network':
 			$value = wordpoints_get_network_option( $option, array() );
 		break;
+
+		default:
+			wordpoints_debug_message( sprintf( 'Unknown option context "%s"', $context ), __FUNCTION__, __FILE__, __LINE__ );
+			$value = array();
 	}
 
 	if ( ! is_array( $value ) ) {

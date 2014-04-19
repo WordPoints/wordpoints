@@ -359,7 +359,7 @@ abstract class WordPoints_Points_Hook {
 			break;
 		}
 
-		if ( ! is_array( $instances ) || empty( $instances ) ) {
+		if ( empty( $instances ) || ! is_array( $instances ) ) {
 			$instances = array( 0 => array() );
 		}
 

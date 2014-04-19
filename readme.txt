@@ -1,2 +1,2 @@
 === WordPoints ===
-Stable tag: 1.3.0
+Stable tag: 1.4.0

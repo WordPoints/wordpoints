@@ -232,7 +232,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Comment_Removed_Points_Hook::logs()' );
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'WordPoints_Comment_Removed_Points_Hook' );
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
 		if ( $hook ) {
 			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );

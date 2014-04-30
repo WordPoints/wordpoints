@@ -10,12 +10,27 @@
 /**
  * Points hook class.
  *
- * This is an abstract class that must be extended to add a points hook. It has two
- * abstract methods which must be overriden. They update the hook's settings and
- * display the settings form, respectively. There are also three protected methods
- * that you need to call, to initialize your hook and to get the name and id
- * attributes for your form fields. The rest of the methods do other interesting
- * acrobatics that you don't have to worry about.
+ * This is an abstract class that is extended to create different typs of points
+ * hooks. It has several methods which may be optionally extended. These methods
+ * display the form for an instance of a hook [form()], update the instance's
+ * settings when the form is submitted [update()], generate a description of the hook
+ * [generate_description()], and retrieve the number of points an instance awards
+ * [get_points()], respectively. These methods each have a default behaviour, so
+ * extending each them is optional. (This changed in version 1.5.0, as previously the
+ * form() and update() methods were abstract, and so had to be extended.)
+ *
+ * The rest of the methods are final, and therefore  cannot be extended. A few of
+ * these are noteworthy, as you must use them for your hook to work. The first of
+ * these, and the only method which it is absolutely required for every hook to call,
+ * is the init() method, which your hook must call in it's constructor to initialize
+ * the hook type. If you extend the form() method, you will also need to use the
+ * methods to get the correct name [get_form_name() or the_form_name()] and id
+ * [get_form_id() or the_form_id()] attribute values for your form elements. There is
+ * one other method, get_instances(), which you will need to use to get a list of the
+ * instances of the hook, when you are awarding points for example.
+ *
+ * The rest of the methods do other interesting acrobatics, most of which you don't
+ * need to worry about.
  *
  * The entire Points Hooks API is based heavily on the Widgets API in WordPress Core.
  * The main difference of course, is that points hooks aren't displayed in the side-
@@ -75,38 +90,6 @@ abstract class WordPoints_Points_Hook {
 	private $number = false;
 
 	//
-	// Abstract Methods.
-	//
-
-	/**
-	 * Update a particular instance.
-	 *
-	 * This function should check that $new_instance is set correctly. The newly
-	 * calculated value of $instance should be returned. If false is returned, the
-	 * instance won't be saved/updated.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $new_instance New settings for this instance as input by the user
-	 *        via form().
-	 * @param array $old_instance Old settings for this instance.
-	 *
-	 * @return array|bool Settings to save, or false to cancel saving.
-	 */
-	abstract protected function update( $new_instance, $old_instance );
-
-	/**
-	 * Echo the settings update form.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $instance Current settings.
-	 *
-	 * @return bool Whether the hook has a form.
-	 */
-	abstract protected function form( $instance );
-
-	//
 	// Public Non-final Methods.
 	//
 
@@ -139,6 +122,81 @@ abstract class WordPoints_Points_Hook {
 	//
 	// Protected Non-final Methods.
 	//
+
+	/**
+	 * Update a particular instance.
+	 *
+	 * This function will verify that the points setting is an integer. If you have
+	 * other settings that need to be sanitized, you should override this function.
+	 * Your function should check that $new_instance is set correctly. The newly
+	 * calculated value of $new_instance should be returned. If false is returned,
+	 * the instance won't be saved/updated.
+	 *
+	 * If the instance does not have the 'points' setting set already, the default
+	 * will be retrieved from the class's $defaults property, if available.
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 No longer abstract.
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user
+	 *                            via form().
+	 * @param array $old_instance Old settings for this instance.
+	 *
+	 * @return array|bool Settings to save, or false to cancel saving.
+	 */
+	protected function update( $new_instance, $old_instance ) {
+
+		$new_instance = array_merge( array( 'points' => 0 ), $old_instance, $new_instance );
+
+		if ( false === wordpoints_posint( $new_instance['points'] ) ) {
+			if ( isset( $this->defaults['points'] ) ) {
+				$new_instance['points'] = $this->defaults['points'];
+			} else {
+				return false;
+			}
+		}
+
+		return $new_instance;
+	}
+
+	/**
+	 * Echo the settings update form.
+	 *
+	 * This function will output the test input for the points field. If you have
+	 * other fields to output, you should override this function.
+	 *
+	 * If the instance does not have the 'points' setting set already, the default
+	 * will be retrieved from the class's $defaults property, if available.
+	 *
+	 * @since 1.0.0
+	 * @since 1.5.0 No longer abstract.
+	 *
+	 * @param array $instance Current settings.
+	 *
+	 * @return bool Whether the hook has a form.
+	 */
+	protected function form( $instance ) {
+
+		if ( ! isset( $instance['points'] ) ) {
+
+			if ( isset( $this->defaults['points'] ) ) {
+				$instance['points'] = $this->defaults['points'];
+			} else {
+				$instance['points'] = 0;
+			}
+		}
+
+		?>
+
+		<p>
+			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php echo $this->options['points_label']; ?></label>
+			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>" id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
+		</p>
+
+		<?php
+
+		return true;
+	}
 
 	/**
 	 * Generate the description for an instance of a points hook.
@@ -673,9 +731,12 @@ abstract class WordPoints_Points_Hook {
 	 * @param array  $options {
 	 *        Optional arguments for the hooks' display
 	 *
-	 *        @type string $description Shown on the configuration page.
-	 *        @type int    $width       The width of your hook form. Required if
+	 *        @type string $description  Shown on the configuration page.
+	 *        @type int    $width        The width of your hook form. Required if
 	 *              more than 250px, but you should stay within that if possible.
+	 *        @type string $points_label The label for the points field. Used by the
+	 *              default form function. The default is 'Points:'. If you are
+	 *              overriding that function, you can ignore this option.
 	 * }
 	 */
 	final protected function init( $name, array $options = array() ) {
@@ -687,8 +748,9 @@ abstract class WordPoints_Points_Hook {
 		$this->options = wp_parse_args(
 			$options
 			,array(
-				'width'       => 250,
-				'description' => '',
+				'width'        => 250,
+				'description'  => '',
+				'points_label' => __( 'Points:', 'wordpoints' ),
 			)
 		);
 

@@ -27,7 +27,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	private $defaults = array( 'period' => 'daily', 'points' => 10 );
+	protected $defaults = array( 'period' => 'daily', 'points' => 10 );
 
 	/**
 	 * Initialize the hook.
@@ -203,13 +203,13 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
 
 		wordpoints_posint( $new_instance['points'] );
-		wordpoints_posint( $new_instance['disapprove'] );
+		wordpoints_posint( $new_instance['period'] );
 
 		return $new_instance;
 	}
 
 	/**
-	 * Echo the settings update form.
+	 * Display the settings update form.
 	 *
 	 * @since 1.0.0
 	 *
@@ -230,12 +230,10 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 		$dropdown = new WordPoints_Dropdown_Builder( $this->get_periods(), $dropdown_args );
 
+		parent::form( $instance );
+
 		?>
 
-		<p>
-			<label><?php _ex( 'Points:', 'form label', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
-		</p>
 		<p>
 			<label for="<?php $this->the_field_id( 'period' ); ?>"><?php _ex( 'Period:', 'length of time', 'wordpoints' ); ?></label>
 			<?php $dropdown->display(); ?>

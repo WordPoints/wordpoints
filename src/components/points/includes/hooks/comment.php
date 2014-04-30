@@ -27,7 +27,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	private $defaults = array( 'points' => 10 );
+	protected $defaults = array( 'points' => 10 );
 
 	/**
 	 * Initialize the hook.
@@ -430,49 +430,5 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return $can_view;
-	}
-
-	/**
-	 * Update a particular instance of this hook.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $new_instance New settings for this instance as input by user.
-	 * @param array $old_instance Old settings for this instance.
-	 *
-	 * @return array Settings to save.
-	 */
-	protected function update( $new_instance, $old_instance ) {
-
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
-
-		wordpoints_posint( $new_instance['points'] );
-
-		return $new_instance;
-	}
-
-	/**
-	 * Echo the settings update form.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $instance Current settings.
-	 *
-	 * @return bool True.
-	 */
-	protected function form( $instance ) {
-
-		$instance = array_merge( $this->defaults, $instance );
-
-		?>
-
-		<p>
-			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php _e( 'Points:', 'wordpoints' ); ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>"  id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
-		</p>
-
-		<?php
-
-		return true;
 	}
 }

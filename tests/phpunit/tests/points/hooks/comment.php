@@ -151,6 +151,48 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
 
 	/**
+	 * Test that points are only awarded for the specified post type.
+	 *
+	 * @since 1.5.0
+	 */
+	public function test_points_only_awarded_for_specified_post_type() {
+
+		wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 20, 'post_type' => 'post' )
+		);
+
+		$user_id = $this->factory->user->create();
+
+		// Create a comment on a post.
+		$this->factory->comment->create(
+			array(
+				'user_id' => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_type'   => 'post' )
+				),
+			)
+		);
+
+		// Test that points were awarded for the comment.
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Now create a comment on a page.
+		$this->factory->comment->create(
+			array(
+				'user_id' => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_type'   => 'page' )
+				),
+			)
+		);
+
+		// Test that no points were awarded for the comment.
+		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+
+	} // public function test_points_only_awarded_for_specified_post_type()
+
+	/**
 	 * Test that the logs are cleaned properly when a comment is deleted.
 	 *
 	 * @since 1.4.0

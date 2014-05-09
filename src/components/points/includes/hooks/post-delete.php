@@ -17,7 +17,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Delete_Points_Hook' );
  *
  * @since 1.4.0
  */
-class WordPoints_Post_Delete_Points_Hook extends WordPoints_Points_Hook {
+class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
 	/**
 	 * The default values.
@@ -69,15 +69,7 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Points_Hook {
 			$instance = array_merge( $this->defaults, $instance );
 
 			if (
-				! empty( $instance['post_type'] )
-				&& (
-					$instance['post_type'] == $post->post_type
-					|| (
-						$instance['post_type'] == 'ALL'
-						&& post_type_exists( $post->post_type )
-						&& get_post_type_object( $post->post_type )->public
-					)
-				)
+				$this->is_matching_post_type( $post->post_type, $instance['post_type'] )
 				&& $post->post_status !== 'auto-draft'
 				&& $post->post_title !== __( 'Auto Draft', 'default' )
 			) {
@@ -173,44 +165,5 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return parent::generate_description( $instance );
-	}
-
-	/**
-	 * Display the settings update form.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @param array $instance Current settings.
-	 *
-	 * @return bool True.
-	 */
-	protected function form( $instance ) {
-
-		$instance = array_merge( $this->defaults, $instance );
-
-		?>
-
-		<p>
-			<label for="<?php $this->the_field_id( 'post_type' ); ?>"><?php _e( 'Select post type:', 'wordpoints' ); ?></label>
-			<?php
-
-			wordpoints_list_post_types(
-				array(
-					'selected' => $instance['post_type'],
-					'id'       => $this->get_field_id( 'post_type' ),
-					'name'     => $this->get_field_name( 'post_type' ),
-					'class'    => 'widefat',
-				)
-				, array( 'public' => true )
-			);
-
-			?>
-		</p>
-
-		<?php
-
-		parent::form( $instance );
-
-		return true;
 	}
 }

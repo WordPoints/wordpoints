@@ -222,6 +222,13 @@ include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-point
 include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-hook.php';
 
 /**
+ * Post type points hook abstract class.
+ *
+ * @since 1.5.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/abstracts/post-type.php';
+
+/**
  * The registration points hook
  *
  * @since 1.4.0

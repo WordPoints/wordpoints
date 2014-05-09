@@ -19,7 +19,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
  *
  * @since 1.4.0
  */
-class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Points_Hook {
+class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
 	/**
 	 * The default values.
@@ -28,7 +28,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'points' => 10 );
+	protected $defaults = array( 'points' => 10, 'post_type' => 'ALL' );
 
 	/**
 	 * Initialize the hook.
@@ -70,11 +70,17 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Points_Hook {
 			return;
 		}
 
+		$post = get_post( $comment->comment_post_ID );
+
 		if ( 'approved' == $old_status ) {
 
 			foreach ( $this->get_instances() as $number => $instance ) {
 
 				$instance = array_merge( $this->defaults, $instance );
+
+				if ( ! $this->is_matching_post_type( $post->post_type, $instance['post_type'] ) ) {
+					continue;
+				}
 
 				$points_type = $this->points_type( $number );
 
@@ -180,5 +186,28 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return $points;
+	}
+
+	/**
+	 * Generate a description for an instance of this hook.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $instance The settings for the instance the description is for.
+	 *
+	 * @return string A description for the hook instance.
+	 */
+	protected function generate_description( $instance = array() ) {
+
+		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
+			$post_type = get_post_type_object( $instance['post_type'] );
+
+			if ( $post_type ) {
+				/* translators: the post type name. */
+				return sprintf( __( 'Comment on a %s removed from the site.', 'wordpoints' ), $post_type->labels->singular_name );
+			}
+		}
+
+		return parent::generate_description( $instance );
 	}
 }

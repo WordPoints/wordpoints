@@ -18,7 +18,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Comment_Points_Hook' );
  * @since 1.0.0
  * @since 1.4.0 No longer subtracts points for comment removal.
  */
-class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
+class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
 	/**
 	 * The default values.
@@ -27,7 +27,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'points' => 10 );
+	protected $defaults = array( 'points' => 10, 'post_type' => 'ALL' );
 
 	/**
 	 * Initialize the hook.
@@ -78,6 +78,8 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 			return;
 		}
 
+		$post = get_post( $comment->comment_post_ID );
+
 		if ( 'approved' == $new_status ) {
 
 			foreach ( $this->get_instances() as $number => $instance ) {
@@ -91,7 +93,10 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 
 				$points_type = $this->points_type( $number );
 
-				if ( ! $this->awarded_points_already( $comment->comment_ID, $points_type ) ) {
+				if (
+					$this->is_matching_post_type( $post->post_type, $instance['post_type'] )
+					&& ! $this->awarded_points_already( $comment->comment_ID, $points_type )
+				) {
 					wordpoints_add_points(
 						$comment->user_id
 						, $instance['points']
@@ -430,5 +435,28 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return $can_view;
+	}
+
+	/**
+	 * Generate a description for an instance of this hook.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $instance The settings for the instance the description is for.
+	 *
+	 * @return string A description for the hook instance.
+	 */
+	protected function generate_description( $instance = array() ) {
+
+		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
+			$post_type = get_post_type_object( $instance['post_type'] );
+
+			if ( $post_type ) {
+				/* translators: the post type name. */
+				return sprintf( __( 'Leaving a new comment on a %s.', 'wordpoints' ), $post_type->labels->singular_name );
+			}
+		}
+
+		return parent::generate_description( $instance );
 	}
 }

@@ -20,7 +20,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
  *
  * @see WordPoints_Post_Delete_Points_Hook
  */
-class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
+class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
 	/**
 	 * The default values.
@@ -78,14 +78,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 			$points_type = $this->points_type( $number );
 
 			if (
-				(
-					$instance['post_type'] == $post->post_type
-					|| (
-						$instance['post_type'] == 'ALL'
-						&& post_type_exists( $post->post_type )
-						&& get_post_type_object( $post->post_type )->public
-					)
-				)
+				$this->is_matching_post_type( $post->post_type, $instance['post_type'] )
 				&& ! $this->awarded_points_already( $post->ID, $points_type )
 			) {
 
@@ -365,44 +358,5 @@ class WordPoints_Post_Points_Hook extends WordPoints_Points_Hook {
 		}
 
 		return parent::generate_description( $instance );
-	}
-
-	/**
-	 * Display the settings update form.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $instance Current settings.
-	 *
-	 * @return bool True.
-	 */
-	protected function form( $instance ) {
-
-		$instance = array_merge( $this->defaults, $instance );
-
-		?>
-
-		<p>
-			<label for="<?php $this->the_field_id( 'post_type' ); ?>"><?php _e( 'Select post type:', 'wordpoints' ); ?></label>
-			<?php
-
-			wordpoints_list_post_types(
-				array(
-					'selected' => $instance['post_type'],
-					'id'       => $this->get_field_id( 'post_type' ),
-					'name'     => $this->get_field_name( 'post_type' ),
-					'class'    => 'widefat',
-				)
-				, array( 'public' => true )
-			);
-
-			?>
-		</p>
-
-		<?php
-
-		parent::form( $instance );
-
-		return true;
 	}
 }

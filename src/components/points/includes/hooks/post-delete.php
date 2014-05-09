@@ -44,6 +44,8 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 			,array(
 				'description'  => __( 'A post is permanently deleted.', 'wordpoints' ),
 				'points_label' => __( 'Points removed when deleted:', 'wordpoints' ),
+				/* translators: the post type name. */
+				'post_type_description' => __( '%s permanently deleted.', 'wordpoints' ),
 			)
 		);
 
@@ -138,32 +140,5 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 		}
 
 		return $points;
-	}
-
-	//
-	// Protected Methods.
-	//
-
-	/**
-	 * Generate a description for an instance of this hook.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @param array $instance The settings for the instance the description is for.
-	 *
-	 * @return string A description for the hook instance.
-	 */
-	protected function generate_description( $instance = array() ) {
-
-		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
-			$post_type = get_post_type_object( $instance['post_type'] );
-
-			if ( $post_type ) {
-				/* translators: the post type name. */
-				return sprintf( __( '%s permanently deleted.', 'wordpoints' ), $post_type->labels->singular_name );
-			}
-		}
-
-		return parent::generate_description( $instance );
 	}
 }

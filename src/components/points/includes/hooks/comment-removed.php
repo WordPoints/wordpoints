@@ -40,7 +40,9 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 		parent::init(
 			_x( 'Comment Removed', 'points hook name', 'wordpoints' )
 			, array(
-				'description'  => __( 'Comment removed from the site.', 'wordpoints' ),
+				'description' => __( 'Comment removed from the site.', 'wordpoints' ),
+				/* translators: the post type name. */
+				'post_type_description' =>  __( 'Comment on a %s removed from the site.', 'wordpoints' ),
 				'points_label' => __( 'Points subtracted if comment removed:', 'wordpoints' ),
 			)
 		);
@@ -186,28 +188,5 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 		}
 
 		return $points;
-	}
-
-	/**
-	 * Generate a description for an instance of this hook.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $instance The settings for the instance the description is for.
-	 *
-	 * @return string A description for the hook instance.
-	 */
-	protected function generate_description( $instance = array() ) {
-
-		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
-			$post_type = get_post_type_object( $instance['post_type'] );
-
-			if ( $post_type ) {
-				/* translators: the post type name. */
-				return sprintf( __( 'Comment on a %s removed from the site.', 'wordpoints' ), $post_type->labels->singular_name );
-			}
-		}
-
-		return parent::generate_description( $instance );
 	}
 }

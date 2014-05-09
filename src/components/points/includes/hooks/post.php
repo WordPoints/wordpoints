@@ -43,7 +43,11 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 
 		parent::init(
 			_x( 'Post Publish', 'points hook name', 'wordpoints' )
-			, array( 'description' => __( 'New post published.', 'wordpoints' ) )
+			, array(
+				'description' => __( 'New post published.', 'wordpoints' ),
+				/* translators: the post type name. */
+				'post_type_description' => __( 'New %s published.', 'wordpoints' ),
+			)
 		);
 
 		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
@@ -335,28 +339,5 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 		}
 
 		return $can_view;
-	}
-
-	/**
-	 * Generate a description for an instance of this hook.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @param array $instance The settings for the instance the description is for.
-	 *
-	 * @return string A description for the hook instance.
-	 */
-	protected function generate_description( $instance = array() ) {
-
-		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
-			$post_type = get_post_type_object( $instance['post_type'] );
-
-			if ( $post_type ) {
-				/* translators: the post type name. */
-				return sprintf( __( 'New %s published.', 'wordpoints' ), $post_type->labels->singular_name );
-			}
-		}
-
-		return parent::generate_description( $instance );
 	}
 }

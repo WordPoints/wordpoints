@@ -41,7 +41,11 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		parent::init(
 			_x( 'Comment', 'points hook name', 'wordpoints' )
-			, array( 'description' => __( 'Leaving a new comment.', 'wordpoints' ) )
+			, array(
+				'description' => __( 'Leaving a new comment.', 'wordpoints' ),
+				/* translators: the post type name. */
+				'post_type_description' => __( 'Leaving a new comment on a %s.', 'wordpoints' ),
+			)
 		);
 
 		add_action( 'transition_comment_status', array( $this, 'hook' ), 10, 3 );
@@ -435,28 +439,5 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 		}
 
 		return $can_view;
-	}
-
-	/**
-	 * Generate a description for an instance of this hook.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $instance The settings for the instance the description is for.
-	 *
-	 * @return string A description for the hook instance.
-	 */
-	protected function generate_description( $instance = array() ) {
-
-		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
-			$post_type = get_post_type_object( $instance['post_type'] );
-
-			if ( $post_type ) {
-				/* translators: the post type name. */
-				return sprintf( __( 'Leaving a new comment on a %s.', 'wordpoints' ), $post_type->labels->singular_name );
-			}
-		}
-
-		return parent::generate_description( $instance );
 	}
 }

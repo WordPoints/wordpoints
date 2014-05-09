@@ -39,6 +39,28 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	}
 
 	/**
+	 * Generate a description for an instance of this hook.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $instance The settings for the instance the description is for.
+	 *
+	 * @return string A description for the hook instance.
+	 */
+	protected function generate_description( $instance = array() ) {
+
+		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
+			$post_type = get_post_type_object( $instance['post_type'] );
+
+			if ( $post_type ) {
+				return sprintf( $this->get_option( 'post_type_description' ), $post_type->labels->singular_name );
+			}
+		}
+
+		return parent::generate_description( $instance );
+	}
+
+	/**
 	 * Display the settings update form.
 	 *
 	 * @since 1.5.0

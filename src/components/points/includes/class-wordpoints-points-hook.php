@@ -160,7 +160,7 @@ abstract class WordPoints_Points_Hook {
 	}
 
 	/**
-	 * Echo the settings update form.
+	 * Display the settings update form.
 	 *
 	 * This function will output the test input for the points field. If you have
 	 * other fields to output, you should override this function.

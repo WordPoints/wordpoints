@@ -745,13 +745,13 @@ abstract class WordPoints_Points_Hook {
 		$this->name        = $name;
 		$this->option_name = 'wordpoints_hook-' . $this->id_base;
 
-		$this->options = wp_parse_args(
-			$options
-			,array(
+		$this->options = array_merge(
+			array(
 				'width'        => 250,
 				'description'  => '',
 				'points_label' => __( 'Points:', 'wordpoints' ),
 			)
+			, $options
 		);
 
 		$this->options['_classname']   = $this->option_name;

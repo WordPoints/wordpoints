@@ -258,7 +258,7 @@ final class WordPoints_Components {
 			'version'       => '',
 		);
 
-		$component = wp_parse_args( $args, $defaults );
+		$component = array_merge( $defaults, $args );
 
 		$slug = $component['slug'];
 

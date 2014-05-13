@@ -59,7 +59,7 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 			'title'  => '',
 		);
 
-		$args = wp_parse_args( $args, $defaults );
+		$args = array_merge( $defaults, $args );
 
 		$this->type = $args['type'];
 

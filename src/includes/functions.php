@@ -450,7 +450,7 @@ class WordPoints_Dropdown_Builder {
 	 */
 	public function __construct( array $options, array $args ) {
 
-		$this->args = wp_parse_args( $args, $this->args );
+		$this->args = array_merge( $this->args, $args );
 
 		$this->options = $options;
 	}
@@ -537,7 +537,7 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 		'class'    => '',
 	);
 
-	$options = wp_parse_args( $options, $defaults );
+	$options = array_merge( $defaults, $options );
 
 	echo '<select class="' . esc_attr( $options['class'] ) . '" name="' . esc_attr( $options['name'] ) . '" id="' . esc_attr( $options['id'] ) . '">';
 	echo '<option value="ALL"' . selected( $options['selected'], 'ALL' ) . '>' . esc_html( _x( 'Any', 'post type', 'wordpoints' ) ) . '</option>';

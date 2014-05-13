@@ -252,7 +252,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function form( $instance ) {
 
-		$instance = wp_parse_args( $instance, $this->defaults );
+		$instance = array_merge( $this->defaults, $instance );
 
 		$dropdown_args = array(
 			'selected' => $instance['points_type'],
@@ -442,7 +442,7 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function form( $instance ) {
 
-		$instance = wp_parse_args( $instance, $this->defaults );
+		$instance = array_merge( $this->defaults, $instance );
 
 		$dropdown_args = array(
 			'selected' => $instance['points_type'],

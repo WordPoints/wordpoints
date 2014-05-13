@@ -100,6 +100,7 @@ if ( is_multisite() ) {
 
 	// See http://wordpress.stackexchange.com/a/89114/27757
 	unset( $GLOBALS['_wp_switched_stack'] );
+	$GLOBALS['switched'] = false;
 
 } else {
 

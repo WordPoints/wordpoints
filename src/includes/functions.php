@@ -44,7 +44,7 @@ function wordpoints_int( &$maybe_int ) {
 		break;
 
 		case 'double':
-			if ( $maybe_int == (float) (int) $maybe_int ) {
+			if ( $maybe_int === (float) (int) $maybe_int ) {
 				$maybe_int = (int) $maybe_int;
 			} else {
 				$maybe_int = false;

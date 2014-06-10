@@ -196,6 +196,8 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @param string $hook_id The unique ID of the hook to get the handler for.
+	 *
 	 * @return WordPoints_Points_Hook|bool The hook object, or false for invalid ID.
 	 */
 	public static function get_handler( $hook_id ) {

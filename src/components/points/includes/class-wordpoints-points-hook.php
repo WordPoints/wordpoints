@@ -321,7 +321,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string The index for the option.
+	 * @param string $option The index for the option.
 	 *
 	 * @return mixed The option, or null if it doesn't exist.
 	 */

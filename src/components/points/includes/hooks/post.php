@@ -215,7 +215,6 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 * @since 1.0.0
 	 *
 	 * @param int    $post_id     The ID of the post.
-	 * @param int    $user_id     The ID of the user.
 	 * @param string $points_type The points type to check.
 	 *
 	 * @return bool Whether points have been awarded for publishing this post before.

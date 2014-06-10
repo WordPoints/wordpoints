@@ -229,7 +229,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param array $module The data for a module.
+	 * @param array $module_data The data for a module.
 	 *
 	 * @return bool Wether any of the module's data matches the search.
 	 */

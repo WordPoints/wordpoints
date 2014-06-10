@@ -261,8 +261,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int    $post_id     The ID of the post.
-	 * @param int    $user_id     The ID of the user.
+	 * @param int    $comment_id  The ID of a comment.
 	 * @param string $points_type The points type to check.
 	 *
 	 * @return bool Whether points have been awarded.

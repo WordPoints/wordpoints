@@ -370,9 +370,9 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @filter date_query_valid_columns Added by self::_prepare_where().
 	 *
-	 * @param array $valid_columns The names of the valid columns for date queries.
+	 * @param string[] $valid_columns The names of the valid columns for date queries.
 	 *
-	 * @return array The valid columns.
+	 * @return string[] The valid columns.
 	 */
 	public function date_query_valid_columns_filter( $valid_columns ) {
 

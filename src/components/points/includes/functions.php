@@ -436,9 +436,9 @@ function wordpoints_get_formatted_points( $user_id, $type, $context ) {
  * @uses wordpoints_get_points()    To get the user's points.
  * @uses wordpoints_format_points() To format the points for display.
  *
- * @param int    $user_id     The ID of the user whose points to display.
- * @param string $points_type The type of points to display.
- * @param string $context     The context in which the points will be displayed.
+ * @param int    $user_id The ID of the user whose points to display.
+ * @param string $type    The type of points to display.
+ * @param string $context The context in which the points will be displayed.
  *
  * @return void This function does not return a value, it displays directly.
  */
@@ -1077,7 +1077,7 @@ function wordpoints_regenerate_points_logs( $log_ids ) {
  *
  * @since 1.0.0
  *
- * @param array  $users       The number of users to retrieve.
+ * @param array  $num_users   The number of users to retrieve.
  * @param string $points_type The type of points.
  *
  * @return int[] The IDs of the users with the most points.

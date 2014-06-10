@@ -317,7 +317,7 @@ function wordpoints_db_table_exists( $table ) {
 
 	global $wpdb;
 
-	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', like_escape( $table ) ) );
+	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) );
 
 	return ( $_table == $table ) ? true : false;
 }

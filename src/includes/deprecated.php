@@ -337,3 +337,38 @@ if ( defined( 'WORDPOINTS_SYMLINK' ) ) {
 	_deprecated_function( 'wordpoints_symlink_fix', '1.4.0' );
 	add_filter( 'plugins_url', 'wordpoints_symlink_fix', 10, 3 );
 }
+
+/**
+ * Include once all .php files in a directory and subdirectories.
+ *
+ * Gets the paths of all files in $dir and in any subdirectories of $dir. Paths of
+ * files in subdirectories are filtered out unless the filename matches the name of
+ * the subdirectory.
+ *
+ * Used to include modules and components.
+ *
+ * @since 1.0.0
+ * @deprecated 1.5.0
+ *
+ * @uses trailingslashit() To ensure $dir has a trailing slash.
+ *
+ * @param string $dir The directory to include the files from.
+ */
+function wordpoints_dir_include( $dir ) {
+
+	_deprecated_function( 'wordpoints_dir_include', '1.5.0' );
+
+	$dir = trailingslashit( $dir );
+
+	foreach ( glob( $dir . '*.php' ) as $file ) {
+
+		include_once $file;
+	}
+
+	foreach ( glob( $dir . '*/*.php' ) as $file ) {
+
+		if ( preg_match( '~/([^/]+)/\1.php$~', $file ) ) {
+			include_once $file;
+		}
+	}
+}

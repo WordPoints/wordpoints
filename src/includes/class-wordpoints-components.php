@@ -153,13 +153,13 @@ final class WordPoints_Components {
 	 *
 	 * @action plugins_loaded Before modules are loaded. Added by the init() method.
 	 *
-	 * @uses wordpoints_dir_include() To include the component's main files.
 	 * @uses do_action() To call 'wordpoints_components_register'.
 	 * @uses do_action() To call 'wordpoints_components_loaded'.
 	 */
 	public function load() {
 
-		wordpoints_dir_include( WORDPOINTS_DIR . 'components/' );
+		// Include core component(s).
+		include_once( WORDPOINTS_DIR . 'components/points/points.php' );
 
 		/**
 		 * Registration of included components.

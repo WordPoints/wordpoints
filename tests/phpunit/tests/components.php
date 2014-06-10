@@ -82,7 +82,11 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 */
 	public function test_register_fails_if_already_registered() {
 
-		$this->assertFalse( WordPoints_Components::instance()->register( 'points' ) );
+		$this->assertFalse(
+			WordPoints_Components::instance()->register(
+				array( 'slug' => 'points' )
+			)
+		);
 	}
 
 	/**

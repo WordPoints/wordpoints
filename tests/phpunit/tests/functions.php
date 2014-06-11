@@ -37,4 +37,22 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 			$this->assertFalse( is_wordpoints_network_active() );
 		}
 	}
+
+	/**
+	 * Test wordpoints_add_custom_caps_to_new_sites().
+	 *
+	 * @since 1.5.0
+	 */
+	public function test_wordpoints_add_custom_caps_to_new_sites() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints is not network active.' );
+		}
+
+		$blog_id = $this->factory->blog->create();
+
+		switch_to_blog( $blog_id );
+		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
+		restore_current_blog();
+	}
 }

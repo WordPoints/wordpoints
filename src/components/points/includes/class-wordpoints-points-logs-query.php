@@ -400,13 +400,18 @@ class WordPoints_Points_Logs_Query {
 	 * However, if you are only going to use the count, you should specify 'count'
 	 * instead, to avoid pulling unneeded data from the database into the cache.
 	 *
+	 * The $network parameter determines whether the query will be cached in a global
+	 * cache group (for the entire network) or per-site. This is a moot point except
+	 * on multisite installs.
+	 *
 	 * @since 1.5.0
 	 *
 	 * @param string $key     The cache key to use.
 	 * @param string $methods The query method(s) to cache, 'results' (default),
 	 *                        'var', 'col', 'row', or 'count'.
+	 * @param string $network Whether this is a network-wide query.
 	 */
-	public function prime_cache( $key = 'default:%points_type%', $methods = 'results' ) {
+	public function prime_cache( $key = 'default:%points_type%', $methods = 'results', $network = false ) {
 
 		$key = str_replace(
 			array(
@@ -420,7 +425,13 @@ class WordPoints_Points_Logs_Query {
 			, $key
 		);
 
-		$cache = wp_cache_get( $key, 'wordpoints_points_logs_query' );
+		if ( $network ) {
+			$group = 'wordpoints_network_points_logs_query';
+		} else {
+			$group = 'wordpoints_points_logs_query';
+		}
+
+		$cache = wp_cache_get( $key, $group );
 
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
@@ -465,7 +476,7 @@ class WordPoints_Points_Logs_Query {
 						return;
 				}
 
-				wp_cache_set( $key, $cache, 'wordpoints_points_logs_query' );
+				wp_cache_set( $key, $cache, $group );
 			}
 		}
 

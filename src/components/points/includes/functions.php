@@ -1339,4 +1339,17 @@ function wordpoints_points_logs_custom_meta_key_message( $points_type ) {
 }
 add_action( 'wordpoints_admin_points_logs_tab', 'wordpoints_points_logs_custom_meta_key_message' );
 
+/**
+ * Register the global cache groups used by this component.
+ *
+ * @since 1.5.0
+ *
+ * @action init 5 Earlier than the default so that the groups will be registered.
+ */
+function wordpoints_points_add_global_cache_groups() {
+
+	wp_cache_add_global_groups( 'wordpoints_network_points_logs_query' );
+}
+add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
+
 // end of file /components/points/includes/functions.php

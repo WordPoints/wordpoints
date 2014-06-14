@@ -573,6 +573,85 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		wp_set_current_user( $old_user->ID );
 	}
+
+	/**
+	 * Test that network queries are cache for the entire network.
+	 *
+	 * @since 1.5.0
+	 */
+	public function test_network_cache_is_network_wide() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must be network active.' );
+		}
+
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
+		// Get the query.
+		$query = wordpoints_get_points_logs_query( 'points', 'network' );
+
+		// The cache should have been primed.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Create a second site.
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+		// Get the query again.
+		$query = wordpoints_get_points_logs_query( 'points', 'network' );
+
+		// The cache should still be good, no query needed.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Now alter some points.
+		restore_current_blog();
+
+		// Get the query again on the first site.
+		$query = wordpoints_get_points_logs_query( 'points', 'network' );
+
+		// The cache should have been invalidated, and so a new query made.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
+	 * Test that non-network queries are cached per-site.
+	 *
+	 * @since 1.5.0
+	 */
+	public function test_cache_is_per_site() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must be network active.' );
+		}
+
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
+		// Get the query.
+		$query = wordpoints_get_points_logs_query( 'points' );
+
+		// The cache should have been primed.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Create a second site.
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+		// Get the query again.
+		$query = wordpoints_get_points_logs_query( 'points' );
+
+		// A new query is needed for this site.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		// Now alter some points.
+		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'test' );
+		restore_current_blog();
+
+		// Get the query again on the first site.
+		$query = wordpoints_get_points_logs_query( 'points' );
+
+		// The cache should still be good, no new query needed.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+	}
 }
 
 // end of file.

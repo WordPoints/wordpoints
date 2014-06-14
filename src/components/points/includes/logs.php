@@ -98,6 +98,7 @@ final class WordPoints_Points_Log_Queries {
 		$defaults = array(
 			'cache_key'     => "{$slug}:%points_type%",
 			'cache_queries' => false,
+			'network_wide'  => false,
 		);
 
 		self::$queries[ $slug ] = array_merge( $defaults, $data );
@@ -205,6 +206,7 @@ final class WordPoints_Points_Log_Queries {
  *
  *        @type string       $cache_key     Cache key format.
  *        @type string|array $cache_queries Type(s) of queries to cache.
+ *        @type bool         $network_wide  Whether this is a network-wide query.
  * }
  *
  * @return bool Whether the query was registered.
@@ -309,7 +311,12 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
 	$query_data = WordPoints_Points_Log_Queries::get_query_data( $query_slug );
 
 	if ( $query_data['cache_queries'] ) {
-		$query->prime_cache( $query_data['cache_key'], $query_data['cache_queries'] );
+
+		$query->prime_cache(
+			$query_data['cache_key']
+			, $query_data['cache_queries']
+			, $query_data['network_wide']
+		);
 	}
 
 	return $query;
@@ -503,7 +510,14 @@ function wordpoints_register_default_points_logs_queries() {
 	 *
 	 * @since 1.2.0
 	 */
-	wordpoints_register_points_logs_query( 'network', array( 'blog_id' => false ) );
+	wordpoints_register_points_logs_query(
+		'network'
+		, array( 'blog_id' => false )
+		, array(
+			'network_wide'  => true,
+			'cache_queries' => 'results'
+		)
+	);
 }
 add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_default_points_logs_queries' );
 
@@ -551,9 +565,15 @@ function wordpoints_clean_points_logs_cache( $user_id, $points, $points_type ) {
 
 		if ( ! empty( $query['cache_key'] ) ) {
 
+			if ( $query['network_wide'] ) {
+				$group = 'wordpoints_network_points_logs_query';
+			} else {
+				$group = 'wordpoints_points_logs_query';
+			}
+
 			wp_cache_delete(
 				str_replace( $find, $replace, $query['cache_key'] )
-				, 'wordpoints_points_logs_query'
+				, $group
 			);
 		}
 	}

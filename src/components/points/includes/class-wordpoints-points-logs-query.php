@@ -426,7 +426,7 @@ class WordPoints_Points_Logs_Query {
 			$cache = array();
 		}
 
-		$query = md5( $this->_get_sql() );
+		$query = md5( $this->get_sql() );
 
 		if ( ! isset( $cache[ $query ] ) ) {
 			$cache[ $query ] = array();

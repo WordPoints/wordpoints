@@ -27,6 +27,17 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 	protected $points_data;
 
 	/**
+	 * The list of filters currently being watched.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @see WordPoints_Points_UnitTestCase::listen_for_filter()
+	 *
+	 * @type array $watched_filters
+	 */
+	protected $watched_filters = array();
+
+	/**
 	 * Set up the points type.
 	 *
 	 * @since 1.0.0
@@ -54,6 +65,11 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 	public function tearDown() {
 
 		WordPoints_Points_Hooks::set_network_mode( false );
+
+		foreach ( $this->watched_filters as $filter => $data ) {
+
+			remove_filter( $filter, array( $this, 'filter_listner' ) );
+		}
 	}
 
 	/**
@@ -84,6 +100,83 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 		return ( isset( $wordpoints_data['components']['points']['version'] ) )
 			? $wordpoints_data['components']['points']['version']
 			: '';
+	}
+
+	/**
+	 * Listen for a WordPress action or filter.
+	 *
+	 * To limit the counting based on the filtered value, you can pass a
+	 * $count_callback, which will be called with the value being filtered. The
+	 * callback should return a boolean value, which will determine whether the
+	 * filter call is counted.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string   $filter         The filter to listen for.
+	 * @param callable $count_callback Function to call to test if this filter call
+	 *                                 should be counted.
+	 */
+	protected function listen_for_filter( $filter, $count_callback = null ) {
+
+		$this->watched_filters[ $filter ]['count'] = 0;
+
+		if ( isset( $count_callback ) ) {
+			$this->watched_filters[ $filter ]['callback'] = $count_callback;
+		}
+
+		add_filter( $filter, array( $this, 'filter_listner' ) );
+	}
+
+	/**
+	 * Increments the call count for a filter when it gets called.
+	 *
+	 * The count won't be incremented if there is a count callback for this filter,
+	 * and it returns false.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param mixed $var The value being filtered.
+	 */
+	public function filter_listner( $var ) {
+
+		$filter = current_filter();
+
+		if (
+			! isset( $this->watched_filters[ $filter ]['callback'] )
+			|| call_user_func( $this->watched_filters[ $filter ]['callback'], $var )
+		) {
+			$this->watched_filters[ $filter ]['count']++;
+		}
+
+		return $var;
+	}
+
+	/**
+	 * Get the number of times a fitler was called.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $filter The filter to check for.
+	 *
+	 * @return int How many times this filter was called.
+	 */
+	protected function filter_was_called( $filter ) {
+
+		return $this->watched_filters[ $filter ]['count'];
+	}
+
+	/**
+	 * Check if an SQL string is a points logs query.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $sql The SQL query string.
+	 *
+	 * @return bool Whether the query is a points logs query.
+	 */
+	protected function is_points_logs_query( $sql ) {
+
+		return strpos( $sql, "FROM `{$GLOBALS['wpdb']->wordpoints_points_logs}`" ) !== false;
 	}
 }
 

@@ -362,6 +362,117 @@ class WordPoints_Points_Logs_Query {
 	}
 
 	/**
+	 * Prime the cache.
+	 *
+	 * Calling this function will pre-fill this instance's cache from the object
+	 * cache. Not all queries are cached, only those for which this method is called.
+	 * If you want your query to be cached, then you should call this function
+	 * immediately after constructing the new query.
+	 *
+	 * If the results aren't found in the cache, the query will be run and the
+	 * results cached.
+	 *
+	 * The $key passed is used as the cache key in the 'wordpoints_points_logs_query'
+	 * cache group. Multiple queries can use the same key, and you are encouraged to
+	 * group queries under a single key that will be invalidated simultaneously.
+	 *
+	 * Several placeholders are supported within the key to allow for better query
+	 * grouping. They are replaced with the values of the query args of the same
+	 * name:
+	 *  - %points_type%
+	 *  - %user_id%
+	 *
+	 * The default $key is 'default:%points_type%', which corresponds to the named
+	 * log query 'default'. This key's cache is invalidated each time a new log is
+	 * added to the database.
+	 *
+	 * Other keys that are used by WordPoints internally correspond to the other
+	 * named points log queries. The cache key is specified when the named query is
+	 * registered with wordpoints_register_points_logs_query(). Custom named queries
+	 * registered this way can be given their own keys as well. Keep in mind though,
+	 * that the caches for queries implementing placeholders will be cleared
+	 * automatically by wordpoints_clean_points_logs_cache() when a new matching log
+	 * is added to the database.
+	 *
+	 * The $methods paramater determies which methods of retrieving the data will be
+	 * cached. To cache multiple methods, pass an array. Priming the 'results' method
+	 * will automatically cache the 'count' as well, by counting the results.
+	 * However, if you are only going to use the count, you should specify 'count'
+	 * instead, to avoid pulling unneeded data from the database into the cache.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $key     The cache key to use.
+	 * @param string $methods The query method(s) to cache, 'results' (default),
+	 *                        'var', 'col', 'row', or 'count'.
+	 */
+	public function prime_cache( $key = 'default:%points_type%', $methods = 'results' ) {
+
+		$key = str_replace(
+			array(
+				'%points_type%',
+				'%user_id%',
+			)
+			, array(
+				$this->_args['points_type'],
+				$this->_args['user_id'],
+			)
+			, $key
+		);
+
+		$cache = wp_cache_get( $key, 'wordpoints_points_logs_query' );
+
+		if ( ! is_array( $cache ) ) {
+			$cache = array();
+		}
+
+		$query = md5( $this->_get_sql() );
+
+		if ( ! isset( $cache[ $query ] ) ) {
+			$cache[ $query ] = array();
+		}
+
+		$methods = array_unique( (array) $methods );
+
+		foreach ( $methods as $method ) {
+
+			if (
+				(
+					'count' === $method
+					&& ! isset( $cache[ $query ]['count'] )
+				)
+				|| ! isset( $cache[ $query ][ "get_{$method}" ] )
+			) {
+
+				switch ( $method ) {
+
+					case 'results':
+						$cache[ $query ]['get_results'] = $this->get();
+						$cache[ $query ]['count'] = count( $cache[ $query ]['get_results'] );
+					break;
+
+					case 'count':
+						$cache[ $query ]['count'] = $this->count();
+					break;
+
+					case 'var':
+					case 'col':
+					case 'row':
+						$cache[ $query ][ "get_{$method}" ] = $this->get( $method );
+					break;
+
+					default:
+						return;
+				}
+
+				wp_cache_set( $key, $cache, 'wordpoints_points_logs_query' );
+			}
+		}
+
+		$this->_cache = array_merge( $this->_cache, $cache[ $query ] );
+	}
+
+	/**
 	 * Filter date query valid columns for WP_Date_Query.
 	 *
 	 * Adds `date` to the list of valid columns for `wordpoints_points_logs.date`.
@@ -442,7 +553,7 @@ class WordPoints_Points_Logs_Query {
 
 		$get = "get_{$method}";
 
-		return $wpdb->$get( $this->_get_sql() );;
+		return $wpdb->$get( $this->_get_sql() );
 	}
 
 	/**

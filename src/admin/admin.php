@@ -187,6 +187,24 @@ function wordpoints_admin_screen_install_modules() {
 }
 
 /**
+ * Set up for the configure screen.
+ *
+ * @since 1.5.0
+ *
+ * @action load-toplevel_page_wordpoints_configure
+ */
+function wordpoints_admin_sreen_configure_load() {
+
+	/**
+	 * Set up for the WordPoints » Configure administration screen.
+	 *
+	 * @since 1.5.0
+	 */
+	require WORDPOINTS_DIR . 'admin/screens/configure-settings-load.php';
+}
+add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_sreen_configure_load' );
+
+/**
  * Activate/deactivate components.
  *
  * This function handles activation and deactivation of components from the

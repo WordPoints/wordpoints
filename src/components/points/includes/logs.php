@@ -500,8 +500,8 @@ function wordpoints_register_default_points_logs_queries() {
 		'current_user'
 		, array( 'user_id' => get_current_user_id() )
 		, array(
-		 	'cache_key'     => 'current_user:%points_type%:%user_id%',
-		 	'cache_queries' => 'results',
+			'cache_key'     => 'current_user:%points_type%:%user_id%',
+			'cache_queries' => 'results',
 		)
 	);
 

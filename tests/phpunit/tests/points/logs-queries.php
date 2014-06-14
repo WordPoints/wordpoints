@@ -604,6 +604,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Now alter some points.
+		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'test' );
 		restore_current_blog();
 
 		// Get the query again on the first site.

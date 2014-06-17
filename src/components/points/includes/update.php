@@ -346,3 +346,31 @@ function wordpoints_points_update_1_4_0_clean_points_logs() {
 		}
 	}
 }
+
+/**
+ * Update the points component to 1.5.0.
+ *
+ * Prior to 1.5.0, capabilities weren't automatically added to new sites when
+ * WordPoints was in network mode.
+ *
+ * @since 1.5.0
+ */
+function wordpoints_points_update_1_5_0() {
+
+	if ( ! is_wordpoints_network_active() ) {
+		return;
+	}
+
+	global $wpdb;
+
+	$capabilities = wordpoints_points_get_custom_caps();
+
+	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+	foreach ( $blog_ids as $blog_id ) {
+
+		switch_to_blog( $blog_id );
+		wordpoints_add_custom_caps( $capabilities );
+		restore_current_blog();
+	}
+}

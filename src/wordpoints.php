@@ -107,6 +107,13 @@ function wordpoints_update() {
 		case version_compare( '1.3.0', $db_version ):
 			wordpoints_update_1_3_0();
 		// fallthru
+
+		case version_compare( '1.5.0', $db_version ):
+			if ( is_wordpoints_network_active() && 1 != version_compare( '1.3.0', $db_version ) ) {
+				// See wordpoints_points_update_1_5_0().
+				wordpoints_update_1_3_0();
+			}
+		// fallthru
 	}
 
 	$wordpoints_data['version'] = WORDPOINTS_VERSION;

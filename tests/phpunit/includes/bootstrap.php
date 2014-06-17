@@ -91,6 +91,13 @@ require_once WORDPOINTS_TESTS_DIR . '/../../src/includes/constants.php';
 require WORDPOINTS_TESTS_DIR . '/includes/uninstall/bootstrap.php';
 
 /**
+ * The WordPoints_UnitTestCase class.
+ *
+ * @since 1.5.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-unittestcase.php';
+
+/**
  * The WordPoints_Points_UnitTestCase class.
  *
  * @since 1.0.0

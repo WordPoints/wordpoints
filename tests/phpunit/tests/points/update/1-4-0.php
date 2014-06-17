@@ -18,7 +18,7 @@
 class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
-	 * Test taht the custom capabailities that were'nt added in 1.3.0 are added.
+	 * Test that the custom capabailities that were'nt added in 1.3.0 are added.
 	 *
 	 * @since 1.4.0
 	 */
@@ -32,7 +32,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		// Create a second site on the network.
 		$this->factory->blog->create();
 
-		// Create an old-style post points hook on each site.
+		// Remove the caps on each site for the test.
 		global $wpdb;
 
 		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
@@ -48,7 +48,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->set_points_db_version();
 		wordpoints_points_component_update();
 
-		// Check that the hooks for each site were updated.
+		// Check that the custom capabilties were added.
 		foreach ( $blog_ids as $blog_id ) {
 
 			switch_to_blog( $blog_id );

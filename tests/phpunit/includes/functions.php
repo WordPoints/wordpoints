@@ -20,11 +20,16 @@
  */
 function wordpointstests_manually_load_plugin() {
 
+	global $wpdb;
+
 	add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 	add_filter( 'wordpoints_component_active', '__return_true', 100 );
 	add_action( 'wordpoints_components_loaded', 'wordpointstests_manually_activate_components', 0 );
 
 	require WORDPOINTS_TESTS_DIR . '/../../src/wordpoints.php';
+
+	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_points_logs`" );
+	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_points_log_meta`" );
 
 	$network_active = false;
 

@@ -3,8 +3,13 @@
 /**
  * Functions to update the points component.
  *
+ * This file is loaded only when WordPoints is being updated. This functions should
+ * be considered private, and are not intended for general use.
+ *
  * @package WordPoints\Points
  * @since 1.2.0
+ *
+ * @access private
  */
 
 /**
@@ -89,17 +94,6 @@ function wordpoints_points_update_1_2_0() {
 	}
 
 } // function wordpoints_points_update_1_2_0()
-
-/**
- * Update the points component to 1.3.0.
- *
- * @since 1.3.0
- */
-function wordpoints_points_update_1_3_0() {
-
-	// Add the custom caps to the desired roles.
-	wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
-}
 
 /**
  * Update the points component to 1.4.0.

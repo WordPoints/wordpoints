@@ -604,7 +604,7 @@ class WordPoints_Points_Logs_Query {
 			} elseif ( in_array( $_fields, $this->_fields ) ) {
 				$fields = $_fields;
 			} else {
-				wordpoints_debug_message( "invalid field {$_fields}, possible values are " . implode( ', ', $this->_fields ), __METHOD__, __FILE__, __LINE__ );
+				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid field {$_fields}, possible values are " . implode( ', ', $this->_fields ), '1.0.0' );
 			}
 
 		} elseif ( 'array' == $var_type ) {
@@ -613,7 +613,7 @@ class WordPoints_Points_Logs_Query {
 			$_fields = array_intersect( $this->_fields, $_fields );
 
 			if ( ! empty( $diff ) ) {
-				wordpoints_debug_message( 'invalid field(s) "' . implode( '", "', $diff ) . '" given', __METHOD__, __FILE__, __LINE__ );
+				_doing_it_wrong( __METHOD__, 'WordPoints Debug Error: invalid field(s) "' . implode( '", "', $diff ) . '" given', '1.0.0' );
 			}
 
 			if ( ! empty( $_fields ) ) {
@@ -690,9 +690,9 @@ class WordPoints_Points_Logs_Query {
 
 			$_points = $this->_args['points'];
 
-			if ( isset( $_points ) && ! wordpoints_int( $this->_args['points'] ) ) {
+			if ( ! wordpoints_int( $this->_args['points'] ) ) {
 
-				wordpoints_debug_message( "'points' must be an integer, " . gettype( $_points ) . ' given',  __METHOD__, __FILE__, __LINE__ );
+				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'points' must be an integer, " . gettype( $_points ) . ' given',  '1.0.0' );
 
 			} else {
 
@@ -700,7 +700,7 @@ class WordPoints_Points_Logs_Query {
 
 				if ( ! in_array( $this->_args['points__compare'], $comparisons ) ) {
 
-					wordpoints_debug_message( "invalid 'points__compare' {$this->_args['points__compare']}, possible values are " . implode( ', ', $comparisons ), __METHOD__, __FILE__, __LINE__ );
+					_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'points__compare' {$this->_args['points__compare']}, possible values are " . implode( ', ', $comparisons ), '1.0.0' );
 				}
 
 				$this->_wheres[] = $wpdb->prepare( "`points` {$this->_args['points__compare']} %d", $this->_args['points'] );
@@ -791,7 +791,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( wordpoints_int( $this->_args['limit'] ) === false ) {
 
-			wordpoints_debug_message( "'limit' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', __METHOD__, __FILE__, __LINE__ );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'limit' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', '1.0.0' );
 
 			$this->_args['limit'] = 0;
 		}
@@ -800,7 +800,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( wordpoints_int( $this->_args['start'] ) === false ) {
 
-			wordpoints_debug_message( "'start' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', __METHOD__, __FILE__, __LINE__ );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'start' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', '1.0.0' );
 
 			$this->_args['start'] = 0;
 		}
@@ -830,7 +830,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( ! in_array( $order, array( 'DESC', 'ASC' ) ) ) {
 
-			wordpoints_debug_message( "invalid 'order' \"{$order}\", possible values are DESC and ASC", __METHOD__, __FILE__, __LINE__ );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'order' \"{$order}\", possible values are DESC and ASC", '1.0.0' );
 			$order = 'DESC';
 		}
 
@@ -848,7 +848,7 @@ class WordPoints_Points_Logs_Query {
 
 		} elseif ( ! in_array( $order_by, $this->_fields ) ) {
 
-			wordpoints_debug_message( "invalid 'orderby' \"{$order_by}\", possible values are " . implode( ', ', $this->_fields ), __METHOD__, __FILE__, __LINE__ );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'orderby' \"{$order_by}\", possible values are " . implode( ', ', $this->_fields ), '1.0.0' );
 			return;
 		}
 

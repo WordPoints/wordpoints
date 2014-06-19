@@ -356,21 +356,11 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 		$format = '%s';
 	}
 
-	// Validate $_in.
-	$type = gettype( $_in );
-
-	if ( 'array' != $type ) {
-
-		wordpoints_debug_message( "\$_in must be an array, {$type} given", __FUNCTION__, __FILE__, __LINE__ );
-
-		return false;
-	}
-
 	$_in = array_unique( $_in );
 
 	$count = count( $_in );
 
-	if ( 0 == $count ) {
+	if ( 0 === $count ) {
 
 		wordpoints_debug_message( 'empty array passed as first parameter', __FUNCTION__, __FILE__, __LINE__ );
 

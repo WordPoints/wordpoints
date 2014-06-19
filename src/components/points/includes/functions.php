@@ -676,18 +676,12 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	if ( $result !== false ) {
 
-		if ( is_array( $meta ) ) {
 
-			$insert_id = $wpdb->insert_id;
+		$insert_id = $wpdb->insert_id;
 
-			foreach ( $meta as $meta_key => $meta_value ) {
+		foreach ( $meta as $meta_key => $meta_value ) {
 
-				wordpoints_add_points_log_meta( $insert_id, $meta_key, $meta_value );
-			}
-
-		} else {
-
-			wordpoints_debug_message( 'Log meta must be an array, ' . gettype( $meta ) . ' given', __FUNCTION__, __FILE__, __LINE__ );
+			wordpoints_add_points_log_meta( $insert_id, $meta_key, $meta_value );
 		}
 
 		/**

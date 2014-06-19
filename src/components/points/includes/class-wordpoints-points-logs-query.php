@@ -892,26 +892,18 @@ class WordPoints_Points_Logs_Query {
 	 */
 	private function _prepare_posint__in( $in, $column, $type = 'IN' ) {
 
+		if ( empty( $in ) ) {
+			return;
+		}
+
+		$in = array_filter( array_map( 'wordpoints_posint', $in ) );
+
 		if ( ! empty( $in ) ) {
 
-			$var_type = gettype( $in );
+			$in = wordpoints_prepare__in( $in, '%d' );
 
-			if ( 'array' == $var_type ) {
-
-				$in = array_filter( array_map( 'wordpoints_posint', $in ) );
-
-				if ( ! empty( $in ) ) {
-
-					$in = wordpoints_prepare__in( $in, '%d' );
-
-					if ( $in ) {
-						$this->_wheres[] = "{$column} {$type} ({$in})";
-					}
-				}
-
-			} else {
-
-				wordpoints_debug_message( "\$in must be an array, {$var_type} given", __METHOD__, __FILE__, __LINE__ );
+			if ( $in ) {
+				$this->_wheres[] = "{$column} {$type} ({$in})";
 			}
 		}
 	}

@@ -179,6 +179,7 @@ function wordpoints_debug_message( $message, $function, $file, $line ) {
  *
  * @since 1.0.0
  * @since 1.1.0 The $conext parameter was added for site options.
+ * @since 1.2.0 The 'network' context was added.
  *
  * @param string $option The name of the option to get.
  * @param string $context The context for the option. Use 'site' to get site options.

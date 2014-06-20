@@ -311,7 +311,7 @@ class WordPoints_Points_Logs_Query {
 	 * @param string $method The method to use. Options are 'results', 'row', and
 	 *        'col', and 'var'.
 	 *
-	 * @return mixed The results fo the query, or false on failure.
+	 * @return mixed The results of the query, or false on failure.
 	 */
 	public function get( $method = 'results', $use_cache = true ) {
 

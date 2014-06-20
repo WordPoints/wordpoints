@@ -83,9 +83,12 @@ abstract class WordPoints_Points_Hook {
 	/**
 	 * Unique ID number of the current instance.
 	 *
+	 * The number will be false when none is set. When set, it will usually be an
+	 * integer, or numeric string. For network hooks, it is prefixed with 'network_'.
+	 *
 	 * @since 1.0.0
 	 *
-	 * @type int|false $number
+	 * @type int|string|false $number
 	 */
 	private $number = false;
 
@@ -283,11 +286,12 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @param string $id The id of a hook instance.
 	 *
-	 * @return int The number for the hook instance.
+	 * @return string The number for the hook instance. Prefixed with 'network_' for
+	 *                network hooks.
 	 */
 	final public function get_number_by_id( $id ) {
 
-		return (int) str_replace( $this->id_base . '-', '', $id );
+		return str_replace( $this->id_base . '-', '', $id );
 	}
 
 	/**
@@ -696,8 +700,12 @@ abstract class WordPoints_Points_Hook {
 		$network_mode = false;
 
 		if ( ! isset( $number ) ) {
+
 			$number = $this->number;
+
 		} elseif ( is_string( $number ) && substr( $number, 0, 8 ) === 'network_' ) {
+
+			$network_mode = true;
 			$number = (int) substr( $number, 8 );
 		}
 

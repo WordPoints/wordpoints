@@ -412,8 +412,6 @@ if ( defined( 'WORDPOINTS_DEBUG' ) ) {
  * @deprecated 1.5.0
  * @deprecated Use _doing_it_wrong() insstead.
  *
- * @uses wordpoints_debug() To check whether debugging is enabled.
- *
  * @param string $message  The message.
  * @param string $function The function in which the message was issued.
  * @param string $file     The file in which the message was issued.
@@ -423,24 +421,7 @@ function wordpoints_debug_message( $message, $function, $file, $line ) {
 
 	_deprecated_function( 'wordpoints_debug_message', '1.5.0', '_doing_it_wrong()' );
 
-	if ( wordpoints_debug() ) {
-
-		trigger_error( "WordPoints Debug Error: '{$message}' in {$function} in {$file} on line {$line}" );
-
-		/**
-		 * Debug error triggered.
-		 *
-		 * You can use this to do debug_backtrace() if needed.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $message  The error message.
-		 * @param string $function The function in which the error occured.
-		 * @param string $file     The file in which the error occured.
-		 * @param int    $line     The line on which the message was issued.
-		 */
-		do_action( 'wordpoints_debug_message', $message, $function, $file, $line );
-	}
+	_doing_it_wrong( $function, "WordPoints Debug Error: {$message}" );
 }
 
 // EOF

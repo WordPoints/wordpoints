@@ -25,9 +25,6 @@ class WordPoints_Prepare_In_Test extends WP_UnitTestCase {
 	 */
 	public function test_invalid_in() {
 
-		$result = wordpoints_prepare__in( 'foo', '%d' );
-		$this->assertFalse( $result );
-
 		$result = wordpoints_prepare__in( array(), '%d' );
 		$this->assertFalse( $result );
 	}

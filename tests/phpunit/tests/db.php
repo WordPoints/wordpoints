@@ -50,13 +50,15 @@ class WordPoints_Prepare_In_Test extends WP_UnitTestCase {
 	 * Test behavior on invalid $_in parameter.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @expectedIncorrectUsage wordpoints_prepare__in
 	 */
 	public function test_invalid_in() {
 
-		$result = @wordpoints_prepare__in( 'foo', '%d' );
+		$result = wordpoints_prepare__in( 'foo', '%d' );
 		$this->assertFalse( $result );
 
-		$result = @wordpoints_prepare__in( array(), '%d' );
+		$result = wordpoints_prepare__in( array(), '%d' );
 		$this->assertFalse( $result );
 	}
 
@@ -64,10 +66,12 @@ class WordPoints_Prepare_In_Test extends WP_UnitTestCase {
 	 * Test behavior with an invalid $format.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @expectedIncorrectUsage wordpoints_prepare__in
 	 */
 	public function test_invalid_format() {
 
-		$result = @wordpoints_prepare__in( array( 1, 2, 3 ), '%D' );
+		$result = wordpoints_prepare__in( array( 1, 2, 3 ), '%D' );
 		$this->assertEquals( "'1','2','3'", $result );
 	}
 

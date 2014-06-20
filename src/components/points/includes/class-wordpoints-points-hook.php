@@ -85,7 +85,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @type int|bool $number
+	 * @type int|false $number
 	 */
 	private $number = false;
 
@@ -283,11 +283,11 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @param string $id The id of a hook instance.
 	 *
-	 * @return string The number for the hook instance.
+	 * @return int The number for the hook instance.
 	 */
 	final public function get_number_by_id( $id ) {
 
-		return str_replace( $this->id_base . '-', '', $id );
+		return (int) str_replace( $this->id_base . '-', '', $id );
 	}
 
 	/**
@@ -686,18 +686,19 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $number The instance number.
+	 * @param int|string $number The instance number. Prefixed by 'network_' for
+	 *                           network-wide hooks.
 	 *
-	 * @return string|bool
+	 * @return string|false The type of points, or false if none found.
 	 */
 	final public function points_type( $number = null ) {
 
+		$network_mode = false;
+
 		if ( ! isset( $number ) ) {
 			$number = $this->number;
-		}
-
-		if ( $network_mode = ( strpos( $number, 'network_' ) === 0 ) ) {
-			$number = (int) str_replace( 'network_', '', $number );
+		} elseif ( is_string( $number ) && substr( $number, 0, 8 ) === 'network_' ) {
+			$number = (int) substr( $number, 8 );
 		}
 
 		$current_mode = WordPoints_Points_Hooks::get_network_mode();

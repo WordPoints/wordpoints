@@ -372,3 +372,75 @@ function wordpoints_dir_include( $dir ) {
 		}
 	}
 }
+
+/**
+ * Check if debugging is on.
+ *
+ * @since 1.0.0
+ * @deprecated 1.5.0
+ * @deprecated Use WP_DEBUG instead.
+ *
+ * @return bool
+ */
+function wordpoints_debug() {
+
+	_deprecated_function( 'wordpoints_debug', '1.5.0', 'WP_DEBUG' );
+
+	if ( defined( 'WORDPOINTS_DEBUG' ) ) {
+
+		$debug = WORDPOINTS_DEBUG;
+
+	} else {
+
+		$debug = WP_DEBUG;
+	}
+
+	return $debug;
+}
+
+if ( defined( 'WORDPOINTS_DEBUG' ) ) {
+	_doing_it_wrong( 'wordpoints_debug', 'The WORDPOINTS_DEBUG constant is deprecated', '1.5.0' );
+}
+
+/**
+ * Issue a debug message that may be logged or displayed.
+ *
+ * We call do_action( 'wordpoints_debug_message' ) so folks can generate a stack
+ * trace if they want.
+ *
+ * @since 1.0.0
+ * @deprecated 1.5.0
+ * @deprecated Use _doing_it_wrong() insstead.
+ *
+ * @uses wordpoints_debug() To check whether debugging is enabled.
+ *
+ * @param string $message  The message.
+ * @param string $function The function in which the message was issued.
+ * @param string $file     The file in which the message was issued.
+ * @param int    $line     The line on which the message was issued.
+ */
+function wordpoints_debug_message( $message, $function, $file, $line ) {
+
+	_deprecated_function( 'wordpoints_debug_message', '1.5.0', '_doing_it_wrong()' );
+
+	if ( wordpoints_debug() ) {
+
+		trigger_error( "WordPoints Debug Error: '{$message}' in {$function} in {$file} on line {$line}" );
+
+		/**
+		 * Debug error triggered.
+		 *
+		 * You can use this to do debug_backtrace() if needed.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $message  The error message.
+		 * @param string $function The function in which the error occured.
+		 * @param string $file     The file in which the error occured.
+		 * @param int    $line     The line on which the message was issued.
+		 */
+		do_action( 'wordpoints_debug_message', $message, $function, $file, $line );
+	}
+}
+
+// EOF

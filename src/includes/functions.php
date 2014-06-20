@@ -106,68 +106,6 @@ function wordpoints_negint( &$maybe_int ) {
 }
 
 //
-// Debugging.
-//
-
-/**
- * Check if debugging is on.
- *
- * @since 1.0.0
- *
- * @return bool
- */
-function wordpoints_debug() {
-
-	if ( defined( 'WORDPOINTS_DEBUG' ) ) {
-
-		$debug = WORDPOINTS_DEBUG;
-
-	} else {
-
-		$debug = WP_DEBUG;
-	}
-
-	return $debug;
-}
-
-/**
- * Issue a debug message that may be logged or displayed.
- *
- * We call do_action( 'wordpoints_debug_message' ) so folks can generate a stack
- * trace if they want.
- *
- * @since 1.0.0
- *
- * @uses wordpoints_debug() To check whether debugging is enabled.
- *
- * @param string $message  The message.
- * @param string $function The function in which the message was issued.
- * @param string $file     The file in which the message was issued.
- * @param int    $line     The line on which the message was issued.
- */
-function wordpoints_debug_message( $message, $function, $file, $line ) {
-
-	if ( wordpoints_debug() ) {
-
-		trigger_error( "WordPoints Debug Error: '{$message}' in {$function} in {$file} on line {$line}" );
-
-		/**
-		 * Debug error triggered.
-		 *
-		 * You can use this to do debug_backtrace() if needed.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $message  The error message.
-		 * @param string $function The function in which the error occured.
-		 * @param string $file     The file in which the error occured.
-		 * @param int    $line     The line on which the message was issued.
-		 */
-		do_action( 'wordpoints_debug_message', $message, $function, $file, $line );
-	}
-}
-
-//
 // Databae Helpers.
 //
 

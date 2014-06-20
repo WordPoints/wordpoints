@@ -676,7 +676,6 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	if ( $result !== false ) {
 
-
 		$insert_id = $wpdb->insert_id;
 
 		foreach ( $meta as $meta_key => $meta_value ) {

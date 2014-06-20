@@ -893,11 +893,7 @@ class WordPoints_Points_Logs_Query {
 	private function _prepare_posint__in( $in, $column, $type = 'IN' ) {
 
 		$in = array_filter( array_map( 'wordpoints_posint', $in ) );
-		$in = wordpoints_prepare__in( $in, '%d' );
-
-		if ( $in ) {
-			$this->_wheres[] = "{$column} {$type} ({$in})";
-		}
+		$this->_prepare__in( $in, $column, $type, '%d' );
 	}
 }
 

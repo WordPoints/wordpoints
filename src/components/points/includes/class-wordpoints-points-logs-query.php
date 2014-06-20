@@ -319,7 +319,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( ! in_array( $method, $methods ) ) {
 
-			wordpoints_debug_message( "invalid get method {$method}, possible values are " . implode( ', ', $methods ), __METHOD__, __FILE__, __LINE__ );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid get method {$method}, possible values are " . implode( ', ', $methods ), '1.0.0' );
 
 			return false;
 		}

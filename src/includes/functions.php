@@ -202,7 +202,7 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
 		break;
 
 		default:
-			wordpoints_debug_message( sprintf( 'Unknown option context "%s"', $context ), __FUNCTION__, __FILE__, __LINE__ );
+			_doing_it_wrong( __FUNCTION__, sprintf( 'Unknown option context "%s"', $context ), '1.2.0' );
 			$value = array();
 	}
 
@@ -351,7 +351,7 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 
 	if ( ! in_array( $format, $formats ) ) {
 
-		wordpoints_debug_message( "invalid format '{$format}', allowed values are %s, %d, and %f", __FUNCTION__, __FILE__, __LINE__ );
+		_doing_it_wrong( __FUNCTION__, "WordPoints Debug Error: invalid format '{$format}', allowed values are %s, %d, and %f", '1.0.0' );
 
 		$format = '%s';
 	}
@@ -362,7 +362,7 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 
 	if ( 0 === $count ) {
 
-		wordpoints_debug_message( 'empty array passed as first parameter', __FUNCTION__, __FILE__, __LINE__ );
+		_doing_it_wrong( __FUNCTION__, 'WordPoints Debug Error: empty array passed as first parameter', '1.0.0' );
 
 		return false;
 	}

@@ -621,7 +621,7 @@ function wordpoints_add_custom_caps( $capabilities ) {
  *
  * @since 1.3.0
  *
- * @param array $capabilities The list of capabilities to remove.
+ * @param string[] $capabilities The list of capabilities to remove.
  */
 function wordpoints_remove_custom_caps( $capabilities ) {
 

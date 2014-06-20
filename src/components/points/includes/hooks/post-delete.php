@@ -129,7 +129,7 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	 *
 	 * @param int $number The ID number of the instance.
 	 *
-	 * @return int|bool The number of points, or false.
+	 * @return int|false The number of points, or false.
 	 */
 	public function get_points( $number = null ) {
 

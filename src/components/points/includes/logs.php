@@ -242,7 +242,7 @@ function wordpoints_is_points_logs_query( $slug ) {
  * @param string $points_type The type of points the query will be for.
  * @param string $query_slug  The slug of the query whose args you wish to get.
  *
- * @return array|bool The args for the query, or false on failure.
+ * @return array|false The args for the query, or false on failure.
  */
 function wordpoints_get_points_logs_query_args( $points_type, $query_slug = 'default' ) {
 
@@ -296,7 +296,7 @@ function wordpoints_get_points_logs_query_args( $points_type, $query_slug = 'def
  *        'default', which will return a list of the most recent points logs, with
  *        users excluded according to the general settings.
  *
- * @return WordPoints_Points_Logs_Query|bool Logs query instance, or false.
+ * @return WordPoints_Points_Logs_Query|false Logs query instance, or false.
  */
 function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default' ) {
 

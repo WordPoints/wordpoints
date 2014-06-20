@@ -100,7 +100,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @param int|string $number The hook number or ID to get the points for.
 	 *
-	 * @return int|bool The number of points for this instance, or false.
+	 * @return int|false The number of points for this instance, or false.
 	 */
 	public function get_points( $number = null ) {
 
@@ -257,7 +257,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @return int|bool The current hook number, or false.
+	 * @return int|false The current hook number, or false.
 	 */
 	final public function get_number() {
 

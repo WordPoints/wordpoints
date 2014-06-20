@@ -385,7 +385,7 @@ function wordpoints_format_points( $points, $type, $context ) {
 	wordpoints_int( $_points );
 
 	if ( false === $_points || ! wordpoints_is_points_type( $type ) ) {
-		return $points;
+		return (string) $points;
 	}
 
 	/**
@@ -413,7 +413,7 @@ function wordpoints_format_points( $points, $type, $context ) {
  * @param string $type    The type of points to retrieve.
  * @param string $context The context in which the users points will be displayed.
  *
- * @return string|bool The user's points formatted for display, or false on failure.
+ * @return string|false The user's points formatted for display, or false on failure.
  */
 function wordpoints_get_formatted_points( $user_id, $type, $context ) {
 

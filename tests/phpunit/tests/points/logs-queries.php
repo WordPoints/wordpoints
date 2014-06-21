@@ -101,13 +101,20 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
 		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 
-		$query = new WordPoints_Points_Logs_Query( array( 'start' => 1, 'limit' => 2 ) );
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'start'   => 1,
+				'limit'   => 2,
+				'orderby' => 'id',
+			)
+		);
 
 		$result = $query->get();
+
 		$this->assertEquals( 1, count( $result ) );
 
 		$result = current( $result );
-		$this->assertEquals( 20, $result->points );
+		$this->assertEquals( 10, $result->points );
 	}
 
 	/**

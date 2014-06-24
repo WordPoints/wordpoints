@@ -201,7 +201,11 @@ function wordpoints_points_hook_description_form( $has_form, $instance, $hook ) 
 
 	?>
 
-	<hr />
+	<?php if ( $has_form ) : ?>
+		<hr />
+	<?php else: ?>
+		<br />
+	<?php endif; ?>
 
 	<div class="hook-instance-description">
 		<label for="<?php $hook->the_field_name( '_description' ); ?>"><?php _ex( 'Description (optional):', 'points hook', 'wordpoints' ); ?></label>

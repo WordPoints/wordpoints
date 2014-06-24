@@ -383,9 +383,9 @@ function wordpoints_points_admin_settings_save() {
 
 	if ( isset( $_POST['default_points_type'] ) ) {
 
-		if ( '-1' == $_POST['default_points_type'] ) {
+		if ( '-1' === $_POST['default_points_type'] ) {
 
-			wordpoints_delete_network_option( 'wordpoints_default_points_type' );
+			wordpoints_update_network_option( 'wordpoints_default_points_type', '' );
 
 		} elseif ( wordpoints_is_points_type( $_POST['default_points_type'] ) ) {
 

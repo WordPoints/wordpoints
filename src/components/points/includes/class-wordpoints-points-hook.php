@@ -754,6 +754,12 @@ abstract class WordPoints_Points_Hook {
 		$this->name        = $name;
 		$this->option_name = 'wordpoints_hook-' . $this->id_base;
 
+		// Option names can only be 64 characters long.
+		if ( isset( $this->option_name{65} ) ) {
+			_doing_it_wrong( __METHOD__, sprintf( 'Points hook class names cannot be longer than 48 characters, %s is %s charachter(s) too long.', $this->id_base, strlen( $this->id_base ) - 48 ), '1.5.0' );
+			return;
+		}
+
 		$this->options = array_merge(
 			array(
 				'width'        => 250,

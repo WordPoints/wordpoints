@@ -372,7 +372,7 @@ abstract class WordPoints_Points_Hook {
 			$type = 'standard';
 		}
 
-		return 1 + max( array_keys( $this->get_instances( $type ) ) );
+		return 1 + max( array_keys( $this->get_instances( $type ) ) + array( 0 ) );
 	}
 
 	/**
@@ -419,10 +419,6 @@ abstract class WordPoints_Points_Hook {
 					}
 				}
 			break;
-		}
-
-		if ( empty( $instances ) || ! is_array( $instances ) ) {
-			$instances = array( 0 => array() );
 		}
 
 		unset( $instances['__i__'] );

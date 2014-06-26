@@ -515,7 +515,7 @@ function wordpoints_register_default_points_logs_queries() {
 		, array( 'blog_id' => false )
 		, array(
 			'network_wide'  => true,
-			'cache_queries' => 'results'
+			'cache_queries' => 'results',
 		)
 	);
 }

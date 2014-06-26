@@ -107,7 +107,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Test retrieving all instances.
 		$instances = array( $hook_2_number => array( 'points' => 10 ) );
-		$instances['network_' . $hook_1_number ] = array( 'points' => 10 );
+		$instances[ 'network_' . $hook_1_number ] = array( 'points' => 10 );
 
 		$this->assertEquals( $instances, $hook->get_instances() );
 

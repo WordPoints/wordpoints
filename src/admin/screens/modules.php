@@ -25,13 +25,13 @@ if ( isset( $_GET['error'] ) ) {
 
 	} elseif ( isset( $_GET['charsout'] ) ) {
 
-		$error_message = sprintf( __( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' ), $_GET['charsout'] );
+		$error_message = sprintf( __( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' ), (int) $_GET['charsout'] );
 
 	} else {
 
 		$error_message = __( 'Module could not be activated because it triggered a <strong>fatal error</strong>.', 'wordpoints' );
 
-		if ( isset( $_GET['module'] ) && wp_verify_nonce( $_GET['_error_nonce'], "module-activation-error_{$_GET['module']}" ) ) {
+		if ( isset( $_GET['module'], $_GET['_error_nonce'] ) && wp_verify_nonce( $_GET['_error_nonce'], "module-activation-error_{$_GET['module']}" ) ) {
 
 			$error_message .= '<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=' . esc_attr( $_GET['module'] ) . '&amp;_wpnonce=' . esc_attr( $_GET['_error_nonce'] ) .'"></iframe>';
 		}

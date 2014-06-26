@@ -11,16 +11,16 @@ global $status;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';
-} elseif ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-	$action = $_REQUEST['action'];
-} elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-	$action = $_REQUEST['action2'];
+} elseif ( isset( $_REQUEST['action'] ) && '-1' !== $_REQUEST['action'] ) {
+	$action = sanitize_key( $_REQUEST['action'] );
+} elseif ( isset( $_REQUEST['action2'] ) && '-1' !== $_REQUEST['action2'] ) {
+	$action = sanitize_key( $_REQUEST['action2'] );
 } else {
 	$action = '';
 }
 
 $page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
-$module = ( isset( $_REQUEST['module'] ) ) ? $_REQUEST['module'] : '';
+$module = ( isset( $_REQUEST['module'] ) ) ? wp_unslash( $_REQUEST['module'] ) : '';
 $s      = ( isset( $_REQUEST['s'] ) ) ? urlencode( $_REQUEST['s'] ) : '';
 
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
@@ -90,7 +90,7 @@ switch ( $action ) {
 
 		check_admin_referer( 'bulk-modules' );
 
-		$modules = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
+		$modules = isset( $_POST['checked'] ) ? (array) wp_unslash( $_POST['checked'] ) : array();
 
 		// Only activate modules which are not already active.
 		if ( is_network_admin() ) {
@@ -214,7 +214,7 @@ switch ( $action ) {
 
 		check_admin_referer( 'bulk-modules' );
 
-		$modules = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
+		$modules = isset( $_POST['checked'] ) ? (array) wp_unslash( $_POST['checked'] ) : array();
 
 		$network_modules = array_filter( $modules, 'is_wordpoints_module_active_for_network' );
 
@@ -255,7 +255,7 @@ switch ( $action ) {
 		check_admin_referer( 'bulk-modules' );
 
 		// $_POST = from the module form; $_GET = from the FTP details screen.
-		$modules = isset( $_REQUEST['checked'] ) ? (array) $_REQUEST['checked'] : array();
+		$modules = isset( $_REQUEST['checked'] ) ? (array) wp_unslash( $_REQUEST['checked'] ) : array();
 
 		if ( empty( $modules ) ) {
 			wp_redirect( $redirect_url );

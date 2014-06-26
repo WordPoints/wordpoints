@@ -7,7 +7,10 @@
  * @since 1.0.0
  */
 
-if ( isset( $_POST['wordpoints_settings_nonce'] ) && wp_verify_nonce( $_POST['wordpoints_settings_nonce'], 'wordpoints_settings_submit' ) ) {
+if (
+	isset( $_POST['wordpoints_settings_nonce'], $_POST['excluded_users'] )
+	&& wp_verify_nonce( $_POST['wordpoints_settings_nonce'], 'wordpoints_settings_submit' )
+) {
 
 	// - The form has been submitted.
 

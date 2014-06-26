@@ -30,7 +30,7 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCas
 			'wordpoints_periodic_points_hook'
 			, array(
 				'period' => DAY_IN_SECONDS,
-				'points' => 10
+				'points' => 10,
 			)
 		);
 

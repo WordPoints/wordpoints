@@ -7,7 +7,11 @@
  * @since 1.2.0
  */
 
-$hook_id = $_POST['hook-id'];
+if ( ! isset( $_POST['hook-id'] ) ) {
+	return;
+}
+
+$hook_id = sanitize_key( $_POST['hook-id'] );
 
 check_admin_referer( "save-delete-hook-{$hook_id}" );
 
@@ -23,15 +27,19 @@ if ( is_network_admin() ) {
 	$redirect_url = admin_url( $redirect_path );
 }
 
+if ( ! isset( $_POST['points_type'], $_POST['id_base'] ) ) {
+	return;
+}
+
+$points_type_id = sanitize_key( $_POST['points_type'] );
+$id_base        = sanitize_key( $_POST['id_base'] );
+
 // These are the hooks grouped by points type.
 $points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
 if ( empty( $points_types_hooks ) ) {
 	$points_types_hooks = WordPoints_Points_Hooks::get_defaults();
 }
-
-$points_type_id = $_POST['points_type'];
-$id_base        = $_POST['id_base'];
 
 if ( isset( $points_types_hooks[ $points_type_id ] ) ) {
 	$points_type_hooks = $points_types_hooks[ $points_type_id ];
@@ -78,7 +86,7 @@ if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
 	} else {
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$new_instance = reset( $_POST[ 'hook-' . $id_base ] );
+			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) );
 		}
 
 		$number = $hook->get_number_by_id( $hook_id );

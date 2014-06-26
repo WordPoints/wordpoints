@@ -345,7 +345,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 					$wpdb->wordpoints_points_log_meta
 					, array(
 						'meta_key'   => 'post_id',
-						'meta_value' => $comment->comment_post_ID
+						'meta_value' => $comment->comment_post_ID,
 					)
 					, array(
 						'meta_key'   => 'comment_id',
@@ -406,7 +406,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 				, array(
 					'meta_key'   => 'post_id',
 					'meta_value' => $post_id,
-					'log_id'     => $log_id
+					'log_id'     => $log_id,
 				)
 				, array( '%s', '%d', '%d' )
 			);

@@ -19,18 +19,20 @@ $components = $wordpoints_components->get();
 
 if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_components->is_registered( $_GET['wordpoints_component'] ) ) {
 
-	if ( isset( $_GET['message'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wordpoints_component_message-{$_GET['wordpoints_component']}" ) ) {
+	$component = sanitize_key( $_GET['wordpoints_component'] );
+
+	if ( isset( $_GET['message'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wordpoints_component_message-{$component}" ) ) {
 
 		switch ( $_GET['message'] ) {
 
 			case '1':
-				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
+				if ( $wordpoints_components->is_active( $component ) ) {
 					$message = __( 'Component &#8220;%s&#8221; activated!', 'wordpoints' );
 				}
 			break;
 
 			case '2':
-				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
+				if ( ! $wordpoints_components->is_active( $component ) ) {
 					$message = __( 'Component &#8220;%s&#8221; deactivated!', 'wordpoints' );
 				}
 			break;
@@ -38,21 +40,21 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 		if ( isset( $message ) ) {
 
-			wordpoints_show_admin_message( esc_html( sprintf( $message, $components[ $_GET['wordpoints_component'] ]['name'] ) ) );
+			wordpoints_show_admin_message( esc_html( sprintf( $message, $components[ $component ]['name'] ) ) );
 		}
 
-	} elseif ( isset( $_GET['error'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wordpoints_component_error-{$_GET['wordpoints_component']}" ) ) {
+	} elseif ( isset( $_GET['error'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wordpoints_component_error-{$component}" ) ) {
 
 		switch ( $_GET['error'] ) {
 
 			case '1':
-				if ( ! $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
+				if ( ! $wordpoints_components->is_active( $component ) ) {
 					$error = __( 'The component &#8220;%s&#8221; could not be activated. Please try again.', 'wordpoints' );
 				}
 			break;
 
 			case '2':
-				if ( $wordpoints_components->is_active( $_GET['wordpoints_component'] ) ) {
+				if ( $wordpoints_components->is_active( $component ) ) {
 					$error = __( 'The component &#8220;%s&#8221; could not be deactivated. Please try again.', 'wordpoints' );
 				}
 			break;
@@ -60,7 +62,7 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 		if ( isset( $error ) ) {
 
-			wordpoints_show_admin_error( esc_html( sprintf( $error, $components[ $_GET['wordpoints_component'] ]['name'] ) ) );
+			wordpoints_show_admin_error( esc_html( sprintf( $error, $components[ $component ]['name'] ) ) );
 		}
 	}
 }

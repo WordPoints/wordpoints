@@ -263,8 +263,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 					array(
 						'key'   => 'post_id',
 						'value' => $post_id,
-					)
-				)
+					),
+				),
 			)
 		);
 

@@ -75,7 +75,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_Unit
 			array(
 				'user_id' => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
-					array( 'post_type'   => 'post' )
+					array( 'post_type' => 'post' )
 				),
 			)
 		);
@@ -90,7 +90,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_Unit
 			array(
 				'user_id' => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
-					array( 'post_type'   => 'page' )
+					array( 'post_type' => 'page' )
 				),
 			)
 		);

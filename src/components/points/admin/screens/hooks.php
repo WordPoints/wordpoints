@@ -17,11 +17,11 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 		$settings = array();
 
-		$settings['name']   = trim( $_POST['points-name'] );
-		$settings['prefix'] = ltrim( $_POST['points-prefix'] );
-		$settings['suffix'] = rtrim( $_POST['points-suffix'] );
+		$settings['name']   = trim( wp_unslash( esc_html( $_POST['points-name'] ) ) );
+		$settings['prefix'] = ltrim( wp_unslash( esc_html( $_POST['points-prefix'] ) ) );
+		$settings['suffix'] = rtrim( wp_unslash( esc_html( $_POST['points-suffix'] ) ) );
 
-		if ( ! wordpoints_add_points_type( wp_unslash( $settings ) ) ) {
+		if ( ! wordpoints_add_points_type( $settings ) ) {
 
 			// - Unable to create this, give an error.
 			$_GET['error'] = 2;
@@ -82,13 +82,13 @@ if ( is_network_admin() ) {
 		return;
 	}
 
-	if ( isset( $_GET['message'] ) && isset( $messages[ $_GET['message'] ] ) ) {
+	if ( isset( $_GET['message'] ) && isset( $messages[ (int) $_GET['message'] ] ) ) {
 
-		wordpoints_show_admin_message( $messages[ $_GET['message'] ] );
+		wordpoints_show_admin_message( $messages[ (int) $_GET['message'] ] );
 
-	} elseif ( isset( $_GET['error'] ) && isset( $errors[ $_GET['error'] ] ) ) {
+	} elseif ( isset( $_GET['error'] ) && isset( $errors[ (int) $_GET['error'] ] ) ) {
 
-		wordpoints_show_admin_error( $errors[ $_GET['error'] ] );
+		wordpoints_show_admin_error( $errors[ (int) $_GET['error'] ] );
 	}
 
 	if ( is_network_admin() && current_user_can( 'manage_network_wordpoints_points_hooks' ) ) {

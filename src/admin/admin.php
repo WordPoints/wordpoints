@@ -281,7 +281,7 @@ function wordpoints_admin_get_current_tab( array $tabs = null ) {
 
 	if ( isset( $_GET['tab'] ) ) {
 
-		$tab = $_GET['tab'];
+		$tab = sanitize_key( $_GET['tab'] );
 	}
 
 	if ( isset( $tabs ) && ! isset( $tabs[ $tab ] ) ) {
@@ -315,7 +315,11 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
 	echo '<h2 class="nav-tab-wrapper">';
 
-	$page = rawurlencode( $_GET['page'] );
+	$page = '';
+
+	if ( isset( $_GET['page'] ) ) {
+		$page = rawurlencode( sanitize_key( $_GET['page'] ) );
+	}
 
 	foreach ( $tabs as $tab => $name ) {
 

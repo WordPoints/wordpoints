@@ -457,7 +457,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 
 		// Make sure the log text was regenerated.
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'log_type'   => 'comment_approve' )
+			array( 'log_type' => 'comment_approve' )
 		);
 
 		$log = $query->get( 'row' );

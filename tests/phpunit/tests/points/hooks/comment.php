@@ -169,7 +169,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 			array(
 				'user_id' => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
-					array( 'post_type'   => 'post' )
+					array( 'post_type' => 'post' )
 				),
 			)
 		);
@@ -182,7 +182,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 			array(
 				'user_id' => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
-					array( 'post_type'   => 'page' )
+					array( 'post_type' => 'page' )
 				),
 			)
 		);
@@ -283,7 +283,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( 0, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'log_type'   => 'comment_approve' )
+			array( 'log_type' => 'comment_approve' )
 		);
 		$log = $query->get( 'row' );
 

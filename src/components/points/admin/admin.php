@@ -203,7 +203,7 @@ function wordpoints_points_hook_description_form( $has_form, $instance, $hook ) 
 
 	<?php if ( $has_form ) : ?>
 		<hr />
-	<?php else: ?>
+	<?php else : ?>
 		<br />
 	<?php endif; ?>
 
@@ -383,13 +383,15 @@ function wordpoints_points_admin_settings_save() {
 
 	if ( isset( $_POST['default_points_type'] ) ) {
 
-		if ( '-1' === $_POST['default_points_type'] ) {
+		$points_type = sanitize_key( $_POST['default_points_type'] );
+
+		if ( '-1' === $points_type ) {
 
 			wordpoints_update_network_option( 'wordpoints_default_points_type', '' );
 
-		} elseif ( wordpoints_is_points_type( $_POST['default_points_type'] ) ) {
+		} elseif ( wordpoints_is_points_type( $points_type ) ) {
 
-			wordpoints_update_network_option( 'wordpoints_default_points_type', $_POST['default_points_type'] );
+			wordpoints_update_network_option( 'wordpoints_default_points_type', $points_type );
 		}
 	}
 }

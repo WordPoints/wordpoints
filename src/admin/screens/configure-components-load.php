@@ -15,11 +15,12 @@ if (
 }
 
 $components = WordPoints_Components::instance();
+$component  = sanitize_key( $_POST['wordpoints_component'] );
 
 switch ( $_POST['wordpoints_component_action'] ) {
 
 	case 'activate':
-		if ( 1 == wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_activate_component-{$_POST['wordpoints_component']}" ) && $components->activate( $_POST['wordpoints_component'] ) ) {
+		if ( 1 == wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_activate_component-{$component}" ) && $components->activate( $component ) ) {
 
 			$message = array( 'message' => 1 );
 
@@ -30,7 +31,7 @@ switch ( $_POST['wordpoints_component_action'] ) {
 	break;
 
 	case 'deactivate':
-		if ( 1 == wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_deactivate_component-{$_POST['wordpoints_component']}" ) && $components->deactivate( $_POST['wordpoints_component'] ) ) {
+		if ( 1 == wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_deactivate_component-{$component}" ) && $components->deactivate( $component ) ) {
 
 			$message = array( 'message' => 2 );
 
@@ -48,8 +49,8 @@ wp_redirect(
 		$message + array(
 			'page'                 => 'wordpoints_configure',
 			'tab'                  => 'components',
-			'wordpoints_component' => $_POST['wordpoints_component'],
-			'_wpnonce'             => wp_create_nonce( 'wordpoints_component_' . key( $message ) . "-{$_POST['wordpoints_component']}" ),
+			'wordpoints_component' => $component,
+			'_wpnonce'             => wp_create_nonce( 'wordpoints_component_' . key( $message ) . "-{$component}" ),
 		)
 		, self_admin_url( 'admin.php' )
 	)

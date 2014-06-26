@@ -3,23 +3,31 @@
 	<description>Generally-applicable sniffs for WordPress plugins</description>
 
 	<rule ref="WordPress">
+		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
 		<!--
 			These rules are excluded because they produce error-level false
 			positives. They will be added back in when the changes are commited to
-			the stable version upstream. That will happen for some of these when
-			WordPress-Coding-Standards/WordPress-Coding-Standards#128 gets
-			merged from the develop branch. Until then, the issue numbers are
-			supplied.
+			the stable version upstream. Until then, the issue numbers are supplied.
 		-->
 		<exclude name="WordPress.WhiteSpace.ScopeIndent" /><!-- #122 -->
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" /><!-- #141 (#128) -->
 		<exclude name="WordPress.WhiteSpace.OperatorSpacing" /><!-- #68 -->
-		<exclude name="WordPress.Objects.ObjectInstantiation" /><!-- #49 (#128) -->
 		<exclude name="WordPress.XSS.EscapeOutput" /><!-- #144 -->
-		<exclude name="WordPress.Arrays.ArrayDeclaration" /><!-- #16 (#128) -->
+		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- #178, #180 -->
+		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
+		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
+		<exclude name="WordPress.VIP.ValidatedSanitizedInput" /><!-- #179, #183 -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
+	</rule>
+	<rule ref="WordPress.VIP.RestrictedVariables">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+		<properties>
+			<property name="blank_line_after_check" value="0" />
+		</properties>
 	</rule>
 
 	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>

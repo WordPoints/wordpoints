@@ -36,6 +36,7 @@ before_script:
 script:
     - find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \;
     - if [ -e phpunit.xml ] || [ -e phpunit.xml.dist ]; then phpunit; fi
+    - phpunit --group=ajax
     - phpunit --group=uninstall
     - $PHPCS_DIR/scripts/phpcs -n --standard=$WPCS_STANDARD $(if [ -n "$PHPCS_IGNORE" ]; then echo --ignore=$PHPCS_IGNORE; fi) $(find . -name '*.php')
     - jshint .

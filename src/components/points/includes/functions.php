@@ -1081,22 +1081,65 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		return;
 	}
 
-	global $wpdb;
+	$cache = wp_cache_get( $points_type, 'wordpoints_points_top_users' );
 
-	return $wpdb->get_col(
-		$wpdb->prepare(
-			"
-				SELECT `user_ID`
-				FROM {$wpdb->usermeta}
-				WHERE `meta_key` = %s
-				ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
-				LIMIT 0,%d
-			",
-			wordpoints_get_points_user_meta_key( $points_type ),
-			$num_users
-		)
-	);
+	if ( ! is_array( $cache ) ) {
+		$cache = array( 'is_max' => false, 'top_users' => array() );
+	}
+
+	$cached_users = count( $cache['top_users'] );
+
+	if ( $num_users > $cached_users && ! $cache['is_max'] ) {
+
+		global $wpdb;
+
+		$top_users = $wpdb->get_col(
+			$wpdb->prepare(
+				"
+					SELECT `user_ID`
+					FROM {$wpdb->usermeta}
+					WHERE `meta_key` = %s
+					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
+					LIMIT %d,%d
+				",
+				wordpoints_get_points_user_meta_key( $points_type ),
+				$cached_users,
+				$num_users
+			)
+		);
+
+		if ( ! is_array( $top_users ) ) {
+			return array();
+		}
+
+		$cache['top_users'] = array_merge( $cache['top_users'], $top_users );
+
+		if ( count( $cache['top_users'] ) < $num_users ) {
+			$cache['is_max'] = true;
+		}
+
+		wp_cache_set( $points_type, $cache, 'wordpoints_points_top_users' );
+	}
+
+	return array_slice( $cache['top_users'], 0, $num_users );
 }
+
+/**
+ * Clear the top users cache when a user's points are altered.
+ *
+ * @since 1.5.0
+ *
+ * @action wordpoints_points_altered
+ *
+ * @param int    $user_id     The ID of the user being awarded points. Not used.
+ * @param int    $points      The number of points. Not used.
+ * @param string $points_type The type of points being awarded.
+ */
+function wordpoints_clean_points_top_users_cache( $user_id, $points, $points_type ) {
+
+	wp_cache_delete( $points_type, 'wordpoints_points_top_users' );
+}
+add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cache', 10, 3 );
 
 /**
  * Get the custom caps added by the points component.

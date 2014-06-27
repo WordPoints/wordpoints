@@ -178,6 +178,32 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 		return strpos( $sql, "FROM `{$GLOBALS['wpdb']->wordpoints_points_logs}`" ) !== false;
 	}
+
+	/**
+	 * Check if an SQL string is a top users query.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $sql The SQL query string.
+	 *
+	 * @return bool Whether the query is a points logs query.
+	 */
+	protected function is_top_users_query( $sql ) {
+
+		global $wpdb;
+
+		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
+
+		return 0 === strpos(
+			$sql,
+				"
+					SELECT `user_ID`
+					FROM {$wpdb->usermeta}
+					WHERE `meta_key` = '{$meta_key}'
+					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
+				"
+		);
+	}
 }
 
 // end of file /tests/class-wordpoints-points-unittestcase.php

@@ -472,6 +472,7 @@ abstract class WordPoints_Points_Hook {
 		if ( false !== $instance ) {
 
 			// If this is a new instance, register it.
+			// This is deprecated, but is here for back-compat.
 			if ( ! isset( $all_instances[ $this->number ] ) ) {
 
 				if ( 'network' === $type ) {
@@ -513,6 +514,7 @@ abstract class WordPoints_Points_Hook {
 
 			$this->_save_instances( $all_instances );
 
+			// This is deprecated, but is here for back-compat.
 			WordPoints_Points_Hooks::_unregister_hook( $hook_id );
 		}
 	}
@@ -768,6 +770,11 @@ abstract class WordPoints_Points_Hook {
 		$this->options['_classname']   = $this->option_name;
 		$this->options['_before_hook'] = '';
 		$this->options['_after_hook']  = '';
+
+		/*
+		 * The below registration is not longer necessary, and is deprecated.
+		 * It is here only for back-compat.
+		 */
 
 		// Register all standard instances of this hook.
 		foreach ( array_keys( $this->get_instances( 'standard' ) ) as $number ) {

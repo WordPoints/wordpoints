@@ -3,7 +3,7 @@
 /**
  * WordPoints_Points_Hooks class.
  *
- * This is a singleton class to help with points hooks.
+ * This is a static class to help with points hooks.
  *
  * @package WordPoints\Points\Hooks
  * @since 1.0.0
@@ -15,8 +15,42 @@ WordPoints_Points_Hooks::init();
 /**
  * Points hooks class.
  *
- * This is a helper class to handle the storing of points hooks. It is a singleton,
- * with one global instance.
+ * This is a static helper class to handle the storing of points hooks.
+ *
+ * The points hook API is based on WordPress's Widget API. There are different
+ * types of points hooks (their widget API counterpart would be the widgets), and
+ * each type is represented by a class. There may be  multiple instances of each type
+ * of hook, and the class or "handler" for that hook type is used to save, update,
+ * and trigger instances of that type of hook. Each instance of a hook is associated
+ * with one of the points types (kind of like sidebars).
+ *
+ * This class provides an API to get the handler for a type of hook. It also provides
+ * methods to get a list of hooks by what points type they are attached to, as well
+ * as to determine to which points type a particular instance of a hook is attached.
+ *
+ * The first of the two (the handler API) works like this:
+ *
+ * Each points hook type's class is registered with self::register(). Later, after
+ * any modules are loaded, self::initialize_hooks() instantiates each of the classes.
+ * A list of the hook types and the handler (class object) for each is saved in
+ * self::$hook_types when this occurs. This allows for the handler for a type of hook
+ * to be easily retrieved, using the provided methods. This is necessary for saving,
+ * updating, and deleting instances of a hook, as these actions must be performed by
+ * the handler for that hook type.
+ *
+ * The latter (the points types API) works like this:
+ *
+ * Each hook instance is assigned a unique ID (this is handled by the handlers, i.e.
+ * the WordPoints_Points_Hook class). A multidemensional array of hook instances,
+ * indexed by points type, is maintained in the database. Checking this list is
+ * currently the only means of determining what type of points a hook instance is
+ * supposed to award. Several methods are provided for working with this list, and
+ * these should always be used rather than accessing or altering it in the database
+ * directly.
+ *
+ * For more information on how the handler for a type of hook actually awards the
+ * points for each of its instances, see the docs for the WordPoints_Points_Hook
+ * class.
  *
  * @since 1.0.0
  */
@@ -27,40 +61,25 @@ final class WordPoints_Points_Hooks {
 	//
 
 	/**
-	 * The points hooks, standard or network-wide, depending on network mode.
+	 * A list of registered hook type class names.
 	 *
-	 * @since 1.0.0
+	 * Holds the list of classes registered with the self::register() method,
+	 * accessed only by self::initialize_hooks().
 	 *
-	 * @type array $hooks
+	 * @since 1.5.0
+	 *
+	 * @param string[] $classes
 	 */
-	private static $hooks = array();
+	private static $classes;
 
 	/**
-	 * The standard hooks.
+	 * The instances of the handlers for the registered types of points hooks.
 	 *
-	 * @since 1.2.0
+	 * @since 1.5.0
 	 *
-	 * @type array $standard_hooks
+	 * @type WordPoints_Points_Hook[] $hook_types
 	 */
-	private static $standard_hooks = array();
-
-	/**
-	 * The network-wide points hooks.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @type array $network_hooks
-	 */
-	private static $network_hooks = array();
-
-	/**
-	 * The registered handler classes.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @type array $handlers
-	 */
-	private static $handlers = array();
+	private static $hook_types = array();
 
 	/**
 	 * Whether to display network hooks.
@@ -70,6 +89,37 @@ final class WordPoints_Points_Hooks {
 	 * @type bool $network_mode
 	 */
 	private static $network_mode = false;
+
+	/**
+	 * The points hooks, standard or network-wide, depending on network mode.
+	 *
+	 * @since 1.0.0
+	 * @deprecated 1.5.0
+	 * @deprecated In favour of self::$hook_types.
+	 *
+	 * @type array $hooks
+	 */
+	private static $hooks = array();
+
+	/**
+	 * The standard hooks.
+	 *
+	 * @since 1.2.0
+	 * @deprecated 1.5.0
+	 *
+	 * @type array $standard_hooks
+	 */
+	private static $standard_hooks = array();
+
+	/**
+	 * The network-wide points hooks.
+	 *
+	 * @since 1.2.0
+	 * @deprecated 1.5.0
+	 *
+	 * @type array $network_hooks
+	 */
+	private static $network_hooks = array();
 
 	//
 	// Public Methods.
@@ -89,15 +139,15 @@ final class WordPoints_Points_Hooks {
 	}
 
 	/**
-	 * Register a points hooks handler class.
+	 * Register a points hook type's handler class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $handler A 'WordPoints_Points_Hook' class name.
+	 * @param string $class_name A 'WordPoints_Points_Hook' class name.
 	 */
-	public static function register( $handler ) {
+	public static function register( $class_name ) {
 
-		self::$handlers[] = $handler;
+		self::$classes[] = $class_name;
 	}
 
 	/**
@@ -116,13 +166,15 @@ final class WordPoints_Points_Hooks {
 		 */
 		do_action( 'wordpoints_points_hooks_register' );
 
-		$handlers = array_unique( self::$handlers );
+		$classes = array_unique( self::$classes );
 
-		foreach ( $handlers as $handler ) {
+		foreach ( $classes as $class_name ) {
 
-			new $handler();
+			$hook_type = new $class_name();
+			self::$hook_types[ $hook_type->get_id_base() ] = $hook_type;
 		}
 
+		// Back-compat.
 		self::$hooks = &self::$standard_hooks;
 
 		/**
@@ -134,65 +186,19 @@ final class WordPoints_Points_Hooks {
 	}
 
 	/**
-	 * Register a hook instance handler.
+	 * Get a list of registered points hook handlers.
 	 *
-	 * Registers the object that will handle all instances of a hook, and the
-	 * specific number for this instance. This function should not be called
-	 * directly, it is called by {@see WordPoints_Points_Hook::init()}.
+	 * @since 1.5.0
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param WordPoints_Points_Hook $hook The hook object.
+	 * @return WordPoints_Points_Hook[] The registered points hook types.
 	 */
-	public static function _register_hook( $hook ) {
+	public static function get_handlers() {
 
-		self::$standard_hooks[ $hook->get_id() ] = $hook;
+		return self::$hook_types;
 	}
 
 	/**
-	 * Register an instance of a network hook.
-	 *
-	 * This function is used by WordPoints_Points_Hooks::init(), and should not be
-	 * called directly.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param WordPoints_Points_Hook $hook The hook object.
-	 */
-	public static function _register_network_hook( $hook ) {
-
-		self::$network_hooks[ $hook->get_id() ] = $hook;
-	}
-
-	/**
-	 * Deregister an instance of a hook.
-	 *
-	 * It will unregister a regular hook or a network hook, depending on the current
-	 * network mode.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @param string $hook_id The ID of the hook.
-	 */
-	public static function _unregister_hook( $hook_id ) {
-
-		unset( self::$hooks[ $hook_id ] );
-	}
-
-	/**
-	 * Get all registered points hooks.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array An array of points hooks handlers.
-	 */
-	public static function get_all() {
-
-		return self::$hooks;
-	}
-
-	/**
-	 * Get the handler for a hook by ID.
+	 * Get the object representing the hook type of a hook by its ID.
 	 *
 	 * @since 1.0.0
 	 *
@@ -202,41 +208,46 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function get_handler( $hook_id ) {
 
-		if ( ! isset( self::$hooks[ $hook_id ] ) ) {
+		list( $hook_type, $id_number ) = explode( '-', $hook_id );
+
+		$hook_type = self::get_handler_by_id_base( $hook_type );
+
+		if ( false === $hook_type ) {
 			return false;
 		}
 
-		self::$hooks[ $hook_id ]->set_number( $hook_id );
+		$type = ( self::$network_mode ) ? 'network' : 'standard';
 
-		return self::$hooks[ $hook_id ];
+		$instances = $hook_type->get_instances( $type );
+
+		if ( ! isset( $instances[ $id_number ] ) ) {
+			return false;
+		}
+
+		$hook_type->set_number( $id_number );
+
+		return $hook_type;
 	}
 
 	/**
-	 * Get an appropriate handler object for a hook by id_base.
+	 * Get the handler object for a hook by id_base (hook type).
 	 *
 	 * This is used to get the handler for a new hook instance so that it can be
-	 * created. Depending on the number of hooks, preg_grep() might have proved
-	 * faster, but with many hooks using preg_match() will probalby be the least
-	 * resource intensive method that won't have the potential for an infinite loop.
+	 * created.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $id_base The basic identifier the the type of hook.
 	 *
-	 * @return WordPoints_Points_Hook|bool False if no handler found.
+	 * @return WordPoints_Points_Hook|false False if no handler found.
 	 */
 	public static function get_handler_by_id_base( $id_base ) {
 
-		$id_base_d = "#^{$id_base}-\d+$#";
-
-		foreach ( self::$hooks as $hook_id => $hook ) {
-
-			if ( preg_match( $id_base_d, $hook_id ) ) {
-				return $hook;
-			}
+		if ( ! isset( self::$hook_types[ $id_base ] ) ) {
+			return false;
 		}
 
-		return false;
+		return self::$hook_types[ $id_base ];
 	}
 
 	/**
@@ -250,43 +261,36 @@ final class WordPoints_Points_Hooks {
 	public static function list_hooks() {
 
 		// Sort the hooks by name.
-		$hooks = self::$hooks;
-		usort( $hooks, array( __CLASS__, '_sort_name_callback' ) );
+		$hook_types = self::$hook_types;
+		usort( $hook_types, array( __CLASS__, '_sort_name_callback' ) );
 
-		$listed = array();
 		$i = 0;
 
 		// Display a representative for each hook type.
-		foreach ( $hooks as $hook_id => $hook ) {
+		foreach ( $hook_types as $id_base => $hook_type ) {
 
-			$id_base = $hook->get_id_base();
-
-			if ( in_array( $id_base, $listed, true ) ) {
-				// We already showed this hook.
-				continue;
-			}
-
-			$listed[] = $id_base;
 			$i++;
 
-			$args = $hook->get_options();
+			$args = $hook_type->get_options();
 
 			$args['_add']         = 'multi';
 			$args['_display']     = 'template';
 			$args['_temp_id']     = "{$id_base}-__i__";
-			$args['_multi_num']   = $hook->next_hook_id_number( $id_base );
+			$args['_multi_num']   = $hook_type->next_hook_id_number();
 			$args['_before_hook'] = "<div id='hook-{$i}_{$args['_temp_id']}' class='hook'>";
 			$args['_after_hook']  = '</div>';
 
 			$hook->set_options( $args );
 
-			self::_list_hook( $hook_id, $hook );
+			self::_list_hook( $hook_type->get_id( 0 ), $hook_type );
 		}
 
 		// If there were none, give the user a message.
-		if ( empty( $hooks ) ) {
+		if ( empty( $hook_types ) ) {
 
-			echo '<div class="wordpoints-no-hooks">' . __( 'There are no points hooks currently available.', 'wordpoints' ) . '</div>';
+			echo '<div class="wordpoints-no-hooks">'
+				. __( 'There are no points hooks currently available.', 'wordpoints' )
+				. '</div>';
 		}
 	}
 
@@ -313,12 +317,15 @@ final class WordPoints_Points_Hooks {
 
 		foreach ( $points_type_hooks as $hook_id ) {
 
-			if ( ! isset( self::$hooks[ $hook_id ] ) ) {
+			list( $hook_type ) = explode( '-', $hook_id );
+
+			$hook_type = self::get_hook_type( $hook_type );
+
+			if ( false === $hook_type ) {
 				continue;
 			}
 
-			$hook    = self::$hooks[ $hook_id ];
-			$options = $hook->get_options();
+			$options = $hook_type->get_options();
 
 			$options['_display'] = 'instance';
 
@@ -333,20 +340,8 @@ final class WordPoints_Points_Hooks {
 
 			$hook->set_options( $options );
 
-			self::_list_hook( $hook_id, $hook, $slug );
+			self::_list_hook( $hook_id, $hook_type, $slug );
 		}
-	}
-
-	/**
-	 * Display a list of inactive hooks.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.2.0
-	 * @deprecated No longer used.
-	 */
-	public static function list_inactive() {
-
-		_deprecated_function( __METHOD__, '1.2.0' );
 	}
 
 	/**
@@ -367,6 +362,7 @@ final class WordPoints_Points_Hooks {
 
 			self::$network_mode = (bool) $on;
 
+			// Back-compat.
 			if ( self::$network_mode ) {
 				self::$hooks = &self::$network_hooks;
 			} else {
@@ -777,6 +773,87 @@ final class WordPoints_Points_Hooks {
 
 		return strnatcasecmp( $a->get_name(), $b->get_name() );
 	}
-}
+
+	//
+	// Deprecated methods.
+	//
+
+	/**
+	 * Display a list of inactive hooks.
+	 *
+	 * @since 1.0.0
+	 * @deprecated 1.2.0
+	 * @deprecated No longer used.
+	 */
+	public static function list_inactive() {
+
+		_deprecated_function( __METHOD__, '1.2.0' );
+	}
+
+	/**
+	 * Register a hook instance handler.
+	 *
+	 * Registers the object that will handle all instances of a hook, and the
+	 * specific number for this instance. This function should not be called
+	 * directly, it is called by {@see WordPoints_Points_Hook::init()}.
+	 *
+	 * @since 1.0.0
+	 * @deprecated 1.5.0
+	 *
+	 * @param WordPoints_Points_Hook $hook The hook object.
+	 */
+	public static function _register_hook( $hook ) {
+
+		self::$standard_hooks[ $hook->get_id() ] = $hook;
+	}
+
+	/**
+	 * Register an instance of a network hook.
+	 *
+	 * This function is used by WordPoints_Points_Hooks::init(), and should not be
+	 * called directly.
+	 *
+	 * @since 1.2.0
+	 * @deprecated 1.5.0
+	 *
+	 * @param WordPoints_Points_Hook $hook The hook object.
+	 */
+	public static function _register_network_hook( $hook ) {
+
+		self::$network_hooks[ $hook->get_id() ] = $hook;
+	}
+
+	/**
+	 * Deregister an instance of a hook.
+	 *
+	 * It will unregister a regular hook or a network hook, depending on the current
+	 * network mode.
+	 *
+	 * @since 1.4.0
+	 * @deprecated 1.5.0
+	 *
+	 * @param string $hook_id The ID of the hook.
+	 */
+	public static function _unregister_hook( $hook_id ) {
+
+		unset( self::$hooks[ $hook_id ] );
+	}
+
+	/**
+	 * Get all registered points hook instances.
+	 *
+	 * @since 1.0.0
+	 * @deprecated 1.5.0
+	 *
+	 * @return array An array of points hook type handlers.
+	 */
+	public static function get_all() {
+
+		_deprecated_function( __METHOD__, '1.5.0', 'WordPoints_Points_Hooks::get_handlers()' );
+
+		return self::$hooks;
+	}
+
+} // class WordPoints_Points_Hooks
 
 // end of file /components/points/includes/class-WordPoints_Points_Hooks.php

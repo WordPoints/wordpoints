@@ -151,8 +151,6 @@ function wordpoints_ajax_save_points_hook() {
 		$points_type_id = sanitize_key( $_POST['points_type'] );
 		$number         = (int) $_POST['hook_number'];
 
-		$points_hooks = WordPoints_Points_Hooks::get_all();
-
 		/*
 		 * Normally the hook ID will be in 'hook-id' when we are updating a hook.
 		 * But when we are saving a brand new instance of a hook or updating a newly
@@ -170,9 +168,7 @@ function wordpoints_ajax_save_points_hook() {
 			$hook_id = $id_base . '-' . $number;
 		}
 
-		if ( isset( $points_hooks[ $hook_id ] ) ) {
-			$hook = $points_hooks[ $hook_id ];
-		}
+		$hook = WordPoints_Points_Hooks::get_handler( $hook_id );
 
 		$settings = false;
 
@@ -185,11 +181,11 @@ function wordpoints_ajax_save_points_hook() {
 		// Get the hooks for this points type.
 		$points_type_hooks = ( isset( $points_types_hooks[ $points_type_id ] ) ) ? $points_types_hooks[ $points_type_id ] : array();
 
-		if ( isset( $_POST['delete_hook'] ) && $_POST['delete_hook'] ) {
+		if ( ! empty( $_POST['delete_hook'] ) ) {
 
 			// - We are deleting a hook instance.
 
-			if ( ! isset( $hook ) ) {
+			if ( false === $hook ) {
 				wp_die( $error );
 			}
 
@@ -204,7 +200,7 @@ function wordpoints_ajax_save_points_hook() {
 
 			wp_die();
 
-		} elseif ( $settings && ! isset( $hook ) ) {
+		} elseif ( $settings && false === $hook ) {
 
 			// - We are creating a new a new instance of a hook.
 
@@ -226,7 +222,7 @@ function wordpoints_ajax_save_points_hook() {
 
 			// - We are updating the settings for an instance of a hook.
 
-			if ( ! isset( $hook ) ) {
+			if ( false === $hook ) {
 				wp_die( $error );
 			}
 

@@ -4,22 +4,37 @@ language: php
 
 php:
     - 5.2
+    - 5.3
+    - 5.4
+    - 5.5
+    - 5.6
 
 env:
+    - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
     - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=1
     - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
     - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
+    - TRAVISCI_RUN=phpunit WP_VERSION=3.7 WP_MULTISITE=0
 
 matrix:
-  include:
+  exclude:
+    # The codesniff pass only needs to be run once, I arbitrarily chose 5.3.
     - php: 5.2
       env: TRAVISCI_RUN=codesniff
-  exclude:
+    - php: 5.4
+      env: TRAVISCI_RUN=codesniff
+    - php: 5.5
+      env: TRAVISCI_RUN=codesniff
+    - php: 5.6
+      env: TRAVISCI_RUN=codesniff
+    # Exclude these for now, 5.6 isn't stable.
     - php: 5.6
       env: TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
     - php: 5.6
       env: TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
+    - php: 5.6
+      env: TRAVISCI_RUN=phpunit WP_VERSION=3.7 WP_MULTISITE=1
   allow_failures:
     - php: 5.6
   fast_finish: true

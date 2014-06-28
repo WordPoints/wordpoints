@@ -192,6 +192,10 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 		global $wpdb;
 
+		if ( ! strpos( $sql, $wpdb->usermeta ) ) {
+			return false;
+		}
+
 		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
 
 		return 0 === strpos(

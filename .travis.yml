@@ -4,6 +4,10 @@ language: php
 
 php:
     - 5.2
+    - 5.3
+    - 5.4
+    - 5.5
+    - 5.6
 
 env:
     - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
@@ -17,9 +21,11 @@ matrix:
       env: TRAVISCI_RUN=codesniff
   exclude:
     - php: 5.6
-      env: TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
+      env:
+        - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
     - php: 5.6
-      env: TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
+      env:
+        - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
   allow_failures:
     - php: 5.6
   fast_finish: true
@@ -52,4 +58,14 @@ before_script:
             npm install -g jshint
         fi
 
-script: ./tools/bin/travis-script.sh
+script:
+    - if [ $TRAVISCI_RUN == codesniff ]; then find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \; fi
+    - if [ $TRAVISCI_RUN == codesniff ]; then $PHPCS_DIR/scripts/phpcs -n --standard=$WPCS_STANDARD $(if [ -n "$PHPCS_IGNORE" ]; then echo --ignore=$PHPCS_IGNORE; fi) $(find . -name '*.php'); fi
+    - if [ $TRAVISCI_RUN == codesniff ]; then jshint .; fi
+    - if [ $TRAVISCI_RUN == phpunit ]; then find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \; fi
+    - if [ $TRAVISCI_RUN == phpunit ]; then phpunit; fi
+    - if [ $TRAVISCI_RUN == phpunit ]; then phpunit --group=uninstall; fi
+    - if [ $TRAVISCI_RUN == phpunit ] && [ $WP_VERSION != '3.8' ]; then phpunit --group=ajax; fi
+    - if [ $TRAVISCI_RUN == phpunit ] && [ $WP_MULTISITE == 1 ]; then WORDPOINTS_NETWORK_ACTIVE=1 phpunit; fi
+    - if [ $TRAVISCI_RUN == phpunit ] && [ $WP_MULTISITE == 1 ]; then WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=uninstall; fi
+    - if [ $TRAVISCI_RUN == phpunit ] && [ $WP_MULTISITE == 1 ] && [ $WP_VERSION != '3.8' ]; then WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=ajax; fi

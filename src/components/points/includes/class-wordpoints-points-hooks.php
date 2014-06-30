@@ -280,7 +280,7 @@ final class WordPoints_Points_Hooks {
 			$args['_before_hook'] = "<div id='hook-{$i}_{$args['_temp_id']}' class='hook'>";
 			$args['_after_hook']  = '</div>';
 
-			$hook->set_options( $args );
+			$hook_type->set_options( $args );
 
 			self::_list_hook( $hook_type->get_id( 0 ), $hook_type );
 		}
@@ -319,7 +319,7 @@ final class WordPoints_Points_Hooks {
 
 			list( $hook_type ) = explode( '-', $hook_id );
 
-			$hook_type = self::get_hook_type( $hook_type );
+			$hook_type = self::get_handler_by_id_base( $hook_type );
 
 			if ( false === $hook_type ) {
 				continue;
@@ -338,7 +338,7 @@ final class WordPoints_Points_Hooks {
 			$options['_before_hook'] = "<div id='hook-{$slug}_{$hook_id}' class='hook {$classname_}'>";
 			$options['_after_hook']  = '</div>';
 
-			$hook->set_options( $options );
+			$hook_type->set_options( $options );
 
 			self::_list_hook( $hook_id, $hook_type, $slug );
 		}

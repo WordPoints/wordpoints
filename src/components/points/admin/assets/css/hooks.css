@@ -681,18 +681,13 @@ div#hooks-right .closed .hooks-sortables {
 		float: right;
 	}
 
-	#hooks-right .points-types-column-1,
-	#hooks-right .points-types-column-2 {
+	div#hooks-right .hooks-holder-wrap {
+		width: 46%;
 		float: left;
-		width: 49%;
-	}
-
-	#hooks-right .points-types-column-1 {
 		margin-right: 2%;
 	}
 
-	#hooks-right.single-points-type .points-types-column-1,
-	#hooks-right.single-points-type .points-types-column-2 {
+	div#hooks-right .hooks-holder-wrap:only-child {
 		float: none;
 		width: 100%;
 		margin: 0;

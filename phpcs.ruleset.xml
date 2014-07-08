@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards for Plugins">
-	<description>Generally-applicable sniffs for WordPress plugins</description>
+<ruleset name="WordPoints">
+	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
-	<rule ref="WordPress">
+	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
 		<!--
 			These rules are excluded because they produce error-level false
@@ -30,21 +30,12 @@
 		</properties>
 	</rule>
 
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
-	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
-	<rule ref="Generic.Files.ByteOrderMark"/>
-	<rule ref="Generic.PHP.LowerCaseConstant"/>
-	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-	<rule ref="Generic.PHP.NoSilencedErrors" />
 	<rule ref="Generic.ControlStructures.InlineControlStructure">
 		<properties>
 			<property name="error" value="0" /><!-- because of https://pear.php.net/bugs/20155 -->
 		</properties>
 	</rule>
-	<rule ref="Generic.Files.LineEndings">
-		<properties>
-			<property name="eolChar" value="\n"/>
-		</properties>
-	</rule>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
 
 </ruleset>

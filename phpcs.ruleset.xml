@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards for Plugins">
-	<description>Generally-applicable sniffs for WordPress plugins</description>
+<ruleset name="WordPoints">
+	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />

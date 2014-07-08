@@ -2,7 +2,7 @@
 <ruleset name="WordPoints">
 	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
-	<rule ref="WordPress-Extra">
+	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
 		<!--
 			These rules are excluded because they produce error-level false

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite
 Requires at least: 3.7
 Tested up to: 4.0-beta1
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

@@ -262,7 +262,7 @@ final class WordPoints_Points_Hooks {
 
 		// Sort the hooks by name.
 		$hook_types = self::$hook_types;
-		usort( $hook_types, array( __CLASS__, '_sort_name_callback' ) );
+		uasort( $hook_types, array( __CLASS__, '_sort_name_callback' ) );
 
 		$i = 0;
 

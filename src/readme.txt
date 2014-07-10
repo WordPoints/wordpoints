@@ -82,6 +82,19 @@ points are awarded.
 
 == Changelog ==
 
+= 1.5.0 =
+* New: The Comment and Comment Removed points hooks now have a post type setting, like the Post points hook.
+* New: Translation into simplified Chinese, provided by Jack Lee.
+* Updated: The points hooks API for developers has received several improvements.
+* * It is now optional to implement the `form()` and `update()` methods when extending `WordPoints_Points_Hook`.
+* * The `WordPoints_Post_Type_Points_Hook_Base` class was introduced as a bootstrap for points hooks implementing a post type setting.
+* * Other internal improvements, to be continued.
+* Updated: The points logs are now cached, offering a performance benefit on sites with persistent caching.
+* Updated: The points types are shown in two columns on the Points Hooks administration panel on devices with wide screens.
+* Updated: By request, it is now possible to enable the use of HTML in the "WordPoints" widget using this code: `remove_filter( 'wordpoints_points_widget_text', 'esc_html', 20 );`
+* Fixed: Module caching was broken because of a code typo.
+* Fixed: When network active on multisite, the plugin did not install itself on new sites when they were added to the network.
+
 = 1.4.0 =
 * New: Added [`[wordpoints_how_to_get_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/) shortcode to display a list of active points hooks.
 * New: Override hook descriptions shown by the new how to get points shortcode on the hooks admin screen.
@@ -130,6 +143,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.0 =
+* This is a feature release adding a post type setting to the comment points hook,
+and performance improvements on sites which use persistent caching.
 
 = 1.4.0 =
 * This is a feature release, which add the [wordpoints_how_to_get_points] shortcode,

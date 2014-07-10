@@ -4,6 +4,8 @@
 	"cache": "./tools/wp-l10n-validator/cache.json",
 	"ignores-cache": "./tools/wp-l10n-validator/ignores-cache.json",
 	"ignored-functions": {
+		"_doing_it_wrong": true,
+
 		"wordpoints_add_network_option": true,
 		"wordpoints_add_points": true,
 		"wordpoints_alter_points": true,

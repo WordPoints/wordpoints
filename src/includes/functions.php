@@ -454,12 +454,15 @@ class WordPoints_Dropdown_Builder {
  * 'Any' option ('ALL' is an invalid post type name).
  *
  * @since 1.0.0
+ * @since 1.6.0 The 'filter' option was added.
  *
  * @param array $options An array of display options. {
  *        @type string $name     The value for the name attribute of the element.
  *        @type string $id       The value for the id attribute of the element.
  *        @type string $selected The name of the selected points type.
  *        @type string $class    The value for the class attribute of the element.
+ *        @type callable $filter A boolean callback function to filter the post types
+ *                               with. It will be passed the post type object.
  * }
  * @param array $args Arguments to pass to get_post_types(). Default is array().
  */
@@ -470,6 +473,7 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 		'id'       => '',
 		'selected' => 'ALL',
 		'class'    => '',
+		'filter'   => null,
 	);
 
 	$options = array_merge( $defaults, $options );
@@ -478,6 +482,10 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 	echo '<option value="ALL"' . selected( $options['selected'], 'ALL' ) . '>' . esc_html( _x( 'Any', 'post type', 'wordpoints' ) ) . '</option>';
 
 	foreach ( get_post_types( $args, 'objects' ) as $post_type ) {
+
+		if ( isset( $options['filter'] ) && ! call_user_func( $options['filter'], $post_type ) ) {
+			continue;
+		}
 
 		echo '<option value="' . $post_type->name . '"' . selected( $options['selected'], $post_type->name ) . '>' . $post_type->label . '</option>';
 	}

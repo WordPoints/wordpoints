@@ -85,6 +85,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 					'id'       => $this->get_field_id( 'post_type' ),
 					'name'     => $this->get_field_name( 'post_type' ),
 					'class'    => 'widefat',
+					'filter'   => $this->get_option( 'post_type_filter' ),
 				)
 				, array( 'public' => true )
 			);
@@ -97,6 +98,20 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 		<?php
 
 		return true;
+	}
+
+	/**
+	 * Filter post types based on whether they support comments.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param object $post_type A post type object.
+	 *
+	 * @return bool True if the post type supports comments, false otherwise.
+	 */
+	public function post_type_supports_comments( $post_type ) {
+
+		return post_type_supports( $post_type->name, 'comments' );
 	}
 }
 

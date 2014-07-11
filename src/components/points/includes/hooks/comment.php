@@ -45,6 +45,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 				'description' => __( 'Leaving a new comment.', 'wordpoints' ),
 				/* translators: the post type name. */
 				'post_type_description' => __( 'Leaving a new comment on a %s.', 'wordpoints' ),
+				'post_type_filter' => array( $this, 'post_type_supports_comments' ),
 			)
 		);
 

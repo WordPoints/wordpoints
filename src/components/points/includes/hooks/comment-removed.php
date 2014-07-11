@@ -43,6 +43,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 				'description' => __( 'Comment removed from the site.', 'wordpoints' ),
 				/* translators: the post type name. */
 				'post_type_description' =>  __( 'Comment on a %s removed from the site.', 'wordpoints' ),
+				'post_type_filter' => array( $this, 'post_type_supports_comments' ),
 				'points_label' => __( 'Points subtracted if comment removed:', 'wordpoints' ),
 			)
 		);

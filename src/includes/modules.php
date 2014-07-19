@@ -111,7 +111,7 @@ function wordpoints_modules_dir() {
 
 	if ( ! $modules_dir ) {
 
-		if ( defined( 'WORDPOINTS_MODULES_DIR' ) && WORDPOINTS_MODULES_DIR != '' ) {
+		if ( defined( 'WORDPOINTS_MODULES_DIR' ) ) {
 
 			$modules_dir = trailingslashit( WORDPOINTS_MODULES_DIR );
 
@@ -122,6 +122,9 @@ function wordpoints_modules_dir() {
 
 		/**
 		 * Filter the path to the modules directory.
+		 *
+		 * Note that the value is stored in a static variable, and so is only
+		 * calculated once, meaning that it wont change during a single page load.
 		 *
 		 * @since 1.1.0
 		 *

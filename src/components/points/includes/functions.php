@@ -1058,7 +1058,7 @@ function wordpoints_regenerate_points_logs( $log_ids ) {
 			, $meta
 		);
 
-		if ( $new_log_text != $log->text ) {
+		if ( $new_log_text !== $log->text ) {
 
 			$wpdb->update(
 				$wpdb->wordpoints_points_logs
@@ -1291,7 +1291,7 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 
 	$where = array( 'user_id' => $user_id );
 
-	if ( $blog_only != '' ) {
+	if ( $blog_only !== '' ) {
 		$where['blog_id'] = $wpdb->blogid;
 	}
 

@@ -309,7 +309,7 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function list_by_points_type( $slug ) {
 
-		if ( $slug != '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) ) {
+		if ( $slug !== '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) ) {
 			return;
 		}
 
@@ -358,7 +358,7 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function set_network_mode( $on ) {
 
-		if ( $on != self::$network_mode ) {
+		if ( $on !== self::$network_mode ) {
 
 			self::$network_mode = (bool) $on;
 
@@ -519,7 +519,7 @@ final class WordPoints_Points_Hooks {
 			,$points_type
 		);
 
-		if ( ! isset( $slug ) && 'hook' == $wrap ) {
+		if ( ! isset( $slug ) && 'hook' === $wrap ) {
 			$wrap = 'hook-content';
 		}
 
@@ -688,14 +688,14 @@ final class WordPoints_Points_Hooks {
 			$query_arg['points_type'] = $points_type;
 		}
 
-		if ( isset( $options['_display'] ) && 'template' == $options['_display'] && $number ) {
+		if ( isset( $options['_display'] ) && 'template' === $options['_display'] && $number ) {
 
 			/*
 			 * We aren't outputting the form for a hook, but a template form for this
 			 * hook type. (In other words, we are in the "Available Hooks" section.)
 			 */
 
-			// number == 0 implies a template where id numbers are replaced by a generic '__i__'.
+			// number === 0 implies a template where id numbers are replaced by a generic '__i__'.
 			$number = 0;
 
 			// With id_base hook id's are constructed like {$id_base}-{$id_number}.

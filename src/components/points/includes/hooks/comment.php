@@ -79,13 +79,13 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 	 */
 	public function hook( $new_status, $old_status, $comment ) {
 
-		if ( ! $comment->user_id || $old_status == $new_status ) {
+		if ( ! $comment->user_id || $old_status === $new_status ) {
 			return;
 		}
 
 		$post = get_post( $comment->comment_post_ID );
 
-		if ( 'approved' == $new_status ) {
+		if ( 'approved' === $new_status ) {
 
 			foreach ( $this->get_instances() as $number => $instance ) {
 
@@ -137,7 +137,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 	 */
 	public function new_comment_hook( $comment_id, $comment ) {
 
-		if ( 0 == $comment->user_id ) {
+		if ( 0 === (int) $comment->user_id ) {
 			return;
 		}
 
@@ -271,7 +271,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		$last_status = get_comment_meta( $comment_id, "wordpoints_last_status-{$points_type}", true );
 
-		if ( 'approved' != $last_status ) {
+		if ( 'approved' !== $last_status ) {
 
 			update_comment_meta( $comment_id, "wordpoints_last_status-{$points_type}", 'approved', $last_status );
 

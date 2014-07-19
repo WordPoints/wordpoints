@@ -62,7 +62,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 
 		} catch ( WPAjaxDieStopException $e ) {
 
-			if ( $e->getMessage() != '1' ) {
+			if ( $e->getMessage() !== '1' ) {
 				$this->fail( 'Unexpected exception message: "' . $e->getMessage() . '"' );
 			}
 		}
@@ -155,7 +155,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 
 		} catch ( WPAjaxDieStopException $e ) {
 
-			if ( $e->getMessage() != '1' ) {
+			if ( $e->getMessage() !== '1' ) {
 				$this->fail( 'Unexpected exception message: "' . $e->getMessage() . '"' );
 			}
 		}

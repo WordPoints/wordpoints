@@ -166,7 +166,7 @@ function wordpoints_modules_url( $path = '', $module = '' ) {
 
 		$folder = dirname( wordpoints_module_basename( $module ) );
 
-		if ( '.' != $folder ) {
+		if ( '.' !== $folder ) {
 			$url .= '/' . ltrim( $folder, '/' );
 		}
 	}
@@ -258,7 +258,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 	$module_data = get_file_data( $module_file, $default_headers, 'module' );
 
-	$module_data['network'] = ( 'true' == strtolower( $module_data['network'] ) );
+	$module_data['network'] = ( 'true' === strtolower( $module_data['network'] ) );
 
 	if ( $markup || $translate ) {
 
@@ -894,7 +894,7 @@ function wordpoints_delete_modules( $modules ) {
 		$this_module_dir = trailingslashit( dirname( $modules_dir . $module_file ) );
 
 		// If module is in its own directory, recursively delete the directory.
-		if ( strpos( $module_file, '/' ) && $this_module_dir != $modules_dir ) {
+		if ( strpos( $module_file, '/' ) && $this_module_dir !== $modules_dir ) {
 			$deleted = $wp_filesystem->delete( $this_module_dir, true );
 		} else {
 			$deleted = $wp_filesystem->delete( $modules_dir . $module_file );
@@ -1000,7 +1000,7 @@ function wordpoints_load_modules() {
 
 			if (
 				0 === validate_file( $module )
-				&& '.php' == substr( $module, -4 )
+				&& '.php' === substr( $module, -4 )
 				&& file_exists( $modules_dir . '/' . $module )
 			) {
 				include $modules_dir . '/' . $module;

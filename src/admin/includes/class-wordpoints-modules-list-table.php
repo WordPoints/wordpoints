@@ -270,11 +270,11 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		$a = $module_a[ $orderby ];
 		$b = $module_b[ $orderby ];
 
-		if ( $a == $b ) {
+		if ( $a === $b ) {
 			return 0;
 		}
 
-		if ( 'DESC' == $order ) {
+		if ( 'DESC' === $order ) {
 			return ( $a < $b ) ? 1 : -1;
 		} else {
 			return ( $a < $b ) ? -1 : 1;
@@ -354,7 +354,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					$text = $type;
 			}
 
-			if ( 'search' != $type ) {
+			if ( 'search' !== $type ) {
 
 				/**
 				 * Filter the text for a module status link for the module list table.
@@ -369,7 +369,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				$status_links[ $type ] = sprintf(
 					"<a href='%s' %s>%s</a>"
 					, add_query_arg( 'module_status', $type, 'admin.php?page=wordpoints_modules' )
-					, ( $type == $status ) ? ' class="current"' : ''
+					, ( $type === $status ) ? ' class="current"' : ''
 					, sprintf( $text, number_format_i18n( $count ) )
 				);
 			}
@@ -398,18 +398,18 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$actions = array();
 
-		if ( 'active' != $status ) {
+		if ( 'active' !== $status ) {
 			$actions['activate-selected'] = ( $this->screen->in_admin( 'network' ) ) ? __( 'Network Activate', 'wordpoints' ) : __( 'Activate', 'wordpoints' );
 		}
 
-		if ( 'inactive' != $status && 'recent' != $status ) {
+		if ( 'inactive' !== $status && 'recent' !== $status ) {
 			$actions['deactivate-selected'] = ( $this->screen->in_admin( 'network' ) ) ? __( 'Network Deactivate', 'wordpoints' ) : __( 'Deactivate', 'wordpoints' );
 		}
 
 		if (
 			( ! is_multisite() || $this->screen->in_admin( 'network' ) )
 			&& current_user_can( 'delete_wordpoints_modules' )
-			&& 'active' != $status
+			&& 'active' !== $status
 		) {
 			$actions['delete-selected'] = __( 'Delete', 'wordpoints' );
 		}
@@ -440,7 +440,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		global $status;
 
-		if ( $status != 'recently_activated' ) {
+		if ( $status !== 'recently_activated' ) {
 			return;
 		}
 

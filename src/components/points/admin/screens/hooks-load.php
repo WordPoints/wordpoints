@@ -44,12 +44,12 @@ $accessibility_mode = get_user_setting( 'wordpoints_points_hooks_access' );
 
 if ( isset( $_GET['accessibility-mode'] ) ) {
 
-	$accessibility_mode = ( 'on' == $_GET['accessibility-mode'] ) ? 'on' : 'off';
+	$accessibility_mode = ( 'on' === $_GET['accessibility-mode'] ) ? 'on' : 'off';
 	set_user_setting( 'wordpoints_points_hooks_access', $accessibility_mode );
 }
 
 // Enqueue needed scripts and styles.
-if ( 'on' == $accessibility_mode ) {
+if ( 'on' === $accessibility_mode ) {
 
 	add_filter( 'admin_body_class', 'wordpoints_points_hooks_access_body_class' );
 

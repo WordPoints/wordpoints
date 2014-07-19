@@ -323,7 +323,7 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
 	foreach ( $tabs as $tab => $name ) {
 
-		$class = ( $tab == $current ) ? ' nav-tab-active' : '';
+		$class = ( $tab === $current ) ? ' nav-tab-active' : '';
 
 		echo '<a class="nav-tab', $class, '" href="?page=', $page, '&amp;tab=', rawurlencode( $tab ), '">', esc_html( $name ), '</a>';
 	}

@@ -8,7 +8,7 @@
  */
 
 if (
-	wordpoints_admin_get_current_tab() != 'components'
+	wordpoints_admin_get_current_tab() !== 'components'
 	|| ! isset( $_POST['wordpoints_component'], $_POST['wordpoints_component_action'], $_POST['_wpnonce'] )
 ) {
 	return;
@@ -20,7 +20,7 @@ $component  = sanitize_key( $_POST['wordpoints_component'] );
 switch ( $_POST['wordpoints_component_action'] ) {
 
 	case 'activate':
-		if ( 1 == wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_activate_component-{$component}" ) && $components->activate( $component ) ) {
+		if ( 1 === wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_activate_component-{$component}" ) && $components->activate( $component ) ) {
 
 			$message = array( 'message' => 1 );
 
@@ -31,7 +31,7 @@ switch ( $_POST['wordpoints_component_action'] ) {
 	break;
 
 	case 'deactivate':
-		if ( 1 == wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_deactivate_component-{$component}" ) && $components->deactivate( $component ) ) {
+		if ( 1 === wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_deactivate_component-{$component}" ) && $components->deactivate( $component ) ) {
 
 			$message = array( 'message' => 2 );
 

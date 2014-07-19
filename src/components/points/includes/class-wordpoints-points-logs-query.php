@@ -537,7 +537,7 @@ class WordPoints_Points_Logs_Query {
 
 		global $wpdb;
 
-		$select = ( 'SELECT COUNT' == $this->_select_type ) ? $this->_select_count : $this->_select;
+		$select = ( 'SELECT COUNT' === $this->_select_type ) ? $this->_select_count : $this->_select;
 
 		return $select . "\n"
 			. "FROM `{$wpdb->wordpoints_points_logs}`" . "\n"
@@ -597,9 +597,9 @@ class WordPoints_Points_Logs_Query {
 
 		$var_type = gettype( $_fields );
 
-		if ( 'string' == $var_type ) {
+		if ( 'string' === $var_type ) {
 
-			if ( 'all' == $_fields ) {
+			if ( 'all' === $_fields ) {
 				$fields = '`' . implode( '` ,`', $this->_fields ) . '`';
 			} elseif ( in_array( $_fields, $this->_fields ) ) {
 				$fields = $_fields;
@@ -607,7 +607,7 @@ class WordPoints_Points_Logs_Query {
 				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid field {$_fields}, possible values are " . implode( ', ', $this->_fields ), '1.0.0' );
 			}
 
-		} elseif ( 'array' == $var_type ) {
+		} elseif ( 'array' === $var_type ) {
 
 			$diff    = array_diff( $_fields, $this->_fields );
 			$_fields = array_intersect( $this->_fields, $_fields );
@@ -824,7 +824,7 @@ class WordPoints_Points_Logs_Query {
 		$order    = $this->_args['order'];
 		$order_by = $this->_args['orderby'];
 
-		if ( 'none' == $order_by ) {
+		if ( 'none' === $order_by ) {
 			return;
 		}
 

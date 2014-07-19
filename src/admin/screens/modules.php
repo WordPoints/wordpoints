@@ -67,7 +67,7 @@ if ( isset( $_GET['error'] ) ) {
 
 	$message = __( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' );
 
-} elseif ( isset( $_REQUEST['action'] ) && 'update-selected' == $_REQUEST['action'] ) {
+} elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === $_REQUEST['action'] ) {
 
 	$error_message = __( 'No out of date modules were selected.', 'wordpoints' );
 }

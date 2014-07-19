@@ -9,7 +9,7 @@
 
 if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
-	if ( isset( $_POST['add_new'], $_POST['save-points-type'] ) && 1 == (int) $_POST['add_new'] ) {
+	if ( isset( $_POST['add_new'], $_POST['save-points-type'] ) && 1 === (int) $_POST['add_new'] ) {
 
 		// - We are creating a new points type.
 

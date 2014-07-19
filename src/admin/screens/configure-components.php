@@ -109,7 +109,7 @@ do_action( 'wordpoints_admin_components_top' );
 
 	foreach ( $components as $component ) {
 
-		if ( $component['component_uri'] != '' ) {
+		if ( $component['component_uri'] !== '' ) {
 			$component_name = '<a href="' . esc_url( $component['component_uri'] ) . '">' . esc_html( $component['name'] ) . '</a>';
 		} else {
 			$component_name = esc_html( $component['name'] );
@@ -117,9 +117,9 @@ do_action( 'wordpoints_admin_components_top' );
 
 		$author = '';
 
-		if ( $component['author'] != '' ) {
+		if ( $component['author'] !== '' ) {
 
-			if ( $component['author_uri'] != '' ) {
+			if ( $component['author_uri'] !== '' ) {
 				$author_name = '<a href="' . esc_url( $component['author_uri'] ) . '">' . esc_html( $component['author'] ) . '</a>';
 			} else {
 				$author_name = esc_html( $component['author'] );

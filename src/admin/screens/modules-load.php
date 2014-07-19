@@ -50,7 +50,7 @@ switch ( $action ) {
 
 		if ( is_wp_error( $result ) ) {
 
-			if ( 'unexpected_output' == $result->get_error_code() ) {
+			if ( 'unexpected_output' === $result->get_error_code() ) {
 
 				wp_redirect(
 					add_query_arg(
@@ -295,7 +295,7 @@ switch ( $action ) {
 
 					foreach ( $modules as $module ) {
 
-						if ( '.' == dirname( $module ) ) {
+						if ( '.' === dirname( $module ) ) {
 
 							$files_to_delete[] = $module_dir . '/' . $module;
 							$data = wordpoints_get_module_data( $module_dir . '/' . $module );

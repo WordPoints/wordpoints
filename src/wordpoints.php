@@ -91,7 +91,7 @@ function wordpoints_update() {
 	}
 
 	// If the DB version isn't less than the code version, we don't need to upgrade.
-	if ( version_compare( $db_version, WORDPOINTS_VERSION ) != -1 ) {
+	if ( version_compare( $db_version, WORDPOINTS_VERSION ) !== -1 ) {
 		return;
 	}
 
@@ -109,7 +109,7 @@ function wordpoints_update() {
 		// fallthru
 
 		case version_compare( '1.5.0', $db_version ):
-			if ( is_wordpoints_network_active() && 1 != version_compare( '1.3.0', $db_version ) ) {
+			if ( is_wordpoints_network_active() && 1 !== version_compare( '1.3.0', $db_version ) ) {
 				// See wordpoints_points_update_1_5_0().
 				wordpoints_update_1_3_0();
 			}

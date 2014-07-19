@@ -69,13 +69,13 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function hook( $new_status, $old_status, $comment ) {
 
-		if ( ! $comment->user_id || $old_status == $new_status ) {
+		if ( ! $comment->user_id || $old_status === $new_status ) {
 			return;
 		}
 
 		$post = get_post( $comment->comment_post_ID );
 
-		if ( 'approved' == $old_status ) {
+		if ( 'approved' === $old_status ) {
 
 			foreach ( $this->get_instances() as $number => $instance ) {
 
@@ -115,7 +115,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function new_comment_hook( $comment_id, $comment ) {
 
-		if ( 0 == $comment->user_id ) {
+		if ( 0 === (int) $comment->user_id ) {
 			return;
 		}
 

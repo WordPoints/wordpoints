@@ -110,7 +110,7 @@ if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
 	// Remove from old points type if it has changed.
 	$old_points_type = WordPoints_Points_Hooks::get_points_type( $hook_id );
 
-	if ( $old_points_type && $old_points_type != $points_type_id && is_array( $points_types_hooks[ $old_points_type ] ) ) {
+	if ( $old_points_type && $old_points_type !== $points_type_id && is_array( $points_types_hooks[ $old_points_type ] ) ) {
 
 		$points_types_hooks[ $old_points_type ] = array_diff( $points_types_hooks[ $old_points_type ], array( $hook_id ) );
 	}

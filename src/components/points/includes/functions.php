@@ -323,8 +323,9 @@ function wordpoints_get_points( $user_id, $type ) {
  * <code>
  * function my_wordpoints_minimum_score( $minimum, $type ) {
  *
- *     if ( 'score' == $type )
+ *     if ( 'score' === $type ) {
  *           $minimum = 5;
+ *     }
  *
  *     return $minimum;
  * }

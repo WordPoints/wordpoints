@@ -576,7 +576,13 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	/**
 	 * Number of points to add/subtract.
 	 *
+	 * If 0 is returned, the transaction will be aborted, but true will still be
+	 * returned by wordpoints_alter_points(). If the result is a non-integer value,
+	 * wordpoints_alter_points() will return false.
+	 *
 	 * @since 1.0.0
+	 * @since 1.6.0 If the result is a non-integer value, wordpoints_alter_points()
+	 *              will return false. Previously it returned true.
 	 *
 	 * @param int    $points      The number of points.
 	 * @param string $points_type The type of points.
@@ -586,8 +592,10 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	$points = apply_filters( 'wordpoints_alter_points', $points, $points_type, $user_id, $log_type, $meta );
 
-	if ( wordpoints_int( $points ) == 0 ) {
+	if ( wordpoints_int( $points ) === 0 ) {
 		return true;
+	} elseif ( false === $points ) {
+		return false;
 	}
 
 	// Get the current points so we can check this won't go below the minimum.

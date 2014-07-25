@@ -454,7 +454,7 @@ class WordPoints_Dropdown_Builder {
  * 'Any' option ('ALL' is an invalid post type name).
  *
  * @since 1.0.0
- * @since 1.6.0 The 'filter' option was added.
+ * @since 1.5.1 The 'filter' option was added.
  *
  * @param array $options An array of display options. {
  *        @type string $name     The value for the name attribute of the element.

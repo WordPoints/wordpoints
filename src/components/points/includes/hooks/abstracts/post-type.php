@@ -103,7 +103,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	/**
 	 * Filter post types based on whether they support comments.
 	 *
-	 * @since 1.6.0
+	 * @since 1.5.1
 	 *
 	 * @param object $post_type A post type object.
 	 *

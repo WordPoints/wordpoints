@@ -1388,4 +1388,51 @@ function wordpoints_points_add_global_cache_groups() {
 }
 add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
 
+/**
+ * Get the database schema for the points component.
+ *
+ * @since 1.5.1
+ *
+ * @return string CREATE TABLE queries that can be passed to dbDelta().
+ */
+function wordpoints_points_get_db_schema() {
+
+	global $wpdb;
+
+	$charset_collate = '';
+
+	if ( ! empty( $wpdb->charset ) ) {
+		$charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
+	}
+
+	if ( ! empty( $wpdb->collate ) ) {
+		$charset_collate .= " COLLATE {$wpdb->collate}";
+	}
+
+	return "CREATE TABLE {$wpdb->wordpoints_points_logs} (
+			id BIGINT(20) NOT NULL AUTO_INCREMENT,
+			user_id BIGINT(20) NOT NULL,
+			log_type VARCHAR(255) NOT NULL,
+			points BIGINT(20) NOT NULL,
+			points_type VARCHAR(255) NOT NULL,
+			text LONGTEXT,
+			blog_id SMALLINT(5) UNSIGNED NOT NULL,
+			site_id SMALLINT(5) UNSIGNED NOT NULL,
+			date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+			PRIMARY KEY  (id),
+			KEY user_id (user_id),
+			KEY points_type (points_type),
+			KEY log_type (log_type)
+		) {$charset_collate};
+		CREATE TABLE {$wpdb->wordpoints_points_log_meta} (
+			meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			log_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+			meta_key VARCHAR(255) DEFAULT NULL,
+			meta_value LONGTEXT,
+			PRIMARY KEY  (meta_id),
+			KEY log_id (log_id),
+			KEY meta_key (meta_key)
+		) {$charset_collate};";
+}
+
 // end of file /components/points/includes/functions.php

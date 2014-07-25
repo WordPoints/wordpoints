@@ -62,6 +62,9 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 			);"
 		);
 
+		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
+		$this->assertEquals( '????', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );
+
 		// Simulate the update.
 		$this->set_points_db_version();
 		wordpoints_points_component_update();
@@ -75,6 +78,11 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 			'DEFAULT CHARSET=utf8'
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$wpdb->wordpoints_points_log_meta}`", 1 )
 		);
+
+		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
+
+		$logs = wordpoints_get_points_logs_query( 'points' )->get();
+		$this->assertEquals( 'БВГД', $logs[1]->log_type );
 	}
 }
 

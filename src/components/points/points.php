@@ -173,6 +173,10 @@ function wordpoints_points_component_update() {
 				wordpoints_points_update_1_5_0();
 			}
 		// fallthru
+
+		case version_compare( '1.5.1', $db_version ):
+			wordpoints_points_update_1_5_1();
+		// fallthru
 	}
 
 	$wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;

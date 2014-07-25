@@ -374,3 +374,28 @@ function wordpoints_points_update_1_5_0() {
 		restore_current_blog();
 	}
 }
+
+/**
+ * Update the points component to 1.5.1.
+ *
+ * @since 1.5.1
+ */
+function wordpoints_points_update_1_5_1() {
+
+	global $wpdb;
+
+	if ( empty( $wpdb->charset ) ) {
+		return;
+	}
+
+	$charset_collate = " CHARACTER SET {$wpdb->charset}";
+
+	if ( ! empty( $wpdb->collate ) ) {
+		$charset_collate .= " COLLATE {$wpdb->collate}";
+	}
+
+	$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" );
+	$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" );
+}
+
+// EOF

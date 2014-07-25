@@ -36,10 +36,6 @@
 		</properties>
 	</rule>
 
-	<rule ref="Squiz.Operators.ComparisonOperatorUsage">
-		<exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue" />
-	</rule>
-
 	<exclude-pattern>/vendor/*</exclude-pattern>
 
 </ruleset>

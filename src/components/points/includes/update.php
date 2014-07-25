@@ -176,7 +176,7 @@ function wordpoints_points_update_1_4_0_split_post_hooks() {
 	foreach ( $post_publish_hooks as $number => $settings ) {
 
 		// Don't split the hook if it is just a placeholder, or it's already split.
-		if ( 0 == $number || ! isset( $settings['trash'], $settings['publish'] ) ) {
+		if ( 0 === (int) $number || ! isset( $settings['trash'], $settings['publish'] ) ) {
 			continue;
 		}
 
@@ -246,7 +246,7 @@ function wordpoints_points_update_1_4_0_split_comment_hooks() {
 	foreach ( $comment_approved_hooks as $number => $settings ) {
 
 		// Don't split the hook if it is just a placeholder, or it's already split.
-		if ( 0 == $number || ! isset( $settings['approve'], $settings['disapprove'] ) ) {
+		if ( 0 === (int) $number || ! isset( $settings['approve'], $settings['disapprove'] ) ) {
 			continue;
 		}
 

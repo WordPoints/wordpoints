@@ -55,6 +55,8 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 		);
 
 		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $this->points_data ) );
+
+		add_filter( 'query', array( $this, 'do_not_alter_tables' ) );
 	}
 
 	/**
@@ -70,6 +72,24 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 			remove_filter( $filter, array( $this, 'filter_listner' ) );
 		}
+
+		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
+	}
+
+	/**
+	 * Alter temporary tables.
+	 *
+	 * @since 1.5.1
+	 *
+	 * @filter query Added by self::setUp().
+	 */
+	function do_not_alter_tables( $query ) {
+
+		if ( 'ALTER TABLE' === substr( trim( $query ), 0, 11 ) ) {
+			$query = '';
+		}
+
+		return $query;
 	}
 
 	/**

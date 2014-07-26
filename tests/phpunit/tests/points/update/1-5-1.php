@@ -65,17 +65,6 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 			);"
 		);
 
-		$this->start_transaction();
-
-		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
-		$this->assertEquals( '????', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );
-
-		$wpdb->query( 'ROLLBACK' );
-
-		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
-		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
-		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
-
 		// Simulate the update.
 		$this->set_points_db_version();
 		wordpoints_points_component_update();

@@ -26,8 +26,11 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 
 		global $wpdb;
 
+		$wpdb->query( 'ROLLBACK' );
+
 		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
 		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
 
 		$wpdb->query( "DROP TABLE `{$wpdb->wordpoints_points_logs}`" );
 		$wpdb->query( "DROP TABLE `{$wpdb->wordpoints_points_log_meta}`" );
@@ -62,8 +65,16 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 			);"
 		);
 
+		$this->start_transaction();
+
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
 		$this->assertEquals( '????', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );
+
+		$wpdb->query( 'ROLLBACK' );
+
+		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
 
 		// Simulate the update.
 		$this->set_points_db_version();
@@ -79,10 +90,10 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$wpdb->wordpoints_points_log_meta}`", 1 )
 		);
 
-		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
+		$this->start_transaction();
 
-		$logs = wordpoints_get_points_logs_query( 'points' )->get();
-		$this->assertEquals( 'БВГД', $logs[1]->log_type );
+		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
+		$this->assertEquals( 'БВГД', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );
 	}
 }
 

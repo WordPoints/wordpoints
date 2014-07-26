@@ -48,13 +48,7 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 
-		$this->points_data = array(
-			'name'   => 'Points',
-			'prefix' => '$',
-			'suffix' => 'pts.',
-		);
-
-		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $this->points_data ) );
+		$this->create_points_type();
 
 		add_filter( 'query', array( $this, 'do_not_alter_tables' ) );
 	}
@@ -79,13 +73,32 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Create the points type used in the tests.
+	 *
+	 * @since 1.5.1
+	 */
+	protected function create_points_type() {
+
+		$this->points_data = array(
+			'name'   => 'Points',
+			'prefix' => '$',
+			'suffix' => 'pts.',
+		);
+
+		wordpoints_add_network_option(
+			'wordpoints_points_types'
+			, array( 'points' => $this->points_data )
+		);
+	}
+
+	/**
 	 * Alter temporary tables.
 	 *
 	 * @since 1.5.1
 	 *
 	 * @filter query Added by self::setUp().
 	 */
-	function do_not_alter_tables( $query ) {
+	public function do_not_alter_tables( $query ) {
 
 		if ( 'ALTER TABLE' === substr( trim( $query ), 0, 11 ) ) {
 			$query = 'SELECT "Do not alter tables during tests!"';

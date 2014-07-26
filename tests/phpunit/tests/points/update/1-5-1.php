@@ -80,6 +80,7 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 		);
 
 		$this->start_transaction();
+		$this->create_points_type();
 
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
 		$this->assertEquals( 'БВГД', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );

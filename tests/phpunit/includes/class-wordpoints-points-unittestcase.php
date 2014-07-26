@@ -74,6 +74,8 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 		}
 
 		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
+
+		parent::tearDown();
 	}
 
 	/**

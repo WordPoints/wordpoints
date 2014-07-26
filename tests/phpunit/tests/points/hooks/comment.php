@@ -302,7 +302,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 
 		wordpointstests_add_points_hook(
 			'wordpoints_comment_points_hook'
-			, array( 'approve' => 10, 'disapprove' => 10 )
+			, array( 'points' => 10 )
 		);
 
 		$post = $this->factory->post->create_and_get(

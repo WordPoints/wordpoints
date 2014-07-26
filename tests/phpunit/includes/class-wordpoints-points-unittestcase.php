@@ -88,7 +88,7 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 	function do_not_alter_tables( $query ) {
 
 		if ( 'ALTER TABLE' === substr( trim( $query ), 0, 11 ) ) {
-			$query = '';
+			$query = 'SELECT "Do not alter tables during tests!"';
 		}
 
 		return $query;

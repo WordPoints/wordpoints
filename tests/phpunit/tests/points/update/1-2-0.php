@@ -125,7 +125,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		// Add an instance of the post points hook.
 		wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
-			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
 		// Create two posts, one of which we'll delete; the other is used as a control.
@@ -177,7 +177,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		// Add an instance of the comments points hook.
 		wordpointstests_add_points_hook(
 			'wordpoints_comment_points_hook'
-			, array( 'approve' => 10, 'disapprove' => 10 )
+			, array( 'points' => 10 )
 		);
 
 		// Create two comments, we'll delete one and use the other as a control.

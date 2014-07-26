@@ -162,7 +162,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 		wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
-			, array( 'publish' => 20, 'trash' => 20, 'post_type' => 'ALL' )
+			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
 		$post = $this->factory->post->create_and_get(

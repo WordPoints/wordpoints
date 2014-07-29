@@ -82,6 +82,10 @@ points are awarded.
 
 == Changelog ==
 
+= 1.5.1 =
+* Fixed: Cyrillic and other non-English characters not displaying correctly in the points logs.
+* Fixed: Only post types that support comments are shown as options in the Comment and Comment Removed points hooks.
+
 = 1.5.0 =
 * New: The Comment and Comment Removed points hooks now have a post type setting, like the Post points hook.
 * New: Translation into simplified Chinese, provided by Jack Lee.
@@ -143,6 +147,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+* This is a bugfix release which fixes an issue where non-English characters aren't
+displayed properly in the points logs.
 
 = 1.5.0 =
 * This is a feature release adding a post type setting to the comment points hook,

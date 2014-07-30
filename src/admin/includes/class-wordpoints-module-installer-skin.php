@@ -8,9 +8,9 @@
  */
 
 /**
- * The WordPress upgrader skins.
+ * The WordPress upgrader and skins.
  */
-require_once ABSPATH . '/wp-admin/includes/class-wp-upgrader-skins.php';
+require_once ABSPATH . '/wp-admin/includes/class-wp-upgrader.php';
 
 /**
  * WordPoints module installer skin.

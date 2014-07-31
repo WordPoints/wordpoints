@@ -304,7 +304,6 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'fields'     => 'id',
 				'log_type'   => 'comment_approve',
 				'meta_query' => array(
 					array(
@@ -315,9 +314,9 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 			)
 		);
 
-		$log_ids = $query->get( 'col' );
+		$logs = $query->get();
 
-		if ( ! $log_ids ) {
+		if ( ! $logs ) {
 			return;
 		}
 
@@ -325,14 +324,14 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		if ( ! $comment ) {
 
-			foreach ( $log_ids as $log_id ) {
+			foreach ( $logs as $log ) {
 
 				$wpdb->delete(
 					$wpdb->wordpoints_points_log_meta
 					, array(
 						'meta_key'   => 'comment_id',
 						'meta_value' => $comment_id,
-						'log_id'     => $log_id,
+						'log_id'     => $log->id,
 					)
 					, array( '%s', '%d', '%d' )
 				);
@@ -340,7 +339,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		} else {
 
-			foreach ( $log_ids as $log_id ) {
+			foreach ( $logs as $log ) {
 
 				$wpdb->update(
 					$wpdb->wordpoints_points_log_meta
@@ -351,7 +350,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 					, array(
 						'meta_key'   => 'comment_id',
 						'meta_value' => $comment_id,
-						'log_id'     => $log_id,
+						'log_id'     => $log->id,
 					)
 					, array( '%s', '%d' )
 					, array( '%s', '%d', '%d' )
@@ -359,7 +358,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 			}
 		}
 
-		wordpoints_regenerate_points_logs( $log_ids );
+		wordpoints_regenerate_points_logs( $logs );
 	}
 
 	/**
@@ -383,7 +382,6 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'fields'     => 'id',
 				'log_type'   => 'comment_approve',
 				'meta_query' => array(
 					array(
@@ -394,26 +392,26 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 			)
 		);
 
-		$log_ids = $query->get( 'col' );
+		$logs = $query->get();
 
-		if ( ! $log_ids ) {
+		if ( ! $logs ) {
 			return;
 		}
 
-		foreach ( $log_ids as $log_id ) {
+		foreach ( $logs as $log ) {
 
 			$wpdb->delete(
 				$wpdb->wordpoints_points_log_meta
 				, array(
 					'meta_key'   => 'post_id',
 					'meta_value' => $post_id,
-					'log_id'     => $log_id,
+					'log_id'     => $log->id,
 				)
 				, array( '%s', '%d', '%d' )
 			);
 		}
 
-		wordpoints_regenerate_points_logs( $log_ids );
+		wordpoints_regenerate_points_logs( $logs );
 	}
 
 	/**

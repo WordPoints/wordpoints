@@ -257,7 +257,6 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 
 		$logs_query = new WordPoints_Points_Logs_Query(
 			array(
-				'fields'     => 'id',
 				'log_type'   => 'post_publish',
 				'meta_query' => array(
 					array(
@@ -268,9 +267,9 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 			)
 		);
 
-		$log_ids = $logs_query->get( 'col' );
+		$logs = $logs_query->get();
 
-		if ( ! $log_ids ) {
+		if ( ! $logs ) {
 			return;
 		}
 
@@ -278,14 +277,14 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 
 		if ( ! $post ) {
 
-			foreach ( $log_ids as $log_id ) {
+			foreach ( $logs as $log ) {
 
 				$wpdb->delete(
 					$wpdb->wordpoints_points_log_meta
 					, array(
 						'meta_key'   => 'post_id',
 						'meta_value' => $post_id,
-						'log_id'     => $log_id,
+						'log_id'     => $log->id,
 					)
 					, array( '%s', '%d', '%d' )
 				);
@@ -293,7 +292,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 
 		} else {
 
-			foreach ( $log_ids as $log_id ) {
+			foreach ( $logs as $log ) {
 
 				$wpdb->update(
 					$wpdb->wordpoints_points_log_meta
@@ -304,7 +303,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 					, array(
 						'meta_key'   => 'post_id',
 						'meta_value' => $post_id,
-						'log_id'     => $log_id,
+						'log_id'     => $log->id,
 					)
 					, array( '%s', '%s' )
 					, array( '%s', '%d', '%d' )
@@ -312,7 +311,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 			}
 		}
 
-		wordpoints_regenerate_points_logs( $log_ids );
+		wordpoints_regenerate_points_logs( $logs );
 	}
 
 	/**

@@ -194,6 +194,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * Test points log regeneration.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @expectedDeprecated wordpoints_regenerate_points_logs
 	 */
 	public function test_wordpoints_regenerate_points_logs() {
 
@@ -215,6 +217,33 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Now, modify the log text.
 		global $wpdb;
 
+		$wpdb->update(
+			$wpdb->wordpoints_points_logs
+			, array( 'text' => 'Test' )
+			, array( 'id' => $log->id )
+			, array( '%s' )
+			, array( '%d' )
+		);
+
+		// Check that the log was updated.
+		$log = new WordPoints_Points_Logs_Query;
+		$log = $log->get( 'row' );
+
+		$this->assertInternalType( 'object', $log );
+		$this->assertEquals( 'Test', $log->text );
+
+		// Now, regenerate it.
+		wordpoints_regenerate_points_logs( array( $log ) );
+
+		// Check that the log was regenerated.
+		$log = new WordPoints_Points_Logs_Query;
+		$log = $log->get( 'row' );
+
+		$this->assertInternalType( 'object', $log );
+		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
+
+		// Modify the log and test again, to check that it also works with the log
+		// IDs, as this was expected since 1.2.0 but was deprecated in 1.6.0.
 		$wpdb->update(
 			$wpdb->wordpoints_points_logs
 			, array( 'text' => 'Test' )

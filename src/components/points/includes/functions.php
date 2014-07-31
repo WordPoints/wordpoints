@@ -1014,25 +1014,31 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
  * Regenerate points logs messages.
  *
  * @since 1.2.0
+ * @since 1.6.0 Now expects an array of log objects, instead of an array of log IDs.
  *
- * @param array $log_ids The IDs of the logs to regenerate the log messages for.
+ * @param stdClass[] $logs The logs to regenerate the log messages for.
  *
  * @return void
  */
-function wordpoints_regenerate_points_logs( $log_ids ) {
+function wordpoints_regenerate_points_logs( $logs ) {
 
-	if ( empty( $log_ids ) || ! is_array( $log_ids ) ) {
+	if ( empty( $logs ) || ! is_array( $logs ) ) {
 		return;
+	}
+
+	if ( ! is_object( current( $logs ) ) ) {
+
+		_deprecated_argument( __FUNCTION__, '1.6.0', 'The first parameter should be an array of log objects, not log IDs.' );
+
+		$logs = new WordPoints_Points_Logs_Query( array( 'id__in' => $logs ) );
+		$logs = $logs->get();
+
+		if ( ! is_array( $logs ) ) {
+			return;
+		}
 	}
 
 	global $wpdb;
-
-	$logs = new WordPoints_Points_Logs_Query( array( 'id__in' => $log_ids ) );
-	$logs = $logs->get();
-
-	if ( ! is_array( $logs ) ) {
-		return;
-	}
 
 	foreach ( $logs as $log ) {
 

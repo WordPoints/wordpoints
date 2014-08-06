@@ -225,7 +225,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 			'selected' => $instance['period'],
 			'id'       => $this->get_field_id( 'period' ),
 			'name'     => $this->get_field_name( 'period' ),
-			'class'    => 'widefat',
+			'class'    => 'widefat wordpoints-append-to-hook-title',
 		);
 
 		$dropdown = new WordPoints_Dropdown_Builder( $this->get_periods(), $dropdown_args );

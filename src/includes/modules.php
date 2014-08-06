@@ -458,7 +458,13 @@ function wordpoints_get_modules( $module_folder = '' ) {
 			continue;
 		}
 
-		$modules[ wordpoints_module_basename( $module_file ) ] = $module_data;
+		$module_file = wordpoints_module_basename( $module_file );
+
+		if ( $module_folder ) {
+			$module_file = basename( $module_file );
+		}
+
+		$modules[ $module_file ] = $module_data;
 	}
 
 	uasort( $modules, '_wordpoints_sort_uname_callback' );

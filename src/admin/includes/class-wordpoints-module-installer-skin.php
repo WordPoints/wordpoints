@@ -81,16 +81,16 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 
 			if ( is_multisite() && current_user_can( 'manage_network_wordpoints_modules' ) ) {
 
-				$install_actions['network_activate'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=activate&amp;networkwide=1&amp;module=' . urlencode( $module_file ), "activate-module_{$module_file}" ) . '" target="_parent">' . __( 'Network Activate', 'wordpoints' ) . '</a>';
+				$install_actions['network_activate'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=activate&amp;networkwide=1&amp;module=' . urlencode( $module_file ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Network Activate', 'wordpoints' ) . '</a>';
 
 			} elseif ( current_user_can( 'activate_wordpoints_modules' ) ) {
 
-				$install_actions['activate_module'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . urlencode( $module_file ), "activate-module_{$module_file}" ) . '" target="_parent">' . __( 'Activate Module', 'wordpoints' ) . '</a>';
+				$install_actions['activate_module'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . urlencode( $module_file ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Activate Module', 'wordpoints' ) . '</a>';
 			}
 		}
 
-		$install_actions['modules_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . __( 'Return to Modules page', 'wordpoints' ) . '</a>';
-		$install_actions['install_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '" target="_parent">' . __( 'Return to Module Installer', 'wordpoints' ) . '</a>';
+		$install_actions['modules_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Modules page', 'wordpoints' ) . '</a>';
+		$install_actions['install_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Module Installer', 'wordpoints' ) . '</a>';
 
 		/**
 		 * The install module action links.

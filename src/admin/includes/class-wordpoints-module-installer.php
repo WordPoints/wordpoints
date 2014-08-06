@@ -49,13 +49,13 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 	private function install_strings() {
 
 		$install_strings = array(
-			'no_package'           => __( 'Install package not available.', 'wordpoints' ),
+			'no_package'           => esc_html__( 'Install package not available.', 'wordpoints' ),
 			'unpack_package'       => __( 'Unpacking the package&#8230;', 'wordpoints' ),
 			'installing_package'   => __( 'Installing the module&#8230;', 'wordpoints' ),
-			'no_files'             => __( 'The module contains no files.', 'wordpoints' ),
-			'process_failed'       => __( 'Module install failed.', 'wordpoints' ),
-			'process_success'      => __( 'Module installed successfully.', 'wordpoints' ),
-			'mkdir_failed_modules' => __( 'Could not create the modules directory.', 'wordpoints' ),
+			'no_files'             => esc_html__( 'The module contains no files.', 'wordpoints' ),
+			'process_failed'       => esc_html__( 'Module install failed.', 'wordpoints' ),
+			'process_success'      => esc_html__( 'Module installed successfully.', 'wordpoints' ),
+			'mkdir_failed_modules' => esc_html__( 'Could not create the modules directory.', 'wordpoints' ),
 		);
 
 		$this->strings = array_merge( $this->strings, $install_strings );
@@ -181,7 +181,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		}
 
 		if ( ! $modules_found ) {
-			return new WP_Error( 'incompatible_archive_no_modules', $this->strings['incompatible_archive'], __( 'No valid modules were found.', 'wordpoints' ) );
+			return new WP_Error( 'incompatible_archive_no_modules', $this->strings['incompatible_archive'], esc_html__( 'No valid modules were found.', 'wordpoints' ) );
 		}
 
 		return $source;

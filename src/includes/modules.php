@@ -397,8 +397,8 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
  *
  * @since 1.1.0
  *
- * @param string $module_folder A specific module folder to look. Default is empty
- *                              (search in all folders).
+ * @param string $module_folder A specific subfolder of the modules directory to look
+ *                              in. Default is empty (search in all folders).
  *
  * @return array A list of the module files found (files with module headers).
  */
@@ -416,48 +416,30 @@ function wordpoints_get_modules( $module_folder = '' ) {
 	$module_files = array();
 	$module_root  = wordpoints_modules_dir();
 
-	if ( ! empty($module_folder) ) {
+	if ( ! empty( $module_folder ) ) {
 		$module_root .= $module_folder;
 	}
 
-	// Files in wp-content/wordpoints-modules directory.
-	$modules_dir = @opendir( $module_root );
+	// Escape pattern-matching characters in the path.
+	$module_escape_root = str_replace( array( '*', '?', '[' ), array( '[*]', '[?]', '[[]' ), $module_root );
 
-	if ( $modules_dir ) {
+	// Get the top level files.
+	$module_files = glob( "{$module_escape_root}/*.php" );
 
-		while ( ($file = readdir( $modules_dir )) !== false ) {
+	if ( false === $module_files ) {
+		return $modules;
+	}
 
-			if ( substr( $file, 0, 1 ) == '.' ) {
-				continue;
-			}
+	// Get the files of subfolders, if not already searching in a subfolder.
+	if ( empty( $module_folder ) ) {
 
-			if ( empty( $module_folder ) && is_dir( $module_root . '/' . $file ) ) {
+		$subfolder_files = glob( "{$module_escape_root}/*/*.php" );
 
-				$modules_subdir = @opendir( $module_root . '/' . $file );
-
-				if ( $modules_subdir ) {
-
-					while ( ($subfile = readdir( $modules_subdir )) !== false ) {
-
-						if ( substr( $subfile, 0, 1 ) == '.' ) {
-							continue;
-						}
-
-						if ( substr( $subfile, -4 ) == '.php' ) {
-							$module_files[] = "$file/$subfile";
-						}
-					}
-
-					closedir( $modules_subdir );
-				}
-
-			} elseif ( substr( $file, -4 ) == '.php' ) {
-
-				$module_files[] = $file;
-			}
+		if ( false === $subfolder_files ) {
+			return $modules;
 		}
 
-		closedir( $modules_dir );
+		$module_files = array_merge( $module_files, $subfolder_files );
 	}
 
 	if ( empty( $module_files ) ) {
@@ -466,11 +448,11 @@ function wordpoints_get_modules( $module_folder = '' ) {
 
 	foreach ( $module_files as $module_file ) {
 
-		if ( ! is_readable( "$module_root/$module_file" ) ) {
+		if ( ! is_readable( $module_file ) ) {
 			continue;
 		}
 
-		$module_data = wordpoints_get_module_data( "$module_root/$module_file", false, false );
+		$module_data = wordpoints_get_module_data( $module_file, false, false );
 
 		if ( empty( $module_data['name'] ) ) {
 			continue;

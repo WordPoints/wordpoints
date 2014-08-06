@@ -447,6 +447,10 @@ div#hooks-right .closed .hooks-sortables {
     border-top: 1px #ddd dotted;
 }
 
+#hooks-right .in-hook-title {
+	color: #888;
+}
+
 /*
  * 7. Accessibility Mode.
  */

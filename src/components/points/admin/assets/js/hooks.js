@@ -537,20 +537,37 @@ WordPointsHooks = {
 	},
 
 	/**
-	 * Append the hook title.
+	 * Append the main setting value to the hook title bar.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param {object} hook - The DOM object for the hook whose title to append.
 	 */
 	appendTitle : function ( hook ) {
 
-		var title = $( 'input[id*="-title"]', hook ).val() || '';
+		var title, $title_append;
 
-		if ( title ) {
-			title = ': ' + title.replace( /<[^<>]+>/g, '' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
+		$title_append = $( '.wordpoints-append-to-hook-title', hook );
+
+		if ( $title_append.length === 0 ) {
+
+			// Back-compat.
+			title = $( 'input[id*="-title"]', hook ).val();
+
+			if ( ! title ) {
+				return;
+			}
+
+		} else {
+
+			if ( $title_append.is( 'select' ) ) {
+				title = $title_append.find( ':selected' ).text();
+			} else {
+				title = $title_append.val();
+			}
 		}
 
-		$( hook ).children( '.hook-top' ).children( '.hook-title' ).children()
-			.children( '.in-hook-title' ).html( title );
+		$( '.in-hook-title', hook ).text( ': ' + title );
 	},
 
 	/**

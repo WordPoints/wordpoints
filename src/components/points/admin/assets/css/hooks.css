@@ -40,6 +40,7 @@
 .hook-top a.hook-action,
 .hook-top a.hook-action:hover {
 	text-decoration: none;
+	box-shadow: none; /* :focus styles */
 }
 
 .hook-title h4 {

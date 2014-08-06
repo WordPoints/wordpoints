@@ -412,9 +412,8 @@ function wordpoints_get_modules( $module_folder = '' ) {
 		return $cache_modules[ $module_folder ];
 	}
 
-	$modules      = array();
-	$module_files = array();
-	$module_root  = wordpoints_modules_dir();
+	$modules     = array();
+	$module_root = wordpoints_modules_dir();
 
 	if ( ! empty( $module_folder ) ) {
 		$module_root .= $module_folder;

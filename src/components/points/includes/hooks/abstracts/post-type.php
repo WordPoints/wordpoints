@@ -84,7 +84,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 					'selected' => $instance['post_type'],
 					'id'       => $this->get_field_id( 'post_type' ),
 					'name'     => $this->get_field_name( 'post_type' ),
-					'class'    => 'widefat',
+					'class'    => 'widefat wordpoints-append-to-hook-title',
 					'filter'   => $this->get_option( 'post_type_filter' ),
 				)
 				, array( 'public' => true )

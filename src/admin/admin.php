@@ -318,14 +318,14 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 	$page = '';
 
 	if ( isset( $_GET['page'] ) ) {
-		$page = rawurlencode( sanitize_key( $_GET['page'] ) );
+		$page = sanitize_key( $_GET['page'] );
 	}
 
 	foreach ( $tabs as $tab => $name ) {
 
 		$class = ( $tab === $current ) ? ' nav-tab-active' : '';
 
-		echo '<a class="nav-tab', $class, '" href="?page=', $page, '&amp;tab=', rawurlencode( $tab ), '">', esc_html( $name ), '</a>';
+		echo '<a class="nav-tab ', sanitize_html_class( $class ), '" href="?page=', rawurlencode( $page ), '&amp;tab=', rawurlencode( $tab ), '">', esc_html( $name ), '</a>';
 	}
 
 	echo '</h2>';
@@ -340,11 +340,11 @@ function wordpoints_install_modules_upload() {
 
 	?>
 
-	<h4><?php _e( 'Install a module in .zip format', 'wordpoints' ); ?></h4>
-	<p class="install-help"><?php _e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
+	<h4><?php esc_html_e( 'Install a module in .zip format', 'wordpoints' ); ?></h4>
+	<p class="install-help"><?php esc_html_e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
 	<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ); ?>">
 		<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
-		<label class="screen-reader-text" for="modulezip"><?php _e( 'Module zip file', 'wordpoints' ); ?></label>
+		<label class="screen-reader-text" for="modulezip"><?php esc_html_e( 'Module zip file', 'wordpoints' ); ?></label>
 		<input type="file" id="modulezip" name="modulezip" />
 		<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
 	</form>
@@ -363,14 +363,14 @@ add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upl
 function wordpoints_upload_module_zip() {
 
 	if ( ! current_user_can( 'install_wordpoints_modules' ) ) {
-		wp_die( __( 'You do not have sufficient permissions to install WordPoints modules on this site.', 'wordpoints' ) );
+		wp_die( esc_html__( 'You do not have sufficient permissions to install WordPoints modules on this site.', 'wordpoints' ) );
 	}
 
 	check_admin_referer( 'wordpoints-module-upload' );
 
 	$file_upload = new File_Upload_Upgrader( 'modulezip', 'package' );
 
-	$title = __( 'Upload WordPoints Module', 'wordpoints' );
+	$title = esc_html__( 'Upload WordPoints Module', 'wordpoints' );
 	$parent_file  = 'admin.php';
 	$submenu_file = 'admin.php';
 
@@ -382,7 +382,7 @@ function wordpoints_upload_module_zip() {
 	$upgrader = new WordPoints_Module_Installer(
 		new WordPoints_Module_Installer_Skin(
 			array(
-				'title' => sprintf( __( 'Installing Module from uploaded file: %s', 'wordpoints' ), esc_html( basename( $file_upload->filename ) ) ),
+				'title' => sprintf( esc_html__( 'Installing Module from uploaded file: %s', 'wordpoints' ), esc_html( basename( $file_upload->filename ) ) ),
 				'nonce' => 'wordpoints-module-upload',
 				'url'   => add_query_arg( array( 'package' => $file_upload->id ), 'update.php?action=upload-wordpoints-module' ),
 				'type'  => 'upload',
@@ -413,14 +413,14 @@ function wordpoints_admin_settings_screen_sidebar() {
 
 	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
-			<h4><?php _e( 'Like this plugin?', 'wordpoints' ); ?></h4>
+			<h4><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h4>
 			<p><?php printf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ); ?></p>
 			<p><?php _e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
-			<h4><?php _e( 'Need help?', 'wordpoints' ); ?></h4>
+			<h4><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h4>
 			<p><?php printf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ); ?></p>
-			<p><em><?php _e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
+			<p><em><?php esc_html_e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
 		</div>
 	</div>
 

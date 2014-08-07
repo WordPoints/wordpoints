@@ -161,9 +161,9 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 				$url = network_admin_url( $path );
 			}
 
-			$screen_options = '<p><a id="access-on" href="' . esc_url( $url ) . 'on">'
+			$screen_options = '<p><a id="access-on" href="' . esc_attr( esc_url( $url ) ) . 'on">'
 				. __( 'Enable accessibility mode', 'wordpoints' )
-				. '</a><a id="access-off" href="' . esc_url( $url ) . 'off">'
+				. '</a><a id="access-off" href="' . esc_attr( esc_url( $url ) ) . 'off">'
 				. __( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
 		break;
 	}

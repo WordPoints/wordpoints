@@ -711,7 +711,7 @@ final class WordPoints_Points_Hooks {
 		<div class="hook-top">
 			<div class="hook-title-action">
 				<a class="hook-action hide-if-no-js" href="#available-hooks"></a>
-				<a class="hook-control-edit hide-if-js" href="<?php echo esc_url( add_query_arg( $query_arg ) ); ?>">
+				<a class="hook-control-edit hide-if-js" href="<?php echo esc_attr( esc_url( add_query_arg( $query_arg ) ) ); ?>">
 					<span class="edit"><?php _ex( 'Edit', 'hook', 'wordpoints' ); ?></span>
 					<span class="add"><?php _ex( 'Add', 'hook', 'wordpoints' ); ?></span>
 					<span class="screen-reader-text"><?php echo $title; ?></span>

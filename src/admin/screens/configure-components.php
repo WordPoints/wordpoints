@@ -110,7 +110,7 @@ do_action( 'wordpoints_admin_components_top' );
 	foreach ( $components as $component ) {
 
 		if ( $component['component_uri'] !== '' ) {
-			$component_name = '<a href="' . esc_url( $component['component_uri'] ) . '">' . esc_html( $component['name'] ) . '</a>';
+			$component_name = '<a href="' . esc_attr( esc_url( $component['component_uri'] ) ) . '">' . esc_html( $component['name'] ) . '</a>';
 		} else {
 			$component_name = esc_html( $component['name'] );
 		}
@@ -120,7 +120,7 @@ do_action( 'wordpoints_admin_components_top' );
 		if ( $component['author'] !== '' ) {
 
 			if ( $component['author_uri'] !== '' ) {
-				$author_name = '<a href="' . esc_url( $component['author_uri'] ) . '">' . esc_html( $component['author'] ) . '</a>';
+				$author_name = '<a href="' . esc_attr( esc_url( $component['author_uri'] ) ) . '">' . esc_html( $component['author'] ) . '</a>';
 			} else {
 				$author_name = esc_html( $component['author'] );
 			}
@@ -147,7 +147,7 @@ do_action( 'wordpoints_admin_components_top' );
 			<td><?php echo $component['description'] . $author; ?></td>
 			<td><?php echo $component['version']; ?></td>
 			<td>
-				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>" action="<?php esc_url( self_admin_url( 'page=wordpoints_configure&tab=components' ) ); ?>">
+				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>" action="<?php esc_attr( esc_url( self_admin_url( 'page=wordpoints_configure&tab=components' ) ) ); ?>">
 					<input type="hidden" name="wordpoints_component_action" value="<?php echo esc_attr( $action ); ?>" />
 					<input type="hidden" name="wordpoints_component" value="<?php echo esc_attr( $component['slug'] ); ?>" />
 					<?php wp_nonce_field( "wordpoints_{$action}_component-{$component['slug']}" ); ?>

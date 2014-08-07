@@ -604,7 +604,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				break;
 
 				case 'name':
-					echo '<td class="module-title"' . ( $is_hidden ? ' style="display:none;"' : '' ) . '">';
+					echo '<td class="module-title"' . ( $is_hidden ? ' style="display:none;"' : '' ) . '>';
 					echo '<strong>' . esc_html( $module_name ) . '</strong>';
 					echo $this->row_actions( $actions, true );
 					echo '</td>';

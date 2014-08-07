@@ -368,7 +368,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 				$status_links[ $type ] = sprintf(
 					"<a href='%s' %s>%s</a>"
-					, add_query_arg( 'module_status', $type, 'admin.php?page=wordpoints_modules' )
+					, esc_attr( esc_url( add_query_arg( 'module_status', $type, 'admin.php?page=wordpoints_modules' ) ) )
 					, ( $type === $status ) ? ' class="current"' : ''
 					, sprintf( $text, number_format_i18n( $count ) )
 				);

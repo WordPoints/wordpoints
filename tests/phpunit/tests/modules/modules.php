@@ -48,6 +48,8 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 					'network' => false,
 					'title' => 'Test 3',
 					'author_name' => 'WordPoints Tester',
+					'update_api' => '',
+					'ID' => '',
 				),
 				'test-4/test-4.php' => array(
 					'name' => 'Test 4',
@@ -61,6 +63,8 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 					'network' => false,
 					'title' => 'Test 4',
 					'author_name' => 'WordPoints Tester',
+					'update_api' => '',
+					'ID' => '',
 				),
 			)
 			, wordpoints_get_modules()
@@ -80,6 +84,8 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 					'network' => false,
 					'title' => 'Test 4',
 					'author_name' => 'WordPoints Tester',
+					'update_api' => '',
+					'ID' => '',
 				),
 			)
 			, wordpoints_get_modules( '/test-4' )

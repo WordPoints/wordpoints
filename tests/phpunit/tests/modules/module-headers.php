@@ -33,6 +33,8 @@ class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 		'network'     => false,
 		'title'       => 'Test 3',
 		'author_name' => 'WordPoints Tester',
+		'update_api'  => '',
+		'ID'          => '',
 	);
 
 	/**

@@ -221,6 +221,7 @@ function wordpoints_module_basename( $file ) {
  * Name:".
  *
  * @since 1.1.0
+ * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -240,6 +241,8 @@ function wordpoints_module_basename( $file ) {
  *         @type string $text_domain The module's text domain.
  *         @type string $domain_path The folder containing the module's *.mo translation files.
  *         @type bool   $network     Whether the module should only be network activated.
+ *         @type string $update_api  The update service to be used for this module.
+ *         @type mixed  $ID          A unique identifier for this module, used by the update service.
  * }
  */
 function wordpoints_get_module_data( $module_file, $markup = true, $translate = true ) {
@@ -254,6 +257,8 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'text_domain' => 'Text Domain',
 		'domain_path' => 'Domain Path',
 		'network'     => 'Network',
+		'update_api'  => 'Update API',
+		'ID'          => 'ID',
 	);
 
 	$module_data = get_file_data( $module_file, $default_headers, 'module' );

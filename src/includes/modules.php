@@ -149,7 +149,7 @@ final class WordPoints_Module_Paths {
 
 		$file = self::normalize( $file );
 
- 		// We store this so that we don't have to keep normalizing a constant value.
+		// We store this so that we don't have to keep normalizing a constant value.
 		if ( ! isset( self::$modules_dir ) ) {
 			self::$modules_dir = self::normalize( wordpoints_modules_dir() );
 		}
@@ -222,7 +222,7 @@ final class WordPoints_Module_Paths {
 	 */
 	private static function normalize( $path ) {
 
-    	$path = str_replace( '\\' ,'/', $path );
+		$path = str_replace( '\\' ,'/', $path );
 		$path = preg_replace( '|/+|', '/', $path );
 
 		return $path;

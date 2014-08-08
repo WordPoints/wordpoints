@@ -196,7 +196,7 @@ final class WordPoints_Module_Paths {
 		// Sort the paths by the realpath length, see https://core.trac.wordpress.org/ticket/28441.
 		if ( ! self::$paths_sorted ) {
 			krsort( self::$paths );
-			$paths_sorted = true;
+			self::$paths_sorted = true;
 		}
 
 		foreach ( self::$paths as $path ) {

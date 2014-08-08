@@ -167,7 +167,9 @@ switch ( $action ) {
 		 */
 		function wordpoints_module_sandbox_scrape( $module ) {
 
-			include( wordpoints_modules_dir() . '/' . $module );
+			$modules_dir = wordpoints_modules_dir();
+			WordPoints_Module_Paths::register( $modules_dir . '/' . $module );
+			include( $modules_dir . '/' . $module );
 		}
 
 		wordpoints_module_sandbox_scrape( $module );

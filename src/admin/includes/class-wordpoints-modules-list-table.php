@@ -656,7 +656,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				break;
 
 				default:
-					echo "<td class='$column_name column-$column_name'$style>";
+					echo '<td class="' . sanitize_html_class( $column_name ) . ' column-' . sanitize_html_class( $column_name  ). '"' . ( $is_hidden ? ' style="display:none;"' : '' ) . '>';
 					/**
 					 * Display the row contents for a custom column in the module list table.
 					 *

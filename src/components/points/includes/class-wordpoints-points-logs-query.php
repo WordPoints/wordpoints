@@ -335,6 +335,78 @@ class WordPoints_Points_Logs_Query {
 	}
 
 	/**
+	 * Get a page of the results.
+	 *
+	 * Useful for displaying paginated results, this function lets you get a slice
+	 * of the results.
+	 *
+	 * If your query is already using the 'start' argument, the results are
+	 * calculated relative to that. If your query has a 'limit' set, results will not
+	 * be returned beyond the limit.
+	 *
+	 * The cache is used if it has been primed. If not, only the requested results
+	 * are pulled from the database, and these are not cached.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param int $page     The page number to get. Pages are numbered starting at 1.
+	 * @param int $per_page The number of logs being displayed per page.
+	 *
+	 * @return stdClass[]|false The logs for this page, or false if $page or $per_page is invalid.
+	 */
+	public function get_page( $page, $per_page = 25 ) {
+
+		if ( ! wordpoints_posint( $page ) || ! wordpoints_posint( $per_page ) ) {
+			return false;
+		}
+
+		$start = ( $page - 1 ) * $per_page;
+
+		// First try the cache.
+		if ( isset( $this->_cache['get_results'] ) ) {
+
+			return array_slice(
+				$this->_cache['get_results']
+				, $start - $this->_args['start']
+				, $per_page
+			);
+		}
+
+		// Prepare the query SQL.
+		$this->_select_type = 'SELECT';
+		$this->_prepare_query();
+
+		// Stash the args and cache so we can restore them later.
+		$args = $this->_args;
+		$cache = $this->_cache;
+
+		$this->_args['start'] += $start;
+
+		if ( $this->_args['limit'] ) {
+			$this->_args['limit'] -= $start;
+		}
+
+		if ( ! $this->_args['limit'] || $this->_args['limit'] > $per_page ) {
+			$this->_args['limit'] = $per_page;
+		}
+
+		// Regenerate the query limit after changing the start and limit args.
+		$this->_prepare_limit();
+
+		$results = $this->_get( 'results' );
+
+		// Restore the originial arguments and the cache.
+		$this->_args = $args;
+		$this->_cache = $cache;
+
+		// Restore the original limit query portion.
+		$this->_limit = '';
+		$this->_prepare_limit();
+
+		return $results;
+	}
+
+	/**
 	 * Get the SQL for the query.
 	 *
 	 * This function can return the SQL for a SELECT or SELECT COUNT query. To

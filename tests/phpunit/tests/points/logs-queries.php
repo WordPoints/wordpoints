@@ -660,6 +660,143 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// The cache should still be good, no new query needed.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
 	}
+
+	/**
+	 * Test the get_page() method.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_get_page() {
+
+		$ids = $this->factory->wordpoints_points_log->create_many( 9 );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'orderby' => 'id', 'order' => 'ASC' )
+		);
+
+		$page_1 = $query->get_page( 1, 2 );
+
+		$this->assertCount( 2, $page_1 );
+		$this->assertEquals( $ids[0], $page_1[0]->id );
+		$this->assertEquals( $ids[1], $page_1[1]->id );
+
+		$page_3 = $query->get_page( 3, 2 );
+
+		$this->assertCount( 2, $page_3 );
+		$this->assertEquals( $ids[4], $page_3[0]->id );
+		$this->assertEquals( $ids[5], $page_3[1]->id );
+
+		$page_5 = $query->get_page( 5, 2 );
+		$this->assertCount( 1, $page_5 );
+		$this->assertEquals( $ids[8], $page_5[0]->id );
+
+		$page_6 = $query->get_page( 6, 2 );
+		$this->assertCount( 0, $page_6 );
+	}
+
+	/**
+	 * Test get_page() with invalid arguments.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_get_page_invalid_args() {
+
+		$query = new WordPoints_Points_Logs_Query;
+
+		$this->assertFalse( $query->get_page( 0 ) );
+		$this->assertFalse( $query->get_page( 5, 0 ) );
+	}
+
+	/**
+	 * Test get_page() doesn't alter the main query.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_get_page_doesnt_alter_main_query() {
+
+		$this->factory->wordpoints_points_log->create_many( 2 );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'orderby' => 'id', 'order' => 'ASC' )
+		);
+
+		$sql = $query->get_sql();
+
+		$query->get_page( 1 );
+
+		$this->assertEquals( $sql, $query->get_sql() );
+	}
+
+	/**
+	 * Test that get_page() uses the cache.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_get_page_uses_cache() {
+
+		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
+		// Get the query.
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'orderby' => 'id', 'order' => 'ASC' )
+		);
+		$query->prime_cache( __FUNCTION__ );
+
+		// The cache should have been primed.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Get the first page.
+		$page_1 = $query->get_page( 1, 2 );
+
+		// The query shouldn't have been called again.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		$this->assertCount( 2, $page_1 );
+		$this->assertEquals( $ids[0], $page_1[0]->id );
+		$this->assertEquals( $ids[1], $page_1[1]->id );
+	}
+
+	/**
+	 * Test get_page() calculates pages relative to the 'start' argument.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_get_page_with_start() {
+
+		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'start' => 2, 'orderby' => 'id', 'order' => 'ASC' )
+		);
+
+		$page_1 = $query->get_page( 1, 2 );
+
+		$this->assertEquals( $ids[2], $page_1[0]->id );
+		$this->assertEquals( $ids[3], $page_1[1]->id );
+
+		$page_2 = $query->get_page( 2, 2 );
+
+		$this->assertEquals( $ids[4], $page_2[0]->id );
+	}
+
+	/**
+	 * Test that get_page() calculates with correct limit.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_get_page_with_limit() {
+
+		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'limit' => 3, 'orderby' => 'id', 'order' => 'ASC' )
+		);
+
+		$this->assertCount( 2, $query->get_page( 1, 2 ) );
+		$this->assertCount( 1, $query->get_page( 2, 2 ) );
+	}
 }
 
 // end of file.

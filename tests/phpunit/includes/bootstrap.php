@@ -111,4 +111,11 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-unittestc
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-ajax-unittestcase.php';
 
+/**
+ * The points log factory.
+ *
+ * @since 1.6.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
+
 // end of file /tests/phpunit/includes/bootstrap.php

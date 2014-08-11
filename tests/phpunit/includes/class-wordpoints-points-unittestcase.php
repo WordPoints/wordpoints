@@ -46,6 +46,10 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 
 		parent::setUp();
 
+		$this->factory->wordpoints_points_log =
+			new WordPoints_UnitTest_Factory_For_Points_Log( $this->factory )
+		;
+
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 		$this->create_points_type();

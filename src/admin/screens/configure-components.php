@@ -87,7 +87,7 @@ do_action( 'wordpoints_admin_components_top' );
 
 ?>
 
-<table id="wordpoints_components_table" class="widefat datatables">
+<table id="wordpoints_components_table" class="widefat">
 	<thead>
 		<tr>
 			<th scope="col" width="150"><?php _ex( 'Component', 'components table heading', 'wordpoints' ); ?></th>

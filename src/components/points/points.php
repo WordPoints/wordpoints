@@ -203,6 +203,13 @@ function wordpoints_points_register_scripts() {
 		,null
 		,WORDPOINTS_VERSION
 	);
+
+	wp_register_style(
+		'wordpoints-points-logs'
+		,$assets_url . 'css/points-logs.css'
+		,null
+		,WORDPOINTS_VERSION
+	);
 }
 add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );

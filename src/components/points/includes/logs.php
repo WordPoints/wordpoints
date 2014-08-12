@@ -333,15 +333,17 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  * time.
  *
  * @since 1.0.0
+ * @since 1.6.0 The datatable argument was deprecated and the paginate argument added.
  *
  * @uses WordPoints_Points_Logs_Query::get()
  *
  * @see wordpoints_get_points_logs_query()
  *
- * @param WordPoints_Points_Logs_Query $logs The query to use to get the logs.
- * @param array                        $args Display arguments {
- *        @type bool $datatable  Whether to display the table as a jQuery DataTable.
- *              Default is true.
+ * @param WordPoints_Points_Logs_Query $lologs_query The query to use to get the logs.
+ * @param array                        $args {
+ *        Display arguments.
+ *
+ *        @type bool $paginate   Whether to paginate the table. Default is true.
  *        @type bool $show_users Whether to show the users column of the table.
  *              Default is true. The column will still be output, but will be hidden
  *              with CSS.
@@ -349,40 +351,50 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  *
  * @return void
  */
-function wordpoints_show_points_logs( $logs, array $args = array() ) {
+function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
-	if ( ! $logs instanceof WordPoints_Points_Logs_Query ) {
+	if ( ! $logs_query instanceof WordPoints_Points_Logs_Query ) {
 		return;
 	}
 
+	wp_enqueue_style( 'wordpoints-points-logs' );
+
 	$defaults = array(
+		'paginate'   => true,
 		'datatable'  => true,
 		'show_users' => true,
 	);
 
 	$args = array_merge( $defaults, $args );
 
-	$extra_classes = '';
+	if ( ! $args['datatable'] ) {
 
-	if ( $args['datatable'] ) {
+		_deprecated_argument(
+			__FUNCTION__
+			, '1.6.0'
+			, '$args["datatable"] is deprecated and should no longer be used. Use $args["paginate"] instead.'
+		);
 
-		$extra_classes .= ' datatables';
+		$args['paginate'] = false;
+	}
 
-		$datatables_args = array();
+	if ( $args['paginate'] ) {
 
-		if ( ! $args['show_users'] ) {
+		$page = 1;
+		$per_page = 25;
 
-			$datatables_args = array(
-				'aoColumns' => array(
-					array(),
-					array(),
-					array( 'bSearchable' => false ),
-				)
-			);
+		if ( isset( $_GET['wordpoints_points_logs_page'] ) ) {
+			$page = wordpoints_posint( $_GET['wordpoints_points_logs_page'] );
 		}
 
-		wordpoints_enqueue_datatables( '.wordpoints-points-logs.datatables', $datatables_args );
+		$logs = $logs_query->get_page( $page, $per_page );
+
+	} else {
+
+		$logs = $logs_query->get();
 	}
+
+	$extra_classes = '';
 
 	$columns = array(
 		'user'        => _x( 'User', 'points logs table heading', 'wordpoints' ),
@@ -394,6 +406,7 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 	?>
 
 	<br />
+	<div class="wordpoints-points-logs-wrapper">
 	<table class="wordpoints-points-logs widefat<?php echo esc_attr( $extra_classes ); ?>">
 		<thead>
 			<tr>
@@ -421,7 +434,11 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 
 			$current_time = current_time( 'timestamp', true );
 
-			foreach ( $logs->get() as $log ) {
+			$i = 0;
+
+			foreach ( $logs as $log ) {
+
+				$i++;
 
 				/**
 				 * Filter whether the current user can view this points log.
@@ -444,7 +461,7 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 
 				?>
 
-				<tr class="wordpoints-log-id-<?php echo $log->id; ?>">
+				<tr class="wordpoints-log-id-<?php echo $log->id; ?> <?php echo ( $i % 2 ) ? 'odd' : 'even'; ?>">
 					<?php if ( $args['show_users'] ) : ?>
 					<td><?php echo get_avatar( $user->ID, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?></td>
 					<?php endif; ?>
@@ -460,6 +477,25 @@ function wordpoints_show_points_logs( $logs, array $args = array() ) {
 
 		</tbody>
 	</table>
+
+	<?php if ( $args['paginate'] ) : ?>
+		<?php
+
+		echo paginate_links(
+			array(
+				'base'     => add_query_arg( '%_%', '', $_SERVER['REQUEST_URI'] ),
+				'format'   => 'wordpoints_points_logs_page=%#%',
+				'total'    => $logs_query->count() / $per_page,
+				'current'  => $page,
+				'add_args' => array(
+					'wordpoints_points_logs_per_page' => $per_page,
+				),
+			)
+		);
+
+		?>
+	<?php endif; ?>
+	</div>
 
 	<?php
 

@@ -1,0 +1,99 @@
+/**
+ * Styles for points logs tables.
+ *
+ * @package WordPoints
+ * @since 1.6.0
+ *
+ * Index:
+ * 1. General styles for the table.
+ * 2. Table wrapper.
+ * 3. Pagination.
+ * 4. Avatars.
+ */
+
+/**
+ * 1.0 Table
+ */
+
+table.wordpoints-points-logs {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+table.wordpoints-points-logs thead th {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+table.wordpoints-points-logs td.center,
+table.dataTable td.dataTables_empty {
+	text-align: center;
+}
+
+table.wordpoints-points-logs tr.odd {
+	background-color: #f3f4ff;
+}
+
+table.wordpoints-points-logs tr.even {
+	background-color: white;
+}
+
+/**
+ * 2.0 Table wrapper
+ */
+
+.wordpoints-points-logs-wrapper {
+	position: relative;
+	clear: both;
+	*zoom: 1;
+	margin: 10px 0;
+}
+
+/**
+ * 3.0 Pagination
+ */
+
+.wordpoints-points-logs-wrapper .page-numbers {
+	margin-top: 5px;
+	margin: 2px 3px;
+	color: #222;
+	height: 22px;
+	line-height: 22px;
+}
+
+.wordpoints-points-logs-wrapper a.page-numbers {
+	border: 1px solid #ddd;
+	padding: 2px 5px;
+	margin: 0 3px;
+	cursor: pointer;
+	*cursor: hand;
+	color: #333;
+	box-shadow: 0px 0px 1px #e1e1e1;
+	background-color: #ddd;
+	text-decoration: none;
+}
+
+.wordpoints-points-logs-wrapper a.page-numbers:active {
+	outline: none;
+}
+
+.wordpoints-points-logs-wrapper a.page-numbers:hover {
+	text-decoration: none;
+	background-color: #fff;
+}
+
+.wordpoints-points-logs-wrapper .page-numbers.current:hover {
+	cursor: default;
+}
+
+/**
+ * 4.0 Avatars
+ */
+
+.wordpoints-points-logs .avatar {
+	vertical-align: middle;
+	display: inline-block;
+	margin-right: 10px;
+}

@@ -495,7 +495,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 			array(
 				'base'     => add_query_arg( '%_%', '', $_SERVER['REQUEST_URI'] ),
 				'format'   => 'wordpoints_points_logs_page=%#%',
-				'total'    => $logs_query->count() / $per_page,
+				'total'    => ceil( $logs_query->count() / $per_page ),
 				'current'  => $page,
 				'add_args' => array(
 					'wordpoints_points_logs_per_page' => $per_page,

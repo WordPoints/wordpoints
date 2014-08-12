@@ -80,13 +80,16 @@ add_shortcode( 'wordpoints_points_top', 'wordpoints_points_top_shortcode' );
  * Points logs shortcode.
  *
  * @since 1.0.0
+ * @since 1.6.0 The datatables attribute is deprecated in favor of paginate.
  *
  * @shortcode wordpoints_points_logs
  *
  * @param array $atts The shortcode attributes. {
  *        @type string $points_type The type of points to display. Required.
  *        @type string $query       The logs query to display.
+ *        @type int    $paginate    Whether to paginate the table. 1 or 0.
  *        @type int    $datatables  Whether the table should be a datatable. 1 or 0.
+ *                                  Deprecated in favor of paginate.
  *        @type int    $show_users  Whether to show the 'Users' column in the table.
  * }
  *
@@ -98,7 +101,8 @@ function wordpoints_points_logs_shortcode( $atts ) {
 		array(
 			'points_type' => null,
 			'query'       => 'default',
-			'datatables'  => 1,
+			'paginate'    => 1,
+			'datatables'  => null,
 			'show_users'  => 1,
 		)
 		,$atts
@@ -119,8 +123,13 @@ function wordpoints_points_logs_shortcode( $atts ) {
 		return wordpoints_shortcode_error( __( 'The &#8220;query&#8221; attribute of the <code>[wordpoints_points_logs]</code> shortcode must be the slug of a registered points log query. Example: <code>[wordpoints_points_logs <b>query="default"</b> points_type="points"]</code>.', 'wordpoints' ) );
 	}
 
-	if ( false === wordpoints_int( $atts['datatables'] ) ) {
-		$atts['datatables'] = 1;
+	if ( false === wordpoints_int( $atts['paginate'] ) ) {
+		$atts['paginate'] = 1;
+	}
+
+	// Back-compat.
+	if ( isset( $atts['datatables'] ) ) {
+		$atts['paginate'] = wordpoints_int( $atts['datatables'] );
 	}
 
 	if ( false === wordpoints_int( $atts['show_users'] ) ) {
@@ -128,7 +137,7 @@ function wordpoints_points_logs_shortcode( $atts ) {
 	}
 
 	ob_start();
-	wordpoints_show_points_logs_query( $atts['points_type'], $atts['query'], array( 'datatable' => $atts['datatables'], 'show_users' => $atts['show_users'] ) );
+	wordpoints_show_points_logs_query( $atts['points_type'], $atts['query'], array( 'paginate' => $atts['paginate'], 'show_users' => $atts['show_users'] ) );
 	return ob_get_clean();
 }
 add_shortcode( 'wordpoints_points_logs', 'wordpoints_points_logs_shortcode' );

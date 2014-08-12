@@ -210,7 +210,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 			$logs_query = new WordPoints_Points_Logs_Query( $query_args );
 			$logs_query->prime_cache( 'current_user:%points_type%:%user_id%' );
 
-			wordpoints_show_points_logs( $logs_query, array( 'datatable' => false, 'show_users' => false ) );
+			wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'show_users' => false ) );
 		}
 
 		/**
@@ -554,7 +554,7 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 		$logs_query = new WordPoints_Points_Logs_Query( $query_args );
 		$logs_query->prime_cache();
 
-		wordpoints_show_points_logs( $logs_query, array( 'datatable' => false ) );
+		wordpoints_show_points_logs( $logs_query, array( 'paginate' => false ) );
 
 		/**
 		 * After the top users widget.

@@ -328,7 +328,7 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  * This function takes an instance of a WordPoints_Points_Logs_Query and displays the
  * results in a table.
  *
- * When $datatables is true, it is important that you call this function before it is
+ * When $paginate is true, it is important that you call this function before it is
  * too late for scripts to be enqueued, or enqueue the scripts yourself ahead of
  * time.
  *

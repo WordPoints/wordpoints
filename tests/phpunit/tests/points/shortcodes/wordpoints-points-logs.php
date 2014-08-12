@@ -31,56 +31,109 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 	}
 
 	/**
-	 * Test the 'datatable' attribute.
+	 * Test the 'datatables' attribute.
 	 *
 	 * @since 1.4.0
+	 * @since 1.6.0 The datatables attribute is deprecated, but maps to 'paginate'.
 	 */
-	public function test_datatable_attribute() {
+	public function test_datatables_attribute() {
 
 		// Create some data for the table to display.
-		$user_id = $this->factory->user->create();
+		$this->factory->wordpoints_points_log->create_many( 4 );
 
-		for ( $i = 1; $i < 5; $i++ ) {
-
-			wordpoints_add_points( $user_id, 10, 'points', 'test' );
-		}
+		$_GET['wordpoints_points_logs_per_page'] = 3;
 
 		// Default datatable.
-		$this->assertTag(
-			array(
-				'tag'        => 'table',
-				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat datatables',
-				),
-				'child'      => array(
-					'tag'      => 'tbody',
-					'children' => array(
-						'count' => 4,
-						'only'  => array( 'tr' ),
-					),
-				),
-			)
-			, wordpointstests_do_shortcode_func(
-				'wordpoints_points_logs'
-				, array( 'points_type' => 'points' )
-			)
+		$html = wordpointstests_do_shortcode_func(
+			'wordpoints_points_logs'
+			, array( 'points_type' => 'points' )
 		);
 
-		// Non-datatable.
 		$this->assertTag(
 			array(
 				'tag'        => 'table',
 				'attributes' => array(
 					'class' => 'wordpoints-points-logs widefat',
 				),
+				'child'      => array(
+					'tag'      => 'tbody',
+					'children' => array(
+						'count' => 3,
+						'only'  => array( 'tr' ),
+					),
+				),
 			)
+			, $html
+		);
+
+		// Should be paginated.
+		$this->assertTag(
+			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
+			, $html
+		);
+
+		// Non-datatable, no pagination.
+		$this->assertNotTag(
+			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
 			, wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
-				, array( 'points_type' => 'points', 'datatables' => 0 )
+				, array( 'points_type' => 'points', 'datatables' => '0' )
 			)
 		);
 
 	} // public function test_datatable_attribute()
+
+	/**
+	 * Test the 'paginate' attribute.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_paginate_attribute() {
+
+		// Create some data for the table to display.
+		$this->factory->wordpoints_points_log->create_many( 4 );
+
+		$_GET['wordpoints_points_logs_per_page'] = 3;
+
+		// Default datatable.
+		$html = wordpointstests_do_shortcode_func(
+			'wordpoints_points_logs'
+			, array( 'points_type' => 'points' )
+		);
+
+		$this->assertTag(
+			array(
+				'tag'        => 'table',
+				'attributes' => array(
+					'class' => 'wordpoints-points-logs widefat',
+				),
+				'child'      => array(
+					'tag'      => 'tbody',
+					'children' => array(
+						'count' => 3,
+						'only'  => array( 'tr' ),
+					),
+				),
+			)
+			, $html
+		);
+
+		// Should be paginated.
+		$this->assertTag(
+			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
+			, $html
+		);
+
+		// Non-datatable, no pagination.
+		$this->assertNotTag(
+			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
+			, wordpointstests_do_shortcode_func(
+				'wordpoints_points_logs'
+				, array( 'points_type' => 'points', 'paginate' => '0' )
+			)
+		);
+
+	} // public function test_datatables_attribute()
 
 	/**
 	 * Test the 'show_users' attribute.

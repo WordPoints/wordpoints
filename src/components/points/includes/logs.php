@@ -383,8 +383,18 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		$page = 1;
 		$per_page = 25;
 
-		if ( isset( $_GET['wordpoints_points_logs_page'] ) ) {
-			$page = wordpoints_posint( $_GET['wordpoints_points_logs_page'] );
+		if (
+			isset( $_GET['wordpoints_points_logs_page'] )
+			&& wordpoints_posint( $_GET['wordpoints_points_logs_page'] )
+		) {
+			$page = (int) $_GET['wordpoints_points_logs_page'];
+		}
+
+		if (
+			isset( $_GET['wordpoints_points_logs_per_page'] )
+			&& wordpoints_posint( $_GET['wordpoints_points_logs_per_page'] )
+		) {
+			$per_page = (int) $_GET['wordpoints_points_logs_per_page'];
 		}
 
 		$logs = $logs_query->get_page( $page, $per_page );

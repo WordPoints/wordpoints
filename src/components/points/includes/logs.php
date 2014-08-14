@@ -439,52 +439,58 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 			</tr>
 		</tfoot>
 		<tbody>
+			<?php if ( empty( $logs ) ) : ?>
+				<tr>
+					<td colspan="<?php echo ( $args['show_users'] ) ? 3 : 4; ?>">
+						<?php esc_html_e( 'No matching logs found.', 'wordpoints' ); ?>
+					</td>
+				</tr>
+			<?php else : ?>
+				<?php
 
-			<?php
+				$current_time = current_time( 'timestamp', true );
 
-			$current_time = current_time( 'timestamp', true );
+				$i = 0;
 
-			$i = 0;
+				foreach ( $logs as $log ) {
 
-			foreach ( $logs as $log ) {
+					$i++;
 
-				$i++;
+					/**
+					 * Filter whether the current user can view this points log.
+					 *
+					 * This is a dynamic hook, where the {$log->log_type} portion will
+					 * be the type of this log entry. For example, for a registration log
+					 * it would be 'wordpoints_user_can_view_points_log-register'.
+					 *
+					 * @since 1.3.0
+					 *
+					 * @param bool   $can_view Whether the user can view the log entry
+					 *                         (the default is true).
+					 * @param object $log      The log entry object.
+					 */
+					if ( ! apply_filters( "wordpoints_user_can_view_points_log-{$log->log_type}", true, $log ) ) {
+						continue;
+					}
 
-				/**
-				 * Filter whether the current user can view this points log.
-				 *
-				 * This is a dynamic hook, where the {$log->log_type} portion will
-				 * be the type of this log entry. For example, for a registration log
-				 * it would be 'wordpoints_user_can_view_points_log-register'.
-				 *
-				 * @since 1.3.0
-				 *
-				 * @param bool   $can_view Whether the user can view the log entry
-				 *                         (the default is true).
-				 * @param object $log      The log entry object.
-				 */
-				if ( ! apply_filters( "wordpoints_user_can_view_points_log-{$log->log_type}", true, $log ) ) {
-					continue;
+					$user = get_userdata( $log->user_id );
+
+					?>
+
+					<tr class="wordpoints-log-id-<?php echo $log->id; ?> <?php echo ( $i % 2 ) ? 'odd' : 'even'; ?>">
+						<?php if ( $args['show_users'] ) : ?>
+						<td><?php echo get_avatar( $user->ID, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?></td>
+						<?php endif; ?>
+						<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>
+						<td><?php echo $log->text; ?></td>
+						<td title="<?php echo $log->date; ?> UTC"><?php echo human_time_diff( strtotime( $log->date ), $current_time ); ?></td>
+					</tr>
+
+					<?php
 				}
 
-				$user = get_userdata( $log->user_id );
-
 				?>
-
-				<tr class="wordpoints-log-id-<?php echo $log->id; ?> <?php echo ( $i % 2 ) ? 'odd' : 'even'; ?>">
-					<?php if ( $args['show_users'] ) : ?>
-					<td><?php echo get_avatar( $user->ID, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?></td>
-					<?php endif; ?>
-					<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>
-					<td><?php echo $log->text; ?></td>
-					<td title="<?php echo $log->date; ?> UTC"><?php echo human_time_diff( strtotime( $log->date ), $current_time ); ?></td>
-				</tr>
-
-				<?php
-			}
-
-			?>
-
+			<?php endif; ?>
 		</tbody>
 	</table>
 

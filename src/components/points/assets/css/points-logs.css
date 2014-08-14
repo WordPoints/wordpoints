@@ -9,6 +9,7 @@
  * 2. Table wrapper.
  * 3. Pagination.
  * 4. Avatars.
+ * 5. Search.
  */
 
 /**
@@ -96,4 +97,20 @@ table.wordpoints-points-logs tr.even {
 	vertical-align: middle;
 	display: inline-block;
 	margin-right: 10px;
+}
+
+/**
+ * 5.0 Search
+ */
+
+.wordpoints-points-logs-search {
+	float: right;
+	margin: 10px 0;
+}
+
+.wordpoints-points-logs-searching {
+	float: left;
+	margin: 15px;
+	color: #666;
+	font-size: larger;
 }

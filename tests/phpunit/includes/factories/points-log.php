@@ -64,13 +64,14 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 * @since 1.6.0
 	 *
 	 * @param array $args {
-	 *        The arguments to use.
+	 *        Optional arguments to use.
 	 *
 	 *        @type int    $points      The number of points.
 	 *        @type string $points_type The type of points.
 	 *        @type string $log_type    The type of log.
 	 *        @type array  $log_meta    Metadata for the log.
 	 *        @type int    $user_id     The ID of the user the log is for.
+	 *        @type string $text        The text for the log.
 	 * }
 	 *
 	 * @return int The ID of the points log
@@ -105,6 +106,10 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			$this->log_id = $wpdb->insert_id;
 		}
 
+		if ( isset( $args['text'] ) ) {
+			$this->update_object( $this->log_id, array( 'text' => $args['text'] ) );
+		}
+
 		return $this->log_id;
 	}
 
@@ -122,7 +127,13 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 
 		global $wpdb;
 
-		return $wpdb->update( $fields, array( 'id' => $id ), '%s', array( '%d' ) );
+		return $wpdb->update(
+			$wpdb->wordpoints_points_logs
+			, $fields
+			, array( 'id' => $id )
+			, '%s'
+			, array( '%d' )
+		);
 	}
 
 	/**

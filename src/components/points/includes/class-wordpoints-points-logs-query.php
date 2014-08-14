@@ -177,6 +177,9 @@ class WordPoints_Points_Logs_Query {
 	 *        @type string[]     $log_type__not_in    Exclude these log types from the results.
 	 *        @type int          $points              Limit results to transactions of this amount. More uses when used with $points_compare.
 	 *        @type string       $points_compare      Comparison operator for logs comparison with $points. May be any of these: '=', '<', '>', '<>', '!=', '<=', '>='. Default is '='.
+	 *        @type string       $text                Log text must match this. Method of comparison is determined by $text__compare. Wildcards (% and _)
+	 *                                                must be escaped to be treated literally when doing LIKE comparisons.
+	 *        @type string       $text__compare       Comparison operator for $text. May be any of these:  '=', '<>', '!=', 'LIKE', 'NOT LIKE'. Default is 'LIKE'.
 	 *        @type int          $blog_id             Limit results to those from this blog within the network (mulitsite). Default is $wpdb->blogid (current blog).
 	 *        @type int[]        $blog__in            Limit results to these blogs.
 	 *        @type int[]        $blog__not_in        Exclude these blogs.
@@ -223,6 +226,8 @@ class WordPoints_Points_Logs_Query {
 			'log_type__not_in'    => array(),
 			'points'              => null,
 			'points__compare'     => '=',
+			'text'                => null,
+			'text__compare'       => 'LIKE',
 			'blog_id'             => $wpdb->blogid,
 			'blog__in'            => array(),
 			'blog__not_in'        => array(),
@@ -777,6 +782,19 @@ class WordPoints_Points_Logs_Query {
 
 				$this->_wheres[] = $wpdb->prepare( "`points` {$this->_args['points__compare']} %d", $this->_args['points'] );
 			}
+		}
+
+		// Log text.
+		if ( ! empty( $this->_args['text'] ) ) {
+
+			$comparisons = array( '=', '<>', '!=', 'LIKE', 'NOT LIKE' );
+
+			if ( ! in_array( $this->_args['text__compare'], $comparisons ) ) {
+
+				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'text__compare' {$this->_args['text__compare']}, possible values are " . implode( ', ', $comparisons ), '1.6.0' );
+			}
+
+			$this->_wheres[] = $wpdb->prepare( "`text` {$this->_args['text__compare']} %s", $this->_args['text'] );
 		}
 
 		// Multisite isn't really supported. This is just theoretical... :)

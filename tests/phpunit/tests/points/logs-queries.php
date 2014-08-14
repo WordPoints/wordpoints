@@ -452,6 +452,58 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
+	 * Test the log_text* query args.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_text_args() {
+
+		$log_id_1 = $this->factory->wordpoints_points_log->create(
+			array( 'text' => 'Test searching 100.' )
+		);
+
+		$log_id_2 = $this->factory->wordpoints_points_log->create(
+			array( 'text' => 'A test with 100%.' )
+		);
+
+		$log_id_3 = $this->factory->wordpoints_points_log->create(
+			array( 'text' => 'A test.' )
+		);
+
+		$query = new WordPoints_Points_Logs_Query( array( 'text' => 'A test.' ) );
+		$this->assertEquals( 1, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'text' => 'A test.',
+				'text__compare' => '!=',
+			)
+		);
+		$this->assertEquals( 2, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'text' => 'A test%',
+				'text__compare' => 'LIKE',
+			)
+		);
+		$this->assertEquals( 2, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'text' => 'A test%',
+				'text__compare' => 'NOT LIKE',
+			)
+		);
+		$this->assertEquals( 1, $query->count() );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'text' => '%100\%%' )
+		);
+		$this->assertEquals( 1, $query->count() );
+	}
+
+	/**
 	 * Test that the cache is cleared properly.
 	 *
 	 * @since 1.5.0

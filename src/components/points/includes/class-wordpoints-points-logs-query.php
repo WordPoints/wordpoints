@@ -175,8 +175,8 @@ class WordPoints_Points_Logs_Query {
 	 *        @type string       $log_type            Return only logs of this type.
 	 *        @type string[]     $log_type__in        Return only logs of these types.
 	 *        @type string[]     $log_type__not_in    Exclude these log types from the results.
-	 *        @type int          $points              Limit results to transactions of this amount. More uses when used with $points_compare.
-	 *        @type string       $points_compare      Comparison operator for logs comparison with $points. May be any of these: '=', '<', '>', '<>', '!=', '<=', '>='. Default is '='.
+	 *        @type int          $points              Limit results to transactions of this amount. More uses when used with $points__compare.
+	 *        @type string       $points__compare     Comparison operator for logs comparison with $points. May be any of these: '=', '<', '>', '<>', '!=', '<=', '>='. Default is '='.
 	 *        @type string       $text                Log text must match this. Method of comparison is determined by $text__compare. Wildcards (% and _)
 	 *                                                must be escaped to be treated literally when doing LIKE comparisons.
 	 *        @type string       $text__compare       Comparison operator for $text. May be any of these:  '=', '<>', '!=', 'LIKE', 'NOT LIKE'. Default is 'LIKE'.

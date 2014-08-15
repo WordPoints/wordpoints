@@ -849,6 +849,43 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertCount( 2, $query->get_page( 1, 2 ) );
 		$this->assertCount( 1, $query->get_page( 2, 2 ) );
 	}
+
+	/**
+	 * Test that set_args() alters the queries arguments.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_set_args_alters_query_args() {
+
+		$this->factory->wordpoints_points_log->create_many( 2 );
+
+		$query = new WordPoints_Points_Logs_Query;
+
+		$this->assertCount( 2, $query->get() );
+
+		$query->set_args( array( 'limit' => 1 ) );
+
+		$this->assertCount( 1, $query->get() );
+	}
+
+	/**
+	 * Test that set_args() resets the cache.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_set_args_resets_cache() {
+
+		$this->factory->wordpoints_points_log->create_many( 2 );
+
+		$query = new WordPoints_Points_Logs_Query;
+		$query->prime_cache( __METHOD__ );
+
+		$this->assertCount( 2, $query->get() );
+
+		$query->set_args( array( 'limit' => 1 ) );
+
+		$this->assertCount( 1, $query->get() );
+	}
 }
 
 // end of file.

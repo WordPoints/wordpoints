@@ -300,6 +300,22 @@ class WordPoints_Points_Logs_Query {
 				}
 			}
 		}
+
+	} // public function __construct()
+
+	/**
+	 * Set arguments for the query.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param array $args A list of arguments to set and their values.
+	 */
+	public function set_args( array $args ) {
+
+		$this->_args = array_merge( $this->_args, $args );
+
+		$this->_query_ready = false;
+		$this->_cache_query_md5 = null;
 	}
 
 	/**

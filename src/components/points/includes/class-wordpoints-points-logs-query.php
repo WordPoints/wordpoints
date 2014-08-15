@@ -50,6 +50,42 @@ class WordPoints_Points_Logs_Query {
 	private $_query_ready = false;
 
 	/**
+	 * Whether query is supposed to use caching.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @type bool $_is_cached_query
+	 */
+	private $_is_cached_query = false;
+
+	/**
+	 * The cache key for this query.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @type string $_cache_key
+	 */
+	private $_cache_key;
+
+	/**
+	 * The cache group for this query.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @type string $_cache_group
+	 */
+	private $_cache_group;
+
+	/**
+	 * The MD5 hash of the query for looking it up the the cache.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @type string $_cache_query_md5
+	 */
+	private $_cache_query_md5;
+
+	/**
 	 * The type of select being performed.
 	 *
 	 * @since 1.0.0
@@ -120,15 +156,6 @@ class WordPoints_Points_Logs_Query {
 	 * @type string $_order
 	 */
 	private $_order;
-
-	/**
-	 * Holds the results for the query and count.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @type array $_cache
-	 */
-	private $_cache = array();
 
 	/**
 	 * Holds the meta query object when a meta query is being performed.
@@ -284,17 +311,24 @@ class WordPoints_Points_Logs_Query {
 	 * relied upon. Make inquiry before assuming the constancy of this behaviour.
 	 *
 	 * @since 1.0.0
+	 * @since 1.6.0 The $use_cache argument is deprecated.
 	 *
-	 * @param bool $use_cache Whether to return a cached result if one is available.
-	 *        The cache is not persistent and covers only the instance.
+	 * @param bool $use_cache Deprecated, and no longer used.
 	 *
 	 * @return int The number of results.
 	 */
 	public function count( $use_cache = true ) {
 
-		// Return the cached value if available.
-		if ( $use_cache && isset( $this->_cache['count'] ) ) {
-			return $this->_cache['count'];
+		if ( true !== $use_cache ) {
+			_deprecated_argument( __METHOD__, '1.6.0', 'The $use_cache argument is deprecated and should no longer be used.' );
+		}
+
+		if ( $this->_is_cached_query ) {
+			$cache = $this->_cache_get( 'count' );
+
+			if ( false !== $cache ) {
+				return $cache;
+			}
 		}
 
 		$this->_select_type = 'SELECT COUNT';
@@ -302,8 +336,9 @@ class WordPoints_Points_Logs_Query {
 
 		$count = (int) $this->_get( 'var' );
 
-		// Cache the result.
-		$this->_cache['count'] = $count;
+		if ( $this->_is_cached_query ) {
+			$this->_cache_set( $count, 'count' );
+		}
 
 		return $count;
 	}
@@ -312,15 +347,21 @@ class WordPoints_Points_Logs_Query {
 	 * Get the results for the query.
 	 *
 	 * @since 1.0.0
+	 * @since 1.6.0 The $use_cache parameter was deprecated.
 	 *
-	 * @param string $method The method to use. Options are 'results', 'row', and
-	 *        'col', and 'var'.
+	 * @param string $method    The method to use. Options are 'results', 'row', and
+	 *                          'col', and 'var'.
+	 * @param bool   $use_cache Deprecated, no longer used.
 	 *
 	 * @return mixed The results of the query, or false on failure.
 	 */
 	public function get( $method = 'results', $use_cache = true ) {
 
 		$methods = array( 'results', 'row', 'col', 'var' );
+
+		if ( true !== $use_cache ) {
+			_deprecated_argument( __METHOD__, '1.6.0', 'The $use_cache argument is deprecated and should no longer be used.' );
+		}
 
 		if ( ! in_array( $method, $methods ) ) {
 
@@ -329,14 +370,24 @@ class WordPoints_Points_Logs_Query {
 			return false;
 		}
 
-		if ( $use_cache && isset( $this->_cache[ "get_{$method}" ] ) ) {
-			return $this->_cache[ "get_{$method}" ];
+		if ( $this->_is_cached_query ) {
+			$cache = $this->_cache_get( "get_{$method}" );
+
+			if ( false !== $cache ) {
+				return $cache;
+			}
 		}
 
 		$this->_select_type = 'SELECT';
 		$this->_prepare_query();
 
-		return $this->_get( $method );
+		$result = $this->_get( $method );
+
+		if ( $this->_is_cached_query ) {
+			$this->_cache_set( $result, "get_{$method}" );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -368,22 +419,25 @@ class WordPoints_Points_Logs_Query {
 		$start = ( $page - 1 ) * $per_page;
 
 		// First try the cache.
-		if ( isset( $this->_cache['get_results'] ) ) {
+		if ( $this->_is_cached_query ) {
 
-			return array_slice(
-				$this->_cache['get_results']
-				, $start - $this->_args['start']
-				, $per_page
-			);
+			$cache = $this->_cache_get( 'get_results' );
+
+			if ( false !== $cache ) {
+				return array_slice(
+					$cache
+					, $start - $this->_args['start']
+					, $per_page
+				);
+			}
 		}
 
 		// Prepare the query SQL.
 		$this->_select_type = 'SELECT';
 		$this->_prepare_query();
 
-		// Stash the args and cache so we can restore them later.
+		// Stash the args so we can restore them later.
 		$args = $this->_args;
-		$cache = $this->_cache;
 
 		$this->_args['start'] += $start;
 
@@ -400,9 +454,8 @@ class WordPoints_Points_Logs_Query {
 
 		$results = $this->_get( 'results' );
 
-		// Restore the originial arguments and the cache.
+		// Restore the originial arguments.
 		$this->_args = $args;
-		$this->_cache = $cache;
 
 		// Restore the original limit query portion.
 		$this->_limit = '';
@@ -490,7 +543,9 @@ class WordPoints_Points_Logs_Query {
 	 */
 	public function prime_cache( $key = 'default:%points_type%', $methods = 'results', $network = false ) {
 
-		$key = str_replace(
+		$this->_is_cached_query = true;
+
+		$this->_cache_key = str_replace(
 			array(
 				'%points_type%',
 				'%user_id%',
@@ -503,62 +558,56 @@ class WordPoints_Points_Logs_Query {
 		);
 
 		if ( $network ) {
-			$group = 'wordpoints_network_points_logs_query';
+			$this->_cache_group = 'wordpoints_network_points_logs_query';
 		} else {
-			$group = 'wordpoints_points_logs_query';
+			$this->_cache_group = 'wordpoints_points_logs_query';
 		}
 
-		$cache = wp_cache_get( $key, $group );
+		$cache = $this->_cache_get();
 
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
-		}
-
-		$query = md5( $this->get_sql() );
-
-		if ( ! isset( $cache[ $query ] ) ) {
-			$cache[ $query ] = array();
 		}
 
 		$methods = array_unique( (array) $methods );
 
 		foreach ( $methods as $method ) {
 
-			if (
-				(
-					'count' === $method
-					&& ! isset( $cache[ $query ]['count'] )
-				)
-				|| ! isset( $cache[ $query ][ "get_{$method}" ] )
-			) {
+			if ( 'count' !== $method ) {
+				$method_key = "get_{$method}";
+			} else {
+				$method_key = 'count';
+			}
 
-				switch ( $method ) {
+			if ( isset( $cache[ $method_key ] ) ) {
+				continue;
+			}
 
-					case 'results':
-						$cache[ $query ]['get_results'] = $this->get();
-						$cache[ $query ]['count'] = count( $cache[ $query ]['get_results'] );
-					break;
+			switch ( $method ) {
 
-					case 'count':
-						$cache[ $query ]['count'] = $this->count();
-					break;
+				case 'results':
+					$cache['get_results'] = $this->get();
+					$cache['count'] = count( $cache['get_results'] );
+				break;
 
-					case 'var':
-					case 'col':
-					case 'row':
-						$cache[ $query ][ "get_{$method}" ] = $this->get( $method );
-					break;
+				case 'count':
+					$cache['count'] = $this->count();
+				break;
 
-					default:
-						return;
-				}
+				case 'var':
+				case 'col':
+				case 'row':
+					$cache[ "get_{$method}" ] = $this->get( $method );
+				break;
 
-				wp_cache_set( $key, $cache, $group );
+				default:
+					return;
 			}
 		}
 
-		$this->_cache = array_merge( $this->_cache, $cache[ $query ] );
-	}
+		$this->_cache_set( $cache );
+
+	} // public function prime_cache()
 
 	/**
 	 * Filter date query valid columns for WP_Date_Query.
@@ -642,6 +691,81 @@ class WordPoints_Points_Logs_Query {
 		$get = "get_{$method}";
 
 		return $wpdb->$get( $this->_get_sql() );
+	}
+
+	/**
+	 * Get the cached query.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string $type Optional result type to get from the cache. Default is
+	 *                     null, or all result types.
+	 *
+	 * @return mixed Cached value, or false if none.
+	 */
+	private function _cache_get( $type = null ) {
+
+		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
+
+		if ( ! is_array( $cache ) ) {
+			return false;
+		}
+
+		$this->_calc_cache_query_md5();
+
+		if ( ! isset( $cache[ $this->_cache_query_md5 ] ) ) {
+			return false;
+		}
+
+		if ( isset( $type ) ) {
+			if ( isset( $cache[ $this->_cache_query_md5 ][ $type ] ) ) {
+				return $cache[ $this->_cache_query_md5 ][ $type ];
+			} else {
+				return false;
+			}
+		}
+
+		return $cache[ $this->_cache_query_md5 ];
+	}
+
+	/**
+	 * Set the cache value for this query.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param mixed  $value The value to cache.
+	 * @param string $type  Optionally specify a results type to cache. Default is
+	 *                      null, or all types.
+	 */
+	private function _cache_set( $value, $type = null ) {
+
+		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
+
+		$this->_calc_cache_query_md5();
+
+		if ( ! is_array( $cache[ $this->_cache_query_md5 ] ) ) {
+			$cache[ $this->_cache_query_md5 ] = array();
+		}
+
+		if ( isset( $type ) ) {
+			$cache[ $this->_cache_query_md5 ][ $type ] = $value;
+		} else {
+			$cache[ $this->_cache_query_md5 ] = $value;
+		}
+
+		wp_cache_set( $this->_cache_key, $cache, $this->_cache_group );
+	}
+
+	/**
+	 * Caclulate the MD5 hash of the query.
+	 *
+	 * @since 1.6.0
+	 */
+	private function _calc_cache_query_md5() {
+
+		if ( ! isset( $this->_cache_query_md5 ) ) {
+			$this->_cache_query_md5 = md5( $this->get_sql() );
+		}
 	}
 
 	/**

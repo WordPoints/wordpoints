@@ -85,6 +85,9 @@ if ( is_network_admin() ) {
 			</div>
 			<div class="wordpoints-points-logs-search">
 				<form action="<?php echo esc_url( $url ); ?>">
+					<label class="screen-reader-text" for="wordpoints_points_logs_search">
+						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
+					</label>
 					<input
 						type="text"
 						name="wordpoints_points_logs_search"
@@ -92,7 +95,7 @@ if ( is_network_admin() ) {
 						value="<?php echo esc_attr( $search_term ); ?>"
 					/>
 					<input type="hidden" name="page" value="wordpoints_points_logs" />
-					<?php submit_button( __( 'Search', 'wordpoints' ), 'secondary', 'wordpoints-points-logs-search', false ); ?>
+					<?php submit_button( __( 'Search Logs', 'wordpoints' ), 'secondary', 'wordpoints-points-logs-search', false ); ?>
 				</form>
 			</div>
 

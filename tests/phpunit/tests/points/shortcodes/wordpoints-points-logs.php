@@ -339,8 +339,8 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 			array(
 				'tag' => 'div',
 				'attributes' => array(
-					'class' => 'wordpoints-points-logs-searching'
-				)
+					'class' => 'wordpoints-points-logs-searching',
+				),
 			)
 			, $html
 		);
@@ -360,11 +360,11 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 		);
 
 		$this->assertNotTag(
-				array(
+			array(
 				'tag' => 'div',
 				'attributes' => array(
-					'class' => 'wordpoints-points-logs-searching'
-				)
+					'class' => 'wordpoints-points-logs-searching',
+				),
 			)
 			, $html
 		);

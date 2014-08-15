@@ -332,7 +332,6 @@ class WordPoints_Points_Logs_Query {
 		}
 
 		$this->_select_type = 'SELECT COUNT';
-		$this->_prepare_query();
 
 		$count = (int) $this->_get( 'var' );
 
@@ -379,7 +378,6 @@ class WordPoints_Points_Logs_Query {
 		}
 
 		$this->_select_type = 'SELECT';
-		$this->_prepare_query();
 
 		$result = $this->_get( $method );
 
@@ -432,10 +430,6 @@ class WordPoints_Points_Logs_Query {
 			}
 		}
 
-		// Prepare the query SQL.
-		$this->_select_type = 'SELECT';
-		$this->_prepare_query();
-
 		// Stash the args so we can restore them later.
 		$args = $this->_args;
 
@@ -451,6 +445,8 @@ class WordPoints_Points_Logs_Query {
 
 		// Regenerate the query limit after changing the start and limit args.
 		$this->_prepare_limit();
+
+		$this->_select_type = 'SELECT';
 
 		$results = $this->_get( 'results' );
 
@@ -485,8 +481,6 @@ class WordPoints_Points_Logs_Query {
 		if ( isset( $select_type ) ) {
 			$this->_select_type = $select_type;
 		}
-
-		$this->_prepare_query();
 
 		return $this->_get_sql();
 	}
@@ -662,6 +656,8 @@ class WordPoints_Points_Logs_Query {
 	private function _get_sql() {
 
 		global $wpdb;
+
+		$this->_prepare_query();
 
 		$select = ( 'SELECT COUNT' === $this->_select_type ) ? $this->_select_count : $this->_select;
 

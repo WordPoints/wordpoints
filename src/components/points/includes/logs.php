@@ -333,7 +333,9 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  * time.
  *
  * @since 1.0.0
- * @since 1.6.0 The datatable argument was deprecated and the paginate argument added.
+ * @since 1.6.0 The datatable argument was deprecated.
+ * @since 1.6.0 The paginate argument was added.
+ * @since 1.6.0 The searchable arguent was added.
  *
  * @uses WordPoints_Points_Logs_Query::get()
  *
@@ -344,6 +346,7 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  *        Display arguments.
  *
  *        @type bool $paginate   Whether to paginate the table. Default is true.
+ *        @type bool $searchable Whether to display a search form. Default is true.
  *        @type bool $show_users Whether to show the users column of the table.
  *              Default is true. The column will still be output, but will be hidden
  *              with CSS.
@@ -361,6 +364,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 	$defaults = array(
 		'paginate'   => true,
+		'searchable' => true,
 		'datatable'  => true,
 		'show_users' => true,
 	);
@@ -376,6 +380,30 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		);
 
 		$args['paginate'] = false;
+	}
+
+	if ( $args['searchable'] ) {
+
+		$search_term = '';
+
+		if ( isset( $_POST['wordpoints_points_logs_search'] ) ) {
+			$search_term = trim(
+				sanitize_text_field( $_POST['wordpoints_points_logs_search'] )
+			);
+		}
+
+		if ( $search_term ) {
+
+			global $wpdb, $wp_version;
+
+			if ( version_compare( $wp_version, '4.0-alpha-28611-src', '>=' ) ) {
+				$escaped_search_term = $wpdb->esc_like( $search_term );
+			} else {
+				$escaped_search_term = like_escape( $search_term );
+			}
+
+			$logs_query->set_args( array( 'text' => "%{$escaped_search_term}%" ) );
+		}
 	}
 
 	if ( $args['paginate'] ) {
@@ -415,8 +443,29 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 	?>
 
-	<br />
 	<div class="wordpoints-points-logs-wrapper">
+		<?php if ( $args['searchable'] ) : ?>
+			<?php if ( ! empty( $search_term ) ) : ?>
+				<div class="wordpoints-points-logs-searching">
+					<?php echo esc_html( sprintf( __( 'Searching for &#8220;%s&#8221;', 'wordpoints' ), $search_term ) ); ?>
+				</div>
+			<?php endif; ?>
+			<div class="wordpoints-points-logs-search">
+				<form method="POST" action="<?php echo esc_attr( esc_url( remove_query_arg( 'wordpoints_points_logs_page', $_SERVER['REQUEST_URI'] ) ) ); ?>">
+					<label class="screen-reader-text" for="wordpoints_points_logs_search">
+						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
+					</label>
+					<input
+						type="text"
+						name="wordpoints_points_logs_search"
+						id="wordpoints_points_logs_search"
+						value="<?php echo esc_attr( $search_term ); ?>"
+					/>
+					<input name="" class="button" value="<?php esc_attr_e( 'Search Logs', 'wordpoints' ); ?>" type="submit" />
+				</form>
+			</div>
+		<?php endif; ?>
+
 	<table class="wordpoints-points-logs widefat<?php echo esc_attr( $extra_classes ); ?>">
 		<thead>
 			<tr>

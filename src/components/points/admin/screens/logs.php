@@ -64,60 +64,8 @@ if ( is_network_admin() ) {
 			 */
 			do_action( 'wordpoints_admin_points_logs_tab', $current_type, $query );
 
-			$search_term = '';
-
-			if ( isset( $_GET['wordpoints_points_logs_search'] ) ) {
-				$search_term = trim(
-					sanitize_text_field( $_GET['wordpoints_points_logs_search'] )
-				);
-			}
-
-			if ( is_network_admin() ) {
-				$url = network_admin_url( 'admin.php' );
-			} else {
-				$url = self_admin_url( 'admin.php' );
-			}
-
-			?>
-
-			<div class="wordpoints-points-logs-searching">
-				<?php echo esc_html( sprintf( __( 'Searching for &#8220;%s&#8221;', 'wordpoints' ), $search_term ) ); ?>
-			</div>
-			<div class="wordpoints-points-logs-search">
-				<form action="<?php echo esc_url( $url ); ?>">
-					<label class="screen-reader-text" for="wordpoints_points_logs_search">
-						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
-					</label>
-					<input
-						type="text"
-						name="wordpoints_points_logs_search"
-						id="wordpoints_points_logs_search"
-						value="<?php echo esc_attr( $search_term ); ?>"
-					/>
-					<input type="hidden" name="page" value="wordpoints_points_logs" />
-					<?php submit_button( __( 'Search Logs', 'wordpoints' ), 'secondary', 'wordpoints-points-logs-search', false ); ?>
-				</form>
-			</div>
-
-			<?php
-
-			$args = wordpoints_get_points_logs_query_args( $current_type, $query );
-
-			if ( $search_term ) {
-
-				global $wpdb, $wp_version;
-
-				if ( version_compare( $wp_version, '4.0-alpha-28611-src', '>=' ) ) {
-					$escaped_search_term = $wpdb->esc_like( $search_term );
-				} else {
-					$escaped_search_term = like_escape( $search_term );
-				}
-
-				$args['text'] = "%{$escaped_search_term}%";
-			}
-
 			// Get and display the logs based on current points type.
-			wordpoints_show_points_logs( new WordPoints_Points_Logs_Query( $args ) );
+			wordpoints_show_points_logs_query( $current_type, $query );
 
 			/**
 			 * At the bottom of one of the tabs on the points logs admin panel.

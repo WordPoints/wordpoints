@@ -739,7 +739,10 @@ class WordPoints_Points_Logs_Query {
 
 		$this->_calc_cache_query_md5();
 
-		if ( ! is_array( $cache[ $this->_cache_query_md5 ] ) ) {
+		if (
+			! isset( $cache[ $this->_cache_query_md5 ] )
+			|| ! is_array( $cache[ $this->_cache_query_md5 ] )
+		) {
 			$cache[ $this->_cache_query_md5 ] = array();
 		}
 

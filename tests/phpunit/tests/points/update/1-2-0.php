@@ -95,7 +95,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
 
 		// Check that the log for the deleted user was deleted.
-		$this->assertEquals( 0, $user_1_query->count( false ) );
+		$this->assertEquals( 0, $user_1_query->count() );
 
 		// Make sure the logs for the extant user are still there.
 		$query = new WordPoints_Points_Logs_Query(
@@ -104,7 +104,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( 1, $query->count() );
 
 		// Check that the log meta was deleted also.
-		$this->assertEquals( 0, $user_1_meta_query->count( false ) );
+		$this->assertEquals( 0, $user_1_meta_query->count() );
 
 		// But not for the existing user.
 		$query = new WordPoints_Points_Logs_Query(
@@ -153,7 +153,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
 
 		// Check the logs for the deleted post where cleaned (meta post_id deleted).
-		$this->assertEquals( 0, $post_1_query->count( false ) );
+		$this->assertEquals( 0, $post_1_query->count() );
 
 		// Make sure the data for the extant post was untouched.
 		$query = new WordPoints_Points_Logs_Query(
@@ -213,7 +213,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
 
 		// The logs for the deleted comment should be cleaned (meta comment_id deleted).
-		$this->assertEquals( 0, $comment_1_query->count( false ) );
+		$this->assertEquals( 0, $comment_1_query->count() );
 
 		// Make sure the existing comment's logs weren't touched.
 		$query = new WordPoints_Points_Logs_Query(

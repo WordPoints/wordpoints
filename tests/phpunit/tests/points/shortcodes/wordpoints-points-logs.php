@@ -21,6 +21,36 @@
 class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
+	 * Set up for each test.
+	 *
+	 * @since 1.6.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		unset(
+			$_POST['wordpoints_points_logs_search']
+			, $_GET['wordpoints_points_logs_per_page']
+		);
+	}
+
+	/**
+	 * Clean up after each test.
+	 *
+	 * @since 1.6.0
+	 */
+	public function tearDown() {
+
+		parent::tearDown();
+
+		unset(
+			$_POST['wordpoints_points_logs_search']
+			, $_GET['wordpoints_points_logs_per_page']
+		);
+	}
+
+	/**
 	 * Test that the [wordpoints_points_logs] shortcode exists.
 	 *
 	 * @since 1.4.0
@@ -257,5 +287,86 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 		);
 
 		wp_set_current_user( $old_current_user->ID );
+	}
+
+	/**
+	 * Test the 'searchable' attribute.
+	 *
+	 * @since 1.6.0
+	 */
+	public function test_searchabe_attribute() {
+
+		// Create some data for the table to display.
+		$this->factory->wordpoints_points_log->create_many( 2 );
+		$this->factory->wordpoints_points_log->create_many( 2, array( 'text' => __METHOD__ ) );
+
+		$_POST['wordpoints_points_logs_search'] = __METHOD__;
+
+		// Default is searchable.
+		$html = wordpointstests_do_shortcode_func(
+			'wordpoints_points_logs'
+			, array( 'points_type' => 'points' )
+		);
+
+		$this->assertTag(
+			array(
+				'tag'        => 'table',
+				'attributes' => array(
+					'class' => 'wordpoints-points-logs widefat',
+				),
+				'child'      => array(
+					'tag'      => 'tbody',
+					'children' => array(
+						'count' => 2,
+						'only'  => array( 'tr' ),
+					),
+				),
+			)
+			, $html
+		);
+
+		// Should be searchable.
+		$this->assertTag(
+			array(
+				'tag' => 'div',
+				'attributes' => array( 'class' => 'wordpoints-points-logs-search' )
+			)
+			, $html
+		);
+
+		// Should display 'searching for' text.
+		$this->assertTag(
+			array(
+				'tag' => 'div',
+				'attributes' => array(
+					'class' => 'wordpoints-points-logs-searching'
+				)
+			)
+			, $html
+		);
+
+		$html = wordpointstests_do_shortcode_func(
+			'wordpoints_points_logs'
+			, array( 'points_type' => 'points', 'searchable' => '0' )
+		);
+
+		// Non-searchable.
+		$this->assertNotTag(
+			array(
+				'tag' => 'div',
+				'attributes' => array( 'class' => 'wordpoints-points-logs-search' )
+			)
+			, $html
+		);
+
+		$this->assertNotTag(
+				array(
+				'tag' => 'div',
+				'attributes' => array(
+					'class' => 'wordpoints-points-logs-searching'
+				)
+			)
+			, $html
+		);
 	}
 }

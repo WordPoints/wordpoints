@@ -81,6 +81,7 @@ add_shortcode( 'wordpoints_points_top', 'wordpoints_points_top_shortcode' );
  *
  * @since 1.0.0
  * @since 1.6.0 The datatables attribute is deprecated in favor of paginate.
+ * @since 1.6.0 The searchable attribute is added.
  *
  * @shortcode wordpoints_points_logs
  *
@@ -88,6 +89,7 @@ add_shortcode( 'wordpoints_points_top', 'wordpoints_points_top_shortcode' );
  *        @type string $points_type The type of points to display. Required.
  *        @type string $query       The logs query to display.
  *        @type int    $paginate    Whether to paginate the table. 1 or 0.
+ *        @type int    $searchable  Whether to display a search form. 1 or 0.
  *        @type int    $datatables  Whether the table should be a datatable. 1 or 0.
  *                                  Deprecated in favor of paginate.
  *        @type int    $show_users  Whether to show the 'Users' column in the table.
@@ -102,6 +104,7 @@ function wordpoints_points_logs_shortcode( $atts ) {
 			'points_type' => null,
 			'query'       => 'default',
 			'paginate'    => 1,
+			'searchable'  => 1,
 			'datatables'  => null,
 			'show_users'  => 1,
 		)
@@ -137,7 +140,15 @@ function wordpoints_points_logs_shortcode( $atts ) {
 	}
 
 	ob_start();
-	wordpoints_show_points_logs_query( $atts['points_type'], $atts['query'], array( 'paginate' => $atts['paginate'], 'show_users' => $atts['show_users'] ) );
+	wordpoints_show_points_logs_query(
+		$atts['points_type']
+		, $atts['query']
+		, array(
+			'paginate' => $atts['paginate'],
+			'show_users' => $atts['show_users'],
+			'searchable' => $atts['searchable'],
+		)
+	);
 	return ob_get_clean();
 }
 add_shortcode( 'wordpoints_points_logs', 'wordpoints_points_logs_shortcode' );

@@ -800,7 +800,7 @@ class WordPoints_Points_Logs_Query {
 		if ( 'string' === $var_type ) {
 
 			if ( 'all' === $_fields ) {
-				$fields = '`' . implode( '` ,`', $this->_fields ) . '`';
+				$fields = '`' . implode( '`, `', $this->_fields ) . '`';
 			} elseif ( in_array( $_fields, $this->_fields ) ) {
 				$fields = $_fields;
 			} else {
@@ -822,7 +822,7 @@ class WordPoints_Points_Logs_Query {
 		}
 
 		if ( empty( $fields ) ) {
-			$fields = '`' . implode( '` ,`', $this->_fields ) . '`';
+			$fields = '`' . implode( '`, `', $this->_fields ) . '`';
 		}
 
 		$this->_select = "SELECT {$fields}";

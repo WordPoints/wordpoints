@@ -626,7 +626,7 @@ function wordpoints_get_modules( $module_folder = '' ) {
  *
  * @param $module The module's main file.
  *
- * @return bool|WP_Error True on success, a WP_Error on failure.
+ * @return true|WP_Error True on success, a WP_Error on failure.
  */
 function wordpoints_validate_module( $module ) {
 
@@ -945,7 +945,7 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
  *
  * @param array  $modules  A list of modules to delete.
  *
- * @return bool|WP_Error True if all modules deleted successfully.
+ * @return bool|WP_Error True if all modules deleted successfully, false or WP_Error on failure.
  */
 function wordpoints_delete_modules( $modules ) {
 

@@ -91,7 +91,7 @@ function wordpointstests_manually_activate_components() {
  * @param array  $atts    The attributes to pass to the shortcode function. Optional.
  * @param array  $content The shortcode's content. Default is null (none).
  *
- * @return string|bool False on failure, the result of the shortcode on success.
+ * @return string|false False on failure, the result of the shortcode on success.
  */
 function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $content = null ) {
 
@@ -200,7 +200,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
  *
  * @since 1.0.1
  *
- * @return bool
+ * @return bool Whether selenium is running.
  */
 function wordpointstests_selenium_is_running() {
 

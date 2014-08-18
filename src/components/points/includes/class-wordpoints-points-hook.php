@@ -145,7 +145,7 @@ abstract class WordPoints_Points_Hook {
 	 *                            via form().
 	 * @param array $old_instance Old settings for this instance.
 	 *
-	 * @return array|bool Settings to save, or false to cancel saving.
+	 * @return array|false Settings to save, or false to cancel saving.
 	 */
 	protected function update( $new_instance, $old_instance ) {
 

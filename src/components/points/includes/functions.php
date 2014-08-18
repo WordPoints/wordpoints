@@ -65,7 +65,7 @@ function wordpoints_get_points_types() {
  *
  * @param string $slug The slug of a points type.
  *
- * @return array|bool An array of settings for this points type. False on failure.
+ * @return array|false An array of settings for this points type. False on failure.
  */
 function wordpoints_get_points_type( $slug ) {
 
@@ -111,7 +111,7 @@ function wordpoints_get_points_type_setting( $slug, $setting ) {
  *
  * @param array $settings The data for this points type.
  *
- * @return string|bool The slug on success. False on failure.
+ * @return string|false The slug on success. False on failure.
  */
 function wordpoints_add_points_type( $settings ) {
 
@@ -152,7 +152,7 @@ function wordpoints_add_points_type( $settings ) {
  * @param string $slug     The slug for the points type to update.
  * @param array  $settings The new settings for this points type.
  *
- * @return bool False on failure, or if this points type does not exist.
+ * @return bool True, or false on failure, or if this points type does not exist.
  */
 function wordpoints_update_points_type( $slug, $settings ) {
 
@@ -255,7 +255,7 @@ function wordpoints_delete_points_type( $slug ) {
  *
  * @param string $points_type The slug of the points type to get the meta key for.
  *
- * @return string|bool The user meta meta_key for a points type, or false.
+ * @return string|false The user meta meta_key for a points type, or false.
  */
 function wordpoints_get_points_user_meta_key( $points_type ) {
 
@@ -293,7 +293,7 @@ function wordpoints_get_points_user_meta_key( $points_type ) {
  * @param int    $user_id The ID of a user.
  * @param string $type    A points type slug.
  *
- * @return int|bool The users points, or false on failure.
+ * @return int|false The user's points, or false on failure.
  */
 function wordpoints_get_points( $user_id, $type ) {
 
@@ -343,7 +343,7 @@ function wordpoints_get_points( $user_id, $type ) {
  *
  * @param string $type The slug for a points type.
  *
- * @return int|bool The minimum for this type of points. False if $type is bad.
+ * @return int|false The minimum for this type of points. False if $type is bad.
  */
 function wordpoints_get_points_minimum( $type ) {
 
@@ -472,7 +472,7 @@ function wordpoints_display_points( $user_id, $type, $context ) {
  * @param int    $user_id The ID of the user.
  * @param string $type    The type of points.
  *
- * @return int|bool False on failure.
+ * @return int|false False on failure.
  */
 function wordpoints_get_points_above_minimum( $user_id, $type ) {
 
@@ -725,7 +725,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
  *
- * @return bool
+ * @return bool Whether the points were added successfully.
  */
 function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
 
@@ -747,7 +747,7 @@ function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $met
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
  *
- * @return bool
+ * @return bool Whether the points were subtracted successfully.
  */
 function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
 
@@ -765,7 +765,7 @@ function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type,
  * @param string $meta_key   The meta key. Expected unslashed.
  * @param mixed  $meta_value The meta value. Expected unslashed.
  *
- * @return bool
+ * @return bool Whether the metadata was added successfully.
  */
 function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
 
@@ -961,7 +961,7 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
  *
  * @since 1.0.0
  *
- * @return string|bool The default points type if one exists, or false.
+ * @return string|false The default points type if one exists, or false.
  */
 function wordpoints_get_default_points_type() {
 

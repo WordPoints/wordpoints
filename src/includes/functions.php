@@ -25,7 +25,7 @@
  *
  * @param mixed $maybe_int The value to convert to an integer.
  *
- * @return int|bool False if $maybe_int couldn't reliably be converted to an integer.
+ * @return int|false False if $maybe_int couldn't reliably be converted to an integer.
  */
 function wordpoints_int( &$maybe_int ) {
 
@@ -279,7 +279,7 @@ function wordpoints_db_table_exists( $table ) {
  * @param array  $_in    The values that the column must be IN (or NOT IN).
  * @param string $format The format for the values in $_in: '%s', '%d', or '%f'.
  *
- * @return string|bool The comma-delimeted string of values. False on failure.
+ * @return string|false The comma-delimeted string of values. False on failure.
  */
 function wordpoints_prepare__in( $_in, $format = '%s' ) {
 

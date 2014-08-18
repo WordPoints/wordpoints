@@ -189,7 +189,7 @@ final class WordPoints_Components {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array|bool Will return false if called too early.
+	 * @return array|false The registered components. False if called too early.
 	 */
 	public function get() {
 
@@ -220,7 +220,7 @@ final class WordPoints_Components {
 	 *
 	 * @param string $slug The component's slug.
 	 *
-	 * @return bool True if the component is registered.
+	 * @return bool True if the component is registered, otherwise false.
 	 */
 	public function is_registered( $slug ) {
 
@@ -244,7 +244,7 @@ final class WordPoints_Components {
 	 *        @type string $version       The component's version number.
 	 * }
 	 *
-	 * @return bool False if the component's slug has already been registered.
+	 * @return bool True, or false if the component's slug has already been registered.
 	 */
 	public function register( $args ) {
 
@@ -278,7 +278,7 @@ final class WordPoints_Components {
 	 *
 	 * @param string $slug The component's slug.
 	 *
-	 * @return bool True if the component isn't registered.
+	 * @return bool True, even if the component isn't registered.
 	 */
 	public function deregister( $slug ) {
 
@@ -312,7 +312,7 @@ final class WordPoints_Components {
 	 *
 	 * @param string $slug The component's slug.
 	 *
-	 * @return bool
+	 * @return bool Whether the component was activated.
 	 */
 	public function activate( $slug ) {
 
@@ -354,7 +354,7 @@ final class WordPoints_Components {
 	 *
 	 * @param string $slug The comonent's slug.
 	 *
-	 * @return bool
+	 * @return bool Whether the component was deactivated.
 	 */
 	public function deactivate( $slug ) {
 

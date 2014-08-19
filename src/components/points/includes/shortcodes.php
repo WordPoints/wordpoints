@@ -54,7 +54,18 @@ function wordpoints_points_top_shortcode( $atts ) {
 
 	$position = 1;
 
-	$table = '<table class="wordpoints-points-top-users">';
+	/**
+	 * Filter the extra HTML classes for the top users table element.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string[] $extra_classes The extra classes for the table element.
+	 * @param array    $atts          The arguments for table display from the shortcode.
+	 * @param int[]    $top_users     The IDs of the top users being displayed.
+	 */
+	$extra_classes = apply_filters( 'wordpoints_points_top_users_table_extra_classes', array(), $atts, $top_users );
+
+	$table = '<table class="wordpoints-points-top-users ' . esc_attr( implode( ' ', $extra_classes ) ) . '">';
 
 	foreach ( $top_users as $user_id ) {
 

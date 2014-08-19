@@ -23,11 +23,6 @@ table.wordpoints-points-logs {
 	margin-bottom: 10px;
 }
 
-table.wordpoints-points-logs td.center,
-table.dataTable td.dataTables_empty {
-	text-align: center;
-}
-
 .wp-admin table.wordpoints-points-logs tr.odd {
 	background-color: #f3f4ff;
 }

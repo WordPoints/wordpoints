@@ -231,9 +231,19 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 
 	$hooks = WordPoints_Points_Hooks::get_points_type_hooks( $atts['points_type'] );
 
-	$html = '<table class="wordpoints-how-to-get-points">'
 		. '<thead><th style="padding-right: 10px">' . _x( 'Points', 'column name', 'wordpoints' ) . '</th>'
 		. '<th>' . _x( 'Action', 'column name', 'wordpoints' ) . '</th></thead>'
+	/**
+	 * Filter the extra HTML classes for the how-to-get-points table element.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string[] $extra_classes The extra classes for the table element.
+	 * @param array    $atts          The arguments for table display from the shortcode.
+	 */
+	$extra_classes = apply_filters( 'wordpoints_how_to_get_points_table_extra_classes', array(), $atts );
+
+	$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">'
 		. '<tbody>';
 
 	foreach ( $hooks as $hook_id ) {

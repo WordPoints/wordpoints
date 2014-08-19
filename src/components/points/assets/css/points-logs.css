@@ -23,11 +23,6 @@ table.wordpoints-points-logs {
 	margin-bottom: 10px;
 }
 
-table.wordpoints-points-logs thead th {
-	cursor: pointer;
-	*cursor: hand;
-}
-
 table.wordpoints-points-logs td.center,
 table.dataTable td.dataTables_empty {
 	text-align: center;

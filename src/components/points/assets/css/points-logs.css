@@ -28,11 +28,11 @@ table.dataTable td.dataTables_empty {
 	text-align: center;
 }
 
-table.wordpoints-points-logs tr.odd {
+.wp-admin table.wordpoints-points-logs tr.odd {
 	background-color: #f3f4ff;
 }
 
-table.wordpoints-points-logs tr.even {
+.wp-admin table.wordpoints-points-logs tr.even {
 	background-color: white;
 }
 

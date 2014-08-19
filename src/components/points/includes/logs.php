@@ -382,7 +382,11 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		$args['paginate'] = false;
 	}
 
+	$extra_classes = array();
+
 	if ( $args['searchable'] ) {
+
+		$extra_classes[] = 'searchable';
 
 		$search_term = '';
 
@@ -408,6 +412,8 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 	if ( $args['paginate'] ) {
 
+		$extra_classes[] = 'paginated';
+
 		$page = 1;
 		$per_page = 25;
 
@@ -432,7 +438,16 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		$logs = $logs_query->get();
 	}
 
-	$extra_classes = '';
+	/**
+	 * Filter the extra HTML classes to give to the points logs table element.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string[] $extra_classes Classes to add to the table beyond the defaults.
+	 * @param array    $args          The arguments for displaying the table.
+	 * @param object[] $logs          The logs being displayed.
+	 */
+	$extra_classes = apply_filters( 'wordpoints_points_logs_table_extra_classes', $extra_classes, $args, $logs );
 
 	$columns = array(
 		'user'        => _x( 'User', 'points logs table heading', 'wordpoints' ),
@@ -466,7 +481,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 			</div>
 		<?php endif; ?>
 
-	<table class="wordpoints-points-logs widefat<?php echo esc_attr( $extra_classes ); ?>">
+	<table class="wordpoints-points-logs widefat <?php echo esc_attr( implode( ' ', $extra_classes ) ); ?>">
 		<thead>
 			<tr>
 				<?php if ( $args['show_users'] ) : ?>

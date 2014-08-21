@@ -93,6 +93,9 @@ $name = esc_html( $hook->get_name() );
 
 			<p class="describe"><?php _e( 'Select the points type to attach this hook to.', 'wordpoints' ); ?></p>
 			<div class="hook-position">
+				<label for="points_type" class="screen-reader-text">
+					<?php esc_html_e( 'Points Type:', 'wordpoints' ); ?>
+				</label>
 				<?php
 
 					wordpoints_points_types_dropdown(

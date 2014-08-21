@@ -588,16 +588,16 @@ final class WordPoints_Points_Hooks {
 						?>
 
 						<p>
-							<label for="points-name"><?php _ex( 'Name:', 'points type', 'wordpoints' ); ?></label>
-							<input class="widefat" type="text" name="points-name" class="points-name" value="<?php echo esc_attr( $points_type['name'] ); ?>" />
+							<label for="points-name-<?php echo esc_attr( $slug ); ?>"><?php _ex( 'Name:', 'points type', 'wordpoints' ); ?></label>
+							<input class="widefat" type="text" id="points-name-<?php echo esc_attr( $slug ); ?>" name="points-name" class="points-name" value="<?php echo esc_attr( $points_type['name'] ); ?>" />
 						</p>
 						<p>
-							<label for="points-prefix"><?php echo esc_html( $prefix ); ?></label>
-							<input class="widefat" type="text" name="points-prefix" class="points-prefix" value="<?php echo esc_attr( $points_type['prefix'] ); ?>" />
+							<label for="points-prefix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $prefix ); ?></label>
+							<input class="widefat" type="text" id="points-prefix-<?php echo esc_attr( $slug ); ?>" name="points-prefix" class="points-prefix" value="<?php echo esc_attr( $points_type['prefix'] ); ?>" />
 						</p>
 						<p>
-							<label for="points-suffix"><?php echo esc_html( $suffix ); ?></label>
-							<input class="widefat" type="text" name="points-suffix" class="points-suffix" value="<?php echo esc_attr( $points_type['suffix'] ); ?>" />
+							<label for="points-suffix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $suffix ); ?></label>
+							<input class="widefat" type="text" id="points-suffix-<?php echo esc_attr( $slug ); ?>" name="points-suffix" class="points-suffix" value="<?php echo esc_attr( $points_type['suffix'] ); ?>" />
 						</p>
 
 						<?php

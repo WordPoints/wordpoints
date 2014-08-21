@@ -208,7 +208,7 @@ function wordpoints_points_hook_description_form( $has_form, $instance, $hook ) 
 	<?php endif; ?>
 
 	<div class="hook-instance-description">
-		<label for="<?php $hook->the_field_name( '_description' ); ?>"><?php _ex( 'Description (optional):', 'points hook', 'wordpoints' ); ?></label>
+		<label for="<?php $hook->the_field_id( '_description' ); ?>"><?php _ex( 'Description (optional):', 'points hook', 'wordpoints' ); ?></label>
 		<input type="text" id="<?php $hook->the_field_id( '_description' ); ?>" name="<?php $hook->the_field_name( '_description' ); ?>" class="widefat" value="<?php echo esc_attr( $description ); ?>" />
 		<p class="description"><?php printf( _x( 'Default: %s', 'points hook description', 'wordpoints' ), $hook->get_description( 'generated' ) ); ?></p>
 	</div>

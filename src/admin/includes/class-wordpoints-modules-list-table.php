@@ -111,7 +111,12 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		if ( ! $screen->in_admin( 'network' ) ) {
 
-			$recently_activated = get_option( 'wordpoints_recently_activated_modules', array() );
+			$recently_activated = get_option( 'wordpoints_recently_activated_modules' );
+
+			if ( ! is_array( $recently_activated ) ) {
+				add_option( 'wordpoints_recently_activated_modules', array(), '', 'no' );
+				$recently_activated = array();
+			}
 
 			foreach ( $recently_activated as $key => $time ) {
 

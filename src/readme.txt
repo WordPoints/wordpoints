@@ -82,6 +82,15 @@ points are awarded.
 
 == Changelog ==
 
+= 1.6.0 =
+* New: The value of the main setting for a hook is displayed in its title bar.
+* New: Translation into Spanish thanks to Andrew Kurtis of WebHostingHub.
+* New: Support for symlinked modules (that's devspeak you don't need to understand, for those of you non-techie users :-)
+* New: The HTML classes of the table elements may be filtered by developers.
+* Updated: Improved performance when the logs are regenerated after a post or comment is deleted.
+* Updated: Better pagination for the points logs tables.
+* Updated: Better accessibility for users with screen readers.
+
 = 1.5.1 =
 * Fixed: Cyrillic and other non-English characters not displaying correctly in the points logs.
 * Fixed: Only post types that support comments are shown as options in the Comment and Comment Removed points hooks.
@@ -147,6 +156,11 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+* This is a feature release that makes it so you can see the value of the main
+setting of a points hook without having to "open" it. Also includes Spanish
+translation, accessibility improvements, developer enhancements, and other goodies.
 
 = 1.5.1 =
 * This is a bugfix release which fixes an issue where non-English characters aren't

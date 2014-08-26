@@ -38,7 +38,7 @@ function wordpoints_points_component_register() {
 add_action( 'wordpoints_components_register', 'wordpoints_points_component_register' );
 
 /**
- * Perform component installation/updates.
+ * Install the points component.
  *
  * @since 1.0.0
  *
@@ -99,11 +99,11 @@ function wordpoints_points_component_activate() {
 add_action( 'wordpoints_component_activate-points', 'wordpoints_points_component_activate' );
 
 /**
- * Perform component uninstallation.
+ * Uninstall the points component.
  *
  * @since 1.0.0
  *
- * @action wordpoints_components_uninstall
+ * @action wordpoints_uninstall_component-points
  */
 function wordpoints_points_component_uninstall() {
 

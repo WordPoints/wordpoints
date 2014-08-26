@@ -3,7 +3,7 @@
 /**
  * Points functions.
  *
- * These are the general functions used by the points component. The cover the user
+ * These are the general functions used by the points component. They cover the user
  * points API, the points types API, and the points log meta API.
  *
  * @package WordPoints\Points

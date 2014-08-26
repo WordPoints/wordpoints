@@ -85,26 +85,10 @@ if ( 'on' === $accessibility_mode ) {
 	}
 }
 
-$deps = null;
-
-if ( version_compare( $wp_version, '3.8', '>=' ) ) {
-
-	$deps = array( 'dashicons' );
-
-} else {
-
-	wp_enqueue_style(
-		'wordpoints-admin-points-hooks-legacy'
-		, plugins_url( 'assets/css/hooks-legacy.css', dirname( __FILE__ ) )
-		, array( 'wordpoints-admin-points-hooks' )
-		, WORDPOINTS_VERSION
-	);
-}
-
 wp_enqueue_style(
 	'wordpoints-admin-points-hooks'
 	, plugins_url( 'assets/css/hooks.css', dirname( __FILE__ ) )
-	, $deps
+	, array( 'dashicons' )
 	, WORDPOINTS_VERSION
 );
 

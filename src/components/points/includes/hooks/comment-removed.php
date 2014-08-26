@@ -190,4 +190,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 
 		return $points;
 	}
-}
+
+} // class WordPoints_Comment_Removed_Points_Hook
+
+// EOF

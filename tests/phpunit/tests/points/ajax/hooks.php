@@ -268,3 +268,5 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 		$this->assertEquals( array( 'points' => '15' ), $instances['network_1'] );
 	}
 }
+
+// EOF

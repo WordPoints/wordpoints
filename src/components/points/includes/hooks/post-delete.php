@@ -141,4 +141,7 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 
 		return $points;
 	}
-}
+
+} // class WordPoints_Post_Delete_Points_Hook
+
+// EOF

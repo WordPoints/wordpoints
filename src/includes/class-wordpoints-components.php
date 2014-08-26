@@ -411,4 +411,4 @@ final class WordPoints_Components {
 	}
 }
 
-// end of file /includes/class-wordpoints-components.php
+// EOF

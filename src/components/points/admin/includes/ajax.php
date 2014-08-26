@@ -240,3 +240,5 @@ function wordpoints_ajax_save_points_hook() {
 	wp_die();
 }
 add_action( 'wp_ajax_save-wordpoints-points-hook', 'wordpoints_ajax_save_points_hook' );
+
+// EOF

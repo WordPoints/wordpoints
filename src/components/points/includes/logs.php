@@ -696,4 +696,4 @@ function wordpoints_clean_points_logs_cache( $user_id, $points, $points_type ) {
 }
 add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
 
-// end of file /components/points/includes/logs.php
+// EOF

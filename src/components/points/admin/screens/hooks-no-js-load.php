@@ -125,3 +125,6 @@ WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
 wp_redirect( $redirect_url . '&message=0' );
 exit;
+
+// EOF
+

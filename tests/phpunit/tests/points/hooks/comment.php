@@ -332,3 +332,5 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		);
 	}
 }
+
+// EOF

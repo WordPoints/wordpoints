@@ -130,3 +130,5 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCas
 		wp_set_current_user( $old_current_user->ID );
 	}
 }
+
+// EOF

@@ -272,4 +272,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 		 */
 		return apply_filters( 'wordpoints_points_periods', $periods );
 	}
-}
+
+} // class WordPoints_Periodic_Points_Hook
+
+// EOF

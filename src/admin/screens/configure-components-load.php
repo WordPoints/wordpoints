@@ -57,3 +57,5 @@ wp_redirect(
 );
 
 exit;
+
+// EOF

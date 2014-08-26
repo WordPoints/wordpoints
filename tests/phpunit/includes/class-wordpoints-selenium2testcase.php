@@ -210,6 +210,7 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 
 		wp_cache_add_non_persistent_groups( array( 'comment', 'counts', 'plugins' ) );
 	}
-}
 
-// end of file /tests/phpunit/includes/class-wordpoints-selenium2testcase.php
+} // class WordPoints_Selenium2TestCase
+
+// EOF

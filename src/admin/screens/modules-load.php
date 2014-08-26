@@ -472,3 +472,5 @@ register_column_headers(
 		'description' => _x( 'Description', 'modules table heading', 'wordpoints' ),
 	)
 );
+
+// EOF

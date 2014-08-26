@@ -197,4 +197,4 @@ function wordpoints_load_textdomain() {
 }
 add_action( 'plugins_loaded', 'wordpoints_load_textdomain' );
 
-// end of file /wordpoints.php
+// EOF

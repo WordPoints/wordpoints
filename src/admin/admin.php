@@ -428,4 +428,4 @@ function wordpoints_admin_settings_screen_sidebar() {
 }
 add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen_sidebar', 5 );
 
-// end of file /admin/admin.php
+// EOF

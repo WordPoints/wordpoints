@@ -117,3 +117,5 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 	} // function after()
 
 } // class WordPoints_Module_Installer_Skin
+
+// EOF

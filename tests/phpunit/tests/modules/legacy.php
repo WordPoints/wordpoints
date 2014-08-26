@@ -115,4 +115,4 @@ class WordPoints_Modules_Legacy_Test extends WP_UnitTestCase {
 	}
 }
 
-// end of file /tests/phpunit/tests/modules.php
+// EOF

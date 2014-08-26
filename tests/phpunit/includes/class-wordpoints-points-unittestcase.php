@@ -246,6 +246,7 @@ class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
 				"
 		);
 	}
-}
 
-// end of file /tests/class-wordpoints-points-unittestcase.php
+} // class WordPoints_Points_UnitTestCase
+
+// EOF

@@ -45,4 +45,4 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 	}
 }
 
-// end of file /tests/phpunit/tests/points/log-meta.php
+// EOF

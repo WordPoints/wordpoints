@@ -79,4 +79,4 @@ class WordPoints_Option_Test extends WP_UnitTestCase {
 	}
 }
 
-// end of file /tests/phpunit/tests/options.php
+// EOF

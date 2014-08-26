@@ -1450,4 +1450,4 @@ function wordpoints_points_get_db_schema() {
 		) {$charset_collate};";
 }
 
-// end of file /components/points/includes/functions.php
+// EOF

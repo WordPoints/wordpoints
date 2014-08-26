@@ -215,3 +215,5 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 	}
 
 } // class WordPoints_Module_Installer
+
+// EOF

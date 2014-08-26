@@ -268,4 +268,4 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	}
 }
 
-// end of file /tests/test-points.php
+// EOF

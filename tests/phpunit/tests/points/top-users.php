@@ -122,3 +122,5 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 	}
 }
+
+// EOF

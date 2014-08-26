@@ -102,3 +102,5 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_Unit
 
 	} // public function test_points_only_awarded_for_specified_post_type()
 }
+
+// EOF

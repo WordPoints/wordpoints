@@ -471,3 +471,5 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 
 	} // public function test_comment_approve_points_logs_cleaned()
 }
+
+// EOF

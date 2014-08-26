@@ -108,3 +108,5 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_Points_AJAX_UnitT
 		$this->_handleAjax( 'save-wordpoints-points-hook' );
 	}
 }
+
+// EOF

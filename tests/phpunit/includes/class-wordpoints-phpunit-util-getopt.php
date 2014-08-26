@@ -136,4 +136,4 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 	}
 }
 
-// end of file /tests/phpunit/includes/class-wordpoints-phpunit-textui-command.php
+// EOF

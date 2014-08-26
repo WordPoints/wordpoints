@@ -123,4 +123,4 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	}
 }
 
-// end of file /tests/phpunit/tests/components.php
+// EOF

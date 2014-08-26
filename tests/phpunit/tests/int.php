@@ -201,4 +201,4 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	}
 }
 
-// end of file.
+// EOF

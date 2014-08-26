@@ -92,3 +92,5 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 		);
 	}
 }
+
+// EOF

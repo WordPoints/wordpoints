@@ -66,4 +66,7 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase 
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 	}
-}
+
+} // class WordPoints_Points_AJAX_UnitTestCase
+
+// EOF

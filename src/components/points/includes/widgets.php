@@ -636,4 +636,4 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	}
 }
 
-// end of file /components/points/includes/widgets.php
+// EOF

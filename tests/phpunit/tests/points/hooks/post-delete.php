@@ -178,3 +178,5 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 		$this->assertEquals( 80, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }
+
+// EOF

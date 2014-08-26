@@ -815,6 +815,7 @@ abstract class WordPoints_Points_Hook {
 			update_option( $this->option_name, $instances );
 		}
 	}
-}
 
-// end of file /components/points/includes/class-WordPoints_Points_Hook.php
+} // class WordPoints_Points_Hook
+
+// EOF

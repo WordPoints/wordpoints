@@ -81,4 +81,7 @@ class WordPoints_Registration_Points_Hook extends WordPoints_Points_Hook {
 
 		return _x( 'Registration.', 'points log description', 'wordpoints' );
 	}
-}
+
+} // class WordPoints_Registration_Points_Hook
+
+// EOF

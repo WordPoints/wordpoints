@@ -703,3 +703,5 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	} // function single_row()
 
 } // class WordPoints_Modules_List_Table
+
+// EOF

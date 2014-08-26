@@ -173,4 +173,4 @@ do_action( 'wordpoints_admin_components_top' );
  */
 do_action( 'wordpoints_admin_components_bottom' );
 
-// end of file.
+// EOF

@@ -698,4 +698,4 @@ function wordpoints_add_custom_caps_to_new_sites( $blog_id ) {
 }
 add_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );
 
-// end of file /includes/functions.php
+// EOF

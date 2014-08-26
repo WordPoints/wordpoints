@@ -180,3 +180,5 @@ function wordpoints_points_user_cap_filter( $all_capabilities ) {
 
 	return $all_capabilities;
 }
+
+// EOF

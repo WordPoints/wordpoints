@@ -201,4 +201,4 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 	} // function test_uninstall()
 }
 
-// end of file /tests/phpunit/tests/uninstall.php
+// EOF

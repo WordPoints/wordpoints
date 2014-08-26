@@ -33,3 +33,5 @@ class WordPoints_Registration_Points_Hook_Test extends WordPoints_Points_UnitTes
 		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }
+
+// EOF

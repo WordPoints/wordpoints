@@ -34,4 +34,4 @@ $wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;
 
 wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
 
-// end of file /components/points/install.php
+// EOF

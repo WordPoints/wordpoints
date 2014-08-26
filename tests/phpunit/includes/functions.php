@@ -289,4 +289,4 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir, $link_name = null
 	return true;
 }
 
-// end of file /tests/phpunit/includes/functions.php
+// EOF

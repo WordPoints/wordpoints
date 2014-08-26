@@ -118,4 +118,4 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-ajax-unit
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
 
-// end of file /tests/phpunit/includes/bootstrap.php
+// EOF

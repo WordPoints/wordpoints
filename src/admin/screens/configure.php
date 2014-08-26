@@ -64,4 +64,4 @@ function wordpoints_admin_screen_configure() {
 	<?php
 }
 
-// end of file /admin/screens/configure.php
+// EOF

@@ -226,4 +226,4 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	}
 }
 
-// end of file.
+// EOF

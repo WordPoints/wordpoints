@@ -152,3 +152,5 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( 'Test.', $hook->get_description() );
 	}
 }
+
+// EOF

@@ -133,4 +133,4 @@ $name = esc_html( $hook->get_name() );
 
 <?php
 
-// end of file /components/points/admin/screens/points-hooks-no-js.php
+// EOF

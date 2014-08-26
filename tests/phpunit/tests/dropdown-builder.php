@@ -253,3 +253,5 @@ class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
 		);
 	}
 }
+
+// EOF

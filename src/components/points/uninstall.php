@@ -94,4 +94,4 @@ if ( is_multisite() ) {
 	wordpoints_remove_custom_caps( array_keys( wordpoints_points_get_custom_caps() ) );
 }
 
-// end of file /components/points/uninstall.php
+// EOF

@@ -51,4 +51,4 @@ $wordpoints_components->activate( 'points' );
 
 remove_filter( 'is_wordpoints_network_active', $filter_func );
 
-// end of file /install.php
+// EOF

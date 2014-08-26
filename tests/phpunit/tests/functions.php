@@ -56,3 +56,5 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 		restore_current_blog();
 	}
 }
+
+// EOF

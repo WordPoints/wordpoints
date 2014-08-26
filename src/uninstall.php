@@ -115,4 +115,4 @@ if ( is_multisite() ) {
 	wordpoints_remove_custom_caps( $capabilities );
 }
 
-// end of file /uninstall.php
+// EOF

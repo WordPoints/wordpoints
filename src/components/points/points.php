@@ -331,4 +331,4 @@ if ( is_admin() ) {
 	include_once WORDPOINTS_DIR . 'components/points/admin/admin.php';
 }
 
-// end of file /components/points/points.php
+// EOF

@@ -95,4 +95,4 @@ class WordPoints_Module_UI_Test extends WordPoints_Selenium2TestCase {
 	}
 }
 
-// end of file /tests/phpunit/tests/ui/components.php
+// EOF

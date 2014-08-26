@@ -103,4 +103,4 @@ class WordPoints_Admin_Profile_Points_Update_Test extends WordPoints_Selenium2Te
 	}
 }
 
-// end of file /tests/phpunit/tests/points/profile-alter.php
+// EOF

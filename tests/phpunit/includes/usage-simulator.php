@@ -77,3 +77,4 @@ if ( is_multisite() ) {
 	wordpointstests_simulate_usage();
 }
 
+// EOF

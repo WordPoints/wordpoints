@@ -171,3 +171,5 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 		);
 	}
 }
+
+// EOF

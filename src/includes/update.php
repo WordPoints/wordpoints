@@ -34,3 +34,5 @@ function wordpoints_update_1_3_0() {
 		wordpoints_add_custom_caps( $capabilities );
 	}
 }
+
+// EOF

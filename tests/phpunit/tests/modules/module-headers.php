@@ -65,3 +65,5 @@ class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 		$this->assertEquals( $this->expected_headers, $marked_up_headers );
 	}
 }
+
+// EOF

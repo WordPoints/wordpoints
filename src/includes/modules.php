@@ -1183,4 +1183,4 @@ function wordpoints_register_module_deactivation_hook( $file, $function ) {
 	add_action( "wordpoints_deactivate_module-{$module_file}", $function );
 }
 
-// end of file /includes/modules.php
+// EOF

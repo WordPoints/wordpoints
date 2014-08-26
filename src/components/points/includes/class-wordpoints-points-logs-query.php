@@ -1124,6 +1124,7 @@ class WordPoints_Points_Logs_Query {
 		$in = array_filter( array_map( 'wordpoints_posint', $in ) );
 		$this->_prepare__in( $in, $column, $type, '%d' );
 	}
-}
 
-// end of file /components/points/includes/class-WordPoints_Points_Logs_Query.php
+} // class WordPoints_Points_Logs_Query
+
+// EOF

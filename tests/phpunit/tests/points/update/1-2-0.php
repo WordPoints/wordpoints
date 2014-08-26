@@ -227,3 +227,5 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 
 	} // public function test_logs_for_deleted_comments_cleaned()
 }
+
+// EOF

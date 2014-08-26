@@ -397,4 +397,4 @@ function wordpoints_points_admin_settings_save() {
 }
 add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_settings_save' );
 
-// end of file /components/points/admin/admin.php
+// EOF

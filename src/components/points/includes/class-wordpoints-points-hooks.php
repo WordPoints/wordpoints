@@ -856,4 +856,4 @@ final class WordPoints_Points_Hooks {
 
 } // class WordPoints_Points_Hooks
 
-// end of file /components/points/includes/class-WordPoints_Points_Hooks.php
+// EOF

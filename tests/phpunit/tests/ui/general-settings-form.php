@@ -67,4 +67,4 @@ class WordPoints_General_Settings_Form_Test extends WordPoints_Selenium2TestCase
 	}
 }
 
-// end of file /tests/phpunit/tests/ui/general-settings-form.php
+// EOF

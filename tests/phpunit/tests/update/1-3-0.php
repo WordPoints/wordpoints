@@ -43,3 +43,5 @@ class WordPoints_1_3_0_Update_Test extends WordPoints_UnitTestCase {
 		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
 	}
 }
+
+// EOF

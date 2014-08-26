@@ -308,4 +308,4 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 }
 add_shortcode( 'wordpoints_how_to_get_points', 'wordpoints_how_to_get_points_shortcode' );
 
-// end of file /components/points/includes/shortcodes.php
+// EOF

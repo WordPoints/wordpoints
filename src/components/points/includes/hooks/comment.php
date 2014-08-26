@@ -438,4 +438,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Post_Type_Points_Hook_Ba
 
 		return $can_view;
 	}
-}
+
+} // class WordPoints_Comment_Points_Hook
+
+// EOF

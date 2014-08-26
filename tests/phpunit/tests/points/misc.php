@@ -288,3 +288,5 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		restore_current_blog();
 	}
 }
+
+// EOF

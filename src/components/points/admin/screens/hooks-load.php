@@ -107,3 +107,5 @@ wp_enqueue_style(
 	, $deps
 	, WORDPOINTS_VERSION
 );
+
+// EOF

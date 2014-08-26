@@ -370,3 +370,5 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 		);
 	}
 }
+
+// EOF

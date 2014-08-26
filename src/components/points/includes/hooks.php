@@ -47,4 +47,4 @@ include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment.php';
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/hooks/periodic.php';
 
-// end of file /components/points/includes/hooks.php
+// EOF

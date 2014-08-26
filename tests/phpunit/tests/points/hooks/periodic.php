@@ -53,3 +53,5 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCas
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }
+
+// EOF

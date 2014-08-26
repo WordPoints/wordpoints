@@ -242,32 +242,6 @@ function wordpoints_delete_network_option( $option ) {
 }
 
 /**
- * Check if a table exists in the database.
- *
- * @since 1.0.0
- *
- * @uses $wpdb
- *
- * @param string $table The name of the table to check for.
- *
- * @return bool Whether the table exists.
- */
-function wordpoints_db_table_exists( $table ) {
-
-	global $wpdb, $wp_version;
-
-	if ( version_compare( $wp_version, '4.0-alpha-28611-src', '>=' ) ) {
-		$esc_table = $wpdb->esc_like( $table );
-	} else {
-		$esc_table = like_escape( $table );
-	}
-
-	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $esc_table ) );
-
-	return ( $_table === $table ) ? true : false;
-}
-
-/**
  * Prepare an IN or NOT IN condition for a database query.
  *
  * Example return: "'foo','bar','blah'".

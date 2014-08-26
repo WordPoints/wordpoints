@@ -11,6 +11,8 @@
  * Test the wordpoints_db_table_exists() function.
  *
  * @since 1.0.0
+ *
+ * @expectedDeprecated wordpoints_db_table_exists
  */
 class WordPoints_Table_Exists_Test extends WP_UnitTestCase {
 

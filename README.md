@@ -28,13 +28,4 @@ instead.
 
 # Contributing #
 
-You are welcome to contribute to the plugin! There are several things to keep in mind
-when submitting a pull request:
-
-* Be sure that your patch conforms to the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/).
-* Make sure all unit tests pass with your changes applied, and when applicable
-  include new unit tests for your code.
-* You should have [`WP_DEBUG`](http://codex.wordpress.org/WP_DEBUG) on to be sure
-  your code doesn't introduce any strict notices.
-* Please also be sure to read the "Reporting a bug" section above.
-
+See [CONTRIBUTING.md](CONTRIBUTING.md).

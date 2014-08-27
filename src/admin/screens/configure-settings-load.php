@@ -21,9 +21,9 @@ $screen->add_help_tab(
 );
 
 $screen->set_help_sidebar(
-	'<p><strong>' . __( 'For more information:', 'wordpoints' ) . '</strong></p>' .
-	'<p>' . sprintf( __( '<a href="%s" target="_blank">User Guide</a>', 'wordpoints' ), 'http://wordpoints.org/user-guide/' ) . '</p>' .
-	'<p>' . sprintf( __( '<a href="%s" target="_blank">Support Forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ) . '</p>'
+	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>' .
+	'<p><a href="http://wordpoints.org/user-guide/" target="_blank">' . esc_html__( 'User Guide', 'wordpoints' ) . '</a></p>' .
+	'<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 // EOF

@@ -34,7 +34,7 @@ if (
 	 */
 	do_action( 'wordpoints_admin_settings_update' );
 
-	wordpoints_show_admin_message( __( 'Settings updated.', 'wordpoints' ) );
+	wordpoints_show_admin_message( esc_html__( 'Settings updated.', 'wordpoints' ) );
 }
 
 ?>

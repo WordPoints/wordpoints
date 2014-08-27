@@ -29,7 +29,7 @@ if ( isset( $_GET['addnew'] ) ) {
 
 	if ( ! $points_type ) {
 
-		wordpoints_show_admin_error( __( 'You need to add a points type before you can add any hooks.', 'wordpoints' ) );
+		wordpoints_show_admin_error( esc_html__( 'You need to add a points type before you can add any hooks.', 'wordpoints' ) );
 		return;
 	}
 
@@ -40,7 +40,7 @@ if ( isset( $_GET['addnew'] ) ) {
 
 		if ( ! $hook ) {
 
-			wordpoints_show_admin_error( __( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+			wordpoints_show_admin_error( esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
 			return;
 		}
 
@@ -52,7 +52,7 @@ if ( isset( $_GET['addnew'] ) ) {
 
 	} else {
 
-		wordpoints_show_admin_error( __( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+		wordpoints_show_admin_error( esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
 		return;
 	}
 
@@ -66,7 +66,7 @@ if ( isset( $_GET['addnew'] ) ) {
 
 	if ( ! $hook ) {
 
-		wordpoints_show_admin_error( __( 'The hook you have asked to edit could not be found. Please go back and try again.', 'wordpoints' ) );
+		wordpoints_show_admin_error( esc_html__( 'The hook you have asked to edit could not be found. Please go back and try again.', 'wordpoints' ) );
 		return;
 	}
 
@@ -82,7 +82,7 @@ $name = esc_html( $hook->get_name() );
 ?>
 
 <div class="wrap">
-	<h2><?php echo esc_html( __( 'Points Hooks', 'wordpoints' ) ); ?></h2>
+	<h2><?php esc_html_e( 'Points Hooks', 'wordpoints' ); ?></h2>
 	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
 		<h3><?php printf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ); ?></h3>
 

@@ -68,7 +68,7 @@ function wordpoints_admin_menu() {
 		// Main page.
 		add_menu_page(
 			$wordpoints
-			,$wordpoints
+			,esc_html( $wordpoints )
 			,'manage_options'
 			,'wordpoints_configure'
 			,'wordpoints_admin_screen_configure'
@@ -78,7 +78,7 @@ function wordpoints_admin_menu() {
 		add_submenu_page(
 			'wordpoints_configure'
 			,__( 'WordPoints - Configure', 'wordpoints' )
-			,__( 'Configure', 'wordpoints' )
+			,esc_html__( 'Configure', 'wordpoints' )
 			,'manage_options'
 			,'wordpoints_configure'
 			,'wordpoints_admin_screen_configure'
@@ -94,7 +94,7 @@ function wordpoints_admin_menu() {
 		// Main page.
 		add_menu_page(
 			$wordpoints
-			,$wordpoints
+			,esc_html( $wordpoints )
 			,'activate_wordpoints_modules'
 			,'wordpoints_modules'
 			,'wordpoints_admin_screen_modules'
@@ -105,7 +105,7 @@ function wordpoints_admin_menu() {
 	add_submenu_page(
 		$main_menu
 		,__( 'WordPoints - Modules', 'wordpoints' )
-		,__( 'Modules', 'wordpoints' )
+		,esc_html__( 'Modules', 'wordpoints' )
 		,'activate_wordpoints_modules'
 		,'wordpoints_modules'
 		,'wordpoints_admin_screen_modules'
@@ -115,7 +115,7 @@ function wordpoints_admin_menu() {
 	add_submenu_page(
 		'_wordpoints_modules' // Fake menu.
 		,__( 'WordPoints - Install Modules', 'wordpoints' )
-		,__( 'Install Modules', 'wordpoints' )
+		,esc_html__( 'Install Modules', 'wordpoints' )
 		,'install_wordpoints_modules'
 		,'wordpoints_install_modules'
 		,'wordpoints_admin_screen_install_modules'
@@ -415,7 +415,7 @@ function wordpoints_admin_settings_screen_sidebar() {
 		<div style="width:48%;float:left;">
 			<h4><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h4>
 			<p><?php printf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ); ?></p>
-			<p><?php _e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
+			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
 			<h4><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h4>

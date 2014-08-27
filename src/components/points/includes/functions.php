@@ -1362,7 +1362,7 @@ function wordpoints_points_settings_custom_meta_key_message( $points_type ) {
 	$custom_key = wordpoints_get_points_type_setting( $points_type, 'meta_key' );
 
 	if ( ! empty( $custom_key ) ) {
-		echo '<p>' . sprintf( __( 'This points type uses a custom meta key: %s', 'wordpoints' ), $custom_key ) . '</p>';
+		echo '<p>' . esc_html( sprintf( __( 'This points type uses a custom meta key: %s', 'wordpoints' ), $custom_key ) ) . '</p>';
 	}
 }
 add_action( 'wordpoints_points_type_form_top', 'wordpoints_points_settings_custom_meta_key_message' );
@@ -1385,7 +1385,7 @@ function wordpoints_points_logs_custom_meta_key_message( $points_type ) {
 	$custom_key = wordpoints_get_points_type_setting( $points_type, 'meta_key' );
 
 	if ( ! empty( $custom_key ) ) {
-		wordpoints_show_admin_error( sprintf( __( 'This points type uses a custom meta key (&#8220;%s&#8221;). If this key is also used by another plugin, changes made by it will not be logged. Only transactions performed by WordPoints are included in the logs.', 'wordpoints' ), $custom_key ) );
+		wordpoints_show_admin_error( esc_html( sprintf( __( 'This points type uses a custom meta key (&#8220;%s&#8221;). If this key is also used by another plugin, changes made by it will not be logged. Only transactions performed by WordPoints are included in the logs.', 'wordpoints' ), $custom_key ) ) );
 	}
 }
 add_action( 'wordpoints_admin_points_logs_tab', 'wordpoints_points_logs_custom_meta_key_message' );

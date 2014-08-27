@@ -35,7 +35,7 @@ switch ( $action ) {
 	// Activate a single module.
 	case 'activate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
 		}
 
 		if ( is_multisite() && ! is_network_admin() && is_network_only_wordpoints_module( $module ) ) {
@@ -85,7 +85,7 @@ switch ( $action ) {
 	// Activate multiple modules.
 	case 'activate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -139,7 +139,7 @@ switch ( $action ) {
 	// Get the fatal error from a module.
 	case 'error_scrape':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
 		}
 
 		check_admin_referer( 'module-activation-error_' . $module );
@@ -183,7 +183,7 @@ switch ( $action ) {
 	// Deactivate a module.
 	case 'deactivate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
 		}
 
 		check_admin_referer( 'deactivate-module_' . $module );
@@ -211,7 +211,7 @@ switch ( $action ) {
 	// Deactivate multiple modules.
 	case 'deactivate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -251,7 +251,7 @@ switch ( $action ) {
 	// Delete multiple modules.
 	case 'delete-selected':
 		if ( ! current_user_can( 'delete_wordpoints_modules' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to delete modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to delete modules for this site.', 'wordpoints' ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -342,7 +342,7 @@ switch ( $action ) {
 					echo '<h2>' . _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) . '</h2>';
 
 					if ( $have_non_network_modules && is_network_admin() ) {
-						wordpoints_show_admin_error( '<strong>' . __( 'Caution:', 'wordpoints' ) . '</strong>' . _n( 'This module may be active on other sites in the network.', 'These modules may be active on other sites in the network.', $modules_to_delete, 'wordpoints' ) );
+						wordpoints_show_admin_error( '<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>' . esc_html( _n( 'This module may be active on other sites in the network.', 'These modules may be active on other sites in the network.', $modules_to_delete, 'wordpoints' ) ) );
 					}
 				?>
 
@@ -443,7 +443,7 @@ $screen->add_help_tab(
 		'id'		=> 'overview',
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
-			'<p>' . __( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
+			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
 			'<p>' . sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your <code>/wp-content/wordpoints-modules</code> directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ) ) . '</p>'
 	)
 );
@@ -453,15 +453,15 @@ $screen->add_help_tab(
 		'id'		=> 'compatibility-problems',
 		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
 		'content'	=>
-			'<p>' . __( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
+			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
 			'<p>' . sprintf( __( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the <code>%s</code> directory and it will be automatically deactivated.', 'wordpoints' ), wordpoints_modules_dir() ) . '</p>'
 	)
 );
 
 $screen->set_help_sidebar(
-	'<p><strong>' . __( 'For more information:', 'wordpoints' ) . '</strong></p>' .
-	'<p>' . sprintf( __( '<a href="%s" target="_blank">Developer Documentation</a>', 'wordpoints' ), 'http://wordpoints.org/developer-guide/modules/' ) . '</p>' .
-	'<p>' . sprintf( __( '<a href="%s" target="_blank">Support Forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ) . '</p>'
+	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>' .
+	'<p><a href="http://wordpoints.org/developer-guide/modules/" target="_blank">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>' .
+	'<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 register_column_headers(

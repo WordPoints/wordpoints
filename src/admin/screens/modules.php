@@ -13,7 +13,7 @@ $invalid = wordpoints_validate_active_modules();
 
 if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
-		wordpoints_show_admin_error( sprintf( __( 'The module <code>%s</code> has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' ), esc_html( $module_file ), $error->get_error_message() ) );
+		wordpoints_show_admin_error( sprintf( __( 'The module <code>%s</code> has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' ), esc_html( $module_file ), esc_html( $error->get_error_message() ) ) );
 	}
 }
 
@@ -69,7 +69,7 @@ if ( isset( $_GET['error'] ) ) {
 
 } elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === $_REQUEST['action'] ) {
 
-	$error_message = __( 'No out of date modules were selected.', 'wordpoints' );
+	$error_message = esc_html__( 'No out of date modules were selected.', 'wordpoints' );
 }
 
 if ( isset( $error_message ) ) {
@@ -81,14 +81,14 @@ if ( isset( $error_message ) ) {
 	wordpoints_show_admin_message( $message );
 }
 
-$title = esc_html( __( 'WordPoints Modules', 'wordpoints' ) );
+$title = esc_html__( 'WordPoints Modules', 'wordpoints' );
 
 if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) {
 	$title .= '<a href="' . esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ) . '" class="add-new-h2">' . esc_html_x( 'Add New', 'module' ) . '</a>';
 }
 
 if ( ! empty( $_REQUEST['s'] ) ) {
-	$title .= sprintf( '<span class="subtitle">' . __( 'Search results for &#8220;%s&#8221;', 'wordpoints' ) . '</span>', esc_html( urlencode( $_REQUEST['s'] ) ) );
+	$title .= sprintf( '<span class="subtitle">' . esc_html__( 'Search results for &#8220;%s&#8221;', 'wordpoints' ) . '</span>', esc_html( urlencode( $_REQUEST['s'] ) ) );
 }
 
 ?>
@@ -109,7 +109,7 @@ if ( ! empty( $_REQUEST['s'] ) ) {
 
 	<form method="get" action="admin.php">
 		<input type="hidden" name="page" value="wordpoints_modules" />
-		<?php $wp_list_table->search_box( __( 'Search Installed Modules', 'wordpoints' ), 'module' ); ?>
+		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Modules', 'wordpoints' ), 'module' ); ?>
 	</form>
 
 	<form method="post" action="admin.php?page=wordpoints_modules">

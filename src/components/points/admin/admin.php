@@ -162,9 +162,9 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 			}
 
 			$screen_options = '<p><a id="access-on" href="' . esc_attr( esc_url( $url ) ) . 'on">'
-				. __( 'Enable accessibility mode', 'wordpoints' )
+				. esc_html__( 'Enable accessibility mode', 'wordpoints' )
 				. '</a><a id="access-off" href="' . esc_attr( esc_url( $url ) ) . 'off">'
-				. __( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
+				. esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
 		break;
 	}
 
@@ -258,7 +258,7 @@ function wordpoints_points_profile_options( $user ) {
 					<input type="text" name="<?php echo esc_attr( "wordpoints_points-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" autocomplete="off" />
 					<input type="checkbox" value="1" name="<?php echo esc_attr( "wordpoints_points_set-{$slug}" ); ?>" />
 					<?php /* translators: %s is the number of points. */ ?>
-					<span><?php printf( __( '(current: %s)', 'wordpoints' ), $points ); ?></span>
+					<span><?php printf( esc_html__( '(current: %s)', 'wordpoints' ), $points ); ?></span>
 				</td>
 			</tr>
 

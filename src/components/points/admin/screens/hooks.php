@@ -76,7 +76,7 @@ if ( is_network_admin() ) {
 
 	if ( empty( $points_types ) && ! current_user_can( 'manage_wordpoints_points_types' ) ) {
 
-		wordpoints_show_admin_error( __( 'No points types have been created yet. Only network administrators can create points types.', 'wordpoints' ) );
+		wordpoints_show_admin_error( esc_html__( 'No points types have been created yet. Only network administrators can create points types.', 'wordpoints' ) );
 
 		echo '</div>';
 		return;
@@ -84,11 +84,11 @@ if ( is_network_admin() ) {
 
 	if ( isset( $_GET['message'] ) && isset( $messages[ (int) $_GET['message'] ] ) ) {
 
-		wordpoints_show_admin_message( $messages[ (int) $_GET['message'] ] );
+		wordpoints_show_admin_message( esc_html( $messages[ (int) $_GET['message'] ] ) );
 
 	} elseif ( isset( $_GET['error'] ) && isset( $errors[ (int) $_GET['error'] ] ) ) {
 
-		wordpoints_show_admin_error( $errors[ (int) $_GET['error'] ] );
+		wordpoints_show_admin_error( esc_html( $errors[ (int) $_GET['error'] ] ) );
 	}
 
 	if ( is_network_admin() && current_user_can( 'manage_network_wordpoints_points_hooks' ) ) {

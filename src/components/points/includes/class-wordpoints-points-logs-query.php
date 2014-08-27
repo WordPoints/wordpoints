@@ -273,7 +273,7 @@ class WordPoints_Points_Logs_Query {
 				if ( isset( $this->_args['meta_query'][ $key ] ) ) {
 
 					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( __( '%s is no longer supported.', 'wordpoints' ), "\$args['meta_query'][{$key}]" ) );
+					_deprecated_argument( __METHOD__, '1.1.0', sprintf( esc_html__( '%s is no longer supported.', 'wordpoints' ), "\$args['meta_query'][{$key}]" ) );
 				}
 			}
 
@@ -281,7 +281,7 @@ class WordPoints_Points_Logs_Query {
 
 				$this->_args['meta_key'] = $this->_args['meta_query']['key'];
 				unset( $this->_args['meta_query']['key'] );
-				_deprecated_argument( __METHOD__, '1.1.0', sprintf( __( '%s has been replaced by %s.', 'wordpoints' ), '$args["meta_query"]["key"]', '$args["meta_key"]' ) );
+				_deprecated_argument( __METHOD__, '1.1.0', sprintf( esc_html__( '%s has been replaced by %s.', 'wordpoints' ), '$args["meta_query"]["key"]', '$args["meta_key"]' ) );
 			}
 
 			foreach ( array( 'value', 'value__in', 'value__not_in' ) as $key ) {
@@ -290,7 +290,7 @@ class WordPoints_Points_Logs_Query {
 
 					$this->_args['meta_value'] = $this->_args['meta_query'][ $key ];
 					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( __( '%s has been replaced by %s.', 'wordpoints' ), "\$args['meta_query'][{$key}]", '$args["meta_value"]' ) );
+					_deprecated_argument( __METHOD__, '1.1.0', sprintf( esc_html__( '%s has been replaced by %s.', 'wordpoints' ), "\$args['meta_query'][{$key}]", '$args["meta_value"]' ) );
 
 					if ( 'value__not_in' === $key ) {
 						$this->_args['meta_compare'] = 'NOT IN';

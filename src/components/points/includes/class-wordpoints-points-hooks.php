@@ -289,7 +289,7 @@ final class WordPoints_Points_Hooks {
 		if ( empty( $hook_types ) ) {
 
 			echo '<div class="wordpoints-no-hooks">'
-				. __( 'There are no points hooks currently available.', 'wordpoints' )
+				. esc_html__( 'There are no points hooks currently available.', 'wordpoints' )
 				. '</div>';
 		}
 	}

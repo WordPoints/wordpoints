@@ -94,7 +94,7 @@ function wordpoints_ajax_save_points_hook() {
 		wp_die( -1 );
 	}
 
-	$error = '<p>' . __( 'An error has occurred. Please reload the page and try again.', 'wordpoints' ) . '</p>';
+	$error = '<p>' . esc_html__( 'An error has occurred. Please reload the page and try again.', 'wordpoints' ) . '</p>';
 
 	if ( isset( $_POST['points-slug'] ) ) {
 
@@ -133,7 +133,7 @@ function wordpoints_ajax_save_points_hook() {
 		if ( ! wordpoints_update_points_type( $points_type, $settings ) ) {
 
 			// If this fails, show the user a message along with the form.
-			echo '<p>' . __( 'An error has occurred. Please try again.', 'wordpoints' ) . '</p>';
+			echo '<p>' . esc_html__( 'An error has occurred. Please try again.', 'wordpoints' ) . '</p>';
 
 			WordPoints_Points_Hooks::points_type_form( $points_type, 'none' );
 		}

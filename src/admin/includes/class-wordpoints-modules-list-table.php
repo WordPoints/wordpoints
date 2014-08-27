@@ -298,7 +298,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		if ( ! empty( $modules['all'] ) ) {
 			esc_html_e( 'No modules found.', 'wordpoints' );
 		} else {
-			printf( __( 'You do not appear to have any modules available at this time. <a href="%s">Install some</a>.', 'wordpoints' ), esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ) );
+			esc_html_e( 'There are not any modules installed.', 'wordpoints' );
 		}
 	}
 

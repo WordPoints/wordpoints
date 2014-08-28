@@ -323,13 +323,13 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		wp_set_current_user( $this->factory->user->create() );
 
 		// The log shouldn't be displayed.
-		$this->assertTag(
-			array(
-				'tag' => 'tbody',
-				'content' => 'regexp:/[\r\t]*/',
-			)
-			, wordpoints_points_logs_shortcode( array( 'points_type' => 'points' ) )
+		$document = new DOMDocument;
+		$document->preserveWhiteSpace = false;
+		$document->loadHTML(
+			wordpoints_points_logs_shortcode( array( 'points_type' => 'points' ) )
 		);
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals( 1, $xpath->query( '//tbody[. = ""]' )->length );
 	}
 }
 

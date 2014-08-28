@@ -123,16 +123,10 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 			unset( $e );
 		}
 
-		$this->assertTag(
-			array(
-				'tag' => 'p',
-				'child' => array(
-					'tag'  => 'input',
-					'attributes' => array( 'value' => '15' ),
-				),
-			)
-			, $this->_last_response
-		);
+		$document = new DOMDocument;
+		$document->loadHTML( $this->_last_response );
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals( 1, $xpath->query( '//p/input[@value = "15"]' )->length );
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );

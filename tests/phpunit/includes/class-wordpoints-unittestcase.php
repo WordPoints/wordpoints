@@ -14,6 +14,10 @@
  */
 abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 
+	//
+	// Helpers.
+	//
+
 	/**
 	 * Set the version of the plugin.
 	 *
@@ -46,6 +50,28 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		return ( isset( $wordpoints_data['version'] ) )
 			? $wordpoints_data['version']
 			: '';
+	}
+
+	//
+	// Assertions.
+	//
+
+	/**
+	 * Assert that a string is an error returned by one of the shortcodes.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $string The string that is expected to be a shortcode error.
+	 */
+	protected function assertWordPointsShortcodeError( $string ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals(
+			1
+			, $xpath->query( '//p[@class = "wordpoints-shortcode-error"]' )->length
+		);
 	}
 }
 

@@ -18,6 +18,47 @@
 include_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
 
 /**
+ * Register admin scripts.
+ *
+ * @since 1.7.0
+ */
+function wordpoints_admin_register_scripts() {
+
+	$assets_url = WORDPOINTS_URL . '/components/points/admin/assets';
+
+	// CSS
+
+	wp_register_style(
+		'wordpoints-admin-points-hooks'
+		, $assets_url . '/css/hooks.css'
+		, array( 'dashicons' )
+		, WORDPOINTS_VERSION
+	);
+
+	// JS
+
+	wp_register_script(
+		'wordpoints-admin-points-hooks'
+		, $assets_url . '/js/hooks.js'
+		, array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
+		, WORDPOINTS_VERSION
+	);
+
+	wp_localize_script(
+		'wordpoints-admin-points-hooks'
+		, 'WordPointsHooksL10n'
+		, array(
+			'confirmDelete' => __( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
+				. ' ' . __( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
+			'confirmTitle'  => __( 'Are you sure?', 'wordpoints' ),
+			'deleteText'    => __( 'Delete', 'wordpoints' ),
+			'cancelText'    => __( 'Cancel', 'wordpoints' ),
+		)
+	);
+}
+add_action( 'init', 'wordpoints_admin_register_scripts' );
+
+/**
  * Add admin screens to the administration menu.
  *
  * @since 1.0.0

@@ -57,39 +57,13 @@ if ( 'on' === $accessibility_mode ) {
 
 	wp_enqueue_style( 'wp-jquery-ui-dialog' );
 
-	wp_enqueue_script( 'jquery-ui-droppable' );
-	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'jquery-ui-dialog' );
-
-	wp_enqueue_script(
-		'wordpoints-admin-points-hooks'
-		,plugins_url( 'assets/js/hooks.js', dirname( __FILE__ ) )
-		,array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
-		,WORDPOINTS_VERSION
-	);
-
-	wp_localize_script(
-		'wordpoints-admin-points-hooks'
-		,'WordPointsHooksL10n'
-		,array(
-			'confirmDelete' => __( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
-				. ' ' . __( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
-			'confirmTitle'  => __( 'Are you sure?', 'wordpoints' ),
-			'deleteText'    => __( 'Delete', 'wordpoints' ),
-			'cancelText'    => __( 'Cancel', 'wordpoints' ),
-		)
-	);
+	wp_enqueue_script( 'wordpoints-admin-points-hooks' );
 
 	if ( wp_is_mobile() ) {
 		wp_enqueue_script( 'jquery-touch-punch' );
 	}
 }
 
-wp_enqueue_style(
-	'wordpoints-admin-points-hooks'
-	, plugins_url( 'assets/css/hooks.css', dirname( __FILE__ ) )
-	, array( 'dashicons' )
-	, WORDPOINTS_VERSION
-);
+wp_enqueue_style( 'wordpoints-admin-points-hooks' );
 
 // EOF

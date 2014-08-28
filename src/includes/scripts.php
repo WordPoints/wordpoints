@@ -26,7 +26,7 @@
  */
 function wordpoints_register_scripts() {
 
-	$assets_url = plugins_url( 'assets/', dirname( __FILE__ ) );
+	$assets_url = WORDPOINTS_URL . '/assets/';
 
 	// - JS
 

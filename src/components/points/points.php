@@ -195,7 +195,7 @@ add_action( 'wordpoints_components_loaded', 'wordpoints_points_component_update'
  */
 function wordpoints_points_register_scripts() {
 
-	$assets_url = plugins_url( 'assets/', __FILE__ );
+	$assets_url = WORDPOINTS_URL . '/components/points/assets/';
 
 	wp_register_style(
 		'wordpoints-top-users'

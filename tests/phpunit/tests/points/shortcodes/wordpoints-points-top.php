@@ -58,7 +58,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCas
 
 		$this->assertContains( 'wordpoints-points-top-users', $table_classes );
 
-		$this->assertEquals( 3, $xpath->query( '//table/tr' )->length );
+		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**

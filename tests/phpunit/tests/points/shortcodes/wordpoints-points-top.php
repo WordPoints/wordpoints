@@ -38,29 +38,27 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCas
 	public function test_parameters_work_properly() {
 
 		// Create some data for the table.
-		$user_ids = $this->factory->user->create_many( 4 );
-
-		foreach ( $user_ids as $user_id ) {
-			wordpoints_add_points( $user_id, 10, 'points', 'tests' );
-		}
+		$this->factory->wordpoints_points_log->create_many( 4 );
 
 		// Check output with valid parameters.
-		$this->assertTag(
-			array(
-				'tag'        => 'table',
-				'attributes' => array(
-					'class' => 'wordpoints-points-top-users',
-				),
-				'children'   => array(
-					'only'  => array( 'tag' => 'tr' ),
-					'count' => 3,
-				),
-			)
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 3 )
 			)
 		);
+		$xpath = new DOMXPath( $document );
+
+		$table_classes = $xpath->query( '//table' )
+			->item( 0 )
+			->attributes
+			->getNamedItem( 'class' )
+			->nodeValue;
+
+		$this->assertContains( 'wordpoints-points-top-users', $table_classes );
+
+		$this->assertEquals( 3, $xpath->query( '//table/tr' )->length );
 	}
 
 	/**
@@ -111,17 +109,15 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCas
 			),
 		);
 
-		$this->assertTag(
-			$shortcode_error
-			, wordpointstests_do_shortcode_func(
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
-		$this->assertTag(
-			$shortcode_error
-			, wordpointstests_do_shortcode_func(
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 'invalid' )
 			)

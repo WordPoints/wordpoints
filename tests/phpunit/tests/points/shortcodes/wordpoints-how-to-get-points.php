@@ -46,19 +46,16 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 		);
 
 		// Test that the hooks are displayed in the table.
-		$this->assertTag(
-			array(
-				'tag'        => 'tbody',
-				'children'   => array(
-					'only'  => array( 'tag' => 'tr' ),
-					'count' => 2,
-				),
-			)
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->preserveWhiteSpace = false;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)
 		);
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -86,19 +83,16 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 		// Test that both hooks are displayed in the table.
-		$this->assertTag(
-			array(
-				'tag'        => 'tbody',
-				'children'   => array(
-					'only'  => array( 'tag' => 'tr' ),
-					'count' => 2,
-				),
-			)
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->preserveWhiteSpace = false;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)
 		);
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -134,14 +128,8 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 		wp_set_current_user( $user->ID );
 
 		// Check for an error when no points type is provided.
-		$this->assertTag(
-			array(
-				'tag' => 'p',
-				'attributes' => array(
-					'class' => 'wordpoints-shortcode-error',
-				),
-			)
-			, wordpointstests_do_shortcode_func( 'wordpoints_how_to_get_points' )
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func( 'wordpoints_how_to_get_points' )
 		);
 
 		wp_set_current_user( $old_current_user->ID );

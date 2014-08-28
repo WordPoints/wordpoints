@@ -134,14 +134,8 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_Points_UnitTestCase {
 		wp_set_current_user( $user->ID );
 
 		// Check for an error when no points type is provided.
-		$this->assertTag(
-			array(
-				'tag' => 'p',
-				'attributes' => array(
-					'class' => 'wordpoints-shortcode-error',
-				),
-			)
-			, wordpointstests_do_shortcode_func( 'wordpoints_points' )
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func( 'wordpoints_points' )
 		);
 
 		wp_set_current_user( $old_current_user->ID );

@@ -79,36 +79,40 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 			, array( 'points_type' => 'points' )
 		);
 
-		$this->assertTag(
-			array(
-				'tag'        => 'table',
-				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat',
-				),
-				'child'      => array(
-					'tag'      => 'tbody',
-					'children' => array(
-						'count' => 3,
-						'only'  => array( 'tr' ),
-					),
-				),
-			)
-			, $html
-		);
+		$document = new DOMDocument;
+		$document->loadHTML( $html );
+		$xpath = new DOMXPath( $document );
+
+		$table_classes = $xpath->query( '//table' )
+			->item( 0 )
+			->attributes
+			->getNamedItem( 'class' )
+			->nodeValue;
+
+		$this->assertContains( 'wordpoints-points-logs', $table_classes );
+		$this->assertContains( 'widefat', $table_classes );
+
+		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be paginated.
-		$this->assertTag(
-			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
-			, $html
+		$this->assertNotEquals(
+			0
+			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
 
 		// Non-datatable, no pagination.
-		$this->assertNotTag(
-			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'datatables' => '0' )
 			)
+		);
+		$xpath = new DOMXPath( $document );
+
+		$this->assertEquals(
+			0
+			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
 
 	} // public function test_datatable_attribute()
@@ -131,39 +135,43 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 			, array( 'points_type' => 'points' )
 		);
 
-		$this->assertTag(
-			array(
-				'tag'        => 'table',
-				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat',
-				),
-				'child'      => array(
-					'tag'      => 'tbody',
-					'children' => array(
-						'count' => 3,
-						'only'  => array( 'tr' ),
-					),
-				),
-			)
-			, $html
-		);
+		$document = new DOMDocument;
+		$document->loadHTML( $html );
+		$xpath = new DOMXPath( $document );
+
+		$table_classes = $xpath->query( '//table' )
+			->item( 0 )
+			->attributes
+			->getNamedItem( 'class' )
+			->nodeValue;
+
+		$this->assertContains( 'wordpoints-points-logs', $table_classes );
+		$this->assertContains( 'widefat', $table_classes );
+
+		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be paginated.
-		$this->assertTag(
-			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
-			, $html
+		$this->assertNotEquals(
+			0
+			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
 
 		// Non-datatable, no pagination.
-		$this->assertNotTag(
-			array( 'tag' => 'a', 'attributes' => array( 'class' => 'page-numbers' ) )
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'paginate' => '0' )
 			)
 		);
+		$xpath = new DOMXPath( $document );
 
-	} // public function test_datatables_attribute()
+		$this->assertEquals(
+			0
+			, $xpath->query( '//a[@class = "page-numbers"]' )->length
+		);
+
+	} // public function test_paginate_attribute()
 
 	/**
 	 * Test the 'show_users' attribute.
@@ -181,46 +189,28 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 		}
 
 		// The user column should be displayed by default.
-		$this->assertTag(
-			array(
-				'tag'   => 'table',
-				'child' => array(
-					'tag'   => 'thead',
-					'child' => array(
-						'tag'      => 'tr',
-						'children' => array(
-							'only'  => array( 'th' ),
-							'count' => 4,
-						),
-					),
-				),
-			)
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points' )
 			)
 		);
+		$xpath = new DOMXPath( $document );
+
+		$this->assertEquals( 4, $xpath->query( '//thead/tr/th' )->length );
 
 		// Check that it is hidden.
-		$this->assertTag(
-			array(
-				'tag'   => 'table',
-				'child' => array(
-					'tag'   => 'thead',
-					'child' => array(
-						'tag'      => 'tr',
-						'children' => array(
-							'only'  => array( 'th' ),
-							'count' => 3,
-						),
-					),
-				),
-			)
-			, wordpointstests_do_shortcode_func(
+		$document = new DOMDocument;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'show_users' => 0 )
 			)
 		);
+		$xpath = new DOMXPath( $document );
+
+		$this->assertEquals( 3, $xpath->query( '//thead/tr/th' )->length );
 
 	} // public function test_show_users_attribute()
 
@@ -263,24 +253,15 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 		$new_current_user = wp_set_current_user( $this->factory->user->create() );
 		$new_current_user->set_role( 'administrator' );
 
-		$shortcode_error = array(
-			'tag' => 'p',
-			'attributes' => array(
-				'class' => 'wordpoints-shortcode-error',
-			),
-		);
-
-		$this->assertTag(
-			$shortcode_error
-			, wordpointstests_do_shortcode_func(
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
-		$this->assertTag(
-			$shortcode_error
-			, wordpointstests_do_shortcode_func(
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'query' => 'invalid' )
 			)
@@ -308,41 +289,33 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 			, array( 'points_type' => 'points' )
 		);
 
-		$this->assertTag(
-			array(
-				'tag'        => 'table',
-				'attributes' => array(
-					'class' => 'wordpoints-points-logs widefat',
-				),
-				'child'      => array(
-					'tag'      => 'tbody',
-					'children' => array(
-						'count' => 2,
-						'only'  => array( 'tr' ),
-					),
-				),
-			)
-			, $html
-		);
+		$document = new DOMDocument;
+		$document->loadHTML( $html );
+		$xpath = new DOMXPath( $document );
+
+		$table_classes = $xpath->query( '//table' )
+			->item( 0 )
+			->attributes
+			->getNamedItem( 'class' )
+			->nodeValue;
+
+		$this->assertContains( 'wordpoints-points-logs', $table_classes );
+		$this->assertContains( 'widefat', $table_classes );
+
+		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be searchable.
-		$this->assertTag(
-			array(
-				'tag' => 'div',
-				'attributes' => array( 'class' => 'wordpoints-points-logs-search' )
-			)
-			, $html
+		$this->assertEquals(
+			1
+			, $xpath->query( '//div[@class = "wordpoints-points-logs-search"]' )
+				->length
 		);
 
 		// Should display 'searching for' text.
-		$this->assertTag(
-			array(
-				'tag' => 'div',
-				'attributes' => array(
-					'class' => 'wordpoints-points-logs-searching',
-				),
-			)
-			, $html
+		$this->assertEquals(
+			1
+			, $xpath->query( '//div[@class = "wordpoints-points-logs-searching"]' )
+				->length
 		);
 
 		$html = wordpointstests_do_shortcode_func(
@@ -350,25 +323,24 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 			, array( 'points_type' => 'points', 'searchable' => '0' )
 		);
 
+		$document = new DOMDocument;
+		$document->loadHTML( $html );
+		$xpath = new DOMXPath( $document );
+
 		// Non-searchable.
-		$this->assertNotTag(
-			array(
-				'tag' => 'div',
-				'attributes' => array( 'class' => 'wordpoints-points-logs-search' )
-			)
-			, $html
+		$this->assertEquals(
+			0
+			, $xpath->query( '//div[@class = "wordpoints-points-logs-search"]' )
+				->length
 		);
 
-		$this->assertNotTag(
-			array(
-				'tag' => 'div',
-				'attributes' => array(
-					'class' => 'wordpoints-points-logs-searching',
-				),
-			)
-			, $html
+		$this->assertEquals(
+			0
+			, $xpath->query( '//div[@class = "wordpoints-points-logs-searching"]' )
+				->length
 		);
-	}
+
+	} // public function test_searchabe_attribute()
 }
 
 // EOF

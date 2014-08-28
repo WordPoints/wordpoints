@@ -8,6 +8,7 @@ php:
     - 5.2
     - 5.4
     - 5.5
+    - 5.6
 
 env:
     - TRAVISCI_RUN=codesniff
@@ -18,11 +19,6 @@ env:
 
 matrix:
   include:
-    # Only run against 3.9 for now, 5.6 isn't stable.
-    - php: 5.6
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
-    - php: 5.6
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=1
     # Only run HHVM against 3.9 for now.
     - php: hhvm
       env: TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
@@ -36,8 +32,9 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 5.5
       env: TRAVISCI_RUN=codesniff
-  allow_failures:
     - php: 5.6
+      env: TRAVISCI_RUN=codesniff
+  allow_failures:
     - php: hhvm
   fast_finish: true
 

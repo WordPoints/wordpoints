@@ -20,6 +20,13 @@
 include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 /**
+ * Deprecated administration-side code.
+ *
+ * @since 1.7.0
+ */
+include_once WORDPOINTS_DIR . 'admin/includes/deprecated.php';
+
+/**
  * Get the slug of the main administration menu item for the plugin.
  *
  * The main item changes in multisite when the plugin is network activated. In the
@@ -123,18 +130,6 @@ function wordpoints_admin_menu() {
 }
 add_action( 'admin_menu', 'wordpoints_admin_menu' );
 add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
-
-/**
- * Display one of the administration screens.
- *
- * @since 1.1.0
- */
-function wordpoints_display_admin_screen() {
-
-	$screen = str_replace( 'wordpoints_page_wordpoints_', '', current_filter() );
-
-	require WORDPOINTS_DIR . "admin/screens/{$screen}.php";
-}
 
 /**
  * Display the modules admin screen.

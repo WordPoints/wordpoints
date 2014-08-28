@@ -14,8 +14,9 @@
  * be repeated in each of the tests.
  *
  * @since 1.0.0
+ * @since 1.7.0 Now extends WordPoints_UnitTestCase, not WP_UnitTestCase directly.
  */
-class WordPoints_Points_UnitTestCase extends WP_UnitTestCase {
+class WordPoints_Points_UnitTestCase extends WordPoints_UnitTestCase {
 
 	/**
 	 * The default points data set up for each test.

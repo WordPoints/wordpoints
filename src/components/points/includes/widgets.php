@@ -364,14 +364,6 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 			$instance['num_users'] = $this->defaults['num_users'];
 		}
 
-		$top_users = wordpoints_points_get_top_users( $instance['num_users'], $instance['points_type'] );
-
-		if ( ! $top_users ) {
-			return;
-		}
-
-		wp_enqueue_style( 'wordpoints-top-users' );
-
 		/**
 		 * Before the top users widget.
 		 *
@@ -381,29 +373,11 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 		 */
 		do_action( 'wordpoints_top_users_widget_before', $instance );
 
-		echo '<table class="wordpoints-points-top-users">';
-
-		$position = 1;
-
-		foreach ( $top_users as $user_id ) {
-
-			$user = get_userdata( $user_id );
-
-			?>
-
-			<tr class="top-<?php echo $position; ?>">
-				<td><?php echo number_format_i18n( $position ); ?></td>
-				<td><?php echo get_avatar( $user_id, 32 ); ?></td>
-				<td><?php echo sanitize_user_field( 'display_name', $user->display_name, $user_id, 'display' ); ?></td>
-				<td><?php wordpoints_display_points( $user_id, $instance['points_type'], 'top_users_widget' ); ?></td>
-			</tr>
-
-			<?php
-
-			$position++;
-		}
-
-		echo '</table>';
+		wordpoints_points_show_top_users(
+			$instance['num_users']
+			, $instance['points_type']
+			, 'widget'
+		);
 
 		/**
 		 * After the top users widget.

@@ -1140,6 +1140,89 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 }
 
 /**
+ * Display the top users.
+ *
+ * @since 1.7.0
+ *
+ * @param array  $num_users   The number of users to display.
+ * @param string $points_type The type of points.
+ */
+function wordpoints_points_show_top_users( $num_users, $points_type, $context = 'default' ) {
+
+	wp_enqueue_style( 'wordpoints-top-users' );
+
+	$top_users = wordpoints_points_get_top_users( $num_users, $points_type );
+
+	$column_headers = array(
+		'position' => __( 'Position', 'top users table heading', 'wordpoints' ),
+		'user'     => __( 'User', 'top users table heading', 'wordpoints' ),
+		'points'   => __( 'Points', 'top users table heading', 'wordpoints' ),
+	);
+
+	/**
+	 * Filter the extra HTML classes for the top users table element.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param string[] $extra_classes The extra classes for the table element.
+	 * @param array    $args          The arguments for table display.
+	 * @param int[]    $top_users     The IDs of the top users being displayed.
+	 */
+	$extra_classes = apply_filters(
+		'wordpoints_points_top_users_table_extra_classes'
+		, array()
+		, compact( 'num_users', 'points_type', 'context' )
+		, $top_users
+	);
+
+	?>
+
+	<table class="wordpoints-points-top-users <?php echo esc_attr( implode( ' ', $extra_classes ) ); ?>">
+		<thead>
+			<tr>
+				<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php
+
+			$position = 1;
+
+			foreach ( $top_users as $user_id ) {
+
+				$user = get_userdata( $user_id );
+
+				?>
+
+				<tr class="top-<?php echo $position; ?>">
+					<td><?php echo number_format_i18n( $position ); ?></td>
+					<td><?php echo get_avatar( $user_id, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $user_id, 'display' ); ?></td>
+					<td><?php wordpoints_display_points( $user_id, $points_type, "top_users_{$context}" ); ?></td>
+				</tr>
+
+				<?php
+
+				$position++;
+			}
+
+			?>
+		</tbody>
+	</table>
+
+	<?php
+
+} // function wordpoints_points_show_top_users()
+
+/**
  * Clear the top users cache when a user's points are altered.
  *
  * @since 1.5.0

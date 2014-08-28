@@ -48,54 +48,14 @@ function wordpoints_points_top_shortcode( $atts ) {
 		}
 	}
 
-	wp_enqueue_style( 'wordpoints-top-users' );
+	ob_start();
+	wordpoints_points_show_top_users(
+		$atts['users']
+		, $atts['points_type']
+		, 'shortcode'
+	);
 
-	$top_users = wordpoints_points_get_top_users( $atts['users'], $atts['points_type'] );
-
-	$position = 1;
-
-	/**
-	 * Filter the extra HTML classes for the top users table element.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string[] $extra_classes The extra classes for the table element.
-	 * @param array    $atts          The arguments for table display from the shortcode.
-	 * @param int[]    $top_users     The IDs of the top users being displayed.
-	 */
-	$extra_classes = apply_filters( 'wordpoints_points_top_users_table_extra_classes', array(), $atts, $top_users );
-
-	$table = '<table class="wordpoints-points-top-users ' . esc_attr( implode( ' ', $extra_classes ) ) . '">';
-
-	$head = '
-			<tr>
-				<th>' . esc_html__( 'Position', 'top users table heading', 'wordpoints' ) . '</th>
-				<th>' . esc_html__( 'User', 'top users table heading', 'wordpoints' ) . '</th>
-				<th>' . esc_html__( 'Points', 'top users table heading', 'wordpoints' ) . '</th>
-			</tr>
-			';
-
-	$table .= '<thead>' . $head . '</thead>';
-	$table .= '<tfoot>' . $head . '</tfoot>';
-	$table .= '<tbody>';
-
-	foreach ( $top_users as $user_id ) {
-
-		$user = get_userdata( $user_id );
-
-		$table .= '<tr class="top-' . $position . '">
-			<td>' . number_format_i18n( $position ) . '</td>
-			<td>' . get_avatar( $user_id, 32 ) . sanitize_user_field( 'display_name', $user->display_name, $user_id, 'display' ) . '</td>
-			<td>' . wordpoints_get_formatted_points( $user_id, $atts['points_type'], 'top_users_shortcode' ) . '</td>
-		</tr>';
-
-		$position++;
-	}
-
-	$table .= '</tbody>';
-	$table .= '</table>';
-
-	return $table;
+	return ob_get_clean();
 }
 add_shortcode( 'wordpoints_points_top', 'wordpoints_points_top_shortcode' );
 

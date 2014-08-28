@@ -67,20 +67,32 @@ function wordpoints_points_top_shortcode( $atts ) {
 
 	$table = '<table class="wordpoints-points-top-users ' . esc_attr( implode( ' ', $extra_classes ) ) . '">';
 
+	$head = '
+			<tr>
+				<th>' . esc_html__( 'Position', 'top users table heading', 'wordpoints' ) . '</th>
+				<th>' . esc_html__( 'User', 'top users table heading', 'wordpoints' ) . '</th>
+				<th>' . esc_html__( 'Points', 'top users table heading', 'wordpoints' ) . '</th>
+			</tr>
+			';
+
+	$table .= '<thead>' . $head . '</thead>';
+	$table .= '<tfoot>' . $head . '</tfoot>';
+	$table .= '<tbody>';
+
 	foreach ( $top_users as $user_id ) {
 
 		$user = get_userdata( $user_id );
 
 		$table .= '<tr class="top-' . $position . '">
 			<td>' . number_format_i18n( $position ) . '</td>
-			<td>' . get_avatar( $user_id, 32 ) . '</td>
-			<td>' . sanitize_user_field( 'display_name', $user->display_name, $user_id, 'display' ) . '</td>
+			<td>' . get_avatar( $user_id, 32 ) . sanitize_user_field( 'display_name', $user->display_name, $user_id, 'display' ) . '</td>
 			<td>' . wordpoints_get_formatted_points( $user_id, $atts['points_type'], 'top_users_shortcode' ) . '</td>
 		</tr>';
 
 		$position++;
 	}
 
+	$table .= '</tbody>';
 	$table .= '</table>';
 
 	return $table;

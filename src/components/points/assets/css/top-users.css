@@ -18,3 +18,11 @@
     padding: 5px;
     border-top: 1px solid #ccc;
 }
+
+/*
+ * Avatars.
+ */
+
+.wordpoints-points-top-users .avatar {
+	margin-right: 5px;
+}

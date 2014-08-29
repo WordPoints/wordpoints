@@ -76,7 +76,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 		?>
 
 		<p>
-			<label for="<?php $this->the_field_id( 'post_type' ); ?>"><?php _e( 'Select post type:', 'wordpoints' ); ?></label>
+			<label for="<?php $this->the_field_id( 'post_type' ); ?>"><?php esc_html_e( 'Select post type:', 'wordpoints' ); ?></label>
 			<?php
 
 			wordpoints_list_post_types(

@@ -39,7 +39,7 @@ if (
 
 ?>
 
-<p><?php _e( 'Configure WordPoints to your liking.', 'wordpoints' ); ?></p>
+<p><?php esc_html_e( 'Configure WordPoints to your liking.', 'wordpoints' ); ?></p>
 <form id="wordpoints-settings" method="post" action="">
 
 	<?php
@@ -53,13 +53,13 @@ if (
 
 	?>
 
-	<h3><?php _e( 'Excluded Users', 'wordpoints' ); ?></h3>
-	<p><?php _e( 'Enter the IDs of users to exclude from leader boards, logs, etc. This may be useful if you use certain accounts for testing.', 'wordpoints' ); ?></p>
+	<h3><?php esc_html_e( 'Excluded Users', 'wordpoints' ); ?></h3>
+	<p><?php esc_html_e( 'Enter the IDs of users to exclude from leader boards, logs, etc. This may be useful if you use certain accounts for testing.', 'wordpoints' ); ?></p>
 	<table class="form-table">
 		<tbody>
 			<tr>
 				<th>
-					<label for="excluded_users"><?php _e( 'Excluded Users', 'wordpoints' ); ?></label>
+					<label for="excluded_users"><?php esc_html_e( 'Excluded Users', 'wordpoints' ); ?></label>
 				</th>
 				<td>
 					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo esc_attr( implode( ', ', wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' ) ) ); ?>" />

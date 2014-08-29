@@ -557,7 +557,7 @@ final class WordPoints_Points_Hooks {
 			<?php endif; ?>
 
 						<?php if ( $slug ) : ?>
-						<p><span class="wordpoints-points-slug"><em><?php _e( 'Slug', 'wordpoints' ); ?>: <?php echo esc_html( $slug ); ?></em></span></p>
+						<p><span class="wordpoints-points-slug"><em><?php esc_html_e( 'Slug', 'wordpoints' ); ?>: <?php echo esc_html( $slug ); ?></em></span></p>
 						<?php endif; ?>
 
 						<?php
@@ -628,7 +628,7 @@ final class WordPoints_Points_Hooks {
 									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false );
 								}
 							?>
-							<a class="hook-control-close" href="#close"><?php _e( 'Close', 'wordpoints' ); ?></a>
+							<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 						</div>
 						<div class="alignright">
 							<?php submit_button( _x( 'Save', 'points type', 'wordpoints' ), 'button-primary hook-control-save right', 'save-points-type', false, array( 'id' => "points-{$slug}-save" ) ); ?>
@@ -736,8 +736,8 @@ final class WordPoints_Points_Hooks {
 
 				<div class="hook-control-actions">
 					<div class="alignleft">
-						<a class="hook-control-remove" href="#remove"><?php _e( 'Delete', 'wordpoints' ); ?></a> |
-						<a class="hook-control-close" href="#close"><?php _e( 'Close', 'wordpoints' ); ?></a>
+						<a class="hook-control-remove" href="#remove"><?php esc_html_e( 'Delete', 'wordpoints' ); ?></a> |
+						<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 					</div>
 					<div class="alignright<?php echo ( false === $has_form ? ' hook-control-noform' : '' ); ?>">
 						<?php submit_button( __( 'Save', 'wordpoints' ), 'button-primary hook-control-save right', 'savehook', false, array( 'id' => "hook-{$id_format}-savehook" ) ); ?>

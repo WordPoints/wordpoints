@@ -277,24 +277,24 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $dropdown_args['id']; ?>"><?php _e( 'Points type to display', 'wordpoints' ); ?></label>
+			<label for="<?php echo $dropdown_args['id']; ?>"><?php esc_html_e( 'Points type to display', 'wordpoints' ); ?></label>
 			<br />
 			<?php echo wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'text' ); ?>"><?php _e( 'Widget text', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'text' ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'text' ); ?>" name="<?php echo $this->get_field_name( 'text' ); ?>" value="<?php echo esc_attr( $instance['text'] ); ?>" />
-			<small><i><?php _e( '%points% will be replaced with the points of the logged in user', 'wordpoints' ); ?></i></small>
+			<small><i><?php esc_html_e( '%points% will be replaced with the points of the logged in user', 'wordpoints' ); ?></i></small>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'alt_text' ); ?>"><?php _e( 'Text if the user is not logged in', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'alt_text' ); ?>"><?php esc_html_e( 'Text if the user is not logged in', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'alt_text' ); ?>" name="<?php echo $this->get_field_name( 'alt_text' ); ?>" value="<?php echo esc_attr( $instance['alt_text'] ); ?>" />
-			<small><i><?php _e( 'Leave this field blank to hide the widget if the user is not logged in', 'wordpoints' ); ?></i></small>
+			<small><i><?php esc_html_e( 'Leave this field blank to hide the widget if the user is not logged in', 'wordpoints' ); ?></i></small>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'number_logs' ); ?>"><?php _e( 'Number of latest log entries for this user to display', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'number_logs' ); ?>"><?php esc_html_e( 'Number of latest log entries for this user to display', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'number_logs' ); ?>" name="<?php echo $this->get_field_name( 'number_logs' ); ?>" value="<?php echo esc_attr( $instance['number_logs'] ); ?>" />
-			<small><i><?php _e( 'Set this to 0 to keep from showing any logs', 'wordpoints' ); ?></i></small>
+			<small><i><?php esc_html_e( 'Set this to 0 to keep from showing any logs', 'wordpoints' ); ?></i></small>
 		</p>
 
 		<?php
@@ -449,7 +449,7 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'num_users' ); ?>"><?php _e( 'Number of top users to show', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'num_users' ); ?>"><?php esc_html_e( 'Number of top users to show', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'num_users' ); ?>" name="<?php echo $this->get_field_name( 'num_users' ); ?>" value="<?php echo absint( $instance['num_users'] ); ?>" />
 		</p>
 
@@ -600,7 +600,7 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'number_logs' ); ?>"><?php _e( 'Number of log entries to display', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'number_logs' ); ?>"><?php esc_html_e( 'Number of log entries to display', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'number_logs' ); ?>" name="<?php echo $this->get_field_name( 'number_logs' ); ?>" value="<?php echo absint( $instance['number_logs'] ); ?>" />
 		</p>
 

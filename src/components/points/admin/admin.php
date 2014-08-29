@@ -277,9 +277,9 @@ function wordpoints_points_profile_options( $user ) {
 
 		</table>
 
-		<h3><?php _e( 'WordPoints', 'wordpoints' ); ?></h3>
-		<p><?php _e( "If you would like to change the value for a type of points, enter the desired value in the text field, and check the checkbox beside it. If you don't check the checkbox, the change will not be saved. To provide a reason for the change, fill out the text field below.", 'wordpoints' ); ?></p>
-		<lable><?php _e( 'Reason', 'wordpoints' ); ?> <input type="text" name="wordpoints_set_reason" />
+		<h3><?php esc_html_e( 'WordPoints', 'wordpoints' ); ?></h3>
+		<p><?php esc_html_e( "If you would like to change the value for a type of points, enter the desired value in the text field, and check the checkbox beside it. If you don't check the checkbox, the change will not be saved. To provide a reason for the change, fill out the text field below.", 'wordpoints' ); ?></p>
+		<lable><?php esc_html_e( 'Reason', 'wordpoints' ); ?> <input type="text" name="wordpoints_set_reason" />
 		<table class="form-table">
 
 		<?php
@@ -395,12 +395,12 @@ function wordpoints_points_admin_settings() {
 	?>
 
 	<h3><?php esc_html_e( 'Default Points Type', 'wordpoints' ); ?></h3>
-	<p><?php _e( 'You can optionally set one points type to be the default. The default points type will, for example, be used by shortcodes when no type is specified. This is also useful if you only have one type of points.', 'wordpoints' ); ?></p>
+	<p><?php esc_html_e( 'You can optionally set one points type to be the default. The default points type will, for example, be used by shortcodes when no type is specified. This is also useful if you only have one type of points.', 'wordpoints' ); ?></p>
 	<table class="form-table">
 		<tbody>
 			<tr>
 				<th>
-					<label for="default_points_type"><?php _e( 'Default', 'wordpoints' ); ?></label>
+					<label for="default_points_type"><?php esc_html_e( 'Default', 'wordpoints' ); ?></label>
 				</th>
 				<td>
 					<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>

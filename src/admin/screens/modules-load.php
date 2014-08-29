@@ -392,7 +392,7 @@ switch ( $action ) {
 					<?php submit_button( __( 'No, Return me to the module list', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
 
-				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php _e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
+				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
 				<div id="files-list" style="display:none;">
 					<ul class="code">
 						<?php

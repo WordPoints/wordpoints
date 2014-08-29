@@ -73,8 +73,8 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 ?>
 
-<p><?php _e( 'View installed WordPoints components.', 'wordpoints' ); ?></p>
-<p><?php _e( 'Currently WordPoints only has one component.', 'wordpoints' ); ?> <?php _e( 'More components are planned for future versions of the plugin.', 'wordpoints' ); ?></p>
+<p><?php esc_html_e( 'View installed WordPoints components.', 'wordpoints' ); ?></p>
+<p><?php esc_html_e( 'Currently WordPoints only has one component.', 'wordpoints' ); ?> <?php esc_html_e( 'More components are planned for future versions of the plugin.', 'wordpoints' ); ?></p>
 
 <?php
 

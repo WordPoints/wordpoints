@@ -114,7 +114,7 @@ if ( is_network_admin() ) {
 					<h3><?php esc_html_e( 'Available Hooks', 'wordpoints' ); ?> <span id="removing-hook"><?php _ex( 'Deactivate', 'removing-hook', 'wordpoints' ); ?> <span></span></span></h3>
 				</div>
 				<div class="hook-holder hook-holder">
-					<p class="description"><?php _e( 'Drag hooks from here to a points type on the right to activate them. Drag hooks back here to deactivate them and delete their settings.', 'wordpoints' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Drag hooks from here to a points type on the right to activate them. Drag hooks back here to deactivate them and delete their settings.', 'wordpoints' ); ?></p>
 					<div id="hook-list">
 						<?php WordPoints_Points_Hooks::list_hooks(); ?>
 					</div>
@@ -134,7 +134,7 @@ if ( is_network_admin() ) {
 					<div id="_inactive_hooks" class="hooks-sortables">
 						<div class="points-type-description">
 							<p class="description">
-								<?php _e( 'Drag hooks here to remove them from the points type but keep their settings.', 'wordpoints' ); ?>
+								<?php esc_html_e( 'Drag hooks here to remove them from the points type but keep their settings.', 'wordpoints' ); ?>
 							</p>
 						</div>
 						<?php WordPoints_Points_Hooks::list_by_points_type( '_inactive_hooks' ); ?>
@@ -241,11 +241,11 @@ if ( is_network_admin() ) {
 	<br class="clear" />
 
 	<div class="hooks-chooser">
-		<h3><?php _e( 'Choose a points type:', 'wordpoints' ); ?></h3>
+		<h3><?php esc_html_e( 'Choose a points type:', 'wordpoints' ); ?></h3>
 		<ul class="hooks-chooser-points-types"></ul>
 		<div class="hooks-chooser-actions">
-			<button class="button-secondary"><?php _e( 'Cancel', 'wordpoints' ); ?></button>
-			<button class="button-primary"><?php _e( 'Add Hook', 'wordpoints' ); ?></button>
+			<button class="button-secondary"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></button>
+			<button class="button-primary"><?php esc_html_e( 'Add Hook', 'wordpoints' ); ?></button>
 		</div>
 	</div>
 </div>

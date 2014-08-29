@@ -91,7 +91,7 @@ $name = esc_html( $hook->get_name() );
 				<?php $hook->form_callback( $number ); ?>
 			</div>
 
-			<p class="describe"><?php _e( 'Select the points type to attach this hook to.', 'wordpoints' ); ?></p>
+			<p class="describe"><?php esc_html_e( 'Select the points type to attach this hook to.', 'wordpoints' ); ?></p>
 			<div class="hook-position">
 				<label for="points_type" class="screen-reader-text">
 					<?php esc_html_e( 'Points Type:', 'wordpoints' ); ?>
@@ -113,7 +113,7 @@ $name = esc_html( $hook->get_name() );
 			<br />
 			<div class="hook-control-actions">
 				<?php if ( isset( $_GET['addnew'] ) ) : ?>
-					<a href="admin.php?page=wordpoints_points_hooks" class="button alignleft"><?php _e( 'Cancel', 'wordpoints' ); ?></a>
+					<a href="admin.php?page=wordpoints_points_hooks" class="button alignleft"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></a>
 				<?php else :
 						submit_button( _x( 'Delete', 'points hook', 'wordpoints' ), 'button alignleft', 'removehook', false );
 					endif;

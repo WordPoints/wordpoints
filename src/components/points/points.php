@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * WordPoints Points component
+ *
+ * @package WordPoints\Points
+ * @since 1.0.0
+ */
+
+global $wpdb;
+
+$wpdb->wordpoints_points_logs     = "{$wpdb->base_prefix}wordpoints_points_logs";
+$wpdb->wordpoints_points_log_meta = "{$wpdb->base_prefix}wordpoints_points_log_meta";
+
+/**
+ * Points component utility functions.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
+
+/**
+ * Points component API functions.
+ *
+ * @since 1.7.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/points.php';
+
+/**
+ * Points hooks static class.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-hooks.php';
+
+/**
+ * Points hook abstract class.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-hook.php';
+
+/**
+ * Post type points hook abstract class.
+ *
+ * @since 1.5.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/abstracts/post-type.php';
+
+/**
+ * The registration points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/registration.php';
+
+/**
+ * The post publish points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post.php';
+
+/**
+ * The post delete points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post-delete.php';
+
+/**
+ * The comment points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment.php';
+
+/**
+ * The comment removed points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment-removed.php';
+
+/**
+ * The periodic points hook
+ *
+ * @since 1.4.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/hooks/periodic.php';
+
+/**
+ * Points logs query class.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-logs-query.php';
+
+/**
+ * Shortcodes/template tags.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/shortcodes.php';
+
+/**
+ * Widgets.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/widgets.php';
+
+/**
+ * Logs related functions.
+ *
+ * @since 1.0.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/logs.php';
+
+/**
+ * Deprecated functions and classes.
+ *
+ * @since 1.2.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/deprecated.php';
+
+if ( is_admin() ) {
+
+	// We are on the administration side of the site.
+
+	/**
+	 * Points administration.
+	 *
+	 * @since 1.0.0
+	 */
+	include_once WORDPOINTS_DIR . 'components/points/admin/admin.php';
+}
+
+// EOF

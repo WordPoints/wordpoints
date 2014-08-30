@@ -13,31 +13,6 @@ $wpdb->wordpoints_points_logs     = "{$wpdb->base_prefix}wordpoints_points_logs"
 $wpdb->wordpoints_points_log_meta = "{$wpdb->base_prefix}wordpoints_points_log_meta";
 
 /**
- * Register the points component.
- *
- * @since 1.0.0
- *
- * @action wordpoints_components_register
- *
- * @uses wordpoints_component_register()
- */
-function wordpoints_points_component_register() {
-
-	wordpoints_component_register(
-		array(
-			'slug'          => 'points',
-			'name'          => _x( 'Points', 'component name', 'wordpoints' ),
-			'version'       => WORDPOINTS_VERSION,
-			'author'        => _x( 'WordPoints', 'component author', 'wordpoints' ),
-			'author_uri'    => 'http://wordpoints.org/',
-			'component_uri' => 'http://wordpoints.org/',
-			'description'   => __( 'Enables a points system for your site.', 'wordpoints' ),
-		)
-	);
-}
-add_action( 'wordpoints_components_register', 'wordpoints_points_component_register' );
-
-/**
  * Install the points component.
  *
  * @since 1.0.0
@@ -122,11 +97,6 @@ function wordpoints_points_component_uninstall() {
 	}
 }
 add_action( 'wordpoints_uninstall_component-points', 'wordpoints_points_component_uninstall' );
-
-// If the component isn't active, stop here.
-if ( ! wordpoints_component_is_active( 'points' ) ) {
-	return;
-}
 
 /**
  * Update the points component.

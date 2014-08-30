@@ -158,9 +158,6 @@ final class WordPoints_Components {
 	 */
 	public function load() {
 
-		// Include core component(s).
-		include_once( WORDPOINTS_DIR . 'components/points/points.php' );
-
 		/**
 		 * Registration of included components.
 		 *
@@ -170,8 +167,23 @@ final class WordPoints_Components {
 		 * action instead.
 		 *
 		 * @since 1.0.0
+		 * @since 1.7.0 The components' code isn't loaded until after this hook.
 		 */
 		do_action( 'wordpoints_components_register' );
+
+		foreach ( $this->get() as $component ) {
+var_log( $component );
+			// Back-compat < 1.7.0
+			if ( ! isset( $component['file'] ) ) {
+				continue;
+			}
+
+			if ( ! $this->is_active( $component['slug'] ) ) {
+				continue;
+			}
+
+			include_once( $component['file'] );
+		}
 
 		/**
 		 * Components loaded and registered.
@@ -256,6 +268,7 @@ final class WordPoints_Components {
 			'component_uri' => '',
 			'description'   => '',
 			'version'       => '',
+			'file'          => null,
 		);
 
 		$component = array_merge( $defaults, $args );
@@ -327,6 +340,10 @@ final class WordPoints_Components {
 
 			if ( ! wordpoints_update_network_option( 'wordpoints_active_components', $this->active ) ) {
 				return false;
+			}
+
+			if ( isset( $this->registered[ $slug ]['file'] ) ) { // Back-compat < 1.7.0
+				include_once( $this->registered[ $slug ]['file'] );
 			}
 
 			/**

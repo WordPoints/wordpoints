@@ -673,4 +673,30 @@ function wordpoints_add_custom_caps_to_new_sites( $blog_id ) {
 }
 add_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );
 
+/**
+ * Register the points component.
+ *
+ * @since 1.0.0
+ *
+ * @action wordpoints_components_register
+ *
+ * @uses wordpoints_component_register()
+ */
+function wordpoints_points_component_register() {
+
+	wordpoints_component_register(
+		array(
+			'slug'          => 'points',
+			'name'          => _x( 'Points', 'component name', 'wordpoints' ),
+			'version'       => WORDPOINTS_VERSION,
+			'author'        => _x( 'WordPoints', 'component author', 'wordpoints' ),
+			'author_uri'    => 'http://wordpoints.org/',
+			'component_uri' => 'http://wordpoints.org/',
+			'description'   => __( 'Enables a points system for your site.', 'wordpoints' ),
+			'file'          => WORDPOINTS_DIR . 'components/points/points.php',
+		)
+	);
+}
+add_action( 'wordpoints_components_register', 'wordpoints_points_component_register' );
+
 // EOF

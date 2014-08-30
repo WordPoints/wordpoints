@@ -7,10 +7,12 @@
  * @since 1.0.0
  */
 
-global $wpdb;
-
-$wpdb->wordpoints_points_logs     = "{$wpdb->base_prefix}wordpoints_points_logs";
-$wpdb->wordpoints_points_log_meta = "{$wpdb->base_prefix}wordpoints_points_log_meta";
+/**
+ * Points component constants and global vars.
+ *
+ * @since 1.7.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/constants.php';
 
 /**
  * Points component utility functions.

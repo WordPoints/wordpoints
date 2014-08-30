@@ -185,11 +185,18 @@ add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 
 /**
- * Points component functions.
+ * Points component utility functions.
  *
  * @since 1.0.0
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
+
+/**
+ * Points component API functions.
+ *
+ * @since 1.7.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/points.php';
 
 /**
  * Points hooks static class.

@@ -700,4 +700,29 @@ function wordpoints_points_component_register() {
 }
 add_action( 'wordpoints_components_register', 'wordpoints_points_component_register' );
 
+/**
+ * Register the ranks component.
+ *
+ * @since 1.7.0
+ *
+ * @action wordpoints_components_register
+ */
+function wordpoints_ranks_component_register() {
+
+	wordpoints_component_register(
+		array(
+			'slug'           => 'ranks',
+			'name'           => _x( 'Ranks', 'component name', 'wordpoints' ),
+			'version'        => WORDPOINTS_VERSION,
+			'author'         => _x( 'WordPoints', 'component author', 'wordpoints' ),
+			'author_uri'     => 'http://wordpoints.org/',
+			'component_uri'  => 'http://wordpoints.org/',
+			'description'    => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
+			'file'           => WORDPOINTS_DIR . 'components/ranks/ranks.php',
+			'uninstall_file' => WORDPOINTS_DIR . 'components/ranks/uninstall.php',
+		)
+	);
+}
+add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
+
 // EOF

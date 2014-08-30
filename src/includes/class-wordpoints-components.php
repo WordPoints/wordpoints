@@ -284,6 +284,10 @@ final class WordPoints_Components {
 
 		$this->registered[ $slug ] = array_intersect_key( $component, $defaults );
 
+		if ( empty( $this->registered[ $slug ]['file'] ) ) {
+			_doing_it_wrong( __METHOD__, 'Components should be registered with the the "file" argument, no loaded unconditionally.', '1.7.0' );
+		}
+
 		return true;
 	}
 

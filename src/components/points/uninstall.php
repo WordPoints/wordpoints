@@ -12,8 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Check if the component was ever installed.
+$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
+
+if ( ! isset( $wordpoints_data['components']['points']['version'] ) ) {
+
+	// The component hasn't been installed.
+	return;
+}
+
 // Dependencies for the uninstall process.
 require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
+require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
 
 global $wpdb;
 

@@ -69,31 +69,6 @@ function wordpoints_points_component_activate() {
 add_action( 'wordpoints_component_activate-points', 'wordpoints_points_component_activate' );
 
 /**
- * Uninstall the points component.
- *
- * @since 1.0.0
- *
- * @action wordpoints_uninstall_component-points
- */
-function wordpoints_points_component_uninstall() {
-
-	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
-
-	if ( isset( $wordpoints_data['components']['points']['version'] ) ) {
-
-		// The component has been installed.
-
-		/**
-		 * Uninstall the component.
-		 *
-		 * @since 1.0.0
-		 */
-		require WORDPOINTS_DIR . 'components/points/uninstall.php';
-	}
-}
-add_action( 'wordpoints_uninstall_component-points', 'wordpoints_points_component_uninstall' );
-
-/**
  * Update the points component.
  *
  * @since 1.2.0

@@ -181,4 +181,26 @@ function wordpoints_points_user_cap_filter( $all_capabilities ) {
 	return $all_capabilities;
 }
 
+/**
+ * Uninstall the points component.
+ *
+ * @since 1.0.0
+ * @deprecated 1.7.0 Use WordPoints_Components::uninstall( 'points' ) instead.
+ */
+function wordpoints_points_component_uninstall() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '1.7.0'
+		, "WordPoints_Components::uninstall( 'points' )"
+	);
+
+	/**
+	 * Uninstall the component.
+	 *
+	 * @since 1.0.0
+	 */
+	require WORDPOINTS_DIR . 'components/points/uninstall.php';
+}
+
 // EOF

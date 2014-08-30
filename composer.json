@@ -1,0 +1,6 @@
+{
+    "require": {
+        "php": ">=5.2.0",
+        "jdgrimes/wp-plugin-uninstall-tester": "~0.3"
+    }
+}

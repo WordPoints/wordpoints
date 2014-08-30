@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "e7e39c8bf504fc938c7f3727c66daa8c",
+    "packages": [
+        {
+            "name": "jdgrimes/wp-plugin-uninstall-tester",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JDGrimes/wp-plugin-uninstall-tester.git",
+                "reference": "341b3ffc95c75f66620ec489dfb20f923cac1454"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/341b3ffc95c75f66620ec489dfb20f923cac1454",
+                "reference": "341b3ffc95c75f66620ec489dfb20f923cac1454",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "J.D. Grimes",
+                    "email": "jdg@codesymphony.co",
+                    "homepage": "http://codesymphony.co",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Utilities for testing WordPress plugin install/uninstall with PHPUnit",
+            "homepage": "https://github.com/JDGrimes/wp-plugin-uninstall-tester",
+            "time": "2014-08-30 19:37:26"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ],
+    "platform": {
+        "php": ">=5.2.0"
+    },
+    "platform-dev": [
+
+    ]
+}

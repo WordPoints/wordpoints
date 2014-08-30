@@ -1154,9 +1154,9 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 	$top_users = wordpoints_points_get_top_users( $num_users, $points_type );
 
 	$column_headers = array(
-		'position' => __( 'Position', 'top users table heading', 'wordpoints' ),
-		'user'     => __( 'User', 'top users table heading', 'wordpoints' ),
-		'points'   => __( 'Points', 'top users table heading', 'wordpoints' ),
+		'position' => _x( 'Position', 'top users table heading', 'wordpoints' ),
+		'user'     => _x( 'User', 'top users table heading', 'wordpoints' ),
+		'points'   => _x( 'Points', 'top users table heading', 'wordpoints' ),
 	);
 
 	/**

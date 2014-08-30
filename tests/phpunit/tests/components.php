@@ -54,6 +54,8 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test registration functions.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @expectedIncorrectUsage WordPoints_Components::register
 	 */
 	public function test_registration() {
 
@@ -93,6 +95,8 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test activation.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @expectedIncorrectUsage WordPoints_Components::register
 	 */
 	public function test_activation() {
 

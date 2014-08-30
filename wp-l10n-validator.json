@@ -5,6 +5,7 @@
 	"ignores-cache": "./tools/wp-l10n-validator/ignores-cache.json",
 	"ignored-functions": {
 		"_deprecated_argument": true,
+		"_deprecated_file": true,
 		"_doing_it_wrong": true,
 
 		"wordpoints_add_network_option": true,
@@ -22,6 +23,7 @@
 		"wordpoints_get_points_logs_query_args": true,
 		"wordpoints_get_points_type_setting": true,
 		"wordpoints_list_post_types": true,
+		"wordpoints_points_show_top_users": [3],
 		"wordpoints_prepare__in": true,
 		"wordpoints_register_points_logs_query": true,
 		"wordpoints_show_admin_message": [2],
@@ -38,6 +40,7 @@
 		"WordPoints_Points_Hooks::get_handler_by_id_base": true,
 		"WordPoints_Points_Hooks::register": true,
 		"WordPoints_Points_Hooks::points_type_form": true,
+		"WordPoints_Points_Log_Queries::get_query_data": true,
 		"WordPoints_Points_Log_Queries::register_query": true,
 		"WordPoints_Points_Logs_Query::__construct": true,
 		"WordPoints_Points_Logs_Query::_cache_get": true,

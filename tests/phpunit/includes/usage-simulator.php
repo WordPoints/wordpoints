@@ -50,6 +50,11 @@ function wordpointstests_simulate_usage() {
 // Include the test functions so we can simulate adding points hooks and widgets.
 require_once dirname( __FILE__ ) . '/functions.php';
 
+// Activate the Points component.
+$wordpoints_components = WordPoints_Components::instance();
+$wordpoints_components->load();
+$wordpoints_components->activate( 'ranks' );
+
 if ( is_multisite() ) {
 
 	global $wpdb;

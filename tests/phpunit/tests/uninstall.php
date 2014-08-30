@@ -110,7 +110,6 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
 
-		// Check that the points component is active.
 		if ( $this->network_wide ) {
 			$active_components = get_site_option( 'wordpoints_active_components' );
 		} else {
@@ -118,20 +117,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		}
 
 		$this->assertInternalType( 'array', $active_components );
-		$this->assertArrayHasKey( 'points', $active_components );
 
-		// Check that the points tables were added.
-		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_logs' );
-		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_log_meta' );
-
-		// Check that the capabilities were added.
-		$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
-
-		if ( $this->network_wide ) {
-			$this->assertFalse( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
-		} else {
-			$this->assertTrue( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
-		}
+		$this->assertPointsComponentInstalled( $active_components );
 
 		/**
 		 * Run install tests.
@@ -143,19 +130,24 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		do_action( 'wordpoints_install_tests', $this );
 
 		/*
+		 * Simulated Usage.
+		 */
+
+		$this->simulate_usage();
+
+		$this->assertRanksComponentInstalled();
+
+		/*
 		 * Uninstall.
 		 */
 
 		$this->uninstall();
 
-		$this->assertTableNotExists( $wpdb->wordpoints_points_logs );
-		$this->assertTableNotExists( $wpdb->wordpoints_points_log_meta );
+		$this->assertPointsComponentUninstalled();
 
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );
 
 		if ( is_multisite() ) {
-
-			global $wpdb;
 
 			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
@@ -174,8 +166,6 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 				$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
 				$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 				$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
-
-				$this->assertFalse( $administrator->has_cap( 'set_wordpoints_points' ) );
 			}
 
 			switch_to_blog( $original_blog_id );
@@ -194,11 +184,108 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
 			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
-
-			$this->assertFalse( $administrator->has_cap( 'set_wordpoints_points' ) );
 		}
 
 	} // function test_uninstall()
+
+	//
+	// Assertions.
+	//
+
+	/**
+	 * Assert that the points component is installed.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param array $active_components The list of active components.
+	 */
+	protected function assertPointsComponentInstalled( $active_components ) {
+
+		global $wpdb;
+
+		// Check that the points component is active.
+		$this->assertArrayHasKey( 'points', $active_components );
+
+		// Check that the points tables were added.
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_logs' );
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_points_log_meta' );
+
+		// Check that the capabilities were added.
+		$administrator = get_role( 'administrator' );
+		$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
+
+		if ( $this->network_wide ) {
+			$this->assertFalse( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
+		} else {
+			$this->assertTrue( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
+		}
+	}
+
+	/**
+	 * Assert that the points component is uninstalled.
+	 *
+	 * @since 1.7.0
+	 */
+	protected function assertPointsComponentUninstalled() {
+
+		global $wpdb;
+
+		$this->assertTableNotExists( $wpdb->wordpoints_points_logs );
+		$this->assertTableNotExists( $wpdb->wordpoints_points_log_meta );
+
+		if ( is_multisite() ) {
+
+			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+			$original_blog_id = get_current_blog_id();
+
+			foreach ( $blog_ids as $blog_id ) {
+
+				switch_to_blog( $blog_id );
+
+				$administrator = get_role( 'administrator' );
+				$this->assertFalse(
+					$administrator->has_cap( 'set_wordpoints_points' )
+				);
+			}
+
+			switch_to_blog( $original_blog_id );
+
+			// See http://wordpress.stackexchange.com/a/89114/27757
+			unset( $GLOBALS['_wp_switched_stack'] );
+			$GLOBALS['switched'] = false;
+
+		} else {
+
+			$administrator = get_role( 'administrator' );
+			$this->assertFalse(
+				$administrator->has_cap( 'set_wordpoints_points' )
+			);
+		}
+	}
+
+	/**
+	 * Assert that the ranks component is installed.
+	 *
+	 * @since 1.7.0
+	 */
+	protected function assertRanksComponentInstalled() {
+
+		global $wpdb;
+
+		if ( $this->network_wide ) {
+			$active_components = get_site_option( 'wordpoints_active_components' );
+		} else {
+			$active_components = get_option( 'wordpoints_active_components' );
+		}
+
+		$this->assertInternalType( 'array', $active_components );
+
+		$this->assertArrayHasKey( 'ranks', $active_components );
+
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_ranks' );
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_rankmeta' );
+	}
 }
 
 // EOF

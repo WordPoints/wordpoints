@@ -254,6 +254,8 @@ final class WordPoints_Components {
 	 *        @type string $component_uri The component's webpage.
 	 *        @type string $description   A description of what the component does.
 	 *        @type string $version       The component's version number.
+	 *        @type string $file          The component's main file.
+	 *        @type string $uninstall_file A file which will uninstall the component.
 	 * }
 	 *
 	 * @return bool True, or false if the component's slug has already been registered.
@@ -269,6 +271,7 @@ final class WordPoints_Components {
 			'description'   => '',
 			'version'       => '',
 			'file'          => null,
+			'uninstall_file' => null,
 		);
 
 		$component = array_merge( $defaults, $args );
@@ -425,6 +428,31 @@ final class WordPoints_Components {
 		 * @param string $slug      The component's slug.
 		 */
 		return apply_filters( 'wordpoints_component_active', $is_active, $slug );
+	}
+
+	/**
+	 * Uninstall a component.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $slug The component's slug.
+	 */
+	public function uninstall( $slug ) {
+
+		if ( ! $this->is_registered( $slug ) ) {
+			return;
+		}
+
+		/**
+		 * Uninstall a component.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( "wordpoints_uninstall_component-{$slug}" );
+
+		if ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
+			include_once( $this->registered[ $slug ]['uninstall_file'] );
+		}
 	}
 }
 

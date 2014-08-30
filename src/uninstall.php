@@ -41,6 +41,11 @@ if ( $wp_filesystem instanceof WP_Filesystem ) {
 }
 
 /*
+ * Back compat < 1.7.0
+ *
+ * The below notes no longer apply.
+ * --------------------------------
+ *
  * Bulk 'deactivate' components. No other filters should be applied later than these
  * (e.g., after 99) for this hook - doing so could have unexpected results.
  *
@@ -51,17 +56,12 @@ add_filter( 'wordpoints_component_active', '__return_false', 100 );
 
 $components = WordPoints_Components::instance();
 
-// Now for the components.
+// Back-compat < 1.7.0
 $components->load();
 
+// Uninstall the components.
 foreach ( $components->get() as $component => $data ) {
-
-	/**
-	 * Uninstall $component.
-	 *
-	 * @since 1.0.0
-	 */
-	do_action( "wordpoints_uninstall_component-{$component}" );
+	$components->uninstall( $component );
 }
 
 // Custom capabilities to remove.

@@ -172,7 +172,7 @@ final class WordPoints_Components {
 		do_action( 'wordpoints_components_register' );
 
 		foreach ( $this->get() as $component ) {
-var_log( $component );
+
 			// Back-compat < 1.7.0
 			if ( ! isset( $component['file'] ) ) {
 				continue;

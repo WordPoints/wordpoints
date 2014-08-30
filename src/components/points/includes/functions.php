@@ -16,9 +16,6 @@
  */
 function wordpoints_points_component_activate() {
 
-	// The component isn't loaded on activation, so we must include dependencies.
-	include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
-
 	/*
 	 * Regenerate the custom caps every time on multisite, because they depend on
 	 * network activation status.

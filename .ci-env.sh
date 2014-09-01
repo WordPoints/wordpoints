@@ -2,6 +2,8 @@
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
+	wget http://getcomposer.org/composer.phar && php composer.phar install --dev
+
     wget -O /tmp/install-wp-tests.sh \
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
 

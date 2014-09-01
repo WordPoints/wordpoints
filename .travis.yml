@@ -52,9 +52,6 @@ before_install:
     - export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
     - if [ -e .ci-env.sh ]; then source .ci-env.sh; fi
 
-install:
-    - composer install
-
 before_script:
     - >
         if [ $TRAVISCI_RUN == phpunit ]; then

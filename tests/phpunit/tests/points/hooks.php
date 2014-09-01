@@ -151,6 +151,141 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 		// The custom description should be returned.
 		$this->assertEquals( 'Test.', $hook->get_description() );
 	}
+
+	/**
+	 * Test uninstalling points hook types.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_hook_type_uninstall() {
+
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		WordPoints_Points_Hooks::uninstall_hook_types(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook_type = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEmpty( $hook_type->get_instances() );
+
+		// Try uninstalling multiple post types.
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+
+		WordPoints_Points_Hooks::uninstall_hook_types(
+			array(
+				'wordpoints_post_points_hook',
+				'wordpoints_post_delete_points_hook',
+			)
+		);
+
+		$hook_type = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEmpty( $hook_type->get_instances() );
+	}
+
+	/**
+	 * Test uninstalling points hook types on multisite.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_multisite_hook_type_uninstall() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite is required.' );
+		}
+
+		$blog_id = $this->factory->blog->create();
+
+		switch_to_blog( $blog_id );
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+		restore_current_blog();
+
+		WordPoints_Points_Hooks::uninstall_hook_types(
+			'wordpoints_post_points_hook'
+			, array( $blog_id )
+		);
+
+		switch_to_blog( $blog_id );
+
+		$hook_type = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEmpty( $hook_type->get_instances() );
+
+		// Try uninstalling multiple post types.
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+
+		restore_current_blog();
+
+		WordPoints_Points_Hooks::uninstall_hook_types(
+			array(
+				'wordpoints_post_points_hook',
+				'wordpoints_post_delete_points_hook',
+			)
+			, array( $blog_id )
+		);
+
+		switch_to_blog( $blog_id );
+
+		$hook_type = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEmpty( $hook_type->get_instances() );
+
+		restore_current_blog();
+	}
+
+	/**
+	 * Test uninstalling points hook types in network mode.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_network_hook_type_uninstall() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must be network active.' );
+		}
+
+		WordPoints_Points_Hooks::set_network_mode( true );
+
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		WordPoints_Points_Hooks::uninstall_hook_types(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook_type = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEmpty( $hook_type->get_instances() );
+
+		// Try uninstalling multiple post types.
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+
+		WordPoints_Points_Hooks::uninstall_hook_types(
+			array(
+				'wordpoints_post_points_hook',
+				'wordpoints_post_delete_points_hook',
+			)
+		);
+
+		$hook_type = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEmpty( $hook_type->get_instances() );
+	}
 }
 
 // EOF

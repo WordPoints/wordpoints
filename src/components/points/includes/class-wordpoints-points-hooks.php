@@ -251,6 +251,47 @@ final class WordPoints_Points_Hooks {
 	}
 
 	/**
+	 * Delete the database data for a list of hook types.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param array|string $hook_typse The hook type(s) to uninstall.
+	 * @param int[]        $site_ids   List of site IDs where this hook type is
+	 *                                 installed. Only needed if on multisite. If
+	 *                                 omitted, the current site ID is used.
+	 */
+	public static function uninstall_hook_types( $hook_types, array $site_ids = null ) {
+
+		$hook_types = (array) $hook_types;
+
+		if ( is_multisite() ) {
+
+			foreach ( $hook_types as $hook_type ) {
+				delete_site_option( "wordpoints_hook-{$hook_type}" );
+			}
+
+			if ( ! isset( $site_ids ) ) {
+				$site_ids = array( get_current_blog_id() );
+			}
+
+			foreach ( $site_ids as $site_id ) {
+
+				switch_to_blog( $site_id );
+				foreach ( $hook_types as $hook_type ) {
+					delete_option( "wordpoints_hook-{$hook_type}" );
+				}
+				restore_current_blog( $site_id );
+			}
+
+		} else {
+
+			foreach ( $hook_types as $hook_type ) {
+				delete_option( "wordpoints_hook-{$hook_type}" );
+			}
+		}
+	}
+
+	/**
 	 * Displays a list of available hooks for the Points Hooks administration panel.
 	 *
 	 * @since 1.0.0

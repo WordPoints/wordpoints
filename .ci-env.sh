@@ -37,6 +37,8 @@ codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
 		find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
+	else
+		echo 'Not running PHP syntax check.'
 	fi
 }
 
@@ -46,6 +48,8 @@ codesniff-phpcs() {
 		$PHPCS_DIR/scripts/phpcs -n --standard=$WPCS_STANDARD \
 			$(if [ -n "$PHPCS_IGNORE" ]; then echo --ignore=$PHPCS_IGNORE; fi) \
 			$(find . -name '*.php')
+	else
+		echo 'Not running PHPCS.'
 	fi
 }
 
@@ -53,6 +57,8 @@ codesniff-phpcs() {
 codesniff-jshint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
 		jshint .
+	else
+		echo 'Not running jshint.'
 	fi
 }
 
@@ -65,6 +71,8 @@ phpunit-basic() {
 				echo --coverage-clover build/logs/clover.xml
 			fi
 		)
+	else
+		echo 'Not running PHPUnit.'
 	fi
 }
 
@@ -72,6 +80,8 @@ phpunit-basic() {
 phpunit-uninstall() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
 		phpunit --group=uninstall
+	else
+		echo 'Not running PHPUnit.'
 	fi
 }
 
@@ -82,6 +92,8 @@ phpunit-ajax() {
 		&& [[ $WP_MULTISITE == 0 || $WP_VERSION == latest ]];
 	then
 		phpunit --group=ajax
+	else
+		echo 'Not running Ajax tests.'
 	fi
 }
 
@@ -89,6 +101,8 @@ phpunit-ajax() {
 phpunit-ms-network() {
 	if [[ $TRAVISCI_RUN == phpunit ]] && [[ $WP_MULTISITE == 1 ]]; then
 		WORDPOINTS_NETWORK_ACTIVE=1 phpunit
+	else
+		echo 'Not running network tests.'
 	fi
 }
 
@@ -96,6 +110,8 @@ phpunit-ms-network() {
 phpunit-ms-network-uninstall() {
 	if [[ $TRAVISCI_RUN == phpunit ]] && [[ $WP_MULTISITE == 1 ]]; then
 		WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=uninstall
+	else
+		echo 'Not running network tests.'
 	fi
 }
 
@@ -106,6 +122,8 @@ phpunit-ms-network-ajax() {
 		&& [[ $WP_MULTISITE == 1 ]] && [[ $WP_VERSION == latest ]];
 	then
 		WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=ajax
+	else
+		echo 'Not running network Ajax tests.'
 	fi
 }
 

@@ -2,7 +2,13 @@
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
-	wget http://getcomposer.org/composer.phar && php composer.phar install --dev
+	if [[ $( php --version | grep ' 5.2' ) ]]; then
+		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester && curl -L \
+			https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/0.3.0.tar.gz \
+			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
+	else
+		composer install
+	fi
 
     wget -O /tmp/install-wp-tests.sh \
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh

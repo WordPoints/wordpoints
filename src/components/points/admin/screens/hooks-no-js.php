@@ -84,7 +84,7 @@ $name = esc_html( $hook->get_name() );
 <div class="wrap">
 	<h2><?php esc_html_e( 'Points Hooks', 'wordpoints' ); ?></h2>
 	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
-		<h3><?php printf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ); ?></h3>
+		<h3><?php echo esc_html( sprintf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ) ); ?></h3>
 
 		<form action="admin.php?page=wordpoints_points_hooks" method="post">
 			<div class="hook-inside">

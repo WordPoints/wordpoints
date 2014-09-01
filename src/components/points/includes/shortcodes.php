@@ -225,8 +225,8 @@ function wordpoints_how_to_get_points_shortcode( $atts ) {
 	$extra_classes = apply_filters( 'wordpoints_how_to_get_points_table_extra_classes', array(), $atts );
 
 	$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">'
-		. '<thead><tr><th style="padding-right: 10px">' . _x( 'Points', 'column name', 'wordpoints' ) . '</th>'
-		. '<th>' . _x( 'Action', 'column name', 'wordpoints' ) . '</th></tr></thead>'
+		. '<thead><tr><th style="padding-right: 10px">' . esc_html_x( 'Points', 'column name', 'wordpoints' ) . '</th>'
+		. '<th>' . esc_html_x( 'Action', 'column name', 'wordpoints' ) . '</th></tr></thead>'
 		. '<tbody>';
 
 	foreach ( $hooks as $hook_id ) {

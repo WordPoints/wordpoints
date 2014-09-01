@@ -629,7 +629,7 @@ final class WordPoints_Points_Hooks {
 						?>
 
 						<p>
-							<label for="points-name-<?php echo esc_attr( $slug ); ?>"><?php _ex( 'Name:', 'points type', 'wordpoints' ); ?></label>
+							<label for="points-name-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html_x( 'Name:', 'points type', 'wordpoints' ); ?></label>
 							<input class="widefat" type="text" id="points-name-<?php echo esc_attr( $slug ); ?>" name="points-name" class="points-name" value="<?php echo esc_attr( $points_type['name'] ); ?>" />
 						</p>
 						<p>

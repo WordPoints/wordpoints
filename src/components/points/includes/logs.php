@@ -485,21 +485,21 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		<thead>
 			<tr>
 				<?php if ( $args['show_users'] ) : ?>
-				<th scope="col"><?php echo $columns['user']; ?></th>
+				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
 				<?php endif; ?>
-				<th scope="col"><?php echo $columns['points']; ?></th>
-				<th scope="col"><?php echo $columns['description']; ?></th>
-				<th scope="col"><?php echo $columns['time']; ?></th>
+				<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
 				<?php if ( $args['show_users'] ) : ?>
-				<th scope="col"><?php echo $columns['user']; ?></th>
+				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
 				<?php endif; ?>
-				<th scope="col"><?php echo $columns['points']; ?></th>
-				<th scope="col"><?php echo $columns['description']; ?></th>
-				<th scope="col"><?php echo $columns['time']; ?></th>
+				<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
+				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
 			</tr>
 		</tfoot>
 		<tbody>

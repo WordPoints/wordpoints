@@ -15,10 +15,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Dependencies for the uninstall routine.
-require_once dirname( __FILE__ ) . '/includes/constants.php';
-require_once WORDPOINTS_DIR . 'includes/functions.php';
-require_once WORDPOINTS_DIR . 'includes/modules.php';
-require_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';
+require_once dirname( __FILE__ ) . '/includes/uninstall-bootstrap.php';
 
 /*
  * Uninstall modules.

@@ -21,14 +21,16 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
  */
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
-/**
- * The WP plugin uninstall testing functions.
- *
- * We need this so we can check if the uninstall tests are being run.
- *
- * @since 1.2.0
- */
-require_once WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php';
+if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+	/**
+	 * The WP plugin uninstall testing functions.
+	 *
+	 * We need this so we can check if the uninstall tests are being run.
+	 *
+	 * @since 1.2.0
+	 */
+	require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php';
+}
 
 /**
  * The WordPress tests functions.
@@ -83,12 +85,14 @@ require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/../../src/includes/constants.php';
 
-/**
- * The bootstrap for the uninstall tests.
- *
- * @since 1.2.0
- */
-require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php';
+if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+	/**
+	 * The bootstrap for the uninstall tests.
+	 *
+	 * @since 1.2.0
+	 */
+	require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php';
+}
 
 /**
  * The WordPoints_UnitTestCase class.

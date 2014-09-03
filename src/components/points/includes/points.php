@@ -639,19 +639,6 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	}
 
 	/**
-	 * User points altered.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int    $user_id     The ID of the user.
-	 * @param int    $points      The number of points.
-	 * @param string $points_type The type of points.
-	 * @param string $log_type    The type of transaction.
-	 * @param array  $meta        Metadata for the transaction.
-	 */
-	do_action( 'wordpoints_points_altered', $user_id, $points, $points_type, $log_type, $meta );
-
-	/**
 	 * Whether a transaction should be logged.
 	 *
 	 * @param bool   $log_transaction Whether or not to log this transactioin.
@@ -663,48 +650,68 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	$log_transaction = apply_filters( 'wordpoints_points_log', true, $user_id, $points, $points_type, $log_type, $meta );
 
-	if ( ! $log_transaction ) {
-		// We're not supposed to log this one.
-		return true;
-	}
+	if ( $log_transaction ) {
 
-	$result = $wpdb->insert(
-		$wpdb->wordpoints_points_logs,
-		array(
-			'user_id'     => $user_id,
-			'points'      => $points,
-			'points_type' => $points_type,
-			'log_type'    => $log_type,
-			'text'        => wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta ),
-			'date'        => current_time( 'mysql', 1 ),
-			'site_id'     => $wpdb->siteid,
-			'blog_id'     => $wpdb->blogid,
-		),
-		array( '%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d' )
-	);
+		$result = $wpdb->insert(
+			$wpdb->wordpoints_points_logs,
+			array(
+				'user_id'     => $user_id,
+				'points'      => $points,
+				'points_type' => $points_type,
+				'log_type'    => $log_type,
+				'text'        => wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta ),
+				'date'        => current_time( 'mysql', 1 ),
+				'site_id'     => $wpdb->siteid,
+				'blog_id'     => $wpdb->blogid,
+			),
+			array( '%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d' )
+		);
 
-	if ( $result !== false ) {
+		if ( $result !== false ) {
 
-		$insert_id = $wpdb->insert_id;
+			$log_id = (int) $wpdb->insert_id;
 
-		foreach ( $meta as $meta_key => $meta_value ) {
+			foreach ( $meta as $meta_key => $meta_value ) {
 
-			wordpoints_add_points_log_meta( $insert_id, $meta_key, $meta_value );
+				wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value );
+			}
+
+			/**
+			 * User points transaction logged.
+			 *
+			 * @since 1.0.0
+			 * @since 1.7.0 The $log_id is now passed.
+			 *
+			 * @param int    $user_id     The ID of the user.
+			 * @param int    $points      The number of points.
+			 * @param string $points_type The type of points.
+			 * @param string $log_type    The type of transaction.
+			 * @param array  $meta        Metadata for the transaction.
+			 * @param int    $log_id      The ID of the transaction log entry.
+			 */
+			do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 		}
 
-		/**
-		 * User points transaction logged.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param int    $user_id     The ID of the user.
-		 * @param int    $points      The number of points.
-		 * @param string $points_type The type of points.
-		 * @param string $log_type    The type of transaction.
-		 * @param array  $meta    Metadata for the transaction.
-		 */
-		do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta );
+	} else {
+
+		// We're not supposed to log this one.
+		$log_id = false;
 	}
+
+	/**
+	 * User points altered.
+	 *
+	 * @since 1.0.0
+	 * @since 1.7.0 The $log_id is now passed.
+	 *
+	 * @param int    $user_id     The ID of the user.
+	 * @param int    $points      The number of points.
+	 * @param string $points_type The type of points.
+	 * @param string $log_type    The type of transaction.
+	 * @param array  $meta        Metadata for the transaction.
+	 * @param int|false $log_id   The ID of the transaction log, or false if not logged.
+	 */
+	do_action( 'wordpoints_points_altered', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 
 	return true;
 

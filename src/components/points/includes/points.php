@@ -650,6 +650,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	$log_transaction = apply_filters( 'wordpoints_points_log', true, $user_id, $points, $points_type, $log_type, $meta );
 
+	$log_id = false;
 	if ( $log_transaction ) {
 
 		$result = $wpdb->insert(
@@ -692,11 +693,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 		}
 
-	} else {
-
-		// We're not supposed to log this one.
-		$log_id = false;
-	}
+	} // If logging the transaction.
 
 	/**
 	 * User points altered.

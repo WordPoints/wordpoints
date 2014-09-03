@@ -90,18 +90,18 @@ do_action( 'wordpoints_admin_components_top' );
 <table id="wordpoints_components_table" class="widefat">
 	<thead>
 		<tr>
-			<th scope="col" width="150"><?php _ex( 'Component', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php _ex( 'Description', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col" width="80"><?php _ex( 'Version', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col" width="70"><?php _ex( 'Action', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col" width="150"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Description', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col" width="80"><?php echo esc_html_x( 'Version', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col" width="70"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>
-			<th scope="col"><?php _ex( 'Component', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php _ex( 'Description', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php _ex( 'Version', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php _ex( 'Action', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Description', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Version', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
 		</tr>
 	</tfoot>
 

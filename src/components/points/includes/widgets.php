@@ -273,7 +273,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title', 'form label', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
@@ -441,11 +441,11 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title', 'form label', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $dropdown_args['id']; ?>"><?php _ex( 'Points type', 'form label', 'wordpoints' ); ?></label>
+			<label for="<?php echo $dropdown_args['id']; ?>"><?php echo esc_html_x( 'Points type', 'form label', 'wordpoints' ); ?></label>
 			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>
@@ -592,11 +592,11 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title', 'form label', 'wordpoints' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $dropdown_args['id']; ?>"><?php _ex( 'Points type', 'form label', 'wordpoints' ); ?></label>
+			<label for="<?php echo $dropdown_args['id']; ?>"><?php echo esc_html_x( 'Points type', 'form label', 'wordpoints' ); ?></label>
 			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>

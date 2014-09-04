@@ -61,8 +61,9 @@ if ( is_multisite() ) {
 
 			$prefix = $wpdb->get_blog_prefix();
 			delete_metadata( 'user', 0, $prefix . "wordpoints_points-{$slug}", '', true );
-			delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
 		}
+
+		delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
 
 		delete_option( 'wordpoints_points_types' );
 		delete_option( 'wordpoints_default_points_type' );

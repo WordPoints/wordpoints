@@ -458,13 +458,11 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 			if ( $module_data['module_uri'] && $module_data['name'] ) {
 				$module_data['title'] = '<a href="' . $module_data['module_uri']
-					. '" title="' . esc_attr__( 'Visit module homepage', 'wordpoints' )
 					. '">' . $module_data['name'] . '</a>';
 			}
 
 			if ( $module_data['author_uri'] && $module_data['author'] ) {
 				$module_data['author'] = '<a href="' . $module_data['author_uri']
-					. '" title="' . esc_attr__( 'Visit author homepage', 'wordpoints' )
 					. '">' . $module_data['author'] . '</a>';
 			}
 

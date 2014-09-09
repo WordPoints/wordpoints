@@ -56,9 +56,9 @@ class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 	 */
 	function test_module_header_parsing_with_markup() {
 
-		$this->expected_headers['title'] = '<a href="http://www.example.com/test-3/" title="Visit module homepage">Test 3</a>';
-		$this->expected_headers['author'] = '<a href="http://www.example.com/" title="Visit author homepage">WordPoints Tester</a>';
-		$this->expected_headers['description'] = 'A test module. <cite>By <a href="http://www.example.com/" title="Visit author homepage">WordPoints Tester</a>.</cite>';
+		$this->expected_headers['title'] = '<a href="http://www.example.com/test-3/">Test 3</a>';
+		$this->expected_headers['author'] = '<a href="http://www.example.com/">WordPoints Tester</a>';
+		$this->expected_headers['description'] = 'A test module. <cite>By <a href="http://www.example.com/">WordPoints Tester</a>.</cite>';
 
 		$marked_up_headers = wordpoints_get_module_data( WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php', true, false );
 

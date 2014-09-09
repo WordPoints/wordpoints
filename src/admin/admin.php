@@ -237,14 +237,14 @@ function wordpoints_show_admin_error( $message ) {
 /**
  * Display an update message.
  *
- * Note that $type is expected to be properly sanitized as needed (e.g., esc_attr()).
- * But you should use {@see wordpoints_show_admin_error()} instead for showing error
+ * You should use {@see wordpoints_show_admin_error()} instead for showing error
  * messages. Currently there aren't wrappers for the other types, as they aren't used
  * in WordPoints core.
  *
  * @since 1.0.0
+ * @since 1.2.0 The $type parameter is now properly escaped.
  *
- * @param string $message The text for the message. Must be pre-validated if needed.
+ * @param string $message The text for the message. Must be pre-escaped if needed.
  * @param string $type    The type of message to display. Default is 'updated'.
  */
 function wordpoints_show_admin_message( $message, $type = 'updated' ) {

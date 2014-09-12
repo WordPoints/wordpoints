@@ -75,12 +75,7 @@ function wordpoints_ranks_get_db_schema() {
 			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			user_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
 			rank_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-			blog_id SMALLINT(5) UNSIGNED NOT NULL,
-			site_id SMALLINT(5) UNSIGNED NOT NULL,
-			PRIMARY KEY  (id),
-			KEY rank_id (rank_id),
-			KEY user_id (rank_id),
-			KEY site (blog_id,site_id)
+			PRIMARY KEY  (id)
 		) {$charset_collate};";
 }
 

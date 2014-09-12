@@ -65,11 +65,11 @@ function wordpoints_ranks_get_db_schema() {
 		) {$charset_collate};
 		CREATE TABLE {$wpdb->wordpoints_rankmeta} (
 			meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			rank_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+			wordpoints_rank_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
 			meta_key VARCHAR(255) DEFAULT NULL,
 			meta_value LONGTEXT,
 			PRIMARY KEY  (meta_id),
-			KEY rank_id (rank_id)
+			KEY wordpoints_rank_id (wordpoints_rank_id)
 		) {$charset_collate};
 		CREATE TABLE {$wpdb->wordpoints_user_ranks} (
 			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,

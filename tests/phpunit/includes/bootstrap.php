@@ -124,6 +124,13 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-unittestc
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-ajax-unittestcase.php';
 
 /**
+ * The ranks unit test case class.
+ *
+ * @since 1.7.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-ranks-unittestcase.php';
+
+/**
  * The points log factory.
  *
  * @since 1.6.0

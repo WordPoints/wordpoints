@@ -137,4 +137,11 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-ranks-unittestca
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
 
+/**
+ * The rank factory.
+ *
+ * @since 1.7.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/factories/rank.php';
+
 // EOF

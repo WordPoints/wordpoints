@@ -57,6 +57,7 @@ function wordpoints_ranks_get_db_schema() {
 			id BIGINT(20) NOT NULL AUTO_INCREMENT,
 			name VARCHAR(255) NOT NULL,
 			type VARCHAR(255) NOT NULL,
+			rank_group VARCHAR(255) NOT NULL,
 			blog_id SMALLINT(5) UNSIGNED NOT NULL,
 			site_id SMALLINT(5) UNSIGNED NOT NULL,
 			PRIMARY KEY  (id),

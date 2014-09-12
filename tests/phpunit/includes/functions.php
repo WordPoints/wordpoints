@@ -30,6 +30,9 @@ function wordpointstests_manually_load_plugin() {
 
 	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_points_logs`" );
 	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_points_log_meta`" );
+	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_ranks`" );
+	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_rankmeta`" );
+	$wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->base_prefix}wordpoints_user_ranks`" );
 
 	$network_active = false;
 

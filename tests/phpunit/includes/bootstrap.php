@@ -28,6 +28,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 	 * We need this so we can check if the uninstall tests are being run.
 	 *
 	 * @since 1.2.0
+	 * @since 1.7.0 Only when not RUNNING_WORDPOINTS_MODULE_TESTS.
 	 */
 	require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php';
 }
@@ -96,6 +97,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 	 * The bootstrap for the uninstall tests.
 	 *
 	 * @since 1.2.0
+	 * @since 1.7.0 Only when not RUNNING_WORDPOINTS_MODULE_TESTS.
 	 */
 	require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php';
 }

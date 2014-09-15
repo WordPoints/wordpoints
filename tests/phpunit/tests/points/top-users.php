@@ -121,6 +121,29 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 	}
+
+	/**
+	 * Test that excluded users are excluded from the top users.
+	 *
+	 * @since 1.6.1
+	 */
+	public function test_exlcluded_users_excluded() {
+
+		wordpoints_update_network_option(
+			'wordpoints_excluded_users'
+			, array( $this->user_ids[2] )
+		);
+
+		$top_users = wordpoints_points_get_top_users( 5, 'points' );
+
+		// This user is excluded, so they won't be in the result set.
+		unset( $this->user_ids[2] );
+
+		// Reset the keys.
+		$this->user_ids = array_values( $this->user_ids );
+
+		$this->assertEquals( $this->user_ids, $top_users );
+	}
 }
 
 // EOF

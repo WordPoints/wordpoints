@@ -293,14 +293,11 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 
 		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
 
-		return 0 === strpos(
+		return false !== strpos(
 			$sql,
 				"
-					SELECT `user_ID`
-					FROM {$wpdb->usermeta}
-					WHERE `meta_key` = '{$meta_key}'
 					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
-				"
+					LIMIT"
 		);
 	}
 

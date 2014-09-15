@@ -82,6 +82,9 @@ points are awarded.
 
 == Changelog ==
 
+= 1.6.1 =
+* Fixed: Honor the Excluded Users setting in the Top Users widget and shortcode.
+
 = 1.6.0 =
 * New: The value of the main setting for a hook is displayed in its title bar.
 * New: Translation into Spanish thanks to Andrew Kurtis of WebHostingHub.
@@ -156,6 +159,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.6.1 =
+* This is a maintenance release which fixes the bug of the Excluded Users settings
+not being applied to the Top Users widget and shortcode.
 
 = 1.6.0 =
 * This is a feature release that makes it so you can see the value of the main

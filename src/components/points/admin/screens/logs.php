@@ -8,9 +8,9 @@
  */
 
 if ( is_network_admin() ) {
-	$title = __( 'WordPoints - Network Points Logs', 'wordpoints' );
+	$title = __( 'WordPoints — Network Points Logs', 'wordpoints' );
 } else {
-	$title = __( 'WordPoints - Points Logs', 'wordpoints' );
+	$title = __( 'WordPoints — Points Logs', 'wordpoints' );
 }
 
 ?>

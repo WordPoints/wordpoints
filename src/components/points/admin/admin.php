@@ -73,7 +73,7 @@ function wordpoints_points_admin_menu() {
 	// Hooks page.
 	add_submenu_page(
 		$wordpoints_menu
-		,__( 'WordPoints - Points Hooks', 'wordpoints' )
+		,__( 'WordPoints — Points Hooks', 'wordpoints' )
 		,__( 'Points Hooks', 'wordpoints' )
 		,'manage_options'
 		,'wordpoints_points_hooks'
@@ -83,7 +83,7 @@ function wordpoints_points_admin_menu() {
 	// Logs page.
 	add_submenu_page(
 		$wordpoints_menu
-		,__( 'WordPoints - Points Logs', 'wordpoints' )
+		,__( 'WordPoints — Points Logs', 'wordpoints' )
 		,__( 'Points Logs', 'wordpoints' )
 		,'manage_options'
 		,'wordpoints_points_logs'

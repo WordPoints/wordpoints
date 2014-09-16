@@ -84,7 +84,7 @@ function wordpoints_admin_menu() {
 		// Settings page.
 		add_submenu_page(
 			'wordpoints_configure'
-			,__( 'WordPoints - Configure', 'wordpoints' )
+			,__( 'WordPoints — Configure', 'wordpoints' )
 			,esc_html__( 'Configure', 'wordpoints' )
 			,'manage_options'
 			,'wordpoints_configure'
@@ -111,7 +111,7 @@ function wordpoints_admin_menu() {
 	// Modules page.
 	add_submenu_page(
 		$main_menu
-		,__( 'WordPoints - Modules', 'wordpoints' )
+		,__( 'WordPoints — Modules', 'wordpoints' )
 		,esc_html__( 'Modules', 'wordpoints' )
 		,'activate_wordpoints_modules'
 		,'wordpoints_modules'
@@ -121,7 +121,7 @@ function wordpoints_admin_menu() {
 	// Module install page.
 	add_submenu_page(
 		'_wordpoints_modules' // Fake menu.
-		,__( 'WordPoints - Install Modules', 'wordpoints' )
+		,__( 'WordPoints — Install Modules', 'wordpoints' )
 		,esc_html__( 'Install Modules', 'wordpoints' )
 		,'install_wordpoints_modules'
 		,'wordpoints_install_modules'
@@ -305,7 +305,7 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
 	if ( $show_heading ) {
 
-		echo '<h2>', esc_html( sprintf( __( 'WordPoints - %s', 'wordpoints' ), $tabs[ $current ] ) ), '</h2>';
+		echo '<h2>', esc_html( sprintf( __( 'WordPoints — %s', 'wordpoints' ), $tabs[ $current ] ) ), '</h2>';
 	}
 
 	echo '<h2 class="nav-tab-wrapper">';

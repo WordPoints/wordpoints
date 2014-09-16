@@ -15,7 +15,8 @@
  * ranks don't have roles and capabilities. Other differences include the following:
  *
  * - The __set() magic method is not implemented, because it doesn't actually affect
- *   the database value, and is therefore confusing.
+ *   the database value, and is therefore confusing. Attempting to set object vars
+ *   will result in a _doing_it_wrong() notice.
  * - The get() and has_prop() methods aren't implemented either. They aren't really
  *   needed since they are just wrappers for __get() and __isset() respectively.
  * - Ranks have only a single unique identifier, their ID, and so can't be retreived
@@ -118,6 +119,23 @@ final class WordPoints_Rank {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Magic method for telling users that they can't set rank fields or metadata.
+	 *
+	 * @since 1.7.0
+	 */
+	public function __set( $key, $value ) {
+
+		if ( 'ID' !== $key && 'data' !== $key ) {
+
+			_doing_it_wrong(
+				__METHOD__
+				, 'Rank objects are read-only, you cannot modify them directly.'
+				, '1.7.0'
+			);
+		}
 	}
 
 	/**

@@ -71,7 +71,7 @@ abstract class WordPoints_Rank_Type {
 	 *
 	 * @param array $meta The metadata for a rank of this type.
 	 */
-	abstract public function display_rank_meta_form_fields( array $meta );
+	abstract public function display_rank_meta_form_fields( array $meta = array() );
 
 	/**
 	 * Determine if a user meets the requirements for a rank of this type.

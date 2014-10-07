@@ -39,8 +39,8 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 	}
 
 	$meta = $rank_type->validate_rank_meta( $meta );
-	if ( false === $meta ) {
-		return false;
+	if ( false === $meta || is_wp_error( $meta ) ) {
+		return $meta;
 	}
 
 	$inserted = $wpdb->insert(

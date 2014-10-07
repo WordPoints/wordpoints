@@ -30,7 +30,7 @@ abstract class WordPoints_Rank_Type {
 	//
 
 	/**
-	 * The rank's slug.
+	 * The rank type's slug.
 	 *
 	 * @since 1.7.0
 	 *
@@ -113,6 +113,17 @@ abstract class WordPoints_Rank_Type {
 	//
 	// Final Public Methods.
 	//
+
+	/**
+	 * Get the slug of this rank type.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return string The rank type's slug.
+	 */
+	final public function get_slug() {
+		return $this->slug;
+	}
 
 	/**
 	 * Get the name of this rank type.

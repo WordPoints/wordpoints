@@ -43,16 +43,17 @@ final class WordPoints_Rank_Groups {
 	 * @since 1.7.0
 	 *
 	 * @param string $slug A unique identifier for this group.
+	 * @param array  $data {@see WordPoints_Rank_Group::__construct()}
 	 *
 	 * @return bool True if registered, false if already registered.
 	 */
-	public static function register_group( $slug ) {
+	public static function register_group( $slug, $data ) {
 
 		if ( self::is_group_registered( $slug ) ) {
 			return false;
 		}
 
-		self::$groups[ $slug ] = new WordPoints_Rank_Group( $slug );
+		self::$groups[ $slug ] = new WordPoints_Rank_Group( $slug, $data );
 
 		// If this is a brand new group, create the base rank.
 		if ( ! self::$groups[ $slug ]->get_base_rank() ) {

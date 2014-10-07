@@ -278,7 +278,7 @@ final class WordPoints_Rank_Group {
 	 *
 	 * @param int[] $rank_ids The IDs of the ranks in this group, in correct order.
 	 *
-	 * @return
+	 * @return bool Whether the ranks were saved successfully.
 	 */
 	public function save_ranks( $rank_ids ) {
 

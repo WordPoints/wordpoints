@@ -102,7 +102,7 @@ function wordpoints_delete_rank( $id ) {
 		$wpdb->prepare(
 			"
 				SELECT meta_id
-				FROM $wpdb->wordpoints_rankmeta
+				FROM {$wpdb->wordpoints_rankmeta}
 				WHERE wordpoints_rank_id = %d
 			"
 			, $id

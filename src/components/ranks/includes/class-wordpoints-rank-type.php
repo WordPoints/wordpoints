@@ -100,15 +100,6 @@ abstract class WordPoints_Rank_Type {
 	abstract public function validate_rank_meta( array $meta );
 
 	/**
-	 * Display form fields for the metadata of a rank of this type.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param array $meta The metadata for a rank of this type.
-	 */
-	abstract public function display_rank_meta_form_fields( array $meta = array() );
-
-	/**
 	 * Determine if a user meets the requirements for a rank of this type.
 	 *
 	 * This function is called to determine whether a user should be transitioned to
@@ -160,6 +151,72 @@ abstract class WordPoints_Rank_Type {
 	 */
 	final public function get_meta_fields() {
 		return $this->meta_fields;
+	}
+
+	/**
+	 * Display form fields for the metadata of a rank of this type.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param array $meta The metadata for a rank of this type.
+	 */
+	final public function display_rank_meta_form_fields(
+		array $meta = array(),
+		array $args = array()
+	) {
+
+		$args = array_merge( array( 'placeholders' => false ), $args );
+
+		foreach ( $this->meta_fields as $name => $field ) {
+
+			// If we aren't using placeholders, calculate the value. Hidden fields
+			// never use placeholders.
+			if ( false !== $args['placeholders'] || 'hidden' === $field['type'] ) {
+
+				// Default to the default value.
+				$value = $field['default'];
+
+				// If the value is set use that instead.
+				if ( isset( $meta[ $name ] ) ) {
+					$value = $meta[ $name ];
+				}
+			}
+
+			switch ( $field['type'] ) {
+
+				case 'hidden':
+				case 'number':
+				case 'text':
+					if ( isset( $field['label'] ) ) {
+						?><p class="description description-thin"><label><?php
+						echo esc_html( $field['label'] );
+					}
+
+					?>
+					<input
+						type="<?php echo esc_attr( $field['type'] ); ?>"
+						name="<?php echo esc_attr( $name ); ?>"
+						value="<?php echo ( $args['placeholders'] && 'hidden' !== $field['type'] ) ? '<% if ( typeof ' . sanitize_key( $name ) . ' !== "undefined" ) { print( ' . sanitize_key( $name ) . ' ); } %>' : esc_attr( $value ); ?>"
+						class="widefat"
+					/>
+					<?php
+
+					if ( isset( $field['label'] ) ) {
+						?></label></p><?php
+					}
+				break;
+
+				default:
+					_doing_it_wrong(
+						__METHOD__
+						, sprintf(
+							'WordPoints Error: Unknown field type "%s".'
+							, $field['type']
+						)
+						, '1.7.0'
+					);
+			}
+		}
 	}
 
 	//

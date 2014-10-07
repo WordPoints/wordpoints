@@ -35,17 +35,6 @@ class WordPoints_Base_Rank_Type extends WordPoints_Rank_Type {
 		return $meta;
 	}
 
-	/**
-	 * Display form fields for the metadata of a rank of this type.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param array $meta The metadata for a rank of this type.
-	 */
-	public function display_rank_meta_form_fields( array $meta = array() ) {
-		return false;
-	}
-
 	//
 	// Protected Methods.
 	//

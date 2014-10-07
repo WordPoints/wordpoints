@@ -38,6 +38,26 @@ abstract class WordPoints_Rank_Type {
 	 */
 	protected $slug;
 
+	/**
+	 * The rank type's name.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @type string $name
+	 */
+	protected $name;
+
+	//
+	// Public Methods.
+	//
+
+	/**
+	 * Construct the rank type.
+	 *
+	 * @param array $args Arguments for this post type.
+	 */
+	public function __construct( array $args ) {}
+
 	//
 	// Abstract Methods.
 	//
@@ -89,6 +109,21 @@ abstract class WordPoints_Rank_Type {
 	 * @return bool Whether the user meets the requirements for this rank.
 	 */
 	abstract protected function can_transition_user_rank( $user_id, $rank, array $args );
+
+	//
+	// Final Public Methods.
+	//
+
+	/**
+	 * Get the name of this rank type.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return string The rank type's name.
+	 */
+	final public function get_name() {
+		return $this->name;
+	}
 
 	//
 	// Final Protected Methods.

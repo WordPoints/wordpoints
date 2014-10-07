@@ -24,6 +24,15 @@ final class WordPoints_Rank_Group {
 	private $slug;
 
 	/**
+	 * The group's data.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @type array $data
+	 */
+	private $data;
+
+	/**
 	 * The name of the option in the database for the list of ranks in this group.
 	 *
 	 * @since 1.7.0
@@ -42,16 +51,37 @@ final class WordPoints_Rank_Group {
 	private $types = array( 'base' => 'base' );
 
 	/**
-	 * Construct the group with its slug.
+	 * Construct the group with its slug and other data.
 	 *
 	 * @since 1.7.0
 	 *
 	 * @param string $slug The slug of this group.
+	 * @param array  $data {
+	 *        Other data for the group.
+	 *
+	 *        @type string $name        The name for this group.
+	 *        @type string $description A description of this group.
+	 * }
 	 */
-	public function __construct( $slug ) {
+	public function __construct( $slug, $data ) {
 
 		$this->slug = $slug;
+		$this->data = $data;
 		$this->option_name = "wordpoints_rank_group-{$this->slug}";
+	}
+
+	/**
+	 * Magic getter for the group's data.
+	 *
+	 * @since 1.7.0
+	 */
+	public function __get( $key ) {
+
+		if ( isset( $this->$key ) ) {
+			return $this->$key;
+		} elseif ( isset( $this->data[ $key ] ) ) {
+			return $this->data[ $key ];
+		}
 	}
 
 	/**

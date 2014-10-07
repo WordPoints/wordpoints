@@ -47,6 +47,21 @@ abstract class WordPoints_Rank_Type {
 	 */
 	protected $name;
 
+	/**
+	 * The meta fields used by ranks of this type.
+	 *
+	 * It contains an array for each meta field indexed by key. Each array may have
+	 * the following attributes:
+	 * - 'default' The default value for this field. Optional.
+	 * - 'type'    The type of field: hidden, text, or number.
+	 * - 'label'   The label text for this field. Optional (for hidden fields).
+	 *
+	 * @since 1.7.0
+	 *
+	 * @type array[] $meta_fields
+	 */
+	protected $meta_fields = array();
+
 	//
 	// Public Methods.
 	//
@@ -134,6 +149,17 @@ abstract class WordPoints_Rank_Type {
 	 */
 	final public function get_name() {
 		return $this->name;
+	}
+
+	/**
+	 * Get the meta fields used by the rank type.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return string[] The meta keys used to store this rank type's metadata.
+	 */
+	final public function get_meta_fields() {
+		return $this->meta_fields;
 	}
 
 	//

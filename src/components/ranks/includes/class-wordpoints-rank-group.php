@@ -316,7 +316,11 @@ final class WordPoints_Rank_Group {
 	 */
 	public function get_rank_position( $rank_id ) {
 
-		return array_search( $rank_id, $this->get_ranks(), true );
+		return array_search(
+			wordpoints_posint( $rank_id )
+			, $this->get_ranks()
+			, true
+		);
 	}
 
 	//

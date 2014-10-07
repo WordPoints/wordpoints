@@ -50,16 +50,17 @@ final class WordPoints_Rank_Types {
 	 *
 	 * @param string $type  The unique slug for this rank type.
 	 * @param string $class The name of the class to handle this rank type.
+	 * @param array  $args  Arguments to pass to the new rank type.
 	 *
 	 * @return bool Whether the rank type was registered.
 	 */
-	public static function register_type( $type, $class ) {
+	public static function register_type( $type, $class, array $args = array() ) {
 
 		if ( self::is_type_registered( $type ) ) {
 			return false;
 		}
 
-		self::$types[ $type ] = new $class();
+		self::$types[ $type ] = new $class( $args );
 
 		return true;
 	}

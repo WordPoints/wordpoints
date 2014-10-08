@@ -195,7 +195,10 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_removing_nonexisting_rank() {
 
-		WordPoints_Rank_Groups::register_group( __CLASS__ );
+		WordPoints_Rank_Groups::register_group(
+			__CLASS__
+			, array( 'name' => __CLASS__ )
+		);
 		WordPoints_Rank_Groups::register_type_for_group( 'test_type', __CLASS__ );
 
 		$rank_id = $this->factory->wordpoints_rank->create(

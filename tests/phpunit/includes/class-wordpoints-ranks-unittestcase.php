@@ -40,7 +40,11 @@ class WordPoints_Ranks_UnitTestCase extends WordPoints_UnitTestCase {
 			, 'WordPoints_Test_Rank_Type'
 		);
 
-		WordPoints_Rank_Groups::register_group( 'test_group' );
+		WordPoints_Rank_Groups::register_group(
+			'test_group'
+			, array( 'name' => 'Test Group' )
+		);
+
 		WordPoints_Rank_Groups::register_type_for_group( 'test_type', 'test_group' );
 
 		// Rank types will persist, but the ranks themselves are rolled back. So we

@@ -35,7 +35,10 @@ class WordPoints_Rank_Groups_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_registration() {
 
-		$result = WordPoints_Rank_Groups::register_group( __CLASS__ );
+		$result = WordPoints_Rank_Groups::register_group(
+			__CLASS__
+			, array( 'name' => __CLASS__ )
+		);
 
 		$this->assertTrue( $result );
 		$this->assertTrue(
@@ -60,7 +63,12 @@ class WordPoints_Rank_Groups_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_registering_registered_group() {
 
-		$this->assertFalse( WordPoints_Rank_Groups::register_group( 'test_group' ) );
+		$this->assertFalse(
+			WordPoints_Rank_Groups::register_group(
+				'test_group'
+				, array( 'name' => 'Test' )
+			)
+		);
 	}
 
 	/**

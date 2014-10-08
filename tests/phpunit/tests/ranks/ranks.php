@@ -30,7 +30,11 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 			, 'WordPoints_Test_Rank_Type'
 		);
 
-		WordPoints_Rank_Groups::register_group( __CLASS__ );
+		WordPoints_Rank_Groups::register_group(
+			__CLASS__
+			, array( 'name' => __CLASS__ )
+		);
+
 		WordPoints_Rank_Groups::register_type_for_group( __CLASS__, __CLASS__ );
 	}
 

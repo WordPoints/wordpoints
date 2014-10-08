@@ -22,7 +22,7 @@
  * @param string $type The rank type slug.
  * @param array  $meta Optional metadata for this rank.
  *
- * @return int|false The ID of the inserted rank, or false on failure.
+ * @return int|false|WP_Error The ID of the inserted rank, or false or WP_Error on failure.
  */
 function wordpoints_add_rank( $name, $type, $group, $position, array $meta = array() ) {
 

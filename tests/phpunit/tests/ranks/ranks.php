@@ -129,6 +129,128 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
+	 * Test that updating a rank requires a valid rank ID.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_update_rank_requires_valid_id() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id + 5
+			, 'A test'
+			, __CLASS__
+			, __CLASS__
+			, 0
+			, array( 'test_meta' => __CLASS__ )
+		);
+
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * Test that updating a rank requires a valid rank type.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_update_rank_requires_valid_type() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, 'A test'
+			, 'not_a_type'
+			, __CLASS__
+			, 0
+			, array( 'test_meta' => __CLASS__ )
+		);
+
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * Test that updating a rank requires a valid rank group.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_update_rank_requires_valid_group() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, 'A test'
+			, __CLASS__
+			, 'not_a_group'
+			, 0
+			, array( 'test_meta' => __CLASS__ )
+		);
+
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * Test that updating a rank requires valid meta.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_update_rank_requires_valid_meta() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, 'A test'
+			, __CLASS__
+			, __CLASS__
+			, 0
+			, array( 'not' => 'correct' )
+		);
+
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * Test updating a rank.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_update_rank() {
+
+		$this->factory->wordpoints_rank->create_many(
+			2
+			, array( 'group' => __CLASS__, 'type' => __CLASS__ )
+		);
+
+		$rank_id = $this->factory->wordpoints_rank->create(
+			array( 'group' => __CLASS__, 'type' => __CLASS__ )
+		);
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, 'A test'
+			, __CLASS__
+			, __CLASS__
+			, 1
+			, array( 'test_meta' => __CLASS__ )
+		);
+
+		$this->assertTrue( $result );
+
+		$rank = wordpoints_get_rank( $rank_id );
+
+		$rank_group = WordPoints_Rank_Groups::get_group( $rank->rank_group );
+
+		$this->assertEquals( $rank_id, $rank->id );
+		$this->assertEquals( 'A test', $rank->name );
+		$this->assertEquals( __CLASS__, $rank->type );
+		$this->assertEquals( __CLASS__, $rank->rank_group );
+		$this->assertEquals( 1, $rank_group->get_rank_position( $rank_id ) );
+	}
+
+	/**
 	 * Test deleting a rank.
 	 *
 	 * @since 1.7.0

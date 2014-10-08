@@ -121,6 +121,82 @@ function wordpoints_delete_rank( $id ) {
 }
 
 /**
+ * Update a rank.
+ *
+ * Existing metadata will not be deleted, but the meta fields passed in $meta
+ * will be updated.
+ *
+ * @since 1.7.0
+ *
+ * @param int    $id   The ID of a rank.
+ * @param string $name The new name for the rank.
+ * @param array  $meta The new metadata for the rank.
+ *
+ * @return bool|WP_Error True the rank was updated successfully, or false/WP_Error on failure.
+ */
+function wordpoints_update_rank( $id, $name, $type, $group, $position, array $meta = array() ) {
+
+	global $wpdb;
+
+	$rank = wordpoints_get_rank( $id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+	if ( ! WordPoints_Rank_Groups::is_type_registered_for_group( $type, $group ) ) {
+		return false;
+	}
+
+	$rank_type = WordPoints_Rank_Types::get_type( $type );
+
+	if ( ! $rank_type ) {
+		return false;
+	}
+
+	$meta = $rank_type->validate_rank_meta( $meta );
+	if ( false === $meta || is_wp_error( $meta ) ) {
+		return $meta;
+	}
+
+	$updated = $wpdb->update(
+		$wpdb->wordpoints_ranks
+		, array( 'name' => $name, 'type' => $type, 'rank_group' => $group )
+		, array( 'id' => $id )
+		, '%s'
+		, '%d'
+	);
+
+	if ( false === $updated ) {
+		return false;
+	}
+
+	wp_cache_delete( $id, 'wordpoints_ranks' );
+
+	$rank_group = WordPoints_Rank_Groups::get_group( $group );
+
+	if ( $rank->rank_group !== $group ) {
+
+		$previous_group = WordPoints_Rank_Groups::get_group( $rank->rank_group );
+		if ( $previous_group ) {
+			$previous_group->remove_rank( $rank->ID );
+		}
+
+		$rank_group->add_rank( $rank->ID, $position );
+
+	} else {
+
+		$rank_group->move_rank( $rank->ID, $position );
+	}
+
+	foreach ( $meta as $meta_key => $meta_value ) {
+		wordpoints_update_rank_meta( $id, $meta_key, $meta_value );
+	}
+
+	return true;
+}
+
+/**
  * Get the data for a rank.
  *
  * @since 1.7.0

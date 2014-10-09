@@ -70,4 +70,14 @@ include_once WORDPOINTS_DIR . 'components/ranks/includes/class-wordpoints-rank-g
  */
 include_once WORDPOINTS_DIR . 'components/ranks/includes/rank-types.php';
 
+if ( is_admin() ) {
+
+	/**
+	 * Administration-side rank code.
+	 *
+	 * @since 1.7.0
+	 */
+	include_once WORDPOINTS_DIR . 'components/ranks/admin/admin.php';
+}
+
 // EOF

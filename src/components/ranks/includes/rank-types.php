@@ -42,7 +42,7 @@ function wordpoints_register_core_ranks() {
 					'name' => $points_type['name'],
 					'description' => sprintf(
 						__(
-							'This rank type is associated with the "%s" points type.'
+							'This rank group is associated with the &#8220;%s&#8221; points type.'
 							, 'wordpoints'
 						)
 						, $points_type['name']

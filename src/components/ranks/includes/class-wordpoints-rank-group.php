@@ -11,6 +11,8 @@
  * Represents a rank group.
  *
  * @since 1.7.0
+ *
+ * @property:readonly string $slug
  */
 final class WordPoints_Rank_Group {
 

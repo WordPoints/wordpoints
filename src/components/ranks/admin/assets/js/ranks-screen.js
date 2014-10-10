@@ -147,7 +147,7 @@ jQuery( function ( $ ) {
 		},
 
 		// Re-render the titles of the rank.
-		render: function ( model, options ) {
+		render: function () {
 
 			this.$el
 				.html( this.template( this.model.toJSON() ) )
@@ -201,7 +201,7 @@ jQuery( function ( $ ) {
 				this.clear( event );
 			}
 
-			this.render( event );
+			this.render();
 		},
 
 		// Save changes to the rank.

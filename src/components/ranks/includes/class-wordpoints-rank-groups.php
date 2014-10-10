@@ -88,7 +88,7 @@ final class WordPoints_Rank_Groups {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return string[][] The registered groups for ranks.
+	 * @return WordPoints_Rank_Group[] The registered groups for ranks.
 	 */
 	public static function get() {
 

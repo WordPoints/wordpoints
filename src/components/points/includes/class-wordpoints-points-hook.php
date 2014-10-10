@@ -665,7 +665,7 @@ abstract class WordPoints_Points_Hook {
 
 		$instances = $this->get_instances();
 
-		if ( $type !== 'generated' && ! empty( $instances[ $this->number ]['_description'] ) ) {
+		if ( 'generated' !== $type && ! empty( $instances[ $this->number ]['_description'] ) ) {
 			return $instances[ $this->number ]['_description'];
 		}
 
@@ -701,7 +701,7 @@ abstract class WordPoints_Points_Hook {
 
 			$number = $this->number;
 
-		} elseif ( is_string( $number ) && substr( $number, 0, 8 ) === 'network_' ) {
+		} elseif ( is_string( $number ) && 'network_' === substr( $number, 0, 8 ) ) {
 
 			$network_mode = true;
 			$number = (int) substr( $number, 8 );

@@ -48,7 +48,7 @@ function wordpoints_ajax_points_hooks_order() {
 
 				foreach ( $hooks as $order => $hook_id ) {
 
-					if ( strpos( $hook_id, 'hook-' ) === false ) {
+					if ( false === strpos( $hook_id, 'hook-' ) ) {
 						continue;
 					}
 

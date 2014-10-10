@@ -49,7 +49,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	 */
 	protected function generate_description( $instance = array() ) {
 
-		if ( ! empty( $instance['post_type'] ) && $instance['post_type'] !== 'ALL' ) {
+		if ( ! empty( $instance['post_type'] ) && 'ALL' !== $instance['post_type'] ) {
 			$post_type = get_post_type_object( $instance['post_type'] );
 
 			if ( $post_type ) {

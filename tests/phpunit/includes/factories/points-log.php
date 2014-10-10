@@ -173,7 +173,7 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 
 		if (
 			! $this->listen_for_insert_id
-			&& strpos( $sql, "INSERT INTO {$wpdb->wordpoints_points_logs}" ) !== false
+			&& false !== strpos( $sql, "INSERT INTO {$wpdb->wordpoints_points_logs}" )
 		) {
 			$this->listen_for_insert_id = true;
 		} elseif ( $this->listen_for_insert_id ) {

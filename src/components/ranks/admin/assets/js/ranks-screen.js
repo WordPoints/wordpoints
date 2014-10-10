@@ -91,7 +91,7 @@ jQuery( function ( $ ) {
 	});
 
 	// Create our global collection of **Ranks**.
-	Ranks = new ranks.model.RankGroup;
+	Ranks = new ranks.model.RankGroup();
 
 	// Rank Type Model
 	// ---------------
@@ -426,7 +426,7 @@ jQuery( function ( $ ) {
 	});
 
 	// Finally, we kick things off by creating the **Group**.
-	new ranks.view.Group;
+	new ranks.view.Group();
 
 	// Utility Functions
 	// -----------------

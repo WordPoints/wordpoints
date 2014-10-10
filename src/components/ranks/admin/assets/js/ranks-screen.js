@@ -5,7 +5,7 @@
  * @since 1.7.0
  */
 
-/* global jQuery, Backbone, WordPointsRanksAdminL10n, WordPointsRanksAdminData */
+/* global jQuery, Backbone, WordPointsRanksAdminL10n, WordPointsRanksAdminData, _ */
 
 window.wp = window.wp || {};
 

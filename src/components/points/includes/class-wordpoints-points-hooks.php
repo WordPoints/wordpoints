@@ -350,7 +350,7 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function list_by_points_type( $slug ) {
 
-		if ( $slug !== '_inactive_hooks' && ! wordpoints_is_points_type( $slug ) ) {
+		if ( '_inactive_hooks' !== $slug && ! wordpoints_is_points_type( $slug ) ) {
 			return;
 		}
 

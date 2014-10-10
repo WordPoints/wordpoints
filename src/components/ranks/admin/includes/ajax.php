@@ -249,7 +249,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		wp_send_json_error(
 			array(
 				'message' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
-				'debug'   => $debug_context
+				'debug'   => $debug_context,
 			)
 		);
 	}

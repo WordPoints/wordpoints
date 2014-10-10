@@ -200,7 +200,7 @@ final class WordPoints_Module_Paths {
 		}
 
 		foreach ( self::$paths as $path ) {
-			if ( strpos( $file, $path['module_realpath'] ) === 0 ) {
+			if ( 0 === strpos( $file, $path['module_realpath'] ) ) {
 				$file = $path['module_path'] . substr( $file, $path['realpath_length'] );
 			}
 		}
@@ -746,7 +746,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		return;
 	}
 
-	if ( ! empty($redirect) ) {
+	if ( ! empty( $redirect ) ) {
 
 		/*
 		 * Redirect. We'll override this later if the module can be included

@@ -592,7 +592,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	$points = apply_filters( 'wordpoints_alter_points', $points, $points_type, $user_id, $log_type, $meta );
 
-	if ( wordpoints_int( $points ) === 0 ) {
+	if ( 0 === wordpoints_int( $points ) ) {
 		return true;
 	} elseif ( false === $points ) {
 		return false;
@@ -668,7 +668,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			array( '%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d' )
 		);
 
-		if ( $result !== false ) {
+		if ( false !== $result ) {
 
 			$log_id = (int) $wpdb->insert_id;
 

@@ -210,7 +210,7 @@ function wordpointstests_selenium_is_running() {
 	$selenium_running = false;
 	$fp = fsockopen( 'localhost', 4444 );
 
-	if ( $fp !== false ) {
+	if ( false !== $fp ) {
 
 		$selenium_running = true;
 		fclose( $fp );

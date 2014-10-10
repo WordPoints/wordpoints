@@ -1018,7 +1018,7 @@ class WordPoints_Points_Logs_Query {
 
 		$_var = $this->_args['limit'];
 
-		if ( wordpoints_int( $this->_args['limit'] ) === false ) {
+		if ( false === wordpoints_int( $this->_args['limit'] ) ) {
 
 			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'limit' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', '1.0.0' );
 
@@ -1027,7 +1027,7 @@ class WordPoints_Points_Logs_Query {
 
 		$_var = $this->_args['start'];
 
-		if ( wordpoints_int( $this->_args['start'] ) === false ) {
+		if ( false === wordpoints_int( $this->_args['start'] ) ) {
 
 			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'start' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', '1.0.0' );
 

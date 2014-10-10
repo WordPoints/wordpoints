@@ -72,8 +72,8 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 
 			if (
 				$this->is_matching_post_type( $post->post_type, $instance['post_type'] )
-				&& $post->post_status !== 'auto-draft'
-				&& $post->post_title !== __( 'Auto Draft', 'default' )
+				&& 'auto-draft' !== $post->post_status
+				&& __( 'Auto Draft', 'default' ) !== $post->post_title
 			) {
 
 				wordpoints_alter_points(

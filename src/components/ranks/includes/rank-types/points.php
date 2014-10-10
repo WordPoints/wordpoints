@@ -23,7 +23,7 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 		),
 		'points_type' => array(
 			'default' => '',
-			'type' => 'hidden'
+			'type'    => 'hidden',
 		),
 	);
 

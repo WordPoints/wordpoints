@@ -248,7 +248,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		foreach ( $module_data as $value ) {
 
-			if ( stripos( $value, $term ) !== false ) {
+			if ( false !== stripos( $value, $term ) ) {
 				return true;
 			}
 		}
@@ -445,7 +445,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		global $status;
 
-		if ( $status !== 'recently_activated' ) {
+		if ( 'recently_activated' !== $status ) {
 			return;
 		}
 

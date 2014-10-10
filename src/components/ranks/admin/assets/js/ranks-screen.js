@@ -5,7 +5,7 @@
  * @since 1.7.0
  */
 
-/* global jQuery, Backbone, WordPointsRanksAdminL10n, WordPointsRanksAdminData */
+/* global jQuery, Backbone, WordPointsRanksAdminL10n, WordPointsRanksAdminData, _ */
 
 window.wp = window.wp || {};
 
@@ -91,7 +91,7 @@ jQuery( function ( $ ) {
 	});
 
 	// Create our global collection of **Ranks**.
-	Ranks = new ranks.model.RankGroup;
+	Ranks = new ranks.model.RankGroup();
 
 	// Rank Type Model
 	// ---------------
@@ -138,16 +138,13 @@ jQuery( function ( $ ) {
 			this.listenTo( this.model, 'invalid', this.showError );
 
 			this.template = _.template(
-				$(
-					'.rank-template_'
-					+ this.model.get( 'type' ).replace( /[^a-z0-9-_]/gi, '' )
-				)
+				$( '.rank-template_' + this.model.get( 'type' ).replace( /[^a-z0-9-_]/gi, '' ) )
 					.html()
 			);
 		},
 
 		// Re-render the titles of the rank.
-		render: function ( model, options ) {
+		render: function () {
 
 			this.$el
 				.html( this.template( this.model.toJSON() ) )
@@ -201,7 +198,7 @@ jQuery( function ( $ ) {
 				this.clear( event );
 			}
 
-			this.render( event );
+			this.render();
 		},
 
 		// Save changes to the rank.
@@ -243,11 +240,7 @@ jQuery( function ( $ ) {
 			// general to the whole collection are handled by the `Group` view. But
 			// for new modules, the collection isn't set, so we also have to make
 			// sure that this isn't a new module.
-			if (
-				options.context
-				&& ! options.context.collection
-				&& ( ! options.context.isNew || ! options.context.isNew() )
-			) {
+			if ( options.context && ! options.context.collection && ( ! options.context.isNew || ! options.context.isNew() ) ) {
 				return;
 			}
 
@@ -262,9 +255,7 @@ jQuery( function ( $ ) {
 				if ( response.field ) {
 
 					$field = this.$(
-						'[name="'
-							+ response.field.replace( /[^a-z0-9-_]/gi, '' ) +
-						'"]'
+						'[name="' + response.field.replace( /[^a-z0-9-_]/gi, '' ) + '"]'
 					);
 
 					// If this field actually exists, insert an error before it.
@@ -426,7 +417,7 @@ jQuery( function ( $ ) {
 	});
 
 	// Finally, we kick things off by creating the **Group**.
-	new ranks.view.Group;
+	new ranks.view.Group();
 
 	// Utility Functions
 	// -----------------

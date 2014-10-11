@@ -69,9 +69,16 @@ abstract class WordPoints_Rank_Type {
 	/**
 	 * Construct the rank type.
 	 *
-	 * @param array $args Arguments for this post type.
+	 * @param array $args {
+	 *        Arguments for this rank type.
+	 *
+	 *        @type string $slug The slug of this rank type.
+	 * }
 	 */
-	public function __construct( array $args ) {}
+	public function __construct( array $args ) {
+
+		$this->slug = $args['slug'];
+	}
 
 	//
 	// Abstract Methods.

@@ -22,8 +22,6 @@ class WordPoints_Ranks_UnitTestCase extends WordPoints_UnitTestCase {
 	public static function setUpBeforeClass() {
 
 		parent::setUpBeforeClass();
-
-		include_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank.php' );
 	}
 
 	/**

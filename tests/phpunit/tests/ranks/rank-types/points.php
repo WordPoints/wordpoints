@@ -54,6 +54,8 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 
 		WordPoints_Rank_Types::deregister_type( 'points-points' );
 		WordPoints_Rank_Groups::deregister_group( 'points_type-points' );
+
+		parent::tearDown();
 	}
 
 	/**

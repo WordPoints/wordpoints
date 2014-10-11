@@ -64,6 +64,8 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase 
 	 */
 	public function tearDown() {
 
+		parent::tearDown();
+
 		WordPoints_Points_Hooks::set_network_mode( false );
 	}
 

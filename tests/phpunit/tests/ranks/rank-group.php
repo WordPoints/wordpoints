@@ -26,6 +26,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 
 		WordPoints_Rank_Types::deregister_type( __CLASS__ );
 		WordPoints_Rank_Groups::deregister_group( __CLASS__ );
+
+		parent::tearDown();
 	}
 
 	/**

@@ -25,6 +25,8 @@ class WordPoints_Rank_Types_Test extends WordPoints_Ranks_UnitTestCase {
 	public function tearDown() {
 
 		WordPoints_Rank_Types::deregister_type( __CLASS__ );
+
+		parent::tearDown();
 	}
 
 	/**

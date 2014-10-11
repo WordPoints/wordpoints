@@ -110,6 +110,13 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-unittestcase.php';
 
 /**
+ * The Ajax unit test case class.
+ *
+ * @since 1.7.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-ajax-unittestcase.php';
+
+/**
  * The WordPoints_Points_UnitTestCase class.
  *
  * @since 1.0.0

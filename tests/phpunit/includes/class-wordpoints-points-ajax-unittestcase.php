@@ -15,7 +15,7 @@
  *
  * @since 1.3.0
  */
-abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase {
+abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitTestCase {
 
 	/**
 	 * Set up before the tests begin.

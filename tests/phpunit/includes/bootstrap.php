@@ -138,6 +138,13 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/points-ajax.php';
 require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/ranks.php';
 
 /**
+ * The ranks Ajax unit test case class.
+ *
+ * @since 1.7.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/ranks-ajax.php';
+
+/**
  * The points log factory.
  *
  * @since 1.6.0

@@ -15,15 +15,24 @@
 abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 
 	/**
+	 * The Ajax action being tested.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @type string $ajax_action
+	 */
+	protected $ajax_action;
+
+	/**
 	 * Assert that there was a JSON response object with the success property false.
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $action The Ajax action to fire.
+	 * @param string $action The Ajax action to fire. Defaults to self::$ajax_action.
 	 *
 	 * @return object The response JSON.
 	 */
-	protected function assertJSONErrorResponse( $action ) {
+	protected function assertJSONErrorResponse( $action = '' ) {
 
 		$response = $this->assertJSONResponse( $action );
 
@@ -44,11 +53,11 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $action The Ajax action to fire.
+	 * @param string $action The Ajax action to fire. Defaults to self::$ajax_action.
 	 *
 	 * @return object The response JSON.
 	 */
-	protected function assertJSONSuccessResponse( $action ) {
+	protected function assertJSONSuccessResponse( $action = '' ) {
 
 		$response = $this->assertJSONResponse( $action );
 
@@ -69,11 +78,15 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $action The Ajax action to fire.
+	 * @param string $action The Ajax action to fire. Defaults to self::$ajax_action.
 	 *
 	 * @return object The response JSON.
 	 */
-	protected function assertJSONResponse( $action ) {
+	protected function assertJSONResponse( $action = '' ) {
+
+		if ( empty( $action ) ) {
+			$action = $this->ajax_action;
+		}
 
 		try {
 

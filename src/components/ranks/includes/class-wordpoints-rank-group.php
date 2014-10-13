@@ -12,7 +12,7 @@
  *
  * @since 1.7.0
  *
- * @property:readonly string $slug
+ * @property-read string $slug
  */
 final class WordPoints_Rank_Group {
 

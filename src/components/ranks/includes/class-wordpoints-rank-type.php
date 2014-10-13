@@ -98,11 +98,16 @@ abstract class WordPoints_Rank_Type {
 	/**
 	 * Validate the metadata for a rank of this type.
 	 *
+	 * If you return a WP_Error object, the error message will be sent to the user.
+	 * If the error is for a specific field, you can designate which one by giving
+	 * its name as part of the error's array of data, with the key 'field'.
+	 *
 	 * @since 1.7.0
 	 *
 	 * @param array $meta The metadata to validate.
 	 *
-	 * @return array|false The validated metadata or false if it should't be saved.
+	 * @return array|WP_Error|false The validated metadata, or false or a WP_Error
+	 *                              if it should't be saved.
 	 */
 	abstract public function validate_rank_meta( array $meta );
 

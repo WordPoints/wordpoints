@@ -14,6 +14,7 @@
  */
 class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 
+	protected $meta_fields = array( 'test_meta' => array() );
 
 	//
 	// Public Methods.

@@ -158,11 +158,13 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/rank.php';
 
-/**
- * The rank type mock.
- *
- * @since 1.7.0
- */
-require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank-type.php' );
+if ( class_exists( 'WordPoints_Rank_Type' ) ) {
+	/**
+	 * The rank type mock.
+	 *
+	 * @since 1.7.0
+	 */
+	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank-type.php' );
+}
 
 // EOF

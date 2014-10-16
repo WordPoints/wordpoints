@@ -22,6 +22,15 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	//
 
 	/**
+	 * The instance of the class.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @type WordPoints_Ranks_Admin_Screen_Ajax $instance
+	 */
+	private static $instance;
+
+	/**
 	 * The object for the rank type of the current rank.
 	 *
 	 * @since 1.7.0
@@ -33,6 +42,17 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	//
 	// Public Static Functions.
 	//
+
+	/**
+	 * Get the instance of the class.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return WordPoints_Ranks_Admin_Screen_Ajax The instace of the class.
+	 */
+	public static function instance() {
+		return self::$instance;
+	}
 
 	/**
 	 * Get all of the ranks orgainized by group.
@@ -91,6 +111,22 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 * @since 1.7.0
 	 */
 	public function __construct() {
+
+		if ( isset( self::$instance ) ) {
+			_doing_it_wrong( __METHOD__, 'Class should only be constructed once.', '1.7.0' );
+		}
+
+		self::$instance = $this;
+
+		$this->hooks();
+	}
+
+	/**
+	 * Hook the callback methods to the Ajax actions.
+	 *
+	 * @since 1.7.0
+	 */
+	public function hooks() {
 
 		add_action( 'wp_ajax_wordpoints_admin_get_ranks', array( $this, 'get_ranks' ) );
 		add_action( 'wp_ajax_wordpoints_admin_create_rank', array( $this, 'create_rank' ) );

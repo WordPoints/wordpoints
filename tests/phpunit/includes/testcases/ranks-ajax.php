@@ -39,6 +39,8 @@ abstract class WordPoints_Ranks_Ajax_UnitTestCase extends WordPoints_Ajax_UnitTe
 	 */
 	public static function setUpBeforeClass() {
 
+		parent::setUpBeforeClass();
+
 		/**
 		 * The Ajax callbacks for the ranks component.
 		 *
@@ -55,6 +57,9 @@ abstract class WordPoints_Ranks_Ajax_UnitTestCase extends WordPoints_Ajax_UnitTe
 	public function setUp() {
 
 		parent::setUp();
+
+		// Make sure that the hooks are set up.
+		WordPoints_Ranks_Admin_Screen_Ajax::instance()->hooks();
 
 		WordPoints_Rank_Types::register_type(
 			$this->rank_type

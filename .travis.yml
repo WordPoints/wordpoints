@@ -14,12 +14,14 @@ env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
     - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=1
+    - TRAVISCI_RUN=phpunit WP_VERSION=3.9 WP_MULTISITE=0
+    - TRAVISCI_RUN=phpunit WP_VERSION=3.9 WP_MULTISITE=1
     - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
     - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
 
 matrix:
   include:
-    # Only run HHVM against 3.9 for now.
+    # Only run HHVM against the latest for now.
     - php: hhvm
       env: TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
     - php: hhvm

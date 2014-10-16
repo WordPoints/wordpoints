@@ -328,6 +328,8 @@ final class WordPoints_Rank_Group {
 	 *
 	 * @since 1.7.0
 	 *
+	 * @param int $position The position of the rank to get the ID of.
+	 *
 	 * @return int|false The ID of the rank, or false if not found.
 	 */
 	public function get_rank( $position ) {
@@ -345,6 +347,8 @@ final class WordPoints_Rank_Group {
 	 * Get a rank's position by its ID.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @param int $rank_id The ID of the rank to get the position of.
 	 *
 	 * @return int|false The rank's position, or false.
 	 */

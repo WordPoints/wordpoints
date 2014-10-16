@@ -255,7 +255,7 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param array|string $hook_typse The hook type(s) to uninstall.
+	 * @param array|string $hook_types The hook type(s) to uninstall.
 	 * @param int[]        $site_ids   List of site IDs where this hook type is
 	 *                                 installed. Only needed if on multisite. If
 	 *                                 omitted, the current site ID is used.

@@ -341,7 +341,7 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  *
  * @see wordpoints_get_points_logs_query()
  *
- * @param WordPoints_Points_Logs_Query $lologs_query The query to use to get the logs.
+ * @param WordPoints_Points_Logs_Query $logs_query The query to use to get the logs.
  * @param array                        $args {
  *        Display arguments.
  *

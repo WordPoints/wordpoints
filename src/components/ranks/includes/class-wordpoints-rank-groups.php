@@ -112,7 +112,7 @@ final class WordPoints_Rank_Groups {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $type The slug for the group of rank to get the handler of.
+	 * @param string $group The slug for the group of rank to get the handler of.
 	 *
 	 * @return WordPoints_Rank_Type|false The hander object, or false.
 	 */
@@ -134,8 +134,8 @@ final class WordPoints_Rank_Groups {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $type The slug of the rank to to check for.
-	 * @param string $slug The slug of the group to check in.
+	 * @param string $type  The slug of the rank to to check for.
+	 * @param string $group The slug of the group to check in.
 	 *
 	 * @return bool Whether the rank type is registered for the group.
 	 */

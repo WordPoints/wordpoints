@@ -18,9 +18,11 @@
  *
  * @since 1.7.0
  *
- * @param string $name The name of the rank.
- * @param string $type The rank type slug.
- * @param array  $meta Optional metadata for this rank.
+ * @param string $name     The name of the rank.
+ * @param string $type     The rank type slug.
+ * @param string $group    The slug of the group to which this rank should be added.
+ * @param int    $position The position this rank should have in the group.
+ * @param array  $meta     Optional metadata for this rank.
  *
  * @return int|false|WP_Error The ID of the inserted rank, or false or WP_Error on failure.
  */
@@ -128,9 +130,12 @@ function wordpoints_delete_rank( $id ) {
  *
  * @since 1.7.0
  *
- * @param int    $id   The ID of a rank.
- * @param string $name The new name for the rank.
- * @param array  $meta The new metadata for the rank.
+ * @param int    $id       The ID of a rank.
+ * @param string $name     The new name for the rank.
+ * @param string $type     The type of the rank.
+ * @param string $group    The slug of the group.
+ * @param int    $position The position this rank should have in the group.
+ * @param array  $meta     The new metadata for the rank.
  *
  * @return bool|WP_Error True the rank was updated successfully, or false/WP_Error on failure.
  */

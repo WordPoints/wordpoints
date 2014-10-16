@@ -1,7 +1,5 @@
-WordPoints
+WordPoints [![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?branch=master)](https://travis-ci.org/WordPoints/wordpoints) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WordPoints/wordpoints/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WordPoints/wordpoints/?branch=master)
 ==========
-
-[![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?branch=master)](https://travis-ci.org/WordPoints/wordpoints)
 
 This is were development of the WordPoints WordPress plugin takes place. To
 download the latest stable release, seek support, or for more information about the

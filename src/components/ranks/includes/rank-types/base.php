@@ -14,8 +14,6 @@
  */
 class WordPoints_Base_Rank_Type extends WordPoints_Rank_Type {
 
-	protected $slug = 'base';
-
 	//
 	// Public Methods.
 	//

@@ -86,8 +86,6 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
 		$this->assertEquals( array( 'points' => '15' ), $instances[1] );
-
-		$this->assertArrayHasKey( $hook->get_id(), WordPoints_Points_Hooks::get_all() );
 	}
 
 	/**
@@ -181,7 +179,7 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$this->assertCount( 0, $hooks );
 
-		$this->assertArrayNotHasKey( $hook->get_id(), WordPoints_Points_Hooks::get_all() );
+		$this->assertArrayNotHasKey( $hook->get_id(), WordPoints_Points_Hooks::get_handlers() );
 	}
 
 	/**

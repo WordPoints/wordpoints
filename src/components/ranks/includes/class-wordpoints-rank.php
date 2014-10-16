@@ -31,12 +31,12 @@
  *
  * @since 1.7.0
  *
- * @property:readonly int    $ID
- * @property:readonly string $name
- * @property:readonly string $type
- * @property:readonly string $rank_group
- * @property:readonly int    $blog_id
- * @property:readonly int    $site_id
+ * @property-read int    $ID
+ * @property-read string $name
+ * @property-read string $type
+ * @property-read string $rank_group
+ * @property-read int    $blog_id
+ * @property-read int    $site_id
  */
 final class WordPoints_Rank {
 

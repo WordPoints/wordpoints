@@ -106,7 +106,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 				 *
 				 * @since 1.0.1
 				 */
-				require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-selenium2testcase.php';
+				require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/selenium2.php';
 			}
 
 			if ( ! defined( 'WORDPOINTS_TEST_BROWSER' ) ) {

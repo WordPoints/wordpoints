@@ -22,6 +22,15 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	//
 
 	/**
+	 * The instance of the class.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @type WordPoints_Ranks_Admin_Screen_Ajax $instance
+	 */
+	private static $instance;
+
+	/**
 	 * The object for the rank type of the current rank.
 	 *
 	 * @since 1.7.0
@@ -33,6 +42,17 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	//
 	// Public Static Functions.
 	//
+
+	/**
+	 * Get the instance of the class.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return WordPoints_Ranks_Admin_Screen_Ajax The instace of the class.
+	 */
+	public static function instance() {
+		return self::$instance;
+	}
 
 	/**
 	 * Get all of the ranks orgainized by group.
@@ -92,6 +112,22 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	public function __construct() {
 
+		if ( isset( self::$instance ) ) {
+			_doing_it_wrong( __METHOD__, 'Class should only be constructed once.', '1.7.0' );
+		}
+
+		self::$instance = $this;
+
+		$this->hooks();
+	}
+
+	/**
+	 * Hook the callback methods to the Ajax actions.
+	 *
+	 * @since 1.7.0
+	 */
+	public function hooks() {
+
 		add_action( 'wp_ajax_wordpoints_admin_get_ranks', array( $this, 'get_ranks' ) );
 		add_action( 'wp_ajax_wordpoints_admin_create_rank', array( $this, 'create_rank' ) );
 		add_action( 'wp_ajax_wordpoints_admin_update_rank', array( $this, 'update_rank' ) );
@@ -137,23 +173,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			, $this->_get_rank_meta()
 		);
 
-		if ( ! $result ) {
-
-			wp_send_json_error( array( 'message' => __( 'There was an error adding the rank. Please try again.', 'wordpoints' ) ) );
-
-		} elseif ( is_wp_error( $result ) ) {
-
-			wp_send_json_error(
-				array(
-					'message' => $result->get_error_message(),
-					'field'   => $result->get_error_data( 'field' )
-				)
-			);
-		}
-
-		wp_send_json_success(
-			self::_prepare_rank( wordpoints_get_rank( $result ) )
-		);
+		$this->_send_json_result( $result, 'create' );
 	}
 
 	/**
@@ -187,21 +207,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			, $this->_get_rank_meta()
 		);
 
-		if ( ! $result ) {
-
-			wp_send_json_error( array( 'message' => __( 'There was an error updating the rank. Please try again.', 'wordpoints' ) ) );
-
-		} elseif ( is_wp_error( $result ) ) {
-
-			wp_send_json_error(
-				array(
-					'message' => $result->get_error_message(),
-					'field'   => $result->get_error_data( 'field' )
-				)
-			);
-		}
-
-		wp_send_json_success();
+		$this->_send_json_result( $result, 'update' );
 	}
 
 	/**
@@ -421,6 +427,45 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			wp_unslash( $_POST )
 			, $this->rank_type->get_meta_fields()
 		);
+	}
+
+	/**
+	 * Send the rank or an error back to the user based on the result.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param mixed  $result The result of the action.
+	 * @param string $action The action being performed: 'create' or 'update'.
+	 */
+	private function _send_json_result( $result, $action ) {
+
+		if ( ! $result ) {
+
+			if ( 'create' === $action ) {
+				$message = __( 'There was an error adding the rank. Please try again.', 'wordpoints' );
+			} else {
+				$message = __( 'There was an error updating the rank. Please try again.', 'wordpoints' );
+			}
+
+			wp_send_json_error( array( 'message' => $message ) );
+
+		} elseif ( is_wp_error( $result ) ) {
+
+			wp_send_json_error(
+				array(
+					'message' => $result->get_error_message(),
+					'field'   => $result->get_error_data( 'field' )
+				)
+			);
+		}
+
+		$data = null;
+
+		if ( 'create' === $action ) {
+			$data = self::_prepare_rank( wordpoints_get_rank( $result ) );
+		}
+
+		wp_send_json_success( $data );
 	}
 
 	//

@@ -55,6 +55,8 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 */
 	protected function setUp() {
 
+		parent::setUp();
+
 		$this->setBrowser( WORDPOINTS_TEST_BROWSER );
 		$this->setBrowserUrl( get_site_url() );
 
@@ -89,6 +91,8 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 		unset( $current_plugins['wordpoints/wordpoints.php'] );
 
 		update_option( 'active_plugins', $current_plugins );
+
+		parent::tearDown();
 	}
 
 	/**

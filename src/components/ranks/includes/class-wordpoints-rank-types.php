@@ -60,6 +60,8 @@ final class WordPoints_Rank_Types {
 			return false;
 		}
 
+		$args['slug'] = $type;
+
 		self::$types[ $type ] = new $class( $args );
 
 		return true;

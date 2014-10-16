@@ -14,18 +14,11 @@
  */
 class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 
-	protected $slug = 'test';
+	protected $meta_fields = array( 'test_meta' => array() );
 
 	//
 	// Public Methods.
 	//
-
-	/**
-	 * Hook up actions when the rank type is constructed.
-	 *
-	 * @since 1.7.0
-	 */
-	public function __construct() {}
 
 	/**
 	 * Destroy the rank type hanlder when this rank type is deregistered.

@@ -14,8 +14,6 @@
  */
 class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 
-	protected $slug;
-
 	protected $meta_fields = array(
 		'points'      => array(
 			'default' => 0,
@@ -38,6 +36,8 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 	 */
 	public function __construct( array $args ) {
 
+		parent::__construct( $args );
+
 		$this->name = _x( 'Points', 'rank type', 'wordpoints' );
 
 		if ( ! isset( $args['points_type'] ) ) {
@@ -48,8 +48,6 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 			);
 			return;
 		}
-
-		$this->slug = "points-{$args['points_type']}";
 
 		$this->meta_fields['points']['label'] = _x( 'Points', 'form label', 'wordpoints' );
 		$this->meta_fields['points_type']['default'] = $args['points_type'];

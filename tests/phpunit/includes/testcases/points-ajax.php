@@ -15,7 +15,7 @@
  *
  * @since 1.3.0
  */
-abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase {
+abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitTestCase {
 
 	/**
 	 * Set up before the tests begin.
@@ -49,7 +49,7 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase 
 		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $points_data ) );
 
 		// Unregister any stray hook instances.
-		foreach ( WordPoints_Points_Hooks::get_all() as $hook_id => $hook ) {
+		foreach ( WordPoints_Points_Hooks::get_handlers() as $hook_id => $hook ) {
 
 			if ( '0' !== $hook->get_number_by_id( $hook_id ) ) {
 				WordPoints_Points_Hooks::_unregister_hook( $hook_id );
@@ -63,6 +63,8 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WP_Ajax_UnitTestCase 
 	 * @since 1.3.0
 	 */
 	public function tearDown() {
+
+		parent::tearDown();
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 	}

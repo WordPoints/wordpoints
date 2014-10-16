@@ -107,28 +107,42 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
  *
  * @since 1.5.0
  */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-unittestcase.php';
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/wordpoints.php';
+
+/**
+ * The Ajax unit test case class.
+ *
+ * @since 1.7.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/ajax.php';
 
 /**
  * The WordPoints_Points_UnitTestCase class.
  *
  * @since 1.0.0
  */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-unittestcase.php';
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/points.php';
 
 /**
  * The WordPoints_Points_AJAX_UnitTestCase class.
  *
  * @since 1.3.0
  */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-points-ajax-unittestcase.php';
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/points-ajax.php';
 
 /**
  * The ranks unit test case class.
  *
  * @since 1.7.0
  */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-ranks-unittestcase.php';
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/ranks.php';
+
+/**
+ * The ranks Ajax unit test case class.
+ *
+ * @since 1.7.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/testcases/ranks-ajax.php';
 
 /**
  * The points log factory.
@@ -143,5 +157,14 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
  * @since 1.7.0
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/rank.php';
+
+if ( class_exists( 'WordPoints_Rank_Type' ) ) {
+	/**
+	 * The rank type mock.
+	 *
+	 * @since 1.7.0
+	 */
+	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank-type.php' );
+}
 
 // EOF

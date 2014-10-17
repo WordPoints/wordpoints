@@ -313,7 +313,7 @@ function wordpoints_get_rank_meta( $rank_id, $meta_key = '', $single = false ) {
  * @param int    $user_id The ID of the user whose rank to get.
  * @param string $group   The rank group to get the rank from.
  *
- * @return int The ID of the rank this user has.
+ * @return int|false The ID of the rank this user has, or false for invalid $group.
  */
 function wordpoints_get_user_rank( $user_id, $group ) {
 
@@ -340,6 +340,11 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 
 	if ( ! $rank_id ) {
 		$rank_group = WordPoints_Rank_Groups::get_group( $group );
+
+		if ( ! $rank_group ) {
+			return false;
+		}
+
 		$rank_id = $rank_group->get_base_rank();
 	}
 
@@ -353,36 +358,62 @@ function wordpoints_get_user_rank( $user_id, $group ) {
  *
  * @param int $user_id The ID of the user.
  * @param int $rank_id The ID of the rank to give the user.
+ *
+ * @return bool True if the update was successful. False otherwise.
  */
-function wordpoints_update_user_rank( $user_id, $old_rank_id, $new_rank_id ) {
+function wordpoints_update_user_rank( $user_id, $rank_id ) {
 
 	global $wpdb;
+
+	if ( ! wordpoints_posint( $rank_id ) || ! wordpoints_posint( $user_id ) ) {
+		return false;
+	}
+
+	$rank = wordpoints_get_rank( $rank_id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+	$old_rank_id = wordpoints_get_user_rank( $user_id, $rank->rank_group );
+
+	if ( $rank_id === $old_rank_id ) {
+		return true;
+	}
 
 	$old_rank = wordpoints_get_rank( $old_rank_id );
 
 	if ( 'base' === $old_rank->type ) {
 
 		// This user doesn't yet have a rank in this group.
-		return $wpdb->insert(
+		$result = $wpdb->insert(
 			$wpdb->wordpoints_user_ranks
 			, array(
 				'user_id' => $user_id,
-				'rank_id' => $new_rank_id,
+				'rank_id' => $rank_id,
 			)
+			, '%d'
+		);
+
+	} else {
+
+		$result = $wpdb->update(
+			$wpdb->wordpoints_user_ranks
+			, array( 'rank_id' => $rank_id )
+			, array(
+				'user_id' => $user_id,
+				'rank_id' => $old_rank_id,
+			)
+			, '%d'
 			, '%d'
 		);
 	}
 
-	return $wpdb->update(
-		$wpdb->wordpoints_user_ranks
-		, array( 'rank_id' => $new_rank_id )
-		, array(
-			'user_id' => $user_id,
-			'rank_id' => $old_rank_id,
-		)
-		, '%d'
-		, '%d'
-	);
+	if ( false === $result ) {
+		return false;
+	}
+
+	return true;
 }
 
 // EOF

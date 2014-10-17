@@ -198,7 +198,7 @@ final class WordPoints_Rank {
 	 *
 	 * @param int $id The ID of the rank to get.
 	 *
-	 * @return stdClass The rank's data.
+	 * @return stdClass|false The rank's data, or false if not found.
 	 */
 	public static function get_data( $id ) {
 

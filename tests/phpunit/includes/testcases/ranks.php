@@ -33,16 +33,6 @@ class WordPoints_Ranks_UnitTestCase extends WordPoints_UnitTestCase {
 	protected $rank_type = 'test_type';
 
 	/**
-	 * Set up for the tests.
-	 *
-	 * @since 1.7.0
-	 */
-	public static function setUpBeforeClass() {
-
-		parent::setUpBeforeClass();
-	}
-
-	/**
 	 * Set up for each test.
 	 *
 	 * @since 1.7.0

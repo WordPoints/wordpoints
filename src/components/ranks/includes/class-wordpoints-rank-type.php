@@ -271,7 +271,7 @@ abstract class WordPoints_Rank_Type {
 				continue;
 			}
 
-			wordpoints_update_user_rank( $user_id, $rank_id, $next_rank->ID );
+			wordpoints_update_user_rank( $user_id, $next_rank->ID );
 		}
 	}
 

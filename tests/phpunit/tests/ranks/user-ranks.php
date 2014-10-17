@@ -25,7 +25,9 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 
 		$user_id = $this->factory->user->create();
 
-		$rank = wordpoints_get_rank( $user_id, $this->rank_group );
+		$rank = wordpoints_get_rank(
+			wordpoints_get_user_rank( $user_id, $this->rank_group )
+		);
 
 		$this->assertInstanceOf( 'WordPoints_Rank', $rank );
 		$this->assertEquals( 'base', $rank->type );

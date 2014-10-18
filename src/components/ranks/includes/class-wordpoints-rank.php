@@ -166,7 +166,29 @@ final class WordPoints_Rank {
 	}
 
 	/**
-	 * Get the object of the next rank in this group.
+	 * Get the object of the previous rank in this rank's group.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return WordPoints_Rank|false The previous rank, or false.
+	 */
+	public function get_previous() {
+
+		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
+
+		$position = $group->get_rank_position( $this->ID );
+
+		$previous_rank_id = $group->get_rank( $position - 1 );
+
+		if ( ! $previous_rank_id ) {
+			return false;
+		}
+
+		return new WordPoints_Rank( $previous_rank_id );
+	}
+
+	/**
+	 * Get the object of the next rank in this rank's group.
 	 *
 	 * @since 1.7.0
 	 *

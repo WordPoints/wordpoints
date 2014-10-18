@@ -185,7 +185,6 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 		$this->assertEquals(
 			$rank_3_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
-
 		);
 
 		wordpoints_set_points( $user_id, 40, 'points', 'test' );

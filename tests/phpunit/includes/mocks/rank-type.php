@@ -28,23 +28,6 @@ class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 	public function destruct() {}
 
 	/**
-	 * Transition the rank when the user earns more points.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param int    $user_id     The ID of the user.
-	 * @param int    $points      The number of points.
-	 * @param string $points_type The type of points.
-	 */
-	public function hook( $user_id, $points, $points_type ) {
-
-		$this->maybe_transition_user_rank(
-			$user_id
-			, compact( $points, $points_type )
-		);
-	}
-
-	/**
 	 * Validate the metadata for a rank of this type.
 	 *
 	 * @since 1.7.0
@@ -79,15 +62,6 @@ class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 	 * @return bool Whether the user meets the requirements for this rank.
 	 */
 	protected function can_transition_user_rank( $user_id, $rank, array $args ) {
-
-		if ( $rank->points_type !== $points_type ) {
-			return false;
-		}
-
-		if ( $rank->points > wordpoints_get_points( $user_id, $points_type ) ) {
-			return false;
-		}
-
 		return true;
 	}
 }

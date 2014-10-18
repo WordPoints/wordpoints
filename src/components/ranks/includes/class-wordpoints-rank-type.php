@@ -231,6 +231,70 @@ abstract class WordPoints_Rank_Type {
 		}
 	}
 
+	/**
+	 * Check if a user's rank can be increased.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int             $user_id The ID of the user.
+	 * @param WordPoints_Rank $rank    The starting rank.
+	 * @param array           $args    Other arguments.
+	 *
+	 * @return WordPoints_Rank The highest rank that the user can be increased to.
+	 */
+	final public function maybe_increase_user_rank( $user_id, $rank, array $args = array() ) {
+
+		$next_rank = $rank->get_next();
+
+		if ( ! $next_rank || $next_rank->type !== $this->slug ) {
+			return $rank;
+		}
+
+		if ( ! $this->can_transition_user_rank( $user_id, $next_rank, $args ) ) {
+			return $rank;
+		}
+
+		$next_rank_2 = $next_rank->get_next();
+
+		if ( ! $next_rank_2 ) {
+			return $next_rank;
+		}
+
+		return WordPoints_Rank_Types::get_type( $next_rank_2->type )
+			->maybe_increase_user_rank( $user_id, $next_rank_2, $args );
+	}
+
+	/**
+	 * Check if a user's rank should be decreased.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int             $user_id The ID of the user.
+	 * @param WordPoints_Rank $rank    The starting rank.
+	 * @param array           $args    Other arguments.
+	 *
+	 * @return WordPoints_Rank The highest rank that the user can have.
+	 */
+	final public function maybe_decrease_user_rank( $user_id, $rank, array $args = array() ) {
+
+		if ( $rank->type !== $this->slug ) {
+			return $rank;
+		}
+
+		if ( $this->can_transition_user_rank( $user_id, $rank, $args ) ) {
+			return $rank;
+		}
+
+		$previous_rank = $rank->get_previous();
+
+		if ( ! $previous_rank ) {
+			return $rank;
+		}
+
+		return WordPoints_Rank_Types::get_type( $previous_rank->type )
+			->maybe_decrease_user_rank( $user_id, $previous_rank, $args );
+	}
+
 	//
 	// Final Protected Methods.
 	//
@@ -240,10 +304,15 @@ abstract class WordPoints_Rank_Type {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param int   $user_id The ID of the user whose rank to maybe transition.
-	 * @param array $args    Other arguments.
+	 * @param int   $user_id  The ID of the user whose rank to maybe transition.
+	 * @param bool  $increase Whether the user's rank will increase, or decrease.
+	 * @param array $args     Other arguments.
 	 */
-	final protected function maybe_transition_user_rank( $user_id, $args ) {
+	final protected function maybe_transition_user_ranks(
+		$user_id,
+		$increase,
+		array $args = array()
+	) {
 
 		$groups = WordPoints_Rank_Groups::get();
 
@@ -261,17 +330,15 @@ abstract class WordPoints_Rank_Type {
 				continue;
 			}
 
-			$next_rank = $rank->get_next();
-
-			if ( ! $next_rank || $next_rank->type !== $this->slug ) {
-				continue;
+			if ( $increase ) {
+				$new_rank = $this->maybe_increase_user_rank( $user_id, $rank, $args );
+			} else {
+				$new_rank = $this->maybe_decrease_user_rank( $user_id, $rank, $args );
 			}
 
-			if ( ! $this->can_transition_user_rank( $user_id, $next_rank, $args ) ) {
-				continue;
+			if ( $new_rank !== $rank ) {
+				wordpoints_update_user_rank( $user_id, $new_rank->ID );
 			}
-
-			wordpoints_update_user_rank( $user_id, $next_rank->ID );
 		}
 	}
 

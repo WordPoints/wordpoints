@@ -244,7 +244,7 @@ abstract class WordPoints_Rank_Type {
 	 */
 	final public function maybe_increase_user_rank( $user_id, $rank, array $args = array() ) {
 
-		$next_rank = $rank->get_next();
+		$next_rank = $rank->get_adjacent( 1 );
 
 		if ( ! $next_rank || $next_rank->type !== $this->slug ) {
 			return $rank;
@@ -254,7 +254,7 @@ abstract class WordPoints_Rank_Type {
 			return $rank;
 		}
 
-		$next_rank_2 = $next_rank->get_next();
+		$next_rank_2 = $next_rank->get_adjacent( 1 );
 
 		if ( ! $next_rank_2 ) {
 			return $next_rank;
@@ -285,7 +285,7 @@ abstract class WordPoints_Rank_Type {
 			return $rank;
 		}
 
-		$previous_rank = $rank->get_previous();
+		$previous_rank = $rank->get_adjacent( -1 );
 
 		if ( ! $previous_rank ) {
 			return $rank;

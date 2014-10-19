@@ -166,25 +166,36 @@ final class WordPoints_Rank {
 	}
 
 	/**
-	 * Get the object of the next rank in this group.
+	 * Get the object of a rank adjacent to this one in its rank group.
+	 *
+	 * Passing a positive integer will get a rank higher than this one, and a
+	 * negative integer a lower rank. For example, passing 1 will get the next rank,
+	 * and passing -2 will get the rank 2 levels below this one.
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return WordPoints_Rank|false The next rank, or false.
+	 * @param int $relative_position The position of the rank to get relative to this
+	 *                               one.
+	 *
+	 * @return WordPoints_Rank|false The adjacent rank, or false.
 	 */
-	public function get_next() {
+	public function get_adjacent( $relative_position ) {
+
+		if ( 0 === wordpoints_int( $relative_position ) ) {
+			return $this;
+		}
 
 		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
 
 		$position = $group->get_rank_position( $this->ID );
 
-		$next_rank_id = $group->get_rank( $position + 1 );
+		$adjacent_rank_id = $group->get_rank( $position + $relative_position );
 
-		if ( ! $next_rank_id ) {
+		if ( ! $adjacent_rank_id ) {
 			return false;
 		}
 
-		return new WordPoints_Rank( $next_rank_id );
+		return new WordPoints_Rank( $adjacent_rank_id );
 	}
 
 	//

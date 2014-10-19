@@ -55,10 +55,19 @@ class WordPoints_Ranks_UnitTestCase extends WordPoints_UnitTestCase {
 			$this->rank_type
 			, $this->rank_group
 		);
+	}
 
-		// Rank types will persist, but the ranks themselves are rolled back. So we
-		// need to create a base rank each time.
-		wordpoints_add_rank( '', 'base', $this->rank_group, 0 );
+	/**
+	 * Clean up after each test.
+	 *
+	 * @since 1.7.0
+	 */
+	public function tearDown() {
+
+		WordPoints_Rank_Types::deregister_type( $this->rank_type );
+		WordPoints_Rank_Groups::deregister_group( $this->rank_group );
+
+		parent::tearDown();
 	}
 }
 

@@ -76,10 +76,11 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 	 */
 	public function hook( $user_id, $points, $points_type ) {
 
-		$this->maybe_transition_user_rank(
-			$user_id
-			, array( 'points_type' => $points_type )
-		);
+		if ( $points_type !== $this->meta_fields['points_type']['default'] ) {
+			return;
+		}
+
+		$this->maybe_transition_user_ranks( $user_id, $points > 0 );
 	}
 
 	/**
@@ -143,11 +144,11 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 	 */
 	protected function can_transition_user_rank( $user_id, $rank, array $args ) {
 
-		if ( $rank->points_type !== $args['points_type'] ) {
+		if ( $rank->points_type !== $this->meta_fields['points_type']['default'] ) {
 			return false;
 		}
 
-		$user_points = wordpoints_get_points( $user_id, $args['points_type'] );
+		$user_points = wordpoints_get_points( $user_id, $rank->points_type );
 
 		if ( $rank->points > $user_points ) {
 			return false;

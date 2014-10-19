@@ -113,6 +113,47 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_transitions_when_points_awarded() {
 
+		wordpoints_add_rank(
+			'Rank 1'
+			, 'points-points'
+			, 'points_type-points'
+			, 1
+			, array( 'points_type' => 'points', 'points' => 30 )
+		);
+
+		$rank_id = wordpoints_add_rank(
+			'Rank 2'
+			, 'points-points'
+			, 'points_type-points'
+			, 2
+			, array( 'points_type' => 'points', 'points' => 60 )
+		);
+
+		wordpoints_add_rank(
+			'Rank 3'
+			, 'points-points'
+			, 'points_type-points'
+			, 3
+			, array( 'points_type' => 'points', 'points' => 90 )
+		);
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_add_points( $user_id, 70, 'points', 'test' );
+
+		$this->assertEquals(
+			$rank_id
+			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
+		);
+	}
+
+	/**
+	 * Test that the rank fires when points are removed.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_transitions_when_points_removed() {
+
 		$rank_id = wordpoints_add_rank(
 			'Rank 1'
 			, 'points-points'
@@ -121,10 +162,33 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 			, array( 'points_type' => 'points', 'points' => 30 )
 		);
 
+		wordpoints_add_rank(
+			'Rank 2'
+			, 'points-points'
+			, 'points_type-points'
+			, 2
+			, array( 'points_type' => 'points', 'points' => 60 )
+		);
+
+		$rank_3_id = wordpoints_add_rank(
+			'Rank 3'
+			, 'points-points'
+			, 'points_type-points'
+			, 3
+			, array( 'points_type' => 'points', 'points' => 90 )
+		);
+
 		$user_id = $this->factory->user->create();
 
-		wordpoints_add_points( $user_id, 50, 'points', 'test' );
-//var_log( wordpoints_get_rank( wordpoints_get_user_rank( $user_id, 'points_type:points' ) ) );
+		wordpoints_add_points( $user_id, 100, 'points', 'test' );
+
+		$this->assertEquals(
+			$rank_3_id
+			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
+		);
+
+		wordpoints_set_points( $user_id, 40, 'points', 'test' );
+
 		$this->assertEquals(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )

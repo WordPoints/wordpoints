@@ -1,0 +1,1176 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPoints 1.4.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/src\n"
+"POT-Creation-Date: 2014-04-18 21:42:17+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-06-20 01:20+0800\n"
+"Last-Translator: Coolwp <coolwp.com@gmail.com>\n"
+"Language-Team: suifengtec <suifengtec@qq.com>\n"
+"X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2;plural=(n!=1);\n"
+"Language: zh_CN\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+msgid "%points% will be replaced with the points of the logged in user"
+msgstr "%points% 将会被当前已登录用户的积分替代。"
+
+msgid "%s has been replaced by %s."
+msgstr "%s已经被%s替代。"
+
+msgid "%s is no longer supported."
+msgstr "%s已不受支持。"
+
+msgid "%s permanently deleted."
+msgstr "%s已被永久删除。"
+
+msgid "(current: %s)"
+msgstr "(当前:%s)"
+
+msgid "<a href=\"%s\" target=\"_blank\">Developer Documentation</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">开发者文档</a>"
+
+msgid "<a href=\"%s\" target=\"_blank\">Support Forums</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">支持论坛</a>"
+
+msgid "<strong>%1$s</strong> by <em>%2$s</em>"
+msgstr "<strong>%1$s</strong>  作者 <em>%2$s</em>"
+
+msgid ""
+"<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</"
+"strong>)"
+msgstr ""
+"<strong>%1$s</strong> 作者 <em>%2$s</em> (同时会 <strong>删除它的数据</"
+"strong>)"
+
+msgid "A post is permanently deleted."
+msgstr "文章被删除时，减去多少积分。"
+
+msgid "Activate"
+msgstr "激活"
+
+msgid "Activate Module"
+msgstr "激活模式"
+
+msgid "Active <span class=\"count\">(%s)</span>"
+msgid_plural "Active <span class=\"count\">(%s)</span>"
+msgstr[0] "激活<span class=\"count\">(%s)</span>"
+msgstr[1] "激活<span class=\"count\">(%s)</span>"
+
+msgid "Add Hook"
+msgstr "添加Hook"
+
+msgid "Add New Points Type"
+msgstr "添加新的积分类型"
+
+msgid "An error has occurred. Please reload the page and try again."
+msgstr "产生了一个错误。请重新载入此页并重试。"
+
+msgid "An error has occurred. Please try again."
+msgstr "产生了一个错误。请重试。"
+
+msgid ""
+"Are you sure that you want to delete this points type? This will delete all "
+"related logs and hooks."
+msgstr "确定要删除这个积分类型吗？这个动作将删除所有相关的记录和Hooks."
+
+msgid "Are you sure you wish to delete these files and data?"
+msgstr "确定要删除？"
+
+msgid "Are you sure you wish to delete these files?"
+msgstr "确定要删除这些文件？"
+
+msgid "Are you sure?"
+msgstr "确定？"
+
+msgid "Auto Draft"
+msgstr "自动草稿"
+
+msgid "Available Hooks"
+msgstr "可用的Hooks"
+
+msgid "By %s"
+msgstr "作者  %s"
+
+msgid "By %s."
+msgstr "作者 %s."
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Caution:"
+msgstr "注意:"
+
+msgid "Changes saved."
+msgstr "更改已保存。"
+
+msgid "Choose a points type:"
+msgstr "请选择积分类型:"
+
+msgid "Clear List"
+msgstr "清除列表"
+
+msgid "Click to view entire list of files which will be deleted"
+msgstr "点击查看即将被删除的文件的完整列表"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Comment removed from the site."
+msgstr "评论被删除，减去多少积分。"
+
+msgid "Component &#8220;%s&#8221; activated!"
+msgstr "模块&#8220;%s&#8221; 已激活！"
+
+msgid "Component &#8220;%s&#8221; deactivated!"
+msgstr "模块& #8220;%s&#8221; 已禁用！"
+
+msgid "Components"
+msgstr "组件"
+
+msgid "Configure"
+msgstr "配置"
+
+msgid "Configure WordPoints to your liking."
+msgstr "按自己的想法配置WordPoints。"
+
+msgid "Could not access filesystem."
+msgstr "文件系统权限错误。"
+
+msgid "Could not create the modules directory."
+msgstr "未能创建模块目录。"
+
+msgid "Could not fully remove the module(s) %s."
+msgstr "无法移除模块 %s."
+
+msgid ""
+"Create one or more points systems for your site, and reward user activity."
+msgstr "为您的网站创建一个或者多个积分系统，用积分激励用户活动。"
+
+msgid "Currently WordPoints only has one component."
+msgstr "WordPoints当前仅有一个模块。"
+
+msgid "Deactivate"
+msgstr "停用"
+
+msgid "Default"
+msgstr "默认为"
+
+msgid "Default Points Type"
+msgstr "默认的积分类型"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Delete module"
+msgid_plural "Delete modules"
+msgstr[0] "删除模块"
+msgstr[1] "删除模块"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Disable accessibility mode"
+msgstr "禁用辅助功能模式"
+
+msgid "Display the latest points activity."
+msgstr "显示最新的积分活动。"
+
+msgid "Display the points of the current logged in user."
+msgstr "显示当前已登录用户的积分"
+
+msgid ""
+"Drag hooks from here to a points type on the right to activate them. Drag "
+"hooks back here to deactivate them and delete their settings."
+msgstr ""
+"从这里拖动Hooks到右侧的积分类型以启用它们。拖动Hooks到这里会禁用它们并删除其"
+"设置。"
+
+msgid ""
+"Drag hooks here to remove them from the points type but keep their settings."
+msgstr "将Hooks拖动到这里可以从积分类型中移除，但是依然保存其设置。"
+
+msgid "Enable accessibility mode"
+msgstr "启用辅助功能模式"
+
+msgid "Enables a points system for your site."
+msgstr "在您的网站启用一个积分系统。"
+
+msgid ""
+"Enabling Accessibility Mode, via Screen Options, allows you to use Add and "
+"Edit buttons instead of using drag and drop."
+msgstr ""
+"启用辅助功能模式，通过显示选项，允许您使用添加和编辑按钮，以替代使用拖放。"
+
+msgid ""
+"Enter the IDs of users to exclude from leader boards, logs, etc. This may be "
+"useful if you use certain accounts for testing."
+msgstr ""
+"请输入要从用户排行榜、积分记录中排除的用户的用户ID，如果你使用了一些测试账"
+"户，这个功能很有用。"
+
+msgid "Error in displaying the hooks settings form."
+msgstr "显示Hooks表单时出错。"
+
+msgid "Error while deleting."
+msgstr "删除时出错。"
+
+msgid "Error while saving."
+msgstr "保存时出错。"
+
+msgid "Excluded Users"
+msgstr "排除用户"
+
+msgid "Filesystem error."
+msgstr "文件系统错误。"
+
+msgid "For more information:"
+msgstr "更多信息:"
+
+msgid "General Settings"
+msgstr "通用设置"
+
+msgid "Hooks may be used multiple times."
+msgstr "Hooks可多次使用。"
+
+msgid ""
+"If something goes wrong with a module and you can&#8217;t use WordPoints, "
+"delete or rename that file in the <code>%s</code> directory and it will be "
+"automatically deactivated."
+msgstr ""
+"如果在使用WordPoints模块中发现有某些错误，删除或者重命名<code>%s</code>目录中"
+"的那个文件，他会被自动禁用。"
+
+msgid ""
+"If you don&#8217;t think this plugin deserves 5 stars, please let us know "
+"how we can improve it."
+msgstr "如果您觉得这个插件不值5分评价，请提出您的宝贵建议。"
+
+msgid ""
+"If you have a module in a .zip format, you may install it by uploading it "
+"here."
+msgstr "如果您有一个.zip格式的模块，你可以在这里上传并安装它。"
+
+msgid ""
+"If you think WordPoints is great, let everyone know by giving it a <a href="
+"\"%s\">5 star rating</a>."
+msgstr ""
+"如果您举得WordPoints不错，请用<a href=\"%s\">5分评价</a>以让更多人知道它！"
+
+msgid ""
+"If you want to remove the hook but save its setting for possible future use, "
+"just drag it into the Inactive Hooks area. You can add them back anytime "
+"from there."
+msgstr ""
+"如果您想移除hook但是保存其设置以备将来使用，仅需要拖动它到未启用Hooks区域即"
+"可。您可以在任何时候从那里将他们添加回来。"
+
+msgid ""
+"If you would like to change the value for a type of points, enter the "
+"desired value in the text field, and check the checkbox beside it. If you "
+"don't check the checkbox, the change will not be saved. To provide a reason "
+"for the change, fill out the text field below."
+msgstr ""
+"如果您想改变积分类型的值，请在文本输入栏中输入想使用的值，并在下面的选择框中"
+"选中它。如果您不想选中选择框，更改将不会被保存，您可以通过下面的文本输入栏来"
+"记录修改原因。"
+
+msgid "Inactive <span class=\"count\">(%s)</span>"
+msgid_plural "Inactive <span class=\"count\">(%s)</span>"
+msgstr[0] "未激活 <span class=\"count\">(%s)</span>"
+msgstr[1] "未激活 <span class=\"count\">(%s)</span>"
+
+msgid "Inactive Hooks"
+msgstr "禁用Hooks"
+
+msgid "Install Modules"
+msgstr "安装模块"
+
+msgid "Install Now"
+msgstr "现在安装"
+
+msgid "Install a module in .zip format"
+msgstr "安装一个.zip格式的模块"
+
+msgid "Install package not available."
+msgstr "安装包不可用。"
+
+msgid "Installing Module from uploaded file: %s"
+msgstr "正在安装上传模块: %s"
+
+msgid "Installing the module&#8230;"
+msgstr "正在安装模块&#8230;"
+
+msgid "Invalid module path."
+msgstr "不可用的模块路径。"
+
+msgid "J.D. Grimes"
+msgstr "J.D. Grimes"
+
+msgid "Leave this field blank to hide the widget if the user is not logged in"
+msgstr "将此栏留空的话，将会对未登录用户隐藏这个小工具"
+
+msgid "Leaving a new comment."
+msgstr "发布评论，奖励多少积分。"
+
+msgid "Like this plugin?"
+msgstr "喜欢这个插件？"
+
+msgid "Module"
+msgstr "模块"
+
+msgid "Module <strong>activated</strong>."
+msgstr "模块已 <strong>启用</strong>。"
+
+msgid "Module <strong>deactivated</strong>."
+msgstr "模块已 <strong>禁用</strong>。"
+
+msgid ""
+"Module could not be activated because it triggered a <strong>fatal error</"
+"strong>."
+msgstr "模块未能激活，因为它引发了一个<strong>致命错误</strong>。"
+
+msgid "Module could not be deleted due to an error: %s"
+msgstr "模块未能删除，错误原因: %s"
+
+msgid "Module file does not exist."
+msgstr "模块文件不存在。"
+
+msgid "Module install failed."
+msgstr "模块安装失败。"
+
+msgid "Module installed successfully."
+msgstr "模块安装成功。"
+
+msgid "Module zip file"
+msgstr "模块的zip文件"
+
+msgid "Modules"
+msgstr "模块"
+
+msgid ""
+"Modules extend and expand the functionality of WordPoints. Once a module is "
+"installed, you may activate it or deactivate it here."
+msgstr ""
+"模块可以扩展和拓展WordPoints的功能，一旦模块被安装，您可以在这里激活或者禁用"
+"它。"
+
+msgid "More components are planned for future versions of the plugin."
+msgstr "更多模块将会随此插件的未来版本分发。"
+
+msgid ""
+"Most of the time, modules play nicely with the core of WordPoints and with "
+"other modules. Sometimes, though, a module&#8217;s code will get in the way "
+"of another module, causing compatibility issues. If your site starts doing "
+"strange things, this may be the problem. Try deactivating all your modules "
+"and re-activating them in various combinations until you isolate which one"
+"(s) caused the issue."
+msgstr ""
+"大多数情况下，模块可以与WordPoints以及其其它模块良好的协同工作，但是有些时"
+"候，某个模块可能会与您已经启用的其它模块有冲突问题，这可能会出现一些意想不到"
+"的问题。尝试禁用全部模块，然后按照不同的模块组合重新启用他们直到找到是那个"
+"（些）模块引起的问题。"
+
+msgid "My Points"
+msgstr "我的积分"
+
+msgid "Need help?"
+msgstr "需要帮助?"
+
+msgid "Network Activate"
+msgstr "多站激活"
+
+msgid "Network Deactivate"
+msgstr "网络停用"
+
+msgid "New %s published."
+msgstr "新的 %s 已发布。"
+
+msgid "New post published."
+msgstr "发布文章，奖励积分。"
+
+msgid "No default"
+msgstr "无默认"
+
+msgid "No modules found."
+msgstr "未找到模块"
+
+msgid "No out of date modules were selected."
+msgstr "未选中过时的模块。"
+
+msgid ""
+"No points types have been created yet. Only network administrators can "
+"create points types."
+msgstr "尚未创建积分类型。仅多站管理员可以创建积分类型。"
+
+msgid "No valid modules were found."
+msgstr "未找到可用的模块。"
+
+msgid "No, Return me to the module list"
+msgstr "不，返回到模块列表"
+
+msgid "Number of latest log entries for this user to display"
+msgstr "显示给用户的最新记录数量。"
+
+msgid "Number of log entries to display"
+msgstr "显示多少条积分记录"
+
+msgid "Number of top users to show"
+msgstr "显示多少个积分多的用户"
+
+msgid "Once a points type has been deleted, you cannot bring it back."
+msgstr "一旦积分类型被删除，您将无法恢复它。"
+
+msgid "Overview"
+msgstr "概览"
+
+msgid "Please choose a unique name for this points type."
+msgstr "请重新选择一个积分类型名称。"
+
+msgid "Points Hooks"
+msgstr "积分钩子"
+
+msgid ""
+"Points Hooks let you award users points by &#8220;hooking into&#8221; "
+"different actions. They can be hooked to any points type that you have "
+"created. To create a points type, fill out the Add New Points Type form, and "
+"click Save. You can edit the settings for your points type at any time by "
+"clicking on the Settings title bar within that points type section."
+msgstr ""
+"积分Hook可以用来奖励特定的用户行为，可被用于任何已创建的积分类型。创建积分类"
+"型：主需要输入积分类型表单，然后点击保存。您可以在任何时候以点击设置标题条的"
+"方式来编辑积分类型的设置。"
+
+msgid "Points Logs"
+msgstr "积分记录"
+
+msgid "Points removed when deleted:"
+msgstr "删除文章时减去多少积分:"
+
+msgid "Points subtracted if comment removed:"
+msgstr "如果评论被删除，减去多少积分："
+
+msgid "Points type deleted."
+msgstr "积分类型已删除。"
+
+msgid "Points type to display"
+msgstr "显示的积分类型"
+
+msgid "Points:"
+msgstr "积分:"
+
+msgid "Points: %s"
+msgstr "积分: %s"
+
+msgid ""
+"Post your feature request or support question in the <a href=\"%s\">support "
+"forums</a>"
+msgstr "请在<a href=\"%s\">支持论坛</a>提交您的功能需求或者帮助问题。"
+
+msgid "Reason"
+msgstr "原因"
+
+msgid "Recently Active <span class=\"count\">(%s)</span>"
+msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
+msgstr[0] "最近激活 <span class=\"count\">(%s)</span>"
+msgstr[1] "最近激活 <span class=\"count\">(%s)</span>"
+
+msgid "Removing and Reusing"
+msgstr "卸下和重新使用"
+
+msgid "Return to Module Installer"
+msgstr "返回模块安装器"
+
+msgid "Return to Modules page"
+msgstr "返回模块页面"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save Hook"
+msgstr "保存Hook"
+
+msgid "Search Installed Modules"
+msgstr "搜索已安装模块"
+
+msgid "Search results for &#8220;%s&#8221;"
+msgstr "搜索&#8220;%s&#8221;的结果"
+
+msgid "Select %s"
+msgstr "选中 %s"
+
+msgid "Select post type:"
+msgstr "请选择文章类型:"
+
+msgid "Select the points type to attach this hook to."
+msgstr "请选择这个hook要附加到的积分类型。"
+
+msgid "Selected modules <strong>activated</strong>."
+msgstr "选中的模块已 <strong>启用</strong>。"
+
+msgid "Selected modules <strong>deactivated</strong>."
+msgstr "选中的模块已 <strong>禁用</strong>。"
+
+msgid "Set this to 0 to keep from showing any logs"
+msgstr "设置为0将会显示全部记录"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Settings updated."
+msgstr "设置已更新。"
+
+msgid "Shortcode error:"
+msgstr "短代码错误:"
+
+msgid "Showcase the users with the most points."
+msgstr "用来显示用户积分排行。"
+
+msgid "Slug"
+msgstr "别名"
+
+msgid "Text if the user is not logged in"
+msgstr "用户未登录时显示的文本"
+
+msgid "Thank you for using WordPoints!"
+msgstr "感谢您使用WordPoints!"
+
+msgid ""
+"The &#8220;points_type&#8221; attribute of the <code>"
+"[wordpoints_how_to_get_points]</code> shortcode must be the slug of a points "
+"type. Example: <code>[wordpoints_how_to_get_points points_type=\"points\"]</"
+"code>."
+msgstr ""
+"短代码<code>[wordpoints_how_to_get_points]</code>中&#8220;points_type&#8221;"
+"的属性值应该是一个积分类型的别名，例如：<code>[wordpoints_how_to_get_points "
+"points_type=\"points\"]</code>。"
+
+msgid ""
+"The &#8220;points_type&#8221; attribute of the <code>[wordpoints_points]</"
+"code> shortcode must be the slug of a points type. Example: <code>"
+"[wordpoints_points points_type=\"points\"]</code>."
+msgstr ""
+"短代码<code>[wordpoints_points]</code>中&#8220;points_type&#8221;的属性值应该"
+"是一个积分了理性的别名，例如：<code>[wordpoints_points points_type=\"points"
+"\"]</code。"
+
+msgid ""
+"The &#8220;points_type&#8221; attribute of the <code>[wordpoints_points_logs]"
+"</code> shortcode must be the slug of a points type. Example: <code>"
+"[wordpoints_points_logs points_type=\"points\"]</code>."
+msgstr ""
+"短代码<code>[wordpoints_points_logs]</code>中&#8220;points_type&#8221;的属性"
+"值应该是一个积分类型的别名，例如：<code>[wordpoints_points_logs points_type="
+"\"points\"]</code>。"
+
+msgid ""
+"The &#8220;points_type&#8221; attribute of the <code>[wordpoints_points_top]"
+"</code> shortcode must be the slug of a points type. Example: <code>"
+"[wordpoints_points_top points_type=\"points\"]</code>."
+msgstr ""
+"短代码<code>[wordpoints_points_top]</code>中&#8220;points_type&#8221;的属性值"
+"应该是一个积分类型别名，例如:<code>[wordpoints_points_top points_type="
+"\"points\"]</code>。"
+
+msgid ""
+"The &#8220;query&#8221; attribute of the <code>[wordpoints_points_logs]</"
+"code> shortcode must be the slug of a registered points log query. Example: "
+"<code>[wordpoints_points_logs <b>query=\"default\"</b> points_type=\"points"
+"\"]</code>."
+msgstr ""
+"短代码<code>[wordpoints_points_logs]</code>中的&#8220;query&#8221; 的属性值应"
+"该是一个已注册的积分记录查询的别名，例如：<code>[wordpoints_points_logs "
+"<b>query=\"default\"</b> "
+
+msgid ""
+"The &#8220;users&#8221; attribute of the <code>[wordpoints_points_top]</"
+"code> shortcode must be a positive integer. Example: <code>"
+"[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
+msgstr ""
+"短代码<code>[wordpoints_points_top]</code>中&#8220;users&#8221; 的属性值应该"
+"是一个整数. 例如: <code>[wordpoints_points_top <b>users=\"10\"</b> type="
+"\"points\"]</code>."
+
+msgid ""
+"The Available Hooks section contains all the hooks you can choose from. Once "
+"you add a hook into a points type, it will open to allow you to configure "
+"its settings. When you are happy with the hook settings, click the Save "
+"button and the hook will begin awarding points. If you click Delete, it will "
+"remove the hook."
+msgstr ""
+"可用的Hooks部分包含了全部您可用的hooks。一旦您添加一个hook到一种积分类型，它"
+"将会打开并允许您配置它的设置。当您设置之后，请点击保存按钮，如果您点击删除按"
+"钮，他将会被移除。"
+
+msgid ""
+"The component &#8220;%s&#8221; could not be activated. Please try again."
+msgstr "模块 &#8220;%s&#8221; 未能激活，请重试。"
+
+msgid ""
+"The component &#8220;%s&#8221; could not be deactivated. Please try again."
+msgstr "模块 &#8220;%s&#8221; 未能禁用，请重试。"
+
+msgid ""
+"The hook you have asked to edit could not be found. Please go back and try "
+"again."
+msgstr "您要编辑的hook无法找到，请返回重试。"
+
+msgid ""
+"The module <code>%s</code> has been <strong>deactivated</strong> due to an "
+"error: %s"
+msgstr "模块<code>%s</code> 已经被 <strong>禁用</strong>，由于一个错误: %s"
+
+msgid "The module contains no files."
+msgstr "模块未包含文件。"
+
+msgid "The module does not have a valid header."
+msgstr "此模块头部不可用。"
+
+msgid ""
+"The module generated %d characters of <strong>unexpected output</strong> "
+"during activation. If you notice &#8220;headers already sent&#8221; "
+"messages, problems with syndication feeds or other issues, try deactivating "
+"or removing this module."
+msgstr ""
+"这个模块在激活过程中产生了 %d 个字符的 <strong>意外输出</strong>。如果您遇到"
+"了“headers already sent”错误、联合feed（如RSS）出错等问题，请尝试禁用或移除这"
+"个模块。"
+
+msgid "The module generated unexpected output."
+msgstr "此模块产生了意外的输出。"
+
+msgid "The selected modules have been <strong>deleted</strong>."
+msgstr "被选中模块已经被<strong>删除</strong>。"
+
+msgid "There are no points hooks currently available."
+msgstr "当前无可用的积分Hooks。"
+
+msgid "This module may be active on other sites in the network."
+msgid_plural "These modules may be active on other sites in the network."
+msgstr[0] "这个模块可能在多站网络上的其它网站激活。"
+msgstr[1] "这些模块可能在多站网络上的其它网站激活。"
+
+msgid ""
+"This points type uses a custom meta key (&#8220;%s&#8221;). If this key is "
+"also used by another plugin, changes made by it will not be logged. Only "
+"transactions performed by WordPoints are included in the logs."
+msgstr ""
+"此积分类型使用了自定义的元数据ID(&#8220;%s&#8221;)。如果这个ID已经被其它插件"
+"使用，请修改它，以避免出错。"
+
+msgid "This points type uses a custom meta key: %s"
+msgstr "此积分类型使用的自定义元数据ID：%s"
+
+msgid ""
+"To link a hook to a points type, click on the hook's title bar and select a "
+"points type, or drag and drop the hook title bars into the desired points "
+"type. By default, only the first points type area is expanded. To populate "
+"additional points types, click on their title bars to expand them."
+msgstr ""
+"添加hook到一个积分类型：点击hook标题条并选择一种积分类型，或者您可以拖动hook"
+"标题条到某个已存在的积分类型里面。默认的，仅第一个积分类型区域是展开的。展开"
+"积分类型区域：仅需要点击它们的标题条即可。"
+
+msgid "Troubleshooting"
+msgstr "冲突解决"
+
+msgid "Unable to locate WordPoints Module directory."
+msgstr "无法找到WordPoints模块目录。"
+
+msgid "Unpacking the package&#8230;"
+msgstr "正在解包&#8230;"
+
+msgid "Upload WordPoints Module"
+msgstr "上传WordPoints模块"
+
+msgid "Version %s"
+msgstr "版本 %s"
+
+msgid "View installed WordPoints components."
+msgstr "查看已安装的WordPoints模块。"
+
+msgid "View recent points transactions."
+msgstr "查看最新的积分交易。"
+
+msgid "Visit author homepage"
+msgstr "查看作者页面"
+
+msgid "Visit module homepage"
+msgstr "查看模块首页"
+
+msgid "Visit module site"
+msgstr "查看模块页面"
+
+msgid "Visiting the site at least once in a day."
+msgstr "至少在每天查看下这个网站。"
+
+msgid "Visiting the site at least once in a given time period."
+msgstr "周期性访问网站，奖励积分。"
+
+msgid "Visiting the site at least once in a month."
+msgstr "至少在每个月查看下这个网站。"
+
+msgid "Visiting the site at least once in a week."
+msgstr "至少在每周查看下这个网站。"
+
+msgid "Visiting the site at least once in an hour."
+msgstr "每小时在线奖励积分。"
+
+msgid "Visiting the site periodically."
+msgstr "查看这个网站的间隔期。"
+
+msgid "Widget text"
+msgstr "小工具文本"
+
+msgid "WordPoints"
+msgstr "WordPoints"
+
+msgid "WordPoints - %s"
+msgstr "WordPoints - %s"
+
+msgid "WordPoints - Configure"
+msgstr "WordPoints - 配置"
+
+msgid "WordPoints - Install Modules"
+msgstr "WordPoints - 安装模块"
+
+msgid "WordPoints - Modules"
+msgstr "WordPoints - 模块"
+
+msgid "WordPoints - Network Points Logs"
+msgstr "WordPoints - 多站积分记录"
+
+msgid "WordPoints - Points Hooks"
+msgstr "WordPoints - 模块钩子"
+
+msgid "WordPoints - Points Logs"
+msgstr "WordPoints - 积分记录"
+
+msgid "WordPoints Modules"
+msgstr "WordPoints 模块"
+
+msgid "Yes, Delete these files"
+msgstr "是的，删除这些文件"
+
+msgid "Yes, Delete these files and data"
+msgstr "是的，删除这些文件和数据"
+
+msgid "You are about to remove the following module:"
+msgid_plural "You are about to remove the following modules:"
+msgstr[0] "您即将移除下列模块:"
+msgstr[1] "您即将移除下列模块:"
+
+msgid ""
+"You can find modules for your site by by browsing the <a href=\"%1$s\" "
+"target=\"_blank\">WordPoints Module Directory</a>. To install a module you "
+"generally just need to <a href=\"%2$s\">upload the module file</a> into your "
+"<code>/wp-content/wordpoints-modules</code> directory. Once a module has "
+"been installed, you can activate it here."
+msgstr ""
+"您可以通过浏览<a href=\"%1$s\" target=\"_blank\">WordPoints插件目录</a>来为您"
+"的网站查找模块。安装模块的步骤是您只需要<a href=\"%2$s\">上传模块文件</a>到您"
+"的 <code>/wp-content/wordpoints-modules</code> 目录即可，模块被安装之后，您可"
+"以在这里激活它。"
+
+msgid ""
+"You can optionally set one points type to be the default. The default points "
+"type will, for example, be used by shortcodes when no type is specified. "
+"This is also useful if you only have one type of points."
+msgstr ""
+"您可以设置一种默认的积分类型。这个默认的积分类型将会被用于短代码，当未指定积"
+"分类型的时候。在您仅有一种积分类型的时候，这也是有用的。"
+
+msgid "You cannot delete a module while it is active on the main site."
+msgstr "主站启用某个插件的时候，你不能删除它。"
+
+msgid ""
+"You do not appear to have any modules available at this time. <a href=\"%s"
+"\">Install some</a>."
+msgstr "看起来现在您还没有模块，您可以 <a href=\"%s\">安装一些</a>."
+
+msgid ""
+"You do not have sufficient permissions to activate modules for this site."
+msgstr "您没有足够的权限在这个网站激活模块。"
+
+msgid ""
+"You do not have sufficient permissions to deactivate modules for this site."
+msgstr "你没有足够的权限在这网站禁用模块。"
+
+msgid "You do not have sufficient permissions to delete modules for this site."
+msgstr "你没有足够的权限在这个网站删除模块。"
+
+msgid ""
+"You do not have sufficient permissions to install WordPoints modules on this "
+"site."
+msgstr "您没有足够的权限在该网站安装WordPoints模块。"
+
+msgid "You must be logged in to view your points."
+msgstr "您需要在登录后查看您的积分。"
+
+msgid ""
+"You need to <a href=\"%s\">create a type of points</a> before you can use "
+"this page."
+msgstr "您需要先 <a href=\"%s\">创建一种积分类型</a> ，才能使用此页。"
+
+msgid "You need to add a points type before you can add any hooks."
+msgstr "您需要添加一种积分类型才能添加Hooks。"
+
+msgctxt "column name"
+msgid "Action"
+msgstr "动作"
+
+msgctxt "column name"
+msgid "Points"
+msgstr "积分"
+
+msgctxt "component author"
+msgid "WordPoints"
+msgstr "WordPoints"
+
+msgctxt "component name"
+msgid "Points"
+msgstr "积分"
+
+msgctxt "components table heading"
+msgid "Action"
+msgstr "动作"
+
+msgctxt "components table heading"
+msgid "Component"
+msgstr "组件"
+
+msgctxt "components table heading"
+msgid "Description"
+msgstr "描述"
+
+msgctxt "components table heading"
+msgid "Version"
+msgstr "版本"
+
+msgid "daily"
+msgstr "按天"
+
+msgctxt "datatable"
+msgid "(filtered from _MAX_ total entries)"
+msgstr "（按照 _MAX_ total过滤项目）"
+
+msgctxt "datatable"
+msgid "First"
+msgstr "最前"
+
+msgctxt "datatable"
+msgid "Last"
+msgstr "最后"
+
+msgctxt "datatable"
+msgid "Loading..."
+msgstr "载入中..."
+
+msgctxt "datatable"
+msgid "Next"
+msgstr "后"
+
+msgctxt "datatable"
+msgid "No data available in table"
+msgstr "暂无数据"
+
+msgctxt "datatable"
+msgid "No matching records found"
+msgstr "暂无搜索结果"
+
+msgctxt "datatable"
+msgid "Previous"
+msgstr "前"
+
+msgctxt "datatable"
+msgid "Processing..."
+msgstr "处理中..."
+
+msgctxt "datatable"
+msgid "Search:"
+msgstr "搜索:"
+
+msgctxt "datatable"
+msgid "Show _MENU_ entries"
+msgstr "显示 _MENU_ 项目"
+
+msgctxt "datatable"
+msgid "Showing 0 to 0 of 0 entries"
+msgstr "显示0到0个记录"
+
+msgctxt "datatable"
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr "显示 _START_ 到 _END_ （共 _TOTAL_个）个项目"
+
+msgctxt "form label"
+msgid "Points type"
+msgstr "积分类型"
+
+msgctxt "form label"
+msgid "Points:"
+msgstr "积分:"
+
+msgctxt "form label"
+msgid "Title"
+msgstr "标题"
+
+msgctxt "hook"
+msgid "Add"
+msgstr "添加"
+
+msgctxt "hook"
+msgid "Edit"
+msgstr "编辑"
+
+msgctxt "hook name"
+msgid "Hook %s"
+msgstr "Hook %s"
+
+msgid "hourly"
+msgstr "按小时"
+
+msgid "http://codesymphony.co/"
+msgstr "http://codesymphony.co/"
+
+msgid "http://wordpoints.org/"
+msgstr "http://wordpoints.org/"
+
+msgctxt "length of time"
+msgid "Period:"
+msgstr "周期:"
+
+msgctxt "module"
+msgid "Add New"
+msgstr "添加新模块"
+
+msgctxt "modules"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] "全部<span class=\"count\">(%s)</span>"
+msgstr[1] "全部<span class=\"count\">(%s)</span>"
+
+msgctxt "modules per page (screen options)"
+msgid "Modules"
+msgstr "模块"
+
+msgctxt "modules table heading"
+msgid "Description"
+msgstr "描述"
+
+msgctxt "modules table heading"
+msgid "Module"
+msgstr "模块"
+
+msgid "monthly"
+msgstr "按月"
+
+msgid "new modules API"
+msgstr "新的模块API"
+
+msgctxt "page title"
+msgid "Network Points Hooks"
+msgstr "多站积分Hooks"
+
+msgctxt "page title"
+msgid "Points Hooks"
+msgstr "积分Hooks"
+
+msgctxt "points hook"
+msgid "Delete"
+msgstr "删除"
+
+msgctxt "points hook"
+msgid "Description (optional):"
+msgstr "描述(可选):"
+
+msgctxt "points hook description"
+msgid "Default: %s"
+msgstr "默认： %s"
+
+msgctxt "points hook description"
+msgid "Registering with the site."
+msgstr "在此网站注册，奖励多少积分。"
+
+msgctxt "points hook name"
+msgid "Comment"
+msgstr "评论"
+
+msgctxt "points hook name"
+msgid "Comment Removed"
+msgstr "评论已移除"
+
+msgctxt "points hook name"
+msgid "Periodic Points"
+msgstr "周期性积分"
+
+msgctxt "points hook name"
+msgid "Post Delete"
+msgstr "文章删除"
+
+msgctxt "points hook name"
+msgid "Post Publish"
+msgstr "文章发布"
+
+msgctxt "points hook name"
+msgid "Registration"
+msgstr "注册"
+
+msgctxt "points log"
+msgid "(no description)"
+msgstr "（无描述）"
+
+msgctxt "points log description"
+msgid "%1$s %2$s published."
+msgstr "%1$s %2$s已发布。"
+
+msgctxt "points log description"
+msgid "%1$s &#8220;%2$s&#8221; deleted."
+msgstr "%1$s &#8220;%2$s&#8221; 已删除."
+
+msgctxt "points log description"
+msgid "%s published."
+msgstr "%s已发布。"
+
+msgctxt "points log description"
+msgid "Comment"
+msgstr "评论"
+
+msgctxt "points log description"
+msgid "Comment marked as spam."
+msgstr "评论被标记为垃圾评论"
+
+msgctxt "points log description"
+msgid "Comment moved to trash."
+msgstr "评论已被放到回收站。"
+
+msgctxt "points log description"
+msgid "Comment on %s."
+msgstr "%s 上的评论。"
+
+msgctxt "points log description"
+msgid "Comment unapproved."
+msgstr "评论未通过审核。"
+
+msgctxt "points log description"
+msgid "Daily points."
+msgstr "每天积分。"
+
+msgctxt "points log description"
+msgid "Hourly points."
+msgstr "小时积分。"
+
+msgctxt "points log description"
+msgid "Monthly points."
+msgstr "每月积分。"
+
+msgctxt "points log description"
+msgid "Periodic points."
+msgstr "周期性积分。"
+
+msgctxt "points log description"
+msgid "Points adjusted by %s. Reason: %s"
+msgstr "积分已被%s调整，原因是： %s"
+
+msgctxt "points log description"
+msgid "Post %s published."
+msgstr "文章 %s 已发布。"
+
+msgctxt "points log description"
+msgid "Post &#8220;%s&#8221; deleted."
+msgstr "文章 &#8220;%s&#8221; 已删除."
+
+msgctxt "points log description"
+msgid "Post published."
+msgstr "文章已发布。"
+
+msgctxt "points log description"
+msgid "Registration."
+msgstr "注册。"
+
+msgctxt "points log description"
+msgid "Weekly points."
+msgstr "每周积分。"
+
+msgctxt "points logs table heading"
+msgid "Description"
+msgstr "描述"
+
+msgctxt "points logs table heading"
+msgid "Points"
+msgstr "积分"
+
+msgctxt "points logs table heading"
+msgid "Time"
+msgstr "时间"
+
+msgctxt "points logs table heading"
+msgid "User"
+msgstr "用户"
+
+msgctxt "points type"
+msgid "Delete"
+msgstr "删除"
+
+msgctxt "points type"
+msgid "Name:"
+msgstr "名称:"
+
+msgctxt "points type"
+msgid "Prefix (optional):"
+msgstr "前缀(可选):"
+
+msgctxt "points type"
+msgid "Prefix:"
+msgstr "前缀:"
+
+msgctxt "points type"
+msgid "Save"
+msgstr "保存"
+
+msgctxt "points type"
+msgid "Suffix (optional):"
+msgstr "后缀（可选）:"
+
+msgctxt "points type"
+msgid "Suffix:"
+msgstr "后缀:"
+
+msgctxt "post title"
+msgid "(no title)"
+msgstr "(无标题)"
+
+msgctxt "post type"
+msgid "Any"
+msgstr "任何"
+
+msgctxt "removing-hook"
+msgid "Deactivate"
+msgstr "禁用"
+
+msgid "weekly"
+msgstr "按周"
+
+msgctxt "widget name"
+msgid "Points Logs"
+msgstr "积分记录"
+
+msgctxt "widget name"
+msgid "WordPoints Top Users"
+msgstr "WordPoints排行榜"
+
+msgctxt "widget title"
+msgid "My Points"
+msgstr "我的积分"
+
+msgctxt "widget title"
+msgid "Points Logs"
+msgstr "积分记录"
+
+msgctxt "widget title"
+msgid "Top Users"
+msgstr "用户排行榜"

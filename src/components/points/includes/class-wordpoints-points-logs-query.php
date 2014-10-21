@@ -936,7 +936,6 @@ class WordPoints_Points_Logs_Query {
 			$this->_wheres[] = $wpdb->prepare( "`text` {$this->_args['text__compare']} %s", $this->_args['text'] );
 		}
 
-		// Multisite isn't really supported. This is just theoretical... :)
 		if ( is_multisite() ) {
 
 			if ( wordpoints_posint( $this->_args['site_id'] ) ) {

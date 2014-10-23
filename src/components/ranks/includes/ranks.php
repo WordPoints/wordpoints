@@ -383,34 +383,66 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 
 	$old_rank = wordpoints_get_rank( $old_rank_id );
 
-	if ( 'base' === $old_rank->type ) {
+	switch ( $old_rank->type ) {
 
-		// This user doesn't yet have a rank in this group.
-		$result = $wpdb->insert(
-			$wpdb->wordpoints_user_ranks
-			, array(
-				'user_id' => $user_id,
-				'rank_id' => $rank_id,
-			)
-			, '%d'
-		);
+		case 'base':
+			// If this is a base rank, it's possible that the user will not have
+			// the rank ID assigned in the database, it is just assumed by default.
+			$has_rank = $wpdb->get_var(
+				$wpdb->prepare(
+					"
+						SELECT COUNT(`id`)
+						FROM `{$wpdb->wordpoints_user_ranks}`
+						WHERE `rank_id` = %d
+							AND `user_id` = %d
+					"
+					, $old_rank_id
+					, $user_id
+				)
+			);
 
-	} else {
+			// If the user rank isn't in the database, we can't run an update query,
+			// and need to do this insert instead.
+			if ( ! $has_rank ) {
 
-		$result = $wpdb->update(
-			$wpdb->wordpoints_user_ranks
-			, array( 'rank_id' => $rank_id )
-			, array(
-				'user_id' => $user_id,
-				'rank_id' => $old_rank_id,
-			)
-			, '%d'
-			, '%d'
-		);
+				// This user doesn't yet have a rank in this group.
+				$result = $wpdb->insert(
+					$wpdb->wordpoints_user_ranks
+					, array(
+						'user_id' => $user_id,
+						'rank_id' => $rank_id,
+					)
+					, '%d'
+				);
+
+				break;
+			}
+
+			// If the rank was in the database, we can use the regular update method.
+		// fallthru
+
+		default:
+			$result = $wpdb->update(
+				$wpdb->wordpoints_user_ranks
+				, array( 'rank_id' => $rank_id )
+				, array(
+					'user_id' => $user_id,
+					'rank_id' => $old_rank_id,
+				)
+				, '%d'
+				, '%d'
+			);
 	}
 
 	if ( false === $result ) {
 		return false;
+	}
+
+
+			)
+		);
+	}
+
 	}
 
 	return true;

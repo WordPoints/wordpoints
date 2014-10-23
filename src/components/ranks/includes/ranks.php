@@ -179,6 +179,10 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 
 	wp_cache_delete( $id, 'wordpoints_ranks' );
 
+	foreach ( $meta as $meta_key => $meta_value ) {
+		wordpoints_update_rank_meta( $id, $meta_key, $meta_value );
+	}
+
 	$rank_group = WordPoints_Rank_Groups::get_group( $group );
 
 	if ( $rank->rank_group !== $group ) {
@@ -192,11 +196,15 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 
 	} else {
 
-		$rank_group->move_rank( $rank->ID, $position );
-	}
-
-	foreach ( $meta as $meta_key => $meta_value ) {
-		wordpoints_update_rank_meta( $id, $meta_key, $meta_value );
+		if ( $position !== $rank_group->get_rank_position( $rank->ID ) ) {
+			$rank_group->move_rank( $rank->ID, $position );
+		} else {
+			// If the position doesn't change, we still need refresh the ranks of
+			// users who have this rank, if the metadata or type has changed.
+			if ( $meta || $type !== $rank->type ) {
+				wordpoints_refresh_rank_users( $rank->ID );
+			}
+		}
 	}
 
 	return true;

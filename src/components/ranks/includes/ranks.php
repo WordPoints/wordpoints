@@ -62,11 +62,12 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 
 	$rank_id = (int) $wpdb->insert_id;
 
-	WordPoints_Rank_Groups::get_group( $group )->add_rank( $rank_id, $position );
 
 	foreach ( $meta as $meta_key => $meta_value ) {
 		wordpoints_add_rank_meta( $rank_id, $meta_key, $meta_value );
 	}
+
+	WordPoints_Rank_Groups::get_group( $group )->add_rank( $rank_id, $position );
 
 	return $rank_id;
 }

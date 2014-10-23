@@ -438,6 +438,8 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 		return false;
 	}
 
+	return true;
+}
 
 /**
  * Get an array of all the users who have a given rank.
@@ -494,11 +496,71 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 
 	return $user_ids;
 }
+
+/**
+ * Refresh the standings of users who have a certain rank.
+ *
+ * This function is called when a rank is updated to reset the user standings.
+ *
+ * @since 1.7.0
+ *
+ * @param int $rank_id The ID of the rank to refresh.
+ */
+function wordpoints_refresh_rank_users( $rank_id ) {
+
+	$rank = wordpoints_get_rank( $rank_id );
+
+	if ( ! $rank || 'base' === $rank->type ) {
+		return;
 	}
 
+	$prev_rank = $rank->get_adjacent( -1 );
+
+	if ( ! $prev_rank ) {
+		return;
 	}
 
-	return true;
+	// Get a list of users who have this rank.
+	$users = wordpoints_get_users_with_rank( $rank->ID );
+
+	// Also get users who have the previous rank.
+	$prev_rank_users = wordpoints_get_users_with_rank( $prev_rank->ID );
+
+	// If there are some users who have this rank, check if any of them need to
+	// decrease to that rank.
+	if ( ! empty( $users ) ) {
+
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		foreach ( $users as $user_id ) {
+
+			$new_rank = $rank_type->maybe_decrease_user_rank( $user_id, $rank );
+
+			if ( $new_rank->ID === $rank->ID ) {
+				continue;
+			}
+
+			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		}
+	}
+
+	// If there were some users with the previous rank, check if any of them can now
+	// increase to this rank.
+	if ( ! empty( $prev_rank_users ) ) {
+
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		foreach ( $prev_rank_users as $user_id ) {
+
+			$new_rank = $rank_type->maybe_increase_user_rank( $user_id, $prev_rank );
+
+			if ( $new_rank->ID === $prev_rank->ID ) {
+				continue;
+			}
+
+			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		}
+	}
 }
 
 // EOF

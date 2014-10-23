@@ -439,8 +439,61 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 	}
 
 
+/**
+ * Get an array of all the users who have a given rank.
+ *
+ * @since 1.7.0
+ *
+ * @param int $rank_id The ID of the rank.
+ *
+ * @return int[]|false Array of user IDs or false if the $rank_id is invalid.
+ */
+function wordpoints_get_users_with_rank( $rank_id ) {
+
+	global $wpdb;
+
+	$rank = wordpoints_get_rank( $rank_id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+
+	$user_ids = $wpdb->get_col(
+		$wpdb->prepare(
+			"
+				SELECT `user_id`
+				FROM `{$wpdb->wordpoints_user_ranks}`
+				WHERE `rank_id` = %d
+			"
+			, $rank_id
+		)
+	);
+
+	if ( 'base' === $rank->type ) {
+
+		$other_user_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"
+					SELECT users.`ID`
+					FROM `{$wpdb->users}` AS users
+					WHERE users.`ID` NOT IN (
+						SELECT user_ranks.`user_id`
+						FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
+						INNER JOIN `{$wpdb->wordpoints_ranks}` AS ranks
+							ON ranks.`id` = user_ranks.`rank_id`
+						WHERE ranks.`rank_group` = %s
+					)
+				"
+				, $rank->rank_group
 			)
 		);
+
+		$user_ids = array_merge( $user_ids, $other_user_ids );
+	}
+
+	return $user_ids;
+}
 	}
 
 	}

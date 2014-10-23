@@ -357,7 +357,7 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 		$rank_id = $rank_group->get_base_rank();
 	}
 
-	return $rank_id;
+	return (int) $rank_id;
 }
 
 /**

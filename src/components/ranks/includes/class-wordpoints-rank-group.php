@@ -457,6 +457,8 @@ final class WordPoints_Rank_Group {
 	 */
 	private function _move_users_from_rank_to_rank( $rank_from_id, $rank_to_id ) {
 
+		global $wpdb;
+
 		if ( ! wordpoints_posint( $rank_from_id ) || ! wordpoints_posint( $rank_to_id ) ) {
 			return;
 		}

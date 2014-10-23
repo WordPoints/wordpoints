@@ -420,7 +420,7 @@ final class WordPoints_Rank_Group {
 	 *
 	 * @return int[] The list of ranks with the rank insterted.
 	 */
-	public function _insert_rank( $ranks, $rank_id, $position ) {
+	private function _insert_rank( $ranks, $rank_id, $position ) {
 
 		$count = count( $ranks );
 

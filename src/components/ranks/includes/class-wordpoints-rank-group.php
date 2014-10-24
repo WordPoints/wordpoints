@@ -483,6 +483,10 @@ final class WordPoints_Rank_Group {
 
 		$users = wordpoints_get_users_with_rank( $previous_rank->ID );
 
+		if ( empty( $users ) ) {
+			return;
+		}
+
 		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
 
 		foreach ( $users as $user_id ) {

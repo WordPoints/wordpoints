@@ -33,6 +33,19 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 		<p></p>
 	</div>
 
+	<?php
+
+	/**
+	 * Display content at the top of the Ranks admin screen.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WordPoints_Rank_Group $rank_group The rank group being displayed.
+	 */
+	do_action( 'wordpoints_ranks_admin_screen_top', $rank_group );
+
+	?>
+
 	<div class="wordpoints-rank-group-container">
 		<p class="description group-description"><?php echo esc_html( $rank_group->description ); ?></p>
 		<ul
@@ -60,6 +73,18 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			</select>
 		</div>
 	</div>
+	<?php
+
+	/**
+	 * Display content at the bottom of the Ranks admin screen.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WordPoints_Rank_Group $rank_group The rank group being displayed.
+	 */
+	do_action( 'wordpoints_ranks_admin_screen_bottom', $rank_group );
+
+	?>
 </div>
 
 <?php foreach ( $rank_group->get_types() as $rank_type ) : ?>

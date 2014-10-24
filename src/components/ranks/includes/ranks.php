@@ -68,6 +68,15 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 
 	WordPoints_Rank_Groups::get_group( $group )->add_rank( $rank_id, $position );
 
+	/**
+	 * Perform actions when a rank is added.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $rank_id The ID of the rank that was added.
+	 */
+	do_action( 'wordpoints_add_rank', $rank_id );
+
 	return $rank_id;
 }
 
@@ -89,6 +98,15 @@ function wordpoints_delete_rank( $id ) {
 	if ( ! $rank ) {
 		return false;
 	}
+
+	/**
+	 * Perform actions before a rank is deleted.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WordPoints_Rank $rank The rank that is being deleted.
+	 */
+	do_action( 'wordpoints_pre_delete_rank', $rank );
 
 	$deleted = $wpdb->delete(
 		$wpdb->wordpoints_ranks
@@ -118,6 +136,15 @@ function wordpoints_delete_rank( $id ) {
 	foreach ( $rank_meta_ids as $mid ) {
 		delete_metadata_by_mid( 'wordpoints_rank', $mid );
 	}
+
+	/**
+	 * Perform actions when a rank is deleted.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $rank_id The ID of the rank that was deleted.
+	 */
+	do_action( 'wordpoints_delete_rank', $rank_id );
 
 	return true;
 }
@@ -164,6 +191,20 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 		return $meta;
 	}
 
+	/**
+	 * Perform actions before a rank is updated.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WordPoints_Rank $rank     The rank that is being updated.
+	 * @param string          $name     The new name for the rank.
+	 * @param string          $type     The new type of the rank.
+	 * @param string          $group    The slug of the new group.
+	 * @param int             $position The new position this rank should have in the group.
+	 * @param array           $meta     The new metadata for the rank.
+	 */
+	do_action( 'wordpoints_pre_update_rank', $rank, $name, $type, $group, $position, $meta );
+
 	$updated = $wpdb->update(
 		$wpdb->wordpoints_ranks
 		, array( 'name' => $name, 'type' => $type, 'rank_group' => $group )
@@ -205,6 +246,15 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 			}
 		}
 	}
+
+	/**
+	 * Perform actions when a rank is updated.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $rank_id The ID of the rank that was updated.
+	 */
+	do_action( 'wordpoints_update_rank', $rank_id );
 
 	return true;
 }
@@ -445,6 +495,17 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 	if ( false === $result ) {
 		return false;
 	}
+
+	/**
+	 * Perform actions when a user rank is updated.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $user_id     The ID of the user.
+	 * @param int $new_rank_id The ID of the new rank the user has.
+	 * @param int $old_rank_id The ID of the old rank the user used to have.
+	 */
+	do_action( 'wordpoints_update_user_rank', $user_id, $rank_id, $old_rank_id );
 
 	return true;
 }

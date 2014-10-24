@@ -1050,7 +1050,19 @@ function wordpoints_delete_modules( $modules ) {
 	do_action( 'wordpoints_deleted_modules', $modules, $errors );
 
 	if ( ! empty( $errors ) ) {
-		return new WP_Error( 'could_not_remove_module', sprintf( __( 'Could not fully remove the module(s) %s.', 'wordpoints' ), implode( ', ', $errors ) ) );
+		return new WP_Error(
+			'could_not_remove_module'
+			, sprintf(
+				/* translators: A module or list of modules. */
+				_n(
+					'Could not fully remove the module %s.'
+					, 'Could not fully remove the modules %s.'
+					, count( $errors )
+					, 'wordpoints'
+				)
+				, implode( ', ', $errors )
+			)
+		);
 	}
 
 	return true;

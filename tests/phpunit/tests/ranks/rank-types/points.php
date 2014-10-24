@@ -194,6 +194,89 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
 	}
+
+	/**
+	 * Test that ranks are refreshed when new ranks are added.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_transitions_when_rank_added() {
+
+		$user_ids = $this->factory->user->create_many( 2 );
+
+		wordpoints_set_points( $user_ids[0], 50, 'points', 'test' );
+
+		$rank_id = wordpoints_add_rank(
+			'Rank 1'
+			, 'points-points'
+			, 'points_type-points'
+			, 1
+			, array( 'points_type' => 'points', 'points' => 30 )
+		);
+
+		$this->assertEquals(
+			$rank_id
+			, wordpoints_get_user_rank( $user_ids[0], 'points_type-points' )
+		);
+
+		$this->assertEquals(
+			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
+			, wordpoints_get_user_rank( $user_ids[1], 'points_type-points' )
+		);
+	}
+
+	/**
+	 * Test that ranks are refreshed when a rank is updated.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_transitions_when_rank_updated() {
+
+		$user_id = $this->factory->user->create();
+
+		$rank_id = wordpoints_add_rank(
+			'Rank 1'
+			, 'points-points'
+			, 'points_type-points'
+			, 1
+			, array( 'points_type' => 'points', 'points' => 30 )
+		);
+
+		wordpoints_set_points( $user_id, 50, 'points', 'test' );
+
+		$this->assertEquals(
+			$rank_id
+			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
+		);
+
+		wordpoints_update_rank(
+			$rank_id
+			, 'Rank 1'
+			, 'points-points'
+			, 'points_type-points'
+			, 1
+			, array( 'points_type' => 'points', 'points' => 60 )
+		);
+
+		$this->assertEquals(
+			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
+			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
+		);
+
+		wordpoints_update_rank(
+			$rank_id
+			, 'Rank 1'
+			, 'points-points'
+			, 'points_type-points'
+			, 1
+			, array( 'points_type' => 'points', 'points' => 40 )
+		);
+
+		$this->assertEquals(
+			$rank_id
+			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
+		);
+	}
 }
 
 // EOF

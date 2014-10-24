@@ -214,7 +214,15 @@ final class WordPoints_Rank_Group {
 
 		$ranks = $this->_insert_rank( $this->get_ranks(), $rank_id, $position );
 
-		return $this->save_ranks( $ranks );
+		if ( ! $this->save_ranks( $ranks ) ) {
+			return false;
+		}
+
+		// If there is a rank before this one, check if any of the users who have it
+		// can increase to this new one.
+		$this->_maybe_increase_users_with_previous_rank( $rank_id );
+
+		return true;
 	}
 
 	/**
@@ -246,7 +254,22 @@ final class WordPoints_Rank_Group {
 
 		$ranks = $this->_insert_rank( array_values( $ranks ), $rank_id, $position );
 
-		return $this->save_ranks( $ranks );
+		if ( ! $this->save_ranks( $ranks ) ) {
+			return false;
+		}
+
+		// Users of the rank's former position should be moved to the previous ranks
+		// position.
+		$this->_move_users_from_rank_to_rank(
+			$rank_id
+			, $this->get_rank( $current_position - 1 )
+		);
+
+		// The users of the rank previous to this one's new position should maybe be
+		// increased to this rank.
+		$this->_maybe_increase_users_with_previous_rank( $rank_id );
+
+		return true;
 	}
 
 	/**
@@ -260,6 +283,8 @@ final class WordPoints_Rank_Group {
 	 */
 	public function remove_rank( $rank_id ) {
 
+		global $wpdb;
+
 		$position = $this->get_rank_position( $rank_id );
 
 		if ( false === $position ) {
@@ -270,7 +295,26 @@ final class WordPoints_Rank_Group {
 
 		unset( $ranks[ $position ] );
 
-		return $this->save_ranks( $ranks );
+		if ( ! $this->save_ranks( $ranks ) ) {
+			return false;
+		}
+
+		// Assign the previous rank to users who have this rank.
+		if ( isset( $ranks[ $position - 1 ] ) ) {
+
+			$this->_move_users_from_rank_to_rank( $rank_id, $ranks[ $position - 1 ] );
+
+		} else {
+
+			// If there is no previous rank, just delete the rows.
+			$wpdb->delete(
+				$wpdb->wordpoints_user_ranks
+				, array( 'rank_id' => $rank_id )
+				, '%d'
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -376,7 +420,7 @@ final class WordPoints_Rank_Group {
 	 *
 	 * @return int[] The list of ranks with the rank insterted.
 	 */
-	public function _insert_rank( $ranks, $rank_id, $position ) {
+	private function _insert_rank( $ranks, $rank_id, $position ) {
 
 		$count = count( $ranks );
 
@@ -401,6 +445,63 @@ final class WordPoints_Rank_Group {
 		}
 
 		return $ranks;
+	}
+
+	/**
+	 * Assign all users who have a given rank a different rank instead.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $rank_from_id The ID of the rank the users have now.
+	 * @param int $rank_to_id   The ID of the rank to give the users instead.
+	 */
+	private function _move_users_from_rank_to_rank( $rank_from_id, $rank_to_id ) {
+
+		global $wpdb;
+
+		if ( ! wordpoints_posint( $rank_from_id ) || ! wordpoints_posint( $rank_to_id ) ) {
+			return;
+		}
+
+		$wpdb->update(
+			$wpdb->wordpoints_user_ranks
+			, array( 'rank_id' => $rank_to_id )
+			, array( 'rank_id' => $rank_from_id )
+			, '%d'
+			, '%d'
+		);
+	}
+
+	private function _maybe_increase_users_with_previous_rank( $rank_id ) {
+
+		$rank = wordpoints_get_rank( $rank_id );
+		$previous_rank = $rank->get_adjacent( -1 );
+
+		if ( ! $previous_rank ) {
+			return;
+		}
+
+		$users = wordpoints_get_users_with_rank( $previous_rank->ID );
+
+		if ( empty( $users ) ) {
+			return;
+		}
+
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		foreach ( $users as $user_id ) {
+
+			$new_rank = $rank_type->maybe_increase_user_rank(
+				$user_id
+				, $previous_rank
+			);
+
+			if ( $new_rank->ID === $previous_rank->ID ) {
+				continue;
+			}
+
+			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		}
 	}
 }
 

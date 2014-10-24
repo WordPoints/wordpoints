@@ -62,11 +62,11 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 
 	$rank_id = (int) $wpdb->insert_id;
 
-	WordPoints_Rank_Groups::get_group( $group )->add_rank( $rank_id, $position );
-
 	foreach ( $meta as $meta_key => $meta_value ) {
 		wordpoints_add_rank_meta( $rank_id, $meta_key, $meta_value );
 	}
+
+	WordPoints_Rank_Groups::get_group( $group )->add_rank( $rank_id, $position );
 
 	return $rank_id;
 }
@@ -178,6 +178,10 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 
 	wp_cache_delete( $id, 'wordpoints_ranks' );
 
+	foreach ( $meta as $meta_key => $meta_value ) {
+		wordpoints_update_rank_meta( $id, $meta_key, $meta_value );
+	}
+
 	$rank_group = WordPoints_Rank_Groups::get_group( $group );
 
 	if ( $rank->rank_group !== $group ) {
@@ -191,11 +195,15 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 
 	} else {
 
-		$rank_group->move_rank( $rank->ID, $position );
-	}
-
-	foreach ( $meta as $meta_key => $meta_value ) {
-		wordpoints_update_rank_meta( $id, $meta_key, $meta_value );
+		if ( $position !== $rank_group->get_rank_position( $rank->ID ) ) {
+			$rank_group->move_rank( $rank->ID, $position );
+		} else {
+			// If the position doesn't change, we still need refresh the ranks of
+			// users who have this rank, if the metadata or type has changed.
+			if ( $meta || $type !== $rank->type ) {
+				wordpoints_refresh_rank_users( $rank->ID );
+			}
+		}
 	}
 
 	return true;
@@ -348,7 +356,7 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 		$rank_id = $rank_group->get_base_rank();
 	}
 
-	return $rank_id;
+	return (int) $rank_id;
 }
 
 /**
@@ -383,30 +391,55 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 
 	$old_rank = wordpoints_get_rank( $old_rank_id );
 
-	if ( 'base' === $old_rank->type ) {
+	switch ( $old_rank->type ) {
 
-		// This user doesn't yet have a rank in this group.
-		$result = $wpdb->insert(
-			$wpdb->wordpoints_user_ranks
-			, array(
-				'user_id' => $user_id,
-				'rank_id' => $rank_id,
-			)
-			, '%d'
-		);
+		case 'base':
+			// If this is a base rank, it's possible that the user will not have
+			// the rank ID assigned in the database, it is just assumed by default.
+			$has_rank = $wpdb->get_var(
+				$wpdb->prepare(
+					"
+						SELECT COUNT(`id`)
+						FROM `{$wpdb->wordpoints_user_ranks}`
+						WHERE `rank_id` = %d
+							AND `user_id` = %d
+					"
+					, $old_rank_id
+					, $user_id
+				)
+			);
 
-	} else {
+			// If the user rank isn't in the database, we can't run an update query,
+			// and need to do this insert instead.
+			if ( ! $has_rank ) {
 
-		$result = $wpdb->update(
-			$wpdb->wordpoints_user_ranks
-			, array( 'rank_id' => $rank_id )
-			, array(
-				'user_id' => $user_id,
-				'rank_id' => $old_rank_id,
-			)
-			, '%d'
-			, '%d'
-		);
+				// This user doesn't yet have a rank in this group.
+				$result = $wpdb->insert(
+					$wpdb->wordpoints_user_ranks
+					, array(
+						'user_id' => $user_id,
+						'rank_id' => $rank_id,
+					)
+					, '%d'
+				);
+
+				break;
+			}
+
+			// If the rank was in the database, we can use the regular update method.
+		// fallthru
+
+		default:
+			$result = $wpdb->update(
+				$wpdb->wordpoints_user_ranks
+				, array( 'rank_id' => $rank_id )
+				, array(
+					'user_id' => $user_id,
+					'rank_id' => $old_rank_id,
+				)
+				, '%d'
+				, '%d'
+			);
 	}
 
 	if ( false === $result ) {
@@ -414,6 +447,127 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 	}
 
 	return true;
+}
+
+/**
+ * Get an array of all the users who have a given rank.
+ *
+ * @since 1.7.0
+ *
+ * @param int $rank_id The ID of the rank.
+ *
+ * @return int[]|false Array of user IDs or false if the $rank_id is invalid.
+ */
+function wordpoints_get_users_with_rank( $rank_id ) {
+
+	global $wpdb;
+
+	$rank = wordpoints_get_rank( $rank_id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+	$user_ids = $wpdb->get_col(
+		$wpdb->prepare(
+			"
+				SELECT `user_id`
+				FROM `{$wpdb->wordpoints_user_ranks}`
+				WHERE `rank_id` = %d
+			"
+			, $rank_id
+		)
+	);
+
+	if ( 'base' === $rank->type ) {
+
+		$other_user_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"
+					SELECT users.`ID`
+					FROM `{$wpdb->users}` AS users
+					WHERE users.`ID` NOT IN (
+						SELECT user_ranks.`user_id`
+						FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
+						INNER JOIN `{$wpdb->wordpoints_ranks}` AS ranks
+							ON ranks.`id` = user_ranks.`rank_id`
+						WHERE ranks.`rank_group` = %s
+					)
+				"
+				, $rank->rank_group
+			)
+		);
+
+		$user_ids = array_merge( $user_ids, $other_user_ids );
+	}
+
+	return $user_ids;
+}
+
+/**
+ * Refresh the standings of users who have a certain rank.
+ *
+ * This function is called when a rank is updated to reset the user standings.
+ *
+ * @since 1.7.0
+ *
+ * @param int $rank_id The ID of the rank to refresh.
+ */
+function wordpoints_refresh_rank_users( $rank_id ) {
+
+	$rank = wordpoints_get_rank( $rank_id );
+
+	if ( ! $rank || 'base' === $rank->type ) {
+		return;
+	}
+
+	$prev_rank = $rank->get_adjacent( -1 );
+
+	if ( ! $prev_rank ) {
+		return;
+	}
+
+	// Get a list of users who have this rank.
+	$users = wordpoints_get_users_with_rank( $rank->ID );
+
+	// Also get users who have the previous rank.
+	$prev_rank_users = wordpoints_get_users_with_rank( $prev_rank->ID );
+
+	// If there are some users who have this rank, check if any of them need to
+	// decrease to that rank.
+	if ( ! empty( $users ) ) {
+
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		foreach ( $users as $user_id ) {
+
+			$new_rank = $rank_type->maybe_decrease_user_rank( $user_id, $rank );
+
+			if ( $new_rank->ID === $rank->ID ) {
+				continue;
+			}
+
+			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		}
+	}
+
+	// If there were some users with the previous rank, check if any of them can now
+	// increase to this rank.
+	if ( ! empty( $prev_rank_users ) ) {
+
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		foreach ( $prev_rank_users as $user_id ) {
+
+			$new_rank = $rank_type->maybe_increase_user_rank( $user_id, $prev_rank );
+
+			if ( $new_rank->ID === $prev_rank->ID ) {
+				continue;
+			}
+
+			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		}
+	}
 }
 
 // EOF

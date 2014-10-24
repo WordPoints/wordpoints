@@ -284,7 +284,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'text' ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'text' ); ?>" name="<?php echo $this->get_field_name( 'text' ); ?>" value="<?php echo esc_attr( $instance['text'] ); ?>" />
-			<small><i><?php esc_html_e( '%points% will be replaced with the points of the logged in user', 'wordpoints' ); ?></i></small>
+			<small><i><?php echo esc_html( sprintf( __( '%s will be replaced with the points of the logged in user', 'wordpoints' ), '%points%' ) ); ?></i></small>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'alt_text' ); ?>"><?php esc_html_e( 'Text if the user is not logged in', 'wordpoints' ); ?></label>

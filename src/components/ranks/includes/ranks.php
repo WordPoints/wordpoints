@@ -62,7 +62,6 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 
 	$rank_id = (int) $wpdb->insert_id;
 
-
 	foreach ( $meta as $meta_key => $meta_value ) {
 		wordpoints_add_rank_meta( $rank_id, $meta_key, $meta_value );
 	}
@@ -468,7 +467,6 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 	if ( ! $rank ) {
 		return false;
 	}
-
 
 	$user_ids = $wpdb->get_col(
 		$wpdb->prepare(

@@ -40,9 +40,28 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_get_invalid_group() {
 
-		$this->assertFalse(
-			wordpoints_get_user_rank( $this->factory->user->create(), 'invalid' )
+		$user_id = $this->factory->user->create();
+
+		// Test when the user has the default rank.
+		$this->assertFalse( wordpoints_get_user_rank( $user_id, 'invalid' ) );
+
+		// Test when the user has been assigned a rank.
+		wordpoints_update_user_rank(
+			$user_id
+			, $this->factory->wordpoints_rank->create()
 		);
+
+		$this->assertFalse( wordpoints_get_user_rank( $user_id, 'invalid' ) );
+	}
+
+	/**
+	 * Test getting a user's rank with an invalid user ID.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_get_invalid_id() {
+
+		$this->assertFalse( wordpoints_get_user_rank( 0, $this->rank_group ) );
 	}
 
 	/**

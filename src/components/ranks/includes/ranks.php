@@ -144,7 +144,7 @@ function wordpoints_delete_rank( $id ) {
 	 *
 	 * @param int $rank_id The ID of the rank that was deleted.
 	 */
-	do_action( 'wordpoints_delete_rank', $rank_id );
+	do_action( 'wordpoints_delete_rank', $id );
 
 	return true;
 }
@@ -254,7 +254,7 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 	 *
 	 * @param int $rank_id The ID of the rank that was updated.
 	 */
-	do_action( 'wordpoints_update_rank', $rank_id );
+	do_action( 'wordpoints_update_rank', $id );
 
 	return true;
 }

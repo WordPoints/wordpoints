@@ -117,7 +117,7 @@ jQuery( function ( $ ) {
 
 		// The DOM events specific to an item.
 		events: {
-			'click .delete': 'delete',
+			'click .delete': 'confirmDelete',
 			'click .save':   'save',
 			'click .cancel': 'cancel',
 			'click .close':  'close',
@@ -218,10 +218,47 @@ jQuery( function ( $ ) {
 			this.$( '.err' ).slideUp();
 		},
 
-		// Remove the item, destroy the model.
-		delete: function ( event ) {
+		// Confirm that a rank is intended to be deleted before deleting it.
+		confirmDelete: function ( event ) {
+
+			var $dialog = $( '<div><p></p></div>' ),
+				view = this;
 
 			event.preventDefault();
+
+			$dialog
+				.attr( 'title', ranks.l10n.confirmTitle )
+				.find( 'p' )
+					.text( ranks.l10n.confirmDelete )
+				.end()
+				.dialog({
+					dialogClass: 'wp-dialog wordpoints-delete-rank-dialog',
+					resizable: false,
+					draggable: false,
+					height: 250,
+					modal: true,
+					buttons: [
+						{
+							text: ranks.l10n.deleteText,
+							class: 'button-primary',
+							click: function() {
+								$( this ).dialog( 'close' );
+								view.delete();
+							}
+						},
+						{
+							text: ranks.l10n.cancelText,
+							class: 'button-secondary',
+							click: function() {
+								$( this ).dialog( 'close' );
+							}
+						}
+					]
+				});
+		},
+
+		// Remove the item, destroy the model.
+		delete: function () {
 
 			this.wait();
 

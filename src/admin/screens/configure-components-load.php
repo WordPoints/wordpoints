@@ -7,6 +7,10 @@
  * @since 1.1.0
  */
 
+if ( ! current_user_can( 'manage_options' ) ) {
+	return;
+}
+
 if (
 	'components' !== wordpoints_admin_get_current_tab()
 	|| ! isset( $_POST['wordpoints_component'], $_POST['wordpoints_component_action'], $_POST['_wpnonce'] )

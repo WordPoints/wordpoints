@@ -409,11 +409,21 @@ function wordpoints_get_rank_meta( $rank_id, $meta_key = '', $single = false ) {
  * @param int    $user_id The ID of the user whose rank to get.
  * @param string $group   The rank group to get the rank from.
  *
- * @return int|false The ID of the rank this user has, or false for invalid $group.
+ * @return int|false The ID of the rank this user has, or false for invalid args.
  */
 function wordpoints_get_user_rank( $user_id, $group ) {
 
 	global $wpdb;
+
+	if ( ! wordpoints_posint( $user_id ) ) {
+		return false;
+	}
+
+	$rank_group = WordPoints_Rank_Groups::get_group( $group );
+
+	if ( ! $rank_group ) {
+		return false;
+	}
 
 	$rank_id = $wpdb->get_var(
 		$wpdb->prepare(
@@ -435,12 +445,6 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 	);
 
 	if ( ! $rank_id ) {
-		$rank_group = WordPoints_Rank_Groups::get_group( $group );
-
-		if ( ! $rank_group ) {
-			return false;
-		}
-
 		$rank_id = $rank_group->get_base_rank();
 	}
 

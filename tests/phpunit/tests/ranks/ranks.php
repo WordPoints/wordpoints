@@ -264,6 +264,39 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 		$this->assertTrue( $result );
 		$this->assertEquals( array(), wordpoints_get_rank_meta( $rank_id ) );
 	}
+
+	/**
+	 * Test formatting a rank for display.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_format_rank() {
+
+		$rank = $this->factory->wordpoints_rank->create_and_get();
+
+		$this->listen_for_filter( 'wordpoints_format_rank' );
+
+		$this->assertEquals(
+			'<span class="wordpoints-rank">' . $rank->name . '</span>'
+			, wordpoints_format_rank( $rank->ID, 'unittests' )
+		);
+
+		$this->assertEquals( 1, $this->filter_was_called( 'wordpoints_format_rank' ) );
+	}
+
+	/**
+	 * Test formatting a rank with an invalid ID.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_format_invalid_rank() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		wordpoints_delete_rank( $rank_id );
+
+		$this->assertFalse( wordpoints_format_rank( $rank_id, 'unittests' ) );
+	}
 }
 
 // EOF

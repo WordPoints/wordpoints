@@ -193,7 +193,7 @@ abstract class WordPoints_Points_Hook {
 
 		<p>
 			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php echo $this->options['points_label']; ?></label>
-			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>" id="<?php $this->the_field_id( 'points' ); ?>" type="text" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
+			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>" id="<?php $this->the_field_id( 'points' ); ?>" type="number" min="0" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
 		</p>
 
 		<?php

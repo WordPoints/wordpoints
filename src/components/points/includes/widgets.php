@@ -305,7 +305,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number_logs' ); ?>"><?php esc_html_e( 'Number of latest log entries for this user to display', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'number_logs' ); ?>" name="<?php echo $this->get_field_name( 'number_logs' ); ?>" value="<?php echo esc_attr( $instance['number_logs'] ); ?>" />
+			<input type="number" min="0" class="widefat" id="<?php echo $this->get_field_id( 'number_logs' ); ?>" name="<?php echo $this->get_field_name( 'number_logs' ); ?>" value="<?php echo esc_attr( $instance['number_logs'] ); ?>" />
 			<small><i><?php esc_html_e( 'Set this to 0 to keep from showing any logs', 'wordpoints' ); ?></i></small>
 		</p>
 
@@ -462,7 +462,7 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'num_users' ); ?>"><?php esc_html_e( 'Number of top users to show', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'num_users' ); ?>" name="<?php echo $this->get_field_name( 'num_users' ); ?>" value="<?php echo absint( $instance['num_users'] ); ?>" />
+			<input type="number" min="1" class="widefat" id="<?php echo $this->get_field_id( 'num_users' ); ?>" name="<?php echo $this->get_field_name( 'num_users' ); ?>" value="<?php echo absint( $instance['num_users'] ); ?>" />
 		</p>
 
 		<?php
@@ -613,7 +613,7 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number_logs' ); ?>"><?php esc_html_e( 'Number of log entries to display', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'number_logs' ); ?>" name="<?php echo $this->get_field_name( 'number_logs' ); ?>" value="<?php echo absint( $instance['number_logs'] ); ?>" />
+			<input type="number" min="1" class="widefat" id="<?php echo $this->get_field_id( 'number_logs' ); ?>" name="<?php echo $this->get_field_name( 'number_logs' ); ?>" value="<?php echo absint( $instance['number_logs'] ); ?>" />
 		</p>
 
 		<?php

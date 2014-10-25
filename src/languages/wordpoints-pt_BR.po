@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints_pt_BR\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/src\n"
-"POT-Creation-Date: 2014-10-24 19:48:49+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
+"POT-Creation-Date: 2014-10-25 20:04:32+00:00\n"
 "PO-Revision-Date: 2013-12-21 02:20-0300\n"
 "Last-Translator: Gabriel Galvão <admin@threadsgeneration.com>\n"
 "Language-Team: Gabriel Galvão <admin@threadsgeneration.com>\n"
@@ -235,7 +235,7 @@ msgstr "Desativar"
 #: admin/includes/class-wordpoints-modules-list-table.php:534
 #: components/points/admin/admin.php:54
 #: components/points/includes/class-wordpoints-points-hooks.php:780
-#: components/ranks/admin/screens/ranks.php:97
+#: components/ranks/admin/screens/ranks.php:122
 msgid "Delete"
 msgstr "Deletar"
 
@@ -629,7 +629,7 @@ msgstr ""
 #: components/points/admin/admin.php:55
 #: components/points/admin/screens/hooks-no-js.php:116
 #: components/points/admin/screens/hooks.php:247
-#: components/ranks/admin/screens/ranks.php:94
+#: components/ranks/admin/screens/ranks.php:119
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -995,7 +995,7 @@ msgstr "Deletar"
 
 #: components/points/includes/class-wordpoints-points-hooks.php:672
 #: components/points/includes/class-wordpoints-points-hooks.php:781
-#: components/ranks/admin/screens/ranks.php:95
+#: components/ranks/admin/screens/ranks.php:120
 msgid "Close"
 msgstr "Fechar"
 
@@ -1015,7 +1015,7 @@ msgid "Add"
 msgstr "Adicionar"
 
 #: components/points/includes/class-wordpoints-points-hooks.php:784
-#: components/ranks/admin/screens/ranks.php:93
+#: components/ranks/admin/screens/ranks.php:118
 msgid "Save"
 msgstr "Salvar"
 
@@ -1452,8 +1452,8 @@ msgid "You must be logged in to view your points."
 msgstr "Você precisa estar logado para ver seus pontos."
 
 #: components/points/includes/widgets.php:276
-#: components/points/includes/widgets.php:444
-#: components/points/includes/widgets.php:595
+#: components/points/includes/widgets.php:456
+#: components/points/includes/widgets.php:607
 msgctxt "form label"
 msgid "Title"
 msgstr "Titulo"
@@ -1470,64 +1470,64 @@ msgstr "Texto do Widget"
 msgid "%s will be replaced with the points of the logged in user"
 msgstr "%s será substituído pelos pontos do usuário conectado"
 
-#: components/points/includes/widgets.php:290
+#: components/points/includes/widgets.php:302
 msgid "Text if the user is not logged in"
 msgstr "Texto se o usuário não estiver logado"
 
-#: components/points/includes/widgets.php:292
+#: components/points/includes/widgets.php:304
 msgid "Leave this field blank to hide the widget if the user is not logged in"
 msgstr ""
 "Deixe este campo em branco para esconder o widget se o usuário não estiver "
 "logado"
 
-#: components/points/includes/widgets.php:295
+#: components/points/includes/widgets.php:307
 msgid "Number of latest log entries for this user to display"
 msgstr ""
 "Numeros dos últimos registros de entrada para este usuário para apresenetar"
 
-#: components/points/includes/widgets.php:297
+#: components/points/includes/widgets.php:309
 msgid "Set this to 0 to keep from showing any logs"
 msgstr "Defina para 0 para não mostrar os registros."
 
-#: components/points/includes/widgets.php:326
+#: components/points/includes/widgets.php:338
 msgctxt "widget name"
 msgid "WordPoints Top Users"
 msgstr "WordPoints Top Usuários"
 
-#: components/points/includes/widgets.php:326
+#: components/points/includes/widgets.php:338
 msgid "Showcase the users with the most points."
 msgstr "Apresente os usuários com mais pontos."
 
-#: components/points/includes/widgets.php:329
+#: components/points/includes/widgets.php:341
 msgctxt "widget title"
 msgid "Top Users"
 msgstr "Top Usuários"
 
-#: components/points/includes/widgets.php:448
-#: components/points/includes/widgets.php:599
+#: components/points/includes/widgets.php:460
+#: components/points/includes/widgets.php:611
 msgctxt "form label"
 msgid "Points type"
 msgstr "Tipos de Ponto"
 
-#: components/points/includes/widgets.php:452
+#: components/points/includes/widgets.php:464
 msgid "Number of top users to show"
 msgstr "Numero de Top usuários para mostrar"
 
-#: components/points/includes/widgets.php:476
+#: components/points/includes/widgets.php:488
 msgctxt "widget name"
 msgid "Points Logs"
 msgstr "Registro de Pontos"
 
-#: components/points/includes/widgets.php:476
+#: components/points/includes/widgets.php:488
 msgid "Display the latest points activity."
 msgstr "Mostrar as ultimas ativades dos pontos."
 
-#: components/points/includes/widgets.php:479
+#: components/points/includes/widgets.php:491
 msgctxt "widget title"
 msgid "Points Logs"
 msgstr "Registro de Pontos"
 
-#: components/points/includes/widgets.php:603
+#: components/points/includes/widgets.php:615
 msgid "Number of log entries to display"
 msgstr "Numero de registro de entradas para mostrar"
 
@@ -1628,26 +1628,30 @@ msgstr "(sem titulo)"
 msgid "No rank groups are currently available."
 msgstr "Não há ligações disponíveis atualmente."
 
-#: components/ranks/admin/screens/ranks.php:49
+#: components/ranks/admin/screens/ranks.php:62
 #, fuzzy
 msgid "Add Rank"
 msgstr "Adiconar Ligação"
 
-#: components/ranks/admin/screens/ranks.php:51
+#: components/ranks/admin/screens/ranks.php:64
 #, fuzzy
 msgid "Select Type"
 msgstr "Selecione o tipo de post:"
 
-#: components/ranks/admin/screens/ranks.php:69
+#: components/ranks/admin/screens/ranks.php:94
 #, fuzzy
 msgctxt "rank"
 msgid "Edit"
 msgstr "Editar"
 
-#: components/ranks/admin/screens/ranks.php:75
+#: components/ranks/admin/screens/ranks.php:100
 #, fuzzy
 msgid "Title"
 msgstr "Titulo"
+
+#: components/ranks/includes/integration/points.php:44
+msgid "%s will be replaced with the rank of the logged in user"
+msgstr ""
 
 #: components/ranks/includes/rank-types/points.php:41
 #, fuzzy

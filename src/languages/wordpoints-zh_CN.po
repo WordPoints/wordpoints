@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/src\n"
-"POT-Creation-Date: 2014-10-24 19:48:49+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
+"POT-Creation-Date: 2014-10-25 20:04:32+00:00\n"
 "PO-Revision-Date: 2014-06-20 01:20+0800\n"
 "Last-Translator: Coolwp <coolwp.com@gmail.com>\n"
 "Language-Team: suifengtec <suifengtec@qq.com>\n"
@@ -233,7 +233,7 @@ msgstr "停用"
 #: admin/includes/class-wordpoints-modules-list-table.php:534
 #: components/points/admin/admin.php:54
 #: components/points/includes/class-wordpoints-points-hooks.php:780
-#: components/ranks/admin/screens/ranks.php:97
+#: components/ranks/admin/screens/ranks.php:122
 msgid "Delete"
 msgstr "删除"
 
@@ -612,7 +612,7 @@ msgstr "确定？"
 #: components/points/admin/admin.php:55
 #: components/points/admin/screens/hooks-no-js.php:116
 #: components/points/admin/screens/hooks.php:247
-#: components/ranks/admin/screens/ranks.php:94
+#: components/ranks/admin/screens/ranks.php:119
 msgid "Cancel"
 msgstr "取消"
 
@@ -953,7 +953,7 @@ msgstr "删除"
 
 #: components/points/includes/class-wordpoints-points-hooks.php:672
 #: components/points/includes/class-wordpoints-points-hooks.php:781
-#: components/ranks/admin/screens/ranks.php:95
+#: components/ranks/admin/screens/ranks.php:120
 msgid "Close"
 msgstr "关闭"
 
@@ -973,7 +973,7 @@ msgid "Add"
 msgstr "添加"
 
 #: components/points/includes/class-wordpoints-points-hooks.php:784
-#: components/ranks/admin/screens/ranks.php:93
+#: components/ranks/admin/screens/ranks.php:118
 msgid "Save"
 msgstr "保存"
 
@@ -1390,8 +1390,8 @@ msgid "You must be logged in to view your points."
 msgstr "您需要在登录后查看您的积分。"
 
 #: components/points/includes/widgets.php:276
-#: components/points/includes/widgets.php:444
-#: components/points/includes/widgets.php:595
+#: components/points/includes/widgets.php:456
+#: components/points/includes/widgets.php:607
 msgctxt "form label"
 msgid "Title"
 msgstr "标题"
@@ -1408,61 +1408,61 @@ msgstr "小工具文本"
 msgid "%s will be replaced with the points of the logged in user"
 msgstr "%s 将会被当前已登录用户的积分替代。"
 
-#: components/points/includes/widgets.php:290
+#: components/points/includes/widgets.php:302
 msgid "Text if the user is not logged in"
 msgstr "用户未登录时显示的文本"
 
-#: components/points/includes/widgets.php:292
+#: components/points/includes/widgets.php:304
 msgid "Leave this field blank to hide the widget if the user is not logged in"
 msgstr "将此栏留空的话，将会对未登录用户隐藏这个小工具"
 
-#: components/points/includes/widgets.php:295
+#: components/points/includes/widgets.php:307
 msgid "Number of latest log entries for this user to display"
 msgstr "显示给用户的最新记录数量。"
 
-#: components/points/includes/widgets.php:297
+#: components/points/includes/widgets.php:309
 msgid "Set this to 0 to keep from showing any logs"
 msgstr "设置为0将会显示全部记录"
 
-#: components/points/includes/widgets.php:326
+#: components/points/includes/widgets.php:338
 msgctxt "widget name"
 msgid "WordPoints Top Users"
 msgstr "WordPoints排行榜"
 
-#: components/points/includes/widgets.php:326
+#: components/points/includes/widgets.php:338
 msgid "Showcase the users with the most points."
 msgstr "用来显示用户积分排行。"
 
-#: components/points/includes/widgets.php:329
+#: components/points/includes/widgets.php:341
 msgctxt "widget title"
 msgid "Top Users"
 msgstr "用户排行榜"
 
-#: components/points/includes/widgets.php:448
-#: components/points/includes/widgets.php:599
+#: components/points/includes/widgets.php:460
+#: components/points/includes/widgets.php:611
 msgctxt "form label"
 msgid "Points type"
 msgstr "积分类型"
 
-#: components/points/includes/widgets.php:452
+#: components/points/includes/widgets.php:464
 msgid "Number of top users to show"
 msgstr "显示多少个积分多的用户"
 
-#: components/points/includes/widgets.php:476
+#: components/points/includes/widgets.php:488
 msgctxt "widget name"
 msgid "Points Logs"
 msgstr "积分记录"
 
-#: components/points/includes/widgets.php:476
+#: components/points/includes/widgets.php:488
 msgid "Display the latest points activity."
 msgstr "显示最新的积分活动。"
 
-#: components/points/includes/widgets.php:479
+#: components/points/includes/widgets.php:491
 msgctxt "widget title"
 msgid "Points Logs"
 msgstr "积分记录"
 
-#: components/points/includes/widgets.php:603
+#: components/points/includes/widgets.php:615
 msgid "Number of log entries to display"
 msgstr "显示多少条积分记录"
 
@@ -1563,26 +1563,30 @@ msgstr "(无标题)"
 msgid "No rank groups are currently available."
 msgstr "当前无可用的积分Hooks。"
 
-#: components/ranks/admin/screens/ranks.php:49
+#: components/ranks/admin/screens/ranks.php:62
 #, fuzzy
 msgid "Add Rank"
 msgstr "添加Hook"
 
-#: components/ranks/admin/screens/ranks.php:51
+#: components/ranks/admin/screens/ranks.php:64
 #, fuzzy
 msgid "Select Type"
 msgstr "请选择文章类型:"
 
-#: components/ranks/admin/screens/ranks.php:69
+#: components/ranks/admin/screens/ranks.php:94
 #, fuzzy
 msgctxt "rank"
 msgid "Edit"
 msgstr "编辑"
 
-#: components/ranks/admin/screens/ranks.php:75
+#: components/ranks/admin/screens/ranks.php:100
 #, fuzzy
 msgid "Title"
 msgstr "标题"
+
+#: components/ranks/includes/integration/points.php:44
+msgid "%s will be replaced with the rank of the logged in user"
+msgstr ""
 
 #: components/ranks/includes/rank-types/points.php:41
 #, fuzzy

@@ -46,6 +46,30 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
+	 * Test formatting a user's rank.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_format_user_rank() {
+
+		$user_id = $this->factory->user->create();
+		$rank    = $this->factory->wordpoints_rank->create_and_get();
+
+		wordpoints_update_user_rank( $user_id, $rank->ID );
+
+		$formatted = wordpoints_get_formatted_user_rank(
+			$user_id
+			, $this->rank_group
+			, 'unittests'
+		);
+
+		$this->assertEquals(
+			'<span class="wordpoints-rank">' . $rank->name . '</span>'
+			,  $formatted
+		);
+	}
+
+	/**
 	 * Test updating a user's rank.
 	 *
 	 * @since 1.7.0

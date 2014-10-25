@@ -448,6 +448,31 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 }
 
 /**
+ * Get the rank of a user formatted for display.
+ *
+ * @since 1.7.0
+ *
+ * @param int    $user_id The ID of the user.
+ * @param string $group   The rank group.
+ * @param string $context The context in which this rank is being displayed.
+ * @param array  $args    Other arguments.
+ *
+ * @return string|false The rank of this user formatted for dispay, or false.
+ */
+function wordpoints_get_formatted_user_rank( $user_id, $group, $context, array $args = array() ) {
+
+	$rank_id = wordpoints_get_user_rank( $user_id, $group );
+
+	if ( ! $rank_id ) {
+		return false;
+	}
+
+	$args = array_merge( $args, array( 'user_id' => $user_id ) );
+
+	return wordpoints_format_rank( $rank_id, $context, $args );
+}
+
+/**
  * Update a user's rank.
  *
  * @since 1.7.0

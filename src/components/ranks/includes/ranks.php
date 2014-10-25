@@ -279,6 +279,44 @@ function wordpoints_get_rank( $id ) {
 	return $rank;
 }
 
+/**
+ * Format a rank name for display.
+ *
+ * @since 1.7.0
+ *
+ * @param int    $rank_id The ID of the rank to format.
+ * @param string $context The context in which the rank will be displayed.
+ * @param array  $args    Other optional arguments.
+ *
+ * @return string The integer value of $points formatted for display.
+ */
+function wordpoints_format_rank( $rank_id, $context, array $args = array() ) {
+
+	$rank = wordpoints_get_rank( $rank_id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+	$formatted = '<span class="wordpoints-rank">' . $rank->name . '</span>';
+
+	/**
+	 * Format a rank for display.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string          $formatted The formatted rank name.
+	 * @param WordPoints_Rank $rank      The rank object.
+	 * @param string          $context   The context in which the rank will be displayed.
+	 * @param array           $args      {
+	 *        Other arguments (all optional, may be empty).
+	 *
+	 *        @type int $user_id The ID of the user the rank is being displayed with.
+	 * }
+	 */
+	return apply_filters( 'wordpoints_format_rank', $formatted, $rank, $context, $args );
+}
+
 //
 // Rank Meta.
 //

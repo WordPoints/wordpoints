@@ -548,7 +548,7 @@ final class WordPoints_Points_Hooks {
 		if ( ! $points_type ) {
 
 			$points_type = array();
-			$add_new     = 1;
+			$add_new     = wp_create_nonce( 'wordpoints_add_new_points_type' );
 		}
 
 		$points_type = array_merge(
@@ -660,7 +660,7 @@ final class WordPoints_Points_Hooks {
 					</div>
 
 					<input type="hidden" name="points-slug" class="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
-					<input type="hidden" name="add_new" class="add_new" value="<?php echo $add_new; ?>" />
+					<input type="hidden" name="add_new" class="add_new" value="<?php echo esc_attr( $add_new ); ?>" />
 
 					<div class="hook-control-actions">
 						<div class="alignleft">

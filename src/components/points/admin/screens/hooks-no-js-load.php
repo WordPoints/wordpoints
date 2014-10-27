@@ -7,6 +7,10 @@
  * @since 1.2.0
  */
 
+if ( ! current_user_can( 'manage_options' ) ) {
+	return;
+}
+
 if ( ! isset( $_POST['hook-id'] ) ) {
 	return;
 }

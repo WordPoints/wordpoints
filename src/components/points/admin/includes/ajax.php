@@ -81,20 +81,24 @@ add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hoo
  */
 function wordpoints_ajax_save_points_hook() {
 
-	if (
-		check_ajax_referer( 'save-network-wordpoints-points-hooks', 'savehooks', false )
-		&& current_user_can( 'manage_network_wordpoints_points_hooks' )
-	) {
+	if ( check_ajax_referer( 'save-network-wordpoints-points-hooks', 'savehooks', false ) ) {
+
+		if ( ! current_user_can( 'manage_network_wordpoints_points_hooks' ) ) {
+			wp_die( -1 );
+		}
 
 		// Saving network hooks, turn on network mode.
 		WordPoints_Points_Hooks::set_network_mode( true );
 
-	} elseif (
-		! check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks', false )
-		|| ! current_user_can( 'manage_options' )
-	) {
+	} elseif ( check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks', false ) ) {
 
-		// User doesn't have the required capababilities.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( -1 );
+		}
+
+	} else {
+
+		// CSRF attack (or, more probably the user left the browser open too long).
 		wp_die( -1 );
 	}
 

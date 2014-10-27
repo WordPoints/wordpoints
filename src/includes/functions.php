@@ -396,7 +396,7 @@ class WordPoints_Dropdown_Builder {
 
 		if ( ! empty( $this->args['show_option_none'] ) ) {
 
-			echo '<option value="-1"', selected( '-1', $this->args['selected'] ), '>', esc_html( $this->args['show_option_none'] ), '</option>';
+			echo '<option value="-1"', selected( '-1', $this->args['selected'], false ), '>', esc_html( $this->args['show_option_none'] ), '</option>';
 		}
 
 		foreach ( $this->options as $value => $option ) {
@@ -454,7 +454,7 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 	$options = array_merge( $defaults, $options );
 
 	echo '<select class="' . esc_attr( $options['class'] ) . '" name="' . esc_attr( $options['name'] ) . '" id="' . esc_attr( $options['id'] ) . '">';
-	echo '<option value="ALL"' . selected( $options['selected'], 'ALL' ) . '>' . esc_html_x( 'Any', 'post type', 'wordpoints' ) . '</option>';
+	echo '<option value="ALL"' . selected( $options['selected'], 'ALL', false ) . '>' . esc_html_x( 'Any', 'post type', 'wordpoints' ) . '</option>';
 
 	foreach ( get_post_types( $args, 'objects' ) as $post_type ) {
 
@@ -462,7 +462,7 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 			continue;
 		}
 
-		echo '<option value="' . $post_type->name . '"' . selected( $options['selected'], $post_type->name ) . '>' . $post_type->label . '</option>';
+		echo '<option value="' . $post_type->name . '"' . selected( $options['selected'], $post_type->name, false ) . '>' . $post_type->label . '</option>';
 	}
 
 	echo '</select>';

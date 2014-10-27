@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.6.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-10-25 20:04:32+00:00\n"
+"POT-Creation-Date: 2014-10-27 20:57:23+00:00\n"
 "PO-Revision-Date: 2014-10-22 03:55+0200\n"
 "Last-Translator: Raymond Calla <raymond.calla@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/wordpoints/"
@@ -226,6 +226,7 @@ msgstr ""
 #: admin/includes/class-wordpoints-modules-list-table.php:534
 #: components/points/admin/admin.php:54
 #: components/points/includes/class-wordpoints-points-hooks.php:780
+#: components/ranks/admin/admin.php:54
 #: components/ranks/admin/screens/ranks.php:122
 msgid "Delete"
 msgstr ""
@@ -576,13 +577,14 @@ msgstr ""
 msgid "Once a points type has been deleted, you cannot bring it back."
 msgstr ""
 
-#: components/points/admin/admin.php:53
+#: components/points/admin/admin.php:53 components/ranks/admin/admin.php:53
 msgid "Are you sure?"
 msgstr ""
 
 #: components/points/admin/admin.php:55
 #: components/points/admin/screens/hooks-no-js.php:116
 #: components/points/admin/screens/hooks.php:247
+#: components/ranks/admin/admin.php:55
 #: components/ranks/admin/screens/ranks.php:119
 msgid "Cancel"
 msgstr ""
@@ -1403,12 +1405,17 @@ msgstr ""
 msgid "A rank title cannot be empty."
 msgstr ""
 
-#: components/ranks/admin/admin.php:77
+#: components/ranks/admin/admin.php:52
+msgid ""
+"Are you sure that you want to delete this rank? This action cannot be undone."
+msgstr ""
+
+#: components/ranks/admin/admin.php:81
 #, fuzzy
 msgid "WordPoints — Ranks"
 msgstr "ワードポインツ"
 
-#: components/ranks/admin/admin.php:78
+#: components/ranks/admin/admin.php:82
 #: components/ranks/admin/screens/ranks.php:28
 msgid "Ranks"
 msgstr ""

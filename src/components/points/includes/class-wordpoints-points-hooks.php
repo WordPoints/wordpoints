@@ -666,6 +666,7 @@ final class WordPoints_Points_Hooks {
 						<div class="alignleft">
 							<?php
 								if ( ! $add_new ) {
+									wp_nonce_field( "wordpoints_delete_points_type-{$slug}", 'delete-points-type-nonce' );
 									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false );
 								}
 							?>

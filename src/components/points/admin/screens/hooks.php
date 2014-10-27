@@ -30,13 +30,17 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 			$_GET['error'] = 2;
 		}
 
-	} elseif ( ! empty( $_POST['delete-points-type'] ) ) {
+	} elseif (
+		! empty( $_POST['delete-points-type'] )
+		&& isset( $_POST['delete-points-type-nonce'], $_POST['points-slug'] )
+		&& wp_verify_nonce( $_POST['delete-points-type-nonce'], "wordpoints_delete_points_type-{$_POST['points-slug']}" )
+ 	) {
 
 		// - We are deleting a points type.
 
 		unset( $_GET['error'], $_GET['message'] );
 
-		if ( isset( $_POST['points-slug'] ) && wordpoints_delete_points_type( $_POST['points-slug'] ) ) {
+		if ( wordpoints_delete_points_type( $_POST['points-slug'] ) ) {
 
 			$_GET['message'] = 1;
 

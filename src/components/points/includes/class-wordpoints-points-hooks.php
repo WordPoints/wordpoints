@@ -666,7 +666,7 @@ final class WordPoints_Points_Hooks {
 						<div class="alignleft">
 							<?php
 								if ( ! $add_new ) {
-									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false );
+									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false, array( 'id' => "delete_points_type-{$slug}" ) );
 								}
 							?>
 							<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>

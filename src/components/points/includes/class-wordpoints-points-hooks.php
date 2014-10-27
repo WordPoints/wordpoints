@@ -659,7 +659,7 @@ final class WordPoints_Points_Hooks {
 			<?php if ( $hook_content_wrap ) : ?>
 					</div>
 
-					<input type="hidden" name="points-slug" class="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
+					<input type="hidden" name="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
 					<input type="hidden" name="add_new" class="add_new" value="<?php echo $add_new; ?>" />
 
 					<div class="hook-control-actions">

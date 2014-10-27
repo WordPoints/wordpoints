@@ -593,7 +593,7 @@ final class WordPoints_Points_Hooks {
 		<?php endif; ?>
 
 			<?php if ( $hook_content_wrap ) : ?>
-				<form action="" method="post">
+				<form method="post">
 					<div class="hook-content">
 			<?php endif; ?>
 
@@ -762,7 +762,7 @@ final class WordPoints_Points_Hooks {
 		</div>
 
 		<div class="hook-inside">
-			<form action="" method="post">
+			<form method="post">
 				<div class="hook-content">
 					<?php $has_form = $hook->form_callback( $number ); ?>
 				</div>

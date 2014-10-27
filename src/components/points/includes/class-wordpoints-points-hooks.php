@@ -593,7 +593,7 @@ final class WordPoints_Points_Hooks {
 		<?php endif; ?>
 
 			<?php if ( $hook_content_wrap ) : ?>
-				<form action="" method="post">
+				<form method="post">
 					<div class="hook-content">
 			<?php endif; ?>
 
@@ -630,15 +630,15 @@ final class WordPoints_Points_Hooks {
 
 						<p>
 							<label for="points-name-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html_x( 'Name:', 'points type', 'wordpoints' ); ?></label>
-							<input class="widefat" type="text" id="points-name-<?php echo esc_attr( $slug ); ?>" name="points-name" class="points-name" value="<?php echo esc_attr( $points_type['name'] ); ?>" />
+							<input class="widefat" type="text" id="points-name-<?php echo esc_attr( $slug ); ?>" name="points-name" value="<?php echo esc_attr( $points_type['name'] ); ?>" />
 						</p>
 						<p>
 							<label for="points-prefix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $prefix ); ?></label>
-							<input class="widefat" type="text" id="points-prefix-<?php echo esc_attr( $slug ); ?>" name="points-prefix" class="points-prefix" value="<?php echo esc_attr( $points_type['prefix'] ); ?>" />
+							<input class="widefat" type="text" id="points-prefix-<?php echo esc_attr( $slug ); ?>" name="points-prefix" value="<?php echo esc_attr( $points_type['prefix'] ); ?>" />
 						</p>
 						<p>
 							<label for="points-suffix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $suffix ); ?></label>
-							<input class="widefat" type="text" id="points-suffix-<?php echo esc_attr( $slug ); ?>" name="points-suffix" class="points-suffix" value="<?php echo esc_attr( $points_type['suffix'] ); ?>" />
+							<input class="widefat" type="text" id="points-suffix-<?php echo esc_attr( $slug ); ?>" name="points-suffix" value="<?php echo esc_attr( $points_type['suffix'] ); ?>" />
 						</p>
 
 						<?php
@@ -659,14 +659,14 @@ final class WordPoints_Points_Hooks {
 			<?php if ( $hook_content_wrap ) : ?>
 					</div>
 
-					<input type="hidden" name="points-slug" class="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
+					<input type="hidden" name="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
 					<input type="hidden" name="add_new" class="add_new" value="<?php echo $add_new; ?>" />
 
 					<div class="hook-control-actions">
 						<div class="alignleft">
 							<?php
 								if ( ! $add_new ) {
-									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false );
+									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false, array( 'id' => "delete_points_type-{$slug}" ) );
 								}
 							?>
 							<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
@@ -762,7 +762,7 @@ final class WordPoints_Points_Hooks {
 		</div>
 
 		<div class="hook-inside">
-			<form action="" method="post">
+			<form method="post">
 				<div class="hook-content">
 					<?php $has_form = $hook->form_callback( $number ); ?>
 				</div>

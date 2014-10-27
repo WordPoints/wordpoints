@@ -213,7 +213,7 @@ if ( is_network_admin() ) {
 
 		</div>
 	</div>
-	<form action="" method="post">
+	<form method="post">
 		<?php
 
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {

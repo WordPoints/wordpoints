@@ -187,6 +187,23 @@ class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the 'show_option_none' argument with the 'selected' argument.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_show_option_none_selected() {
+
+		$xpath = $this->get_dropdown_xpath(
+			array( 'show_option_none' => 'None', 'selected' => -1 )
+		);
+
+		$this->assertEquals(
+			1
+			, $xpath->query( '//option[@value = "-1" and @selected]' )->length
+		);
+	}
+
+	/**
 	 * Test the 'options_key' and 'values_key' arguments with options as arrays.
 	 *
 	 * @since 1.4.0

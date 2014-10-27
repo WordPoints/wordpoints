@@ -11,6 +11,7 @@
  * -- Form
  * -- Editing
  * -- Changed
+ * - Dialog
  * - Miscellaneous
  *
  * @package WordPoints\Ranks
@@ -240,6 +241,19 @@
 
 .wordpoints-rank.changed .close {
 	display: none;
+}
+
+/*
+ * Dialog.
+ */
+
+.wordpoints-delete-rank-dialog .button-primary {
+	float: right;
+}
+
+.wordpoints-delete-rank-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: none;
+	width: 100%;
 }
 
 /*

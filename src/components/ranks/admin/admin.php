@@ -28,7 +28,7 @@ function wordpoints_ranks_admin_register_scripts() {
 	wp_register_style(
 		'wordpoints-ranks-admin'
 		, $assets_url . '/css/ranks-screen.css'
-		, array( 'dashicons' )
+		, array( 'dashicons', 'wp-jquery-ui-dialog' )
 		, WORDPOINTS_VERSION
 	);
 
@@ -37,7 +37,7 @@ function wordpoints_ranks_admin_register_scripts() {
 	wp_register_script(
 		'wordpoints-ranks-admin'
 		, $assets_url . '/js/ranks-screen.js'
-		, array( 'backbone' )
+		, array( 'backbone', 'jquery-ui-dialog' )
 		, WORDPOINTS_VERSION
 	);
 
@@ -49,6 +49,10 @@ function wordpoints_ranks_admin_register_scripts() {
 			'changesSaved'    => __( 'Your changes have been saved.', 'wordpoints' ),
 			'invalidFields'   => __( 'Some of the values you entered are invalid. Please correct them, and then try saving again.', 'wordpoints' ),
 			'emptyName'       => __( 'A rank title cannot be empty.', 'wordpoints' ),
+			'confirmDelete'   => __( 'Are you sure that you want to delete this rank? This action cannot be undone.', 'wordpoints' ),
+			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
+			'deleteText'      => __( 'Delete', 'wordpoints' ),
+			'cancelText'      => __( 'Cancel', 'wordpoints' ),
 		)
 	);
 

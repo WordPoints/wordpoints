@@ -46,4 +46,23 @@ function wordpoints_ranks_my_points_widget_below_text_field() {
 }
 add_action( 'wordpoints_my_points_widget_below_text_field', 'wordpoints_ranks_my_points_widget_below_text_field' );
 
+/**
+ * Add a user's rank to their name in the points top users table.
+ *
+ * @since 1.7.0
+ */
+function wordpoints_ranks_points_top_users_username_filter( $name, $user_id, $points_type, $context ) {
+
+	$rank = wordpoints_get_formatted_user_rank(
+		 $user_id
+		 , "points_type-{$points_type}"
+		 , $context
+	);
+
+	$name = "{$name} ({$rank})";
+
+	return $name;
+}
+add_filter( 'wordpoints_points_top_users_username', 'wordpoints_ranks_points_top_users_username_filter', 10, 4 );
+
 // EOF

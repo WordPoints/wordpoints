@@ -286,7 +286,11 @@ function wordpoints_get_rank( $id ) {
  *
  * @param int    $rank_id The ID of the rank to format.
  * @param string $context The context in which the rank will be displayed.
- * @param array  $args    Other optional arguments.
+ * @param array  $args    {
+ *        Other optional arguments.
+ *
+ *        @type int $user_id ID of the user the rank is being displayed with.
+ * }
  *
  * @return string The integer value of $points formatted for display.
  */

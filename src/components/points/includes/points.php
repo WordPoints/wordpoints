@@ -1116,19 +1116,24 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 
 		$exclude_users = '';
 		if ( ! empty( $excluded ) ) {
-			$exclude_users = 'AND `user_ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
+			$exclude_users = 'WHERE `user_ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
 		}
 
 		/*
 		 * We can't use WP_User_Query here because the meta value must be converted
 		 * to a singed integer for ordering.
+		 *
+		 * (But see <https://core.trac.wordpress.org/ticket/27887>).
 		 */
 		$top_users = $wpdb->get_col(
 			$wpdb->prepare(
 				"
-					SELECT `user_ID`
-					FROM {$wpdb->usermeta}
-					WHERE `meta_key` = %s {$exclude_users}
+					SELECT `users`.`ID`
+                    FROM `{$wpdb->users}` AS `users`
+                    LEFT JOIN `{$wpdb->usermeta}` AS `meta`
+                    	ON `users`.`ID` = `meta`.`user_ID`
+                        AND `meta`.`meta_key` = %s
+                    {$exclude_users}
 					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
 					LIMIT %d,%d
 				",

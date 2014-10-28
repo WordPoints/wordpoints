@@ -125,6 +125,30 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCas
 
 		wp_set_current_user( $old_current_user->ID );
 	}
+
+	/**
+	 * Test that it displays users who haven't been awarded any points yet.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_displays_users_not_awarded_points() {
+
+		$user_ids = $this->factory->user->create_many( 2 );
+
+		wordpoints_set_points( $user_ids[0], 10, 'points', 'test' );
+
+		// Check output with valid parameters.
+		$document = new DOMDocument;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
+				'wordpoints_points_top'
+				, array( 'points_type' => 'points', 'users' => 3 )
+			)
+		);
+		$xpath = new DOMXPath( $document );
+
+		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+	}
 }
 
 // EOF

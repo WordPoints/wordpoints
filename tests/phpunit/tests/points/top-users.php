@@ -11,6 +11,7 @@
  * Test that the wordpoints_points_get_top_users() function works.
  *
  * @since 1.5.0
+ * @since 1.7.0 Assumes that one user is already in the DB that has no points.
  *
  * @group points
  */
@@ -34,12 +35,11 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 
 		parent::setUp();
 
-		$this->user_ids = $this->factory->user->create_many( 4 );
+		$this->user_ids = $this->factory->user->create_many( 3 );
 
 		wordpoints_set_points( $this->user_ids[0], 40, 'points', 'test' );
 		wordpoints_set_points( $this->user_ids[1], 30, 'points', 'test' );
 		wordpoints_set_points( $this->user_ids[2], 20, 'points', 'test' );
-		wordpoints_set_points( $this->user_ids[3], 10, 'points', 'test' );
 	}
 
 	/**
@@ -62,9 +62,6 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	public function test_top_users_returned() {
 
 		$top_users = wordpoints_points_get_top_users( 3, 'points' );
-
-		// We're only checking the 3 top users, remove te 4th one.
-		unset( $this->user_ids[3] );
 
 		$this->assertEquals( $this->user_ids, $top_users );
 	}

@@ -1224,7 +1224,33 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 
 				<tr class="top-<?php echo $position; ?>">
 					<td><?php echo number_format_i18n( $position ); ?></td>
-					<td><?php echo get_avatar( $user_id, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $user_id, 'display' ); ?></td>
+					<td>
+						<?php echo get_avatar( $user_id, 32 ); ?>
+						<?php
+
+						$name = sanitize_user_field(
+							'display_name'
+							, $user->display_name
+							, $user_id
+							, 'display'
+						);
+
+						/**
+						 * Filter the name of the user in the points top users table.
+						 *
+						 * The resulting value should be properly escaped for display.
+						 *
+						 * @since 1.7.0
+						 *
+						 * @param string $name        The name of the user.
+						 * @param int    $user_id     The user ID.
+						 * @param string $points_type The points type the table is for.
+						 * @param string $context     The context in which the table is being displayed.
+						 */
+						echo apply_filters( 'wordpoints_points_top_users_username', $name, $user_id, $points_type, "top_users_{$context}" );
+
+						?>
+					</td>
 					<td><?php wordpoints_display_points( $user_id, $points_type, "top_users_{$context}" ); ?></td>
 				</tr>
 

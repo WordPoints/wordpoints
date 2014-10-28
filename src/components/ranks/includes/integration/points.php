@@ -54,9 +54,9 @@ add_action( 'wordpoints_my_points_widget_below_text_field', 'wordpoints_ranks_my
 function wordpoints_ranks_points_top_users_username_filter( $name, $user_id, $points_type, $context ) {
 
 	$rank = wordpoints_get_formatted_user_rank(
-		 $user_id
-		 , "points_type-{$points_type}"
-		 , $context
+		$user_id
+		, "points_type-{$points_type}"
+		, $context
 	);
 
 	$name = "{$name} ({$rank})";

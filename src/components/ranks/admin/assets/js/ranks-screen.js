@@ -207,6 +207,7 @@ jQuery( function ( $ ) {
 			event.preventDefault();
 
 			this.wait();
+			this.$( '.save' ).prop( 'disabled', true );
 
 			this.model.save( getFormData( this.$( 'form' ) ), { wait: true } );
 		},

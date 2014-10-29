@@ -712,7 +712,7 @@ function _wordpoints_sort_uname_callback( $a, $b ) {
  *
  * @since 1.1.0
  *
- * @param stirng $module The basename path tot he main file of the module to activate.
+ * @param string $module The basename path tot he main file of the module to activate.
  * @param string $redirect The URL to redirect to on failure.
  * @param bool   $network_wide Whether to activate the module network wide. False by
  *                             default. Only applicable on multisite and when the

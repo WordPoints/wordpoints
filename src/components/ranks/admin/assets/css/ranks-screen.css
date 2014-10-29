@@ -157,7 +157,8 @@
 .wordpoints-rank .fields .err {
 	margin: 5px 0;
 	display: block;
-	border: 1px 1px 1px 4px solid #dd3d36;
+	border: 1px solid #dd3d36;
+	border-left-width: 4px;
 }
 
 /*

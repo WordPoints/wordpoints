@@ -616,7 +616,7 @@ div#hooks-right .closed .hooks-sortables {
 	cursor: pointer;
 	outline: none;
 	position: relative;
-	transition: background: 0.2s ease-in-out;
+	transition: background 0.2s ease-in-out;
 }
 
 .hooks-chooser li:not(.hooks-chooser-selected) {

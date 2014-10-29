@@ -186,6 +186,7 @@
 .wordpoints-rank .fields .description {
 	margin-bottom: 15px;
 	width: 100%;
+	height: auto;
 }
 
 .wordpoints-rank .actions {

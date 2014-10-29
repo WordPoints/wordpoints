@@ -275,8 +275,8 @@ jQuery( function ( $ ) {
 			// We check for the `collection` property here to be sure that this
 			// request was in the context of a specific model. Errors for requests
 			// general to the whole collection are handled by the `Group` view. But
-			// for new modules, the collection isn't set, so we also have to make
-			// sure that this isn't a new module.
+			// for new model, the collection isn't set, so we also have to make
+			// sure that this isn't a new model.
 			if ( options.context && ! options.context.collection && ( ! options.context.isNew || ! options.context.isNew() ) ) {
 				return;
 			}
@@ -289,26 +289,23 @@ jQuery( function ( $ ) {
 				message = response.message;
 
 				// Check if the error is for a specific field.
-				if ( response.field ) {
+				if ( response.data && response.data.field ) {
 
 					$field = this.$(
-						'[name="' + response.field.replace( /[^a-z0-9-_]/gi, '' ) + '"]'
+						'[name="' + response.data.field.replace( /[^a-z0-9-_]/gi, '' ) + '"]'
 					);
 
 					// If this field actually exists, insert an error before it.
 					if ( 0 !== $field.length ) {
 
-						$field.parents( '.wrapper' ).before(
+						$field.before(
 							$( '<div class="message err"></div>' )
 								.text( message )
 								.show()
 						);
 
-						// Still show a message at the bottom, in case the user has
-						// scrolled to where the field with the error is hidden.
-						message = ranks.l10n.invalidFields;
+						return;
 					}
-
 				}
 			}
 

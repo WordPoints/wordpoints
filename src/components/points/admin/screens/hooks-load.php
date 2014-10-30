@@ -7,8 +7,6 @@
  * @since 1.2.0
  */
 
-global $wp_version;
-
 // Add help and screen options tabs.
 $screen = get_current_screen();
 

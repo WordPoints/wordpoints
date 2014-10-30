@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-10-27 20:57:23+00:00\n"
+"POT-Creation-Date: 2014-10-30 21:33:21+00:00\n"
 "PO-Revision-Date: 2014-06-20 01:20+0800\n"
 "Last-Translator: Coolwp <coolwp.com@gmail.com>\n"
 "Language-Team: suifengtec <suifengtec@qq.com>\n"
@@ -233,8 +233,8 @@ msgstr "停用"
 #: admin/includes/class-wordpoints-modules-list-table.php:534
 #: components/points/admin/admin.php:54
 #: components/points/includes/class-wordpoints-points-hooks.php:780
-#: components/ranks/admin/admin.php:54
-#: components/ranks/admin/screens/ranks.php:122
+#: components/ranks/admin/admin.php:53
+#: components/ranks/admin/screens/ranks.php:123
 msgid "Delete"
 msgstr "删除"
 
@@ -316,7 +316,8 @@ msgstr "动作"
 
 #: admin/screens/configure-settings-load.php:15
 #: admin/screens/modules-load.php:444
-#: components/points/admin/screens/hooks-load.php:18
+#: components/points/admin/screens/hooks-load.php:16
+#: components/ranks/admin/admin.php:107
 msgid "Overview"
 msgstr "概览"
 
@@ -339,7 +340,8 @@ msgstr ""
 
 #: admin/screens/configure-settings-load.php:24
 #: admin/screens/modules-load.php:462
-#: components/points/admin/screens/hooks-load.php:38
+#: components/points/admin/screens/hooks-load.php:36
+#: components/ranks/admin/admin.php:135
 msgid "For more information:"
 msgstr "更多信息:"
 
@@ -349,7 +351,8 @@ msgstr ""
 
 #: admin/screens/configure-settings-load.php:26
 #: admin/screens/modules-load.php:464
-#: components/points/admin/screens/hooks-load.php:40
+#: components/points/admin/screens/hooks-load.php:38
+#: components/ranks/admin/admin.php:137
 msgid "Support Forums"
 msgstr "支持论坛"
 
@@ -606,15 +609,15 @@ msgstr "确定要删除这个积分类型吗？这个动作将删除所有相关
 msgid "Once a points type has been deleted, you cannot bring it back."
 msgstr "一旦积分类型被删除，您将无法恢复它。"
 
-#: components/points/admin/admin.php:53 components/ranks/admin/admin.php:53
+#: components/points/admin/admin.php:53 components/ranks/admin/admin.php:52
 msgid "Are you sure?"
 msgstr "确定？"
 
 #: components/points/admin/admin.php:55
 #: components/points/admin/screens/hooks-no-js.php:116
 #: components/points/admin/screens/hooks.php:247
-#: components/ranks/admin/admin.php:55
-#: components/ranks/admin/screens/ranks.php:119
+#: components/ranks/admin/admin.php:54
+#: components/ranks/admin/screens/ranks.php:120
 msgid "Cancel"
 msgstr "取消"
 
@@ -709,7 +712,7 @@ msgstr "产生了一个错误。请重新载入此页并重试。"
 msgid "An error has occurred. Please try again."
 msgstr "产生了一个错误。请重试。"
 
-#: components/points/admin/screens/hooks-load.php:20
+#: components/points/admin/screens/hooks-load.php:18
 msgid ""
 "Points Hooks let you award users points by &#8220;hooking into&#8221; "
 "different actions. They can be hooked to any points type that you have "
@@ -721,7 +724,7 @@ msgstr ""
 "型：主需要输入积分类型表单，然后点击保存。您可以在任何时候以点击设置标题条的"
 "方式来编辑积分类型的设置。"
 
-#: components/points/admin/screens/hooks-load.php:21
+#: components/points/admin/screens/hooks-load.php:19
 #, fuzzy
 msgid ""
 "To link a hook to a points type, click on the hook&#8217;s title bar and "
@@ -733,7 +736,7 @@ msgstr ""
 "标题条到某个已存在的积分类型里面。默认的，仅第一个积分类型区域是展开的。展开"
 "积分类型区域：仅需要点击它们的标题条即可。"
 
-#: components/points/admin/screens/hooks-load.php:22
+#: components/points/admin/screens/hooks-load.php:20
 msgid ""
 "The Available Hooks section contains all the hooks you can choose from. Once "
 "you add a hook into a points type, it will open to allow you to configure "
@@ -745,11 +748,11 @@ msgstr ""
 "将会打开并允许您配置它的设置。当您设置之后，请点击保存按钮，如果您点击删除按"
 "钮，他将会被移除。"
 
-#: components/points/admin/screens/hooks-load.php:29
+#: components/points/admin/screens/hooks-load.php:27
 msgid "Removing and Reusing"
 msgstr "卸下和重新使用"
 
-#: components/points/admin/screens/hooks-load.php:31
+#: components/points/admin/screens/hooks-load.php:29
 msgid ""
 "If you want to remove the hook but save its setting for possible future use, "
 "just drag it into the Inactive Hooks area. You can add them back anytime "
@@ -758,18 +761,18 @@ msgstr ""
 "如果您想移除hook但是保存其设置以备将来使用，仅需要拖动它到未启用Hooks区域即"
 "可。您可以在任何时候从那里将他们添加回来。"
 
-#: components/points/admin/screens/hooks-load.php:32
+#: components/points/admin/screens/hooks-load.php:30
 msgid "Hooks may be used multiple times."
 msgstr "Hooks可多次使用。"
 
-#: components/points/admin/screens/hooks-load.php:33
+#: components/points/admin/screens/hooks-load.php:31
 msgid ""
 "Enabling Accessibility Mode, via Screen Options, allows you to use Add and "
 "Edit buttons instead of using drag and drop."
 msgstr ""
 "启用辅助功能模式，通过显示选项，允许您使用添加和编辑按钮，以替代使用拖放。"
 
-#: components/points/admin/screens/hooks-load.php:39
+#: components/points/admin/screens/hooks-load.php:37
 #, fuzzy
 msgid "Documentation on Points Hooks"
 msgstr "多站积分Hooks"
@@ -955,7 +958,8 @@ msgstr "删除"
 
 #: components/points/includes/class-wordpoints-points-hooks.php:672
 #: components/points/includes/class-wordpoints-points-hooks.php:781
-#: components/ranks/admin/screens/ranks.php:120
+#: components/ranks/admin/screens/ranks.php:95
+#: components/ranks/admin/screens/ranks.php:121
 msgid "Close"
 msgstr "关闭"
 
@@ -975,7 +979,7 @@ msgid "Add"
 msgstr "添加"
 
 #: components/points/includes/class-wordpoints-points-hooks.php:784
-#: components/ranks/admin/screens/ranks.php:118
+#: components/ranks/admin/screens/ranks.php:119
 msgid "Save"
 msgstr "保存"
 
@@ -1284,19 +1288,19 @@ msgctxt "points log"
 msgid "(no description)"
 msgstr "（无描述）"
 
-#: components/points/includes/points.php:1176
+#: components/points/includes/points.php:1181
 #, fuzzy
 msgctxt "top users table heading"
 msgid "Position"
 msgstr "描述"
 
-#: components/points/includes/points.php:1177
+#: components/points/includes/points.php:1182
 #, fuzzy
 msgctxt "top users table heading"
 msgid "User"
 msgstr "用户"
 
-#: components/points/includes/points.php:1178
+#: components/points/includes/points.php:1183
 #, fuzzy
 msgctxt "top users table heading"
 msgid "Points"
@@ -1479,29 +1483,87 @@ msgid "Your changes have been saved."
 msgstr "更改已保存。"
 
 #: components/ranks/admin/admin.php:50
-msgid ""
-"Some of the values you entered are invalid. Please correct them, and then "
-"try saving again."
-msgstr ""
-
-#: components/ranks/admin/admin.php:51
 msgid "A rank title cannot be empty."
 msgstr ""
 
-#: components/ranks/admin/admin.php:52
+#: components/ranks/admin/admin.php:51
 msgid ""
 "Are you sure that you want to delete this rank? This action cannot be undone."
 msgstr ""
 
-#: components/ranks/admin/admin.php:81
+#: components/ranks/admin/admin.php:80
 #, fuzzy
 msgid "WordPoints — Ranks"
 msgstr "WordPoints - %s"
 
-#: components/ranks/admin/admin.php:82
+#: components/ranks/admin/admin.php:81
 #: components/ranks/admin/screens/ranks.php:28
 msgid "Ranks"
 msgstr ""
+
+#: components/ranks/admin/admin.php:109
+msgid ""
+"Ranks are titles assigned to users. A set of ranks are organized into a "
+"hierarchy. The user starts at the bottom, but can work his way up to higher "
+"ranks. Each rank has requirements that a user must meet before he can move "
+"up to that rank. For example, the user may need to have a certain number of "
+"points to reach a given rank."
+msgstr ""
+
+#: components/ranks/admin/admin.php:110
+msgid ""
+"More than one rank hierarchy may be available. For example, if you have "
+"multiple types of points, you will have a group of ranks for each points "
+"type. Each rank group is managed separately, on a different tab on this "
+"screen."
+msgstr ""
+
+#: components/ranks/admin/admin.php:117
+msgid "Adding and Editing"
+msgstr ""
+
+#: components/ranks/admin/admin.php:119
+msgid ""
+"To add a new rank to the rank group, click the Add Rank button. A new rank "
+"will appear with its settings form open. Fill out its settings and click the "
+"save button. If you have changed your mind, you can remove the new rank "
+"without saving it by clicking the Cancel button."
+msgstr ""
+
+#: components/ranks/admin/admin.php:120
+msgid ""
+"To edit an existing rank&#8217;s settings, click on the Edit link in its "
+"title bar. The settings form for that rank will open. You can close the "
+"settings form again by clicking the Close link."
+msgstr ""
+
+#: components/ranks/admin/admin.php:121
+msgid ""
+"Once you have modified the rank&#8217;s settings as desired, you can save "
+"your changes by clicking the Save button. Keep in mind that your changes "
+"will take effect immediately, and it is wise to double check that you have "
+"all of the settings just as you want them. If you decide that you don&#8217;"
+"t want to save your changes, click the Cancel button instead, which will "
+"reset the form to the rank&#8217;s current settings."
+msgstr ""
+
+#: components/ranks/admin/admin.php:128
+#, fuzzy
+msgid "Deleting"
+msgstr "删除"
+
+#: components/ranks/admin/admin.php:130
+msgid ""
+"If you would like to delete a rank, open its settings form, then click the "
+"Delete button. You will be asked to confirm that you want to delete the "
+"rank. If you are not sure, click the Cancel button in the confirmation "
+"dialog. Once you delete the rank, it is gone!"
+msgstr ""
+
+#: components/ranks/admin/admin.php:136
+#, fuzzy
+msgid "Documentation on Ranks"
+msgstr "多站积分Hooks"
 
 #: components/ranks/admin/includes/ajax.php:198
 msgid ""
@@ -1586,7 +1648,7 @@ msgctxt "rank"
 msgid "Edit"
 msgstr "编辑"
 
-#: components/ranks/admin/screens/ranks.php:100
+#: components/ranks/admin/screens/ranks.php:101
 #, fuzzy
 msgid "Title"
 msgstr "标题"

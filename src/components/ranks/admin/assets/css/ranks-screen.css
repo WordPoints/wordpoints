@@ -117,15 +117,15 @@
 	display: none;
 }
 
-.wordpoints-rank .edit {
+.wordpoints-rank .edit,
+.wordpoints-rank .view .close {
 	float: right;
 	margin-top: -18px;
-	display: none;
 	cursor: pointer;
 }
 
-.wordpoints-rank .view:hover .edit {
-	display: block;
+.wordpoints-rank .view .close {
+	display: none;
 }
 
 /*
@@ -233,6 +233,10 @@
 	display: none;
 }
 
+.wordpoints-rank.editing .view .close {
+	display: block;
+}
+
 /*
  * - Changed.
  */
@@ -241,7 +245,8 @@
 	display: block;
 }
 
-.wordpoints-rank.changed .close {
+.wordpoints-rank.changed .close,
+.wordpoints-rank.changed .view .close {
 	display: none;
 }
 

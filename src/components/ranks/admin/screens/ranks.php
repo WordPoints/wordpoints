@@ -92,6 +92,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 		<div class="view">
 			<div><%- name %></div>
 			<a class="edit"><?php echo esc_html_x( 'Edit', 'rank', 'wordpoints' ); ?></a>
+			<a class="close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 		</div>
 		<form>
 			<div class="fields">

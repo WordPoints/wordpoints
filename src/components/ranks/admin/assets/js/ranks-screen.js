@@ -195,7 +195,8 @@ jQuery( function ( $ ) {
 
 			if ( this.$el.hasClass( 'new' ) ) {
 				Ranks.trigger( 'cancel-add-new' );
-				this.clear( event );
+				this.remove();
+				return;
 			}
 
 			this.render();

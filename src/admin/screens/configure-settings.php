@@ -7,6 +7,10 @@
  * @since 1.0.0
  */
 
+if ( ! current_user_can( 'manage_options' ) ) {
+	return;
+}
+
 if (
 	isset( $_POST['wordpoints_settings_nonce'], $_POST['excluded_users'] )
 	&& wp_verify_nonce( $_POST['wordpoints_settings_nonce'], 'wordpoints_settings_submit' )

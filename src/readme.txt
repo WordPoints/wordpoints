@@ -12,10 +12,12 @@ Gamify your site with points.
 
 == Description ==
 
+= Features =
+
 This plugin lets you create one or multiple types of points which you can use to
 reward your users by "hooking into" different user actions.
 
-You can currently award points to users for...
+You can currently award points to users for:
 
 * Registration
 * Comments - You can also have points removed if you delete a user's comment or mark it as spam.
@@ -33,20 +35,48 @@ shortcode.
 The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/)
 that you can use.
 
-Many more features are planned in the near future, and you can check out the roadmap
-on the plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
+WordPoints now also includes a Ranks component, which lets you create ranks for your
+users based on how many points they have.
 
-It is also possible to extend the default functionality of the plugin using modules.
-For more information on that, see the [developer docs](http://wordpoints.org/developer-guide/).
+More features are always being planned, and you can check out the roadmap on the
+plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
+
+= Localization =
+
+WordPoints is fully localizable, and translations are already available in several
+languages:
+
+* **Brazilian Portuguese** — Thanks goes to Gabriel Galvão.
+* **Simplified Chinese** — Thanks to Jack Lee.
+* **Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
+* **Japanese** — Thanks to Raymond Calla.
+
+Not all of these translations are complete, and if you'd like to help maintain and
+improve them, or you'd like to translate WordPoints into another language, you can
+join the [translation project on Weblate](https://hosted.weblate.org/engage/wordpoints/).
+
+If you have a completed translation you'd like to share, you can also send it to us
+using the [contact form on WordPoints.org](http://wordpoints.org/contact/).
+
+= Developers =
+
+If you are a developer, designer, or accessibility expert, and you'd like to give
+back to this plugin, you should visit the [plugin's repo on GitHub](https://github.com/WordPoints/wordpoints/),
+where active development takes place.
+
+If you are interested in integrating or extending the plugin, you'll want to read the
+[developer docs](http://wordpoints.org/developer-guide/).
 
 == Installation ==
 
-Before installing on multisite, it is recommended that you [read this](http://wordpoints.org/user-guide/multisite/).
+Before installing on multisite, it is recommended that you read this
+[explanation of how WordPoints works on multisite](http://wordpoints.org/user-guide/multisite/).
 
 1. Download and unzip the plugin file
 1. Upload the resulting `/wordpoints/` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. You can set up the points hooks to your liking by clicking on the Points Hooks submenu item
+1. If you want to use ranks, you can activate the Ranks component on the WordPoints » Configure screen on the Components tab.
 
 == Frequently Asked Questions ==
 
@@ -56,12 +86,7 @@ Maybe it will soon - just ask for it!
 
 = How can I manually change a user's points? =
 
-You can manually adjust a user's points from their profile page in the admin.
-
-= Why does WordPoints have only one component? =
-
-I plan to add more components in future, but right now these are still under
-development. Find out more [here](http://wordpoints.org/roadmap/).
+You can [manually adjust a user's points](http://wordpoints.org/user-guide/manually-editing-a-users-points/) from their profile page in the admin.
 
 = Does WordPoints support Multisite? =
 
@@ -79,6 +104,9 @@ upgrade now before it's too late. Seriously!
 
 2. The Points Hooks administration screen. This is where you configure when and where
 points are awarded.
+
+3. A rank group on the Ranks administration screen. This is where you create and
+manage the ranks used on your site.
 
 == Changelog ==
 

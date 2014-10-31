@@ -301,6 +301,28 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Check if an SQL query is a Rank retrieval query.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $sql The SQL query string.
+	 *
+	 * @return bool Whether the query is a get rank query.
+	 */
+	public function is_wordpoints_get_rank_query( $sql ) {
+
+		global $wpdb;
+
+		return 0 === strpos(
+			$sql
+			, "
+					SELECT id, name, type, rank_group, blog_id, site_id
+					FROM {$wpdb->wordpoints_ranks}
+					WHERE id = "
+		);
+	}
+
 	//
 	// Assertions.
 	//

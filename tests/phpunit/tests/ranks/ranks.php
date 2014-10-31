@@ -297,6 +297,56 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 
 		$this->assertFalse( wordpoints_format_rank( $rank_id, 'unittests' ) );
 	}
+
+	/**
+	 * Test rank caching.
+	 *
+	 * @since 1.7.0
+	 */
+	public function test_ranks_are_cached() {
+
+		// Listen for get-rank database queries.
+		$this->listen_for_filter( 'query', array( $this, 'is_wordpoints_get_rank_query' ) );
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		// Get the rank.
+		$rank = wordpoints_get_rank( $rank_id );
+
+		// The database should have been queried once.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Get the rank again.
+		$rank = wordpoints_get_rank( $rank_id );
+
+		// The database should still have been called only once.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// The cache should be invalidated when the rank is updated.
+		wordpoints_update_rank(
+			$rank_id
+			, $rank->name
+			, $rank->type
+			, $rank->rank_group
+			, 1
+			, array( 'test_meta' => true )
+		);
+
+		// Get the rank again.
+		$rank = wordpoints_get_rank( $rank_id );
+
+		// The database should have been queried again.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		// Delete the rank.
+		wordpoints_delete_rank( $rank_id );
+
+		// Get the rank again.
+		$rank = wordpoints_get_rank( $rank_id );
+
+		// The database should have been queried again.
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+	}
 }
 
 // EOF

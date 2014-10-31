@@ -213,6 +213,12 @@ final class WordPoints_Rank {
 	 */
 	public static function get_data( $id ) {
 
+		$rank_data = wp_cache_get( $id, 'wordpoints_ranks' );
+
+		if ( false !== $rank_data ) {
+			return $rank_data;
+		}
+
 		global $wpdb;
 
 		$rank_data = $wpdb->get_row(

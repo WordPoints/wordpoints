@@ -110,6 +110,17 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.7.0 =
+* New: Create ranks for your users by activating [the Ranks component]().
+* * You can manage the ranks on the *WordPoints » Ranks* administration screen.
+* * A user's rank is displayed along with their name in the Top Users table.
+* * You can display a user's rank using the `%rank` placeholder in the WordPoints widget.
+* Updated: Now requires WordPress 3.8+.
+* Fixed: Display users who have never been awarded points in the Top Users table when appropriate.
+* Fixed: CSRF vulnerability for adding a points type.
+* Fixed: CSRF vulnerability for deleting a points type.
+* Fixed: Many other small internal improvements.
+
 = 1.6.1 =
 * Fixed: Honor the Excluded Users setting in the Top Users widget and shortcode.
 
@@ -187,6 +198,11 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.7.0 =
+* This is the biggest update since 1.0.0! It introduces the Ranks component, and also
+includes many other small fixes, including two minor security issues. It is highly
+recommended that all users upgrade immediately.
 
 = 1.6.1 =
 * This is a maintenance release which fixes the bug of the Excluded Users settings

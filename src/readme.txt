@@ -67,6 +67,9 @@ where active development takes place.
 If you are interested in integrating or extending the plugin, you'll want to read the
 [developer docs](http://wordpoints.org/developer-guide/).
 
+If you are a security researcher you can report vulnerabilities through our
+[bug bounty program on HackerOne](https://hackerone.com/wordpoints).
+
 == Installation ==
 
 Before installing on multisite, it is recommended that you read this

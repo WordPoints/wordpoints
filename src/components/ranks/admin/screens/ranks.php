@@ -98,7 +98,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			<div class="fields">
 				<p class="description description-thin">
 				<label>
-					<?php echo esc_html_e( 'Title', 'rank', 'wordpoints' ); ?>
+					<?php echo esc_html_x( 'Title', 'rank', 'wordpoints' ); ?>
 					<input class="widefat" type="text" value="<%- name %>" name="name" />
 				</label>
 				</p>

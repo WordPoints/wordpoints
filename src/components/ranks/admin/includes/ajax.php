@@ -387,7 +387,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$type = sanitize_text_field( wp_unslash( $_POST['type'] ) );
 
 		if ( ! WordPoints_Rank_Types::is_type_registered( $type ) ) {
-			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.' ) ) );
+			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.', 'wordpoints' ) ) );
 		}
 
 		$this->rank_type = WordPoints_Rank_Types::get_type( $type );

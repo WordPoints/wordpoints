@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints_pt_BR\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-10-30 21:33:21+00:00\n"
+"POT-Creation-Date: 2014-10-31 21:07:29+00:00\n"
 "PO-Revision-Date: 2013-12-21 02:20-0300\n"
 "Last-Translator: Gabriel Galvão <admin@threadsgeneration.com>\n"
 "Language-Team: Gabriel Galvão <admin@threadsgeneration.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.7.0-alpha-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.7.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:102
@@ -215,7 +215,7 @@ msgstr[1] "Inativos <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:407
 #: admin/includes/class-wordpoints-modules-list-table.php:531
-#: admin/screens/configure-components.php:140
+#: admin/screens/configure-components.php:139
 msgid "Activate"
 msgstr "Ativar"
 
@@ -226,7 +226,7 @@ msgstr "Desativar Network"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:411
 #: admin/includes/class-wordpoints-modules-list-table.php:527
-#: admin/screens/configure-components.php:135
+#: admin/screens/configure-components.php:134
 msgid "Deactivate"
 msgstr "Desativar"
 
@@ -234,7 +234,7 @@ msgstr "Desativar"
 #: admin/includes/class-wordpoints-modules-list-table.php:519
 #: admin/includes/class-wordpoints-modules-list-table.php:534
 #: components/points/admin/admin.php:54
-#: components/points/includes/class-wordpoints-points-hooks.php:780
+#: components/points/includes/class-wordpoints-points-hooks.php:781
 #: components/ranks/admin/admin.php:53
 #: components/ranks/admin/screens/ranks.php:123
 msgid "Delete"
@@ -254,7 +254,7 @@ msgstr "Versão %s"
 
 #. translators: %s is the component author's name.
 #: admin/includes/class-wordpoints-modules-list-table.php:637
-#: admin/screens/configure-components.php:129
+#: admin/screens/configure-components.php:128
 msgid "By %s"
 msgstr "Por %s"
 
@@ -289,34 +289,26 @@ msgstr ""
 msgid "View installed WordPoints components."
 msgstr "Ver componentes WordPoint instalados."
 
-#: admin/screens/configure-components.php:77
-msgid "Currently WordPoints only has one component."
-msgstr "Atualmente WordPoints tem somente um componente."
-
-#: admin/screens/configure-components.php:77
-msgid "More components are planned for future versions of the plugin."
-msgstr "Mais componentes estão planejados para versões futuras do plugin."
-
-#: admin/screens/configure-components.php:93
-#: admin/screens/configure-components.php:101
+#: admin/screens/configure-components.php:92
+#: admin/screens/configure-components.php:100
 msgctxt "components table heading"
 msgid "Component"
 msgstr "Componente"
 
-#: admin/screens/configure-components.php:94
-#: admin/screens/configure-components.php:102
+#: admin/screens/configure-components.php:93
+#: admin/screens/configure-components.php:101
 msgctxt "components table heading"
 msgid "Description"
 msgstr "Descrição"
 
-#: admin/screens/configure-components.php:95
-#: admin/screens/configure-components.php:103
+#: admin/screens/configure-components.php:94
+#: admin/screens/configure-components.php:102
 msgctxt "components table heading"
 msgid "Version"
 msgstr "Versão"
 
-#: admin/screens/configure-components.php:96
-#: admin/screens/configure-components.php:104
+#: admin/screens/configure-components.php:95
+#: admin/screens/configure-components.php:103
 msgctxt "components table heading"
 msgid "Action"
 msgstr "Ações"
@@ -363,20 +355,20 @@ msgstr ""
 msgid "Support Forums"
 msgstr "Fóruns de Suporte"
 
-#: admin/screens/configure-settings.php:37
+#: admin/screens/configure-settings.php:41
 msgid "Settings updated."
 msgstr "Configurações Atualizadas."
 
-#: admin/screens/configure-settings.php:42
+#: admin/screens/configure-settings.php:46
 msgid "Configure WordPoints to your liking."
 msgstr "Configure WordPoints ao seu gosto."
 
-#: admin/screens/configure-settings.php:56
-#: admin/screens/configure-settings.php:62
+#: admin/screens/configure-settings.php:60
+#: admin/screens/configure-settings.php:66
 msgid "Excluded Users"
 msgstr "Usuários Excluídos"
 
-#: admin/screens/configure-settings.php:57
+#: admin/screens/configure-settings.php:61
 msgid ""
 "Enter the IDs of users to exclude from leader boards, logs, etc. This may be "
 "useful if you use certain accounts for testing."
@@ -632,7 +624,7 @@ msgstr ""
 
 #: components/points/admin/admin.php:55
 #: components/points/admin/screens/hooks-no-js.php:116
-#: components/points/admin/screens/hooks.php:247
+#: components/points/admin/screens/hooks.php:254
 #: components/ranks/admin/admin.php:54
 #: components/ranks/admin/screens/ranks.php:120
 msgid "Cancel"
@@ -725,11 +717,11 @@ msgstr ""
 msgid "Default"
 msgstr "Padrão"
 
-#: components/points/admin/includes/ajax.php:97
+#: components/points/admin/includes/ajax.php:105
 msgid "An error has occurred. Please reload the page and try again."
 msgstr "Ocorreu um erro. Por favor recarregue a página e tente novamente."
 
-#: components/points/admin/includes/ajax.php:136
+#: components/points/admin/includes/ajax.php:144
 msgid "An error has occurred. Please try again."
 msgstr "Ocorreu um erro. Por favor tente novamente."
 
@@ -843,7 +835,7 @@ msgid "Points Type:"
 msgstr "Tipos de Ponto"
 
 #: components/points/admin/screens/hooks-no-js.php:107
-#: components/points/admin/screens/hooks.php:129
+#: components/points/admin/screens/hooks.php:136
 msgid "Inactive Hooks"
 msgstr "Ligações Inativas"
 
@@ -856,57 +848,57 @@ msgstr "Deletar"
 msgid "Save Hook"
 msgstr "Salvar Ligação"
 
-#: components/points/admin/screens/hooks.php:53
+#: components/points/admin/screens/hooks.php:60
 msgid "Changes saved."
 msgstr "Alterações Salvas."
 
-#: components/points/admin/screens/hooks.php:54
+#: components/points/admin/screens/hooks.php:61
 msgid "Points type deleted."
 msgstr "Tipos de Pontos deletados."
 
-#: components/points/admin/screens/hooks.php:58
+#: components/points/admin/screens/hooks.php:65
 msgid "Error while saving."
 msgstr "Erro ao tentar salvar."
 
-#: components/points/admin/screens/hooks.php:59
+#: components/points/admin/screens/hooks.php:66
 msgid "Error in displaying the hooks settings form."
 msgstr "Erro ao exibir o formulário de configuração de ligações."
 
-#: components/points/admin/screens/hooks.php:60
+#: components/points/admin/screens/hooks.php:67
 msgid "Please choose a unique name for this points type."
 msgstr "Por favor, escolha um nome único para este Tipo de Ponto."
 
-#: components/points/admin/screens/hooks.php:61
+#: components/points/admin/screens/hooks.php:68
 msgid "Error while deleting."
 msgstr "Erro ao tentar deletar."
 
-#: components/points/admin/screens/hooks.php:65
+#: components/points/admin/screens/hooks.php:72
 #, fuzzy
 msgctxt "page title"
 msgid "Network Points Hooks"
 msgstr "Pontos de Ligação"
 
-#: components/points/admin/screens/hooks.php:67
+#: components/points/admin/screens/hooks.php:74
 msgctxt "page title"
 msgid "Points Hooks"
 msgstr "Ligação de Pontos"
 
-#: components/points/admin/screens/hooks.php:79
+#: components/points/admin/screens/hooks.php:86
 msgid ""
 "No points types have been created yet. Only network administrators can "
 "create points types."
 msgstr ""
 
-#: components/points/admin/screens/hooks.php:114
+#: components/points/admin/screens/hooks.php:121
 msgid "Available Hooks"
 msgstr "Ligações Disponíveis"
 
-#: components/points/admin/screens/hooks.php:114
+#: components/points/admin/screens/hooks.php:121
 msgctxt "removing-hook"
 msgid "Deactivate"
 msgstr "Desativar"
 
-#: components/points/admin/screens/hooks.php:117
+#: components/points/admin/screens/hooks.php:124
 msgid ""
 "Drag hooks from here to a points type on the right to activate them. Drag "
 "hooks back here to deactivate them and delete their settings."
@@ -915,22 +907,22 @@ msgstr ""
 "Arraste Ligações de volta aqui para desativá-los e deletar suas "
 "configurações."
 
-#: components/points/admin/screens/hooks.php:137
+#: components/points/admin/screens/hooks.php:144
 msgid ""
 "Drag hooks here to remove them from the points type but keep their settings."
 msgstr ""
 "Arraste ligações aqui para removê-los do Tipo de Ponto mas manter suas "
 "configurações."
 
-#: components/points/admin/screens/hooks.php:201
+#: components/points/admin/screens/hooks.php:208
 msgid "Add New Points Type"
 msgstr "Adicionar Novo Tipo de Ponto"
 
-#: components/points/admin/screens/hooks.php:244
+#: components/points/admin/screens/hooks.php:251
 msgid "Choose a points type:"
 msgstr "Escolha um Tipo de Ponto:"
 
-#: components/points/admin/screens/hooks.php:248
+#: components/points/admin/screens/hooks.php:255
 msgid "Add Hook"
 msgstr "Adiconar Ligação"
 
@@ -993,34 +985,34 @@ msgctxt "points type"
 msgid "Name:"
 msgstr "Nome:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:669
+#: components/points/includes/class-wordpoints-points-hooks.php:670
 msgctxt "points type"
 msgid "Delete"
 msgstr "Deletar"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:672
-#: components/points/includes/class-wordpoints-points-hooks.php:781
+#: components/points/includes/class-wordpoints-points-hooks.php:673
+#: components/points/includes/class-wordpoints-points-hooks.php:782
 #: components/ranks/admin/screens/ranks.php:95
 #: components/ranks/admin/screens/ranks.php:121
 msgid "Close"
 msgstr "Fechar"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:675
+#: components/points/includes/class-wordpoints-points-hooks.php:676
 msgctxt "points type"
 msgid "Save"
 msgstr "Salvar"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:756
+#: components/points/includes/class-wordpoints-points-hooks.php:757
 msgctxt "hook"
 msgid "Edit"
 msgstr "Editar"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:757
+#: components/points/includes/class-wordpoints-points-hooks.php:758
 msgctxt "hook"
 msgid "Add"
 msgstr "Adicionar"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:784
+#: components/points/includes/class-wordpoints-points-hooks.php:785
 #: components/ranks/admin/screens/ranks.php:119
 msgid "Save"
 msgstr "Salvar"
@@ -1715,6 +1707,7 @@ msgstr "Editar"
 
 #: components/ranks/admin/screens/ranks.php:101
 #, fuzzy
+msgctxt "rank"
 msgid "Title"
 msgstr "Titulo"
 
@@ -1839,6 +1832,12 @@ msgstr "J.D. Grimes"
 #. Author URI of the plugin/theme
 msgid "http://codesymphony.co/"
 msgstr "http://codesymphony.co/"
+
+#~ msgid "Currently WordPoints only has one component."
+#~ msgstr "Atualmente WordPoints tem somente um componente."
+
+#~ msgid "More components are planned for future versions of the plugin."
+#~ msgstr "Mais componentes estão planejados para versões futuras do plugin."
 
 #~ msgid ""
 #~ "Add points when a comment is approved, and/or subtract points when one is "

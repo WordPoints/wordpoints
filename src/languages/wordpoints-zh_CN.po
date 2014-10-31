@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-10-30 21:33:21+00:00\n"
+"POT-Creation-Date: 2014-10-31 21:07:29+00:00\n"
 "PO-Revision-Date: 2014-06-20 01:20+0800\n"
 "Last-Translator: Coolwp <coolwp.com@gmail.com>\n"
 "Language-Team: suifengtec <suifengtec@qq.com>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.7.0-alpha-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.7.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:102
@@ -213,7 +213,7 @@ msgstr[1] "未激活 <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:407
 #: admin/includes/class-wordpoints-modules-list-table.php:531
-#: admin/screens/configure-components.php:140
+#: admin/screens/configure-components.php:139
 msgid "Activate"
 msgstr "激活"
 
@@ -224,7 +224,7 @@ msgstr "网络停用"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:411
 #: admin/includes/class-wordpoints-modules-list-table.php:527
-#: admin/screens/configure-components.php:135
+#: admin/screens/configure-components.php:134
 msgid "Deactivate"
 msgstr "停用"
 
@@ -232,7 +232,7 @@ msgstr "停用"
 #: admin/includes/class-wordpoints-modules-list-table.php:519
 #: admin/includes/class-wordpoints-modules-list-table.php:534
 #: components/points/admin/admin.php:54
-#: components/points/includes/class-wordpoints-points-hooks.php:780
+#: components/points/includes/class-wordpoints-points-hooks.php:781
 #: components/ranks/admin/admin.php:53
 #: components/ranks/admin/screens/ranks.php:123
 msgid "Delete"
@@ -252,7 +252,7 @@ msgstr "版本 %s"
 
 #. translators: %s is the component author's name.
 #: admin/includes/class-wordpoints-modules-list-table.php:637
-#: admin/screens/configure-components.php:129
+#: admin/screens/configure-components.php:128
 msgid "By %s"
 msgstr "作者  %s"
 
@@ -282,34 +282,26 @@ msgstr "模块 &#8220;%s&#8221; 未能禁用，请重试。"
 msgid "View installed WordPoints components."
 msgstr "查看已安装的WordPoints模块。"
 
-#: admin/screens/configure-components.php:77
-msgid "Currently WordPoints only has one component."
-msgstr "WordPoints当前仅有一个模块。"
-
-#: admin/screens/configure-components.php:77
-msgid "More components are planned for future versions of the plugin."
-msgstr "更多模块将会随此插件的未来版本分发。"
-
-#: admin/screens/configure-components.php:93
-#: admin/screens/configure-components.php:101
+#: admin/screens/configure-components.php:92
+#: admin/screens/configure-components.php:100
 msgctxt "components table heading"
 msgid "Component"
 msgstr "组件"
 
-#: admin/screens/configure-components.php:94
-#: admin/screens/configure-components.php:102
+#: admin/screens/configure-components.php:93
+#: admin/screens/configure-components.php:101
 msgctxt "components table heading"
 msgid "Description"
 msgstr "描述"
 
-#: admin/screens/configure-components.php:95
-#: admin/screens/configure-components.php:103
+#: admin/screens/configure-components.php:94
+#: admin/screens/configure-components.php:102
 msgctxt "components table heading"
 msgid "Version"
 msgstr "版本"
 
-#: admin/screens/configure-components.php:96
-#: admin/screens/configure-components.php:104
+#: admin/screens/configure-components.php:95
+#: admin/screens/configure-components.php:103
 msgctxt "components table heading"
 msgid "Action"
 msgstr "动作"
@@ -356,20 +348,20 @@ msgstr ""
 msgid "Support Forums"
 msgstr "支持论坛"
 
-#: admin/screens/configure-settings.php:37
+#: admin/screens/configure-settings.php:41
 msgid "Settings updated."
 msgstr "设置已更新。"
 
-#: admin/screens/configure-settings.php:42
+#: admin/screens/configure-settings.php:46
 msgid "Configure WordPoints to your liking."
 msgstr "按自己的想法配置WordPoints。"
 
-#: admin/screens/configure-settings.php:56
-#: admin/screens/configure-settings.php:62
+#: admin/screens/configure-settings.php:60
+#: admin/screens/configure-settings.php:66
 msgid "Excluded Users"
 msgstr "排除用户"
 
-#: admin/screens/configure-settings.php:57
+#: admin/screens/configure-settings.php:61
 msgid ""
 "Enter the IDs of users to exclude from leader boards, logs, etc. This may be "
 "useful if you use certain accounts for testing."
@@ -615,7 +607,7 @@ msgstr "确定？"
 
 #: components/points/admin/admin.php:55
 #: components/points/admin/screens/hooks-no-js.php:116
-#: components/points/admin/screens/hooks.php:247
+#: components/points/admin/screens/hooks.php:254
 #: components/ranks/admin/admin.php:54
 #: components/ranks/admin/screens/ranks.php:120
 msgid "Cancel"
@@ -704,11 +696,11 @@ msgstr ""
 msgid "Default"
 msgstr "默认为"
 
-#: components/points/admin/includes/ajax.php:97
+#: components/points/admin/includes/ajax.php:105
 msgid "An error has occurred. Please reload the page and try again."
 msgstr "产生了一个错误。请重新载入此页并重试。"
 
-#: components/points/admin/includes/ajax.php:136
+#: components/points/admin/includes/ajax.php:144
 msgid "An error has occurred. Please try again."
 msgstr "产生了一个错误。请重试。"
 
@@ -808,7 +800,7 @@ msgid "Points Type:"
 msgstr "积分类型"
 
 #: components/points/admin/screens/hooks-no-js.php:107
-#: components/points/admin/screens/hooks.php:129
+#: components/points/admin/screens/hooks.php:136
 msgid "Inactive Hooks"
 msgstr "禁用Hooks"
 
@@ -821,56 +813,56 @@ msgstr "删除"
 msgid "Save Hook"
 msgstr "保存Hook"
 
-#: components/points/admin/screens/hooks.php:53
+#: components/points/admin/screens/hooks.php:60
 msgid "Changes saved."
 msgstr "更改已保存。"
 
-#: components/points/admin/screens/hooks.php:54
+#: components/points/admin/screens/hooks.php:61
 msgid "Points type deleted."
 msgstr "积分类型已删除。"
 
-#: components/points/admin/screens/hooks.php:58
+#: components/points/admin/screens/hooks.php:65
 msgid "Error while saving."
 msgstr "保存时出错。"
 
-#: components/points/admin/screens/hooks.php:59
+#: components/points/admin/screens/hooks.php:66
 msgid "Error in displaying the hooks settings form."
 msgstr "显示Hooks表单时出错。"
 
-#: components/points/admin/screens/hooks.php:60
+#: components/points/admin/screens/hooks.php:67
 msgid "Please choose a unique name for this points type."
 msgstr "请重新选择一个积分类型名称。"
 
-#: components/points/admin/screens/hooks.php:61
+#: components/points/admin/screens/hooks.php:68
 msgid "Error while deleting."
 msgstr "删除时出错。"
 
-#: components/points/admin/screens/hooks.php:65
+#: components/points/admin/screens/hooks.php:72
 msgctxt "page title"
 msgid "Network Points Hooks"
 msgstr "多站积分Hooks"
 
-#: components/points/admin/screens/hooks.php:67
+#: components/points/admin/screens/hooks.php:74
 msgctxt "page title"
 msgid "Points Hooks"
 msgstr "积分Hooks"
 
-#: components/points/admin/screens/hooks.php:79
+#: components/points/admin/screens/hooks.php:86
 msgid ""
 "No points types have been created yet. Only network administrators can "
 "create points types."
 msgstr "尚未创建积分类型。仅多站管理员可以创建积分类型。"
 
-#: components/points/admin/screens/hooks.php:114
+#: components/points/admin/screens/hooks.php:121
 msgid "Available Hooks"
 msgstr "可用的Hooks"
 
-#: components/points/admin/screens/hooks.php:114
+#: components/points/admin/screens/hooks.php:121
 msgctxt "removing-hook"
 msgid "Deactivate"
 msgstr "禁用"
 
-#: components/points/admin/screens/hooks.php:117
+#: components/points/admin/screens/hooks.php:124
 msgid ""
 "Drag hooks from here to a points type on the right to activate them. Drag "
 "hooks back here to deactivate them and delete their settings."
@@ -878,20 +870,20 @@ msgstr ""
 "从这里拖动Hooks到右侧的积分类型以启用它们。拖动Hooks到这里会禁用它们并删除其"
 "设置。"
 
-#: components/points/admin/screens/hooks.php:137
+#: components/points/admin/screens/hooks.php:144
 msgid ""
 "Drag hooks here to remove them from the points type but keep their settings."
 msgstr "将Hooks拖动到这里可以从积分类型中移除，但是依然保存其设置。"
 
-#: components/points/admin/screens/hooks.php:201
+#: components/points/admin/screens/hooks.php:208
 msgid "Add New Points Type"
 msgstr "添加新的积分类型"
 
-#: components/points/admin/screens/hooks.php:244
+#: components/points/admin/screens/hooks.php:251
 msgid "Choose a points type:"
 msgstr "请选择积分类型:"
 
-#: components/points/admin/screens/hooks.php:248
+#: components/points/admin/screens/hooks.php:255
 msgid "Add Hook"
 msgstr "添加Hook"
 
@@ -951,34 +943,34 @@ msgctxt "points type"
 msgid "Name:"
 msgstr "名称:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:669
+#: components/points/includes/class-wordpoints-points-hooks.php:670
 msgctxt "points type"
 msgid "Delete"
 msgstr "删除"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:672
-#: components/points/includes/class-wordpoints-points-hooks.php:781
+#: components/points/includes/class-wordpoints-points-hooks.php:673
+#: components/points/includes/class-wordpoints-points-hooks.php:782
 #: components/ranks/admin/screens/ranks.php:95
 #: components/ranks/admin/screens/ranks.php:121
 msgid "Close"
 msgstr "关闭"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:675
+#: components/points/includes/class-wordpoints-points-hooks.php:676
 msgctxt "points type"
 msgid "Save"
 msgstr "保存"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:756
+#: components/points/includes/class-wordpoints-points-hooks.php:757
 msgctxt "hook"
 msgid "Edit"
 msgstr "编辑"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:757
+#: components/points/includes/class-wordpoints-points-hooks.php:758
 msgctxt "hook"
 msgid "Add"
 msgstr "添加"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:784
+#: components/points/includes/class-wordpoints-points-hooks.php:785
 #: components/ranks/admin/screens/ranks.php:119
 msgid "Save"
 msgstr "保存"
@@ -1650,6 +1642,7 @@ msgstr "编辑"
 
 #: components/ranks/admin/screens/ranks.php:101
 #, fuzzy
+msgctxt "rank"
 msgid "Title"
 msgstr "标题"
 
@@ -1774,6 +1767,12 @@ msgstr "J.D. Grimes"
 #. Author URI of the plugin/theme
 msgid "http://codesymphony.co/"
 msgstr "http://codesymphony.co/"
+
+#~ msgid "Currently WordPoints only has one component."
+#~ msgstr "WordPoints当前仅有一个模块。"
+
+#~ msgid "More components are planned for future versions of the plugin."
+#~ msgstr "更多模块将会随此插件的未来版本分发。"
 
 #~ msgid "Visit author homepage"
 #~ msgstr "查看作者页面"

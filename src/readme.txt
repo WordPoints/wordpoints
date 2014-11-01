@@ -113,7 +113,7 @@ manage the ranks used on your site.
 
 == Changelog ==
 
-= 1.7.0 =
+= 1.7.0 - (~80 hrs) =
 * New: Create ranks for your users by activating [the Ranks component]().
 * * You can manage the ranks on the *WordPoints » Ranks* administration screen.
 * * A user's rank is displayed along with their name in the Top Users table.

@@ -189,7 +189,7 @@ add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_no_js_po
  */
 function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen ) {
 
-	$path = 'admin.php?page=wordpoints_points_hooks&accessibility-mode=';
+	$path = 'admin.php?page=wordpoints_points_hooks';
 
 	switch ( $screen->id ) {
 
@@ -202,9 +202,9 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 				$url = network_admin_url( $path );
 			}
 
-			$screen_options = '<p><a id="access-on" href="' . esc_attr( esc_url( $url ) ) . 'on">'
+			$screen_options = '<p><a id="access-on" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=on">'
 				. esc_html__( 'Enable accessibility mode', 'wordpoints' )
-				. '</a><a id="access-off" href="' . esc_attr( esc_url( $url ) ) . 'off">'
+				. '</a><a id="access-off" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=off">'
 				. esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
 		break;
 	}

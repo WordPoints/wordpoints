@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.8
 Tested up to: 4.1-alpha-3000
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,11 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.7.1 — (~5 hrs) =
+* Fixed: Ranks not saving in some cases. Thanks, @atomtheman10, for the report!
+* Fixed: XSS vulnerability from the points logs admin screen. It was only exploitable by Administrators and Editors.
+* Fixed: CSRF vulnerability for toggling accessibility mode on the Points Hooks screen. It would only have been an annoyance.
+
 = 1.7.0 - (~80 hrs) =
 * New: Create ranks for your users by activating [the Ranks component]().
 * * You can manage the ranks on the *WordPoints » Ranks* administration screen.
@@ -201,6 +206,11 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.7.1 =
+* This is a security and bugfix release. It fixes an issue on the Ranks admin screen
+that would cause the spinner to continue indefinitely while trying to save a rank.
+It also includes patches for two minor security issues.
 
 = 1.7.0 =
 * This is the biggest update since 1.0.0! It introduces the Ranks component, and also

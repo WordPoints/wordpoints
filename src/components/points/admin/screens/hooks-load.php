@@ -40,7 +40,10 @@ $screen->set_help_sidebar(
 
 $accessibility_mode = get_user_setting( 'wordpoints_points_hooks_access' );
 
-if ( isset( $_GET['accessibility-mode'] ) ) {
+if (
+	isset( $_GET['accessibility-mode'], $_GET['wordpoints-accessiblity-nonce'] )
+	&& wp_verify_nonce( $_GET['wordpoints-accessiblity-nonce'], 'wordpoints_points_hooks_accessiblity' )
+) {
 
 	$accessibility_mode = ( 'on' === $_GET['accessibility-mode'] ) ? 'on' : 'off';
 	set_user_setting( 'wordpoints_points_hooks_access', $accessibility_mode );

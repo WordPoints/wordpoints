@@ -43,7 +43,7 @@ setup-codesniff() {
 # Check php files for syntax errors.
 codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
-		find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) \
+		find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
 	else
 		echo 'Not running PHP syntax check.'

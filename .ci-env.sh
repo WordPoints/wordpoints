@@ -73,7 +73,7 @@ codesniff-jshint() {
 # Check PHP files for proper localization.
 codesniff-l10n() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		vendors/jdgrimes/wp-l10n-validator/bin/wp-l10n-validator
+		./vendor/jdgrimes/wp-l10n-validator/bin/wp-l10n-validator
 	else
 		echo 'Not running wp-l10n-validator.'
 	fi

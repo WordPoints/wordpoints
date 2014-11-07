@@ -4,6 +4,8 @@
 	"cache": "./tools/wp-l10n-validator/cache.json",
 	"ignores-cache": "./tools/wp-l10n-validator/ignores-cache.json",
 	"ignored-functions": {
+		"define": true,
+
 		"_deprecated_argument": true,
 		"_deprecated_file": true,
 		"_doing_it_wrong": true,
@@ -76,12 +78,15 @@
 		"_",
 		"=",
 		">",
+		"%",
 		"<>",
 		"!=",
 		">=",
 		"<=",
 		"][",
 		"&amp;tab=",
+		"&amp;accessibility-mode=on\">",
+		"&amp;accessibility-mode=off\">",
 		"%points%",
 		"adding-modules",
 		"admin.php",
@@ -100,6 +105,13 @@
 		"NOT IN",
 		"LIMIT 1",
 		"widefat",
+		"overview",
+		"removing-reusing",
+		"searchable",
+		"paginated",
+		"odd",
+		"even",
+		"UTC\">",
 		"ALL"
 	]
 }

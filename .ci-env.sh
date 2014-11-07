@@ -43,7 +43,7 @@ setup-codesniff() {
 # Check php files for syntax errors.
 codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
-		find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) \
+		find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
 	else
 		echo 'Not running PHP syntax check.'
@@ -67,6 +67,15 @@ codesniff-jshint() {
 		jshint .
 	else
 		echo 'Not running jshint.'
+	fi
+}
+
+# Check PHP files for proper localization.
+codesniff-l10n() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		./vendor/jdgrimes/wp-l10n-validator/bin/wp-l10n-validator
+	else
+		echo 'Not running wp-l10n-validator.'
 	fi
 }
 

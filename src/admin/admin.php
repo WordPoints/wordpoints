@@ -224,14 +224,16 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activat
  * Display an error message.
  *
  * @since 1.0.0
+ * @since 1.8.0 The $args parameter was added.
  *
  * @uses wordpoints_show_admin_message()
  *
  * @param string $message The text for the error message.
+ * @param string $args    Other optional arguments.
  */
-function wordpoints_show_admin_error( $message ) {
+function wordpoints_show_admin_error( $message, array $args = array() ) {
 
-	wordpoints_show_admin_message( $message, 'error' );
+	wordpoints_show_admin_message( $message, 'error', $args );
 }
 
 /**
@@ -243,11 +245,27 @@ function wordpoints_show_admin_error( $message ) {
  *
  * @since 1.0.0
  * @since 1.2.0 The $type parameter is now properly escaped.
+ * @since 1.8.0 The $args paramter was added with dismissable and option args.
  *
  * @param string $message The text for the message. Must be pre-escaped if needed.
  * @param string $type    The type of message to display. Default is 'updated'.
+ * @param array  $args    {
+ *        Other optional arguments.
+ *
+ *        @type bool   $dismissable Whether this notice can be dismissed. Default is
+ *                                  false (not dismissable).
+ *        @type string $option      An option to delete when if message is dismissed.
+ *                                  Required when $dismissable is true.
+ * }
  */
-function wordpoints_show_admin_message( $message, $type = 'updated' ) {
+function wordpoints_show_admin_message( $message, $type = 'updated', array $args = array() ) {
+
+	$defaults = array(
+		'dismissable' => false,
+		'option'      => '',
+	);
+
+	$args = array_merge( $defaults, $args );
 
 	?>
 
@@ -255,6 +273,13 @@ function wordpoints_show_admin_message( $message, $type = 'updated' ) {
 		<p>
 			<?php echo $message; ?>
 		</p>
+		<?php if ( $args['dismissable'] ) : ?>
+			<form method="post" style="padding-bottom: 5px;">
+				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
+				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>
+				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), 'secondary', 'wordpoints_dismiss_notice', false ); ?>
+			</form>
+		<?php endif; ?>
 	</div>
 
 	<?php
@@ -422,5 +447,39 @@ function wordpoints_admin_settings_screen_sidebar() {
 	<?php
 }
 add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen_sidebar', 5 );
+
+/**
+ * Display notices to the user on the administration panels.
+ *
+ * @since 1.8.0
+ */
+function wordpoints_admin_notices() {
+
+	// Check if any notices have been dismissed.
+	if (
+		isset( $_POST['wordpoints_notice'], $_POST['_wpnonce'] )
+		&& wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}" )
+	) {
+		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
+	}
+
+	// Show a notice if we've skipped part of the install process on a large network.
+	if (
+		current_user_can( 'manage_network_plugins' )
+		&& get_site_option( 'wordpoints_network_install_skipped' )
+	) {
+
+		$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process. The rest of the installation process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
+		$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
+
+		$args = array(
+			'dismissable' => true,
+			'option'      => 'wordpoints_network_install_skipped',
+		);
+
+		wordpoints_show_admin_error( $message, $args );
+	}
+}
+add_action( 'admin_notices', 'wordpoints_admin_notices' );
 
 // EOF

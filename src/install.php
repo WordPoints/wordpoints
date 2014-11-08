@@ -28,15 +28,24 @@ $capabilities = wordpoints_get_custom_caps();
 
 if ( $network_active ) {
 
-	global $wpdb;
+	if ( wp_is_large_network() ) {
 
-	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		// On large networks we don't attempt to install, the administrator needs to
+		// do that manually. We set this flag, so we know to show the user a notice.
+		add_site_option( 'wordpoints_network_install_skipped', true );
 
-	foreach ( $blog_ids as $blog_id ) {
+	} else {
 
-		switch_to_blog( $blog_id );
-		wordpoints_add_custom_caps( $capabilities );
-		restore_current_blog();
+		global $wpdb;
+
+		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+		foreach ( $blog_ids as $blog_id ) {
+
+			switch_to_blog( $blog_id );
+			wordpoints_add_custom_caps( $capabilities );
+			restore_current_blog();
+		}
 	}
 
 } else {

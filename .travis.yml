@@ -69,6 +69,7 @@ script:
     - codesniff-phpcs
     - codesniff-jshint
     - codesniff-l10n
+    - codesniff-xmllint
     - phpunit-basic
     - phpunit-uninstall
     - phpunit-ajax

@@ -79,6 +79,15 @@ codesniff-l10n() {
 	fi
 }
 
+# Check XML files for syntax errors.
+codesniff-xmllint() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		xmllint --noout $(find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.xml' -o -name '*.xml.dist' \))
+	else
+		echo 'Not running xmlint.'
+	fi
+}
+
 # Run basic PHPUnit tests.
 phpunit-basic() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then

@@ -463,21 +463,29 @@ function wordpoints_admin_notices() {
 		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
 	}
 
-	// Show a notice if we've skipped part of the install process on a large network.
-	if (
-		current_user_can( 'manage_network_plugins' )
-		&& get_site_option( 'wordpoints_network_install_skipped' )
-	) {
+	if ( current_user_can( 'manage_network_plugins' ) ) {
 
-		$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process. The rest of the installation process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
-		$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
+		unset( $message ); // Future proofing.
 
-		$args = array(
-			'dismissable' => true,
-			'option'      => 'wordpoints_network_install_skipped',
-		);
+		// Show a notice if we've skipped part of the install/update process.
+		if ( get_site_option( 'wordpoints_network_install_skipped' ) ) {
+			$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process.', 'wordpoints' );
+		} elseif ( get_site_option( 'wordpoints_network_update_skipped' ) ) {
+			$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for %s (and possibly later versions).', 'wordpoints' ), get_site_option( 'wordpoints_network_update_skipped' ) ) );
+		}
 
-		wordpoints_show_admin_error( $message, $args );
+		if ( isset( $message ) ) {
+
+			$message .= esc_html( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
+			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
+
+			$args = array(
+				'dismissable' => true,
+				'option'      => 'wordpoints_network_install_skipped',
+			);
+
+			wordpoints_show_admin_error( $message, $args );
+		}
 	}
 }
 add_action( 'admin_notices', 'wordpoints_admin_notices' );

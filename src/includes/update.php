@@ -18,15 +18,24 @@ function wordpoints_update_1_3_0() {
 
 	if ( is_wordpoints_network_active() ) {
 
-		global $wpdb;
+		if ( wp_is_large_network() ) {
 
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+			// On large networks we skip the update. We set this flag in the database
+			// so we can show the user a message about it later.
+			add_site_option( 'wordpoints_network_update_skipped', '1.3.0' );
 
-		foreach ( $blog_ids as $blog_id ) {
+		} else {
 
-			switch_to_blog( $blog_id );
-			wordpoints_add_custom_caps( $capabilities );
-			restore_current_blog();
+			global $wpdb;
+
+			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+			foreach ( $blog_ids as $blog_id ) {
+
+				switch_to_blog( $blog_id );
+				wordpoints_add_custom_caps( $capabilities );
+				restore_current_blog();
+			}
 		}
 
 	} else {

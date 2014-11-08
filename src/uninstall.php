@@ -72,32 +72,36 @@ if ( is_multisite() ) {
 	delete_site_option( 'wordpoints_excluded_users' );
 	delete_site_option( 'wordpoints_sitewide_active_modules' );
 
-	global $wpdb;
+	// On large networks we don't attempt the per-site install.
+	if ( ! wp_is_large_network() ) {
 
-	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		global $wpdb;
 
-	$original_blog_id = get_current_blog_id();
+		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
-	foreach ( $blog_ids as $blog_id ) {
+		$original_blog_id = get_current_blog_id();
 
-		switch_to_blog( $blog_id );
+		foreach ( $blog_ids as $blog_id ) {
 
-		delete_option( 'wordpoints_data' );
-		delete_option( 'wordpoints_active_modules' );
-		delete_option( 'wordpoints_active_components' );
-		delete_option( 'wordpoints_excluded_users' );
-		delete_option( 'wordpoints_recently_activated_modules' );
+			switch_to_blog( $blog_id );
 
-		wp_cache_delete( 'wordpoints_modules' );
+			delete_option( 'wordpoints_data' );
+			delete_option( 'wordpoints_active_modules' );
+			delete_option( 'wordpoints_active_components' );
+			delete_option( 'wordpoints_excluded_users' );
+			delete_option( 'wordpoints_recently_activated_modules' );
 
-		wordpoints_remove_custom_caps( $capabilities );
+			wp_cache_delete( 'wordpoints_modules' );
+
+			wordpoints_remove_custom_caps( $capabilities );
+		}
+
+		switch_to_blog( $original_blog_id );
+
+		// See http://wordpress.stackexchange.com/a/89114/27757
+		unset( $GLOBALS['_wp_switched_stack'] );
+		$GLOBALS['switched'] = false;
 	}
-
-	switch_to_blog( $original_blog_id );
-
-	// See http://wordpress.stackexchange.com/a/89114/27757
-	unset( $GLOBALS['_wp_switched_stack'] );
-	$GLOBALS['switched'] = false;
 
 } else {
 

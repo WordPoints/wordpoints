@@ -72,7 +72,7 @@ if ( is_multisite() ) {
 	delete_site_option( 'wordpoints_excluded_users' );
 	delete_site_option( 'wordpoints_sitewide_active_modules' );
 
-	// On large networks we don't attempt the per-site install.
+	// On large networks we don't attempt the per-site uninstall.
 	if ( ! wp_is_large_network() ) {
 
 		global $wpdb;

@@ -462,7 +462,7 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 			continue;
 		}
 
-		echo '<option value="' . $post_type->name . '"' . selected( $options['selected'], $post_type->name, false ) . '>' . $post_type->label . '</option>';
+		echo '<option value="' . esc_attr( $post_type->name ) . '"' . selected( $options['selected'], $post_type->name, false ) . '>' . esc_html( $post_type->label ) . '</option>';
 	}
 
 	echo '</select>';

@@ -37,7 +37,7 @@ if ( isset( $_GET['error'] ) ) {
 
 			<div id="message" class="error">
 				<p>
-					<?php echo wp_kses( $error_message ); ?>
+					<?php echo wp_kses( $error_message, '' ); ?>
 					<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=<?php echo esc_attr( $_GET['module'] ); ?>&amp;_wpnonce=<?php echo esc_attr( $_GET['_error_nonce'] ); ?>"></iframe>
 				</p>
 			</div>

@@ -410,12 +410,12 @@ function wordpoints_admin_settings_screen_sidebar() {
 	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
 			<h4><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h4>
-			<p><?php printf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ); ?></p>
+			<p><?php echo wp_kses( sprintf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
 			<h4><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h4>
-			<p><?php printf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ); ?></p>
+			<p><?php echo wp_kses( sprintf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><em><?php esc_html_e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
 		</div>
 	</div>

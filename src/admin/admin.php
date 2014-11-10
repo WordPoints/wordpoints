@@ -243,8 +243,9 @@ function wordpoints_show_admin_error( $message ) {
  *
  * @since 1.0.0
  * @since 1.2.0 The $type parameter is now properly escaped.
+ * @since 1.8.0 The $message will be passed through wp_kses().
  *
- * @param string $message The text for the message. Must be pre-escaped if needed.
+ * @param string $message The text for the message.
  * @param string $type    The type of message to display. Default is 'updated'.
  */
 function wordpoints_show_admin_message( $message, $type = 'updated' ) {
@@ -253,7 +254,7 @@ function wordpoints_show_admin_message( $message, $type = 'updated' ) {
 
 	<div id="message" class="<?php echo sanitize_html_class( $type, 'updated' ); ?>">
 		<p>
-			<?php echo $message; ?>
+			<?php echo wp_kses( $message, 'wordpoints_admin_message' ); ?>
 		</p>
 	</div>
 

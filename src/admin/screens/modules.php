@@ -21,11 +21,11 @@ if ( isset( $_GET['error'] ) ) {
 
 	if ( isset( $_GET['main'] ) ) {
 
-		$error_message = __( 'You cannot delete a module while it is active on the main site.', 'wordpoints' );
+		wordpoints_show_admin_error( esc_html__( 'You cannot delete a module while it is active on the main site.', 'wordpoints' ) );
 
 	} elseif ( isset( $_GET['charsout'] ) ) {
 
-		$error_message = sprintf( __( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' ), (int) $_GET['charsout'] );
+		wordpoints_show_admin_error( sprintf( __( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' ), (int) $_GET['charsout'] ) );
 
 	} else {
 
@@ -33,7 +33,20 @@ if ( isset( $_GET['error'] ) ) {
 
 		if ( isset( $_GET['module'], $_GET['_error_nonce'] ) && wp_verify_nonce( $_GET['_error_nonce'], "module-activation-error_{$_GET['module']}" ) ) {
 
-			$error_message .= '<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=' . esc_attr( $_GET['module'] ) . '&amp;_wpnonce=' . esc_attr( $_GET['_error_nonce'] ) .'"></iframe>';
+			?>
+
+			<div id="message" class="error">
+				<p>
+					<?php echo wp_kses( $error_message ); ?>
+					<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=<?php echo esc_attr( $_GET['module'] ); ?>&amp;_wpnonce=<?php echo esc_attr( $_GET['_error_nonce'] ); ?>"></iframe>
+				</p>
+			</div>
+
+			<?php
+
+		} else {
+
+			wordpoints_show_admin_error( $error_message );
 		}
 	}
 
@@ -46,39 +59,30 @@ if ( isset( $_GET['error'] ) ) {
 	delete_transient( 'wordpoints_modules_delete_result_' . $user_ID );
 
 	if ( is_wp_error( $delete_result ) ) {
-		$error_message = sprintf( __( 'Module could not be deleted due to an error: %s', 'wordpoints' ), $delete_result->get_error_message() );
+		wordpoints_show_admin_error( sprintf( __( 'Module could not be deleted due to an error: %s', 'wordpoints' ), $delete_result->get_error_message() ) );
 	} else {
-		$message = __( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' );
+		wordpoints_show_admin_message( __( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' ) );
 	}
 
 } elseif ( isset( $_GET['activate'] ) ) {
 
-	$message = __( 'Module <strong>activated</strong>.', 'wordpoints' );
+	wordpoints_show_admin_message( __( 'Module <strong>activated</strong>.', 'wordpoints' ) );
 
 } elseif ( isset( $_GET['activate-multi'] ) ) {
 
-	$message = __( 'Selected modules <strong>activated</strong>.', 'wordpoints' );
+	wordpoints_show_admin_message( __( 'Selected modules <strong>activated</strong>.', 'wordpoints' ) );
 
 } elseif ( isset( $_GET['deactivate'] ) ) {
 
-	$message = __( 'Module <strong>deactivated</strong>.', 'wordpoints' );
+	wordpoints_show_admin_message( __( 'Module <strong>deactivated</strong>.', 'wordpoints' ) );
 
 } elseif ( isset( $_GET['deactivate-multi'] ) ) {
 
-	$message = __( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' );
+	wordpoints_show_admin_message( __( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' ) );
 
 } elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === $_REQUEST['action'] ) {
 
-	$error_message = esc_html__( 'No out of date modules were selected.', 'wordpoints' );
-}
-
-if ( isset( $error_message ) ) {
-
-	wordpoints_show_admin_error( $error_message );
-
-} elseif ( isset( $message ) ) {
-
-	wordpoints_show_admin_message( $message );
+	wordpoints_show_admin_message( esc_html__( 'No out of date modules were selected.', 'wordpoints' ) );
 }
 
 $title = esc_html__( 'WordPoints Modules', 'wordpoints' );

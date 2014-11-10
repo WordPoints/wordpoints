@@ -1227,8 +1227,8 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 
 				?>
 
-				<tr class="top-<?php echo $position; ?>">
-					<td><?php echo number_format_i18n( $position ); ?></td>
+				<tr class="top-<?php echo (int) $position; ?>">
+					<td><?php echo esc_html( number_format_i18n( $position ) ); ?></td>
 					<td>
 						<?php echo get_avatar( $user_id, 32 ); ?>
 						<?php

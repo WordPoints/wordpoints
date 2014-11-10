@@ -6,7 +6,7 @@ to keep in mind when submitting a pull request:
 
 * Be sure that your patch conforms to the [WordPress coding
  standards](http://make.wordpress.org/core/handbook/coding-standards/). You'll also
- want to read through the [WordPoints standards](/WordPoints/standards).
+ want to read through the [WordPoints standards](https://github.com/WordPoints/standards).
 * Make sure all unit tests pass with your changes applied, and when applicable
  include new unit tests for your code. (If you aren't comfortable writing unit tests
  that's OK. We can help you out with that, or do it ourselves if it is something

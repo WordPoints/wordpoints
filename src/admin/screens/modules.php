@@ -85,20 +85,20 @@ if ( isset( $_GET['error'] ) ) {
 	wordpoints_show_admin_message( esc_html__( 'No out of date modules were selected.', 'wordpoints' ) );
 }
 
-$title = esc_html__( 'WordPoints Modules', 'wordpoints' );
-
-if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) {
-	$title .= '<a href="' . esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ) . '" class="add-new-h2">' . esc_html_x( 'Add New', 'module', 'wordpoints' ) . '</a>';
-}
-
-if ( ! empty( $_REQUEST['s'] ) ) {
-	$title .= sprintf( '<span class="subtitle">' . esc_html__( 'Search results for &#8220;%s&#8221;', 'wordpoints' ) . '</span>', esc_html( urlencode( $_REQUEST['s'] ) ) );
-}
-
 ?>
 
 <div class="wrap">
-	<h2><?php echo $title; ?></h2>
+	<h2>
+		<?php esc_html_e( 'WordPoints Modules', 'wordpoints' ); ?>
+
+		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) : ?>
+			<a href="<?php echo esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ); ?>" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
+			<span class="subtitle"><?php esc_html( sprintf( __( 'Search results for &#8220;%s&#8221;', 'wordpoints' ), urlencode( $_REQUEST['s'] ) ) ); ?></span>
+		<?php endif; ?>
+	</h2>
 
 	<?php
 

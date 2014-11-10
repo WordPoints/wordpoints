@@ -768,8 +768,6 @@ abstract class WordPoints_Points_Hook {
 		);
 
 		$this->options['_classname']   = $this->option_name;
-		$this->options['_before_hook'] = '';
-		$this->options['_after_hook']  = '';
 
 		/*
 		 * The below registration is not longer necessary, and is deprecated.

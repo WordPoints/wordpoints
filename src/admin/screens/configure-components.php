@@ -108,26 +108,6 @@ do_action( 'wordpoints_admin_components_top' );
 
 	foreach ( $components as $component ) {
 
-		if ( $component['component_uri'] !== '' ) {
-			$component_name = '<a href="' . esc_attr( esc_url( $component['component_uri'] ) ) . '">' . esc_html( $component['name'] ) . '</a>';
-		} else {
-			$component_name = esc_html( $component['name'] );
-		}
-
-		$author = '';
-
-		if ( $component['author'] !== '' ) {
-
-			if ( $component['author_uri'] !== '' ) {
-				$author_name = '<a href="' . esc_attr( esc_url( $component['author_uri'] ) ) . '">' . esc_html( $component['author'] ) . '</a>';
-			} else {
-				$author_name = esc_html( $component['author'] );
-			}
-
-			/* translators: %s is the component author's name. */
-			$author = ' | ' . sprintf( __( 'By %s', 'wordpoints' ), $author_name );
-		}
-
 		if ( $wordpoints_components->is_active( $component['slug'] ) ) {
 
 			$action = 'deactivate';
@@ -142,9 +122,33 @@ do_action( 'wordpoints_admin_components_top' );
 		?>
 
 		<tr>
-			<td><?php echo $component_name; ?></td>
-			<td><?php echo $component['description'] . $author; ?></td>
-			<td><?php echo $component['version']; ?></td>
+			<td>
+				<?php if ( $component['component_uri'] !== '' ) : ?>
+					<a href="<?php echo esc_attr( esc_url( $component['component_uri'] ) ); ?>">
+				<?php endif; ?>
+					<?php echo esc_html( $component['name'] ); ?>
+				<?php if ( $component['component_uri'] !== '' ) : ?>
+					</a>
+				<?php endif; ?>
+			</td>
+			<td>
+				<?php echo wp_kses( $component['description'], 'wordpoints_component_description' ); ?>
+				<?php if ( $component['author'] !== '' ) : ?>
+					&nbsp;|&nbsp;
+					<?php
+					/* translators: %s is the component author's name. */
+					echo esc_html( sprintf( __( 'By %s', 'wordpoints' ), '' /* This space intentionally left blank */ ) );
+					?>
+					<?php if ( $component['author_uri'] !== '' ) : ?>
+						<a href="<?php echo esc_attr( esc_url( $component['author_uri'] ) ); ?>">
+					<?php endif; ?>
+						<?php echo esc_html( $component['author'] ); ?>
+					<?php if ( $component['author_uri'] !== '' ) : ?>
+						</a>
+					<?php endif; ?>
+				<?php endif; ?>
+			</td>
+			<td><?php echo esc_html( $component['version'] ); ?></td>
 			<td>
 				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>">
 					<input type="hidden" name="wordpoints_component_action" value="<?php echo esc_attr( $action ); ?>" />

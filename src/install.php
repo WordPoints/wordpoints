@@ -9,6 +9,7 @@
 
 _deprecated_file( __FILE__, '1.8.0' );
 
-wordpoints_activate();
+/** @var $network_active Expected to be defined by the including file. */
+wordpoints_activate( $network_active );
 
 // EOF

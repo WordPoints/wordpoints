@@ -9,6 +9,7 @@
 		"_deprecated_argument": true,
 		"_deprecated_file": true,
 		"_doing_it_wrong": true,
+		"add_site_option": true,
 
 		"wordpoints_add_network_option": true,
 		"wordpoints_add_points": true,
@@ -112,6 +113,14 @@
 		"odd",
 		"even",
 		"UTC\">",
+		"/wordpoints-modules/",
+		"/wordpoints-modules",
+		".mo",
+		"checked[]=",
+		"CHARACTER SET",
+		"wordpoints-module-upload",
+		"\" href=\"?page=",
+		"COLLATE",
 		"ALL"
 	]
 }

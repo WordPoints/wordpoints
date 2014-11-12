@@ -237,6 +237,36 @@ abstract class WordPoints_Un_Installer_Base {
 	//
 
 	/**
+	 * Install on the network.
+	 *
+	 * This runs on multisite to install only the things that are common to the
+	 * whole network. For example, it would add any "site" (network-wide) options.
+	 *
+	 * @since 1.8.0
+	 */
+	abstract protected function install_network();
+
+	/**
+	 * Install on a single site on the network.
+	 *
+	 * This runs on multisite to install on a single site on the network, which
+	 * will be the current site when this method is called.
+	 *
+	 * @since 1.8.0
+	 */
+	abstract protected function install_site();
+
+	/**
+	 * Innstall on a single site.
+	 *
+	 * This runs when the WordPress site is not a multisite. It should completely
+	 * install the entity.
+	 *
+	 * @since 1.8.0
+	 */
+	abstract protected function install_single();
+
+	/**
 	 * Load any dependencies of the unisntall code.
 	 *
 	 * @since 1.8.0

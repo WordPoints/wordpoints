@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2546048547a233d1cd7ec16ea322b3b2",
+    "hash": "64baa6a9c15e34f7f7bdc941d1260dc1",
     "packages": [
         {
             "name": "jdgrimes/wp-l10n-validator",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-l10n-validator.git",
-                "reference": "5817bd16cabbdadc17a9b1f4cc93afea3d26e1a5"
+                "reference": "2e629c7702b2d69fc75fee046718fb7d596b0d77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/5817bd16cabbdadc17a9b1f4cc93afea3d26e1a5",
-                "reference": "5817bd16cabbdadc17a9b1f4cc93afea3d26e1a5",
+                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/2e629c7702b2d69fc75fee046718fb7d596b0d77",
+                "reference": "2e629c7702b2d69fc75fee046718fb7d596b0d77",
                 "shasum": ""
             },
             "require": {
@@ -37,20 +37,20 @@
             ],
             "description": "Gettext localization validator for WordPress",
             "homepage": "https://github.com/JDGrimes/wp-l10n-validator",
-            "time": "2014-11-06 20:50:46"
+            "time": "2014-11-06 22:38:26"
         },
         {
             "name": "jdgrimes/wp-plugin-uninstall-tester",
-            "version": "0.3.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-plugin-uninstall-tester.git",
-                "reference": "341b3ffc95c75f66620ec489dfb20f923cac1454"
+                "reference": "5b4c4db08ac91a788987969cbf1cdde194b597f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/341b3ffc95c75f66620ec489dfb20f923cac1454",
-                "reference": "341b3ffc95c75f66620ec489dfb20f923cac1454",
+                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/5b4c4db08ac91a788987969cbf1cdde194b597f0",
+                "reference": "5b4c4db08ac91a788987969cbf1cdde194b597f0",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "description": "Utilities for testing WordPress plugin install/uninstall with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wp-plugin-uninstall-tester",
-            "time": "2014-08-30 19:37:26"
+            "time": "2014-11-12 20:32:19"
         }
     ],
     "packages-dev": [

@@ -56,20 +56,22 @@
  */
 function wordpoints_activate( $network_active ) {
 
-	// Get the plugin version and other data from the database.
-	$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+	/**
+	 * Uninstall base class.
+	 *
+	 * @since 1.8.0
+	 */
+	include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
 
-	if ( ! $wordpoints_data ) {
+	/**
+	 * The plugin un/installer.
+	 *
+	 * @since 1.8.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-un-installer.php' );
 
-		// If this didn't exist, then we need to install the plugin.
-
-		/**
-		 * Code to install the plugin.
-		 *
-		 * @since 1.0.0
-		 */
-		require WORDPOINTS_DIR . 'install.php';
-	}
+	$installer = new WordPoints_Un_Installer;
+	$installer->install( $network_active );
 }
 register_activation_hook( __FILE__, 'wordpoints_activate' );
 

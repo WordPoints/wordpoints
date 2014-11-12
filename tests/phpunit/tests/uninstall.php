@@ -149,6 +149,9 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		if ( is_multisite() ) {
 
+			$this->assertNoSiteOptionsWithPrefix( 'wordpoints' );
+			$this->assertNoSiteOptionsWithPrefix( 'widget_wordpoints' );
+
 			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
 			$original_blog_id = get_current_blog_id();
@@ -230,8 +233,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		global $wpdb;
 
-		$this->assertTableNotExists( $wpdb->wordpoints_points_logs );
-		$this->assertTableNotExists( $wpdb->wordpoints_points_log_meta );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_points_logs' );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_points_log_meta' );
 
 		if ( is_multisite() ) {
 

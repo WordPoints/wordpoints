@@ -476,7 +476,7 @@ function wordpoints_admin_notices() {
 
 		if ( isset( $message ) ) {
 
-			$message .= esc_html( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
+			$message .= esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
 			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
 
 			$args = array(

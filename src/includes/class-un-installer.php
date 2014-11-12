@@ -30,6 +30,18 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected $installed_sites_option = 'wordpoints_installed_sites';
 
 	/**
+	 * The plugin's capabilities.
+	 *
+	 * Used to hold the list of capabilities during install and uninstall, so that
+	 * they don't have to be retrieved all over again for each site (if multisite).
+	 *
+	 * @since 1.8.0
+	 *
+	 * @type array The plugin's capabilities.
+	 */
+	protected $capabilities;
+
+	/**
 	 * @since 1.8.0
 	 */
 	public function install( $network ) {

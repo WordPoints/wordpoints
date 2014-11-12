@@ -448,6 +448,13 @@ final class WordPoints_Components {
 		}
 
 		/**
+		 * Uninstall base class.
+		 *
+		 * @since 1.8.0
+		 */
+		include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
+
+		/**
 		 * Uninstall a component.
 		 *
 		 * @since 1.0.0

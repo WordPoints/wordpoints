@@ -10,8 +10,8 @@
  * @since 1.7.0
  */
 
-_deprecated_file( __FILE__, '1.8.0', 'wordpoints_ranks_component_activate()' );
+_deprecated_file( __FILE__, '1.8.0', "WordPoints_Components::activate( 'ranks' )" );
 
-wordpoints_ranks_component_activate();
+WordPoints_Components::instance()->activate( 'ranks' );
 
 // EOF

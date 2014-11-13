@@ -187,14 +187,18 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->network_wide = $network;
 
-		foreach ( $this->updates as $index => $update ) {
+		$updates = array();
 
-			if ( ! version_compare( $from, $update, '<' ) ) {
-				unset( $this->updates[ $index ] );
+		foreach ( $this->updates as $version => $types ) {
+
+			if ( ! version_compare( $from, $version, '<' ) ) {
+				unset( $this->updates[ $version ] );
 			}
 
-			$this->updates[ $index ] = str_replace( '.', '_', $update );
+			$updates[ str_replace( '.', '_', $version ) ] = $types;
 		}
+
+		$this->updates = $updates;
 
 		if ( empty( $this->updates ) ) {
 			return;
@@ -214,17 +218,19 @@ abstract class WordPoints_Un_Installer_Base {
 
 		if ( is_multisite() ) {
 
-			$this->update_( 'network' );
+			$this->update_( 'network', $this->get_updates_for( 'network' ) );
 
 			if ( $this->network_wide ) {
 
 				if ( $this->do_per_site_update() ) {
 
+					$updates = $this->get_updates_for( 'site' );
+
 					$original_blog_id = get_current_blog_id();
 
 					foreach ( $this->get_installed_site_ids() as $blog_id ) {
 						switch_to_blog( $blog_id );
-						$this->update_( 'site' );
+						$this->update_( 'site', $updates );
 					}
 
 					switch_to_blog( $original_blog_id );
@@ -242,12 +248,12 @@ abstract class WordPoints_Un_Installer_Base {
 
 			} else {
 
-				$this->update_( 'site' );
+				$this->update_( 'site', $this->get_updates_for( 'site' ) );
 			}
 
 		} else {
 
-			$this->update_( 'single' );
+			$this->update_( 'single', $this->get_updates_for( 'single' ) );
 		}
 	}
 
@@ -392,15 +398,30 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function before_update() {}
 
 	/**
+	 * Get the versions that request a given type of update.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $type The type of update.
+	 *
+	 * @return array The versions that request this type of update.
+	 */
+	protected function get_updates_for( $type ) {
+
+		return array_keys( wp_list_filter( $this->updates, array( $type => true ) ) );
+	}
+
+	/**
 	 * Run an update.
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param string $type The type of update to run.
+	 * @param string $type     The type of update to run.
+	 * @param array  $versions The versions to run this type of update for.
 	 */
-	protected function update_( $type ) {
+	protected function update_( $type, $versions ) {
 
-		foreach ( $this->updates as $version ) {
+		foreach ( $versions as $version ) {
 			$this->{"update_{$type}_to_{$version}"}();
 		}
 	}

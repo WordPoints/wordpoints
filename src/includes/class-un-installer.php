@@ -23,8 +23,8 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.3.0',
-		'1.5.0',
+		'1.3.0' => array( 'single' => true                ),
+		'1.5.0' => array(                  'site' => true ),
 	);
 
 	/**
@@ -76,15 +76,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
-
-		if ( 1 === version_compare( '1.5.0', $this->updating_from ) ) {
-
-			if ( is_wordpoints_network_active() && 1 !== version_compare( '1.3.0', $this->updating_from ) ) {
-				$this->updates[] = '1_3_0';
-			} else {
-				unset( $this->updates[1] );
-			}
-		}
 
 		$this->capabilities = wordpoints_get_custom_caps();
 	}
@@ -236,27 +227,20 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Update the network to 1.3.0.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function update_network_to_1_3_0() {}
-
-	/**
-	 * Update a site to 1.3.0.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function update_site_to_1_3_0() {
-		wordpoints_add_custom_caps( $this->capabilities );
-	}
-
-	/**
 	 * Update the site to 1.3.0.
 	 *
 	 * @since 1.8.0
 	 */
 	protected function update_single_to_1_3_0() {
+		wordpoints_add_custom_caps( $this->capabilities );
+	}
+
+	/**
+	 * Update a site to 1.5.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_site_to_1_5_0() {
 		wordpoints_add_custom_caps( $this->capabilities );
 	}
 }

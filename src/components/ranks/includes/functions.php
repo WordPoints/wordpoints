@@ -16,19 +16,15 @@
  */
 function wordpoints_ranks_component_activate() {
 
-	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
+	/**
+	 * Installs the ranks component.
+	 *
+	 * @since 1.7.0
+	 */
+	require_once WORDPOINTS_DIR . 'components/ranks/includes/class-un-installer.php';
 
-	if ( ! isset( $wordpoints_data['components']['ranks']['version'] ) ) {
-
-		// The component hasn't yet been installed.
-
-		/**
-		 * Installs the ranks component.
-		 *
-		 * @since 1.7.0
-		 */
-		require WORDPOINTS_DIR . 'components/ranks/install.php';
-	}
+	$installer = new WordPoints_Ranks_Un_Installer;
+	$installer->install( is_wordpoints_network_active() );
 }
 add_action( 'wordpoints_component_activate-ranks', 'wordpoints_ranks_component_activate' );
 

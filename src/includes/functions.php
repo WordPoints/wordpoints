@@ -719,7 +719,7 @@ function wordpoints_ranks_component_register() {
 			'component_uri'  => 'http://wordpoints.org/',
 			'description'    => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
 			'file'           => WORDPOINTS_DIR . 'components/ranks/ranks.php',
-			'uninstall_file' => WORDPOINTS_DIR . 'components/ranks/uninstall.php',
+			'un_installer'   => WORDPOINTS_DIR . 'components/ranks/includes/class-un-installer.php',
 		)
 	);
 }

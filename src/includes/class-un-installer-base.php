@@ -40,6 +40,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	public function install( $network ) {
 
+		$this->before_install();
+
 		/**
 		 * Include the upgrade script so that we can use dbDelta() to create DBs.
 		 *
@@ -213,6 +215,13 @@ abstract class WordPoints_Un_Installer_Base {
 
 		return $sites;
 	}
+
+	/**
+	 * Run before installing.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function before_install() {}
 
 	/**
 	 * Run before uninstalling, but after loading dependencies.

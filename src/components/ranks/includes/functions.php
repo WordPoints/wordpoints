@@ -8,27 +8,6 @@
  */
 
 /**
- * Install the ranks component.
- *
- * @since 1.7.0
- *
- * @action wordpoints_activate_component-ranks
- */
-function wordpoints_ranks_component_activate() {
-
-	/**
-	 * Installs the ranks component.
-	 *
-	 * @since 1.7.0
-	 */
-	require_once WORDPOINTS_DIR . 'components/ranks/includes/class-un-installer.php';
-
-	$installer = new WordPoints_Ranks_Un_Installer;
-	$installer->install( is_wordpoints_network_active() );
-}
-add_action( 'wordpoints_component_activate-ranks', 'wordpoints_ranks_component_activate' );
-
-/**
  * Get the database schema for the ranks component.
  *
  * @since 1.7.0

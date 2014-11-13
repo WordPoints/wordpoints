@@ -368,6 +368,13 @@ final class WordPoints_Components {
 			 */
 			include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
 
+			if ( isset( $this->registered[ $slug ]['un_installer'] ) ) { // Back-compat < 1.8.0
+
+				$installer = require( $this->registered[ $slug ]['un_installer'] );
+				$installer = new $installer;
+				$installer->install( is_wordpoints_network_active() );
+			}
+
 			/**
 			 * Component activated.
 			 *

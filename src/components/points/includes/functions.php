@@ -11,27 +11,6 @@
 include_once(  WORDPOINTS_DIR . 'components/points/points.php' );
 
 /**
- * Install the points component.
- *
- * @since 1.0.0
- *
- * @action wordpoints_activate_component-points
- */
-function wordpoints_points_component_activate() {
-
-	/**
-	 * The points component installer.
-	 *
-	 * @since 1.8.0
-	 */
-	require_once WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php';
-
-	$installer = new WordPoints_Points_Un_Installer;
-	$installer->install( is_wordpoints_network_active() );
-}
-add_action( 'wordpoints_component_activate-points', 'wordpoints_points_component_activate' );
-
-/**
  * Update the points component.
  *
  * @since 1.2.0

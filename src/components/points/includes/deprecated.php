@@ -203,4 +203,29 @@ function wordpoints_points_component_uninstall() {
 	require WORDPOINTS_DIR . 'components/points/uninstall.php';
 }
 
+/**
+ * Install the points component.
+ *
+ * @since 1.0.0
+ * @deprecated 1.8.0 Use WordPoints_Components::activate( 'points' ) instead.
+ */
+function wordpoints_points_component_activate() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '1.8.0'
+		, "WordPoints_Components::activate( 'points' )"
+	);
+
+	/**
+	 * The points component installer.
+	 *
+	 * @since 1.8.0
+	 */
+	require_once WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php';
+
+	$installer = new WordPoints_Points_Un_Installer;
+	$installer->install( is_wordpoints_network_active() );
+}
+
 // EOF

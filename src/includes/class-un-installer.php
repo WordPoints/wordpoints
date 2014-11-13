@@ -17,17 +17,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected $network_install_skipped_option = 'wordpoints_network_install_skipped';
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected $network_installed_option = 'wordpoints_network_installed';
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected $installed_sites_option = 'wordpoints_installed_sites';
+	protected $option_prefix = 'wordpoints_';
 
 	/**
 	 * The plugin's capabilities.
@@ -37,7 +27,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @type array The plugin's capabilities.
+	 * @type array $capabilties
 	 */
 	protected $capabilities;
 

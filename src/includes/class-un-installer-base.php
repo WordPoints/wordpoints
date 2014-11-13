@@ -19,31 +19,13 @@ abstract class WordPoints_Un_Installer_Base {
 	//
 
 	/**
-	 * The name of the boolean option to indicate whether network install is skipped.
+	 * The prefix to use for the name of the options the un/installer uses.
 	 *
 	 * @since 1.8.0
 	 *
-	 * @type string $network_install_skipped_option
+	 * @type string $option_prefix
 	 */
-	protected $network_install_skipped_option;
-
-	/**
-	 * The name of the boolean option indicating whether this is network installed.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type string $network_installed_option
-	 */
-	protected $network_installed_option;
-
-	/**
-	 * The name of an option containing an array of site IDs where this is installed.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type string $installed_sites_option
-	 */
-	protected $installed_sites_option;
+	protected $option_prefix;
 
 	//
 	// Public Methods.
@@ -64,7 +46,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 			if ( $network ) {
 
-				update_site_option( $this->network_installed_option, true );
+				update_site_option( "{$this->option_prefix}network_installed", true );
 
 				if ( $this->do_per_site_install() ) {
 
@@ -85,17 +67,17 @@ abstract class WordPoints_Un_Installer_Base {
 
 					// We'll check this later and let the user know that per-site
 					// install was skipped.
-					add_site_option( $this->network_install_skipped_option, true );
+					add_site_option( "{$this->option_prefix}network_install_skipped", true );
 				}
 
 			} else {
 
 				$this->install_site();
 
-				$sites = wordpoints_get_array_option( $this->installed_sites_option, 'site' );
+				$sites = wordpoints_get_array_option( "{$this->option_prefix}installed_sites", 'site' );
 				$sites[] = get_current_blog_id();
 
-				update_site_option( $this->installed_sites_option, $sites );
+				update_site_option( "{$this->option_prefix}installed_sites", $sites );
 			}
 
 		} else {
@@ -135,9 +117,9 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->uninstall_network();
 
-			delete_site_option( $this->installed_sites_option );
-			delete_site_option( $this->network_installed_option );
-			delete_site_option( $this->network_install_skipped_option );
+			delete_site_option( "{$this->option_prefix}installed_sites" );
+			delete_site_option( "{$this->option_prefix}network_installed" );
+			delete_site_option( "{$this->option_prefix}network_install_skipped" );
 
 		} else {
 
@@ -186,7 +168,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function is_network_installed() {
 
-		return (bool) get_site_option( $this->network_installed_option );
+		return (bool) get_site_option( "{$this->option_prefix}network_installed" );
 	}
 
 	/**
@@ -219,7 +201,7 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( $this->is_network_installed() ) {
 			$sites = $this->get_all_site_ids();
 		} else {
-			$sites = wordpoints_get_array_option( $this->installed_sites_option, 'site' );
+			$sites = wordpoints_get_array_option( "{$this->option_prefix}installed_sites", 'site' );
 		}
 
 		return $sites;

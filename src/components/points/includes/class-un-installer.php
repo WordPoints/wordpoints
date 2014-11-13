@@ -64,7 +64,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	public function before_install() {
 
-		$this->wordpoints_network_active = is_wordpoints_network_active();
 		$this->custom_caps = wordpoints_points_get_custom_caps();
 		$this->custom_caps_keys = array_keys( $this->custom_caps );
 	}

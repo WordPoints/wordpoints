@@ -27,6 +27,15 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected $option_prefix;
 
+	/**
+	 * Whether the entity is being installed network wide.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @type bool $network_wide
+	 */
+	protected $network_wide;
+
 	//
 	// Public Methods.
 	//
@@ -39,6 +48,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @param bool $network Whether the install should be network-wide on multisite.
 	 */
 	public function install( $network ) {
+
+		$this->network_wide = $network;
 
 		$this->before_install();
 

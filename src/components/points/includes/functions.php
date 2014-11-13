@@ -33,33 +33,21 @@ function wordpoints_points_component_update() {
 	}
 
 	/**
-	 * The update functions for the points component.
+	 * Uninstall base class.
 	 *
-	 * @since 1.2.0
+	 * @since 1.8.0
 	 */
-	require_once WORDPOINTS_DIR . 'components/points/includes/update.php';
+	require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
 
-	switch ( 1 ) {
+	/**
+	 * The plugin un/installer.
+	 *
+	 * @since 1.8.0
+	 */
+	require_once( WORDPOINTS_DIR . '/components/points/includes/class-un-installer.php' );
 
-		case version_compare( '1.2.0', $db_version ):
-			wordpoints_points_update_1_2_0();
-		// fallthru
-
-		case version_compare( '1.4.0', $db_version ):
-			wordpoints_points_update_1_4_0();
-		// fallthru
-
-		case version_compare( '1.5.0', $db_version ):
-			if ( 1 !== version_compare( '1.4.0', $db_version ) ) {
-				// This doesn't need to run if we just ran the 1.4.0 update.
-				wordpoints_points_update_1_5_0();
-			}
-		// fallthru
-
-		case version_compare( '1.5.1', $db_version ):
-			wordpoints_points_update_1_5_1();
-		// fallthru
-	}
+	$updater = new WordPoints_Points_Un_Installer;
+	$updater->update( $db_version, WORDPOINTS_VERSION );
 
 	$wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;
 

@@ -245,6 +245,7 @@ final class WordPoints_Components {
 	 * Only the slug and name arguments are required.
 	 *
 	 * @since 1.0.0
+	 * @since 1.8.0 The un_installer argument added, uninstall_file was deprecated.
 	 *
 	 * @param array $args The component's data. {
 	 *        @type string $slug          The component slug. Must be unique.
@@ -256,6 +257,8 @@ final class WordPoints_Components {
 	 *        @type string $version       The component's version number.
 	 *        @type string $file          The component's main file.
 	 *        @type string $uninstall_file A file which will uninstall the component.
+	 *        @type string $un_installer  A file that contains an un/installer class.
+	 *                                    It should return the name of the class.
 	 * }
 	 *
 	 * @return bool True, or false if the component's slug has already been registered.
@@ -272,6 +275,7 @@ final class WordPoints_Components {
 			'version'       => '',
 			'file'          => null,
 			'uninstall_file' => null,
+			'un_installer'  => null,
 		);
 
 		$component = array_merge( $defaults, $args );
@@ -285,7 +289,11 @@ final class WordPoints_Components {
 		$this->registered[ $slug ] = array_intersect_key( $component, $defaults );
 
 		if ( empty( $this->registered[ $slug ]['file'] ) ) {
-			_doing_it_wrong( __METHOD__, 'Components should be registered with the the "file" argument, no loaded unconditionally.', '1.7.0' );
+			_doing_it_wrong( __METHOD__, 'Components should be registered with the "file" argument, no loaded unconditionally.', '1.7.0' );
+		}
+
+		if ( ! empty( $this->registered[ $slug ]['uninstall_file'] ) ) {
+			_deprecated_argument( __METHOD__, '1.8.0', 'Use the "un_installer" argument and an un/installer class instead.' );
 		}
 
 		return true;
@@ -352,6 +360,13 @@ final class WordPoints_Components {
 			if ( isset( $this->registered[ $slug ]['file'] ) ) { // Back-compat < 1.7.0
 				include_once( $this->registered[ $slug ]['file'] );
 			}
+
+			/**
+			 * Uninstall base class.
+			 *
+			 * @since 1.8.0
+			 */
+			include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
 
 			/**
 			 * Component activated.
@@ -461,7 +476,14 @@ final class WordPoints_Components {
 		 */
 		do_action( "wordpoints_uninstall_component-{$slug}" );
 
-		if ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
+		if ( isset( $this->registered[ $slug ]['un_installer'] ) ) { // Back-compat < 1.8.0
+
+			$uninstaller = include( $this->registered[ $slug ]['un_installer'] );
+			$uninstaller = new $uninstaller;
+			$uninstaller->uninstall();
+
+		} elseif ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
+
 			include_once( $this->registered[ $slug ]['uninstall_file'] );
 		}
 	}

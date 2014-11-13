@@ -118,7 +118,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		dbDelta( wordpoints_points_get_db_schema() );
 
-		$this->set_component_version( $points, WORDPOINTS_VERSION );
+		$this->set_component_version( 'points', WORDPOINTS_VERSION );
 	}
 
 	/**

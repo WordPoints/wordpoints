@@ -19,52 +19,15 @@ include_once(  WORDPOINTS_DIR . 'components/points/points.php' );
  */
 function wordpoints_points_component_activate() {
 
-	/*
-	 * Regenerate the custom caps every time on multisite, because they depend on
-	 * network activation status.
+	/**
+	 * The points component installer.
+	 *
+	 * @since 1.8.0
 	 */
-	if ( is_multisite() ) {
+	require_once WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php';
 
-		global $wpdb;
-
-		$custom_caps = wordpoints_points_get_custom_caps();
-		$custom_caps_keys = array_keys( $custom_caps );
-
-		$network_active = is_wordpoints_network_active();
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
-
-		foreach ( $blog_ids as $blog_id ) {
-
-			switch_to_blog( $blog_id );
-
-			wordpoints_remove_custom_caps( $custom_caps_keys );
-
-			if ( $network_active ) {
-				wordpoints_add_custom_caps( $custom_caps );
-			}
-
-			restore_current_blog();
-		}
-
-		if ( ! $network_active ) {
-			wordpoints_add_custom_caps( $custom_caps );
-		}
-	}
-
-	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
-
-	if ( ! isset( $wordpoints_data['components']['points']['version'] ) ) {
-
-		// The component hasn't yet been installed.
-
-		/**
-		 * Installs the points component.
-		 *
-		 * @since 1.0.0
-		 */
-		require WORDPOINTS_DIR . 'components/points/install.php';
-	}
+	$installer = new WordPoints_Points_Un_Installer;
+	$installer->install( is_wordpoints_network_active() );
 }
 add_action( 'wordpoints_component_activate-points', 'wordpoints_points_component_activate' );
 

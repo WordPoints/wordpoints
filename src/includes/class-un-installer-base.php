@@ -228,6 +228,27 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Set a component's version.
+	 *
+	 * For use when installing a component.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $component The component's slug.
+	 * @param string $version   The installed component version.
+	 */
+	protected function set_component_version( $component, $version ) {
+
+		$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
+
+		if ( empty( $wordpoints_data['components'][ $component ]['version'] ) ) {
+			$wordpoints_data['components'][ $component ]['version'] = $version;
+		}
+
+		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+	}
+
+	/**
 	 * Run before installing.
 	 *
 	 * @since 1.8.0

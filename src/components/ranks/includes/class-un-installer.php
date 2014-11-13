@@ -53,14 +53,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		dbDelta( wordpoints_ranks_get_db_schema() );
 
-		$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
-
-		if ( ! isset( $wordpoints_data['components']['ranks']['version'] ) ) {
-
-			$wordpoints_data['components']['ranks']['version'] = WORDPOINTS_VERSION;
-
-			wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
-		}
+		$this->set_component_version( 'ranks', WORDPOINTS_VERSION );
 	}
 
 	/**

@@ -28,6 +28,15 @@ abstract class WordPoints_Un_Installer_Base {
 	protected $option_prefix;
 
 	/**
+	 * A list of versions of this entity with updates.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @type array $updates
+	 */
+	protected $updates = array();
+
+	/**
 	 * Whether the entity is being installed network wide.
 	 *
 	 * @since 1.8.0
@@ -35,6 +44,24 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @type bool $network_wide
 	 */
 	protected $network_wide;
+
+	/**
+	 * The version being updated from.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @type string $updating_from
+	 */
+	protected $updating_from;
+
+	/**
+	 * The version being updated to.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @type string $updating_to
+	 */
+	protected $updating_to;
 
 	//
 	// Public Methods.
@@ -147,6 +174,83 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 	}
 
+	/**
+	 * Update the entity.
+	 *
+	 * @since 1.8.0
+	 */
+	public function update( $from, $to, $network = null ) {
+
+		if ( null === $network ) {
+			$network = is_wordpoints_network_active();
+		}
+
+		$this->network_wide = $network;
+
+		foreach ( $this->updates as $index => $update ) {
+
+			if ( ! version_compare( $from, $update, '<' ) ) {
+				unset( $this->updates[ $index ] );
+			}
+
+			$this->updates[ $index ] = str_replace( '.', '_', $update );
+		}
+
+		if ( empty( $this->updates ) ) {
+			return;
+		}
+
+		$this->updating_from = $from;
+		$this->updating_to = $to;
+
+		$this->before_update();
+
+		/**
+		 * Include the upgrade script so that we can use dbDelta() to create DBs.
+		 *
+		 * @since 1.8.0
+		 */
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+		if ( is_multisite() ) {
+
+			$this->update_( 'network' );
+
+			if ( $this->network_wide ) {
+
+				if ( $this->do_per_site_update() ) {
+
+					$original_blog_id = get_current_blog_id();
+
+					foreach ( $this->get_installed_site_ids() as $blog_id ) {
+						switch_to_blog( $blog_id );
+						$this->update_( 'site' );
+					}
+
+					switch_to_blog( $original_blog_id );
+
+					// See http://wordpress.stackexchange.com/a/89114/27757
+					unset( $GLOBALS['_wp_switched_stack'] );
+					$GLOBALS['switched'] = false;
+
+				} else {
+
+					// We'll check this later and let the user know that per-site
+					// update was skipped.
+					add_site_option( "{$this->option_prefix}network_update_skipped", true );
+				}
+
+			} else {
+
+				$this->update_( 'site' );
+			}
+
+		} else {
+
+			$this->update_( 'single' );
+		}
+	}
+
 	//
 	// Protected Methods.
 	//
@@ -210,6 +314,24 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Check if we should run the update for each site on the network.
+	 *
+	 * On large multisite networks we don't attempt the per-site update.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return bool Whether to do the per-site update.
+	 */
+	protected function do_per_site_update() {
+
+		if ( $this->is_network_installed() && wp_is_large_network() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Get the IDs of all sites on which this is installed.
 	 *
 	 * @since 1.8.0
@@ -261,6 +383,27 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_uninstall() {}
+
+	/**
+	 * Run before updating.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function before_update() {}
+
+	/**
+	 * Run an update.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $type The type of update to run.
+	 */
+	protected function update_( $type ) {
+
+		foreach ( $this->updates as $version ) {
+			$this->{"update_{$type}_to_{$version}"}();
+		}
+	}
 
 	//
 	// Abstract Methods.

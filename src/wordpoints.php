@@ -98,25 +98,21 @@ function wordpoints_update() {
 	}
 
 	/**
-	 * The update functions for the plugin.
+	 * Uninstall base class.
 	 *
-	 * @since 1.3.0
+	 * @since 1.8.0
 	 */
-	require_once WORDPOINTS_DIR . 'includes/update.php';
+	include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
 
-	switch ( 1 ) {
+	/**
+	 * The plugin un/installer.
+	 *
+	 * @since 1.8.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-un-installer.php' );
 
-		case version_compare( '1.3.0', $db_version ):
-			wordpoints_update_1_3_0();
-		// fallthru
-
-		case version_compare( '1.5.0', $db_version ):
-			if ( is_wordpoints_network_active() && 1 !== version_compare( '1.3.0', $db_version ) ) {
-				// See wordpoints_points_update_1_5_0().
-				wordpoints_update_1_3_0();
-			}
-		// fallthru
-	}
+	$updater = new WordPoints_Un_Installer;
+	$updater->update( $db_version, WORDPOINTS_VERSION );
 
 	$wordpoints_data['version'] = WORDPOINTS_VERSION;
 

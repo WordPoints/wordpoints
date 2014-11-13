@@ -13,6 +13,8 @@
  * Since 1.3.0 this was called simply WordPoints_Update_Test.
  *
  * @since 1.5.0
+ *
+ * @group update
  */
 class WordPoints_1_3_0_Update_Test extends WordPoints_UnitTestCase {
 

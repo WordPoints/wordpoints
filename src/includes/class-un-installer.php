@@ -20,6 +20,14 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected $option_prefix = 'wordpoints_';
 
 	/**
+	 * @since 1.8.0
+	 */
+	protected $updates = array(
+		'1.3.0',
+		'1.5.0',
+	);
+
+	/**
 	 * The plugin's capabilities.
 	 *
 	 * Used to hold the list of capabilities during install and uninstall, so that
@@ -59,9 +67,26 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	public function before_uninstall() {
+	protected function before_uninstall() {
 
 		$this->capabilities = array_keys( wordpoints_get_custom_caps() );
+	}
+
+	/**
+	 * @since 1.8.0
+	 */
+	protected function before_update() {
+
+		if ( 1 === version_compare( '1.5.0', $this->updating_from ) ) {
+
+			if ( is_wordpoints_network_active() && 1 !== version_compare( '1.3.0', $this->updating_from ) ) {
+				$this->updates[] = '1_3_0';
+			} else {
+				unset( $this->updates[1] );
+			}
+		}
+
+		$this->capabilities = wordpoints_get_custom_caps();
 	}
 
 	/**
@@ -208,6 +233,31 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		foreach ( $components->get() as $component => $data ) {
 			$components->uninstall( $component );
 		}
+	}
+
+	/**
+	 * Update the network to 1.3.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_network_to_1_3_0() {}
+
+	/**
+	 * Update a site to 1.3.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_site_to_1_3_0() {
+		wordpoints_add_custom_caps( $this->capabilities );
+	}
+
+	/**
+	 * Update the site to 1.3.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_single_to_1_3_0() {
+		wordpoints_add_custom_caps( $this->capabilities );
 	}
 }
 

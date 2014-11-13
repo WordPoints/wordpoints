@@ -7,41 +7,34 @@
  * @since 1.3.0
  */
 
+_deprecated_file( __FILE__, '1.8.0' );
+
 /**
  * Update the plugin to 1.3.0.
  *
  * @since 1.3.0
+ * @deprecated 1.8.0 Use WordPoints_Un_Installer::update( '1.2.0', '1.3.0' ) instead.
  */
 function wordpoints_update_1_3_0() {
 
-	$capabilities = wordpoints_get_custom_caps();
+	_deprecated_function( __FUNCTION__, '1.8.0', "WordPoints_Un_Installer::update( '1.2.0', '1.3.0' )" );
 
-	if ( is_wordpoints_network_active() ) {
+	/**
+	 * Uninstall base class.
+	 *
+	 * @since 1.8.0
+	 */
+	include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
 
-		if ( wp_is_large_network() ) {
+	/**
+	 * The plugin un/installer.
+	 *
+	 * @since 1.8.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-un-installer.php' );
 
-			// On large networks we skip the update. We set this flag in the database
-			// so we can show the user a message about it later.
-			add_site_option( 'wordpoints_network_update_skipped', '1.3.0' );
-
-		} else {
-
-			global $wpdb;
-
-			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
-
-			foreach ( $blog_ids as $blog_id ) {
-
-				switch_to_blog( $blog_id );
-				wordpoints_add_custom_caps( $capabilities );
-				restore_current_blog();
-			}
-		}
-
-	} else {
-
-		wordpoints_add_custom_caps( $capabilities );
-	}
+	$updater = new WordPoints_Un_Installer;
+	$updater->update( '1.2.0', '1.3.0' );
 }
 
 // EOF

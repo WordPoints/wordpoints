@@ -63,7 +63,7 @@ $wordpoints_components = WordPoints_Components::instance();
 $wordpoints_components->load();
 $wordpoints_components->activate( 'ranks' );
 
-if ( is_multisite() ) {
+if ( is_multisite() && is_wordpoints_network_active() ) {
 
 	global $wpdb;
 

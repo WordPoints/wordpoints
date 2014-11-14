@@ -27,10 +27,10 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.2.0' => array( 'single' => true,                 'network' => true ),
+		'1.2.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'1.4.0' => array( 'single' => true, 'site' => true, 'network' => true ),
-		'1.5.0' => array(                   'site' => true                    ),
-		'1.5.1' => array( 'single' => true,                 'network' => true ),
+		'1.5.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
+		'1.5.1' => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**

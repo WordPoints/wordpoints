@@ -61,6 +61,7 @@
 		"WordPoints_Ranks_Admin_Screen_Ajax::_send_json_result": true,
 		"WordPoints_Ranks_Admin_Screen_Ajax::_unexpected_error": true,
 		"WordPoints_Ranks_Admin_Screen_Ajax::_verify_request": true,
+		"WordPoints_Points_Un_Installer::_1_4_0_split_points_hooks": true,
 		"WordPoints_Points_Widget::__construct": [1],
 		"WordPoints_Points_Widget::get_field_id": true,
 		"WordPoints_Points_Widget::get_field_name": true,

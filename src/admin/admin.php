@@ -470,18 +470,20 @@ function wordpoints_admin_notices() {
 		// Show a notice if we've skipped part of the install/update process.
 		if ( get_site_option( 'wordpoints_network_install_skipped' ) ) {
 			$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process.', 'wordpoints' );
+			$option  = 'wordpoints_network_install_skipped';
 		} elseif ( get_site_option( 'wordpoints_network_update_skipped' ) ) {
-			$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for %s (and possibly later versions).', 'wordpoints' ), get_site_option( 'wordpoints_network_update_skipped' ) ) );
+			$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for version %s (and possibly later versions).', 'wordpoints' ), get_site_option( 'wordpoints_network_update_skipped' ) ) );
+			$option  = 'wordpoints_network_update_skipped';
 		}
 
 		if ( isset( $message ) ) {
 
-			$message .= esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
+			$message .= ' ' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
 			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
 
 			$args = array(
 				'dismissable' => true,
-				'option'      => 'wordpoints_network_install_skipped',
+				'option'      => $option,
 			);
 
 			wordpoints_show_admin_error( $message, $args );

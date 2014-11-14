@@ -132,6 +132,7 @@ final class WordPoints_Components {
 		self::$instance = new WordPoints_Components();
 
 		add_action( 'plugins_loaded', array( self::$instance, 'load' ) );
+		add_action( 'admin_notices', array( self::$instance, 'admin_notices' ) );
 	}
 
 	/**
@@ -492,6 +493,47 @@ final class WordPoints_Components {
 		} elseif ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
 
 			include_once( $this->registered[ $slug ]['uninstall_file'] );
+		}
+	}
+
+	/**
+	 * Show the admin a notice if the update/install for a component was skipped.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @WordPoints\action admin_notices Added by self::set_up().
+	 */
+	public function admin_notices() {
+
+		if ( ! current_user_can( 'manage_network_plugins' ) ) {
+			return;
+		}
+
+		foreach ( array_keys( $this->get_active() ) as $component ) {
+
+			// Show a notice if we've skipped part of the install/update process.
+			if ( get_site_option( "wordpoints_{$component}_network_install_skipped" ) ) {
+				$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the installation process for the &#8220;%s&#8221; component.', 'wordpoints' ), $this->registered[ $component ]['name'] ) );
+				$option  = "wordpoints_{$component}_network_install_skipped";
+			} elseif ( get_site_option( "wordpoints_{$component}_network_update_skipped" ) ) {
+				$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for the &#8220;%s&#8221; component for version %s (and possibly later versions).', 'wordpoints' ), $this->registered[ $component ]['name'], get_site_option( 'wordpoints_network_update_skipped' ) ) );
+				$option  = "wordpoints_{$component}_network_update_skipped";
+			}
+
+			if ( isset( $message ) ) {
+
+				$message .= ' ' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the component may not function properly.', 'wordpoints' );
+				$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
+
+				$args = array(
+					'dismissable' => true,
+					'option'      => $option,
+				);
+
+				wordpoints_show_admin_error( $message, $args );
+
+				unset( $message );
+			}
 		}
 	}
 }

@@ -256,7 +256,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 
 		// Test that the comment hook instance was updated.
 		$this->assertEquals(
-			array( $hook->get_number() => array( 'points' => 20 ) )
+			array( $hook->get_number() => array( 'points' => 20, 'post_type' => 'ALL' ) )
 			, $hook->get_instances()
 		);
 
@@ -264,7 +264,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$removed_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
 		$this->assertEquals(
-			array( $removed_hook->get_number() => array( 'points' => 20 ) )
+			array( $removed_hook->get_number() => array( 'points' => 20, 'post_type' => 'ALL' ) )
 			, $removed_hook->get_instances()
 		);
 
@@ -324,7 +324,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 			$hook_number = $hook->get_number();
 
 			$this->assertEquals(
-				array( $hook_number => array( 'points' => 20 ) )
+				array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
 				, $hook->get_instances( 'standard' )
 			);
 
@@ -333,7 +333,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 			$remove_hook_number = $remove_hook->get_number();
 
 			$this->assertEquals(
-				array( $remove_hook_number => array( 'points' => 20 ) )
+				array( $remove_hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
 				, $remove_hook->get_instances( 'standard' )
 			);
 
@@ -386,7 +386,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$hook_number = $hook->get_number_by_id( $network_hook_id );
 
 		$this->assertEquals(
-			array( $hook_number => array( 'points' => 20 ) )
+			array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
 			, $hook->get_instances( 'network' )
 		);
 
@@ -394,7 +394,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
 		$this->assertEquals(
-			array( $hook_number => array( 'points' => 20 ) )
+			array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
 			, $hook->get_instances( 'network' )
 		);
 

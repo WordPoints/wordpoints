@@ -444,67 +444,12 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function _1_4_0_split_post_hooks() {
 
-		if ( WordPoints_Points_Hooks::get_network_mode() ) {
-			$hook_type = 'network';
-		} else {
-			$hook_type = 'standard';
-		}
-
-		$post_delete_hook  = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
-		$post_publish_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
-
-		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
-		$post_publish_hooks = $post_publish_hook->get_instances( $hook_type );
-
-		// Loop through all of the post hook instances.
-		foreach ( $post_publish_hooks as $number => $settings ) {
-
-			// Don't split the hook if it is just a placeholder, or it's already split.
-			if ( 0 === (int) $number || ! isset( $settings['trash'], $settings['publish'] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $settings['post_type'] ) ) {
-				$settings['post_type'] = 'ALL';
-			}
-
-			// If the trash points are set, create a post delete points hook instead.
-			if ( isset( $settings['trash'] ) && wordpoints_posint( $settings['trash'] ) ) {
-
-				$post_delete_hook->update_callback(
-					array(
-						'points' => $settings['trash'],
-						'post_type' => $settings['post_type'],
-					)
-					, $post_delete_hook->next_hook_id_number()
-				);
-
-				// Make sure the correct points type is retrieved for network hooks.
-				if ( 'network' === $hook_type ) {
-					$points_type = $post_publish_hook->points_type( 'network_' . $number );
-				} else {
-					$points_type = $post_publish_hook->points_type( $number );
-				}
-
-				// Add this instance to the points-types-hooks list.
-				$points_types_hooks[ $points_type ][] = $post_delete_hook->get_id( $number );
-			}
-
-			// If the publish points are set, update the settings of the hook.
-			if ( isset( $settings['publish'] ) && wordpoints_posint( $settings['publish'] ) ) {
-
-				$settings['points'] = $settings['publish'];
-
-				$post_publish_hook->update_callback( $settings, $number );
-
-			} else {
-
-				// If not, delete this instance.
-				$post_publish_hook->delete_callback( $post_publish_hook->get_id( $number ) );
-			}
-		}
-
-		WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
+		$this->_1_4_0_split_points_hooks(
+			'wordpoints_post_points_hook'
+			, 'wordpoints_post_delete_points_hook'
+			, 'publish'
+			, 'trash'
+		);
 	}
 
 	/**
@@ -514,58 +459,83 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function _1_4_0_split_comment_hooks() {
 
+		$this->_1_4_0_split_points_hooks(
+			'wordpoints_comment_points_hook'
+			, 'wordpoints_comment_removed_points_hook'
+			, 'approve'
+			, 'disapprove'
+		);
+	}
+
+	/**
+	 * Split a set of points hooks.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $hook      The slug of the hook type to split.
+	 * @param string $new_hook  The slug of the new hook that this one is being split into.
+	 * @param string $key       The settings key for the hook that holds the points.
+	 * @param string $split_key The settings key for points that is being split.
+	 */
+	protected function _1_4_0_split_points_hooks( $hook, $new_hook, $key, $split_key ) {
+
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {
 			$hook_type = 'network';
 		} else {
 			$hook_type = 'standard';
 		}
 
-		$comment_removed_hook  = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
-		$comment_approved_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
+		$new_hook  = WordPoints_Points_Hooks::get_handler_by_id_base( $new_hook );
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook );
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
-		$comment_approved_hooks = $comment_approved_hook->get_instances( $hook_type );
+		$instances = $hook->get_instances( $hook_type );
 
-		// Loop through all of the comment hook instances.
-		foreach ( $comment_approved_hooks as $number => $settings ) {
+		// Loop through all of the post hook instances.
+		foreach ( $instances as $number => $settings ) {
 
 			// Don't split the hook if it is just a placeholder, or it's already split.
-			if ( 0 === (int) $number || ! isset( $settings['approve'], $settings['disapprove'] ) ) {
+			if ( 0 === (int) $number || ! isset( $settings[ $key ], $settings[ $split_key ] ) ) {
 				continue;
 			}
 
-			// If the disapprove points are set, create a comment removed hook instead.
-			if ( isset( $settings['disapprove'] ) && wordpoints_posint( $settings['disapprove'] ) ) {
+			if ( ! isset( $settings['post_type'] ) ) {
+				$settings['post_type'] = 'ALL';
+			}
 
-				$comment_removed_hook->update_callback(
+			// If the trash points are set, create a post delete points hook instead.
+			if ( isset( $settings[ $split_key ] ) && wordpoints_posint( $settings[ $split_key ] ) ) {
+
+				$new_hook->update_callback(
 					array(
-						'points' => $settings['disapprove'],
+						'points'    => $settings[ $split_key ],
+						'post_type' => $settings['post_type'],
 					)
-					, $comment_removed_hook->next_hook_id_number()
+					, $new_hook->next_hook_id_number()
 				);
 
 				// Make sure the correct points type is retrieved for network hooks.
 				if ( 'network' === $hook_type ) {
-					$points_type = $comment_approved_hook->points_type( 'network_' . $number );
+					$points_type = $hook->points_type( 'network_' . $number );
 				} else {
-					$points_type = $comment_approved_hook->points_type( $number );
+					$points_type = $hook->points_type( $number );
 				}
 
 				// Add this instance to the points-types-hooks list.
-				$points_types_hooks[ $points_type ][] = $comment_removed_hook->get_id();
+				$points_types_hooks[ $points_type ][] = $new_hook->get_id( $number );
 			}
 
-			// If the approve points are set, update the settings of the hook.
-			if ( isset( $settings['approve'] ) && wordpoints_posint( $settings['approve'] ) ) {
+			// If the publish points are set, update the settings of the hook.
+			if ( isset( $settings[ $key ] ) && wordpoints_posint( $settings[ $key ] ) ) {
 
-				$settings['points'] = $settings['approve'];
+				$settings['points'] = $settings[ $key ];
 
-				$comment_approved_hook->update_callback( $settings, $number );
+				$hook->update_callback( $settings, $number );
 
 			} else {
 
 				// If not, delete this instance.
-				$comment_approved_hook->delete_callback( $comment_approved_hook->get_id( $number ) );
+				$hook->delete_callback( $hook->get_id( $number ) );
 			}
 		}
 

@@ -342,15 +342,7 @@ function wordpoints_points_get_db_schema() {
 
 	global $wpdb;
 
-	$charset_collate = '';
-
-	if ( ! empty( $wpdb->charset ) ) {
-		$charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
-	}
-
-	if ( ! empty( $wpdb->collate ) ) {
-		$charset_collate .= " COLLATE {$wpdb->collate}";
-	}
+	$charset_collate = $wpdb->get_charset_collate();
 
 	return "CREATE TABLE {$wpdb->wordpoints_points_logs} (
 			id BIGINT(20) NOT NULL AUTO_INCREMENT,

@@ -66,8 +66,7 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 		);
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.5.0' );
 
 		$this->assertStringEndsWith(
 			'DEFAULT CHARSET=utf8'

@@ -45,8 +45,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		}
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Check that the custom capabilties were added.
 		foreach ( $blog_ids as $blog_id ) {
@@ -75,8 +74,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		);
 
 		// Now simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Test that the post hook instance was updated.
 		$this->assertEquals(
@@ -135,8 +133,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		}
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Check that the hooks for each site were updated.
 		foreach ( $blog_ids as $blog_id ) {
@@ -199,8 +196,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Test that the network-hook was updated.
 		WordPoints_Points_Hooks::set_network_mode( true );
@@ -251,8 +247,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		);
 
 		// Now simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Test that the comment hook instance was updated.
 		$this->assertEquals(
@@ -311,8 +306,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		}
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Check that the hooks for each site were updated.
 		foreach ( $blog_ids as $blog_id ) {
@@ -375,8 +369,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Test that the network-hook was updated.
 		WordPoints_Points_Hooks::set_network_mode( true );
@@ -441,8 +434,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		wp_delete_post( $post_id, true );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
+		$this->update_component( 'points', '1.3.0' );
 
 		// Check that the log meta was deleted.
 		$query = new WordPoints_Points_Logs_Query(

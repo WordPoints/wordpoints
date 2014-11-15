@@ -149,6 +149,9 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		if ( is_multisite() ) {
 
+			$this->assertNoSiteOptionsWithPrefix( 'wordpoints' );
+			$this->assertNoSiteOptionsWithPrefix( 'widget_wordpoints' );
+
 			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
 			$original_blog_id = get_current_blog_id();
@@ -230,30 +233,40 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		global $wpdb;
 
-		$this->assertTableNotExists( $wpdb->wordpoints_points_logs );
-		$this->assertTableNotExists( $wpdb->wordpoints_points_log_meta );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_points_logs' );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_points_log_meta' );
 
 		if ( is_multisite() ) {
 
-			$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+			if ( $this->network_wide ) {
 
-			$original_blog_id = get_current_blog_id();
+				$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
-			foreach ( $blog_ids as $blog_id ) {
+				$original_blog_id = get_current_blog_id();
 
-				switch_to_blog( $blog_id );
+				foreach ( $blog_ids as $blog_id ) {
+
+					switch_to_blog( $blog_id );
+
+					$administrator = get_role( 'administrator' );
+					$this->assertFalse(
+						$administrator->has_cap( 'set_wordpoints_points' )
+					);
+				}
+
+				switch_to_blog( $original_blog_id );
+
+				// See http://wordpress.stackexchange.com/a/89114/27757
+				unset( $GLOBALS['_wp_switched_stack'] );
+				$GLOBALS['switched'] = false;
+
+			} else {
 
 				$administrator = get_role( 'administrator' );
 				$this->assertFalse(
 					$administrator->has_cap( 'set_wordpoints_points' )
 				);
 			}
-
-			switch_to_blog( $original_blog_id );
-
-			// See http://wordpress.stackexchange.com/a/89114/27757
-			unset( $GLOBALS['_wp_switched_stack'] );
-			$GLOBALS['switched'] = false;
 
 		} else {
 

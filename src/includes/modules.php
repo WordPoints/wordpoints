@@ -1103,6 +1103,13 @@ function wordpoints_uninstall_module( $module ) {
 			define( 'WORDPOINTS_UNINSTALL_MODULE', true );
 		}
 
+		/**
+		 * Uninstall base class.
+		 *
+		 * @since 1.8.0
+		 */
+		include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
+
 		WordPoints_Module_Paths::register( $uninstall_file );
 		include $uninstall_file;
 

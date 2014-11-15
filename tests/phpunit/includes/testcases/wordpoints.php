@@ -115,19 +115,50 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Set the version of a component.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $component The slug of the component.
+	 * @param string $version   The version to set. Defaults to 1.0.0.
+	 */
+	protected function set_component_db_version( $component, $version = '1.0.0' ) {
+
+		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		$wordpoints_data['components'][ $component ]['version'] = $version;
+		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+	}
+
+	/**
+	 * Get the version of a component.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $component The slug of the component.
+	 *
+	 * @return string The version of the points component.
+	 */
+	protected function get_component_db_version( $component ) {
+
+		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+
+		return ( isset( $wordpoints_data['components'][ $component ]['version'] ) )
+			? $wordpoints_data['components'][ $component ]['version']
+			: '';
+	}
+
+	/**
 	 * Set the version of the points component.
 	 *
 	 * Since 1.4.0 This was part of the WordPoints_Points_UnitTestCase.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 1.8.0 Use self::set_component_db_version() instead.
 	 *
 	 * @param string $version The version to set. Defaults to 1.0.0.
 	 */
 	protected function set_points_db_version( $version = '1.0.0' ) {
-
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
-		$wordpoints_data['components']['points']['version'] = $version;
-		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+		$this->set_component_db_version( 'points', $version );
 	}
 
 	/**
@@ -136,16 +167,34 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * Since 1.4.0 This was part of the WordPoints_Points_UnitTestCase.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 1.8.0 Use self::get_component_db_version() instead.
 	 *
 	 * @return string The version of the points component.
 	 */
 	protected function get_points_db_version() {
+		$this->get_component_db_version( 'points' );
+	}
 
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+	/**
+	 * Run an update for a component.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $component The slug of the component to update.
+	 * @param string $from      The version to update from.
+	 */
+	protected function update_component( $component, $from ) {
 
-		return ( isset( $wordpoints_data['components']['points']['version'] ) )
-			? $wordpoints_data['components']['points']['version']
-			: '';
+		$this->set_component_db_version( $component, $from );
+
+		// Make sure that the component is marked as active in the database.
+		wordpoints_update_network_option(
+			'wordpoints_active_components'
+			, array( $component => 1 )
+		);
+
+		// Run the update.
+		WordPoints_Components::instance()->maybe_do_updates();
 	}
 
 	/**

@@ -75,12 +75,16 @@ function wordpointstests_modules_dir() {
  */
 function wordpointstests_manually_activate_components() {
 
+	add_filter( 'wordpoints_component_active', '__return_false', 110 );
+
 	$components = WordPoints_Components::instance();
 
 	foreach ( $components->get() as $component => $data ) {
 
-		do_action( "wordpoints_component_activate-{$component}" );
+		$components->activate( $component );
 	}
+
+	remove_filter( 'wordpoints_component_active', '__return_false', 110 );
 }
 
 /**

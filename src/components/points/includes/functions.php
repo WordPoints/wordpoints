@@ -11,121 +11,6 @@
 include_once(  WORDPOINTS_DIR . 'components/points/points.php' );
 
 /**
- * Install the points component.
- *
- * @since 1.0.0
- *
- * @action wordpoints_activate_component-points
- */
-function wordpoints_points_component_activate() {
-
-	/*
-	 * Regenerate the custom caps every time on multisite, because they depend on
-	 * network activation status.
-	 */
-	if ( is_multisite() ) {
-
-		global $wpdb;
-
-		$custom_caps = wordpoints_points_get_custom_caps();
-		$custom_caps_keys = array_keys( $custom_caps );
-
-		$network_active = is_wordpoints_network_active();
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
-
-		foreach ( $blog_ids as $blog_id ) {
-
-			switch_to_blog( $blog_id );
-
-			wordpoints_remove_custom_caps( $custom_caps_keys );
-
-			if ( $network_active ) {
-				wordpoints_add_custom_caps( $custom_caps );
-			}
-
-			restore_current_blog();
-		}
-
-		if ( ! $network_active ) {
-			wordpoints_add_custom_caps( $custom_caps );
-		}
-	}
-
-	$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
-
-	if ( ! isset( $wordpoints_data['components']['points']['version'] ) ) {
-
-		// The component hasn't yet been installed.
-
-		/**
-		 * Installs the points component.
-		 *
-		 * @since 1.0.0
-		 */
-		require WORDPOINTS_DIR . 'components/points/install.php';
-	}
-}
-add_action( 'wordpoints_component_activate-points', 'wordpoints_points_component_activate' );
-
-/**
- * Update the points component.
- *
- * @since 1.2.0
- *
- * @action wordpoints_components_loaded
- */
-function wordpoints_points_component_update() {
-
-	$db_version = '1.0.0';
-
-	$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
-
-	if ( isset( $wordpoints_data['components']['points']['version'] ) ) {
-		$db_version = $wordpoints_data['components']['points']['version'];
-	}
-
-	// If the DB version isn't less than the code version, we don't need to upgrade.
-	if ( version_compare( $db_version, WORDPOINTS_VERSION ) !== -1 ) {
-		return;
-	}
-
-	/**
-	 * The update functions for the points component.
-	 *
-	 * @since 1.2.0
-	 */
-	require_once WORDPOINTS_DIR . 'components/points/includes/update.php';
-
-	switch ( 1 ) {
-
-		case version_compare( '1.2.0', $db_version ):
-			wordpoints_points_update_1_2_0();
-		// fallthru
-
-		case version_compare( '1.4.0', $db_version ):
-			wordpoints_points_update_1_4_0();
-		// fallthru
-
-		case version_compare( '1.5.0', $db_version ):
-			if ( 1 !== version_compare( '1.4.0', $db_version ) ) {
-				// This doesn't need to run if we just ran the 1.4.0 update.
-				wordpoints_points_update_1_5_0();
-			}
-		// fallthru
-
-		case version_compare( '1.5.1', $db_version ):
-			wordpoints_points_update_1_5_1();
-		// fallthru
-	}
-
-	$wordpoints_data['components']['points']['version'] = WORDPOINTS_VERSION;
-
-	wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
-}
-add_action( 'wordpoints_components_loaded', 'wordpoints_points_component_update' );
-
-/**
  * Register scripts and styles for the component.
  *
  * @since 1.0.0
@@ -412,15 +297,7 @@ function wordpoints_points_get_db_schema() {
 
 	global $wpdb;
 
-	$charset_collate = '';
-
-	if ( ! empty( $wpdb->charset ) ) {
-		$charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
-	}
-
-	if ( ! empty( $wpdb->collate ) ) {
-		$charset_collate .= " COLLATE {$wpdb->collate}";
-	}
+	$charset_collate = $wpdb->get_charset_collate();
 
 	return "CREATE TABLE {$wpdb->wordpoints_points_logs} (
 			id BIGINT(20) NOT NULL AUTO_INCREMENT,

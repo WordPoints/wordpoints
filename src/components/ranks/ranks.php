@@ -70,6 +70,13 @@ include_once WORDPOINTS_DIR . 'components/ranks/includes/class-wordpoints-rank-g
  */
 include_once WORDPOINTS_DIR . 'components/ranks/includes/rank-types.php';
 
+/**
+ * Deprecated code.
+ *
+ * @since 1.8.0
+ */
+include_once WORDPOINTS_DIR . 'components/ranks/includes/deprecated.php';
+
 if ( wordpoints_component_is_active( 'points' ) ) {
 
 	/**

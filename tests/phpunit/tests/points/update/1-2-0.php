@@ -90,9 +90,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		}
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
+		$this->update_component( 'points', '1.1.0' );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// Check that the log for the deleted user was deleted.
 		$this->assertEquals( 0, $user_1_query->count() );
@@ -148,9 +147,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		wp_delete_post( $post_ids[0], true );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
+		$this->update_component( 'points', '1.1.0' );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// Check the logs for the deleted post where cleaned (meta post_id deleted).
 		$this->assertEquals( 0, $post_1_query->count() );
@@ -208,9 +206,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		wp_delete_comment( $comment_ids[0], true );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
+		$this->update_component( 'points', '1.1.0' );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// The logs for the deleted comment should be cleaned (meta comment_id deleted).
 		$this->assertEquals( 0, $comment_1_query->count() );

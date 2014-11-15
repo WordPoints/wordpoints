@@ -1,3 +1,0 @@
-<?php
-
-// Gold is silent.

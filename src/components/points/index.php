@@ -1,3 +1,0 @@
-<?php
-
-// Peek-a-boo!

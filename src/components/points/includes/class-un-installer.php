@@ -31,6 +31,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.4.0' => array( 'single' => true, 'site' => true, 'network' => true ),
 		'1.5.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'1.5.1' => array( 'single' => true, /*     -     */ 'network' => true ),
+		'1.8.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
 	);
 
 	/**
@@ -125,6 +126,10 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			} else {
 				$this->custom_caps = wordpoints_points_get_custom_caps();
 			}
+		}
+
+		if ( $this->network_wide ) {
+			unset( $this->updates['1_8_0'] );
 		}
 	}
 
@@ -644,6 +649,15 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_single_to_1_5_1() {
 		$this->update_network_to_1_5_1();
+	}
+
+	/**
+	 * Update a site to 1.8.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_site_to_1_8_0() {
+		$this->add_installed_site_id();
 	}
 }
 

@@ -201,6 +201,8 @@ final class WordPoints_Components {
 		 * @since 1.0.0
 		 */
 		do_action( 'wordpoints_components_loaded' );
+
+		$this->maybe_do_updates();
 	}
 
 	/**
@@ -486,6 +488,41 @@ final class WordPoints_Components {
 		} elseif ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
 
 			include_once( $this->registered[ $slug ]['uninstall_file'] );
+		}
+	}
+
+	/**
+	 * Check if any of the active components has an update, and run it if so.
+	 *
+	 * @since 1.8.0
+	 */
+	public function maybe_do_updates() {
+
+		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+
+		foreach ( array_keys( $this->get_active() ) as $component ) {
+
+			if (
+				! isset( $wordpoints_data['components'][ $component ]['version'] )
+				|| ! isset( $this->registered[ $component ]['un_installer'] )
+			) {
+				continue;
+			}
+
+			$db_version = $wordpoints_data['components'][ $component ]['version'];
+
+			// If the DB version isn't less than the code version, we don't need to upgrade.
+			if ( version_compare( $db_version, WORDPOINTS_VERSION ) !== -1 ) {
+				continue;
+			}
+
+			$this->get_installer( $component )->update( $db_version, WORDPOINTS_VERSION );
+
+			$wordpoints_data['components'][ $component ]['version'] = WORDPOINTS_VERSION;
+		}
+
+		if ( isset( $db_version ) ) {
+			wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
 		}
 	}
 

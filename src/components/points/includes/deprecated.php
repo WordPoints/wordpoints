@@ -228,4 +228,22 @@ function wordpoints_points_component_activate() {
 	$installer->install( is_wordpoints_network_active() );
 }
 
+
+/**
+ * Update the points component.
+ *
+ * @since 1.2.0
+ * @deprecated 1.8.0 Use WordPoints_Components::maybe_do_updates() instead.
+ */
+function wordpoints_points_component_update() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '1.8.0'
+		, 'WordPoints_Components::maybe_do_updates()'
+	);
+
+	WordPoints_Components::maybe_do_updates();
+}
+
 // EOF

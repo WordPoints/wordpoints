@@ -317,8 +317,13 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function do_per_site_uninstall() {
 
-		if ( $this->is_network_installed() && wp_is_large_network() ) {
-			return false;
+		if ( wp_is_large_network() ) {
+
+			if ( $this->is_network_installed() ) {
+				return false;
+			} elseif ( count( $this->get_installed_site_ids() ) > 10000 ) {
+				return false;
+			}
 		}
 
 		return true;

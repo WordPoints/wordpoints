@@ -291,7 +291,13 @@ abstract class WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
-		return $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		return $wpdb->get_col(
+			"
+				SELECT `blog_id`
+				FROM `{$wpdb->blogs}`
+				WHERE `site_id` = {$wpdb->siteid}
+			"
+		);
 	}
 
 	/**

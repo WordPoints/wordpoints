@@ -25,6 +25,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected $updates = array(
 		'1.3.0' => array( 'single' => true                ),
 		'1.5.0' => array(                  'site' => true ),
+		'1.8.0' => array(                  'site' => true ),
 	);
 
 	/**
@@ -76,6 +77,10 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
+
+		if ( $this->network_wide ) {
+			unset( $this->updates['1_8_0'] );
+		}
 
 		$this->capabilities = wordpoints_get_custom_caps();
 	}
@@ -242,6 +247,15 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_site_to_1_5_0() {
 		wordpoints_add_custom_caps( $this->capabilities );
+	}
+
+	/**
+	 * Update a site to 1.8.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_site_to_1_8_0() {
+		$this->add_installed_site_id();
 	}
 }
 

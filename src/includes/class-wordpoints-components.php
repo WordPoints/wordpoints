@@ -90,6 +90,15 @@ final class WordPoints_Components {
 	 */
 	private $active;
 
+	/**
+	 * The installers for the components.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @type array $installers
+	 */
+	private $installers;
+
 	//
 	// Private Methods.
 	//
@@ -362,18 +371,11 @@ final class WordPoints_Components {
 				include_once( $this->registered[ $slug ]['file'] );
 			}
 
-			/**
-			 * Uninstall base class.
-			 *
-			 * @since 1.8.0
-			 */
-			include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
-
 			if ( isset( $this->registered[ $slug ]['un_installer'] ) ) { // Back-compat < 1.8.0
 
-				$installer = require( $this->registered[ $slug ]['un_installer'] );
-				$installer = new $installer;
-				$installer->install( is_wordpoints_network_active() );
+				$this->get_installer( $slug )->install(
+					is_wordpoints_network_active()
+				);
 			}
 
 			/**
@@ -471,13 +473,6 @@ final class WordPoints_Components {
 		}
 
 		/**
-		 * Uninstall base class.
-		 *
-		 * @since 1.8.0
-		 */
-		include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
-
-		/**
 		 * Uninstall a component.
 		 *
 		 * @since 1.0.0
@@ -486,9 +481,7 @@ final class WordPoints_Components {
 
 		if ( isset( $this->registered[ $slug ]['un_installer'] ) ) { // Back-compat < 1.8.0
 
-			$uninstaller = include( $this->registered[ $slug ]['un_installer'] );
-			$uninstaller = new $uninstaller;
-			$uninstaller->uninstall();
+			$this->get_installer( $slug )->uninstall();
 
 		} elseif ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
 
@@ -535,6 +528,36 @@ final class WordPoints_Components {
 				unset( $message );
 			}
 		}
+	}
+
+	/**
+	 * Get the installer class for a component.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $slug The slug of the component to get the installer for.
+	 *
+	 * @return WordPoints_Un_Installer_Base|false The installer for the component.
+	 */
+	public function get_installer( $slug ) {
+
+		if ( ! isset( $this->registered[ $slug ]['un_installer'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $this->installers[ $slug ] ) ) {
+
+			/**
+			 * Uninstall base class.
+			 *
+			 * @since 1.8.0
+			 */
+			require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
+
+			$this->installers[ $slug ] = require( $this->registered[ $slug ]['un_installer'] );
+		}
+
+		return new $this->installers[ $slug ];
 	}
 }
 

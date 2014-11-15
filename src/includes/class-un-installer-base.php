@@ -146,7 +146,13 @@ abstract class WordPoints_Un_Installer_Base {
 
 				$original_blog_id = get_current_blog_id();
 
-				foreach ( $this->get_installed_site_ids() as $blog_id ) {
+				$site_ids = $this->get_installed_site_ids();
+
+				if ( ! $this->is_network_installed() ) {
+					$site_ids = $this->validate_site_ids( $site_ids );
+				}
+
+				foreach ( $site_ids as $blog_id ) {
 					switch_to_blog( $blog_id );
 					$this->uninstall_site();
 				}
@@ -371,6 +377,31 @@ abstract class WordPoints_Un_Installer_Base {
 		$sites[] = $id;
 
 		update_site_option( "{$this->option_prefix}installed_sites", $sites );
+	}
+
+	/**
+	 * Validate a list of site IDs against the database.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $site_ids The site IDs to validate.
+	 *
+	 * @return array The validated site IDs.
+	 */
+	protected function validate_site_ids( $site_ids ) {
+
+		global $wpdb;
+
+		$site_ids = $wpdb->get_col(
+			"
+				SELECT `blog_id`
+				FROM `{$wpdb->blogs}`
+				WHERE `blog_id` IN (" . array_map( 'absint', $site_ids ) . ")
+					AND `site_id` = {$wpdb->siteid}
+			"
+		);
+
+		return $site_ids;
 	}
 
 	/**

@@ -174,6 +174,11 @@ abstract class WordPoints_Un_Installer_Base {
 	 * Update the entity.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @param string $from    The version to update from.
+	 * @param string $to      The version to update to.
+	 * @param bool   $network Whether the entity is network active. Defaults to the
+	 *                        state of WordPoints itself.
 	 */
 	public function update( $from, $to, $network = null ) {
 

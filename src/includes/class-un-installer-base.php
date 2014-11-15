@@ -407,7 +407,7 @@ abstract class WordPoints_Un_Installer_Base {
 			"
 				SELECT `blog_id`
 				FROM `{$wpdb->blogs}`
-				WHERE `blog_id` IN (" . array_map( 'absint', $site_ids ) . ")
+				WHERE `blog_id` IN (" . implode( ',', array_map( 'absint', $site_ids ) ) . ")
 					AND `site_id` = {$wpdb->siteid}
 			"
 		);

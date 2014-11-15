@@ -120,11 +120,7 @@ abstract class WordPoints_Un_Installer_Base {
 			} else {
 
 				$this->install_site();
-
-				$sites = wordpoints_get_array_option( "{$this->option_prefix}installed_sites", 'site' );
-				$sites[] = get_current_blog_id();
-
-				update_site_option( "{$this->option_prefix}installed_sites", $sites );
+				$this->add_installed_site_id();
 			}
 
 		} else {
@@ -353,6 +349,25 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		return $sites;
+	}
+
+	/**
+	 * Add a site's ID to the list of the installed sites.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param int $id The ID of the site to add. Defaults to the current site's ID.
+	 */
+	protected function add_installed_site_id( $id = null ) {
+
+		if ( empty( $id ) ) {
+			$id = get_current_blog_id();
+		}
+
+		$sites = wordpoints_get_array_option( "{$this->option_prefix}installed_sites", 'site' );
+		$sites[] = $id;
+
+		update_site_option( "{$this->option_prefix}installed_sites", $sites );
 	}
 
 	/**

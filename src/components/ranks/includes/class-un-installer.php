@@ -26,6 +26,31 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
+	protected $updates = array(
+		'1.8.0' => array( 'site' => true ),
+	);
+
+	/**
+	 * @since 1.8.0
+	 */
+	protected function before_update() {
+
+		if ( $this->network_wide ) {
+			unset( $this->updates['1_8_0'] );
+		}
+	}
+
+	/**
+	 * @since 1.8.0
+	 */
+	protected function do_per_site_install() {
+
+		return false;
+	}
+
+	/**
+	 * @since 1.8.0
+	 */
 	protected function install_network() {
 
 		$this->install_ranks_main();
@@ -97,6 +122,15 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_ranks . '`' );
 		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_rankmeta . '`' );
 		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_user_ranks . '`' );
+	}
+
+	/**
+	 * Update a site to 1.8.0.
+	 *
+	 * @since 1.8.0
+	 */
+	protected function update_site_to_1_8_0() {
+		$this->add_installed_site_id();
 	}
 }
 

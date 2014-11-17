@@ -140,6 +140,95 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_Points_UnitTestCase {
 
 		wp_set_current_user( $old_current_user->ID );
 	}
+
+	/**
+	 * Test the post_author value for the user_id attribute.
+	 *
+	 * @since 1.8.0
+	 */
+	public function test_post_author_user_id() {
+
+		global $post;
+
+		$user_id = $this->factory->user->create();
+		$post = $this->factory->post->create_and_get(
+			array( 'post_author' => $user_id )
+		);
+
+		wordpoints_set_points( $user_id, 30, 'points', 'test' );
+
+		$result = wordpointstests_do_shortcode_func(
+			'wordpoints_points'
+			, array(
+				'user_id'     => 'post_author',
+				'points_type' => 'points',
+			)
+		);
+
+		$this->assertEquals( '$30pts.', $result );
+	}
+
+	/**
+	 * Test the post_author value for the user_id attribute with no current post.
+	 *
+	 * @since 1.8.0
+	 */
+	public function test_post_author_user_id_no_post() {
+
+		unset( $GLOBALS['post'] );
+
+		$user_id = $this->factory->user->create();
+		$post = $this->factory->post->create_and_get(
+			array( 'post_author' => $user_id )
+		);
+
+		wordpoints_set_points( $user_id, 30, 'points', 'test' );
+
+		$result = wordpointstests_do_shortcode_func(
+			'wordpoints_points'
+			, array(
+				'user_id'     => 'post_author',
+				'points_type' => 'points',
+			)
+		);
+
+		$this->assertEquals( null, $result );
+	}
+
+	/**
+	 * Test the post_author value for user_id with no current post as an admin.
+	 *
+	 * @since 1.8.0
+	 */
+	public function test_post_author_user_id_no_post_admin() {
+
+		unset( $GLOBALS['post'] );
+
+		// Create a user and assign them admin-like capabilities.
+		$user = $this->factory->user->create_and_get();
+		$user->add_cap( 'manage_options' );
+
+		$post = $this->factory->post->create_and_get(
+			array( 'post_author' => $user->ID )
+		);
+
+		wordpoints_set_points( $user->ID, 30, 'points', 'test' );
+
+		$old_current_user = wp_get_current_user();
+		wp_set_current_user( $user->ID );
+
+		$this->assertWordPointsShortcodeError(
+			wordpointstests_do_shortcode_func(
+				'wordpoints_points'
+				, array(
+					'user_id'     => 'post_author',
+					'points_type' => 'points',
+				)
+			)
+		);
+
+		wp_set_current_user( $old_current_user->ID );
+	}
 }
 
 // EOF

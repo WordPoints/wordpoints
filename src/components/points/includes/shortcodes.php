@@ -140,6 +140,7 @@ add_shortcode( 'wordpoints_points_logs', 'wordpoints_points_logs_shortcode' );
  * Display the points of a user.
  *
  * @since 1.3.0
+ * @since 1.8.0 Added support for the post_author value of the user_id attribute.
  *
  * @shortcode wordpoints_points
  *
@@ -147,8 +148,9 @@ add_shortcode( 'wordpoints_points_logs', 'wordpoints_points_logs_shortcode' );
  *        The shortcode attributes.
  *
  *        @type string $points_type The type of points to display.
- *        @type int    $user_id     The ID of the user whose points should be
- *                                  displayed. Defaults to the current user.
+ *        @type mixed  $user_id     The ID of the user whose points should be
+ *                                  displayed. Defaults to the current user. If set
+ *                                  to post_author, the author of the current post.
  * }
  *
  * @return string The points for the user.
@@ -171,7 +173,18 @@ function wordpoints_points_shortcode( $atts ) {
 		}
 	}
 
-	if ( ! wordpoints_posint( $atts['user_id'] ) ) {
+	if ( 'post_author' === $atts['user_id'] ) {
+
+		$post = get_post();
+
+		if ( ! $post ) {
+			return wordpoints_shortcode_error( sprintf( esc_html__( 'The &#8220;%s&#8221; attribute of the %s shortcode must be used inside of a Post, Page, or other post type.', 'wordpoints' ), 'user_id="post_author"', '<code>[wordpoints_points]</code>' ) );
+		}
+
+		$atts['user_id'] = $post->post_author;
+
+	} elseif ( ! wordpoints_posint( $atts['user_id'] ) ) {
+
 		$atts['user_id'] = get_current_user_id();
 	}
 

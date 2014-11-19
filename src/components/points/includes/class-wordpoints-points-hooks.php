@@ -723,7 +723,7 @@ final class WordPoints_Points_Hooks {
 			$query_arg['points_type'] = $points_type;
 		}
 
-		if ( isset( $options['_display'] ) && 'template' === $options['_display'] && $number ) {
+		if ( isset( $options['_display'] ) && 'template' === $options['_display'] ) {
 
 			/*
 			 * We aren't outputting the form for a hook, but a template form for this

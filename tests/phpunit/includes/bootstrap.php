@@ -167,4 +167,7 @@ if ( class_exists( 'WordPoints_Rank_Type' ) ) {
 	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank-type.php' );
 }
 
+// https://core.trac.wordpress.org/ticket/25239
+$_SERVER['SERVER_NAME'] = 'example.com';
+
 // EOF

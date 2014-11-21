@@ -162,6 +162,13 @@ include_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';
 include_once WORDPOINTS_DIR . 'includes/modules.php';
 
 /**
+ * Shortcode handler class.
+ *
+ * @since 1.8.0
+ */
+include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
+
+/**
  * Deprecated functions.
  *
  * @since 1.1.0

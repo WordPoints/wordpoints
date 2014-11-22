@@ -245,7 +245,7 @@ abstract class WordPoints_Shortcode {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @return string|null An error message on failure.
+	 * @return string|WP_Error|null An error message or object on failure.
 	 */
 	protected function verify_atts() {
 

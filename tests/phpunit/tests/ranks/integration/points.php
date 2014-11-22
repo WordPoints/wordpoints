@@ -97,6 +97,33 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 
 		$this->assertNotEquals( false, strpos( $widget, "Rank: {$formatted}" ) );
 	}
+
+	/**
+	 * Test the points_type attribute is supported if the points component is active.
+	 *
+	 * @since 1.8.0
+	 */
+	public function test_points_type_attr_of_user_ranks_shortcode() {
+
+		$user_id = $this->factory->user->create();
+
+		$rank = wordpoints_get_rank(
+			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
+		);
+
+		$result = wordpointstests_do_shortcode_func(
+			'wordpoints_user_rank'
+			, array( 'user_id' => $user_id, 'points_type' => 'points' )
+		);
+
+		$formatted_rank = wordpoints_get_formatted_user_rank(
+			$user_id
+			, $this->rank_group
+			, 'user_rank_shortcode'
+		);
+
+		$this->assertEquals( $formatted_rank, $result );
+	}
 }
 
 // EOF

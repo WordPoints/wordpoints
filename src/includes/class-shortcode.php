@@ -48,6 +48,8 @@ final class WordPoints_Shortcodes {
 	public static function register( $shortcode, $class ) {
 
 		self::$shortcodes[ $shortcode ] = $class;
+
+		add_shortcode( $shortcode, array( __CLASS__, 'do_shortcode' ) );
 	}
 
 	/**
@@ -81,6 +83,39 @@ final class WordPoints_Shortcodes {
 		}
 
 		return self::$shortcodes;
+	}
+
+	/**
+	 * Execute a shortcode.
+	 *
+	 * This method is automatically registered with add_shortcode() when a new
+	 * shortcode class is registered. It can also be used independantly, instead of
+	 * an expensive call to the do_shortcode() function.
+	 *
+	 * If there is an attempt to do a shortocode that was not registered with this
+	 * class an error message will be returned, if appropriate.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array  $atts      The attributes of the shortcode.
+	 * @param string $content   The shortcode's contents.
+	 * @param string $shortcode The name of the shortcode to execute.
+	 *
+	 * @return string The content generated for this shortcode.
+	 */
+	public static function do_shortcode( $atts, $content, $shortcode ) {
+
+		if ( ! isset( self::$shortcodes[ $shortcode ] ) ) {
+			return wordpoints_shortcode_error(
+				sprintf(
+					esc_html__( 'The %s shortcode was not registered properly.' )
+					, '<code>[' . esc_html( $shortcode ) . ']</code>'
+				)
+			);
+		}
+
+		$shortcode = new self::$shortcodes[ $shortcode ]( $atts, $content );
+		return $shortcode->expand();
 	}
 }
 

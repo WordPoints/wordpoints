@@ -537,19 +537,23 @@ function wordpoints_get_excluded_users( $context ) {
  * the shortcode is being displayed in a post that the current user can edit.
  *
  * @since 1.0.1
+ * @since 1.8.0 The $message now supports WP_Error objects.
  *
- * @param string $message The error message.
+ * @param string|WP_Error $message The error message.
  */
 function wordpoints_shortcode_error( $message ) {
 
 	if (
-		! ( get_post() && current_user_can( 'edit_post', get_the_ID() ) )
-		&& ! current_user_can( 'manage_options' )
+		( get_post() && current_user_can( 'edit_post', get_the_ID() ) )
+		|| current_user_can( 'manage_options' )
 	) {
-		return;
-	}
 
-	return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . $message . '</p>';
+		if ( is_wp_error( $message ) ) {
+			$message = $message->get_error_message();
+		}
+
+		return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . $message . '</p>';
+	}
 }
 
 /**

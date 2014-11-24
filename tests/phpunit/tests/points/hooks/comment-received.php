@@ -307,7 +307,11 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 		$document = new DOMDocument;
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
-			wordpoints_points_logs_shortcode( array( 'points_type' => 'points' ) )
+			WordPoints_Shortcodes::do_shortcode(
+				array( 'points_type' => 'points' )
+				, null
+				, 'wordpoints_points_logs'
+			)
 		);
 		$xpath = new DOMXPath( $document );
 		$this->assertEquals( 1, $xpath->query( '//tbody[. = ""]' )->length );

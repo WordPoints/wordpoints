@@ -71,12 +71,6 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 // Display the page.
 //
 
-?>
-
-<p><?php esc_html_e( 'View installed WordPoints components.', 'wordpoints' ); ?></p>
-
-<?php
-
 /**
  * Top of the components administration page.
  *
@@ -86,7 +80,9 @@ do_action( 'wordpoints_admin_components_top' );
 
 ?>
 
+<br />
 <table id="wordpoints_components_table" class="widefat">
+	<caption><?php esc_html_e( 'Installed WordPoints components.', 'wordpoints' ); ?></caption>
 	<thead>
 		<tr>
 			<th scope="col"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>

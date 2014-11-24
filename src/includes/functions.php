@@ -552,7 +552,7 @@ function wordpoints_shortcode_error( $message ) {
 			$message = $message->get_error_message();
 		}
 
-		return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . $message . '</p>';
+		return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . wp_kses( $message, 'wordpoints_shortcode_error' ) . '</p>';
 	}
 }
 

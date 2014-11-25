@@ -275,38 +275,16 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 
 		$post = get_post( $post_id );
 
-		if ( ! $post ) {
+		foreach ( $logs as $log ) {
 
-			foreach ( $logs as $log ) {
+			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
 
-				$wpdb->delete(
-					$wpdb->wordpoints_points_log_meta
-					, array(
-						'meta_key'   => 'post_id',
-						'meta_value' => $post_id,
-						'log_id'     => $log->id,
-					)
-					, array( '%s', '%d', '%d' )
-				);
-			}
+			if ( $post ) {
 
-		} else {
-
-			foreach ( $logs as $log ) {
-
-				$wpdb->update(
-					$wpdb->wordpoints_points_log_meta
-					, array(
-						'meta_key'   => 'post_type',
-						'meta_value' => $post->post_type,
-					)
-					, array(
-						'meta_key'   => 'post_id',
-						'meta_value' => $post_id,
-						'log_id'     => $log->id,
-					)
-					, array( '%s', '%s' )
-					, array( '%s', '%d', '%d' )
+				wordpoints_add_points_log_meta(
+					$log->id
+					, 'post_type'
+					, $post->post_type
 				);
 			}
 		}

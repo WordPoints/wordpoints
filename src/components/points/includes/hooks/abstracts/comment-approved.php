@@ -379,38 +379,16 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		$comment = get_comment( $comment_id );
 
-		if ( ! $comment ) {
+		foreach ( $logs as $log ) {
 
-			foreach ( $logs as $log ) {
+			wordpoints_delete_points_log_meta( $log->id, 'comment_id' );
 
-				$wpdb->delete(
-					$wpdb->wordpoints_points_log_meta
-					, array(
-						'meta_key'   => 'comment_id',
-						'meta_value' => $comment_id,
-						'log_id'     => $log->id,
-					)
-					, array( '%s', '%d', '%d' )
-				);
-			}
+			if ( $comment ) {
 
-		} else {
-
-			foreach ( $logs as $log ) {
-
-				$wpdb->update(
-					$wpdb->wordpoints_points_log_meta
-					, array(
-						'meta_key'   => 'post_id',
-						'meta_value' => $comment->comment_post_ID,
-					)
-					, array(
-						'meta_key'   => 'comment_id',
-						'meta_value' => $comment_id,
-						'log_id'     => $log->id,
-					)
-					, array( '%s', '%d' )
-					, array( '%s', '%d', '%d' )
+				wordpoints_add_points_log_meta(
+					$log->id
+					, 'post_id'
+					, $comment->comment_post_ID
 				);
 			}
 		}
@@ -456,16 +434,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 		}
 
 		foreach ( $logs as $log ) {
-
-			$wpdb->delete(
-				$wpdb->wordpoints_points_log_meta
-				, array(
-					'meta_key'   => 'post_id',
-					'meta_value' => $post_id,
-					'log_id'     => $log->id,
-				)
-				, array( '%s', '%d', '%d' )
-			);
+			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
 		}
 
 		wordpoints_regenerate_points_logs( $logs );

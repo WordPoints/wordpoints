@@ -3,9 +3,8 @@
 setup-phpunit() {
 
 	if [[ $( php --version | grep ' 5.2' ) ]]; then
-		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester && curl -L \
-			https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/0.3.0.tar.gz \
-			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
+		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester \
+			&& git clone https://github.com/JDGrimes/wp-plugin-uninstall-tester.git vendor/jdgrimes/wp-plugin-uninstall-tester
 	else
 		composer install
 	fi
@@ -105,6 +104,10 @@ phpunit-basic() {
 # Run uninstall PHPUnit tests.
 phpunit-uninstall() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
+		if [[ $( php --version | grep ' 5.2' ) ]]; then
+			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
+		fi
+
 		phpunit --group=uninstall
 	else
 		echo 'Not running PHPUnit.'
@@ -117,6 +120,10 @@ phpunit-ajax() {
 		[[ $TRAVISCI_RUN == phpunit ]] \
 		&& [[ $WP_MULTISITE == 0 || $WP_VERSION == latest ]];
 	then
+		if [[ $( php --version | grep ' 5.2' ) ]]; then
+			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
+		fi
+
 		phpunit --group=ajax
 	else
 		echo 'Not running Ajax tests.'

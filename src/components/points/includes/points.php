@@ -970,19 +970,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	foreach ( $logs as $log ) {
 
-		$meta = $wpdb->get_results(
-			$wpdb->prepare(
-				"
-					SELECT meta_key, meta_value
-					FROM {$wpdb->wordpoints_points_log_meta}
-					WHERE log_id = %d
-				"
-				, $log->id
-			)
-			, OBJECT_K
-		);
-
-		$meta = wp_list_pluck( $meta, 'meta_value' );
+		$meta = wordpoints_get_points_log_meta( $log->id );
+		$meta = wp_list_pluck( $meta, 0 );
 
 		$new_log_text = wordpoints_render_points_log_text(
 			$log->user_id

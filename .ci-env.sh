@@ -105,6 +105,10 @@ phpunit-basic() {
 # Run uninstall PHPUnit tests.
 phpunit-uninstall() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
+		if [[ $( php --version | grep ' 5.2' ) ]]; then
+			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
+		fi
+
 		phpunit --group=uninstall
 	else
 		echo 'Not running PHPUnit.'
@@ -117,6 +121,10 @@ phpunit-ajax() {
 		[[ $TRAVISCI_RUN == phpunit ]] \
 		&& [[ $WP_MULTISITE == 0 || $WP_VERSION == latest ]];
 	then
+		if [[ $( php --version | grep ' 5.2' ) ]]; then
+			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
+		fi
+
 		phpunit --group=ajax
 	else
 		echo 'Not running Ajax tests.'

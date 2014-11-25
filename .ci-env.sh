@@ -3,9 +3,8 @@
 setup-phpunit() {
 
 	if [[ $( php --version | grep ' 5.2' ) ]]; then
-		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester && curl -L \
-			https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/0.3.0.tar.gz \
-			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
+		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester \
+			&& git clone https://github.com/JDGrimes/wp-plugin-uninstall-tester.git vendor/jdgrimes/wp-plugin-uninstall-tester
 	else
 		composer install
 	fi

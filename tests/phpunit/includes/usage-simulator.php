@@ -53,6 +53,18 @@ function wordpointstests_simulate_usage() {
 	wp_set_current_user( $user->ID );
 	$periodic_hook->hook();
 	wp_set_current_user( $current_user_id );
+
+	// Add a rank group.
+	WordPoints_Rank_Groups::register_group(
+		'test'
+		, array( 'name' => 'Test', 'description' => 'A test group.' )
+	);
+
+	// Add a rank type.
+	WordPoints_Rank_Types::register_type( 'test', 'WordPoints_Base_Rank_Type' );
+	WordPoints_Rank_Groups::register_type_for_group( 'test', 'test' );
+
+	wordpoints_add_rank( 'Test', 'test', 'test', 1, array( 'testing' => true ) );
 }
 
 // Include the test functions so we can simulate adding points hooks and widgets.

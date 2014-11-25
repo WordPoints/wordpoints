@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-l10n-validator.git",
-                "reference": "2e629c7702b2d69fc75fee046718fb7d596b0d77"
+                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/2e629c7702b2d69fc75fee046718fb7d596b0d77",
-                "reference": "2e629c7702b2d69fc75fee046718fb7d596b0d77",
+                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/bb2080e297430426fa5cc61789149dd2e4fb68dc",
+                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc",
                 "shasum": ""
             },
             "require": {
@@ -37,20 +37,20 @@
             ],
             "description": "Gettext localization validator for WordPress",
             "homepage": "https://github.com/JDGrimes/wp-l10n-validator",
-            "time": "2014-11-06 22:38:26"
+            "time": "2014-11-13 14:37:08"
         },
         {
             "name": "jdgrimes/wp-plugin-uninstall-tester",
-            "version": "0.4.1",
+            "version": "0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-plugin-uninstall-tester.git",
-                "reference": "5b4c4db08ac91a788987969cbf1cdde194b597f0"
+                "reference": "ee09116b088115919b1b81fcff19f74da6e5833e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/5b4c4db08ac91a788987969cbf1cdde194b597f0",
-                "reference": "5b4c4db08ac91a788987969cbf1cdde194b597f0",
+                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/ee09116b088115919b1b81fcff19f74da6e5833e",
+                "reference": "ee09116b088115919b1b81fcff19f74da6e5833e",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "description": "Utilities for testing WordPress plugin install/uninstall with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wp-plugin-uninstall-tester",
-            "time": "2014-11-12 20:32:19"
+            "time": "2014-11-25 14:47:10"
         }
     ],
     "packages-dev": [

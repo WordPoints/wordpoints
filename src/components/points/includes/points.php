@@ -888,7 +888,7 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
  */
 function wordpoints_points_log_delete_all_metadata( $log_id ) {
 
- 	global $wpdb;
+	global $wpdb;
 
 	$meta_ids = $wpdb->get_col(
 		$wpdb->prepare(

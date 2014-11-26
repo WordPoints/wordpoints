@@ -62,9 +62,9 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 
 		wordpoints_points_log_delete_all_metadata( $log_id );
 
-		$this->assertEmpty( wordpoints_get_points_log_meta( $log_id, 'test', true ) );
-		$this->assertEmpty( wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
-		$this->assertEmpty( wordpoints_get_points_log_meta( $log_id ) );
+		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
 	}
 }
 

@@ -106,7 +106,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( 1, $query->count() );
 
 		// Check that the log meta was deleted also.
-		$this->assertEmpty( wordpoints_get_points_log_meta( $log_id ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
 
 		// But not for the existing user.
 		$query = new WordPoints_Points_Logs_Query(

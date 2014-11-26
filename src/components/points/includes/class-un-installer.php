@@ -324,13 +324,11 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		if ( $log_ids && is_array( $log_ids ) ) {
 
-			$log_ids = implode( ',', array_map( 'absint', $log_ids ) );
-
 			$wpdb->query(
 				"
 					DELETE
 					FROM {$wpdb->wordpoints_points_logs}
-					WHERE `id` IN ({$log_ids})
+					WHERE `id` IN (" . implode( ',', array_map( 'absint', $log_ids ) ) . ")
 				"
 			);
 

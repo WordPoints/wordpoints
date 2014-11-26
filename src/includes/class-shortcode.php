@@ -108,7 +108,7 @@ final class WordPoints_Shortcodes {
 		if ( ! isset( self::$shortcodes[ $shortcode ] ) ) {
 			return wordpoints_shortcode_error(
 				sprintf(
-					esc_html__( 'The %s shortcode was not registered properly.' )
+					esc_html__( 'The %s shortcode was not registered properly.', 'wordpoints' )
 					, '<code>[' . esc_html( $shortcode ) . ']</code>'
 				)
 			);

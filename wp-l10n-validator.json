@@ -65,6 +65,7 @@
 		"WordPoints_Points_Widget::__construct": [1],
 		"WordPoints_Points_Widget::get_field_id": true,
 		"WordPoints_Points_Widget::get_field_name": true,
+		"WordPoints_Shortcodes::register": true,
 		"WordPoints_Un_Installer_Base::update_": true,
 		"WordPoints_Un_Installer_Base::get_updates_for": true,
 		"WordPoints_Un_Installer_Base::set_component_version": true,
@@ -82,10 +83,13 @@
 	"ignored-strings": [
 		"-",
 		"_",
+		")",
+		"(",
 		"=",
 		">",
 		"%",
 		";",
+		"|",
 		"<>",
 		"!=",
 		">=",
@@ -117,6 +121,12 @@
 		"\" href=\"?page=",
 		"WordPoints_Points_Un_Installer",
 		"WordPoints_Ranks_Un_Installer",
+		"style=\"display:none;\"",
+		"&nbsp;",
+		"&paged=",
+		"&s=",
+		"&nbsp;|&nbsp;",
+		"0;url=",
 		"ALL"
 	]
 }

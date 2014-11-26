@@ -334,13 +334,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				"
 			);
 
-			$wpdb->query(
-				"
-					DELETE
-					FROM {$wpdb->wordpoints_points_log_meta}
-					WHERE `log_id` IN ({$log_ids})
-				"
-			);
+			foreach ( $log_ids as $log_id ) {
+				wordpoints_points_log_delete_all_metadata( $log_id );
+			}
 		}
 	}
 

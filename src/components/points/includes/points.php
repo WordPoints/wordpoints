@@ -203,20 +203,15 @@ function wordpoints_delete_points_type( $slug ) {
 	global $wpdb;
 
 	// Delete log meta for this points type.
-	$wpdb->query(
-		$wpdb->prepare(
-			'
-				DELETE
-				FROM ' . $wpdb->wordpoints_points_log_meta . '
-				WHERE `log_id` IN (
-					SELECT `log_id`
-					FROM ' . $wpdb->wordpoints_points_logs . '
-					WHERE `points_type` = %s
-				)
-			',
-			$slug
-		)
+	$query = new WordPoints_Points_Logs_Query(
+		array( 'field' => 'id', 'points_type' => $slug )
 	);
+
+	$log_ids = $query->get( 'col' );
+
+	foreach ( $log_ids as $log_id ) {
+		wordpoints_points_log_delete_all_metadata( $log_id );
+	}
 
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );

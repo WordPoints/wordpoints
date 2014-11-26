@@ -885,6 +885,39 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
 }
 
 /**
+ * Delete all metadata for a points log.
+ *
+ * @since 1.8.0
+ *
+ * @param int $log_id The ID of the points log whose metadata to delete.
+ */
+function wordpoints_points_log_delete_all_metadata( $log_id ) {
+
+ 	global $wpdb;
+
+	$meta_ids = $wpdb->get_col(
+		$wpdb->prepare(
+			"
+				SELECT `meta_id`
+				FROM `{$wpdb->wordpoints_points_log_meta}`
+				WHERE `log_id` = %d
+			"
+			, $log_id
+		)
+	);
+
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+
+	foreach ( $meta_ids as $mid ) {
+		delete_metadata_by_mid( 'wordpoints_points_log', $mid );
+	}
+
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+}
+
+/**
  * Get the default points type.
  *
  * @since 1.0.0

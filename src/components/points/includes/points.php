@@ -203,20 +203,15 @@ function wordpoints_delete_points_type( $slug ) {
 	global $wpdb;
 
 	// Delete log meta for this points type.
-	$wpdb->query(
-		$wpdb->prepare(
-			'
-				DELETE
-				FROM ' . $wpdb->wordpoints_points_log_meta . '
-				WHERE `log_id` IN (
-					SELECT `log_id`
-					FROM ' . $wpdb->wordpoints_points_logs . '
-					WHERE `points_type` = %s
-				)
-			',
-			$slug
-		)
+	$query = new WordPoints_Points_Logs_Query(
+		array( 'field' => 'id', 'points_type' => $slug )
 	);
+
+	$log_ids = $query->get( 'col' );
+
+	foreach ( $log_ids as $log_id ) {
+		wordpoints_points_log_delete_all_metadata( $log_id );
+	}
 
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
@@ -885,6 +880,39 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
 }
 
 /**
+ * Delete all metadata for a points log.
+ *
+ * @since 1.8.0
+ *
+ * @param int $log_id The ID of the points log whose metadata to delete.
+ */
+function wordpoints_points_log_delete_all_metadata( $log_id ) {
+
+	global $wpdb;
+
+	$meta_ids = $wpdb->get_col(
+		$wpdb->prepare(
+			"
+				SELECT `meta_id`
+				FROM `{$wpdb->wordpoints_points_log_meta}`
+				WHERE `log_id` = %d
+			"
+			, $log_id
+		)
+	);
+
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+
+	foreach ( $meta_ids as $mid ) {
+		delete_metadata_by_mid( 'wordpoints_points_log', $mid );
+	}
+
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+}
+
+/**
  * Get the default points type.
  *
  * @since 1.0.0
@@ -970,19 +998,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	foreach ( $logs as $log ) {
 
-		$meta = $wpdb->get_results(
-			$wpdb->prepare(
-				"
-					SELECT meta_key, meta_value
-					FROM {$wpdb->wordpoints_points_log_meta}
-					WHERE log_id = %d
-				"
-				, $log->id
-			)
-			, OBJECT_K
-		);
-
-		$meta = wp_list_pluck( $meta, 'meta_value' );
+		$meta = wordpoints_get_points_log_meta( $log->id );
+		$meta = wp_list_pluck( $meta, 0 );
 
 		$new_log_text = wordpoints_render_points_log_text(
 			$log->user_id

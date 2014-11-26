@@ -151,36 +151,23 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 
 	global $wpdb;
 
-	$blog_only = '';
+	$query_args = array( 'fields' => 'id', 'user_id' => $user_id );
 
-	// If the user is only being deleted from a single blog on multisite.
-	if ( is_multisite() && get_userdata( $user_id ) ) {
-		$blog_only = 'AND blog_id = %d';
+	// If the user is being deleted from all blogs on multisite.
+	if ( is_multisite() && ! get_userdata( $user_id ) ) {
+		$query_args['blog_id'] = 0;
 	}
 
 	// Delete log meta.
-	$wpdb->query(
-		$wpdb->prepare(
-			"
-				DELETE
-				FROM {$wpdb->wordpoints_points_log_meta}
-				WHERE log_id IN(
-					SELECT id
-					FROM {$wpdb->wordpoints_points_logs}
-					WHERE user_id = %d
-						AND site_id = %d
-						{$blog_only}
-				)
-			"
-			,$user_id
-			,$wpdb->siteid
-			,$wpdb->blogid
-		)
-	);
+	$query = new WordPoints_Points_Logs_Query( $query_args );
+
+	foreach ( $query->get( 'col' ) as $log_id ) {
+		wordpoints_points_log_delete_all_metadata( $log_id );
+	}
 
 	$where = array( 'user_id' => $user_id );
 
-	if ( $blog_only !== '' ) {
+	if ( ! isset( $query_args['blog_id'] ) ) {
 		$where['blog_id'] = $wpdb->blogid;
 	}
 
@@ -207,20 +194,11 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 	global $wpdb;
 
 	// Delete log meta.
-	$wpdb->query(
-		$wpdb->prepare(
-			"
-				DELETE
-				FROM {$wpdb->wordpoints_points_log_meta}
-				WHERE log_id IN(
-					SELECT id
-					FROM {$wpdb->wordpoints_points_logs}
-					WHERE blog_id = %d
-				)
-			"
-			,$blog_id
-		)
-	);
+	$query = new WordPoints_Points_Logs_Query( array( 'fields' => 'id' ) );
+
+	foreach ( $query->get( 'col' ) as $log_id ) {
+		wordpoints_points_log_delete_all_metadata( $log_id );
+	}
 
 	// Now delete the logs.
 	$wpdb->delete(

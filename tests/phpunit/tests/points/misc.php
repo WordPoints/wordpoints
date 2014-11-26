@@ -35,15 +35,14 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 1, $query->count() );
 
+		$log_id = $query->get( 'row' )->id;
+
 		// Now delete the user.
 		wp_delete_user( $user_id );
 
 		// Here is the first real test. The logs for the user should be gone.
-		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
-		$this->assertEquals( 0, $query->count() );
-
-		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
-		$this->assertEquals( 0, $query->count() );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
 		// If we aren't on multisite, we've completed our mission.
 		if ( ! is_multisite() ) {
@@ -87,6 +86,10 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => false ) );
 		$this->assertEquals( 3, $query->count() );
 
+		// Get the ID of the log on this site.
+		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
+		$log_id = $query->get( 'row' )->id;
+
 		// Now we'll delete the user, but just from this blog.
 		wp_delete_user( $user_id );
 
@@ -99,21 +102,20 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => false ) );
 		$this->assertEquals( 2, $query->count() );
 
-		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id, 'blog_id' => $blog_id_2 ) );
-		$this->assertEquals( 0, $query->count() );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
-		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => $blog_id_2 ) );
-		$this->assertEquals( 0, $query->count() );
+		// Get the IDs of the logs on the remaining blogs.
+		$log_ids = wp_list_pluck( $query->get(), 'user_id' );
 
 		// Good, now lets completely delete the user from the whole network.
 		wpmu_delete_user( $user_id );
 
 		// All of their logs and meta should now be gone.
-		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id, 'blog_id' => false ) );
-		$this->assertEquals( 0, $query->count() );
-
-		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => false ) );
-		$this->assertEquals( 0, $query->count() );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[0], 'user_id' ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[0], 'test' ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[1], 'user_id' ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[1], 'test' ) );
 	}
 
 	/**
@@ -149,6 +151,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 1, $query->count() );
 
+		$log_id = $query->get( 'row' )->id;
+
 		// Back to Kansas.
 		restore_current_blog();
 
@@ -156,11 +160,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		wpmu_delete_blog( $blog_id );
 
 		// Here is the real test. The logs for the blog should be gone.
-		$query = new WordPoints_Points_Logs_Query( array( 'blog_id' => $blog_id ) );
-		$this->assertEquals( 0, $query->count() );
-
-		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
-		$this->assertEquals( 0, $query->count() );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'blog_id' ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 	}
 
 	/**

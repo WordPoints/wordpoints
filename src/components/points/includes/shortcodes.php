@@ -63,7 +63,7 @@ abstract class WordPoints_Points_Shortcode extends WordPoints_Shortcode {
 				$points_type = new WP_Error(
 					'wordpoints_shortcode_no_points_type'
 					, sprintf(
-						__( 'The &#8220;%s&#8221; attribute of the %s shortcode must be the slug of a points type. Example: %s.', 'wordpoints' )
+						__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a points type. Example: %3$s.', 'wordpoints' )
 						, 'points_type'
 						, '<code>[' . $this->shortcode . ']</code>'
 						, '<code>[' . $this->shortcode . ' points_type="points"]</code>'
@@ -111,7 +111,12 @@ class WordPoints_Points_Top_Shortcode extends WordPoints_Points_Shortcode {
 	protected function verify_atts() {
 
 		if ( ! wordpoints_posint( $this->atts['users'] ) ) {
-			return __( 'The &#8220;users&#8221; attribute of the <code>[wordpoints_points_top]</code> shortcode must be a positive integer. Example: <code>[wordpoints_points_top <b>users="10"</b> type="points"]</code>.', 'wordpoints' );
+			return sprintf(
+				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a positive integer. Example: %3$s.', 'wordpoints' )
+				, 'users'
+				, '<code>[' . $this->shortcode . ']</code>'
+				, '<code>[' . $this->shortcode . ' <b>users="10"</b> type="points"]</code>'
+			);
 		}
 
 		return parent::verify_atts();
@@ -164,7 +169,12 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 	protected function verify_atts() {
 
 		if ( ! wordpoints_is_points_logs_query( $this->atts['query'] ) ) {
-			return __( 'The &#8220;query&#8221; attribute of the <code>[wordpoints_points_logs]</code> shortcode must be the slug of a registered points log query. Example: <code>[wordpoints_points_logs <b>query="default"</b> points_type="points"]</code>.', 'wordpoints' );
+			return sprintf(
+				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a registered points log query. Example: %3$s.', 'wordpoints' )
+				, 'query'
+				, '<code>[' . $this->shortcode . ']</code>'
+				, '<code>[' . $this->shortcode . ' <b>query="default"</b> points_type="points"]</code>'
+			);
 		}
 
 		if ( false === wordpoints_int( $this->atts['paginate'] ) ) {

@@ -13,7 +13,7 @@ $invalid = wordpoints_validate_active_modules();
 
 if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
-		wordpoints_show_admin_error( sprintf( __( 'The module <code>%s</code> has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' ), esc_html( $module_file ), esc_html( $error->get_error_message() ) ) );
+		wordpoints_show_admin_error( sprintf( __( 'The module %s has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' ), esc_html( $module_file ), '<code>' . esc_html( $error->get_error_message() ) . '</code>' ) );
 	}
 }
 

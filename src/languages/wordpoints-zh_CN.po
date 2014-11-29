@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2014-11-28 21:29:27+00:00\n"
-"PO-Revision-Date: 2014-11-29 07:06+0200\n"
+"PO-Revision-Date: 2014-11-29 07:17+0200\n"
 "Last-Translator: Jack Lee <suifengtec@qq.com>\n"
 "Language-Team: Simplified Chinese "
 "<https://hosted.weblate.org/projects/wordpoints/wordpoints/zh_CN/>\n"
@@ -97,8 +97,7 @@ msgstr "喜欢这个插件？"
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
-msgstr ""
-"如果您举得WordPoints不错，请用<a href=\"%s\">5分评价</a>以让更多人知道它！"
+msgstr "如果您觉得WordPoints不错，请用<a href=\"%s\">5分评价</a>以让更多人知道它。"
 
 #: admin/admin.php:439
 msgid ""
@@ -114,7 +113,7 @@ msgstr "需要帮助?"
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
-msgstr "请在<a href=\"%s\">支持论坛</a>提交您的功能需求或者问题。"
+msgstr "请在<a href=\"%s\">支持论坛</a>提交您的功能需求或者问题"
 
 #: admin/admin.php:444
 msgid "Thank you for using WordPoints!"
@@ -194,7 +193,7 @@ msgstr "未找到可用的模块。"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:297
 msgid "No modules found."
-msgstr "未找到模块"
+msgstr "未找到模块。"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:299
 msgid "There are not any modules installed."
@@ -1065,7 +1064,7 @@ msgstr "如果评论被删除，减去多少积分："
 #: components/points/includes/hooks/comment-removed.php:160
 msgctxt "points log description"
 msgid "Comment marked as spam."
-msgstr "评论被标记为垃圾评论"
+msgstr "评论被标记为垃圾评论。"
 
 #: components/points/includes/hooks/comment-removed.php:164
 msgctxt "points log description"

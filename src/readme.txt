@@ -46,10 +46,10 @@ plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 WordPoints is fully localizable, and translations are already available in several
 languages:
 
-* **Brazilian Portuguese** — Thanks goes to Gabriel Galvão.
-* **Simplified Chinese** — Thanks to Jack Lee.
-* **Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
-* **Japanese** — Thanks to Raymond Calla.
+* **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
+* **(ja) Japanese** — Thanks to Raymond Calla.
+* **(pt_BR) Brazilian Portuguese** — Thanks goes to Gabriel Galvão ([@threadsgeneration](https://profiles.wordpress.org/threadsgeneration)).
+* **(zh_CN) Simplified Chinese** — Thanks to Jack Lee ([@suifengtec](https://profiles.wordpress.org/suifengtec)).
 
 Not all of these translations are complete, and if you'd like to help maintain and
 improve them, or you'd like to translate WordPoints into another language, you can

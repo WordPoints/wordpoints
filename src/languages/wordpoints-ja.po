@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.6.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-11-28 21:29:27+00:00\n"
+"POT-Creation-Date: 2014-11-29 22:00:28+00:00\n"
 "PO-Revision-Date: 2014-10-26 03:07+0200\n"
 "Last-Translator: Raymond Calla <raymond.calla@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/wordpoints/"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2.0-dev\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0-alpha-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:102

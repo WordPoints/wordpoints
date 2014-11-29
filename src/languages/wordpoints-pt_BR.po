@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints_pt_BR\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-11-28 21:29:27+00:00\n"
+"POT-Creation-Date: 2014-11-29 22:00:28+00:00\n"
 "PO-Revision-Date: 2013-12-21 02:20-0300\n"
 "Last-Translator: Gabriel Galvão <admin@threadsgeneration.com>\n"
 "Language-Team: Gabriel Galvão <admin@threadsgeneration.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0-alpha-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:102

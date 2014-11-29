@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-11-28 21:29:27+00:00\n"
+"POT-Creation-Date: 2014-11-29 22:00:28+00:00\n"
 "PO-Revision-Date: 2014-11-29 07:06+0200\n"
 "Last-Translator: Jack Lee <suifengtec@qq.com>\n"
-"Language-Team: Simplified Chinese "
-"<https://hosted.weblate.org/projects/wordpoints/wordpoints/zh_CN/>\n"
+"Language-Team: Simplified Chinese <https://hosted.weblate.org/projects/"
+"wordpoints/wordpoints/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0-alpha-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:102
@@ -130,13 +130,16 @@ msgstr "WordPoints检测到多站，已跳过部分安装过程。"
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for version %s (and possibly later versions)."
-msgstr "WordPoints探测到一个大的多站网络,已经为版本%s (和更新的版本)跳过了部分更新过程。"
+msgstr ""
+"WordPoints探测到一个大的多站网络,已经为版本%s (和更新的版本)跳过了部分更新过"
+"程。"
 
 #: admin/admin.php:482
 msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
 "done already, some parts of the plugin may not function properly."
-msgstr "剩余的过程需要完全人工操作.如果没有完成，该插件的某些功能可能无法正常工作。"
+msgstr ""
+"剩余的过程需要完全人工操作.如果没有完成，该插件的某些功能可能无法正常工作。"
 
 #: admin/admin.php:483 includes/class-wordpoints-components.php:556
 msgid "Learn more."
@@ -487,8 +490,9 @@ msgid ""
 "generally just need to <a href=\"%2$s\">upload the module file</a> into your "
 "%3$s directory. Once a module has been installed, you can activate it here."
 msgstr ""
-"您可以通过浏览<a href=\"%1$s\" target=\"_blank\">WordPoints插件目录</a>来为您的网站查找模块. "
-"安装模块的步骤是您只需要<a href=\"%2$s\">上传模块文件</a>到您的 %3$s  目录即可，模块被安装之后，您可以在这里激活它。"
+"您可以通过浏览<a href=\"%1$s\" target=\"_blank\">WordPoints插件目录</a>来为您"
+"的网站查找模块. 安装模块的步骤是您只需要<a href=\"%2$s\">上传模块文件</a>到您"
+"的 %3$s  目录即可，模块被安装之后，您可以在这里激活它。"
 
 #: admin/screens/modules-load.php:454
 msgid "Troubleshooting"
@@ -513,7 +517,9 @@ msgid ""
 "If something goes wrong with a module and you can&#8217;t use WordPoints, "
 "delete or rename that file in the %s directory and it will be automatically "
 "deactivated."
-msgstr "如果在使用WordPoints模块中发现有某些错误，删除或者重命名%s目录中的那个文件，他会被自动禁用。"
+msgstr ""
+"如果在使用WordPoints模块中发现有某些错误，删除或者重命名%s目录中的那个文件，"
+"他会被自动禁用。"
 
 #: admin/screens/modules-load.php:463
 msgid "Developer Documentation"
@@ -729,8 +735,9 @@ msgid ""
 "points type. By default, only the first points type area is expanded. To "
 "populate additional points types, click on their title bars to expand them."
 msgstr ""
-"添加hook到一个积分类型,点击hook标题条并选择一种积分类型，或者您可以拖动hook标题条到某个已存在的积分类型里面。默认的，仅第一个积分类型区域是展"
-"开的。展开积分类型区域：仅需要点击它们的标题条即可。"
+"添加hook到一个积分类型,点击hook标题条并选择一种积分类型，或者您可以拖动hook标"
+"题条到某个已存在的积分类型里面。默认的，仅第一个积分类型区域是展开的。展开积"
+"分类型区域：仅需要点击它们的标题条即可。"
 
 #: components/points/admin/screens/hooks-load.php:20
 msgid ""
@@ -1328,7 +1335,8 @@ msgstr "积分"
 msgid ""
 "The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a "
 "points type. Example: %3$s."
-msgstr "短代码%2$s中&#8220;%1$s&#8221;的属性值应该是某个积分类型的别名，例如：%3$s."
+msgstr ""
+"短代码%2$s中&#8220;%1$s&#8221;的属性值应该是某个积分类型的别名，例如：%3$s."
 
 #: components/points/includes/shortcodes.php:115
 msgid ""
@@ -1340,7 +1348,9 @@ msgstr "短代码%2$s中&#8220;%1$s&#8221; 的属性值应该是一个正整数�
 msgid ""
 "The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a "
 "registered points log query. Example: %3$s."
-msgstr "短代码 %2$s中 &#8220;%1$s&#8221; 的属性值应该是某个已注册的积分记录查询的别名，例如： %3$s."
+msgstr ""
+"短代码 %2$s中 &#8220;%1$s&#8221; 的属性值应该是某个已注册的积分记录查询的别"
+"名，例如： %3$s."
 
 #: components/points/includes/shortcodes.php:286
 msgctxt "column name"
@@ -1481,8 +1491,10 @@ msgid ""
 "up to that rank. For example, the user may need to have a certain number of "
 "points to reach a given rank."
 msgstr ""
-"评级是分配给用户的标题。一个评级组被组织成一个层次。用户刚开始在底部，但可以通过增加积分到更高的位置。每个评级都有一个用户必须满足的条件，他应满足某个评级"
-"所需的最低要求以被移到该评级组。例如，用户可能需要有一定的积分，以达到给定的等级。"
+"评级是分配给用户的标题。一个评级组被组织成一个层次。用户刚开始在底部，但可以"
+"通过增加积分到更高的位置。每个评级都有一个用户必须满足的条件，他应满足某个评"
+"级所需的最低要求以被移到该评级组。例如，用户可能需要有一定的积分，以达到给定"
+"的等级。"
 
 #: components/ranks/admin/admin.php:110
 msgid ""
@@ -1490,7 +1502,9 @@ msgid ""
 "multiple types of points, you will have a group of ranks for each points "
 "type. Each rank group is managed separately, on a different tab on this "
 "screen."
-msgstr "可提供多个等级层级。例如，如果你有多个类型的积分，你可以为每个类型的积分设置不同的评级组。每个评级组单独管理，该屏幕在不同的标签上。"
+msgstr ""
+"可提供多个等级层级。例如，如果你有多个类型的积分，你可以为每个类型的积分设置"
+"不同的评级组。每个评级组单独管理，该屏幕在不同的标签上。"
 
 #: components/ranks/admin/admin.php:117
 msgid "Adding and Editing"
@@ -1503,15 +1517,18 @@ msgid ""
 "save button. If you have changed your mind, you can remove the new rank "
 "without saving it by clicking the Cancel button."
 msgstr ""
-"为添加一个新的等级到评级组，点击添加评级按钮。一个新的等级以及其所需设置的表单将会出现。填写那些设置然后点击保存按钮。如果你改变主意了，你可以在保存之前点"
-"击去掉按钮以删除它。"
+"为添加一个新的等级到评级组，点击添加评级按钮。一个新的等级以及其所需设置的表"
+"单将会出现。填写那些设置然后点击保存按钮。如果你改变主意了，你可以在保存之前"
+"点击去掉按钮以删除它。"
 
 #: components/ranks/admin/admin.php:120
 msgid ""
 "To edit an existing rank&#8217;s settings, click on the Edit link in its "
 "title bar. The settings form for that rank will open. You can close the "
 "settings form again by clicking the Close link."
-msgstr "为编辑一个已存在的评级的设置，点击评级标题栏中的编辑链接。该评级的设置表单将会打开。你可以点击关闭链接以关闭设置表单。"
+msgstr ""
+"为编辑一个已存在的评级的设置，点击评级标题栏中的编辑链接。该评级的设置表单将"
+"会打开。你可以点击关闭链接以关闭设置表单。"
 
 #: components/ranks/admin/admin.php:121
 msgid ""
@@ -1521,7 +1538,9 @@ msgid ""
 "all of the settings just as you want them. If you decide that you don&#8217;"
 "t want to save your changes, click the Cancel button instead, which will "
 "reset the form to the rank&#8217;s current settings."
-msgstr "一旦你按照自己的意愿修改了评级设置，你可以点击保存按钮保存评级设置。您的修改将会立刻起效，如果你决定你不想保存你的更改，点击取消按钮就行。"
+msgstr ""
+"一旦你按照自己的意愿修改了评级设置，你可以点击保存按钮保存评级设置。您的修改"
+"将会立刻起效，如果你决定你不想保存你的更改，点击取消按钮就行。"
 
 #: components/ranks/admin/admin.php:128
 msgid "Deleting"
@@ -1533,7 +1552,9 @@ msgid ""
 "Delete button. You will be asked to confirm that you want to delete the "
 "rank. If you are not sure, click the Cancel button in the confirmation "
 "dialog. Once you delete the rank, it is gone!"
-msgstr "如果你想删除一个评级，打开它的设置表单，点击删除按钮。你将看到一个确认表单，如果你不确定要删除它，点击取消按钮就可，如果你删除了它，它就没了！"
+msgstr ""
+"如果你想删除一个评级，打开它的设置表单，点击删除按钮。你将看到一个确认表单，"
+"如果你不确定要删除它，点击取消按钮就可，如果你删除了它，它就没了！"
 
 #: components/ranks/admin/admin.php:136
 msgid "Documentation on Ranks"
@@ -1543,7 +1564,9 @@ msgstr "评级文档"
 msgid ""
 "This rank does not match any rank in the database, perhaps it was deleted. "
 "Refresh the page to update the list of ranks."
-msgstr "此评级与数据库中的任何评级都不匹配，可能它已被删除。重载此页面以查看评级列表。"
+msgstr ""
+"此评级与数据库中的任何评级都不匹配，可能它已被删除。重载此页面以查看评级列"
+"表。"
 
 #: components/ranks/admin/includes/ajax.php:232
 msgid "There was an error deleting the rank. Please try again."
@@ -1656,20 +1679,25 @@ msgstr "%s短代码是尚未注册的属性。"
 msgid ""
 "The &#8220;%s&#8221; attribute of the %s shortcode must be used inside of a "
 "Post, Page, or other post type."
-msgstr "短代码%s中&#8220;%s&#8221; 的值必须被用在一个文章，页面，或者其它文章类型中。"
+msgstr ""
+"短代码%s中&#8220;%s&#8221; 的值必须被用在一个文章，页面，或者其它文章类型中。"
 
 #: includes/class-wordpoints-components.php:546
 msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process for the &#8220;%s&#8221; component."
-msgstr "WordPoints检测到一个大的多站网络并且已经为组件&#8220;%s&#8221;跳过了部分安装进程。"
+msgstr ""
+"WordPoints检测到一个大的多站网络并且已经为组件&#8220;%s&#8221;跳过了部分安装"
+"进程。"
 
 #: includes/class-wordpoints-components.php:549
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for the &#8220;%s&#8221; component for version %s (and possibly "
 "later versions)."
-msgstr "WordPoints检测到一个大的多站网络并且已经跳过了版本%s (和更新的版本)的更新进程。"
+msgstr ""
+"WordPoints检测到一个大的多站网络并且已经跳过了版本%s (和更新的版本)的更新进"
+"程。"
 
 #: includes/class-wordpoints-components.php:555
 msgid ""

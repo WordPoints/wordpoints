@@ -119,7 +119,7 @@ manage the ranks used on your site.
 * Fixed: CSRF vulnerability for toggling accessibility mode on the Points Hooks screen. It would only have been an annoyance.
 
 = 1.7.0 - (~80 hrs) =
-* New: Create ranks for your users by activating [the Ranks component]().
+* New: Create ranks for your users by activating [the Ranks component](http://wordpoints.org/user-guide/#ranks).
 * * You can manage the ranks on the *WordPoints » Ranks* administration screen.
 * * A user's rank is displayed along with their name in the Top Users table.
 * * You can display a user's rank using the `%rank` placeholder in the WordPoints widget.

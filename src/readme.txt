@@ -113,6 +113,18 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.8.0 - (~55 hrs) =
+* New: You can display the points of the current post's author using the
+[`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
+shortcode by supplying `post_author` as the value of the `user_id` attribute, like
+this: `[wordpoints_points user_id="post_author"]`.
+* New: Award points to post authors for comments they receive with the
+[Comment Received](http://wordpoints.org/user-guide/points-hooks/comment-received/)
+points hook.
+* New: Display a user's rank with the [`[wordpoints_user_rank]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_user_rank/) shortcode.
+* Updated: Part of the install and update process is skipped when the plugin is
+network activated on a very large multisite network (>10,000 sites).
+
 = 1.7.1 — (~5 hrs) =
 * Fixed: Ranks not saving in some cases. Thanks, @atomtheman10, for the report!
 * Fixed: XSS vulnerability from the points logs admin screen. It was only exploitable by Administrators and Editors.
@@ -206,6 +218,11 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.8.0 =
+* This is a feature release that adds a new shortcode to display a user's rank,
+lets you display the points of the author of the current post, and makes it possible
+to award a post author points when they get a comment on one of their posts.
 
 = 1.7.1 =
 * This is a security and bugfix release. It fixes an issue on the Ranks admin screen

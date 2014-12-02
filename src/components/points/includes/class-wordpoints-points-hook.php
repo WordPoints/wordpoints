@@ -192,7 +192,7 @@ abstract class WordPoints_Points_Hook {
 		?>
 
 		<p>
-			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php echo $this->options['points_label']; ?></label>
+			<label for="<?php $this->the_field_id( 'points' ); ?>"><?php echo esc_html( $this->options['points_label'] ); ?></label>
 			<input class="widefat" name="<?php $this->the_field_name( 'points' ); ?>" id="<?php $this->the_field_id( 'points' ); ?>" type="number" min="0" value="<?php echo wordpoints_posint( $instance['points'] ); ?>" />
 		</p>
 
@@ -614,7 +614,7 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function the_field_name( $field_name ) {
 
-		echo $this->get_field_name( $field_name );
+		echo esc_attr( $this->get_field_name( $field_name ) );
 	}
 
 	/**
@@ -648,7 +648,7 @@ abstract class WordPoints_Points_Hook {
 	 */
 	final public function the_field_id( $field_name ) {
 
-		echo $this->get_field_id( $field_name );
+		echo esc_attr( $this->get_field_id( $field_name ) );
 	}
 
 	/**
@@ -768,8 +768,6 @@ abstract class WordPoints_Points_Hook {
 		);
 
 		$this->options['_classname']   = $this->option_name;
-		$this->options['_before_hook'] = '';
-		$this->options['_after_hook']  = '';
 
 		/*
 		 * The below registration is not longer necessary, and is deprecated.

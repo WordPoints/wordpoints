@@ -32,7 +32,6 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( 'two', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 
 		$this->assertEquals( array( 'two' ), wordpoints_get_points_log_meta( $log_id, 'test' ) );
-		$this->assertEquals( array( 'test' => 'two' ), wordpoints_get_points_log_meta( $log_id, null, true ) );
 		$this->assertEquals( array( 'test' => array( 'two' ) ), wordpoints_get_points_log_meta( $log_id ) );
 
 		$result = wordpoints_update_points_log_meta( $log_id, 'test', 'three', 'one' );
@@ -42,6 +41,30 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 		$result = wordpoints_update_points_log_meta( $log_id, 'test', 'three', 'two' );
 		$this->assertEquals( 1, $result );
 		$this->assertEquals( 'three', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+	}
+
+	/**
+	 * Test deleting all log meta.
+	 *
+	 * @since 1.8.0
+	 */
+	function test_delete_all_log_meta() {
+
+		global $wpdb;
+
+		$log_id = 1;
+
+		wordpoints_update_points_log_meta( $log_id, 'test', 'one' );
+		$this->assertEquals( 'one', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+
+		wordpoints_update_points_log_meta( $log_id, 'test_2', 'two' );
+		$this->assertEquals( 'two', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
+
+		wordpoints_points_log_delete_all_metadata( $log_id );
+
+		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
 	}
 }
 

@@ -314,12 +314,10 @@ final class WordPoints_Points_Hooks {
 
 			$args = $hook_type->get_options();
 
-			$args['_add']         = 'multi';
-			$args['_display']     = 'template';
-			$args['_temp_id']     = "{$id_base}-__i__";
-			$args['_multi_num']   = $hook_type->next_hook_id_number();
-			$args['_before_hook'] = "<div id='hook-{$i}_{$args['_temp_id']}' class='hook'>";
-			$args['_after_hook']  = '</div>';
+			$args['_add']       = 'multi';
+			$args['_display']   = 'template';
+			$args['_multi_num'] = $hook_type->next_hook_id_number();
+			$args['_id_slug']   = $i;
 
 			$hook_type->set_options( $args );
 
@@ -372,12 +370,7 @@ final class WordPoints_Points_Hooks {
 
 			unset( $options['_add'] );
 
-			// Substitute HTML id and class attributes into _before_hook
-			$classname_ = '_' . $options['_classname'];
-			$classname_ = ltrim( $classname_, '_' );
-
-			$options['_before_hook'] = "<div id='hook-{$slug}_{$hook_id}' class='hook {$classname_}'>";
-			$options['_after_hook']  = '</div>';
+			$options['_id_slug'] = $slug;
 
 			$hook_type->set_options( $options );
 
@@ -730,7 +723,7 @@ final class WordPoints_Points_Hooks {
 			$query_arg['points_type'] = $points_type;
 		}
 
-		if ( isset( $options['_display'] ) && 'template' === $options['_display'] && $number ) {
+		if ( isset( $options['_display'] ) && 'template' === $options['_display'] ) {
 
 			/*
 			 * We aren't outputting the form for a hook, but a template form for this
@@ -744,22 +737,19 @@ final class WordPoints_Points_Hooks {
 			$id_format = "{$id_base}-__i__";
 		}
 
-		$title    = esc_html( strip_tags( $hook->get_name() ) );
-
-		echo $options['_before_hook'];
-
 		?>
 
+		<div id="hook-<?php echo esc_html( $options['_id_slug'] ); ?>_<?php echo esc_attr( $id_format ); ?>" class="hook <?php echo esc_attr( $options['_classname'] ); ?>">
 		<div class="hook-top">
 			<div class="hook-title-action">
 				<a class="hook-action hide-if-no-js" href="#available-hooks"></a>
 				<a class="hook-control-edit hide-if-js" href="<?php echo esc_attr( esc_url( add_query_arg( $query_arg ) ) ); ?>">
 					<span class="edit"><?php echo esc_html_x( 'Edit', 'hook', 'wordpoints' ); ?></span>
 					<span class="add"><?php echo esc_html_x( 'Add', 'hook', 'wordpoints' ); ?></span>
-					<span class="screen-reader-text"><?php echo $title; ?></span>
+					<span class="screen-reader-text"><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?></span>
 				</a>
 			</div>
-			<div class="hook-title"><h4><?php echo $title ?><span class="in-hook-title"></span></h4></div>
+			<div class="hook-title"><h4><?php echo esc_html( strip_tags( $hook->get_name() ) ) ?><span class="in-hook-title"></span></h4></div>
 		</div>
 
 		<div class="hook-inside">
@@ -791,12 +781,11 @@ final class WordPoints_Points_Hooks {
 		</div>
 
 		<div class="hook-description">
-			<?php echo ( ! empty( $options['description'] ) ) ? "{$options['description']}\n" : "{$title}\n"; ?>
+			<?php echo esc_html( ( ! empty( $options['description'] ) ) ? $options['description'] : strip_tags( $hook->get_name() ) ) . "\n"; ?>
+		</div>
 		</div>
 
 		<?php
-
-		echo $options['_after_hook'];
 	}
 
 	/**

@@ -462,7 +462,7 @@ function wordpoints_list_post_types( $options, $args = array() ) {
 			continue;
 		}
 
-		echo '<option value="' . $post_type->name . '"' . selected( $options['selected'], $post_type->name, false ) . '>' . $post_type->label . '</option>';
+		echo '<option value="' . esc_attr( $post_type->name ) . '"' . selected( $options['selected'], $post_type->name, false ) . '>' . esc_html( $post_type->label ) . '</option>';
 	}
 
 	echo '</select>';
@@ -537,19 +537,23 @@ function wordpoints_get_excluded_users( $context ) {
  * the shortcode is being displayed in a post that the current user can edit.
  *
  * @since 1.0.1
+ * @since 1.8.0 The $message now supports WP_Error objects.
  *
- * @param string $message The error message.
+ * @param string|WP_Error $message The error message.
  */
 function wordpoints_shortcode_error( $message ) {
 
 	if (
-		! ( get_post() && current_user_can( 'edit_post', get_the_ID() ) )
-		&& ! current_user_can( 'manage_options' )
+		( get_post() && current_user_can( 'edit_post', get_the_ID() ) )
+		|| current_user_can( 'manage_options' )
 	) {
-		return;
-	}
 
-	return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . $message . '</p>';
+		if ( is_wp_error( $message ) ) {
+			$message = $message->get_error_message();
+		}
+
+		return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . wp_kses( $message, 'wordpoints_shortcode_error' ) . '</p>';
+	}
 }
 
 /**
@@ -694,7 +698,7 @@ function wordpoints_points_component_register() {
 			'component_uri' => 'http://wordpoints.org/',
 			'description'   => __( 'Enables a points system for your site.', 'wordpoints' ),
 			'file'          => WORDPOINTS_DIR . 'components/points/points.php',
-			'uninstall_file' => WORDPOINTS_DIR . 'components/points/uninstall.php',
+			'un_installer'  => WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php',
 		)
 	);
 }
@@ -719,7 +723,7 @@ function wordpoints_ranks_component_register() {
 			'component_uri'  => 'http://wordpoints.org/',
 			'description'    => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
 			'file'           => WORDPOINTS_DIR . 'components/ranks/ranks.php',
-			'uninstall_file' => WORDPOINTS_DIR . 'components/ranks/uninstall.php',
+			'un_installer'   => WORDPOINTS_DIR . 'components/ranks/includes/class-un-installer.php',
 		)
 	);
 }

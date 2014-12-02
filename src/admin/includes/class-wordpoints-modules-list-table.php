@@ -107,9 +107,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'recently_activated' => array(),
 		);
 
-		$screen = $this->screen;
-
-		if ( ! $screen->in_admin( 'network' ) ) {
+		if ( ! $this->screen->in_admin( 'network' ) ) {
 
 			$recently_activated = get_option( 'wordpoints_recently_activated_modules' );
 
@@ -131,20 +129,20 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		foreach ( (array) $modules['all'] as $module_file => $module_data ) {
 
 			// Filter into individual sections.
-			if ( is_multisite() && ! $screen->in_admin( 'network' ) && is_network_only_wordpoints_module( $module_file ) ) {
+			if ( is_multisite() && ! $this->screen->in_admin( 'network' ) && is_network_only_wordpoints_module( $module_file ) ) {
 
 				unset( $modules['all'][ $module_file ] );
 
-			} elseif ( ! $screen->in_admin( 'network' ) && is_wordpoints_module_active_for_network( $module_file ) ) {
+			} elseif ( ! $this->screen->in_admin( 'network' ) && is_wordpoints_module_active_for_network( $module_file ) ) {
 
 				unset( $modules['all'][ $module_file ] );
 
 			} elseif (
 				(
-					! $screen->in_admin( 'network' )
+					! $this->screen->in_admin( 'network' )
 					&& is_wordpoints_module_active( $module_file )
 				) || (
-					$screen->in_admin( 'network' )
+					$this->screen->in_admin( 'network' )
 					&& is_wordpoints_module_active_for_network( $module_file )
 				)
 			) {
@@ -154,7 +152,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			} else {
 
 				// Was the module recently activated?
-				if ( ! $screen->in_admin( 'network' ) && isset( $recently_activated[ $module_file ] ) ) {
+				if ( ! $this->screen->in_admin( 'network' ) && isset( $recently_activated[ $module_file ] ) ) {
 					$modules['recently_activated'][ $module_file ] = $module_data;
 				}
 
@@ -213,7 +211,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			uasort( $this->items, array( $this, '_order_callback' ) );
 		}
 
-		$modules_per_page = $this->get_items_per_page( str_replace( '-', '_', $screen->id . '_per_page' ), 999 );
+		$modules_per_page = $this->get_items_per_page( str_replace( '-', '_', $this->screen->id . '_per_page' ), 999 );
 
 		$start = ( $page - 1 ) * $modules_per_page;
 
@@ -480,11 +478,180 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 */
 	public function single_row( $item ) {
 
-		global $status, $page, $s, $totals;
+		global $status;
 
 		list( $module_file, $module_data ) = $item;
 		$context = $status;
-		$screen = $this->screen;
+
+		if ( $this->screen->in_admin( 'network' ) ) {
+			$is_active = is_wordpoints_module_active_for_network( $module_file );
+		} else {
+			$is_active = is_wordpoints_module_active( $module_file );
+		}
+
+		$class = ( $is_active ) ? 'active' : 'inactive';
+
+		/**
+		 * Filter the class of a row of the module's list table.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $class The current classes.
+		 * @param string $module_file The module that the row is for.
+		 * @param string $module_data The module's data.
+		 * @param string $context     The current status context in which the modules are being displayed.
+		 */
+		$class = apply_filters( 'wordpoints_module_list_row_class', $class, $module_file, $module_data, $context );
+
+		?>
+		<tr id="<?php echo esc_attr( sanitize_title( $module_data['name'] ) ); ?>" class="<?php echo esc_attr( $class ); ?>">
+			<?php
+
+			list( $columns, $hidden ) = $this->get_column_info();
+
+			foreach ( $columns as $column_name => $column_display_name ) {
+
+				$is_hidden = in_array( $column_name, $hidden );
+
+				switch ( $column_name ) {
+
+					case 'cb':
+						$checkbox_id = 'checkbox_' . md5( $module_data['name'] );
+
+						?>
+						<th scope="row" class="check-column">
+							<label class="screen-reader-text" for="<?php echo esc_attr( $checkbox_id ); ?>">
+								<?php echo esc_html( sprintf( __( 'Select %s', 'wordpoints' ), $module_data['name'] ) ); ?>
+							</label>
+							<input type="checkbox" name="checked[]" value="<?php echo esc_attr( $module_file ); ?>" id="<?php echo esc_attr( $checkbox_id ); ?>" />
+						</th>
+						<?php
+					break;
+
+					case 'name':
+						?>
+						<td class="module-title"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ) ?>>
+							<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
+							<?php echo $this->row_actions( $this->get_module_row_actions( $module_file, $module_data, $is_active ), true ); ?>
+						</td>
+						<?php
+					break;
+
+					case 'description':
+						?>
+						<td class="column-description desc"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
+							<div class="module-description"><p><?php echo ( ! empty( $module_data['description'] ) ) ? wp_kses( $module_data['description'] , 'wordoints_module_description' ) : '&nbsp;'; ?></p></div>
+							<div class="<?php echo esc_attr( $class ); ?> second module-version-author-uri">
+								<?php
+
+								$module_meta = array();
+
+								if ( ! empty( $module_data['version'] ) ) {
+									$module_meta[] = sprintf( esc_html__( 'Version %s', 'wordpoints' ), $module_data['version'] );
+								}
+
+								if ( ! empty( $module_data['author'] ) ) {
+
+									$author = $module_data['author'];
+
+									if ( ! empty( $module_data['author_uri'] ) ) {
+										$author = '<a href="' . esc_attr( esc_url( $module_data['author_uri'] ) ) . '">' . esc_html( $module_data['author'] ) . '</a>';
+									}
+
+									$module_meta[] = sprintf( __( 'By %s', 'wordpoints' ), $author );
+								}
+
+								if ( ! empty( $module_data['module_uri'] ) ) {
+									$module_meta[] = '<a href="' . esc_attr( esc_url( $module_data['module_uri'] ) ) . '">' . esc_html__( 'Visit module site', 'wordpoints' ) . '</a>';
+								}
+
+								/**
+								 * Filter meta data and links for the module row in the module list table.
+								 *
+								 * These include the module version, and links to the module
+								 * URI and author URI if provided.
+								 *
+								 * @since 1.1.0
+								 *
+								 * @param array  $module_meta The meta links for the module.
+								 * @param string $module_file The main file of the module.
+								 * @param array  $module_data The info about the module.
+								 * @param string $status      The module stati being displayed.
+								 */
+								$module_meta = apply_filters( 'wordpoints_module_row_meta', $module_meta, $module_file, $module_data, $status );
+
+								echo implode( ' | ', $module_meta );
+
+								?>
+							</div>
+						</td>
+						<?php
+					break;
+
+					default:
+						?>
+						<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name  ); ?>"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
+							<?php
+							/**
+							 * Display the row contents for a custom column in the module list table.
+							 *
+							 * @since 1.1.0
+							 *
+							 * @param string $column_name The name of the column being displayed.
+							 * @param string $module_file The main file of the current module.
+							 * @param array  $module_data The module's info.
+							 */
+							do_action( 'wordpoints_manage_modules_custom_column', $column_name, $module_file, $module_data );
+							?>
+						</td>
+						<?php
+
+				} // switch ( $column_name )
+
+			} // foreach ( $columns )
+
+			?>
+		</tr>
+		<?php
+
+		/**
+		 * After each row in the module list table.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $module_file The main file of the module this row was for.
+		 * @param array  $module_data The module's info.
+		 * @param string $status      The status of the module's being displayed.
+		 */
+		do_action( 'wordpoints_after_module_row', $module_file, $module_data, $status );
+
+		/**
+		 * After row for a module is displayed in the list table.
+		 *
+		 * @see wordpoints_after_module_row
+		 *
+		 * @since 1.1.0
+		 */
+		do_action( "wordpoints_after_module_row_{$module_file}", $module_file, $module_data, $status );
+
+	} // function single_row()
+
+	/**
+	 * Get the row actions for a module.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $module_file The module's filename.
+	 * @param array  $module_data The module's file header data.
+	 * @param bool   $is_active   Whether the module is active.
+	 *
+	 * @return string[] The action links for this module.
+	 */
+	private function get_module_row_actions( $module_file, $module_data, $is_active ) {
+
+		global $page, $s, $status;
+
+		$context = $status;
 
 		// Preorder.
 		$actions = array(
@@ -493,15 +660,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'delete'     => '',
 		);
 
-		if ( $screen->in_admin( 'network' ) ) {
-			$is_active = is_wordpoints_module_active_for_network( $module_file );
-		} else {
-			$is_active = is_wordpoints_module_active( $module_file );
-		}
-
 		$url = 'admin.php?page=wordpoints_modules&module=' . $module_file . '&module_status=' . $context . '&paged=' . $page . '&s=' . $s;
 
-		if ( $screen->in_admin( 'network' ) ) {
+		if ( $this->screen->in_admin( 'network' ) ) {
 
 			if ( $is_active ) {
 
@@ -536,7 +697,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			}
 		}
 
-		$prefix = $screen->in_admin( 'network' ) ? 'network_admin_' : '';
+		$prefix = $this->screen->in_admin( 'network' ) ? 'network_admin_' : '';
 
 		/**
 		 * Filter the module action links.
@@ -567,140 +728,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		 *
 		 * @since 1.1.0
 		 */
-		$actions = apply_filters( $prefix . "wordpoints_module_action_links_{$module_file}", $actions, $module_file, $module_data, $context );
-
-		$class = ( $is_active ) ? 'active' : 'inactive';
-
-		$checkbox_id = 'checkbox_' . md5( $module_data['name'] );
-
-		$checkbox = "<label class='screen-reader-text' for='" . $checkbox_id . "' >" . sprintf( esc_html__( 'Select %s', 'wordpoints' ), $module_data['name'] ) . '</label>'
-			. "<input type='checkbox' name='checked[]' value='" . esc_attr( $module_file ) . "' id='" . esc_attr( $checkbox_id ) . "' />";
-
-		$description = '<p>' . ( $module_data['description'] ? $module_data['description'] : '&nbsp;' ) . '</p>';
-
-		$module_name = $module_data['name'];
-
-		$id = sanitize_title( $module_name );
-
-		/**
-		 * Filter the class of a row of the module's list table.
-		 *
-		 * @since 1.1.0
-		 *
-		 * @param string $class The current classes.
-		 * @param string $module_file The module that the row is for.
-		 * @param string $module_data The module's data.
-		 * @param string $context     The current status context in which the modules are being displayed.
-		 */
-		$class = apply_filters( 'wordpoints_module_list_row_class', $class, $module_file, $module_data, $context );
-
-		echo '<tr id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '">';
-
-		list( $columns, $hidden ) = $this->get_column_info();
-
-		foreach ( $columns as $column_name => $column_display_name ) {
-
-			$is_hidden = in_array( $column_name, $hidden );
-
-			switch ( $column_name ) {
-
-				case 'cb':
-					echo "<th scope='row' class='check-column'>{$checkbox}</th>";
-				break;
-
-				case 'name':
-					echo '<td class="module-title"' . ( $is_hidden ? ' style="display:none;"' : '' ) . '>';
-					echo '<strong>' . esc_html( $module_name ) . '</strong>';
-					echo $this->row_actions( $actions, true );
-					echo '</td>';
-				break;
-
-				case 'description':
-					echo '<td class="column-description desc" ' . ( $is_hidden ? ' style="display:none;"' : '' ) . '>
-						<div class="module-description">' . $description . '</div>
-						<div class="' . esc_attr( $class ) . ' second module-version-author-uri">';
-
-					$module_meta = array();
-
-					if ( ! empty( $module_data['version'] ) ) {
-						$module_meta[] = sprintf( esc_html__( 'Version %s', 'wordpoints' ), $module_data['version'] );
-					}
-
-					if ( ! empty( $module_data['author'] ) ) {
-
-						$author = $module_data['author'];
-
-						if ( ! empty( $module_data['author_uri'] ) ) {
-							$author = '<a href="' . esc_attr( esc_url( $module_data['author_uri'] ) ) . '">' . esc_html( $module_data['author'] ) . '</a>';
-						}
-
-						$module_meta[] = sprintf( __( 'By %s', 'wordpoints' ), $author );
-					}
-
-					if ( ! empty( $module_data['module_uri'] ) ) {
-						$module_meta[] = '<a href="' . esc_attr( esc_url( $module_data['module_uri'] ) ) . '">' . esc_html__( 'Visit module site', 'wordpoints' ) . '</a>';
-					}
-
-					/**
-					 * Filter meta data and links for the module row in the module list table.
-					 *
-					 * These include the module version, and links to the module
-					 * URI and author URI if provided.
-					 * @since 1.1.0
-					 *
-					 * @param array  $module_meta The meta links for the module.
-					 * @param string $module_file The main file of the module.
-					 * @param array  $module_data The info about the module.
-					 * @param string $status      The module stati being displayed.
-					 */
-					$module_meta = apply_filters( 'wordpoints_module_row_meta', $module_meta, $module_file, $module_data, $status );
-
-					echo implode( ' | ', $module_meta );
-
-					echo '</div></td>';
-				break;
-
-				default:
-					echo '<td class="' . sanitize_html_class( $column_name ) . ' column-' . sanitize_html_class( $column_name  ). '"' . ( $is_hidden ? ' style="display:none;"' : '' ) . '>';
-					/**
-					 * Display the row contents for a custom column in the module list table.
-					 *
-					 * @since 1.1.0
-					 *
-					 * @param string $column_name The name of the column being displayed.
-					 * @param string $module_file The main file of the current module.
-					 * @param array  $module_data The module's info.
-					 */
-					do_action( 'wordpoints_manage_modules_custom_column', $column_name, $module_file, $module_data );
-					echo '</td>';
-
-			} // switch ( $column_name )
-
-		} // foreach ( $columns )
-
-		echo '</tr>';
-
-		/**
-		 * After each row in the module list table.
-		 *
-		 * @since 1.1.0
-		 *
-		 * @param string $module_file The main file of the module this row was for.
-		 * @param array  $module_data The module's info.
-		 * @param string $status      The status of the module's being displayed.
-		 */
-		do_action( 'wordpoints_after_module_row', $module_file, $module_data, $status );
-
-		/**
-		 * After row for a module is displayed in the list table.
-		 *
-		 * @see wordpoints_after_module_row
-		 *
-		 * @since 1.1.0
-		 */
-		do_action( "wordpoints_after_module_row_{$module_file}", $module_file, $module_data, $status );
-
-	} // function single_row()
+		return apply_filters( $prefix . "wordpoints_module_action_links_{$module_file}", $actions, $module_file, $module_data, $context );
+	}
 
 } // class WordPoints_Modules_List_Table
 

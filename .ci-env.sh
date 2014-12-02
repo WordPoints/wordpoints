@@ -3,9 +3,8 @@
 setup-phpunit() {
 
 	if [[ $( php --version | grep ' 5.2' ) ]]; then
-		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester && curl -L \
-			https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/0.3.0.tar.gz \
-			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
+		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester \
+			&& git clone https://github.com/JDGrimes/wp-plugin-uninstall-tester.git vendor/jdgrimes/wp-plugin-uninstall-tester
 	else
 		composer install
 	fi
@@ -43,7 +42,7 @@ setup-codesniff() {
 # Check php files for syntax errors.
 codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
-		find . -path ./bin -prune -o \( -name '*.php' -o -name '*.inc' \) \
+		find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
 	else
 		echo 'Not running PHP syntax check.'
@@ -70,6 +69,24 @@ codesniff-jshint() {
 	fi
 }
 
+# Check PHP files for proper localization.
+codesniff-l10n() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		./vendor/jdgrimes/wp-l10n-validator/bin/wp-l10n-validator
+	else
+		echo 'Not running wp-l10n-validator.'
+	fi
+}
+
+# Check XML files for syntax errors.
+codesniff-xmllint() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		xmllint --noout $(find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.xml' -o -name '*.xml.dist' \))
+	else
+		echo 'Not running xmlint.'
+	fi
+}
+
 # Run basic PHPUnit tests.
 phpunit-basic() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
@@ -87,6 +104,10 @@ phpunit-basic() {
 # Run uninstall PHPUnit tests.
 phpunit-uninstall() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
+		if [[ $( php --version | grep ' 5.2' ) ]]; then
+			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
+		fi
+
 		phpunit --group=uninstall
 	else
 		echo 'Not running PHPUnit.'
@@ -99,6 +120,10 @@ phpunit-ajax() {
 		[[ $TRAVISCI_RUN == phpunit ]] \
 		&& [[ $WP_MULTISITE == 0 || $WP_VERSION == latest ]];
 	then
+		if [[ $( php --version | grep ' 5.2' ) ]]; then
+			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
+		fi
+
 		phpunit --group=ajax
 	else
 		echo 'Not running Ajax tests.'

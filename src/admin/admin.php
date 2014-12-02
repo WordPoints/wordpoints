@@ -224,14 +224,16 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activat
  * Display an error message.
  *
  * @since 1.0.0
+ * @since 1.8.0 The $args parameter was added.
  *
  * @uses wordpoints_show_admin_message()
  *
  * @param string $message The text for the error message.
+ * @param string $args    Other optional arguments.
  */
-function wordpoints_show_admin_error( $message ) {
+function wordpoints_show_admin_error( $message, array $args = array() ) {
 
-	wordpoints_show_admin_message( $message, 'error' );
+	wordpoints_show_admin_message( $message, 'error', $args );
 }
 
 /**
@@ -243,18 +245,42 @@ function wordpoints_show_admin_error( $message ) {
  *
  * @since 1.0.0
  * @since 1.2.0 The $type parameter is now properly escaped.
+ * @since 1.8.0 The $message will be passed through wp_kses().
+ * @since 1.8.0 The $args paramter was added with dismissable and option args.
  *
- * @param string $message The text for the message. Must be pre-escaped if needed.
+ * @param string $message The text for the message.
  * @param string $type    The type of message to display. Default is 'updated'.
+ * @param array  $args    {
+ *        Other optional arguments.
+ *
+ *        @type bool   $dismissable Whether this notice can be dismissed. Default is
+ *                                  false (not dismissable).
+ *        @type string $option      An option to delete when if message is dismissed.
+ *                                  Required when $dismissable is true.
+ * }
  */
-function wordpoints_show_admin_message( $message, $type = 'updated' ) {
+function wordpoints_show_admin_message( $message, $type = 'updated', array $args = array() ) {
+
+	$defaults = array(
+		'dismissable' => false,
+		'option'      => '',
+	);
+
+	$args = array_merge( $defaults, $args );
 
 	?>
 
 	<div id="message" class="<?php echo sanitize_html_class( $type, 'updated' ); ?>">
 		<p>
-			<?php echo $message; ?>
+			<?php echo wp_kses( $message, 'wordpoints_admin_message' ); ?>
 		</p>
+		<?php if ( $args['dismissable'] ) : ?>
+			<form method="post" style="padding-bottom: 5px;">
+				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
+				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>
+				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), 'secondary', 'wordpoints_dismiss_notice', false ); ?>
+			</form>
+		<?php endif; ?>
 	</div>
 
 	<?php
@@ -409,12 +435,12 @@ function wordpoints_admin_settings_screen_sidebar() {
 	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
 			<h4><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h4>
-			<p><?php printf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ); ?></p>
+			<p><?php echo wp_kses( sprintf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
 			<h4><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h4>
-			<p><?php printf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ); ?></p>
+			<p><?php echo wp_kses( sprintf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><em><?php esc_html_e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
 		</div>
 	</div>
@@ -422,5 +448,49 @@ function wordpoints_admin_settings_screen_sidebar() {
 	<?php
 }
 add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen_sidebar', 5 );
+
+/**
+ * Display notices to the user on the administration panels.
+ *
+ * @since 1.8.0
+ */
+function wordpoints_admin_notices() {
+
+	// Check if any notices have been dismissed.
+	if (
+		isset( $_POST['wordpoints_notice'], $_POST['_wpnonce'] )
+		&& wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}" )
+	) {
+		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
+	}
+
+	if ( current_user_can( 'manage_network_plugins' ) ) {
+
+		unset( $message ); // Future proofing.
+
+		// Show a notice if we've skipped part of the install/update process.
+		if ( get_site_option( 'wordpoints_network_install_skipped' ) ) {
+			$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process.', 'wordpoints' );
+			$option  = 'wordpoints_network_install_skipped';
+		} elseif ( get_site_option( 'wordpoints_network_update_skipped' ) ) {
+			$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for version %s (and possibly later versions).', 'wordpoints' ), get_site_option( 'wordpoints_network_update_skipped' ) ) );
+			$option  = 'wordpoints_network_update_skipped';
+		}
+
+		if ( isset( $message ) ) {
+
+			$message .= ' ' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
+			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
+
+			$args = array(
+				'dismissable' => true,
+				'option'      => $option,
+			);
+
+			wordpoints_show_admin_error( $message, $args );
+		}
+	}
+}
+add_action( 'admin_notices', 'wordpoints_admin_notices' );
 
 // EOF

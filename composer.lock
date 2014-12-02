@@ -3,20 +3,54 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e7e39c8bf504fc938c7f3727c66daa8c",
+    "hash": "64baa6a9c15e34f7f7bdc941d1260dc1",
     "packages": [
         {
-            "name": "jdgrimes/wp-plugin-uninstall-tester",
-            "version": "0.3.0",
+            "name": "jdgrimes/wp-l10n-validator",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JDGrimes/wp-plugin-uninstall-tester.git",
-                "reference": "341b3ffc95c75f66620ec489dfb20f923cac1454"
+                "url": "https://github.com/JDGrimes/wp-l10n-validator.git",
+                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/341b3ffc95c75f66620ec489dfb20f923cac1454",
-                "reference": "341b3ffc95c75f66620ec489dfb20f923cac1454",
+                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/bb2080e297430426fa5cc61789149dd2e4fb68dc",
+                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "J.D. Grimes",
+                    "email": "jdg@codesymphony.co",
+                    "homepage": "http://codesymphony.co",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Gettext localization validator for WordPress",
+            "homepage": "https://github.com/JDGrimes/wp-l10n-validator",
+            "time": "2014-11-13 14:37:08"
+        },
+        {
+            "name": "jdgrimes/wp-plugin-uninstall-tester",
+            "version": "0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JDGrimes/wp-plugin-uninstall-tester.git",
+                "reference": "ee09116b088115919b1b81fcff19f74da6e5833e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/ee09116b088115919b1b81fcff19f74da6e5833e",
+                "reference": "ee09116b088115919b1b81fcff19f74da6e5833e",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +71,7 @@
             ],
             "description": "Utilities for testing WordPress plugin install/uninstall with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wp-plugin-uninstall-tester",
-            "time": "2014-08-30 19:37:26"
+            "time": "2014-11-25 14:47:10"
         }
     ],
     "packages-dev": [
@@ -47,9 +81,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "jdgrimes/wp-l10n-validator": 20
+    },
     "platform": {
         "php": ">=5.2.0"
     },

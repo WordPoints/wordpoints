@@ -68,11 +68,13 @@ script:
     - codesniff-php-syntax
     - codesniff-phpcs
     - codesniff-jshint
+    - codesniff-l10n
+    - codesniff-xmllint
     - phpunit-basic
-    - phpunit-uninstall
-    - phpunit-ajax
     - phpunit-ms-network
+    - phpunit-uninstall
     - phpunit-ms-network-uninstall
+    - phpunit-ajax
     - phpunit-ms-network-ajax
 
 after_script:

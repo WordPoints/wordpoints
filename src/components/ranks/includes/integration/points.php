@@ -65,4 +65,21 @@ function wordpoints_ranks_points_top_users_username_filter( $name, $user_id, $po
 }
 add_filter( 'wordpoints_points_top_users_username', 'wordpoints_ranks_points_top_users_username_filter', 10, 4 );
 
+/**
+ * Add support for the points_type attribute to the wordpoints_user_rank shortcode.
+ *
+ * @since 1.8.0
+ */
+function wordpoints_user_rank_shortcode_points_type_attr( $out, $pairs, $atts ) {
+
+	if ( empty( $out['rank_group'] ) ) {
+		if ( isset( $atts['points_type'] ) ) {
+			$out['rank_group'] = "points_type-{$atts['points_type']}";
+		}
+	}
+
+	return $out;
+}
+add_filter( 'shortcode_atts_wordpoints_user_rank', 'wordpoints_user_rank_shortcode_points_type_attr', 10, 3 );
+
 // EOF

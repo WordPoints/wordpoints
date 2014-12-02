@@ -203,20 +203,15 @@ function wordpoints_delete_points_type( $slug ) {
 	global $wpdb;
 
 	// Delete log meta for this points type.
-	$wpdb->query(
-		$wpdb->prepare(
-			'
-				DELETE
-				FROM ' . $wpdb->wordpoints_points_log_meta . '
-				WHERE `log_id` IN (
-					SELECT `log_id`
-					FROM ' . $wpdb->wordpoints_points_logs . '
-					WHERE `points_type` = %s
-				)
-			',
-			$slug
-		)
+	$query = new WordPoints_Points_Logs_Query(
+		array( 'field' => 'id', 'points_type' => $slug )
 	);
+
+	$log_ids = $query->get( 'col' );
+
+	foreach ( $log_ids as $log_id ) {
+		wordpoints_points_log_delete_all_metadata( $log_id );
+	}
 
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
@@ -759,11 +754,31 @@ function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type,
 }
 
 /**
+ * Correct the name of the points log meta table's log_id column.
+ *
+ * @since 1.8.0
+ *
+ * @param string $column The column name.
+ *
+ * @return string The corrected column name.
+ */
+function _wordpoints_points_log_meta_column( $column ) {
+
+	if ( 'wordpoints_points_log_id' === $column ) {
+		$column = 'log_id';
+	}
+
+	return $column;
+}
+
+/**
  * Add metadata for a points transaction.
  *
  * Note that it does not check whether $log_id is real.
  *
  * @since 1.0.0
+ *
+ * @see add_metadata()
  *
  * @param int    $log_id     The ID of the transaction log to add metadata for.
  * @param string $meta_key   The meta key. Expected unslashed.
@@ -773,21 +788,13 @@ function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type,
  */
 function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
 
-	if ( ! wordpoints_posint( $log_id ) || empty( $meta_key ) ) {
-		return false;
-	}
-
 	global $wpdb;
 
-	$result = $wpdb->insert(
-		$wpdb->wordpoints_points_log_meta,
-		array(
-			'log_id'     => $log_id,
-			'meta_key'   => $meta_key,
-			'meta_value' => $meta_value,
-		),
-		array( '%d', '%s', '%s' )
-	);
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+	$result = add_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value );
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
 	return $result;
 }
@@ -795,10 +802,10 @@ function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
 /**
  * Get metadata for a points transaction.
  *
- * Note that while the points logs metadata API is available here, it is not yet
- * fully implemented, and only the add function is used in core at present.
- *
  * @since 1.0.0
+ * @since 1.8.0 When $meta_key is empty, $single is always false.
+ *
+ * @see get_metadata()
  *
  * @param int    $log_id   The ID of the transaction.
  * @param string $meta_key The key for the metadata value to return.
@@ -808,80 +815,23 @@ function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
  */
 function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = false ) {
 
-	if ( ! wordpoints_posint( $log_id ) ) {
-		return;
-	}
-
 	global $wpdb;
 
-	if ( empty( $meta_key ) ) {
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+	$result = get_metadata( 'wordpoints_points_log', $log_id, $meta_key, $single );
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
-		$results = $wpdb->get_results(
-			$wpdb->prepare(
-				'
-					SELECT `meta_key`, `meta_value`
-					FROM ' . $wpdb->wordpoints_points_log_meta . '
-					WHERE `log_id` = %d
-				',
-				$log_id
-			),
-			ARRAY_A
-		);
-
-		if ( ! is_array( $results ) ) {
-			return array();
-		}
-
-		$_results = array();
-
-		if ( $single ) {
-
-			foreach ( $results as $result ) {
-
-				$_results[ $result['meta_key'] ] = $result['meta_value'];
-			}
-
-		} else {
-
-			foreach ( $results as $result ) {
-
-				$_results[ $result['meta_key'] ][] = $result['meta_value'];
-			}
-		}
-
-		return $_results;
-
-	} else {
-
-		$limit = ( $single ) ? 'LIMIT 1' : '';
-
-		$result = $wpdb->get_col(
-			$wpdb->prepare(
-				"
-					SELECT `meta_value`
-					FROM `{$wpdb->wordpoints_points_log_meta}`
-					WHERE `log_id` = %d
-						AND `meta_key` = %s
-					{$limit}
-				",
-				$log_id,
-				$meta_key
-			)
-		);
-
-		if ( $single ) {
-			$result = ( empty( $result ) ) ? '' : reset( $result );
-		}
-
-		return $result;
-	}
-
-} // function wordpoints_get_points_log_meta()
+	return $result;
+}
 
 /**
  * Update metadata for a points transaction.
  *
  * @since 1.0.0
+ *
+ * @see update_metadata()
  *
  * @param int    $log_id     The ID of the transaction.
  * @param string $meta_key   The meta key to update.
@@ -892,27 +842,15 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
  */
 function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $previous = null ) {
 
-	if ( ! wordpoints_posint( $log_id ) || empty( $meta_key ) ) {
-		return false;
-	}
-
 	global $wpdb;
 
-	$where = array( 'log_id' => $log_id, 'meta_key' => $meta_key );
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+	$result = update_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value, $previous );
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
-	if ( isset( $previous ) ) {
-		$where['meta_value'] = $previous;
-	}
-
-	$result = $wpdb->update(
-		$wpdb->wordpoints_points_log_meta
-		,array( 'meta_value' => $meta_value )
-		,$where
-		,'%s'
-		,array( '%d', '%s', '%s' )
-	);
-
-	return ( $result > 0 );
+	return $result;
 }
 
 /**
@@ -920,44 +858,58 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  *
  * @since 1.0.0
  *
+ * @see delete_metadata()
+ *
  * @param int    $log_id     The ID of the transaction.
  * @param string $meta_key   The meta key to update.
  * @param mixed  $meta_value The new value for this meta key.
  *
  * @return bool Whether any rows where deleted.
  */
-function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value = null ) {
-
-	if ( ! wordpoints_posint( $log_id ) ) {
-		return false;
-	}
+function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value = null, $delete_all = false ) {
 
 	global $wpdb;
 
-	$and_where = '';
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+	$result = delete_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value, $delete_all );
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
-	if ( ! empty( $meta_key ) ) {
+	return $result;
+}
 
-		$and_where = $wpdb->prepare( ' AND `meta_key` = %s', $meta_key );
+/**
+ * Delete all metadata for a points log.
+ *
+ * @since 1.8.0
+ *
+ * @param int $log_id The ID of the points log whose metadata to delete.
+ */
+function wordpoints_points_log_delete_all_metadata( $log_id ) {
 
-		if ( isset( $meta_value ) ) {
-			$and_where .= $wpdb->prepare( ' AND `meta_value` = %s' );
-		}
-	}
+	global $wpdb;
 
-	$result = $wpdb->query(
+	$meta_ids = $wpdb->get_col(
 		$wpdb->prepare(
 			"
-				DELETE
+				SELECT `meta_id`
 				FROM `{$wpdb->wordpoints_points_log_meta}`
 				WHERE `log_id` = %d
-					{$and_where}
-			",
-			$log_id
+			"
+			, $log_id
 		)
 	);
 
-	return ( $result > 0 );
+	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
+	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
+
+	foreach ( $meta_ids as $mid ) {
+		delete_metadata_by_mid( 'wordpoints_points_log', $mid );
+	}
+
+	unset( $wpdb->wordpoints_points_logmeta );
+	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 }
 
 /**
@@ -1046,19 +998,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	foreach ( $logs as $log ) {
 
-		$meta = $wpdb->get_results(
-			$wpdb->prepare(
-				"
-					SELECT meta_key, meta_value
-					FROM {$wpdb->wordpoints_points_log_meta}
-					WHERE log_id = %d
-				"
-				, $log->id
-			)
-			, OBJECT_K
-		);
-
-		$meta = wp_list_pluck( $meta, 'meta_value' );
+		$meta = wordpoints_get_points_log_meta( $log->id );
+		$meta = wp_list_pluck( $meta, 0 );
 
 		$new_log_text = wordpoints_render_points_log_text(
 			$log->user_id
@@ -1227,8 +1168,8 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 
 				?>
 
-				<tr class="top-<?php echo $position; ?>">
-					<td><?php echo number_format_i18n( $position ); ?></td>
+				<tr class="top-<?php echo (int) $position; ?>">
+					<td><?php echo esc_html( number_format_i18n( $position ) ); ?></td>
 					<td>
 						<?php echo get_avatar( $user_id, 32 ); ?>
 						<?php

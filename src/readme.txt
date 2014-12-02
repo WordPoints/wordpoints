@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.8
-Tested up to: 4.1-alpha-3000
-Stable tag: 1.7.0
+Tested up to: 4.1-beta2-30484
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,10 +46,10 @@ plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 WordPoints is fully localizable, and translations are already available in several
 languages:
 
-* **Brazilian Portuguese** — Thanks goes to Gabriel Galvão.
-* **Simplified Chinese** — Thanks to Jack Lee.
-* **Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
-* **Japanese** — Thanks to Raymond Calla.
+* **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
+* **(ja) Japanese** — Thanks to Raymond Calla.
+* **(pt_BR) Brazilian Portuguese** — Thanks goes to Gabriel Galvão ([@threadsgeneration](https://profiles.wordpress.org/threadsgeneration)).
+* **(zh_CN) Simplified Chinese** — Thanks to Jack Lee ([@suifengtec](https://profiles.wordpress.org/suifengtec)).
 
 Not all of these translations are complete, and if you'd like to help maintain and
 improve them, or you'd like to translate WordPoints into another language, you can
@@ -113,8 +113,25 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.8.0 - (~55 hrs) =
+* New: You can display the points of the current post's author using the
+[`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
+shortcode by supplying `post_author` as the value of the `user_id` attribute, like
+this: `[wordpoints_points user_id="post_author"]`.
+* New: Award points to post authors for comments they receive with the
+[Comment Received](http://wordpoints.org/user-guide/points-hooks/comment-received/)
+points hook.
+* New: Display a user's rank with the [`[wordpoints_user_rank]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_user_rank/) shortcode.
+* Updated: Part of the install and update process is skipped when the plugin is
+network activated on a very large multisite network (>10,000 sites).
+
+= 1.7.1 — (~5 hrs) =
+* Fixed: Ranks not saving in some cases. Thanks, @atomtheman10, for the report!
+* Fixed: XSS vulnerability from the points logs admin screen. It was only exploitable by Administrators and Editors.
+* Fixed: CSRF vulnerability for toggling accessibility mode on the Points Hooks screen. It would only have been an annoyance.
+
 = 1.7.0 - (~80 hrs) =
-* New: Create ranks for your users by activating [the Ranks component]().
+* New: Create ranks for your users by activating [the Ranks component](http://wordpoints.org/user-guide/#ranks).
 * * You can manage the ranks on the *WordPoints » Ranks* administration screen.
 * * A user's rank is displayed along with their name in the Top Users table.
 * * You can display a user's rank using the `%rank` placeholder in the WordPoints widget.
@@ -201,6 +218,16 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.8.0 =
+* This is a feature release that adds a new shortcode to display a user's rank,
+lets you display the points of the author of the current post, and makes it possible
+to award a post author points when they get a comment on one of their posts.
+
+= 1.7.1 =
+* This is a security and bugfix release. It fixes an issue on the Ranks admin screen
+that would cause the spinner to continue indefinitely while trying to save a rank.
+It also includes patches for two minor security issues.
 
 = 1.7.0 =
 * This is the biggest update since 1.0.0! It introduces the Ranks component, and also

@@ -2,22 +2,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-10-31 21:07:29+00:00\n"
-"PO-Revision-Date: 2014-06-20 01:20+0800\n"
-"Last-Translator: Coolwp <coolwp.com@gmail.com>\n"
-"Language-Team: suifengtec <suifengtec@qq.com>\n"
+"POT-Creation-Date: 2014-11-29 22:00:28+00:00\n"
+"PO-Revision-Date: 2014-11-29 07:06+0200\n"
+"Last-Translator: Jack Lee <suifengtec@qq.com>\n"
+"Language-Team: Simplified Chinese <https://hosted.weblate.org/projects/"
+"wordpoints/wordpoints/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
-"Plural-Forms: nplurals=2;plural=(n!=1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.7.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:102
@@ -25,109 +26,134 @@ msgid "WordPoints"
 msgstr "WordPoints"
 
 #: admin/admin.php:87
-#, fuzzy
 msgid "WordPoints — Configure"
-msgstr "WordPoints - 配置"
+msgstr "WordPoints  — 配置"
 
 #: admin/admin.php:88
 msgid "Configure"
 msgstr "配置"
 
 #: admin/admin.php:114
-#, fuzzy
 msgid "WordPoints — Modules"
-msgstr "WordPoints - 模块"
+msgstr "WordPoints — 模块"
 
 #: admin/admin.php:115
 msgid "Modules"
 msgstr "模块"
 
 #: admin/admin.php:124
-#, fuzzy
 msgid "WordPoints — Install Modules"
-msgstr "WordPoints - 安装模块"
+msgstr "WordPoints — 安装模块"
 
 #: admin/admin.php:125 admin/screens/module-install.php:28
 msgid "Install Modules"
 msgstr "安装模块"
 
-#: admin/admin.php:308
-#, fuzzy
-msgid "WordPoints — %s"
-msgstr "WordPoints - %s"
+#: admin/admin.php:281
+msgid "Hide This Notice"
+msgstr "隐藏此通知"
 
-#: admin/admin.php:338
+#: admin/admin.php:334
+msgid "WordPoints — %s"
+msgstr "WordPoints — %s"
+
+#: admin/admin.php:364
 msgid "Install a module in .zip format"
 msgstr "安装一个.zip格式的模块"
 
-#: admin/admin.php:339
+#: admin/admin.php:365
 msgid ""
 "If you have a module in a .zip format, you may install it by uploading it "
 "here."
 msgstr "如果您有一个.zip格式的模块，你可以在这里上传并安装它。"
 
-#: admin/admin.php:342
+#: admin/admin.php:368
 msgid "Module zip file"
 msgstr "模块的zip文件"
 
-#: admin/admin.php:344
+#: admin/admin.php:370
 msgid "Install Now"
 msgstr "现在安装"
 
-#: admin/admin.php:361
+#: admin/admin.php:387
 msgid ""
 "You do not have sufficient permissions to install WordPoints modules on this "
 "site."
 msgstr "您没有足够的权限在该网站安装WordPoints模块。"
 
-#: admin/admin.php:368
+#: admin/admin.php:394
 msgid "Upload WordPoints Module"
 msgstr "上传WordPoints模块"
 
-#: admin/admin.php:380
+#: admin/admin.php:406
 msgid "Installing Module from uploaded file: %s"
 msgstr "正在安装上传模块: %s"
 
-#: admin/admin.php:411
+#: admin/admin.php:437
 msgid "Like this plugin?"
 msgstr "喜欢这个插件？"
 
-#: admin/admin.php:412
+#: admin/admin.php:438
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
 msgstr ""
 "如果您举得WordPoints不错，请用<a href=\"%s\">5分评价</a>以让更多人知道它！"
 
-#: admin/admin.php:413
+#: admin/admin.php:439
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
 msgstr "如果您觉得这个插件不值5分评价，请提出您的宝贵建议。"
 
-#: admin/admin.php:416
+#: admin/admin.php:442
 msgid "Need help?"
 msgstr "需要帮助?"
 
-#: admin/admin.php:417
+#: admin/admin.php:443
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
-msgstr "请在<a href=\"%s\">支持论坛</a>提交您的功能需求或者帮助问题。"
+msgstr "请在<a href=\"%s\">支持论坛</a>提交您的功能需求或者问题。"
 
-#: admin/admin.php:418
+#: admin/admin.php:444
 msgid "Thank you for using WordPoints!"
 msgstr "感谢您使用WordPoints!"
 
+#: admin/admin.php:473
+msgid ""
+"WordPoints detected a large network and has skipped part of the installation "
+"process."
+msgstr "WordPoints检测到多站，已跳过部分安装过程。"
+
+#: admin/admin.php:476
+msgid ""
+"WordPoints detected a large network and has skipped part of the update "
+"process for version %s (and possibly later versions)."
+msgstr ""
+"WordPoints探测到一个大的多站网络,已经为版本%s (和更新的版本)跳过了部分更新过"
+"程。"
+
+#: admin/admin.php:482
+msgid ""
+"The rest of the process needs to be completed manually. If this has not been "
+"done already, some parts of the plugin may not function properly."
+msgstr ""
+"剩余的过程需要完全人工操作.如果没有完成，该插件的某些功能可能无法正常工作。"
+
+#: admin/admin.php:483 includes/class-wordpoints-components.php:556
+msgid "Learn more."
+msgstr "了解更多。"
+
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
-#: admin/includes/class-wordpoints-modules-list-table.php:407
-#: admin/includes/class-wordpoints-modules-list-table.php:515
+#: admin/includes/class-wordpoints-modules-list-table.php:405
+#: admin/includes/class-wordpoints-modules-list-table.php:676
 msgid "Network Activate"
 msgstr "多站激活"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
-msgstr "激活模式"
+msgstr "激活模块"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
 msgid "Return to Modules page"
@@ -135,7 +161,7 @@ msgstr "返回模块页面"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:93
 msgid "Return to Module Installer"
-msgstr "返回模块安装器"
+msgstr "返回模块安装页面"
 
 #: admin/includes/class-wordpoints-module-installer.php:52
 msgid "Install package not available."
@@ -169,142 +195,137 @@ msgstr "未能创建模块目录。"
 msgid "No valid modules were found."
 msgstr "未找到可用的模块。"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:299
+#: admin/includes/class-wordpoints-modules-list-table.php:297
 msgid "No modules found."
 msgstr "未找到模块"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:301
-#, fuzzy
+#: admin/includes/class-wordpoints-modules-list-table.php:299
 msgid "There are not any modules installed."
-msgstr "当前无可用的积分Hooks。"
+msgstr "尚未安装任何模块。"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:316
+#: admin/includes/class-wordpoints-modules-list-table.php:314
 msgid "Module"
 msgstr "模块"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:317
+#: admin/includes/class-wordpoints-modules-list-table.php:315
 msgid "Description"
 msgstr "描述"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:343
+#: admin/includes/class-wordpoints-modules-list-table.php:341
 msgctxt "modules"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] "全部<span class=\"count\">(%s)</span>"
-msgstr[1] "全部<span class=\"count\">(%s)</span>"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:347
+#: admin/includes/class-wordpoints-modules-list-table.php:345
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
 msgstr[0] "激活<span class=\"count\">(%s)</span>"
-msgstr[1] "激活<span class=\"count\">(%s)</span>"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:351
+#: admin/includes/class-wordpoints-modules-list-table.php:349
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
 msgstr[0] "最近激活 <span class=\"count\">(%s)</span>"
-msgstr[1] "最近激活 <span class=\"count\">(%s)</span>"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:355
+#: admin/includes/class-wordpoints-modules-list-table.php:353
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
 msgstr[0] "未激活 <span class=\"count\">(%s)</span>"
-msgstr[1] "未激活 <span class=\"count\">(%s)</span>"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:407
-#: admin/includes/class-wordpoints-modules-list-table.php:531
-#: admin/screens/configure-components.php:139
+#: admin/includes/class-wordpoints-modules-list-table.php:405
+#: admin/includes/class-wordpoints-modules-list-table.php:692
+#: admin/screens/configure-components.php:115
 msgid "Activate"
 msgstr "激活"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:411
-#: admin/includes/class-wordpoints-modules-list-table.php:509
+#: admin/includes/class-wordpoints-modules-list-table.php:409
+#: admin/includes/class-wordpoints-modules-list-table.php:670
 msgid "Network Deactivate"
 msgstr "网络停用"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:411
-#: admin/includes/class-wordpoints-modules-list-table.php:527
-#: admin/screens/configure-components.php:134
+#: admin/includes/class-wordpoints-modules-list-table.php:409
+#: admin/includes/class-wordpoints-modules-list-table.php:688
+#: admin/screens/configure-components.php:110
 msgid "Deactivate"
 msgstr "停用"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:419
-#: admin/includes/class-wordpoints-modules-list-table.php:519
-#: admin/includes/class-wordpoints-modules-list-table.php:534
+#: admin/includes/class-wordpoints-modules-list-table.php:417
+#: admin/includes/class-wordpoints-modules-list-table.php:680
+#: admin/includes/class-wordpoints-modules-list-table.php:695
 #: components/points/admin/admin.php:54
-#: components/points/includes/class-wordpoints-points-hooks.php:781
+#: components/points/includes/class-wordpoints-points-hooks.php:771
 #: components/ranks/admin/admin.php:53
 #: components/ranks/admin/screens/ranks.php:123
 msgid "Delete"
 msgstr "删除"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:455
+#: admin/includes/class-wordpoints-modules-list-table.php:453
 msgid "Clear List"
 msgstr "清除列表"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:576
+#: admin/includes/class-wordpoints-modules-list-table.php:524
 msgid "Select %s"
 msgstr "选中 %s"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:626
+#: admin/includes/class-wordpoints-modules-list-table.php:550
 msgid "Version %s"
 msgstr "版本 %s"
 
 #. translators: %s is the component author's name.
-#: admin/includes/class-wordpoints-modules-list-table.php:637
-#: admin/screens/configure-components.php:128
+#: admin/includes/class-wordpoints-modules-list-table.php:561
+#: admin/screens/configure-components.php:136
 msgid "By %s"
 msgstr "作者  %s"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:641
+#: admin/includes/class-wordpoints-modules-list-table.php:565
 msgid "Visit module site"
 msgstr "查看模块页面"
 
 #: admin/screens/configure-components.php:30
 msgid "Component &#8220;%s&#8221; activated!"
-msgstr "模块&#8220;%s&#8221; 已激活！"
+msgstr "组件&#8220;%s&#8221; 已激活！"
 
 #: admin/screens/configure-components.php:36
 msgid "Component &#8220;%s&#8221; deactivated!"
-msgstr "模块& #8220;%s&#8221; 已禁用！"
+msgstr "组件& #8220;%s&#8221; 已禁用！"
 
 #: admin/screens/configure-components.php:52
 msgid ""
 "The component &#8220;%s&#8221; could not be activated. Please try again."
-msgstr "模块 &#8220;%s&#8221; 未能激活，请重试。"
+msgstr "组件 &#8220;%s&#8221; 未能激活，请重试。"
 
 #: admin/screens/configure-components.php:58
 msgid ""
 "The component &#8220;%s&#8221; could not be deactivated. Please try again."
-msgstr "模块 &#8220;%s&#8221; 未能禁用，请重试。"
+msgstr "组件 &#8220;%s&#8221; 未能禁用，请重试。"
 
-#: admin/screens/configure-components.php:76
-msgid "View installed WordPoints components."
-msgstr "查看已安装的WordPoints模块。"
+#: admin/screens/configure-components.php:85
+msgid "Installed WordPoints components."
+msgstr "查看已安装的WordPoints组件。"
 
-#: admin/screens/configure-components.php:92
-#: admin/screens/configure-components.php:100
+#: admin/screens/configure-components.php:88
+#: admin/screens/configure-components.php:96
 msgctxt "components table heading"
 msgid "Component"
 msgstr "组件"
 
-#: admin/screens/configure-components.php:93
-#: admin/screens/configure-components.php:101
+#: admin/screens/configure-components.php:89
+#: admin/screens/configure-components.php:97
 msgctxt "components table heading"
 msgid "Description"
 msgstr "描述"
 
-#: admin/screens/configure-components.php:94
-#: admin/screens/configure-components.php:102
+#: admin/screens/configure-components.php:90
+#: admin/screens/configure-components.php:98
 msgctxt "components table heading"
 msgid "Version"
 msgstr "版本"
 
-#: admin/screens/configure-components.php:95
-#: admin/screens/configure-components.php:103
+#: admin/screens/configure-components.php:91
+#: admin/screens/configure-components.php:99
 msgctxt "components table heading"
 msgid "Action"
-msgstr "动作"
+msgstr "操作"
 
 #: admin/screens/configure-settings-load.php:15
 #: admin/screens/modules-load.php:444
@@ -317,18 +338,18 @@ msgstr "概览"
 msgid ""
 "WordPoints doesn&#8217;t have a lot of configuration options, which makes it "
 "simple and easy to use."
-msgstr ""
+msgstr "WordPoints并无繁杂的设置项，它简洁易用。"
 
 #: admin/screens/configure-settings-load.php:18
 msgid ""
 "The settings provided below are optional, and are mainly for convenience"
-msgstr ""
+msgstr "下面的设置是可选的, 主要为了方便"
 
 #: admin/screens/configure-settings-load.php:19
 msgid ""
 "If you need more help getting started with WordPoints, see the links in the "
 "help sidebar."
-msgstr ""
+msgstr "如需更多关于WordPoints的帮助，请查看帮助侧栏的链接。"
 
 #: admin/screens/configure-settings-load.php:24
 #: admin/screens/modules-load.php:462
@@ -339,7 +360,7 @@ msgstr "更多信息:"
 
 #: admin/screens/configure-settings-load.php:25
 msgid "User Guide"
-msgstr ""
+msgstr "用户向导"
 
 #: admin/screens/configure-settings-load.php:26
 #: admin/screens/modules-load.php:464
@@ -396,7 +417,6 @@ msgstr "你没有足够的权限在这个网站删除模块。"
 msgid "Delete module"
 msgid_plural "Delete modules"
 msgstr[0] "删除模块"
-msgstr[1] "删除模块"
 
 #: admin/screens/modules-load.php:345
 msgid "Caution:"
@@ -406,13 +426,11 @@ msgstr "注意:"
 msgid "This module may be active on other sites in the network."
 msgid_plural "These modules may be active on other sites in the network."
 msgstr[0] "这个模块可能在多站网络上的其它网站激活。"
-msgstr[1] "这些模块可能在多站网络上的其它网站激活。"
 
 #: admin/screens/modules-load.php:349
 msgid "You are about to remove the following module:"
 msgid_plural "You are about to remove the following modules:"
 msgstr[0] "您即将移除下列模块:"
-msgstr[1] "您即将移除下列模块:"
 
 #. translators: 1: module name, 2: module author
 #: admin/screens/modules-load.php:360
@@ -470,13 +488,11 @@ msgid ""
 "You can find modules for your site by by browsing the <a href=\"%1$s\" "
 "target=\"_blank\">WordPoints Module Directory</a>. To install a module you "
 "generally just need to <a href=\"%2$s\">upload the module file</a> into your "
-"<code>/wp-content/wordpoints-modules</code> directory. Once a module has "
-"been installed, you can activate it here."
+"%3$s directory. Once a module has been installed, you can activate it here."
 msgstr ""
 "您可以通过浏览<a href=\"%1$s\" target=\"_blank\">WordPoints插件目录</a>来为您"
-"的网站查找模块。安装模块的步骤是您只需要<a href=\"%2$s\">上传模块文件</a>到您"
-"的 <code>/wp-content/wordpoints-modules</code> 目录即可，模块被安装之后，您可"
-"以在这里激活它。"
+"的网站查找模块. 安装模块的步骤是您只需要<a href=\"%2$s\">上传模块文件</a>到您"
+"的 %3$s  目录即可，模块被安装之后，您可以在这里激活它。"
 
 #: admin/screens/modules-load.php:454
 msgid "Troubleshooting"
@@ -499,11 +515,11 @@ msgstr ""
 #: admin/screens/modules-load.php:457
 msgid ""
 "If something goes wrong with a module and you can&#8217;t use WordPoints, "
-"delete or rename that file in the <code>%s</code> directory and it will be "
-"automatically deactivated."
+"delete or rename that file in the %s directory and it will be automatically "
+"deactivated."
 msgstr ""
-"如果在使用WordPoints模块中发现有某些错误，删除或者重命名<code>%s</code>目录中"
-"的那个文件，他会被自动禁用。"
+"如果在使用WordPoints模块中发现有某些错误，删除或者重命名%s目录中的那个文件，"
+"他会被自动禁用。"
 
 #: admin/screens/modules-load.php:463
 msgid "Developer Documentation"
@@ -520,10 +536,8 @@ msgid "Description"
 msgstr "描述"
 
 #: admin/screens/modules.php:16
-msgid ""
-"The module <code>%s</code> has been <strong>deactivated</strong> due to an "
-"error: %s"
-msgstr "模块<code>%s</code> 已经被 <strong>禁用</strong>，由于一个错误: %s"
+msgid "The module %s has been <strong>deactivated</strong> due to an error: %s"
+msgstr "模块%s 已经被 <strong>禁用</strong>，由于一个错误: %s"
 
 #: admin/screens/modules.php:24
 msgid "You cannot delete a module while it is active on the main site."
@@ -546,48 +560,48 @@ msgid ""
 "strong>."
 msgstr "模块未能激活，因为它引发了一个<strong>致命错误</strong>。"
 
-#: admin/screens/modules.php:49
+#: admin/screens/modules.php:62
 msgid "Module could not be deleted due to an error: %s"
 msgstr "模块未能删除，错误原因: %s"
 
-#: admin/screens/modules.php:51
+#: admin/screens/modules.php:64
 msgid "The selected modules have been <strong>deleted</strong>."
 msgstr "被选中模块已经被<strong>删除</strong>。"
 
-#: admin/screens/modules.php:56
+#: admin/screens/modules.php:69
 msgid "Module <strong>activated</strong>."
 msgstr "模块已 <strong>启用</strong>。"
 
-#: admin/screens/modules.php:60
+#: admin/screens/modules.php:73
 msgid "Selected modules <strong>activated</strong>."
 msgstr "选中的模块已 <strong>启用</strong>。"
 
-#: admin/screens/modules.php:64
+#: admin/screens/modules.php:77
 msgid "Module <strong>deactivated</strong>."
 msgstr "模块已 <strong>禁用</strong>。"
 
-#: admin/screens/modules.php:68
+#: admin/screens/modules.php:81
 msgid "Selected modules <strong>deactivated</strong>."
 msgstr "选中的模块已 <strong>禁用</strong>。"
 
-#: admin/screens/modules.php:72
+#: admin/screens/modules.php:85
 msgid "No out of date modules were selected."
 msgstr "未选中过时的模块。"
 
-#: admin/screens/modules.php:84
+#: admin/screens/modules.php:92
 msgid "WordPoints Modules"
 msgstr "WordPoints 模块"
 
-#: admin/screens/modules.php:87
+#: admin/screens/modules.php:95
 msgctxt "module"
 msgid "Add New"
 msgstr "添加新模块"
 
-#: admin/screens/modules.php:91
+#: admin/screens/modules.php:99
 msgid "Search results for &#8220;%s&#8221;"
 msgstr "搜索&#8220;%s&#8221;的结果"
 
-#: admin/screens/modules.php:112
+#: admin/screens/modules.php:116
 msgid "Search Installed Modules"
 msgstr "搜索已安装模块"
 
@@ -614,9 +628,8 @@ msgid "Cancel"
 msgstr "取消"
 
 #: components/points/admin/admin.php:76
-#, fuzzy
 msgid "WordPoints — Points Hooks"
-msgstr "WordPoints - 模块钩子"
+msgstr "WordPoints — 积分钩子"
 
 #: components/points/admin/admin.php:77
 #: components/points/admin/screens/hooks-no-js.php:85
@@ -625,9 +638,8 @@ msgstr "积分钩子"
 
 #: components/points/admin/admin.php:86
 #: components/points/admin/screens/logs.php:13
-#, fuzzy
 msgid "WordPoints — Points Logs"
-msgstr "WordPoints - 积分记录"
+msgstr "WordPoints — 积分记录"
 
 #: components/points/admin/admin.php:87
 msgid "Points Logs"
@@ -717,16 +729,15 @@ msgstr ""
 "方式来编辑积分类型的设置。"
 
 #: components/points/admin/screens/hooks-load.php:19
-#, fuzzy
 msgid ""
 "To link a hook to a points type, click on the hook&#8217;s title bar and "
 "select a points type, or drag and drop the hook title bars into the desired "
 "points type. By default, only the first points type area is expanded. To "
 "populate additional points types, click on their title bars to expand them."
 msgstr ""
-"添加hook到一个积分类型：点击hook标题条并选择一种积分类型，或者您可以拖动hook"
-"标题条到某个已存在的积分类型里面。默认的，仅第一个积分类型区域是展开的。展开"
-"积分类型区域：仅需要点击它们的标题条即可。"
+"添加hook到一个积分类型,点击hook标题条并选择一种积分类型，或者您可以拖动hook标"
+"题条到某个已存在的积分类型里面。默认的，仅第一个积分类型区域是展开的。展开积"
+"分类型区域：仅需要点击它们的标题条即可。"
 
 #: components/points/admin/screens/hooks-load.php:20
 msgid ""
@@ -765,9 +776,8 @@ msgstr ""
 "启用辅助功能模式，通过显示选项，允许您使用添加和编辑按钮，以替代使用拖放。"
 
 #: components/points/admin/screens/hooks-load.php:37
-#, fuzzy
 msgid "Documentation on Points Hooks"
-msgstr "多站积分Hooks"
+msgstr "积分HOOKS文档"
 
 #: components/points/admin/screens/hooks-no-js.php:32
 msgid "You need to add a points type before you can add any hooks."
@@ -775,9 +785,8 @@ msgstr "您需要添加一种积分类型才能添加Hooks。"
 
 #: components/points/admin/screens/hooks-no-js.php:43
 #: components/points/admin/screens/hooks-no-js.php:55
-#, fuzzy
 msgid "Unable to add the points hook, please try again."
-msgstr "无法找到WordPoints模块目录。"
+msgstr "无法添加积分Hook，请重试。"
 
 #: components/points/admin/screens/hooks-no-js.php:69
 msgid ""
@@ -795,9 +804,8 @@ msgid "Select the points type to attach this hook to."
 msgstr "请选择这个hook要附加到的积分类型。"
 
 #: components/points/admin/screens/hooks-no-js.php:97
-#, fuzzy
 msgid "Points Type:"
-msgstr "积分类型"
+msgstr "积分类型:"
 
 #: components/points/admin/screens/hooks-no-js.php:107
 #: components/points/admin/screens/hooks.php:136
@@ -888,9 +896,8 @@ msgid "Add Hook"
 msgstr "添加Hook"
 
 #: components/points/admin/screens/logs.php:11
-#, fuzzy
 msgid "WordPoints — Network Points Logs"
-msgstr "WordPoints - 多站积分记录"
+msgstr "WordPoints —多站积分记录"
 
 #: components/points/admin/screens/logs.php:20
 msgid "View recent points transactions."
@@ -906,71 +913,71 @@ msgstr "您需要先 <a href=\"%s\">创建一种积分类型</a> ，才能使用
 msgid "Points:"
 msgstr "积分:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:333
+#: components/points/includes/class-wordpoints-points-hooks.php:331
 msgid "There are no points hooks currently available."
 msgstr "当前无可用的积分Hooks。"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:589
+#: components/points/includes/class-wordpoints-points-hooks.php:582
 msgid "Settings"
 msgstr "设置"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:601
+#: components/points/includes/class-wordpoints-points-hooks.php:594
 msgid "Slug"
 msgstr "别名"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:620
+#: components/points/includes/class-wordpoints-points-hooks.php:613
 msgctxt "points type"
 msgid "Prefix (optional):"
 msgstr "前缀(可选):"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:621
+#: components/points/includes/class-wordpoints-points-hooks.php:614
 msgctxt "points type"
 msgid "Suffix (optional):"
 msgstr "后缀（可选）:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:625
+#: components/points/includes/class-wordpoints-points-hooks.php:618
 msgctxt "points type"
 msgid "Prefix:"
 msgstr "前缀:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:626
+#: components/points/includes/class-wordpoints-points-hooks.php:619
 msgctxt "points type"
 msgid "Suffix:"
 msgstr "后缀:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:632
+#: components/points/includes/class-wordpoints-points-hooks.php:625
 msgctxt "points type"
 msgid "Name:"
 msgstr "名称:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:670
+#: components/points/includes/class-wordpoints-points-hooks.php:663
 msgctxt "points type"
 msgid "Delete"
 msgstr "删除"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:673
-#: components/points/includes/class-wordpoints-points-hooks.php:782
+#: components/points/includes/class-wordpoints-points-hooks.php:666
+#: components/points/includes/class-wordpoints-points-hooks.php:772
 #: components/ranks/admin/screens/ranks.php:95
 #: components/ranks/admin/screens/ranks.php:121
 msgid "Close"
 msgstr "关闭"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:676
+#: components/points/includes/class-wordpoints-points-hooks.php:669
 msgctxt "points type"
 msgid "Save"
 msgstr "保存"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:757
+#: components/points/includes/class-wordpoints-points-hooks.php:747
 msgctxt "hook"
 msgid "Edit"
 msgstr "编辑"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:758
+#: components/points/includes/class-wordpoints-points-hooks.php:748
 msgctxt "hook"
 msgid "Add"
 msgstr "添加"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:785
+#: components/points/includes/class-wordpoints-points-hooks.php:775
 #: components/ranks/admin/screens/ranks.php:119
 msgid "Save"
 msgstr "保存"
@@ -984,11 +991,11 @@ msgstr "%s已不受支持。"
 msgid "%s has been replaced by %s."
 msgstr "%s已经被%s替代。"
 
-#: components/points/includes/functions.php:363
+#: components/points/includes/functions.php:226
 msgid "This points type uses a custom meta key: %s"
 msgstr "此积分类型使用的自定义元数据ID：%s"
 
-#: components/points/includes/functions.php:386
+#: components/points/includes/functions.php:249
 msgid ""
 "This points type uses a custom meta key (&#8220;%s&#8221;). If this key is "
 "also used by another plugin, changes made by it will not be logged. Only "
@@ -997,14 +1004,57 @@ msgstr ""
 "此积分类型使用了自定义的元数据ID(&#8220;%s&#8221;)。如果这个ID已经被其它插件"
 "使用，请修改它，以避免出错。"
 
+#: components/points/includes/hooks/abstracts/comment-approved.php:297
+#: components/points/includes/hooks/abstracts/comment-approved.php:311
+#: components/points/includes/hooks/post.php:166
+msgctxt "post title"
+msgid "(no title)"
+msgstr "(无标题)"
+
 #: components/points/includes/hooks/abstracts/post-type.php:79
 msgid "Select post type:"
 msgstr "请选择文章类型:"
 
+#: components/points/includes/hooks/comment-received.php:35
+msgctxt "points hook name"
+msgid "Comment Received"
+msgstr "已收到评论"
+
+#: components/points/includes/hooks/comment-received.php:37
+msgid "Receiving a comment."
+msgstr "收到一条评论。"
+
+#. translators: the post type name.
+#: components/points/includes/hooks/comment-received.php:39
+msgid "Receiving a comment on a %s."
+msgstr "在%s上收到一条评论。"
+
+#. translators: %s will be the post's title.
+#: components/points/includes/hooks/comment-received.php:41
+msgctxt "points log description"
+msgid "Received a comment on %s."
+msgstr "在 %s 上收到一条评论."
+
+#: components/points/includes/hooks/comment-received.php:42
+msgctxt "points log description"
+msgid "Received a comment."
+msgstr "已收到一条评论。"
+
+#. translators: %s will be the post's title.
+#: components/points/includes/hooks/comment-received.php:44
+msgctxt "points log description"
+msgid "Comment received on %s removed."
+msgstr "%s上已收到的评论被移除。"
+
+#: components/points/includes/hooks/comment-received.php:45
+msgctxt "points log description"
+msgid "Comment received removed."
+msgstr "已收到的评论被移除."
+
 #: components/points/includes/hooks/comment-removed.php:41
 msgctxt "points hook name"
 msgid "Comment Removed"
-msgstr "评论已移除"
+msgstr "评论被移除"
 
 #: components/points/includes/hooks/comment-removed.php:43
 msgid "Comment removed from the site."
@@ -1012,9 +1062,8 @@ msgstr "评论被删除，减去多少积分。"
 
 #. translators: the post type name.
 #: components/points/includes/hooks/comment-removed.php:45
-#, fuzzy
 msgid "Comment on a %s removed from the site."
-msgstr "评论被删除，减去多少积分。"
+msgstr "%s上的评论被移除。"
 
 #: components/points/includes/hooks/comment-removed.php:47
 msgid "Points subtracted if comment removed:"
@@ -1035,36 +1084,27 @@ msgctxt "points log description"
 msgid "Comment unapproved."
 msgstr "评论未通过审核。"
 
-#: components/points/includes/hooks/comment.php:43
+#: components/points/includes/hooks/comment.php:37
 msgctxt "points hook name"
 msgid "Comment"
 msgstr "评论"
 
-#: components/points/includes/hooks/comment.php:45
+#: components/points/includes/hooks/comment.php:39
 msgid "Leaving a new comment."
 msgstr "发布评论，奖励多少积分。"
 
 #. translators: the post type name.
-#: components/points/includes/hooks/comment.php:47
-#, fuzzy
+#: components/points/includes/hooks/comment.php:41
 msgid "Leaving a new comment on a %s."
-msgstr "发布评论，奖励多少积分。"
-
-#: components/points/includes/hooks/comment.php:201
-#: components/points/includes/hooks/comment.php:215
-#: components/points/includes/hooks/post.php:166
-msgctxt "post title"
-msgid "(no title)"
-msgstr "(无标题)"
+msgstr "在%s上发布一个新评论。"
 
 #. translators: %s will be the post's title.
-#: components/points/includes/hooks/comment.php:204
-#: components/points/includes/hooks/comment.php:219
+#: components/points/includes/hooks/comment.php:43
 msgctxt "points log description"
 msgid "Comment on %s."
 msgstr "%s 上的评论。"
 
-#: components/points/includes/hooks/comment.php:208
+#: components/points/includes/hooks/comment.php:44
 msgctxt "points log description"
 msgid "Comment"
 msgstr "评论"
@@ -1251,128 +1291,80 @@ msgid "Time"
 msgstr "时间"
 
 #: components/points/includes/logs.php:465
-#, fuzzy
 msgid "Searching for &#8220;%s&#8221;"
 msgstr "搜索&#8220;%s&#8221;的结果"
 
 #: components/points/includes/logs.php:471
-#, fuzzy
 msgid "Search Logs:"
-msgstr "搜索:"
+msgstr "搜索记录:"
 
 #: components/points/includes/logs.php:479
-#, fuzzy
 msgid "Search Logs"
-msgstr "搜索:"
+msgstr "搜索记录"
 
 #: components/points/includes/logs.php:509
-#, fuzzy
 msgid "No matching logs found."
-msgstr "暂无搜索结果"
+msgstr "未找到匹配的记录。"
 
 #: components/points/includes/logs.php:651
 msgctxt "points log description"
 msgid "Points adjusted by %s. Reason: %s"
 msgstr "积分已被%s调整，原因是： %s"
 
-#: components/points/includes/points.php:1011
+#: components/points/includes/points.php:963
 msgctxt "points log"
 msgid "(no description)"
 msgstr "（无描述）"
 
-#: components/points/includes/points.php:1181
-#, fuzzy
+#: components/points/includes/points.php:1122
 msgctxt "top users table heading"
 msgid "Position"
-msgstr "描述"
+msgstr "位置"
 
-#: components/points/includes/points.php:1182
-#, fuzzy
+#: components/points/includes/points.php:1123
 msgctxt "top users table heading"
 msgid "User"
 msgstr "用户"
 
-#: components/points/includes/points.php:1183
-#, fuzzy
+#: components/points/includes/points.php:1124
 msgctxt "top users table heading"
 msgid "Points"
 msgstr "积分"
 
-#: components/points/includes/shortcodes.php:39
+#: components/points/includes/shortcodes.php:66
 msgid ""
-"The &#8220;users&#8221; attribute of the <code>[wordpoints_points_top]</"
-"code> shortcode must be a positive integer. Example: <code>"
-"[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
+"The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a "
+"points type. Example: %3$s."
 msgstr ""
-"短代码<code>[wordpoints_points_top]</code>中&#8220;users&#8221; 的属性值应该"
-"是一个整数. 例如: <code>[wordpoints_points_top <b>users=\"10\"</b> type="
-"\"points\"]</code>."
+"短代码%2$s中&#8220;%1$s&#8221;的属性值应该是某个积分类型的别名，例如：%3$s."
 
-#: components/points/includes/shortcodes.php:47
+#: components/points/includes/shortcodes.php:115
 msgid ""
-"The &#8220;points_type&#8221; attribute of the <code>[wordpoints_points_top]"
-"</code> shortcode must be the slug of a points type. Example: <code>"
-"[wordpoints_points_top points_type=\"points\"]</code>."
-msgstr ""
-"短代码<code>[wordpoints_points_top]</code>中&#8220;points_type&#8221;的属性值"
-"应该是一个积分类型别名，例如:<code>[wordpoints_points_top points_type="
-"\"points\"]</code>。"
+"The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a positive "
+"integer. Example: %3$s."
+msgstr "短代码%2$s中&#8220;%1$s&#8221; 的属性值应该是一个正整数，例如：%3$s."
 
-#: components/points/includes/shortcodes.php:104
+#: components/points/includes/shortcodes.php:173
 msgid ""
-"The &#8220;points_type&#8221; attribute of the <code>[wordpoints_points_logs]"
-"</code> shortcode must be the slug of a points type. Example: <code>"
-"[wordpoints_points_logs points_type=\"points\"]</code>."
+"The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a "
+"registered points log query. Example: %3$s."
 msgstr ""
-"短代码<code>[wordpoints_points_logs]</code>中&#8220;points_type&#8221;的属性"
-"值应该是一个积分类型的别名，例如：<code>[wordpoints_points_logs points_type="
-"\"points\"]</code>。"
+"短代码 %2$s中 &#8220;%1$s&#8221; 的属性值应该是某个已注册的积分记录查询的别"
+"名，例如： %3$s."
 
-#: components/points/includes/shortcodes.php:109
-msgid ""
-"The &#8220;query&#8221; attribute of the <code>[wordpoints_points_logs]</"
-"code> shortcode must be the slug of a registered points log query. Example: "
-"<code>[wordpoints_points_logs <b>query=\"default\"</b> points_type=\"points"
-"\"]</code>."
-msgstr ""
-"短代码<code>[wordpoints_points_logs]</code>中的&#8220;query&#8221; 的属性值应"
-"该是一个已注册的积分记录查询的别名，例如：<code>[wordpoints_points_logs "
-"<b>query=\"default\"</b> "
-
-#: components/points/includes/shortcodes.php:170
-msgid ""
-"The &#8220;points_type&#8221; attribute of the <code>[wordpoints_points]</"
-"code> shortcode must be the slug of a points type. Example: <code>"
-"[wordpoints_points points_type=\"points\"]</code>."
-msgstr ""
-"短代码<code>[wordpoints_points]</code>中&#8220;points_type&#8221;的属性值应该"
-"是一个积分了理性的别名，例如：<code>[wordpoints_points points_type=\"points"
-"\"]</code。"
-
-#: components/points/includes/shortcodes.php:211
-msgid ""
-"The &#8220;points_type&#8221; attribute of the <code>"
-"[wordpoints_how_to_get_points]</code> shortcode must be the slug of a points "
-"type. Example: <code>[wordpoints_how_to_get_points points_type=\"points\"]</"
-"code>."
-msgstr ""
-"短代码<code>[wordpoints_how_to_get_points]</code>中&#8220;points_type&#8221;"
-"的属性值应该是一个积分类型的别名，例如：<code>[wordpoints_how_to_get_points "
-"points_type=\"points\"]</code>。"
-
-#: components/points/includes/shortcodes.php:228
+#: components/points/includes/shortcodes.php:286
 msgctxt "column name"
 msgid "Points"
 msgstr "积分"
 
-#: components/points/includes/shortcodes.php:229
+#: components/points/includes/shortcodes.php:287
 msgctxt "column name"
 msgid "Action"
-msgstr "动作"
+msgstr "操作"
 
 #: components/points/includes/widgets.php:102
 msgid "Display the points of the current logged in user."
-msgstr "显示当前已登录用户的积分"
+msgstr "显示当前已登录用户的积分."
 
 #: components/points/includes/widgets.php:105
 msgctxt "widget title"
@@ -1404,7 +1396,7 @@ msgstr "小工具文本"
 
 #: components/points/includes/widgets.php:287
 msgid "%s will be replaced with the points of the logged in user"
-msgstr "%s 将会被当前已登录用户的积分替代。"
+msgstr "%s 将会被当前已登录用户的积分替代"
 
 #: components/points/includes/widgets.php:302
 msgid "Text if the user is not logged in"
@@ -1416,7 +1408,7 @@ msgstr "将此栏留空的话，将会对未登录用户隐藏这个小工具"
 
 #: components/points/includes/widgets.php:307
 msgid "Number of latest log entries for this user to display"
-msgstr "显示给用户的最新记录数量。"
+msgstr "显示给用户的最新记录数量"
 
 #: components/points/includes/widgets.php:309
 msgid "Set this to 0 to keep from showing any logs"
@@ -1467,31 +1459,29 @@ msgstr "显示多少条积分记录"
 #: components/ranks/admin/admin.php:48
 #: components/ranks/admin/includes/ajax.php:257
 msgid "There was an unexpected error. Try reloading the page."
-msgstr ""
+msgstr "出现意外的错误，请重载此页面。"
 
 #: components/ranks/admin/admin.php:49
-#, fuzzy
 msgid "Your changes have been saved."
-msgstr "更改已保存。"
+msgstr "您的更改已保存。"
 
 #: components/ranks/admin/admin.php:50
 msgid "A rank title cannot be empty."
-msgstr ""
+msgstr "评级标题不能为空。"
 
 #: components/ranks/admin/admin.php:51
 msgid ""
 "Are you sure that you want to delete this rank? This action cannot be undone."
-msgstr ""
+msgstr "确定要删除此等级？此操作不可恢复。"
 
 #: components/ranks/admin/admin.php:80
-#, fuzzy
 msgid "WordPoints — Ranks"
-msgstr "WordPoints - %s"
+msgstr "WordPoints  — 评级"
 
 #: components/ranks/admin/admin.php:81
 #: components/ranks/admin/screens/ranks.php:28
 msgid "Ranks"
-msgstr ""
+msgstr "评级"
 
 #: components/ranks/admin/admin.php:109
 msgid ""
@@ -1501,6 +1491,10 @@ msgid ""
 "up to that rank. For example, the user may need to have a certain number of "
 "points to reach a given rank."
 msgstr ""
+"评级是分配给用户的标题。一个评级组被组织成一个层次。用户刚开始在底部，但可以"
+"通过增加积分到更高的位置。每个评级都有一个用户必须满足的条件，他应满足某个评"
+"级所需的最低要求以被移到该评级组。例如，用户可能需要有一定的积分，以达到给定"
+"的等级。"
 
 #: components/ranks/admin/admin.php:110
 msgid ""
@@ -1509,10 +1503,12 @@ msgid ""
 "type. Each rank group is managed separately, on a different tab on this "
 "screen."
 msgstr ""
+"可提供多个等级层级。例如，如果你有多个类型的积分，你可以为每个类型的积分设置"
+"不同的评级组。每个评级组单独管理，该屏幕在不同的标签上。"
 
 #: components/ranks/admin/admin.php:117
 msgid "Adding and Editing"
-msgstr ""
+msgstr "添加与编辑"
 
 #: components/ranks/admin/admin.php:119
 msgid ""
@@ -1521,6 +1517,9 @@ msgid ""
 "save button. If you have changed your mind, you can remove the new rank "
 "without saving it by clicking the Cancel button."
 msgstr ""
+"为添加一个新的等级到评级组，点击添加评级按钮。一个新的等级以及其所需设置的表"
+"单将会出现。填写那些设置然后点击保存按钮。如果你改变主意了，你可以在保存之前"
+"点击去掉按钮以删除它。"
 
 #: components/ranks/admin/admin.php:120
 msgid ""
@@ -1528,6 +1527,8 @@ msgid ""
 "title bar. The settings form for that rank will open. You can close the "
 "settings form again by clicking the Close link."
 msgstr ""
+"为编辑一个已存在的评级的设置，点击评级标题栏中的编辑链接。该评级的设置表单将"
+"会打开。你可以点击关闭链接以关闭设置表单。"
 
 #: components/ranks/admin/admin.php:121
 msgid ""
@@ -1538,11 +1539,12 @@ msgid ""
 "t want to save your changes, click the Cancel button instead, which will "
 "reset the form to the rank&#8217;s current settings."
 msgstr ""
+"一旦你按照自己的意愿修改了评级设置，你可以点击保存按钮保存评级设置。您的修改"
+"将会立刻起效，如果你决定你不想保存你的更改，点击取消按钮就行。"
 
 #: components/ranks/admin/admin.php:128
-#, fuzzy
 msgid "Deleting"
-msgstr "删除"
+msgstr "删除中"
 
 #: components/ranks/admin/admin.php:130
 msgid ""
@@ -1551,128 +1553,157 @@ msgid ""
 "rank. If you are not sure, click the Cancel button in the confirmation "
 "dialog. Once you delete the rank, it is gone!"
 msgstr ""
+"如果你想删除一个评级，打开它的设置表单，点击删除按钮。你将看到一个确认表单，"
+"如果你不确定要删除它，点击取消按钮就可，如果你删除了它，它就没了！"
 
 #: components/ranks/admin/admin.php:136
-#, fuzzy
 msgid "Documentation on Ranks"
-msgstr "多站积分Hooks"
+msgstr "评级文档"
 
 #: components/ranks/admin/includes/ajax.php:198
 msgid ""
 "This rank does not match any rank in the database, perhaps it was deleted. "
 "Refresh the page to update the list of ranks."
 msgstr ""
+"此评级与数据库中的任何评级都不匹配，可能它已被删除。重载此页面以查看评级列"
+"表。"
 
 #: components/ranks/admin/includes/ajax.php:232
-#, fuzzy
 msgid "There was an error deleting the rank. Please try again."
-msgstr "产生了一个错误。请重试。"
+msgstr "删除评级时产生了一个错误。请重试。"
 
 #: components/ranks/admin/includes/ajax.php:274
 msgid ""
 "You do not have permission to perform this action. Maybe you have been "
 "logged out?"
-msgstr ""
+msgstr "您没有足够权限执行此操作。可能您已退出账户了？"
 
 #: components/ranks/admin/includes/ajax.php:294
-#, fuzzy
 msgid ""
 "Your security token for this action has expired. Refresh the page and try "
 "again."
-msgstr "产生了一个错误。请重新载入此页并重试。"
+msgstr "安全检查出错，请重载此页面重试。"
 
 #: components/ranks/admin/includes/ajax.php:315
 msgid ""
 "The rank group passed to the server is invalid. Perhaps it has been deleted. "
 "Try reloading the page."
-msgstr ""
+msgstr "传递到服务器的评级组是无效的。可能它已被删除，请重载此页面。"
 
 #: components/ranks/admin/includes/ajax.php:337
 msgid ""
 "The rank ID passed to the server is invalid. Perhaps it has been deleted. "
 "Try reloading the page."
-msgstr ""
+msgstr "传递到服务器的评级ID无效。可能它已被删除，请重载此页面。"
 
 #: components/ranks/admin/includes/ajax.php:365
-#, fuzzy
 msgid "Please enter a name for this rank."
-msgstr "请重新选择一个积分类型名称。"
+msgstr "请输入此评级的名称。"
 
 #: components/ranks/admin/includes/ajax.php:390
 msgid ""
 "That rank type was not recognized. It may no longer be available. Try "
 "reloading the page."
-msgstr ""
+msgstr "评级类型未被组织，可能它已不可用。请重载此页面。"
 
 #: components/ranks/admin/includes/ajax.php:445
-#, fuzzy
 msgid "There was an error adding the rank. Please try again."
-msgstr "产生了一个错误。请重试。"
+msgstr "添加评级时产生了一个错误。请重试。"
 
 #: components/ranks/admin/includes/ajax.php:447
-#, fuzzy
 msgid "There was an error updating the rank. Please try again."
-msgstr "产生了一个错误。请重试。"
+msgstr "更新评级时产生了一个错误。请重试。"
 
 #: components/ranks/admin/includes/ajax.php:488
-#, fuzzy
 msgid "(no title)"
 msgstr "(无标题)"
 
 #: components/ranks/admin/screens/ranks.php:16
-#, fuzzy
 msgid "No rank groups are currently available."
-msgstr "当前无可用的积分Hooks。"
+msgstr "当前无可用的评级组。"
 
 #: components/ranks/admin/screens/ranks.php:62
-#, fuzzy
 msgid "Add Rank"
-msgstr "添加Hook"
+msgstr "添加评级"
 
 #: components/ranks/admin/screens/ranks.php:64
-#, fuzzy
 msgid "Select Type"
-msgstr "请选择文章类型:"
+msgstr "请选择类型"
 
 #: components/ranks/admin/screens/ranks.php:94
-#, fuzzy
 msgctxt "rank"
 msgid "Edit"
 msgstr "编辑"
 
 #: components/ranks/admin/screens/ranks.php:101
-#, fuzzy
 msgctxt "rank"
 msgid "Title"
 msgstr "标题"
 
 #: components/ranks/includes/integration/points.php:44
 msgid "%s will be replaced with the rank of the logged in user"
-msgstr ""
+msgstr "%s将会被已登录用户的评级替代"
 
 #: components/ranks/includes/rank-types/points.php:41
-#, fuzzy
 msgctxt "rank type"
 msgid "Points"
 msgstr "积分"
 
 #: components/ranks/includes/rank-types/points.php:52
-#, fuzzy
 msgctxt "form label"
 msgid "Points"
 msgstr "积分"
 
 #: components/ranks/includes/rank-types/points.php:100
 msgid "The amount of points is required, and must be a valid number."
-msgstr ""
+msgstr "积分数量是必需的，并且必需是一个数字。"
 
 #: components/ranks/includes/rank-types/points.php:119
 msgid "The number of points must be more than the minimum (%s)."
-msgstr ""
+msgstr "积分数量至少要大于最小值(%s)。"
 
 #: components/ranks/includes/rank-types.php:44
 msgid "This rank group is associated with the &#8220;%s&#8221; points type."
+msgstr "此评级组被分配给&#8220;%s&#8221;积分类型。"
+
+#: components/ranks/includes/shortcodes.php:25
+msgid ""
+"The &#8220;%s&#8221; attribute of the %s shortcode must be a rank group slug."
+msgstr "短代码%s中&#8220;%s&#8221;的属性必须是一个评级组的别名。"
+
+#: includes/class-shortcode.php:111
+msgid "The %s shortcode was not registered properly."
+msgstr "%s短代码是尚未注册的属性。"
+
+#: includes/class-shortcode.php:261
+msgid ""
+"The &#8220;%s&#8221; attribute of the %s shortcode must be used inside of a "
+"Post, Page, or other post type."
 msgstr ""
+"短代码%s中&#8220;%s&#8221; 的值必须被用在一个文章，页面，或者其它文章类型中。"
+
+#: includes/class-wordpoints-components.php:546
+msgid ""
+"WordPoints detected a large network and has skipped part of the installation "
+"process for the &#8220;%s&#8221; component."
+msgstr ""
+"WordPoints检测到一个大的多站网络并且已经为组件&#8220;%s&#8221;跳过了部分安装"
+"进程。"
+
+#: includes/class-wordpoints-components.php:549
+msgid ""
+"WordPoints detected a large network and has skipped part of the update "
+"process for the &#8220;%s&#8221; component for version %s (and possibly "
+"later versions)."
+msgstr ""
+"WordPoints检测到一个大的多站网络并且已经跳过了版本%s (和更新的版本)的更新进"
+"程。"
+
+#: includes/class-wordpoints-components.php:555
+msgid ""
+"The rest of the process needs to be completed manually. If this has not been "
+"done already, some parts of the component may not function properly."
+msgstr "剩余的进程需要人工完成，如果未被完成，此组件的部分功能将不可用。"
 
 #: includes/deprecated.php:115 includes/deprecated.php:127
 #: includes/deprecated.php:213
@@ -1684,36 +1715,36 @@ msgctxt "post type"
 msgid "Any"
 msgstr "任何"
 
-#: includes/functions.php:552
+#: includes/functions.php:555
 msgid "Shortcode error:"
 msgstr "短代码错误:"
 
-#: includes/functions.php:690
+#: includes/functions.php:694
 msgctxt "component name"
 msgid "Points"
 msgstr "积分"
 
-#: includes/functions.php:692 includes/functions.php:717
+#: includes/functions.php:696 includes/functions.php:721
 msgctxt "component author"
 msgid "WordPoints"
 msgstr "WordPoints"
 
-#: includes/functions.php:695
+#: includes/functions.php:699
 msgid "Enables a points system for your site."
 msgstr "在您的网站启用一个积分系统。"
 
-#: includes/functions.php:715
+#: includes/functions.php:719
 msgctxt "component name"
 msgid "Ranks"
-msgstr ""
+msgstr "评级"
 
-#: includes/functions.php:720
+#: includes/functions.php:724
 msgid "Assign users ranks based on their points levels."
-msgstr ""
+msgstr "基于用户积分数量确定TA所在的等级。"
 
 #: includes/modules.php:473
 msgid "By %s."
-msgstr "作者 %s."
+msgstr "作者 %s.。"
 
 #: includes/modules.php:632
 msgid "Invalid module path."
@@ -1745,11 +1776,9 @@ msgstr "无法找到WordPoints模块目录。"
 
 #. translators: A module or list of modules.
 #: includes/modules.php:1057
-#, fuzzy
 msgid "Could not fully remove the module %s."
 msgid_plural "Could not fully remove the modules %s."
-msgstr[0] "无法移除模块 %s."
-msgstr[1] "无法移除模块 %s."
+msgstr[0] "无法完全移除模块 %s."
 
 #. Plugin URI of the plugin/theme
 msgid "http://wordpoints.org/"
@@ -1767,6 +1796,55 @@ msgstr "J.D. Grimes"
 #. Author URI of the plugin/theme
 msgid "http://codesymphony.co/"
 msgstr "http://codesymphony.co/"
+
+#~ msgid ""
+#~ "The &#8220;users&#8221; attribute of the <code>[wordpoints_points_top]</"
+#~ "code> shortcode must be a positive integer. Example: <code>"
+#~ "[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
+#~ msgstr ""
+#~ "短代码<code>[wordpoints_points_top]</code>中&#8220;users&#8221; 的属性值应"
+#~ "该是一个整数. 例如: <code>[wordpoints_points_top <b>users=\"10\"</b> type="
+#~ "\"points\"]</code>."
+
+#~ msgid ""
+#~ "The &#8220;query&#8221; attribute of the <code>[wordpoints_points_logs]</"
+#~ "code> shortcode must be the slug of a registered points log query. "
+#~ "Example: <code>[wordpoints_points_logs <b>query=\"default\"</b> "
+#~ "points_type=\"points\"]</code>."
+#~ msgstr ""
+#~ "短代码<code>[wordpoints_points_logs]</code>中的&#8220;query&#8221; 的属性"
+#~ "值应该是一个已注册的积分记录查询的别名，例如：<code>"
+#~ "[wordpoints_points_logs <b>query=\"default\"</b> "
+
+#~ msgid ""
+#~ "The &#8220;points_type&#8221; attribute of the <code>"
+#~ "[wordpoints_points_top]</code> shortcode must be the slug of a points "
+#~ "type. Example: <code>[wordpoints_points_top points_type=\"points\"]</"
+#~ "code>."
+#~ msgstr ""
+#~ "短代码<code>[wordpoints_points_top]</code>中&#8220;points_type&#8221;的属"
+#~ "性值应该是一个积分类型别名，例如:<code>[wordpoints_points_top points_type="
+#~ "\"points\"]</code>。"
+
+#~ msgid ""
+#~ "The &#8220;points_type&#8221; attribute of the <code>"
+#~ "[wordpoints_points_logs]</code> shortcode must be the slug of a points "
+#~ "type. Example: <code>[wordpoints_points_logs points_type=\"points\"]</"
+#~ "code>."
+#~ msgstr ""
+#~ "短代码<code>[wordpoints_points_logs]</code>中&#8220;points_type&#8221;的属"
+#~ "性值应该是一个积分类型的别名，例如：<code>[wordpoints_points_logs "
+#~ "points_type=\"points\"]</code>。"
+
+#~ msgid ""
+#~ "The &#8220;points_type&#8221; attribute of the <code>"
+#~ "[wordpoints_how_to_get_points]</code> shortcode must be the slug of a "
+#~ "points type. Example: <code>[wordpoints_how_to_get_points points_type="
+#~ "\"points\"]</code>."
+#~ msgstr ""
+#~ "短代码<code>[wordpoints_how_to_get_points]</code>中&#8220;"
+#~ "points_type&#8221;的属性值应该是一个积分类型的别名，例如：<code>"
+#~ "[wordpoints_how_to_get_points points_type=\"points\"]</code>。"
 
 #~ msgid "Currently WordPoints only has one component."
 #~ msgstr "WordPoints当前仅有一个模块。"

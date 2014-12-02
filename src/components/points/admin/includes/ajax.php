@@ -204,7 +204,7 @@ function wordpoints_ajax_save_points_hook() {
 
 			WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
-			echo "deleted:{$hook_id}";
+			echo esc_html( "deleted:{$hook_id}" );
 
 			wp_die();
 

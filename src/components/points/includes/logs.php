@@ -541,13 +541,13 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 					?>
 
-					<tr class="wordpoints-log-id-<?php echo $log->id; ?> <?php echo ( $i % 2 ) ? 'odd' : 'even'; ?>">
+					<tr class="wordpoints-log-id-<?php echo (int) $log->id; ?> <?php echo ( $i % 2 ) ? 'odd' : 'even'; ?>">
 						<?php if ( $args['show_users'] ) : ?>
 						<td><?php echo get_avatar( $user->ID, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?></td>
 						<?php endif; ?>
 						<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>
-						<td><?php echo $log->text; ?></td>
-						<td title="<?php echo $log->date; ?> UTC"><?php echo human_time_diff( strtotime( $log->date ), $current_time ); ?></td>
+						<td><?php echo wp_kses( $log->text, 'wordpoints_points_log' ); ?></td>
+						<td title="<?php echo esc_attr( $log->date ); ?> UTC"><?php echo esc_html( human_time_diff( strtotime( $log->date ), $current_time ) ); ?></td>
 					</tr>
 
 					<?php

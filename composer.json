@@ -1,6 +1,7 @@
 {
     "require": {
         "php": ">=5.2.0",
-        "jdgrimes/wp-plugin-uninstall-tester": "~0.3"
+        "jdgrimes/wp-plugin-uninstall-tester": "~0.4",
+        "jdgrimes/wp-l10n-validator": "dev-master"
     }
 }

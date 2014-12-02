@@ -25,9 +25,9 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 *
 	 * @since 1.4.0
 	 */
-	public function setUpBeforeTests() {
+	public function setUp() {
 
-		parent::setUpBeforeTests();
+		parent::setUp();
 
 		// Unhook the clean-up funtions.
 		remove_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
@@ -44,9 +44,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 *
 	 * @since 1.4.0
 	 */
-	public static function tearDownAfterTests() {
-
-		parent::tearDownAfterTests();
+	public function tearDown() {
 
 		add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 
@@ -55,6 +53,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 
 		$comment_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 		add_action( 'delete_comment', array( $comment_hook, 'clean_logs_on_comment_deletion' ) );
+
+		parent::tearDown();
 	}
 
 	/**
@@ -82,6 +82,9 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		);
 		$this->assertEquals( 1, $user_1_meta_query->count() );
 
+		// Get the log ID.
+		$log_id = $user_1_meta_query->get( 'row' )->id;
+
 		// Delete the first user.
 		if ( is_multisite() ) {
 			wpmu_delete_user( $user_ids[0] );
@@ -90,9 +93,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		}
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
+		$this->update_component( 'points', '1.1.0' );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// Check that the log for the deleted user was deleted.
 		$this->assertEquals( 0, $user_1_query->count() );
@@ -104,7 +106,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( 1, $query->count() );
 
 		// Check that the log meta was deleted also.
-		$this->assertEquals( 0, $user_1_meta_query->count() );
+		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
 
 		// But not for the existing user.
 		$query = new WordPoints_Points_Logs_Query(
@@ -113,7 +115,6 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( 1, $query->count() );
 
 	} // public function test_logs_for_delete_users_deleted()
-
 
 	/**
 	 * Test that the logs for deleted posts are cleaned up.
@@ -148,9 +149,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		wp_delete_post( $post_ids[0], true );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
+		$this->update_component( 'points', '1.1.0' );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// Check the logs for the deleted post where cleaned (meta post_id deleted).
 		$this->assertEquals( 0, $post_1_query->count() );
@@ -208,9 +208,8 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase
 		wp_delete_comment( $comment_ids[0], true );
 
 		// Simulate the update.
-		$this->set_points_db_version();
-		wordpoints_points_component_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_points_db_version() );
+		$this->update_component( 'points', '1.1.0' );
+		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// The logs for the deleted comment should be cleaned (meta comment_id deleted).
 		$this->assertEquals( 0, $comment_1_query->count() );

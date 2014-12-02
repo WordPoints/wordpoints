@@ -71,12 +71,6 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 // Display the page.
 //
 
-?>
-
-<p><?php esc_html_e( 'View installed WordPoints components.', 'wordpoints' ); ?></p>
-
-<?php
-
 /**
  * Top of the components administration page.
  *
@@ -86,13 +80,15 @@ do_action( 'wordpoints_admin_components_top' );
 
 ?>
 
+<br />
 <table id="wordpoints_components_table" class="widefat">
+	<caption><?php esc_html_e( 'Installed WordPoints components.', 'wordpoints' ); ?></caption>
 	<thead>
 		<tr>
-			<th scope="col" width="150"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>
 			<th scope="col"><?php echo esc_html_x( 'Description', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col" width="80"><?php echo esc_html_x( 'Version', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col" width="70"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Version', 'components table heading', 'wordpoints' ); ?></th>
+			<th scope="col"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -108,26 +104,6 @@ do_action( 'wordpoints_admin_components_top' );
 
 	foreach ( $components as $component ) {
 
-		if ( $component['component_uri'] !== '' ) {
-			$component_name = '<a href="' . esc_attr( esc_url( $component['component_uri'] ) ) . '">' . esc_html( $component['name'] ) . '</a>';
-		} else {
-			$component_name = esc_html( $component['name'] );
-		}
-
-		$author = '';
-
-		if ( $component['author'] !== '' ) {
-
-			if ( $component['author_uri'] !== '' ) {
-				$author_name = '<a href="' . esc_attr( esc_url( $component['author_uri'] ) ) . '">' . esc_html( $component['author'] ) . '</a>';
-			} else {
-				$author_name = esc_html( $component['author'] );
-			}
-
-			/* translators: %s is the component author's name. */
-			$author = ' | ' . sprintf( __( 'By %s', 'wordpoints' ), $author_name );
-		}
-
 		if ( $wordpoints_components->is_active( $component['slug'] ) ) {
 
 			$action = 'deactivate';
@@ -142,11 +118,35 @@ do_action( 'wordpoints_admin_components_top' );
 		?>
 
 		<tr>
-			<td><?php echo $component_name; ?></td>
-			<td><?php echo $component['description'] . $author; ?></td>
-			<td><?php echo $component['version']; ?></td>
 			<td>
-				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>" action="<?php esc_attr( esc_url( self_admin_url( 'page=wordpoints_configure&tab=components' ) ) ); ?>">
+				<?php if ( $component['component_uri'] !== '' ) : ?>
+					<a href="<?php echo esc_attr( esc_url( $component['component_uri'] ) ); ?>">
+				<?php endif; ?>
+					<?php echo esc_html( $component['name'] ); ?>
+				<?php if ( $component['component_uri'] !== '' ) : ?>
+					</a>
+				<?php endif; ?>
+			</td>
+			<td>
+				<?php echo wp_kses( $component['description'], 'wordpoints_component_description' ); ?>
+				<?php if ( $component['author'] !== '' ) : ?>
+					&nbsp;|&nbsp;
+					<?php
+					/* translators: %s is the component author's name. */
+					echo esc_html( sprintf( __( 'By %s', 'wordpoints' ), '' /* This space intentionally left blank */ ) );
+					?>
+					<?php if ( $component['author_uri'] !== '' ) : ?>
+						<a href="<?php echo esc_attr( esc_url( $component['author_uri'] ) ); ?>">
+					<?php endif; ?>
+						<?php echo esc_html( $component['author'] ); ?>
+					<?php if ( $component['author_uri'] !== '' ) : ?>
+						</a>
+					<?php endif; ?>
+				<?php endif; ?>
+			</td>
+			<td><?php echo esc_html( $component['version'] ); ?></td>
+			<td>
+				<form method="post" name="wordpoints_components_form_<?php echo esc_attr( $component['slug'] ); ?>">
 					<input type="hidden" name="wordpoints_component_action" value="<?php echo esc_attr( $action ); ?>" />
 					<input type="hidden" name="wordpoints_component" value="<?php echo esc_attr( $component['slug'] ); ?>" />
 					<?php wp_nonce_field( "wordpoints_{$action}_component-{$component['slug']}" ); ?>

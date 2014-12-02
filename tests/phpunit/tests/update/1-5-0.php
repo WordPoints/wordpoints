@@ -39,7 +39,7 @@ class WordPoints_1_5_0_Update_Test extends WordPoints_UnitTestCase {
 		restore_current_blog();
 
 		// Simulate the update.
-		$this->wordpoints_set_db_version();
+		$this->wordpoints_set_db_version( '1.4.0' );
 		wordpoints_update();
 
 		// Check that the custom caps were added to the new site.

@@ -324,7 +324,14 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct( 'WordPoints_Top_Users_Widget', _x( 'WordPoints Top Users', 'widget name', 'wordpoints' ), array( 'description' => __( 'Showcase the users with the most points.', 'wordpoints' ) ) );
+		parent::__construct(
+			'WordPoints_Top_Users_Widget'
+			, _x( 'WordPoints Top Users', 'widget name', 'wordpoints' )
+			, array(
+				'description' => __( 'Showcase the users with the most points.', 'wordpoints' ),
+				'wordpoints_hook_slug' => 'top_users',
+			)
+		);
 
 		$this->defaults = array(
 			'title'       => _x( 'Top Users', 'widget title', 'wordpoints' ),
@@ -334,62 +341,27 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	}
 
 	/**
-	 * Display the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args     Arguments for widget display.
-	 * @param array $instance The settings for this widget instance.
+	 * @since 1.9.0
 	 */
-	public function widget( $args, $instance ) {
-
-		$this->make_a_points_type( $instance['points_type'] );
-
-		if ( ! $instance['points_type'] ) {
-			return;
-		}
-
-		echo $args['before_widget'];
-
-		/**
-		 * @see WordPoints_My_Points_Widget::widget()
-		 */
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-
-			echo $args['before_title'] . $title . $args['after_title'];
-		}
+	protected function verify_settings( $instance ) {
 
 		if ( empty( $instance['num_users'] ) ) {
 			$instance['num_users'] = $this->defaults['num_users'];
 		}
 
-		/**
-		 * Before the top users widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_before', $instance );
+		return parent::verify_settings( $instance );
+	}
+
+	/**
+	 * @since 1.9.0
+	 */
+	protected function widget_body( $instance ) {
 
 		wordpoints_points_show_top_users(
 			$instance['num_users']
 			, $instance['points_type']
 			, 'widget'
 		);
-
-		/**
-		 * After the top users widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_after', $instance );
-
-		echo $args['after_widget'];
 	}
 
 	/**

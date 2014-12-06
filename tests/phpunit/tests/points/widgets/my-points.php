@@ -18,11 +18,7 @@
 class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
-	 * The class name of the widget type that this test is for.
-	 *
 	 * @since 1.9.0
-	 *
-	 * @type string $widget_class
 	 */
 	protected $widget_class = 'WordPoints_My_Points_Widget';
 
@@ -36,42 +32,6 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 		parent::setUp();
 
 		wp_set_current_user( $this->factory->user->create() );
-	}
-
-	/**
-	 * Get the HTML for a widget instance.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param array $instance The settings for the widget instance.
-	 *
-	 * @return string The HTML for this widget instance.
-	 */
-	protected function get_widget_html( array $instance = array(), array $args = array() ) {
-
-		ob_start();
-		the_widget( $this->widget_class, $instance, $args );
-		return ob_get_clean();
-	}
-
-	/**
-	 * Get the XPath query for a widget instance.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param array $instance The settings for the widget instance.
-	 *
-	 * @return
-	 */
-	protected function get_widget_xpath( array $instance = array() ) {
-
-		$widget = $this->get_widget_html( $instance );
-
-		$document = new DOMDocument;
-		$document->loadHTML( $widget );
-		$xpath    = new DOMXPath( $document );
-
-		return $xpath;
 	}
 
 	/**

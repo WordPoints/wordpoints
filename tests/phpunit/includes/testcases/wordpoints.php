@@ -39,6 +39,15 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $watched_filters = array();
 
 	/**
+	 * The class name of the widget type that this test is for.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $widget_class
+	 */
+	protected $widget_class;
+
+	/**
 	 * Set up before each test.
 	 *
 	 * @since 1.7.0
@@ -370,6 +379,42 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 					FROM {$wpdb->wordpoints_ranks}
 					WHERE id = "
 		);
+	}
+
+	/**
+	 * Get the HTML for a widget instance.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array $instance The settings for the widget instance.
+	 *
+	 * @return string The HTML for this widget instance.
+	 */
+	protected function get_widget_html( array $instance = array(), array $args = array() ) {
+
+		ob_start();
+		the_widget( $this->widget_class, $instance, $args );
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get the XPath query for a widget instance.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array $instance The settings for the widget instance.
+	 *
+	 * @return DOMXPath XPath query object loaded with the widget's HTML.
+	 */
+	protected function get_widget_xpath( array $instance = array() ) {
+
+		$widget = $this->get_widget_html( $instance );
+
+		$document = new DOMDocument;
+		$document->loadHTML( $widget );
+		$xpath    = new DOMXPath( $document );
+
+		return $xpath;
 	}
 
 	//

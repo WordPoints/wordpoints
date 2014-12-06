@@ -43,7 +43,9 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 
 		wp_set_current_user( 0 );
 
-		$html = $this->get_widget_html( array( 'alt_text' => '' ) );
+		$html = $this->get_widget_html(
+			array( 'alt_text' => '', 'points_type' => 'points' )
+		);
 
 		$this->assertEmpty( $html );
 	}

@@ -169,6 +169,13 @@ include_once WORDPOINTS_DIR . 'includes/modules.php';
 include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
 
 /**
+ * The base widget class.
+ *
+ * @since 1.9.0
+ */
+include_once WORDPOINTS_DIR . 'includes/class-widget.php';
+
+/**
  * Deprecated functions.
  *
  * @since 1.1.0

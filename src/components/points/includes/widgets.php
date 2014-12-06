@@ -122,7 +122,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		if ( ! is_user_logged_in() && empty( $instance['text_alt'] ) ) {
+		if ( ! is_user_logged_in() && empty( $instance['alt_text'] ) ) {
 			return;
 		}
 
@@ -171,7 +171,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 
 		} else {
 
-			$text = $instance['text_alt'];
+			$text = $instance['alt_text'];
 		}
 
 		/**

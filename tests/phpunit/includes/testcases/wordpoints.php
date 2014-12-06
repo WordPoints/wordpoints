@@ -393,6 +393,24 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 			, $xpath->query( '//p[@class = "wordpoints-shortcode-error"]' )->length
 		);
 	}
+
+	/**
+	 * Assert that a string is an error outpur by one of the widgets.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $string The string that is expected to be a widget error.
+	 */
+	protected function assertWordPointsWidgetError( $string ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals(
+			1
+			, $xpath->query( '//div[@class = "wordpoints-widget-error"]' )->length
+		);
+	}
 }
 
 // EOF

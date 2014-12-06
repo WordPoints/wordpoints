@@ -30,9 +30,14 @@ add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 /**
  * WordPoints points widget template class.
  *
+ * This class is not intended to be instantiated, and should be declared abstract.
+ * However, it was not at first, and so it is presently left as non-abstract just in
+ * case, for backward compatibiility. It will likely be made abstract in 2.0.0.
+ *
  * @since 1.0.0
+ * @since 1.9.0 Now extends WordPoints_Widget instead of WP_Widget directly.
  */
-class WordPoints_Points_Widget extends WP_Widget {
+/* abstract */ class WordPoints_Points_Widget extends WordPoints_Widget {
 
 	/**
 	 * Default settings for the widget.
@@ -44,13 +49,24 @@ class WordPoints_Points_Widget extends WP_Widget {
 	protected $defaults;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.0.0
+	 * @since 1.9.0
 	 */
-	function __construct( $id_base, $name, $widget_options = array(), $control_options = array() ) {
+	protected function verify_settings( $instance ) {
 
-		parent::__construct( $id_base, $name, $widget_options, $control_options );
+		if ( isset( $this->defaults['points_type'] ) ) {
+
+			if (
+				empty( $instance['points_type'] )
+				|| ! wordpoints_is_points_type( $instance['points_type'] )
+			) {
+				return new WP_Error(
+					'wordpoints_widget_invalid_points_type'
+					, esc_html__( 'Please select a valid points type.', 'wordpoints' )
+				);
+			}
+		}
+
+		return parent::verify_settings( $instance );
 	}
 
 	/**

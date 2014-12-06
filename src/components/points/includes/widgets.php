@@ -446,7 +446,14 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct( 'WordPoints_Points_Logs_Widget', _x( 'Points Logs', 'widget name', 'wordpoints' ), array( 'description' => __( 'Display the latest points activity.', 'wordpoints' ) ) );
+		parent::__construct(
+			'WordPoints_Points_Logs_Widget'
+			, _x( 'Points Logs', 'widget name', 'wordpoints' )
+			, array(
+				'description' => __( 'Display the latest points activity.', 'wordpoints' ),
+				'wordpoints_hook_slug' => 'points_logs',
+			)
+		);
 
 		$this->defaults = array(
 			'title'       => _x( 'Points Logs', 'widget title', 'wordpoints' ),
@@ -456,43 +463,21 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	}
 
 	/**
-	 * Display the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args     Arguments for widget display.
-	 * @param array $instance The settings for this widget instance.
+	 * @since 1.9.0
 	 */
-	public function widget( $args, $instance ) {
-
-		if ( ! wordpoints_is_points_type( $instance['points_type'] ) ) {
-			return;
-		}
+	protected function verify_settings( $instance ) {
 
 		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
 			$instance['number_logs'] = $this->defaults['number_logs'];
 		}
 
-		echo $args['before_widget'];
+		return parent::verify_settings( $instance );
+	}
 
-		/**
-		 * @see WordPoints_My_Points_Widget::widget()
-		 */
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-
-			echo $args['before_title'] . $title . $args['after_title'];
-		}
-
-		/**
-		 * Before the points logs widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_before', $instance );
+	/**
+	 * @since 1.9.0
+	 */
+	public function widget_body( $instance ) {
 
 		$query_args = wordpoints_get_points_logs_query_args( $instance['points_type'] );
 
@@ -502,17 +487,6 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 		$logs_query->prime_cache();
 
 		wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false ) );
-
-		/**
-		 * After the top users widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_after', $instance );
-
-		echo $args['after_widget'];
 	}
 
 	/**

@@ -115,7 +115,14 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct( 'WordPoints_Points_Widget', __( 'WordPoints', 'wordpoints' ), array( 'description' => __( 'Display the points of the current logged in user.', 'wordpoints' ) ) );
+		parent::__construct(
+			'WordPoints_Points_Widget'
+			, __( 'WordPoints', 'wordpoints' )
+			, array(
+				'description' => __( 'Display the points of the current logged in user.', 'wordpoints' ),
+				'wordpoints_hook_slug' => 'points',
+			)
+		);
 
 		$this->defaults = array(
 			'title'       => _x( 'My Points', 'widget title', 'wordpoints' ),
@@ -129,51 +136,37 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	}
 
 	/**
-	 * Display the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args     Arguments for widget display.
-	 * @param array $instance The settings for this widget instance.
+	 * @since 1.9.0
 	 */
-	public function widget( $args, $instance ) {
+	protected function verify_settings( $instance ) {
 
 		if ( ! is_user_logged_in() && empty( $instance['alt_text'] ) ) {
-			return;
+			return new WP_Error;
 		}
 
-		$this->make_a_points_type( $instance['points_type'] );
-
-		if ( ! $instance['points_type'] ) {
-			return;
-		}
-
-		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
+		if (
+			! isset( $instance['number_logs'] )
+			|| ! wordpoints_posint( $instance['number_logs'] )
+		) {
 			$instance['number_logs'] = 0;
 		}
 
-		echo $args['before_widget'];
+		// In case the points type isn't set, we do this first.
+		$instance = parent::verify_settings( $instance );
 
-		/**
-		 * The widget's title.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $title The widget title.
-		 */
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-
-			echo $args['before_title'] . $title . $args['after_title'];
+		if ( ! is_wp_error( $instance ) && is_user_logged_in() && empty( $instance['text'] ) ) {
+			$instance['text'] = wordpoints_get_points_type_setting( $instance['points_type'], 'name' ) . ': %points%';
 		}
 
+		return $instance;
+	}
+
+	/**
+	 * @since 1.9.0
+	 */
+	protected function widget_body( $instance ) {
+
 		if ( is_user_logged_in() ) {
-
-			if ( empty( $instance['text'] ) ) {
-
-				$instance['text'] = wordpoints_get_points_type_setting( 'name', $instance['points_type'] ) .': %points%';
-			}
 
 			$text = str_replace(
 				'%points%',
@@ -189,15 +182,6 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 
 			$text = $instance['alt_text'];
 		}
-
-		/**
-		 * Before the WordPoints points widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_points_widget_before', $instance );
 
 		/**
 		 * The my points widget text.
@@ -228,17 +212,6 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 
 			wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false, 'show_users' => false ) );
 		}
-
-		/**
-		 * After the WordPoints points widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_points_widget_after', $instance );
-
-		echo $args['after_widget'];
 	}
 
 	/**

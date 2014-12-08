@@ -9,13 +9,8 @@
 			positives. They will be added back in when the changes are commited to
 			the stable version upstream. Until then, the issue numbers are supplied.
 		-->
-		<exclude name="WordPress.WhiteSpace.ScopeIndent" /><!-- #122 -->
-		<exclude name="WordPress.WhiteSpace.OperatorSpacing" /><!-- #68 -->
-		<exclude name="WordPress.XSS.EscapeOutput" /><!-- #144 -->
-		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- #178, #180 -->
 		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
-		<exclude name="WordPress.VIP.ValidatedSanitizedInput" /><!-- #179, #183 -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
@@ -30,12 +25,6 @@
 		</properties>
 	</rule>
 
-	<rule ref="Generic.ControlStructures.InlineControlStructure">
-		<properties>
-			<property name="error" value="0" /><!-- because of https://pear.php.net/bugs/20155 -->
-		</properties>
-	</rule>
-
-	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/vendor/*,/dev-lib/*</exclude-pattern>
 
 </ruleset>

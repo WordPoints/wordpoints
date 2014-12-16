@@ -90,7 +90,7 @@ if ( ! empty( $_POST['removehook'] ) ) {
 	} else {
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) );
+			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) ); // XSS pass WPCS.
 		}
 
 		$number = $hook->get_number_by_id( $hook_id );

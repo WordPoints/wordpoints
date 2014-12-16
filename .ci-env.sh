@@ -55,7 +55,7 @@ codesniff-php-syntax() {
 # Check php files with PHPCodeSniffer.
 codesniff-phpcs() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		$PHPCS_DIR/scripts/phpcs -n --standard=$WPCS_STANDARD \
+		$PHPCS_DIR/scripts/phpcs -ns --standard=$WPCS_STANDARD \
 			$(if [ -n "$PHPCS_IGNORE" ]; then echo --ignore=$PHPCS_IGNORE; fi) \
 			$(find . -name '*.php')
 	else

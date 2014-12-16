@@ -31,7 +31,7 @@ if ( isset( $_GET['error'] ) ) {
 
 		$error_message = __( 'Module could not be activated because it triggered a <strong>fatal error</strong>.', 'wordpoints' );
 
-		if ( isset( $_GET['module'], $_GET['_error_nonce'] ) && wp_verify_nonce( $_GET['_error_nonce'], "module-activation-error_{$_GET['module']}" ) ) {
+		if ( wordpoints_verify_nonce( '_error_nonce', 'module-activation-error_%s', array( 'module' ) ) ) {
 
 			?>
 

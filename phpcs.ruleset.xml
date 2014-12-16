@@ -18,6 +18,22 @@
 	<rule ref="WordPress.VIP.RestrictedVariables">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
+	<rule ref="WordPress.VIP.DirectDatabaseQuery">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
+		<properties>
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.XSS">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.XSS.EscapeOutput">
+        <properties>
+            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint" type="array" />
+            <property name="customAutoEscapedFunctions" value="wordpoints_format_points" type="array" />
+        </properties>
+    </rule>
 
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
 		<properties>

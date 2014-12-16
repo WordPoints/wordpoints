@@ -268,7 +268,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $dropdown_args['id'] ); ?>"><?php esc_html_e( 'Points type to display', 'wordpoints' ); ?></label>
 			<br />
-			<?php echo wordpoints_points_types_dropdown( $dropdown_args ); ?>
+			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>

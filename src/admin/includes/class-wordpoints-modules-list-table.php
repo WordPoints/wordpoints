@@ -580,7 +580,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 								 */
 								$module_meta = apply_filters( 'wordpoints_module_row_meta', $module_meta, $module_file, $module_data, $status );
 
-								echo implode( ' | ', $module_meta );
+								echo wp_kses( implode( ' | ', $module_meta ), 'data' );
 
 								?>
 							</div>
@@ -590,7 +590,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 					default:
 						?>
-						<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name  ); ?>"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
+						<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name ); ?>"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
 							<?php
 							/**
 							 * Display the row contents for a custom column in the module list table.

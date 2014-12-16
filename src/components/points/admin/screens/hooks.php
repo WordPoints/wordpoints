@@ -10,7 +10,7 @@
 if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 	if (
-		isset( $_POST['add_new'], $_POST['save-points-type'] )
+		isset( $_POST['add_new'], $_POST['save-points-type'], $_POST['points-name'], $_POST['points-prefix'], $_POST['points-suffix'] )
 		&& wp_verify_nonce( $_POST['add_new'], 'wordpoints_add_new_points_type' )
 	) {
 

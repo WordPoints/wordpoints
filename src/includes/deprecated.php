@@ -492,7 +492,7 @@ function wordpoints_db_table_exists( $table ) {
 		$esc_table = like_escape( $table );
 	}
 
-	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $esc_table ) );
+	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $esc_table ) ); // Cache pass, WPCS.
 
 	return ( $_table === $table ) ? true : false;
 }

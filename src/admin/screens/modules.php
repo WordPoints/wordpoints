@@ -80,7 +80,7 @@ if ( isset( $_GET['error'] ) ) {
 
 	wordpoints_show_admin_message( __( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' ) );
 
-} elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === $_REQUEST['action'] ) {
+} elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === sanitize_key( $_REQUEST['action'] ) ) {
 
 	wordpoints_show_admin_message( esc_html__( 'No out of date modules were selected.', 'wordpoints' ) );
 }

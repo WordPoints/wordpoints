@@ -466,7 +466,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				</div>
 			<?php endif; ?>
 			<div class="wordpoints-points-logs-search">
-				<form method="POST" action="<?php echo esc_attr( esc_url( remove_query_arg( 'wordpoints_points_logs_page', $_SERVER['REQUEST_URI'] ) ) ); ?>">
+				<form method="POST" action="<?php echo esc_attr( esc_url( remove_query_arg( 'wordpoints_points_logs_page' ) ) ); ?>">
 					<label class="screen-reader-text" for="wordpoints_points_logs_search">
 						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
 					</label>
@@ -545,7 +545,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 						<?php if ( $args['show_users'] ) : ?>
 						<td><?php echo get_avatar( $user->ID, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?></td>
 						<?php endif; ?>
-						<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>
+						<td><?php wordpoints_display_points( $log->points, $log->points_type, 'logs' ); ?></td>
 						<td><?php echo wp_kses( $log->text, 'wordpoints_points_log' ); ?></td>
 						<td title="<?php echo esc_attr( $log->date ); ?> UTC"><?php echo esc_html( human_time_diff( strtotime( $log->date ), $current_time ) ); ?></td>
 					</tr>
@@ -561,9 +561,9 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 	<?php if ( $args['paginate'] ) : ?>
 		<?php
 
-		echo paginate_links(
+		echo paginate_links( // XSS pass WPCS.
 			array(
-				'base'     => add_query_arg( '%_%', '', $_SERVER['REQUEST_URI'] ),
+				'base'     => add_query_arg( '%_%', '' ),
 				'format'   => 'wordpoints_points_logs_page=%#%',
 				'total'    => ceil( $logs_query->count() / $per_page ),
 				'current'  => $page,

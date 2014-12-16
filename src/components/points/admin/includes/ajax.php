@@ -172,7 +172,7 @@ function wordpoints_ajax_save_points_hook() {
 				wp_die( $error );
 			}
 
-			$number  = $_POST['multi_number'];
+			$number  = (int) $_POST['multi_number'];
 			$hook_id = $id_base . '-' . $number;
 		}
 

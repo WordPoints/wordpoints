@@ -49,10 +49,13 @@ abstract class WordPoints_Widget extends WP_Widget {
 			<p>
 				<?php
 
-				echo sprintf(
-					esc_html__( 'The &#8220;%1$s&#8221; widget could not be displayed because of an error: %2$s', 'wordpoints' )
-					, esc_html( $this->name )
-					, wp_kses( $message, 'wordpoints_widget_error' )
+				echo wp_kses(
+					sprintf(
+						esc_html__( 'The &#8220;%1$s&#8221; widget could not be displayed because of an error: %2$s', 'wordpoints' )
+						, esc_html( $this->name )
+						,  $message
+					)
+					, 'wordpoints_widget_error'
 				);
 
 				?>

@@ -59,10 +59,12 @@ if (
 	defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' )
 	&& ! running_wordpoints_module_uninstall_tests()
 ) {
+
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 
-// If we aren't running the uninstall tests, we need to hook in to load the plugin.
 } elseif ( ! running_wp_plugin_uninstall_tests() ) {
+
+	// If we aren't running the uninstall tests, we need to hook in to load the plugin.
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 }
 

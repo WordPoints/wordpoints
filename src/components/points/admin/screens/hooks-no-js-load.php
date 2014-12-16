@@ -53,7 +53,7 @@ if ( isset( $points_types_hooks[ $points_type_id ] ) ) {
 
 $hook = WordPoints_Points_Hooks::get_handler_by_id_base( $id_base );
 
-if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
+if ( ! empty( $_POST['removehook'] ) ) {
 
 	// - We are deleting an instance of a hook.
 

@@ -25,38 +25,39 @@ function wordpoints_admin_screen_configure() {
 
 		<?php
 
-			/**
-			 * At the top of the configure screens.
-			 *
-			 * @since 1.0.0
-			 */
-			do_action( 'wordpoints_admin_configure_head' );
+		/**
+		 * At the top of the configure screens.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'wordpoints_admin_configure_head' );
 
-			wordpoints_admin_show_tabs(
-				array(
-					'general'    => __( 'General Settings', 'wordpoints' ),
-					'components' => __( 'Components', 'wordpoints' ),
-				)
-			);
+		wordpoints_admin_show_tabs(
+			array(
+				'general'    => __( 'General Settings', 'wordpoints' ),
+				'components' => __( 'Components', 'wordpoints' ),
+			)
+		);
 
-			switch ( wordpoints_admin_get_current_tab() ) {
+		switch ( wordpoints_admin_get_current_tab() ) {
 
-				case 'components':
-					$template = '/configure-components.php';
-				break;
+			case 'components':
+				$template = '/configure-components.php';
+			break;
 
-				default:
-					$template = '/configure-settings.php';
-			}
+			default:
+				$template = '/configure-settings.php';
+		}
 
-			include WORDPOINTS_DIR . 'admin/screens' . $template;
+		include WORDPOINTS_DIR . 'admin/screens' . $template;
 
-			/**
-			 * At the bottom of the configure screens.
-			 *
-			 * @since 1.0.0
-			 */
-			do_action( 'wordpoints_admin_configure_foot' );
+		/**
+		 * At the bottom of the configure screens.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'wordpoints_admin_configure_foot' );
+
 		?>
 
 	</div>

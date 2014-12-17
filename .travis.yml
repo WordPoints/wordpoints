@@ -19,6 +19,8 @@ env:
     - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
     - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
 
+sudo: false
+
 matrix:
   include:
     # Only run HHVM against the latest for now.

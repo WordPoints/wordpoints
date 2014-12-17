@@ -47,7 +47,7 @@ before_install:
     - export PHPCS_DIR=/tmp/phpcs
     - export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
     - export PHPCS_GIT_TREE=master
-    - export PHPCS_IGNORE='vendor/*,bin/*'
+    - export PHPCS_IGNORE='vendor/*,dev-lib/*'
     - export WPCS_DIR=/tmp/wpcs
     - export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
     - export WPCS_GIT_TREE=master

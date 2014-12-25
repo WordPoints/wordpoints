@@ -358,7 +358,7 @@ function wordpoints_points_profile_options_update( $user_id ) {
 
 	if (
 		! isset( $_POST['wordpoints_points_set_nonce'], $_POST['wordpoints_set_reason'] )
-		|| ! wp_verify_nonce( $_POST['wordpoints_points_set_nonce'], 'wordpoints_points_set_profile' )
+		|| ! wordpoints_verify_nonce( 'wordpoints_points_set_nonce', 'wordpoints_points_set_profile', null, 'post' )
 	) {
 		return;
 	}

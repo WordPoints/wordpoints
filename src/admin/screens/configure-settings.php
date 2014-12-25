@@ -13,7 +13,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
 if (
 	isset( $_POST['wordpoints_settings_nonce'], $_POST['excluded_users'] )
-	&& wp_verify_nonce( $_POST['wordpoints_settings_nonce'], 'wordpoints_settings_submit' )
+	&& wordpoints_verify_nonce( 'wordpoints_settings_nonce', 'wordpoints_settings_submit', null, 'post' )
 ) {
 
 	// - The form has been submitted.

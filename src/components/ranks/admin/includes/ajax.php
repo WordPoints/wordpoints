@@ -288,7 +288,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 
 		if (
 			empty( $_POST['nonce'] )
-			|| ! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), $action )
+			|| ! wordpoints_verify_nonce( 'nonce', $action, null, 'post' )
 		) {
 			wp_send_json_error(
 				array( 'message' => __( 'Your security token for this action has expired. Refresh the page and try again.', 'wordpoints' ) )

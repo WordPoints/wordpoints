@@ -505,7 +505,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		<tbody>
 			<?php if ( empty( $logs ) ) : ?>
 				<tr>
-					<td colspan="<?php echo ( $args['show_users'] ) ? 3 : 4; ?>">
+					<td colspan="<?php echo (int) ( $args['show_users'] ) ? 3 : 4; ?>">
 						<?php esc_html_e( 'No matching logs found.', 'wordpoints' ); ?>
 					</td>
 				</tr>

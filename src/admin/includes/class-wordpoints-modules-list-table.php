@@ -540,7 +540,15 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					case 'description':
 						?>
 						<td class="column-description desc"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
-							<div class="module-description"><p><?php echo ( ! empty( $module_data['description'] ) ) ? wp_kses( $module_data['description'] , 'wordoints_module_description' ) : '&nbsp;'; ?></p></div>
+							<div class="module-description">
+								<p>
+									<?php if ( ! empty( $module_data['description'] ) ) : ?>
+										<?php echo wp_kses( $module_data['description'] , 'wordoints_module_description' ); ?>
+									<?php else : ?>
+										&nbsp;
+									<?php endif; ?>
+								</p>
+							</div>
 							<div class="<?php echo esc_attr( $class ); ?> second module-version-author-uri">
 								<?php
 

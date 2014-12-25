@@ -237,12 +237,14 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 
 		$log = $query->get( 'row' );
 
+		$link =  '<a href="' . get_permalink( $post_id ) . '">'
+			. get_the_title( $post_id )
+			. '</a>'
+
 		$this->assertEquals(
 			sprintf(
 				_x( 'Comment on %s.', 'points log description', 'wordpoints' )
-				, '<a href="' . get_permalink( $post_id ) . '">'
-					. get_the_title( $post_id )
-					. '</a>'
+				, $link
 			)
 			, $log->text
 		);

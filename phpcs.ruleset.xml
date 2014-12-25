@@ -4,6 +4,7 @@
 
 	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
+		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- WordPoints/wordpoints#75 -->
 		<!--
 			These rules are excluded because they produce error-level false
 			positives. They will be added back in when the changes are commited to
@@ -24,14 +25,11 @@
 	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
-	<rule ref="WordPress.XSS">
-		<exclude-pattern>/tests/*</exclude-pattern>
-	</rule>
 	<rule ref="WordPress.XSS.EscapeOutput">
         <properties>
-            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint" type="array" />
-            <property name="customAutoEscapedFunctions" value="wordpoints_format_points" type="array" />
+            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce" type="array" />
         </properties>
+		<exclude-pattern>/tests/*</exclude-pattern>
     </rule>
 
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">

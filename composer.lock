@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-l10n-validator.git",
-                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc"
+                "reference": "471dd317af54633af22c8f4aa0f576791c065ac6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/bb2080e297430426fa5cc61789149dd2e4fb68dc",
-                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc",
+                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/471dd317af54633af22c8f4aa0f576791c065ac6",
+                "reference": "471dd317af54633af22c8f4aa0f576791c065ac6",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +37,7 @@
             ],
             "description": "Gettext localization validator for WordPress",
             "homepage": "https://github.com/JDGrimes/wp-l10n-validator",
-            "time": "2014-11-13 14:37:08"
+            "time": "2014-12-19 22:51:00"
         },
         {
             "name": "jdgrimes/wp-plugin-uninstall-tester",
@@ -74,12 +74,8 @@
             "time": "2014-11-25 14:47:10"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "jdgrimes/wp-l10n-validator": 20
@@ -87,7 +83,5 @@
     "platform": {
         "php": ">=5.2.0"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }

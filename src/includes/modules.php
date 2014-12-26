@@ -970,7 +970,7 @@ function wordpoints_delete_modules( $modules ) {
 		if ( ! empty( $data ) ) {
 
 			include_once ABSPATH . 'wp-admin/admin-header.php';
-			echo $data; // XSS is OK here, WPCS.
+			echo $data; // XSS OK here, WPCS.
 			include ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 		}
@@ -988,7 +988,7 @@ function wordpoints_delete_modules( $modules ) {
 		if ( ! empty( $data ) ){
 
 			include_once ABSPATH . 'wp-admin/admin-header.php';
-			echo $data; // XSS is OK here too, WPCS.
+			echo $data; // XSS OK here too, WPCS.
 			include ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 		}

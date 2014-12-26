@@ -532,7 +532,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 						?>
 						<td class="module-title"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ) ?>>
 							<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
-							<?php echo $this->row_actions( $this->get_module_row_actions( $module_file, $module_data, $is_active ), true ); ?>
+							<?php echo $this->row_actions( $this->get_module_row_actions( $module_file, $module_data, $is_active ), true ); // XSS OK WPCS ?>
 						</td>
 						<?php
 					break;

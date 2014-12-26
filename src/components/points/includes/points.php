@@ -1193,7 +1193,9 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 						 * @param string $points_type The points type the table is for.
 						 * @param string $context     The context in which the table is being displayed.
 						 */
-						echo apply_filters( 'wordpoints_points_top_users_username', $name, $user_id, $points_type, "top_users_{$context}" );
+						$name = apply_filters( 'wordpoints_points_top_users_username', $name, $user_id, $points_type, "top_users_{$context}" );
+
+						echo wp_kses( $name, 'wordpoints_top_users_username' );
 
 						?>
 					</td>

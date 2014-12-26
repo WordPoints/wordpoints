@@ -41,7 +41,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 			$message = $message->get_error_message();
 		}
 
-		echo $args['before_widget']; // XSS is OK here, WPCS.
+		echo $args['before_widget']; // XSS OK here, WPCS.
 
 		?>
 
@@ -64,7 +64,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 
 		<?php
 
-		echo $args['after_widget']; // XSS is OK here too, WPCS.
+		echo $args['after_widget']; // XSs OK here too, WPCS.
 	}
 
 	/**
@@ -106,7 +106,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 			return;
 		}
 
-		echo $args['before_widget']; // XSS is OK here, WPCS.
+		echo $args['before_widget']; // XSS OK here, WPCS.
 
 		/**
 		 * The widget's title.
@@ -144,7 +144,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 		 */
 		do_action( "wordpoints_{$widget_slug}_widget_after", $instance );
 
-		echo $args['after_widget']; // XSS is OK here too, WPCS.
+		echo $args['after_widget']; // XSS OK here too, WPCS.
 	}
 
 	/**

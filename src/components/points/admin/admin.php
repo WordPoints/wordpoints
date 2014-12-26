@@ -332,7 +332,15 @@ function wordpoints_points_profile_options( $user ) {
 
 		foreach ( wordpoints_get_points_types() as $slug => $type ) {
 
-			echo esc_html( $type['name'] ) . ': ' . wordpoints_format_points( wordpoints_get_points( $user->ID, $slug ), $slug, 'profile_page' ) . '<br />';
+			echo esc_html( $type['name'] ) . ': ';
+
+			wordpoints_display_points(
+				wordpoints_get_points( $user->ID, $slug )
+				, $slug
+				, 'profile_page'
+			);
+
+			echo '<br />';
 		}
 	}
 }

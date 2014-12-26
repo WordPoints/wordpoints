@@ -239,7 +239,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 
 		$link = '<a href="' . get_permalink( $post_id ) . '">'
 			. get_the_title( $post_id )
-			. '</a>'
+			. '</a>';
 
 		$this->assertEquals(
 			sprintf(

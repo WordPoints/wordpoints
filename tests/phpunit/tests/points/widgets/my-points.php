@@ -130,7 +130,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test thep number_logs setting.
+	 * Test the number_logs setting.
 	 *
 	 * @since 1.9.0
 	 */
@@ -146,6 +146,33 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 		);
 
 		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+	}
+
+	/**
+	 * Test the update() method.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_update_method() {
+
+		$widget = new $this->widget_class;
+
+		$sanitized = $widget->update(
+			array(
+				'title'       => '<p>Title</p>',
+				'text'        => '  Some text. ',
+				'alt_text'    => ' Alt text.   ',
+				'number_logs' => '5dd',
+				'points_type' => 'invalid',
+			)
+			, array()
+		);
+
+		$this->assertEquals( 'Title', $sanitized['title'] );
+		$this->assertEquals( 'Some text.', $sanitized['text'] );
+		$this->assertEquals( 'Alt text.', $sanitized['alt_text'] );
+		$this->assertEquals( 0, $sanitized['number_logs'] );
+		$this->assertEquals( 'points', $sanitized['points_type'] );
 	}
 }
 

@@ -11,6 +11,8 @@
  * Test the Points Logs widget.
  *
  * @since 1.9.0
+ *
+ * @group widgets
  */
 class WordPoints_Points_Logs_Widget_Test extends WordPoints_Points_UnitTestCase {
 
@@ -79,6 +81,30 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_Points_UnitTestCase 
 		);
 
 		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
-	}}
+	}
+
+	/**
+	 * Test the update() method.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_update_method() {
+
+		$widget = new $this->widget_class;
+
+		$sanitized = $widget->update(
+			array(
+				'title'       => '<p>Title</p>',
+				'number_logs' => '5dd',
+				'points_type' => 'invalid',
+			)
+			, array()
+		);
+
+		$this->assertEquals( 'Title', $sanitized['title'] );
+		$this->assertEquals( 10, $sanitized['number_logs'] );
+		$this->assertEquals( 'points', $sanitized['points_type'] );
+	}
+}
 
 // EOF

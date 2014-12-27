@@ -1,1 +1,671 @@
-{"\/components\/points\/includes\/class-un-installer.php":{"network":{"483":false},"standard":{"485":false}},"\/components\/points\/install.php":{"points":{"15":{"name":"(unknown)->activate","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}},"\/components\/ranks\/install.php":{"ranks":{"15":{"name":"(unknown)->activate","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}},"\/includes\/update.php":{"1.2.0":{"37":{"name":"$updater->update","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}},"1.3.0":{"37":{"name":"$updater->update","type":"unknown","args_started":true,"arg_count":1,"parentheses":1}}},"\/wordpoints.php":{"1.0.0":{"87":false}},"\/admin\/admin.php":{"upload":{"408":{"name":"array","type":"unknown","args_started":true,"arg_count":3,"parentheses":1}}},"\/components\/points\/includes\/functions.php":{"1.0.0":{"22":false}},"upload":{"409":{"name":"array","type":"unknown","args_started":true,"arg_count":3,"parentheses":1}},"network":{"482":false},"standard":{"484":false},"\/admin\/includes\/class-wordpoints-modules-list-table.php":{"all":{"35":false,"194":false},"active":{"37":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1},"492":false},"inactive":{"37":{"name":"array","type":"unknown","args_started":true,"arg_count":1,"parentheses":1},"492":false},"search":{"37":{"name":"array","type":"unknown","args_started":true,"arg_count":3,"parentheses":1},"165":false},"plugins":{"69":{"name":"array","type":"unknown","args_started":true,"arg_count":2,"parentheses":1}},"second module-version-author-uri\">":{"544":false},"column-":{"593":false}},"\/admin\/screens\/configure-components.php":{"deactivate":{"109":false},"activate":{"114":false}},"\/admin\/screens\/modules-load.php":{"clear-recent-list":{"13":false},"1":{"380":false},"delete-selected":{"380":false},"compatibility-problems":{"453":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}},"\/components\/points\/admin\/admin.php":{"1":{"299":false},":":{"335":false}},"\/components\/points\/admin\/includes\/ajax.php":{"deleted:":{"207":{"name":"esc_html","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}},"\/components\/points\/includes\/class-wordpoints-points-hook.php":{"network":{"370":false,"442":false,"501":false,"536":false},"standard":{"372":false,"444":false,"503":false,"538":false}},"\/components\/points\/includes\/class-wordpoints-points-hooks.php":{"network":{"219":false},"standard":{"219":false},"multi":{"317":false},"template":{"318":false},"instance":{"369":false},"site":{"432":false},"default":{"434":false},":":{"594":false},"points-":{"669":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}},"-save":{"669":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}},"\" class=\"hook":{"742":false},"-savehook":{"775":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}},"\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php":{"approved":{"163":false,"170":false},"new":{"164":false}},"\/components\/points\/includes\/logs.php":{"points":{"256":{"name":"array","type":"unknown","args_started":true,"arg_count":2,"parentheses":1}},"text":{"256":{"name":"array","type":"unknown","args_started":true,"arg_count":5,"parentheses":1}},"date":{"256":{"name":"array","type":"unknown","args_started":true,"arg_count":6,"parentheses":1}}},"\/components\/points\/includes\/points.php":{"col":{"210":{"name":"$query->get","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}},"\/components\/points\/includes\/shortcodes.php":{"default":{"154":{"name":"array","type":"unknown","args_started":true,"arg_count":1,"parentheses":1}}},"\/components\/points\/includes\/widgets.php":{": %points%":{"159":false},"1":{"464":false,"615":false}},"\/includes\/functions.php":{"-1":{"399":false},"points":{"693":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}},"ranks":{"718":{"name":"array","type":"unknown","args_started":true,"arg_count":0,"parentheses":1}}}}
+{
+    "\/components\/points\/includes\/class-un-installer.php": {
+        "network": {
+            "483": false
+        },
+        "standard": {
+            "485": false
+        }
+    },
+    "\/components\/points\/install.php": {
+        "points": {
+            "15": {
+                "name": "(unknown)->activate",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/ranks\/install.php": {
+        "ranks": {
+            "15": {
+                "name": "(unknown)->activate",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/includes\/update.php": {
+        "1.2.0": {
+            "37": {
+                "name": "$updater->update",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "1.3.0": {
+            "37": {
+                "name": "$updater->update",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/wordpoints.php": {
+        "1.0.0": {
+            "87": false
+        }
+    },
+    "\/admin\/admin.php": {
+        "post": {
+            "464": {
+                "name": "wordpoints_verify_nonce",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/functions.php": {
+        "1.0.0": {
+            "22": false
+        }
+    },
+    "upload": {
+        "409": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 3,
+            "parentheses": 1
+        }
+    },
+    "network": {
+        "482": false
+    },
+    "standard": {
+        "484": false
+    },
+    "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
+        "all": {
+            "35": false,
+            "194": false
+        },
+        "active": {
+            "37": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "492": false
+        },
+        "inactive": {
+            "37": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "492": false
+        },
+        "search": {
+            "37": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
+            "165": false
+        },
+        "plugins": {
+            "69": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "second module-version-author-uri\">": {
+            "544": false
+        },
+        "column-": {
+            "593": false
+        }
+    },
+    "\/admin\/screens\/configure-components.php": {
+        "deactivate": {
+            "109": false
+        },
+        "activate": {
+            "114": false
+        }
+    },
+    "\/admin\/screens\/modules-load.php": {
+        "clear-recent-list": {
+            "13": false
+        },
+        "1": {
+            "380": false
+        },
+        "delete-selected": {
+            "380": false
+        },
+        "compatibility-problems": {
+            "453": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/admin\/admin.php": {
+        "1": {
+            "299": false
+        },
+        ":": {
+            "335": false
+        }
+    },
+    "\/components\/points\/admin\/includes\/ajax.php": {
+        "deleted:": {
+            "207": {
+                "name": "esc_html",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
+        "network": {
+            "370": false,
+            "442": false,
+            "501": false,
+            "536": false
+        },
+        "standard": {
+            "372": false,
+            "444": false,
+            "503": false,
+            "538": false
+        }
+    },
+    "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
+        "network": {
+            "219": false
+        },
+        "standard": {
+            "219": false
+        },
+        "multi": {
+            "317": false
+        },
+        "template": {
+            "318": false
+        },
+        "instance": {
+            "369": false
+        },
+        "site": {
+            "432": false
+        },
+        "default": {
+            "434": false
+        },
+        ":": {
+            "594": false
+        },
+        "points-": {
+            "669": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "-save": {
+            "669": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "\" class=\"hook": {
+            "742": false
+        },
+        "-savehook": {
+            "775": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
+        "approved": {
+            "163": false,
+            "170": false
+        },
+        "new": {
+            "164": false
+        }
+    },
+    "\/components\/points\/includes\/logs.php": {
+        "points": {
+            "256": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "text": {
+            "256": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            }
+        },
+        "date": {
+            "256": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 6,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/points.php": {
+        "col": {
+            "210": {
+                "name": "$query->get",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/shortcodes.php": {
+        "default": {
+            "154": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/widgets.php": {
+        "points": {
+            "123": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "1": {
+            "425": false,
+            "550": false
+        }
+    },
+    "\/includes\/functions.php": {
+        "get": {
+            "135": {
+                "name": "wordpoints_verify_nonce",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "-1": {
+            "467": false
+        },
+        "points": {
+            "761": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "ranks": {
+            "786": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "0": {
+        "388": false
+    },
+    "delete-selected": {
+        "388": false,
+        "394": false
+    },
+    "compatibility-problems": {
+        "457": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        },
+        "463": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "points-": {
+        "671": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "-save": {
+        "671": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "\" class=\"hook": {
+        "744": false
+    },
+    "-savehook": {
+        "777": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "default": {
+        "159": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 1,
+            "parentheses": 1
+        }
+    },
+    ": %points%": {
+        "158": false
+    },
+    "\/admin\/screens\/modules.php": {
+        "module": {
+            "34": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/admin\/screens\/hooks-load.php": {
+        "on": {
+            "48": false
+        },
+        "off": {
+            "48": false
+        }
+    },
+    "\/components\/points\/admin\/screens\/hooks-no-js.php": {
+        "px\">": {
+            "88": false
+        }
+    },
+    "\/components\/points\/admin\/screens\/hooks.php": {
+        "hooks-holder-wrap": {
+            "165": false
+        },
+        "points-type-": {
+            "167": false
+        },
+        "closed": {
+            "171": false,
+            "205": false
+        },
+        "save-network-wordpoints-points-hooks": {
+            "227": false
+        },
+        "save-wordpoints-points-hooks": {
+            "229": false
+        }
+    },
+    "\/components\/points\/admin\/screens\/logs.php": {
+        "network": {
+            "50": false
+        },
+        "default": {
+            "52": false
+        }
+    },
+    "\/components\/points\/includes\/hooks\/comment-removed.php": {
+        "approved": {
+            "133": false
+        }
+    },
+    "\/components\/ranks\/admin\/includes\/ajax.php": {
+        "name": {
+            "366": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/includes\/modules.php": {
+        "Module Name": {
+            "391": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "Module URI": {
+            "392": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "Version": {
+            "393": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "Description": {
+            "394": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "Author": {
+            "395": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            }
+        },
+        "Author URI": {
+            "396": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            }
+        },
+        "Text Domain": {
+            "397": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 6,
+                "parentheses": 1
+            }
+        },
+        "Domain Path": {
+            "398": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 7,
+                "parentheses": 1
+            }
+        },
+        "Network": {
+            "399": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 8,
+                "parentheses": 1
+            }
+        },
+        "Update API": {
+            "400": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 9,
+                "parentheses": 1
+            }
+        },
+        "ID": {
+            "401": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 10,
+                "parentheses": 1
+            }
+        },
+        "true": {
+            "406": false
+        }
+    },
+    "second module-version-author-uri\">": {
+        "552": false
+    },
+    "column-": {
+        "601": false
+    },
+    "1": {
+        "394": false
+    },
+    "module": {
+        "36": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "points": {
+        "775": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "ranks": {
+        "800": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "\/components\/points\/includes\/hooks\/periodic.php": {
+        "daily": {
+            "30": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "widefat wordpoints-append-to-hook-title": {
+            "228": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
+        "value=\"<% if ( typeof": {
+            "212": false
+        },
+        "!== \"undefined\" ) { print(": {
+            "212": false
+        },
+        "); } %>\"": {
+            "212": false
+        },
+        "value=\"": {
+            "214": false
+        },
+        "class=\"widefat\"\n\t\t\t\t\t\/>": {
+            "216": false
+        }
+    }
+}

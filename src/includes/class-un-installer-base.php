@@ -410,7 +410,7 @@ abstract class WordPoints_Un_Installer_Base {
 				WHERE `blog_id` IN (" . implode( ',', array_map( 'absint', $site_ids ) ) . ")
 					AND `site_id` = {$wpdb->siteid}
 			"
-		);
+		); // Cache pass, WPCS.
 
 		return $site_ids;
 	}

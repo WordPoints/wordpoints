@@ -65,8 +65,8 @@ abstract class WordPoints_Points_Shortcode extends WordPoints_Shortcode {
 					, sprintf(
 						__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a points type. Example: %3$s.', 'wordpoints' )
 						, 'points_type'
-						, '<code>[' . $this->shortcode . ']</code>'
-						, '<code>[' . $this->shortcode . ' points_type="points"]</code>'
+						, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
+						, '<code>[' . sanitize_key( $this->shortcode ) . ' points_type="points"]</code>'
 					)
 				);
 			}
@@ -114,8 +114,8 @@ class WordPoints_Points_Top_Shortcode extends WordPoints_Points_Shortcode {
 			return sprintf(
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a positive integer. Example: %3$s.', 'wordpoints' )
 				, 'users'
-				, '<code>[' . $this->shortcode . ']</code>'
-				, '<code>[' . $this->shortcode . ' <b>users="10"</b> type="points"]</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ' <b>users="10"</b> type="points"]</code>'
 			);
 		}
 
@@ -172,8 +172,8 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 			return sprintf(
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a registered points log query. Example: %3$s.', 'wordpoints' )
 				, 'query'
-				, '<code>[' . $this->shortcode . ']</code>'
-				, '<code>[' . $this->shortcode . ' <b>query="default"</b> points_type="points"]</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ' <b>query="default"</b> points_type="points"]</code>'
 			);
 		}
 

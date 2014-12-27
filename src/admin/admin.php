@@ -457,10 +457,14 @@ add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen
 function wordpoints_admin_notices() {
 
 	// Check if any notices have been dismissed.
-	if (
-		isset( $_POST['wordpoints_notice'], $_POST['_wpnonce'] )
-		&& wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}" )
-	) {
+	$is_notice_dismissed = wordpoints_verify_nonce(
+		'_wpnonce'
+		, 'wordpoints_dismiss_notice-%s'
+		, array( 'wordpoints_notice' )
+		, 'post'
+	);
+
+	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
 		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
 	}
 

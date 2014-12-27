@@ -110,7 +110,7 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 		$this->url( wp_login_url() );
 
 		$this->byId( 'user_login' )->value( 'wordpoints_ui_tester' );
-		$this->byId( 'user_pass'  )->value( 'wordpoints_ui_tester' );
+		$this->byId( 'user_pass' )->value( 'wordpoints_ui_tester' );
 		$this->clickOnElement( 'wp-submit' );
 	}
 

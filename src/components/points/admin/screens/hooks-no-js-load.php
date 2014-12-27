@@ -53,7 +53,7 @@ if ( isset( $points_types_hooks[ $points_type_id ] ) ) {
 
 $hook = WordPoints_Points_Hooks::get_handler_by_id_base( $id_base );
 
-if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
+if ( ! empty( $_POST['removehook'] ) ) {
 
 	// - We are deleting an instance of a hook.
 
@@ -90,7 +90,7 @@ if ( isset( $_POST['removehook'] ) && $_POST['removehook'] ) {
 	} else {
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) );
+			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) ); // XSS pass WPCS.
 		}
 
 		$number = $hook->get_number_by_id( $hook_id );

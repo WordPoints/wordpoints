@@ -31,7 +31,10 @@ if ( isset( $_GET['error'] ) ) {
 
 		$error_message = __( 'Module could not be activated because it triggered a <strong>fatal error</strong>.', 'wordpoints' );
 
-		if ( isset( $_GET['module'], $_GET['_error_nonce'] ) && wp_verify_nonce( $_GET['_error_nonce'], "module-activation-error_{$_GET['module']}" ) ) {
+		if (
+			isset( $_GET['_error_nonce'], $_GET['module'] )
+			&& wordpoints_verify_nonce( '_error_nonce', 'module-activation-error_%s', array( 'module' ) )
+		) {
 
 			?>
 
@@ -80,7 +83,7 @@ if ( isset( $_GET['error'] ) ) {
 
 	wordpoints_show_admin_message( __( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' ) );
 
-} elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === $_REQUEST['action'] ) {
+} elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === sanitize_key( $_REQUEST['action'] ) ) {
 
 	wordpoints_show_admin_message( esc_html__( 'No out of date modules were selected.', 'wordpoints' ) );
 }

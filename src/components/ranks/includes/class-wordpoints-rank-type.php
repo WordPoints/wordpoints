@@ -208,7 +208,11 @@ abstract class WordPoints_Rank_Type {
 					<input
 						type="<?php echo esc_attr( $field['type'] ); ?>"
 						name="<?php echo esc_attr( $name ); ?>"
-						value="<?php echo ( $args['placeholders'] && 'hidden' !== $field['type'] ) ? '<% if ( typeof ' . sanitize_key( $name ) . ' !== "undefined" ) { print( ' . sanitize_key( $name ) . ' ); } %>' : esc_attr( $value ); ?>"
+						<?php if ( $args['placeholders'] && 'hidden' !== $field['type'] ) : ?>
+						value="<% if ( typeof <?php echo sanitize_key( $name ); ?> !== "undefined" ) { print( <?php echo sanitize_key( $name ); ?> ); } %>"
+						<?php else : ?>
+						value="<?php esc_attr( $value ); ?>"
+						<?php endif; ?>
 						class="widefat"
 					/>
 					<?php

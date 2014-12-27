@@ -36,7 +36,9 @@ if ( isset( $_GET['addnew'] ) ) {
 	if ( isset( $_GET['base'], $_GET['num'] ) ) {
 
 		// Copy minimal info from an existing instance of this hook to a new instance.
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $_GET['base'] );
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			sanitize_key( $_GET['base'] )
+		);
 
 		if ( ! $hook ) {
 

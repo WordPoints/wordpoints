@@ -35,6 +35,7 @@
 		"wordpoints_show_admin_message": [2],
 		"wordpoints_show_points_logs_query": true,
 		"wordpoints_subtract_points": true,
+		"wordpoints_verify_nonce": true,
 
 		"WordPoints_Points_Hook::_set": true,
 		"WordPoints_Points_Hook::get_description": true,

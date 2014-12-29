@@ -455,6 +455,17 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		'time'        => _x( 'Time', 'points logs table heading', 'wordpoints' ),
 	);
 
+	$points_type = $logs_query->get_arg( 'points_type' );
+
+	if ( ! empty( $points_type ) ) {
+
+		$points_type_name = wordpoints_get_points_type_setting( $points_type, 'name' );
+
+		if ( ! empty( $points_type_name ) ) {
+			$columns['points'] = $points_type_name;
+		}
+	}
+
 	?>
 
 	<div class="wordpoints-points-logs-wrapper">

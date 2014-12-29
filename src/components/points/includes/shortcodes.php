@@ -282,8 +282,19 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 		 */
 		$extra_classes = apply_filters( 'wordpoints_how_to_get_points_table_extra_classes', array(), $this->atts );
 
+		$points_heading = _x( 'Points', 'column name', 'wordpoints' );
+
+		$points_type_name = wordpoints_get_points_type_setting(
+			$this->atts['points_type']
+			, 'name'
+		);
+
+		if ( ! empty( $points_type_name ) ) {
+			$points_heading = $points_type_name;
+		}
+
 		$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">'
-			. '<thead><tr><th style="padding-right: 10px">' . esc_html_x( 'Points', 'column name', 'wordpoints' ) . '</th>'
+			. '<thead><tr><th style="padding-right: 10px">' . esc_html( $points_heading ) . '</th>'
 			. '<th>' . esc_html_x( 'Action', 'column name', 'wordpoints' ) . '</th></tr></thead>'
 			. '<tbody>';
 

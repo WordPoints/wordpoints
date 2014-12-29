@@ -186,11 +186,10 @@ final class WordPoints_Points_Log_Queries {
  * Queries cannot be deregistered at present. Use the
  * 'wordpoints_points_logs_query_args' filter instead.
  *
- * To have your query cached, pass a list of the query methods that should be cached
- * via $data['cache_queries']. You can specify the cache key to use in
- * $data['cache_key'], though this is optional, and '$slug:%points_type%' will by
- * used by default. For more information on logs query caching, see
- * WordPoints_Points_Logs_Query::prime_cache().
+ * To have your query cached, set $data['cache_queries'] to true. You can specify
+ * the cache key to use in  $data['cache_key'], though this is optional, and
+ * '$slug:%points_type%' will by  used by default. For more information on logs
+ * query caching, see WordPoints_Points_Logs_Query::prime_cache().
  *
  * @since 1.0.0
  * @since 1.5.0 The $data parameter was added.
@@ -205,7 +204,7 @@ final class WordPoints_Points_Log_Queries {
  *        Other data for this query.
  *
  *        @type string       $cache_key     Cache key format.
- *        @type string|array $cache_queries Type(s) of queries to cache.
+ *        @type string|array $cache_queries Whether to cache this query.
  *        @type bool         $network_wide  Whether this is a network-wide query.
  * }
  *
@@ -314,7 +313,7 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
 
 		$query->prime_cache(
 			$query_data['cache_key']
-			, $query_data['cache_queries']
+			, null
 			, $query_data['network_wide']
 		);
 	}
@@ -617,7 +616,7 @@ function wordpoints_register_default_points_logs_queries() {
 		, array( 'user_id' => get_current_user_id() )
 		, array(
 			'cache_key'     => 'current_user:%points_type%:%user_id%',
-			'cache_queries' => 'results',
+			'cache_queries' => true,
 		)
 	);
 
@@ -631,7 +630,7 @@ function wordpoints_register_default_points_logs_queries() {
 		, array( 'blog_id' => false )
 		, array(
 			'network_wide'  => true,
-			'cache_queries' => 'results',
+			'cache_queries' => true,
 		)
 	);
 }

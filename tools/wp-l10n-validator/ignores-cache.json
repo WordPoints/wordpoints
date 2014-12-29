@@ -620,6 +620,13 @@
             "args_started": true,
             "arg_count": 0,
             "parentheses": 1
+        },
+        "255": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 2,
+            "parentheses": 1
         }
     },
     "ranks": {
@@ -666,6 +673,146 @@
         },
         "class=\"widefat\"\n\t\t\t\t\t\/>": {
             "216": false
+        }
+    },
+    "text": {
+        "255": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 5,
+            "parentheses": 1
+        }
+    },
+    "date": {
+        "255": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 6,
+            "parentheses": 1
+        }
+    },
+    "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
+        "text": {
+            "41": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "points": {
+            "41": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            }
+        },
+        "date": {
+            "41": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 8,
+                "parentheses": 1
+            },
+            "241": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
+            "601": false
+        },
+        "all": {
+            "238": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "LIKE": {
+            "257": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 19,
+                "parentheses": 1
+            },
+            "893": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "results": {
+            "375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "row": {
+            "375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "col": {
+            "375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "var": {
+            "375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "FROM `": {
+            "645": false
+        },
+        "<": {
+            "879": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        ",": {
+            "1001": false
+        },
+        "CAST(": {
+            "1034": false
+        },
+        ".meta_value AS": {
+            "1034": false
+        },
+        "ORDER BY": {
+            "1047": false
         }
     }
 }

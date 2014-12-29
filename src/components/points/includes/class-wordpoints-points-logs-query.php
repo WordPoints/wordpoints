@@ -304,6 +304,22 @@ class WordPoints_Points_Logs_Query {
 	} // public function __construct()
 
 	/**
+	 * Get a query arg.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $arg The query arg whose value to retrieve.
+	 *
+	 * @return mixed|void The query arg's value, or nothing if it isn't set.
+	 */
+	public function get_arg( $arg ) {
+
+		if ( isset( $this->_args[ $arg ] ) ) {
+			return $this->_args[ $arg ];
+		}
+	}
+
+	/**
 	 * Set arguments for the query.
 	 *
 	 * @since 1.6.0

@@ -1124,6 +1124,12 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 		'points'   => _x( 'Points', 'top users table heading', 'wordpoints' ),
 	);
 
+	$points_type_name = wordpoints_get_points_type_setting( $points_type, 'name' );
+
+	if ( ! empty( $points_type_name ) ) {
+		$column_headers['points'] = $points_type_name;
+	}
+
 	/**
 	 * Filter the extra HTML classes for the top users table element.
 	 *

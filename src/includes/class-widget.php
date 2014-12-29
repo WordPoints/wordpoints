@@ -78,7 +78,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @param array $instance The settings for an instance.
+	 * @param array|WP_Error $instance The settings for an instance.
 	 */
 	protected function verify_settings( $instance ) {
 

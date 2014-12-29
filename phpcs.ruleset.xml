@@ -31,7 +31,7 @@
 	</rule>
 	<rule ref="WordPress.XSS.EscapeOutput">
         <properties>
-            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce" type="array" />
+            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce,wordpoints_format_points" type="array" />
         </properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
     </rule>

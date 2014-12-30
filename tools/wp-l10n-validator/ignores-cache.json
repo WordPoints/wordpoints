@@ -86,54 +86,11 @@
         "484": false
     },
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
-        "all": {
-            "35": false,
-            "194": false
-        },
-        "active": {
-            "37": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "492": false
-        },
-        "inactive": {
-            "37": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "492": false
-        },
-        "search": {
-            "37": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            },
-            "165": false
-        },
-        "plugins": {
-            "69": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            }
-        },
         "second module-version-author-uri\">": {
-            "544": false
+            "574": false
         },
         "column-": {
-            "593": false
+            "623": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -884,5 +841,107 @@
     },
     "ORDER BY": {
         "1063": false
+    },
+    "all": {
+        "57": false,
+        "216": false
+    },
+    "active": {
+        "59": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        },
+        "514": false
+    },
+    "inactive": {
+        "59": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 1,
+            "parentheses": 1
+        },
+        "514": false
+    },
+    "search": {
+        "59": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 3,
+            "parentheses": 1
+        },
+        "187": false
+    },
+    "plugins": {
+        "91": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 2,
+            "parentheses": 1
+        }
+    },
+    "\/components\/ranks\/admin\/screens\/ranks.php": {
+        "name": {
+            "30": {
+                "name": "wp_list_pluck",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "\">\n\t\t\n\t\t\t\n\t\t\t\t<%- name %>": {
+            "91": false
+        },
+        "<% if ( typeof": {
+            "96": false
+        },
+        "!== \"undefined\" ) { print(": {
+            "96": false
+        },
+        "); } %>": {
+            "96": false
+        }
+    },
+    "\/components\/ranks\/includes\/rank-types\/points.php": {
+        "number": {
+            "20": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "hidden": {
+            "25": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "points": {
+            "102": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "123": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

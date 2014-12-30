@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-l10n-validator.git",
-                "reference": "471dd317af54633af22c8f4aa0f576791c065ac6"
+                "reference": "8e0768a011947373224c8285503ad20112d7ac7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/471dd317af54633af22c8f4aa0f576791c065ac6",
-                "reference": "471dd317af54633af22c8f4aa0f576791c065ac6",
+                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/8e0768a011947373224c8285503ad20112d7ac7a",
+                "reference": "8e0768a011947373224c8285503ad20112d7ac7a",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +37,7 @@
             ],
             "description": "Gettext localization validator for WordPress",
             "homepage": "https://github.com/JDGrimes/wp-l10n-validator",
-            "time": "2014-12-19 22:51:00"
+            "time": "2014-12-30 22:26:05"
         },
         {
             "name": "jdgrimes/wp-plugin-uninstall-tester",

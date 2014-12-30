@@ -15,8 +15,8 @@
         "errors": false
     },
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
-        "size": 21557,
-        "hash": "813b34e67c6165cc333750f2a255a88f",
+        "size": 21942,
+        "hash": "a471c7d554773bf2468312043a4e312b",
         "errors": false
     },
     "\/admin\/screens\/configure-components-load.php": {
@@ -46,7 +46,7 @@
     },
     "\/admin\/screens\/modules-load.php": {
         "size": 16667,
-        "hash": "1a56dca56984db822bdfbf1f16cb86d8",
+        "hash": "b07c9245c3c178a1f68197d405d5c398",
         "errors": false
     },
     "\/admin\/screens\/modules.php": {
@@ -295,8 +295,8 @@
         "errors": false
     },
     "\/components\/ranks\/admin\/screens\/ranks.php": {
-        "size": 4180,
-        "hash": "57565ad82d81bff9e23cc06a6a10c0d1",
+        "size": 4505,
+        "hash": "25ab447d4809235c805a8ab37e4d9347",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
@@ -345,8 +345,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/rank-types\/points.php": {
-        "size": 3709,
-        "hash": "7422674cf6a78a031cf6e3044f23a608",
+        "size": 3734,
+        "hash": "29ce6f99c359f0510401881dba2104e4",
         "errors": false
     },
     "\/components\/ranks\/includes\/rank-types.php": {

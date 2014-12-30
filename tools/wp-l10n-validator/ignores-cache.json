@@ -55,9 +55,9 @@
         }
     },
     "\/admin\/admin.php": {
-        "post": {
-            "464": {
-                "name": "wordpoints_verify_nonce",
+        "upload": {
+            "409": {
+                "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 3,
@@ -691,7 +691,8 @@
             "args_started": true,
             "arg_count": 6,
             "parentheses": 1
-        }
+        },
+        "617": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
         "text": {
@@ -814,5 +815,74 @@
         "ORDER BY": {
             "1047": false
         }
+    },
+    "results": {
+        "391": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
+        }
+    },
+    "row": {
+        "391": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 1,
+            "parentheses": 1
+        }
+    },
+    "col": {
+        "391": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 2,
+            "parentheses": 1
+        }
+    },
+    "var": {
+        "391": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 3,
+            "parentheses": 1
+        }
+    },
+    "FROM `": {
+        "661": false
+    },
+    "<": {
+        "895": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 1,
+            "parentheses": 1
+        }
+    },
+    "LIKE": {
+        "909": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 3,
+            "parentheses": 1
+        }
+    },
+    ",": {
+        "1017": false
+    },
+    "CAST(": {
+        "1050": false
+    },
+    ".meta_value AS": {
+        "1050": false
+    },
+    "ORDER BY": {
+        "1063": false
     }
 }

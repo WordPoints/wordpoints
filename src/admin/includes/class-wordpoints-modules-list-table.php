@@ -15,6 +15,26 @@
 final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 	/**
+	 * The current instance of the class.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @var WordPoints_Modules_List_Table
+	 */
+	protected static $instance;
+
+	/**
+	 * Get the current instance of the list table.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @return WordPoints_Modules_List_Table The current instance.
+	 */
+	public static function instance() {
+		return self::$instance;
+	}
+
+	/**
 	 * Construct the class.
 	 *
 	 * @since 1.1.0
@@ -31,6 +51,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				'screen' => ( isset( $args['screen'] ) ) ? $args['screen'] : null,
 			)
 		);
+
+		self::$instance = $this;
 
 		$status = 'all';
 

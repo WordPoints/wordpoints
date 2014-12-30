@@ -441,7 +441,7 @@ switch ( $action ) {
 		 *
 		 * @since 1.1.0
 		 */
-		do_action( 'wordpoints_modules_screen-{$action}' );
+		do_action( "wordpoints_modules_screen-{$action}" );
 }
 
 add_screen_option( 'per_page', array( 'label' => _x( 'Modules', 'modules per page (screen options)', 'wordpoints' ), 'default' => 999 ) );

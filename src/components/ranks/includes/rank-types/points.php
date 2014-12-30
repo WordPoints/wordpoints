@@ -16,8 +16,9 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 
 	protected $meta_fields = array(
 		'points'      => array(
-			'default' => 0,
-			'type'    => 'number',
+			'default'  => 0,
+			'type'     => 'number',
+			'in_title' => true,
 		),
 		'points_type' => array(
 			'default' => '',

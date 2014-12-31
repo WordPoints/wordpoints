@@ -463,4 +463,23 @@ function wordpoints_points_admin_settings_save() {
 }
 add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_settings_save' );
 
+/**
+ * Display notices to the user on the administration panels.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_admin_notices() {
+
+	if ( current_user_can( 'manage_wordpoints_points_types' ) && ! wordpoints_get_points_types() ) {
+
+		wordpoints_show_admin_message(
+			sprintf(
+				__( 'Welcome to WordPoints! Get started by <a href="%s">creating a points type</a>.', 'wordpoints' )
+				, esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) )
+			)
+		);
+	}
+}
+add_action( 'admin_notices', 'wordpoints_points_admin_notices' );
+
 // EOF

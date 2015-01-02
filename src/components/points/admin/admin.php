@@ -470,7 +470,11 @@ add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_setting
  */
 function wordpoints_points_admin_notices() {
 
-	if ( current_user_can( 'manage_wordpoints_points_types' ) && ! wordpoints_get_points_types() ) {
+	if (
+		( ! isset( $_GET['page'] ) || 'wordpoints_points_hooks' !== $_GET['page'] )
+		&& current_user_can( 'manage_wordpoints_points_types' )
+		&& ! wordpoints_get_points_types()
+	) {
 
 		wordpoints_show_admin_message(
 			sprintf(

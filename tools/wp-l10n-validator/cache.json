@@ -300,8 +300,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
-        "size": 10519,
-        "hash": "49b15477ff4e2f3d526e77e1d78861fd",
+        "size": 10892,
+        "hash": "cb05a4d06d7184ec97b09dbc76300f1b",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-groups.php": {
@@ -355,8 +355,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/ranks.php": {
-        "size": 16776,
-        "hash": "58faa0393a3ab063bc91a23d900acd13",
+        "size": 17780,
+        "hash": "6583c78c26b1e1e84a2ea9d40efadaf4",
         "errors": false
     },
     "\/components\/ranks\/index.php": {

@@ -369,7 +369,6 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 			, array( $this, 'is_wordpoints_user_rank_query' )
 		);
 
-
 		// Get the user's rank.
 		$rank__id = wordpoints_get_user_rank( $user_id, $this->rank_group );
 

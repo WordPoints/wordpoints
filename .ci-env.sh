@@ -20,6 +20,10 @@ setup-phpunit() {
     	/tmp/install-wp-tests.sh
 
     bash /tmp/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+
+    sed -i '' 's/do_action( '"'"'admin_init'"'"' )/if ( ! isset( $GLOBALS['"'"'_did_admin_init'"'"'] ) \&\& $GLOBALS['"'"'_did_admin_init'"'"'] = true ) do_action( '"'"'admin_init'"'"' )/' \
+    	/tmp/wordpress-tests/trunk/tests/phpunit/includes/testcase-ajax.php
+
     cd /tmp/wordpress/wp-content/plugins
     ln -s $PLUGIN_DIR $PLUGIN_SLUG
     cd $PLUGIN_DIR

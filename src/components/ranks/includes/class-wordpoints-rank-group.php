@@ -258,8 +258,8 @@ final class WordPoints_Rank_Group {
 			return false;
 		}
 
-		// Users of the rank's former position should be moved to the previous ranks
-		// position.
+		// Users of the rank's former position should be moved to the previous
+		// rank's position.
 		$this->_move_users_from_rank_to_rank(
 			$rank_id
 			, $this->get_rank( $current_position - 1 )
@@ -462,6 +462,17 @@ final class WordPoints_Rank_Group {
 		if ( ! wordpoints_posint( $rank_from_id ) || ! wordpoints_posint( $rank_to_id ) ) {
 			return;
 		}
+
+		$group_ranks = wp_cache_get( $this->slug, 'wordpoints_user_ranks' );
+
+		unset( $group_ranks[ $rank_from_id ], $group_ranks[ $rank_to_id ] );
+
+		wp_cache_set( $this->slug, $group_ranks, 'wordpoints_user_ranks' );
+
+		unset( $group_ranks );
+
+		wp_cache_delete( $rank_from_id, 'wordpoints_users_with_rank' );
+		wp_cache_delete( $rank_to_id, 'wordpoints_users_with_rank' );
 
 		$wpdb->update(
 			$wpdb->wordpoints_user_ranks

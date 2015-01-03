@@ -943,5 +943,16 @@
                 "parentheses": 1
             }
         }
+    },
+    "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
+        "base": {
+            "55": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

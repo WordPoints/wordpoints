@@ -121,7 +121,8 @@ phpunit-uninstall() {
 phpunit-ajax() {
 	if
 		[[ $TRAVISCI_RUN == phpunit ]] \
-		&& [[ $WP_MULTISITE == 0 || $WP_VERSION == latest ]];
+		&& [[ $WP_MULTISITE == 0 ]] \
+		&& [[ $WP_VERSION != '3.8' ]];
 	then
 		if [[ $( php --version | grep ' 5.2' ) ]]; then
 			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
@@ -155,7 +156,8 @@ phpunit-ms-network-uninstall() {
 phpunit-ms-network-ajax() {
 	if
 		[[ $TRAVISCI_RUN == phpunit ]] \
-		&& [[ $WP_MULTISITE == 1 ]] && [[ $WP_VERSION == latest ]];
+		&& [[ $WP_MULTISITE == 1 ]] \
+		&& [[ $WP_VERSION != '3.8' ]];
 	then
 		WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=ajax
 	else

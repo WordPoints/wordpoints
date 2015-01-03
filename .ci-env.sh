@@ -46,7 +46,7 @@ setup-codesniff() {
 # Check php files for syntax errors.
 codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
-		find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
+		find . ! -path "./dev-lib/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
 	else
 		echo 'Not running PHP syntax check.'
@@ -85,7 +85,7 @@ codesniff-l10n() {
 # Check XML files for syntax errors.
 codesniff-xmllint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		xmllint --noout $(find . ! -path "./bin/*" ! -path "./vendor/*" \( -name '*.xml' -o -name '*.xml.dist' \))
+		xmllint --noout $(find . ! -path "./dev-lib/*" ! -path "./vendor/*" \( -name '*.xml' -o -name '*.xml.dist' \))
 	else
 		echo 'Not running xmlint.'
 	fi

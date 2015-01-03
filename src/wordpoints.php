@@ -12,7 +12,7 @@
  * Domain Path: /languages
  *
  * ---------------------------------------------------------------------------------|
- * Copyright 2013-2014  J.D. Grimes  (email : jdg@codesymphony.co)
+ * Copyright 2013-2015  J.D. Grimes  (email : jdg@codesymphony.co)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or later, as
@@ -42,7 +42,7 @@
  * @author J.D. Grimes <jdg@codesymphony.co>
  * @version 1.9.0-alpha-1
  * @license http://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
- * @copyright 2013-2014 J.D. Grimes
+ * @copyright 2013-2015 J.D. Grimes
  */
 
 /**

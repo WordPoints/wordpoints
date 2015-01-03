@@ -119,50 +119,49 @@ phpunit-uninstall() {
 
 # Run Ajax PHPUnit tests.
 phpunit-ajax() {
-	if
-		[[ $TRAVISCI_RUN == phpunit ]] \
-		&& [[ $WP_MULTISITE == 0 ]] \
-		&& [[ $WP_VERSION != '3.8' ]];
-	then
+	if [[ $TRAVISCI_RUN == phpunit ]]; then
 		if [[ $( php --version | grep ' 5.2' ) ]]; then
 			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
 		fi
 
 		phpunit --group=ajax
 	else
-		echo 'Not running Ajax tests.'
+		echo 'Not running PHPUnit.'
+	fi
+}
+
+# Run the basic tests on multisite.
+phpunit-ms() {
+	WP_MULTISITE=1 phpunit-basic
+}
+
+# Run the uninstall tests on multisite.
+phpunit-ms-uninstall() {
+	WP_MULTISITE=1 phpunit-uninstall
+}
+
+# Run the ajax tests on multisite.
+phpunit-ms-ajax() {
+	if [[ $WP_VERSION != '3.8' ]]; then
+		WP_MULTISITE=1 phpunit-ajax
+	else
+		echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
 	fi
 }
 
 # Run basic tests for multisite in network mode.
 phpunit-ms-network() {
-	if [[ $TRAVISCI_RUN == phpunit ]] && [[ $WP_MULTISITE == 1 ]]; then
-		WORDPOINTS_NETWORK_ACTIVE=1 phpunit
-	else
-		echo 'Not running network tests.'
-	fi
+	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms
 }
 
 # Run uninstall tests in multisite in network mode.
 phpunit-ms-network-uninstall() {
-	if [[ $TRAVISCI_RUN == phpunit ]] && [[ $WP_MULTISITE == 1 ]]; then
-		WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=uninstall
-	else
-		echo 'Not running network tests.'
-	fi
+	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms-uninstall
 }
 
 # Run Ajax tests in multisite in network mode.
 phpunit-ms-network-ajax() {
-	if
-		[[ $TRAVISCI_RUN == phpunit ]] \
-		&& [[ $WP_MULTISITE == 1 ]] \
-		&& [[ $WP_VERSION != '3.8' ]];
-	then
-		WORDPOINTS_NETWORK_ACTIVE=1 phpunit --group=ajax
-	else
-		echo 'Not running network Ajax tests.'
-	fi
+	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms-ajax
 }
 
 # EOF

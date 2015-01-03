@@ -12,14 +12,10 @@ php:
 
 env:
     - TRAVISCI_RUN=codesniff
-    - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
-    - TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=1
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.0 WP_MULTISITE=0
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.0 WP_MULTISITE=1
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.9 WP_MULTISITE=0
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.9 WP_MULTISITE=1
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=0
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.8 WP_MULTISITE=1
+    - TRAVISCI_RUN=phpunit WP_VERSION=latest
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.0
+    - TRAVISCI_RUN=phpunit WP_VERSION=3.9
+    - TRAVISCI_RUN=phpunit WP_VERSION=3.8
 
 sudo: false
 
@@ -27,9 +23,9 @@ matrix:
   include:
     # Only run HHVM against the latest for now.
     - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=0
+      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
     - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest WP_MULTISITE=1
+      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
   exclude:
     # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
     - php: 5.2
@@ -75,10 +71,13 @@ script:
     - codesniff-l10n
     - codesniff-xmllint
     - phpunit-basic
+    - phpunit-ms
     - phpunit-ms-network
     - phpunit-uninstall
+    - phpunit-ms-uninstall
     - phpunit-ms-network-uninstall
     - phpunit-ajax
+    - phpunit-ms-ajax
     - phpunit-ms-network-ajax
 
 after_script:

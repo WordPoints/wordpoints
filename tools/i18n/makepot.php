@@ -82,8 +82,6 @@ class WordPoints_MakePOT extends MakePOT {
 	 */
 	public function wordpoints_module( $dir, $output = null, $slug = null ) {
 
-		$placeholders = array();
-
 		if ( is_null( $slug ) ) {
 			$slug = $this->guess_plugin_slug( $dir );
 		}
@@ -118,7 +116,7 @@ class WordPoints_MakePOT extends MakePOT {
 			$source = $this->get_first_lines( $module_file, $this->max_header_lines );
 
 			// Stop when we find a file with a module name header in it.
-			if ( $this->get_addon_header( 'Module Name', $source ) != false ) {
+			if ( false !== $this->get_addon_header( 'Module Name', $source ) ) {
 				$main_file = $module_file;
 				break;
 			}
@@ -221,7 +219,7 @@ if ( __FILE__ === $included_files[0] ) {
 
 		$usage  = "Usage: php makepot.php <project> <directory> [<output> [<slug>]]  \n\n";
 		$usage .= "Generate POT file <output> from the files in <directory>\n";
-		$usage .= "Available projects: " . implode( ', ', $makepot->projects ) . "\n";
+		$usage .= 'Available projects: ' . implode( ', ', $makepot->projects ) . "\n";
 		fwrite( STDERR, $usage );
 		exit( 1 );
 	}

@@ -35,6 +35,9 @@
         </properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
     </rule>
+    <rule ref="WordPress.VIP.FileSystemWritesDisallow">
+		<exclude-pattern>/tools/*</exclude-pattern>
+	</rule>
 
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
 		<properties>

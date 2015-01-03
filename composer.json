@@ -1,7 +1,10 @@
 {
     "require": {
-        "php": ">=5.2.0",
+        "php": ">=5.2.0"
+    },
+    "require-dev": {
         "jdgrimes/wp-plugin-uninstall-tester": "~0.4",
-        "jdgrimes/wp-l10n-validator": "dev-master"
+        "jdgrimes/wp-l10n-validator": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
     }
 }

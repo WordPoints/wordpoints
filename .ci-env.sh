@@ -100,13 +100,17 @@ codesniff-xmllint() {
 
 # Run basic PHPUnit tests.
 phpunit-basic() {
+	if [ -z "$CLOVER_FILE" ]; then
+		CLOVER_FILE=${1-basic}
+	fi
+
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
 		phpunit \
-		$(
-			if [ -e .coveralls.yml ]; then
-				echo --coverage-clover build/logs/clover.xml
-			fi
-		)
+			$(
+				if [[ -n $( php --version | grep ' 5.2' ) ]]; then
+					echo --coverage-clover build/logs/clover-"$CLOVER_FILE".xml
+				fi
+			)
 	else
 		echo 'Not running PHPUnit.'
 	fi
@@ -114,12 +118,21 @@ phpunit-basic() {
 
 # Run uninstall PHPUnit tests.
 phpunit-uninstall() {
+	if [ -z "$CLOVER_FILE" ]; then
+		CLOVER_FILE=${1-basic}
+	fi
+
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
 		if [[ $( php --version | grep ' 5.2' ) ]]; then
 			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
 		fi
 
-		phpunit --group=uninstall
+		phpunit --group=uninstall \
+			$(
+				if [[ -n $( php --version | grep ' 5.2' ) ]]; then
+					echo --coverage-clover build/logs/clover-uninstall-"$CLOVER_FILE".xml
+				fi
+			)
 	else
 		echo 'Not running PHPUnit.'
 	fi
@@ -127,12 +140,21 @@ phpunit-uninstall() {
 
 # Run Ajax PHPUnit tests.
 phpunit-ajax() {
+	if [ -z "$CLOVER_FILE" ]; then
+		CLOVER_FILE=${1-basic}
+	fi
+
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
 		if [[ $( php --version | grep ' 5.2' ) ]]; then
 			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
 		fi
 
-		phpunit --group=ajax
+		phpunit --group=ajax \
+			$(
+				if [[ -n $( php --version | grep ' 5.2' ) ]]; then
+					echo --coverage-clover build/logs/clover-ajax-"$CLOVER_FILE".xml
+				fi
+			)
 	else
 		echo 'Not running PHPUnit.'
 	fi
@@ -140,18 +162,18 @@ phpunit-ajax() {
 
 # Run the basic tests on multisite.
 phpunit-ms() {
-	WP_MULTISITE=1 phpunit-basic
+	WP_MULTISITE=1 phpunit-basic ms
 }
 
 # Run the uninstall tests on multisite.
 phpunit-ms-uninstall() {
-	WP_MULTISITE=1 phpunit-uninstall
+	WP_MULTISITE=1 phpunit-uninstall ms
 }
 
 # Run the ajax tests on multisite.
 phpunit-ms-ajax() {
 	if [[ $WP_VERSION != '3.8' ]]; then
-		WP_MULTISITE=1 phpunit-ajax
+		WP_MULTISITE=1 phpunit-ajax ms
 	else
 		echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
 	fi
@@ -159,17 +181,17 @@ phpunit-ms-ajax() {
 
 # Run basic tests for multisite in network mode.
 phpunit-ms-network() {
-	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms
+	WORDPOINTS_NETWORK_ACTIVE=1 CLOVER_FILE=ms-network phpunit-ms
 }
 
 # Run uninstall tests in multisite in network mode.
 phpunit-ms-network-uninstall() {
-	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms-uninstall
+	WORDPOINTS_NETWORK_ACTIVE=1 CLOVER_FILE=ms-network phpunit-ms-uninstall
 }
 
 # Run Ajax tests in multisite in network mode.
 phpunit-ms-network-ajax() {
-	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms-ajax
+	WORDPOINTS_NETWORK_ACTIVE=1 CLOVER_FILE=ms-network phpunit-ms-ajax
 }
 
 # EOF

@@ -13,6 +13,8 @@ setup-phpunit() {
 		composer install
 	fi
 
+	mkdir -p build/logs
+
     wget -O /tmp/install-wp-tests.sh \
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
 

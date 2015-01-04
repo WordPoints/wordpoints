@@ -81,4 +81,5 @@ script:
 
 after_script:
     - ls -A build/logs/
+    - ls -A $PLUGIN_DIR/build/logs/
     - if [ -e .coveralls.yml ]; then php vendor/bin/coveralls; fi

@@ -80,4 +80,5 @@ script:
     - phpunit-ms-network-ajax
 
 after_script:
+    - ls -A build/logs/
     - if [ -e .coveralls.yml ]; then php vendor/bin/coveralls; fi

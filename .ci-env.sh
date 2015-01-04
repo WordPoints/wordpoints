@@ -109,7 +109,7 @@ phpunit-basic() {
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
 		phpunit \
 			$(
-				if [[ -n $( php --version | grep ' 5.2' ) ]]; then
+				if [ -n $( php --version | grep ' 5.2' ) ]; then
 					echo --coverage-clover build/logs/clover-"$CLOVER_FILE".xml
 				fi
 			)
@@ -131,7 +131,7 @@ phpunit-uninstall() {
 
 		phpunit --group=uninstall \
 			$(
-				if [[ -n $( php --version | grep ' 5.2' ) ]]; then
+				if [ -n $( php --version | grep ' 5.2' ) ]; then
 					echo --coverage-clover build/logs/clover-uninstall-"$CLOVER_FILE".xml
 				fi
 			)
@@ -153,7 +153,7 @@ phpunit-ajax() {
 
 		phpunit --group=ajax \
 			$(
-				if [[ -n $( php --version | grep ' 5.2' ) ]]; then
+				if [ -n $( php --version | grep ' 5.2' ) ]; then
 					echo --coverage-clover build/logs/clover-ajax-"$CLOVER_FILE".xml
 				fi
 			)

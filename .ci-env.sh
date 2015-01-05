@@ -5,7 +5,7 @@ export WPCS_GIT_TREE=develop
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
-	if [[ $( php --version | grep ' 5.2' ) ]]; then
+	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester
 		curl -L https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/master.tar.gz \
 			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
@@ -125,7 +125,7 @@ phpunit-uninstall() {
 	fi
 
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		if [[ $( php --version | grep ' 5.2' ) ]]; then
+		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
 		fi
 
@@ -147,7 +147,7 @@ phpunit-ajax() {
 	fi
 
 	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		if [[ $( php --version | grep ' 5.2' ) ]]; then
+		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
 		fi
 

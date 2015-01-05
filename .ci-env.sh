@@ -54,7 +54,7 @@ setup-codesniff() {
 
 # Check php files for syntax errors.
 codesniff-php-syntax() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == stable && $TRAVIS_PHP_VERSION != '5.3' ]]; then
 		find . ! -path "./dev-lib/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
 	else

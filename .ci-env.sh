@@ -102,98 +102,76 @@ codesniff-xmllint() {
 
 # Run basic PHPUnit tests.
 phpunit-basic() {
-	if [ -z "$CLOVER_FILE" ]; then
-		CLOVER_FILE=${1-basic}
+	if [[ $TRAVISCI_RUN == phpunit ]]; then
+		echo 'Not running PHPUnit.'
+		return
 	fi
 
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		phpunit \
-			$(
-				if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
-					echo --coverage-clover build/logs/clover-"$CLOVER_FILE".xml
-				fi
-			)
-	else
-		echo 'Not running PHPUnit.'
+	local TEST_GROUP=${1-''}
+	local CLOVER_FILE=${2-basic}
+
+	local GROUP_OPTION=''
+	local COVERAGE_OPTION=''
+
+	if [[ $WP_VERSION == '3.8' && $TEST_GROUP == ajax && $WP_MULTISITE == 1 ]]; then
+		echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
+		return
 	fi
+
+	if [[ $TEST_GROUP != '' ]]; then
+		GROUP_OPTION="--group=$TEST_GROUP"
+		CLOVER_FILE+="-$TEST_GROUP"
+
+		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
+			sed -i '' -e "s/<group>$TEST_GROUP<\/group>//" ./phpunit.xml.dist
+		fi
+	fi
+
+	if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+		COVERAGE_OPTION="--coverage-clover build/logs/clover-$CLOVER_FILE.xml"
+	fi
+
+	phpunit $GROUP_OPTION $COVERAGE_OPTION
 }
 
 # Run uninstall PHPUnit tests.
 phpunit-uninstall() {
-	if [ -z "$CLOVER_FILE" ]; then
-		CLOVER_FILE=${1-basic}
-	fi
-
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
-		fi
-
-		phpunit --group=uninstall \
-			$(
-				if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
-					echo --coverage-clover build/logs/clover-uninstall-"$CLOVER_FILE".xml
-				fi
-			)
-	else
-		echo 'Not running PHPUnit.'
-	fi
+	phpunit-basic uninstall
 }
 
 # Run Ajax PHPUnit tests.
 phpunit-ajax() {
-	if [ -z "$CLOVER_FILE" ]; then
-		CLOVER_FILE=${1-basic}
-	fi
-
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
-		fi
-
-		phpunit --group=ajax \
-			$(
-				if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
-					echo --coverage-clover build/logs/clover-ajax-"$CLOVER_FILE".xml
-				fi
-			)
-	else
-		echo 'Not running PHPUnit.'
-	fi
+	phpunit-basic ajax
 }
 
 # Run the basic tests on multisite.
 phpunit-ms() {
-	WP_MULTISITE=1 phpunit-basic ms
+	WP_MULTISITE=1 phpunit-basic '' ms
 }
 
 # Run the uninstall tests on multisite.
 phpunit-ms-uninstall() {
-	WP_MULTISITE=1 phpunit-uninstall ms
+	WP_MULTISITE=1 phpunit-basic uninstall ms
 }
 
 # Run the ajax tests on multisite.
 phpunit-ms-ajax() {
-	if [[ $WP_VERSION != '3.8' ]]; then
-		WP_MULTISITE=1 phpunit-ajax ms
-	else
-		echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
-	fi
+	WP_MULTISITE=1 phpunit-basic ajax ms
 }
 
 # Run basic tests for multisite in network mode.
 phpunit-ms-network() {
-	WORDPOINTS_NETWORK_ACTIVE=1 CLOVER_FILE=ms-network phpunit-ms
+	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic '' ms-network
 }
 
 # Run uninstall tests in multisite in network mode.
 phpunit-ms-network-uninstall() {
-	WORDPOINTS_NETWORK_ACTIVE=1 CLOVER_FILE=ms-network phpunit-ms-uninstall
+	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic uninstall ms-network
 }
 
 # Run Ajax tests in multisite in network mode.
 phpunit-ms-network-ajax() {
-	WORDPOINTS_NETWORK_ACTIVE=1 CLOVER_FILE=ms-network phpunit-ms-ajax
+	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic ajax ms-network
 }
 
 # EOF

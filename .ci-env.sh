@@ -102,7 +102,7 @@ codesniff-xmllint() {
 
 # Run basic PHPUnit tests.
 phpunit-basic() {
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
+	if [[ $TRAVISCI_RUN != phpunit ]]; then
 		echo 'Not running PHPUnit.'
 		return
 	fi

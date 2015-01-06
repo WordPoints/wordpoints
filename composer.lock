@@ -3,8 +3,9 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "64baa6a9c15e34f7f7bdc941d1260dc1",
-    "packages": [
+    "hash": "d3cfd219e1e3ece6899c214e93a1b48d",
+    "packages": [],
+    "packages-dev": [
         {
             "name": "jdgrimes/wp-l10n-validator",
             "version": "dev-master",
@@ -74,7 +75,6 @@
             "time": "2014-11-25 14:47:10"
         }
     ],
-    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {

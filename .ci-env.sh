@@ -5,10 +5,13 @@ export WPCS_GIT_TREE=develop
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
-	if [[ $( php --version | grep ' 5.2' ) ]]; then
+	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester
 		curl -L https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/master.tar.gz \
 			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
+	elif [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+		composer require satooshi/php-coveralls:dev-master
+		mkdir -p build/logs
 	else
 		composer install
 	fi
@@ -16,13 +19,13 @@ setup-phpunit() {
     wget -O /tmp/install-wp-tests.sh \
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
 
-    sed -i '' -e 's/$WP_VERSION == '"'"'latest'"'"'/$WP_VERSION == '"'"'stable'"'"'/' \
+    sed -i 's/$WP_VERSION == '"'"'latest'"'"'/$WP_VERSION == '"'"'stable'"'"'/' \
     	/tmp/install-wp-tests.sh
 
     bash /tmp/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
-    sed -i '' -e 's/do_action( '"'"'admin_init'"'"' )/if ( ! isset( $GLOBALS['"'"'_did_admin_init'"'"'] ) \&\& $GLOBALS['"'"'_did_admin_init'"'"'] = true ) do_action( '"'"'admin_init'"'"' )/' \
-    	/tmp/wordpress-tests/trunk/tests/phpunit/includes/testcase-ajax.php
+    sed -i 's/do_action( '"'"'admin_init'"'"' )/if ( ! isset( $GLOBALS['"'"'_did_admin_init'"'"'] ) \&\& $GLOBALS['"'"'_did_admin_init'"'"'] = true ) do_action( '"'"'admin_init'"'"' )/' \
+    	/tmp/wordpress-tests/includes/testcase-ajax.php
 
     cd /tmp/wordpress/wp-content/plugins
     ln -s $PLUGIN_DIR $PLUGIN_SLUG
@@ -44,15 +47,12 @@ setup-codesniff() {
 
     npm install -g jshint
 
-    if [ -e composer.json ]; then
-    	wget http://getcomposer.org/composer.phar \
-    		&& php composer.phar install --dev
-    fi
+	composer install
 }
 
 # Check php files for syntax errors.
 codesniff-php-syntax() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit ]]; then
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == stable && $TRAVIS_PHP_VERSION != '5.3' ]]; then
 		find . ! -path "./dev-lib/*" ! -path "./vendor/*" \( -name '*.php' -o -name '*.inc' \) \
 			-exec php -lf {} \;
 	else
@@ -100,76 +100,76 @@ codesniff-xmllint() {
 
 # Run basic PHPUnit tests.
 phpunit-basic() {
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		phpunit \
-		$(
-			if [ -e .coveralls.yml ]; then
-				echo --coverage-clover build/logs/clover.xml
-			fi
-		)
-	else
+	if [[ $TRAVISCI_RUN != phpunit ]]; then
 		echo 'Not running PHPUnit.'
+		return
 	fi
+
+	local TEST_GROUP=${1-''}
+	local CLOVER_FILE=${2-basic}
+
+	local GROUP_OPTION=''
+	local COVERAGE_OPTION=''
+
+	if [[ $WP_VERSION == '3.8' && $TEST_GROUP == ajax && $WP_MULTISITE == 1 ]]; then
+		echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
+		return
+	fi
+
+	if [[ $TEST_GROUP != '' ]]; then
+		GROUP_OPTION="--group=$TEST_GROUP"
+		CLOVER_FILE+="-$TEST_GROUP"
+
+		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
+			sed -i '' -e "s/<group>$TEST_GROUP<\/group>//" ./phpunit.xml.dist
+		fi
+	fi
+
+	if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+		COVERAGE_OPTION="--coverage-clover build/logs/clover-$CLOVER_FILE.xml"
+	fi
+
+	phpunit $GROUP_OPTION $COVERAGE_OPTION
 }
 
 # Run uninstall PHPUnit tests.
 phpunit-uninstall() {
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		if [[ $( php --version | grep ' 5.2' ) ]]; then
-			sed -i '' -e 's/<group>uninstall<\/group>//' ./phpunit.xml.dist
-		fi
-
-		phpunit --group=uninstall
-	else
-		echo 'Not running PHPUnit.'
-	fi
+	phpunit-basic uninstall
 }
 
 # Run Ajax PHPUnit tests.
 phpunit-ajax() {
-	if [[ $TRAVISCI_RUN == phpunit ]]; then
-		if [[ $( php --version | grep ' 5.2' ) ]]; then
-			sed -i '' -e 's/<group>ajax<\/group>//' ./phpunit.xml.dist
-		fi
-
-		phpunit --group=ajax
-	else
-		echo 'Not running PHPUnit.'
-	fi
+	phpunit-basic ajax
 }
 
 # Run the basic tests on multisite.
 phpunit-ms() {
-	WP_MULTISITE=1 phpunit-basic
+	WP_MULTISITE=1 phpunit-basic '' ms
 }
 
 # Run the uninstall tests on multisite.
 phpunit-ms-uninstall() {
-	WP_MULTISITE=1 phpunit-uninstall
+	WP_MULTISITE=1 phpunit-basic uninstall ms
 }
 
 # Run the ajax tests on multisite.
 phpunit-ms-ajax() {
-	if [[ $WP_VERSION != '3.8' ]]; then
-		WP_MULTISITE=1 phpunit-ajax
-	else
-		echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
-	fi
+	WP_MULTISITE=1 phpunit-basic ajax ms
 }
 
 # Run basic tests for multisite in network mode.
 phpunit-ms-network() {
-	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms
+	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic '' ms-network
 }
 
 # Run uninstall tests in multisite in network mode.
 phpunit-ms-network-uninstall() {
-	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms-uninstall
+	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic uninstall ms-network
 }
 
 # Run Ajax tests in multisite in network mode.
 phpunit-ms-network-ajax() {
-	WORDPOINTS_NETWORK_ACTIVE=1 phpunit-ms-ajax
+	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic ajax ms-network
 }
 
 # EOF

@@ -9,13 +9,11 @@ setup-phpunit() {
 		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester
 		curl -L https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/master.tar.gz \
 			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
-	else
-		composer require jdgrimes/wp-plugin-uninstall-tester:~0.4
-	fi
-
-	if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+	elif [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
 		composer require satooshi/php-coveralls:dev-master
 		mkdir -p build/logs
+	else
+		composer install
 	fi
 
     wget -O /tmp/install-wp-tests.sh \
@@ -49,7 +47,7 @@ setup-codesniff() {
 
     npm install -g jshint
 
-	composer require jdgrimes/wp-l10n-validator:dev-master
+	composer install
 }
 
 # Check php files for syntax errors.

@@ -45,8 +45,9 @@ class WordPoints_MakePOT extends MakePOT {
 			'description' => 'Translation of the WordPoints module {name} {version} by {author}',
 			'msgid-bugs-address' => '',
 			'copyright-holder' => '{author}',
-			'package-name' => '{name}',
+			'package-name' => 'WordPoints {name}',
 			'package-version' => '{version}',
+			'comments' => "Copyright (C) {year} {copyright-holder}\nThis file is distributed under the same license as the {package-name} package.",
 		);
 	}
 

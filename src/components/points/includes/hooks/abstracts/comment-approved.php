@@ -213,11 +213,9 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		foreach ( $logs as $log ) {
 
-			$comment_id = wordpoints_get_points_log_meta( $log->id, 'comment_id', true );
-
 			$meta_key = $this->get_last_status_comment_meta_key( $log->points_type );
 
-			if ( 'approved' !== get_comment_meta( $comment_id, $meta_key, true ) ) {
+			if ( 'approved' !== get_comment_meta( $comment->comment_ID, $meta_key, true ) ) {
 				continue;
 			}
 

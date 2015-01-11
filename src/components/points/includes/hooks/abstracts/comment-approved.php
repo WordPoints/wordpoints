@@ -21,7 +21,11 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'points' => 10, 'post_type' => 'ALL' );
+	protected $defaults = array(
+		'points' => 10,
+		'post_type' => 'ALL',
+		'auto_reverse' => 1,
+	);
 
 	/**
 	 * The log type of the logs of this hook.
@@ -192,6 +196,10 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 			return;
 		}
 
+		if ( ! $this->should_do_auto_reversals_for_comment( $comment ) ) {
+			return;
+		}
+
 		// Get a list of transactions to reverse.
 		$query = new WordPoints_Points_Logs_Query(
 			array(
@@ -232,7 +240,41 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	}
 
 	/**
-	 * Select which use to award points to.
+	 * Check if automatic reversals should be performed for a particular comment.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param stdClass $comment The object for the comment to check about.
+	 *
+	 * @return bool True if auto-reversals should be done; false otherwise.
+	 */
+	protected function should_do_auto_reversals_for_comment( $comment ) {
+
+		// Check if this hook type allows auto-reversals to be disabled.
+		if ( ! $this->get_option( 'disable_auto_reverse_label' ) ) {
+			return true;
+		}
+
+		$post_type = get_post_field( 'post_type', $comment->comment_post_ID );
+
+		$instances = $this->get_instances();
+
+		foreach ( $instances as $instance ) {
+
+			$instance = array_merge( $this->defaults, $instance );
+
+			if ( $post_type === $instance['post_type'] ) {
+				return ! empty( $instance['auto_reverse'] );
+			} elseif ( 'ALL' === $instance['post_type'] ) {
+				$all_posts_instance = $instance;
+			}
+		}
+
+		return ! empty( $all_posts_instance['auto_reverse'] );
+	}
+
+	/**
+	 * Select which user to award points to.
 	 *
 	 * Overriding this function gives you the ability to choose whether to award the
 	 * points to the comment author (the default), the post author, or even someone
@@ -461,6 +503,32 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 		}
 
 		return $can_view;
+	}
+
+	/**
+	 * @since 1.9.0
+	 */
+	public function form( $instance ) {
+
+		parent::form( $instance );
+
+		$instance = array_merge( $this->defaults, $instance );
+
+		$disable_label = $this->get_option( 'disable_auto_reverse_label' );
+
+		if ( $disable_label ) {
+
+			?>
+
+			<p>
+				<input class="widefat" name="<?php $this->the_field_name( 'auto_reverse' ); ?>" id="<?php $this->the_field_id( 'auto_reverse' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['auto_reverse'] ); ?> />
+				<label for="<?php $this->the_field_id( 'auto_reverse' ); ?>"><?php echo esc_html( $disable_label ); ?></label>
+			</p>
+
+			<?php
+		}
+
+		return true;
 	}
 
 } // class WordPoints_Comment_Approved_Points_Hook_Base

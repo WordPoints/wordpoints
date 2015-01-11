@@ -43,14 +43,10 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 				'log_text_post_title' => _x( 'Comment on %s.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title' => _x( 'Comment', 'points log description', 'wordpoints' ),
 				'last_status_meta_key' => 'wordpoints_last_status',
+				'disable_auto_reverse_label' => __( 'Revoke the points if the comment is removed.', 'wordpoints' ),
 			)
 		);
 	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	public function reverse_hook( $new_status, $old_status, $comment ) {}
 
 	/**
 	 * Generate the log entry for an approve comment transaction.

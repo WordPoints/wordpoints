@@ -103,7 +103,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 
 		$hook = wordpointstests_add_points_hook(
 			'wordpoints_comment_points_hook'
-			, array( 'points' => 10 )
+			, array( 'points' => 10, 'auto_reverse' => 0 )
 		);
 		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $hook );
 
@@ -149,6 +149,145 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
+
+	/**
+	 * Test automatic reversal of the hook when the comment's status is toggled.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_points_auto_reversal() {
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_author' => $user_id )
+				),
+			)
+		);
+
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that status transitions award/remove points correctly.
+		wp_set_comment_status( $comment_id, 'hold' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'spam' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'trash' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+	} // public function test_points_auto_reversal()
+
+	/**
+	 * Test that the auto-reversal setting of the instance for the post's type has priority.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_auto_reversal_post_type_priority_off() {
+
+		// Create a hook for comments on pages.
+		$page_hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10, 'post_type' => 'page' )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $page_hook );
+
+		// Create another for the 'post' post type only.
+		$post_hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 15, 'post_type' => 'post', 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $post_hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Create a comment.
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_author' => $user_id, 'post_type' => 'post' )
+				),
+			)
+		);
+
+		// Only the post hook will award the user.
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'spam' );
+
+		// No reversals will take place.
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+	}
+
+	/**
+	 * Test that the auto-reversal setting of the instance for the post's type has priority.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_auto_reversal_post_type_priority_on() {
+
+		// Create a hook for comments on pages.
+		$page_hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10, 'post_type' => 'page', 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $page_hook );
+
+		// Create another for the 'post' post type only.
+		$post_hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 15, 'post_type' => 'post' )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $post_hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_author' => $user_id, 'post_type' => 'post' )
+				),
+			)
+		);
+
+		// Only the post hook will award the user.
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'spam' );
+
+		// Reversal of the post hook will take place.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+	}
 
 	/**
 	 * Test that points are only awarded for the specified post type.

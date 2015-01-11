@@ -68,7 +68,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 120, wordpoints_get_points( $user_id, 'points' ) );
 
-		// Test that points are awarded on transition from hold.
+		// Test that points are awarded on transition from spam.
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,
@@ -80,7 +80,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 130, wordpoints_get_points( $user_id, 'points' ) );
 
-		// Test that points are awarded on transition from hold.
+		// Test that points are awarded on transition from trash.
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,

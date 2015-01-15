@@ -480,11 +480,13 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {
 			$hook_type = 'network';
+			$network_ = 'network_';
 		} else {
 			$hook_type = 'standard';
+			$network_ = '';
 		}
 
-		$new_hook  = WordPoints_Points_Hooks::get_handler_by_id_base( $new_hook );
+		$new_hook = WordPoints_Points_Hooks::get_handler_by_id_base( $new_hook );
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook );
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
@@ -514,11 +516,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				);
 
 				// Make sure the correct points type is retrieved for network hooks.
-				if ( 'network' === $hook_type ) {
-					$points_type = $hook->points_type( 'network_' . $number );
-				} else {
-					$points_type = $hook->points_type( $number );
-				}
+				$points_type = $hook->points_type( $network_ . $number );
 
 				// Add this instance to the points-types-hooks list.
 				$points_types_hooks[ $points_type ][] = $new_hook->get_id( $number );

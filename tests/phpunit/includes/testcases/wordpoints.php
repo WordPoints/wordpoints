@@ -48,6 +48,24 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $widget_class;
 
 	/**
+	 * The WordPoints component that this testcase is for.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $wordpoints_component
+	 */
+	protected $wordpoints_component;
+
+	/**
+	 * The previous version if this is an update testcase.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $previous_version
+	 */
+	protected $previous_version;
+
+	/**
 	 * Set up before each test.
 	 *
 	 * @since 1.7.0
@@ -192,7 +210,15 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @param string $component The slug of the component to update.
 	 * @param string $from      The version to update from.
 	 */
-	protected function update_component( $component, $from ) {
+	protected function update_component( $component = null, $from = null ) {
+
+		if ( ! isset( $component ) ) {
+			$component = $this->wordpoints_component;
+		}
+
+		if ( ! isset( $from ) ) {
+			$from = $this->previous_version;
+		}
 
 		$this->set_component_db_version( $component, $from );
 

@@ -19,6 +19,11 @@
 class WordPoints_Points_UnitTestCase extends WordPoints_UnitTestCase {
 
 	/**
+	 * @since 1.9.0
+	 */
+	protected $wordpoints_component = 'points';
+
+	/**
 	 * Set up the points type.
 	 *
 	 * @since 1.0.0

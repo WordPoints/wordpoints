@@ -7,8 +7,10 @@
  * @since 1.4.0
  */
 
-// Register the comment removed hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
+if ( get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+	// Register the comment removed hook.
+	WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
+}
 
 /**
  * Comment removed points hook.
@@ -18,6 +20,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
  * Prior to version 1.4.0, this functionality was part of the comment points hook.
  *
  * @since 1.4.0
+ * @deprecated 1.9.0
  */
 class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 

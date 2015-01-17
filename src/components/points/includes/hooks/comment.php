@@ -43,9 +43,15 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 				'log_text_post_title' => _x( 'Comment on %s.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title' => _x( 'Comment', 'points log description', 'wordpoints' ),
 				'last_status_meta_key' => 'wordpoints_last_status',
-				'disable_auto_reverse_label' => __( 'Revoke the points if the comment is removed.', 'wordpoints' ),
 			)
 		);
+
+		if ( get_site_option( 'wordpoints_comment_hook_legacy' ) ) {
+			$this->set_option(
+				'disable_auto_reverse_label'
+				, __( 'Revoke the points if the comment is removed.', 'wordpoints' )
+			);
+		}
 	}
 
 	/**

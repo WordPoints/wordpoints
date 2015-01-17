@@ -354,6 +354,21 @@ abstract class WordPoints_Points_Hook {
 	}
 
 	/**
+	 * Set a particular option.
+	 *
+	 * This method will probably be declared final in WordPoints 2.0.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $ooption The index for the option.
+	 * @param mixed  $value   The value to assign to this option.
+	 */
+	/*final*/ public function set_option( $option, $value ) {
+
+		$this->options[ $option ] = $value;
+	}
+
+	/**
 	 * Calculate the ID number of the next instance of a hook.
 	 *
 	 * Each hook can have multiple instances, and to tell them apart each is assigned

@@ -286,6 +286,73 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEmpty( $hook_type->get_instances() );
 	}
+
+	/**
+	 * Test get_option() and set_option().
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_and_set_option() {
+
+		$hook = wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		$hook->set_option( 'testing', __METHOD__ );
+		$this->assertEquals( __METHOD__, $hook->get_option( 'testing' ) );
+	}
+
+	/**
+	 * Test that get_option() returns null if the option isn't set.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_nonexistant_option() {
+
+		$hook = wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		$this->assertEquals( null, $hook->get_option( __METHOD__ ) );
+	}
+
+	/**
+	 * Test get_options() and set_options().
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_and_set_options() {
+
+		$hook = wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		$options = $hook->get_options();
+
+		$this->assertInternalType( 'array', $options );
+
+		$options[ __METHOD__ ] = true;
+
+		$hook->set_options( $options );
+
+		$options = $hook->get_options();
+
+		$this->assertArrayHasKey( __METHOD__, $options );
+		$this->assertTrue( $options[ __METHOD__ ] );
+	}
+
+	/**
+	 * Test that set_option() will always set the options as an array.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_set_options_not_array() {
+
+		$hook = wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		$options = $hook->get_options();
+
+		$hook->set_options( 'not an array' );
+
+		$this->assertEquals( array(), $hook->get_options() );
+
+		// Put the options back, because this will carry over to other tests.
+		$hook->set_options( $options );
+	}
 }
 
 // EOF

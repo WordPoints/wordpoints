@@ -243,7 +243,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		// Create a comment points hook with the old type of settings.
 		$hook = wordpointstests_add_points_hook(
 			'wordpoints_comment_points_hook'
-			, array( 'approve' => 20, 'disapprove' => 20 )
+			, array( 'approve' => 20, 'disapprove' => 25 )
 		);
 
 		// Now simulate the update.
@@ -251,7 +251,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 
 		// Test that the comment hook instance was updated.
 		$this->assertEquals(
-			array( $hook->get_number() => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			array(
+				$hook->get_number() => array(
+					'points' => 20,
+					'post_type' => 'ALL',
+					'auto_reverse' => 0
+				)
+			)
 			, $hook->get_instances()
 		);
 
@@ -259,7 +265,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$removed_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
 		$this->assertEquals(
-			array( $removed_hook->get_number() => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			array( $removed_hook->get_number() => array( 'points' => 25, 'post_type' => 'ALL' ) )
 			, $removed_hook->get_instances()
 		);
 
@@ -300,7 +306,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 			switch_to_blog( $blog_id );
 			wordpointstests_add_points_hook(
 				'wordpoints_comment_points_hook'
-				, array( 'approve' => 20, 'disapprove' => 20 )
+				, array( 'approve' => 20, 'disapprove' => 25 )
 			);
 			restore_current_blog();
 		}
@@ -318,7 +324,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 			$hook_number = $hook->get_number();
 
 			$this->assertEquals(
-				array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
+				array(
+					$hook_number => array(
+						'points' => 20,
+						'post_type' => 'ALL',
+						'auto_reverse' => 0
+					)
+				)
 				, $hook->get_instances( 'standard' )
 			);
 
@@ -327,7 +339,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 			$remove_hook_number = $remove_hook->get_number();
 
 			$this->assertEquals(
-				array( $remove_hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
+				array( $remove_hook_number => array( 'points' => 25, 'post_type' => 'ALL' ) )
 				, $remove_hook->get_instances( 'standard' )
 			);
 
@@ -363,7 +375,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		WordPoints_Points_Hooks::set_network_mode( true );
 		$hook = wordpointstests_add_points_hook(
 			'wordpoints_comment_points_hook'
-			, array( 'approve' => 20, 'disapprove' => 20 )
+			, array( 'approve' => 20, 'disapprove' => 25 )
 		);
 		$network_hook_id = $hook->get_id();
 		WordPoints_Points_Hooks::set_network_mode( false );
@@ -379,7 +391,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$hook_number = $hook->get_number_by_id( $network_hook_id );
 
 		$this->assertEquals(
-			array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			array(
+				$hook_number => array(
+					'points' => 20,
+					'post_type' => 'ALL',
+					'auto_reverse' => 0
+				)
+			)
 			, $hook->get_instances( 'network' )
 		);
 
@@ -387,7 +405,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
 		$this->assertEquals(
-			array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL' ) )
+			array( $hook_number => array( 'points' => 25, 'post_type' => 'ALL' ) )
 			, $hook->get_instances( 'network' )
 		);
 

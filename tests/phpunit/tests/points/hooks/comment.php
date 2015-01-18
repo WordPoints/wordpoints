@@ -20,6 +20,20 @@
 class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
+	 * @since 1.9.0
+	 */
+	public function tearDown() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_comment_points_hook'
+		);
+
+		$hook->set_option( 'disable_auto_reverse_label', null );
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Test that points are awarded as expected.
 	 *
 	 * Since 1.3.0 it was called test_points_awarded_removed().
@@ -95,62 +109,6 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 	} // public function test_points_awarded()
 
 	/**
-	 * Test that points are awarded again after the comment remove points hook runs.
-	 *
-	 * @since 1.4.0
-	 */
-	public function test_points_awarded_again_after_comment_remove_hook_runs() {
-
-		$hook = wordpointstests_add_points_hook(
-			'wordpoints_comment_points_hook'
-			, array( 'points' => 10, 'auto_reverse' => 0 )
-		);
-		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $hook );
-
-		$hook = wordpointstests_add_points_hook(
-			'wordpoints_comment_removed_points_hook'
-			, array( 'points' => 10 )
-		);
-		$this->assertInstanceOf( 'WordPoints_Comment_Removed_Points_Hook', $hook );
-
-		$user_id = $this->factory->user->create();
-
-		wordpoints_set_points( $user_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
-
-		$comment_id = $this->factory->comment->create(
-			array(
-				'user_id'         => $user_id,
-				'comment_post_ID' => $this->factory->post->create(
-					array( 'post_author' => $user_id )
-				),
-			)
-		);
-
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
-
-		// Test that status transitions award/remove points correctly.
-		wp_set_comment_status( $comment_id, 'hold' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
-
-		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
-
-		wp_set_comment_status( $comment_id, 'spam' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
-
-		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
-
-		wp_set_comment_status( $comment_id, 'trash' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
-
-		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
-
-	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
-
-	/**
 	 * Test automatic reversal of the hook when the comment's status is toggled.
 	 *
 	 * @since 1.9.0
@@ -221,6 +179,8 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		);
 		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $post_hook );
 
+		$post_hook->set_option( 'disable_auto_reverse_label', true );
+
 		$user_id = $this->factory->user->create();
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
@@ -246,6 +206,43 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 	}
 
 	/**
+	 * Test that auto-reversal can only be disabled on legacy installs.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_auto_reversal_cannot_be_disabled() {
+
+		// Create a hook for comments on posts.
+		$post_hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 15, 'post_type' => 'post', 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $post_hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Create a comment.
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_author' => $user_id, 'post_type' => 'post' )
+				),
+			)
+		);
+
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'spam' );
+
+		// Reversal will still take place, even though it is turned off.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+	}
+
+	/**
 	 * Test that the auto-reversal setting of the instance for the post's type has priority.
 	 *
 	 * @since 1.9.0
@@ -265,6 +262,8 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 			, array( 'points' => 15, 'post_type' => 'post' )
 		);
 		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $post_hook );
+
+		$post_hook->set_option( 'disable_auto_reverse_label', true );
 
 		$user_id = $this->factory->user->create();
 

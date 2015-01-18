@@ -60,7 +60,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 120, wordpoints_get_points( $user_id, 'points' ) );
 
-		// Test that points are awarded on transition from hold.
+		// Test that points are awarded on transition from spam.
 		$comment_id = $this->factory->comment->create(
 			array(
 				'comment_post_ID' => $post_id,
@@ -71,7 +71,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 130, wordpoints_get_points( $user_id, 'points' ) );
 
-		// Test that points are awarded on transition from hold.
+		// Test that points are awarded on transition from trash.
 		$comment_id = $this->factory->comment->create(
 			array(
 				'comment_post_ID' => $post_id,
@@ -85,11 +85,11 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 	} // public function test_points_awarded()
 
 	/**
-	 * Test that points are awarded again after the comment remove points hook runs.
+	 * Test automatic reversal of the hook when the comment's status is toggled.
 	 *
 	 * @since 1.8.0
 	 */
-	public function test_points_awarded_again_after_comment_removed() {
+	public function test_points_auto_reversal() {
 
 		$hook = wordpointstests_add_points_hook(
 			'wordpoints_comment_received_points_hook'

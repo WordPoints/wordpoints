@@ -277,6 +277,8 @@ abstract class WordPoints_Points_Hook {
 	final public function set_number( $instance_id ) {
 
 		$this->number = $this->get_number_by_id( $instance_id );
+
+		wordpoints_posint( $this->number );
 	}
 
 	/**
@@ -351,6 +353,21 @@ abstract class WordPoints_Points_Hook {
 		}
 
 		$this->options = $options;
+	}
+
+	/**
+	 * Set a particular option.
+	 *
+	 * This method will probably be declared final in WordPoints 2.0.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $ooption The index for the option.
+	 * @param mixed  $value   The value to assign to this option.
+	 */
+	/*final*/ public function set_option( $option, $value ) {
+
+		$this->options[ $option ] = $value;
 	}
 
 	/**

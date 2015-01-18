@@ -45,12 +45,14 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 				'last_status_meta_key' => 'wordpoints_last_status',
 			)
 		);
-	}
 
-	/**
-	 * @since 1.8.0
-	 */
-	public function reverse_hook( $new_status, $old_status, $comment ) {}
+		if ( get_site_option( 'wordpoints_comment_hook_legacy' ) ) {
+			$this->set_option(
+				'disable_auto_reverse_label'
+				, __( 'Revoke the points if the comment is removed.', 'wordpoints' )
+			);
+		}
+	}
 
 	/**
 	 * Generate the log entry for an approve comment transaction.

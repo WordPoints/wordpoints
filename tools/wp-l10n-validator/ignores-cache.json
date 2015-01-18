@@ -1,10 +1,10 @@
 {
     "\/components\/points\/includes\/class-un-installer.php": {
         "network": {
-            "483": false
+            "713": false
         },
         "standard": {
-            "485": false
+            "716": false
         }
     },
     "\/components\/points\/install.php": {
@@ -80,10 +80,20 @@
         }
     },
     "network": {
-        "482": false
+        "482": false,
+        "490": false,
+        "387": false,
+        "459": false,
+        "518": false,
+        "553": false
     },
     "standard": {
-        "484": false
+        "484": false,
+        "493": false,
+        "389": false,
+        "461": false,
+        "520": false,
+        "555": false
     },
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
         "second module-version-author-uri\">": {
@@ -211,12 +221,17 @@
         }
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
-        "approved": {
-            "163": false,
-            "170": false
+        "\" type=\"checkbox\" value=\"1\"": {
+            "524": false
         },
-        "new": {
-            "164": false
+        "1": {
+            "524": {
+                "name": "checked",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         }
     },
     "\/components\/points\/includes\/logs.php": {
@@ -954,5 +969,13 @@
                 "parentheses": 1
             }
         }
+    },
+    "approved": {
+        "167": false,
+        "174": false,
+        "136": false
+    },
+    "new": {
+        "168": false
     }
 }

@@ -255,8 +255,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				$hook->get_number() => array(
 					'points' => 20,
 					'post_type' => 'ALL',
-					'auto_reverse' => 0
-				)
+					'auto_reverse' => 0,
+				),
 			)
 			, $hook->get_instances()
 		);
@@ -328,8 +328,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 					$hook_number => array(
 						'points' => 20,
 						'post_type' => 'ALL',
-						'auto_reverse' => 0
-					)
+						'auto_reverse' => 0,
+					),
 				)
 				, $hook->get_instances( 'standard' )
 			);
@@ -395,8 +395,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				$hook_number => array(
 					'points' => 20,
 					'post_type' => 'ALL',
-					'auto_reverse' => 0
-				)
+					'auto_reverse' => 0,
+				),
 			)
 			, $hook->get_instances( 'network' )
 		);

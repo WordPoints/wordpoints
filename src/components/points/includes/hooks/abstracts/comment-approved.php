@@ -28,15 +28,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	);
 
 	/**
-	 * The log type of the logs of this hook.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type string $log_type
-	 */
-	protected $log_type;
-
-	/**
 	 * Initialize the hook.
 	 *
 	 * @since 1.8.0
@@ -196,7 +187,8 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 			return;
 		}
 
-		if ( ! $this->should_do_auto_reversals_for_comment( $comment ) ) {
+		$post_type = get_post_field( 'post_type', $comment->comment_post_ID );
+		if ( ! $this->should_do_auto_reversals_for_post_type( $post_type ) ) {
 			return;
 		}
 
@@ -237,40 +229,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 			delete_comment_meta( $comment->comment_ID, $meta_key );
 		}
-	}
-
-	/**
-	 * Check if automatic reversals should be performed for a particular comment.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param stdClass $comment The object for the comment to check about.
-	 *
-	 * @return bool True if auto-reversals should be done; false otherwise.
-	 */
-	protected function should_do_auto_reversals_for_comment( $comment ) {
-
-		// Check if this hook type allows auto-reversals to be disabled.
-		if ( ! $this->get_option( 'disable_auto_reverse_label' ) ) {
-			return true;
-		}
-
-		$post_type = get_post_field( 'post_type', $comment->comment_post_ID );
-
-		$instances = $this->get_instances();
-
-		foreach ( $instances as $instance ) {
-
-			$instance = array_merge( $this->defaults, $instance );
-
-			if ( $post_type === $instance['post_type'] ) {
-				return ! empty( $instance['auto_reverse'] );
-			} elseif ( 'ALL' === $instance['post_type'] ) {
-				$all_posts_instance = $instance;
-			}
-		}
-
-		return ! empty( $all_posts_instance['auto_reverse'] );
 	}
 
 	/**

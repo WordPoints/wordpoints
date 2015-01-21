@@ -17,6 +17,15 @@
 abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_Hook {
 
 	/**
+	 * The log type of the logs of this hook.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $log_type
+	 */
+	protected $log_type;
+
+	/**
 	 * Check if the post type setting matches a certian post type.
 	 *
 	 * @since 1.5.0
@@ -36,6 +45,38 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 				&& get_post_type_object( $post_type )->public
 			)
 		);
+	}
+
+	/**
+	 * Check if automatic reversals should be performed for a particular post type.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param int $post_type The slug of a post type.
+	 *
+	 * @return bool True if auto-reversals should be done; false otherwise.
+	 */
+	protected function should_do_auto_reversals_for_post_type( $post_type ) {
+
+		// Check if this hook type allows auto-reversals to be disabled.
+		if ( ! $this->get_option( 'disable_auto_reverse_label' ) ) {
+			return true;
+		}
+
+		$instances = $this->get_instances();
+
+		foreach ( $instances as $instance ) {
+
+			$instance = array_merge( $this->defaults, $instance );
+
+			if ( $post_type === $instance['post_type'] ) {
+				return ! empty( $instance['auto_reverse'] );
+			} elseif ( 'ALL' === $instance['post_type'] ) {
+				$all_posts_instance = $instance;
+			}
+		}
+
+		return ! empty( $all_posts_instance['auto_reverse'] );
 	}
 
 	/**

@@ -651,8 +651,6 @@ add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_defa
  * Admin manage logs render.
  *
  * @since 1.0.0
- *
- * @action wordpoints_render_log-profile_edit
  */
 function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 

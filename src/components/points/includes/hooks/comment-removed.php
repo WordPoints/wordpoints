@@ -157,21 +157,14 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		switch ( $meta['status'] ) {
-
-			case 'spam':
-				$message = _x( 'Comment marked as spam.', 'points log description', 'wordpoints' );
-			break;
-
-			case 'trash':
-				$message = _x( 'Comment moved to trash.', 'points log description', 'wordpoints' );
-			break;
-
-			default:
-				$message = _x( 'Comment unapproved.', 'points log description', 'wordpoints' );
-		}
-
-		return $message;
+		return wordpoints_points_logs_comment_disapprove(
+			$text
+			, $points
+			, $points_type
+			, $user_id
+			, $log_type
+			, $meta
+		);
 	}
 
 	/**

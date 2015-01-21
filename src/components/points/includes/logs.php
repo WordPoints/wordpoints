@@ -663,6 +663,31 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 add_action( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
 
 /**
+ * Generate the log entry for a comment_disapprove transaction.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+	switch ( $meta['status'] ) {
+
+		case 'spam':
+			$text = _x( 'Comment marked as spam.', 'points log description', 'wordpoints' );
+		break;
+
+		case 'trash':
+			$text = _x( 'Comment moved to trash.', 'points log description', 'wordpoints' );
+		break;
+
+		default:
+			$text = _x( 'Comment unapproved.', 'points log description', 'wordpoints' );
+	}
+
+	return $text;
+}
+add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
+
+/**
  * Clear the logs caches when new logs are added.
  *
  * Automatically clears the caches for registered points logs queries.

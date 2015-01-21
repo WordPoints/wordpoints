@@ -475,6 +475,60 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		$xpath = new DOMXPath( $document );
 		$this->assertEquals( 1, $xpath->query( '//tbody[. = ""]' )->length );
 	}
+
+	/**
+	 * Test that log messages are still generated correctly for old comment_removed logs.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_comment_removed_as_spam_log_text() {
+
+		$text = wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, 'comment_disapprove'
+			, array( 'status' => 'spam' )
+		);
+
+		$this->assertEquals( 'Comment marked as spam.', $text );
+	}
+
+	/**
+	 * Test that log messages are still generated correctly for old comment_removed logs.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_comment_removed_as_trash_log_text() {
+
+		$text = wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, 'comment_disapprove'
+			, array( 'status' => 'trash' )
+		);
+
+		$this->assertEquals( 'Comment moved to trash.', $text );
+	}
+
+	/**
+	 * Test that log messages are still generated correctly for old comment_removed logs.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_comment_removed_as_hold_log_text() {
+
+		$text = wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, 'comment_disapprove'
+			, array( 'status' => 'hold' )
+		);
+
+		$this->assertEquals( 'Comment unapproved.', $text );
+	}
 }
 
 // EOF

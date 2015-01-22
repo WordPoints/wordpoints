@@ -99,6 +99,109 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	}
 
 	/**
+	 * Generate the log entry for a transaction.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $text        The text for the log entry.
+	 * @param int    $points      The number of points.
+	 * @param string $points_type The type of points for the transaction.
+	 * @param int    $user_id     The affected user's ID.
+	 * @param string $log_type    The type of transaction.
+	 * @param array  $meta        Transaction meta data.
+	 *
+	 * @return string
+	 */
+	public function logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+		$reverse = '';
+
+		if ( "reverse_{$this->log_type}" === $log_type ) {
+			$reverse = '_reverse';
+		}
+
+		$post = $post_type = false;
+
+		if ( '' === $reverse && isset( $meta['post_id'] ) ) {
+			$post = get_post( $meta['post_id'] );
+		}
+
+		if ( $post ) {
+
+			// This post exists, so we should include the permalink in the log text.
+			$text = $this->log_with_post_title_link( $post->ID, $reverse );
+
+		} else {
+
+			// This post doesn't exist; we probably can't use the title.
+			$text = $this->get_option( 'log_text_no_post_title' . $reverse );
+
+			if (
+				$this->get_option( 'log_text_post_type' . $reverse )
+				&& isset( $meta['post_type'] )
+				&& post_type_exists( $meta['post_type'] )
+			) {
+
+				// We do know the type of post though, so include that in the log.
+				$text = sprintf(
+					$this->get_option( 'log_text_post_type' . $reverse )
+					, get_post_type_object( $meta['post_type'] )->labels->singular_name
+				);
+
+			} elseif ( isset( $meta['post_title'] ) ) {
+
+				// If the title is saved as metadata, then we can use it.
+				$text = sprintf(
+					$this->get_option( 'log_text_post_title' . $reverse )
+					, $meta['post_title']
+				);
+			}
+		}
+
+		return $text;
+	}
+
+	/**
+	 * Generate the text for a log that contains a link with the post title as text.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param int    $post_id The ID of the post being linked to.
+	 * @param string $reverse Whether this is a reversal ('_reverse') or not ('').
+	 * @param string $url     The URL to link to. Default to the post permalink.
+	 *
+	 * @return string The text for the log entry.
+	 */
+	protected function log_with_post_title_link( $post_id, $reverse = '', $url = null ) {
+
+		if ( ! isset( $url ) ) {
+			$url = get_permalink( $post_id );
+		}
+
+		$post_title = get_the_title( $post_id );
+
+		$args = array();
+
+		$args[] = '<a href="' . esc_attr( $url ) . '">'
+			. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
+			. '</a>';
+
+		$text = $this->get_option( 'log_text_post_title_and_type' . $reverse );
+
+		if (
+			$text
+			&& ( $post_type = get_post_field( 'post_type', $post_id ) )
+			&& post_type_exists( $post_type )
+		) {
+			$args[] = get_post_type_object( $post_type )->labels->singular_name;
+		} else {
+			$text = $this->get_option( 'log_text_post_title' . $reverse );
+		}
+
+		return vsprintf( $text, $args );
+	}
+
+	/**
 	 * Generate a description for an instance of this hook.
 	 *
 	 * @since 1.5.0

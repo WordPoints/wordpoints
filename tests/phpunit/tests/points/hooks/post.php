@@ -188,6 +188,196 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 		$xpath = new DOMXPath( $document );
 		$this->assertEquals( 1, $xpath->query( '//tbody[. = ""]' )->length );
 	}
+
+	/**
+	 * Test that log messages are generated with the post title and post type when available.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_post_title_and_type() {
+
+		$this->assertStringMatchesFormat(
+			'Page <a href="%s">Post title 1</a> published.'
+			, $this->render_log_text( array( 'post_type' => 'page' ) )
+		);
+	}
+
+	/**
+	 * Test that it uses a message with just the title if the type is unavailble.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_post_title() {
+
+		$this->assertStringMatchesFormat(
+			'Post <a href="%s">Post title 1</a> published.'
+			, $this->render_log_text( array( 'post_type' => 'not' ) )
+		);
+	}
+
+	/**
+	 * Test that it uses a placeholder is supplied if no title is available.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_title() {
+
+		$this->assertStringMatchesFormat(
+			'Page <a href="%s">(no title)</a> published.'
+			, $this->render_log_text(
+				array( 'post_type' => 'page', 'post_title' => '' )
+			)
+		);
+	}
+
+	/**
+	 * Test that it uses a message with just the title if the type is unavailble.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_post_type() {
+
+		$this->assertStringMatchesFormat(
+			'Post <a href="%s">(no title)</a> published.'
+			, $this->render_log_text(
+				array( 'post_type' => 'not', 'post_title' => '' )
+			)
+		);
+	}
+
+	/**
+	 * Test that it uses a generic message if the post doesn't exist.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post() {
+
+		$post_id = $this->factory->post->create();
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals(
+			'Post published.'
+			, $this->render_log_text( null, array( 'post_id' => $post_id ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the post title if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_and_post_title_meta() {
+
+		$this->assertEquals(
+			'Post Test title published.'
+			, $this->render_log_text( null, array( 'post_title' => 'Test title' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_and_post_type_meta() {
+
+		$this->assertEquals(
+			'Page published.'
+			, $this->render_log_text( null, array( 'post_type' => 'page' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the generic messsage bad post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_and_bad_post_type_meta() {
+
+		$this->assertEquals(
+			'Post published.'
+			, $this->render_log_text( null, array( 'post_type' => 'not' ) )
+		);
+	}
+
+	/**
+	 * Test that it uses a generic message for the reversals by default.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text() {
+
+		$this->assertEquals(
+			'Post deleted.'
+			, $this->render_log_text( false )
+		);
+	}
+
+	/**
+	 * Test that it will use the post title if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text_with_post_title_meta() {
+
+		$this->assertEquals(
+			'Post &#8220;Test title&#8221; deleted.'
+			, $this->render_log_text( false, array( 'post_title' => 'Test title' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text_with_post_type_meta() {
+
+		$this->assertEquals(
+			'Page deleted.'
+			, $this->render_log_text( false, array( 'post_type' => 'page' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the generic messsage bad post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text_with_bad_post_type_meta() {
+
+		$this->assertEquals(
+			'Post deleted.'
+			, $this->render_log_text( false, array( 'post_type' => 'not' ) )
+		);
+	}
+
+	//
+	// Helpers.
+	//
+
+	/**
+	 * Render the text for a points log.
+	 *
+	 * @since 1.9.0
+	 */
+	protected function render_log_text( $post_args, $meta = array() ) {
+
+		if ( ! is_null( $post_args ) && false !== $post_args ) {
+			$meta['post_id'] = $this->factory->post->create( $post_args );
+		}
+
+		$log_type = ( false === $post_args ) ? 'reverse_post_publish' : 'post_publish';
+
+		return wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, $log_type
+			, $meta
+		);
+	}
 }
 
 // EOF

@@ -52,6 +52,20 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 				'description' => __( 'New post published.', 'wordpoints' ),
 				/* translators: the post type name. */
 				'post_type_description' => __( 'New %s published.', 'wordpoints' ),
+				/* translators: %s will be a link to the post. */
+				'log_text_post_title' => _x( 'Post %s published.', 'points log description', 'wordpoints' ),
+				/* translators: 1 is the post type name, 2 is a link to the post. */
+				'log_text_post_title_and_type' => _x( '%2$s %1$s published.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type' => _x( '%s published.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title' => _x( 'Post published.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type_reverse' => _x( '%s deleted.', 'points log description', 'wordpoints' ),
+				/* translators: 1 is the post type name, 2 is the post title. */
+				'log_text_post_title_and_type_reverse' => _x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' ),
+				/* translators: %s will be the post title. */
+				'log_text_post_title_reverse' => _x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title_reverse' => _x( 'Post deleted.', 'points log description', 'wordpoints' ),
 			)
 		);
 
@@ -147,42 +161,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function publish_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		$post = null;
-
-		if ( isset( $meta['post_id'] ) ) {
-			$post = get_post( $meta['post_id'], OBJECT, 'display' );
-		}
-
-		if ( ! $post ) {
-
-			$post_type = null;
-
-			if ( isset( $meta['post_type'] ) && post_type_exists( $meta['post_type'] ) ) {
-				$post_type = get_post_type_object( $meta['post_type'] );
-			}
-
-			if ( $post_type ) {
-				/* translators: %s is the name of a post type. */
-				return sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name );
-			} else {
-				return _x( 'Post published.', 'points log description', 'wordpoints' );
-			}
-
-		} else {
-
-			$link = '<a href="' . get_permalink( $post ) . '">' . ( $post->post_title ? $post->post_title : _x( '(no title)', 'post title', 'wordpoints' ) ) . '</a>';
-
-			$post_type = get_post_type_object( $post->post_type );
-
-			if ( is_null( $post_type ) ) {
-
-				/* translators: %s will be a link to the post. */
-				return sprintf( _x( 'Post %s published.', 'points log description', 'wordpoints' ), $link );
-			}
-
-			/* translators: 1 is the post type name, 2 is a link to the post. */
-			return sprintf( _x( '%1$s %2$s published.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name, $link );
-		}
+		return parent::logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 	}
 
 	/**

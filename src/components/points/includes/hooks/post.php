@@ -23,6 +23,11 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
 class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
 	/**
+	 * @since 1.9.0
+	 */
+	protected $log_type = 'post_publish';
+
+	/**
 	 * The default values.
 	 *
 	 * @since 1.0.0
@@ -41,7 +46,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function __construct() {
 
-		parent::init(
+		parent::__construct(
 			_x( 'Post Publish', 'points hook name', 'wordpoints' )
 			, array(
 				'description' => __( 'New post published.', 'wordpoints' ),
@@ -51,9 +56,11 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 		);
 
 		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
+		add_action( 'delete_post', array( $this, 'reverse_hook' ), 10, 3 );
+
+		// Back-compat.
+		remove_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
 		add_filter( 'wordpoints_points_log-post_publish', array( $this, 'publish_logs' ), 10, 6 );
-		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
-		add_filter( 'wordpoints_user_can_view_points_log-post_publish', array( $this, 'user_can_view' ), 10, 2 );
 	}
 
 	/**
@@ -290,31 +297,6 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 		}
 
 		wordpoints_regenerate_points_logs( $logs );
-	}
-
-	/**
-	 * Check if a user can view a particular log entry.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @filter wordpoints_user_can_view_points_log-post_publish Added by the constructor.
-	 *
-	 * @param bool   $can_view Whether the user can view this log entry.
-	 * @param object $log      The log object.
-	 *
-	 * @return bool Whether the user can view this log.
-	 */
-	public function user_can_view( $can_view, $log ) {
-
-		if ( $can_view ) {
-			$post_id = wordpoints_get_points_log_meta( $log->id, 'post_id', true );
-
-			if ( $post_id ) {
-				$can_view = current_user_can( 'read_post', $post_id );
-			}
-		}
-
-		return $can_view;
 	}
 
 } // class WordPoints_Post_Points_Hook

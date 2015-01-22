@@ -26,6 +26,25 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	protected $log_type;
 
 	/**
+	 * Initialize the hook.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @see WordPoints_Points_Hook::init()
+	 */
+	public function __construct( $title, $args ) {
+
+		parent::init( $title, $args );
+
+		add_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
+		add_filter( "wordpoints_points_log-reverse_{$this->log_type}", array( $this, 'logs' ), 10, 6 );
+
+		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
+
+		add_filter( "wordpoints_user_can_view_points_log-{$this->log_type}", array( $this, 'user_can_view' ), 10, 2 );
+	}
+
+	/**
 	 * Check if the post type setting matches a certian post type.
 	 *
 	 * @since 1.5.0
@@ -153,6 +172,32 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	public function post_type_supports_comments( $post_type ) {
 
 		return post_type_supports( $post_type->name, 'comments' );
+	}
+
+	/**
+	 * Check if a user can view a particular log entry.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @WordPress/filter wordpoints_user_can_view_points_log-{$this->log_type}
+	 *                   Added by the constructor.
+	 *
+	 * @param bool   $can_view Whether the user can view this log entry.
+	 * @param object $log      The log object.
+	 *
+	 * @return bool Whether the user can view this log.
+	 */
+	public function user_can_view( $can_view, $log ) {
+
+		if ( $can_view ) {
+			$post_id = wordpoints_get_points_log_meta( $log->id, 'post_id', true );
+
+			if ( $post_id ) {
+				$can_view = current_user_can( 'read_post', $post_id );
+			}
+		}
+
+		return $can_view;
 	}
 }
 

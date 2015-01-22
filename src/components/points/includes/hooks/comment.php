@@ -81,7 +81,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	 *
 	 * @since 1.0.0
 	 * @deprecated 1.4.0
-	 * @deprecated Use WordPoints_Comment_Removed_Points_Hook::logs() instead.
+	 * @deprecated Use wordpoints_points_logs_comment_disapprove() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -94,15 +94,16 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	 */
 	public function disapprove_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Comment_Removed_Points_Hook::logs()' );
+		_deprecated_function( __METHOD__, '1.4.0', 'wordpoints_points_logs_comment_disapprove' );
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
-
-		if ( $hook ) {
-			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
-		}
-
-		return $text;
+		return wordpoints_points_logs_comment_disapprove(
+			$text
+			, $points
+			, $points_type
+			, $user_id
+			, $log_type
+			, $meta
+		);
 	}
 
 	/**

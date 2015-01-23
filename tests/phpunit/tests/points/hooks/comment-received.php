@@ -271,7 +271,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 		$log = $query->get( 'row' );
 
 		$this->assertEquals(
-			_x( 'Received a comment.', 'points log description', 'wordpoints' )
+			_x( 'Received a comment on a Post.', 'points log description', 'wordpoints' )
 			, $log->text
 		);
 	}

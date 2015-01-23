@@ -428,7 +428,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 		$log = $query->get( 'row' );
 
 		$this->assertEquals(
-			_x( 'Comment', 'points log description', 'wordpoints' )
+			_x( 'Comment on a Post.', 'points log description', 'wordpoints' )
 			, $log->text
 		);
 	}

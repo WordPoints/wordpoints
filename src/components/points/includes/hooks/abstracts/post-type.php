@@ -302,6 +302,62 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 
 		return $can_view;
 	}
+
+	/**
+	 * Clean the logs when a post is deleted.
+	 *
+	 * Cleans the metadata for any logs related to this post. The post ID meta field
+	 * is updated in the database, to instead store the post type. If the post type
+	 * isn't available, we just delete those rows.
+	 *
+	 * After the metadata is cleaned up, the affected logs are regenerated.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @WordPress\action delete_post Added by the constructor.
+	 *
+	 * @param int $post_id The ID of the post being deleted.
+	 *
+	 * @return void
+	 */
+	public function clean_logs_on_post_deletion( $post_id ) {
+
+		$logs_query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => $this->log_type,
+				'meta_query' => array(
+					array(
+						'key'   => 'post_id',
+						'value' => $post_id,
+					),
+				),
+			)
+		);
+
+		$logs = $logs_query->get();
+
+		if ( ! $logs ) {
+			return;
+		}
+
+		$post = get_post( $post_id );
+
+		foreach ( $logs as $log ) {
+
+			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
+
+			if ( $post ) {
+
+				wordpoints_add_points_log_meta(
+					$log->id
+					, 'post_type'
+					, $post->post_type
+				);
+			}
+		}
+
+		wordpoints_regenerate_points_logs( $logs );
+	}
 }
 
 // EOF

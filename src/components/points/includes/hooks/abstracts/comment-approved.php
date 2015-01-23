@@ -328,8 +328,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 */
 	public function clean_logs_on_comment_deletion( $comment_id ) {
 
-		global $wpdb;
-
 		$query = new WordPoints_Points_Logs_Query(
 			array(
 				'log_type'   => $this->log_type,
@@ -362,50 +360,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 					, $comment->comment_post_ID
 				);
 			}
-		}
-
-		wordpoints_regenerate_points_logs( $logs );
-	}
-
-	/**
-	 * Clean the logs when a post is deleted.
-	 *
-	 * Cleans the metadata for any logs related to the post being deleted. The post
-	 * ID meta field is deleted from the database. Once the metadata is cleaned up,
-	 * the logs are regenerated.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @action delete_post Added by the constructor.
-	 *
-	 * @param int $post_id The ID of the post being deleted.
-	 *
-	 * return void
-	 */
-	public function clean_logs_on_post_deletion( $post_id ) {
-
-		global $wpdb;
-
-		$query = new WordPoints_Points_Logs_Query(
-			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'post_id',
-						'value' => $post_id,
-					),
-				),
-			)
-		);
-
-		$logs = $query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
-
-		foreach ( $logs as $log ) {
-			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
 		}
 
 		wordpoints_regenerate_points_logs( $logs );

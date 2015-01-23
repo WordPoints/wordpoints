@@ -42,6 +42,10 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 				/* translators: %s will be the post's title. */
 				'log_text_post_title' => _x( 'Comment on %s.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title' => _x( 'Comment', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type' => _x( 'Comment on a %s.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type_reverse' => _x( 'Comment on a %s removed.', 'points log description', 'wordpoints' ),
 				'last_status_meta_key' => 'wordpoints_last_status',
 			)
 		);

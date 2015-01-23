@@ -349,6 +349,185 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 
 		$this->assertEquals( 100, wordpoints_get_points( $author_id, 'points' ) );
 	}
+
+	/**
+	 * Test that it uses a message with a link to the comment if available.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_comment_link() {
+
+		$this->assertStringMatchesFormat(
+			'Received a comment on <a href="%s#comment-%d">Post title 1</a>.'
+			, $this->render_log_text(
+				array( 'post_type' => 'not', 'comment' => true )
+			)
+		);
+	}
+
+	/**
+	 * Test that it uses just the post link if the comment is unavailable.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_post_title() {
+
+		$this->assertStringMatchesFormat(
+			'Received a comment on <a href="%s">Post title 1</a>.'
+			, $this->render_log_text( array( 'post_type' => 'not' ) )
+		);
+	}
+
+	/**
+	 * Test that it uses a placeholder is supplied if no title is available.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_title() {
+
+		$this->assertStringMatchesFormat(
+			'Received a comment on <a href="%s">(no title)</a>.'
+			, $this->render_log_text(
+			array( 'post_type' => 'page', 'post_title' => '' )
+		)
+		);
+	}
+
+	/**
+	 * Test that it uses a generic message if the post doesn't exist.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post() {
+
+		$post_id = $this->factory->post->create();
+
+		wp_delete_post( $post_id, true );
+
+		$this->assertEquals(
+			'Received a comment.'
+			, $this->render_log_text( null, array( 'post_id' => $post_id ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_and_post_type_meta() {
+
+		$this->assertEquals(
+			'Received a comment on a Page.'
+			, $this->render_log_text( null, array( 'post_type' => 'page' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the generic message bad post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_log_text_with_no_post_and_bad_post_type_meta() {
+
+		$this->assertEquals(
+			'Received a comment.'
+			, $this->render_log_text( null, array( 'post_type' => 'not' ) )
+		);
+	}
+
+	/**
+	 * Test that it uses a generic message for the reversals by default.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text() {
+
+		$this->assertEquals(
+			'Comment received removed.'
+			, $this->render_log_text( false )
+		);
+	}
+
+	/**
+	 * Test that it will use the post title if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text_with_post_title_meta() {
+
+		$this->assertEquals(
+			'Comment received on Test title removed.'
+			, $this->render_log_text( false, array( 'post_title' => 'Test title' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the post type if supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text_with_post_type_meta() {
+
+		$this->assertEquals(
+			'Comment received on a Page removed.'
+			, $this->render_log_text( false, array( 'post_type' => 'page' ) )
+		);
+	}
+
+	/**
+	 * Test that it will use the generic message if bad post type supplied as meta.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_reverse_log_text_with_bad_post_type_meta() {
+
+		$this->assertEquals(
+			'Comment received removed.'
+			, $this->render_log_text( false, array( 'post_type' => 'not' ) )
+		);
+	}
+
+	//
+	// Helpers.
+	//
+
+	/**
+	 * Render the text for a points log.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array|null|false $post_args The attributes for a post, or false not to
+	 *                                    create one.
+	 * @param array            $meta      The metadata for the transaction.
+	 *
+	 * @return string The log text generated for this pseudo-transaction.
+	 */
+	protected function render_log_text( $post_args, $meta = array() ) {
+
+		if ( ! is_null( $post_args ) && false !== $post_args ) {
+
+			$post_id = $this->factory->post->create( $post_args );
+
+			if ( ! empty( $post_args['comment'] ) ) {
+				$meta['comment_id'] = $this->factory->comment->create(
+					array( 'comment_post_ID' => $post_id )
+				);
+			} else {
+				$meta['post_id'] = $post_id;
+			}
+		}
+
+		$log_type = ( false === $post_args ) ? 'reverse_comment_received' : 'comment_received';
+
+		return wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, $log_type
+			, $meta
+		);
+	}
 }
 
 // EOF

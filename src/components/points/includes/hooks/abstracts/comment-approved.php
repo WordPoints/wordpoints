@@ -40,19 +40,13 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		$args = array_merge( $defaults, $args );
 
-		parent::init( $title, $args );
+		parent::__construct( $title, $args );
 
 		add_action( 'transition_comment_status', array( $this, 'hook' ), 10, 3 );
 		add_action( 'transition_comment_status', array( $this, 'reverse_hook' ), 10, 3 );
 		add_action( 'wp_insert_comment', array( $this, 'new_comment_hook' ), 10, 2 );
 
-		add_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-		add_filter( "wordpoints_points_log-reverse_{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-
 		add_action( 'delete_comment', array( $this, 'clean_logs_on_comment_deletion' ) );
-		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
-
-		add_filter( "wordpoints_user_can_view_points_log-{$this->log_type}", array( $this, 'user_can_view' ), 10, 2 );
 	}
 
 	/**
@@ -281,36 +275,15 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		if ( ! $comment ) {
 
-			$post = false;
-
-			if ( isset( $meta['post_id'] ) ) {
-				$post = get_post( $meta['post_id'] );
-			}
-
-			if ( $post ) {
-
-				$post_title = get_the_title( $post->ID );
-
-				$link = '<a href="' . get_permalink( $post->ID ) . '">'
-					. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
-					. '</a>';
-
-				$text = sprintf( $this->get_option( 'log_text_post_title' . $reverse ), $link );
-
-			} else {
-
-				$text = $this->get_option( 'log_text_no_post_title' . $reverse );
-			}
+			$text = parent::logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 
 		} else {
 
-			$post_title = get_the_title( $comment->comment_post_ID );
-			$link       = '<a href="' . get_comment_link( $comment ) . '">'
-				. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
-				. '</a>';
-
-			/* translators: %s will be the post's title. */
-			$text = sprintf( $this->get_option( 'log_text_post_title' . $reverse ), $link );
+			$text = $this->log_with_post_title_link(
+				$comment->comment_post_ID
+				, $reverse
+				, get_comment_link( $comment )
+			);
 		}
 
 		return $text;

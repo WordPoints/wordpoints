@@ -366,8 +366,8 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @param string $ooption The index for the option.
-	 * @param mixed  $value   The value to assign to this option.
+	 * @param string $option The index for the option.
+	 * @param mixed  $value  The value to assign to this option.
 	 */
 	/*final*/ public function set_option( $option, $value ) {
 

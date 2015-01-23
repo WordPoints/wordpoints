@@ -278,7 +278,11 @@ abstract class WordPoints_Points_Hook {
 
 		$this->number = $this->get_number_by_id( $instance_id );
 
-		wordpoints_posint( $this->number );
+		if ( '0' === $this->number ) {
+			$this->number = 0;
+		} else {
+			wordpoints_posint( $this->number );
+		}
 	}
 
 	/**

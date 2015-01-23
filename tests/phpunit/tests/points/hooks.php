@@ -411,6 +411,24 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertFalse( $hook->get_number() );
 	}
+
+	/**
+	 * Test that set_number() works with 0 and converts it to an integer.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_number()
+	 */
+	public function test_set_number_with_0() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook->set_number( 0 );
+
+		$this->assertSame( 0, $hook->get_number() );
+	}
 }
 
 // EOF

@@ -390,32 +390,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 		return $can_view;
 	}
 
-	/**
-	 * @since 1.9.0
-	 */
-	public function form( $instance ) {
-
-		parent::form( $instance );
-
-		$instance = array_merge( $this->defaults, $instance );
-
-		$disable_label = $this->get_option( 'disable_auto_reverse_label' );
-
-		if ( $disable_label ) {
-
-			?>
-
-			<p>
-				<input class="widefat" name="<?php $this->the_field_name( 'auto_reverse' ); ?>" id="<?php $this->the_field_id( 'auto_reverse' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['auto_reverse'] ); ?> />
-				<label for="<?php $this->the_field_id( 'auto_reverse' ); ?>"><?php echo esc_html( $disable_label ); ?></label>
-			</p>
-
-			<?php
-		}
-
-		return true;
-	}
-
 } // class WordPoints_Comment_Approved_Points_Hook_Base
 
 // EOF

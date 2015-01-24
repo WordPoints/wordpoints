@@ -429,6 +429,22 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertSame( 0, $hook->get_number() );
 	}
+
+	/**
+	 * Test that set_number() works with the '__i__' placeholder.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_number()
+	 */
+	public function test_set_number_with_placeholder() {
+
+		$hook = new WordPoints_Points_Hook_TestDouble();
+
+		$hook->set_number( '__i__' );
+
+		$this->assertSame( '__i__', $hook->get_number() );
+	}
 }
 
 // EOF

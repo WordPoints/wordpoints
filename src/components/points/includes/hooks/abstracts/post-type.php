@@ -39,7 +39,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 		add_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
 		add_filter( "wordpoints_points_log-reverse_{$this->log_type}", array( $this, 'logs' ), 10, 6 );
 
-		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
+		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ), 15 );
 
 		add_filter( "wordpoints_user_can_view_points_log-{$this->log_type}", array( $this, 'user_can_view' ), 10, 2 );
 	}

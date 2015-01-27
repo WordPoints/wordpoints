@@ -20,6 +20,20 @@
 class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
+	 * @since 1.9.0
+	 */
+	public function tearDown() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook->set_option( 'disable_auto_reverse_label', null );
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Test that points are added as expected.
 	 *
 	 * Since 1.3.0 it was called test_points_awarded_removed(). Now the post delete
@@ -53,9 +67,6 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
-
-		// Check that no points were removed when the post was deleted.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Check that the logs were cleaned up properly.
 		$query = new WordPoints_Points_Logs_Query(
@@ -91,6 +102,181 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), 'Post' ), $log->text );
 
 	} // public function test_points_awarded()
+
+	/**
+	 * Test automatic reversal of the hook when the post is deleted.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_points_auto_reversal() {
+
+		wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 20, 'post_type' => 'ALL' )
+		);
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id )
+		);
+
+		// Check that points were added when the post was created.
+		$this->assertEquals( 120, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		// Check that points were removed when the post was deleted.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+	} // public function test_points_auto_reversal()
+
+	/**
+	 * Test that logs aren't reversed for posts that haven't had points awarded.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_no_points_auto_reversal_if_none_awarded() {
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id )
+		);
+
+		// Check that points were added when the post was created.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 20, 'post_type' => 'ALL' )
+		);
+
+		wp_delete_post( $post_id, true );
+
+		// Check that no points were removed when the post was deleted.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+	}
+
+	/**
+	 * Test that the auto-reversal setting of the instance for the post's type has priority.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_auto_reversal_post_type_priority_off() {
+
+		// Create a hook for pages.
+		$page_hook = wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 10, 'post_type' => 'page' )
+		);
+		$this->assertInstanceOf( 'WordPoints_Post_Points_Hook', $page_hook );
+
+		// Create another for the 'post' post type only.
+		$post_hook = wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 15, 'post_type' => 'post', 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Post_Points_Hook', $post_hook );
+
+		$post_hook->set_option( 'disable_auto_reverse_label', true );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Create a post.
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id, 'post_type' => 'post' )
+		);
+
+		// Only the 'post' hook will award the user.
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		// No reversals will take place.
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+	}
+
+	/**
+	 * Test that auto-reversal can only be disabled on legacy installs.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_auto_reversal_cannot_be_disabled() {
+
+		// Create a hook for pages.
+		$page_hook = wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 10, 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Post_Points_Hook', $page_hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Create a post.
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id, 'post_type' => 'post' )
+		);
+
+		// Only the 'post' hook will award the user.
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		// No reversals will take place.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+	}
+
+	/**
+	 * Test that the auto-reversal setting of the instance for the post's type has priority.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_auto_reversal_post_type_priority_on() {
+
+		// Create a hook for pages.
+		$page_hook = wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 10, 'post_type' => 'page', 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Post_Points_Hook', $page_hook );
+
+		// Create another for the 'post' post type only.
+		$post_hook = wordpointstests_add_points_hook(
+			'wordpoints_post_points_hook'
+			, array( 'points' => 15, 'post_type' => 'post', 'auto_reverse' => 1 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Post_Points_Hook', $post_hook );
+
+		$post_hook->set_option( 'disable_auto_reverse_label', true );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id, 'post_type' => 'post' )
+		);
+
+		// Only the post hook will award the user.
+		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_delete_post( $post_id, true );
+
+		// Reversal of the post hook will take place.
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+	}
 
 	/**
 	 * Test the non-public post types like revisions are ignored.

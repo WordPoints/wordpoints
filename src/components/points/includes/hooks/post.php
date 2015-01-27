@@ -16,7 +16,8 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
  * Awards points when a post is published.
  *
  * @since 1.0.0
- * @since 1.4.0 No longer subtracts points when a hook is deleted.
+ * @since 1.4.0 No longer subtracts points when a post is deleted.
+ * @since 1.9.0 Automatically subtracts points when a post is deleted.
  *
  * @see WordPoints_Post_Delete_Points_Hook
  */
@@ -34,7 +35,11 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'points' => 20, 'post_type' => 'ALL' );
+	protected $defaults = array(
+		'points' => 20,
+		'post_type' => 'ALL',
+		'auto_reverse' => 1,
+	);
 
 	/**
 	 * Set up the hook.
@@ -70,7 +75,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 		);
 
 		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
-		add_action( 'delete_post', array( $this, 'reverse_hook' ), 10, 3 );
+		add_action( 'delete_post', array( $this, 'reverse_hook' ) );
 
 		// Back-compat.
 		remove_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
@@ -124,6 +129,53 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 					, array( 'post_id' => $post->ID )
 				);
 			}
+		}
+	}
+
+	/**
+	 * Automatically reverse any transactions for a post when it is deleted.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @WordPress\action delete_post Added by the constructor.
+	 */
+	public function reverse_hook( $post_id ) {
+
+		$post_type = get_post_field( 'post_type', $post_id );
+		if ( ! $this->should_do_auto_reversals_for_post_type( $post_type ) ) {
+			return;
+		}
+
+		// Get a list of transactions to reverse.
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => $this->log_type,
+				'meta_query' => array(
+					array(
+						'key'   => 'post_id',
+						'value' => $post_id,
+					),
+				),
+			)
+		);
+
+		$logs = $query->get();
+
+		if ( ! $logs ) {
+			return;
+		}
+
+		foreach ( $logs as $log ) {
+
+			wordpoints_alter_points(
+				$log->user_id
+				, -$log->points
+				, $log->points_type
+				, "reverse_{$this->log_type}"
+				, array( 'original_log_id' => $log->id )
+			);
+
+			wordpoints_update_points_log_meta( $log->id, 'auto_reversed', true );
 		}
 	}
 

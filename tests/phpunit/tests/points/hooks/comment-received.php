@@ -388,8 +388,8 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 		$this->assertStringMatchesFormat(
 			'Received a comment on <a href="%s">(no title)</a>.'
 			, $this->render_log_text(
-			array( 'post_type' => 'page', 'post_title' => '' )
-		)
+				array( 'post_type' => 'page', 'post_title' => '' )
+			)
 		);
 	}
 

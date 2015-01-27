@@ -72,6 +72,13 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 			)
 		);
 
+		if ( get_site_option( 'wordpoints_post_hook_legacy' ) ) {
+			$this->set_option(
+				'disable_auto_reverse_label'
+				, __( 'Revoke the points if the post is permanently deleted.', 'wordpoints' )
+			);
+		}
+
 		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
 		add_action( 'delete_post', array( $this, 'reverse_hook' ) );
 

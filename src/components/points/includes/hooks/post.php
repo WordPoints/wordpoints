@@ -238,13 +238,14 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 
 		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::logs()' );
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
-
-		if ( $hook ) {
-			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
-		}
-
-		return $text;
+		return wordpoints_points_logs_post_delete(
+			$text
+			, $points
+			, $points_type
+			, $user_id
+			, $log_type
+			, $meta
+		);
 	}
 
 	/**

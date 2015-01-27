@@ -686,6 +686,36 @@ function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type
 add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
 
 /**
+ * Generate the log entry for a post_delete transaction.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+	if ( isset( $meta['post_type'] ) ) {
+
+		$post_type = get_post_type_object( $meta['post_type'] );
+
+		if ( ! is_null( $post_type ) ) {
+
+			/* translators: 1 is the post type name, 2 is the post title. */
+			return sprintf(
+				_x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' )
+				, $post_type->labels->singular_name
+				, $meta['post_title']
+			);
+		}
+	}
+
+	/* translators: %s will be the post title. */
+	return sprintf(
+		_x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' )
+		, $meta['post_title']
+	);
+}
+add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
+
+/**
  * Clear the logs caches when new logs are added.
  *
  * Automatically clears the caches for registered points logs queries.

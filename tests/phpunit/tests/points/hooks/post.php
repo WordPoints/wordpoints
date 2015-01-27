@@ -527,7 +527,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that it will use the generic messsage bad post type if supplied as meta.
+	 * Test that it will use the generic message bad post type if supplied as meta.
 	 *
 	 * @since 1.9.0
 	 */
@@ -537,6 +537,66 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			'Post deleted.'
 			, $this->render_log_text( false, array( 'post_type' => 'not' ) )
 		);
+	}
+
+	/**
+	 * Test that post_delete logs are still rendered properly.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_points_logs_post_delete
+	 */
+	public function test_delete_post_log_text() {
+
+		$text = wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, 'post_delete'
+			, array( 'post_title' => 'Test title' )
+		);
+
+		$this->assertEquals( 'Post &#8220;Test title&#8221; deleted.', $text );
+	}
+
+	/**
+	 * Test that post_delete logs are rendered with the post type if available.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_points_logs_post_delete
+	 */
+	public function test_delete_post_log_text_with_post_type() {
+
+		$text = wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, 'post_delete'
+			, array( 'post_title' => 'Test title', 'post_type' => 'page' )
+		);
+
+		$this->assertEquals( 'Page &#8220;Test title&#8221; deleted.', $text );
+	}
+
+	/**
+	 * Test that post_delete logs are rendered generically with a bad post type.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_points_logs_post_delete
+	 */
+	public function test_delete_post_log_text_with_bad_post_type() {
+
+		$text = wordpoints_render_points_log_text(
+			$this->factory->user->create()
+			, 10
+			, 'points'
+			, 'post_delete'
+			, array( 'post_title' => 'Test title', 'post_type' => 'not' )
+		);
+
+		$this->assertEquals( 'Post &#8220;Test title&#8221; deleted.', $text );
 	}
 
 	//

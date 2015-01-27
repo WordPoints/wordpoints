@@ -171,14 +171,14 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEmpty( $hook_type->get_instances() );
 
-		// Try uninstalling multiple post types.
+		// Try uninstalling multiple hook types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 
 		WordPoints_Points_Hooks::uninstall_hook_types(
 			array(
 				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
+				'wordpoints_comment_points_hook',
 			)
 		);
 
@@ -221,14 +221,14 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Try uninstalling multiple post types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 
 		restore_current_blog();
 
 		WordPoints_Points_Hooks::uninstall_hook_types(
 			array(
 				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
+				'wordpoints_comment_points_hook',
 			)
 			, array( $blog_id )
 		);
@@ -271,12 +271,12 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Try uninstalling multiple post types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 
 		WordPoints_Points_Hooks::uninstall_hook_types(
 			array(
 				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
+				'wordpoints_comment_points_hook',
 			)
 		);
 

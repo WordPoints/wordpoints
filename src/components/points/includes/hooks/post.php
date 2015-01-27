@@ -18,8 +18,6 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
  * @since 1.0.0
  * @since 1.4.0 No longer subtracts points when a post is deleted.
  * @since 1.9.0 Automatically subtracts points when a post is deleted.
- *
- * @see WordPoints_Post_Delete_Points_Hook
  */
 class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
@@ -186,13 +184,13 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 * @since 1.1.0 The post_type is now passed as metadata when points are awarded.
 	 * @since 1.1.2 Points are only removed if the post type is public.
 	 * @deprecated 1.4.0
-	 * @deprecated Use the WordPoints_Post_Delete_Points_Hook instead.
+	 * @deprecated Use WordPoints_Post_Points_Hook::reverse_hook() instead.
 	 *
 	 * @param int $post_id The post's ID.
 	 */
 	public function delete_hook( $post_id ) {
 
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::hook()' );
+		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Points_Hook::reverse_hook()' );
 	}
 
 	/**
@@ -219,11 +217,9 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	/**
 	 * Generate the log entry for a transaction.
 	 *
-	 * The data isn't sanitized here becuase we do that before saving it.
-	 *
 	 * @since 1.0.0
 	 * @deprecated 1.4.0
-	 * @deprecated Use WordPoints_Post_Delete_Points_Hook::logs() instead.
+	 * @deprecated Use wordpoints_points_logs_post_delete() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -236,7 +232,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function delete_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::logs()' );
+		_deprecated_function( __METHOD__, '1.4.0', 'wordpoints_points_logs_post_delete' );
 
 		return wordpoints_points_logs_post_delete(
 			$text

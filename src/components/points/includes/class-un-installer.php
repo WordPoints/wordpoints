@@ -132,6 +132,10 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'WordPoints_Comment_Removed_Points_Hook'
 			);
 
+			WordPoints_Points_Hooks::register(
+				'WordPoints_Post_Delete_Points_Hook'
+			);
+
 			WordPoints_Points_Hooks::initialize_hooks();
 
 			// Default to network mode off during the tests, but save the current

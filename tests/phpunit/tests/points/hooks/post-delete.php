@@ -28,7 +28,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 	public function test_points_removed_when_post_deleted() {
 
 		wordpointstests_add_points_hook(
-			'wordpoints_post_delete_points_hook'
+			new WordPoints_Post_Delete_Points_Hook
 			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
@@ -55,7 +55,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 	public function test_points_not_deleted_for_auto_drafts() {
 
 		wordpointstests_add_points_hook(
-			'wordpoints_post_delete_points_hook'
+			new WordPoints_Post_Delete_Points_Hook
 			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
@@ -106,7 +106,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 	public function test_non_public_post_types_ignored() {
 
 		wordpointstests_add_points_hook(
-			'wordpoints_post_delete_points_hook'
+			new WordPoints_Post_Delete_Points_Hook
 			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
@@ -139,7 +139,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 	public function test_points_only_awarded_for_specified_post_type() {
 
 		wordpointstests_add_points_hook(
-			'wordpoints_post_delete_points_hook'
+			new WordPoints_Post_Delete_Points_Hook
 			, array( 'points' => 20, 'post_type' => 'post' )
 		);
 

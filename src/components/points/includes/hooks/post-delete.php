@@ -7,8 +7,10 @@
  * @since 1.4.0
  */
 
-// Register the post delete hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Post_Delete_Points_Hook' );
+if ( get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+	// Register the post delete hook.
+	WordPoints_Points_Hooks::register( 'WordPoints_Post_Delete_Points_Hook' );
+}
 
 /**
  * Post delete points hook.
@@ -16,6 +18,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Delete_Points_Hook' );
  * Subtracts points when a post is permanently deleted.
  *
  * @since 1.4.0
+ * @deprecated 1.9.0
  */
 class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 

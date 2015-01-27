@@ -1,10 +1,13 @@
 {
     "\/components\/points\/includes\/class-un-installer.php": {
         "network": {
-            "713": false
+            "494": false
         },
         "standard": {
-            "716": false
+            "497": false
+        },
+        "post": {
+            "733": false
         }
     },
     "\/components\/points\/install.php": {
@@ -85,7 +88,12 @@
         "387": false,
         "459": false,
         "518": false,
-        "553": false
+        "553": false,
+        "723": false,
+        "394": false,
+        "466": false,
+        "525": false,
+        "560": false
     },
     "standard": {
         "484": false,
@@ -93,7 +101,12 @@
         "389": false,
         "461": false,
         "520": false,
-        "555": false
+        "555": false,
+        "726": false,
+        "396": false,
+        "468": false,
+        "527": false,
+        "562": false
     },
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
         "second module-version-author-uri\">": {
@@ -221,17 +234,12 @@
         }
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
-        "\" type=\"checkbox\" value=\"1\"": {
-            "524": false
+        "approved": {
+            "152": false,
+            "159": false
         },
-        "1": {
-            "524": {
-                "name": "checked",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            }
+        "new": {
+            "153": false
         }
     },
     "\/components\/points\/includes\/logs.php": {
@@ -977,5 +985,19 @@
     },
     "new": {
         "168": false
+    },
+    "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
+        "\" type=\"checkbox\" value=\"1\"": {
+            "270": false
+        },
+        "1": {
+            "270": {
+                "name": "checked",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

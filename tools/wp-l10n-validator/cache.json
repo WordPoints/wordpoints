@@ -80,8 +80,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
-        "size": 21784,
-        "hash": "6f587d0c2fc45378cd96fde202e14ccb",
+        "size": 21968,
+        "hash": "a22f7eac56dd2060ec30b6d08d543586",
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
@@ -110,8 +110,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/logs.php": {
-        "size": 19842,
-        "hash": "211514c4bed7acc177e6d092176f237a",
+        "size": 21321,
+        "hash": "34895e5b190f88a7e78d72c87ec61639",
         "errors": false
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -191,7 +191,7 @@
     },
     "\/wordpoints.php": {
         "size": 5159,
-        "hash": "110b1412b1f606d8b772ee8a87d6ec06",
+        "hash": "d3043f8d6970833a78c40e44570f732c",
         "errors": false
     },
     "\/components\/points\/admin\/includes\/ajax.php": {
@@ -216,7 +216,7 @@
     },
     "\/includes\/constants.php": {
         "size": 647,
-        "hash": "e1a58056b3b5eab99e8dd2504d3c848f",
+        "hash": "49cddcc751a93491cd4c95893470cbb7",
         "errors": false
     },
     "\/components\/points\/includes\/update.php": {
@@ -230,13 +230,13 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/comment-removed.php": {
-        "size": 5213,
-        "hash": "8df279630b327d67a389cc2b757e820f",
+        "size": 4967,
+        "hash": "c73ab375085815e859fbee0b61933952",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/comment.php": {
-        "size": 4879,
-        "hash": "6069acab237f9f0076193813d06d469a",
+        "size": 5361,
+        "hash": "30bff731efe69295533392c505fe9d2a",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/periodic.php": {
@@ -245,13 +245,13 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/post-delete.php": {
-        "size": 3689,
-        "hash": "3e1f5a5302abca6fe71996c6e7d7e8ad",
+        "size": 3363,
+        "hash": "a9f5a6cf67ca4c88f255d45ecde3675b",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/post.php": {
-        "size": 8616,
-        "hash": "8f65e5793e484d85779d3fd51197f5e8",
+        "size": 7991,
+        "hash": "dc3b579917dcb26eef7eb18a4af2b31a",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/registration.php": {
@@ -265,8 +265,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
-        "size": 2862,
-        "hash": "bb8aa7e685e752ad9fa28fbe056d27ba",
+        "size": 9577,
+        "hash": "9965192c95d1b3d12bd86dab3eda821a",
         "errors": false
     },
     "\/admin\/includes\/deprecated.php": {
@@ -395,8 +395,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/class-un-installer.php": {
-        "size": 20657,
-        "hash": "d4b3a975672f2f59e6b9b6f2efbdd10a",
+        "size": 21098,
+        "hash": "4893721f4fbd66f2759db0a835a96d54",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-un-installer.php": {
@@ -410,13 +410,13 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
-        "size": 13358,
-        "hash": "b50e8f85b6461e8dcb0ca4b30cea372b",
+        "size": 9761,
+        "hash": "4f5d4eee944836c234ee56707ed4c656",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/comment-received.php": {
-        "size": 2003,
-        "hash": "d979af6840127d755e2f597d410728de",
+        "size": 2335,
+        "hash": "810a243313f4eff732ee5d91bffc5909",
         "errors": false
     },
     "\/components\/ranks\/includes\/shortcodes.php": {

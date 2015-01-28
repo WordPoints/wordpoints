@@ -18,6 +18,17 @@
 class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
+	 * @since 1.9.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		// Back-compat WP 3.9 and below.
+		remove_action( 'transition_post_status', '_update_blog_date_on_post_publish' );
+	}
+
+	/**
 	 * Test that points are awarded as expected.
 	 *
 	 * @since 1.8.0

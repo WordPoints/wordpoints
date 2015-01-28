@@ -260,7 +260,8 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @return int|false The current hook number, or false.
+	 * @return int|string|false The current hook number, the '__i__' placeholder, or
+	 *                          false.
 	 */
 	final public function get_number() {
 
@@ -278,7 +279,13 @@ abstract class WordPoints_Points_Hook {
 
 		$this->number = $this->get_number_by_id( $instance_id );
 
-		wordpoints_posint( $this->number );
+		if ( '__i__' === $this->number ) {
+			return;
+		} elseif ( '0' === $this->number ) {
+			$this->number = 0;
+		} else {
+			wordpoints_posint( $this->number );
+		}
 	}
 
 	/**
@@ -362,8 +369,8 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @param string $ooption The index for the option.
-	 * @param mixed  $value   The value to assign to this option.
+	 * @param string $option The index for the option.
+	 * @param mixed  $value  The value to assign to this option.
 	 */
 	/*final*/ public function set_option( $option, $value ) {
 

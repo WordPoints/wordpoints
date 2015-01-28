@@ -41,7 +41,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 		);
 
 		wordpointstests_add_points_hook(
-			'wordpoints_post_delete_points_hook'
+			'wordpoints_comment_points_hook'
 			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 
@@ -77,7 +77,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 
 		WordPoints_Points_Hooks::set_network_mode( true );
 		wordpointstests_add_points_hook(
-			'wordpoints_post_delete_points_hook'
+			'wordpoints_comment_points_hook'
 			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
 		WordPoints_Points_Hooks::set_network_mode( false );

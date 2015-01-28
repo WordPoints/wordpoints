@@ -28,15 +28,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	);
 
 	/**
-	 * The log type of the logs of this hook.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type string $log_type
-	 */
-	protected $log_type;
-
-	/**
 	 * Initialize the hook.
 	 *
 	 * @since 1.8.0
@@ -49,19 +40,13 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		$args = array_merge( $defaults, $args );
 
-		parent::init( $title, $args );
+		parent::__construct( $title, $args );
 
 		add_action( 'transition_comment_status', array( $this, 'hook' ), 10, 3 );
 		add_action( 'transition_comment_status', array( $this, 'reverse_hook' ), 10, 3 );
 		add_action( 'wp_insert_comment', array( $this, 'new_comment_hook' ), 10, 2 );
 
-		add_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-		add_filter( "wordpoints_points_log-reverse_{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-
 		add_action( 'delete_comment', array( $this, 'clean_logs_on_comment_deletion' ) );
-		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
-
-		add_filter( "wordpoints_user_can_view_points_log-{$this->log_type}", array( $this, 'user_can_view' ), 10, 2 );
 	}
 
 	/**
@@ -196,7 +181,8 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 			return;
 		}
 
-		if ( ! $this->should_do_auto_reversals_for_comment( $comment ) ) {
+		$post_type = get_post_field( 'post_type', $comment->comment_post_ID );
+		if ( ! $this->should_do_auto_reversals_for_post_type( $post_type ) ) {
 			return;
 		}
 
@@ -237,40 +223,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 			delete_comment_meta( $comment->comment_ID, $meta_key );
 		}
-	}
-
-	/**
-	 * Check if automatic reversals should be performed for a particular comment.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param stdClass $comment The object for the comment to check about.
-	 *
-	 * @return bool True if auto-reversals should be done; false otherwise.
-	 */
-	protected function should_do_auto_reversals_for_comment( $comment ) {
-
-		// Check if this hook type allows auto-reversals to be disabled.
-		if ( ! $this->get_option( 'disable_auto_reverse_label' ) ) {
-			return true;
-		}
-
-		$post_type = get_post_field( 'post_type', $comment->comment_post_ID );
-
-		$instances = $this->get_instances();
-
-		foreach ( $instances as $instance ) {
-
-			$instance = array_merge( $this->defaults, $instance );
-
-			if ( $post_type === $instance['post_type'] ) {
-				return ! empty( $instance['auto_reverse'] );
-			} elseif ( 'ALL' === $instance['post_type'] ) {
-				$all_posts_instance = $instance;
-			}
-		}
-
-		return ! empty( $all_posts_instance['auto_reverse'] );
 	}
 
 	/**
@@ -323,36 +275,15 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		if ( ! $comment ) {
 
-			$post = false;
-
-			if ( isset( $meta['post_id'] ) ) {
-				$post = get_post( $meta['post_id'] );
-			}
-
-			if ( $post ) {
-
-				$post_title = get_the_title( $post->ID );
-
-				$link = '<a href="' . get_permalink( $post->ID ) . '">'
-					. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
-					. '</a>';
-
-				$text = sprintf( $this->get_option( 'log_text_post_title' . $reverse ), $link );
-
-			} else {
-
-				$text = $this->get_option( 'log_text_no_post_title' . $reverse );
-			}
+			$text = parent::logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 
 		} else {
 
-			$post_title = get_the_title( $comment->comment_post_ID );
-			$link       = '<a href="' . get_comment_link( $comment ) . '">'
-				. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
-				. '</a>';
-
-			/* translators: %s will be the post's title. */
-			$text = sprintf( $this->get_option( 'log_text_post_title' . $reverse ), $link );
+			$text = $this->log_with_post_title_link(
+				$comment->comment_post_ID
+				, $reverse
+				, get_comment_link( $comment )
+			);
 		}
 
 		return $text;
@@ -397,8 +328,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 */
 	public function clean_logs_on_comment_deletion( $comment_id ) {
 
-		global $wpdb;
-
 		$query = new WordPoints_Points_Logs_Query(
 			array(
 				'log_type'   => $this->log_type,
@@ -437,50 +366,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	}
 
 	/**
-	 * Clean the logs when a post is deleted.
-	 *
-	 * Cleans the metadata for any logs related to the post being deleted. The post
-	 * ID meta field is deleted from the database. Once the metadata is cleaned up,
-	 * the logs are regenerated.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @action delete_post Added by the constructor.
-	 *
-	 * @param int $post_id The ID of the post being deleted.
-	 *
-	 * return void
-	 */
-	public function clean_logs_on_post_deletion( $post_id ) {
-
-		global $wpdb;
-
-		$query = new WordPoints_Points_Logs_Query(
-			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'post_id',
-						'value' => $post_id,
-					),
-				),
-			)
-		);
-
-		$logs = $query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
-
-		foreach ( $logs as $log ) {
-			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
-		}
-
-		wordpoints_regenerate_points_logs( $logs );
-	}
-
-	/**
 	 * Check if a user can view a particular log entry.
 	 *
 	 * @since 1.8.0
@@ -503,32 +388,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 		}
 
 		return $can_view;
-	}
-
-	/**
-	 * @since 1.9.0
-	 */
-	public function form( $instance ) {
-
-		parent::form( $instance );
-
-		$instance = array_merge( $this->defaults, $instance );
-
-		$disable_label = $this->get_option( 'disable_auto_reverse_label' );
-
-		if ( $disable_label ) {
-
-			?>
-
-			<p>
-				<input class="widefat" name="<?php $this->the_field_name( 'auto_reverse' ); ?>" id="<?php $this->the_field_id( 'auto_reverse' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['auto_reverse'] ); ?> />
-				<label for="<?php $this->the_field_id( 'auto_reverse' ); ?>"><?php echo esc_html( $disable_label ); ?></label>
-			</p>
-
-			<?php
-		}
-
-		return true;
 	}
 
 } // class WordPoints_Comment_Approved_Points_Hook_Base

@@ -13,7 +13,6 @@
 			<group>ajax</group>
 			<group>uninstall</group>
 			<group>ui</group>
-			<group>legacy</group>
 		</exclude>
 	</groups>
 </phpunit>

@@ -651,8 +651,6 @@ add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_defa
  * Admin manage logs render.
  *
  * @since 1.0.0
- *
- * @action wordpoints_render_log-profile_edit
  */
 function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -661,6 +659,61 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 	return sprintf( _x( 'Points adjusted by %s. Reason: %s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
 }
 add_action( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
+
+/**
+ * Generate the log entry for a comment_disapprove transaction.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+	switch ( $meta['status'] ) {
+
+		case 'spam':
+			$text = _x( 'Comment marked as spam.', 'points log description', 'wordpoints' );
+		break;
+
+		case 'trash':
+			$text = _x( 'Comment moved to trash.', 'points log description', 'wordpoints' );
+		break;
+
+		default:
+			$text = _x( 'Comment unapproved.', 'points log description', 'wordpoints' );
+	}
+
+	return $text;
+}
+add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
+
+/**
+ * Generate the log entry for a post_delete transaction.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+	if ( isset( $meta['post_type'] ) ) {
+
+		$post_type = get_post_type_object( $meta['post_type'] );
+
+		if ( ! is_null( $post_type ) ) {
+
+			/* translators: 1 is the post type name, 2 is the post title. */
+			return sprintf(
+				_x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' )
+				, $post_type->labels->singular_name
+				, $meta['post_title']
+			);
+		}
+	}
+
+	/* translators: %s will be the post title. */
+	return sprintf(
+		_x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' )
+		, $meta['post_title']
+	);
+}
+add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 
 /**
  * Clear the logs caches when new logs are added.

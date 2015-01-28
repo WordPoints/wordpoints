@@ -160,6 +160,15 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/rank.php';
 
+if ( class_exists( 'WordPoints_Points_Hook' ) ) {
+	/**
+	 * The points hook mocks.
+	 *
+	 * @since 1.9.0
+	 */
+	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/points-hooks.php' );
+}
+
 if ( class_exists( 'WordPoints_Rank_Type' ) ) {
 	/**
 	 * The rank type mock.

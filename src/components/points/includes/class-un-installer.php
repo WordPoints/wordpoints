@@ -132,6 +132,10 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'WordPoints_Comment_Removed_Points_Hook'
 			);
 
+			WordPoints_Points_Hooks::register(
+				'WordPoints_Post_Delete_Points_Hook'
+			);
+
 			WordPoints_Points_Hooks::initialize_hooks();
 
 			// Default to network mode off during the tests, but save the current
@@ -672,7 +676,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			// Combine the network-wide points hooks.
 			$network_mode = WordPoints_Points_Hooks::get_network_mode();
 			WordPoints_Points_Hooks::set_network_mode( true );
-			$this->_1_9_0_combine_comment_hooks();
+			$this->_1_9_0_combine_hooks( 'comment', 'comment_removed' );
+			$this->_1_9_0_combine_hooks( 'post', 'post_delete' );
 			WordPoints_Points_Hooks::set_network_mode( $network_mode );
 		}
 	}
@@ -683,7 +688,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.9.0
 	 */
 	protected function update_site_to_1_9_0() {
-		$this->_1_9_0_combine_comment_hooks();
+		$this->_1_9_0_combine_hooks( 'comment', 'comment_removed' );
+		$this->_1_9_0_combine_hooks( 'post', 'post_delete' );
 	}
 
 	/**
@@ -692,21 +698,25 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.9.0
 	 */
 	protected function update_single_to_1_9_0() {
-		$this->_1_9_0_combine_comment_hooks();
+		$this->_1_9_0_combine_hooks( 'comment', 'comment_removed' );
+		$this->_1_9_0_combine_hooks( 'post', 'post_delete' );
 	}
 
 	/**
-	 * Combine any Comment/Comment Removed hook instance pairs.
+	 * Combine any Comment/Comment Removed or Post/Post Delete hook instance pairs.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @param string $type         The primary hook type that awards the points.
+	 * @param string $reverse_type The counterpart hook type that reverses points.
 	 */
-	protected function _1_9_0_combine_comment_hooks() {
+	protected function _1_9_0_combine_hooks( $type, $reverse_type ) {
 
-		$comment_hook = WordPoints_Points_Hooks::get_handler_by_id_base(
-			'wordpoints_comment_points_hook'
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			"wordpoints_{$type}_points_hook"
 		);
-		$comment_removed_hook = WordPoints_Points_Hooks::get_handler_by_id_base(
-			'wordpoints_comment_removed_points_hook'
+		$reverse_hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			"wordpoints_{$reverse_type}_points_hook"
 		);
 
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {
@@ -717,79 +727,80 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			$network_ = '';
 		}
 
-		$comment_instances = $comment_hook->get_instances( $hook_type );
-		$comment_removed_instances = $comment_removed_hook->get_instances( $hook_type );
+		$hook_instances = $hook->get_instances( $hook_type );
+		$hook_reverse_instances = $reverse_hook->get_instances( $hook_type );
 
-		$defaults = array( 'points' => 10, 'post_type' => 'ALL' );
+		$default_points = ( 'post' === $hook_type ) ? 20 : 10;
+		$defaults = array( 'points' => $default_points, 'post_type' => 'ALL' );
 
-		// Get the Comment hooks into an array that is indexed by post type and the
+		// Get the hooks into an array that is indexed by post type and the
 		// number of points. This allows us to easily check for any counterparts when
-		// we loop through the Comment Removed hooks below. It is even safe if a user
+		// we loop through the reverse type hooks below. It is even safe if a user
 		// is doing something crazy like multiple hooks for the same post type.
-		$comment_instances_indexed = array();
+		$hook_instances_indexed = array();
 
-		foreach ( $comment_instances as $number => $instance ) {
+		foreach ( $hook_instances as $number => $instance ) {
 
 			$instance = array_merge( $defaults, $instance );
 
-			$comment_instances_indexed
-				[ $comment_hook->points_type( $network_ . $number ) ]
+			$hook_instances_indexed
+				[ $hook->points_type( $network_ . $number ) ]
 				[ $instance['post_type'] ]
 				[ $instance['points'] ]
 				[] = $number;
 		}
 
-		foreach ( $comment_removed_instances as $number => $instance ) {
+		foreach ( $hook_reverse_instances as $number => $instance ) {
 
 			$instance = array_merge( $defaults, $instance );
 
-			$points_type = $comment_removed_hook->points_type( $network_ . $number );
+			$points_type = $reverse_hook->points_type( $network_ . $number );
 
 			// We use empty() instead of isset() because array_pop() below may leave
 			// us with an empty array as the value.
-			if ( empty( $comment_instances_indexed[ $points_type ][ $instance['post_type'] ][ $instance['points'] ] ) ) {
+			if ( empty( $hook_instances_indexed[ $points_type ][ $instance['post_type'] ][ $instance['points'] ] ) ) {
 				continue;
 			}
 
 			$comment_instance_number = array_pop(
-				$comment_instances_indexed[ $points_type ][ $instance['post_type'] ][ $instance['points'] ]
+				$hook_instances_indexed[ $points_type ][ $instance['post_type'] ][ $instance['points'] ]
 			);
 
-			// We need to unset this instance from the list of Comment instances. It
+			// We need to unset this instance from the list of hook instances. It
 			// is expected for it to be automatically reversed, and that is the
 			// default setting. If we don't unset it here it will get auto-reversal
 			// turned off below, which isn't what we want.
-			unset( $comment_instances[ $comment_instance_number ] );
+			unset( $hook_instances[ $comment_instance_number ] );
 
-			// Now we can just delete this Comment Removed instance.
-			$comment_removed_hook->delete_callback(
-				$comment_removed_hook->get_id( $number )
+			// Now we can just delete this reverse hook instance.
+			$reverse_hook->delete_callback(
+				$reverse_hook->get_id( $number )
 			);
 		}
 
-		// Any Comment hooks left in the array are not paired with a Comment Removed
-		// hook, and aren't expected to auto-reverse, so we need to turn their auto-
-		// reversal setting off.
-		if ( ! empty( $comment_instances ) ) {
+		// Any hooks left in the array are not paired with a reverse type hook, and
+		// aren't expected to auto-reverse, so we need to turn their auto-reversal
+		// setting off.
+		if ( ! empty( $hook_instances ) ) {
 
-			foreach ( $comment_instances as $number => $instance ) {
+			foreach ( $hook_instances as $number => $instance ) {
 				$instance['auto_reverse'] = 0;
-				$comment_hook->update_callback( $instance, $number );
+				$hook->update_callback( $instance, $number );
 			}
 
 			// We add a flag to the database so we'll know to enable legacy features.
 			update_site_option(
-				'wordpoints_comment_hook_legacy'
+				"wordpoints_{$type}_hook_legacy"
 				, true
 			);
 		}
 
-		// Now we check if there are any unpaired Comment Removed hooks. If there are
+		// Now we check if there are any unpaired reverse typ hooks. If there are
 		// we'll set this flag in the database that will keep some legacy features
 		// enabled.
-		if ( $comment_removed_hook->get_instances( $hook_type ) ) {
+		if ( $reverse_hook->get_instances( $hook_type ) ) {
 			update_site_option(
-				'wordpoints_comment_removed_hook_legacy'
+				"wordpoints_{$reverse_type}_hook_legacy"
 				, true
 			);
 		}

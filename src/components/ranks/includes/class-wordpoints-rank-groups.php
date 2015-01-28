@@ -114,7 +114,7 @@ final class WordPoints_Rank_Groups {
 	 *
 	 * @param string $group The slug for the group of rank to get the handler of.
 	 *
-	 * @return WordPoints_Rank_Type|false The hander object, or false.
+	 * @return WordPoints_Rank_Group|false The handler object, or false.
 	 */
 	public static function get_group( $group ) {
 
@@ -177,7 +177,7 @@ final class WordPoints_Rank_Groups {
 	 * @param string $type  The slug of the rank type.
 	 * @param string $group The slug of the group to deregister this rank for.
 	 *
-	 * @return bool True on sucess. False if the group is invalid, or the rank type
+	 * @return bool True on success. False if the group is invalid, or the rank type
 	 *              isn't registered for it.
 	 */
 	public static function deregister_type_for_group( $type, $group ) {

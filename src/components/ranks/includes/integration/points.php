@@ -8,6 +8,13 @@
  */
 
 /**
+ * The points rank type.
+ *
+ * @since 1.7.0
+ */
+include_once( WORDPOINTS_DIR . '/components/ranks/includes/rank-types/points.php' );
+
+/**
  * Add support for the %rank% placeholder in the My Points widget.
  *
  * @since 1.7.0
@@ -81,5 +88,42 @@ function wordpoints_user_rank_shortcode_points_type_attr( $out, $pairs, $atts ) 
 	return $out;
 }
 add_filter( 'shortcode_atts_wordpoints_user_rank', 'wordpoints_user_rank_shortcode_points_type_attr', 10, 3 );
+
+/**
+ * Register the points type rank groups.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_register_points_ranks() {
+
+	foreach ( wordpoints_get_points_types() as $slug => $points_type ) {
+
+		WordPoints_Rank_Groups::register_group(
+			"points_type-{$slug}"
+			, array(
+				'name' => $points_type['name'],
+				'description' => sprintf(
+					__(
+						'This rank group is associated with the &#8220;%s&#8221; points type.'
+						, 'wordpoints'
+					)
+					, $points_type['name']
+				)
+			)
+		);
+
+		WordPoints_Rank_Types::register_type(
+			"points-{$slug}"
+			, 'WordPoints_Points_Rank_Type'
+			, array( 'points_type' => $slug )
+		);
+
+		WordPoints_Rank_Groups::register_type_for_group(
+			"points-{$slug}",
+			"points_type-{$slug}"
+		);
+	}
+}
+add_action( 'wordpoints_ranks_register', 'wordpoints_register_points_ranks' );
 
 // EOF

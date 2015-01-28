@@ -120,7 +120,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 			$reverse = '_reverse';
 		}
 
-		$post = $post_type = false;
+		$post = false;
 
 		if ( '' === $reverse && isset( $meta['post_id'] ) ) {
 			$post = get_post( $meta['post_id'] );

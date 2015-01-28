@@ -260,7 +260,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @return int|string/false The current hook number, the '__i__' placeholder, or
+	 * @return int|string|false The current hook number, the '__i__' placeholder, or
 	 *                          false.
 	 */
 	final public function get_number() {

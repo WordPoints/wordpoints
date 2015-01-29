@@ -121,7 +121,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_points_auto_reversal() {
 
-		wordpointstests_add_points_hook(
+		$hook = wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
 			, array( 'points' => 20, 'post_type' => 'ALL' )
 		);
@@ -158,7 +158,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( 1, $query->count() );
 
 		// Check that it doesn't happen twice.
-		do_action( 'delete_post', $post_id );
+		$hook->reverse_hook( $post_id );
 
 		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 

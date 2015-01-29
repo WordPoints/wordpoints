@@ -22,9 +22,9 @@ points they have.
 You can currently award points to users for:
 
 * Registration
-* Comments - You can also have points removed if you delete a user's comment or mark it as spam.
-* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. As with comments, you can have points removed when a post is deleted.
-* Visiting your site - You can award points to a user when they visit your site at least once in a time period, once per day, for example.
+* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is deleted.
+* Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
+* Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
 
 All points transactions are logged and can be reviewed by administrators and
 displayed on the front end of your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)

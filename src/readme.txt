@@ -111,6 +111,10 @@ points are awarded.
 3. A rank group on the Ranks administration screen. This is where you create and
 manage the ranks used on your site.
 
+4. An example of the `[wordpoints_points_top]` shortcode.
+
+5. An example of the `[wordpoints_how_to_get_points]` shortcode.
+
 == Changelog ==
 
 = 1.8.0 - (~55 hrs) =

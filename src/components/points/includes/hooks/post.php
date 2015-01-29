@@ -151,36 +151,15 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 			return;
 		}
 
-		// Get a list of transactions to reverse.
-		$query = new WordPoints_Points_Logs_Query(
+		$logs = $this->get_logs_to_auto_reverse(
 			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'post_id',
-						'value' => $post_id,
-					),
-				),
+				'key'   => 'post_id',
+				'value' => $post_id,
 			)
 		);
 
-		$logs = $query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
-
 		foreach ( $logs as $log ) {
-
-			wordpoints_alter_points(
-				$log->user_id
-				, -$log->points
-				, $log->points_type
-				, "reverse_{$this->log_type}"
-				, array( 'original_log_id' => $log->id )
-			);
-
-			wordpoints_update_points_log_meta( $log->id, 'auto_reversed', true );
+			$this->auto_reverse_log( $log );
 		}
 	}
 

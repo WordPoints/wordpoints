@@ -186,24 +186,12 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 			return;
 		}
 
-		// Get a list of transactions to reverse.
-		$query = new WordPoints_Points_Logs_Query(
+		$logs = $this->get_logs_to_auto_reverse(
 			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'comment_id',
-						'value' => $comment->comment_ID,
-					),
-				),
+				'key'   => 'comment_id',
+				'value' => $comment->comment_ID,
 			)
 		);
-
-		$logs = $query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
 
 		foreach ( $logs as $log ) {
 
@@ -213,13 +201,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 				continue;
 			}
 
-			wordpoints_alter_points(
-				$log->user_id
-				, -$log->points
-				, $log->points_type
-				, "reverse_{$this->log_type}"
-				, array( 'original_log_id' => $log->id )
-			);
+			$this->auto_reverse_log( $log );
 
 			delete_comment_meta( $comment->comment_ID, $meta_key );
 		}

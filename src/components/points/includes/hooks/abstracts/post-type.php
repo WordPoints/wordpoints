@@ -99,6 +99,60 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	}
 
 	/**
+	 * Get the logs to auto-reverse.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array $meta_query Meta query arguments to use in the search.
+	 *
+	 * @return array The logs to reverse.
+	 */
+	protected function get_logs_to_auto_reverse( array $meta_query ) {
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => $this->log_type,
+				'meta_query' => array(
+					$meta_query,
+					array(
+						'key'     => 'auto_reversed',
+						'compare' => 'NOT EXISTS',
+						'value'   => 'see bug #23268 (fixed in 3.9)',
+					),
+				),
+			)
+		);
+
+		$logs = $query->get();
+
+		if ( ! $logs ) {
+			return array();
+		}
+
+		return $logs;
+	}
+
+	/**
+	 * Automatically reverse a transaction.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param object $log The log to reverse.
+	 */
+	protected function auto_reverse_log( $log ) {
+
+		wordpoints_alter_points(
+			$log->user_id
+			, -$log->points
+			, $log->points_type
+			, "reverse_{$this->log_type}"
+			, array( 'original_log_id' => $log->id )
+		);
+
+		wordpoints_add_points_log_meta( $log->id, 'auto_reversed', true );
+	}
+
+	/**
 	 * Generate the log entry for a transaction.
 	 *
 	 * @since 1.9.0

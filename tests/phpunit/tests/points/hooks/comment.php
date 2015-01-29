@@ -148,10 +148,30 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 
 		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
-		// Test that status transitions award/remove points correctly.
 		wp_set_comment_status( $comment_id, 'hold' );
 		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 
+		// Check that the log is marked as reversed.
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'comment_approve',
+				'meta_query' => array(
+					array(
+						'key'   => 'auto_reversed',
+						'value' => true,
+					),
+				),
+			)
+		);
+
+		$this->assertEquals( 1, $query->count() );
+
+		// Check that it doesn't happen twice.
+		do_action( 'transition_comment_status', 'approve', 'hold', get_comment( $comment_id ) );
+
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that all status transitions award/remove points correctly.
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 

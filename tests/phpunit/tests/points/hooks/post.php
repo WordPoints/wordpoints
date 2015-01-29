@@ -142,6 +142,26 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 		// Check that points were removed when the post was deleted.
 		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 
+		// Check that the log is marked as reversed.
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'log_type'   => 'post_publish',
+				'meta_query' => array(
+					array(
+						'key'   => 'auto_reversed',
+						'value' => true,
+					),
+				),
+			)
+		);
+
+		$this->assertEquals( 1, $query->count() );
+
+		// Check that it doesn't happen twice.
+		do_action( 'delete_post', $post_id );
+
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
 	} // public function test_points_auto_reversal()
 
 	/**

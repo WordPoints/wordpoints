@@ -981,17 +981,27 @@
     "approved": {
         "167": false,
         "174": false,
-        "136": false
+        "136": false,
+        "159": false
     },
     "new": {
         "168": false
     },
     "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
+        "see bug #23268 (fixed in 3.9)": {
+            "120": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
         "\" type=\"checkbox\" value=\"1\"": {
-            "270": false
+            "324": false
         },
         "1": {
-            "270": {
+            "324": {
                 "name": "checked",
                 "type": "unknown",
                 "args_started": true,

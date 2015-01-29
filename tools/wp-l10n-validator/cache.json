@@ -81,7 +81,7 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
         "size": 21968,
-        "hash": "a22f7eac56dd2060ec30b6d08d543586",
+        "hash": "f73011b5d623c7a10e979dcc86f9f672",
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
@@ -191,7 +191,7 @@
     },
     "\/wordpoints.php": {
         "size": 5159,
-        "hash": "d3043f8d6970833a78c40e44570f732c",
+        "hash": "f30f4f63391d548f0394571274e09381",
         "errors": false
     },
     "\/components\/points\/admin\/includes\/ajax.php": {
@@ -216,7 +216,7 @@
     },
     "\/includes\/constants.php": {
         "size": 647,
-        "hash": "49cddcc751a93491cd4c95893470cbb7",
+        "hash": "331c2362e63a618ee91c1b6971ba5010",
         "errors": false
     },
     "\/components\/points\/includes\/update.php": {
@@ -250,8 +250,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/post.php": {
-        "size": 7991,
-        "hash": "dc3b579917dcb26eef7eb18a4af2b31a",
+        "size": 7575,
+        "hash": "ae00a3576cdcb2f8acb411c40a183c99",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/registration.php": {
@@ -265,8 +265,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
-        "size": 9577,
-        "hash": "9965192c95d1b3d12bd86dab3eda821a",
+        "size": 10611,
+        "hash": "22beb19a27b421301dc2e94c854cd740",
         "errors": false
     },
     "\/admin\/includes\/deprecated.php": {
@@ -305,8 +305,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-groups.php": {
-        "size": 4352,
-        "hash": "4309dd9d2871bf2ac53f88b4248ed9a8",
+        "size": 4355,
+        "hash": "fe2cf46188e3b792aaf07bacef5e8272",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
@@ -335,8 +335,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/integration\/points.php": {
-        "size": 2129,
-        "hash": "2ba3335ab20010de0143feec959d4b41",
+        "size": 3082,
+        "hash": "0a358e68dd198e521fd65aeca057bf30",
         "errors": false
     },
     "\/components\/ranks\/includes\/rank-types\/base.php": {
@@ -350,8 +350,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/rank-types.php": {
-        "size": 1375,
-        "hash": "43588c3ff9e768bfc7c878bd671afe73",
+        "size": 476,
+        "hash": "7086ee89e28ff4d3bc85731bc4e9e2c8",
         "errors": false
     },
     "\/components\/ranks\/includes\/ranks.php": {
@@ -410,8 +410,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
-        "size": 9761,
-        "hash": "4f5d4eee944836c234ee56707ed4c656",
+        "size": 9420,
+        "hash": "1a681d23c1387be3940507054739e59c",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/comment-received.php": {

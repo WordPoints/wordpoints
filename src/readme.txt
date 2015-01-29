@@ -26,17 +26,20 @@ You can currently award points to users for:
 * Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
 * Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
 
-All points transactions are logged and can be reviewed by administrators and
-displayed on the front end of your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+All points transactions are logged and can be reviewed by administrators from the
+WordPoints » Points Logs admin screen. The logs can be displayed on the front end of
+your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
-You can also display a list of the top users based on the number of points they have
-using the [`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+You can also display a list of the top users with the most points using the
+[`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
-The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/)
-that you can use.
+You can display a list of ways that your users can earn points using the
+[`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/)
+shortcode.
 
+The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/).
 
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).

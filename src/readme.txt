@@ -15,7 +15,9 @@ Gamify your site with points.
 = Features =
 
 This plugin lets you create one or multiple types of points which you can use to
-reward your users by "hooking into" different user actions.
+reward your users by "hooking into" different user actions. WordPoints also includes
+a Ranks component, which lets you create ranks for your users based on how many
+points they have.
 
 You can currently award points to users for:
 
@@ -35,8 +37,6 @@ shortcode.
 The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/)
 that you can use.
 
-WordPoints now also includes a Ranks component, which lets you create ranks for your
-users based on how many points they have.
 
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).

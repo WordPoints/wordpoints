@@ -1,21 +1,21 @@
-# Copyright (C) 2014 WordPoints
+# Copyright (C) 2015 WordPoints
 # This file is distributed under the same license as the WordPoints package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPoints 1.8.0\n"
+"Project-Id-Version: WordPoints 1.9.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2014-11-29 22:00:28+00:00\n"
+"POT-Creation-Date: 2015-01-30 22:50:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.8.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.9.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
-#: components/points/includes/widgets.php:102
+#: components/points/includes/widgets.php:120
 msgid "WordPoints"
 msgstr ""
 
@@ -83,61 +83,67 @@ msgstr ""
 msgid "Installing Module from uploaded file: %s"
 msgstr ""
 
-#: admin/admin.php:437
+#: admin/admin.php:470
+msgid ""
+"This appears to be a WordPoints module archive. Try installing it on the "
+"WordPoints module install screen instead."
+msgstr ""
+
+#: admin/admin.php:500
 msgid "Like this plugin?"
 msgstr ""
 
-#: admin/admin.php:438
+#: admin/admin.php:501
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
 msgstr ""
 
-#: admin/admin.php:439
+#: admin/admin.php:502
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
 msgstr ""
 
-#: admin/admin.php:442
+#: admin/admin.php:505
 msgid "Need help?"
 msgstr ""
 
-#: admin/admin.php:443
+#: admin/admin.php:506
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
 msgstr ""
 
-#: admin/admin.php:444
+#: admin/admin.php:507
 msgid "Thank you for using WordPoints!"
 msgstr ""
 
-#: admin/admin.php:473
+#: admin/admin.php:540
 msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process."
 msgstr ""
 
-#: admin/admin.php:476
+#: admin/admin.php:543
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for version %s (and possibly later versions)."
 msgstr ""
 
-#: admin/admin.php:482
+#: admin/admin.php:549
 msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
 "done already, some parts of the plugin may not function properly."
 msgstr ""
 
-#: admin/admin.php:483 includes/class-wordpoints-components.php:556
+#: admin/admin.php:550 includes/class-wordpoints-components.php:556
 msgid "Learn more."
 msgstr ""
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
-#: admin/includes/class-wordpoints-modules-list-table.php:405
-#: admin/includes/class-wordpoints-modules-list-table.php:676
+#: admin/includes/class-wordpoints-modules-list-table.php:427
+#: admin/includes/class-wordpoints-modules-list-table.php:706
 msgid "Network Activate"
 msgstr ""
 
@@ -185,93 +191,93 @@ msgstr ""
 msgid "No valid modules were found."
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:297
+#: admin/includes/class-wordpoints-modules-list-table.php:319
 msgid "No modules found."
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:299
+#: admin/includes/class-wordpoints-modules-list-table.php:321
 msgid "There are not any modules installed."
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:314
+#: admin/includes/class-wordpoints-modules-list-table.php:336
 msgid "Module"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:315
+#: admin/includes/class-wordpoints-modules-list-table.php:337
 msgid "Description"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:341
+#: admin/includes/class-wordpoints-modules-list-table.php:363
 msgctxt "modules"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:345
+#: admin/includes/class-wordpoints-modules-list-table.php:367
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:349
+#: admin/includes/class-wordpoints-modules-list-table.php:371
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:353
+#: admin/includes/class-wordpoints-modules-list-table.php:375
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:405
-#: admin/includes/class-wordpoints-modules-list-table.php:692
+#: admin/includes/class-wordpoints-modules-list-table.php:427
+#: admin/includes/class-wordpoints-modules-list-table.php:722
 #: admin/screens/configure-components.php:115
 msgid "Activate"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:409
-#: admin/includes/class-wordpoints-modules-list-table.php:670
+#: admin/includes/class-wordpoints-modules-list-table.php:431
+#: admin/includes/class-wordpoints-modules-list-table.php:700
 msgid "Network Deactivate"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:409
-#: admin/includes/class-wordpoints-modules-list-table.php:688
+#: admin/includes/class-wordpoints-modules-list-table.php:431
+#: admin/includes/class-wordpoints-modules-list-table.php:718
 #: admin/screens/configure-components.php:110
 msgid "Deactivate"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:417
-#: admin/includes/class-wordpoints-modules-list-table.php:680
-#: admin/includes/class-wordpoints-modules-list-table.php:695
+#: admin/includes/class-wordpoints-modules-list-table.php:439
+#: admin/includes/class-wordpoints-modules-list-table.php:710
+#: admin/includes/class-wordpoints-modules-list-table.php:725
 #: components/points/admin/admin.php:54
-#: components/points/includes/class-wordpoints-points-hooks.php:771
+#: components/points/includes/class-wordpoints-points-hooks.php:773
 #: components/ranks/admin/admin.php:53
-#: components/ranks/admin/screens/ranks.php:123
+#: components/ranks/admin/screens/ranks.php:128
 msgid "Delete"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:453
+#: admin/includes/class-wordpoints-modules-list-table.php:475
 msgid "Clear List"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:524
+#: admin/includes/class-wordpoints-modules-list-table.php:546
 msgid "Select %s"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:550
+#: admin/includes/class-wordpoints-modules-list-table.php:580
 msgid "Version %s"
 msgstr ""
 
 #. translators: %s is the component author's name.
-#: admin/includes/class-wordpoints-modules-list-table.php:561
+#: admin/includes/class-wordpoints-modules-list-table.php:591
 #: admin/screens/configure-components.php:136
 msgid "By %s"
 msgstr ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:565
+#: admin/includes/class-wordpoints-modules-list-table.php:595
 msgid "Visit module site"
 msgstr ""
 
@@ -322,7 +328,7 @@ msgid "Action"
 msgstr ""
 
 #: admin/screens/configure-settings-load.php:15
-#: admin/screens/modules-load.php:444
+#: admin/screens/modules-load.php:454
 #: components/points/admin/screens/hooks-load.php:16
 #: components/ranks/admin/admin.php:107
 msgid "Overview"
@@ -346,7 +352,7 @@ msgid ""
 msgstr ""
 
 #: admin/screens/configure-settings-load.php:24
-#: admin/screens/modules-load.php:462
+#: admin/screens/modules-load.php:472
 #: components/points/admin/screens/hooks-load.php:36
 #: components/ranks/admin/admin.php:135
 msgid "For more information:"
@@ -357,7 +363,7 @@ msgid "User Guide"
 msgstr ""
 
 #: admin/screens/configure-settings-load.php:26
-#: admin/screens/modules-load.php:464
+#: admin/screens/modules-load.php:474
 #: components/points/admin/screens/hooks-load.php:38
 #: components/ranks/admin/admin.php:137
 msgid "Support Forums"
@@ -391,90 +397,90 @@ msgid "Components"
 msgstr ""
 
 #: admin/screens/modules-load.php:38 admin/screens/modules-load.php:88
-#: admin/screens/modules-load.php:142
+#: admin/screens/modules-load.php:144
 msgid ""
 "You do not have sufficient permissions to activate modules for this site."
 msgstr ""
 
-#: admin/screens/modules-load.php:186 admin/screens/modules-load.php:214
+#: admin/screens/modules-load.php:188 admin/screens/modules-load.php:216
 msgid ""
 "You do not have sufficient permissions to deactivate modules for this site."
 msgstr ""
 
-#: admin/screens/modules-load.php:254
+#: admin/screens/modules-load.php:258
 msgid "You do not have sufficient permissions to delete modules for this site."
 msgstr ""
 
-#: admin/screens/modules-load.php:342
+#: admin/screens/modules-load.php:349
 msgid "Delete module"
 msgid_plural "Delete modules"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/screens/modules-load.php:345
+#: admin/screens/modules-load.php:352
 msgid "Caution:"
 msgstr ""
 
-#: admin/screens/modules-load.php:345
+#: admin/screens/modules-load.php:352
 msgid "This module may be active on other sites in the network."
 msgid_plural "These modules may be active on other sites in the network."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/screens/modules-load.php:349
+#: admin/screens/modules-load.php:357
 msgid "You are about to remove the following module:"
 msgid_plural "You are about to remove the following modules:"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: module name, 2: module author
-#: admin/screens/modules-load.php:360
+#: admin/screens/modules-load.php:369
 msgid ""
 "<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</"
 "strong>)"
 msgstr ""
 
 #. translators: 1: module name, 2: module author
-#: admin/screens/modules-load.php:366
+#: admin/screens/modules-load.php:375
 msgid "<strong>%1$s</strong> by <em>%2$s</em>"
 msgstr ""
 
-#: admin/screens/modules-load.php:374
+#: admin/screens/modules-load.php:386
 msgid "Are you sure you wish to delete these files and data?"
 msgstr ""
 
-#: admin/screens/modules-load.php:376
+#: admin/screens/modules-load.php:388
 msgid "Are you sure you wish to delete these files?"
 msgstr ""
 
-#: admin/screens/modules-load.php:389
+#: admin/screens/modules-load.php:401
 msgid "Yes, Delete these files and data"
 msgstr ""
 
-#: admin/screens/modules-load.php:389
+#: admin/screens/modules-load.php:401
 msgid "Yes, Delete these files"
 msgstr ""
 
-#: admin/screens/modules-load.php:392
+#: admin/screens/modules-load.php:404
 msgid "No, Return me to the module list"
 msgstr ""
 
-#: admin/screens/modules-load.php:395
+#: admin/screens/modules-load.php:407
 msgid "Click to view entire list of files which will be deleted"
 msgstr ""
 
-#: admin/screens/modules-load.php:437
+#: admin/screens/modules-load.php:447
 msgctxt "modules per page (screen options)"
 msgid "Modules"
 msgstr ""
 
-#: admin/screens/modules-load.php:446
+#: admin/screens/modules-load.php:456
 msgid ""
 "Modules extend and expand the functionality of WordPoints. Once a module is "
 "installed, you may activate it or deactivate it here."
 msgstr ""
 
-#: admin/screens/modules-load.php:447
+#: admin/screens/modules-load.php:457
 msgid ""
 "You can find modules for your site by by browsing the <a href=\"%1$s\" "
 "target=\"_blank\">WordPoints Module Directory</a>. To install a module you "
@@ -482,11 +488,11 @@ msgid ""
 "%3$s directory. Once a module has been installed, you can activate it here."
 msgstr ""
 
-#: admin/screens/modules-load.php:454
+#: admin/screens/modules-load.php:464
 msgid "Troubleshooting"
 msgstr ""
 
-#: admin/screens/modules-load.php:456
+#: admin/screens/modules-load.php:466
 msgid ""
 "Most of the time, modules play nicely with the core of WordPoints and with "
 "other modules. Sometimes, though, a module&#8217;s code will get in the way "
@@ -496,23 +502,23 @@ msgid ""
 "(s) caused the issue."
 msgstr ""
 
-#: admin/screens/modules-load.php:457
+#: admin/screens/modules-load.php:467
 msgid ""
 "If something goes wrong with a module and you can&#8217;t use WordPoints, "
 "delete or rename that file in the %s directory and it will be automatically "
 "deactivated."
 msgstr ""
 
-#: admin/screens/modules-load.php:463
+#: admin/screens/modules-load.php:473
 msgid "Developer Documentation"
 msgstr ""
 
-#: admin/screens/modules-load.php:471
+#: admin/screens/modules-load.php:481
 msgctxt "modules table heading"
 msgid "Module"
 msgstr ""
 
-#: admin/screens/modules-load.php:472
+#: admin/screens/modules-load.php:482
 msgctxt "modules table heading"
 msgid "Description"
 msgstr ""
@@ -539,48 +545,48 @@ msgid ""
 "strong>."
 msgstr ""
 
-#: admin/screens/modules.php:62
+#: admin/screens/modules.php:65
 msgid "Module could not be deleted due to an error: %s"
 msgstr ""
 
-#: admin/screens/modules.php:64
+#: admin/screens/modules.php:67
 msgid "The selected modules have been <strong>deleted</strong>."
 msgstr ""
 
-#: admin/screens/modules.php:69
+#: admin/screens/modules.php:72
 msgid "Module <strong>activated</strong>."
 msgstr ""
 
-#: admin/screens/modules.php:73
+#: admin/screens/modules.php:76
 msgid "Selected modules <strong>activated</strong>."
 msgstr ""
 
-#: admin/screens/modules.php:77
+#: admin/screens/modules.php:80
 msgid "Module <strong>deactivated</strong>."
 msgstr ""
 
-#: admin/screens/modules.php:81
+#: admin/screens/modules.php:84
 msgid "Selected modules <strong>deactivated</strong>."
 msgstr ""
 
-#: admin/screens/modules.php:85
+#: admin/screens/modules.php:88
 msgid "No out of date modules were selected."
 msgstr ""
 
-#: admin/screens/modules.php:92
+#: admin/screens/modules.php:95
 msgid "WordPoints Modules"
 msgstr ""
 
-#: admin/screens/modules.php:95
+#: admin/screens/modules.php:98
 msgctxt "module"
 msgid "Add New"
 msgstr ""
 
-#: admin/screens/modules.php:99
+#: admin/screens/modules.php:102
 msgid "Search results for &#8220;%s&#8221;"
 msgstr ""
 
-#: admin/screens/modules.php:116
+#: admin/screens/modules.php:119
 msgid "Search Installed Modules"
 msgstr ""
 
@@ -599,10 +605,10 @@ msgid "Are you sure?"
 msgstr ""
 
 #: components/points/admin/admin.php:55
-#: components/points/admin/screens/hooks-no-js.php:116
+#: components/points/admin/screens/hooks-no-js.php:118
 #: components/points/admin/screens/hooks.php:254
 #: components/ranks/admin/admin.php:54
-#: components/ranks/admin/screens/ranks.php:120
+#: components/ranks/admin/screens/ranks.php:125
 msgid "Cancel"
 msgstr ""
 
@@ -611,7 +617,7 @@ msgid "WordPoints — Points Hooks"
 msgstr ""
 
 #: components/points/admin/admin.php:77
-#: components/points/admin/screens/hooks-no-js.php:85
+#: components/points/admin/screens/hooks-no-js.php:87
 msgid "Points Hooks"
 msgstr ""
 
@@ -663,23 +669,29 @@ msgstr ""
 msgid "My Points"
 msgstr ""
 
-#: components/points/admin/admin.php:392
+#: components/points/admin/admin.php:417
 msgid "No default"
 msgstr ""
 
-#: components/points/admin/admin.php:397
+#: components/points/admin/admin.php:422
 msgid "Default Points Type"
 msgstr ""
 
-#: components/points/admin/admin.php:398
+#: components/points/admin/admin.php:423
 msgid ""
 "You can optionally set one points type to be the default. The default points "
 "type will, for example, be used by shortcodes when no type is specified. "
 "This is also useful if you only have one type of points."
 msgstr ""
 
-#: components/points/admin/admin.php:403
+#: components/points/admin/admin.php:428
 msgid "Default"
+msgstr ""
+
+#: components/points/admin/admin.php:481
+msgid ""
+"Welcome to WordPoints! Get started by <a href=\"%s\">creating a points type</"
+"a>."
 msgstr ""
 
 #: components/points/admin/includes/ajax.php:105
@@ -745,41 +757,41 @@ msgstr ""
 msgid "You need to add a points type before you can add any hooks."
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:43
-#: components/points/admin/screens/hooks-no-js.php:55
+#: components/points/admin/screens/hooks-no-js.php:45
+#: components/points/admin/screens/hooks-no-js.php:57
 msgid "Unable to add the points hook, please try again."
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:69
+#: components/points/admin/screens/hooks-no-js.php:71
 msgid ""
 "The hook you have asked to edit could not be found. Please go back and try "
 "again."
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:87
+#: components/points/admin/screens/hooks-no-js.php:89
 msgctxt "hook name"
 msgid "Hook %s"
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:94
+#: components/points/admin/screens/hooks-no-js.php:96
 msgid "Select the points type to attach this hook to."
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:97
+#: components/points/admin/screens/hooks-no-js.php:99
 msgid "Points Type:"
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:107
+#: components/points/admin/screens/hooks-no-js.php:109
 #: components/points/admin/screens/hooks.php:136
 msgid "Inactive Hooks"
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:118
+#: components/points/admin/screens/hooks-no-js.php:120
 msgctxt "points hook"
 msgid "Delete"
 msgstr ""
 
-#: components/points/admin/screens/hooks-no-js.php:121
+#: components/points/admin/screens/hooks-no-js.php:123
 msgid "Save Hook"
 msgstr ""
 
@@ -869,7 +881,7 @@ msgid ""
 "this page."
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hook.php:765
+#: components/points/includes/class-wordpoints-points-hook.php:789
 msgid "Points:"
 msgstr ""
 
@@ -910,45 +922,36 @@ msgctxt "points type"
 msgid "Name:"
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hooks.php:663
+#: components/points/includes/class-wordpoints-points-hooks.php:664
 msgctxt "points type"
 msgid "Delete"
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hooks.php:666
-#: components/points/includes/class-wordpoints-points-hooks.php:772
-#: components/ranks/admin/screens/ranks.php:95
-#: components/ranks/admin/screens/ranks.php:121
+#: components/points/includes/class-wordpoints-points-hooks.php:668
+#: components/points/includes/class-wordpoints-points-hooks.php:774
+#: components/ranks/admin/screens/ranks.php:100
+#: components/ranks/admin/screens/ranks.php:126
 msgid "Close"
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hooks.php:669
+#: components/points/includes/class-wordpoints-points-hooks.php:671
 msgctxt "points type"
 msgid "Save"
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hooks.php:747
+#: components/points/includes/class-wordpoints-points-hooks.php:749
 msgctxt "hook"
 msgid "Edit"
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hooks.php:748
+#: components/points/includes/class-wordpoints-points-hooks.php:750
 msgctxt "hook"
 msgid "Add"
 msgstr ""
 
-#: components/points/includes/class-wordpoints-points-hooks.php:775
-#: components/ranks/admin/screens/ranks.php:119
+#: components/points/includes/class-wordpoints-points-hooks.php:777
+#: components/ranks/admin/screens/ranks.php:124
 msgid "Save"
-msgstr ""
-
-#: components/points/includes/class-wordpoints-points-logs-query.php:276
-msgid "%s is no longer supported."
-msgstr ""
-
-#: components/points/includes/class-wordpoints-points-logs-query.php:284
-#: components/points/includes/class-wordpoints-points-logs-query.php:293
-msgid "%s has been replaced by %s."
 msgstr ""
 
 #: components/points/includes/functions.php:226
@@ -962,14 +965,12 @@ msgid ""
 "transactions performed by WordPoints are included in the logs."
 msgstr ""
 
-#: components/points/includes/hooks/abstracts/comment-approved.php:297
-#: components/points/includes/hooks/abstracts/comment-approved.php:311
-#: components/points/includes/hooks/post.php:166
+#: components/points/includes/hooks/abstracts/post-type.php:240
 msgctxt "post title"
 msgid "(no title)"
 msgstr ""
 
-#: components/points/includes/hooks/abstracts/post-type.php:79
+#: components/points/includes/hooks/abstracts/post-type.php:296
 msgid "Select post type:"
 msgstr ""
 
@@ -1009,37 +1010,34 @@ msgctxt "points log description"
 msgid "Comment received removed."
 msgstr ""
 
-#: components/points/includes/hooks/comment-removed.php:41
+#. translators: %s is the name of a post type.
+#: components/points/includes/hooks/comment-received.php:47
+msgctxt "points log description"
+msgid "Received a comment on a %s."
+msgstr ""
+
+#. translators: %s is the name of a post type.
+#: components/points/includes/hooks/comment-received.php:49
+msgctxt "points log description"
+msgid "Comment received on a %s removed."
+msgstr ""
+
+#: components/points/includes/hooks/comment-removed.php:44
 msgctxt "points hook name"
 msgid "Comment Removed"
 msgstr ""
 
-#: components/points/includes/hooks/comment-removed.php:43
+#: components/points/includes/hooks/comment-removed.php:46
 msgid "Comment removed from the site."
 msgstr ""
 
 #. translators: the post type name.
-#: components/points/includes/hooks/comment-removed.php:45
+#: components/points/includes/hooks/comment-removed.php:48
 msgid "Comment on a %s removed from the site."
 msgstr ""
 
-#: components/points/includes/hooks/comment-removed.php:47
+#: components/points/includes/hooks/comment-removed.php:50
 msgid "Points subtracted if comment removed:"
-msgstr ""
-
-#: components/points/includes/hooks/comment-removed.php:160
-msgctxt "points log description"
-msgid "Comment marked as spam."
-msgstr ""
-
-#: components/points/includes/hooks/comment-removed.php:164
-msgctxt "points log description"
-msgid "Comment moved to trash."
-msgstr ""
-
-#: components/points/includes/hooks/comment-removed.php:168
-msgctxt "points log description"
-msgid "Comment unapproved."
 msgstr ""
 
 #: components/points/includes/hooks/comment.php:37
@@ -1065,6 +1063,33 @@ msgstr ""
 #: components/points/includes/hooks/comment.php:44
 msgctxt "points log description"
 msgid "Comment"
+msgstr ""
+
+#. translators: %s is the name of a post type.
+#: components/points/includes/hooks/comment.php:46
+msgctxt "points log description"
+msgid "Comment on a %s."
+msgstr ""
+
+#. translators: %s will be the post's title.
+#: components/points/includes/hooks/comment.php:48
+msgctxt "points log description"
+msgid "Comment on %s removed."
+msgstr ""
+
+#: components/points/includes/hooks/comment.php:49
+msgctxt "points log description"
+msgid "Comment removed."
+msgstr ""
+
+#. translators: %s is the name of a post type.
+#: components/points/includes/hooks/comment.php:51
+msgctxt "points log description"
+msgid "Comment on a %s removed."
+msgstr ""
+
+#: components/points/includes/hooks/comment.php:59
+msgid "Revoke the points if the comment is removed."
 msgstr ""
 
 #: components/points/includes/hooks/periodic.php:42
@@ -1142,75 +1167,92 @@ msgstr ""
 msgid "monthly"
 msgstr ""
 
-#: components/points/includes/hooks/post-delete.php:43
+#: components/points/includes/hooks/post-delete.php:46
 msgctxt "points hook name"
 msgid "Post Delete"
 msgstr ""
 
-#: components/points/includes/hooks/post-delete.php:45
+#: components/points/includes/hooks/post-delete.php:48
 msgid "A post is permanently deleted."
 msgstr ""
 
-#: components/points/includes/hooks/post-delete.php:46
+#: components/points/includes/hooks/post-delete.php:49
 msgid "Points removed when deleted:"
 msgstr ""
 
 #. translators: the post type name.
-#: components/points/includes/hooks/post-delete.php:48
+#: components/points/includes/hooks/post-delete.php:51
 msgid "%s permanently deleted."
 msgstr ""
 
-#: components/points/includes/hooks/post-delete.php:76
+#: components/points/includes/hooks/post-delete.php:79
 msgid "Auto Draft"
 msgstr ""
 
-#. translators: 1 is the post type name, 2 is the post title.
-#: components/points/includes/hooks/post-delete.php:117
-msgctxt "points log description"
-msgid "%1$s &#8220;%2$s&#8221; deleted."
-msgstr ""
-
-#. translators: %s will be the post title.
-#: components/points/includes/hooks/post-delete.php:122
-msgctxt "points log description"
-msgid "Post &#8220;%s&#8221; deleted."
-msgstr ""
-
-#: components/points/includes/hooks/post.php:45
+#: components/points/includes/hooks/post.php:53
 msgctxt "points hook name"
 msgid "Post Publish"
 msgstr ""
 
-#: components/points/includes/hooks/post.php:47
+#: components/points/includes/hooks/post.php:55
 msgid "New post published."
 msgstr ""
 
 #. translators: the post type name.
-#: components/points/includes/hooks/post.php:49
+#: components/points/includes/hooks/post.php:57
 msgid "New %s published."
 msgstr ""
 
-#. translators: %s is the name of a post type.
-#: components/points/includes/hooks/post.php:159
-msgctxt "points log description"
-msgid "%s published."
-msgstr ""
-
-#: components/points/includes/hooks/post.php:161
-msgctxt "points log description"
-msgid "Post published."
-msgstr ""
-
 #. translators: %s will be a link to the post.
-#: components/points/includes/hooks/post.php:173
+#: components/points/includes/hooks/post.php:59
 msgctxt "points log description"
 msgid "Post %s published."
 msgstr ""
 
 #. translators: 1 is the post type name, 2 is a link to the post.
-#: components/points/includes/hooks/post.php:177
+#: components/points/includes/hooks/post.php:61
 msgctxt "points log description"
-msgid "%1$s %2$s published."
+msgid "%2$s %1$s published."
+msgstr ""
+
+#. translators: %s is the name of a post type.
+#: components/points/includes/hooks/post.php:63
+msgctxt "points log description"
+msgid "%s published."
+msgstr ""
+
+#: components/points/includes/hooks/post.php:64
+msgctxt "points log description"
+msgid "Post published."
+msgstr ""
+
+#. translators: %s is the name of a post type.
+#: components/points/includes/hooks/post.php:66
+msgctxt "points log description"
+msgid "%s deleted."
+msgstr ""
+
+#. translators: 1 is the post type name, 2 is the post title.
+#: components/points/includes/hooks/post.php:68
+#: components/points/includes/logs.php:703
+msgctxt "points log description"
+msgid "%1$s &#8220;%2$s&#8221; deleted."
+msgstr ""
+
+#. translators: %s will be the post title.
+#: components/points/includes/hooks/post.php:70
+#: components/points/includes/logs.php:712
+msgctxt "points log description"
+msgid "Post &#8220;%s&#8221; deleted."
+msgstr ""
+
+#: components/points/includes/hooks/post.php:71
+msgctxt "points log description"
+msgid "Post deleted."
+msgstr ""
+
+#: components/points/includes/hooks/post.php:78
+msgid "Revoke the points if the post is permanently deleted."
 msgstr ""
 
 #: components/points/includes/hooks/registration.php:42
@@ -1228,45 +1270,60 @@ msgctxt "points log description"
 msgid "Registration."
 msgstr ""
 
-#: components/points/includes/logs.php:453
+#: components/points/includes/logs.php:452
 msgctxt "points logs table heading"
 msgid "User"
 msgstr ""
 
-#: components/points/includes/logs.php:454
+#: components/points/includes/logs.php:453
 msgctxt "points logs table heading"
 msgid "Points"
 msgstr ""
 
-#: components/points/includes/logs.php:455
+#: components/points/includes/logs.php:454
 msgctxt "points logs table heading"
 msgid "Description"
 msgstr ""
 
-#: components/points/includes/logs.php:456
+#: components/points/includes/logs.php:455
 msgctxt "points logs table heading"
 msgid "Time"
 msgstr ""
 
-#: components/points/includes/logs.php:465
+#: components/points/includes/logs.php:475
 msgid "Searching for &#8220;%s&#8221;"
 msgstr ""
 
-#: components/points/includes/logs.php:471
+#: components/points/includes/logs.php:481
 msgid "Search Logs:"
 msgstr ""
 
-#: components/points/includes/logs.php:479
+#: components/points/includes/logs.php:489
 msgid "Search Logs"
 msgstr ""
 
-#: components/points/includes/logs.php:509
+#: components/points/includes/logs.php:519
 msgid "No matching logs found."
 msgstr ""
 
-#: components/points/includes/logs.php:651
+#: components/points/includes/logs.php:659
 msgctxt "points log description"
 msgid "Points adjusted by %s. Reason: %s"
+msgstr ""
+
+#: components/points/includes/logs.php:673
+msgctxt "points log description"
+msgid "Comment marked as spam."
+msgstr ""
+
+#: components/points/includes/logs.php:677
+msgctxt "points log description"
+msgid "Comment moved to trash."
+msgstr ""
+
+#: components/points/includes/logs.php:681
+msgctxt "points log description"
+msgid "Comment unapproved."
 msgstr ""
 
 #: components/points/includes/points.php:963
@@ -1307,107 +1364,111 @@ msgid ""
 "registered points log query. Example: %3$s."
 msgstr ""
 
-#: components/points/includes/shortcodes.php:286
+#: components/points/includes/shortcodes.php:285
 msgctxt "column name"
 msgid "Points"
 msgstr ""
 
-#: components/points/includes/shortcodes.php:287
+#: components/points/includes/shortcodes.php:298
 msgctxt "column name"
 msgid "Action"
 msgstr ""
 
-#: components/points/includes/widgets.php:102
+#: components/points/includes/widgets.php:64
+msgid "Please select a valid points type."
+msgstr ""
+
+#: components/points/includes/widgets.php:122
 msgid "Display the points of the current logged in user."
 msgstr ""
 
-#: components/points/includes/widgets.php:105
+#: components/points/includes/widgets.php:128
 msgctxt "widget title"
 msgid "My Points"
 msgstr ""
 
-#: components/points/includes/widgets.php:107
+#: components/points/includes/widgets.php:130
 msgid "Points: %s"
 msgstr ""
 
-#: components/points/includes/widgets.php:108
+#: components/points/includes/widgets.php:131
 msgid "You must be logged in to view your points."
 msgstr ""
 
-#: components/points/includes/widgets.php:276
-#: components/points/includes/widgets.php:456
-#: components/points/includes/widgets.php:607
+#: components/points/includes/widgets.php:265
+#: components/points/includes/widgets.php:417
+#: components/points/includes/widgets.php:542
 msgctxt "form label"
 msgid "Title"
 msgstr ""
 
-#: components/points/includes/widgets.php:280
+#: components/points/includes/widgets.php:269
 msgid "Points type to display"
 msgstr ""
 
-#: components/points/includes/widgets.php:285
+#: components/points/includes/widgets.php:274
 msgid "Widget text"
 msgstr ""
 
-#: components/points/includes/widgets.php:287
+#: components/points/includes/widgets.php:276
 msgid "%s will be replaced with the points of the logged in user"
 msgstr ""
 
-#: components/points/includes/widgets.php:302
+#: components/points/includes/widgets.php:291
 msgid "Text if the user is not logged in"
 msgstr ""
 
-#: components/points/includes/widgets.php:304
+#: components/points/includes/widgets.php:293
 msgid "Leave this field blank to hide the widget if the user is not logged in"
 msgstr ""
 
-#: components/points/includes/widgets.php:307
+#: components/points/includes/widgets.php:296
 msgid "Number of latest log entries for this user to display"
 msgstr ""
 
-#: components/points/includes/widgets.php:309
+#: components/points/includes/widgets.php:298
 msgid "Set this to 0 to keep from showing any logs"
 msgstr ""
 
-#: components/points/includes/widgets.php:338
+#: components/points/includes/widgets.php:329
 msgctxt "widget name"
 msgid "WordPoints Top Users"
 msgstr ""
 
-#: components/points/includes/widgets.php:338
+#: components/points/includes/widgets.php:331
 msgid "Showcase the users with the most points."
 msgstr ""
 
-#: components/points/includes/widgets.php:341
+#: components/points/includes/widgets.php:337
 msgctxt "widget title"
 msgid "Top Users"
 msgstr ""
 
-#: components/points/includes/widgets.php:460
-#: components/points/includes/widgets.php:611
+#: components/points/includes/widgets.php:421
+#: components/points/includes/widgets.php:546
 msgctxt "form label"
 msgid "Points type"
 msgstr ""
 
-#: components/points/includes/widgets.php:464
+#: components/points/includes/widgets.php:425
 msgid "Number of top users to show"
 msgstr ""
 
-#: components/points/includes/widgets.php:488
+#: components/points/includes/widgets.php:451
 msgctxt "widget name"
 msgid "Points Logs"
 msgstr ""
 
-#: components/points/includes/widgets.php:488
+#: components/points/includes/widgets.php:453
 msgid "Display the latest points activity."
 msgstr ""
 
-#: components/points/includes/widgets.php:491
+#: components/points/includes/widgets.php:459
 msgctxt "widget title"
 msgid "Points Logs"
 msgstr ""
 
-#: components/points/includes/widgets.php:615
+#: components/points/includes/widgets.php:550
 msgid "Number of log entries to display"
 msgstr ""
 
@@ -1568,40 +1629,40 @@ msgstr ""
 msgid "Select Type"
 msgstr ""
 
-#: components/ranks/admin/screens/ranks.php:94
+#: components/ranks/admin/screens/ranks.php:99
 msgctxt "rank"
 msgid "Edit"
 msgstr ""
 
-#: components/ranks/admin/screens/ranks.php:101
+#: components/ranks/admin/screens/ranks.php:106
 msgctxt "rank"
 msgid "Title"
 msgstr ""
 
-#: components/ranks/includes/integration/points.php:44
+#: components/ranks/includes/integration/points.php:51
 msgid "%s will be replaced with the rank of the logged in user"
 msgstr ""
 
-#: components/ranks/includes/rank-types/points.php:41
+#: components/ranks/includes/integration/points.php:106
+msgid "This rank group is associated with the &#8220;%s&#8221; points type."
+msgstr ""
+
+#: components/ranks/includes/rank-types/points.php:42
 msgctxt "rank type"
 msgid "Points"
 msgstr ""
 
-#: components/ranks/includes/rank-types/points.php:52
+#: components/ranks/includes/rank-types/points.php:53
 msgctxt "form label"
 msgid "Points"
 msgstr ""
 
-#: components/ranks/includes/rank-types/points.php:100
+#: components/ranks/includes/rank-types/points.php:101
 msgid "The amount of points is required, and must be a valid number."
 msgstr ""
 
-#: components/ranks/includes/rank-types/points.php:119
+#: components/ranks/includes/rank-types/points.php:120
 msgid "The number of points must be more than the minimum (%s)."
-msgstr ""
-
-#: components/ranks/includes/rank-types.php:44
-msgid "This rank group is associated with the &#8220;%s&#8221; points type."
 msgstr ""
 
 #: components/ranks/includes/shortcodes.php:25
@@ -1617,6 +1678,12 @@ msgstr ""
 msgid ""
 "The &#8220;%s&#8221; attribute of the %s shortcode must be used inside of a "
 "Post, Page, or other post type."
+msgstr ""
+
+#: includes/class-widget.php:54
+msgid ""
+"The &#8220;%1$s&#8221; widget could not be displayed because of an error: "
+"%2$s"
 msgstr ""
 
 #: includes/class-wordpoints-components.php:546
@@ -1638,40 +1705,35 @@ msgid ""
 "done already, some parts of the component may not function properly."
 msgstr ""
 
-#: includes/deprecated.php:115 includes/deprecated.php:127
-#: includes/deprecated.php:213
-msgid "new modules API"
-msgstr ""
-
-#: includes/functions.php:457
+#: includes/functions.php:525
 msgctxt "post type"
 msgid "Any"
 msgstr ""
 
-#: includes/functions.php:555
+#: includes/functions.php:623
 msgid "Shortcode error:"
 msgstr ""
 
-#: includes/functions.php:694
+#: includes/functions.php:762
 msgctxt "component name"
 msgid "Points"
 msgstr ""
 
-#: includes/functions.php:696 includes/functions.php:721
+#: includes/functions.php:764 includes/functions.php:789
 msgctxt "component author"
 msgid "WordPoints"
 msgstr ""
 
-#: includes/functions.php:699
+#: includes/functions.php:767
 msgid "Enables a points system for your site."
 msgstr ""
 
-#: includes/functions.php:719
+#: includes/functions.php:787
 msgctxt "component name"
 msgid "Ranks"
 msgstr ""
 
-#: includes/functions.php:724
+#: includes/functions.php:792
 msgid "Assign users ranks based on their points levels."
 msgstr ""
 

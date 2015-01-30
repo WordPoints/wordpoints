@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.8
-Tested up to: 4.1-beta2-30484
-Stable tag: 1.8.0
+Tested up to: 4.2-alpha-31007
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,26 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.9.0 - (~65 hrs) =
+* Updated: The title for the "Points" column in the points logs and top users tables
+will be replaced with the name of the points type being displayed.
+* Updated: Display the number of points a rank is for in the rank's title bar (on
+the Ranks admin screen).
+* Updated: Cache user ranks. May improve performance.
+* Updated: Combine the Comment and Comment Removed points hooks once again. The
+Comment hook will automatically remove the points if the comment gets removed, and
+the Comment Removed hook is hidden on new sites. The old behavior is retained as
+needed for current installs, but the Comment Removed hook will likely be removed in
+2.0, so you are recommended to stop using it now.
+* Updated: Combine the Post and Post Delete points hooks also. The Post hook now
+automatically removes points when a post is deleted. Also, the old behavior is
+retained on existing installs, but the Post Delete hook will probably be removed in
+2.0 as well.
+* Fixed: Better caching for the points logs. This could really improve performance
+when viewing the logs.
+* Fixed: Warn the user when they attempt to upload a module on the plugins screen.
+* Fixed: On multisite, only load network-active modules on the network admin screens.
+
 = 1.8.0 - (~55 hrs) =
 * New: You can display the points of the current post's author using the
 [`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
@@ -225,6 +245,12 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.0 =
+* This release deprecates the Comment Removed and Post Delete points hooks. Their
+functionality is now combined with the Comment and Post hooks, which now automatically
+remove points when a comment or post is deleted, respectively. It includes other
+improvements as well, like better caching.
 
 = 1.8.0 =
 * This is a feature release that adds a new shortcode to display a user's rank,

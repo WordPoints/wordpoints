@@ -112,19 +112,25 @@ function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $conten
 }
 
 /**
- * Programatically create a new instance of a points hook.
+ * Programmatically create a new instance of a points hook.
  *
  * @since 1.0.1
  * @since 1.4.0 Allows more than one hook to be created per test.
+ * @since 1.9.0 $hook_type can now be a hook type handler.
  *
- * @param string $hook_type The type of hook to create.
- * @param array  $instance  The arguments for the instance. Optional.
+ * @param string|WordPoints_Points_Hook $hook_type The type of hook to create.
+ * @param array                         $instance  The arguments for the instance.
  *
- * @return WordPoints_Points_Hook|bool The points hook object, or false on failure.
+ * @return bool|WordPoints_Points_Hook The points hook object, or false on failure.
  */
 function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
 
-	$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
+	if ( is_string( $hook_type ) ) {
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
+	} else {
+		$hook = $hook_type;
+		$hook_type = $hook->get_id_base();
+	}
 
 	if ( ! $hook instanceof WordPoints_Points_Hook ) {
 		return false;

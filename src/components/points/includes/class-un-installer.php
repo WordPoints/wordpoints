@@ -32,6 +32,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.5.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'1.5.1' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'1.8.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
+		'1.9.0' => array( 'single' => true, 'site' => true, 'network' => true ),
 	);
 
 	/**
@@ -105,17 +106,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function before_update() {
 
 		if ( 1 === version_compare( '1.4.0', $this->updating_from ) ) {
-
-			// If we're updating to 1.4.0, we initialize the hooks early, because
-			// we use them during the update.
-			remove_action( 'wordpoints_modules_loaded', array( 'WordPoints_Points_Hooks', 'initialize_hooks' ) );
-			WordPoints_Points_Hooks::initialize_hooks();
-
-			// Default to network mode off during the tests, but save the current
-			// mode so we can restore it afterward.
-			$this->points_hooks_network_mode = WordPoints_Points_Hooks::get_network_mode();
-			WordPoints_Points_Hooks::set_network_mode( false );
-
 			add_filter( 'wordpoints_points_hook_update_callback', array( $this, '_1_4_0_clean_hook_settings' ), 10, 4 );
 		}
 
@@ -130,6 +120,28 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		if ( $this->network_wide ) {
 			unset( $this->updates['1_8_0'] );
+		}
+
+		if ( 1 === version_compare( '1.9.0', $this->updating_from ) ) {
+
+			// If we're updating to 1.4.0, we initialize the hooks early, because
+			// we use them during the update.
+			remove_action( 'wordpoints_modules_loaded', array( 'WordPoints_Points_Hooks', 'initialize_hooks' ) );
+
+			WordPoints_Points_Hooks::register(
+				'WordPoints_Comment_Removed_Points_Hook'
+			);
+
+			WordPoints_Points_Hooks::register(
+				'WordPoints_Post_Delete_Points_Hook'
+			);
+
+			WordPoints_Points_Hooks::initialize_hooks();
+
+			// Default to network mode off during the tests, but save the current
+			// mode so we can restore it afterward.
+			$this->points_hooks_network_mode = WordPoints_Points_Hooks::get_network_mode();
+			WordPoints_Points_Hooks::set_network_mode( false );
 		}
 	}
 
@@ -480,11 +492,13 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {
 			$hook_type = 'network';
+			$network_ = 'network_';
 		} else {
 			$hook_type = 'standard';
+			$network_ = '';
 		}
 
-		$new_hook  = WordPoints_Points_Hooks::get_handler_by_id_base( $new_hook );
+		$new_hook = WordPoints_Points_Hooks::get_handler_by_id_base( $new_hook );
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook );
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
@@ -514,11 +528,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				);
 
 				// Make sure the correct points type is retrieved for network hooks.
-				if ( 'network' === $hook_type ) {
-					$points_type = $hook->points_type( 'network_' . $number );
-				} else {
-					$points_type = $hook->points_type( $number );
-				}
+				$points_type = $hook->points_type( $network_ . $number );
 
 				// Add this instance to the points-types-hooks list.
 				$points_types_hooks[ $points_type ][] = $new_hook->get_id( $number );
@@ -652,6 +662,148 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_site_to_1_8_0() {
 		$this->add_installed_site_id();
+	}
+
+	/**
+	 * Update a network to 1.9.0.
+	 *
+	 * @since 1.9.0
+	 */
+	protected function update_network_to_1_9_0() {
+
+		if ( $this->network_wide ) {
+
+			// Combine the network-wide points hooks.
+			$network_mode = WordPoints_Points_Hooks::get_network_mode();
+			WordPoints_Points_Hooks::set_network_mode( true );
+			$this->_1_9_0_combine_hooks( 'comment', 'comment_removed' );
+			$this->_1_9_0_combine_hooks( 'post', 'post_delete' );
+			WordPoints_Points_Hooks::set_network_mode( $network_mode );
+		}
+	}
+
+	/**
+	 * Update a site to 1.9.0.
+	 *
+	 * @since 1.9.0
+	 */
+	protected function update_site_to_1_9_0() {
+		$this->_1_9_0_combine_hooks( 'comment', 'comment_removed' );
+		$this->_1_9_0_combine_hooks( 'post', 'post_delete' );
+	}
+
+	/**
+	 * Update a single site to 1.9.0.
+	 *
+	 * @since 1.9.0
+	 */
+	protected function update_single_to_1_9_0() {
+		$this->_1_9_0_combine_hooks( 'comment', 'comment_removed' );
+		$this->_1_9_0_combine_hooks( 'post', 'post_delete' );
+	}
+
+	/**
+	 * Combine any Comment/Comment Removed or Post/Post Delete hook instance pairs.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $type         The primary hook type that awards the points.
+	 * @param string $reverse_type The counterpart hook type that reverses points.
+	 */
+	protected function _1_9_0_combine_hooks( $type, $reverse_type ) {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			"wordpoints_{$type}_points_hook"
+		);
+		$reverse_hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			"wordpoints_{$reverse_type}_points_hook"
+		);
+
+		if ( WordPoints_Points_Hooks::get_network_mode() ) {
+			$hook_type = 'network';
+			$network_ = 'network_';
+		} else {
+			$hook_type = 'standard';
+			$network_ = '';
+		}
+
+		$hook_instances = $hook->get_instances( $hook_type );
+		$hook_reverse_instances = $reverse_hook->get_instances( $hook_type );
+
+		$default_points = ( 'post' === $hook_type ) ? 20 : 10;
+		$defaults = array( 'points' => $default_points, 'post_type' => 'ALL' );
+
+		// Get the hooks into an array that is indexed by post type and the
+		// number of points. This allows us to easily check for any counterparts when
+		// we loop through the reverse type hooks below. It is even safe if a user
+		// is doing something crazy like multiple hooks for the same post type.
+		$hook_instances_indexed = array();
+
+		foreach ( $hook_instances as $number => $instance ) {
+
+			$instance = array_merge( $defaults, $instance );
+
+			$hook_instances_indexed
+				[ $hook->points_type( $network_ . $number ) ]
+				[ $instance['post_type'] ]
+				[ $instance['points'] ]
+				[] = $number;
+		}
+
+		foreach ( $hook_reverse_instances as $number => $instance ) {
+
+			$instance = array_merge( $defaults, $instance );
+
+			$points_type = $reverse_hook->points_type( $network_ . $number );
+
+			// We use empty() instead of isset() because array_pop() below may leave
+			// us with an empty array as the value.
+			if ( empty( $hook_instances_indexed[ $points_type ][ $instance['post_type'] ][ $instance['points'] ] ) ) {
+				continue;
+			}
+
+			$comment_instance_number = array_pop(
+				$hook_instances_indexed[ $points_type ][ $instance['post_type'] ][ $instance['points'] ]
+			);
+
+			// We need to unset this instance from the list of hook instances. It
+			// is expected for it to be automatically reversed, and that is the
+			// default setting. If we don't unset it here it will get auto-reversal
+			// turned off below, which isn't what we want.
+			unset( $hook_instances[ $comment_instance_number ] );
+
+			// Now we can just delete this reverse hook instance.
+			$reverse_hook->delete_callback(
+				$reverse_hook->get_id( $number )
+			);
+		}
+
+		// Any hooks left in the array are not paired with a reverse type hook, and
+		// aren't expected to auto-reverse, so we need to turn their auto-reversal
+		// setting off.
+		if ( ! empty( $hook_instances ) ) {
+
+			foreach ( $hook_instances as $number => $instance ) {
+				$instance['auto_reverse'] = 0;
+				$hook->update_callback( $instance, $number );
+			}
+
+			// We add a flag to the database so we'll know to enable legacy features.
+			update_site_option(
+				"wordpoints_{$type}_hook_legacy"
+				, true
+			);
+		}
+
+		// Now we check if there are any unpaired reverse typ hooks. If there are
+		// we'll set this flag in the database that will keep some legacy features
+		// enabled.
+		if ( $reverse_hook->get_instances( $hook_type ) ) {
+			update_site_option(
+				"wordpoints_{$reverse_type}_hook_legacy"
+				, true
+			);
+		}
 	}
 }
 

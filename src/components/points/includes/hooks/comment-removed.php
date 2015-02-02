@@ -7,8 +7,10 @@
  * @since 1.4.0
  */
 
-// Register the comment removed hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
+if ( get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+	// Register the comment removed hook.
+	WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
+}
 
 /**
  * Comment removed points hook.
@@ -18,6 +20,7 @@ WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
  * Prior to version 1.4.0, this functionality was part of the comment points hook.
  *
  * @since 1.4.0
+ * @deprecated 1.9.0
  */
 class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
 
@@ -42,7 +45,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 			, array(
 				'description' => __( 'Comment removed from the site.', 'wordpoints' ),
 				/* translators: the post type name. */
-				'post_type_description' =>  __( 'Comment on a %s removed from the site.', 'wordpoints' ),
+				'post_type_description' => __( 'Comment on a %s removed from the site.', 'wordpoints' ),
 				'post_type_filter' => array( $this, 'post_type_supports_comments' ),
 				'points_label' => __( 'Points subtracted if comment removed:', 'wordpoints' ),
 			)
@@ -154,21 +157,14 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		switch ( $meta['status'] ) {
-
-			case 'spam':
-				$message = _x( 'Comment marked as spam.', 'points log description', 'wordpoints' );
-			break;
-
-			case 'trash':
-				$message = _x( 'Comment moved to trash.', 'points log description', 'wordpoints' );
-			break;
-
-			default:
-				$message = _x( 'Comment unapproved.', 'points log description', 'wordpoints' );
-		}
-
-		return $message;
+		return wordpoints_points_logs_comment_disapprove(
+			$text
+			, $points
+			, $points_type
+			, $user_id
+			, $log_type
+			, $meta
+		);
 	}
 
 	/**

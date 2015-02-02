@@ -172,7 +172,7 @@ function wordpoints_ajax_save_points_hook() {
 				wp_die( $error );
 			}
 
-			$number  = $_POST['multi_number'];
+			$number  = (int) $_POST['multi_number'];
 			$hook_id = $id_base . '-' . $number;
 		}
 
@@ -181,7 +181,7 @@ function wordpoints_ajax_save_points_hook() {
 		$settings = false;
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$settings = wp_unslash( $_POST[ 'hook-' . $id_base ] );
+			$settings = wp_unslash( $_POST[ 'hook-' . $id_base ] ); // XSS pass WPCS.
 		}
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();

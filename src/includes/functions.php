@@ -105,6 +105,74 @@ function wordpoints_negint( &$maybe_int ) {
 	return $maybe_int;
 }
 
+/**
+ * Verify an nonce.
+ *
+ * This is a wrapper for the wp_verify_nonce() function. It was introduced to provide
+ * a better bootstrap for verifing an nonce request. In addition, it supplies better
+ * input validation and sanitization. Sanitizing the inputs before passing them in to
+ * wp_verify_nonce() is especially important, because that function is pluggable, and
+ * it is impossible to know how it might be implemented.
+ *
+ * The possible return values are also certain, which isn't so for wp_verify_nonce(),
+ * due to it being pluggable.
+ *
+ * @since 1.9.0
+ *
+ * @see wp_verify_nonce()
+ *
+ * @param string $nonce_key The key for the nonce in the request parameters array.
+ * @param string $action_format A sprintf()-style format string for the nonce action.
+ * @param string[] $format_values The keys of the request values to use to format the action.
+ * @param string   $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
+ *
+ * @return int|false Returns 1 or 2 on success, false on failure.
+ */
+function wordpoints_verify_nonce(
+	$nonce_key,
+	$action_format,
+	array $format_values = null,
+	$request_type = 'get'
+) {
+
+	if ( 'post' === $request_type ) {
+		$request = $_POST;
+	} else {
+		$request = $_GET;
+	}
+
+	if ( ! isset( $request[ $nonce_key ] ) ) {
+		return false;
+	}
+
+	if ( ! empty( $format_values ) ) {
+
+		$values = array();
+
+		foreach ( $format_values as $value ) {
+
+			if ( ! isset( $request[ $value ] ) ) {
+				return false;
+			}
+
+			$values[] = $request[ $value ];
+		}
+
+		$action_format = vsprintf( $action_format, $values );
+	}
+
+	$is_valid = wp_verify_nonce(
+		sanitize_key( $request[ $nonce_key ] )
+		, strip_tags( $action_format )
+	);
+
+	if ( 1 === $is_valid || 2 === $is_valid ) {
+		return $is_valid;
+	}
+
+	return false;
+}
+
 //
 // Databae Helpers.
 //

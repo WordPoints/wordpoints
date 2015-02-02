@@ -273,7 +273,7 @@ class WordPoints_Points_Logs_Query {
 				if ( isset( $this->_args['meta_query'][ $key ] ) ) {
 
 					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( esc_html__( '%s is no longer supported.', 'wordpoints' ), "\$args['meta_query'][{$key}]" ) );
+					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s is no longer supported.', "\$args['meta_query'][{$key}]" ) );
 				}
 			}
 
@@ -281,7 +281,7 @@ class WordPoints_Points_Logs_Query {
 
 				$this->_args['meta_key'] = $this->_args['meta_query']['key'];
 				unset( $this->_args['meta_query']['key'] );
-				_deprecated_argument( __METHOD__, '1.1.0', sprintf( esc_html__( '%s has been replaced by %s.', 'wordpoints' ), '$args["meta_query"]["key"]', '$args["meta_key"]' ) );
+				_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s has been replaced by %s.', '$args["meta_query"]["key"]', '$args["meta_key"]' ) );
 			}
 
 			foreach ( array( 'value', 'value__in', 'value__not_in' ) as $key ) {
@@ -290,7 +290,7 @@ class WordPoints_Points_Logs_Query {
 
 					$this->_args['meta_value'] = $this->_args['meta_query'][ $key ];
 					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( esc_html__( '%s has been replaced by %s.', 'wordpoints' ), "\$args['meta_query'][{$key}]", '$args["meta_value"]' ) );
+					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s has been replaced by %s.', "\$args['meta_query'][{$key}]", '$args["meta_value"]' ) );
 
 					if ( 'value__not_in' === $key ) {
 						$this->_args['meta_compare'] = 'NOT IN';
@@ -302,6 +302,22 @@ class WordPoints_Points_Logs_Query {
 		}
 
 	} // public function __construct()
+
+	/**
+	 * Get a query arg.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $arg The query arg whose value to retrieve.
+	 *
+	 * @return mixed|void The query arg's value, or nothing if it isn't set.
+	 */
+	public function get_arg( $arg ) {
+
+		if ( isset( $this->_args[ $arg ] ) ) {
+			return $this->_args[ $arg ];
+		}
+	}
 
 	/**
 	 * Set arguments for the query.
@@ -399,6 +415,10 @@ class WordPoints_Points_Logs_Query {
 
 		if ( $this->_is_cached_query ) {
 			$this->_cache_set( $result, "get_{$method}" );
+
+			if ( 'results' === $method || 'col' === $method ) {
+				$this->_cache_set( count( $result ), 'count' );
+			}
 		}
 
 		return $result;
@@ -432,7 +452,7 @@ class WordPoints_Points_Logs_Query {
 
 		$start = ( $page - 1 ) * $per_page;
 
-		// First try the cache.
+		// First try the main cache.
 		if ( $this->_is_cached_query ) {
 
 			$cache = $this->_cache_get( 'get_results' );
@@ -464,7 +484,9 @@ class WordPoints_Points_Logs_Query {
 
 		$this->_select_type = 'SELECT';
 
-		$results = $this->_get( 'results' );
+		unset( $this->_cache_query_md5 );
+
+		$results = $this->get();
 
 		// Restore the originial arguments.
 		$this->_args = $args;
@@ -472,6 +494,8 @@ class WordPoints_Points_Logs_Query {
 		// Restore the original limit query portion.
 		$this->_limit = '';
 		$this->_prepare_limit();
+
+		unset( $this->_cache_query_md5 );
 
 		return $results;
 	}
@@ -504,13 +528,11 @@ class WordPoints_Points_Logs_Query {
 	/**
 	 * Prime the cache.
 	 *
-	 * Calling this function will pre-fill this instance's cache from the object
-	 * cache. Not all queries are cached, only those for which this method is called.
-	 * If you want your query to be cached, then you should call this function
-	 * immediately after constructing the new query.
-	 *
-	 * If the results aren't found in the cache, the query will be run and the
-	 * results cached.
+	 * Calling this function will cause this query to be cached, and if the results
+	 * are already in the object cache they will be returned instead of a new call
+	 * to the database being made. Not all queries are cached, only those for which
+	 * this method is called. If you want your query to be cached, then you should
+	 * call this function immediately after constructing the new query.
 	 *
 	 * The $key passed is used as the cache key in the 'wordpoints_points_logs_query'
 	 * cache group. Multiple queries can use the same key, and you are encouraged to
@@ -534,24 +556,27 @@ class WordPoints_Points_Logs_Query {
 	 * automatically by wordpoints_clean_points_logs_cache() when a new matching log
 	 * is added to the database.
 	 *
-	 * The $methods paramater determies which methods of retrieving the data will be
-	 * cached. To cache multiple methods, pass an array. Priming the 'results' method
-	 * will automatically cache the 'count' as well, by counting the results.
-	 * However, if you are only going to use the count, you should specify 'count'
-	 * instead, to avoid pulling unneeded data from the database into the cache.
-	 *
 	 * The $network parameter determines whether the query will be cached in a global
 	 * cache group (for the entire network) or per-site. This is a moot point except
 	 * on multisite installs.
 	 *
 	 * @since 1.5.0
+	 * @since 1.9.0 No longer runs any database queries to fill the cache if it is empty.
+	 * @since 1.9.0 The $methods paramter was deprecated and is no longer used.
 	 *
-	 * @param string $key     The cache key to use.
-	 * @param string $methods The query method(s) to cache, 'results' (default),
-	 *                        'var', 'col', 'row', or 'count'.
-	 * @param string $network Whether this is a network-wide query.
+	 * @param string $key        The cache key to use.
+	 * @param string $deprecated Deprecated; no longer used.
+	 * @param string $network    Whether this is a network-wide query.
 	 */
-	public function prime_cache( $key = 'default:%points_type%', $methods = 'results', $network = false ) {
+	public function prime_cache( $key = 'default:%points_type%', $deprecated = null, $network = false ) {
+
+		if ( ! is_null( $deprecated ) ) {
+			_deprecated_argument(
+				__METHOD__
+				, '1.9.0'
+				, 'The $method argument is deprecated and should no longer be used.'
+			);
+		}
 
 		$this->_is_cached_query = true;
 
@@ -572,52 +597,7 @@ class WordPoints_Points_Logs_Query {
 		} else {
 			$this->_cache_group = 'wordpoints_points_logs_query';
 		}
-
-		$cache = $this->_cache_get();
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
-		$methods = array_unique( (array) $methods );
-
-		foreach ( $methods as $method ) {
-
-			if ( 'count' !== $method ) {
-				$method_key = "get_{$method}";
-			} else {
-				$method_key = 'count';
-			}
-
-			if ( isset( $cache[ $method_key ] ) ) {
-				continue;
-			}
-
-			switch ( $method ) {
-
-				case 'results':
-					$cache['get_results'] = $this->get();
-					$cache['count'] = count( $cache['get_results'] );
-				break;
-
-				case 'count':
-					$cache['count'] = $this->count();
-				break;
-
-				case 'var':
-				case 'col':
-				case 'row':
-					$cache[ "get_{$method}" ] = $this->get( $method );
-				break;
-
-				default:
-					return;
-			}
-		}
-
-		$this->_cache_set( $cache );
-
-	} // public function prime_cache()
+	}
 
 	/**
 	 * Filter date query valid columns for WP_Date_Query.

@@ -429,27 +429,43 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 		return false;
 	}
 
-	$rank_id = $wpdb->get_var(
-		$wpdb->prepare(
-			"
-				SELECT user_ranks.rank_id
-				FROM {$wpdb->wordpoints_user_ranks} user_ranks
-				LEFT JOIN {$wpdb->wordpoints_ranks} AS ranks
-					ON ranks.id = user_ranks.rank_id
-						AND ranks.rank_group = %s
-				WHERE user_ranks.user_id = %d
-					AND ranks.blog_id = %d
-					AND ranks.site_id = %d
-			"
-			, $group
-			, $user_id
-			, $wpdb->blogid
-			, $wpdb->siteid
-		)
-	);
+	$group_ranks = wp_cache_get( $group, 'wordpoints_user_ranks' );
 
-	if ( ! $rank_id ) {
-		$rank_id = $rank_group->get_base_rank();
+	foreach ( (array) $group_ranks as $_rank_id => $user_ids ) {
+		if ( isset( $user_ids[ $user_id ] ) ) {
+			  $rank_id = $_rank_id;
+			  break;
+		}
+	}
+
+	if ( ! isset( $rank_id ) ) {
+
+		$rank_id = $wpdb->get_var(
+			$wpdb->prepare(
+				"
+					SELECT user_ranks.rank_id
+					FROM {$wpdb->wordpoints_user_ranks} user_ranks
+					LEFT JOIN {$wpdb->wordpoints_ranks} AS ranks
+						ON ranks.id = user_ranks.rank_id
+							AND ranks.rank_group = %s
+					WHERE user_ranks.user_id = %d
+						AND ranks.blog_id = %d
+						AND ranks.site_id = %d
+				"
+				, $group
+				, $user_id
+				, $wpdb->blogid
+				, $wpdb->siteid
+			)
+		);
+
+		if ( ! $rank_id ) {
+			$rank_id = $rank_group->get_base_rank();
+		}
+
+		$group_ranks[ $rank_id ][ $user_id ] = $user_id;
+
+		wp_cache_set( $group, $group_ranks, 'wordpoints_user_ranks' );
 	}
 
 	return (int) $rank_id;
@@ -548,7 +564,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 			}
 
 			// If the rank was in the database, we can use the regular update method.
-		// fallthru
+			// fallthru
 
 		default:
 			$result = $wpdb->update(
@@ -566,6 +582,19 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 	if ( false === $result ) {
 		return false;
 	}
+
+	$group_ranks = wp_cache_get( $rank->rank_group, 'wordpoints_user_ranks' );
+
+	foreach ( $group_ranks as $_rank_id => $user_ids ) {
+		unset( $group_ranks[ $_rank_id ][ $user_id ] );
+	}
+
+	wp_cache_set( $rank->rank_group, $group_ranks, 'wordpoints_user_ranks' );
+
+	unset( $group_ranks );
+
+	wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
+	wp_cache_delete( $old_rank_id, 'wordpoints_users_with_rank' );
 
 	/**
 	 * Perform actions when a user rank is updated.
@@ -600,37 +629,44 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 		return false;
 	}
 
-	$user_ids = $wpdb->get_col(
-		$wpdb->prepare(
-			"
-				SELECT `user_id`
-				FROM `{$wpdb->wordpoints_user_ranks}`
-				WHERE `rank_id` = %d
-			"
-			, $rank_id
-		)
-	);
+	$user_ids = wp_cache_get( $rank_id, 'wordpoints_users_with_rank' );
 
-	if ( 'base' === $rank->type ) {
+	if ( false === $user_ids ) {
 
-		$other_user_ids = $wpdb->get_col(
+		$user_ids = $wpdb->get_col(
 			$wpdb->prepare(
 				"
-					SELECT users.`ID`
-					FROM `{$wpdb->users}` AS users
-					WHERE users.`ID` NOT IN (
-						SELECT user_ranks.`user_id`
-						FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
-						INNER JOIN `{$wpdb->wordpoints_ranks}` AS ranks
-							ON ranks.`id` = user_ranks.`rank_id`
-						WHERE ranks.`rank_group` = %s
-					)
+					SELECT `user_id`
+					FROM `{$wpdb->wordpoints_user_ranks}`
+					WHERE `rank_id` = %d
 				"
-				, $rank->rank_group
+				, $rank_id
 			)
 		);
 
-		$user_ids = array_merge( $user_ids, $other_user_ids );
+		if ( 'base' === $rank->type ) {
+
+			$other_user_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+						SELECT users.`ID`
+						FROM `{$wpdb->users}` AS users
+						WHERE users.`ID` NOT IN (
+							SELECT user_ranks.`user_id`
+							FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
+							INNER JOIN `{$wpdb->wordpoints_ranks}` AS ranks
+								ON ranks.`id` = user_ranks.`rank_id`
+							WHERE ranks.`rank_group` = %s
+						)
+					"
+					, $rank->rank_group
+				)
+			);
+
+			$user_ids = array_merge( $user_ids, $other_user_ids );
+		}
+
+		wp_cache_set( $rank_id, $user_ids, 'wordpoints_users_with_rank' );
 	}
 
 	return $user_ids;

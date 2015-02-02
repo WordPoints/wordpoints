@@ -65,8 +65,8 @@ abstract class WordPoints_Points_Shortcode extends WordPoints_Shortcode {
 					, sprintf(
 						__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a points type. Example: %3$s.', 'wordpoints' )
 						, 'points_type'
-						, '<code>[' . $this->shortcode . ']</code>'
-						, '<code>[' . $this->shortcode . ' points_type="points"]</code>'
+						, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
+						, '<code>[' . sanitize_key( $this->shortcode ) . ' points_type="points"]</code>'
 					)
 				);
 			}
@@ -114,8 +114,8 @@ class WordPoints_Points_Top_Shortcode extends WordPoints_Points_Shortcode {
 			return sprintf(
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a positive integer. Example: %3$s.', 'wordpoints' )
 				, 'users'
-				, '<code>[' . $this->shortcode . ']</code>'
-				, '<code>[' . $this->shortcode . ' <b>users="10"</b> type="points"]</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ' <b>users="10"</b> type="points"]</code>'
 			);
 		}
 
@@ -172,8 +172,8 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 			return sprintf(
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a registered points log query. Example: %3$s.', 'wordpoints' )
 				, 'query'
-				, '<code>[' . $this->shortcode . ']</code>'
-				, '<code>[' . $this->shortcode . ' <b>query="default"</b> points_type="points"]</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
+				, '<code>[' . sanitize_key( $this->shortcode ) . ' <b>query="default"</b> points_type="points"]</code>'
 			);
 		}
 
@@ -282,8 +282,19 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 		 */
 		$extra_classes = apply_filters( 'wordpoints_how_to_get_points_table_extra_classes', array(), $this->atts );
 
+		$points_heading = _x( 'Points', 'column name', 'wordpoints' );
+
+		$points_type_name = wordpoints_get_points_type_setting(
+			$this->atts['points_type']
+			, 'name'
+		);
+
+		if ( ! empty( $points_type_name ) ) {
+			$points_heading = $points_type_name;
+		}
+
 		$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">'
-			. '<thead><tr><th style="padding-right: 10px">' . esc_html_x( 'Points', 'column name', 'wordpoints' ) . '</th>'
+			. '<thead><tr><th style="padding-right: 10px">' . esc_html( $points_heading ) . '</th>'
 			. '<th>' . esc_html_x( 'Action', 'column name', 'wordpoints' ) . '</th></tr></thead>'
 			. '<tbody>';
 

@@ -48,11 +48,11 @@ function wordpoints_admin_register_scripts() {
 		'wordpoints-admin-points-hooks'
 		, 'WordPointsHooksL10n'
 		, array(
-			'confirmDelete' => __( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
-				. ' ' . __( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
-			'confirmTitle'  => __( 'Are you sure?', 'wordpoints' ),
-			'deleteText'    => __( 'Delete', 'wordpoints' ),
-			'cancelText'    => __( 'Cancel', 'wordpoints' ),
+			'confirmDelete' => esc_html__( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
+				. ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
+			'confirmTitle'  => esc_html__( 'Are you sure?', 'wordpoints' ),
+			'deleteText'    => esc_html__( 'Delete', 'wordpoints' ),
+			'cancelText'    => esc_html__( 'Cancel', 'wordpoints' ),
 		)
 	);
 }
@@ -195,7 +195,7 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 
 		case 'wordpoints_page_wordpoints_points_hooks':
 			$url = admin_url( $path );
-		// fallthru
+			// fallthru
 
 		case 'wordpoints_page_wordpoints_points_hooks-network':
 			if ( ! isset( $url ) ) {
@@ -332,7 +332,15 @@ function wordpoints_points_profile_options( $user ) {
 
 		foreach ( wordpoints_get_points_types() as $slug => $type ) {
 
-			echo esc_html( $type['name'] ) . ': ' . wordpoints_format_points( wordpoints_get_points( $user->ID, $slug ), $slug, 'profile_page' ) . '<br />';
+			echo esc_html( $type['name'] ) . ': ';
+
+			wordpoints_display_points(
+				wordpoints_get_points( $user->ID, $slug )
+				, $slug
+				, 'profile_page'
+			);
+
+			echo '<br />';
 		}
 	}
 }
@@ -358,16 +366,33 @@ function wordpoints_points_profile_options_update( $user_id ) {
 
 	if (
 		! isset( $_POST['wordpoints_points_set_nonce'], $_POST['wordpoints_set_reason'] )
-		|| ! wp_verify_nonce( $_POST['wordpoints_points_set_nonce'], 'wordpoints_points_set_profile' )
+		|| ! wordpoints_verify_nonce( 'wordpoints_points_set_nonce', 'wordpoints_points_set_profile', null, 'post' )
 	) {
 		return;
 	}
 
 	foreach ( wordpoints_get_points_types() as $slug => $type ) {
 
-		if ( isset( $_POST[ "wordpoints_points_set-{$slug}" ], $_POST[ "wordpoints_points-{$slug}" ], $_POST[ "wordpoints_points_old-{$slug}" ] ) ) {
+		if (
+			isset(
+				$_POST[ "wordpoints_points_set-{$slug}" ]
+				, $_POST[ "wordpoints_points-{$slug}" ]
+				, $_POST[ "wordpoints_points_old-{$slug}" ]
+			)
+			&& wordpoints_int( $_POST[ "wordpoints_points-{$slug}" ] )
+			&& wordpoints_int( $_POST[ "wordpoints_points_old-{$slug}" ] )
+		) {
 
-			wordpoints_alter_points( $user_id, $_POST[ "wordpoints_points-{$slug}" ] - $_POST[ "wordpoints_points_old-{$slug}" ], $slug, 'profile_edit', array( 'user_id' => get_current_user_id(), 'reason' => esc_html( wp_unslash( $_POST['wordpoints_set_reason'] ) ) ) );
+			wordpoints_alter_points(
+				$user_id
+				, (int) $_POST[ "wordpoints_points-{$slug}" ] - (int) $_POST[ "wordpoints_points_old-{$slug}" ]
+				, $slug
+				, 'profile_edit'
+				, array(
+					'user_id' => get_current_user_id(),
+					'reason' => wp_unslash( esc_html( $_POST['wordpoints_set_reason'] ) )
+				)
+			);
 		}
 	}
 }
@@ -437,5 +462,28 @@ function wordpoints_points_admin_settings_save() {
 	}
 }
 add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_settings_save' );
+
+/**
+ * Display notices to the user on the administration panels.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_admin_notices() {
+
+	if (
+		( ! isset( $_GET['page'] ) || 'wordpoints_points_hooks' !== $_GET['page'] )
+		&& current_user_can( 'manage_wordpoints_points_types' )
+		&& ! wordpoints_get_points_types()
+	) {
+
+		wordpoints_show_admin_message(
+			sprintf(
+				__( 'Welcome to WordPoints! Get started by <a href="%s">creating a points type</a>.', 'wordpoints' )
+				, esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) )
+			)
+		);
+	}
+}
+add_action( 'admin_notices', 'wordpoints_points_admin_notices' );
 
 // EOF

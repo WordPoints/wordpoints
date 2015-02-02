@@ -3,20 +3,21 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "64baa6a9c15e34f7f7bdc941d1260dc1",
-    "packages": [
+    "hash": "2b18cb53426361d7e85eedd5f7779053",
+    "packages": [],
+    "packages-dev": [
         {
             "name": "jdgrimes/wp-l10n-validator",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-l10n-validator.git",
-                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc"
+                "reference": "28e32f54fdaf155268d48a83b26bb2c966cbdff7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/bb2080e297430426fa5cc61789149dd2e4fb68dc",
-                "reference": "bb2080e297430426fa5cc61789149dd2e4fb68dc",
+                "url": "https://api.github.com/repos/JDGrimes/wp-l10n-validator/zipball/28e32f54fdaf155268d48a83b26bb2c966cbdff7",
+                "reference": "28e32f54fdaf155268d48a83b26bb2c966cbdff7",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +38,7 @@
             ],
             "description": "Gettext localization validator for WordPress",
             "homepage": "https://github.com/JDGrimes/wp-l10n-validator",
-            "time": "2014-11-13 14:37:08"
+            "time": "2015-01-07 20:43:54"
         },
         {
             "name": "jdgrimes/wp-plugin-uninstall-tester",
@@ -72,14 +73,31 @@
             "description": "Utilities for testing WordPress plugin install/uninstall with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wp-plugin-uninstall-tester",
             "time": "2014-11-25 14:47:10"
+        },
+        {
+            "name": "wordpoints/l10n-validator-config",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WordPoints/l10n-validator-config.git",
+                "reference": "b5083fb51c17e3626b8f0279ff920d38f587971b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WordPoints/l10n-validator-config/zipball/b5083fb51c17e3626b8f0279ff920d38f587971b",
+                "reference": "b5083fb51c17e3626b8f0279ff920d38f587971b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "WordPoints-specific configuration for https://github.com/JDGrimes/wp-l10n-validator",
+            "time": "2015-01-07 22:32:10"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "jdgrimes/wp-l10n-validator": 20
@@ -87,7 +105,5 @@
     "platform": {
         "php": ">=5.2.0"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }

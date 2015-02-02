@@ -21,16 +21,11 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'points' => 10, 'post_type' => 'ALL' );
-
-	/**
-	 * The log type of the logs of this hook.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type string $log_type
-	 */
-	protected $log_type;
+	protected $defaults = array(
+		'points' => 10,
+		'post_type' => 'ALL',
+		'auto_reverse' => 1,
+	);
 
 	/**
 	 * Initialize the hook.
@@ -45,19 +40,13 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		$args = array_merge( $defaults, $args );
 
-		parent::init( $title, $args );
+		parent::__construct( $title, $args );
 
 		add_action( 'transition_comment_status', array( $this, 'hook' ), 10, 3 );
 		add_action( 'transition_comment_status', array( $this, 'reverse_hook' ), 10, 3 );
 		add_action( 'wp_insert_comment', array( $this, 'new_comment_hook' ), 10, 2 );
 
-		add_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-		add_filter( "wordpoints_points_log-reverse_{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-
 		add_action( 'delete_comment', array( $this, 'clean_logs_on_comment_deletion' ) );
-		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
-
-		add_filter( "wordpoints_user_can_view_points_log-{$this->log_type}", array( $this, 'user_can_view' ), 10, 2 );
 	}
 
 	/**
@@ -192,49 +181,34 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 			return;
 		}
 
-		// Get a list of transactions to reverse.
-		$query = new WordPoints_Points_Logs_Query(
-			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'comment_id',
-						'value' => $comment->comment_ID,
-					),
-				),
-			)
-		);
-
-		$logs = $query->get();
-
-		if ( ! $logs ) {
+		$post_type = get_post_field( 'post_type', $comment->comment_post_ID );
+		if ( ! $this->should_do_auto_reversals_for_post_type( $post_type ) ) {
 			return;
 		}
 
-		foreach ( $logs as $log ) {
+		$logs = $this->get_logs_to_auto_reverse(
+			array(
+				'key'   => 'comment_id',
+				'value' => $comment->comment_ID,
+			)
+		);
 
-			$comment_id = wordpoints_get_points_log_meta( $log->id, 'comment_id', true );
+		foreach ( $logs as $log ) {
 
 			$meta_key = $this->get_last_status_comment_meta_key( $log->points_type );
 
-			if ( 'approved' !== get_comment_meta( $comment_id, $meta_key, true ) ) {
+			if ( 'approved' !== get_comment_meta( $comment->comment_ID, $meta_key, true ) ) {
 				continue;
 			}
 
-			wordpoints_alter_points(
-				$log->user_id
-				, -$log->points
-				, $log->points_type
-				, "reverse_{$this->log_type}"
-				, array( 'original_log_id' => $log->id )
-			);
+			$this->auto_reverse_log( $log );
 
 			delete_comment_meta( $comment->comment_ID, $meta_key );
 		}
 	}
 
 	/**
-	 * Select which use to award points to.
+	 * Select which user to award points to.
 	 *
 	 * Overriding this function gives you the ability to choose whether to award the
 	 * points to the comment author (the default), the post author, or even someone
@@ -283,36 +257,15 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		if ( ! $comment ) {
 
-			$post = false;
-
-			if ( isset( $meta['post_id'] ) ) {
-				$post = get_post( $meta['post_id'] );
-			}
-
-			if ( $post ) {
-
-				$post_title = get_the_title( $post->ID );
-
-				$link = '<a href="' . get_permalink( $post->ID ) . '">'
-					. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
-					. '</a>';
-
-				$text = sprintf( $this->get_option( 'log_text_post_title' . $reverse ), $link );
-
-			} else {
-
-				$text = $this->get_option( 'log_text_no_post_title' . $reverse );
-			}
+			$text = parent::logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 
 		} else {
 
-			$post_title = get_the_title( $comment->comment_post_ID );
-			$link       = '<a href="' . get_comment_link( $comment ) . '">'
-				. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
-				. '</a>';
-
-			/* translators: %s will be the post's title. */
-			$text = sprintf( $this->get_option( 'log_text_post_title' . $reverse ), $link );
+			$text = $this->log_with_post_title_link(
+				$comment->comment_post_ID
+				, $reverse
+				, get_comment_link( $comment )
+			);
 		}
 
 		return $text;
@@ -357,8 +310,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 */
 	public function clean_logs_on_comment_deletion( $comment_id ) {
 
-		global $wpdb;
-
 		$query = new WordPoints_Points_Logs_Query(
 			array(
 				'log_type'   => $this->log_type,
@@ -391,50 +342,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 					, $comment->comment_post_ID
 				);
 			}
-		}
-
-		wordpoints_regenerate_points_logs( $logs );
-	}
-
-	/**
-	 * Clean the logs when a post is deleted.
-	 *
-	 * Cleans the metadata for any logs related to the post being deleted. The post
-	 * ID meta field is deleted from the database. Once the metadata is cleaned up,
-	 * the logs are regenerated.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @action delete_post Added by the constructor.
-	 *
-	 * @param int $post_id The ID of the post being deleted.
-	 *
-	 * return void
-	 */
-	public function clean_logs_on_post_deletion( $post_id ) {
-
-		global $wpdb;
-
-		$query = new WordPoints_Points_Logs_Query(
-			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'post_id',
-						'value' => $post_id,
-					),
-				),
-			)
-		);
-
-		$logs = $query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
-
-		foreach ( $logs as $log ) {
-			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
 		}
 
 		wordpoints_regenerate_points_logs( $logs );

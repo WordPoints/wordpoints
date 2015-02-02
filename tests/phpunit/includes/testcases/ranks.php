@@ -15,6 +15,11 @@
 class WordPoints_Ranks_UnitTestCase extends WordPoints_UnitTestCase {
 
 	/**
+	 * @since 1.9.0
+	 */
+	protected $wordpoints_component = 'ranks';
+
+	/**
 	 * The slug of the rank group used in the tests.
 	 *
 	 * @since 1.7.0

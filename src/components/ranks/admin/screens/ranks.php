@@ -90,7 +90,12 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 <?php foreach ( $rank_group->get_types() as $rank_type ) : ?>
 	<script type="text/template" class="rank-template_<?php echo sanitize_html_class( $rank_type ); ?>">
 		<div class="view">
-			<div><%- name %></div>
+			<div>
+				<%- name %>
+				<?php if ( ($field = key( wp_list_filter( WordPoints_Rank_Types::get_type( $rank_type )->get_meta_fields(), array( 'in_title' => true ) ) )) ) : ?>
+					<span><% if ( typeof <?php echo sanitize_key( $field ); ?> !== "undefined" ) { print( <?php echo sanitize_key( $field ); ?> ); } %></span>
+				<?php endif; ?>
+			</div>
 			<a class="edit"><?php echo esc_html_x( 'Edit', 'rank', 'wordpoints' ); ?></a>
 			<a class="close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 		</div>

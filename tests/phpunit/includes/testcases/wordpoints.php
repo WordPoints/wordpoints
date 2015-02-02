@@ -39,6 +39,33 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $watched_filters = array();
 
 	/**
+	 * The class name of the widget type that this test is for.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $widget_class
+	 */
+	protected $widget_class;
+
+	/**
+	 * The WordPoints component that this testcase is for.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $wordpoints_component
+	 */
+	protected $wordpoints_component;
+
+	/**
+	 * The previous version if this is an update testcase.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @type string $previous_version
+	 */
+	protected $previous_version;
+
+	/**
 	 * Set up before each test.
 	 *
 	 * @since 1.7.0
@@ -183,7 +210,15 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @param string $component The slug of the component to update.
 	 * @param string $from      The version to update from.
 	 */
-	protected function update_component( $component, $from ) {
+	protected function update_component( $component = null, $from = null ) {
+
+		if ( ! isset( $component ) ) {
+			$component = $this->wordpoints_component;
+		}
+
+		if ( ! isset( $from ) ) {
+			$from = $this->previous_version;
+		}
 
 		$this->set_component_db_version( $component, $from );
 
@@ -372,6 +407,42 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Get the HTML for a widget instance.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array $instance The settings for the widget instance.
+	 *
+	 * @return string The HTML for this widget instance.
+	 */
+	protected function get_widget_html( array $instance = array(), array $args = array() ) {
+
+		ob_start();
+		the_widget( $this->widget_class, $instance, $args );
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get the XPath query for a widget instance.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array $instance The settings for the widget instance.
+	 *
+	 * @return DOMXPath XPath query object loaded with the widget's HTML.
+	 */
+	protected function get_widget_xpath( array $instance = array() ) {
+
+		$widget = $this->get_widget_html( $instance );
+
+		$document = new DOMDocument;
+		$document->loadHTML( $widget );
+		$xpath    = new DOMXPath( $document );
+
+		return $xpath;
+	}
+
 	//
 	// Assertions.
 	//
@@ -391,6 +462,24 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		$this->assertEquals(
 			1
 			, $xpath->query( '//p[@class = "wordpoints-shortcode-error"]' )->length
+		);
+	}
+
+	/**
+	 * Assert that a string is an error outpur by one of the widgets.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $string The string that is expected to be a widget error.
+	 */
+	protected function assertWordPointsWidgetError( $string ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+		$this->assertEquals(
+			1
+			, $xpath->query( '//div[@class = "wordpoints-widget-error"]' )->length
 		);
 	}
 }

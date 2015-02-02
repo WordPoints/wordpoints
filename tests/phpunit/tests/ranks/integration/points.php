@@ -55,6 +55,9 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 		WordPoints_Rank_Types::deregister_type( 'points-points' );
 		WordPoints_Rank_Groups::deregister_group( 'points_type-points' );
 
+		WordPoints_Rank_Types::deregister_type( 'points-credits' );
+		WordPoints_Rank_Groups::deregister_group( 'points_type-credits' );
+
 		parent::tearDown();
 	}
 
@@ -123,6 +126,82 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 		);
 
 		$this->assertEquals( $formatted_rank, $result );
+	}
+
+	/**
+	 * Test that wordpoints_register_points_ranks() registers a group for each points type.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_register_points_ranks
+	 */
+	public function test_wordpoints_register_points_ranks_group_for_each_points_type() {
+
+		$this->set_points_types();
+
+		wordpoints_register_points_ranks();
+
+		$this->assertTrue(
+			WordPoints_Rank_Groups::is_group_registered( 'points_type-credits' )
+		);
+
+		$this->assertEquals(
+			'Credits'
+			, WordPoints_Rank_Groups::get_group( 'points_type-credits' )->name
+		);
+	}
+
+	/**
+	 * Test that wordpoints_register_points_ranks() registers a rank type for each points type.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_register_points_ranks
+	 */
+	public function test_wordpoints_register_points_ranks_type_for_each_points_type() {
+
+		$this->set_points_types();
+
+		wordpoints_register_points_ranks();
+
+		$this->assertTrue(
+			WordPoints_Rank_Types::is_type_registered( 'points-credits' )
+		);
+
+		$this->assertTrue(
+			WordPoints_Rank_Groups::is_type_registered_for_group(
+				'points-credits'
+				, 'points_type-credits'
+			)
+		);
+
+		$meta = WordPoints_Rank_Types::get_type( 'points-credits' )
+			->get_meta_fields();
+
+		$this->assertEquals( 'credits', $meta['points_type']['default'] );
+	}
+
+	//
+	// Helpers.
+	//
+
+	/**
+	 * Set the points types option in the database.
+	 *
+	 * @since 1.9.0
+	 */
+	protected function set_points_types() {
+
+		wordpoints_update_network_option(
+			'wordpoints_points_types'
+			, array(
+				'credits' => array(
+					'name'   => 'Credits',
+					'prefix' => '$',
+					'suffix' => '',
+				),
+			)
+		);
 	}
 }
 

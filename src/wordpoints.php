@@ -4,7 +4,7 @@
  * Plugin Name: WordPoints
  * Plugin URI: http://wordpoints.org/
  * Description: Create one or more points systems for your site, and reward user activity.
- * Version: 1.8.0
+ * Version: 1.9.0
  * Author: J.D. Grimes
  * Author URI: http://codesymphony.co/
  * License: GPLv2
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  *
  * ---------------------------------------------------------------------------------|
- * Copyright 2013-2014  J.D. Grimes  (email : jdg@codesymphony.co)
+ * Copyright 2013-2015  J.D. Grimes  (email : jdg@codesymphony.co)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or later, as
@@ -40,9 +40,9 @@
  *
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
- * @version 1.8.0
+ * @version 1.9.0
  * @license http://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
- * @copyright 2013-2014 J.D. Grimes
+ * @copyright 2013-2015 J.D. Grimes
  */
 
 /**
@@ -167,6 +167,13 @@ include_once WORDPOINTS_DIR . 'includes/modules.php';
  * @since 1.8.0
  */
 include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
+
+/**
+ * The base widget class.
+ *
+ * @since 1.9.0
+ */
+include_once WORDPOINTS_DIR . 'includes/class-widget.php';
 
 /**
  * Deprecated functions.

@@ -4,24 +4,39 @@
 
 	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
+		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
+		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- WordPoints/wordpoints#75 -->
 		<!--
 			These rules are excluded because they produce error-level false
 			positives. They will be added back in when the changes are commited to
 			the stable version upstream. Until then, the issue numbers are supplied.
 		-->
-		<exclude name="WordPress.WhiteSpace.ScopeIndent" /><!-- #122 -->
-		<exclude name="WordPress.WhiteSpace.OperatorSpacing" /><!-- #68 -->
-		<exclude name="WordPress.XSS.EscapeOutput" /><!-- #144 -->
-		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- #178, #180 -->
 		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
-		<exclude name="WordPress.VIP.ValidatedSanitizedInput" /><!-- #179, #183 -->
+		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
+		<exclude name="WordPress.XSS.EscapeOutput" /><!-- #281 -->
+		<exclude name="WordPress.VIP.ValidatedSanitizedInput" /><!-- #293 -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
 	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
 		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.VIP.DirectDatabaseQuery">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.XSS.EscapeOutput">
+        <properties>
+            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce,wordpoints_format_points" type="array" />
+        </properties>
+		<exclude-pattern>/tests/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.VIP.FileSystemWritesDisallow">
+		<exclude-pattern>/tools/*</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
@@ -30,12 +45,6 @@
 		</properties>
 	</rule>
 
-	<rule ref="Generic.ControlStructures.InlineControlStructure">
-		<properties>
-			<property name="error" value="0" /><!-- because of https://pear.php.net/bugs/20155 -->
-		</properties>
-	</rule>
-
-	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/vendor/*,/dev-lib/*</exclude-pattern>
 
 </ruleset>

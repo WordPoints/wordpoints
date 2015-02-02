@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.8
-Tested up to: 4.1-beta2-30484
-Stable tag: 1.8.0
+Tested up to: 4.2-alpha-31007
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,28 +15,31 @@ Gamify your site with points.
 = Features =
 
 This plugin lets you create one or multiple types of points which you can use to
-reward your users by "hooking into" different user actions.
+reward your users by "hooking into" different user actions. WordPoints also includes
+a Ranks component, which lets you create ranks for your users based on how many
+points they have.
 
 You can currently award points to users for:
 
 * Registration
-* Comments - You can also have points removed if you delete a user's comment or mark it as spam.
-* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. As with comments, you can have points removed when a post is deleted.
-* Visiting your site - You can award points to a user when they visit your site at least once in a time period, once per day, for example.
+* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is deleted.
+* Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
+* Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
 
-All points transactions are logged and can be reviewed by administrators and
-displayed on the front end of your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+All points transactions are logged and can be reviewed by administrators from the
+WordPoints » Points Logs admin screen. The logs can be displayed on the front end of
+your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
-You can also display a list of the top users based on the number of points they have
-using the [`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+You can also display a list of the top users with the most points using the
+[`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
-The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/)
-that you can use.
+You can display a list of ways that your users can earn points using the
+[`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/)
+shortcode.
 
-WordPoints now also includes a Ranks component, which lets you create ranks for your
-users based on how many points they have.
+The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/).
 
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
@@ -111,7 +114,31 @@ points are awarded.
 3. A rank group on the Ranks administration screen. This is where you create and
 manage the ranks used on your site.
 
+4. An example of the `[wordpoints_points_top]` shortcode.
+
+5. An example of the `[wordpoints_how_to_get_points]` shortcode.
+
 == Changelog ==
+
+= 1.9.0 - (~65 hrs) =
+* Updated: The title for the "Points" column in the points logs and top users tables
+will be replaced with the name of the points type being displayed.
+* Updated: Display the number of points a rank is for in the rank's title bar (on
+the Ranks admin screen).
+* Updated: Cache user ranks. May improve performance.
+* Updated: Combine the Comment and Comment Removed points hooks once again. The
+Comment hook will automatically remove the points if the comment gets removed, and
+the Comment Removed hook is hidden on new sites. The old behavior is retained as
+needed for current installs, but the Comment Removed hook will likely be removed in
+2.0, so you are recommended to stop using it now.
+* Updated: Combine the Post and Post Delete points hooks also. The Post hook now
+automatically removes points when a post is deleted. Also, the old behavior is
+retained on existing installs, but the Post Delete hook will probably be removed in
+2.0 as well.
+* Fixed: Better caching for the points logs. This could really improve performance
+when viewing the logs.
+* Fixed: Warn the user when they attempt to upload a module on the plugins screen.
+* Fixed: On multisite, only load network-active modules on the network admin screens.
 
 = 1.8.0 - (~55 hrs) =
 * New: You can display the points of the current post's author using the
@@ -218,6 +245,12 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.0 =
+* This release deprecates the Comment Removed and Post Delete points hooks. Their
+functionality is now combined with the Comment and Post hooks, which now automatically
+remove points when a comment or post is deleted, respectively. It includes other
+improvements as well, like better caching.
 
 = 1.8.0 =
 * This is a feature release that adds a new shortcode to display a user's rank,

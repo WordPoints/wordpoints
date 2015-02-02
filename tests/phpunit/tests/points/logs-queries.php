@@ -514,8 +514,8 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		$query = wordpoints_get_points_logs_query( 'points' );
 
-		// The cache should have been primed.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		// No query yet.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
 
 		// Get the results;
 		$query->get();
@@ -540,6 +540,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		// Get the query again.
 		$query = wordpoints_get_points_logs_query( 'points' );
+		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
@@ -560,13 +561,19 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// Get the query for the 'points' points type.
 		$query = wordpoints_get_points_logs_query( 'points' );
 
-		// The cache should have been primed.
+		// No query yet.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+
+		$query->get();
+
+		// Now there should have been a query.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the 'credits' points type.
 		$query = wordpoints_get_points_logs_query( 'credits' );
+		$query->get();
 
-		// A second query should have been made to prime this cache.
+		// A second query should have been made.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
 
 		// Now alter some points.
@@ -574,12 +581,14 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		// Get the 'points' query again.
 		$query = wordpoints_get_points_logs_query( 'points' );
+		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the 'credits' query again.
 		$query = wordpoints_get_points_logs_query( 'credits' );
+		$query->get();
 
 		// The cache should still have been good, no need for another query.
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
@@ -603,12 +612,18 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// Get the query.
 		$query = wordpoints_get_points_logs_query( 'points', 'current_user' );
 
-		// The cache should have been primed.
+		// No query yet.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+
+		$query->get();
+
+		// Now there should have been a query.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the second user.
 		wp_set_current_user( $user_ids[1] );
 		$query = wordpoints_get_points_logs_query( 'points', 'current_user' );
+		$query->get();
 
 		// A second query should have been made to prime this cache.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
@@ -619,6 +634,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// Get the query again for the first user.
 		wp_set_current_user( $user_ids[0] );
 		$query = wordpoints_get_points_logs_query( 'points', 'current_user' );
+		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
@@ -626,6 +642,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// Get the query for the second user again.
 		wp_set_current_user( $user_ids[1] );
 		$query = wordpoints_get_points_logs_query( 'points', 'current_user' );
+		$query->get();
 
 		// The cache should still have been good, no need for another query.
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
@@ -649,7 +666,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// Get the query.
 		$query = wordpoints_get_points_logs_query( 'points', 'network' );
 
-		// The cache should have been primed.
+		// No query yet.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+
+		$query->get();
+
+		// Now there should have been a query.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site.
@@ -658,6 +680,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		switch_to_blog( $site_id );
 		// Get the query again.
 		$query = wordpoints_get_points_logs_query( 'points', 'network' );
+		$query->get();
 
 		// The cache should still be good, no query needed.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
@@ -668,6 +691,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		// Get the query again on the first site.
 		$query = wordpoints_get_points_logs_query( 'points', 'network' );
+		$query->get();
 
 		// The cache should have been invalidated, and so a new query made.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
@@ -689,7 +713,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		// Get the query.
 		$query = wordpoints_get_points_logs_query( 'points' );
 
-		// The cache should have been primed.
+		// No query yet.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+
+		$query->get();
+
+		// Now there should have been a query.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site.
@@ -698,6 +727,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		switch_to_blog( $site_id );
 		// Get the query again.
 		$query = wordpoints_get_points_logs_query( 'points' );
+		$query->get();
 
 		// A new query is needed for this site.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
@@ -708,6 +738,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
 		// Get the query again on the first site.
 		$query = wordpoints_get_points_logs_query( 'points' );
+		$query->get();
 
 		// The cache should still be good, no new query needed.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
@@ -796,7 +827,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		);
 		$query->prime_cache( __FUNCTION__ );
 
-		// The cache should have been primed.
+		// The cache should have been primed, but no query made.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+
+		$query->get();
+
+		// Now there should have been a query.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the first page.
@@ -808,6 +844,55 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertCount( 2, $page_1 );
 		$this->assertEquals( $ids[0], $page_1[0]->id );
 		$this->assertEquals( $ids[1], $page_1[1]->id );
+	}
+
+	/**
+	 * Test that pages are cached separately.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_pages_cached_individually() {
+
+		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
+		// Get the query.
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'orderby' => 'id', 'order' => 'ASC' )
+		);
+		$query->prime_cache( __METHOD__ );
+
+		// The cache should have been primed, but no query made.
+		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+
+		// Get the first page.
+		$page_1 = $query->get_page( 1, 2 );
+
+		// The query shouldn't have been called again.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		$this->assertCount( 2, $page_1 );
+		$this->assertEquals( $ids[0], $page_1[0]->id );
+		$this->assertEquals( $ids[1], $page_1[1]->id );
+
+		// Get the second page.
+		$page_2 = $query->get_page( 2, 2 );
+
+		// The query should have been called again.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		$this->assertCount( 2, $page_2 );
+		$this->assertEquals( $ids[2], $page_2[0]->id );
+		$this->assertEquals( $ids[3], $page_2[1]->id );
+
+		// Get the whole query.
+		$all = $query->get();
+
+		// The query should have been called again.
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+
+		$this->assertCount( 5, $all );
 	}
 
 	/**

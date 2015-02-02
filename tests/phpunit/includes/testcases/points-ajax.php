@@ -18,6 +18,11 @@
 abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitTestCase {
 
 	/**
+	 * @since 1.9.0
+	 */
+	protected $wordpoints_component = 'points';
+
+	/**
 	 * Set up before the tests begin.
 	 *
 	 * @since 1.3.0

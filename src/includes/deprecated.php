@@ -112,7 +112,7 @@ final class WordPoints_Modules {
 	 */
 	public static function set_up() {
 
-		_deprecated_function( __METHOD__, '1.1.0', __( 'new modules API' ) );
+		_deprecated_function( __METHOD__, '1.1.0', 'new modules API' );
 	}
 
 	/**
@@ -124,7 +124,7 @@ final class WordPoints_Modules {
 	 */
 	public static function instance() {
 
-		_deprecated_function( __METHOD__, '1.1.0', __( 'new modules API' ) );
+		_deprecated_function( __METHOD__, '1.1.0', 'new modules API' );
 
 		if ( ! isset( self::$instnace ) ) {
 			self::$instance = new WordPoints_Modules();
@@ -210,7 +210,7 @@ final class WordPoints_Modules {
 	 */
 	public function register( $args ) {
 
-		_deprecated_function( __METHOD__, '1.1.0',  __( 'new modules API' ) );
+		_deprecated_function( __METHOD__, '1.1.0',  'new modules API' );
 		return false;
 	}
 
@@ -492,7 +492,7 @@ function wordpoints_db_table_exists( $table ) {
 		$esc_table = like_escape( $table );
 	}
 
-	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $esc_table ) );
+	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $esc_table ) ); // Cache pass, WPCS.
 
 	return ( $_table === $table ) ? true : false;
 }

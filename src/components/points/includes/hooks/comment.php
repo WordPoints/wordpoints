@@ -42,15 +42,24 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 				/* translators: %s will be the post's title. */
 				'log_text_post_title' => _x( 'Comment on %s.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title' => _x( 'Comment', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type' => _x( 'Comment on a %s.', 'points log description', 'wordpoints' ),
+				/* translators: %s will be the post's title. */
+				'log_text_post_title_reverse' => _x( 'Comment on %s removed.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title_reverse' => _x( 'Comment removed.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type_reverse' => _x( 'Comment on a %s removed.', 'points log description', 'wordpoints' ),
 				'last_status_meta_key' => 'wordpoints_last_status',
 			)
 		);
-	}
 
-	/**
-	 * @since 1.8.0
-	 */
-	public function reverse_hook( $new_status, $old_status, $comment ) {}
+		if ( get_site_option( 'wordpoints_comment_hook_legacy' ) ) {
+			$this->set_option(
+				'disable_auto_reverse_label'
+				, __( 'Revoke the points if the comment is removed.', 'wordpoints' )
+			);
+		}
+	}
 
 	/**
 	 * Generate the log entry for an approve comment transaction.
@@ -79,7 +88,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	 *
 	 * @since 1.0.0
 	 * @deprecated 1.4.0
-	 * @deprecated Use WordPoints_Comment_Removed_Points_Hook::logs() instead.
+	 * @deprecated Use wordpoints_points_logs_comment_disapprove() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -92,15 +101,16 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	 */
 	public function disapprove_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Comment_Removed_Points_Hook::logs()' );
+		_deprecated_function( __METHOD__, '1.4.0', 'wordpoints_points_logs_comment_disapprove' );
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
-
-		if ( $hook ) {
-			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
-		}
-
-		return $text;
+		return wordpoints_points_logs_comment_disapprove(
+			$text
+			, $points
+			, $points_type
+			, $user_id
+			, $log_type
+			, $meta
+		);
 	}
 
 	/**

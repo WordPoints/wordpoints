@@ -658,10 +658,12 @@ final class WordPoints_Points_Hooks {
 					<div class="hook-control-actions">
 						<div class="alignleft">
 							<?php
-								if ( ! $add_new ) {
-									wp_nonce_field( "wordpoints_delete_points_type-{$slug}", 'delete-points-type-nonce' );
-									submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false, array( 'id' => "delete_points_type-{$slug}" ) );
-								}
+
+							if ( ! $add_new ) {
+								wp_nonce_field( "wordpoints_delete_points_type-{$slug}", 'delete-points-type-nonce' );
+								submit_button( _x( 'Delete', 'points type', 'wordpoints' ), 'delete', 'delete-points-type', false, array( 'id' => "delete_points_type-{$slug}" ) );
+							}
+
 							?>
 							<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 						</div>

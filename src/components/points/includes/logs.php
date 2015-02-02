@@ -186,11 +186,10 @@ final class WordPoints_Points_Log_Queries {
  * Queries cannot be deregistered at present. Use the
  * 'wordpoints_points_logs_query_args' filter instead.
  *
- * To have your query cached, pass a list of the query methods that should be cached
- * via $data['cache_queries']. You can specify the cache key to use in
- * $data['cache_key'], though this is optional, and '$slug:%points_type%' will by
- * used by default. For more information on logs query caching, see
- * WordPoints_Points_Logs_Query::prime_cache().
+ * To have your query cached, set $data['cache_queries'] to true. You can specify
+ * the cache key to use in  $data['cache_key'], though this is optional, and
+ * '$slug:%points_type%' will by  used by default. For more information on logs
+ * query caching, see WordPoints_Points_Logs_Query::prime_cache().
  *
  * @since 1.0.0
  * @since 1.5.0 The $data parameter was added.
@@ -205,7 +204,7 @@ final class WordPoints_Points_Log_Queries {
  *        Other data for this query.
  *
  *        @type string       $cache_key     Cache key format.
- *        @type string|array $cache_queries Type(s) of queries to cache.
+ *        @type string|array $cache_queries Whether to cache this query.
  *        @type bool         $network_wide  Whether this is a network-wide query.
  * }
  *
@@ -314,7 +313,7 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
 
 		$query->prime_cache(
 			$query_data['cache_key']
-			, $query_data['cache_queries']
+			, null
 			, $query_data['network_wide']
 		);
 	}
@@ -456,6 +455,17 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		'time'        => _x( 'Time', 'points logs table heading', 'wordpoints' ),
 	);
 
+	$points_type = $logs_query->get_arg( 'points_type' );
+
+	if ( ! empty( $points_type ) ) {
+
+		$points_type_name = wordpoints_get_points_type_setting( $points_type, 'name' );
+
+		if ( ! empty( $points_type_name ) ) {
+			$columns['points'] = $points_type_name;
+		}
+	}
+
 	?>
 
 	<div class="wordpoints-points-logs-wrapper">
@@ -466,7 +476,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				</div>
 			<?php endif; ?>
 			<div class="wordpoints-points-logs-search">
-				<form method="POST" action="<?php echo esc_attr( esc_url( remove_query_arg( 'wordpoints_points_logs_page', $_SERVER['REQUEST_URI'] ) ) ); ?>">
+				<form method="POST" action="<?php echo esc_attr( esc_url( remove_query_arg( 'wordpoints_points_logs_page' ) ) ); ?>">
 					<label class="screen-reader-text" for="wordpoints_points_logs_search">
 						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
 					</label>
@@ -505,7 +515,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		<tbody>
 			<?php if ( empty( $logs ) ) : ?>
 				<tr>
-					<td colspan="<?php echo ( $args['show_users'] ) ? 3 : 4; ?>">
+					<td colspan="<?php echo (int) ( $args['show_users'] ) ? 3 : 4; ?>">
 						<?php esc_html_e( 'No matching logs found.', 'wordpoints' ); ?>
 					</td>
 				</tr>
@@ -561,9 +571,9 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 	<?php if ( $args['paginate'] ) : ?>
 		<?php
 
-		echo paginate_links(
+		echo paginate_links( // XSS pass WPCS.
 			array(
-				'base'     => add_query_arg( '%_%', '', $_SERVER['REQUEST_URI'] ),
+				'base'     => add_query_arg( '%_%', '' ),
 				'format'   => 'wordpoints_points_logs_page=%#%',
 				'total'    => ceil( $logs_query->count() / $per_page ),
 				'current'  => $page,
@@ -617,7 +627,7 @@ function wordpoints_register_default_points_logs_queries() {
 		, array( 'user_id' => get_current_user_id() )
 		, array(
 			'cache_key'     => 'current_user:%points_type%:%user_id%',
-			'cache_queries' => 'results',
+			'cache_queries' => true,
 		)
 	);
 
@@ -631,7 +641,7 @@ function wordpoints_register_default_points_logs_queries() {
 		, array( 'blog_id' => false )
 		, array(
 			'network_wide'  => true,
-			'cache_queries' => 'results',
+			'cache_queries' => true,
 		)
 	);
 }
@@ -641,8 +651,6 @@ add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_defa
  * Admin manage logs render.
  *
  * @since 1.0.0
- *
- * @action wordpoints_render_log-profile_edit
  */
 function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -651,6 +659,61 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 	return sprintf( _x( 'Points adjusted by %s. Reason: %s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
 }
 add_action( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
+
+/**
+ * Generate the log entry for a comment_disapprove transaction.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+	switch ( $meta['status'] ) {
+
+		case 'spam':
+			$text = _x( 'Comment marked as spam.', 'points log description', 'wordpoints' );
+		break;
+
+		case 'trash':
+			$text = _x( 'Comment moved to trash.', 'points log description', 'wordpoints' );
+		break;
+
+		default:
+			$text = _x( 'Comment unapproved.', 'points log description', 'wordpoints' );
+	}
+
+	return $text;
+}
+add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
+
+/**
+ * Generate the log entry for a post_delete transaction.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user_id, $log_type, $meta ) {
+
+	if ( isset( $meta['post_type'] ) ) {
+
+		$post_type = get_post_type_object( $meta['post_type'] );
+
+		if ( ! is_null( $post_type ) ) {
+
+			/* translators: 1 is the post type name, 2 is the post title. */
+			return sprintf(
+				_x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' )
+				, $post_type->labels->singular_name
+				, $meta['post_title']
+			);
+		}
+	}
+
+	/* translators: %s will be the post title. */
+	return sprintf(
+		_x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' )
+		, $meta['post_title']
+	);
+}
+add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 
 /**
  * Clear the logs caches when new logs are added.

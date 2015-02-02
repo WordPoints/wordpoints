@@ -16,11 +16,15 @@ WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
  * Awards points when a post is published.
  *
  * @since 1.0.0
- * @since 1.4.0 No longer subtracts points when a hook is deleted.
- *
- * @see WordPoints_Post_Delete_Points_Hook
+ * @since 1.4.0 No longer subtracts points when a post is deleted.
+ * @since 1.9.0 Automatically subtracts points when a post is deleted.
  */
 class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base {
+
+	/**
+	 * @since 1.9.0
+	 */
+	protected $log_type = 'post_publish';
 
 	/**
 	 * The default values.
@@ -29,7 +33,11 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'points' => 20, 'post_type' => 'ALL' );
+	protected $defaults = array(
+		'points' => 20,
+		'post_type' => 'ALL',
+		'auto_reverse' => 1,
+	);
 
 	/**
 	 * Set up the hook.
@@ -41,19 +49,42 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function __construct() {
 
-		parent::init(
+		parent::__construct(
 			_x( 'Post Publish', 'points hook name', 'wordpoints' )
 			, array(
 				'description' => __( 'New post published.', 'wordpoints' ),
 				/* translators: the post type name. */
 				'post_type_description' => __( 'New %s published.', 'wordpoints' ),
+				/* translators: %s will be a link to the post. */
+				'log_text_post_title' => _x( 'Post %s published.', 'points log description', 'wordpoints' ),
+				/* translators: 1 is the post type name, 2 is a link to the post. */
+				'log_text_post_title_and_type' => _x( '%2$s %1$s published.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type' => _x( '%s published.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title' => _x( 'Post published.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type_reverse' => _x( '%s deleted.', 'points log description', 'wordpoints' ),
+				/* translators: 1 is the post type name, 2 is the post title. */
+				'log_text_post_title_and_type_reverse' => _x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' ),
+				/* translators: %s will be the post title. */
+				'log_text_post_title_reverse' => _x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title_reverse' => _x( 'Post deleted.', 'points log description', 'wordpoints' ),
 			)
 		);
 
+		if ( get_site_option( 'wordpoints_post_hook_legacy' ) ) {
+			$this->set_option(
+				'disable_auto_reverse_label'
+				, __( 'Revoke the points if the post is permanently deleted.', 'wordpoints' )
+			);
+		}
+
 		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
+		add_action( 'delete_post', array( $this, 'reverse_hook' ) );
+
+		// Back-compat.
+		remove_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
 		add_filter( 'wordpoints_points_log-post_publish', array( $this, 'publish_logs' ), 10, 6 );
-		add_action( 'delete_post', array( $this, 'clean_logs_on_post_deletion' ) );
-		add_filter( 'wordpoints_user_can_view_points_log-post_publish', array( $this, 'user_can_view' ), 10, 2 );
 	}
 
 	/**
@@ -107,19 +138,45 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	}
 
 	/**
+	 * Automatically reverse any transactions for a post when it is deleted.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @WordPress\action delete_post Added by the constructor.
+	 */
+	public function reverse_hook( $post_id ) {
+
+		$post_type = get_post_field( 'post_type', $post_id );
+		if ( ! $this->should_do_auto_reversals_for_post_type( $post_type ) ) {
+			return;
+		}
+
+		$logs = $this->get_logs_to_auto_reverse(
+			array(
+				'key'   => 'post_id',
+				'value' => $post_id,
+			)
+		);
+
+		foreach ( $logs as $log ) {
+			$this->auto_reverse_log( $log );
+		}
+	}
+
+	/**
 	 * Remove points when a post is deleted.
 	 *
 	 * @since 1.0.0
 	 * @since 1.1.0 The post_type is now passed as metadata when points are awarded.
 	 * @since 1.1.2 Points are only removed if the post type is public.
 	 * @deprecated 1.4.0
-	 * @deprecated Use the WordPoints_Post_Delete_Points_Hook instead.
+	 * @deprecated Use WordPoints_Post_Points_Hook::reverse_hook() instead.
 	 *
 	 * @param int $post_id The post's ID.
 	 */
 	public function delete_hook( $post_id ) {
 
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::hook()' );
+		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Points_Hook::reverse_hook()' );
 	}
 
 	/**
@@ -140,52 +197,15 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function publish_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		$post = null;
-
-		if ( isset( $meta['post_id'] ) ) {
-			$post = get_post( $meta['post_id'], OBJECT, 'display' );
-		}
-
-		if ( ! $post ) {
-
-			$post_type = null;
-
-			if ( isset( $meta['post_type'] ) && post_type_exists( $meta['post_type'] ) ) {
-				$post_type = get_post_type_object( $meta['post_type'] );
-			}
-
-			if ( $post_type ) {
-				/* translators: %s is the name of a post type. */
-				return sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name );
-			} else {
-				return _x( 'Post published.', 'points log description', 'wordpoints' );
-			}
-
-		} else {
-
-			$link = '<a href="' . get_permalink( $post ) . '">' . ( $post->post_title ? $post->post_title : _x( '(no title)', 'post title', 'wordpoints' ) ) . '</a>';
-
-			$post_type = get_post_type_object( $post->post_type );
-
-			if ( is_null( $post_type ) ) {
-
-				/* translators: %s will be a link to the post. */
-				return sprintf( _x( 'Post %s published.', 'points log description', 'wordpoints' ), $link );
-			}
-
-			/* translators: 1 is the post type name, 2 is a link to the post. */
-			return sprintf( _x( '%1$s %2$s published.', 'points log description', 'wordpoints' ), $post_type->labels->singular_name, $link );
-		}
+		return parent::logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 	}
 
 	/**
 	 * Generate the log entry for a transaction.
 	 *
-	 * The data isn't sanitized here becuase we do that before saving it.
-	 *
 	 * @since 1.0.0
 	 * @deprecated 1.4.0
-	 * @deprecated Use WordPoints_Post_Delete_Points_Hook::logs() instead.
+	 * @deprecated Use wordpoints_points_logs_post_delete() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -198,15 +218,16 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function delete_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Delete_Points_Hook::logs()' );
+		_deprecated_function( __METHOD__, '1.4.0', 'wordpoints_points_logs_post_delete' );
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
-
-		if ( $hook ) {
-			$text = $hook->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
-		}
-
-		return $text;
+		return wordpoints_points_logs_post_delete(
+			$text
+			, $points
+			, $points_type
+			, $user_id
+			, $log_type
+			, $meta
+		);
 	}
 
 	/**
@@ -232,89 +253,6 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 		);
 
 		return ( $query->count() > 0 );
-	}
-
-	/**
-	 * Clean the logs when a post is deleted.
-	 *
-	 * Cleans the metadata for any logs related to this post. The post ID meta field
-	 * is updated in the database, to instead store the post type. If the post type
-	 * isn't available, we just delete those rows.
-	 *
-	 * After the metadata is cleaned up, the affected logs are regenerated.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @action delete_post Added by the constructor.
-	 *
-	 * @param int $post_id The ID of the post being deleted.
-	 *
-	 * @return void
-	 */
-	public function clean_logs_on_post_deletion( $post_id ) {
-
-		global $wpdb;
-
-		$logs_query = new WordPoints_Points_Logs_Query(
-			array(
-				'log_type'   => 'post_publish',
-				'meta_query' => array(
-					array(
-						'key'   => 'post_id',
-						'value' => $post_id,
-					),
-				),
-			)
-		);
-
-		$logs = $logs_query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
-
-		$post = get_post( $post_id );
-
-		foreach ( $logs as $log ) {
-
-			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
-
-			if ( $post ) {
-
-				wordpoints_add_points_log_meta(
-					$log->id
-					, 'post_type'
-					, $post->post_type
-				);
-			}
-		}
-
-		wordpoints_regenerate_points_logs( $logs );
-	}
-
-	/**
-	 * Check if a user can view a particular log entry.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @filter wordpoints_user_can_view_points_log-post_publish Added by the constructor.
-	 *
-	 * @param bool   $can_view Whether the user can view this log entry.
-	 * @param object $log      The log object.
-	 *
-	 * @return bool Whether the user can view this log.
-	 */
-	public function user_can_view( $can_view, $log ) {
-
-		if ( $can_view ) {
-			$post_id = wordpoints_get_points_log_meta( $log->id, 'post_id', true );
-
-			if ( $post_id ) {
-				$can_view = current_user_can( 'read_post', $post_id );
-			}
-		}
-
-		return $can_view;
 	}
 
 } // class WordPoints_Post_Points_Hook

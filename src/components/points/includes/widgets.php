@@ -30,9 +30,14 @@ add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 /**
  * WordPoints points widget template class.
  *
+ * This class is not intended to be instantiated, and should be declared abstract.
+ * However, it was not at first, and so it is presently left as non-abstract just in
+ * case, for backward compatibiility. It will likely be made abstract in 2.0.0.
+ *
  * @since 1.0.0
+ * @since 1.9.0 Now extends WordPoints_Widget instead of WP_Widget directly.
  */
-class WordPoints_Points_Widget extends WP_Widget {
+/* abstract */ class WordPoints_Points_Widget extends WordPoints_Widget {
 
 	/**
 	 * Default settings for the widget.
@@ -44,13 +49,24 @@ class WordPoints_Points_Widget extends WP_Widget {
 	protected $defaults;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.0.0
+	 * @since 1.9.0
 	 */
-	function __construct( $id_base, $name, $widget_options = array(), $control_options = array() ) {
+	protected function verify_settings( $instance ) {
 
-		parent::__construct( $id_base, $name, $widget_options, $control_options );
+		if ( isset( $this->defaults['points_type'] ) ) {
+
+			if (
+				empty( $instance['points_type'] )
+				|| ! wordpoints_is_points_type( $instance['points_type'] )
+			) {
+				return new WP_Error(
+					'wordpoints_widget_invalid_points_type'
+					, esc_html__( 'Please select a valid points type.', 'wordpoints' )
+				);
+			}
+		}
+
+		return parent::verify_settings( $instance );
 	}
 
 	/**
@@ -99,7 +115,14 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct( 'WordPoints_Points_Widget', __( 'WordPoints', 'wordpoints' ), array( 'description' => __( 'Display the points of the current logged in user.', 'wordpoints' ) ) );
+		parent::__construct(
+			'WordPoints_Points_Widget'
+			, __( 'WordPoints', 'wordpoints' )
+			, array(
+				'description' => __( 'Display the points of the current logged in user.', 'wordpoints' ),
+				'wordpoints_hook_slug' => 'points',
+			)
+		);
 
 		$this->defaults = array(
 			'title'       => _x( 'My Points', 'widget title', 'wordpoints' ),
@@ -113,51 +136,37 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	}
 
 	/**
-	 * Display the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args     Arguments for widget display.
-	 * @param array $instance The settings for this widget instance.
+	 * @since 1.9.0
 	 */
-	public function widget( $args, $instance ) {
+	protected function verify_settings( $instance ) {
 
-		if ( ! is_user_logged_in() && empty( $instance['text_alt'] ) ) {
-			return;
+		if ( ! is_user_logged_in() && empty( $instance['alt_text'] ) ) {
+			return new WP_Error;
 		}
 
-		$this->make_a_points_type( $instance['points_type'] );
-
-		if ( ! $instance['points_type'] ) {
-			return;
-		}
-
-		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
+		if (
+			! isset( $instance['number_logs'] )
+			|| ! wordpoints_posint( $instance['number_logs'] )
+		) {
 			$instance['number_logs'] = 0;
 		}
 
-		echo $args['before_widget'];
+		// In case the points type isn't set, we do this first.
+		$instance = parent::verify_settings( $instance );
 
-		/**
-		 * The widget's title.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $title The widget title.
-		 */
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-
-			echo $args['before_title'] . $title . $args['after_title'];
+		if ( ! is_wp_error( $instance ) && is_user_logged_in() && empty( $instance['text'] ) ) {
+			$instance['text'] = wordpoints_get_points_type_setting( $instance['points_type'], 'name' ) . ': %points%';
 		}
 
+		return $instance;
+	}
+
+	/**
+	 * @since 1.9.0
+	 */
+	protected function widget_body( $instance ) {
+
 		if ( is_user_logged_in() ) {
-
-			if ( empty( $instance['text'] ) ) {
-
-				$instance['text'] = wordpoints_get_points_type_setting( 'name', $instance['points_type'] ) .': %points%';
-			}
 
 			$text = str_replace(
 				'%points%',
@@ -171,17 +180,8 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 
 		} else {
 
-			$text = $instance['text_alt'];
+			$text = $instance['alt_text'];
 		}
-
-		/**
-		 * Before the WordPoints points widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_points_widget_before', $instance );
 
 		/**
 		 * The my points widget text.
@@ -212,17 +212,6 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 
 			wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false, 'show_users' => false ) );
 		}
-
-		/**
-		 * After the WordPoints points widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_points_widget_after', $instance );
-
-		echo $args['after_widget'];
 	}
 
 	/**
@@ -279,7 +268,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $dropdown_args['id'] ); ?>"><?php esc_html_e( 'Points type to display', 'wordpoints' ); ?></label>
 			<br />
-			<?php echo wordpoints_points_types_dropdown( $dropdown_args ); ?>
+			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>
@@ -335,7 +324,14 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct( 'WordPoints_Top_Users_Widget', _x( 'WordPoints Top Users', 'widget name', 'wordpoints' ), array( 'description' => __( 'Showcase the users with the most points.', 'wordpoints' ) ) );
+		parent::__construct(
+			'WordPoints_Top_Users_Widget'
+			, _x( 'WordPoints Top Users', 'widget name', 'wordpoints' )
+			, array(
+				'description' => __( 'Showcase the users with the most points.', 'wordpoints' ),
+				'wordpoints_hook_slug' => 'top_users',
+			)
+		);
 
 		$this->defaults = array(
 			'title'       => _x( 'Top Users', 'widget title', 'wordpoints' ),
@@ -345,62 +341,27 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	}
 
 	/**
-	 * Display the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args     Arguments for widget display.
-	 * @param array $instance The settings for this widget instance.
+	 * @since 1.9.0
 	 */
-	public function widget( $args, $instance ) {
-
-		$this->make_a_points_type( $instance['points_type'] );
-
-		if ( ! $instance['points_type'] ) {
-			return;
-		}
-
-		echo $args['before_widget'];
-
-		/**
-		 * @see WordPoints_My_Points_Widget::widget()
-		 */
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-
-			echo $args['before_title'] . $title . $args['after_title'];
-		}
+	protected function verify_settings( $instance ) {
 
 		if ( empty( $instance['num_users'] ) ) {
 			$instance['num_users'] = $this->defaults['num_users'];
 		}
 
-		/**
-		 * Before the top users widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_before', $instance );
+		return parent::verify_settings( $instance );
+	}
+
+	/**
+	 * @since 1.9.0
+	 */
+	protected function widget_body( $instance ) {
 
 		wordpoints_points_show_top_users(
 			$instance['num_users']
 			, $instance['points_type']
 			, 'widget'
 		);
-
-		/**
-		 * After the top users widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_after', $instance );
-
-		echo $args['after_widget'];
 	}
 
 	/**
@@ -485,7 +446,14 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct( 'WordPoints_Points_Logs_Widget', _x( 'Points Logs', 'widget name', 'wordpoints' ), array( 'description' => __( 'Display the latest points activity.', 'wordpoints' ) ) );
+		parent::__construct(
+			'WordPoints_Points_Logs_Widget'
+			, _x( 'Points Logs', 'widget name', 'wordpoints' )
+			, array(
+				'description' => __( 'Display the latest points activity.', 'wordpoints' ),
+				'wordpoints_hook_slug' => 'points_logs',
+			)
+		);
 
 		$this->defaults = array(
 			'title'       => _x( 'Points Logs', 'widget title', 'wordpoints' ),
@@ -495,43 +463,21 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	}
 
 	/**
-	 * Display the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args     Arguments for widget display.
-	 * @param array $instance The settings for this widget instance.
+	 * @since 1.9.0
 	 */
-	public function widget( $args, $instance ) {
-
-		if ( ! wordpoints_is_points_type( $instance['points_type'] ) ) {
-			return;
-		}
+	protected function verify_settings( $instance ) {
 
 		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
 			$instance['number_logs'] = $this->defaults['number_logs'];
 		}
 
-		echo $args['before_widget'];
+		return parent::verify_settings( $instance );
+	}
 
-		/**
-		 * @see WordPoints_My_Points_Widget::widget()
-		 */
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-
-			echo $args['before_title'] . $title . $args['after_title'];
-		}
-
-		/**
-		 * Before the points logs widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_before', $instance );
+	/**
+	 * @since 1.9.0
+	 */
+	public function widget_body( $instance ) {
 
 		$query_args = wordpoints_get_points_logs_query_args( $instance['points_type'] );
 
@@ -541,17 +487,6 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 		$logs_query->prime_cache();
 
 		wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false ) );
-
-		/**
-		 * After the top users widget.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $instance The settings for this widget instance.
-		 */
-		do_action( 'wordpoints_top_users_widget_after', $instance );
-
-		echo $args['after_widget'];
 	}
 
 	/**

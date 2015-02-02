@@ -11,20 +11,20 @@ global $status;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';
-} elseif ( isset( $_REQUEST['action'] ) && '-1' !== $_REQUEST['action'] ) {
+} elseif ( isset( $_REQUEST['action'] ) && -1 !== (int) $_REQUEST['action'] ) {
 	$action = sanitize_key( $_REQUEST['action'] );
-} elseif ( isset( $_REQUEST['action2'] ) && '-1' !== $_REQUEST['action2'] ) {
+} elseif ( isset( $_REQUEST['action2'] ) && -1 !== (int) $_REQUEST['action2'] ) {
 	$action = sanitize_key( $_REQUEST['action2'] );
 } else {
 	$action = '';
 }
 
 $page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
-$module = ( isset( $_REQUEST['module'] ) ) ? wp_unslash( $_REQUEST['module'] ) : '';
+$module = ( isset( $_REQUEST['module'] ) ) ? wp_unslash( sanitize_text_field( $_REQUEST['module'] ) ) : '';
 $s      = ( isset( $_REQUEST['s'] ) ) ? urlencode( $_REQUEST['s'] ) : '';
 
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
-$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ), $_SERVER['REQUEST_URI'] );
+$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ) );
 
 $redirect_url = self_admin_url( "admin.php?page=wordpoints_modules&module_status={$status}&paged={$page}&s={$s}" );
 
@@ -90,7 +90,9 @@ switch ( $action ) {
 
 		check_admin_referer( 'bulk-modules' );
 
-		$modules = isset( $_POST['checked'] ) ? (array) wp_unslash( $_POST['checked'] ) : array();
+		$modules = isset( $_POST['checked'] )
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // XSS OK WPCS.
+			: array();
 
 		// Only activate modules which are not already active.
 		if ( is_network_admin() ) {
@@ -216,7 +218,9 @@ switch ( $action ) {
 
 		check_admin_referer( 'bulk-modules' );
 
-		$modules = isset( $_POST['checked'] ) ? (array) wp_unslash( $_POST['checked'] ) : array();
+		$modules = isset( $_POST['checked'] )
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // XSS OK WPCS.
+			: array();
 
 		$network_modules = array_filter( $modules, 'is_wordpoints_module_active_for_network' );
 
@@ -257,7 +261,9 @@ switch ( $action ) {
 		check_admin_referer( 'bulk-modules' );
 
 		// $_POST = from the module form; $_GET = from the FTP details screen.
-		$modules = isset( $_REQUEST['checked'] ) ? (array) wp_unslash( $_REQUEST['checked'] ) : array();
+		$modules = isset( $_REQUEST['checked'] )
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_REQUEST['checked'] ) ) // XSS OK WPCS.
+			: array();
 
 		if ( empty( $modules ) ) {
 			wp_redirect( $redirect_url );
@@ -273,7 +279,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( add_query_arg( array( 'error' => 'true', 'main' => 'true' ), $redirect_url  ) );
+			wp_redirect( add_query_arg( array( 'error' => 'true', 'main' => 'true' ), $redirect_url ) );
 			exit;
 		}
 
@@ -291,100 +297,106 @@ switch ( $action ) {
 			<div class="wrap">
 
 				<?php
-					$module_dir = wordpoints_modules_dir();
-					$files_to_delete = $module_info = array();
-					$have_non_network_modules = false;
 
-					foreach ( $modules as $module ) {
+				$module_dir = wordpoints_modules_dir();
+				$files_to_delete = $module_info = array();
+				$have_non_network_modules = false;
 
-						if ( '.' === dirname( $module ) ) {
+				foreach ( $modules as $module ) {
 
-							$files_to_delete[] = $module_dir . '/' . $module;
-							$data = wordpoints_get_module_data( $module_dir . '/' . $module );
+					if ( '.' === dirname( $module ) ) {
 
-							if ( $data ) {
+						$files_to_delete[] = $module_dir . '/' . $module;
+						$data = wordpoints_get_module_data( $module_dir . '/' . $module );
 
-								$module_info[ $module ] = $data;
-								$module_info[ $module ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
+						if ( $data ) {
 
-								if ( ! $module_info[ $module ]['network'] ) {
+							$module_info[ $module ] = $data;
+							$module_info[ $module ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
+
+							if ( ! $module_info[ $module ]['network'] ) {
+								$have_non_network_modules = true;
+							}
+						}
+
+					} else {
+
+						// Locate all the files in that folder.
+						$files = list_files( $module_dir . '/' . dirname( $module ) );
+
+						if ( $files ) {
+							$files_to_delete = array_merge( $files_to_delete, $files );
+						}
+
+						// Get modules list from that folder
+						if ( $folder_modules = wordpoints_get_modules( '/' . dirname( $module ) ) ) {
+
+							foreach ( $folder_modules as $module_file => $data ) {
+
+								$module_info[ $module_file ] = _wordpoints_get_module_data_markup_translate( $module_file, $data );
+								$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
+
+								if ( ! $module_info[ $module_file ]['network'] ) {
 									$have_non_network_modules = true;
-								}
-							}
-
-						} else {
-
-							// Locate all the files in that folder.
-							$files = list_files( $module_dir . '/' . dirname( $module ) );
-
-							if ( $files ) {
-								$files_to_delete = array_merge( $files_to_delete, $files );
-							}
-
-							// Get modules list from that folder
-							if ( $folder_modules = wordpoints_get_modules( '/' . dirname( $module ) ) ) {
-
-								foreach ( $folder_modules as $module_file => $data ) {
-
-									$module_info[ $module_file ] = _wordpoints_get_module_data_markup_translate( $module_file, $data );
-									$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
-
-									if ( ! $module_info[ $module_file ]['network'] ) {
-										$have_non_network_modules = true;
-									}
 								}
 							}
 						}
 					}
+				}
 
-					$modules_to_delete = count( $module_info );
+				$modules_to_delete = count( $module_info );
 
-					echo '<h2>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h2>';
+				echo '<h2>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h2>';
 
-					if ( $have_non_network_modules && is_network_admin() ) {
-						wordpoints_show_admin_error( '<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>' . esc_html( _n( 'This module may be active on other sites in the network.', 'These modules may be active on other sites in the network.', $modules_to_delete, 'wordpoints' ) ) );
-					}
+				if ( $have_non_network_modules && is_network_admin() ) {
+					wordpoints_show_admin_error( '<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>' . esc_html( _n( 'This module may be active on other sites in the network.', 'These modules may be active on other sites in the network.', $modules_to_delete, 'wordpoints' ) ) );
+				}
+
 				?>
 
 				<p><?php echo esc_html( _n( 'You are about to remove the following module:', 'You are about to remove the following modules:', $modules_to_delete, 'wordpoints' ) ); ?></p>
 					<ul class="ul-disc">
 
 						<?php
-							$data_to_delete = false;
 
-							foreach ( $module_info as $module ) {
+						$data_to_delete = false;
 
-								if ( $module['is_uninstallable'] ) {
+						foreach ( $module_info as $module ) {
 
-									/* translators: 1: module name, 2: module author */
-									echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</strong>)', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
-									$data_to_delete = true;
+							if ( $module['is_uninstallable'] ) {
 
-								} else {
+								/* translators: 1: module name, 2: module author */
+								echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</strong>)', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
+								$data_to_delete = true;
 
-									/* translators: 1: module name, 2: module author */
-									echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em>', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
-								}
+							} else {
+
+								/* translators: 1: module name, 2: module author */
+								echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em>', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
 							}
+						}
+
 						?>
 
 					</ul>
-				<p><?php
+				<p>
+					<?php
+
 					if ( $data_to_delete ) {
-						_e( 'Are you sure you wish to delete these files and data?', 'wordpoints' );
+						esc_html_e( 'Are you sure you wish to delete these files and data?', 'wordpoints' );
 					} else {
-						_e( 'Are you sure you wish to delete these files?', 'wordpoints' );
+						esc_html_e( 'Are you sure you wish to delete these files?', 'wordpoints' );
 					}
-				?></p>
+
+					?>
+				</p>
 
 				<form method="post" action="<?php echo esc_attr( esc_url( $_SERVER['REQUEST_URI'] ) ); ?>" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
-					<?php
-						foreach ( (array) $modules as $module ) {
-							echo '<input type="hidden" name="checked[]" value="' . esc_attr( $module ) . '" />';
-						}
-					?>
+					<?php foreach ( (array) $modules as $module ) : ?>
+						<input type="hidden" name="checked[]" value="'<?php echo esc_attr( $module ); ?>" />
+					<?php endforeach; ?>
 					<?php wp_nonce_field( 'bulk-modules' ) ?>
 					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
@@ -395,11 +407,9 @@ switch ( $action ) {
 				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
 				<div id="files-list" style="display:none;">
 					<ul class="code">
-						<?php
-							foreach ( (array)$files_to_delete as $file ) {
-								echo '<li>' . esc_html( str_replace( $module_dir, '', $file ) ) . '</li>';
-							}
-						?>
+						<?php foreach ( (array) $files_to_delete as $file ) : ?>
+							<li><?php echo esc_html( str_replace( $module_dir, '', $file ) ); ?></li>
+						<?php endforeach; ?>
 					</ul>
 				</div>
 			</div>
@@ -431,7 +441,7 @@ switch ( $action ) {
 		 *
 		 * @since 1.1.0
 		 */
-		do_action( 'wordpoints_modules_screen-{$action}' );
+		do_action( "wordpoints_modules_screen-{$action}" );
 }
 
 add_screen_option( 'per_page', array( 'label' => _x( 'Modules', 'modules per page (screen options)', 'wordpoints' ), 'default' => 999 ) );
@@ -454,7 +464,7 @@ $screen->add_help_tab(
 		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
 		'content'	=>
 			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
-			'<p>' . sprintf( __( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>'
+			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>'
 	)
 );
 

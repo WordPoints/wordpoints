@@ -171,14 +171,14 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEmpty( $hook_type->get_instances() );
 
-		// Try uninstalling multiple post types.
+		// Try uninstalling multiple hook types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 
 		WordPoints_Points_Hooks::uninstall_hook_types(
 			array(
 				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
+				'wordpoints_comment_points_hook',
 			)
 		);
 
@@ -221,14 +221,14 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Try uninstalling multiple post types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 
 		restore_current_blog();
 
 		WordPoints_Points_Hooks::uninstall_hook_types(
 			array(
 				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
+				'wordpoints_comment_points_hook',
 			)
 			, array( $blog_id )
 		);
@@ -271,12 +271,12 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 
 		// Try uninstalling multiple post types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-		wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
+		wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
 
 		WordPoints_Points_Hooks::uninstall_hook_types(
 			array(
 				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
+				'wordpoints_comment_points_hook',
 			)
 		);
 
@@ -285,6 +285,165 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 		);
 
 		$this->assertEmpty( $hook_type->get_instances() );
+	}
+
+	/**
+	 * Test get_option() and set_option().
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_and_set_option() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook->set_option( 'testing', __METHOD__ );
+		$this->assertEquals( __METHOD__, $hook->get_option( 'testing' ) );
+	}
+
+	/**
+	 * Test that get_option() returns null if the option isn't set.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_nonexistant_option() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$this->assertEquals( null, $hook->get_option( __METHOD__ ) );
+	}
+
+	/**
+	 * Test get_options() and set_options().
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_and_set_options() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$options = $hook->get_options();
+
+		$this->assertInternalType( 'array', $options );
+
+		$options[ __METHOD__ ] = true;
+
+		$hook->set_options( $options );
+
+		$options = $hook->get_options();
+
+		$this->assertArrayHasKey( __METHOD__, $options );
+		$this->assertTrue( $options[ __METHOD__ ] );
+	}
+
+	/**
+	 * Test that set_option() will always set the options as an array.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_set_options_not_array() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$options = $hook->get_options();
+
+		$hook->set_options( 'not an array' );
+
+		$this->assertEquals( array(), $hook->get_options() );
+
+		// Put the options back, because this will carry over to other tests.
+		$hook->set_options( $options );
+	}
+
+	/**
+	 * Test get_number() and set_number().
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_and_set_number() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook->set_number( 4 );
+
+		$this->assertEquals( 4, $hook->get_number() );
+		$this->assertInternalType( 'int', $hook->get_number() );
+	}
+
+	/**
+	 * Test that set_number() accepts an ID.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_set_number_by_id() {
+
+		$hook = wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+
+		$id = $hook->get_id();
+
+		$hook->set_number( $id );
+
+		$this->assertEquals( $hook->get_number_by_id( $id ), $hook->get_number() );
+		$this->assertInternalType( 'int', $hook->get_number() );
+	}
+
+	/**
+	 * Test that get_number() returns false when no number is set.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_get_number_false_if_none() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook->set_number( 'blah' );
+
+		$this->assertFalse( $hook->get_number() );
+	}
+
+	/**
+	 * Test that set_number() works with 0 and converts it to an integer.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_number()
+	 */
+	public function test_set_number_with_0() {
+
+		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+			'wordpoints_post_points_hook'
+		);
+
+		$hook->set_number( 0 );
+
+		$this->assertSame( 0, $hook->get_number() );
+	}
+
+	/**
+	 * Test that set_number() works with the '__i__' placeholder.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_number()
+	 */
+	public function test_set_number_with_placeholder() {
+
+		$hook = new WordPoints_Points_Hook_TestDouble();
+
+		$hook->set_number( '__i__' );
+
+		$this->assertSame( '__i__', $hook->get_number() );
 	}
 }
 

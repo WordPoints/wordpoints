@@ -422,6 +422,69 @@ function wordpoints_upload_module_zip() {
 add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
 
 /**
+ * Notify the user when they try to install a module on the plugins screen.
+ *
+ * The function is hooked to the upgrader_source_selection action twice. The first
+ * time it is called, we just save a local copy of the source path. This is
+ * necessary because the second time around the source will be a WP_Error if there
+ * are no plugins in it, but we have to have the source location so that we can check
+ * if it is a module instead of a plugin.
+ *
+ * @since 1.9.0
+ */
+function wordpoints_plugin_upload_error_filter( $source ) {
+
+	static $_source;
+
+	if ( ! isset( $_source ) ) {
+
+		$_source = $source;
+
+	} else {
+
+		global $wp_filesystem;
+
+		if (
+			! is_wp_error( $_source )
+			&& is_wp_error( $source )
+			&& 'incompatible_archive_no_plugins' === $source->get_error_code()
+		) {
+
+			$working_directory = str_replace(
+				$wp_filesystem->wp_content_dir()
+				, trailingslashit( WP_CONTENT_DIR )
+				, $_source
+			);
+
+			if ( is_dir( $working_directory ) ) {
+
+				// Check if the folder contains a module.
+				foreach ( glob( $working_directory . '*.php' ) as $file ) {
+
+					$info = wordpoints_get_module_data( $file, false, false );
+
+					if ( ! empty( $info['name'] ) ) {
+						$source = new WP_Error(
+							'wordpoints_module_archive_not_plugin'
+							, $source->get_error_message()
+							, __( 'This appears to be a WordPoints module archive. Try installing it on the WordPoints module install screen instead.', 'wordpoints' )
+						);
+
+						break;
+					}
+				}
+			}
+		}
+
+		unset( $_source );
+	}
+
+	return $source;
+}
+add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 5 );
+add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 20 );
+
+/**
  * Add a sidebar to the general settings page.
  *
  * @since 1.1.0
@@ -457,10 +520,14 @@ add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen
 function wordpoints_admin_notices() {
 
 	// Check if any notices have been dismissed.
-	if (
-		isset( $_POST['wordpoints_notice'], $_POST['_wpnonce'] )
-		&& wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}" )
-	) {
+	$is_notice_dismissed = wordpoints_verify_nonce(
+		'_wpnonce'
+		, 'wordpoints_dismiss_notice-%s'
+		, array( 'wordpoints_notice' )
+		, 'post'
+	);
+
+	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
 		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
 	}
 

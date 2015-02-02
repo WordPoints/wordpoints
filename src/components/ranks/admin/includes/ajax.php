@@ -288,7 +288,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 
 		if (
 			empty( $_POST['nonce'] )
-			|| ! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), $action )
+			|| ! wordpoints_verify_nonce( 'nonce', $action, null, 'post' )
 		) {
 			wp_send_json_error(
 				array( 'message' => __( 'Your security token for this action has expired. Refresh the page and try again.', 'wordpoints' ) )
@@ -309,7 +309,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			$this->_unexpected_error( 'group' );
 		}
 
-		$group = WordPoints_Rank_Groups::get_group( wp_unslash( $_POST['group'] ) );
+		$group = WordPoints_Rank_Groups::get_group( sanitize_key( $_POST['group'] ) );
 
 		if ( ! $group ) {
 			wp_send_json_error( array( 'message' => __( 'The rank group passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ) );
@@ -352,7 +352,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$empty_name = true;
 
 		if ( ! empty( $_POST['name'] ) ) {
-			$name = sanitize_text_field( trim( wp_unslash( $_POST['name'] ) ) );
+			$name = wp_unslash( sanitize_text_field( $_POST['name'] ) );
 
 			if ( ! empty( $name ) ) {
 				$empty_name = false;
@@ -384,7 +384,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			$this->_unexpected_error( 'type' );
 		}
 
-		$type = sanitize_text_field( wp_unslash( $_POST['type'] ) );
+		$type = wp_unslash( sanitize_text_field( $_POST['type'] ) );
 
 		if ( ! WordPoints_Rank_Types::is_type_registered( $type ) ) {
 			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.', 'wordpoints' ) ) );
@@ -411,7 +411,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			$this->_unexpected_error( 'order' );
 		}
 
-		return $_POST['order'];
+		return (int) $_POST['order'];
 	}
 
 	/**

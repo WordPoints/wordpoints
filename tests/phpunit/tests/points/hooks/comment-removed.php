@@ -25,7 +25,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_Unit
 	public function test_points_removed() {
 
 		$hook = wordpointstests_add_points_hook(
-			'wordpoints_comment_removed_points_hook'
+			new WordPoints_Comment_Removed_Points_Hook
 			, array( 'points' => 10 )
 		);
 		$this->assertInstanceOf( 'WordPoints_Comment_Removed_Points_Hook', $hook );
@@ -63,7 +63,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_Unit
 	public function test_points_only_removed_for_specified_post_type() {
 
 		wordpointstests_add_points_hook(
-			'wordpoints_comment_removed_points_hook'
+			new WordPoints_Comment_Removed_Points_Hook
 			, array( 'points' => 20, 'post_type' => 'post' )
 		);
 
@@ -101,6 +101,69 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_Unit
 		$this->assertEquals( 80, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // public function test_points_only_awarded_for_specified_post_type()
+
+	/**
+	 * Test that points are removed again after the comment points hook runs.
+	 *
+	 * Since 1.4.0 this had been a part of the Comment points hook's tests, but it
+	 * was moved to here because these tests all need to be run separately, because
+	 * of tests bleeding into eachother.
+	 *
+	 * @since 1.9.0
+	 */
+	public function test_points_removed_again_after_comment_hook_runs() {
+
+		$hook = wordpointstests_add_points_hook(
+			'wordpoints_comment_points_hook'
+			, array( 'points' => 10, 'auto_reverse' => 0 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Points_Hook', $hook );
+
+		$hook->set_option( 'disable_auto_reverse_label', true );
+
+		$hook = wordpointstests_add_points_hook(
+			new WordPoints_Comment_Removed_Points_Hook
+			, array( 'points' => 10 )
+		);
+		$this->assertInstanceOf( 'WordPoints_Comment_Removed_Points_Hook', $hook );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 100, 'points', 'test' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		$comment_id = $this->factory->comment->create(
+			array(
+				'user_id'         => $user_id,
+				'comment_post_ID' => $this->factory->post->create(
+					array( 'post_author' => $user_id )
+				),
+			)
+		);
+
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		// Test that status transitions award/remove points correctly.
+		wp_set_comment_status( $comment_id, 'hold' );
+
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'spam' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'trash' );
+		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+
+		wp_set_comment_status( $comment_id, 'approve' );
+		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+
+	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
 }
 
 // EOF

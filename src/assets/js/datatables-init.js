@@ -5,10 +5,7 @@
  * @since 1.0.0
  */
 
-/* global WordPointsDataTable */
-
-/** @global */
-WordPointsDataTable;
+/* global WordPointsDataTable, jQuery */
 
 jQuery( document ).ready( function () {
 

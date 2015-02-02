@@ -10,8 +10,8 @@
 if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 	if (
-		isset( $_POST['add_new'], $_POST['save-points-type'] )
-		&& wp_verify_nonce( $_POST['add_new'], 'wordpoints_add_new_points_type' )
+		isset( $_POST['save-points-type'], $_POST['points-name'], $_POST['points-prefix'], $_POST['points-suffix'] )
+		&& wordpoints_verify_nonce( 'add_new', 'wordpoints_add_new_points_type', null, 'post' )
 	) {
 
 		// - We are creating a new points type.
@@ -32,8 +32,8 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 	} elseif (
 		! empty( $_POST['delete-points-type'] )
-		&& isset( $_POST['delete-points-type-nonce'], $_POST['points-slug'] )
-		&& wp_verify_nonce( $_POST['delete-points-type-nonce'], "wordpoints_delete_points_type-{$_POST['points-slug']}" )
+		&& isset( $_POST['points-slug'] )
+		&& wordpoints_verify_nonce( 'delete-points-type-nonce', 'wordpoints_delete_points_type-%s', array( 'points-slug' ), 'post' )
 	) {
 
 		// - We are deleting a points type.

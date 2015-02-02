@@ -4,34 +4,48 @@ if [ -z "$1" ]; then
 	echo 'Usage: git-to-svn.sh <path-to-svn> [<subpath>]'
 	echo '	<subpath> is the path within the SVN checkout to copy the files to.'
 	echo '	It defaults to trunk. Another possible value would be branches/1.8.'
-	return 0
+	exit 0
 fi
 
 svn=$1
 
 if [ -z "$2" ]; then
-	subpath=trunk
+	subpath=trunk/src
 else
 	subpath=$2
 fi
 
-git=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+git=$( cd "$( dirname "${BASH_SOURCE[0]}" | xargs dirname | xargs dirname )" && pwd )
 
-echo "Removing old files from SVN /$subpath..."
-sudo find "$svn/$subpath" -type f -exec rm '{}' ';'
+echo "Syncing files from git to SVN /$subpath..."
+rsync -avz --delete "$git/src/" "$svn/$subpath/"
 
-echo "Copying new files from git to SVN /$subpath..."
+echo 'Syncing the assets directory...'
+rsync -avz --delete  "$git/assets/" "$svn/assets/"
 
-to_copy=( .jshintignore .jshintrc .travis.yml composer.json src composer.lock tests phpcs.ruleset.xml tools assets phpunit.xml.dist bin readme.txt wp-l10n-validator.json )
+cd "$svn"
 
-for file in "${to_copy[@]}"; do
-	cp -r "$git/$file" "$svn/$subpath/"
+if svn status | grep -s '^!'; then
+	echo 'Removing deleted files from SVN...'
+	svn status | grep '^!' | awk '{print $2}' | xargs svn delete --force
+fi
+
+echo 'Adding new files to SVN...'
+svn add --force "$svn/$subpath/" --auto-props --parents --depth infinity -q
+svn add --force assets/ --auto-props --parents --depth infinity -q
+
+echo 'Updating asset MIME types...'
+OLD_IFS="$IFS"
+IFS=$'\n'
+for file in $( find assets/ -name "*.png" ); do
+	if svn info "$file" 1>/dev/null 2>&1; then
+		svn propset svn:mime-type image/png "$file"
+	fi
 done
+IFS="$OLD_IFS"
 
-echo 'Moving the assets directory...'
-sudo rm -rf "$svn/assets"
-mv "$svn/$subpath/assets" "$svn"
+echo 'Done! You can now commit the changes:'
 
-echo 'Done! You can now commit the changes.'
+svn status
 
 # EOF

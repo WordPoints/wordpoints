@@ -13,12 +13,12 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
 if (
 	isset( $_POST['wordpoints_settings_nonce'], $_POST['excluded_users'] )
-	&& wp_verify_nonce( $_POST['wordpoints_settings_nonce'], 'wordpoints_settings_submit' )
+	&& wordpoints_verify_nonce( 'wordpoints_settings_nonce', 'wordpoints_settings_submit', null, 'post' )
 ) {
 
 	// - The form has been submitted.
 
-	$excluded_users = preg_replace( '/\s/', '', $_POST['excluded_users'] );
+	$excluded_users = preg_replace( '/\s/', '', sanitize_text_field( $_POST['excluded_users'] ) );
 
 	if ( ! empty( $excluded_users ) ) {
 

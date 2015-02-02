@@ -43,6 +43,10 @@ class WordPoints_Comment_Received_Points_Hook extends WordPoints_Comment_Approve
 				/* translators: %s will be the post's title. */
 				'log_text_post_title_reverse' => _x( 'Comment received on %s removed.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title_reverse' => _x( 'Comment received removed.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type' => _x( 'Received a comment on a %s.', 'points log description', 'wordpoints' ),
+				/* translators: %s is the name of a post type. */
+				'log_text_post_type_reverse' => _x( 'Comment received on a %s removed.', 'points log description', 'wordpoints' ),
 			)
 		);
 	}

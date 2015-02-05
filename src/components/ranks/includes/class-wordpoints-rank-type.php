@@ -191,7 +191,7 @@ abstract class WordPoints_Rank_Type {
 
 			// If we aren't using placeholders, calculate the value. Hidden fields
 			// never use placeholders.
-			if ( false !== $args['placeholders'] || 'hidden' === $field['type'] ) {
+			if ( ! $args['placeholders'] || 'hidden' === $field['type'] ) {
 
 				// Default to the default value.
 				$value = $field['default'];

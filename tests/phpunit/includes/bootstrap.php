@@ -57,7 +57,10 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/functions.php';
 
 if (
 	defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' )
-	&& ! running_wordpoints_module_uninstall_tests()
+	&& (
+		! function_exists( 'running_wordpoints_module_uninstall_tests' )
+		|| ! running_wordpoints_module_uninstall_tests()
+	)
 ) {
 
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );

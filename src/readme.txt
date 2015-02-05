@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.8
 Tested up to: 4.2-alpha-31007
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,9 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+
+= 1.9.1 — (~3 hrs) =
+* Fixed: A bug preventing ranks from being saved or updated.
 
 = 1.9.0 - (~65 hrs) =
 * Updated: The title for the "Points" column in the points logs and top users tables
@@ -245,6 +248,9 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.1 =
+* Fixes a bug preventing ranks from being saved or updated.
 
 = 1.9.0 =
 * This release deprecates the Comment Removed and Post Delete points hooks. Their

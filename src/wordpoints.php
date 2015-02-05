@@ -4,7 +4,7 @@
  * Plugin Name: WordPoints
  * Plugin URI: http://wordpoints.org/
  * Description: Create one or more points systems for your site, and reward user activity.
- * Version: 1.9.0
+ * Version: 1.9.1
  * Author: J.D. Grimes
  * Author URI: http://codesymphony.co/
  * License: GPLv2
@@ -40,7 +40,7 @@
  *
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
- * @version 1.9.0
+ * @version 1.9.1
  * @license http://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
  * @copyright 2013-2015 J.D. Grimes
  */

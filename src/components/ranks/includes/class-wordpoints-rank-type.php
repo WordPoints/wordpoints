@@ -171,6 +171,14 @@ abstract class WordPoints_Rank_Type {
 	 * @since 1.7.0
 	 *
 	 * @param array $meta The metadata for a rank of this type.
+	 * @param array $args {
+	 *        Arguments controlling the way the fields are displayed.
+	 *
+	 *        @type bool $placeholders Whether to just display Underscore template
+	 *                                 placeholders instead of the actual field
+	 *                                 values. Default is false. Does not affect
+	 *                                 hidden fields.
+	 * }
 	 */
 	final public function display_rank_meta_form_fields(
 		array $meta = array(),

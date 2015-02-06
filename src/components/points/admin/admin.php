@@ -214,7 +214,7 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 add_action( 'screen_settings', 'wordpoints_admin_points_hooks_screen_options', 10, 2 );
 
 /**
- * Filter the class of the points hooks page for accessiblitiy mode.
+ * Filter the class of the points hooks page for accessibility mode.
  *
  * @since 1.0.0
  *
@@ -379,8 +379,8 @@ function wordpoints_points_profile_options_update( $user_id ) {
 				, $_POST[ "wordpoints_points-{$slug}" ]
 				, $_POST[ "wordpoints_points_old-{$slug}" ]
 			)
-			&& wordpoints_int( $_POST[ "wordpoints_points-{$slug}" ] )
-			&& wordpoints_int( $_POST[ "wordpoints_points_old-{$slug}" ] )
+			&& false !== wordpoints_int( $_POST[ "wordpoints_points-{$slug}" ] )
+			&& false !== wordpoints_int( $_POST[ "wordpoints_points_old-{$slug}" ] )
 		) {
 
 			wordpoints_alter_points(

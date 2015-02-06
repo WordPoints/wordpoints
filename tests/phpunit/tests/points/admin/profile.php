@@ -77,8 +77,8 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_Points_Unit
 	 */
 	public function test_current_user_must_have_required_caps() {
 
-		wp_get_current_user()->remove_cap( 'set_wordpoints_points' );
-		wp_get_current_user()->update_user_level_from_caps();
+		$this->user = $this->factory->user->create_and_get();
+		wp_set_current_user( $this->user->ID );
 
 		$this->assert_update_fails();
 	}

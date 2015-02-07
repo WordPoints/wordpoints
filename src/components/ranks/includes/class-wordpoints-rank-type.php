@@ -171,6 +171,14 @@ abstract class WordPoints_Rank_Type {
 	 * @since 1.7.0
 	 *
 	 * @param array $meta The metadata for a rank of this type.
+	 * @param array $args {
+	 *        Arguments controlling the way the fields are displayed.
+	 *
+	 *        @type bool $placeholders Whether to just display Underscore template
+	 *                                 placeholders instead of the actual field
+	 *                                 values. Default is false. Does not affect
+	 *                                 hidden fields.
+	 * }
 	 */
 	final public function display_rank_meta_form_fields(
 		array $meta = array(),
@@ -183,7 +191,7 @@ abstract class WordPoints_Rank_Type {
 
 			// If we aren't using placeholders, calculate the value. Hidden fields
 			// never use placeholders.
-			if ( false !== $args['placeholders'] || 'hidden' === $field['type'] ) {
+			if ( ! $args['placeholders'] || 'hidden' === $field['type'] ) {
 
 				// Default to the default value.
 				$value = $field['default'];
@@ -211,7 +219,7 @@ abstract class WordPoints_Rank_Type {
 						<?php if ( $args['placeholders'] && 'hidden' !== $field['type'] ) : ?>
 						value="<% if ( typeof <?php echo sanitize_key( $name ); ?> !== "undefined" ) { print( <?php echo sanitize_key( $name ); ?> ); } %>"
 						<?php else : ?>
-						value="<?php esc_attr( $value ); ?>"
+						value="<?php echo esc_attr( $value ); ?>"
 						<?php endif; ?>
 						class="widefat"
 					/>

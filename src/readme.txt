@@ -120,6 +120,13 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.9.2 — (~2 hrs) =
+* Fixed: A bug preventing updating a user's points from their admin profile when
+they don't have any points yet.
+
+= 1.9.1 — (~3 hrs) =
+* Fixed: A bug preventing ranks from being saved or updated.
+
 = 1.9.0 - (~65 hrs) =
 * Updated: The title for the "Points" column in the points logs and top users tables
 will be replaced with the name of the points type being displayed.
@@ -245,6 +252,13 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.2 =
+* Fixes a bug preventing a user's points from being updated on their admin profile
+if they have 0 points.
+
+= 1.9.1 =
+* Fixes a bug preventing ranks from being saved or updated.
 
 = 1.9.0 =
 * This release deprecates the Comment Removed and Post Delete points hooks. Their

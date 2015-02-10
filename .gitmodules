@@ -1,3 +1,6 @@
 [submodule "dev-lib"]
 	path = dev-lib
 	url = https://github.com/xwp/wp-dev-lib.git
+[submodule "dev-lib-wordpoints"]
+	path = dev-lib-wordpoints
+	url = https://github.com/WordPoints/dev-lib.git

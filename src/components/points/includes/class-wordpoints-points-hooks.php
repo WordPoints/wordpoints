@@ -783,7 +783,9 @@ final class WordPoints_Points_Hooks {
 		</div>
 
 		<div class="hook-description">
-			<?php echo esc_html( ( ! empty( $options['description'] ) ) ? $options['description'] : strip_tags( $hook->get_name() ) ) . "\n"; ?>
+			<?php if ( ! empty( $options['description'] ) ) : ?>
+				<?php echo esc_html( $options['description'] ); ?>
+			<?php endif; ?>
 		</div>
 		</div>
 

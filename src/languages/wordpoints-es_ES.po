@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: WordPoints 1.5.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-01-30 22:50:22+00:00\n"
-"PO-Revision-Date: 2014-08-04 10:51+0100\n"
-"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2015-02-11 20:18+0200\n"
+"Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/es/>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 1.9.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
@@ -48,7 +50,7 @@ msgstr "Instalar módulos"
 
 #: admin/admin.php:281
 msgid "Hide This Notice"
-msgstr ""
+msgstr "Ocultar Este Aviso"
 
 #: admin/admin.php:334
 #, fuzzy
@@ -94,6 +96,8 @@ msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
 msgstr ""
+"Este parece ser un archivo de módulo de WordPoints. En su lugar, pruebe a "
+"instalarlo desde la pantalla de módulos de WordPoints."
 
 #: admin/admin.php:500
 msgid "Like this plugin?"
@@ -136,22 +140,28 @@ msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process."
 msgstr ""
+"WordPoints a detectado una red amplia y a saltado parte del proceso de "
+"instalación."
 
 #: admin/admin.php:543
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for version %s (and possibly later versions)."
 msgstr ""
+"WordPoints a detectado una red amplia y a saltado parte del proceso de "
+"actualización para la versión %s (y posiblemente versiones posteriores)."
 
 #: admin/admin.php:549
 msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
 "done already, some parts of the plugin may not function properly."
 msgstr ""
+"El resto del proceso necesita completarse manualmente. Si no lo ha hecho "
+"todavía, algunas opciones del plugin podrían no funcionar apropiadamente."
 
 #: admin/admin.php:550 includes/class-wordpoints-components.php:556
 msgid "Learn more."
-msgstr ""
+msgstr "Aprenda mas."
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:427
@@ -208,9 +218,8 @@ msgid "No modules found."
 msgstr "No se encontraron módulos"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:321
-#, fuzzy
 msgid "There are not any modules installed."
-msgstr "No hay ganchos de puntos disponibles en la actualidad."
+msgstr "No hay módulos instalados."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:336
 msgid "Module"
@@ -224,14 +233,14 @@ msgstr "Descripción"
 msgctxt "modules"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Todos <span class=\"count\">(%s)</span>"
+msgstr[1] "Todos <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:367
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Activo <span class=\"count\">(%s)</span>"
+msgstr[1] "Activos <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:371
 msgid "Recently Active <span class=\"count\">(%s)</span>"

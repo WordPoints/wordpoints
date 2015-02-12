@@ -125,6 +125,50 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( WordPoints_Components::instance()->activate( 'not_registered' ) );
 	}
+
+	/**
+	 * Test that all components are returned by get().
+	 *
+	 * @since 1.10.0
+	 *
+	 * @covers WordPoints_Components::get
+	 */
+	public function test_get() {
+
+		$components = WordPoints_Components::instance()->get();
+
+		$this->assertInternalType( 'array', $components );
+		$this->assertArrayHasKey( 'points', $components );
+		$this->assertInternalType( 'array', $components['points'] );
+	}
+
+	/**
+	 * Test getting the data for a component.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @covers WordPoints_Components::get_component
+	 */
+	public function test_get_component() {
+
+		$component = WordPoints_Components::instance()->get_component( 'points' );
+
+		$this->assertInternalType( 'array', $component );
+	}
+
+	/**
+	 * Test getting the data for an unregistered component.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @covers WordPoints_Components::get_component
+	 */
+	public function test_get_unregistered_component() {
+
+		$this->assertFalse(
+			WordPoints_Components::instance()->get_component( 'unregistered' )
+		);
+	}
 }
 
 // EOF

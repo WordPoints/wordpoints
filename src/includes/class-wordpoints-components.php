@@ -225,6 +225,24 @@ final class WordPoints_Components {
 	}
 
 	/**
+	 * Get the data for a component.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @param string $slug The slug of the component to get the data for.
+	 *
+	 * @return array|false The component, or false if it isn't registered.
+	 */
+	public function get_component( $slug ) {
+
+		if ( ! isset( $this->registered[ $slug ] ) ) {
+			return false;
+		}
+
+		return $this->registered[ $slug ];
+	}
+
+	/**
 	 * Get all active components.
 	 *
 	 * @since 1.0.0

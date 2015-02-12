@@ -44,6 +44,8 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test that the instance() method returns and instance of the class.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @covers WordPoints_Components::instance
 	 */
 	public function test_instance_returns_instance() {
 
@@ -54,6 +56,9 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test registration functions.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @covers WordPoints_Components::register
+	 * @covers WordPoints_Components::is_registered
 	 *
 	 * @expectedIncorrectUsage WordPoints_Components::register
 	 */
@@ -81,6 +86,8 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test that register() returns false if already registered.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @covers WordPoints_Components::register
 	 */
 	public function test_register_fails_if_already_registered() {
 
@@ -95,6 +102,9 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test activation.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @covers WordPoints_Components::activate
+	 * @covers WordPoints_Components::is_active
 	 *
 	 * @expectedIncorrectUsage WordPoints_Components::register
 	 */
@@ -120,6 +130,8 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 * Test that an unregistered component can't be activated.
 	 *
 	 * @since 1.0.1
+	 *
+	 * @covers WordPoints_Components::activate
 	 */
 	public function test_activation_fails_if_not_registered() {
 

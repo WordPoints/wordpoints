@@ -18,9 +18,12 @@
 class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
-	 * Test that database table charachter sets are updated.
+	 * Test that database table character sets are updated.
 	 *
 	 * @since 1.5.1
+	 *
+	 * @covers WordPoints_Points_Un_Installer::update_network_to_1_5_1
+	 * @covers WordPoints_Points_Un_Installer::update_single_to_1_5_1
 	 */
 	public function test_db_table_charsets_updated() {
 
@@ -69,12 +72,12 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->update_component( 'points', '1.5.0' );
 
 		$this->assertStringMatchesFormat(
-			'%aDEFAULT CHARSET=utf8%a'
+			'%aDEFAULT CHARSET=utf8%A'
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$wpdb->wordpoints_points_logs}`", 1 )
 		);
 
 		$this->assertStringMatchesFormat(
-			'%aDEFAULT CHARSET=utf8%a'
+			'%aDEFAULT CHARSET=utf8%A'
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$wpdb->wordpoints_points_log_meta}`", 1 )
 		);
 

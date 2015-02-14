@@ -1,2 +1,1 @@
-src_dir: src
-coverage_clover: build/logs/clover-*.xml
+dev-lib-wordpoints/travis/.coveralls.yml

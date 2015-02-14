@@ -69,12 +69,12 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->update_component( 'points', '1.5.0' );
 
 		$this->assertStringMatchesFormat(
-			'%aDEFAULT CHARSET=utf8%a'
+			'%aDEFAULT CHARSET=utf8%A'
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$wpdb->wordpoints_points_logs}`", 1 )
 		);
 
 		$this->assertStringMatchesFormat(
-			'%aDEFAULT CHARSET=utf8%a'
+			'%aDEFAULT CHARSET=utf8%A'
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$wpdb->wordpoints_points_log_meta}`", 1 )
 		);
 

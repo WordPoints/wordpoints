@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-/* global ajaxurl, isRtl, WordPointsHooksL10n */
+/* global ajaxurl, isRtl, WordPointsHooksL10n, jQuery */
 
 /**
  * @var object WordPointsHooks
@@ -53,7 +53,7 @@ WordPointsHooks = {
 					buttons: [
 						{
 							text: WordPointsHooksL10n.deleteText,
-							class: 'button-primary',
+							'class': 'button-primary',
 							click: function() {
 								$( this ).dialog( 'close' );
 								$currentDelete.click();
@@ -62,7 +62,7 @@ WordPointsHooks = {
 						},
 						{
 							text: WordPointsHooksL10n.cancelText,
-							class: 'button-secondary',
+							'class': 'button-secondary',
 							click: function() {
 								$( this ).dialog( 'close' );
 								$currentDelete = false;

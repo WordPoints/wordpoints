@@ -99,7 +99,7 @@ if ( isset( $_GET['error'] ) ) {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
-			<span class="subtitle"><?php esc_html( sprintf( __( 'Search results for &#8220;%s&#8221;', 'wordpoints' ), urlencode( $_REQUEST['s'] ) ) ); ?></span>
+			<span class="subtitle"><?php echo esc_html( sprintf( __( 'Search results for &#8220;%s&#8221;', 'wordpoints' ), urlencode( $_REQUEST['s'] ) ) ); ?></span>
 		<?php endif; ?>
 	</h2>
 

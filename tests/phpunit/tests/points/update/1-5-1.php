@@ -18,9 +18,12 @@
 class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
-	 * Test that database table charachter sets are updated.
+	 * Test that database table character sets are updated.
 	 *
 	 * @since 1.5.1
+	 *
+	 * @covers WordPoints_Points_Un_Installer::update_network_to_1_5_1
+	 * @covers WordPoints_Points_Un_Installer::update_single_to_1_5_1
 	 */
 	public function test_db_table_charsets_updated() {
 

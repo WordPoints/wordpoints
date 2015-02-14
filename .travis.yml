@@ -46,6 +46,7 @@ script:
     - codesniff-jshint
     - codesniff-l10n
     - codesniff-xmllint
+    - codesniff-bash
     - phpunit-basic
     - phpunit-ms
     - phpunit-ms-network

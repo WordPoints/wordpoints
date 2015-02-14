@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-/* global ajaxurl, isRtl, WordPointsHooksL10n */
+/* global ajaxurl, isRtl, WordPointsHooksL10n, jQuery */
 
 /**
  * @var object WordPointsHooks

@@ -24,38 +24,7 @@
  * @action wp_enqueue_scripts    5 Front-end scripts enqueued.
  * @action admin_enqueue_scripts 5 Admin scripts enqueued.
  */
-function wordpoints_register_scripts() {
-
-	$assets_url = WORDPOINTS_URL . '/assets/';
-
-	// - JS
-
-	// Back-compat, will be removed.
-	wp_register_script(
-		'wordpoints-datatables'
-		,$assets_url . 'js/jquery.datatables.min.js'
-		,array( 'jquery' )
-		,'1.9.4'
-	);
-
-	// Back-compat, will be removed.
-	wp_register_script(
-		'wordpoints-datatables-init'
-		,$assets_url . 'js/datatables-init.js'
-		,array( 'wordpoints-datatables' )
-		,WORDPOINTS_VERSION
-	);
-
-	// - CSS
-
-	// Back-compat, will be removed.
-	wp_register_style(
-		'wordpoints-datatables'
-		,$assets_url . 'css/datatables.css'
-		,null
-		,WORDPOINTS_VERSION
-	);
-}
+function wordpoints_register_scripts() {}
 add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 

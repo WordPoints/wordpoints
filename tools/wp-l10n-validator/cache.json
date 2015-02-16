@@ -45,13 +45,13 @@
         "errors": false
     },
     "\/admin\/screens\/modules-load.php": {
-        "size": 16667,
-        "hash": "b07c9245c3c178a1f68197d405d5c398",
+        "size": 16682,
+        "hash": "e30c679bc96a169113f0c6cb5850ec22",
         "errors": false
     },
     "\/admin\/screens\/modules.php": {
-        "size": 4719,
-        "hash": "4218b9dfdb6348095fcce1787c90a2de",
+        "size": 4724,
+        "hash": "7c4679182a848fe41c63d89570cd29d7",
         "errors": false
     },
     "\/components\/index.php": {
@@ -60,8 +60,8 @@
         "errors": false
     },
     "\/components\/points\/admin\/admin.php": {
-        "size": 13667,
-        "hash": "a375d0d7ec7ab33fcba902d4d56b114f",
+        "size": 13692,
+        "hash": "31102cdcdf8ae9673f122a466825806a",
         "errors": false
     },
     "\/components\/points\/admin\/screens\/hooks-no-js.php": {
@@ -80,18 +80,18 @@
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
-        "size": 21968,
-        "hash": "f73011b5d623c7a10e979dcc86f9f672",
+        "size": 20952,
+        "hash": "4c60ac7bd424f43bea806f9aaab24e0d",
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
-        "size": 24489,
-        "hash": "efd605b2fc001a6b7d153591544ab80e",
+        "size": 21941,
+        "hash": "19c1e996afcdd25a5e433e0c7f42162c",
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
-        "size": 31412,
-        "hash": "db6bee3b812b8b6c2473efc34d64f783",
+        "size": 31053,
+        "hash": "6949e982b5800f2676b5f5dd0fce6dd6",
         "errors": false
     },
     "\/components\/points\/includes\/functions.php": {
@@ -110,8 +110,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/logs.php": {
-        "size": 21321,
-        "hash": "34895e5b190f88a7e78d72c87ec61639",
+        "size": 21315,
+        "hash": "25be148b0421f6771ae5c71c8446f8c9",
         "errors": false
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -145,13 +145,13 @@
         "errors": false
     },
     "\/includes\/class-wordpoints-components.php": {
-        "size": 14682,
-        "hash": "bebd58d482994b6361c30c44b0d4b417",
+        "size": 15054,
+        "hash": "cae5aa64a9076a575e3090a620770155",
         "errors": false
     },
     "\/includes\/deprecated.php": {
-        "size": 11243,
-        "hash": "d596efc6bd6d554fdf369db66b59d870",
+        "size": 879,
+        "hash": "1aa431e079e40e26de2811177f451e62",
         "errors": false
     },
     "\/includes\/functions.php": {
@@ -165,13 +165,13 @@
         "errors": false
     },
     "\/includes\/modules.php": {
-        "size": 33664,
-        "hash": "a78a087a7194253be092b7b8aaca57a8",
+        "size": 33643,
+        "hash": "54be5140eda8d41532dc4f3bbf0c0a77",
         "errors": false
     },
     "\/includes\/scripts.php": {
-        "size": 1403,
-        "hash": "7ac6252eacd03211fc7dbb910e888f29",
+        "size": 828,
+        "hash": "005b89cb31573d93cccb3574826f37c2",
         "errors": false
     },
     "\/index.php": {
@@ -190,8 +190,8 @@
         "errors": false
     },
     "\/wordpoints.php": {
-        "size": 5159,
-        "hash": "f30f4f63391d548f0394571274e09381",
+        "size": 5155,
+        "hash": "899971b36bc65e15e6aa442c79376f2e",
         "errors": false
     },
     "\/components\/points\/admin\/includes\/ajax.php": {
@@ -210,13 +210,13 @@
         "errors": false
     },
     "\/components\/points\/includes\/deprecated.php": {
-        "size": 8611,
-        "hash": "60cf40bff1741f84fa2535c72b797a3f",
+        "size": 3266,
+        "hash": "85922d0a63415b147b24d49f88fc0fe5",
         "errors": false
     },
     "\/includes\/constants.php": {
-        "size": 647,
-        "hash": "331c2362e63a618ee91c1b6971ba5010",
+        "size": 645,
+        "hash": "c174908dc3a92ceb0a2e291689b40287",
         "errors": false
     },
     "\/components\/points\/includes\/update.php": {
@@ -235,8 +235,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/comment.php": {
-        "size": 5361,
-        "hash": "30bff731efe69295533392c505fe9d2a",
+        "size": 3697,
+        "hash": "87e8e092893b5456a01e2ce324659d6e",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/periodic.php": {
@@ -250,8 +250,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/post.php": {
-        "size": 7575,
-        "hash": "ae00a3576cdcb2f8acb411c40a183c99",
+        "size": 6544,
+        "hash": "e82fea0c6113e32d327f98f3c97de0c6",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/registration.php": {
@@ -270,8 +270,8 @@
         "errors": false
     },
     "\/admin\/includes\/deprecated.php": {
-        "size": 339,
-        "hash": "8eb0461e028c2bcad1e9281aa4d9df53",
+        "size": 132,
+        "hash": "b1d53293ea4331d6784ff5069b34e8c8",
         "errors": false
     },
     "\/components\/points\/includes\/constants.php": {
@@ -310,8 +310,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
-        "size": 8631,
-        "hash": "3f1e8c218c3ea0cceeada3e93b8e7834",
+        "size": 9016,
+        "hash": "d36a10fdca8c83ddb26f6c4dcb611dda",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-types.php": {
@@ -405,8 +405,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/deprecated.php": {
-        "size": 666,
-        "hash": "16945f69526feb24e66f314b1f9173bf",
+        "size": 119,
+        "hash": "dab487eb8757bac9746d62e3998026fa",
         "errors": false
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {

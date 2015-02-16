@@ -93,7 +93,9 @@
         "394": false,
         "466": false,
         "525": false,
-        "560": false
+        "560": false,
+        "513": false,
+        "545": false
     },
     "standard": {
         "484": false,
@@ -106,7 +108,9 @@
         "396": false,
         "468": false,
         "527": false,
-        "562": false
+        "562": false,
+        "515": false,
+        "547": false
     },
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
         "second module-version-author-uri\">": {
@@ -179,31 +183,31 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
         "network": {
-            "219": false
+            "185": false
         },
         "standard": {
-            "219": false
+            "185": false
         },
         "multi": {
-            "317": false
+            "283": false
         },
         "template": {
-            "318": false
+            "284": false
         },
         "instance": {
-            "369": false
+            "335": false
         },
         "site": {
-            "432": false
+            "390": false
         },
         "default": {
-            "434": false
+            "392": false
         },
         ":": {
-            "594": false
+            "552": false
         },
         "points-": {
-            "669": {
+            "629": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -212,7 +216,7 @@
             }
         },
         "-save": {
-            "669": {
+            "629": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -221,10 +225,10 @@
             }
         },
         "\" class=\"hook": {
-            "742": false
+            "702": false
         },
         "-savehook": {
-            "775": {
+            "735": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -672,7 +676,8 @@
             "arg_count": 6,
             "parentheses": 1
         },
-        "617": false
+        "617": false,
+        "608": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
         "text": {
@@ -803,10 +808,24 @@
             "args_started": true,
             "arg_count": 0,
             "parentheses": 1
+        },
+        "386": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 0,
+            "parentheses": 1
         }
     },
     "row": {
         "391": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 1,
+            "parentheses": 1
+        },
+        "386": {
             "name": "array",
             "type": "unknown",
             "args_started": true,
@@ -821,10 +840,24 @@
             "args_started": true,
             "arg_count": 2,
             "parentheses": 1
+        },
+        "386": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 2,
+            "parentheses": 1
         }
     },
     "var": {
         "391": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 3,
+            "parentheses": 1
+        },
+        "386": {
             "name": "array",
             "type": "unknown",
             "args_started": true,
@@ -842,6 +875,13 @@
             "args_started": true,
             "arg_count": 1,
             "parentheses": 1
+        },
+        "886": {
+            "name": "array",
+            "type": "unknown",
+            "args_started": true,
+            "arg_count": 1,
+            "parentheses": 1
         }
     },
     "LIKE": {
@@ -854,13 +894,15 @@
         }
     },
     ",": {
-        "1017": false
+        "1017": false,
+        "1008": false
     },
     "CAST(": {
         "1050": false
     },
     ".meta_value AS": {
-        "1050": false
+        "1050": false,
+        "1041": false
     },
     "ORDER BY": {
         "1063": false
@@ -1009,5 +1051,20 @@
                 "parentheses": 1
             }
         }
+    },
+    "value=\"<% if ( typeof": {
+        "220": false
+    },
+    "!== \"undefined\" ) { print(": {
+        "220": false
+    },
+    "); } %>\"": {
+        "220": false
+    },
+    "value=\"": {
+        "222": false
+    },
+    "class=\"widefat\"\n\t\t\t\t\t\/>": {
+        "224": false
     }
 }

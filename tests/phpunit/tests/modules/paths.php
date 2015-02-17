@@ -80,14 +80,14 @@ class WordPoints_Module_Paths_Test extends WP_UnitTestCase {
 		);
 
 		WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '/test-1/test-1.php'
+			wordpoints_modules_dir() . '/test-5/test-5.php'
 		);
 
 		$file = WordPoints_Module_Paths::resolve(
-			dirname( wordpoints_modules_dir() ) . '/modules/symlink-modules/test/test-1.php'
+			wordpoints_modules_dir() . '/symlink-modules/test-5/test-5.php'
 		);
 
-		$this->assertEquals( wordpoints_modules_dir() . 'test-1/test-1.php', $file );
+		$this->assertEquals( wordpoints_modules_dir() . 'test-5/test-5.php', $file );
 	}
 }
 

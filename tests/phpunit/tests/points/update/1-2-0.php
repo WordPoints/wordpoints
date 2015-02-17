@@ -17,6 +17,9 @@
  *
  * @group points
  * @group update
+ *
+ * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
+ * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */
 class WordPoints_Points_1_2_0_Update_Test extends WordPoints_Points_UnitTestCase {
 

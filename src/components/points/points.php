@@ -71,25 +71,11 @@ include_once WORDPOINTS_DIR . 'components/points/includes/hooks/registration.php
 include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post.php';
 
 /**
- * The post delete points hook
- *
- * @since 1.4.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post-delete.php';
-
-/**
  * The comment points hook
  *
  * @since 1.4.0
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment.php';
-
-/**
- * The comment removed points hook
- *
- * @since 1.4.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment-removed.php';
 
 /**
  * The periodic points hook

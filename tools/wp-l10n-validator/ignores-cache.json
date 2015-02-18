@@ -1066,5 +1066,10 @@
     },
     "class=\"widefat\"\n\t\t\t\t\t\/>": {
         "224": false
+    },
+    "\/components\/points\/includes\/deprecated.php": {
+        "approved": {
+            "230": false
+        }
     }
 }

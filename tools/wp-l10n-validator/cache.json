@@ -135,8 +135,8 @@
         "errors": false
     },
     "\/components\/points\/points.php": {
-        "size": 3015,
-        "hash": "938923abe55f0d9b42ad2c15b2765ce4",
+        "size": 2725,
+        "hash": "d87f31ef697e0954c12fc75529f3752b",
         "errors": false
     },
     "\/components\/points\/uninstall.php": {
@@ -210,8 +210,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/deprecated.php": {
-        "size": 3266,
-        "hash": "85922d0a63415b147b24d49f88fc0fe5",
+        "size": 11535,
+        "hash": "85028f40f08cdb1fd288cf866a48525e",
         "errors": false
     },
     "\/includes\/constants.php": {

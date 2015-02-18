@@ -127,7 +127,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 * @since 1.4.0
 	 */
 	public function __construct() {
-//debug_print_backtrace();
+
 		_deprecated_function( __METHOD__, '1.9.0' );
 
 		$this->init(

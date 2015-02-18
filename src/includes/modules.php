@@ -622,7 +622,7 @@ function wordpoints_get_modules( $module_folder = '' ) {
  *
  * @since 1.1.0
  *
- * @param $module The module's main file.
+ * @param string $module The module's main file.
  *
  * @return true|WP_Error True on success, a WP_Error on failure.
  */

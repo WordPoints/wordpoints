@@ -96,7 +96,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param bool Whether the current user has the required capabilities.
+	 * @return bool Whether the current user has the required capabilities.
 	 */
 	public function ajax_user_can() {
 

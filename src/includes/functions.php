@@ -797,4 +797,17 @@ function wordpoints_ranks_component_register() {
 }
 add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
 
+/**
+ * Initialize the plugin's cache groups.
+ *
+ * @since 1.10.0
+ */
+function wordpoints_init_cache_groups() {
+
+	if ( function_exists( 'wp_cache_add_non_persistent_groups' ) ) {
+		wp_cache_add_non_persistent_groups( array( 'wordpoints_modules' ) );
+	}
+}
+add_action( 'init', 'wordpoints_init_cache_groups', 5 );
+
 // EOF

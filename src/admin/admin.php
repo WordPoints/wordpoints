@@ -246,27 +246,39 @@ function wordpoints_show_admin_error( $message, array $args = array() ) {
  * @since 1.0.0
  * @since 1.2.0 The $type parameter is now properly escaped.
  * @since 1.8.0 The $message will be passed through wp_kses().
- * @since 1.8.0 The $args paramter was added with dismissable and option args.
+ * @since 1.8.0 The $args parameter was added with "dismissable" and "option" args.
+ * @since 1.10.0 The "dismissable" arg was renamed to "dismissible".
  *
  * @param string $message The text for the message.
  * @param string $type    The type of message to display. Default is 'updated'.
  * @param array  $args    {
  *        Other optional arguments.
  *
- *        @type bool   $dismissable Whether this notice can be dismissed. Default is
- *                                  false (not dismissable).
+ *        @type bool   $dismissible Whether this notice can be dismissed. Default is
+ *                                  false (not dismissible).
  *        @type string $option      An option to delete when if message is dismissed.
- *                                  Required when $dismissable is true.
+ *                                  Required when $dismissible is true.
  * }
  */
 function wordpoints_show_admin_message( $message, $type = 'updated', array $args = array() ) {
 
 	$defaults = array(
-		'dismissable' => false,
+		'dismissible' => false,
 		'option'      => '',
 	);
 
 	$args = array_merge( $defaults, $args );
+
+	if ( isset( $args['dismissable'] ) ) {
+
+		$args['dismissible'] = $args['dismissable'];
+
+		_deprecated_argument(
+			__FUNCTION__
+			, '1.10.0'
+			, 'The "dismissable" argument has been replaced by the correct spelling, "dismissible".'
+		);
+	}
 
 	?>
 
@@ -274,7 +286,7 @@ function wordpoints_show_admin_message( $message, $type = 'updated', array $args
 		<p>
 			<?php echo wp_kses( $message, 'wordpoints_admin_message' ); ?>
 		</p>
-		<?php if ( $args['dismissable'] ) : ?>
+		<?php if ( $args['dismissible'] ) : ?>
 			<form method="post" style="padding-bottom: 5px;">
 				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
 				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>

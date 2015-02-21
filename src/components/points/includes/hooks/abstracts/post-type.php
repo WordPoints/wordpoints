@@ -117,7 +117,6 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 					array(
 						'key'     => 'auto_reversed',
 						'compare' => 'NOT EXISTS',
-						'value'   => 'see bug #23268 (fixed in 3.9)',
 					),
 				),
 			)

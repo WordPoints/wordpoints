@@ -35,7 +35,7 @@ switch ( $action ) {
 	// Activate a single module.
 	case 'activate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		if ( is_multisite() && ! is_network_admin() && is_network_only_wordpoints_module( $module ) ) {
@@ -85,7 +85,7 @@ switch ( $action ) {
 	// Activate multiple modules.
 	case 'activate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -141,7 +141,7 @@ switch ( $action ) {
 	// Get the fatal error from a module.
 	case 'error_scrape':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'module-activation-error_' . $module );
@@ -149,7 +149,7 @@ switch ( $action ) {
 		$valid = wordpoints_validate_module( $module );
 
 		if ( is_wp_error( $valid ) ) {
-			wp_die( $valid );
+			wp_die( $valid, '', array( 'response' => 400 ) );
 		}
 
 		// Ensure that Fatal errors are displayed.
@@ -185,7 +185,7 @@ switch ( $action ) {
 	// Deactivate a module.
 	case 'deactivate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'deactivate-module_' . $module );
@@ -213,7 +213,7 @@ switch ( $action ) {
 	// Deactivate multiple modules.
 	case 'deactivate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -255,7 +255,7 @@ switch ( $action ) {
 	// Delete multiple modules.
 	case 'delete-selected':
 		if ( ! current_user_can( 'delete_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to delete modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to delete modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );

@@ -91,18 +91,11 @@ do_action( 'wordpoints_admin_components_top' );
 			<th scope="col"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
 		</tr>
 	</thead>
-	<tfoot>
-		<tr>
-			<th scope="col"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php echo esc_html_x( 'Description', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php echo esc_html_x( 'Version', 'components table heading', 'wordpoints' ); ?></th>
-			<th scope="col"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
-		</tr>
-	</tfoot>
 
-	<?php
+	<tbody>
+		<?php foreach ( $components as $component ) : ?>
 
-	foreach ( $components as $component ) {
+		<?php
 
 		if ( $wordpoints_components->is_active( $component['slug'] ) ) {
 
@@ -155,12 +148,17 @@ do_action( 'wordpoints_admin_components_top' );
 			</td>
 		</tr>
 
-	<?php
+		<?php endforeach; ?>
+	</tbody>
 
-	} // foreach ( $components as $component )
-
-	?>
-
+	<tfoot>
+	<tr>
+		<th scope="col"><?php echo esc_html_x( 'Component', 'components table heading', 'wordpoints' ); ?></th>
+		<th scope="col"><?php echo esc_html_x( 'Description', 'components table heading', 'wordpoints' ); ?></th>
+		<th scope="col"><?php echo esc_html_x( 'Version', 'components table heading', 'wordpoints' ); ?></th>
+		<th scope="col"><?php echo esc_html_x( 'Action', 'components table heading', 'wordpoints' ); ?></th>
+	</tr>
+	</tfoot>
 </table>
 
 <?php

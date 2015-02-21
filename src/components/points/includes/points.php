@@ -1156,13 +1156,6 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php
 
@@ -1215,6 +1208,13 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 
 			?>
 		</tbody>
+		<tfoot>
+		<tr>
+			<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
+		</tr>
+		</tfoot>
 	</table>
 
 	<?php

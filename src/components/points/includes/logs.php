@@ -502,16 +502,6 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<?php if ( $args['show_users'] ) : ?>
-				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
-				<?php endif; ?>
-				<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php if ( empty( $logs ) ) : ?>
 				<tr>
@@ -566,6 +556,16 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				?>
 			<?php endif; ?>
 		</tbody>
+		<tfoot>
+		<tr>
+			<?php if ( $args['show_users'] ) : ?>
+				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
+			<?php endif; ?>
+			<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
+		</tr>
+		</tfoot>
 	</table>
 
 	<?php if ( $args['paginate'] ) : ?>

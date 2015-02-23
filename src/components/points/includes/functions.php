@@ -262,7 +262,10 @@ function wordpoints_points_add_global_cache_groups() {
 
 	if ( function_exists( 'wp_cache_add_global_groups' ) ) {
 
-		$groups = array( 'wordpoints_network_points_logs_query' );
+		$groups = array(
+			'wordpoints_network_points_logs_query',
+			'wordpoints_points_log_meta',
+		);
 
 		if ( is_wordpoints_network_active() ) {
 			$groups[] = 'wordpoints_points_top_users';

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPoints 1.5.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-01-30 22:50:22+00:00\n"
-"PO-Revision-Date: 2015-02-11 20:18+0200\n"
+"PO-Revision-Date: 2015-02-24 19:20+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/wordpoints/wordpoints/es/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 1.9.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
@@ -199,23 +199,23 @@ msgstr "El módulo no contiene archivos."
 
 #: admin/includes/class-wordpoints-module-installer.php:56
 msgid "Module install failed."
-msgstr "Error al instalar Módulo"
+msgstr "Error al instalar el módulo."
 
 #: admin/includes/class-wordpoints-module-installer.php:57
 msgid "Module installed successfully."
-msgstr "Módulo instalado correctamente"
+msgstr "Módulo instalado correctamente."
 
 #: admin/includes/class-wordpoints-module-installer.php:58
 msgid "Could not create the modules directory."
-msgstr "No se pudo crear el directorio de módulos"
+msgstr "No se pudo crear el directorio de módulos."
 
 #: admin/includes/class-wordpoints-module-installer.php:184
 msgid "No valid modules were found."
-msgstr "No se encontraron módulos válidos"
+msgstr "No se encontraron módulos válidos."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:319
 msgid "No modules found."
-msgstr "No se encontraron módulos"
+msgstr "No se encontraron módulos."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:321
 msgid "There are not any modules installed."
@@ -367,7 +367,7 @@ msgid ""
 "simple and easy to use."
 msgstr ""
 "WordPoints no tiene una gran cantidad de opciones de configuración, lo que "
-"hace que sea sencillo y fácil de usar"
+"hace que sea sencillo y fácil de usar."
 
 #: admin/screens/configure-settings-load.php:18
 msgid ""
@@ -595,7 +595,7 @@ msgstr ""
 #: admin/screens/modules.php:24
 msgid "You cannot delete a module while it is active on the main site."
 msgstr ""
-"No se puede eliminar un módulo mientras está activo en el sitio principal"
+"No se puede eliminar un módulo mientras está activo en el sitio principal."
 
 #: admin/screens/modules.php:28
 msgid ""
@@ -614,8 +614,8 @@ msgid ""
 "Module could not be activated because it triggered a <strong>fatal error</"
 "strong>."
 msgstr ""
-"El Módulo no se pudo activar debido a que provocó un <strong> error grave</"
-"strong>"
+"El Módulo no se pudo activar debido a que provocó un <strong>error "
+"grave</strong>."
 
 #: admin/screens/modules.php:65
 msgid "Module could not be deleted due to an error: %s"
@@ -736,11 +736,11 @@ msgstr ""
 "deseado en el campo de texto, y marque la casilla de verificación junto a "
 "él. Si no marca la casilla de verificación, no se guardarán los cambios. "
 "Para proporcionar una razón para el cambio, rellene el campo de texto de "
-"abajo"
+"abajo."
 
 #: components/points/admin/admin.php:282
 msgid "Reason"
-msgstr "Razón."
+msgstr "Razón"
 
 #. translators: %s is the number of points.
 #: components/points/admin/admin.php:302
@@ -966,16 +966,16 @@ msgid ""
 "Drag hooks from here to a points type on the right to activate them. Drag "
 "hooks back here to deactivate them and delete their settings."
 msgstr ""
-"Arrastre ganchos de aquí a un tipo de puntos a la derecha para activarlos.  "
-"Ganchos Arrastre de nuevo los ganchos aquí para desactivarlos y eliminar su "
-"configuración"
+"Arrastre los ganchos de aquí a un tipo de puntos a la derecha para "
+"activarlos.  Arrastre de nuevo los ganchos aquí para desactivarlos y "
+"eliminar su configuración."
 
 #: components/points/admin/screens/hooks.php:144
 msgid ""
 "Drag hooks here to remove them from the points type but keep their settings."
 msgstr ""
-"Arrastre ganchos aquí para eliminarlos del tipo de puntos, pero conservar "
-"sus ajustes"
+"Arrastre los ganchos aquí para eliminarlos del tipo de puntos, pero "
+"conservar sus ajustes."
 
 #: components/points/admin/screens/hooks.php:208
 msgid "Add New Points Type"
@@ -996,15 +996,15 @@ msgstr "WordPoints- Informes de Red de Puntos"
 
 #: components/points/admin/screens/logs.php:20
 msgid "View recent points transactions."
-msgstr "Ver transacciones de puntos recientes"
+msgstr "Ver transacciones de puntos recientes."
 
 #: components/points/admin/screens/logs.php:35
 msgid ""
 "You need to <a href=\"%s\">create a type of points</a> before you can use "
 "this page."
 msgstr ""
-"Necesita <a href=\"%s\"> crear un tipo de puntos </a> antes de poder "
-"utilizar esta página"
+"Necesita <a href=\"%s\">crear un tipo de puntos</a> antes de poder utilizar "
+"esta página."
 
 #: components/points/includes/class-wordpoints-points-hook.php:789
 msgid "Points:"
@@ -1167,7 +1167,7 @@ msgstr "Comentario Eliminado"
 
 #: components/points/includes/hooks/comment-removed.php:46
 msgid "Comment removed from the site."
-msgstr "Comentario eliminado del sitio"
+msgstr "Comentario eliminado del sitio."
 
 #. translators: the post type name.
 #: components/points/includes/hooks/comment-removed.php:48
@@ -1325,7 +1325,7 @@ msgstr "Puntos removidos cuando se eliminan:"
 #. translators: the post type name.
 #: components/points/includes/hooks/post-delete.php:51
 msgid "%s permanently deleted."
-msgstr "%s eliminado permanentemente"
+msgstr "%s eliminado permanentemente."
 
 #: components/points/includes/hooks/post-delete.php:79
 msgid "Auto Draft"
@@ -1343,13 +1343,13 @@ msgstr "Nuevo mensaje publicado."
 #. translators: the post type name.
 #: components/points/includes/hooks/post.php:57
 msgid "New %s published."
-msgstr "Nuevos %s publicados"
+msgstr "Nuevos %s publicados."
 
 #. translators: %s will be a link to the post.
 #: components/points/includes/hooks/post.php:59
 msgctxt "points log description"
 msgid "Post %s published."
-msgstr "Publicación %s publicada"
+msgstr "Publicación %s añadida."
 
 #. translators: 1 is the post type name, 2 is a link to the post.
 #: components/points/includes/hooks/post.php:61
@@ -1464,12 +1464,12 @@ msgstr "Puntos ajustado por %s. Motivo: %s"
 #: components/points/includes/logs.php:673
 msgctxt "points log description"
 msgid "Comment marked as spam."
-msgstr "Comentario marcados como spam"
+msgstr "Comentario marcado como spam."
 
 #: components/points/includes/logs.php:677
 msgctxt "points log description"
 msgid "Comment moved to trash."
-msgstr "Comentario movido a la papelera"
+msgstr "Comentario movido a la papelera."
 
 #: components/points/includes/logs.php:681
 msgctxt "points log description"
@@ -1566,7 +1566,7 @@ msgstr "Debes estar registrado para ver los puntos."
 #: components/points/includes/widgets.php:542
 msgctxt "form label"
 msgid "Title"
-msgstr "Título:"
+msgstr "Título"
 
 #: components/points/includes/widgets.php:269
 msgid "Points type to display"
@@ -1578,7 +1578,7 @@ msgstr "Texto del Widget"
 
 #: components/points/includes/widgets.php:276
 msgid "%s will be replaced with the points of the logged in user"
-msgstr "%s será reemplazado con los puntos del usuario en sesión."
+msgstr "%s será reemplazado con los puntos del usuario en sesión"
 
 #: components/points/includes/widgets.php:291
 msgid "Text if the user is not logged in"
@@ -1902,7 +1902,7 @@ msgstr "Cualquiera"
 
 #: includes/functions.php:623
 msgid "Shortcode error:"
-msgstr "error Código corto"
+msgstr "Error de código corto:"
 
 #: includes/functions.php:762
 msgctxt "component name"
@@ -1929,15 +1929,15 @@ msgstr ""
 
 #: includes/modules.php:473
 msgid "By %s."
-msgstr "Por %s"
+msgstr "Por %s."
 
 #: includes/modules.php:632
 msgid "Invalid module path."
-msgstr "Ruta del módulo no válida"
+msgstr "Ruta del módulo no válida."
 
 #: includes/modules.php:636
 msgid "Module file does not exist."
-msgstr "Archivo de módulo no existe"
+msgstr "Archivo de módulo no existe."
 
 #: includes/modules.php:642
 msgid "The module does not have a valid header."
@@ -1945,7 +1945,7 @@ msgstr "El módulo no tiene una cabecera válida."
 
 #: includes/modules.php:823
 msgid "The module generated unexpected output."
-msgstr "El módulo generó una salida inesperada"
+msgstr "El módulo generó una salida inesperada."
 
 #: includes/modules.php:1000
 msgid "Could not access filesystem."
@@ -1976,7 +1976,7 @@ msgid ""
 "Create one or more points systems for your site, and reward user activity."
 msgstr ""
 "Cree uno o más sistemas de puntos para su sitio, y recompense la actividad "
-"del usuario"
+"del usuario."
 
 #. Author of the plugin/theme
 msgid "J.D. Grimes"

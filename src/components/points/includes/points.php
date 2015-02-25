@@ -863,6 +863,8 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  * @param int    $log_id     The ID of the transaction.
  * @param string $meta_key   The meta key to update.
  * @param mixed  $meta_value The new value for this meta key.
+ * @param bool   $delete_all Whether to delete metadata for all matching logs, or
+ *                           only the one specified by $log_id (default).
  *
  * @return bool Whether any rows where deleted.
  */
@@ -1030,7 +1032,7 @@ function wordpoints_regenerate_points_logs( $logs ) {
  *
  * @since 1.0.0
  *
- * @param array  $num_users   The number of users to retrieve.
+ * @param int    $num_users   The number of users to retrieve.
  * @param string $points_type The type of points.
  *
  * @return int[] The IDs of the users with the most points.
@@ -1105,8 +1107,9 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
  *
  * @since 1.7.0
  *
- * @param array  $num_users   The number of users to display.
+ * @param int    $num_users   The number of users to display.
  * @param string $points_type The type of points.
+ * @param string $context     The context in which the table is being displayed.
  */
 function wordpoints_points_show_top_users( $num_users, $points_type, $context = 'default' ) {
 

@@ -39,7 +39,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * The points types the user has created.
 	 *
-	 * Used during uninstall to keep from having to retreive them when looping over
+	 * Used during uninstall to keep from having to retrieve them when looping over
 	 * sites on multisite.
 	 *
 	 * @since 1.8.0
@@ -796,7 +796,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			);
 		}
 
-		// Now we check if there are any unpaired reverse typ hooks. If there are
+		// Now we check if there are any unpaired reverse type hooks. If there are
 		// we'll set this flag in the database that will keep some legacy features
 		// enabled.
 		if ( $reverse_hook->get_instances( $hook_type ) ) {

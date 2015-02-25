@@ -698,20 +698,15 @@ function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user
 
 		if ( ! is_null( $post_type ) ) {
 
-			/* translators: 1 is the post type name, 2 is the post title. */
+			/* translators: the post type's name. */
 			return sprintf(
-				_x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' )
+				_x( '%s deleted.', 'points log description', 'wordpoints' )
 				, $post_type->labels->singular_name
-				, $meta['post_title']
 			);
 		}
 	}
 
-	/* translators: %s will be the post title. */
-	return sprintf(
-		_x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' )
-		, $meta['post_title']
-	);
+	return _x( 'Post deleted.', 'points log description', 'wordpoints' );
 }
 add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 

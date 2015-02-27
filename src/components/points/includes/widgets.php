@@ -199,7 +199,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		 */
 		$text = apply_filters( 'wordpoints_points_widget_text', $text, $instance );
 
-		echo '<div class="wordpoints-points-widget-text">', $text, '</div><br />';
+		echo '<div class="wordpoints-points-widget-text">', $text, '</div><br />'; // XSS OK, WPCS
 
 		if ( 0 !== $instance['number_logs'] ) {
 

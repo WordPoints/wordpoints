@@ -96,7 +96,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param bool Whether the current user has the required capabilities.
+	 * @return bool Whether the current user has the required capabilities.
 	 */
 	public function ajax_user_can() {
 
@@ -552,7 +552,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 					case 'name':
 						?>
-						<td class="module-title"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ) ?>>
+						<td class="module-title"<?php echo ( $is_hidden ) ? ' style="display:none;"' : ''; ?>>
 							<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
 							<?php echo $this->row_actions( $this->get_module_row_actions( $module_file, $module_data, $is_active ), true ); // XSS OK WPCS ?>
 						</td>
@@ -561,7 +561,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 					case 'description':
 						?>
-						<td class="column-description desc"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
+						<td class="column-description desc"<?php echo ( $is_hidden ) ? ' style="display:none;"' : ''; ?>>
 							<div class="module-description">
 								<p>
 									<?php if ( ! empty( $module_data['description'] ) ) : ?>
@@ -620,7 +620,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 					default:
 						?>
-						<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name ); ?>"<?php echo ( $is_hidden ? ' style="display:none;"' : '' ); ?>>
+						<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name ); ?>"<?php echo ( $is_hidden ) ? ' style="display:none;"' : ''; ?>>
 							<?php
 							/**
 							 * Display the row contents for a custom column in the module list table.

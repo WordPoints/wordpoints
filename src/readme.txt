@@ -2,7 +2,7 @@
 Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
-Requires at least: 3.8
+Requires at least: 3.9
 Tested up to: 4.2-alpha-31007
 Stable tag: 1.9.0
 License: GPLv2 or later

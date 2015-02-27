@@ -429,24 +429,13 @@ function wordpoints_get_formatted_points( $user_id, $type, $context ) {
  *
  * @since 1.0.0
  *
- * @uses wordpoints_get_points()    To get the user's points.
- * @uses wordpoints_format_points() To format the points for display.
- *
  * @param int    $user_id The ID of the user whose points to display.
  * @param string $type    The type of points to display.
  * @param string $context The context in which the points will be displayed.
- *
- * @return void This function does not return a value, it displays directly.
  */
 function wordpoints_display_points( $user_id, $type, $context ) {
 
-	$points = wordpoints_get_points( $user_id, $type );
-
-	if ( false === $points ) {
-		return;
-	}
-
-	echo wordpoints_format_points( $points, $type, $context );
+	echo wordpoints_get_formatted_points( $user_id, $type, $context ); // XSS OK, WPCS
 }
 
 /**

@@ -195,23 +195,31 @@ function wordpoints_sanitize_wp_error( $error ) {
 
 	$code = $error->get_error_code();
 
-	if ( isset( $error->error_data[ $code ]['title'] ) ) {
+	$error_data = $error->error_data;
 
-		$error->error_data[ $code ]['title'] = wp_kses(
+	if ( isset( $error_data[ $code ]['title'] ) ) {
+
+		$error_data[ $code ]['title'] = wp_kses(
 			$error->error_data[ $code ]['title']
 			, 'wordpoints_sanitize_wp_error_title'
 		);
+
+		$error->error_data = $error_data;
 	}
 
-	foreach ( $error->errors as $code => $errors ) {
+	$all_errors = $error->errors;
+
+	foreach ( $all_errors as $code => $errors ) {
 
 		foreach ( $errors as $key => $message ) {
-			$error->errors[ $code ][ $key ] = wp_kses(
+			$all_errors[ $code ][ $key ] = wp_kses(
 				$message
 				, 'wordpoints_sanitize_wp_error_message'
 			);
 		}
 	}
+
+	$error->errors = $all_errors;
 
 	return $error;
 }

@@ -120,6 +120,13 @@ manage the ranks used on your site.
 
 == Changelog ==
 
+= 1.10.0 — (~20 hrs) =
+* Requires: WordPress 3.9+
+* Fixed: Current points values not being displayed beside inputs on profile screen.
+* Fixed: The modules cache being preserved too long when using persistent caching.
+* Fixed: Other caching issues on multisite.
+* Updated: Numerous other small fixes and minor improvements.
+
 = 1.9.2 — (~2 hrs) =
 * Fixed: A bug preventing updating a user's points from their admin profile when
 they don't have any points yet.
@@ -252,6 +259,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.0 =
+* This is a minor release which contains a few small improvements and several fixed
+bugs.
 
 = 1.9.2 =
 * Fixes a bug preventing a user's points from being updated on their admin profile

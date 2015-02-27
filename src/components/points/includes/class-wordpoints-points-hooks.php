@@ -481,7 +481,9 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string|false $hook_id The ID of the hook. False if not found.
+	 * @param string $hook_id The ID of the hook.
+	 *
+	 * @return string|false The points type for the hook. False if not found.
 	 */
 	public static function get_points_type( $hook_id ) {
 

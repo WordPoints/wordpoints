@@ -217,7 +217,7 @@ function wordpoints_sanitize_wp_error( $error ) {
 }
 
 //
-// Databae Helpers.
+// Database Helpers.
 //
 
 /**
@@ -227,7 +227,7 @@ function wordpoints_sanitize_wp_error( $error ) {
  * array.
  *
  * @since 1.0.0
- * @since 1.1.0 The $conext parameter was added for site options.
+ * @since 1.1.0 The $context parameter was added for site options.
  * @since 1.2.0 The 'network' context was added.
  *
  * @param string $option The name of the option to get.
@@ -651,6 +651,8 @@ function wordpoints_get_excluded_users( $context ) {
  * @since 1.8.0 The $message now supports WP_Error objects.
  *
  * @param string|WP_Error $message The error message.
+ *
+ * @return string The error message.
  */
 function wordpoints_shortcode_error( $message ) {
 

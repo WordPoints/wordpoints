@@ -309,7 +309,7 @@ switch ( $action ) {
 						$files_to_delete[] = $module_dir . '/' . $module;
 						$data = wordpoints_get_module_data( $module_dir . '/' . $module );
 
-						if ( $data ) {
+						if ( ! empty( $data ) ) {
 
 							$module_info[ $module ] = $data;
 							$module_info[ $module ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );

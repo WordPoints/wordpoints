@@ -34,7 +34,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	 */
 	public function __construct( $title, $args ) {
 
-		parent::init( $title, $args );
+		$this->init( $title, $args );
 
 		add_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
 		add_filter( "wordpoints_points_log-reverse_{$this->log_type}", array( $this, 'logs' ), 10, 6 );

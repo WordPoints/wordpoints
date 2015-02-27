@@ -42,7 +42,7 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	 */
 	public function __construct() {
 
-		parent::init(
+		$this->init(
 			_x( 'Post Delete', 'points hook name', 'wordpoints' )
 			,array(
 				'description'  => __( 'A post is permanently deleted.', 'wordpoints' ),

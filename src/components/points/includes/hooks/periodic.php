@@ -39,7 +39,10 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function __construct() {
 
-		parent::init( _x( 'Periodic Points', 'points hook name', 'wordpoints' ), array( 'description' => __( 'Visiting the site at least once in a given time period.', 'wordpoints' ) ) );
+		$this->init(
+			_x( 'Periodic Points', 'points hook name', 'wordpoints' )
+			, array( 'description' => __( 'Visiting the site at least once in a given time period.', 'wordpoints' ) )
+		);
 
 		add_action( 'init', array( $this, 'hook' ) );
 

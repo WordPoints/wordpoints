@@ -173,6 +173,49 @@ function wordpoints_verify_nonce(
 	return false;
 }
 
+/**
+ * Sanitize a WP_Error object for passing directly to wp_die().
+ *
+ * The wp_die() function accepts an WP_Error object as the first parameter, but it
+ * does not sanitize it's contents before printing it out to the user. By passing
+ * the object through this function before giving it to wp_die(), the potential for
+ * XSS should be avoided.
+ *
+ * Example:
+ *
+ * wp_die( wordpoints_sanitize_wp_error( $error ) );
+ *
+ * @since 1.10.0
+ *
+ * @param WP_Error $error The error to sanitize.
+ *
+ * @return WP_Error The sanitized error.
+ */
+function wordpoints_sanitize_wp_error( $error ) {
+
+	$code = $error->get_error_code();
+
+	if ( isset( $error->error_data[ $code ]['title'] ) ) {
+
+		$error->error_data[ $code ]['title'] = wp_kses(
+			$error->error_data[ $code ]['title']
+			, 'wordpoints_sanitize_wp_error_title'
+		);
+	}
+
+	foreach ( $error->errors as $code => $errors ) {
+
+		foreach ( $errors as $key => $message ) {
+			$error->errors[ $code ][ $key ] = wp_kses(
+				$message
+				, 'wordpoints_sanitize_wp_error_message'
+			);
+		}
+	}
+
+	return $error;
+}
+
 //
 // Databae Helpers.
 //

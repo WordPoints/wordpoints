@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2015-01-30 22:50:22+00:00\n"
+"POT-Creation-Date: 2015-02-27 21:33:55+00:00\n"
 "PO-Revision-Date: 2014-11-29 07:17+0200\n"
 "Last-Translator: Jack Lee <suifengtec@qq.com>\n"
 "Language-Team: Simplified Chinese <https://hosted.weblate.org/projects/"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 1.9.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 1.10.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:120
@@ -49,90 +49,90 @@ msgstr "WordPoints — 安装模块"
 msgid "Install Modules"
 msgstr "安装模块"
 
-#: admin/admin.php:281
+#: admin/admin.php:293
 msgid "Hide This Notice"
 msgstr "隐藏此通知"
 
-#: admin/admin.php:334
+#: admin/admin.php:346
 msgid "WordPoints — %s"
 msgstr "WordPoints — %s"
 
-#: admin/admin.php:364
+#: admin/admin.php:376
 msgid "Install a module in .zip format"
 msgstr "安装一个.zip格式的模块"
 
-#: admin/admin.php:365
+#: admin/admin.php:377
 msgid ""
 "If you have a module in a .zip format, you may install it by uploading it "
 "here."
 msgstr "如果您有一个.zip格式的模块，你可以在这里上传并安装它。"
 
-#: admin/admin.php:368
+#: admin/admin.php:380
 msgid "Module zip file"
 msgstr "模块的zip文件"
 
-#: admin/admin.php:370
+#: admin/admin.php:382
 msgid "Install Now"
 msgstr "现在安装"
 
-#: admin/admin.php:387
+#: admin/admin.php:399
 msgid ""
 "You do not have sufficient permissions to install WordPoints modules on this "
 "site."
 msgstr "您没有足够的权限在该网站安装WordPoints模块。"
 
-#: admin/admin.php:394
+#: admin/admin.php:406
 msgid "Upload WordPoints Module"
 msgstr "上传WordPoints模块"
 
-#: admin/admin.php:406
+#: admin/admin.php:418
 msgid "Installing Module from uploaded file: %s"
 msgstr "正在安装上传模块: %s"
 
-#: admin/admin.php:470
+#: admin/admin.php:482
 msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
 msgstr ""
 
-#: admin/admin.php:500
+#: admin/admin.php:512
 msgid "Like this plugin?"
 msgstr "喜欢这个插件？"
 
-#: admin/admin.php:501
+#: admin/admin.php:513
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
 msgstr ""
 "如果您觉得WordPoints不错，请用<a href=\"%s\">5分评价</a>以让更多人知道它。"
 
-#: admin/admin.php:502
+#: admin/admin.php:514
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
 msgstr "如果您觉得这个插件不值5分评价，请提出您的宝贵建议。"
 
-#: admin/admin.php:505
+#: admin/admin.php:517
 msgid "Need help?"
 msgstr "需要帮助?"
 
-#: admin/admin.php:506
+#: admin/admin.php:518
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
 msgstr "请在<a href=\"%s\">支持论坛</a>提交您的功能需求或者问题"
 
-#: admin/admin.php:507
+#: admin/admin.php:519
 msgid "Thank you for using WordPoints!"
 msgstr "感谢您使用WordPoints!"
 
-#: admin/admin.php:540
+#: admin/admin.php:552
 msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process."
 msgstr "WordPoints检测到多站，已跳过部分安装过程。"
 
-#: admin/admin.php:543
+#: admin/admin.php:555
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for version %s (and possibly later versions)."
@@ -140,14 +140,14 @@ msgstr ""
 "WordPoints探测到一个大的多站网络,已经为版本%s (和更新的版本)跳过了部分更新过"
 "程。"
 
-#: admin/admin.php:549
+#: admin/admin.php:561
 msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
 "done already, some parts of the plugin may not function properly."
 msgstr ""
 "剩余的过程需要完全人工操作.如果没有完成，该插件的某些功能可能无法正常工作。"
 
-#: admin/admin.php:550 includes/class-wordpoints-components.php:556
+#: admin/admin.php:562 includes/class-wordpoints-components.php:574
 msgid "Learn more."
 msgstr "了解更多。"
 
@@ -240,7 +240,7 @@ msgstr[0] "未激活 <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:427
 #: admin/includes/class-wordpoints-modules-list-table.php:722
-#: admin/screens/configure-components.php:115
+#: admin/screens/configure-components.php:108
 msgid "Activate"
 msgstr "激活"
 
@@ -251,7 +251,7 @@ msgstr "网络停用"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:431
 #: admin/includes/class-wordpoints-modules-list-table.php:718
-#: admin/screens/configure-components.php:110
+#: admin/screens/configure-components.php:103
 msgid "Deactivate"
 msgstr "停用"
 
@@ -259,7 +259,7 @@ msgstr "停用"
 #: admin/includes/class-wordpoints-modules-list-table.php:710
 #: admin/includes/class-wordpoints-modules-list-table.php:725
 #: components/points/admin/admin.php:54
-#: components/points/includes/class-wordpoints-points-hooks.php:773
+#: components/points/includes/class-wordpoints-points-hooks.php:775
 #: components/ranks/admin/admin.php:53
 #: components/ranks/admin/screens/ranks.php:128
 msgid "Delete"
@@ -279,7 +279,7 @@ msgstr "版本 %s"
 
 #. translators: %s is the component author's name.
 #: admin/includes/class-wordpoints-modules-list-table.php:591
-#: admin/screens/configure-components.php:136
+#: admin/screens/configure-components.php:129
 msgid "By %s"
 msgstr "作者  %s"
 
@@ -310,25 +310,25 @@ msgid "Installed WordPoints components."
 msgstr "查看已安装的WordPoints组件。"
 
 #: admin/screens/configure-components.php:88
-#: admin/screens/configure-components.php:96
+#: admin/screens/configure-components.php:156
 msgctxt "components table heading"
 msgid "Component"
 msgstr "组件"
 
 #: admin/screens/configure-components.php:89
-#: admin/screens/configure-components.php:97
+#: admin/screens/configure-components.php:157
 msgctxt "components table heading"
 msgid "Description"
 msgstr "描述"
 
 #: admin/screens/configure-components.php:90
-#: admin/screens/configure-components.php:98
+#: admin/screens/configure-components.php:158
 msgctxt "components table heading"
 msgid "Version"
 msgstr "版本"
 
 #: admin/screens/configure-components.php:91
-#: admin/screens/configure-components.php:99
+#: admin/screens/configure-components.php:159
 msgctxt "components table heading"
 msgid "Action"
 msgstr "操作"
@@ -929,67 +929,67 @@ msgstr "积分:"
 msgid "There are no points hooks currently available."
 msgstr "当前无可用的积分Hooks。"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:582
+#: components/points/includes/class-wordpoints-points-hooks.php:584
 msgid "Settings"
 msgstr "设置"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:594
+#: components/points/includes/class-wordpoints-points-hooks.php:596
 msgid "Slug"
 msgstr "别名"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:613
+#: components/points/includes/class-wordpoints-points-hooks.php:615
 msgctxt "points type"
 msgid "Prefix (optional):"
 msgstr "前缀(可选):"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:614
+#: components/points/includes/class-wordpoints-points-hooks.php:616
 msgctxt "points type"
 msgid "Suffix (optional):"
 msgstr "后缀（可选）:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:618
+#: components/points/includes/class-wordpoints-points-hooks.php:620
 msgctxt "points type"
 msgid "Prefix:"
 msgstr "前缀:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:619
+#: components/points/includes/class-wordpoints-points-hooks.php:621
 msgctxt "points type"
 msgid "Suffix:"
 msgstr "后缀:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:625
+#: components/points/includes/class-wordpoints-points-hooks.php:627
 msgctxt "points type"
 msgid "Name:"
 msgstr "名称:"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:664
+#: components/points/includes/class-wordpoints-points-hooks.php:666
 msgctxt "points type"
 msgid "Delete"
 msgstr "删除"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:668
-#: components/points/includes/class-wordpoints-points-hooks.php:774
+#: components/points/includes/class-wordpoints-points-hooks.php:670
+#: components/points/includes/class-wordpoints-points-hooks.php:776
 #: components/ranks/admin/screens/ranks.php:100
 #: components/ranks/admin/screens/ranks.php:126
 msgid "Close"
 msgstr "关闭"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:671
+#: components/points/includes/class-wordpoints-points-hooks.php:673
 msgctxt "points type"
 msgid "Save"
 msgstr "保存"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:749
+#: components/points/includes/class-wordpoints-points-hooks.php:751
 msgctxt "hook"
 msgid "Edit"
 msgstr "编辑"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:750
+#: components/points/includes/class-wordpoints-points-hooks.php:752
 msgctxt "hook"
 msgid "Add"
 msgstr "添加"
 
-#: components/points/includes/class-wordpoints-points-hooks.php:777
+#: components/points/includes/class-wordpoints-points-hooks.php:779
 #: components/ranks/admin/screens/ranks.php:124
 msgid "Save"
 msgstr "保存"
@@ -1007,12 +1007,12 @@ msgstr ""
 "此积分类型使用了自定义的元数据ID(&#8220;%s&#8221;)。如果这个ID已经被其它插件"
 "使用，请修改它，以避免出错。"
 
-#: components/points/includes/hooks/abstracts/post-type.php:240
+#: components/points/includes/hooks/abstracts/post-type.php:239
 msgctxt "post title"
 msgid "(no title)"
 msgstr "(无标题)"
 
-#: components/points/includes/hooks/abstracts/post-type.php:296
+#: components/points/includes/hooks/abstracts/post-type.php:295
 msgid "Select post type:"
 msgstr "请选择文章类型:"
 
@@ -1140,78 +1140,78 @@ msgstr "%s上已收到的评论被移除。"
 msgid "Revoke the points if the comment is removed."
 msgstr ""
 
-#: components/points/includes/hooks/periodic.php:42
+#: components/points/includes/hooks/periodic.php:43
 msgctxt "points hook name"
 msgid "Periodic Points"
 msgstr "周期性积分"
 
-#: components/points/includes/hooks/periodic.php:42
+#: components/points/includes/hooks/periodic.php:44
 msgid "Visiting the site at least once in a given time period."
 msgstr "周期性访问网站，奖励积分。"
 
-#: components/points/includes/hooks/periodic.php:134
+#: components/points/includes/hooks/periodic.php:137
 msgctxt "points log description"
 msgid "Hourly points."
 msgstr "小时积分。"
 
-#: components/points/includes/hooks/periodic.php:138
+#: components/points/includes/hooks/periodic.php:141
 msgctxt "points log description"
 msgid "Daily points."
 msgstr "每天积分。"
 
-#: components/points/includes/hooks/periodic.php:142
+#: components/points/includes/hooks/periodic.php:145
 msgctxt "points log description"
 msgid "Weekly points."
 msgstr "每周积分。"
 
-#: components/points/includes/hooks/periodic.php:146
+#: components/points/includes/hooks/periodic.php:149
 msgctxt "points log description"
 msgid "Monthly points."
 msgstr "每月积分。"
 
-#: components/points/includes/hooks/periodic.php:150
+#: components/points/includes/hooks/periodic.php:153
 msgctxt "points log description"
 msgid "Periodic points."
 msgstr "周期性积分。"
 
-#: components/points/includes/hooks/periodic.php:172
+#: components/points/includes/hooks/periodic.php:175
 msgid "Visiting the site at least once in an hour."
 msgstr "每小时在线奖励积分。"
 
-#: components/points/includes/hooks/periodic.php:175
+#: components/points/includes/hooks/periodic.php:178
 msgid "Visiting the site at least once in a day."
 msgstr "至少在每天查看下这个网站。"
 
-#: components/points/includes/hooks/periodic.php:178
+#: components/points/includes/hooks/periodic.php:181
 msgid "Visiting the site at least once in a week."
 msgstr "至少在每周查看下这个网站。"
 
-#: components/points/includes/hooks/periodic.php:181
+#: components/points/includes/hooks/periodic.php:184
 msgid "Visiting the site at least once in a month."
 msgstr "至少在每个月查看下这个网站。"
 
-#: components/points/includes/hooks/periodic.php:184
+#: components/points/includes/hooks/periodic.php:187
 msgid "Visiting the site periodically."
 msgstr "查看这个网站的间隔期。"
 
-#: components/points/includes/hooks/periodic.php:238
+#: components/points/includes/hooks/periodic.php:241
 msgctxt "length of time"
 msgid "Period:"
 msgstr "周期:"
 
-#: components/points/includes/hooks/periodic.php:259
+#: components/points/includes/hooks/periodic.php:262
 msgid "hourly"
 msgstr "按小时"
 
-#: components/points/includes/hooks/periodic.php:260
+#: components/points/includes/hooks/periodic.php:263
 msgid "daily"
 msgstr "按天"
 
-#: components/points/includes/hooks/periodic.php:261
+#: components/points/includes/hooks/periodic.php:264
 msgid "weekly"
 msgstr "按周"
 
-#: components/points/includes/hooks/periodic.php:262
+#: components/points/includes/hooks/periodic.php:265
 msgid "monthly"
 msgstr "按月"
 
@@ -1276,7 +1276,9 @@ msgid "Post published."
 msgstr "文章已发布。"
 
 #. translators: %s is the name of a post type.
+#. translators: the post type's name.
 #: components/points/includes/hooks/post.php:66
+#: components/points/includes/logs.php:703
 #, fuzzy
 msgctxt "points log description"
 msgid "%s deleted."
@@ -1284,19 +1286,18 @@ msgstr "%s已被永久删除。"
 
 #. translators: 1 is the post type name, 2 is the post title.
 #: components/points/includes/hooks/post.php:68
-#: components/points/includes/logs.php:703
 msgctxt "points log description"
 msgid "%1$s &#8220;%2$s&#8221; deleted."
 msgstr "%1$s &#8220;%2$s&#8221; 已删除."
 
 #. translators: %s will be the post title.
 #: components/points/includes/hooks/post.php:70
-#: components/points/includes/logs.php:712
 msgctxt "points log description"
 msgid "Post &#8220;%s&#8221; deleted."
 msgstr "文章 &#8220;%s&#8221; 已删除."
 
 #: components/points/includes/hooks/post.php:71
+#: components/points/includes/logs.php:709
 #, fuzzy
 msgctxt "points log description"
 msgid "Post deleted."
@@ -1354,7 +1355,7 @@ msgstr "搜索记录:"
 msgid "Search Logs"
 msgstr "搜索记录"
 
-#: components/points/includes/logs.php:519
+#: components/points/includes/logs.php:509
 msgid "No matching logs found."
 msgstr "未找到匹配的记录。"
 
@@ -1378,22 +1379,22 @@ msgctxt "points log description"
 msgid "Comment unapproved."
 msgstr "评论未通过审核。"
 
-#: components/points/includes/points.php:963
+#: components/points/includes/points.php:954
 msgctxt "points log"
 msgid "(no description)"
 msgstr "（无描述）"
 
-#: components/points/includes/points.php:1122
+#: components/points/includes/points.php:1114
 msgctxt "top users table heading"
 msgid "Position"
 msgstr "位置"
 
-#: components/points/includes/points.php:1123
+#: components/points/includes/points.php:1115
 msgctxt "top users table heading"
 msgid "User"
 msgstr "用户"
 
-#: components/points/includes/points.php:1124
+#: components/points/includes/points.php:1116
 msgctxt "top users table heading"
 msgid "Points"
 msgstr "积分"
@@ -1761,7 +1762,7 @@ msgid ""
 "%2$s"
 msgstr "组件 &#8220;%s&#8221; 未能禁用，请重试。"
 
-#: includes/class-wordpoints-components.php:546
+#: includes/class-wordpoints-components.php:564
 msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process for the &#8220;%s&#8221; component."
@@ -1769,7 +1770,7 @@ msgstr ""
 "WordPoints检测到一个大的多站网络并且已经为组件&#8220;%s&#8221;跳过了部分安装"
 "进程。"
 
-#: includes/class-wordpoints-components.php:549
+#: includes/class-wordpoints-components.php:567
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for the &#8220;%s&#8221; component for version %s (and possibly "
@@ -1778,78 +1779,78 @@ msgstr ""
 "WordPoints检测到一个大的多站网络并且已经跳过了版本%s (和更新的版本)的更新进"
 "程。"
 
-#: includes/class-wordpoints-components.php:555
+#: includes/class-wordpoints-components.php:573
 msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
 "done already, some parts of the component may not function properly."
 msgstr "剩余的进程需要人工完成，如果未被完成，此组件的部分功能将不可用。"
 
-#: includes/functions.php:525
+#: includes/functions.php:576
 msgctxt "post type"
 msgid "Any"
 msgstr "任何"
 
-#: includes/functions.php:623
+#: includes/functions.php:676
 msgid "Shortcode error:"
 msgstr "短代码错误:"
 
-#: includes/functions.php:762
+#: includes/functions.php:815
 msgctxt "component name"
 msgid "Points"
 msgstr "积分"
 
-#: includes/functions.php:764 includes/functions.php:789
+#: includes/functions.php:817 includes/functions.php:842
 msgctxt "component author"
 msgid "WordPoints"
 msgstr "WordPoints"
 
-#: includes/functions.php:767
+#: includes/functions.php:820
 msgid "Enables a points system for your site."
 msgstr "在您的网站启用一个积分系统。"
 
-#: includes/functions.php:787
+#: includes/functions.php:840
 msgctxt "component name"
 msgid "Ranks"
 msgstr "评级"
 
-#: includes/functions.php:792
+#: includes/functions.php:845
 msgid "Assign users ranks based on their points levels."
 msgstr "基于用户积分数量确定TA所在的等级。"
 
-#: includes/modules.php:473
+#: includes/modules.php:479
 msgid "By %s."
 msgstr "作者 %s.。"
 
-#: includes/modules.php:632
+#: includes/modules.php:638
 msgid "Invalid module path."
 msgstr "不可用的模块路径。"
 
-#: includes/modules.php:636
+#: includes/modules.php:642
 msgid "Module file does not exist."
 msgstr "模块文件不存在。"
 
-#: includes/modules.php:642
+#: includes/modules.php:648
 msgid "The module does not have a valid header."
 msgstr "此模块头部不可用。"
 
-#: includes/modules.php:823
+#: includes/modules.php:829
 msgid "The module generated unexpected output."
 msgstr "此模块产生了意外的输出。"
 
-#: includes/modules.php:1000
+#: includes/modules.php:1006
 msgid "Could not access filesystem."
 msgstr "文件系统权限错误。"
 
-#: includes/modules.php:1004
+#: includes/modules.php:1010
 msgid "Filesystem error."
 msgstr "文件系统错误。"
 
-#: includes/modules.php:1011
+#: includes/modules.php:1017
 msgid "Unable to locate WordPoints Module directory."
 msgstr "无法找到WordPoints模块目录。"
 
 #. translators: A module or list of modules.
-#: includes/modules.php:1057
+#: includes/modules.php:1063
 msgid "Could not fully remove the module %s."
 msgid_plural "Could not fully remove the modules %s."
 msgstr[0] "无法完全移除模块 %s."

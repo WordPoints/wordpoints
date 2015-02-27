@@ -102,7 +102,7 @@ function wordpoints_ajax_save_points_hook() {
 		wp_die( -1, '', array( 'response' => 403 ) );
 	}
 
-	$error = '<p>' . esc_html__( 'An error has occurred. Please reload the page and try again.', 'wordpoints' ) . '</p>';
+	$error = __( 'An error has occurred. Please reload the page and try again.', 'wordpoints' );
 
 	if ( isset( $_POST['points-slug'] ) ) {
 
@@ -169,7 +169,7 @@ function wordpoints_ajax_save_points_hook() {
 
 			// This holds the ID number if the hook is brand new.
 			if ( ! isset( $_POST['multi_number'] ) || ! wordpoints_posint( $_POST['multi_number'] ) ) {
-				wp_die( $error, '', array( 'response' => 400 ) );
+				wp_die( '<p>' . esc_html( $error ) . '</p>', '', array( 'response' => 400 ) );
 			}
 
 			$number  = (int) $_POST['multi_number'];
@@ -194,7 +194,7 @@ function wordpoints_ajax_save_points_hook() {
 			// - We are deleting a hook instance.
 
 			if ( false === $hook ) {
-				wp_die( $error, '', array( 'response' => 400 ) );
+				wp_die( '<p>' . esc_html( $error ) . '</p>', '', array( 'response' => 400 ) );
 			}
 
 			$hook->delete_callback( $number );
@@ -229,7 +229,7 @@ function wordpoints_ajax_save_points_hook() {
 			// - We are updating the settings for an instance of a hook.
 
 			if ( false === $hook ) {
-				wp_die( $error, '', array( 'response' => 400 ) );
+				wp_die( '<p>' . esc_html( $error ) . '</p>', '', array( 'response' => 400 ) );
 			}
 
 			$new_instance = ( ! empty( $settings ) ) ? reset( $settings ) : array();

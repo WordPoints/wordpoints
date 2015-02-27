@@ -68,7 +68,7 @@ switch ( $action ) {
 
 			} else {
 
-				wp_die( $result );
+				wp_die( wordpoints_sanitize_wp_error( $result ) );
 			}
 		}
 
@@ -149,7 +149,7 @@ switch ( $action ) {
 		$valid = wordpoints_validate_module( $module );
 
 		if ( is_wp_error( $valid ) ) {
-			wp_die( $valid, '', array( 'response' => 400 ) );
+			wp_die( wordpoints_sanitize_wp_error( $valid ), '', array( 'response' => 400 ) );
 		}
 
 		// Ensure that Fatal errors are displayed.

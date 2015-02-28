@@ -1,7 +1,7 @@
 {
 	"textdomain": { "wordpoints": true, "default": true },
 	"basedir": "./src",
-	"bootstrap": "vendor/wordpoints/l10n-validator-config/bootstrap.php",
+	"bootstrap": "dev-lib-wordpoints/l10n-validator/bootstrap.php",
 	"cache": "./tools/wp-l10n-validator/cache.json",
 	"ignores-cache": "./tools/wp-l10n-validator/ignores-cache.json",
 	"ignores-tolerance": 25,

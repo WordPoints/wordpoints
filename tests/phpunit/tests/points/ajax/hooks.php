@@ -170,11 +170,9 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestC
 
 		try {
 			$this->_handleAjax( 'save-wordpoints-points-hook' );
-		} catch ( WPAjaxDieContinueException $e ) {
-			unset( $e );
+		} catch ( WPAjaxDieStopException $e ) {
+			$this->assertEquals( 'deleted:' . $hook->get_id(), $e->getMessage() );
 		}
-
-		$this->assertEquals( 'deleted:' . $hook->get_id(), $this->_last_response );
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$this->assertCount( 0, $hooks );

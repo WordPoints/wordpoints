@@ -44,6 +44,9 @@ The plugin also provides [several widgets](http://wordpoints.org/user-guide/widg
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 
+Also on the plugin's website, you can [browse the available extensions](http://wordpoints.org/modules/),
+called "modules". We've just added [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/).
+
 = Localization =
 
 WordPoints is fully localizable, and translations are already available in several

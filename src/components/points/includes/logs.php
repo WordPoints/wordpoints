@@ -502,20 +502,10 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<?php if ( $args['show_users'] ) : ?>
-				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
-				<?php endif; ?>
-				<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php if ( empty( $logs ) ) : ?>
 				<tr>
-					<td colspan="<?php echo (int) ( $args['show_users'] ) ? 3 : 4; ?>">
+					<td colspan="<?php echo ( $args['show_users'] ) ? 3 : 4; ?>">
 						<?php esc_html_e( 'No matching logs found.', 'wordpoints' ); ?>
 					</td>
 				</tr>
@@ -566,6 +556,16 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				?>
 			<?php endif; ?>
 		</tbody>
+		<tfoot>
+		<tr>
+			<?php if ( $args['show_users'] ) : ?>
+				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
+			<?php endif; ?>
+			<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
+		</tr>
+		</tfoot>
 	</table>
 
 	<?php if ( $args['paginate'] ) : ?>
@@ -698,20 +698,15 @@ function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user
 
 		if ( ! is_null( $post_type ) ) {
 
-			/* translators: 1 is the post type name, 2 is the post title. */
+			/* translators: the post type's name. */
 			return sprintf(
-				_x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' )
+				_x( '%s deleted.', 'points log description', 'wordpoints' )
 				, $post_type->labels->singular_name
-				, $meta['post_title']
 			);
 		}
 	}
 
-	/* translators: %s will be the post title. */
-	return sprintf(
-		_x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' )
-		, $meta['post_title']
-	);
+	return _x( 'Post deleted.', 'points log description', 'wordpoints' );
 }
 add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 

@@ -2,9 +2,9 @@
 Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
-Requires at least: 3.8
-Tested up to: 4.2-alpha-31007
-Stable tag: 1.9.0
+Requires at least: 3.9
+Tested up to: 4.2-alpha-31546
+Stable tag: 1.10.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,9 @@ The plugin also provides [several widgets](http://wordpoints.org/user-guide/widg
 
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
+
+Also on the plugin's website, you can [browse the available extensions](http://wordpoints.org/modules/),
+called "modules". We've just added [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/).
 
 = Localization =
 
@@ -119,6 +122,20 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+
+= 1.10.0 — (~20 hrs) =
+* Requires: WordPress 3.9+
+* Fixed: Current points values not being displayed beside inputs on profile screen.
+* Fixed: The modules cache being preserved too long when using persistent caching.
+* Fixed: Other caching issues on multisite.
+* Updated: Numerous other small fixes and minor improvements.
+
+= 1.9.2 — (~2 hrs) =
+* Fixed: A bug preventing updating a user's points from their admin profile when
+they don't have any points yet.
+
+= 1.9.1 — (~3 hrs) =
+* Fixed: A bug preventing ranks from being saved or updated.
 
 = 1.9.0 - (~65 hrs) =
 * Updated: The title for the "Points" column in the points logs and top users tables
@@ -245,6 +262,17 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.0 =
+* This is a minor release which contains a few small improvements and several fixed
+bugs.
+
+= 1.9.2 =
+* Fixes a bug preventing a user's points from being updated on their admin profile
+if they have 0 points.
+
+= 1.9.1 =
+* Fixes a bug preventing ranks from being saved or updated.
 
 = 1.9.0 =
 * This release deprecates the Comment Removed and Post Delete points hooks. Their

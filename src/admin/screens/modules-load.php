@@ -35,7 +35,7 @@ switch ( $action ) {
 	// Activate a single module.
 	case 'activate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		if ( is_multisite() && ! is_network_admin() && is_network_only_wordpoints_module( $module ) ) {
@@ -68,7 +68,7 @@ switch ( $action ) {
 
 			} else {
 
-				wp_die( $result );
+				wp_die( wordpoints_sanitize_wp_error( $result ) );
 			}
 		}
 
@@ -85,7 +85,7 @@ switch ( $action ) {
 	// Activate multiple modules.
 	case 'activate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -141,7 +141,7 @@ switch ( $action ) {
 	// Get the fatal error from a module.
 	case 'error_scrape':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'module-activation-error_' . $module );
@@ -149,7 +149,7 @@ switch ( $action ) {
 		$valid = wordpoints_validate_module( $module );
 
 		if ( is_wp_error( $valid ) ) {
-			wp_die( $valid );
+			wp_die( wordpoints_sanitize_wp_error( $valid ), '', array( 'response' => 400 ) );
 		}
 
 		// Ensure that Fatal errors are displayed.
@@ -185,7 +185,7 @@ switch ( $action ) {
 	// Deactivate a module.
 	case 'deactivate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'deactivate-module_' . $module );
@@ -213,7 +213,7 @@ switch ( $action ) {
 	// Deactivate multiple modules.
 	case 'deactivate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to deactivate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -255,7 +255,7 @@ switch ( $action ) {
 	// Delete multiple modules.
 	case 'delete-selected':
 		if ( ! current_user_can( 'delete_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to delete modules for this site.', 'wordpoints' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to delete modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -309,7 +309,7 @@ switch ( $action ) {
 						$files_to_delete[] = $module_dir . '/' . $module;
 						$data = wordpoints_get_module_data( $module_dir . '/' . $module );
 
-						if ( $data ) {
+						if ( ! empty( $data ) ) {
 
 							$module_info[ $module ] = $data;
 							$module_info[ $module ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
@@ -464,7 +464,7 @@ $screen->add_help_tab(
 		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
 		'content'	=>
 			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
-			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>'
+			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>' // XSS OK WPCS
 	)
 );
 

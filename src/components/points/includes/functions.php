@@ -260,7 +260,19 @@ add_action( 'wordpoints_admin_points_logs_tab', 'wordpoints_points_logs_custom_m
  */
 function wordpoints_points_add_global_cache_groups() {
 
-	wp_cache_add_global_groups( 'wordpoints_network_points_logs_query' );
+	if ( function_exists( 'wp_cache_add_global_groups' ) ) {
+
+		$groups = array(
+			'wordpoints_network_points_logs_query',
+			'wordpoints_points_log_meta',
+		);
+
+		if ( is_wordpoints_network_active() ) {
+			$groups[] = 'wordpoints_points_top_users';
+		}
+
+		wp_cache_add_global_groups( $groups );
+	}
 }
 add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
 

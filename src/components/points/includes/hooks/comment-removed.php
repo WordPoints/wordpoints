@@ -40,7 +40,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function __construct() {
 
-		parent::init(
+		$this->init(
 			_x( 'Comment Removed', 'points hook name', 'wordpoints' )
 			, array(
 				'description' => __( 'Comment removed from the site.', 'wordpoints' ),

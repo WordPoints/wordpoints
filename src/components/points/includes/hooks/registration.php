@@ -38,7 +38,7 @@ class WordPoints_Registration_Points_Hook extends WordPoints_Points_Hook {
 	 */
 	public function __construct() {
 
-		parent::init(
+		$this->init(
 			_x( 'Registration', 'points hook name', 'wordpoints' )
 			, array( 'description' => _x( 'Registering with the site.', 'points hook description', 'wordpoints' ) )
 		);

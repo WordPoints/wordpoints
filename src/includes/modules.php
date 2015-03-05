@@ -362,6 +362,7 @@ function wordpoints_module_basename( $file ) {
  *
  * @since 1.1.0
  * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
+ * @since 1.10.0 The 'update_api' header is deprecated in favor of 'channel'.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -381,7 +382,7 @@ function wordpoints_module_basename( $file ) {
  *         @type string $text_domain The module's text domain.
  *         @type string $domain_path The folder containing the module's *.mo translation files.
  *         @type bool   $network     Whether the module should only be network activated.
- *         @type string $update_api  The update service to be used for this module.
+ *         @type string $channel     The URL of the update service to be used for this module.
  *         @type mixed  $ID          A unique identifier for this module, used by the update service.
  * }
  */
@@ -398,10 +399,15 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'domain_path' => 'Domain Path',
 		'network'     => 'Network',
 		'update_api'  => 'Update API',
+		'channel'     => 'Channel',
 		'ID'          => 'ID',
 	);
 
 	$module_data = get_file_data( $module_file, $default_headers, 'module' );
+
+	if ( ! empty( $module_data['update_api'] ) ) {
+		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Channel".' );
+	}
 
 	$module_data['network'] = ( 'true' === strtolower( $module_data['network'] ) );
 
@@ -622,7 +628,7 @@ function wordpoints_get_modules( $module_folder = '' ) {
  *
  * @since 1.1.0
  *
- * @param $module The module's main file.
+ * @param string $module The module's main file.
  *
  * @return true|WP_Error True on success, a WP_Error on failure.
  */

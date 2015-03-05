@@ -429,24 +429,13 @@ function wordpoints_get_formatted_points( $user_id, $type, $context ) {
  *
  * @since 1.0.0
  *
- * @uses wordpoints_get_points()    To get the user's points.
- * @uses wordpoints_format_points() To format the points for display.
- *
  * @param int    $user_id The ID of the user whose points to display.
  * @param string $type    The type of points to display.
  * @param string $context The context in which the points will be displayed.
- *
- * @return void This function does not return a value, it displays directly.
  */
 function wordpoints_display_points( $user_id, $type, $context ) {
 
-	$points = wordpoints_get_points( $user_id, $type );
-
-	if ( false === $points ) {
-		return;
-	}
-
-	echo wordpoints_format_points( $points, $type, $context );
+	echo wordpoints_get_formatted_points( $user_id, $type, $context ); // XSS OK, WPCS
 }
 
 /**
@@ -863,6 +852,8 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  * @param int    $log_id     The ID of the transaction.
  * @param string $meta_key   The meta key to update.
  * @param mixed  $meta_value The new value for this meta key.
+ * @param bool   $delete_all Whether to delete metadata for all matching logs, or
+ *                           only the one specified by $log_id (default).
  *
  * @return bool Whether any rows where deleted.
  */
@@ -1030,7 +1021,7 @@ function wordpoints_regenerate_points_logs( $logs ) {
  *
  * @since 1.0.0
  *
- * @param array  $num_users   The number of users to retrieve.
+ * @param int    $num_users   The number of users to retrieve.
  * @param string $points_type The type of points.
  *
  * @return int[] The IDs of the users with the most points.
@@ -1105,8 +1096,9 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
  *
  * @since 1.7.0
  *
- * @param array  $num_users   The number of users to display.
+ * @param int    $num_users   The number of users to display.
  * @param string $points_type The type of points.
+ * @param string $context     The context in which the table is being displayed.
  */
 function wordpoints_points_show_top_users( $num_users, $points_type, $context = 'default' ) {
 
@@ -1156,13 +1148,6 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php
 
@@ -1215,6 +1200,13 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 
 			?>
 		</tbody>
+		<tfoot>
+		<tr>
+			<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
+			<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
+		</tr>
+		</tfoot>
 	</table>
 
 	<?php

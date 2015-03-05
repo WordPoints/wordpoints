@@ -197,7 +197,7 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function publish_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		return parent::logs( $text, $points, $points_type, $user_id, $log_type, $meta );
+		return $this->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
 	}
 
 	/**

@@ -21,7 +21,7 @@ final class WordPoints_Rank_Groups {
 	 *
 	 * @type WordPoints_Rank_Group[] $groups
 	 */
-	private static $groups;
+	private static $groups = array();
 
 	/**
 	 * Check if a group is registered.
@@ -98,10 +98,6 @@ final class WordPoints_Rank_Groups {
 				, 'Rank groups should not be retreived until after they are all registered.'
 				, '1.7.0'
 			);
-		}
-
-		if ( ! self::$groups ) {
-			self::$groups = array();
 		}
 
 		return self::$groups;

@@ -173,8 +173,59 @@ function wordpoints_verify_nonce(
 	return false;
 }
 
+/**
+ * Sanitize a WP_Error object for passing directly to wp_die().
+ *
+ * The wp_die() function accepts an WP_Error object as the first parameter, but it
+ * does not sanitize it's contents before printing it out to the user. By passing
+ * the object through this function before giving it to wp_die(), the potential for
+ * XSS should be avoided.
+ *
+ * Example:
+ *
+ * wp_die( wordpoints_sanitize_wp_error( $error ) );
+ *
+ * @since 1.10.0
+ *
+ * @param WP_Error $error The error to sanitize.
+ *
+ * @return WP_Error The sanitized error.
+ */
+function wordpoints_sanitize_wp_error( $error ) {
+
+	$code = $error->get_error_code();
+
+	$error_data = $error->error_data;
+
+	if ( isset( $error_data[ $code ]['title'] ) ) {
+
+		$error_data[ $code ]['title'] = wp_kses(
+			$error->error_data[ $code ]['title']
+			, 'wordpoints_sanitize_wp_error_title'
+		);
+
+		$error->error_data = $error_data;
+	}
+
+	$all_errors = $error->errors;
+
+	foreach ( $all_errors as $code => $errors ) {
+
+		foreach ( $errors as $key => $message ) {
+			$all_errors[ $code ][ $key ] = wp_kses(
+				$message
+				, 'wordpoints_sanitize_wp_error_message'
+			);
+		}
+	}
+
+	$error->errors = $all_errors;
+
+	return $error;
+}
+
 //
-// Databae Helpers.
+// Database Helpers.
 //
 
 /**
@@ -184,7 +235,7 @@ function wordpoints_verify_nonce(
  * array.
  *
  * @since 1.0.0
- * @since 1.1.0 The $conext parameter was added for site options.
+ * @since 1.1.0 The $context parameter was added for site options.
  * @since 1.2.0 The 'network' context was added.
  *
  * @param string $option The name of the option to get.
@@ -608,6 +659,8 @@ function wordpoints_get_excluded_users( $context ) {
  * @since 1.8.0 The $message now supports WP_Error objects.
  *
  * @param string|WP_Error $message The error message.
+ *
+ * @return string The error message.
  */
 function wordpoints_shortcode_error( $message ) {
 
@@ -796,5 +849,18 @@ function wordpoints_ranks_component_register() {
 	);
 }
 add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
+
+/**
+ * Initialize the plugin's cache groups.
+ *
+ * @since 1.10.0
+ */
+function wordpoints_init_cache_groups() {
+
+	if ( function_exists( 'wp_cache_add_non_persistent_groups' ) ) {
+		wp_cache_add_non_persistent_groups( array( 'wordpoints_modules' ) );
+	}
+}
+add_action( 'init', 'wordpoints_init_cache_groups', 5 );
 
 // EOF

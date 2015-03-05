@@ -88,7 +88,7 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			$args['log_meta'] = array();
 		}
 
-		if ( empty( $args['log_meta'] ) ) {
+		if ( ! empty( $args['log_meta'] ) ) {
 			$this->listen_for_insert_id = false;
 			add_action( 'query', array( $this, 'get_log_id' ) );
 		}
@@ -102,15 +102,17 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 		);
 
 		if ( empty( $args['log_meta'] ) ) {
+			$log_id = $wpdb->insert_id;
+		} else {
+			$log_id = $this->insert_id;
 			remove_action( 'query', array( $this, 'get_log_id' ) );
-			$this->log_id = $wpdb->insert_id;
 		}
 
 		if ( isset( $args['text'] ) ) {
-			$this->update_object( $this->log_id, array( 'text' => $args['text'] ) );
+			$this->update_object( $log_id, array( 'text' => $args['text'] ) );
 		}
 
-		return $this->log_id;
+		return $log_id;
 	}
 
 	/**

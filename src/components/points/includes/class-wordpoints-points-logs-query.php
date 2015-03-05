@@ -566,7 +566,7 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @param string $key        The cache key to use.
 	 * @param string $deprecated Deprecated; no longer used.
-	 * @param string $network    Whether this is a network-wide query.
+	 * @param bool   $network    Whether this is a network-wide query.
 	 */
 	public function prime_cache( $key = 'default:%points_type%', $deprecated = null, $network = false ) {
 

@@ -27,18 +27,19 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.2.0' => array( 'single' => true, /*     -     */ 'network' => true ),
-		'1.4.0' => array( 'single' => true, 'site' => true, 'network' => true ),
-		'1.5.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
-		'1.5.1' => array( 'single' => true, /*     -     */ 'network' => true ),
-		'1.8.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
-		'1.9.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		'1.2.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
+		'1.4.0'  => array( 'single' => true, 'site' => true, 'network' => true ),
+		'1.5.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
+		'1.5.1'  => array( 'single' => true, /*     -     */ 'network' => true ),
+		'1.8.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
+		'1.9.0'  => array( 'single' => true, 'site' => true, 'network' => true ),
+		'1.10.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
 	 * The points types the user has created.
 	 *
-	 * Used during uninstall to keep from having to retreive them when looping over
+	 * Used during uninstall to keep from having to retrieve them when looping over
 	 * sites on multisite.
 	 *
 	 * @since 1.8.0
@@ -795,7 +796,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			);
 		}
 
-		// Now we check if there are any unpaired reverse typ hooks. If there are
+		// Now we check if there are any unpaired reverse type hooks. If there are
 		// we'll set this flag in the database that will keep some legacy features
 		// enabled.
 		if ( $reverse_hook->get_instances( $hook_type ) ) {
@@ -804,6 +805,56 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				, true
 			);
 		}
+	}
+
+	/**
+	 * Update a site to 1.10.0.
+	 *
+	 * @since 1.10.0
+	 */
+	protected function update_network_to_1_10_0() {
+		$this->_1_10_0_delete_post_title_points_log_meta( true );
+	}
+
+	/**
+	 * Update a single site to 1.10.0.
+	 *
+	 * @since 1.10.0
+	 */
+	protected function update_single_to_1_10_0() {
+		$this->_1_10_0_delete_post_title_points_log_meta();
+	}
+
+	/**
+	 * Delete the no longer used 'post_title' metadata from post delete points logs.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @param bool $network_wide Whether to delete all of the metadata for the whole
+	 *                           network, or just the current site (default).
+	 */
+	protected function _1_10_0_delete_post_title_points_log_meta( $network_wide = false ) {
+
+		$query_args = array(
+			'log_type'   => 'post_delete',
+			'meta_query' => array(
+				array( 'key' => 'post_title', 'compare' => 'EXISTS' ),
+			),
+		);
+
+		if ( $network_wide ) {
+			$query_args['blog_id'] = false;
+		}
+
+		$query = new WordPoints_Points_Logs_Query( $query_args );
+
+		$logs = $query->get();
+
+		foreach ( $logs as $log ) {
+			wordpoints_delete_points_log_meta( $log->id, 'post_title' );
+		}
+
+		wordpoints_regenerate_points_logs( $logs );
 	}
 }
 

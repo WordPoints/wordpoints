@@ -511,7 +511,7 @@ abstract class WordPoints_Un_Installer_Base {
 	abstract protected function install_site();
 
 	/**
-	 * Innstall on a single site.
+	 * Install on a single site.
 	 *
 	 * This runs when the WordPress site is not a multisite. It should completely
 	 * install the entity.
@@ -521,7 +521,7 @@ abstract class WordPoints_Un_Installer_Base {
 	abstract protected function install_single();
 
 	/**
-	 * Load any dependencies of the unisntall code.
+	 * Load any dependencies of the uninstall code.
 	 *
 	 * @since 1.8.0
 	 */

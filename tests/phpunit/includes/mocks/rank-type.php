@@ -14,6 +14,14 @@
  */
 class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 
+	/**
+	 * @since 1.9.1
+	 */
+	protected $name = 'Test';
+
+	/**
+	 * @since 1.7.0
+	 */
 	protected $meta_fields = array( 'test_meta' => array() );
 
 	//
@@ -21,7 +29,19 @@ class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 	//
 
 	/**
-	 * Destroy the rank type hanlder when this rank type is deregistered.
+	 * @since 1.9.1
+	 */
+	public function __construct( array $args ) {
+
+		parent::__construct( $args );
+
+		if ( isset( $args['meta_fields'] ) ) {
+			$this->meta_fields = $args['meta_fields'];
+		}
+	}
+
+	/**
+	 * Destroy the rank type handler when this rank type is deregistered.
 	 *
 	 * @since 1.7.0
 	 */
@@ -34,7 +54,7 @@ class WordPoints_Test_Rank_Type extends WordPoints_Rank_Type {
 	 *
 	 * @param array $meta The metadata to validate.
 	 *
-	 * @return array|false The validated metadata or false if it should't be saved.
+	 * @return array|false The validated metadata or false if it shouldn't be saved.
 	 */
 	public function validate_rank_meta( array $meta ) {
 

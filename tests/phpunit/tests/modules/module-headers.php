@@ -11,6 +11,8 @@
  * Test that module headers are properly parsed.
  *
  * @since 1.1.0
+ *
+ * @group modules
  */
 class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 
@@ -34,6 +36,7 @@ class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 		'title'       => 'Test 3',
 		'author_name' => 'WordPoints Tester',
 		'update_api'  => '',
+		'channel'     => '',
 		'ID'          => '',
 	);
 

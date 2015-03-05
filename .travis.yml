@@ -1,4 +1,4 @@
-# Travis CI configuration file.
+# Travis CI configuration file for WordPoints.
 
 language: php
 
@@ -12,11 +12,10 @@ php:
 
 env:
     - TRAVISCI_RUN=codesniff
+    - TRAVISCI_RUN=phpunit WP_VERSION=nightly
     - TRAVISCI_RUN=phpunit WP_VERSION=latest
-    - TRAVISCI_RUN=phpunit WP_VERSION=stable
     - TRAVISCI_RUN=phpunit WP_VERSION=4.0
     - TRAVISCI_RUN=phpunit WP_VERSION=3.9
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.8
 
 sudo: false
 
@@ -24,7 +23,7 @@ matrix:
   include:
     # Only run HHVM against the latest for now.
     - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=stable
+      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
   exclude:
     # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
     - php: 5.2
@@ -39,29 +38,10 @@ matrix:
     - php: hhvm
   fast_finish: true
 
-before_install:
-    - export WP_TESTS_DIR=/tmp/wordpress-tests/
-    - export PLUGIN_DIR=$(pwd)
-    - export PLUGIN_SLUG=$(basename $(pwd) | sed 's/^wp-//')
-    - export PHPCS_DIR=/tmp/phpcs
-    - export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
-    - export PHPCS_GIT_TREE=master
-    - export PHPCS_IGNORE='vendor/*,dev-lib/*'
-    - export WPCS_DIR=/tmp/wpcs
-    - export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
-    - export WPCS_GIT_TREE=master
-    - export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
-    - if [ -e .ci-env.sh ]; then source .ci-env.sh; fi
-
 before_script:
-    - >
-        if [ $TRAVISCI_RUN == phpunit ]; then
-            setup-phpunit
-        fi
-    - >
-        if [ $TRAVISCI_RUN == codesniff ]; then
-            setup-codesniff
-        fi
+    - export WORDPOINTS_PROJECT_TYPE=wordpoints
+    - export DEV_LIB_PATH=dev-lib-wordpoints
+    - source $DEV_LIB_PATH/travis/before_script.sh
 
 script:
     - codesniff-php-syntax
@@ -69,6 +49,7 @@ script:
     - codesniff-jshint
     - codesniff-l10n
     - codesniff-xmllint
+    - codesniff-bash
     - phpunit-basic
     - phpunit-ms
     - phpunit-ms-network
@@ -80,4 +61,4 @@ script:
     - phpunit-ms-network-ajax
 
 after_script:
-    - if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then php vendor/bin/coveralls; fi
+    - source $DEV_LIB_PATH/travis/after_script.sh

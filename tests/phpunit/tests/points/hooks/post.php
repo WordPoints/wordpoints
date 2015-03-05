@@ -584,10 +584,10 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			, 10
 			, 'points'
 			, 'post_delete'
-			, array( 'post_title' => 'Test title' )
+			, array()
 		);
 
-		$this->assertEquals( 'Post &#8220;Test title&#8221; deleted.', $text );
+		$this->assertEquals( 'Post deleted.', $text );
 	}
 
 	/**
@@ -604,10 +604,10 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			, 10
 			, 'points'
 			, 'post_delete'
-			, array( 'post_title' => 'Test title', 'post_type' => 'page' )
+			, array( 'post_type' => 'page' )
 		);
 
-		$this->assertEquals( 'Page &#8220;Test title&#8221; deleted.', $text );
+		$this->assertEquals( 'Page deleted.', $text );
 	}
 
 	/**
@@ -624,10 +624,10 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 			, 10
 			, 'points'
 			, 'post_delete'
-			, array( 'post_title' => 'Test title', 'post_type' => 'not' )
+			, array( 'post_type' => 'not' )
 		);
 
-		$this->assertEquals( 'Post &#8220;Test title&#8221; deleted.', $text );
+		$this->assertEquals( 'Post deleted.', $text );
 	}
 
 	//

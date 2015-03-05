@@ -19,7 +19,7 @@ function wordpoints_ajax_points_hooks_order() {
 	if ( check_ajax_referer( 'save-network-wordpoints-points-hooks', 'savehooks', false ) ) {
 
 		if ( ! current_user_can( 'manage_network_wordpoints_points_hooks' ) ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 403 ) );
 		}
 
 		// Saving network hooks order, turn on network mode.
@@ -28,13 +28,13 @@ function wordpoints_ajax_points_hooks_order() {
 	} elseif ( check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks', false ) ) {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 403 ) );
 		}
 
 	} else {
 
 		// CSRF attack (or, more probably, the user left the browser open too long).
-		wp_die( -1 );
+		wp_die( -1, '', array( 'response' => 403 ) );
 	}
 
 	// Save hooks order for all points types.
@@ -65,10 +65,10 @@ function wordpoints_ajax_points_hooks_order() {
 
 		WordPoints_Points_Hooks::save_points_types_hooks( wp_unslash( $points_types_hooks ) );
 
-		wp_die( 1 );
+		wp_die( 1, '', array( 'response' => 200 ) );
 	}
 
-	wp_die( -1 );
+	wp_die( -1, '', array( 'response' => 400 ) );
 }
 add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hooks_order' );
 
@@ -84,7 +84,7 @@ function wordpoints_ajax_save_points_hook() {
 	if ( check_ajax_referer( 'save-network-wordpoints-points-hooks', 'savehooks', false ) ) {
 
 		if ( ! current_user_can( 'manage_network_wordpoints_points_hooks' ) ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 403 ) );
 		}
 
 		// Saving network hooks, turn on network mode.
@@ -93,23 +93,23 @@ function wordpoints_ajax_save_points_hook() {
 	} elseif ( check_ajax_referer( 'save-wordpoints-points-hooks', 'savehooks', false ) ) {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 403 ) );
 		}
 
 	} else {
 
 		// CSRF attack (or, more probably the user left the browser open too long).
-		wp_die( -1 );
+		wp_die( -1, '', array( 'response' => 403 ) );
 	}
 
-	$error = '<p>' . esc_html__( 'An error has occurred. Please reload the page and try again.', 'wordpoints' ) . '</p>';
+	$error = __( 'An error has occurred. Please reload the page and try again.', 'wordpoints' );
 
 	if ( isset( $_POST['points-slug'] ) ) {
 
 		// - We are saving the settings for a points type.
 
 		if ( ! current_user_can( 'manage_wordpoints_points_types' ) ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 403 ) );
 		}
 
 		$settings = array();
@@ -131,7 +131,7 @@ function wordpoints_ajax_save_points_hook() {
 		$old_settings = wordpoints_get_points_type( $points_type );
 
 		if ( false === $old_settings ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 200 ) );
 		}
 
 		if ( is_array( $old_settings ) ) {
@@ -151,7 +151,7 @@ function wordpoints_ajax_save_points_hook() {
 		// - We are creating/updating/deleting an instance of a hook.
 
 		if ( ! isset( $_POST['id_base'], $_POST['hook-id'], $_POST['points_type'], $_POST['hook_number'] ) ) {
-			wp_die( -1 );
+			wp_die( -1, '', array( 'response' => 400 ) );
 		}
 
 		$id_base        = sanitize_key( $_POST['id_base'] );
@@ -169,7 +169,7 @@ function wordpoints_ajax_save_points_hook() {
 
 			// This holds the ID number if the hook is brand new.
 			if ( ! isset( $_POST['multi_number'] ) || ! wordpoints_posint( $_POST['multi_number'] ) ) {
-				wp_die( $error );
+				wp_die( '<p>' . esc_html( $error ) . '</p>', '', array( 'response' => 400 ) );
 			}
 
 			$number  = (int) $_POST['multi_number'];
@@ -194,7 +194,7 @@ function wordpoints_ajax_save_points_hook() {
 			// - We are deleting a hook instance.
 
 			if ( false === $hook ) {
-				wp_die( $error );
+				wp_die( '<p>' . esc_html( $error ) . '</p>', '', array( 'response' => 400 ) );
 			}
 
 			$hook->delete_callback( $number );
@@ -204,9 +204,7 @@ function wordpoints_ajax_save_points_hook() {
 
 			WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
-			echo esc_html( "deleted:{$hook_id}" );
-
-			wp_die();
+			wp_die( esc_html( "deleted:{$hook_id}" ), '', array( 'response' => 200 ) );
 
 		} elseif ( $settings && false === $hook ) {
 
@@ -231,7 +229,7 @@ function wordpoints_ajax_save_points_hook() {
 			// - We are updating the settings for an instance of a hook.
 
 			if ( false === $hook ) {
-				wp_die( $error );
+				wp_die( '<p>' . esc_html( $error ) . '</p>', '', array( 'response' => 400 ) );
 			}
 
 			$new_instance = ( ! empty( $settings ) ) ? reset( $settings ) : array();
@@ -245,7 +243,7 @@ function wordpoints_ajax_save_points_hook() {
 
 	} // if ( isset( $_POST['points-name'] ) ) {} else
 
-	wp_die();
+	wp_die( '', '', array( 'response' => 200 ) );
 }
 add_action( 'wp_ajax_save-wordpoints-points-hook', 'wordpoints_ajax_save_points_hook' );
 

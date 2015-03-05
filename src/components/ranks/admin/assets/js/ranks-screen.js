@@ -101,9 +101,9 @@ jQuery( function ( $ ) {
 		// Default attributes for the rank type.
 		defaults: function() {
 			return {
-				name: '',
+				name: ''
 			};
-		},
+		}
 	});
 
 	// Rank View
@@ -242,15 +242,15 @@ jQuery( function ( $ ) {
 					buttons: [
 						{
 							text: ranks.l10n.deleteText,
-							class: 'button-primary',
+							'class': 'button-primary',
 							click: function() {
 								$( this ).dialog( 'close' );
-								view.delete();
+								view.destroy();
 							}
 						},
 						{
 							text: ranks.l10n.cancelText,
-							class: 'button-secondary',
+							'class': 'button-secondary',
 							click: function() {
 								$( this ).dialog( 'close' );
 							}
@@ -260,7 +260,7 @@ jQuery( function ( $ ) {
 		},
 
 		// Remove the item, destroy the model.
-		delete: function () {
+		destroy: function () {
 
 			this.wait();
 

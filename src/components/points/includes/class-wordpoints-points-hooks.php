@@ -481,7 +481,9 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string|false $hook_id The ID of the hook. False if not found.
+	 * @param string $hook_id The ID of the hook.
+	 *
+	 * @return string|false The points type for the hook. False if not found.
 	 */
 	public static function get_points_type( $hook_id ) {
 
@@ -762,8 +764,8 @@ final class WordPoints_Points_Hooks {
 
 				<input type="hidden" name="hook-id" class="hook-id" value="<?php echo esc_attr( $id_format ); ?>" />
 				<input type="hidden" name="id_base" class="id_base" value="<?php echo esc_attr( $id_base ); ?>" />
-				<input type="hidden" name="hook-width" class="hook-width" value="<?php echo ( isset( $options['width'] ) ? esc_attr( $options['width'] ) : '' ); ?>" />
-				<input type="hidden" name="hook-height" class="hook-height" value="<?php echo ( isset( $options['height'] ) ? esc_attr( $options['height'] ) : '' ); ?>" />
+				<input type="hidden" name="hook-width" class="hook-width" value="<?php echo isset( $options['width'] ) ? esc_attr( $options['width'] ) : ''; ?>" />
+				<input type="hidden" name="hook-height" class="hook-height" value="<?php echo isset( $options['height'] ) ? esc_attr( $options['height'] ) : ''; ?>" />
 				<input type="hidden" name="hook_number" class="hook_number" value="<?php echo esc_attr( $number ); ?>" />
 				<input type="hidden" name="multi_number" class="multi_number" value="<?php echo esc_attr( $multi_number ); ?>" />
 				<input type="hidden" name="add_new" class="add_new" value="<?php echo esc_attr( $add_new ); ?>" />
@@ -773,7 +775,7 @@ final class WordPoints_Points_Hooks {
 						<a class="hook-control-remove" href="#remove"><?php esc_html_e( 'Delete', 'wordpoints' ); ?></a> |
 						<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 					</div>
-					<div class="alignright<?php echo ( false === $has_form ? ' hook-control-noform' : '' ); ?>">
+					<div class="alignright<?php echo ( false === $has_form ) ? ' hook-control-noform' : ''; ?>">
 						<?php submit_button( __( 'Save', 'wordpoints' ), 'button-primary hook-control-save right', 'savehook', false, array( 'id' => "hook-{$id_format}-savehook" ) ); ?>
 						<span class="spinner"></span>
 					</div>
@@ -783,7 +785,9 @@ final class WordPoints_Points_Hooks {
 		</div>
 
 		<div class="hook-description">
-			<?php echo esc_html( ( ! empty( $options['description'] ) ) ? $options['description'] : strip_tags( $hook->get_name() ) ) . "\n"; ?>
+			<?php if ( ! empty( $options['description'] ) ) : ?>
+				<?php echo esc_html( $options['description'] ); ?>
+			<?php endif; ?>
 		</div>
 		</div>
 

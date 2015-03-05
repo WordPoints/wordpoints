@@ -57,9 +57,11 @@ function is_wordpoints_module_active_for_network( $module ) {
  * only as a network-wide module. (The module would also work when Multisite is not
  * enabled.)
  *
+ * Note that passing an invalid path will result in errors.
+ *
  * @since 1.1.0
  *
- * @param string $module Module to check.
+ * @param string $module Basename path of the module to check.
  *
  * @return bool True if the module is network only, false otherwise.
  */
@@ -67,11 +69,7 @@ function is_network_only_wordpoints_module( $module ) {
 
 	$module_data = wordpoints_get_module_data( wordpoints_modules_dir() . '/' . $module );
 
-	if ( $module_data ) {
-		return $module_data['network'];
-	}
-
-	return false;
+	return $module_data['network'];
 }
 
 /**

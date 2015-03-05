@@ -350,29 +350,24 @@ abstract class WordPoints_Points_Hook {
 	 * Set the hook options.
 	 *
 	 * @since 1.0.0
+	 * @since 2.0.0 Now declares $options as required to be an array.
 	 *
 	 * @param array $options The options for the hook.
 	 */
-	final public function set_options( $options ) {
-
-		if ( ! is_array( $options ) ) {
-			$options = array();
-		}
-
+	final public function set_options( array $options ) {
 		$this->options = $options;
 	}
 
 	/**
 	 * Set a particular option.
 	 *
-	 * This method will probably be declared final in WordPoints 2.0.
-	 *
 	 * @since 1.9.0
+	 * @since 2.0.0 Now declared final.
 	 *
 	 * @param string $option The index for the option.
 	 * @param mixed  $value  The value to assign to this option.
 	 */
-	/*final*/ public function set_option( $option, $value ) {
+	final public function set_option( $option, $value ) {
 
 		$this->options[ $option ] = $value;
 	}

@@ -147,21 +147,21 @@ final class WordPoints_Module_Paths {
 	 */
 	public static function register( $file ) {
 
-		$file = self::normalize( $file );
+		$file = wp_normalize_path( $file );
 
 		// We store this so that we don't have to keep normalizing a constant value.
 		if ( ! isset( self::$modules_dir ) ) {
-			self::$modules_dir = self::normalize( wordpoints_modules_dir() );
+			self::$modules_dir = wp_normalize_path( wordpoints_modules_dir() );
 		}
 
-		$module_path = self::normalize( dirname( $file ) );
+		$module_path = wp_normalize_path( dirname( $file ) );
 
 		// It was a single-file module.
 		if ( $module_path . '/' === self::$modules_dir ) {
 			return false;
 		}
 
-		$module_realpath = self::normalize( dirname( realpath( $file ) ) );
+		$module_realpath = wp_normalize_path( dirname( realpath( $file ) ) );
 
 		if ( $module_path !== $module_realpath ) {
 
@@ -191,7 +191,7 @@ final class WordPoints_Module_Paths {
 	 */
 	public static function resolve( $file ) {
 
-		$file = self::normalize( $file );
+		$file = wp_normalize_path( $file );
 
 		// Sort the paths by the realpath length, see https://core.trac.wordpress.org/ticket/28441.
 		if ( ! self::$paths_sorted ) {
@@ -206,26 +206,6 @@ final class WordPoints_Module_Paths {
 		}
 
 		return $file;
-	}
-
-	/**
-	 * Normalize a filesystem path.
-	 *
-	 * Replaces backslashes with forward slashes for Windows systems, and ensures no
-	 * duplicate slashes exist.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string $path The path to normalize.
-	 *
-	 * @return string The normalized path.
-	 */
-	private static function normalize( $path ) {
-
-		$path = str_replace( '\\' ,'/', $path );
-		$path = preg_replace( '|/+|', '/', $path );
-
-		return $path;
 	}
 }
 
@@ -289,11 +269,8 @@ function wordpoints_modules_dir() {
  */
 function wordpoints_modules_url( $path = '', $module = '' ) {
 
-	// Clean the paths and sanitize them for Win32 installs.
-	foreach ( array( 'path', 'module' ) as $var ) {
-		$$var = str_replace( '\\' ,'/', $$var );
-		$$var = preg_replace( '|/+|', '/', $$var );
-	}
+	$path   = wp_normalize_path( $path );
+	$module = wp_normalize_path( $module );
 
 	if ( defined( 'WORDPOINTS_MODULES_URL' ) ) {
 		$url = WORDPOINTS_MODULES_URL;
@@ -343,8 +320,7 @@ function wordpoints_module_basename( $file ) {
 	$file = WordPoints_Module_Paths::resolve( $file );
 
 	// Sanitize for Win32 installs and remove any duplicate slashes.
-	$modules_dir = str_replace( '\\', '/', wordpoints_modules_dir() );
-	$modules_dir = preg_replace( '|/+|', '/', $modules_dir );
+	$modules_dir = wp_normalize_path( wordpoints_modules_dir() );
 
 	// Get the relative path from the modules directory, and trim off the slashes.
 	$file = preg_replace( '#^' . preg_quote( $modules_dir, '#' ) . '#', '', $file );

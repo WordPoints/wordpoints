@@ -42,12 +42,12 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCa
 	 */
 	public function tearDown() {
 
-		parent::tearDown();
-
 		unset(
 			$_POST['wordpoints_points_logs_search']
 			, $_GET['wordpoints_points_logs_per_page']
 		);
+
+		parent::tearDown();
 	}
 
 	/**

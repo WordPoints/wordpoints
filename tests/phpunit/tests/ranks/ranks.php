@@ -45,10 +45,10 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public static function tearDownAfterClass() {
 
-		parent::tearDownAfterClass();
-
 		WordPoints_Rank_Groups::deregister_group( __CLASS__ );
 		WordPoints_Rank_Types::deregister_type( __CLASS__ );
+
+		parent::tearDownAfterClass();
 	}
 
 	/**

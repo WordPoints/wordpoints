@@ -377,7 +377,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'ID'          => 'ID',
 	);
 
-	$module_data = get_file_data( $module_file, $default_headers, 'module' );
+	$module_data = get_file_data( $module_file, $default_headers, 'wordpoints_module' );
 
 	if ( ! empty( $module_data['update_api'] ) ) {
 		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Channel".' );

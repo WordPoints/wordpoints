@@ -344,16 +344,11 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @since 1.0.0
 	 * @since 1.6.0 The $use_cache argument is deprecated.
-	 *
-	 * @param bool $use_cache Deprecated, and no longer used.
+	 * @since 2.0.0 The $use_cache argument was removed.
 	 *
 	 * @return int The number of results.
 	 */
-	public function count( $use_cache = true ) {
-
-		if ( true !== $use_cache ) {
-			_deprecated_argument( __METHOD__, '1.6.0', 'The $use_cache argument is deprecated and should no longer be used.' );
-		}
+	public function count() {
 
 		if ( $this->_is_cached_query ) {
 			$cache = $this->_cache_get( 'count' );
@@ -379,20 +374,16 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @since 1.0.0
 	 * @since 1.6.0 The $use_cache parameter was deprecated.
+	 * @since 2.0.0 The $use_cache parameter was removed.
 	 *
 	 * @param string $method    The method to use. Options are 'results', 'row', and
 	 *                          'col', and 'var'.
-	 * @param bool   $use_cache Deprecated, no longer used.
 	 *
 	 * @return mixed The results of the query, or false on failure.
 	 */
-	public function get( $method = 'results', $use_cache = true ) {
+	public function get( $method = 'results' ) {
 
 		$methods = array( 'results', 'row', 'col', 'var' );
-
-		if ( true !== $use_cache ) {
-			_deprecated_argument( __METHOD__, '1.6.0', 'The $use_cache argument is deprecated and should no longer be used.' );
-		}
 
 		if ( ! in_array( $method, $methods ) ) {
 

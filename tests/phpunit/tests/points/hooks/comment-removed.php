@@ -14,6 +14,10 @@
  *
  * @group points
  * @group points_hooks
+ *
+ * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
+ * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::hook
+ * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::logs
  */
 class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 

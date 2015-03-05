@@ -34,42 +34,50 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 	 */
 	public function test_get_modules() {
 
+		$modules = wordpoints_get_modules();
+
+		$this->assertInternalType( 'array', $modules );
+		$this->assertArrayHasKey( 'test-3.php', $modules );
+
 		$this->assertEquals(
 			array(
-				'test-3.php' => array(
-					'name' => 'Test 3',
-					'module_uri' => 'http://www.example.com/test-3/',
-					'version' => '1.0.0-beta',
-					'description' => 'A test module.',
-					'author' => 'WordPoints Tester',
-					'author_uri' => 'http://www.example.com/',
-					'text_domain' => 'test-3',
-					'domain_path' => '',
-					'network' => false,
-					'title' => 'Test 3',
-					'author_name' => 'WordPoints Tester',
-					'update_api' => '',
-					'channel' => '',
-					'ID' => '',
-				),
-				'test-4/test-4.php' => array(
-					'name' => 'Test 4',
-					'module_uri' => 'http://www.example.com/test-4/',
-					'version' => '1.0.0',
-					'description' => 'Another test module.',
-					'author' => 'WordPoints Tester',
-					'author_uri' => 'http://www.example.com/',
-					'text_domain' => 'test-4',
-					'domain_path' => '',
-					'network' => false,
-					'title' => 'Test 4',
-					'author_name' => 'WordPoints Tester',
-					'update_api' => '',
-					'channel' => '',
-					'ID' => '',
-				),
+				'name' => 'Test 3',
+				'module_uri' => 'http://www.example.com/test-3/',
+				'version' => '1.0.0-beta',
+				'description' => 'A test module.',
+				'author' => 'WordPoints Tester',
+				'author_uri' => 'http://www.example.com/',
+				'text_domain' => 'test-3',
+				'domain_path' => '',
+				'network' => false,
+				'title' => 'Test 3',
+				'author_name' => 'WordPoints Tester',
+				'update_api' => '',
+				'channel' => '',
+				'ID' => '',
 			)
-			, wordpoints_get_modules()
+			, $modules['test-3.php']
+		);
+
+		$this->assertArrayHasKey( 'test-4/test-4.php', $modules );
+		$this->assertEquals(
+			array(
+				'name' => 'Test 4',
+				'module_uri' => 'http://www.example.com/test-4/',
+				'version' => '1.0.0',
+				'description' => 'Another test module.',
+				'author' => 'WordPoints Tester',
+				'author_uri' => 'http://www.example.com/',
+				'text_domain' => 'test-4',
+				'domain_path' => '',
+				'network' => false,
+				'title' => 'Test 4',
+				'author_name' => 'WordPoints Tester',
+				'update_api' => '',
+				'channel' => '',
+				'ID' => '',
+			)
+			, $modules['test-4/test-4.php']
 		);
 
 		$this->assertEquals(

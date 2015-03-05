@@ -494,18 +494,6 @@ abstract class WordPoints_Points_Hook {
 		$instance = apply_filters( 'wordpoints_points_hook_update_callback', $instance, $new_instance, $old_instance, $this );
 
 		if ( false !== $instance ) {
-
-			// If this is a new instance, register it.
-			// This is deprecated, but is here for back-compat.
-			if ( ! isset( $all_instances[ $this->number ] ) ) {
-
-				if ( 'network' === $type ) {
-					WordPoints_Points_Hooks::_register_network_hook( $this );
-				} else {
-					WordPoints_Points_Hooks::_register_hook( $this );
-				}
-			}
-
 			$all_instances[ $this->number ] = $instance;
 		}
 
@@ -537,9 +525,6 @@ abstract class WordPoints_Points_Hook {
 			unset( $all_instances[ $number ] );
 
 			$this->_save_instances( $all_instances );
-
-			// This is deprecated, but is here for back-compat.
-			WordPoints_Points_Hooks::_unregister_hook( $hook_id );
 		}
 	}
 
@@ -792,27 +777,6 @@ abstract class WordPoints_Points_Hook {
 		);
 
 		$this->options['_classname']   = $this->option_name;
-
-		/*
-		 * The below registration is not longer necessary, and is deprecated.
-		 * It is here only for back-compat.
-		 */
-
-		// Register all standard instances of this hook.
-		foreach ( array_keys( $this->get_instances( 'standard' ) ) as $number ) {
-
-			$this->set_number( $number );
-
-			WordPoints_Points_Hooks::_register_hook( $this );
-		}
-
-		// Register all network instances of this hook.
-		foreach ( array_keys( $this->get_instances( 'network' ) ) as $number ) {
-
-			$this->set_number( $number );
-
-			WordPoints_Points_Hooks::_register_network_hook( $this );
-		}
 	}
 
 	//

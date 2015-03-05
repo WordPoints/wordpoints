@@ -17,6 +17,9 @@
  *
  * @group points
  * @group points_hooks
+ *
+ * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
+ * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::hook
  */
 class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
@@ -24,6 +27,8 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 	 * Test that points are removed when a post is permanently deleted.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::logs
 	 */
 	public function test_points_removed_when_post_deleted() {
 
@@ -135,6 +140,8 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTest
 	 * Test that points are only removed for the specified post type.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::logs
 	 */
 	public function test_points_only_awarded_for_specified_post_type() {
 

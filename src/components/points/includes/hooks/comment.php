@@ -62,58 +62,6 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	}
 
 	/**
-	 * Generate the log entry for an approve comment transaction.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.8.0 Use self::logs() instead.
-	 *
-	 * @param string $text        The text for the log entry.
-	 * @param int    $points      The number of points.
-	 * @param string $points_type The type of points for the transaction.
-	 * @param int    $user_id     The affected user's ID.
-	 * @param string $log_type    The type of transaction.
-	 * @param array  $meta        Transaction meta data.
-	 *
-	 * @return string
-	 */
-	public function approve_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
-
-		_deprecated_function( __METHOD__, '1.8.0', __CLASS__ . '::logs()' );
-
-		return $this->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
-	}
-
-	/**
-	 * Generate the log entry for a disapprove comment transaction.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.4.0
-	 * @deprecated Use wordpoints_points_logs_comment_disapprove() instead.
-	 *
-	 * @param string $text        The text for the log entry.
-	 * @param int    $points      The number of points.
-	 * @param string $points_type The type of points for the transaction.
-	 * @param int    $user_id     The affected user's ID.
-	 * @param string $log_type    The type of transaction.
-	 * @param array  $meta        Transaction meta data.
-	 *
-	 * @return string
-	 */
-	public function disapprove_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
-
-		_deprecated_function( __METHOD__, '1.4.0', 'wordpoints_points_logs_comment_disapprove' );
-
-		return wordpoints_points_logs_comment_disapprove(
-			$text
-			, $points
-			, $points_type
-			, $user_id
-			, $log_type
-			, $meta
-		);
-	}
-
-	/**
 	 * Check if points have already been awarded for a comment.
 	 *
 	 * The behavior of this hook is to award points when a comment has been approved,

@@ -186,43 +186,43 @@
         "network": {
             "394": false,
             "466": false,
-            "525": false,
-            "560": false
+            "513": false,
+            "545": false
         },
         "standard": {
             "396": false,
             "468": false,
-            "527": false,
-            "562": false
+            "515": false,
+            "547": false
         }
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
         "network": {
-            "219": false
+            "185": false
         },
         "standard": {
-            "219": false
+            "185": false
         },
         "multi": {
-            "317": false
+            "283": false
         },
         "template": {
-            "318": false
+            "284": false
         },
         "instance": {
-            "369": false
+            "335": false
         },
         "site": {
-            "432": false
+            "390": false
         },
         "default": {
-            "434": false
+            "392": false
         },
         ":": {
-            "596": false
+            "554": false
         },
         "points-": {
-            "673": {
+            "631": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -231,7 +231,7 @@
             }
         },
         "-save": {
-            "673": {
+            "631": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -240,10 +240,10 @@
             }
         },
         "\" class=\"hook": {
-            "746": false
+            "704": false
         },
         "-savehook": {
-            "779": {
+            "737": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -602,7 +602,7 @@
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "617": false
+            "608": false
         },
         "all": {
             "238": {
@@ -630,7 +630,7 @@
             }
         },
         "results": {
-            "391": {
+            "386": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -639,7 +639,7 @@
             }
         },
         "row": {
-            "391": {
+            "386": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -648,7 +648,7 @@
             }
         },
         "col": {
-            "391": {
+            "386": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -657,7 +657,7 @@
             }
         },
         "var": {
-            "391": {
+            "386": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -669,7 +669,7 @@
             "645": false
         },
         "<": {
-            "895": {
+            "886": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -678,13 +678,13 @@
             }
         },
         ",": {
-            "1017": false
+            "1008": false
         },
         "CAST(": {
             "1034": false
         },
         ".meta_value AS": {
-            "1050": false
+            "1041": false
         },
         "ORDER BY": {
             "1047": false
@@ -810,6 +810,11 @@
                 "arg_count": 0,
                 "parentheses": 1
             }
+        }
+    },
+    "\/components\/points\/includes\/deprecated.php": {
+        "approved": {
+            "230": false
         }
     }
 }

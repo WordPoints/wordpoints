@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordPoints_Modules class and wrapper functions.
+ * Modules related functions.
  *
  * This class loads, registers, activates and deactivates modules.
  *

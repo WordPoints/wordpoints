@@ -24,6 +24,9 @@ matrix:
     # Only run HHVM against the latest for now.
     - php: hhvm
       env: TRAVISCI_RUN=phpunit WP_VERSION=latest
+    # Only run nightly against latest.
+    - php: nightly
+      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
   exclude:
     # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
     - php: 5.2
@@ -36,6 +39,7 @@ matrix:
       env: TRAVISCI_RUN=codesniff
   allow_failures:
     - php: hhvm
+    - php: nightly
   fast_finish: true
 
 before_script:

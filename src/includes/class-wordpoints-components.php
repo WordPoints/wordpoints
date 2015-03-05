@@ -183,11 +183,6 @@ final class WordPoints_Components {
 
 		foreach ( $this->get() as $component ) {
 
-			// Back-compat < 1.7.0
-			if ( ! isset( $component['file'] ) ) {
-				continue;
-			}
-
 			if ( ! $this->is_active( $component['slug'] ) ) {
 				continue;
 			}
@@ -387,21 +382,12 @@ final class WordPoints_Components {
 				return false;
 			}
 
-			if ( isset( $this->registered[ $slug ]['file'] ) ) { // Back-compat < 1.7.0
-				include_once( $this->registered[ $slug ]['file'] );
-			}
+			include_once( $this->registered[ $slug ]['file'] );
 
-			if ( isset( $this->registered[ $slug ]['un_installer'] ) ) { // Back-compat < 1.8.0
-
-				$this->get_installer( $slug )->install(
-					is_wordpoints_network_active()
-				);
-			}
+			$this->get_installer( $slug )->install( is_wordpoints_network_active() );
 
 			/**
 			 * Component activated.
-			 *
-			 * Hook into this to perform installation if needed.
 			 *
 			 * @since 1.0.0
 			 */
@@ -493,20 +479,13 @@ final class WordPoints_Components {
 		}
 
 		/**
-		 * Uninstall a component.
+		 * Before uninstalling a component.
 		 *
 		 * @since 1.0.0
 		 */
 		do_action( "wordpoints_uninstall_component-{$slug}" );
 
-		if ( isset( $this->registered[ $slug ]['un_installer'] ) ) { // Back-compat < 1.8.0
-
-			$this->get_installer( $slug )->uninstall();
-
-		} elseif ( isset( $this->registered[ $slug ]['uninstall_file'] ) ) { // Back-compat < 1.7.0
-
-			include_once( $this->registered[ $slug ]['uninstall_file'] );
-		}
+		$this->get_installer( $slug )->uninstall();
 	}
 
 	/**
@@ -595,10 +574,6 @@ final class WordPoints_Components {
 	 * @return WordPoints_Un_Installer_Base|false The installer for the component.
 	 */
 	public function get_installer( $slug ) {
-
-		if ( ! isset( $this->registered[ $slug ]['un_installer'] ) ) {
-			return false;
-		}
 
 		if ( ! isset( $this->installers[ $slug ] ) ) {
 

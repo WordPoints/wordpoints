@@ -7,9 +7,6 @@
  * @since 1.0.0
  */
 
-// Back-compat < 1.7.0
-include_once(  WORDPOINTS_DIR . 'components/points/includes/points.php' );
-
 /**
  * Register scripts and styles for the component.
  *

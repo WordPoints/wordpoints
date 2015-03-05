@@ -206,24 +206,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_components() {
 
-		/*
-		 * Back compat < 1.7.0
-		 *
-		 * The below notes no longer apply.
-		 * --------------------------------
-		 *
-		 * Bulk 'deactivate' components. No other filters should be applied later than these
-		 * (e.g., after 99) for this hook - doing so could have unexpected results.
-		 *
-		 * We do this so that we can load them to call the uninstall hooks, without them
-		 * being active.
-		 */
-		add_filter( 'wordpoints_component_active', '__return_false', 100 );
-
 		$components = WordPoints_Components::instance();
-
-		// Back-compat < 1.7.0
-		$components->load();
 
 		// Uninstall the components.
 		foreach ( $components->get() as $component => $data ) {

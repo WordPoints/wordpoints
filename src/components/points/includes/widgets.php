@@ -30,14 +30,11 @@ add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 /**
  * WordPoints points widget template class.
  *
- * This class is not intended to be instantiated, and should be declared abstract.
- * However, it was not at first, and so it is presently left as non-abstract just in
- * case, for backward compatibiility. It will likely be made abstract in 2.0.0.
- *
  * @since 1.0.0
  * @since 1.9.0 Now extends WordPoints_Widget instead of WP_Widget directly.
+ * @since 2.0.0 Now abstract.
  */
-/* abstract */ class WordPoints_Points_Widget extends WordPoints_Widget {
+abstract class WordPoints_Points_Widget extends WordPoints_Widget {
 
 	/**
 	 * Default settings for the widget.

@@ -181,7 +181,7 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 			$this->atts['paginate'] = 1;
 		}
 
-		// Back-compat.
+		// Back-compat. Needs to stay here "forever" for legacy installs.
 		if ( isset( $this->atts['datatables'] ) ) {
 			$this->atts['paginate'] = wordpoints_int( $this->atts['datatables'] );
 		}

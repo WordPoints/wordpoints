@@ -201,7 +201,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 
 		echo '<div class="wordpoints-points-widget-text">', $text, '</div><br />'; // XSS OK, WPCS
 
-		if ( 0 !== $instance['number_logs'] ) {
+		if ( is_user_logged_in() && 0 !== $instance['number_logs'] ) {
 
 			$query_args = wordpoints_get_points_logs_query_args( $instance['points_type'], 'current_user' );
 

@@ -105,19 +105,29 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	 *
 	 * @covers WordPoints_Components::activate
 	 * @covers WordPoints_Components::is_active
-	 *
-	 * @expectedIncorrectUsage WordPoints_Components::register
 	 */
 	public function test_activation() {
 
 		$components = WordPoints_Components::instance();
-		$components->register( array( 'slug' => 'test_2', 'name' => 'Test 2' ) );
+		$components->register(
+			array(
+				'slug' => 'test_2',
+				'name' => 'Test 2',
+				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'un_installer' => WORDPOINTS_TESTS_DIR . '/data/components/test/un-installer.php',
+			)
+		);
 
 		$components->activate( 'test_2' );
 
 		$this->assertTrue( $components->is_active( 'test_2' ) );
 		$this->assertArrayHasKey( 'test_2', $components->get_active() );
 		$this->assertEquals( 1, did_action( 'wordpoints_component_activate-test_2' ) );
+
+		// The component should have been loaded.
+		$this->assertTrue(
+			function_exists( 'wordpoints_test_component_function_lllll' )
+		);
 
 		$components->deactivate( 'test_2' );
 

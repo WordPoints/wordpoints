@@ -19,7 +19,7 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	/**
 	 * Set up for the tests.
 	 *
-	 * @sine 1.0.1
+	 * @since 1.0.1
 	 */
 	public function setUp() {
 
@@ -31,7 +31,7 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	/**
 	 * Clean up after the tests.
 	 *
-	 * @scince 1.0.1
+	 * @since 1.0.1
 	 */
 	public function tearDown() {
 

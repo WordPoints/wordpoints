@@ -517,7 +517,7 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  *
  * If, at any time, this function detects that the user's points are going to be
  * set to less than the minimum amount, it will set the user's points to the
- * minimum. This may be undesireable in certain situations, such as when a user
+ * minimum. This may be undesirable in certain situations, such as when a user
  * is making a purchase using points. In such a case it is important to use {@see
  * wordpoints_get_points_above_minimum()} to determine whether the user has
  * sufficient points before calling this function. Note that this still leaves open
@@ -531,6 +531,8 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * use update_user_meta().
  *
  * @since 1.0.0
+ * @since 2.0.0 Now returns the log ID instead of boolean true on success when the
+ *              transaction is logged.
  *
  * @uses apply_filters()         To let plugins hook into this function.
  * @uses wordpoints_get_points() To get the user's current points.
@@ -542,7 +544,8 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for this transaction. Default: array()
  *
- * @return bool Whether the transaction was successful.
+ * @return int|bool On success, the log ID if the transaction is logged, or true if
+ *                  it is not. False on failure.
  */
 function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
 
@@ -625,7 +628,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	/**
 	 * Whether a transaction should be logged.
 	 *
-	 * @param bool   $log_transaction Whether or not to log this transactioin.
+	 * @param bool   $log_transaction Whether or not to log this transactoin.
 	 * @param int    $user_id         The ID of the user.
 	 * @param int    $points          The number of points involved.
 	 * @param string $points_type     The type of points involved.
@@ -694,7 +697,11 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	do_action( 'wordpoints_points_altered', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 
-	return true;
+	if ( $log_id ) {
+		return $log_id;
+	} else {
+		return true;
+	}
 
 } // function wordpoints_alter_points()
 

@@ -109,7 +109,7 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that the 'wordpoint_points_minimum' filter is working.
+	 * Test that the 'wordpoints_points_minimum' filter is working.
 	 *
 	 * @since 1.0.0
 	 *
@@ -168,7 +168,7 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Sample flilter.
+	 * Sample filter.
 	 *
 	 * @since 1.0.0
 	 */
@@ -207,6 +207,68 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 
 		wordpoints_alter_points( $this->user_id, -60, 'points', 'test' );
 		$this->assertEquals( 0, wordpoints_get_points( $this->user_id, 'points' ) );
+	}
+
+	/**
+	 * Test that the log ID is returned.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_log_id_returned() {
+
+		$log_id = wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
+
+		$this->assertInternalType( 'int', $log_id );
+	}
+
+	/**
+	 * Test that it just returns true if the transaction isn't logged.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_true_returned_if_not_logged() {
+
+		add_filter( 'wordpoints_points_log', '__return_false' );
+
+		$this->assertTrue(
+			wordpoints_alter_points( $this->user_id, 20, 'points', 'test' )
+		);
+	}
+
+	/**
+	 * Test that it just returns true if the transaction is short-circuited.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_true_returned_if_short_circuited() {
+
+		add_filter( 'wordpoints_alter_points', '__return_zero' );
+
+		$this->assertTrue(
+			wordpoints_alter_points( $this->user_id, 20, 'points', 'test' )
+		);
+	}
+
+	/**
+	 * Test that it just returns true if the transaction is short-circuited.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_false_returned_if_short_circuited_with_false() {
+
+		add_filter( 'wordpoints_alter_points', '__return_false' );
+
+		$this->assertFalse(
+			wordpoints_alter_points( $this->user_id, 20, 'points', 'test' )
+		);
 	}
 
 	//

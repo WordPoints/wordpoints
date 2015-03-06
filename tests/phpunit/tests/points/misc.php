@@ -211,9 +211,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Create a user and add a points log.
 		$user_id = $this->factory->user->create();
 
-		$result = wordpoints_add_points( $user_id, 10, 'points', 'register' );
-
-		$this->assertTrue( $result );
+		wordpoints_add_points( $user_id, 10, 'points', 'register' );
 
 		// Get the log from the database.
 		$log = new WordPoints_Points_Logs_Query;

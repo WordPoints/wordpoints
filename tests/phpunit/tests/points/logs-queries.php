@@ -14,6 +14,8 @@
  *
  * @group points
  * @group points_logs
+ *
+ * @covers WordPoints_Points_Logs_Query
  */
 class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
@@ -21,6 +23,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test query registration.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_register_points_logs_query
+	 * @covers ::wordpoints_is_points_logs_query
+	 * @covers ::wordpoints_get_points_logs_query_args
+	 * @covers ::wordpoints_get_points_logs_query
 	 */
 	function test_query_registration() {
 
@@ -46,6 +53,8 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that default queries are registered.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @coversNothing
 	 */
 	function test_default_queries_registered() {
 

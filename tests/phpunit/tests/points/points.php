@@ -45,6 +45,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test behavior with nonexistant points type.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points
 	 */
 	public function test_false_if_nonexistant_points_type() {
 
@@ -55,6 +57,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test behavior for an invalid $user_id.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points
 	 */
 	public function test_false_if_invalid_user_id() {
 
@@ -65,6 +69,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test behavior with no points awarded yet.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points
 	 */
 	public function test_zero_if_no_points() {
 
@@ -75,6 +81,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test behavior with points awarded.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points
 	 */
 	public function test_returns_points() {
 
@@ -91,6 +99,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that the default is 0.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points_minimum
 	 */
 	public function test_default_minimum_is_0() {
 
@@ -102,6 +112,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that the 'wordpoint_points_minimum' filter is working.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points_minimum
 	 */
 	public function test_wordpoints_points_minimum_filter() {
 
@@ -131,6 +143,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that the result is unaltered by defualt.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_format_points
 	 */
 	public function test_default_format() {
 
@@ -141,6 +155,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that the 'wordpoints_points_display' filter is called.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_format_points
 	 */
 	public function test_format_filter() {
 
@@ -169,6 +185,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test set, alter, add and subtract.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
 	 */
 	public function test_points_altering() {
 
@@ -199,6 +217,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test add() won't subtract.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points
 	 */
 	public function test_add_wont_subtract() {
 
@@ -213,6 +233,8 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that subtract() won't add.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_subtract_points
 	 */
 	public function test_subtract_wont_add() {
 
@@ -227,6 +249,9 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that multisite behavior is correct.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_get_points
+	 * @covers ::wordpoints_alter_points
 	 */
 	public function test_multisite_behaviour() {
 

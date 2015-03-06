@@ -21,6 +21,8 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 	 * Test wordpoints_module_basename().
 	 *
 	 * @since 1.1.0
+	 *
+	 * @covers ::wordpoints_module_basename
 	 */
 	public function test_module_basename() {
 
@@ -31,6 +33,8 @@ class WordPoints_Modules_Test extends WP_UnitTestCase {
 	 * Test wordpoints_get_modules().
 	 *
 	 * @since 1.1.0
+	 *
+	 * @covers ::wordpoints_get_modules
 	 */
 	public function test_get_modules() {
 

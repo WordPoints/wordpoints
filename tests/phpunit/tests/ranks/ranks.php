@@ -55,6 +55,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that a valid rank type must be passed to add a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_requires_valid_type() {
 
@@ -73,6 +75,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that a valid rank group must be passed to add a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_requires_valid_group() {
 
@@ -91,6 +95,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that valid metadata must be passed to add a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_requires_valid_metadata() {
 
@@ -109,6 +115,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test adding a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_rank() {
 
@@ -132,6 +140,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires a valid rank ID.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_id() {
 
@@ -153,6 +163,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires a valid rank type.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_type() {
 
@@ -174,6 +186,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires a valid rank group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_group() {
 
@@ -195,6 +209,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires valid meta.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_meta() {
 
@@ -216,6 +232,9 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test updating a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
+	 * @covers ::wordpoints_get_rank
 	 */
 	public function test_update_rank() {
 
@@ -254,6 +273,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test deleting a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_delete_rank
 	 */
 	public function test_delete_rank() {
 
@@ -269,6 +290,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test formatting a rank for display.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_format_rank
 	 */
 	public function test_format_rank() {
 
@@ -288,6 +311,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test formatting a rank with an invalid ID.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_format_rank
 	 */
 	public function test_format_invalid_rank() {
 
@@ -302,6 +327,10 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test rank caching.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_rank
+	 * @covers ::wordpoints_update_rank
+	 * @covers ::wordpoints_delete_rank
 	 */
 	public function test_ranks_are_cached() {
 
@@ -352,6 +381,11 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test user rank caching.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
+	 * @covers ::wordpoints_get_user_rank
+	 * @covers ::wordpoints_delete_rank
+	 * @covers WordPoints_Rank_Group::move_rank
 	 */
 	public function test_user_ranks_cached() {
 
@@ -451,6 +485,11 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test users with rank caching.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
+	 * @covers ::wordpoints_get_users_with_rank
+	 * @covers ::wordpoints_delete_rank
+	 * @covers WordPoints_Rank_Group::move_rank
 	 */
 	public function test_users_with_rank_caching() {
 

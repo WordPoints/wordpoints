@@ -13,6 +13,8 @@
  * @since 1.1.0
  *
  * @group modules
+ *
+ * @covers ::wordpoints_get_module_data
  */
 class WordPoints_Module_Header_Test extends WP_UnitTestCase {
 

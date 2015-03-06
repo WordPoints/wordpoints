@@ -14,6 +14,8 @@
  *
  * @group points
  * @group widgets
+ *
+ * @covers WordPoints_Top_Users_Points_Widget
  */
 class WordPoints_Top_Users_Widget_Test extends WordPoints_Points_UnitTestCase {
 

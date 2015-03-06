@@ -14,6 +14,8 @@
  *
  * @group points
  * @group points_hooks
+ *
+ * @covers WordPoints_Comment_Received_Points_Hook
  */
 class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 

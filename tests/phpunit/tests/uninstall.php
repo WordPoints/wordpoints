@@ -13,6 +13,16 @@
  * @since 1.0.0
  *
  * @group uninstall
+ *
+ * @covers WordPoints_Un_Installer::uninstall_network
+ * @covers WordPoints_Un_Installer::uninstall_site
+ * @covers WordPoints_Un_Installer::uninstall_single
+ * @covers WordPoints_Points_Un_Installer::uninstall_network
+ * @covers WordPoints_Points_Un_Installer::uninstall_site
+ * @covers WordPoints_Points_Un_Installer::uninstall_single
+ * @covers WordPoints_Ranks_Un_Installer::uninstall_network
+ * @covers WordPoints_Ranks_Un_Installer::uninstall_site
+ * @covers WordPoints_Ranks_Un_Installer::uninstall_single
  */
 class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 

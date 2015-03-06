@@ -13,6 +13,8 @@
  * @since 1.9.0
  *
  * @group widgets
+ *
+ * @covers WordPoints_Points_Logs_Widget
  */
 class WordPoints_Points_Logs_Widget_Test extends WordPoints_Points_UnitTestCase {
 

@@ -14,6 +14,8 @@
  *
  * @group points
  * @group shortcodes
+ *
+ * @covers WordPoints_How_To_Get_Points_Shortcode
  */
 class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_UnitTestCase {
 
@@ -21,6 +23,8 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 	 * Test that the [wordpoints_how_to_get_points] shortcode exists.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @coversNothing
 	 */
 	public function test_shortcode_exists() {
 

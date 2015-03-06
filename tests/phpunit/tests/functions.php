@@ -18,6 +18,8 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 	 * Test is_wordpoints_network_active().
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::is_wordpoints_network_active
 	 */
 	public function test_is_wordpoints_network_active() {
 
@@ -42,6 +44,8 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 	 * Test wordpoints_add_custom_caps_to_new_sites().
 	 *
 	 * @since 1.5.0
+	 *
+	 * @covers ::wordpoints_add_custom_caps_to_new_sites
 	 */
 	public function test_wordpoints_add_custom_caps_to_new_sites() {
 

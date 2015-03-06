@@ -12,6 +12,8 @@
  *
  * @since 1.0.0
  *
+ * @covers ::wordpoints_db_table_exists
+ *
  * @expectedDeprecated wordpoints_db_table_exists
  */
 class WordPoints_Table_Exists_Test extends WP_UnitTestCase {

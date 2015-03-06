@@ -11,6 +11,8 @@
  * Test the WordPoints_Module_Paths class.
  *
  * @since 1.6.0
+ *
+ * @covers WordPoints_Module_Paths
  */
 class WordPoints_Module_Paths_Test extends WP_UnitTestCase {
 

@@ -14,6 +14,8 @@
  *
  * @group ranks
  * @group shortcodes
+ *
+ * @covers WordPoints_User_Rank_Shortcode
  */
 class WordPoints_User_Rank_Shortcode_Test extends WordPoints_Ranks_UnitTestCase {
 

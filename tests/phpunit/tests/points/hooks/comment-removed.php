@@ -15,6 +15,8 @@
  * @group points
  * @group points_hooks
  *
+ * @covers WordPoints_Comment_Removed_Points_Hook
+ *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::hook
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::logs

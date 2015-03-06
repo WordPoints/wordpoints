@@ -14,6 +14,8 @@
  *
  * @group points
  * @group widgets
+ *
+ * @covers WordPoints_My_Points_Widget
  */
 class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 
@@ -113,7 +115,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that and invalid points_type setting results in an error.
+	 * Test that an invalid points_type setting results in an error.
 	 *
 	 * @since 1.9.0
 	 */

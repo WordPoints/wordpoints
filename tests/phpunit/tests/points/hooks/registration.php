@@ -16,6 +16,8 @@
  *
  * @group points
  * @group points_hooks
+ *
+ * @covers WordPoints_Registration_Points_Hook
  */
 class WordPoints_Registration_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 

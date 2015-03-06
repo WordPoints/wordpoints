@@ -11,6 +11,8 @@
  * Test wordpoints_verify_nonce().
  *
  * @since 1.9.0
+ *
+ * @covers ::wordpoints_verify_nonce
  */
 class WordPoints_Verify_Nonce_Test extends WordPoints_UnitTestCase {
 

@@ -13,6 +13,8 @@
  * @since 1.3.0
  *
  * @group ajax
+ *
+ * @covers ::wordpoints_ajax_save_points_hook
  */
 class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestCase {
 

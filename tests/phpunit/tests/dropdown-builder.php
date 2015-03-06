@@ -11,6 +11,8 @@
  * Test that the WordPoints_Dropdown_Builder class builds dropdowns properly.
  *
  * @since 1.4.0
+ *
+ * @covers WordPoints_Dropdown_Builder
  */
 class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
 

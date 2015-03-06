@@ -13,6 +13,8 @@
  * @since 1.5.0
  *
  * @group update
+ *
+ * @covers WordPoints_Un_Installer::update_site_to_1_5_0
  */
 class WordPoints_1_5_0_Update_Test extends WordPoints_UnitTestCase {
 

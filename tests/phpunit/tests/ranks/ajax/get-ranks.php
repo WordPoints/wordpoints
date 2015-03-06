@@ -13,6 +13,8 @@
  * @group ajax
  *
  * @since 1.7.0
+ *
+ * @covers WordPoints_Ranks_Admin_Screen_Ajax
  */
 class WordPoints_Ranks_Screen_Get_Ajax_Test extends WordPoints_Ranks_Ajax_UnitTestCase {
 

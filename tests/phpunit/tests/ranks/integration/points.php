@@ -65,6 +65,8 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 	 * Test that the My Points widget recognizes the %ranks% placeholder.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_ranks_points_widget_text_filter
 	 */
 	public function test_my_points_widget_ranks_placeholder() {
 
@@ -105,6 +107,8 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 	 * Test the points_type attribute is supported if the points component is active.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @covers ::wordpoints_user_rank_shortcode_points_type_attr
 	 */
 	public function test_points_type_attr_of_user_ranks_shortcode() {
 

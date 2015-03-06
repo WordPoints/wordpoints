@@ -20,6 +20,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that the user's rank defaults to the base rank of the group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_user_rank
 	 */
 	public function test_user_rank_defaults_to_base() {
 
@@ -37,6 +39,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test getting a user's rank from an invalid group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_user_rank
 	 */
 	public function test_get_invalid_group() {
 
@@ -58,6 +62,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test getting a user's rank with an invalid user ID.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_user_rank
 	 */
 	public function test_get_invalid_id() {
 
@@ -68,6 +74,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test formatting a user's rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_formatted_user_rank
 	 */
 	public function test_format_user_rank() {
 
@@ -92,6 +100,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test updating a user's rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
 	 */
 	public function test_update_user_rank() {
 
@@ -112,6 +122,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test update with a non-existant rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
 	 */
 	public function test_update_invalid_rank() {
 
@@ -134,6 +146,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test updating with the same rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
 	 */
 	public function test_update_same_rank() {
 
@@ -151,6 +165,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test getting all users with a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_users_with_rank
 	 */
 	public function test_getting_all_users_with_rank() {
 

@@ -21,6 +21,9 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test the get and save hooks functions.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers WordPoints_Points_Hooks::get_points_types_hooks
+	 * @covers WordPoints_Points_Hooks::save_points_types_hooks
 	 */
 	function test_get_and_save() {
 
@@ -76,6 +79,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that awarded points include network and standard hooks.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers WordPoints_Points_Hook::get_instances
 	 */
 	public function test_network_and_standard_hooks_fired() {
 
@@ -134,6 +139,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test getting the description of a hook.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @covers WordPoints_Points_Hook::get_description
 	 */
 	public function test_get_hook_description() {
 
@@ -156,6 +163,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test uninstalling points hook types.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
 	 */
 	public function test_hook_type_uninstall() {
 
@@ -193,6 +202,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test uninstalling points hook types on multisite.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
 	 */
 	public function test_multisite_hook_type_uninstall() {
 
@@ -248,6 +259,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test uninstalling points hook types in network mode.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
 	 */
 	public function test_network_hook_type_uninstall() {
 
@@ -291,6 +304,9 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test get_option() and set_option().
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_option
+	 * @covers WordPoints_Points_Hook::get_option
 	 */
 	public function test_get_and_set_option() {
 
@@ -306,6 +322,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that get_option() returns null if the option isn't set.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::get_option
 	 */
 	public function test_get_nonexistant_option() {
 
@@ -320,6 +338,9 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test get_options() and set_options().
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_options
+	 * @covers WordPoints_Points_Hook::get_options
 	 */
 	public function test_get_and_set_options() {
 
@@ -345,6 +366,9 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test get_number() and set_number().
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_number
+	 * @covers WordPoints_Points_Hook::get_number
 	 */
 	public function test_get_and_set_number() {
 
@@ -362,6 +386,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that set_number() accepts an ID.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::set_number
 	 */
 	public function test_set_number_by_id() {
 
@@ -379,6 +405,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that get_number() returns false when no number is set.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Points_Hook::get_number
 	 */
 	public function test_get_number_false_if_none() {
 

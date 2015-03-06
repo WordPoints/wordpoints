@@ -17,6 +17,8 @@
  *
  * @group points
  * @group shortcodes
+ *
+ * @covers WordPoints_Points_Logs_Shortcode
  */
 class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_Points_UnitTestCase {
 

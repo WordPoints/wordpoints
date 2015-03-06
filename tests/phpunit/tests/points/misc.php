@@ -20,6 +20,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that points logs and log meta tables are cleaned up on user deletion.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_delete_points_logs_for_user
 	 */
 	public function test_logs_tables_cleaned_on_user_deletion() {
 
@@ -122,6 +124,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that the logs and meta for a blog are deleted when the blog is deleted.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_delete_points_logs_for_blog
 	 */
 	public function test_logs_tables_cleaned_on_blog_deletion() {
 
@@ -168,6 +172,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that the correct key is returned for user points metadata.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_get_points_user_meta_key
 	 */
 	public function test_wordpoints_get_points_user_meta_key() {
 
@@ -195,6 +201,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * Test points log regeneration.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_regenerate_points_logs
 	 *
 	 * @expectedDeprecated wordpoints_regenerate_points_logs
 	 */
@@ -275,6 +283,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * Test wordpoints_points_add_custom_caps_to_new_sites().
 	 *
 	 * @since 1.5.0
+	 *
+	 * @covers ::wordpoints_points_add_custom_caps_to_new_sites
 	 */
 	public function test_wordpoints_points_add_custom_caps_to_new_sites() {
 

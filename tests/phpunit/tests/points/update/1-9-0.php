@@ -15,6 +15,11 @@
  * @group points
  * @group update
  *
+ * @covers WordPoints_Points_Un_Installer::update_single_to_1_9_0
+ * @covers WordPoints_Points_Un_Installer::update_site_to_1_9_0
+ * @covers WordPoints_Points_Un_Installer::update_network_to_1_9_0
+ * @covers WordPoints_Points_Un_Installer::_1_9_0_combine_hooks
+ *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */

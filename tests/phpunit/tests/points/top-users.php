@@ -14,6 +14,8 @@
  * @since 1.7.0 Assumes that one user is already in the DB that has no points.
  *
  * @group points
+ *
+ * @covers ::wordpoints_points_get_top_users
  */
 class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCase {
 

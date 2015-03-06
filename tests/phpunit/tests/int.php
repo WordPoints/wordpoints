@@ -28,6 +28,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of integers.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_int
 	 */
 	function test_integers_unchanged() {
 
@@ -44,6 +46,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of 'integer' strings.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_int
 	 */
 	function test_string_integers_converted() {
 
@@ -60,6 +64,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of 'integer' floats.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_int
 	 */
 	function test_float_intetegers_converted() {
 
@@ -69,9 +75,11 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test propery hanlding of edge case strings.
+	 * Test proper handling of edge case strings.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_int
 	 */
 	function test_false_for_edge_strings() {
 
@@ -88,6 +96,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of non-integer floats.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_int
 	 */
 	function test_false_for_floats() {
 
@@ -100,6 +110,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test non-scalar, boolean and null value handling.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_int
 	 */
 	function test_false_for_everything_else() {
 
@@ -121,13 +133,15 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	}
 
 	//
-	// wordpoints_pos_int()
+	// wordpoints_posint()
 	//
 
 	/**
-	 * Test proper hanling of positive integers.
+	 * Test proper handling of positive integers.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_posint
 	 */
 	function test_positive_integers_unchanged() {
 
@@ -140,6 +154,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of negative integers.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_posint
 	 */
 	function test_negative_returns_false() {
 
@@ -152,6 +168,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of 0.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_posint
 	 */
 	function test_zero_not_positive() {
 
@@ -165,9 +183,11 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	//
 
 	/**
-	 * Test proper hanling of positive integers.
+	 * Test proper handling of positive integers.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_negint
 	 */
 	function test_positive_returns_false() {
 
@@ -180,6 +200,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of negative integers.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_negint
 	 */
 	function test_negative_unchanged() {
 
@@ -192,6 +214,8 @@ class WordPoints_Int_Test extends WP_UnitTestCase {
 	 * Test proper handling of 0.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_negint
 	 */
 	function test_zero_not_negative() {
 

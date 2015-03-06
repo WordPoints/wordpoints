@@ -15,6 +15,9 @@
  * @group points
  * @group update
  *
+ * @covers WordPoints_Points_Un_Installer::update_network_to_1_5_1
+ * @covers WordPoints_Points_Un_Installer::update_single_to_1_5_1
+ *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */

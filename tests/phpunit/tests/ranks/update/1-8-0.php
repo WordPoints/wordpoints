@@ -20,6 +20,8 @@ class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_UnitTestCase {
 	 * Test that the installed site IDs are added to the DB option.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @covers WordPoints_Ranks_Un_Installer::update_site_to_1_8_0
 	 */
 	public function test_installed_site_ids_added() {
 

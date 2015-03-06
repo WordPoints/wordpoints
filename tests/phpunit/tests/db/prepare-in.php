@@ -13,6 +13,8 @@
  * Test the wordpoints_prepare__in() function.
  *
  * @since 1.0.0
+ *
+ * @covers ::wordpoints_prepare__in
  */
 class WordPoints_Prepare_In_Test extends WP_UnitTestCase {
 

@@ -5,91 +5,97 @@ msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-02-27 21:33:55+00:00\n"
+"PO-Revision-Date: 2015-03-03 21:21+0200\n"
+"Last-Translator: Maria Gerolymatou <mary.g@hotmail.gr>\n"
+"Language-Team: Greek "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/el/>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-02-27 21:33:55+00:00\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: el\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 1.10.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:67 components/points/admin/admin.php:280
 #: components/points/includes/widgets.php:120
 msgid "WordPoints"
-msgstr ""
+msgstr "WordPoints"
 
 #: admin/admin.php:87
 msgid "WordPoints — Configure"
-msgstr ""
+msgstr "WordPoints — Διαμόρφωση"
 
 #: admin/admin.php:88
 msgid "Configure"
-msgstr ""
+msgstr "Διαμόρφωση"
 
 #: admin/admin.php:114
 msgid "WordPoints — Modules"
-msgstr ""
+msgstr "WordPoints- Ενότητες"
 
 #: admin/admin.php:115
 msgid "Modules"
-msgstr ""
+msgstr "Ενότητες"
 
 #: admin/admin.php:124
 msgid "WordPoints — Install Modules"
-msgstr ""
+msgstr "WordPoints — Εγκαταστήστε Ενότητες"
 
 #: admin/admin.php:125 admin/screens/module-install.php:28
 msgid "Install Modules"
-msgstr ""
+msgstr "Εγκαταστήστε Ενότητες"
 
 #: admin/admin.php:293
 msgid "Hide This Notice"
-msgstr ""
+msgstr "Απόκρυψη της παρούσας ανακοίνωσης"
 
 #: admin/admin.php:346
 msgid "WordPoints — %s"
-msgstr ""
+msgstr "WordPoints-%s"
 
 #: admin/admin.php:376
 msgid "Install a module in .zip format"
-msgstr ""
+msgstr "Εγκαταστήστε μια ενότητα σε μορφή .zip"
 
 #: admin/admin.php:377
 msgid ""
 "If you have a module in a .zip format, you may install it by uploading it "
 "here."
-msgstr ""
+msgstr "Εγκαταστήστε μια ενότητα σε μορφή .zip εδώ."
 
 #: admin/admin.php:380
 msgid "Module zip file"
-msgstr ""
+msgstr "Ενότητα αρχείο zip"
 
 #: admin/admin.php:382
 msgid "Install Now"
-msgstr ""
+msgstr "Εγκατάσταση τώρα"
 
 #: admin/admin.php:399
 msgid ""
 "You do not have sufficient permissions to install WordPoints modules on this "
 "site."
 msgstr ""
+"Δεν έχετε επαρκή δικαιώματα για να εγκαταστήσετε WordPoints ενότητες σε αυτό "
+"το site."
 
 #: admin/admin.php:406
 msgid "Upload WordPoints Module"
-msgstr ""
+msgstr "Ανεβάστε ενότητα που WordPoints"
 
 #: admin/admin.php:418
 msgid "Installing Module from uploaded file: %s"
-msgstr ""
+msgstr "Εγκαταστήστε ενότητα από ανεβασμένο αρχείο: %s"
 
 #: admin/admin.php:482
 msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
 msgstr ""
+"Αυτό φαίνεται να είναι ένα αρχείο ενότητας WordPoints.Δοκιμάστε να "
+"εγκαταστήσετε στη μονάδα WordPoints μέσω οθόνης."
 
 #: admin/admin.php:512
 msgid "Like this plugin?"
@@ -207,7 +213,7 @@ msgstr ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:337
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:363
 msgctxt "modules"
@@ -315,7 +321,7 @@ msgstr ""
 #: admin/screens/configure-components.php:157
 msgctxt "components table heading"
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: admin/screens/configure-components.php:90
 #: admin/screens/configure-components.php:158
@@ -523,7 +529,7 @@ msgstr ""
 #: admin/screens/modules-load.php:482
 msgctxt "modules table heading"
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: admin/screens/modules.php:16
 msgid "The module %s has been <strong>deactivated</strong> due to an error: %s"
@@ -1312,7 +1318,7 @@ msgstr ""
 #: components/points/includes/logs.php:659
 msgctxt "points log description"
 msgid "Points adjusted by %s. Reason: %s"
-msgstr ""
+msgstr "Πόντοι προστέθηκαν από %s. Λόγος:"
 
 #: components/points/includes/logs.php:673
 msgctxt "points log description"

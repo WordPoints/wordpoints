@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.9
 Tested up to: 4.2-alpha-31546
-Stable tag: 1.10.0
+Stable tag: 1.10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,9 +47,9 @@ plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 Also on the plugin's website, you can [browse the available extensions](http://wordpoints.org/modules/),
 called "modules". We've just added [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/).
 
-= Localization =
+= Translations =
 
-WordPoints is fully localizable, and translations are already available in several
+WordPoints is fully translatable, and translations are already available in several
 languages:
 
 * **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
@@ -122,6 +122,9 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+
+= 1.10.1 — (~1/2 hr) =
+* Fixed: The My Points widget no longer displays points logs to logged-out users.
 
 = 1.10.0 — (~20 hrs) =
 * Requires: WordPress 3.9+
@@ -262,6 +265,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.1 =
+* Fixes a bug that caused the My Points widget to display points logs even when the
+user was not logged in.
 
 = 1.10.0 =
 * This is a minor release which contains a few small improvements and several fixed

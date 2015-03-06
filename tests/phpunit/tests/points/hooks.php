@@ -342,27 +342,6 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that set_option() will always set the options as an array.
-	 *
-	 * @since 1.9.0
-	 */
-	public function test_set_options_not_array() {
-
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
-			'wordpoints_post_points_hook'
-		);
-
-		$options = $hook->get_options();
-
-		$hook->set_options( 'not an array' );
-
-		$this->assertEquals( array(), $hook->get_options() );
-
-		// Put the options back, because this will carry over to other tests.
-		$hook->set_options( $options );
-	}
-
-	/**
 	 * Test get_number() and set_number().
 	 *
 	 * @since 1.9.0

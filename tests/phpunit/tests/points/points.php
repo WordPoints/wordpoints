@@ -271,6 +271,95 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Test that it requires a valid user ID.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_alter_requires_valid_user_id() {
+
+		$this->assertFalse(
+			wordpoints_alter_points( 'bad', 20, 'points', 'test' )
+		);
+	}
+
+	/**
+	 * Test that it requires a valid points value.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_alter_requires_valid_points() {
+
+		$this->assertFalse(
+			wordpoints_alter_points( $this->user_id, 'bad', 'points', 'test' )
+		);
+	}
+
+	/**
+	 * Test that it requires a valid points type.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_alter_requires_valid_points_type() {
+
+		$this->assertFalse(
+			wordpoints_alter_points( $this->user_id, 20, 'bad', 'test' )
+		);
+	}
+
+	/**
+	 * Test that it requires a non-empty log type.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_alter_requires_non_empty_log_type() {
+
+		$this->assertFalse(
+			wordpoints_alter_points( $this->user_id, 20, 'points', '' )
+		);
+	}
+
+	/**
+	 * Test that it won't set the points below the minimum.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_alter_wont_set_points_below_minimum() {
+
+		wordpoints_alter_points( $this->user_id, 50, 'points', 'test' );
+
+		$this->assertEquals( 50, wordpoints_get_points( $this->user_id, 'points' ) );
+
+		wordpoints_alter_points( $this->user_id, -55, 'points', 'test' );
+
+		// The default minimum is 0.
+		$this->assertEquals( 0, wordpoints_get_points( $this->user_id, 'points' ) );
+	}
+
+	/**
+	 * Test that the wordpoints_points_altered action is called.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_wordpoints_points_altered_action() {
+
+		$this->listen_for_filter( 'wordpoints_points_altered' );
+		wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
+		$this->assertEquals( 1, $this->filter_was_called( 'wordpoints_points_altered' ) );
+	}
+
 	//
 	// wordpoints_add_points()
 	//

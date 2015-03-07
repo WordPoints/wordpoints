@@ -271,6 +271,7 @@ final class WordPoints_Components {
 	 *
 	 * @since 1.0.0
 	 * @since 1.8.0 The un_installer argument added, uninstall_file was deprecated.
+	 * @since 2.0.0 The 'file' argument is now required.
 	 *
 	 * @param array $args The component's data. {
 	 *        @type string $slug          The component slug. Must be unique.
@@ -299,27 +300,21 @@ final class WordPoints_Components {
 			'description'   => '',
 			'version'       => '',
 			'file'          => null,
-			'uninstall_file' => null,
 			'un_installer'  => null,
 		);
 
 		$component = array_merge( $defaults, $args );
 
-		$slug = $component['slug'];
-
-		if ( $this->is_registered( $slug ) || empty( $component['name'] ) || empty( $slug ) ) {
+		if (
+			empty( $component['name'] )
+			|| empty( $component['file'] )
+			|| empty( $component['slug'] )
+			|| $this->is_registered( $component['slug'] )
+		) {
 			return false;
 		}
 
-		$this->registered[ $slug ] = array_intersect_key( $component, $defaults );
-
-		if ( empty( $this->registered[ $slug ]['file'] ) ) {
-			_doing_it_wrong( __METHOD__, 'Components should be registered with the "file" argument, no loaded unconditionally.', '1.7.0' );
-		}
-
-		if ( ! empty( $this->registered[ $slug ]['uninstall_file'] ) ) {
-			_deprecated_argument( __METHOD__, '1.8.0', 'Use the "un_installer" argument and an un/installer class instead.' );
-		}
+		$this->registered[ $component['slug'] ] = array_intersect_key( $component, $defaults );
 
 		return true;
 	}

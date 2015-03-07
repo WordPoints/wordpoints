@@ -1,18 +1,18 @@
 {
     "\/components\/points\/includes\/class-un-installer.php": {
         "network": {
-            "495": false,
-            "724": false
+            "496": false,
+            "725": false
         },
         "standard": {
-            "498": false,
-            "727": false
+            "499": false,
+            "728": false
         },
         "post": {
-            "734": false
+            "735": false
         },
         "EXISTS": {
-            "841": {
+            "842": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -184,16 +184,16 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
         "network": {
-            "394": false,
-            "466": false,
-            "513": false,
-            "545": false
+            "389": false,
+            "461": false,
+            "508": false,
+            "540": false
         },
         "standard": {
-            "396": false,
-            "468": false,
-            "515": false,
-            "547": false
+            "391": false,
+            "463": false,
+            "510": false,
+            "542": false
         }
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
@@ -313,7 +313,7 @@
     },
     "\/components\/points\/includes\/widgets.php": {
         "points": {
-            "123": {
+            "120": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -322,11 +322,11 @@
             }
         },
         ": %points%": {
-            "158": false
+            "155": false
         },
         "1": {
-            "425": false,
-            "550": false
+            "422": false,
+            "547": false
         }
     },
     "\/includes\/functions.php": {
@@ -420,7 +420,7 @@
     },
     "\/includes\/modules.php": {
         "Module Name": {
-            "392": {
+            "366": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -429,7 +429,7 @@
             }
         },
         "Module URI": {
-            "393": {
+            "367": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -438,7 +438,7 @@
             }
         },
         "Version": {
-            "394": {
+            "368": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -447,7 +447,7 @@
             }
         },
         "Description": {
-            "395": {
+            "369": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -456,7 +456,7 @@
             }
         },
         "Author": {
-            "396": {
+            "370": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -465,7 +465,7 @@
             }
         },
         "Author URI": {
-            "397": {
+            "371": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -474,7 +474,7 @@
             }
         },
         "Text Domain": {
-            "398": {
+            "372": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -483,7 +483,7 @@
             }
         },
         "Domain Path": {
-            "399": {
+            "373": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -492,7 +492,7 @@
             }
         },
         "Network": {
-            "400": {
+            "374": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -501,7 +501,7 @@
             }
         },
         "Update API": {
-            "401": {
+            "375": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -510,7 +510,7 @@
             }
         },
         "Channel": {
-            "402": {
+            "376": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -519,7 +519,7 @@
             }
         },
         "ID": {
-            "403": {
+            "377": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -528,7 +528,7 @@
             }
         },
         "true": {
-            "412": false
+            "386": false
         }
     },
     "\/components\/points\/includes\/hooks\/periodic.php": {

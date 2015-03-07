@@ -41,7 +41,7 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test that the instance() method returns and instance of the class.
+	 * Test that the instance() method returns an instance of the class.
 	 *
 	 * @since 1.0.1
 	 *
@@ -53,14 +53,24 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that there is only one instance.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Components::instance
+	 */
+	public function test_instance_returns_one_instance() {
+
+		$this->assertSame( WordPoints_Components::instance(), WordPoints_Components::instance() );
+	}
+
+	/**
 	 * Test registration functions.
 	 *
 	 * @since 1.0.1
 	 *
 	 * @covers WordPoints_Components::register
 	 * @covers WordPoints_Components::is_registered
-	 *
-	 * @expectedIncorrectUsage WordPoints_Components::register
 	 */
 	public function test_registration() {
 
@@ -70,6 +80,7 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 			array(
 				'slug' => 'test',
 				'name' => 'Test',
+				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
 			)
 		);
 
@@ -93,7 +104,11 @@ class WordPoints_Components_Test extends WP_UnitTestCase {
 
 		$this->assertFalse(
 			WordPoints_Components::instance()->register(
-				array( 'slug' => 'points' )
+				array(
+					'slug' => 'points',
+					'name' => 'Points',
+					'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				)
 			)
 		);
 	}

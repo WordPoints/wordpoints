@@ -1055,7 +1055,7 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		 * We can't use WP_User_Query here because the meta value must be converted
 		 * to a singed integer for ordering.
 		 *
-		 * (But see <https://core.trac.wordpress.org/ticket/27887>).
+		 * (But see <https://core.trac.wordpress.org/ticket/27887>, fixed in 4.2).
 		 */
 		$top_users = $wpdb->get_col(
 			$wpdb->prepare(
@@ -1066,7 +1066,7 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
                     	ON `users`.`ID` = `meta`.`user_ID`
                         AND `meta`.`meta_key` = %s
                     {$exclude_users}
-					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
+					ORDER BY COALESCE(CONVERT(`meta_value`, SIGNED INTEGER), 0) DESC
 					LIMIT %d,%d
 				",
 				wordpoints_get_points_user_meta_key( $points_type ),

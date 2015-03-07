@@ -141,6 +141,40 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 
 		$this->assertEquals( $this->user_ids, $top_users );
 	}
+
+	/**
+	 * Test getting the top users with a user with no points and users with negative points.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_with_negative_points_and_no_points() {
+
+		add_filter( 'wordpoints_points_minimum', array( $this, 'return_negative_50' ) );
+
+		wordpoints_set_points( $this->user_ids[1], -5, 'points', 'test' );
+
+		$this->assertEquals(
+			array( $this->user_ids[0], $this->user_ids[2], 1, $this->user_ids[1] )
+			, wordpoints_points_get_top_users( 10, 'points' )
+		);
+	}
+
+	//
+	// Helpers
+	//
+
+	/**
+	 * Return -50.
+	 *
+	 * Useful for filters.
+	 *
+	 * @since 1.10.2
+	 *
+	 * @return int Negative 50.
+	 */
+	public function return_negative_50() {
+		return -50;
+	}
 }
 
 // EOF

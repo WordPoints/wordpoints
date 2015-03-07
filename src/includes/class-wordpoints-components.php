@@ -172,7 +172,7 @@ final class WordPoints_Components {
 		 * Registration of included components.
 		 *
 		 * This action is for the included components to hook into. It's not possible
-		 * for components that are inside modules to use it, becuase they are
+		 * for components that are inside modules to use it, because they are
 		 * loaded later. Just register your component on the modules registered
 		 * action instead.
 		 *
@@ -203,7 +203,7 @@ final class WordPoints_Components {
 	/**
 	 * Get all registered components.
 	 *
-	 * This function cannnot be called until after the {@see
+	 * This function cannot be called until after the {@see
 	 * 'wordpoints_components_register'} hook.
 	 *
 	 * @since 1.0.0
@@ -342,7 +342,7 @@ final class WordPoints_Components {
 			 *
 			 * @since 1.0.0
 			 */
-			do_action( "wordpoints_component_deregiseter-{$slug}" );
+			do_action( "wordpoints_component_deregister-{$slug}" );
 
 			unset( $this->registered[ $slug ] );
 		}
@@ -356,7 +356,7 @@ final class WordPoints_Components {
 	 * The component won't be activated unless it is registered. The return value is
 	 * in reference to whether the state of the component is that desired, not
 	 * whether the state has actually been changed. It is recommended to check the
-	 * state of the componenent before calling this function using is_active() if
+	 * state of the component before calling this function using is_active() if
 	 * that is important to you.
 	 *
 	 * @since 1.0.0
@@ -405,9 +405,9 @@ final class WordPoints_Components {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @uses do_action() To call the componenet's deactivation hook.
+	 * @uses do_action() To call the component's deactivation hook.
 	 *
-	 * @param string $slug The comonent's slug.
+	 * @param string $slug The component's slug.
 	 *
 	 * @return bool Whether the component was deactivated.
 	 */
@@ -553,7 +553,7 @@ final class WordPoints_Components {
 				$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
 
 				$args = array(
-					'dismissable' => true,
+					'dismissible' => true,
 					'option'      => $option,
 				);
 

@@ -206,6 +206,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_components() {
 
+		/** This filter is documented in includes/class-wordpoints-components.php */
+		do_action( 'wordpoints_components_register' );
+
 		$components = WordPoints_Components::instance();
 
 		// Uninstall the components.

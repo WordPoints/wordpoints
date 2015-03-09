@@ -1048,7 +1048,7 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 
 		$exclude_users = '';
 		if ( ! empty( $excluded ) ) {
-			$exclude_users = 'WHERE `user_ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
+			$exclude_users = 'WHERE `ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
 		}
 
 		/*

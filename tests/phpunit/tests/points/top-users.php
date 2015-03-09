@@ -128,18 +128,12 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 
 		wordpoints_update_network_option(
 			'wordpoints_excluded_users'
-			, array( $this->user_ids[2] )
+			, array( $this->user_ids[2], $this->user_ids[0] )
 		);
 
 		$top_users = wordpoints_points_get_top_users( 5, 'points' );
 
-		// This user is excluded, so they won't be in the result set.
-		unset( $this->user_ids[2] );
-
-		// Reset the keys.
-		$this->user_ids = array_values( $this->user_ids );
-
-		$this->assertEquals( $this->user_ids, $top_users );
+		$this->assertEquals( array( $this->user_ids[1], 1 ), $top_users );
 	}
 
 	/**

@@ -309,6 +309,8 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @since 1.7.0
 	 *
 	 * @param mixed $var The value being filtered.
+	 *
+	 * @return mixed $var.
 	 */
 	public function filter_listner( $var ) {
 

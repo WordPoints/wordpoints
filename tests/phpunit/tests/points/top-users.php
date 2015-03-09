@@ -120,6 +120,104 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	}
 
 	/**
+	 * Test that the cache is per-site when the plugin isn't network active.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_per_site_on_multisite() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite must be enabled.' );
+		}
+
+		if ( is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must not be network active.' );
+		}
+
+		$this->listen_for_filter( 'query', array( $this, 'is_top_users_query' ) );
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Run the query again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Should have used the cache, so still just one database query.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Create a second site on the network.
+		switch_to_blog( $this->factory->blog->create() );
+
+		// We have to create a points type, because they are per-site in this case.
+		$this->create_points_type();
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache isn't good on this site, should be a new query.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		// Again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache is still good.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		restore_current_blog();
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache is still good.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
+	 * Test that the cache is network-wide when the plugin is network active.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_network_wide_when_network_active() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must be network active on multisite.' );
+		}
+
+		$this->listen_for_filter( 'query', array( $this, 'is_top_users_query' ) );
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Run the query again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Should have used the cache, so still just one database query.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Create a second site on the network.
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache should still be good.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		restore_current_blog();
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache is still good.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
 	 * Test that excluded users are excluded from the top users.
 	 *
 	 * @since 1.6.1
@@ -191,7 +289,12 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 		// Prime the cache.
 		wordpoints_points_get_top_users( 3, 'points' );
 
-		wp_delete_user( $this->user_ids[0] );
+		// When network active the user has to be deleted completely.
+		if ( is_wordpoints_network_active() ) {
+			wpmu_delete_user( $this->user_ids[0] );
+		} else {
+			wp_delete_user( $this->user_ids[0] );
+		}
 
 		$this->assertNotContains(
 			$this->user_ids[0]

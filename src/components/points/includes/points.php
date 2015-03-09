@@ -1051,9 +1051,20 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 			$exclude_users = 'WHERE `ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
 		}
 
+		$multisite_join = '';
+		if ( is_multisite() && ! is_wordpoints_network_active() ) {
+
+			$prefix = $wpdb->get_blog_prefix( get_current_blog_id() );
+
+			$multisite_join = "
+					INNER JOIN `{$wpdb->usermeta}` AS `cap`
+						ON `users`.`ID` = `cap`.`user_ID`
+						AND `cap`.`meta_key` = '{$prefix}capabilities'";
+		}
+
 		/*
 		 * We can't use WP_User_Query here because the meta value must be converted
-		 * to a singed integer for ordering.
+		 * to a signed integer for ordering.
 		 *
 		 * (But see <https://core.trac.wordpress.org/ticket/27887>, fixed in 4.2).
 		 */
@@ -1065,8 +1076,9 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
                     LEFT JOIN `{$wpdb->usermeta}` AS `meta`
                     	ON `users`.`ID` = `meta`.`user_ID`
                         AND `meta`.`meta_key` = %s
+					{$multisite_join}
                     {$exclude_users}
-					ORDER BY COALESCE(CONVERT(`meta_value`, SIGNED INTEGER), 0) DESC
+					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC
 					LIMIT %d,%d
 				",
 				wordpoints_get_points_user_meta_key( $points_type ),

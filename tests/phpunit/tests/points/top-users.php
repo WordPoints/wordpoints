@@ -67,7 +67,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	}
 
 	/**
-	 * Test that the cache is works properly.
+	 * Test that the cache works properly.
 	 *
 	 * @since 1.5.0
 	 */
@@ -124,7 +124,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	 *
 	 * @since 1.6.1
 	 */
-	public function test_exlcluded_users_excluded() {
+	public function test_excluded_users_excluded() {
 
 		wordpoints_update_network_option(
 			'wordpoints_excluded_users'
@@ -140,6 +140,69 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 		$this->user_ids = array_values( $this->user_ids );
 
 		$this->assertEquals( $this->user_ids, $top_users );
+	}
+
+	/**
+	 * Test that the cache behaves correctly when a new user is added.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_after_user_added() {
+
+		// Run it so the cache is full.
+		wordpoints_points_get_top_users( 10, 'points' );
+
+		$user_id = $this->factory->user->create();
+
+		$this->assertEquals(
+			''
+			, get_user_meta(
+				$user_id
+				, wordpoints_get_points_user_meta_key( 'points' )
+				, true
+			)
+		);
+
+		$this->assertContains(
+			$user_id
+			, wordpoints_points_get_top_users( 10, 'points' )
+		);
+	}
+
+	/**
+	 * Test that the cache behaves correctly when a new user is added and given points.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_after_user_with_points_added() {
+
+		// Run it so the cache is full.
+		wordpoints_points_get_top_users( 2, 'points' );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 500, 'points', 'test' );
+
+		$top_users = wordpoints_points_get_top_users( 2, 'points' );
+		$this->assertEquals( $user_id, $top_users[0] );
+	}
+
+	/**
+	 * Test that the cache is cleared when a user is deleted.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_cleared_when_user_deleted() {
+
+		// Prime the cache.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		wp_delete_user( $this->user_ids[0] );
+
+		$this->assertNotContains(
+			$this->user_ids[0]
+			, wordpoints_points_get_top_users( 3, 'points' )
+		);
 	}
 
 	/**

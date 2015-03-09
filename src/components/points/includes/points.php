@@ -1230,4 +1230,52 @@ function wordpoints_clean_points_top_users_cache( $user_id, $points, $points_typ
 }
 add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cache', 10, 3 );
 
+/**
+ * Clear the top users cache when a new user is added, if needed.
+ *
+ * @since 1.10.2
+ */
+function wordpoints_clean_points_top_users_cache_user_register() {
+
+	foreach ( wordpoints_get_points_types() as $slug => $unused ) {
+
+		$cache = wp_cache_get( $slug, 'wordpoints_points_top_users' );
+
+		// If there aren't fewer users than the cache holds, we don't need to clear it.
+		if ( ! is_array( $cache ) || ! $cache['is_max'] ) {
+			continue;
+		}
+
+		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
+	}
+}
+add_action( 'user_register', 'wordpoints_clean_points_top_users_cache_user_register' );
+
+/**
+ * Clear the top users cache when a user is deleted.
+ *
+ * @since 1.10.2
+ *
+ * @param int $user_id The ID of the user who was deleted.
+ */
+function wordpoints_clean_points_top_users_cache_user_deleted( $user_id ) {
+
+	foreach ( wordpoints_get_points_types() as $slug => $unused ) {
+
+		$cache = wp_cache_get( $slug, 'wordpoints_points_top_users' );
+
+		// If this user isn't in the cache, we don't need to clear it.
+		if ( ! is_array( $cache ) || ! in_array( $user_id, $cache['top_users'] ) ) {
+			continue;
+		}
+
+		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
+	}
+}
+if ( ! is_multisite() || is_wordpoints_network_active() ) {
+	add_action( 'deleted_user', 'wordpoints_clean_points_top_users_cache_user_deleted' );
+} else {
+	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
+}
+
 // EOF

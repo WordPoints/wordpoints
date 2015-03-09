@@ -234,7 +234,7 @@ function wordpoints_delete_points_type( $slug ) {
  *
  * The number of points a user has is stored in the user meta. This function was
  * introduced to allow the meta_key for that value to be retrieved easily internally.
- * If the meta_key setting for the ponits type is set, that is used. Otherwise the
+ * If the meta_key setting for the points type is set, that is used. Otherwise the
  * meta key is "wordpoints_points-{$type}" for single sites, and when network
  * active on multisite; and when not network-active on multisite, the key is prefixed
  * with the blog's table prefix, to avoid collisions from different blogs.
@@ -329,7 +329,7 @@ function wordpoints_get_points( $user_id, $type ) {
  *
  * That would set the minimum for the points type with the slug 'score' to 5.
  *
- * The mimimum is cached, so it will only be generated once per points type per
+ * The minimum is cached, so it will only be generated once per points type per
  * script execution.
  *
  * @since 1.0.0
@@ -361,7 +361,7 @@ function wordpoints_get_points_minimum( $type ) {
  * Format points value for display.
  *
  * This function should always be used when displaying points. It will return the
- * integer value of $points formated for display as desired by the user (with the
+ * integer value of $points formatted for display as desired by the user (with the
  * prefix and suffix, for instance). If $points or $type are invalid, $points will
  * be returned unformatted.
  *
@@ -398,7 +398,7 @@ function wordpoints_format_points( $points, $type, $context ) {
 }
 
 /**
- * Get a user's points preformmated for display.
+ * Get a user's points preformatted for display.
  *
  * @since 1.0.0
  *

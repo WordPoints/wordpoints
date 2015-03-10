@@ -122,6 +122,23 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+= 1.10.2 — (~6 hrs) =
+* Fixed: There was a bug on multisite causing users from all sites to be displayed in
+the top users table, instead of just users from the current site. Your users will now
+stay out of each others leader boards.
+* Fixed: There was a bug in the ranks component which would cause a user to be
+promoted two ranks when they should have only been promoted one. Your users will no
+longer cut rank on you.
+* Fixed: There was a bug in the top users table that caused users who hadn't been
+awarded any points yet to be ignored, even when they should have been displayed. Your
+points-less users will no longer have to feel left out.
+* Fixed: There was another bug in the top users table that would only affect sites
+where users are allowed to have negative points. Any users with negative points would
+be displayed above users who had never been awarded any points.
+* Fixed: There was another bug in the top users table (yes, really!), for those using
+persistent caching. The cache for the top users wouldn't be cleared when a user
+registered or was deleted. This could cause the table to become stale in some cases.
+You no longer have to feel nostalgia when you view the leader board.
 
 = 1.10.1 — (~1/2 hr) =
 * Fixed: The My Points widget no longer displays points logs to logged-out users.
@@ -265,6 +282,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.2 =
+* Fixes some bugs in the top users table, and also one causing users to be promoted
+to the wrong rank.
 
 = 1.10.1 =
 * Fixes a bug that caused the My Points widget to display points logs even when the

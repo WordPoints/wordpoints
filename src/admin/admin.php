@@ -572,4 +572,30 @@ function wordpoints_admin_notices() {
 }
 add_action( 'admin_notices', 'wordpoints_admin_notices' );
 
+/**
+ * Save the screen options.
+ *
+ * @since 2.0.0
+ *
+ * @param mixed  $sanitized The sanitized option value, or false if not sanitized.
+ * @param string $option    The option being saved.
+ * @param mixed  $value     The raw value supplied by the user.
+ *
+ * @return mixed The option value, sanitized if it is for one of the plugin's screens.
+ */
+function wordpoints_admin_set_screen_option( $sanitized, $option, $value ) {
+
+	switch ( $option ) {
+
+		case 'wordpoints_page_wordpoints_modules_per_page':
+		case 'wordpoints_page_wordpoints_modules_network_per_page':
+		case 'toplevel_page_wordpoints_modules_per_page':
+			$sanitized = wordpoints_posint( $value );
+		break;
+	}
+
+	return $sanitized;
+}
+add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
+
 // EOF

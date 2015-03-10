@@ -1048,14 +1048,25 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 
 		$exclude_users = '';
 		if ( ! empty( $excluded ) ) {
-			$exclude_users = 'WHERE `user_ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
+			$exclude_users = 'WHERE `ID` NOT IN (' . wordpoints_prepare__in( $excluded, '%d' ) . ')';
+		}
+
+		$multisite_join = '';
+		if ( is_multisite() && ! is_wordpoints_network_active() ) {
+
+			$prefix = $wpdb->get_blog_prefix( get_current_blog_id() );
+
+			$multisite_join = "
+					INNER JOIN `{$wpdb->usermeta}` AS `cap`
+						ON `users`.`ID` = `cap`.`user_ID`
+						AND `cap`.`meta_key` = '{$prefix}capabilities'";
 		}
 
 		/*
 		 * We can't use WP_User_Query here because the meta value must be converted
-		 * to a singed integer for ordering.
+		 * to a signed integer for ordering.
 		 *
-		 * (But see <https://core.trac.wordpress.org/ticket/27887>).
+		 * (But see <https://core.trac.wordpress.org/ticket/27887>, fixed in 4.2).
 		 */
 		$top_users = $wpdb->get_col(
 			$wpdb->prepare(
@@ -1065,8 +1076,9 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
                     LEFT JOIN `{$wpdb->usermeta}` AS `meta`
                     	ON `users`.`ID` = `meta`.`user_ID`
                         AND `meta`.`meta_key` = %s
+					{$multisite_join}
                     {$exclude_users}
-					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
+					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC
 					LIMIT %d,%d
 				",
 				wordpoints_get_points_user_meta_key( $points_type ),
@@ -1229,5 +1241,53 @@ function wordpoints_clean_points_top_users_cache( $user_id, $points, $points_typ
 	wp_cache_delete( $points_type, 'wordpoints_points_top_users' );
 }
 add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cache', 10, 3 );
+
+/**
+ * Clear the top users cache when a new user is added, if needed.
+ *
+ * @since 1.10.2
+ */
+function wordpoints_clean_points_top_users_cache_user_register() {
+
+	foreach ( wordpoints_get_points_types() as $slug => $unused ) {
+
+		$cache = wp_cache_get( $slug, 'wordpoints_points_top_users' );
+
+		// If there aren't fewer users than the cache holds, we don't need to clear it.
+		if ( ! is_array( $cache ) || ! $cache['is_max'] ) {
+			continue;
+		}
+
+		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
+	}
+}
+add_action( 'user_register', 'wordpoints_clean_points_top_users_cache_user_register' );
+
+/**
+ * Clear the top users cache when a user is deleted.
+ *
+ * @since 1.10.2
+ *
+ * @param int $user_id The ID of the user who was deleted.
+ */
+function wordpoints_clean_points_top_users_cache_user_deleted( $user_id ) {
+
+	foreach ( wordpoints_get_points_types() as $slug => $unused ) {
+
+		$cache = wp_cache_get( $slug, 'wordpoints_points_top_users' );
+
+		// If this user isn't in the cache, we don't need to clear it.
+		if ( ! is_array( $cache ) || ! in_array( $user_id, $cache['top_users'] ) ) {
+			continue;
+		}
+
+		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
+	}
+}
+if ( ! is_multisite() || is_wordpoints_network_active() ) {
+	add_action( 'deleted_user', 'wordpoints_clean_points_top_users_cache_user_deleted' );
+} else {
+	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
+}
 
 // EOF

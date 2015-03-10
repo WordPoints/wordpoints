@@ -283,7 +283,7 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 	 *
 	 * There was a bug that would cause a user to skip a rank when they shouldn't.
 	 *
-	 * @since 1.7.0
+	 * @since 1.10.2
 	 */
 	public function test_transitions_to_correct_rank() {
 

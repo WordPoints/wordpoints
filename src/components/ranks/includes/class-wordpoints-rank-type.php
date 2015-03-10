@@ -258,22 +258,17 @@ abstract class WordPoints_Rank_Type {
 
 		$next_rank = $rank->get_adjacent( 1 );
 
-		if ( ! $next_rank || $next_rank->type !== $this->slug ) {
+		if ( ! $next_rank ) {
 			return $rank;
 		}
 
-		if ( ! $this->can_transition_user_rank( $user_id, $next_rank, $args ) ) {
+		$rank_type = WordPoints_Rank_Types::get_type( $next_rank->type );
+
+		if ( ! $rank_type->can_transition_user_rank( $user_id, $next_rank, $args ) ) {
 			return $rank;
 		}
 
-		$next_rank_2 = $next_rank->get_adjacent( 1 );
-
-		if ( ! $next_rank_2 ) {
-			return $next_rank;
-		}
-
-		return WordPoints_Rank_Types::get_type( $next_rank_2->type )
-			->maybe_increase_user_rank( $user_id, $next_rank_2, $args );
+		return $this->maybe_increase_user_rank( $user_id, $next_rank, $args );
 	}
 
 	/**
@@ -289,11 +284,9 @@ abstract class WordPoints_Rank_Type {
 	 */
 	final public function maybe_decrease_user_rank( $user_id, $rank, array $args = array() ) {
 
-		if ( $rank->type !== $this->slug ) {
-			return $rank;
-		}
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
 
-		if ( $this->can_transition_user_rank( $user_id, $rank, $args ) ) {
+		if ( $rank_type->can_transition_user_rank( $user_id, $rank, $args ) ) {
 			return $rank;
 		}
 
@@ -303,8 +296,7 @@ abstract class WordPoints_Rank_Type {
 			return $rank;
 		}
 
-		return WordPoints_Rank_Types::get_type( $previous_rank->type )
-			->maybe_decrease_user_rank( $user_id, $previous_rank, $args );
+		return $this->maybe_decrease_user_rank( $user_id, $previous_rank, $args );
 	}
 
 	//

@@ -279,6 +279,41 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
 	}
+
+	/**
+	 * Test that the user isn't awarded a rank higher than they should be.
+	 *
+	 * There was a bug that would cause a user to skip a rank when they shouldn't.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_transitions_to_correct_rank() {
+
+		$user_id = $this->factory->user->create();
+
+		$rank_id = wordpoints_add_rank(
+			'Rank 1'
+			, 'points-points'
+			, 'points_type-points'
+			, 1
+			, array( 'points_type' => 'points', 'points' => 100 )
+		);
+
+		wordpoints_add_rank(
+			'Rank 2'
+			, 'points-points'
+			, 'points_type-points'
+			, 2
+			, array( 'points_type' => 'points', 'points' => 1000 )
+		);
+
+		wordpoints_add_points( $user_id, 100, 'points', 'test' );
+
+		$this->assertEquals(
+			$rank_id
+			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
+		);
+	}
 }
 
 // EOF

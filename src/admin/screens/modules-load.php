@@ -7,7 +7,7 @@
  * @since 1.1.0
  */
 
-global $status;
+global $status, $wp_version;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';
@@ -444,7 +444,11 @@ switch ( $action ) {
 		do_action( "wordpoints_modules_screen-{$action}" );
 }
 
-add_screen_option( 'per_page', array( 'label' => _x( 'Modules', 'modules per page (screen options)', 'wordpoints' ), 'default' => 999 ) );
+if ( version_compare( $wp_version, '4.2-alpha-31546', '<=' ) ) {
+	add_screen_option( 'per_page', array( 'label' => _x( 'Modules', 'modules per page (screen options)', 'wordpoints' ), 'default' => 999 ) );
+} else {
+	add_screen_option( 'per_page', array( 'default' => 999 ) );
+}
 
 $screen = get_current_screen();
 

@@ -63,6 +63,17 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected $updating_to;
 
+	/**
+	 * The current context being un/installed/updated.
+	 *
+	 * Possible values: 'single', 'site', 'network'.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @type string $context
+	 */
+	protected $context;
+
 	//
 	// Public Methods.
 	//
@@ -89,7 +100,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		if ( is_multisite() ) {
 
+			$this->context = 'network';
 			$this->install_network();
+
+			$this->context = 'site';
 
 			if ( $network ) {
 
@@ -125,6 +139,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		} else {
 
+			$this->context = 'single';
 			$this->install_single();
 		}
 	}
@@ -143,6 +158,8 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( is_multisite() ) {
 
 			if ( $this->do_per_site_uninstall() ) {
+
+				$this->context = 'site';
 
 				$original_blog_id = get_current_blog_id();
 
@@ -164,6 +181,7 @@ abstract class WordPoints_Un_Installer_Base {
 				$GLOBALS['switched'] = false;
 			}
 
+			$this->context = 'network';
 			$this->uninstall_network();
 
 			delete_site_option( "{$this->option_prefix}installed_sites" );
@@ -172,6 +190,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		} else {
 
+			$this->context = 'single';
 			$this->uninstall_single();
 		}
 	}
@@ -223,7 +242,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		if ( is_multisite() ) {
 
+			$this->context = 'network';
 			$this->update_( 'network', $this->get_updates_for( 'network' ) );
+
+			$this->context = 'site';
 
 			if ( $this->network_wide ) {
 
@@ -258,6 +280,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		} else {
 
+			$this->context = 'single';
 			$this->update_( 'single', $this->get_updates_for( 'single' ) );
 		}
 	}

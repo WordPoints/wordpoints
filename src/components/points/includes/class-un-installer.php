@@ -65,6 +65,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_comment_points_hook',
 				'wordpoints_periodic_points_hook',
 			),
+			'user_meta' => array(
+				'wordpoints_points_period_start',
+			),
 		),
 	);
 
@@ -72,18 +75,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected $custom_caps_getter = 'wordpoints_points_get_custom_caps';
-
-	/**
-	 * The points types the user has created.
-	 *
-	 * Used during uninstall to keep from having to retrieve them when looping over
-	 * sites on multisite.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $points_types
-	 */
-	protected $points_types;
 
 	/**
 	 * The network mode of the points hooks before the updates began.
@@ -101,9 +92,14 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function before_uninstall() {
 
-		parent::before_uninstall();
+		foreach ( wordpoints_get_points_types() as $slug => $unused ) {
 
-		$this->points_types = wordpoints_get_points_types();
+			$this->uninstall['universal']['user_meta'][] = "wordpoints_points-{$slug}";
+			$this->uninstall['universal']['comment_meta'][] = "wordpoints_last_status-{$slug}";
+		}
+
+		// We do this after the above, so that we can take advantage of shortcuts.
+		parent::before_uninstall();
 	}
 
 	/**
@@ -220,60 +216,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
 		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
 		require_once WORDPOINTS_DIR . '/components/points/includes/points.php';
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_network() {
-
-		parent::uninstall_network();
-
-		$this->uninstall_points_main();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_site() {
-
-		parent::uninstall_site();
-
-		global $wpdb;
-
-		foreach ( $this->points_types as $slug => $settings ) {
-
-			delete_metadata( 'comment', 0, "wordpoints_last_status-{$slug}", '', true );
-
-			$prefix = $wpdb->get_blog_prefix();
-			delete_metadata( 'user', 0, $prefix . "wordpoints_points-{$slug}", '', true );
-			delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
-		}
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		parent::uninstall_single();
-
-		$this->uninstall_points_main();
-	}
-
-	/**
-	 * Uninstall the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_points_main() {
-
-		foreach ( $this->points_types as $slug => $settings ) {
-
-			delete_metadata( 'user', 0, "wordpoints_points-{$slug}", '', true );
-		}
-
-		delete_metadata( 'user', 0, 'wordpoints_points_period_start', '', true );
 	}
 
 	/**

@@ -31,6 +31,19 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $uninstall = array(
+		'global' => array(
+			'tables' => array(
+				'wordpoints_ranks',
+				'wordpoints_rankmeta',
+				'wordpoints_user_ranks',
+			),
+		),
+	);
+
+	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
@@ -92,14 +105,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected function uninstall_network() {
-
-		$this->uninstall_ranks_main();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function uninstall_site() {
 
 		global $wpdb;
@@ -122,22 +127,9 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_single() {
 
-		$this->uninstall_ranks_main();
+		parent::uninstall_single();
+
 		$this->uninstall_site();
-	}
-
-	/**
-	 * Uninstall the main portion of the ranks component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_ranks_main() {
-
-		global $wpdb;
-
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_ranks . '`' );
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_rankmeta . '`' );
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_user_ranks . '`' );
 	}
 
 	/**

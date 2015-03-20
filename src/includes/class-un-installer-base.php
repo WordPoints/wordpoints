@@ -74,6 +74,37 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected $context;
 
+	/**
+	 * List of things to uninstall.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @type array[] $uninstall {
+	 *       Different kinds of things to uninstall.
+	 *
+	 *       @type array[] $single {
+	 *             Things to be uninstalled on a single site (non-multisite) install.
+	 *
+	 *             @type string[] $user_meta A list of keys for user metadata to delete.
+	 *             @type string[] $options   A list of options to delete.
+	 *       }
+	 *       @type array[] $site Things to be uninstalled on each site in a multisite
+	 *                           network. See $single for list of keys.
+	 *       @type array[] $network Things to be uninstalled on a multisite network.
+	 *                              See $single for list of keys. $options refers to
+	 *                              network options.
+	 *       @type array[] $local Things to be uninstalled on each site in a multisite
+	 *                            network, and on a single site install. See $single
+	 *                            for list of keys.
+	 *       @type array[] $global Things to be uninstalled on a multisite network
+	 *                             and on a single site install. See $single for list
+	 *                             of keys.
+	 *       @type array[] $universal Things to be uninstalled for $single, $site,
+	 *                                and $network. See $single for list of keys.
+	 * }
+	 */
+	protected $uninstall = array();
+
 	//
 	// Public Methods.
 	//
@@ -471,7 +502,50 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 1.8.0
 	 */
-	protected function before_uninstall() {}
+	protected function before_uninstall() {
+
+		$this->map_uninstall_shortcuts();
+	}
+
+	/**
+	 * Map the uninstall shortcuts to their canonical elements.
+	 *
+	 * For the list of {@see self::$unisntall} configuration arguments, some
+	 * shortcuts are provided. These reduce duplication across the canonical
+	 * elements, 'single', 'site', and 'network'. These shortcuts make it possible
+	 * to define, e.g., an option to be uninstalled on a single site and as a network
+	 * option on multisite installs in just a single location, using the 'global'
+	 * shortcut, rather than having to add it to both the 'single' and 'network'
+	 * arrays.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function map_uninstall_shortcuts() {
+
+		// shortcut => canonicals
+		$map = array(
+			'local'     => array( 'single', 'site', /*  -  */ ),
+			'global'    => array( 'single', /* - */ 'network' ),
+			'universal' => array( 'single', 'site', 'network' ),
+		);
+
+		$this->uninstall = array_merge(
+			array_fill_keys(
+				array( 'single', 'site', 'network', 'local', 'global', 'universal' )
+				, array()
+			)
+			, $this->uninstall
+		);
+
+		foreach ( $map as $shortcut => $canonicals ) {
+			foreach ( $canonicals as $canonical ) {
+				$this->uninstall[ $canonical ] = array_merge_recursive(
+					$this->uninstall[ $canonical ]
+					, $this->uninstall[ $shortcut ]
+				);
+			}
+		}
+	}
 
 	/**
 	 * Run before updating.
@@ -506,6 +580,66 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $versions as $version ) {
 			$this->{"update_{$type}_to_{$version}"}();
+		}
+	}
+
+	/**
+	 * Run the default uninstall routine for a given context.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $type The type of uninstallation to perform.
+	 */
+	protected function uninstall_( $type ) {
+
+		if ( empty( $this->uninstall[ $type ] ) ) {
+			return;
+		}
+
+		$uninstall = array_merge(
+			array( 'user_meta' => array(), 'options' => array() )
+			, $this->uninstall[ $type ]
+		);
+
+		foreach ( $uninstall['user_meta'] as $meta_key ) {
+			$this->uninstall_metadata( 'user', $meta_key );
+		}
+
+		foreach ( $uninstall['options'] as $option ) {
+			$this->uninstall_option( $option );
+		}
+	}
+
+	/**
+	 * Uninstall metadata for all objects by key.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $type The type of metadata to uninstall, e.g., 'user', 'post'.
+	 * @param string $key  The metadata key to delete.
+	 */
+	protected function uninstall_metadata( $type, $key ) {
+
+		if ( 'user' === $type && 'site' === $this->context ) {
+			$key = $GLOBALS['wpdb']->get_blog_prefix() . $key;
+		}
+
+		delete_metadata( $type, 0, $key, '', true );
+	}
+
+	/**
+	 * Uninstall an option.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $option The option to uninstall.
+	 */
+	protected function uninstall_option( $option ) {
+
+		if ( 'network' === $this->context ) {
+			delete_site_option( $option );
+		} else {
+			delete_option( $option );
 		}
 	}
 
@@ -557,8 +691,14 @@ abstract class WordPoints_Un_Installer_Base {
 	 * whole network. For example, it would delete any "site" (network-wide) options.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
-	abstract protected function uninstall_network();
+	protected function uninstall_network() {
+
+		if ( ! empty( $this->uninstall['network'] ) ) {
+			$this->uninstall_( 'network' );
+		}
+	}
 
 	/**
 	 * Uninstall from a single site on the network.
@@ -567,8 +707,14 @@ abstract class WordPoints_Un_Installer_Base {
 	 * will be the current site when this method is called.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
-	abstract protected function uninstall_site();
+	protected function uninstall_site() {
+
+		if ( ! empty( $this->uninstall['site'] ) ) {
+			$this->uninstall_( 'site' );
+		}
+	}
 
 	/**
 	 * Uninstall from a single site.
@@ -577,8 +723,14 @@ abstract class WordPoints_Un_Installer_Base {
 	 * uninstall the entity.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
-	abstract protected function uninstall_single();
+	protected function uninstall_single() {
+
+		if ( ! empty( $this->uninstall['single'] ) ) {
+			$this->uninstall_( 'single' );
+		}
+	}
 }
 
 // EOF

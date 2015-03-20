@@ -63,7 +63,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @type array $capabilties
+	 * @type array $capabilities
 	 */
 	protected $capabilities;
 

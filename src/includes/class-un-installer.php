@@ -56,16 +56,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
-	 * The plugin's capabilities.
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $capabilities
+	 * @since 2.0.0
 	 */
-	protected $capabilities;
+	protected $caps_getter = 'wordpoints_get_custom_caps';
 
 	/**
 	 * @since 1.8.0
@@ -77,8 +70,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		// Check if the plugin has been activated/installed before.
 		$installed = (bool) wordpoints_get_network_option( 'wordpoints_data' );
-
-		$this->capabilities = wordpoints_get_custom_caps();
 
 		parent::install( $network );
 
@@ -95,23 +86,13 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected function before_uninstall() {
-
-		parent::before_uninstall();
-
-		$this->capabilities = array_keys( wordpoints_get_custom_caps() );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function before_update() {
+
+		parent::before_update();
 
 		if ( $this->network_wide ) {
 			unset( $this->updates['1_8_0'] );
 		}
-
-		$this->capabilities = wordpoints_get_custom_caps();
 	}
 
 	/**
@@ -133,17 +114,11 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected function install_site() {
-		wordpoints_add_custom_caps( $this->capabilities );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function install_single() {
 
+		parent::install_single();
+
 		$this->install_network();
-		$this->install_site();
 	}
 
 	/**
@@ -167,23 +142,12 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected function uninstall_site() {
-
-		parent::uninstall_site();
-
-		wordpoints_remove_custom_caps( $this->capabilities );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function uninstall_single() {
 
 		parent::uninstall_single();
 
 		$this->uninstall_modules();
 		$this->uninstall_components();
-		$this->uninstall_site();
 	}
 
 	/**

@@ -82,6 +82,13 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @type array[] $uninstall {
 	 *       Different kinds of things to uninstall.
 	 *
+	 *       @type array[] $list_tables {
+	 *             List tables to uninstall, keyed by screen slug.
+	 *
+	 *             @type string   $parent  The slug of the parent screen.
+	 *             @type string[] $options The options provided by this screen.
+	 *                                     Defaults to [ 'per_page' ].
+	 *       }
 	 *       @type array[] $single {
 	 *             Things to be uninstalled on a single site (non-multisite) install.
 	 *
@@ -504,7 +511,80 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function before_uninstall() {
 
+		$this->prepare_uninstall_list_tables();
+
+		// This *must* happen *after* the list tables args are parsed.
 		$this->map_uninstall_shortcuts();
+	}
+
+	/**
+	 * Prepare to uninstall list tables.
+	 *
+	 * The 'list_tables' element of the {@see self::$uninstall} configuration array
+	 * can provide a list of screens which provide list tables. In this way it acts
+	 * as an easy shortcut, rather than all of the metadata keys associated with a
+	 * list table having to be supplied in the 'user_meta' element. Duplication is
+	 * thus reduced, and it is not longer necessary to mess with the complexity of
+	 * list table options.
+	 *
+	 * The 'list_tables' element is only a shortcut though, and this function takes
+	 * the values provided in it and adds the appropriate entries to the 'user_meta'
+	 * to uninstall.
+	 *
+	 * List tables have two main configuration options, which are both saves as user
+	 * metadata:
+	 * - Hidden Columns
+	 * - Screen Options
+	 *
+	 * The hidden columns metadata is removed by default, as well as the 'per_page'
+	 * screen options.
+	 *
+	 * A note on screen options: they are retrieved with get_user_option(), however,
+	 * they are saved by update_user_option() with the $global argument set to true.
+	 * Because of this, even on multisite, they are saved like regular user metadata,
+	 * which is network wide, *not* prefixed for each site.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function prepare_uninstall_list_tables() {
+
+		if ( ! isset( $this->uninstall['list_tables'] ) ) {
+			return;
+		}
+
+		// We define the default args outside the loop, for micro-optimization.
+		$defaults = array(
+			'parent' => 'wordpoints_page',
+			'options' => array( 'per_page' ),
+		);
+
+		// Loop through all of the list table screens.
+		foreach ( $this->uninstall['list_tables'] as $screen_id => $args ) {
+
+			$args = array_merge( $defaults, $args );
+
+			// The parent page is usually the same on a multisite site...
+			$site_parent = $args['parent'];
+
+			// ...But we need to handle the special case of the modules screen.
+			if ( 'wordpoints_modules' === $screen_id ) {
+				$site_parent = 'toplevel_page';
+			}
+
+			// Each user can hide specific columns of the table.
+			$this->uninstall['single']['user_meta'][]  = "manage{$args['parent']}_{$screen_id}columnshidden";
+			$this->uninstall['network']['user_meta'][] = "manage{$site_parent}_{$screen_id}columnshidden";
+			$this->uninstall['network']['user_meta'][] = "manage{$args['parent']}_{$screen_id}-networkcolumnshidden";
+
+			// Loop through each of the other options provided by this list table.
+			foreach ( $args['options'] as $option ) {
+
+				// Each user gets to set the options to their liking.
+				$this->uninstall['single']['user_meta'][]  = "{$args['parent']}_{$screen_id}_{$option}";
+				$this->uninstall['network']['user_meta'][] = "{$site_parent}_{$screen_id}_{$option}";
+				$this->uninstall['network']['user_meta'][] = "{$args['parent']}_{$screen_id}_network_{$option}";
+			}
+		}
 	}
 
 	/**

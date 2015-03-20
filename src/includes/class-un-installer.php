@@ -171,8 +171,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		parent::uninstall_site();
 
-		wp_cache_delete( 'wordpoints_modules' );
-
 		wordpoints_remove_custom_caps( $this->capabilities );
 	}
 

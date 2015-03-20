@@ -109,6 +109,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 *             @type string[] $points_hooks A list of points hooks to uninstall.
 	 *             @type string[] $tables       A list of tables to uninstall. Base
 	 *                                          DB prefix will be prepended.
+	 *             @type string[] $comment_meta A list of keys for comment metadata
+	 *                                          to delete.
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
 	 *                           network. See $single for list of keys. Note that
@@ -830,7 +832,7 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$uninstall = array_merge(
-			array( 'user_meta' => array(), 'options' => array(), 'tables' => array() )
+			array( 'user_meta' => array(), 'options' => array(), 'tables' => array(), 'comment_meta' => array() )
 			, $this->uninstall[ $type ]
 		);
 
@@ -848,6 +850,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['tables'] as $table ) {
 			$this->uninstall_table( $table );
+		}
+
+		foreach ( $uninstall['comment_meta'] as $meta_key ) {
+			$this->uninstall_metadata( 'comment', $meta_key );
 		}
 	}
 

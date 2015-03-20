@@ -107,9 +107,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 *             @type string[] $options   A list of options to delete.
 	 *             @type string[] $widgets   A list of widget slugs to uninstall.
 	 *             @type string[] $points_hooks A list of points hooks to uninstall.
+	 *             @type string[] $tables       A list of tables to uninstall. Base
+	 *                                          DB prefix will be prepended.
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
-	 *                           network. See $single for list of keys.
+	 *                           network. See $single for list of keys. Note that
+	 *                           'tables' will be prepended with blog prefix instead.
 	 *       @type array[] $network Things to be uninstalled on a multisite network.
 	 *                              See $single for list of keys. $options refers to
 	 *                              network options.
@@ -827,7 +830,7 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$uninstall = array_merge(
-			array( 'user_meta' => array(), 'options' => array() )
+			array( 'user_meta' => array(), 'options' => array(), 'tables' => array() )
 			, $this->uninstall[ $type ]
 		);
 
@@ -841,6 +844,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['options'] as $option ) {
 			$this->uninstall_option( $option );
+		}
+
+		foreach ( $uninstall['tables'] as $table ) {
+			$this->uninstall_table( $table );
 		}
 	}
 
@@ -911,6 +918,27 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_points_hook( $id_base ) {
 
 		$this->uninstall_option( "wordpoints_hook-{$id_base}" );
+	}
+
+	/**
+	 * Uninstall a table from the database.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $table The name of the table to uninstall, sans DB prefix.
+	 */
+	protected function uninstall_table( $table ) {
+
+		global $wpdb;
+
+		// Null will use the current blog's prefix, 0 the base prefix.
+		if ( 'site' === $this->context ) {
+			$site_id = null;
+		} else {
+			$site_id = 0;
+		}
+
+		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->get_blog_prefix( $site_id ) . $table . '`' );
 	}
 
 	//

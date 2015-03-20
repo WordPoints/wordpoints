@@ -64,6 +64,17 @@ abstract class WordPoints_Un_Installer_Base {
 	protected $updating_to;
 
 	/**
+	 * The action currently being performed.
+	 *
+	 * Possible values: 'install', 'update', 'uninstall'.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @type string $action
+	 */
+	protected $action;
+
+	/**
 	 * The current context being un/installed/updated.
 	 *
 	 * Possible values: 'single', 'site', 'network'.
@@ -112,6 +123,36 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected $uninstall = array();
 
+	/**
+	 * The function to use to get the user capabilities used by this entity.
+	 *
+	 * The function should return an array of capabilities of the format processed
+	 * by {@see wordpoints_add_custom_caps()}.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @type callable $caps_getter
+	 */
+	protected $caps_getter;
+
+	/**
+	 * The entity's capabilities.
+	 *
+	 * Used to hold the list of capabilities during install, update, and uninstall,
+	 * so that they don't have to be retrieved all over again for each site (if
+	 * multisite).
+	 *
+	 * Note that the format of the array is different in uninstall than during
+	 * install and update. During install the array is of the format needed by {@see
+	 * wordpoints_add_custom_caps()}, but during uninstall array_keys() is applied to
+	 * get the form needed by {@see wordpoints_remove_custom_caps()}.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @type array $capabilities
+	 */
+	protected $capabilities;
+
 	//
 	// Public Methods.
 	//
@@ -124,6 +165,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @param bool $network Whether the install should be network-wide on multisite.
 	 */
 	public function install( $network ) {
+
+		$this->action = 'install';
 
 		$this->network_wide = $network;
 
@@ -189,6 +232,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	public function uninstall() {
 
+		$this->action = 'uninstall';
+
 		$this->load_dependencies();
 
 		$this->before_uninstall();
@@ -244,6 +289,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 *                        state of WordPoints itself.
 	 */
 	public function update( $from, $to, $network = null ) {
+
+		$this->action = 'update';
 
 		if ( null === $network ) {
 			$network = is_wordpoints_network_active();
@@ -498,11 +545,44 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Load the capabilities of the entity being un/install/updated, if needed.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function maybe_load_capabilities() {
+
+		if ( empty( $this->caps_getter ) ) {
+			return;
+		}
+
+		$this->capabilities = call_user_func( $this->caps_getter );
+
+		if ( 'uninstall' === $this->action ) {
+			$this->capabilities = array_keys( $this->capabilities );
+			$this->uninstall['local']['capabilities'] = true;
+		}
+	}
+
+	/**
 	 * Run before installing.
 	 *
 	 * @since 1.8.0
 	 */
-	protected function before_install() {}
+	protected function before_install() {
+		$this->maybe_load_capabilities();
+	}
+
+	/**
+	 * Install capabilities on the current site.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function install_capabilities() {
+
+		if ( ! empty( $this->capabilities ) ) {
+			wordpoints_add_custom_caps( $this->capabilities );
+		}
+	}
 
 	/**
 	 * Run before uninstalling, but after loading dependencies.
@@ -510,6 +590,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_uninstall() {
+
+		$this->maybe_load_capabilities();
 
 		$this->prepare_uninstall_list_tables();
 
@@ -632,7 +714,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 1.8.0
 	 */
-	protected function before_update() {}
+	protected function before_update() {
+		$this->maybe_load_capabilities();
+	}
 
 	/**
 	 * Get the versions that request a given type of update.
@@ -681,6 +765,10 @@ abstract class WordPoints_Un_Installer_Base {
 			, $this->uninstall[ $type ]
 		);
 
+		if ( ! empty( $uninstall['capabilities'] ) ) {
+			$this->uninstall_capabilities( $this->capabilities );
+		}
+
 		foreach ( $uninstall['user_meta'] as $meta_key ) {
 			$this->uninstall_metadata( 'user', $meta_key );
 		}
@@ -688,6 +776,18 @@ abstract class WordPoints_Un_Installer_Base {
 		foreach ( $uninstall['options'] as $option ) {
 			$this->uninstall_option( $option );
 		}
+	}
+
+	/**
+	 * Uninstall a list of capabilities.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string[] $caps The capabilities to uninstall.
+	 */
+	protected function uninstall_capabilities( $caps ) {
+
+		wordpoints_remove_custom_caps( $caps );
 	}
 
 	/**
@@ -745,7 +845,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 1.8.0
 	 */
-	abstract protected function install_site();
+	protected function install_site() {
+		$this->install_capabilities();
+	}
 
 	/**
 	 * Install on a single site.
@@ -755,7 +857,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 1.8.0
 	 */
-	abstract protected function install_single();
+	protected function install_single() {
+		$this->install_capabilities();
+	}
 
 	/**
 	 * Load any dependencies of the uninstall code.

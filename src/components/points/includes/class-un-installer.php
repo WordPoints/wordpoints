@@ -47,6 +47,12 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_points_widget',
 			),
 		),
+		'global' => array(
+			'tables' => array(
+				'wordpoints_points_logs',
+				'wordpoints_points_log_meta',
+			),
+		),
 		'universal' => array(
 			'options' => array(
 				'wordpoints_points_types',
@@ -261,11 +267,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function uninstall_points_main() {
-
-		global $wpdb;
-
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_logs . '`' );
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_log_meta . '`' );
 
 		foreach ( $this->points_types as $slug => $settings ) {
 

@@ -105,6 +105,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 *             @type string[] $user_meta A list of keys for user metadata to delete.
 	 *             @type string[] $options   A list of options to delete.
+	 *             @type string[] $widgets   A list of widget slugs to uninstall.
 	 *             @type string[] $points_hooks A list of points hooks to uninstall.
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
@@ -595,6 +596,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->maybe_load_capabilities();
 
 		$this->prepare_uninstall_list_tables();
+		$this->map_uninstall_shortcut( 'widgets', 'options', array( 'prefix' => 'widget_' ) );
 		$this->map_uninstall_shortcut( 'points_hooks', 'options', array( 'prefix' => 'wordpoints_hook-' ) );
 
 		// This *must* happen *after* the list tables args are parsed.
@@ -874,6 +876,18 @@ abstract class WordPoints_Un_Installer_Base {
 		} else {
 			delete_option( $option );
 		}
+	}
+
+	/**
+	 * Uninstall a widget.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $id_base The base ID of the widget to uninstall (class name).
+	 */
+	protected function uninstall_widget( $id_base ) {
+
+		$this->uninstall_option( "widget_{$id_base}" );
 	}
 
 	/**

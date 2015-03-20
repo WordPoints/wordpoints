@@ -37,6 +37,32 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $uninstall = array(
+		'local' => array(
+			'widgets' => array(
+				'wordpoints_points_logs_widget',
+				'wordpoints_top_users_widget',
+				'wordpoints_points_widget',
+			),
+		),
+		'universal' => array(
+			'options' => array(
+				'wordpoints_points_types',
+				'wordpoints_default_points_type',
+				'wordpoints_points_types_hooks',
+			),
+			'points_hooks' => array(
+				'wordpoints_registration_points_hook',
+				'wordpoints_post_points_hook',
+				'wordpoints_comment_points_hook',
+				'wordpoints_periodic_points_hook',
+			),
+		),
+	);
+
+	/**
 	 * The points types the user has created.
 	 *
 	 * Used during uninstall to keep from having to retrieve them when looping over
@@ -96,6 +122,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_uninstall() {
+
+		parent::before_uninstall();
 
 		$this->points_types = wordpoints_get_points_types();
 		$this->custom_caps_keys = array_keys( wordpoints_points_get_custom_caps() );
@@ -218,17 +246,17 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_network() {
 
-		$this->uninstall_points_main();
+		parent::uninstall_network();
 
-		delete_site_option( 'wordpoints_points_types' );
-		delete_site_option( 'wordpoints_default_points_type' );
-		delete_site_option( 'wordpoints_points_types_hooks' );
+		$this->uninstall_points_main();
 	}
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected function uninstall_site() {
+
+		parent::uninstall_site();
 
 		global $wpdb;
 
@@ -248,6 +276,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function uninstall_single() {
+
+		parent::uninstall_single();
 
 		$this->uninstall_points_main();
 		$this->uninstall_points_single();
@@ -279,19 +309,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function uninstall_points_single() {
-
-		delete_option( 'wordpoints_points_types' );
-		delete_option( 'wordpoints_default_points_type' );
-		delete_option( 'wordpoints_points_types_hooks' );
-
-		delete_option( 'wordpoints_hook-wordpoints_registration_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_post_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_comment_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_periodic_points_hook' );
-
-		delete_option( 'widget_wordpoints_points_logs_widget' );
-		delete_option( 'widget_wordpoints_top_users_widget' );
-		delete_option( 'widget_wordpoints_points_widget' );
 
 		wordpoints_remove_custom_caps( $this->custom_caps_keys );
 	}

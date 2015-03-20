@@ -29,6 +29,15 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $uninstall = array(
+		'list_tables' => array(
+			'wordpoints_modules' => array(),
+		),
+	);
+
+	/**
 	 * The plugin's capabilities.
 	 *
 	 * Used to hold the list of capabilities during install and uninstall, so that
@@ -69,6 +78,8 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_uninstall() {
+
+		parent::before_uninstall();
 
 		$this->capabilities = array_keys( wordpoints_get_custom_caps() );
 	}
@@ -129,6 +140,8 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_network() {
 
+		parent::uninstall_network();
+
 		$this->uninstall_modules();
 		$this->uninstall_components();
 
@@ -148,6 +161,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		delete_option( 'wordpoints_active_components' );
 		delete_option( 'wordpoints_excluded_users' );
 		delete_option( 'wordpoints_recently_activated_modules' );
+		parent::uninstall_site();
 
 		wp_cache_delete( 'wordpoints_modules' );
 
@@ -158,6 +172,8 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function uninstall_single() {
+
+		parent::uninstall_single();
 
 		$this->uninstall_modules();
 		$this->uninstall_components();

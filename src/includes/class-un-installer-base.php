@@ -105,6 +105,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 *             @type string[] $user_meta A list of keys for user metadata to delete.
 	 *             @type string[] $options   A list of options to delete.
+	 *             @type string[] $points_hooks A list of points hooks to uninstall.
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
 	 *                           network. See $single for list of keys.
@@ -594,6 +595,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->maybe_load_capabilities();
 
 		$this->prepare_uninstall_list_tables();
+		$this->map_uninstall_shortcut( 'points_hooks', 'options', array( 'prefix' => 'wordpoints_hook-' ) );
 
 		// This *must* happen *after* the list tables args are parsed.
 		$this->map_uninstall_shortcuts();
@@ -665,6 +667,57 @@ abstract class WordPoints_Un_Installer_Base {
 				$this->uninstall['single']['user_meta'][]  = "{$args['parent']}_{$screen_id}_{$option}";
 				$this->uninstall['network']['user_meta'][] = "{$site_parent}_{$screen_id}_{$option}";
 				$this->uninstall['network']['user_meta'][] = "{$args['parent']}_{$screen_id}_network_{$option}";
+			}
+		}
+	}
+
+	/**
+	 * Map an uninstall shortcut to its actual storage location.
+	 *
+	 * For an explanation of what this function does, let's look at an example:
+	 *
+	 * Points hooks settings are currently stored in the options table. The settings
+	 * for each type of points hook is stored in a separate option. The option name
+	 * is the class name (all lowercase'd) prefixed with 'wordpoints_hook-'. Within
+	 * the plugin, the storage and retrieval of hook settings is handled by core
+	 * functions, so how they are stored is not important to extensions. It is thus
+	 * possible that the method of storage could change in the future. To avoid
+	 * breakage if this happens, the hooks to uninstall are just specified by slug,
+	 * and the uninstaller's bootstrap should handle the rest. We also provide a
+	 * uninstall_points_hook() method, which can be used if needed. However, it is
+	 * really just a wrapper for uninstall_option(), and in interest of performance
+	 * we don't use it in uninstall_(). Instead, we currently treat the list of
+	 * 'points_hooks' as a shortcut to the prefixed options. That way they'll be
+	 * handled automatically with the other options in uninstall_().
+	 *
+	 * This function is used to take a list like the list of points hooks, and
+	 * translate it into a list of, e.g., options, before uninstallation.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $shortcut The shortcut key in 'single', 'site', etc.
+	 * @param string $canonical The canonical key.
+	 * @param array  $args {
+	 *        Other arguments.
+	 *
+	 *        @type string $prefix The prefix to prepend the elements with before
+	 *                             adding to them to the canonical array.
+	 * }
+	 */
+	protected function map_uninstall_shortcut( $shortcut, $canonical, $args ) {
+
+		$args = array_merge( array( 'prefix' => '' ), $args );
+
+		$types = array( 'single', 'site', 'network', 'local', 'global', 'universal' );
+
+		foreach ( $types as $type ) {
+
+			if ( ! isset( $this->uninstall[ $type ][ $shortcut ] ) ) {
+				continue;
+			}
+
+			foreach ( $this->uninstall[ $type ][ $shortcut ] as $slug ) {
+				$this->uninstall[ $type ][ $canonical ][] = $args['prefix'] . $slug;
 			}
 		}
 	}
@@ -821,6 +874,18 @@ abstract class WordPoints_Un_Installer_Base {
 		} else {
 			delete_option( $option );
 		}
+	}
+
+	/**
+	 * Uninstall a points hook.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $id_base The base ID (class) of the points hook to uninstall.
+	 */
+	protected function uninstall_points_hook( $id_base ) {
+
+		$this->uninstall_option( "wordpoints_hook-{$id_base}" );
 	}
 
 	//

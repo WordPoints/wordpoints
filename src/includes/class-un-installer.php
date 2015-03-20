@@ -35,6 +35,24 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'list_tables' => array(
 			'wordpoints_modules' => array(),
 		),
+		'network' => array(
+			'options' => array(
+				'wordpoints_sitewide_active_modules',
+			),
+		),
+		'local'   => array(
+			'options' => array(
+				'wordpoints_active_modules',
+				'wordpoints_recently_activated_modules',
+			),
+		),
+		'universal' => array(
+			'options' => array(
+				'wordpoints_data',
+				'wordpoints_active_components',
+				'wordpoints_excluded_users',
+			),
+		),
 	);
 
 	/**
@@ -144,11 +162,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		$this->uninstall_modules();
 		$this->uninstall_components();
-
-		delete_site_option( 'wordpoints_data' );
-		delete_site_option( 'wordpoints_active_components' );
-		delete_site_option( 'wordpoints_excluded_users' );
-		delete_site_option( 'wordpoints_sitewide_active_modules' );
 	}
 
 	/**
@@ -156,11 +169,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_site() {
 
-		delete_option( 'wordpoints_data' );
-		delete_option( 'wordpoints_active_modules' );
-		delete_option( 'wordpoints_active_components' );
-		delete_option( 'wordpoints_excluded_users' );
-		delete_option( 'wordpoints_recently_activated_modules' );
 		parent::uninstall_site();
 
 		wp_cache_delete( 'wordpoints_modules' );

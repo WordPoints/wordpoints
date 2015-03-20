@@ -133,9 +133,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @type callable $caps_getter
+	 * @type callable $custom_caps_getter
 	 */
-	protected $caps_getter;
+	protected $custom_caps_getter;
 
 	/**
 	 * The entity's capabilities.
@@ -144,16 +144,27 @@ abstract class WordPoints_Un_Installer_Base {
 	 * so that they don't have to be retrieved all over again for each site (if
 	 * multisite).
 	 *
-	 * Note that the format of the array is different in uninstall than during
-	 * install and update. During install the array is of the format needed by {@see
-	 * wordpoints_add_custom_caps()}, but during uninstall array_keys() is applied to
-	 * get the form needed by {@see wordpoints_remove_custom_caps()}.
+	 * The array is of the format needed by {@see wordpoints_add_custom_caps()}.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @type array $capabilities
+	 * @type array $custom_caps
 	 */
-	protected $capabilities;
+	protected $custom_caps;
+
+	/**
+	 * The entity's capabilities (keys only).
+	 *
+	 * Used to hold the list of capabilities during install and uninstall, so that
+	 * they don't have to be retrieved all over again for each site (if multisite).
+	 *
+	 * The array is of the form needed by {@see wordpoints_remove_custom_caps()}.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @type array $custom_caps_keys
+	 */
+	protected $custom_caps_keys;
 
 	//
 	// Public Methods.
@@ -551,17 +562,17 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 2.0.0
 	 */
-	protected function maybe_load_capabilities() {
+	protected function maybe_load_custom_caps() {
 
-		if ( empty( $this->caps_getter ) ) {
+		if ( empty( $this->custom_caps_getter ) ) {
 			return;
 		}
 
-		$this->capabilities = call_user_func( $this->caps_getter );
+		$this->custom_caps = call_user_func( $this->custom_caps_getter );
+		$this->custom_caps_keys = array_keys( $this->custom_caps );
 
 		if ( 'uninstall' === $this->action ) {
-			$this->capabilities = array_keys( $this->capabilities );
-			$this->uninstall['local']['capabilities'] = true;
+			$this->uninstall['local']['custom_caps'] = true;
 		}
 	}
 
@@ -571,7 +582,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_install() {
-		$this->maybe_load_capabilities();
+		$this->maybe_load_custom_caps();
 	}
 
 	/**
@@ -579,10 +590,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 2.0.0
 	 */
-	protected function install_capabilities() {
+	protected function install_custom_caps() {
 
-		if ( ! empty( $this->capabilities ) ) {
-			wordpoints_add_custom_caps( $this->capabilities );
+		if ( ! empty( $this->custom_caps ) ) {
+			wordpoints_add_custom_caps( $this->custom_caps );
 		}
 	}
 
@@ -593,7 +604,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function before_uninstall() {
 
-		$this->maybe_load_capabilities();
+		$this->maybe_load_custom_caps();
 
 		$this->prepare_uninstall_list_tables();
 		$this->map_uninstall_shortcut( 'widgets', 'options', array( 'prefix' => 'widget_' ) );
@@ -770,7 +781,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
-		$this->maybe_load_capabilities();
+		$this->maybe_load_custom_caps();
 	}
 
 	/**
@@ -820,8 +831,8 @@ abstract class WordPoints_Un_Installer_Base {
 			, $this->uninstall[ $type ]
 		);
 
-		if ( ! empty( $uninstall['capabilities'] ) ) {
-			$this->uninstall_capabilities( $this->capabilities );
+		if ( ! empty( $uninstall['custom_caps'] ) ) {
+			$this->uninstall_custom_caps( $this->custom_caps_keys );
 		}
 
 		foreach ( $uninstall['user_meta'] as $meta_key ) {
@@ -840,7 +851,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @param string[] $caps The capabilities to uninstall.
 	 */
-	protected function uninstall_capabilities( $caps ) {
+	protected function uninstall_custom_caps( $caps ) {
 
 		wordpoints_remove_custom_caps( $caps );
 	}
@@ -925,7 +936,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function install_site() {
-		$this->install_capabilities();
+		$this->install_custom_caps();
 	}
 
 	/**
@@ -937,7 +948,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function install_single() {
-		$this->install_capabilities();
+		$this->install_custom_caps();
 	}
 
 	/**

@@ -58,7 +58,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 2.0.0
 	 */
-	protected $caps_getter = 'wordpoints_get_custom_caps';
+	protected $custom_caps_getter = 'wordpoints_get_custom_caps';
 
 	/**
 	 * @since 1.8.0
@@ -209,7 +209,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function update_single_to_1_3_0() {
-		wordpoints_add_custom_caps( $this->capabilities );
+		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
 	/**
@@ -218,7 +218,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function update_site_to_1_5_0() {
-		wordpoints_add_custom_caps( $this->capabilities );
+		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
 	/**

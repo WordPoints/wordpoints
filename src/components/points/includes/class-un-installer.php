@@ -63,6 +63,11 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $custom_caps_getter = 'wordpoints_points_get_custom_caps';
+
+	/**
 	 * The points types the user has created.
 	 *
 	 * Used during uninstall to keep from having to retrieve them when looping over
@@ -73,30 +78,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @type array $points_types
 	 */
 	protected $points_types;
-
-	/**
-	 * The component's capabilities.
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $custom_caps
-	 */
-	protected $custom_caps;
-
-	/**
-	 * The component's capabilities (keys only).
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $custom_caps_keys
-	 */
-	protected $custom_caps_keys;
 
 	/**
 	 * The network mode of the points hooks before the updates began.
@@ -112,27 +93,19 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	public function before_install() {
-
-		$this->custom_caps = wordpoints_points_get_custom_caps();
-		$this->custom_caps_keys = array_keys( $this->custom_caps );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function before_uninstall() {
 
 		parent::before_uninstall();
 
 		$this->points_types = wordpoints_get_points_types();
-		$this->custom_caps_keys = array_keys( wordpoints_points_get_custom_caps() );
 	}
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
+
+		parent::before_update();
 
 		if ( 1 === version_compare( '1.4.0', $this->updating_from ) ) {
 			add_filter( 'wordpoints_points_hook_update_callback', array( $this, '_1_4_0_clean_hook_settings' ), 10, 4 );
@@ -142,8 +115,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 			if ( ! $this->network_wide ) {
 				unset( $this->updates['1_5_0'] );
-			} else {
-				$this->custom_caps = wordpoints_points_get_custom_caps();
 			}
 		}
 
@@ -196,15 +167,18 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function install_site() {
+	protected function install_custom_caps() {
 
 		/*
 		 * Regenerate the custom caps every time on multisite, because they depend on
 		 * network activation status.
 		 */
-		wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		if ( 'site' === $this->context ) {
+			wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		}
+
 		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
@@ -213,7 +187,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_single() {
 
-		wordpoints_add_custom_caps( $this->custom_caps );
+		parent::install_single();
+
 		add_option( 'wordpoints_default_points_type', '' );
 
 		$this->install_points_main();
@@ -268,8 +243,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			delete_metadata( 'user', 0, $prefix . "wordpoints_points-{$slug}", '', true );
 			delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
 		}
-
-		$this->uninstall_points_single();
 	}
 
 	/**
@@ -280,7 +253,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		parent::uninstall_single();
 
 		$this->uninstall_points_main();
-		$this->uninstall_points_single();
 	}
 
 	/**
@@ -301,16 +273,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		}
 
 		delete_metadata( 'user', 0, 'wordpoints_points_period_start', '', true );
-	}
-
-	/**
-	 * Uninstall the points component from a single site/site on a network.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_points_single() {
-
-		wordpoints_remove_custom_caps( $this->custom_caps_keys );
 	}
 
 	/**

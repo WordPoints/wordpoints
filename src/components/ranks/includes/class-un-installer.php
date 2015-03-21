@@ -34,6 +34,11 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected $uninstall = array(
+		'local' => array(
+			'options' => array(
+				'wordpoints_rank_group-%',
+			),
+		),
 		'global' => array(
 			'tables' => array(
 				'wordpoints_ranks',
@@ -100,36 +105,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function load_dependencies() {
 
 		include_once( WORDPOINTS_DIR . 'components/ranks/includes/constants.php' );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_site() {
-
-		global $wpdb;
-
-		$options = $wpdb->get_col(
-			"
-				SELECT `option_name`
-				FROM `{$wpdb->options}`
-				WHERE `option_name` LIKE 'wordpoints_rank_group-%'
-			"
-		);
-
-		foreach ( $options as $option ) {
-			delete_option( $option );
-		}
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		parent::uninstall_single();
-
-		$this->uninstall_site();
 	}
 
 	/**

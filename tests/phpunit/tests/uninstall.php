@@ -154,6 +154,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->uninstall();
 
 		$this->assertPointsComponentUninstalled();
+		$this->assertRanksComponentUninstalled();
 
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );
 
@@ -308,6 +309,23 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_ranks' );
 		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_rankmeta' );
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_user_ranks' );
+	}
+
+	/**
+	 * Assert that the ranks component is uninstalled.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function assertRanksComponentUninstalled() {
+
+		global $wpdb;
+
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_ranks' );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_rankmeta' );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_user_ranks' );
+
+		$this->assertNoOptionsWithPrefix( 'wordpoints_rank_groups-' );
 	}
 }
 

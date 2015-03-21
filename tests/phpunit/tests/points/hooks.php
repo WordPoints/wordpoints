@@ -165,6 +165,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.7.0
 	 *
 	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
+	 *
+	 * @expectedDeprecated WordPoints_Points_Hooks::uninstall_hook_types
 	 */
 	public function test_hook_type_uninstall() {
 
@@ -204,6 +206,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.7.0
 	 *
 	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
+	 *
+	 * @expectedDeprecated WordPoints_Points_Hooks::uninstall_hook_types
 	 */
 	public function test_multisite_hook_type_uninstall() {
 
@@ -261,6 +265,8 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.7.0
 	 *
 	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
+	 *
+	 * @expectedDeprecated WordPoints_Points_Hooks::uninstall_hook_types
 	 */
 	public function test_network_hook_type_uninstall() {
 

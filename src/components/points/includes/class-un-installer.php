@@ -64,6 +64,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_post_points_hook',
 				'wordpoints_comment_points_hook',
 				'wordpoints_periodic_points_hook',
+				'wordpoints_comment_received_points_hook',
 			),
 			'user_meta' => array(
 				'wordpoints_points_period_start',

@@ -802,7 +802,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 
 		$this->un_installer->uninstall_table( 'test' );
 
-		$this->assertNull( $wpdb->get_var( "SHOW TABLES LIKE `{$wpdb->base_prefix}test`" ) );
+		$this->assertNull( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->base_prefix}test'" ) );
 	}
 
 	/**
@@ -825,7 +825,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->context = 'site';
 		$this->un_installer->uninstall_table( 'test' );
 
-		$this->assertNull( $wpdb->get_var( "SHOW TABLES LIKE `{$wpdb->prefix}test`" ) );
+		$this->assertNull( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}test'" ) );
 	}
 
 	/**
@@ -844,7 +844,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->uninstall['single']['tables'] = array( 'test' );
 		$this->un_installer->uninstall_( 'single' );
 
-		$this->assertNull( $wpdb->get_var( "SHOW TABLES LIKE `{$wpdb->base_prefix}test`" ) );
+		$this->assertNull( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->base_prefix}test'" ) );
 	}
 
 	//

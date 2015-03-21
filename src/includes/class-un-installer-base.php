@@ -889,17 +889,41 @@ abstract class WordPoints_Un_Installer_Base {
 	/**
 	 * Uninstall an option.
 	 *
+	 * If the $option contains a % wildcard, all matching options will be retrieved
+	 * and deleted.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param string $option The option to uninstall.
 	 */
 	protected function uninstall_option( $option ) {
 
-		if ( 'network' === $this->context ) {
-			delete_site_option( $option );
+		if ( false !== strpos( $option, '%' ) ) {
+
+			global $wpdb;
+
+			$options = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+						SELECT `option_name`
+						FROM `{$wpdb->options}`
+						WHERE `option_name` LIKE %s
+					"
+					, $option
+				)
+			);
+
 		} else {
-			delete_option( $option );
+			$options = array( $option );
 		}
+
+		if ( 'network' === $this->context ) {
+			$function = 'delete_site_option';
+		} else {
+			$function = 'delete_option';
+		}
+
+		array_map( $function, $options );
 	}
 
 	/**

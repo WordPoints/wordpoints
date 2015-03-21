@@ -220,6 +220,7 @@ final class WordPoints_Points_Hooks {
 	 * Delete the database data for a list of hook types.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 2.0.0 Use an un/installer class instead.
 	 *
 	 * @param array|string $hook_types The hook type(s) to uninstall.
 	 * @param int[]        $site_ids   List of site IDs where this hook type is
@@ -227,6 +228,8 @@ final class WordPoints_Points_Hooks {
 	 *                                 omitted, the current site ID is used.
 	 */
 	public static function uninstall_hook_types( $hook_types, array $site_ids = null ) {
+
+		_deprecated_function( __METHOD__, '2.0.0', 'WordPoints_Un_Installer_Base::$uninstall' );
 
 		$hook_types = (array) $hook_types;
 

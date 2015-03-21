@@ -1,18 +1,18 @@
 {
     "\/components\/points\/includes\/class-un-installer.php": {
         "network": {
-            "496": false,
-            "725": false
+            "418": false,
+            "647": false
         },
         "standard": {
-            "499": false,
-            "728": false
+            "421": false,
+            "650": false
         },
         "post": {
-            "735": false
+            "657": false
         },
         "EXISTS": {
-            "842": {
+            "764": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -154,7 +154,7 @@
             "394": false
         },
         "compatibility-problems": {
-            "463": {
+            "467": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -818,6 +818,247 @@
     "\/components\/points\/includes\/deprecated.php": {
         "approved": {
             "230": false
+        }
+    },
+    "\/includes\/class-un-installer-base.php": {
+        "install": {
+            "187": false
+        },
+        "network": {
+            "202": false,
+            "285": false,
+            "348": false,
+            "729": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
+            "761": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "762": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
+            "767": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
+            "1035": {
+                "name": "WordPoints_Un_Installer_Base::uninstall_",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "205": false,
+            "263": false,
+            "351": false,
+            "729": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "760": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "762": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "767": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1051": {
+                "name": "WordPoints_Un_Installer_Base::uninstall_",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "single": {
+            "241": false,
+            "294": false,
+            "386": false,
+            "729": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "760": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "761": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "762": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "767": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1067": {
+                "name": "WordPoints_Un_Installer_Base::uninstall_",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "uninstall": {
+            "253": false
+        },
+        "update": {
+            "311": false
+        },
+        "widgets": {
+            "615": {
+                "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "options": {
+            "615": {
+                "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "616": {
+                "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "manage": {
+            "677": false,
+            "678": false,
+            "679": false
+        },
+        "columnshidden": {
+            "677": false,
+            "678": false
+        },
+        "-networkcolumnshidden": {
+            "679": false
+        },
+        "local": {
+            "729": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
+            "767": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "global": {
+            "729": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            },
+            "767": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            }
+        },
+        "universal": {
+            "729": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            },
+            "767": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            }
+        },
+        "user": {
+            "844": {
+                "name": "WordPoints_Un_Installer_Base::uninstall_metadata",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "comment": {
+            "856": {
+                "name": "WordPoints_Un_Installer_Base::uninstall_metadata",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 {
     "\/admin\/admin.php": {
-        "size": 16992,
-        "hash": "592e49b3457bca6dd9870c3a2d23ce68",
+        "size": 17769,
+        "hash": "c946485e4dbce9dc7088e06a56e3183d",
         "errors": false
     },
     "\/admin\/includes\/class-wordpoints-module-installer-skin.php": {
@@ -55,8 +55,8 @@
         "errors": false
     },
     "\/admin\/screens\/modules-load.php": {
-        "size": 16981,
-        "hash": "c3a558cdbdc2fd79d090acf8dbf59674",
+        "size": 17132,
+        "hash": "18075dd283f406d0ebd5fee7390e6431",
         "errors": false
     },
     "\/admin\/screens\/modules.php": {
@@ -100,8 +100,8 @@
         "errors": false
     },
     "\/components\/points\/includes\/class-un-installer.php": {
-        "size": 22423,
-        "hash": "5b208bc6a4b83be25955e80b0ee1293f",
+        "size": 20189,
+        "hash": "2304d1f2acd11050f6c5d097cf67752c",
         "errors": false
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
@@ -235,8 +235,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/class-un-installer.php": {
-        "size": 2482,
-        "hash": "4dbe09f394361165f9ac44e0ebf56b7c",
+        "size": 1825,
+        "hash": "9abf5d33090a1b390da1cd1c853289be",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
@@ -250,8 +250,8 @@
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
-        "size": 9016,
-        "hash": "d36a10fdca8c83ddb26f6c4dcb611dda",
+        "size": 8852,
+        "hash": "528ae7b363d120a44251c540afdd29e8",
         "errors": false
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-types.php": {
@@ -330,13 +330,13 @@
         "errors": false
     },
     "\/includes\/class-un-installer-base.php": {
-        "size": 11881,
-        "hash": "e53cb50fe6b81e87b645d50fd89487ee",
+        "size": 27314,
+        "hash": "66b223edded951aa2eab43ce60bb3b5f",
         "errors": false
     },
     "\/includes\/class-un-installer.php": {
-        "size": 5207,
-        "hash": "3f5648474be22e9cde193e47eff7d5b4",
+        "size": 4585,
+        "hash": "fb7cc4dc231eaf84c50713c8251cf068",
         "errors": false
     },
     "\/includes\/class-widget.php": {

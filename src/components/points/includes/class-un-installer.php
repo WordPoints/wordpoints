@@ -37,40 +37,44 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
-	 * The points types the user has created.
-	 *
-	 * Used during uninstall to keep from having to retrieve them when looping over
-	 * sites on multisite.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $points_types
+	 * @since 2.0.0
 	 */
-	protected $points_types;
+	protected $uninstall = array(
+		'local' => array(
+			'widgets' => array(
+				'wordpoints_points_logs_widget',
+				'wordpoints_top_users_widget',
+				'wordpoints_points_widget',
+			),
+		),
+		'global' => array(
+			'tables' => array(
+				'wordpoints_points_logs',
+				'wordpoints_points_log_meta',
+			),
+		),
+		'universal' => array(
+			'options' => array(
+				'wordpoints_points_types',
+				'wordpoints_default_points_type',
+				'wordpoints_points_types_hooks',
+			),
+			'points_hooks' => array(
+				'wordpoints_registration_points_hook',
+				'wordpoints_post_points_hook',
+				'wordpoints_comment_points_hook',
+				'wordpoints_periodic_points_hook',
+			),
+			'user_meta' => array(
+				'wordpoints_points_period_start',
+			),
+		),
+	);
 
 	/**
-	 * The component's capabilities.
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $custom_caps
+	 * @since 2.0.0
 	 */
-	protected $custom_caps;
-
-	/**
-	 * The component's capabilities (keys only).
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $custom_caps_keys
-	 */
-	protected $custom_caps_keys;
+	protected $custom_caps_getter = 'wordpoints_points_get_custom_caps';
 
 	/**
 	 * The network mode of the points hooks before the updates began.
@@ -86,25 +90,24 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	public function before_install() {
-
-		$this->custom_caps = wordpoints_points_get_custom_caps();
-		$this->custom_caps_keys = array_keys( $this->custom_caps );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function before_uninstall() {
 
-		$this->points_types = wordpoints_get_points_types();
-		$this->custom_caps_keys = array_keys( wordpoints_points_get_custom_caps() );
+		foreach ( wordpoints_get_points_types() as $slug => $unused ) {
+
+			$this->uninstall['universal']['user_meta'][] = "wordpoints_points-{$slug}";
+			$this->uninstall['universal']['comment_meta'][] = "wordpoints_last_status-{$slug}";
+		}
+
+		// We do this after the above, so that we can take advantage of shortcuts.
+		parent::before_uninstall();
 	}
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
+
+		parent::before_update();
 
 		if ( 1 === version_compare( '1.4.0', $this->updating_from ) ) {
 			add_filter( 'wordpoints_points_hook_update_callback', array( $this, '_1_4_0_clean_hook_settings' ), 10, 4 );
@@ -114,8 +117,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 			if ( ! $this->network_wide ) {
 				unset( $this->updates['1_5_0'] );
-			} else {
-				$this->custom_caps = wordpoints_points_get_custom_caps();
 			}
 		}
 
@@ -168,15 +169,18 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function install_site() {
+	protected function install_custom_caps() {
 
 		/*
 		 * Regenerate the custom caps every time on multisite, because they depend on
 		 * network activation status.
 		 */
-		wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		if ( 'site' === $this->context ) {
+			wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		}
+
 		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
@@ -185,7 +189,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_single() {
 
-		wordpoints_add_custom_caps( $this->custom_caps );
+		parent::install_single();
+
 		add_option( 'wordpoints_default_points_type', '' );
 
 		$this->install_points_main();
@@ -211,89 +216,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
 		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
 		require_once WORDPOINTS_DIR . '/components/points/includes/points.php';
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_network() {
-
-		$this->uninstall_points_main();
-
-		delete_site_option( 'wordpoints_points_types' );
-		delete_site_option( 'wordpoints_default_points_type' );
-		delete_site_option( 'wordpoints_points_types_hooks' );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_site() {
-
-		global $wpdb;
-
-		foreach ( $this->points_types as $slug => $settings ) {
-
-			delete_metadata( 'comment', 0, "wordpoints_last_status-{$slug}", '', true );
-
-			$prefix = $wpdb->get_blog_prefix();
-			delete_metadata( 'user', 0, $prefix . "wordpoints_points-{$slug}", '', true );
-			delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
-		}
-
-		$this->uninstall_points_single();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		$this->uninstall_points_main();
-		$this->uninstall_points_single();
-	}
-
-	/**
-	 * Uninstall the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_points_main() {
-
-		global $wpdb;
-
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_logs . '`' );
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_log_meta . '`' );
-
-		foreach ( $this->points_types as $slug => $settings ) {
-
-			delete_metadata( 'user', 0, "wordpoints_points-{$slug}", '', true );
-		}
-
-		delete_metadata( 'user', 0, 'wordpoints_points_period_start', '', true );
-	}
-
-	/**
-	 * Uninstall the points component from a single site/site on a network.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_points_single() {
-
-		delete_option( 'wordpoints_points_types' );
-		delete_option( 'wordpoints_default_points_type' );
-		delete_option( 'wordpoints_points_types_hooks' );
-
-		delete_option( 'wordpoints_hook-wordpoints_registration_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_post_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_comment_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_periodic_points_hook' );
-
-		delete_option( 'widget_wordpoints_points_logs_widget' );
-		delete_option( 'widget_wordpoints_top_users_widget' );
-		delete_option( 'widget_wordpoints_points_widget' );
-
-		wordpoints_remove_custom_caps( $this->custom_caps_keys );
 	}
 
 	/**

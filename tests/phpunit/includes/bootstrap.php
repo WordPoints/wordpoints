@@ -181,6 +181,15 @@ if ( class_exists( 'WordPoints_Rank_Type' ) ) {
 	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank-type.php' );
 }
 
+if ( class_exists( 'WordPoints_Un_Installer_Base' ) ) {
+	/**
+	 * The un/installer mock.
+	 *
+	 * @since 2.0.0
+	 */
+	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer.php' );
+}
+
 // https://core.trac.wordpress.org/ticket/25239
 $_SERVER['SERVER_NAME'] = 'example.com';
 

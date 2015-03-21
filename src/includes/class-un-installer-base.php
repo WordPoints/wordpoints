@@ -890,13 +890,19 @@ abstract class WordPoints_Un_Installer_Base {
 	 * Uninstall an option.
 	 *
 	 * If the $option contains a % wildcard, all matching options will be retrieved
-	 * and deleted.
+	 * and deleted. Note that currently this doesn't apply to network options, which
+	 * will ignore wildcards.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param string $option The option to uninstall.
 	 */
 	protected function uninstall_option( $option ) {
+
+		if ( 'network' === $this->context ) {
+			delete_site_option( $option );
+			return;
+		}
 
 		if ( false !== strpos( $option, '%' ) ) {
 
@@ -917,13 +923,7 @@ abstract class WordPoints_Un_Installer_Base {
 			$options = array( $option );
 		}
 
-		if ( 'network' === $this->context ) {
-			$function = 'delete_site_option';
-		} else {
-			$function = 'delete_option';
-		}
-
-		array_map( $function, $options );
+		array_map( 'delete_option', $options );
 	}
 
 	/**

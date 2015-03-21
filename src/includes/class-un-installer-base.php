@@ -972,7 +972,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	//
-	// Abstract Methods.
+	// [Previously] Abstract Methods.
 	//
 
 	/**
@@ -982,8 +982,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 * whole network. For example, it would add any "site" (network-wide) options.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
-	abstract protected function install_network();
+	protected function install_network() {}
 
 	/**
 	 * Install on a single site on the network.
@@ -992,6 +993,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * will be the current site when this method is called.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
 	protected function install_site() {
 		$this->install_custom_caps();
@@ -1004,6 +1006,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * install the entity.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
 	protected function install_single() {
 		$this->install_custom_caps();
@@ -1013,8 +1016,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 * Load any dependencies of the uninstall code.
 	 *
 	 * @since 1.8.0
+	 * @since 2.0.0 No longer abstract.
 	 */
-	abstract protected function load_dependencies();
+	protected function load_dependencies() {}
 
 	/**
 	 * Uninstall from the network.

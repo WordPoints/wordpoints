@@ -372,7 +372,7 @@ function wordpoints_delete_network_option( $option ) {
  * @param array  $_in    The values that the column must be IN (or NOT IN).
  * @param string $format The format for the values in $_in: '%s', '%d', or '%f'.
  *
- * @return string|false The comma-delimeted string of values. False on failure.
+ * @return string|false The comma-delimited string of values. False on failure.
  */
 function wordpoints_prepare__in( $_in, $format = '%s' ) {
 

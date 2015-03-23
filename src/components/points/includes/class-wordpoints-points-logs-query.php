@@ -615,8 +615,7 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @filter sanitize_key Added and subsequently removed by self::_prepare_where.
 	 *
-	 * @param string $key     The sanitized value for the key.
-	 * @parma string $raw_key The raw value for the key.
+	 * @param string $key The sanitized value for the key.
 	 *
 	 * @return string The correct meta table ID column, if the key is wordpoints_points_log_.
 	 */

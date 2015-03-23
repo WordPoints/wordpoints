@@ -897,6 +897,7 @@ class WordPoints_Points_Logs_Query {
 				if ( ! in_array( $this->_args['points__compare'], $comparisons ) ) {
 
 					_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'points__compare' {$this->_args['points__compare']}, possible values are " . implode( ', ', $comparisons ), '1.0.0' );
+					$this->_args['points__compare'] = '=';
 				}
 
 				$this->_wheres[] = $wpdb->prepare( "`points` {$this->_args['points__compare']} %d", $this->_args['points'] );
@@ -911,6 +912,7 @@ class WordPoints_Points_Logs_Query {
 			if ( ! in_array( $this->_args['text__compare'], $comparisons ) ) {
 
 				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'text__compare' {$this->_args['text__compare']}, possible values are " . implode( ', ', $comparisons ), '1.6.0' );
+				$this->_args['text__compare'] = '=';
 			}
 
 			$this->_wheres[] = $wpdb->prepare( "`text` {$this->_args['text__compare']} %s", $this->_args['text'] );

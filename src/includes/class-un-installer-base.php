@@ -968,6 +968,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$site_id = 0;
 		}
 
+		$table = str_replace( '`', '``', $table );
+
 		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->get_blog_prefix( $site_id ) . $table . '`' );
 	}
 

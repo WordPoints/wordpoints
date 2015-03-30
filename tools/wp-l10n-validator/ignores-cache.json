@@ -616,22 +616,6 @@
                 "parentheses": 1
             }
         },
-        "LIKE": {
-            "257": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 19,
-                "parentheses": 1
-            },
-            "893": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            }
-        },
         "results": {
             "391": {
                 "name": "array",
@@ -668,8 +652,14 @@
                 "parentheses": 1
             }
         },
-        "FROM `": {
-            "645": false
+        "WordPoints Debug Error: invalid get method %s, possible values are %s": {
+            "399": {
+                "name": "sprintf",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         },
         "<": {
             "895": {
@@ -681,16 +671,10 @@
             }
         },
         ",": {
-            "1017": false
-        },
-        "CAST(": {
-            "1034": false
+            "1019": false
         },
         ".meta_value AS": {
-            "1050": false
-        },
-        "ORDER BY": {
-            "1047": false
+            "1052": false
         }
     },
     "\/components\/ranks\/admin\/screens\/ranks.php": {
@@ -811,6 +795,28 @@
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/admin\/includes\/class-wordpoints-module-installer.php": {
+        "<?php \/\/ Gold is silent.": {
+            "90": {
+                "name": "$wp_filesystem->put_contents",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/includes\/class-un-installer.php": {
+        "<?php \/\/ Gold is silent.": {
+            "289": {
+                "name": "$wp_filesystem->put_contents",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
                 "parentheses": 1
             }
         }

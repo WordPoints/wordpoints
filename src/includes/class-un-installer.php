@@ -26,6 +26,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.3.0' => array( 'single' => true                ),
 		'1.5.0' => array(                  'site' => true ),
 		'1.8.0' => array(                  'site' => true ),
+		'1.10.3' => array( 'single' => true, /*    -    */ 'network' => true ),
 	);
 
 	/**
@@ -256,6 +257,37 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_site_to_1_8_0() {
 		$this->add_installed_site_id();
+	}
+
+	/**
+	 * Update a multisite network to 1.10.3.
+	 *
+	 * @since 1.10.3
+	 */
+	protected function update_network_to_1_10_3() {
+		$this->update_single_to_1_10_3();
+	}
+
+	/**
+	 * Update a non-multisite install to 1.10.3
+	 *
+	 * @since 1.10.3
+	 */
+	protected function update_single_to_1_10_3() {
+
+		global $wp_filesystem;
+
+		$modules_dir = wordpoints_modules_dir();
+
+		if ( ! WP_Filesystem( false, $modules_dir ) ) {
+			return;
+		}
+
+		$index_file = $modules_dir . '/index.php';
+
+		if ( ! $wp_filesystem->exists( $index_file ) ) {
+			$wp_filesystem->put_contents( $index_file, '<?php // Gold is silent.' );
+		}
 	}
 }
 

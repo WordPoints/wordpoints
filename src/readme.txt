@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.9
-Tested up to: 4.2-alpha-31546
-Stable tag: 1.10.2
+Tested up to: 4.2-beta3-31903
+Stable tag: 1.10.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,16 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+= 1.10.3 - (~10 hrs) =
+* Fixed: Closes 2 potential SQL injection vulnerabilities in the points logs query
+code. These are not exploitable within WordPoints itself, however, it is possible
+that they could be exploited through custom code if it passes untrusted data to the
+`points__compare` or `text__compare` query args.
+* Fixed: Avoids the potential for directory listing of the modules directory on
+improperly configured servers.
+* Fixed: Closes any potential XSS vulnerabilities through developer error messages
+on poorly configured installs (i.e., with `WP_DEBUG` enabled).
+
 = 1.10.2 — (~6 hrs) =
 * Fixed: There was a bug on multisite causing users from all sites to be displayed in
 the top users table, instead of just users from the current site. Your users will now
@@ -282,6 +292,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 1.10.3 =
+* This is a security-fix release that addresses three security-related issues. One
+vulnerability is not exploitable by default, and the other two issues only occur on
+poorly configured servers. All users are still encouraged to upgrade, just in case.
 
 = 1.10.2 =
 * Fixes some bugs in the top users table, and also one causing users to be promoted

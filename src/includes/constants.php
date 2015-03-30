@@ -16,7 +16,7 @@
  *
  * @const WORDPOINTS_VERSION
  */
-define( 'WORDPOINTS_VERSION', '1.10.2' );
+define( 'WORDPOINTS_VERSION', '1.10.3' );
 
 /**
  * The full path to the plugin's main directory.

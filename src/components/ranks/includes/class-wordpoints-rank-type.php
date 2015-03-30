@@ -235,7 +235,7 @@ abstract class WordPoints_Rank_Type {
 						__METHOD__
 						, sprintf(
 							'WordPoints Error: Unknown field type "%s".'
-							, $field['type']
+							, esc_html( $field['type'] )
 						)
 						, '1.7.0'
 					);

@@ -421,7 +421,7 @@ function wordpoints_debug_message( $message, $function, $file, $line ) {
 
 	_deprecated_function( 'wordpoints_debug_message', '1.5.0', '_doing_it_wrong()' );
 
-	_doing_it_wrong( $function, "WordPoints Debug Error: {$message}" );
+	_doing_it_wrong( esc_html( $function ), esc_html( "WordPoints Debug Error: {$message}" ), '(unknown)' );
 }
 
 /**

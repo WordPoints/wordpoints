@@ -384,7 +384,7 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 	if ( ! in_array( $format, $formats ) ) {
 
 		$format = esc_html( $format );
-		_doing_it_wrong( __FUNCTION__, "WordPoints Debug Error: invalid format '{$format}', allowed values are %s, %d, and %f", '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html( "WordPoints Debug Error: invalid format '{$format}', allowed values are %s, %d, and %f" ), '1.0.0' );
 
 		$format = '%s';
 	}

@@ -1,18 +1,18 @@
 {
     "\/components\/points\/includes\/class-un-installer.php": {
         "network": {
-            "418": false,
-            "647": false
+            "419": false,
+            "648": false
         },
         "standard": {
-            "421": false,
-            "650": false
+            "422": false,
+            "651": false
         },
         "post": {
-            "657": false
+            "658": false
         },
         "EXISTS": {
-            "764": {
+            "765": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -204,25 +204,25 @@
             "185": false
         },
         "multi": {
-            "283": false
+            "286": false
         },
         "template": {
-            "284": false
+            "287": false
         },
         "instance": {
-            "335": false
+            "338": false
         },
         "site": {
-            "390": false
+            "393": false
         },
         "default": {
-            "392": false
+            "395": false
         },
         ":": {
-            "554": false
+            "557": false
         },
         "points-": {
-            "631": {
+            "634": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -231,7 +231,7 @@
             }
         },
         "-save": {
-            "631": {
+            "634": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -240,10 +240,10 @@
             }
         },
         "\" class=\"hook": {
-            "704": false
+            "707": false
         },
         "-savehook": {
-            "737": {
+            "740": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -616,22 +616,6 @@
                 "parentheses": 1
             }
         },
-        "LIKE": {
-            "257": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 19,
-                "parentheses": 1
-            },
-            "893": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            }
-        },
         "results": {
             "386": {
                 "name": "array",
@@ -668,11 +652,17 @@
                 "parentheses": 1
             }
         },
-        "FROM `": {
-            "645": false
+        "WordPoints Debug Error: invalid get method %s, possible values are %s": {
+            "390": {
+                "name": "sprintf",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         },
         "<": {
-            "886": {
+            "885": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -681,16 +671,10 @@
             }
         },
         ",": {
-            "1008": false
-        },
-        "CAST(": {
-            "1034": false
+            "1009": false
         },
         ".meta_value AS": {
-            "1041": false
-        },
-        "ORDER BY": {
-            "1047": false
+            "1042": false
         }
     },
     "\/components\/ranks\/admin\/screens\/ranks.php": {
@@ -842,13 +826,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "762": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "767": {
                 "name": "array",
                 "type": "unknown",
@@ -856,7 +833,7 @@
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1035": {
+            "1037": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_",
                 "type": "unknown",
                 "args_started": true,
@@ -875,20 +852,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "760": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "762": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "767": {
                 "name": "array",
                 "type": "unknown",
@@ -896,7 +859,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1051": {
+            "1053": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_",
                 "type": "unknown",
                 "args_started": true,
@@ -915,27 +878,6 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "760": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "761": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "762": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "767": {
                 "name": "array",
                 "type": "unknown",
@@ -943,7 +885,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1067": {
+            "1069": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_",
                 "type": "unknown",
                 "args_started": true,
@@ -967,13 +909,6 @@
             }
         },
         "options": {
-            "615": {
-                "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "616": {
                 "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
                 "type": "unknown",
@@ -983,12 +918,9 @@
             }
         },
         "manage": {
-            "677": false,
-            "678": false,
             "679": false
         },
         "columnshidden": {
-            "677": false,
             "678": false
         },
         "-networkcolumnshidden": {
@@ -1057,6 +989,28 @@
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/admin\/includes\/class-wordpoints-module-installer.php": {
+        "<?php \/\/ Gold is silent.": {
+            "90": {
+                "name": "$wp_filesystem->put_contents",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/includes\/class-un-installer.php": {
+        "<?php \/\/ Gold is silent.": {
+            "261": {
+                "name": "$wp_filesystem->put_contents",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
                 "parentheses": 1
             }
         }

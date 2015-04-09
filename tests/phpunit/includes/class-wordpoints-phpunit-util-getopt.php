@@ -45,7 +45,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 			try {
 
-				if ( strlen( $arg ) > 1 && $arg[0] === '-' && $arg[1] === '-' ) {
+				if ( strlen( $arg ) > 1 && '-' === $arg[0] && '-' === $arg[1] ) {
 					PHPUnit_Util_Getopt::parseLongOption( substr( $arg, 2 ), $this->longOptions, $options, $argv );
 				}
 

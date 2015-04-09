@@ -112,27 +112,27 @@ do_action( 'wordpoints_admin_components_top' );
 
 		<tr>
 			<td>
-				<?php if ( $component['component_uri'] !== '' ) : ?>
+				<?php if ( '' !== $component['component_uri'] ) : ?>
 					<a href="<?php echo esc_attr( esc_url( $component['component_uri'] ) ); ?>">
 				<?php endif; ?>
 					<?php echo esc_html( $component['name'] ); ?>
-				<?php if ( $component['component_uri'] !== '' ) : ?>
+				<?php if ( '' !== $component['component_uri'] ) : ?>
 					</a>
 				<?php endif; ?>
 			</td>
 			<td>
 				<?php echo wp_kses( $component['description'], 'wordpoints_component_description' ); ?>
-				<?php if ( $component['author'] !== '' ) : ?>
+				<?php if ( '' !== $component['author'] ) : ?>
 					&nbsp;|&nbsp;
 					<?php
 					/* translators: %s is the component author's name. */
 					echo esc_html( sprintf( __( 'By %s', 'wordpoints' ), '' /* This space intentionally left blank */ ) );
 					?>
-					<?php if ( $component['author_uri'] !== '' ) : ?>
+					<?php if ( '' !== $component['author_uri'] ) : ?>
 						<a href="<?php echo esc_attr( esc_url( $component['author_uri'] ) ); ?>">
 					<?php endif; ?>
 						<?php echo esc_html( $component['author'] ); ?>
-					<?php if ( $component['author_uri'] !== '' ) : ?>
+					<?php if ( '' !== $component['author_uri'] ) : ?>
 						</a>
 					<?php endif; ?>
 				<?php endif; ?>

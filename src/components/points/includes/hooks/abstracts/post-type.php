@@ -59,7 +59,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 		return (
 			$instance_post_type === $post_type
 			|| (
-				$instance_post_type === 'ALL'
+				'ALL' === $instance_post_type
 				&& post_type_exists( $post_type )
 				&& get_post_type_object( $post_type )->public
 			)

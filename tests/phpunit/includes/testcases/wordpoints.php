@@ -203,6 +203,24 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Run an update for WordPoints.
+	 *
+	 * @since 1.10.3
+	 *
+	 * @param string $from The version to update from.
+	 */
+	protected function update_wordpoints( $from = null ) {
+
+		if ( ! isset( $from ) ) {
+			$from = $this->previous_version;
+		}
+
+		$this->wordpoints_set_db_version( $from );
+
+		wordpoints_update();
+	}
+
+	/**
 	 * Run an update for a component.
 	 *
 	 * @since 1.8.0
@@ -380,7 +398,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		return false !== strpos(
 			$sql
 			, '
-					ORDER BY CONVERT(`meta_value`, SIGNED INTEGER) DESC
+					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC
 					LIMIT'
 		);
 	}

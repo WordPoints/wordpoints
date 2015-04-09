@@ -273,7 +273,7 @@ class WordPoints_Points_Logs_Query {
 				if ( isset( $this->_args['meta_query'][ $key ] ) ) {
 
 					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s is no longer supported.', "\$args['meta_query'][{$key}]" ) );
+					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s is no longer supported.', esc_html( "\$args['meta_query'][{$key}]" ) ) );
 				}
 			}
 
@@ -290,7 +290,7 @@ class WordPoints_Points_Logs_Query {
 
 					$this->_args['meta_value'] = $this->_args['meta_query'][ $key ];
 					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s has been replaced by %s.', "\$args['meta_query'][{$key}]", '$args["meta_value"]' ) );
+					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s has been replaced by %s.', esc_html( "\$args['meta_query'][{$key}]" ), '$args["meta_value"]' ) );
 
 					if ( 'value__not_in' === $key ) {
 						$this->_args['meta_compare'] = 'NOT IN';
@@ -396,7 +396,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( ! in_array( $method, $methods ) ) {
 
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid get method {$method}, possible values are " . implode( ', ', $methods ), '1.0.0' );
+			_doing_it_wrong( __METHOD__, esc_html( sprintf( 'WordPoints Debug Error: invalid get method %s, possible values are %s', $method, implode( ', ', $methods ) ) ), '1.0.0' );
 
 			return false;
 		}
@@ -800,7 +800,7 @@ class WordPoints_Points_Logs_Query {
 			} elseif ( in_array( $_fields, $this->_fields ) ) {
 				$fields = $_fields;
 			} else {
-				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid field {$_fields}, possible values are " . implode( ', ', $this->_fields ), '1.0.0' );
+				_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid field {$_fields}, possible values are " . implode( ', ', $this->_fields ) ), '1.0.0' );
 			}
 
 		} elseif ( 'array' === $var_type ) {
@@ -809,7 +809,7 @@ class WordPoints_Points_Logs_Query {
 			$_fields = array_intersect( $this->_fields, $_fields );
 
 			if ( ! empty( $diff ) ) {
-				_doing_it_wrong( __METHOD__, 'WordPoints Debug Error: invalid field(s) "' . implode( '", "', $diff ) . '" given', '1.0.0' );
+				_doing_it_wrong( __METHOD__, esc_html( 'WordPoints Debug Error: invalid field(s) "' . implode( '", "', $diff ) . '" given' ), '1.0.0' );
 			}
 
 			if ( ! empty( $_fields ) ) {
@@ -888,7 +888,7 @@ class WordPoints_Points_Logs_Query {
 
 			if ( ! wordpoints_int( $this->_args['points'] ) ) {
 
-				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'points' must be an integer, " . gettype( $_points ) . ' given',  '1.0.0' );
+				_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: 'points' must be an integer, " . gettype( $_points ) . ' given' ),  '1.0.0' );
 
 			} else {
 
@@ -896,7 +896,8 @@ class WordPoints_Points_Logs_Query {
 
 				if ( ! in_array( $this->_args['points__compare'], $comparisons ) ) {
 
-					_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'points__compare' {$this->_args['points__compare']}, possible values are " . implode( ', ', $comparisons ), '1.0.0' );
+					_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'points__compare' {$this->_args['points__compare']}, possible values are " . implode( ', ', $comparisons ) ), '1.0.0' );
+					$this->_args['points__compare'] = '=';
 				}
 
 				$this->_wheres[] = $wpdb->prepare( "`points` {$this->_args['points__compare']} %d", $this->_args['points'] );
@@ -910,7 +911,8 @@ class WordPoints_Points_Logs_Query {
 
 			if ( ! in_array( $this->_args['text__compare'], $comparisons ) ) {
 
-				_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'text__compare' {$this->_args['text__compare']}, possible values are " . implode( ', ', $comparisons ), '1.6.0' );
+				_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'text__compare' {$this->_args['text__compare']}, possible values are " . implode( ', ', $comparisons ) ), '1.6.0' );
+				$this->_args['text__compare'] = '=';
 			}
 
 			$this->_wheres[] = $wpdb->prepare( "`text` {$this->_args['text__compare']} %s", $this->_args['text'] );
@@ -999,7 +1001,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( false === wordpoints_int( $this->_args['limit'] ) ) {
 
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'limit' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', '1.0.0' );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'limit' must be a positive integer, " . ( strval( $_var ) ? esc_html( $_var ) : esc_html( gettype( $_var ) ) ) . ' given', '1.0.0' );
 
 			$this->_args['limit'] = 0;
 		}
@@ -1008,7 +1010,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( false === wordpoints_int( $this->_args['start'] ) ) {
 
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'start' must be a positive integer, " . ( strval( $_var ) ? $_var : gettype( $_var ) ) . ' given', '1.0.0' );
+			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'start' must be a positive integer, " . ( strval( $_var ) ? esc_html( $_var ) : esc_html( gettype( $_var ) ) ) . ' given', '1.0.0' );
 
 			$this->_args['start'] = 0;
 		}
@@ -1038,7 +1040,7 @@ class WordPoints_Points_Logs_Query {
 
 		if ( ! in_array( $order, array( 'DESC', 'ASC' ) ) ) {
 
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'order' \"{$order}\", possible values are DESC and ASC", '1.0.0' );
+			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'order' \"{$order}\", possible values are DESC and ASC" ), '1.0.0' );
 			$order = 'DESC';
 		}
 
@@ -1056,7 +1058,7 @@ class WordPoints_Points_Logs_Query {
 
 		} elseif ( ! in_array( $order_by, $this->_fields ) ) {
 
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: invalid 'orderby' \"{$order_by}\", possible values are " . implode( ', ', $this->_fields ), '1.0.0' );
+			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'orderby' \"{$order_by}\", possible values are " . implode( ', ', $this->_fields ) ), '1.0.0' );
 			return;
 		}
 

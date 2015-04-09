@@ -51,7 +51,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that the alt text is dispalyed when the user is not loggged in.
+	 * Test that the alt text is displayed when the user is not logged in.
 	 *
 	 * @since 1.9.0
 	 */
@@ -67,6 +67,28 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 			->item( 0 );
 
 		$this->assertEquals( 'Alt text', $node->textContent );
+	}
+
+	/**
+	 * Test that the points logs aren't displayed when the user is not logged in.
+	 *
+	 * @since 1.10.1
+	 *
+	 * @covers WordPoints_My_Points_Widget::widget_body
+	 */
+	public function test_logged_out_no_points_logs() {
+
+		wp_set_current_user( 0 );
+
+		$xpath = $this->get_widget_xpath(
+			array(
+				'alt_text' => 'Alt text',
+				'points_type' => 'points',
+				'number_logs' => 3,
+			)
+		);
+
+		$this->assertEquals( 0, $xpath->query( '//table' )->length );
 	}
 
 	/**

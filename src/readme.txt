@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.9
-Tested up to: 4.2-alpha-31546
-Stable tag: 1.10.0
+Tested up to: 4.2-beta3-31903
+Stable tag: 1.10.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,9 +47,9 @@ plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 Also on the plugin's website, you can [browse the available extensions](http://wordpoints.org/modules/),
 called "modules". We've just added [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/).
 
-= Localization =
+= Translations =
 
-WordPoints is fully localizable, and translations are already available in several
+WordPoints is fully translatable, and translations are already available in several
 languages:
 
 * **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
@@ -122,6 +122,36 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+= 1.10.3 - (~10 hrs) =
+* Fixed: Closes 2 potential SQL injection vulnerabilities in the points logs query
+code. These are not exploitable within WordPoints itself, however, it is possible
+that they could be exploited through custom code if it passes untrusted data to the
+`points__compare` or `text__compare` query args.
+* Fixed: Avoids the potential for directory listing of the modules directory on
+improperly configured servers.
+* Fixed: Closes any potential XSS vulnerabilities through developer error messages
+on poorly configured installs (i.e., with `WP_DEBUG` enabled).
+
+= 1.10.2 — (~6 hrs) =
+* Fixed: There was a bug on multisite causing users from all sites to be displayed in
+the top users table, instead of just users from the current site. Your users will now
+stay out of each others leader boards.
+* Fixed: There was a bug in the ranks component which would cause a user to be
+promoted two ranks when they should have only been promoted one. Your users will no
+longer cut rank on you.
+* Fixed: There was a bug in the top users table that caused users who hadn't been
+awarded any points yet to be ignored, even when they should have been displayed. Your
+points-less users will no longer have to feel left out.
+* Fixed: There was another bug in the top users table that would only affect sites
+where users are allowed to have negative points. Any users with negative points would
+be displayed above users who had never been awarded any points.
+* Fixed: There was another bug in the top users table (yes, really!), for those using
+persistent caching. The cache for the top users wouldn't be cleared when a user
+registered or was deleted. This could cause the table to become stale in some cases.
+You no longer have to feel nostalgia when you view the leader board.
+
+= 1.10.1 — (~1/2 hr) =
+* Fixed: The My Points widget no longer displays points logs to logged-out users.
 
 = 1.10.0 — (~20 hrs) =
 * Requires: WordPress 3.9+
@@ -262,6 +292,18 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 1.10.3 =
+* This is a security-fix release that addresses three security-related issues. One
+vulnerability is not exploitable by default, and the other two issues only occur on
+poorly configured servers. All users are still encouraged to upgrade, just in case.
+
+= 1.10.2 =
+* Fixes some bugs in the top users table, and also one causing users to be promoted
+to the wrong rank.
+
+= 1.10.1 =
+* Fixes a bug that caused the My Points widget to display points logs even when the
+user was not logged in.
 
 = 1.10.0 =
 * This is a minor release which contains a few small improvements and several fixed

@@ -67,7 +67,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	}
 
 	/**
-	 * Test that the cache is works properly.
+	 * Test that the cache works properly.
 	 *
 	 * @since 1.5.0
 	 */
@@ -120,26 +120,220 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	}
 
 	/**
+	 * Test that the cache is per-site when the plugin isn't network active.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_per_site_on_multisite() {
+
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite must be enabled.' );
+		}
+
+		if ( is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must not be network active.' );
+		}
+
+		$this->listen_for_filter( 'query', array( $this, 'is_top_users_query' ) );
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Run the query again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Should have used the cache, so still just one database query.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Create a second site on the network.
+		switch_to_blog( $this->factory->blog->create() );
+
+		// We have to create a points type, because they are per-site in this case.
+		$this->create_points_type();
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache isn't good on this site, should be a new query.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		// Again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache is still good.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
+		restore_current_blog();
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache is still good.
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
+	 * Test that the cache is network-wide when the plugin is network active.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_network_wide_when_network_active() {
+
+		if ( ! is_wordpoints_network_active() ) {
+			$this->markTestSkipped( 'WordPoints must be network active on multisite.' );
+		}
+
+		$this->listen_for_filter( 'query', array( $this, 'is_top_users_query' ) );
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Run the query again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Should have used the cache, so still just one database query.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Create a second site on the network.
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache should still be good.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		// Again.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+
+		restore_current_blog();
+
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// Cache is still good.
+		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
 	 * Test that excluded users are excluded from the top users.
 	 *
 	 * @since 1.6.1
 	 */
-	public function test_exlcluded_users_excluded() {
+	public function test_excluded_users_excluded() {
 
 		wordpoints_update_network_option(
 			'wordpoints_excluded_users'
-			, array( $this->user_ids[2] )
+			, array( $this->user_ids[2], $this->user_ids[0] )
 		);
 
 		$top_users = wordpoints_points_get_top_users( 5, 'points' );
 
-		// This user is excluded, so they won't be in the result set.
-		unset( $this->user_ids[2] );
+		$this->assertEquals( array( $this->user_ids[1], 1 ), $top_users );
+	}
 
-		// Reset the keys.
-		$this->user_ids = array_values( $this->user_ids );
+	/**
+	 * Test that the cache behaves correctly when a new user is added.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_after_user_added() {
 
-		$this->assertEquals( $this->user_ids, $top_users );
+		// Run it so the cache is full.
+		wordpoints_points_get_top_users( 10, 'points' );
+
+		$user_id = $this->factory->user->create();
+
+		$this->assertEquals(
+			''
+			, get_user_meta(
+				$user_id
+				, wordpoints_get_points_user_meta_key( 'points' )
+				, true
+			)
+		);
+
+		$this->assertContains(
+			$user_id
+			, wordpoints_points_get_top_users( 10, 'points' )
+		);
+	}
+
+	/**
+	 * Test that the cache behaves correctly when a new user is added and given points.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_after_user_with_points_added() {
+
+		// Run it so the cache is full.
+		wordpoints_points_get_top_users( 2, 'points' );
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_set_points( $user_id, 500, 'points', 'test' );
+
+		$top_users = wordpoints_points_get_top_users( 2, 'points' );
+		$this->assertEquals( $user_id, $top_users[0] );
+	}
+
+	/**
+	 * Test that the cache is cleared when a user is deleted.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_cache_cleared_when_user_deleted() {
+
+		// Prime the cache.
+		wordpoints_points_get_top_users( 3, 'points' );
+
+		// When network active the user has to be deleted completely.
+		if ( is_wordpoints_network_active() ) {
+			wpmu_delete_user( $this->user_ids[0] );
+		} else {
+			wp_delete_user( $this->user_ids[0] );
+		}
+
+		$this->assertNotContains(
+			$this->user_ids[0]
+			, wordpoints_points_get_top_users( 3, 'points' )
+		);
+	}
+
+	/**
+	 * Test getting the top users with a user with no points and users with negative points.
+	 *
+	 * @since 1.10.2
+	 */
+	public function test_with_negative_points_and_no_points() {
+
+		add_filter( 'wordpoints_points_minimum', array( $this, 'return_negative_50' ) );
+
+		wordpoints_set_points( $this->user_ids[1], -5, 'points', 'test' );
+
+		$this->assertEquals(
+			array( $this->user_ids[0], $this->user_ids[2], 1, $this->user_ids[1] )
+			, wordpoints_points_get_top_users( 10, 'points' )
+		);
+	}
+
+	//
+	// Helpers
+	//
+
+	/**
+	 * Return -50.
+	 *
+	 * Useful for filters.
+	 *
+	 * @since 1.10.2
+	 *
+	 * @return int Negative 50.
+	 */
+	public function return_negative_50() {
+		return -50;
 	}
 }
 

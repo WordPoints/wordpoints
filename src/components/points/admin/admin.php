@@ -335,7 +335,7 @@ function wordpoints_points_profile_options( $user ) {
 			echo esc_html( $type['name'] ) . ': ';
 
 			wordpoints_display_points(
-				wordpoints_get_points( $user->ID, $slug )
+				$user->ID
 				, $slug
 				, 'profile_page'
 			);

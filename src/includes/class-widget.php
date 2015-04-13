@@ -50,6 +50,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 * @since 1.9.0
 	 *
 	 * @param WP_Error|string $message The error message to display.
+	 * @param array           $args    Arguments for widget display.
 	 */
 	public function wordpoints_widget_error( $message, $args ) {
 
@@ -99,6 +100,8 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 * @since 1.9.0
 	 *
 	 * @param array|WP_Error $instance The settings for an instance.
+	 *
+	 * @return array|WP_Error The verified settings.
 	 */
 	protected function verify_settings( $instance ) {
 

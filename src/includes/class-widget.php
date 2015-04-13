@@ -22,6 +22,26 @@
 abstract class WordPoints_Widget extends WP_Widget {
 
 	/**
+	 * Default settings for an instance of this widget.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var array
+	 */
+	protected $defaults;
+
+	/**
+	 * The settings of the widget instance currently being processed.
+	 *
+	 * This is currently only set when form() is called.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var array
+	 */
+	protected $instance;
+
+	/**
 	 * Display an error to the user if they have sufficient capabilities.
 	 *
 	 * If the user doesn't have the capabilities to edit the widget, we don't
@@ -163,6 +183,35 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 * @param array $instance The settings of the widget instance to display.
 	 */
 	protected function widget_body( $instance ) {}
+
+	/**
+	 * @since 2.0.0
+	 */
+	public function form( $instance ) {
+
+		$this->instance = array_merge( $this->defaults, $instance );
+
+		$this->form_title_field();
+
+		return true;
+	}
+
+	/**
+	 * Display the title field for a widget form.
+	 *
+	 * @since 2.0.0
+	 */
+	public function form_title_field() {
+
+		?>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
+			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $this->instance['title'] ); ?>" />
+		</p>
+
+		<?php
+	}
 
 }
 

@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 3.9
-Tested up to: 4.2-beta3-31903
-Stable tag: 1.10.3
+Tested up to: 4.2-beta4-32085
+Stable tag: 1.10.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,10 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+= 1.10.4 — (~2 hrs) =
+* Fixed: Users would see 0 instead of the correct number of points on the profile
+admin screen.
+
 = 1.10.3 - (~10 hrs) =
 * Fixed: Closes 2 potential SQL injection vulnerabilities in the points logs query
 code. These are not exploitable within WordPoints itself, however, it is possible
@@ -292,6 +296,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 1.10.4 =
+* Fixes a bug that caused the number of points a non-admin user has to always be
+displayed to them as 0 on the profile screen.
+
 = 1.10.3 =
 * This is a security-fix release that addresses three security-related issues. One
 vulnerability is not exploitable by default, and the other two issues only occur on

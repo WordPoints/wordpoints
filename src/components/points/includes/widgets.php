@@ -86,6 +86,18 @@ abstract class WordPoints_Points_Widget extends WordPoints_Widget {
 	/**
 	 * @since 2.0.0
 	 */
+	public function update( $new_instance, $old_instance ) {
+
+		parent::update( $new_instance, $old_instance );
+
+		$this->make_a_points_type( $this->instance['points_type'] );
+
+		return $this->instance;
+	}
+
+	/**
+	 * @since 2.0.0
+	 */
 	public function form( $instance ) {
 
 		parent::form( $instance );
@@ -250,19 +262,16 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
+		parent::update( $new_instance, $old_instance );
 
-		$new_instance['title']    = strip_tags( $new_instance['title'] );
-		$new_instance['text']     = trim( $new_instance['text'] );
-		$new_instance['alt_text'] = trim( $new_instance['alt_text'] );
+		$this->instance['text']     = trim( $this->instance['text'] );
+		$this->instance['alt_text'] = trim( $this->instance['alt_text'] );
 
-		if ( ! wordpoints_posint( $new_instance['number_logs'] ) ) {
-			$new_instance['number_logs'] = 0;
+		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
+			$this->instance['number_logs'] = 0;
 		}
 
-		$this->make_a_points_type( $new_instance['points_type'] );
-
-		return $new_instance;
+		return $this->instance;
 	}
 
 	/**
@@ -380,17 +389,13 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
+		parent::update( $new_instance, $old_instance );
 
-		$new_instance['title'] = strip_tags( $new_instance['title'] );
-
-		if ( ! wordpoints_posint( $new_instance['num_users'] ) ) {
-			$new_instance['num_users'] = $this->defaults['num_users'];
+		if ( ! wordpoints_posint( $this->instance['num_users'] ) ) {
+			$this->instance['num_users'] = $this->defaults['num_users'];
 		}
 
-		$this->make_a_points_type( $new_instance['points_type'] );
-
-		return $new_instance;
+		return $this->instance;
 	}
 
 	/**
@@ -486,17 +491,13 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
+		parent::update( $new_instance, $old_instance );
 
-		$new_instance['title'] = strip_tags( $new_instance['title'] );
-
-		if ( ! wordpoints_posint( $new_instance['number_logs'] ) ) {
-			$new_instance['number_logs'] = $this->defaults['number_logs'];
+		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
+			$this->instance['number_logs'] = $this->defaults['number_logs'];
 		}
 
-		$this->make_a_points_type( $new_instance['points_type'] );
-
-		return $new_instance;
+		return $this->instance;
 	}
 
 	/**

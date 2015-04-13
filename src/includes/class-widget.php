@@ -33,7 +33,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 	/**
 	 * The settings of the widget instance currently being processed.
 	 *
-	 * This is currently only set when form() is called.
+	 * This is currently only set when form() or update() is called.
 	 *
 	 * @since 2.0.0
 	 *
@@ -183,6 +183,27 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 * @param array $instance The settings of the widget instance to display.
 	 */
 	protected function widget_body( $instance ) {}
+
+	/**
+	 * @since 2.0.0
+	 */
+	public function update( $new_instance, $old_instance ) {
+
+		$this->instance = array_merge( $this->defaults, $old_instance, $new_instance );
+
+		$this->update_title();
+
+		return $this->instance;
+	}
+
+	/**
+	 * Update the title field for a widget instance.
+	 *
+	 * @since 2.0.0
+	 */
+	public function update_title() {
+		$this->instance['title'] = strip_tags( $this->instance['title'] );
+	}
 
 	/**
 	 * @since 2.0.0

@@ -854,22 +854,24 @@ class WordPoints_Points_Logs_Query {
 			return;
 		}
 
-		$_var = $this->_args['limit'];
+		foreach ( array( 'limit', 'start' ) as $var ) {
 
-		if ( false === wordpoints_int( $this->_args['limit'] ) ) {
+			$_var = $this->_args[ $var ];
 
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'limit' must be a positive integer, " . ( strval( $_var ) ? esc_html( $_var ) : esc_html( gettype( $_var ) ) ) . ' given', '1.0.0' );
+			if ( false === wordpoints_int( $this->_args[ $var ] ) ) {
 
-			$this->_args['limit'] = 0;
-		}
+				_doing_it_wrong(
+					__METHOD__
+					, sprintf(
+						"WordPoints Debug Error: '%s' must be a positive integer, %s given"
+						, esc_html( $var )
+						, esc_html( strval( $_var ) ? $_var : gettype( $_var ) )
+					)
+					, '1.0.0'
+				);
 
-		$_var = $this->_args['start'];
-
-		if ( false === wordpoints_int( $this->_args['start'] ) ) {
-
-			_doing_it_wrong( __METHOD__, "WordPoints Debug Error: 'start' must be a positive integer, " . ( strval( $_var ) ? esc_html( $_var ) : esc_html( gettype( $_var ) ) ) . ' given', '1.0.0' );
-
-			$this->_args['start'] = 0;
+				$this->_args[ $var ] = 0;
+			}
 		}
 
 		if ( $this->_args['limit'] > 0 && $this->_args['start'] >= 0 ) {

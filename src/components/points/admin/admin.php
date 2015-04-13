@@ -328,20 +328,17 @@ function wordpoints_points_profile_options( $user ) {
 
 		<h3><?php echo esc_html( $heading ); ?></h3>
 
+		<table>
+			<tbody>
+				<?php foreach ( wordpoints_get_points_types() as $slug => $type ) : ?>
+					<tr>
+						<th scope="row" style="text-align: left;"><?php echo esc_html( $type['name'] ); ?></th>
+						<td style="text-align: right;"><?php wordpoints_display_points( $user->ID, $slug, 'profile_page' ); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+
 		<?php
-
-		foreach ( wordpoints_get_points_types() as $slug => $type ) {
-
-			echo esc_html( $type['name'] ) . ': ';
-
-			wordpoints_display_points(
-				wordpoints_get_points( $user->ID, $slug )
-				, $slug
-				, 'profile_page'
-			);
-
-			echo '<br />';
-		}
 	}
 }
 add_action( 'personal_options', 'wordpoints_points_profile_options', 20 );

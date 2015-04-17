@@ -264,43 +264,6 @@ class WordPoints_Points_Logs_Query {
 
 		$this->_args = wp_parse_args( $args, $defaults );
 
-		if ( ! empty( $this->_args['meta_query'] ) ) {
-
-			// - Handle deprecated meta_query arguments.
-
-			foreach ( array( 'id', 'id__in', 'id__not_in' ) as $key ) {
-
-				if ( isset( $this->_args['meta_query'][ $key ] ) ) {
-
-					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s is no longer supported.', esc_html( "\$args['meta_query'][{$key}]" ) ) );
-				}
-			}
-
-			if ( isset( $this->_args['meta_query']['key'] ) ) {
-
-				$this->_args['meta_key'] = $this->_args['meta_query']['key'];
-				unset( $this->_args['meta_query']['key'] );
-				_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s has been replaced by %s.', '$args["meta_query"]["key"]', '$args["meta_key"]' ) );
-			}
-
-			foreach ( array( 'value', 'value__in', 'value__not_in' ) as $key ) {
-
-				if ( isset( $this->_args['meta_query'][ $key ] ) ) {
-
-					$this->_args['meta_value'] = $this->_args['meta_query'][ $key ];
-					unset( $this->_args['meta_query'][ $key ] );
-					_deprecated_argument( __METHOD__, '1.1.0', sprintf( '%s has been replaced by %s.', esc_html( "\$args['meta_query'][{$key}]" ), '$args["meta_value"]' ) );
-
-					if ( 'value__not_in' === $key ) {
-						$this->_args['meta_compare'] = 'NOT IN';
-					}
-
-					break;
-				}
-			}
-		}
-
 	} // public function __construct()
 
 	/**

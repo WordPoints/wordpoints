@@ -778,23 +778,12 @@ class WordPoints_Points_Logs_Query {
 	 */
 	private function _prepare_select() {
 
-		$_fields = $this->_args['fields'];
-		$fields  = '';
+		// Pull all fields by default.
+		$fields = $this->_fields;
 
-		$var_type = gettype( $_fields );
+		if ( 'all' !== $this->_args['fields'] ) {
 
-		if ( 'string' === $var_type ) {
-
-			if ( 'all' === $_fields ) {
-				$fields = '`' . implode( '`, `', $this->_fields ) . '`';
-			} elseif ( in_array( $_fields, $this->_fields ) ) {
-				$fields = $_fields;
-			} else {
-				_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid field {$_fields}, possible values are " . implode( ', ', $this->_fields ) ), '1.0.0' );
-			}
-
-		} elseif ( 'array' === $var_type ) {
-
+			$_fields = (array) $this->_args['fields'];
 			$diff    = array_diff( $_fields, $this->_fields );
 			$_fields = array_intersect( $this->_fields, $_fields );
 
@@ -803,13 +792,11 @@ class WordPoints_Points_Logs_Query {
 			}
 
 			if ( ! empty( $_fields ) ) {
-				$fields = '`' . implode( '`, `', $_fields ) . '`';
+				$fields = $_fields;
 			}
 		}
 
-		if ( empty( $fields ) ) {
-			$fields = '`' . implode( '`, `', $this->_fields ) . '`';
-		}
+		$fields = '`' . implode( '`, `', $fields ) . '`';
 
 		$this->_select = "SELECT {$fields}";
 	}

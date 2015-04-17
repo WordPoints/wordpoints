@@ -328,38 +328,16 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test 'key' and 'value*' meta query args.
+	 * Test the meta_query arg.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @expectedDeprecated WordPoints_Points_Logs_Query::__construct
 	 */
-	public function test_key_and_value_meta_query_args() {
+	public function test_meta_query_arg() {
 
 		$user_id = $this->factory->user->create();
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test', array( 'test1' => 1 ) );
 		wordpoints_alter_points( $user_id, 20, 'points', 'test', array( 'test2' => 2, 'test3' => 1 ) );
-
-		$query_1 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'key' => 'test1', 'value' => array() ) )
-		);
-		$this->assertEquals( 1, $query_1->count() );
-
-		$query_2 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'value' => 1 ) )
-		);
-		$this->assertEquals( 2, $query_2->count() );
-
-		$query_3 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'value__in' => array( 1, 2 ) ) )
-		);
-		$this->assertEquals( 3, $query_3->count() );
-
-		$query_4 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'value__not_in' => array( 1 ) ) )
-		);
-		$this->assertEquals( 1, $query_4->count() );
 
 		$query_5 = new WordPoints_Points_Logs_Query(
 			array(

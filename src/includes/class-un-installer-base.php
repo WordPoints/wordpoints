@@ -297,16 +297,16 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Update the entity.
+	 * Prepares to update the entity.
 	 *
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 *
 	 * @param string $from    The version to update from.
 	 * @param string $to      The version to update to.
 	 * @param bool   $network Whether the entity is network active. Defaults to the
 	 *                        state of WordPoints itself.
 	 */
-	public function update( $from, $to, $network = null ) {
+	protected function prepare_to_update( $from, $to, $network ) {
 
 		$this->action = 'update';
 
@@ -315,6 +315,8 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$this->network_wide = $network;
+		$this->updating_from = $from;
+		$this->updating_to = $to;
 
 		$updates = array();
 
@@ -326,13 +328,25 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$this->updates = $updates;
+	}
+
+	/**
+	 * Update the entity.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $from    The version to update from.
+	 * @param string $to      The version to update to.
+	 * @param bool   $network Whether the entity is network active. Defaults to the
+	 *                        state of WordPoints itself.
+	 */
+	public function update( $from, $to, $network = null ) {
+
+		$this->prepare_to_update( $from, $to, $network );
 
 		if ( empty( $this->updates ) ) {
 			return;
 		}
-
-		$this->updating_from = $from;
-		$this->updating_to = $to;
 
 		$this->before_update();
 

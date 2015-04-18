@@ -298,8 +298,8 @@ function wordpoints_points_get_db_schema() {
 			date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 			PRIMARY KEY  (id),
 			KEY user_id (user_id),
-			KEY points_type (points_type),
-			KEY log_type (log_type)
+			KEY points_type (points_type(191)),
+			KEY log_type (log_type(191))
 		) {$charset_collate};
 		CREATE TABLE {$wpdb->wordpoints_points_log_meta} (
 			meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -308,7 +308,7 @@ function wordpoints_points_get_db_schema() {
 			meta_value LONGTEXT,
 			PRIMARY KEY  (meta_id),
 			KEY log_id (log_id),
-			KEY meta_key (meta_key)
+			KEY meta_key (meta_key(191))
 		) {$charset_collate};";
 }
 

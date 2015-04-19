@@ -527,6 +527,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @since 1.9.0
 	 *
 	 * @param array $instance The settings for the widget instance.
+	 * @param array $args     Other arguments for the widget display.
 	 *
 	 * @return string The HTML for this widget instance.
 	 */

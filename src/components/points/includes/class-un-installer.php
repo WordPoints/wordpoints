@@ -34,6 +34,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.8.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'1.9.0'  => array( 'single' => true, 'site' => true, 'network' => true ),
 		'1.10.0' => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.0.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -779,6 +780,24 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		}
 
 		wordpoints_regenerate_points_logs( $logs );
+	}
+
+	/**
+	 * Update a site to 2.0.0.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function update_network_to_2_0_0() {
+		$this->maybe_update_tables_to_utf8mb4( 'global' );
+	}
+
+	/**
+	 * Update a single site to 2.0.0.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function update_single_to_2_0_0() {
+		$this->update_network_to_2_0_0();
 	}
 }
 

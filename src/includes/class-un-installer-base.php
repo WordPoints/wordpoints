@@ -833,6 +833,33 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Maybe some database tables to the utf8mb4 character set.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $type The type of tables to update.
+	 */
+	protected function maybe_update_tables_to_utf8mb4( $type ) {
+
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			return;
+		}
+
+		if ( 'global' === $type || 'network' === $type ) {
+			$prefix = $wpdb->base_prefix;
+		} else {
+			$prefix = $wpdb->prefix;
+		}
+
+		foreach ( $this->uninstall[ $type ]['tables'] as $table ) {
+			maybe_convert_table_to_utf8mb4( $prefix . $table );
+		}
+
+	}
+
+	/**
 	 * Run the default uninstall routine for a given context.
 	 *
 	 * @since 2.0.0

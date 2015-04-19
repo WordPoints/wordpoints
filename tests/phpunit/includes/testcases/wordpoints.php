@@ -57,6 +57,37 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $wordpoints_component;
 
 	/**
+	 * The function that defines the database schema for this component.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var callable
+	 */
+	protected $db_schema_func;
+
+	/**
+	 * The database schema defined by this component.
+	 *
+	 * @see self::get_db_schema()
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var string
+	 */
+	protected $db_schema;
+
+	/**
+	 * The database tables created by this component.
+	 *
+	 * @see self::get_db_tables()
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var string[]
+	 */
+	protected $db_tables;
+
+	/**
 	 * The previous version if this is an update testcase.
 	 *
 	 * @since 1.9.0
@@ -290,6 +321,71 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Create the tables for this component with a specific charset.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $charset The character set to create the tables with.
+	 */
+	protected function create_tables_with_charset( $charset ) {
+
+		global $wpdb;
+
+		$wpdb->query( 'ROLLBACK' );
+
+		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
+
+		// Remove the current tables.
+		foreach ( $this->get_db_tables() as $table ) {
+			$wpdb->query( "DROP TABLE `{$table}`" );
+		}
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+		// Create the tables again with the specified charset.
+		$schema = $this->get_db_schema();
+		$schema = preg_replace( '/\).*;/', ") DEFAULT CHARSET={$charset};", $schema );
+		dbDelta( $schema );
+
+		$this->assertTablesHaveCharset( $charset );
+	}
+
+	/**
+	 * Get the database tables created by this component.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array The database tables of the component.
+	 */
+	public function get_db_tables() {
+
+		if ( ! isset( $this->db_tables ) ) {
+			preg_match_all( '/CREATE TABLE (.*) \(/', $this->get_db_schema(), $matches );
+			$this->db_tables = $matches[1];
+		}
+
+		return $this->db_tables;
+	}
+
+	/**
+	 * Get the database schema for this component.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string The database schema defined by this component.
+	 */
+	public function get_db_schema() {
+
+		if ( ! isset( $this->db_schema ) ) {
+			$this->db_schema = call_user_func( $this->db_schema_func );
+		}
+
+		return $this->db_schema;
+	}
+
+	/**
 	 * Listen for a WordPress action or filter.
 	 *
 	 * To limit the counting based on the filtered value, you can pass a
@@ -501,6 +597,42 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 			1
 			, $xpath->query( '//div[@class = "wordpoints-widget-error"]' )->length
 		);
+	}
+
+	/**
+	 * Assert that all of this component's database tables have a certain charset.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $charset The charset that the tables are expected to have.
+	 */
+	public function assertTablesHaveCharset( $charset ) {
+
+		foreach ( $this->get_db_tables() as $table ) {
+			$this->assertTableHasCharset( $charset, $table );
+		}
+	}
+
+	/**
+	 * Assert that a database table has a certain charset.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $charset The charset the table is expected to have.
+	 * @param string $table   The table name.
+	 */
+	public function assertTableHasCharset( $charset, $table ) {
+
+		global $wpdb;
+
+		// We append a space followed by another character to the strings so that we
+		// can properly handle cases with and without a collation specified, and
+		// without utf8 matching utf8mb4, for example.
+		$this->assertStringMatchesFormat(
+			"%aDEFAULT CHARSET={$charset} %a"
+			, $wpdb->get_var( "SHOW CREATE TABLE `{$table}`", 1 ) . ' .'
+		);
+
 	}
 }
 

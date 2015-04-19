@@ -491,8 +491,6 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 			return false;
 		}
 
-		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
-
 		return false !== strpos(
 			$sql
 			, '

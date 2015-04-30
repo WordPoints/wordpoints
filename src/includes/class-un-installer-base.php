@@ -833,7 +833,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Maybe some database tables to the utf8mb4 character set.
+	 * Maybe update some database tables to the utf8mb4 character set.
 	 *
 	 * @since 2.0.0
 	 *
@@ -856,7 +856,6 @@ abstract class WordPoints_Un_Installer_Base {
 		foreach ( $this->uninstall[ $type ]['tables'] as $table ) {
 			maybe_convert_table_to_utf8mb4( $prefix . $table );
 		}
-
 	}
 
 	/**

@@ -128,7 +128,7 @@ switch ( $action ) {
 
 			$recent = wordpoints_get_array_option( 'wordpoints_recently_activated_modules' );
 
-			foreach ( $modules as $module )  {
+			foreach ( $modules as $module ) {
 				unset( $recent[ $module ] );
 			}
 

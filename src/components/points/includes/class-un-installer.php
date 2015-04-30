@@ -788,6 +788,35 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function update_network_to_2_0_0() {
+
+		global $wpdb;
+
+		// So that we can change tables to utf8mb4, we need to shorten the index
+		// lengths to less than 767 bytes;
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_points_logs}
+			DROP INDEX points_type,
+			ADD INDEX points_type(points_type(191))
+			"
+		);
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_points_logs}
+			DROP INDEX log_type,
+			ADD INDEX log_type(log_type(191))
+			"
+		);
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_points_log_meta}
+			DROP INDEX meta_key,
+			ADD INDEX meta_key(meta_key(191))
+			"
+		);
+
 		$this->maybe_update_tables_to_utf8mb4( 'global' );
 	}
 

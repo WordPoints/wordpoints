@@ -1,22 +1,31 @@
 {
     "\/components\/points\/includes\/class-un-installer.php": {
         "network": {
-            "419": false,
-            "648": false
+            "420": false,
+            "649": false
         },
         "standard": {
-            "422": false,
-            "651": false
+            "423": false,
+            "652": false
         },
         "post": {
-            "658": false
+            "659": false
         },
         "EXISTS": {
-            "765": {
+            "766": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "global": {
+            "820": {
+                "name": "WordPoints_Points_Un_Installer::maybe_update_tables_to_utf8mb4",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
                 "parentheses": 1
             }
         }
@@ -826,6 +835,13 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
+            "776": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "781": {
                 "name": "array",
                 "type": "unknown",
@@ -833,7 +849,7 @@
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1051": {
+            "1077": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_",
                 "type": "unknown",
                 "args_started": true,
@@ -852,6 +868,20 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
+            "774": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "776": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "781": {
                 "name": "array",
                 "type": "unknown",
@@ -859,7 +889,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1067": {
+            "1093": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_",
                 "type": "unknown",
                 "args_started": true,
@@ -878,6 +908,27 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
+            "774": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "775": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "776": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "781": {
                 "name": "array",
                 "type": "unknown",
@@ -885,7 +936,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1083": {
+            "1109": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_",
                 "type": "unknown",
                 "args_started": true,
@@ -909,6 +960,13 @@
             }
         },
         "options": {
+            "629": {
+                "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "630": {
                 "name": "WordPoints_Un_Installer_Base::map_uninstall_shortcut",
                 "type": "unknown",
@@ -918,9 +976,12 @@
             }
         },
         "manage": {
+            "691": false,
+            "692": false,
             "693": false
         },
         "columnshidden": {
+            "691": false,
             "692": false
         },
         "-networkcolumnshidden": {
@@ -975,7 +1036,7 @@
             }
         },
         "user": {
-            "858": {
+            "884": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_metadata",
                 "type": "unknown",
                 "args_started": true,
@@ -984,7 +1045,7 @@
             }
         },
         "comment": {
-            "870": {
+            "896": {
                 "name": "WordPoints_Un_Installer_Base::uninstall_metadata",
                 "type": "unknown",
                 "args_started": true,
@@ -1026,6 +1087,17 @@
             },
             "234": {
                 "name": "WordPoints_Widget::get_field_name",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/ranks\/includes\/class-un-installer.php": {
+        "global": {
+            "140": {
+                "name": "WordPoints_Ranks_Un_Installer::maybe_update_tables_to_utf8mb4",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,

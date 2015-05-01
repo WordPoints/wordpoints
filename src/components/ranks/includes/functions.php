@@ -28,7 +28,7 @@ function wordpoints_ranks_get_db_schema() {
 			blog_id SMALLINT(5) UNSIGNED NOT NULL,
 			site_id SMALLINT(5) UNSIGNED NOT NULL,
 			PRIMARY KEY  (id),
-			KEY type (type),
+			KEY type (type(191)),
 			KEY site (blog_id,site_id)
 		) {$charset_collate};
 		CREATE TABLE {$wpdb->wordpoints_rankmeta} (

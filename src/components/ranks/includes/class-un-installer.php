@@ -27,7 +27,8 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.8.0' => array( 'site' => true ),
+		'1.8.0' => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'2.0.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -114,6 +115,38 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_site_to_1_8_0() {
 		$this->add_installed_site_id();
+	}
+
+
+	/**
+	 * Update a site to 2.0.0.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function update_network_to_2_0_0() {
+
+		global $wpdb;
+
+		// So that we can change tables to utf8mb4, we need to shorten the index
+		// lengths to less than 767 bytes;
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_ranks}
+			DROP INDEX type,
+			ADD INDEX type(type(191))
+			"
+		);
+
+		$this->maybe_update_tables_to_utf8mb4( 'global' );
+	}
+
+	/**
+	 * Update a single site to 2.0.0.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function update_single_to_2_0_0() {
+		$this->update_network_to_2_0_0();
 	}
 }
 

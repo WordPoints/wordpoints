@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "b87b9e6d26469dcba73ded8268fe134d",
     "packages": [],
@@ -48,16 +49,16 @@
         },
         {
             "name": "jdgrimes/wp-plugin-uninstall-tester",
-            "version": "0.4.2",
+            "version": "0.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-plugin-uninstall-tester.git",
-                "reference": "ee09116b088115919b1b81fcff19f74da6e5833e"
+                "reference": "0a5d9b52710e301529c86b7c4c81ec4d6afd0532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/ee09116b088115919b1b81fcff19f74da6e5833e",
-                "reference": "ee09116b088115919b1b81fcff19f74da6e5833e",
+                "url": "https://api.github.com/repos/JDGrimes/wp-plugin-uninstall-tester/zipball/0a5d9b52710e301529c86b7c4c81ec4d6afd0532",
+                "reference": "0a5d9b52710e301529c86b7c4c81ec4d6afd0532",
                 "shasum": ""
             },
             "require": {
@@ -78,12 +79,13 @@
             ],
             "description": "Utilities for testing WordPress plugin install/uninstall with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wp-plugin-uninstall-tester",
-            "time": "2014-11-25 14:47:10"
+            "time": "2015-04-30 19:35:18"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.2.0"
     },

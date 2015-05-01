@@ -24,6 +24,11 @@ class WordPoints_Points_UnitTestCase extends WordPoints_UnitTestCase {
 	protected $wordpoints_component = 'points';
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $db_schema_func = 'wordpoints_points_get_db_schema';
+
+	/**
 	 * Set up the points type.
 	 *
 	 * @since 1.0.0

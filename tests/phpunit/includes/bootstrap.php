@@ -44,7 +44,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
  *
  * @since 1.0.0
  */
-require_once getenv( 'WP_TESTS_DIR' ) . 'includes/functions.php';
+require_once getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
 
 /**
  * Miscellaneous utility functions.

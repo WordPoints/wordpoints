@@ -835,13 +835,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "776": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "781": {
                 "name": "array",
                 "type": "unknown",
@@ -868,20 +861,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "774": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "776": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "781": {
                 "name": "array",
                 "type": "unknown",
@@ -902,27 +881,6 @@
             "294": false,
             "400": false,
             "743": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "774": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "775": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "776": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -976,12 +934,9 @@
             }
         },
         "manage": {
-            "691": false,
-            "692": false,
             "693": false
         },
         "columnshidden": {
-            "691": false,
             "692": false
         },
         "-networkcolumnshidden": {

@@ -391,7 +391,7 @@ switch ( $action ) {
 					?>
 				</p>
 
-				<form method="post" action="<?php echo esc_attr( esc_url( $_SERVER['REQUEST_URI'] ) ); ?>" style="display:inline;">
+				<form method="post" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php foreach ( (array) $modules as $module ) : ?>

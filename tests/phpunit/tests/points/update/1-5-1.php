@@ -38,12 +38,18 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_Points_UnitTestCase
 	 */
 	public function test_db_table_charsets_updated() {
 
+		global $wpdb;
+
+		if ( 'latin1' === $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must not be latin1.' );
+		}
+
 		$this->create_tables_with_charset( 'latin1' );
 
 		// Simulate the update.
 		$this->update_component();
 
-		$this->assertTablesHaveCharset( 'utf8mb4' );
+		$this->assertTablesHaveCharset( $wpdb->charset );
 
 		$this->start_transaction();
 		$this->create_points_type();

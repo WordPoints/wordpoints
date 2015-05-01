@@ -35,6 +35,12 @@ class WordPoints_Points_2_0_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 */
 	public function test_db_table_charsets_updated() {
 
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
+		}
+
 		$this->create_tables_with_charset( 'utf8' );
 
 		// Simulate the update.

@@ -100,7 +100,7 @@ add_action( 'network_admin_menu', 'wordpoints_points_admin_menu' );
  */
 function wordpoints_points_admin_screen_hooks() {
 
-	if ( isset( $_GET['edithook'] ) || isset( $_POST['savehook'] ) || isset( $_POST['removehook'] ) ) {
+	if ( isset( $_GET['edithook'] ) || isset( $_POST['savehook'] ) || isset( $_POST['removehook'] ) ) { // WPCS: CSRF OK.
 
 		// - We're doing this without AJAX (JS).
 
@@ -162,7 +162,7 @@ add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_admin_po
  */
 function wordpoints_no_js_points_hooks_save() {
 
-	if ( ! isset( $_POST['savehook'] ) && ! isset( $_POST['removehook'] ) ) {
+	if ( ! isset( $_POST['savehook'] ) && ! isset( $_POST['removehook'] ) ) { // WPCS: CSRF OK.
 		return;
 	}
 
@@ -426,6 +426,7 @@ function wordpoints_points_admin_settings() {
 				</th>
 				<td>
 					<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
+					<?php wp_nonce_field( 'wordpoints_default_points_type', 'wordpoints_default_points_type_nonce' ); ?>
 				</td>
 			</tr>
 		</tbody>
@@ -444,7 +445,10 @@ add_action( 'wordpoints_admin_settings_top', 'wordpoints_points_admin_settings' 
  */
 function wordpoints_points_admin_settings_save() {
 
-	if ( isset( $_POST['default_points_type'] ) ) {
+	if (
+		isset( $_POST['default_points_type'] )
+		&& wordpoints_verify_nonce( 'wordpoints_default_points_type_nonce', 'wordpoints_default_points_type', null, 'post' )
+	) {
 
 		$points_type = sanitize_key( $_POST['default_points_type'] );
 

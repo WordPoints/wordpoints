@@ -18,7 +18,7 @@ function wordpoints-dev-lib-config() {
 
 	# Fix failures on HHVM. See #317.
 	if [[ $DO_CODE_COVERAGE == 1 ]]; then
-		alias phpunit-ms-network='phpunit-ms-network; composer remove jdgrimes/wp-filesystem-mock'
+		alias phpunit-ms-network='phpunit-ms-network; composer remove --dev jdgrimes/wp-filesystem-mock'
 	fi
 }
 

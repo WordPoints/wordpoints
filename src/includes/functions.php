@@ -136,7 +136,7 @@ function wordpoints_verify_nonce(
 ) {
 
 	if ( 'post' === $request_type ) {
-		$request = $_POST;
+		$request = $_POST; // WPCS: CSRF OK.
 	} else {
 		$request = $_GET;
 	}

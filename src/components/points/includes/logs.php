@@ -397,13 +397,9 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 		if ( $search_term ) {
 
-			global $wpdb, $wp_version;
+			global $wpdb;
 
-			if ( version_compare( $wp_version, '4.0-alpha-28611-src', '>=' ) ) {
-				$escaped_search_term = $wpdb->esc_like( $search_term );
-			} else {
-				$escaped_search_term = like_escape( $search_term );
-			}
+			$escaped_search_term = $wpdb->esc_like( $search_term );
 
 			$logs_query->set_args( array( 'text' => "%{$escaped_search_term}%" ) );
 		}

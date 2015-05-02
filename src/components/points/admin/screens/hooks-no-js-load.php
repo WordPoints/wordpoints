@@ -60,7 +60,7 @@ if ( ! empty( $_POST['removehook'] ) ) {
 	if ( ! in_array( $hook_id, $points_type_hooks, true ) ) {
 
 		// The hook isn't hooked to this points type, give an error.
-		wp_redirect( $redirect_url . '&error=0' );
+		wp_safe_redirect( $redirect_url . '&error=0' );
 		exit;
 	}
 
@@ -121,13 +121,13 @@ if ( ! empty( $_POST['removehook'] ) ) {
 
 } else {
 
-	wp_redirect( $redirect_url . '&error=0' );
+	wp_safe_redirect( $redirect_url . '&error=0' );
 	exit;
 }
 
 WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
-wp_redirect( $redirect_url . '&message=0' );
+wp_safe_redirect( $redirect_url . '&message=0' );
 exit;
 
 // EOF

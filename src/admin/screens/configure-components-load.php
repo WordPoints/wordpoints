@@ -52,7 +52,7 @@ switch ( $action ) {
 	default: return;
 }
 
-wp_redirect(
+wp_safe_redirect(
 	add_query_arg(
 		$message + array(
 			'page'                 => 'wordpoints_configure',

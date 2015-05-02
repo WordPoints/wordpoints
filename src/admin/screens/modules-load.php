@@ -333,7 +333,6 @@ switch ( $action ) {
 
 							foreach ( $folder_modules as $module_file => $data ) {
 
-								$module_info[ $module_file ] = _wordpoints_get_module_data_markup_translate( $module_file, $data );
 								$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
 
 								if ( ! $module_info[ $module_file ]['network'] ) {

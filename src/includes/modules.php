@@ -519,13 +519,16 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
  * the folder name as the first parameter.
  *
  * @since 1.1.0
+ * @since 2.0.0 The $markup and $translate parameters were added.
  *
  * @param string $module_folder A specific subfolder of the modules directory to look
  *                              in. Default is empty (search in all folders).
+ * @param bool   $markup        Whether to mark up the module data for display.
+ * @param bool   $translate     Whether to translate the module data.
  *
  * @return array A list of the module files found (files with module headers).
  */
-function wordpoints_get_modules( $module_folder = '' ) {
+function wordpoints_get_modules( $module_folder = '', $markup = false, $translate = false ) {
 
 	if ( ! $cache_modules = wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) ) {
 		$cache_modules = array();
@@ -574,7 +577,7 @@ function wordpoints_get_modules( $module_folder = '' ) {
 			continue;
 		}
 
-		$module_data = wordpoints_get_module_data( $module_file, false, false );
+		$module_data = wordpoints_get_module_data( $module_file, $markup, $translate );
 
 		if ( empty( $module_data['name'] ) ) {
 			continue;

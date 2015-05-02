@@ -15,6 +15,11 @@ function wordpoints-dev-lib-config() {
 	# Ignore the WordPress dev lib when codesniffing.
 	CODESNIFF_PATH+=('!' -path "./dev-lib/*")
 	export CODESNIFF_PATH
+
+	# Fix failures on HHVM. See #317.
+	if [[ $DO_CODE_COVERAGE == 1 ]]; then
+		alias phpunit-ms-network='phpunit-ms-network; composer remove --dev jdgrimes/wp-filesystem-mock'
+	fi
 }
 
 # EOF

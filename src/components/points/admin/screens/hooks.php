@@ -40,7 +40,7 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 		unset( $_GET['error'], $_GET['message'] );
 
-		if ( wordpoints_delete_points_type( $_POST['points-slug'] ) ) {
+		if ( wordpoints_delete_points_type( sanitize_key( $_POST['points-slug'] ) ) ) {
 
 			$_GET['message'] = 1;
 

@@ -38,11 +38,12 @@ function wordpoints_ajax_points_hooks_order() {
 	}
 
 	// Save hooks order for all points types.
-	if ( is_array( $_POST['points_types'] ) ) {
+	if ( isset( $_POST['points_types'] ) && is_array( $_POST['points_types'] ) ) {
 
 		$points_types_hooks = array();
+		$points_types = array_map( 'sanitize_text_field', $_POST['points_types'] );
 
-		foreach ( $_POST['points_types'] as $points_type => $hooks ) {
+		foreach ( $points_types as $points_type => $hooks ) {
 
 			$points_type_hooks = array();
 
@@ -181,7 +182,7 @@ function wordpoints_ajax_save_points_hook() {
 		$settings = false;
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$settings = wp_unslash( $_POST[ 'hook-' . $id_base ] ); // XSS pass WPCS.
+			$settings = wp_unslash( $_POST[ 'hook-' . $id_base ] ); // WPCS: sanitization OK.
 		}
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();

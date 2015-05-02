@@ -42,7 +42,7 @@ $accessibility_mode = get_user_setting( 'wordpoints_points_hooks_access' );
 
 if (
 	isset( $_GET['accessibility-mode'], $_GET['wordpoints-accessiblity-nonce'] )
-	&& wp_verify_nonce( $_GET['wordpoints-accessiblity-nonce'], 'wordpoints_points_hooks_accessiblity' )
+	&& wordpoints_verify_nonce( 'wordpoints-accessiblity-nonce', 'wordpoints_points_hooks_accessiblity' )
 ) {
 
 	$accessibility_mode = ( 'on' === sanitize_key( $_GET['accessibility-mode'] ) ) ? 'on' : 'off';

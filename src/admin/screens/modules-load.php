@@ -91,7 +91,7 @@ switch ( $action ) {
 		check_admin_referer( 'bulk-modules' );
 
 		$modules = isset( $_POST['checked'] )
-			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // XSS OK WPCS.
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // WPCS: sanitization OK.
 			: array();
 
 		// Only activate modules which are not already active.
@@ -219,7 +219,7 @@ switch ( $action ) {
 		check_admin_referer( 'bulk-modules' );
 
 		$modules = isset( $_POST['checked'] )
-			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // XSS OK WPCS.
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // WPCS: sanitization OK.
 			: array();
 
 		$network_modules = array_filter( $modules, 'is_wordpoints_module_active_for_network' );
@@ -262,7 +262,7 @@ switch ( $action ) {
 
 		// $_POST = from the module form; $_GET = from the FTP details screen.
 		$modules = isset( $_REQUEST['checked'] )
-			? array_map( 'sanitize_text_field', (array) wp_unslash( $_REQUEST['checked'] ) ) // XSS OK WPCS.
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_REQUEST['checked'] ) ) // WPCS: sanitization OK.
 			: array();
 
 		if ( empty( $modules ) ) {
@@ -391,7 +391,7 @@ switch ( $action ) {
 					?>
 				</p>
 
-				<form method="post" action="<?php echo esc_attr( esc_url( $_SERVER['REQUEST_URI'] ) ); ?>" style="display:inline;">
+				<form method="post" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php foreach ( (array) $modules as $module ) : ?>

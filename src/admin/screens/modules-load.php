@@ -40,7 +40,7 @@ switch ( $action ) {
 
 		if ( is_multisite() && ! is_network_admin() && is_network_only_wordpoints_module( $module ) ) {
 
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -52,7 +52,7 @@ switch ( $action ) {
 
 			if ( 'unexpected_output' === $result->get_error_code() ) {
 
-				wp_redirect(
+				wp_safe_redirect(
 					add_query_arg(
 						array(
 							'_error_nonce' => wp_create_nonce( 'module-activation-error_' . $module ),
@@ -79,7 +79,7 @@ switch ( $action ) {
 			update_option( 'wordpoints_recently_activated_modules', $recent );
 		}
 
-		wp_redirect( add_query_arg( 'activate', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'activate', 'true', $redirect_url ) );
 	exit;
 
 	// Activate multiple modules.
@@ -113,7 +113,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -135,7 +135,7 @@ switch ( $action ) {
 			update_option( 'wordpoints_recently_activated_modules', $recent );
 		}
 
-		wp_redirect( add_query_arg( 'activate-multi', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'activate-multi', 'true', $redirect_url ) );
 	exit;
 
 	// Get the fatal error from a module.
@@ -191,7 +191,7 @@ switch ( $action ) {
 		check_admin_referer( 'deactivate-module_' . $module );
 
 		if ( ! is_network_admin() && is_wordpoints_module_active_for_network( $module ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -206,7 +206,7 @@ switch ( $action ) {
 		if ( headers_sent() ) {
 			echo '<meta http-equiv="refresh" content="' . esc_attr( '0;url=' . $redirect_url ) . '" />';
 		} else {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 		}
 	exit;
 
@@ -232,7 +232,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -249,7 +249,7 @@ switch ( $action ) {
 			update_option( 'wordpoints_recently_activated_modules', $deactivated + wordpoints_get_array_option( 'wordpoints_recently_activated_modules' ) );
 		}
 
-		wp_redirect( add_query_arg( 'deactivate-multi', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'deactivate-multi', 'true', $redirect_url ) );
 	exit;
 
 	// Delete multiple modules.
@@ -266,7 +266,7 @@ switch ( $action ) {
 			: array();
 
 		if ( empty( $modules ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -279,7 +279,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( add_query_arg( array( 'error' => 'true', 'main' => 'true' ), $redirect_url ) );
+			wp_safe_redirect( add_query_arg( array( 'error' => 'true', 'main' => 'true' ), $redirect_url ) );
 			exit;
 		}
 
@@ -426,7 +426,7 @@ switch ( $action ) {
 		// Store the result in a cache rather than a URL param due to object type & length
 		set_transient( 'wordpoints_modules_delete_result_' . get_current_user_id(), $delete_result );
 
-		wp_redirect( add_query_arg( 'deleted', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'deleted', 'true', $redirect_url ) );
 	exit;
 
 	case 'clear-recent-list':

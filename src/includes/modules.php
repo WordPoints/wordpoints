@@ -732,7 +732,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		 * Redirect. We'll override this later if the module can be included
 		 * without a fatal error.
 		 */
-		wp_redirect(
+		wp_safe_redirect(
 			add_query_arg(
 				'_error_nonce'
 				, wp_create_nonce( 'module-activation-error_' . $module )

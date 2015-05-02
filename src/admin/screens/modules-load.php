@@ -333,7 +333,6 @@ switch ( $action ) {
 
 							foreach ( $folder_modules as $module_file => $data ) {
 
-								$module_info[ $module_file ] = _wordpoints_get_module_data_markup_translate( $module_file, $data );
 								$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
 
 								if ( ! $module_info[ $module_file ]['network'] ) {
@@ -444,11 +443,7 @@ switch ( $action ) {
 		do_action( "wordpoints_modules_screen-{$action}" );
 }
 
-if ( version_compare( $wp_version, '4.2-alpha-31546', '<=' ) ) {
-	add_screen_option( 'per_page', array( 'label' => _x( 'Modules', 'modules per page (screen options)', 'wordpoints' ), 'default' => 999 ) );
-} else {
-	add_screen_option( 'per_page', array( 'default' => 999 ) );
-}
+add_screen_option( 'per_page', array( 'default' => 999 ) );
 
 $screen = get_current_screen();
 

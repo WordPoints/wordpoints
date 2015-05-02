@@ -26,15 +26,9 @@ function wordpoints_db_table_exists( $table ) {
 
 	_deprecated_function( __FUNCTION__, '1.7.0' );
 
-	global $wpdb, $wp_version;
+	global $wpdb;
 
-	if ( version_compare( $wp_version, '4.0-alpha-28611-src', '>=' ) ) {
-		$esc_table = $wpdb->esc_like( $table );
-	} else {
-		$esc_table = like_escape( $table );
-	}
-
-	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $esc_table ) ); // Cache pass, WPCS.
+	$_table = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ); // Cache pass, WPCS.
 
 	return ( $_table === $table ) ? true : false;
 }

@@ -114,7 +114,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$hook->get_id(),
 					$delete_hook->get_id(),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -182,7 +182,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 					'points' => array(
 						$hook->get_id( $hook_number ),
 						$delete_hook->get_id( $delete_hook_number ),
-					)
+					),
 				),
 				WordPoints_Points_Hooks::get_points_types_hooks()
 			);
@@ -242,7 +242,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$network_hook_id,
 					$hook->get_id( $hook_number ),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -293,7 +293,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$hook->get_id(),
 					$removed_hook->get_id(),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -367,7 +367,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 					'points' => array(
 						$hook->get_id( $hook_number ),
 						$remove_hook->get_id( $remove_hook_number ),
-					)
+					),
 				),
 				WordPoints_Points_Hooks::get_points_types_hooks()
 			);
@@ -433,7 +433,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$network_hook_id,
 					$hook->get_id( $hook_number ),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);

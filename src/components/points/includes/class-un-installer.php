@@ -299,7 +299,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 
 		if ( $post_ids && is_array( $post_ids ) && $hook ) {
-			foreach ( $post_ids AS $post_id ) {
+			foreach ( $post_ids as $post_id ) {
 				$hook->clean_logs_on_post_deletion( $post_id );
 			}
 		}
@@ -328,7 +328,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 
 		if ( $comment_ids && is_array( $comment_ids ) && $hook ) {
-			foreach ( $comment_ids AS $comment_id ) {
+			foreach ( $comment_ids as $comment_id ) {
 				$hook->clean_logs_on_comment_deletion( $comment_id );
 			}
 		}
@@ -530,7 +530,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 
 		if ( $post_ids && is_array( $post_ids ) && $hook ) {
-			foreach ( $post_ids AS $post_id ) {
+			foreach ( $post_ids as $post_id ) {
 				$hook->clean_logs_on_post_deletion( $post_id );
 			}
 		}

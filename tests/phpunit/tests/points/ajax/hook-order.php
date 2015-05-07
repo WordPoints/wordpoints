@@ -74,7 +74,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 				'points' => array(
 					'registration_points_hook-1',
 					'comments_points_hook-1',
-				)
+				),
 			)
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -167,7 +167,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 				'points' => array(
 					'registration_points_hook-1',
 					'comments_points_hook-1',
-				)
+				),
 			)
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);

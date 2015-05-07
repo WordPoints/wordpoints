@@ -108,7 +108,7 @@ function wordpoints_register_points_ranks() {
 						, 'wordpoints'
 					)
 					, $points_type['name']
-				)
+				),
 			)
 		);
 

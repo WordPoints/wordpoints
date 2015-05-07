@@ -454,7 +454,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			wp_send_json_error(
 				array(
 					'message' => $result->get_error_message(),
-					'data'    => $result->get_error_data()
+					'data'    => $result->get_error_data(),
 				)
 			);
 		}

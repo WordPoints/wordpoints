@@ -256,7 +256,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @param array $module_data The data for a module.
 	 *
-	 * @return bool Wether any of the module's data matches the search.
+	 * @return bool Whether any of the module's data matches the search.
 	 */
 	private function _search_callback( $module_data ) {
 

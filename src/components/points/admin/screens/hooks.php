@@ -20,9 +20,9 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 		$settings = array();
 
-		$settings['name']   = trim( wp_unslash( esc_html( $_POST['points-name'] ) ) );
-		$settings['prefix'] = ltrim( wp_unslash( esc_html( $_POST['points-prefix'] ) ) );
-		$settings['suffix'] = rtrim( wp_unslash( esc_html( $_POST['points-suffix'] ) ) );
+		$settings['name']   = trim( wp_unslash( sanitize_text_field( $_POST['points-name'] ) ) );
+		$settings['prefix'] = ltrim( wp_unslash( sanitize_text_field( $_POST['points-prefix'] ) ) );
+		$settings['suffix'] = rtrim( wp_unslash( sanitize_text_field( $_POST['points-suffix'] ) ) );
 
 		if ( ! wordpoints_add_points_type( $settings ) ) {
 

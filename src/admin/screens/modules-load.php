@@ -21,7 +21,7 @@ if ( isset( $_POST['clear-recent-list'] ) ) {
 
 $page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
 $module = ( isset( $_REQUEST['module'] ) ) ? wp_unslash( sanitize_text_field( $_REQUEST['module'] ) ) : '';
-$s      = ( isset( $_REQUEST['s'] ) ) ? urlencode( $_REQUEST['s'] ) : '';
+$s      = ( isset( $_REQUEST['s'] ) ) ? sanitize_text_field( $_REQUEST['s'] ) : '';
 
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ) );

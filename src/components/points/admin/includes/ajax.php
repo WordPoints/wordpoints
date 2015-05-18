@@ -116,15 +116,15 @@ function wordpoints_ajax_save_points_hook() {
 		$settings = array();
 
 		if ( isset( $_POST['points-name'] ) ) {
-			$settings['name'] = wp_unslash( trim( esc_html( $_POST['points-name'] ) ) );
+			$settings['name'] = wp_unslash( trim( sanitize_text_field( $_POST['points-name'] ) ) );
 		}
 
 		if ( isset( $_POST['points-prefix'] ) ) {
-			$settings['prefix'] = wp_unslash( ltrim( esc_html( $_POST['points-prefix'] ) ) );
+			$settings['prefix'] = wp_unslash( ltrim( sanitize_text_field( $_POST['points-prefix'] ) ) );
 		}
 
 		if ( isset( $_POST['points-suffix'] ) ) {
-			$settings['suffix'] = wp_unslash( rtrim( esc_html( $_POST['points-suffix'] ) ) );
+			$settings['suffix'] = wp_unslash( rtrim( sanitize_text_field( $_POST['points-suffix'] ) ) );
 		}
 
 		$points_type = sanitize_key( $_POST['points-slug'] );

@@ -387,7 +387,7 @@ function wordpoints_points_profile_options_update( $user_id ) {
 				, 'profile_edit'
 				, array(
 					'user_id' => get_current_user_id(),
-					'reason' => wp_unslash( esc_html( $_POST['wordpoints_set_reason'] ) ),
+					'reason' => wp_unslash( sanitize_text_field( $_POST['wordpoints_set_reason'] ) ),
 				)
 			);
 		}

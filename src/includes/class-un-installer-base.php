@@ -86,6 +86,35 @@ abstract class WordPoints_Un_Installer_Base {
 	protected $context;
 
 	/**
+	 * Database schema for this entity.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array[] $schema {
+	 *      @type array[] $single {
+	 *            Schema for a single site (non-multisite) install.
+	 *
+	 *             @type string[] $tables DB field schema for tables (i.e., the part of the
+	 *                                    CREATE TABLE query within the main parenthesis)
+	 *                                    indexed by table name (base DB prefix will be
+	 *                                    prepended).
+	 *      }
+	 *      @type array[] $site Schema for each site in a multisite network. See
+	 *                          $single for list of keys. Note that 'tables' will be
+	 *                          prepended with blog prefix instead.
+	 *      @type array[] $network Schema for a multisite network. See $single for
+	 *                             list of keys.
+	 *      @type array[] $local Schema for each site in a multisite network, and on
+	 *                           a single site install. See $single for list of keys.
+	 *      @type array[] $global Schema for a multisite network and on a single site
+	 *                            install. See $single for list of keys.
+	 *      @type array[] $universal Schema for $single, $site, and $network. See
+	 *                               $single for list of keys.
+	 * }
+	 */
+	protected $schema = array();
+
+	/**
 	 * List of things to uninstall.
 	 *
 	 * @since 2.0.0
@@ -601,6 +630,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function before_install() {
+		$this->map_shortcuts( 'schema' );
 		$this->maybe_load_custom_caps();
 	}
 
@@ -617,6 +647,43 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Install the database schema for the current site.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function install_db_schema() {
+
+		if ( ! isset( $this->schema[ $this->context ]['tables'] ) ) {
+			return;
+		}
+
+		global $wpdb;
+
+		$schema = '';
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		if ( 'site' === $this->context ) {
+			$prefix = $wpdb->base_prefix;
+		} else {
+			$prefix = $wpdb->prefix;
+		}
+
+		foreach ( $this->schema[ $this->context ]['tables'] as $table_name => $table_schema ) {
+
+			$table_name = str_replace( '`', '``', $table_name );
+
+			$schema .= "CREATE TABLE {$prefix}{$table_name} (
+				{$table_schema}
+			) {$charset_collate};";
+		}
+
+		if ( ! empty( $schema ) ) {
+			dbDelta( $schema );
+		}
+	}
+
+	/**
 	 * Run before uninstalling, but after loading dependencies.
 	 *
 	 * @since 1.8.0
@@ -629,8 +696,27 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->map_uninstall_shortcut( 'widgets', 'options', array( 'prefix' => 'widget_' ) );
 		$this->map_uninstall_shortcut( 'points_hooks', 'options', array( 'prefix' => 'wordpoints_hook-' ) );
 
-		// This *must* happen *after* the list tables args are parsed.
-		$this->map_uninstall_shortcuts();
+		// Add any tables to uninstall based on the db schema.
+		foreach ( $this->schema as $context => $schema ) {
+
+			if ( ! isset( $schema['tables'] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $this->uninstall[ $context ]['tables'] ) ) {
+				$this->uninstall[ $context ]['tables'] = array();
+			}
+
+			$this->uninstall[ $context ]['tables'] = array_unique(
+				array_merge(
+					$this->uninstall[ $context ]['tables']
+					, array_keys( $schema['tables'] )
+				)
+			);
+		}
+
+		// This *must* happen *after* the schema and list tables args are parsed.
+		$this->map_shortcuts( 'uninstall' );
 	}
 
 	/**
@@ -766,8 +852,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 * arrays.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @param string $type The type of shortcuts to map. Corresponds to a member var.
 	 */
-	protected function map_uninstall_shortcuts() {
+	protected function map_shortcuts( $type ) {
 
 		// shortcut => canonicals
 		$map = array(
@@ -776,19 +864,19 @@ abstract class WordPoints_Un_Installer_Base {
 			'universal' => array( 'single', 'site', 'network' ),
 		);
 
-		$this->uninstall = array_merge(
+		$this->$type = array_merge(
 			array_fill_keys(
 				array( 'single', 'site', 'network', 'local', 'global', 'universal' )
 				, array()
 			)
-			, $this->uninstall
+			, $this->$type
 		);
 
 		foreach ( $map as $shortcut => $canonicals ) {
 			foreach ( $canonicals as $canonical ) {
-				$this->uninstall[ $canonical ] = array_merge_recursive(
-					$this->uninstall[ $canonical ]
-					, $this->uninstall[ $shortcut ]
+				$this->{$type}[ $canonical ] = array_merge_recursive(
+					$this->{$type}[ $canonical ]
+					, $this->{$type}[ $shortcut ]
 				);
 			}
 		}
@@ -1026,7 +1114,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 * @since 2.0.0 No longer abstract.
 	 */
-	protected function install_network() {}
+	protected function install_network() {
+		$this->install_db_schema();
+	}
 
 	/**
 	 * Install on a single site on the network.
@@ -1038,6 +1128,11 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0 No longer abstract.
 	 */
 	protected function install_site() {
+
+		if ( isset( $this->schema['site'] ) ) {
+			$this->install_db_schema();
+		}
+
 		$this->install_custom_caps();
 	}
 
@@ -1051,6 +1146,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0 No longer abstract.
 	 */
 	protected function install_single() {
+		$this->install_db_schema();
 		$this->install_custom_caps();
 	}
 

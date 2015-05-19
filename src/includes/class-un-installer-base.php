@@ -653,8 +653,24 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function install_db_schema() {
 
+		$schema = $this->get_db_schema();
+
+		if ( ! empty( $schema ) ) {
+			dbDelta( $schema );
+		}
+	}
+
+	/**
+	 * Get the database schema for this entity.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string The database schema for this entity.
+	 */
+	public function get_db_schema() {
+
 		if ( ! isset( $this->schema[ $this->context ]['tables'] ) ) {
-			return;
+			return '';
 		}
 
 		global $wpdb;
@@ -678,9 +694,7 @@ abstract class WordPoints_Un_Installer_Base {
 			) {$charset_collate};";
 		}
 
-		if ( ! empty( $schema ) ) {
-			dbDelta( $schema );
-		}
+		return $schema;
 	}
 
 	/**

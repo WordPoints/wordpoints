@@ -20,11 +20,6 @@ class WordPoints_Ranks_UnitTestCase extends WordPoints_UnitTestCase {
 	protected $wordpoints_component = 'ranks';
 
 	/**
-	 * @since 2.0.0
-	 */
-	protected $db_schema_func = 'wordpoints_ranks_get_db_schema';
-
-	/**
 	 * The slug of the rank group used in the tests.
 	 *
 	 * @since 1.7.0

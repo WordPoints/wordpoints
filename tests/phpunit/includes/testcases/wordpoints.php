@@ -57,15 +57,6 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $wordpoints_component;
 
 	/**
-	 * The function that defines the database schema for this component.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @var callable
-	 */
-	protected $db_schema_func;
-
-	/**
 	 * The database schema defined by this component.
 	 *
 	 * @see self::get_db_schema()
@@ -379,7 +370,8 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	public function get_db_schema() {
 
 		if ( ! isset( $this->db_schema ) ) {
-			$this->db_schema = call_user_func( $this->db_schema_func );
+			$installer = WordPoints_Components::instance()->get_installer( 'points' );
+			$this->db_schema = $installer->get_db_schema();
 		}
 
 		return $this->db_schema;

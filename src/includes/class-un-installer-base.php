@@ -955,8 +955,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$prefix = $wpdb->prefix;
 		}
 
-		foreach ( $this->uninstall[ $type ]['tables'] as $table ) {
-			maybe_convert_table_to_utf8mb4( $prefix . $table );
+		foreach ( $this->schema[ $type ]['tables'] as $table_name => $schema ) {
+			maybe_convert_table_to_utf8mb4( $prefix . $table_name );
 		}
 	}
 

@@ -951,7 +951,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $this->schema[ $this->context ]['tables'] as $table_name => $table_schema ) {
 
-			$table_name = str_replace( '`', '``', $table_name );
+			$table_name   = str_replace( '`', '``', $table_name );
+			$table_schema = trim( $table_schema );
 
 			$schema .= "CREATE TABLE {$prefix}{$table_name} (
 				{$table_schema}

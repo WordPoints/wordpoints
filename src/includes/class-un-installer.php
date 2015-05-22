@@ -15,9 +15,9 @@
 class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_';
+	protected $type = 'plugin';
 
 	/**
 	 * @since 1.8.0
@@ -117,8 +117,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_single() {
 
-		parent::install_single();
-
+		$this->install_custom_caps();
 		$this->install_network();
 	}
 

@@ -19,9 +19,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	//
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_points_';
+	protected $type = 'component';
 
 	/**
 	 * @since 1.8.0
@@ -189,14 +189,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
-	 */
-	protected function install_network() {
-
-		$this->install_points_main();
-	}
-
-	/**
 	 * @since 2.0.0
 	 */
 	protected function install_custom_caps() {
@@ -220,18 +212,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		parent::install_single();
 
 		add_option( 'wordpoints_default_points_type', '' );
-
-		$this->install_points_main();
-	}
-
-	/**
-	 * Install the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function install_points_main() {
-
-		$this->set_component_version( 'points', WORDPOINTS_VERSION );
 	}
 
 	/**

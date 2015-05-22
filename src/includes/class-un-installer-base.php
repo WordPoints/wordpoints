@@ -19,9 +19,30 @@ abstract class WordPoints_Un_Installer_Base {
 	//
 
 	/**
+	 * The type of entity.
+	 *
+	 * For example, 'module' or 'component'.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var string
+	 */
+	protected $type;
+
+	/**
+	 * The slug of this entity.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var string
+	 */
+	protected $slug;
+
+	/**
 	 * The prefix to use for the name of the options the un/installer uses.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.0.0 The $slug and $type properties are used instead.
 	 *
 	 * @type string $option_prefix
 	 */
@@ -205,6 +226,32 @@ abstract class WordPoints_Un_Installer_Base {
 	//
 
 	/**
+	 * Constructs the un/installer with the entity's slug and version.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $slug    The slug of the entity.
+	 * @param string $version The current code version of the entity.
+	 */
+	public function __construct( $slug = null, $version = null ) {
+
+		if ( ! isset( $slug ) ) {
+			_doing_it_wrong( __METHOD__, 'The $slug parameter is required.', '2.0.0' );
+		}
+
+		if ( ! isset( $version ) ) {
+			_doing_it_wrong( __METHOD__, 'The $version parameter is required.', '2.0.0' );
+		}
+
+		$this->slug = $slug;
+		$this->version = $version;
+
+		if ( isset( $this->option_prefix ) ) {
+			_deprecated_argument( __METHOD__, '2.0.0', 'The $option_prefix property is deprecated.' );
+		}
+	}
+
+	/**
 	 * Run the install routine.
 	 *
 	 * @since 1.8.0
@@ -235,7 +282,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 			if ( $network ) {
 
-				update_site_option( "{$this->option_prefix}network_installed", true );
+				$this->set_network_installed();
 
 				if ( $this->do_per_site_install() ) {
 
@@ -256,7 +303,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 					// We'll check this later and let the user know that per-site
 					// install was skipped.
-					add_site_option( "{$this->option_prefix}network_install_skipped", true );
+					$this->set_network_install_skipped();
 				}
 
 			} else {
@@ -314,9 +361,10 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->context = 'network';
 			$this->uninstall_network();
 
-			delete_site_option( "{$this->option_prefix}installed_sites" );
-			delete_site_option( "{$this->option_prefix}network_installed" );
-			delete_site_option( "{$this->option_prefix}network_install_skipped" );
+			$this->delete_installed_site_ids();
+			$this->unset_network_installed();
+			$this->unset_network_install_skipped();
+			$this->unset_network_update_skipped();
 
 		} else {
 
@@ -344,8 +392,8 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$this->network_wide = $network;
-		$this->updating_from = $from;
-		$this->updating_to = $to;
+		$this->updating_from = ( null === $from ) ? $this->get_db_version() : $from;
+		$this->updating_to   = ( null === $to ) ? $this->version : $to;
 
 		$updates = array();
 
@@ -369,7 +417,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @param bool   $network Whether the entity is network active. Defaults to the
 	 *                        state of WordPoints itself.
 	 */
-	public function update( $from, $to, $network = null ) {
+	public function update( $from = null, $to = null, $network = null ) {
 
 		$this->prepare_to_update( $from, $to, $network );
 
@@ -416,7 +464,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 					// We'll check this later and let the user know that per-site
 					// update was skipped.
-					add_site_option( "{$this->option_prefix}network_update_skipped", true );
+					$this->set_network_update_skipped();
 				}
 
 			} else {
@@ -470,6 +518,59 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Set an option in the database for this entity.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $option The name of the option to set.
+	 * @param mixed  $value  The value of the option.
+	 */
+	private function _set_option( $option, $value = true ) {
+
+		if ( isset( $this->option_prefix ) ) {
+
+			update_site_option( "{$this->option_prefix}{$option}", $value );
+
+		} else {
+
+			$data = wordpoints_get_array_option(
+				"wordpoints_{$option}"
+				, 'site'
+			);
+
+			$data[ $this->type ][ $this->slug ] = $value;
+
+			update_site_option( "wordpoints_{$option}", $data );
+		}
+	}
+
+	/**
+	 * Delete an option in the database for this entity.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $option The name of the option to delete.
+	 */
+	private function _unset_option( $option ) {
+
+		if ( isset( $this->option_prefix ) ) {
+
+			delete_site_option( "{$this->option_prefix}{$option}" );
+
+		} else {
+
+			$data = wordpoints_get_array_option(
+				"wordpoints_{$option}"
+				, 'site'
+			);
+
+			unset( $data[ $this->type ][ $this->slug ] );
+
+			update_site_option( "wordpoints_{$option}", $data );
+		}
+	}
+
+	/**
 	 * Check if this entity is network installed.
 	 *
 	 * @since 1.8.0
@@ -478,7 +579,73 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function is_network_installed() {
 
-		return (bool) get_site_option( "{$this->option_prefix}network_installed" );
+		if ( isset( $this->option_prefix ) ) {
+
+			return (bool) get_site_option( "{$this->option_prefix}network_installed" );
+
+		} else {
+
+			$network_installed = wordpoints_get_array_option(
+				'wordpoints_network_installed'
+				, 'site'
+			);
+
+			return isset( $network_installed[ $this->type ][ $this->slug ] );
+		}
+	}
+
+	/**
+	 * Set this entity's status as network-installed in the database.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function set_network_installed() {
+		$this->_set_option( 'network_installed' );
+	}
+
+	/**
+	 * Delete this entity's status as network-installed.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function unset_network_installed() {
+		$this->_unset_option( 'network_installed' );
+	}
+
+	/**
+	 * Set that this entity's network installation has been skipped in the database.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function set_network_install_skipped() {
+		$this->_set_option( 'network_install_skipped' );
+	}
+
+	/**
+	 * Delete the network-install skipped flag for this entity from the database.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function unset_network_install_skipped() {
+		$this->_unset_option( 'network_install_skipped' );
+	}
+
+	/**
+	 * Set that network-updating this entity has been skipped in the database.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function set_network_update_skipped() {
+		$this->_set_option( 'network_update_skipped', $this->updating_from );
+	}
+
+	/**
+	 * Delete the network-update skipped flag for this entity from the database.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function unset_network_update_skipped() {
+		$this->_unset_option( 'network_update_skipped' );
 	}
 
 	/**
@@ -523,6 +690,26 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Get the name of the option where the list of installed sites is stored.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string The option name.
+	 */
+	private function _get_installed_site_ids_option_name() {
+
+		if ( isset( $this->option_prefix ) ) {
+			$option_prefix = $this->option_prefix;
+		} elseif ( 'wordpoints' === $this->slug ) {
+			$option_prefix = 'wordpoints_';
+		} else {
+			$option_prefix = "wordpoints_{$this->type}_{$this->slug}_";
+		}
+
+		return "{$option_prefix}installed_sites";
+	}
+
+	/**
 	 * Get the IDs of all sites on which this is installed.
 	 *
 	 * @since 1.8.0
@@ -534,7 +721,10 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( $this->is_network_installed() ) {
 			$sites = $this->get_all_site_ids();
 		} else {
-			$sites = wordpoints_get_array_option( "{$this->option_prefix}installed_sites", 'site' );
+			$sites = wordpoints_get_array_option(
+				$this->_get_installed_site_ids_option_name()
+				, 'site'
+			);
 		}
 
 		return $sites;
@@ -553,10 +743,21 @@ abstract class WordPoints_Un_Installer_Base {
 			$id = get_current_blog_id();
 		}
 
-		$sites = wordpoints_get_array_option( "{$this->option_prefix}installed_sites", 'site' );
+		$option_name = $this->_get_installed_site_ids_option_name();
+
+		$sites = wordpoints_get_array_option( $option_name, 'site' );
 		$sites[] = $id;
 
-		update_site_option( "{$this->option_prefix}installed_sites", $sites );
+		update_site_option( $option_name, $sites );
+	}
+
+	/**
+	 * Delete the list of installed sites.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function delete_installed_site_ids() {
+		delete_site_option( $this->_get_installed_site_ids_option_name() );
 	}
 
 	/**
@@ -585,16 +786,79 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Get the database version of the entity.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string|false The database version of the entity, or false if not set.
+	 */
+	protected function get_db_version() {
+
+		if ( 'network' === $this->context ) {
+			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
+		} else {
+			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
+		}
+
+		if ( 'wordpoints' === $this->slug ) {
+
+			if ( isset( $wordpoints_data['version'] ) ) {
+				return $wordpoints_data['version'];
+			}
+
+		} elseif ( isset( $wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'] ) ) {
+			return $wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Set the version of the entity in the database.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $version The version of the entity.
+	 */
+	protected function set_db_version( $version = null ) {
+
+		if ( null === $version ) {
+			$version = $this->version;
+		}
+
+		if ( 'network' === $this->context ) {
+			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
+		} else {
+			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
+		}
+
+		if ( 'wordpoints' === $this->slug ) {
+			$wordpoints_data['version'] = $version;
+		} else {
+			$wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'] = $version;
+		}
+
+		if ( 'network' === $this->context ) {
+			update_site_option( 'wordpoints_data', $wordpoints_data );
+		} else {
+			update_option( 'wordpoints_data', $wordpoints_data );
+		}
+	}
+
+	/**
 	 * Set a component's version.
 	 *
 	 * For use when installing a component.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.0.0 Use set_db_version() method instead.
 	 *
 	 * @param string $component The component's slug.
 	 * @param string $version   The installed component version.
 	 */
 	protected function set_component_version( $component, $version ) {
+
+		_deprecated_function( __METHOD__, '2.0.0', '::set_db_version()' );
 
 		$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
 
@@ -1129,7 +1393,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0 No longer abstract.
 	 */
 	protected function install_network() {
+
 		$this->install_db_schema();
+
+		if ( $this->network_wide ) {
+			$this->set_db_version();
+		}
 	}
 
 	/**
@@ -1147,6 +1416,10 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->install_db_schema();
 		}
 
+		if ( ! $this->network_wide ) {
+			$this->set_db_version();
+		}
+
 		$this->install_custom_caps();
 	}
 
@@ -1160,8 +1433,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0 No longer abstract.
 	 */
 	protected function install_single() {
+
 		$this->install_db_schema();
 		$this->install_custom_caps();
+		$this->set_db_version();
 	}
 
 	/**

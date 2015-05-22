@@ -19,9 +19,9 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	//
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_ranks_';
+	protected $type = 'component';
 
 	/**
 	 * @since 1.8.0
@@ -90,36 +90,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function do_per_site_install() {
 
 		return false;
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function install_network() {
-
-		parent::install_network();
-
-		$this->install_ranks_main();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function install_single() {
-
-		parent::install_single();
-
-		$this->install_ranks_main();
-	}
-
-	/**
-	 * Install the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function install_ranks_main() {
-
-		$this->set_component_version( 'ranks', WORDPOINTS_VERSION );
 	}
 
 	/**

@@ -88,6 +88,43 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $previous_version;
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected function checkRequirements() {
+
+		parent::checkRequirements();
+
+		$annotations = $this->getAnnotations();
+
+		foreach ( array( 'class', 'method' ) as $depth ) {
+
+			if ( empty( $annotations[ $depth ]['requires'] ) ) {
+				continue;
+			}
+
+			$requires = array_flip( $annotations[ $depth ]['requires'] );
+
+			if ( isset( $requires['WordPress multisite'] ) && ! is_multisite() ) {
+				$this->markTestSkipped( 'Multisite must be enabled.' );
+			} elseif ( isset( $requires['WordPress !multisite'] ) && is_multisite() ) {
+				$this->markTestSkipped( 'Multisite must not be enabled.' );
+			}
+
+			if (
+				isset( $requires['WordPoints network-active'] )
+				&& ! is_wordpoints_network_active()
+			) {
+				$this->markTestSkipped( 'WordPoints must be network-activated.' );
+			} elseif (
+				isset( $requires['WordPoints !network-active'] )
+				&& is_wordpoints_network_active()
+			) {
+				$this->markTestSkipped( 'WordPoints must not be network-activated.' );
+			}
+		}
+	}
+
+	/**
 	 * Set up before each test.
 	 *
 	 * @since 1.7.0

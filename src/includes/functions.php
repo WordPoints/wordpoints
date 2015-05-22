@@ -3,12 +3,55 @@
 /**
  * WordPoints Common Functions.
  *
- * These are genereal functions that are here to be available to all components,
+ * These are general functions that are here to be available to all components,
  * modules, and plugins.
  *
  * @package WordPoints
  * @since 1.0.0
  */
+
+/**
+ * Register the installer for WordPoints.
+ *
+ * @since 2.0.0
+ *
+ * @WordPress\action plugins_loaded
+ */
+function wordpoints_register_installer() {
+
+	WordPoints_Installables::register(
+		'plugin'
+		, 'wordpoints'
+		, array(
+			'version'      => WORDPOINTS_VERSION,
+			'un_installer' => WORDPOINTS_DIR . '/includes/class-un-installer.php',
+			'network_wide' => is_wordpoints_network_active(),
+		)
+	);
+}
+add_action( 'plugins_loaded', 'wordpoints_register_installer' );
+
+/**
+ * Install the plugin on activation.
+ *
+ * @since 1.0.0
+ *
+ * @WordPress\action activate_wordpoints/wordpoints.php
+ *
+ * @param bool $network_active Whether the plugin is being network activated.
+ */
+function wordpoints_activate( $network_active ) {
+
+	// The installer won't be registered yet.
+	wordpoints_register_installer();
+
+	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
+}
+register_activation_hook( __FILE__, 'wordpoints_activate' );
+
+//
+// Sanitizing Functions.
+//
 
 /**
  * Convert a value to an integer.

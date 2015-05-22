@@ -258,7 +258,56 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @return string The version of the points component.
 	 */
 	protected function get_points_db_version() {
-		$this->get_component_db_version( 'points' );
+		return $this->get_component_db_version( 'points' );
+	}
+
+	/**
+	 * Set the version of a module.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $module       The slug of the module.
+	 * @param string $version      The version to set. Defaults to 1.0.0.
+	 * @param bool   $network_wide Whether to set the network-wide version.
+	 */
+	protected function set_module_db_version( $module, $version = '1.0.0', $network_wide = false ) {
+
+		if ( $network_wide ) {
+			$wordpoints_data = get_site_option( 'wordpoints_data' );
+		} else {
+			$wordpoints_data = get_option( 'wordpoints_data' );
+		}
+
+		$wordpoints_data['modules'][ $module ]['version'] = $version;
+
+		if ( $network_wide ) {
+			update_site_option( 'wordpoints_data', $wordpoints_data );
+		} else {
+			update_option( 'wordpoints_data', $wordpoints_data );
+		}
+	}
+
+	/**
+	 * Get the version of a module.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $module       The slug of the component.
+	 * @param bool   $network_wide Whether to get the network-wide version.
+	 *
+	 * @return string The version of the points component.
+	 */
+	protected function get_module_db_version( $module, $network_wide = false ) {
+
+		if ( $network_wide ) {
+			$wordpoints_data = get_site_option( 'wordpoints_data' );
+		} else {
+			$wordpoints_data = get_option( 'wordpoints_data' );
+		}
+
+		return ( isset( $wordpoints_data['modules'][ $module ]['version'] ) )
+			? $wordpoints_data['modules'][ $module ]['version']
+			: '';
 	}
 
 	/**
@@ -276,7 +325,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 
 		$this->wordpoints_set_db_version( $from );
 
-		wordpoints_update();
+		WordPoints_Installables::maybe_do_updates();
 	}
 
 	/**
@@ -306,7 +355,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		);
 
 		// Run the update.
-		WordPoints_Components::instance()->maybe_do_updates();
+		WordPoints_Installables::maybe_do_updates();
 	}
 
 	/**
@@ -407,7 +456,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	public function get_db_schema() {
 
 		if ( ! isset( $this->db_schema ) ) {
-			$installer = WordPoints_Components::instance()->get_installer( 'points' );
+			$installer = WordPoints_Installables::get_installer( 'component', 'points' );
 			$this->db_schema = $installer->get_db_schema();
 		}
 
@@ -587,6 +636,25 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		return $xpath;
 	}
 
+	/**
+	 * Give the current user certain capabilities.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string|string[] $caps The caps to give the user.
+	 */
+	protected function give_current_user_caps( $caps ) {
+
+		/** @var WP_User $user */
+		$user = $this->factory->user->create_and_get();
+
+		foreach ( (array) $caps as $cap ) {
+			$user->add_cap( $cap );
+		}
+
+		wp_set_current_user( $user->ID );
+	}
+
 	//
 	// Assertions.
 	//
@@ -610,7 +678,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Assert that a string is an error outpur by one of the widgets.
+	 * Assert that a string is an error output by one of the widgets.
 	 *
 	 * @since 1.9.0
 	 *
@@ -625,6 +693,61 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 			1
 			, $xpath->query( '//div[@class = "wordpoints-widget-error"]' )->length
 		);
+	}
+
+	/**
+	 * Assert that a string is an admin notice.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $string The string that is expected to contain an admin notice.
+	 * @param array  $args   {
+	 *        Other arguments.
+	 *
+	 *        @type string $type        The type of notice to expect.
+	 *        @type bool   $dismissible Whether the notice should be dismissible.
+	 *        @type string $option      The option that should be deleted on dismiss.
+	 * }
+	 */
+	protected function assertWordPointsAdminNotice( $string, $args = array() ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+
+		$messages = $xpath->query( '//div[@id = "message"]' );
+
+		$this->assertEquals( 1, $messages->length );
+
+		$message = $messages->item( 0 );
+
+		if ( isset( $args['type'] ) ) {
+
+			$this->assertStringMatchesFormat(
+				$args['type']
+				, $message->attributes->getNamedItem( 'class' )->nodeValue
+			);
+		}
+
+		if ( isset( $args['dismissible'] ) ) {
+
+			$dismiss_option_input = $xpath->query(
+				'//input[@name = "wordpoints_notice"]'
+				, $message
+			);
+
+			$this->assertEquals( 1, $dismiss_option_input->length );
+
+			$dismiss_option_input = $dismiss_option_input->item( 0 );
+
+			if ( isset( $args['option'] ) ) {
+
+				$this->assertEquals(
+					$args['option']
+					, $dismiss_option_input->attributes->getNamedItem( 'value' )->nodeValue
+				);
+			}
+		}
 	}
 
 	/**

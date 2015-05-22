@@ -85,7 +85,14 @@ include_once WORDPOINTS_DIR . 'includes/class-installables.php';
 include_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';
 
 /**
- * Module class.
+ * Modules class.
+ *
+ * @since 2.0.0
+ */
+include_once WORDPOINTS_DIR . 'includes/class-modules.php';
+
+/**
+ * Module functions.
  *
  * Loads modules, etc.
  *

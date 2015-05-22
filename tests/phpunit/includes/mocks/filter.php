@@ -24,6 +24,15 @@ class WordPoints_Mock_Filter {
 	public $return_value;
 
 	/**
+	 * The number of times the filter has been called.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var int
+	 */
+	public $call_count = 0;
+
+	/**
 	 * @since 2.0.0
 	 *
 	 * @param mixed $return_value The value to return when the filter is called.
@@ -44,6 +53,8 @@ class WordPoints_Mock_Filter {
 	 * @return mixed The filtered value.
 	 */
 	public function filter( $var ) {
+
+		$this->call_count++;
 
 		if ( isset( $this->return_value ) ) {
 			$var = $this->return_value;

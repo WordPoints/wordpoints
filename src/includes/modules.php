@@ -328,7 +328,7 @@ function wordpoints_module_basename( $file ) {
 }
 
 /**
- * Parse the plugin contents to retrieve plugin's metadata.
+ * Parse the module contents to retrieve module's metadata.
  *
  * Module metadata headers are essentially the same as WordPress plugin headers. The
  * main difference is that the module name is "Module Name:" instead of "Plugin
@@ -377,7 +377,13 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'ID'          => 'ID',
 	);
 
-	$module_data = get_file_data( $module_file, $default_headers, 'wordpoints_module' );
+	$module_data = WordPoints_Modules::get_data( $module_file );
+
+	if ( $module_data ) {
+		unset( $module_data['raw'] );
+	} else {
+		$module_data = get_file_data( $module_file, $default_headers, 'wordpoints_module' );
+	}
 
 	if ( ! empty( $module_data['update_api'] ) ) {
 		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Channel".' );
@@ -695,7 +701,7 @@ function _wordpoints_sort_uname_callback( $a, $b ) {
  *
  * @since 1.1.0
  *
- * @param string $module The basename path tot he main file of the module to activate.
+ * @param string $module The basename path to the main file of the module to activate.
  * @param string $redirect The URL to redirect to on failure.
  * @param bool   $network_wide Whether to activate the module network wide. False by
  *                             default. Only applicable on multisite and when the
@@ -749,6 +755,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	include_once wordpoints_modules_dir() . '/' . $module;
 
 	if ( ! $silent ) {
+
 		/**
 		 * Fires before a module is activated.
 		 *
@@ -771,6 +778,12 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		 *                           site.
 		 */
 		do_action( "wordpoints_module_activate-{$module}", $network_wide );
+
+		WordPoints_Installables::install(
+			'module'
+			, WordPoints_Modules::get_slug( $module )
+			, $network_wide
+		);
 	}
 
 	if ( $network_wide ) {
@@ -1058,7 +1071,7 @@ function wordpoints_delete_modules( $modules ) {
  *
  * @since 1.1.0
  *
- * @param string $module Relative module path from module directory.\
+ * @param string $module Relative module path from module directory.
  *
  * @return bool Whether the module had an uninstall process.
  */
@@ -1097,9 +1110,14 @@ function wordpoints_uninstall_module( $module ) {
 		include $uninstall_file;
 
 		return true;
-	}
 
-	return false;
+	} else {
+
+		return WordPoints_Installables::uninstall(
+			'module'
+			, WordPoints_Modules::get_slug( $module )
+		);
+	}
 }
 
 /**

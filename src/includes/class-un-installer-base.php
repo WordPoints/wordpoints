@@ -944,9 +944,9 @@ abstract class WordPoints_Un_Installer_Base {
 		$charset_collate = $wpdb->get_charset_collate();
 
 		if ( 'site' === $this->context ) {
-			$prefix = $wpdb->base_prefix;
-		} else {
 			$prefix = $wpdb->prefix;
+		} else {
+			$prefix = $wpdb->base_prefix;
 		}
 
 		foreach ( $this->schema[ $this->context ]['tables'] as $table_name => $table_schema ) {

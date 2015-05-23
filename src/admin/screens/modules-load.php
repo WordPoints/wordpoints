@@ -452,8 +452,8 @@ $screen->add_help_tab(
 		'id'		=> 'overview',
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
-			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
-			'<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
+			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>
+			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 
@@ -462,15 +462,15 @@ $screen->add_help_tab(
 		'id'		=> 'compatibility-problems',
 		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
 		'content'	=>
-			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
-			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
+			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>
+			<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
 	)
 );
 
 $screen->set_help_sidebar(
-	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>' .
-	'<p><a href="http://wordpoints.org/developer-guide/modules/" target="_blank">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>' .
-	'<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
+	<p><a href="http://wordpoints.org/developer-guide/modules/" target="_blank">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
+	<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 register_column_headers(

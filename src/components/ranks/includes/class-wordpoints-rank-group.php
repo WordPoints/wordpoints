@@ -483,6 +483,13 @@ final class WordPoints_Rank_Group {
 		);
 	}
 
+	/**
+	 * Increases users with the previous rank if needed.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $rank_id A rank ID.
+	 */
 	private function _maybe_increase_users_with_previous_rank( $rank_id ) {
 
 		$rank = wordpoints_get_rank( $rank_id );

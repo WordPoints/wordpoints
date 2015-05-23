@@ -600,8 +600,8 @@ class WordPoints_Points_Logs_Query {
 
 		$select = ( 'SELECT COUNT' === $this->_select_type ) ? $this->_select_count : $this->_select;
 
-		return $select . "\n"
-			. "FROM `{$wpdb->wordpoints_points_logs}`" . "\n"
+		return $select
+			. "\nFROM `{$wpdb->wordpoints_points_logs}`\n"
 			. $this->_meta_join
 			. $this->_where
 			. $this->_order
@@ -871,9 +871,9 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @uses wordpoints_prepare__in() To prepare the IN condition.
 	 *
-	 * @param array $_in The array of values for the IN condition.
+	 * @param array  $_in    The array of values for the IN condition.
 	 * @param string $column The column to search.
-	 * @param string $type The type of IN condition: 'IN' or 'NOT IN'.
+	 * @param string $type   The type of IN condition: 'IN' or 'NOT IN'.
 	 * @param string $format The format for the values in $_in ('%s', '%d', '%f').
 	 */
 	private function _prepare__in( $_in, $column, $type = 'IN', $format = '%s' ) {
@@ -895,9 +895,9 @@ class WordPoints_Points_Logs_Query {
 	 *
 	 * @uses wordpoints_prepare__in() To prepare the IN condition.
 	 *
-	 * @param array $in The arg that is the array of values for the IN condition.
+	 * @param array  $in     The arg that is the array of values for the IN condition.
 	 * @param string $column The column to search.
-	 * @param string $type The type of IN condition: 'IN' or 'NOT IN'.
+	 * @param string $type   The type of IN condition: 'IN' or 'NOT IN'.
 	 */
 	private function _prepare_posint__in( $in, $column, $type = 'IN' ) {
 

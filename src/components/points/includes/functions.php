@@ -115,7 +115,7 @@ add_filter( 'wordpoints_format_points', 'wordpoints_format_points_filter', 5, 3 
  * @since 1.0.0
  *
  * @param array $args The arguments for the dropdown {@see
- *        WordPoints_Dropdown_Builder::$args}
+ *        WordPoints_Dropdown_Builder::$args}.
  */
 function wordpoints_points_types_dropdown( array $args ) {
 

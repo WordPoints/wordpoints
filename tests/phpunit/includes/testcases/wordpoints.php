@@ -386,7 +386,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @filter query Added by self::setUp().
+	 * @WordPoints\filter query Added by self::setUp().
 	 */
 	public function do_not_alter_tables( $query ) {
 

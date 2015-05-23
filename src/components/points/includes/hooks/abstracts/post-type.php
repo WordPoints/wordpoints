@@ -26,11 +26,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	protected $log_type;
 
 	/**
-	 * Initialize the hook.
-	 *
 	 * @since 1.9.0
-	 *
-	 * @see WordPoints_Points_Hook::init()
 	 */
 	public function __construct( $title, $args ) {
 

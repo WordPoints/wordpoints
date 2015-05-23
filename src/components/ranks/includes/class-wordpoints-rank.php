@@ -142,6 +142,8 @@ final class WordPoints_Rank {
 	 * Initializes the class with the rank's data.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @param object $data The data for a rank.
 	 */
 	public function init( $data ) {
 

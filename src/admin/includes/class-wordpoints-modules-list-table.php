@@ -39,7 +39,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param array $args {@see WP_List_Table::__construct()}
+	 * @param array $args {@see WP_List_Table::__construct()}.
 	 */
 	public function __construct( $args = array() ) {
 

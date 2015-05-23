@@ -676,6 +676,11 @@ function wordpoints_validate_active_modules() {
  * Callback to sort an array by 'name' key.
  *
  * @since 1.1.0
+ *
+ * @param array $a One item.
+ * @param array $b Another item.
+ *
+ * @return int {@see strnatcasecmp()}.
  */
 function _wordpoints_sort_uname_callback( $a, $b ) {
 
@@ -937,9 +942,10 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
  *
  * @since 1.1.0
  *
- * @param array  $modules  A list of modules to delete.
+ * @param array $modules A list of modules to delete.
  *
- * @return bool|WP_Error True if all modules deleted successfully, false or WP_Error on failure.
+ * @return bool|WP_Error True if all modules deleted successfully, false or WP_Error
+ *                       on failure.
  */
 function wordpoints_delete_modules( $modules ) {
 

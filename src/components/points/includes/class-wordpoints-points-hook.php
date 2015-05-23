@@ -528,7 +528,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $number
+	 * @param int $number The number of the hook instance to display the form for.
 	 *
 	 * @return bool|void Whether the form was displayed.
 	 */

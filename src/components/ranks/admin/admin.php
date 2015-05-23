@@ -106,8 +106,8 @@ function wordpoints_ranks_admin_screen_load() {
 			'id'      => 'overview',
 			'title'   => esc_html__( 'Overview', 'wordpoints' ),
 			'content' =>
-				'<p>' . esc_html__( 'Ranks are titles assigned to users. A set of ranks are organized into a hierarchy. The user starts at the bottom, but can work his way up to higher ranks. Each rank has requirements that a user must meet before he can move up to that rank. For example, the user may need to have a certain number of points to reach a given rank.', 'wordpoints' ) . '</p>'
-				. '<p>' . esc_html__( 'More than one rank hierarchy may be available. For example, if you have multiple types of points, you will have a group of ranks for each points type. Each rank group is managed separately, on a different tab on this screen.', 'wordpoints' ) . '</p>',
+				'<p>' . esc_html__( 'Ranks are titles assigned to users. A set of ranks are organized into a hierarchy. The user starts at the bottom, but can work his way up to higher ranks. Each rank has requirements that a user must meet before he can move up to that rank. For example, the user may need to have a certain number of points to reach a given rank.', 'wordpoints' ) . '</p>
+				<p>' . esc_html__( 'More than one rank hierarchy may be available. For example, if you have multiple types of points, you will have a group of ranks for each points type. Each rank group is managed separately, on a different tab on this screen.', 'wordpoints' ) . '</p>',
 		)
 	);
 
@@ -132,9 +132,9 @@ function wordpoints_ranks_admin_screen_load() {
 	);
 
 	$screen->set_help_sidebar(
-		'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>' .
-		'<p><a href="http://wordpoints.org/user-guide/ranks/" target="_blank">' . esc_html__( 'Documentation on Ranks', 'wordpoints' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+		'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
+		<p><a href="http://wordpoints.org/user-guide/ranks/" target="_blank">' . esc_html__( 'Documentation on Ranks', 'wordpoints' ) . '</a></p>
+		<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 	);
 }
 add_action( 'load-wordpoints_page_wordpoints_ranks', 'wordpoints_ranks_admin_screen_load' );

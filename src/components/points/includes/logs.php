@@ -82,10 +82,10 @@ final class WordPoints_Points_Log_Queries {
 	 * @since 1.5.0 The $data parameter was added.
 	 *
 	 * @param string $slug The query's unique identifier.
-	 * @param array  $args The arguments for the query. {@see
-	 *                     WordPoints_Points_Logs_Query::__construct()}
-	 * @param array  $data Other data for this query. {@see
-	 *                     wordpoints_register_points_logs_query()}
+	 * @param array  $args The arguments for the query {@see
+	 *                     WordPoints_Points_Logs_Query::__construct()}.
+	 * @param array  $data Other data for this query {@see
+	 *                     wordpoints_register_points_logs_query()}.
 	 *
 	 * @return bool Whether the query was registered.
 	 */
@@ -198,8 +198,8 @@ final class WordPoints_Points_Log_Queries {
  *
  * @param string $slug The query's unique identifier. Should contain only lowercase
  *                     letters, numbers, and the underscore (_).
- * @param array  $args The arguments for the query. {@see
- *                     WordPoints_Points_Logs_Query::__construct()}
+ * @param array  $args The arguments for the query {@see
+ *                     WordPoints_Points_Logs_Query::__construct()}.
  * @param array  $data {
  *        Other data for this query.
  *

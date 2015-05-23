@@ -13,7 +13,9 @@
  * @since 1.0.0
  * @deprecated 1.8.0 Use WordPoints_Shortcodes::do_shortcode() instead.
  *
- * @param array $atts The shortcode attributes. {
+ * @param array $atts {
+ *        The shortcode attributes.
+ *
  *        @type int    $users       The number of users to display.
  *        @type string $points_type The type of points.
  * }
@@ -35,7 +37,9 @@ function wordpoints_points_top_shortcode( $atts ) {
  * @since 1.6.0 The searchable attribute is added.
  * @deprecated 1.8.0 Use WordPoints_Shortcodes::do_shortcode() instead.
  *
- * @param array $atts The shortcode attributes. {
+ * @param array $atts {
+ *        The shortcode attributes.
+ *
  *        @type string $points_type The type of points to display. Required.
  *        @type string $query       The logs query to display.
  *        @type int    $paginate    Whether to paginate the table. 1 or 0.
@@ -286,7 +290,6 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	}
 
 } // class WordPoints_Comment_Removed_Points_Hook
-
 
 /**
  * Post delete points hook.

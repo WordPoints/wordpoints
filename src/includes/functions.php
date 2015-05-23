@@ -164,8 +164,8 @@ function wordpoints_negint( &$maybe_int ) {
  *
  * @see wp_verify_nonce()
  *
- * @param string $nonce_key The key for the nonce in the request parameters array.
- * @param string $action_format A sprintf()-style format string for the nonce action.
+ * @param string   $nonce_key     The key for the nonce in the request parameters array.
+ * @param string   $action_format A sprintf()-style format string for the nonce action.
  * @param string[] $format_values The keys of the request values to use to format the action.
  * @param string   $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
  *
@@ -593,7 +593,9 @@ class WordPoints_Dropdown_Builder {
  * @since 1.0.0
  * @since 1.5.1 The 'filter' option was added.
  *
- * @param array $options An array of display options. {
+ * @param array $options {
+ *        An array of display options.
+ *
  *        @type string $name     The value for the name attribute of the element.
  *        @type string $id       The value for the id attribute of the element.
  *        @type string $selected The name of the selected points type.

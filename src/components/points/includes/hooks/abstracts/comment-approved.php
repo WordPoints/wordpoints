@@ -28,8 +28,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	);
 
 	/**
-	 * Initialize the hook.
-	 *
 	 * @since 1.8.0
 	 */
 	public function __construct( $title, $args ) {

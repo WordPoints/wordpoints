@@ -629,6 +629,11 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 	 * Render the text for a points log.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @param array $post_args The arguments to create a post with.
+	 * @param array $meta      The log meta.
+	 *
+	 * @return string The log text.
 	 */
 	protected function render_log_text( $post_args, $meta = array() ) {
 

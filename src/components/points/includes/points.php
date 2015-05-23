@@ -485,9 +485,9 @@ function wordpoints_get_points_above_minimum( $user_id, $type ) {
  * @uses wordpoints_get_points()   To get the points of the user.
  * @uses wordpoints_alter_points() To alter the user's points.
  *
+ * @param int    $user_id     The ID of the user to set the points of.
  * @param int    $points      The number of points to the user should have.
  * @param string $points_type The type of points to alter.
- * @param int    $user_id     The ID of the user to set the points of.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
  *
@@ -542,7 +542,7 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * @param int    $points      The number of points to add/subtract.
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
- * @param array  $meta        The metadata for this transaction. Default: array()
+ * @param array  $meta        The metadata for this transaction. Default: array().
  *
  * @return int|bool On success, the log ID if the transaction is logged, or true if
  *                  it is not. False on failure.

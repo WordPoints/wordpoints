@@ -218,7 +218,11 @@ add_action( 'screen_settings', 'wordpoints_admin_points_hooks_screen_options', 1
  *
  * @since 1.0.0
  *
- * @filter admin_body_class Added when needed by wordpoints_admin_points_hooks_help()
+ * @WordPress\filter admin_body_class Added when needed by wordpoints_admin_points_hooks_help()
+ *
+ * @param string $classes The body clases.
+ *
+ * @return string The classes, with 'wordpoints_hooks_access' added.
  */
 function wordpoints_points_hooks_access_body_class( $classes ) {
 

@@ -261,7 +261,9 @@ final class WordPoints_Components {
 	 * @since 1.8.0 The un_installer argument added, uninstall_file was deprecated.
 	 * @since 2.0.0 The 'file' argument is now required.
 	 *
-	 * @param array $args The component's data. {
+	 * @param array $args {
+	 *        The component's data.
+	 *
 	 *        @type string $slug          The component slug. Must be unique.
 	 *        @type string $name          The name of the component.
 	 *        @type string $author        The name of the component's author.

@@ -80,7 +80,14 @@ class WordPoints_UnitTest_Factory_For_Rank extends WP_UnitTest_Factory_For_Thing
 	 */
 	public function update_object( $id, $fields ) {
 
-		return wordpoints_update_rank( $id, $fields );
+		return wordpoints_update_rank(
+			$id
+			, $fields['name']
+			, $fields['name']
+			, $fields['group']
+			, $fields['position']
+			, $fields['meta']
+		);
 	}
 
 	/**
@@ -88,7 +95,7 @@ class WordPoints_UnitTest_Factory_For_Rank extends WP_UnitTest_Factory_For_Thing
 	 *
 	 * @since 1.7.0
 	 *
-	 * @pram int $id The rank ID.
+	 * @param int $id The rank ID.
 	 *
 	 * @return WordPoints_Rank The rank object.
 	 */

@@ -229,7 +229,7 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activat
  * @uses wordpoints_show_admin_message()
  *
  * @param string $message The text for the error message.
- * @param array $args     Other optional arguments.
+ * @param array  $args    Other optional arguments.
  */
 function wordpoints_show_admin_error( $message, array $args = array() ) {
 
@@ -443,6 +443,10 @@ add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_
  * if it is a module instead of a plugin.
  *
  * @since 1.9.0
+ *
+ * @param string|WP_Error $source The module source.
+ *
+ * @return string|WP_Error The filtered module source.
  */
 function wordpoints_plugin_upload_error_filter( $source ) {
 

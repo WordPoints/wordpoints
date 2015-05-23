@@ -40,7 +40,7 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 			$this->fail(
 				sprintf(
 					'Failed to detect an error response: %s'
-					, json_encode( $response )
+					, wp_json_encode( $response )
 				)
 			);
 		}
@@ -65,7 +65,7 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 			$this->fail(
 				sprintf(
 					'Failed to detect a successful response: %s'
-					, json_encode( $response )
+					, wp_json_encode( $response )
 				)
 			);
 		}

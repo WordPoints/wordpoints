@@ -2165,11 +2165,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$site_id = $this->factory->blog->create();
 
 		$site_ids = array(
-			'invalid'
-			, 4543
-			, get_current_blog_id()
-			, $site_on_other_network
-			, $site_id
+			'invalid',
+			4543,
+			get_current_blog_id(),
+			$site_on_other_network,
+			$site_id,
 		);
 
 		// Create a site not on the list.
@@ -2296,7 +2296,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->assertArrayHasKey( 'version', $wordpoints_data );
 
 		$this->assertEquals( '1.0.0', $wordpoints_data['version'] );
-
 
 		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
 	}

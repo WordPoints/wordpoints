@@ -105,7 +105,7 @@ final class WordPoints_Modules {
 	 * @param string $module The full path to one of the module's files.
 	 * @param string $data   The slug of the piece of data to get.
 	 *
-	 * @return array|false The data, or false if it isn't registered.
+	 * @return string[]|string|false The data, or false if it isn't registered.
 	 */
 	public static function get_data( $module, $data = null ) {
 

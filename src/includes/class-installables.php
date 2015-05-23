@@ -344,7 +344,6 @@ final class WordPoints_Installables {
 
 			case 'module':
 				return current_user_can( 'wordpoints_manage_network_modules' );
-			break;
 
 			default:
 				return current_user_can( 'manage_network_plugins' );

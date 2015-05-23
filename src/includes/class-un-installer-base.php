@@ -39,6 +39,15 @@ abstract class WordPoints_Un_Installer_Base {
 	protected $slug;
 
 	/**
+	 * The code version of the entity.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var string
+	 */
+	protected $version;
+
+	/**
 	 * The prefix to use for the name of the options the un/installer uses.
 	 *
 	 * @since 1.8.0

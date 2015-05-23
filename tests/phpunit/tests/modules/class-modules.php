@@ -45,6 +45,11 @@ class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 				'module_uri'  => 'http://www.example.com/demo/',
 				'description' => 'A demo module.',
 				'text_domain' => 'demo',
+				'domain_path' => '',
+				'network'     => '',
+				'update_api'  => '',
+				'channel'     => '',
+				'ID'          => '',
 				'raw'         => '
 		        Module Name: Demo Module
 		        Version:     1.0.0

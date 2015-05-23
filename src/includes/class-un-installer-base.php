@@ -862,6 +862,28 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Remove the version of the entity from the database.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function unset_db_version() {
+
+		if ( 'network' === $this->context ) {
+			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
+		} else {
+			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
+		}
+
+		unset( $wordpoints_data[ "{$this->type}s" ][ $this->slug ] );
+
+		if ( 'network' === $this->context ) {
+			update_site_option( 'wordpoints_data', $wordpoints_data );
+		} else {
+			update_option( 'wordpoints_data', $wordpoints_data );
+		}
+	}
+
+	/**
 	 * Set a component's version.
 	 *
 	 * For use when installing a component.
@@ -1478,6 +1500,8 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( ! empty( $this->uninstall['network'] ) ) {
 			$this->uninstall_( 'network' );
 		}
+
+		$this->unset_db_version();
 	}
 
 	/**
@@ -1494,6 +1518,8 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( ! empty( $this->uninstall['site'] ) ) {
 			$this->uninstall_( 'site' );
 		}
+
+		$this->unset_db_version();
 	}
 
 	/**
@@ -1510,6 +1536,8 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( ! empty( $this->uninstall['single'] ) ) {
 			$this->uninstall_( 'single' );
 		}
+
+		$this->unset_db_version();
 	}
 }
 

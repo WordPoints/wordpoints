@@ -1340,6 +1340,109 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test that the database version of an entity is deleted on uninstall.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_single
+	 */
+	public function test_uninstall_single_unset_db_version() {
+
+		$this->un_installer->context = 'single';
+
+		$this->un_installer->set_db_version();
+
+		$wordpoints_data = get_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+
+		$this->assertEquals(
+			array( 'test' => array( 'version' => '1.0.0' ) )
+			, $wordpoints_data['modules']
+		);
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->un_installer->uninstall_single();
+
+		$wordpoints_data = get_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+
+		$this->assertEmpty( $this->un_installer->get_db_version() );
+	}
+
+	/**
+	 * Test that the database version of an entity is deleted on site uninstall.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_single
+	 */
+	public function test_uninstall_site_unset_db_version() {
+
+		$this->un_installer->context = 'site';
+
+		$this->un_installer->set_db_version();
+
+		$wordpoints_data = get_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+
+		$this->assertEquals(
+			array( 'test' => array( 'version' => '1.0.0' ) )
+			, $wordpoints_data['modules']
+		);
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->un_installer->uninstall_site();
+
+		$wordpoints_data = get_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+
+		$this->assertEmpty( $this->un_installer->get_db_version() );
+	}
+
+
+	/**
+	 * Test that the database version of an entity is deleted on network uninstall.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_single
+	 */
+	public function test_uninstall_network_unset_db_version() {
+
+		$this->un_installer->context = 'network';
+
+		$this->un_installer->set_db_version();
+
+		$wordpoints_data = get_site_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+
+		$this->assertEquals(
+			array( 'test' => array( 'version' => '1.0.0' ) )
+			, $wordpoints_data['modules']
+		);
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->un_installer->uninstall_network();
+
+		$wordpoints_data = get_site_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+
+		$this->assertEmpty( $this->un_installer->get_db_version() );
+	}
+
+	/**
 	 * Test that it uses the value of wp_is_large_network() by default.
 	 *
 	 * @since 2.0.0
@@ -2188,6 +2291,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers WordPoints_Un_Installer_Base::get_db_version
 	 * @covers WordPoints_Un_Installer_Base::set_db_version
+	 * @covers WordPoints_Un_Installer_Base::unset_db_version
 	 */
 	public function test_get_db_version() {
 
@@ -2205,6 +2309,15 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		);
 
 		$this->assertEquals( '0.9.0', $this->un_installer->get_db_version() );
+
+		$this->un_installer->unset_db_version();
+
+		$wordpoints_data = get_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+
+		$this->assertEmpty( $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version();
 
@@ -2227,6 +2340,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers WordPoints_Un_Installer_Base::get_db_version
 	 * @covers WordPoints_Un_Installer_Base::set_db_version
+	 * @covers WordPoints_Un_Installer_Base::unset_db_version
 	 */
 	public function test_get_db_version_network_wide() {
 
@@ -2246,6 +2360,15 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		);
 
 		$this->assertEquals( '0.9.0', $this->un_installer->get_db_version() );
+
+		$this->un_installer->unset_db_version();
+
+		$wordpoints_data = get_site_option( 'wordpoints_data' );
+		$this->assertInternalType( 'array', $wordpoints_data );
+		$this->assertArrayHasKey( 'modules', $wordpoints_data );
+		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+
+		$this->assertEmpty( $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version();
 

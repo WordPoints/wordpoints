@@ -793,7 +793,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @covers WordPoints_Un_Installer_Base::map_uninstall_shortcuts
+	 * @covers WordPoints_Un_Installer_Base::map_shortcuts
 	 */
 	public function test_map_uninstall_shortcuts_local() {
 
@@ -833,7 +833,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @covers WordPoints_Un_Installer_Base::map_uninstall_shortcuts
+	 * @covers WordPoints_Un_Installer_Base::map_shortcuts
 	 */
 	public function test_map_uninstall_shortcuts_global() {
 
@@ -873,7 +873,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @covers WordPoints_Un_Installer_Base::map_uninstall_shortcuts
+	 * @covers WordPoints_Un_Installer_Base::map_shortcuts
 	 */
 	public function test_map_uninstall_shortcuts_universal() {
 

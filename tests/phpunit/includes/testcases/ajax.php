@@ -24,6 +24,43 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 	protected $ajax_action;
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected function checkRequirements() {
+
+		parent::checkRequirements();
+
+		$annotations = $this->getAnnotations();
+
+		foreach ( array( 'class', 'method' ) as $depth ) {
+
+			if ( empty( $annotations[ $depth ]['requires'] ) ) {
+				continue;
+			}
+
+			$requires = array_flip( $annotations[ $depth ]['requires'] );
+
+			if ( isset( $requires['WordPress multisite'] ) && ! is_multisite() ) {
+				$this->markTestSkipped( 'Multisite must be enabled.' );
+			} elseif ( isset( $requires['WordPress !multisite'] ) && is_multisite() ) {
+				$this->markTestSkipped( 'Multisite must not be enabled.' );
+			}
+
+			if (
+				isset( $requires['WordPoints network-active'] )
+				&& ! is_wordpoints_network_active()
+			) {
+				$this->markTestSkipped( 'WordPoints must be network-activated.' );
+			} elseif (
+				isset( $requires['WordPoints !network-active'] )
+				&& is_wordpoints_network_active()
+			) {
+				$this->markTestSkipped( 'WordPoints must not be network-activated.' );
+			}
+		}
+	}
+
+	/**
 	 * Assert that there was a JSON response object with the success property false.
 	 *
 	 * @since 1.7.0

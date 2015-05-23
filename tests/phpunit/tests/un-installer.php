@@ -1866,6 +1866,59 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test getting the IDs of the sites where a component is installed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::get_installed_site_ids
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_get_installed_site_ids_component() {
+
+		$this->un_installer->type = 'component';
+
+		$site_ids = array( $this->factory->blog->create() );
+
+		update_site_option(
+			'wordpoints_test_installed_sites'
+			, $site_ids
+		);
+
+		$this->assertEquals(
+			$site_ids
+			, $this->un_installer->get_installed_site_ids()
+		);
+	}
+
+	/**
+	 * Test that it returns all site IDs if a component is network-installed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::get_installed_site_ids
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_get_installed_site_ids_network_wide_component() {
+
+		$this->un_installer->type = 'component';
+		$this->un_installer->set_network_installed();
+
+		$site_id = $this->factory->blog->create();
+
+		update_site_option(
+			'wordpoints_test_installed_sites'
+			, array( $site_id )
+		);
+
+		$this->assertEquals(
+			array( get_current_blog_id(), $site_id )
+			, $this->un_installer->get_installed_site_ids()
+		);
+	}
+
+	/**
 	 * Test adding a site to the list of sites where the entity is installed.
 	 *
 	 * @since 2.0.0
@@ -1944,7 +1997,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
-	 * Test getting the IDs of the sites where WordPoints is installed.
+	 * Test adding to the list of sites where WordPoints is installed.
 	 *
 	 * @since 2.0.0
 	 *
@@ -1971,6 +2024,33 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Test adding to the list of sites where a component is installed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::add_installed_site_id
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_add_installed_site_id_component() {
+
+		$this->un_installer->type = 'component';
+
+		$site_id = $this->factory->blog->create();
+
+		update_site_option(
+			'wordpoints_test_installed_sites'
+			, array( get_current_blog_id() )
+		);
+
+		$this->un_installer->add_installed_site_id( $site_id );
+
+		$this->assertEquals(
+			array( get_current_blog_id(), $site_id )
+			, $this->un_installer->get_installed_site_ids()
+		);
+	}
 
 	/**
 	 * Test deleting the list of sites where the entity is installed.
@@ -2036,6 +2116,29 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 
 		update_site_option(
 			'wordpoints_installed_sites'
+			, array( get_current_blog_id() )
+		);
+
+		$this->un_installer->delete_installed_site_ids();
+
+		$this->assertEmpty( $this->un_installer->get_installed_site_ids() );
+	}
+
+	/**
+	 * Test deleting the list of the sites where a component is installed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::delete_installed_site_ids
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_delete_installed_site_ids_component() {
+
+		$this->un_installer->type = 'component';
+
+		update_site_option(
+			'wordpoints_test_installed_sites'
 			, array( get_current_blog_id() )
 		);
 

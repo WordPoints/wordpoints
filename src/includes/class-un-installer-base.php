@@ -702,6 +702,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$option_prefix = $this->option_prefix;
 		} elseif ( 'wordpoints' === $this->slug ) {
 			$option_prefix = 'wordpoints_';
+		} elseif ( 'component' === $this->type ) {
+			$option_prefix = "wordpoints_{$this->slug}_";
 		} else {
 			$option_prefix = "wordpoints_{$this->type}_{$this->slug}_";
 		}

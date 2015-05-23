@@ -121,12 +121,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_invalid_points_type_setting() {
 
-		$user = wp_get_current_user();
-		$user->add_cap( 'edit_theme_options' );
-
-		// https://core.trac.wordpress.org/ticket/28374
-		$user->get_role_caps( 'edit_theme_options' );
-		$user->update_user_level_from_caps( 'edit_theme_options' );
+		$this->give_current_user_caps( 'edit_theme_options' );
 
 		$this->assertWordPointsWidgetError(
 			$this->get_widget_html( array( 'points_type' => '' ) )

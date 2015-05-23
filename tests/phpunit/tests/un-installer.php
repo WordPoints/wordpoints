@@ -2314,7 +2314,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->slug = 'wordpoints';
 		$this->un_installer->context = 'network';
 
-		if ( is_wordpoints_network_active() ) {
+		if ( ! is_multisite() || is_wordpoints_network_active() ) {
 			$this->assertEquals( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 		} else {
 			$this->assertFalse( $this->un_installer->get_db_version() );

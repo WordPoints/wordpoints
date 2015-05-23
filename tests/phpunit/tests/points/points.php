@@ -403,13 +403,10 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_get_points
 	 * @covers ::wordpoints_alter_points
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_multisite_behaviour() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled for these tests.' );
-			return;
-		}
 
 		// Add some points to the user.
 		wordpoints_add_points( $this->user_id, 10, 'points', 'test' );

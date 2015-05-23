@@ -126,13 +126,10 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.2.0
 	 *
 	 * @covers ::wordpoints_delete_points_logs_for_blog
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_logs_tables_cleaned_on_blog_deletion() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Blog deletion tests only apply on multisite.' );
-			return;
-		}
 
 		// Create a blog, and switch to it.
 		$blog_id = $this->factory->blog->create();
@@ -283,12 +280,10 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.5.0
 	 *
 	 * @covers ::wordpoints_points_add_custom_caps_to_new_sites
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_wordpoints_points_add_custom_caps_to_new_sites() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints is not network active.' );
-		}
 
 		$blog_id = $this->factory->blog->create();
 

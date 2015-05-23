@@ -27,13 +27,10 @@ class WordPoints_1_5_0_Update_Test extends WordPoints_UnitTestCase {
 	 * Test that custom capabilities are added to new sites.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_custom_caps_added_to_new_sites() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
 
 		// Create a second site on the network.
 		remove_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );

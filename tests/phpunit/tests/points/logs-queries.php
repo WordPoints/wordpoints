@@ -392,12 +392,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test the blog_* query arg.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_blog_query_arg() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Tests are not using multisite.' );
-		}
 
 		$user_id = $this->factory->user->create();
 		$blog_id = $this->factory->blog->create();
@@ -641,12 +639,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that network queries are cache for the entire network.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_network_cache_is_network_wide() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
@@ -688,12 +684,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that non-network queries are cached per-site.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_cache_is_per_site() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 

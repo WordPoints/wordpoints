@@ -76,12 +76,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test installing a network-activated entity.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_install_network_wide() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$installer = WordPoints_Installables::install( 'module', 'network_test', true );
 
@@ -200,12 +198,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test updating a network-wide entity.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_maybe_do_updates_network() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->set_module_db_version( 'network_test', '0.9.2', true );
 		$this->assertEquals( '0.9.2', $this->get_module_db_version( 'network_test', true ) );
@@ -263,12 +259,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test that no admin notices are shown by default.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_admin_notices_none() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
 
@@ -283,12 +277,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test that a notice is displayed when a module's install has been skipped.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_admin_notices_module_install_skipped() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
 
@@ -316,12 +308,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test that a notice is displayed when a module's update has been skipped.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_admin_notices_module_update_skipped() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
 
@@ -348,12 +338,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test that no notice is displayed when a module isn't network-active.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_admin_notices_module_not_network_wide() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
 
@@ -373,12 +361,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 * Test that no notice is displayed when the current user has insufficient caps.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_admin_notices_insufficient_caps() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		update_site_option(
 			'wordpoints_network_install_skipped'

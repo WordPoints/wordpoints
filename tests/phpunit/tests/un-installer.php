@@ -1094,12 +1094,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_metadata
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_uninstall_user_metadata_site_context() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled.' );
-		}
 
 		$user_id = $this->factory->user->create();
 		add_user_meta( $user_id, __METHOD__, 'test' );
@@ -1172,12 +1170,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_option
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_uninstall_network_option() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled.' );
-		}
 
 		add_site_option( __METHOD__, 'test' );
 
@@ -1211,12 +1207,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_option
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_uninstall_network_option_wildcards() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled.' );
-		}
 
 		add_site_option( 'test%', 'test' );
 		add_site_option( 'testing', 'test' );
@@ -1303,12 +1297,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_table
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_uninstall_table_site_context() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled.' );
-		}
 
 		global $wpdb;
 

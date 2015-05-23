@@ -46,12 +46,10 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 	 * @since 1.5.0
 	 *
 	 * @covers ::wordpoints_add_custom_caps_to_new_sites
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_wordpoints_add_custom_caps_to_new_sites() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints is not network active.' );
-		}
 
 		$blog_id = $this->factory->blog->create();
 

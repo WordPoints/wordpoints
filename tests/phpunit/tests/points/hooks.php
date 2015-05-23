@@ -81,13 +81,10 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.2.0
 	 *
 	 * @covers WordPoints_Points_Hook::get_instances
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_network_and_standard_hooks_fired() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled.' );
-			return;
-		}
 
 		// Set up.
 		WordPoints_Points_Hooks::set_network_mode( true );
@@ -208,12 +205,10 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
 	 *
 	 * @expectedDeprecated WordPoints_Points_Hooks::uninstall_hook_types
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_multisite_hook_type_uninstall() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite is required.' );
-		}
 
 		$blog_id = $this->factory->blog->create();
 
@@ -267,12 +262,10 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @covers WordPoints_Points_Hooks::uninstall_hook_types
 	 *
 	 * @expectedDeprecated WordPoints_Points_Hooks::uninstall_hook_types
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_network_hook_type_uninstall() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		WordPoints_Points_Hooks::set_network_mode( true );
 

@@ -168,7 +168,7 @@
     },
     "\/components\/points\/admin\/admin.php": {
         "1": {
-            "299": false
+            "303": false
         },
         ":": {
             "335": false
@@ -257,10 +257,10 @@
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
         "approved": {
-            "159": false
+            "157": false
         },
         "new": {
-            "153": false
+            "151": false
         }
     },
     "\/components\/points\/includes\/logs.php": {
@@ -372,7 +372,7 @@
             "561": false
         },
         "points": {
-            "857": {
+            "859": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -381,7 +381,7 @@
             }
         },
         "ranks": {
-            "882": {
+            "884": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -649,17 +649,17 @@
                 "arg_count": 8,
                 "parentheses": 1
             },
-            "241": {
+            "231": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "571": false
+            "561": false
         },
         "all": {
-            "238": {
+            "228": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -668,7 +668,7 @@
             }
         },
         "results": {
-            "349": {
+            "339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -677,7 +677,7 @@
             }
         },
         "row": {
-            "349": {
+            "339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -686,7 +686,7 @@
             }
         },
         "col": {
-            "349": {
+            "339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -695,7 +695,7 @@
             }
         },
         "var": {
-            "349": {
+            "339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -704,7 +704,7 @@
             }
         },
         "WordPoints Debug Error: invalid get method %s, possible values are %s": {
-            "353": {
+            "343": {
                 "name": "sprintf",
                 "type": "unknown",
                 "args_started": true,
@@ -712,14 +712,17 @@
                 "parentheses": 1
             }
         },
+        "`\\n": {
+            "604": false
+        },
         ",": {
-            "828": false
+            "818": false
         },
         ".meta_value AS": {
-            "861": false
+            "851": false
         },
         "<": {
-            "1007": {
+            "997": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -753,7 +756,7 @@
     },
     "\/components\/ranks\/includes\/rank-types\/points.php": {
         "number": {
-            "20": {
+            "23": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -762,7 +765,7 @@
             }
         },
         "hidden": {
-            "25": {
+            "28": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -771,7 +774,7 @@
             }
         },
         "points": {
-            "123": {
+            "126": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -802,10 +805,10 @@
             }
         },
         "\" type=\"checkbox\" value=\"1\"": {
-            "323": false
+            "319": false
         },
         "1": {
-            "323": {
+            "319": {
                 "name": "checked",
                 "type": "unknown",
                 "args_started": true,
@@ -852,7 +855,7 @@
     },
     "\/components\/points\/includes\/deprecated.php": {
         "approved": {
-            "230": false
+            "234": false
         }
     },
     "\/includes\/class-un-installer-base.php": {
@@ -863,28 +866,28 @@
             "287": false,
             "370": false,
             "453": false,
-            "1124": {
+            "1151": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1158": {
+            "1185": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1159": {
+            "1186": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1164": {
+            "1191": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -896,28 +899,28 @@
             "290": false,
             "348": false,
             "456": false,
-            "1124": {
+            "1151": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1157": {
+            "1184": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1159": {
+            "1186": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1164": {
+            "1191": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -929,35 +932,35 @@
             "326": false,
             "385": false,
             "491": false,
-            "1124": {
+            "1151": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1157": {
+            "1184": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1158": {
+            "1185": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1159": {
+            "1186": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1164": {
+            "1191": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -966,48 +969,32 @@
             }
         },
         "uninstall": {
-            "338": false,
-            "1014": {
-                "name": "WordPoints_Un_Installer_Base::map_shortcuts",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            }
+            "338": false
         },
         "update": {
             "402": false
         },
-        "schema": {
-            "913": {
-                "name": "WordPoints_Un_Installer_Base::map_shortcuts",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            }
-        },
         "manage": {
-            "1072": false,
-            "1073": false,
-            "1074": false
+            "1099": false,
+            "1100": false,
+            "1101": false
         },
         "columnshidden": {
-            "1072": false,
-            "1073": false
+            "1099": false,
+            "1100": false
         },
         "-networkcolumnshidden": {
-            "1074": false
+            "1101": false
         },
         "local": {
-            "1124": {
+            "1151": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "1164": {
+            "1191": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1016,14 +1003,14 @@
             }
         },
         "global": {
-            "1124": {
+            "1151": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 4,
                 "parentheses": 1
             },
-            "1164": {
+            "1191": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1032,14 +1019,14 @@
             }
         },
         "universal": {
-            "1124": {
+            "1151": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 5,
                 "parentheses": 1
             },
-            "1164": {
+            "1191": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1073,7 +1060,7 @@
             }
         },
         "<?php \/\/ Gold is silent.": {
-            "268": {
+            "257": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -1082,7 +1069,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "273": false
+            "262": false
         }
     },
     "\/includes\/class-widget.php": {

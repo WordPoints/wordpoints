@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Dropdown_Builder
  */
-class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
+class WordPoints_Dropdown_Builder_Test extends WordPoints_UnitTestCase {
 
 	//
 	// Helper Methods.

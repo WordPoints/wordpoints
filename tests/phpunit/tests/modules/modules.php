@@ -15,7 +15,7 @@
  *
  * @group modules
  */
-class WordPoints_Modules_Test extends WP_UnitTestCase {
+class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * Expected basic module header data.

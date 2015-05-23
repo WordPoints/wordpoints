@@ -14,7 +14,7 @@
  *
  * @group components
  */
-class WordPoints_Components_Test extends WP_UnitTestCase {
+class WordPoints_Components_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * Set up for the tests.

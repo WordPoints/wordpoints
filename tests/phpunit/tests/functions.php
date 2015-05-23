@@ -12,7 +12,7 @@
  *
  * @since 1.2.0
  */
-class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
+class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * Test is_wordpoints_network_active().

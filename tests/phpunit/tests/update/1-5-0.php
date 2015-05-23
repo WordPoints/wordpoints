@@ -19,6 +19,11 @@
 class WordPoints_1_5_0_Update_Test extends WordPoints_UnitTestCase {
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $previous_version = '1.4.0';
+
+	/**
 	 * Test that custom capabilities are added to new sites.
 	 *
 	 * @since 1.5.0
@@ -41,8 +46,7 @@ class WordPoints_1_5_0_Update_Test extends WordPoints_UnitTestCase {
 		restore_current_blog();
 
 		// Simulate the update.
-		$this->wordpoints_set_db_version( '1.4.0' );
-		wordpoints_update();
+		$this->update_wordpoints();
 
 		// Check that the custom caps were added to the new site.
 		switch_to_blog( $blog_id );

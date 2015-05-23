@@ -19,6 +19,11 @@
 class WordPoints_1_8_0_Update_Test extends WordPoints_UnitTestCase {
 
 	/**
+	 * @since 2.0.0
+	 */
+	protected $previous_version = '1.7.0';
+
+	/**
 	 * Test that the installed site IDs are added to the DB option.
 	 *
 	 * @since 1.8.0
@@ -41,8 +46,7 @@ class WordPoints_1_8_0_Update_Test extends WordPoints_UnitTestCase {
 
 		// Simulate the update.
 		switch_to_blog( $blog_id );
-		$this->wordpoints_set_db_version( '1.7.0' );
-		wordpoints_update();
+		$this->update_wordpoints();
 		restore_current_blog();
 
 		// Check that the ID was added.

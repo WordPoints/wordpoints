@@ -868,6 +868,11 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function unset_db_version() {
 
+		// The whole option will be deleted when WordPoints is uninstalled.
+		if ( 'wordpoints' === $this->slug ) {
+			return;
+		}
+
 		if ( 'network' === $this->context ) {
 			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
 		} else {

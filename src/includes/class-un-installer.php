@@ -137,25 +137,14 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function uninstall_network() {
+	protected function before_uninstall() {
 
 		$this->uninstall_modules();
 		$this->uninstall_components();
 
-		parent::uninstall_network();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		$this->uninstall_modules();
-		$this->uninstall_components();
-
-		parent::uninstall_single();
+		parent::before_uninstall();
 	}
 
 	/**

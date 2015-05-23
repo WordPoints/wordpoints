@@ -217,17 +217,7 @@ class WordPoints_Points_Logs_Query {
 	 *        @type mixed        $meta_value          See WP_Meta_Query.
 	 *        @type string       $meta_compare        See WP_Meta_Query.
 	 *        @type string       $meta_type           See WP_Meta_Query.
-	 *        @type array        $meta_query {
-	 *             	Arguments for INNER JOIN on meta table WP_Meta_Query
-	 *
-	 *              @type int    $id            Deprecated. Query only the log for this meta entry.
-	 *              @type int[]  $id__in        Deprecated. Limit results to logs matching these meta IDs.
-	 *              @type int[]  $id__not_in    Deprecated. Exclude results for these meta entries.
-	 *              @type string $key           Deprecated. Use meta_key instead. Return logs which have meta for this key.
-	 *              @type mixed  $value         Deprecated. Use meta_value instead. Return logs which have metadata matching this value.
-	 *              @type array  $value__in     Deprecated. Use meta_value instead. Limit results to entries with metadata matching these meta values.
-	 *              @type array  $value__not_in Deprecated. Use meta_value instead. Exclude entries with metadata matching these meta values.
-	 *        }
+	 *        @type array        $meta_query          See WP_Meta_Query.
 	 * }
 	 */
 	public function __construct( $args = array() ) {

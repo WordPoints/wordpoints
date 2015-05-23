@@ -39,6 +39,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'network' => array(
 			'options' => array(
 				'wordpoints_sitewide_active_modules',
+				'wordpoints_network_install_skipped',
+		        'wordpoints_network_installed',
+		        'wordpoints_network_update_skipped',
 			),
 		),
 		'local'   => array(
@@ -138,10 +141,10 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_network() {
 
-		parent::uninstall_network();
-
 		$this->uninstall_modules();
 		$this->uninstall_components();
+
+		parent::uninstall_network();
 	}
 
 	/**
@@ -149,10 +152,10 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_single() {
 
-		parent::uninstall_single();
-
 		$this->uninstall_modules();
 		$this->uninstall_components();
+
+		parent::uninstall_single();
 	}
 
 	/**

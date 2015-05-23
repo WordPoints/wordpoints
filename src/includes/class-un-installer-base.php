@@ -362,9 +362,14 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->uninstall_network();
 
 			$this->delete_installed_site_ids();
-			$this->unset_network_installed();
-			$this->unset_network_install_skipped();
-			$this->unset_network_update_skipped();
+
+			// If WordPoints is being uninstalled, the options will already have been
+			// deleted, and calling these methods will actually create them again.
+			if ( 'wordpoints' !== $this->slug ) {
+				$this->unset_network_installed();
+				$this->unset_network_install_skipped();
+				$this->unset_network_update_skipped();
+			}
 
 		} else {
 

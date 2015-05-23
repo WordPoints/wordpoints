@@ -19,9 +19,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	//
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_points_';
+	protected $type = 'component';
 
 	/**
 	 * @since 1.8.0
@@ -40,18 +40,44 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 2.0.0
 	 */
+	protected $schema = array(
+		'global' => array(
+			'tables' => array(
+				'wordpoints_points_logs' => "
+					id BIGINT(20) NOT NULL AUTO_INCREMENT,
+					user_id BIGINT(20) NOT NULL,
+					log_type VARCHAR(255) NOT NULL,
+					points BIGINT(20) NOT NULL,
+					points_type VARCHAR(255) NOT NULL,
+					text LONGTEXT,
+					blog_id SMALLINT(5) UNSIGNED NOT NULL,
+					site_id SMALLINT(5) UNSIGNED NOT NULL,
+					date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+					PRIMARY KEY  (id),
+					KEY user_id (user_id),
+					KEY points_type (points_type(191)),
+					KEY log_type (log_type(191))",
+				'wordpoints_points_log_meta' => '
+					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					log_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+					meta_key VARCHAR(255) DEFAULT NULL,
+					meta_value LONGTEXT,
+					PRIMARY KEY  (meta_id),
+					KEY log_id (log_id),
+					KEY meta_key (meta_key(191))',
+			),
+		),
+	);
+
+	/**
+	 * @since 2.0.0
+	 */
 	protected $uninstall = array(
 		'local' => array(
 			'widgets' => array(
 				'wordpoints_points_logs_widget',
 				'wordpoints_top_users_widget',
 				'wordpoints_points_widget',
-			),
-		),
-		'global' => array(
-			'tables' => array(
-				'wordpoints_points_logs',
-				'wordpoints_points_log_meta',
 			),
 		),
 		'universal' => array(
@@ -163,14 +189,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
-	 */
-	protected function install_network() {
-
-		$this->install_points_main();
-	}
-
-	/**
 	 * @since 2.0.0
 	 */
 	protected function install_custom_caps() {
@@ -194,20 +212,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		parent::install_single();
 
 		add_option( 'wordpoints_default_points_type', '' );
-
-		$this->install_points_main();
-	}
-
-	/**
-	 * Install the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function install_points_main() {
-
-		dbDelta( wordpoints_points_get_db_schema() );
-
-		$this->set_component_version( 'points', WORDPOINTS_VERSION );
 	}
 
 	/**

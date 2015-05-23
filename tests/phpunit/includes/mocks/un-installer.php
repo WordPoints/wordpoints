@@ -48,7 +48,7 @@ class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	public function __call( $method, $args ) {
-		call_user_func_array( array( $this, $method ), $args );
+		return call_user_func_array( array( $this, $method ), $args );
 	}
 }
 

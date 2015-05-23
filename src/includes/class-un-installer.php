@@ -15,9 +15,9 @@
 class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_';
+	protected $type = 'plugin';
 
 	/**
 	 * @since 1.8.0
@@ -39,6 +39,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'network' => array(
 			'options' => array(
 				'wordpoints_sitewide_active_modules',
+				'wordpoints_network_install_skipped',
+		        'wordpoints_network_installed',
+		        'wordpoints_network_update_skipped',
 			),
 		),
 		'local'   => array(
@@ -117,8 +120,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_single() {
 
-		parent::install_single();
-
+		$this->install_custom_caps();
 		$this->install_network();
 	}
 
@@ -126,29 +128,23 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function load_dependencies() {
-		require_once dirname( __FILE__ ) . '/uninstall-bootstrap.php';
+
+		require_once dirname( __FILE__ ) . '/constants.php';
+		require_once WORDPOINTS_DIR . '/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/includes/modules.php';
+		require_once WORDPOINTS_DIR . '/includes/class-installables.php';
+		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function uninstall_network() {
-
-		parent::uninstall_network();
+	protected function before_uninstall() {
 
 		$this->uninstall_modules();
 		$this->uninstall_components();
-	}
 
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		parent::uninstall_single();
-
-		$this->uninstall_modules();
-		$this->uninstall_components();
+		parent::before_uninstall();
 	}
 
 	/**
@@ -200,7 +196,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		// Uninstall the components.
 		foreach ( $components->get() as $component => $data ) {
-			$components->uninstall( $component );
+			WordPoints_Installables::uninstall( 'component', $component );
 		}
 	}
 
@@ -262,5 +258,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		}
 	}
 }
+
+return 'WordPoints_Un_Installer';
 
 // EOF

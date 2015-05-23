@@ -164,6 +164,13 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/rank.php';
 
+/**
+ * The WordPress filter mock.
+ *
+ * @since 2.0.0
+ */
+require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/filter.php' );
+
 if ( class_exists( 'WordPoints_Points_Hook' ) ) {
 	/**
 	 * The points hook mocks.

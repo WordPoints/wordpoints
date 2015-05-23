@@ -33,4 +33,17 @@ function wordpoints_db_table_exists( $table ) {
 	return ( $_table === $table ) ? true : false;
 }
 
+/**
+ * Update the plugin.
+ *
+ * @since 1.3.0
+ * @deprecated 2.0.0
+ */
+function wordpoints_update() {
+
+	_deprecated_function( __FUNCTION__, '2.0.0' );
+
+	WordPoints_Installables::maybe_do_updates();
+}
+
 // EOF

@@ -68,12 +68,12 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		 */
 		$module_statuses = apply_filters( 'wordpoints_module_statuses', $module_statuses );
 
-		if ( isset( $_REQUEST['module_status'] ) && in_array( $_REQUEST['module_status'], $module_statuses ) ) {
+		if ( isset( $_REQUEST['module_status'] ) && in_array( wp_unslash( $_REQUEST['module_status'] ), $module_statuses ) ) {
 			$status = sanitize_key( $_REQUEST['module_status'] );
 		}
 
 		if ( isset( $_REQUEST['s'] ) ) {
-			$_SERVER['REQUEST_URI'] = add_query_arg( 's', wp_unslash( sanitize_text_field( $_REQUEST['s'] ) ) );
+			$_SERVER['REQUEST_URI'] = add_query_arg( 's', sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) );
 		}
 
 		$page = $this->get_pagenum();
@@ -263,7 +263,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		static $term;
 
 		if ( is_null( $term ) && isset( $_REQUEST['s'] ) ) {
-			$term = wp_unslash( sanitize_text_field( $_REQUEST['s'] ) );
+			$term = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
 		}
 
 		foreach ( $module_data as $value ) {

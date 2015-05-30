@@ -62,6 +62,10 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 	 */
 	public function test_get_modules() {
 
+		// This module uses the 2.0 API, and for a more realistic test, it helps if
+		// it is pre-loaded (which the modules aren't during the tests).
+		include_once( wordpoints_modules_dir() . '/test-6/main-file.php' );
+
 		$modules = wordpoints_get_modules();
 
 		$this->assertInternalType( 'array', $modules );
@@ -89,6 +93,37 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 			)
 			, $modules['test-4/test-4.php']
 		);
+
+		// Test getting a module that uses the 2.0 API.
+		$this->assertArrayHasKey( 'test-6/main-file.php', $modules );
+		$this->assertEquals(
+			array(
+				'name'        => 'Test 6',
+				'module_uri'  => 'http://www.example.com/test-6/',
+				'version'     => '1.0.0',
+				'description' => 'Another test module.',
+				'author'      => 'WordPoints Tester',
+				'author_uri'  => 'http://www.example.com/',
+				'text_domain' => 'test-6',
+				'domain_path' => '',
+				'network'     => false,
+				'title'       => 'Test 6',
+				'author_name' => 'WordPoints Tester',
+				'update_api'  => '',
+				'channel'     => '',
+				'ID'          => '',
+			)
+			, $modules['test-6/main-file.php']
+		);
+		$this->assertArrayNotHasKey( 'test-6/index.php', $modules );
+	}
+
+	/**
+	 * Test getting all modules in a subdirectory of the modules dir.
+	 *
+	 * @since 2.0.0
+	 */
+	public function test_get_module_subdir() {
 
 		$this->assertEquals(
 			array(

@@ -168,6 +168,7 @@ final class WordPoints_Modules {
 		self::$registered[ $slug ] = self::$registered[ $slug ] + array_fill_keys( self::$default_headers, '' );
 
 		self::$registered[ $slug ]['raw'] = $data;
+		self::$registered[ $slug ]['raw_file'] = wp_normalize_path( $file );
 
 		WordPoints_Installables::register(
 			'module'

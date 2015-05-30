@@ -38,6 +38,13 @@ class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 		} else {
 			$this->assertFalse( is_wordpoints_network_active() );
 		}
+
+		// Without this checkRequirements() will not work for the next test, because
+		// the cache is only cleared in setUp(), which is called after that.
+		wp_cache_delete(
+			"{$GLOBALS['wpdb']->siteid}:active_sitewide_plugins"
+			, 'site-options'
+		);
 	}
 
 	/**

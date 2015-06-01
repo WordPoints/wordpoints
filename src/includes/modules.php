@@ -379,8 +379,8 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 	$module_data = WordPoints_Modules::get_data( $module_file );
 
-	if ( $module_data ) {
-		unset( $module_data['raw'] );
+	if ( $module_data && wp_normalize_path( $module_file ) === $module_data['raw_file'] ) {
+		unset( $module_data['raw'], $module_data['raw_file'] );
 	} else {
 		$module_data = get_file_data( $module_file, $default_headers, 'wordpoints_module' );
 	}

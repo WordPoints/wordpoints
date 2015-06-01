@@ -13,6 +13,8 @@
  * @since 2.0.0
  *
  * @covers WordPoints_Modules
+ *
+ * @group modules
  */
 class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 
@@ -50,6 +52,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
+				'raw_file'    => wordpoints_modules_dir() . 'demo-module/demo-module.php',
 				'raw'         => '
 		        Module Name: Demo Module
 		        Version:     1.0.0

@@ -144,6 +144,30 @@ final class WordPoints_Modules {
 			return false;
 		}
 
+		self::$registered[ $slug ] = self::parse_headers( $data );
+
+		self::$registered[ $slug ]['raw'] = $data;
+		self::$registered[ $slug ]['raw_file'] = wp_normalize_path( $file );
+
+		self::register_installable( $slug, $file );
+		self::maybe_load_textdomain( $slug, $file );
+
+		return true;
+	}
+
+	/**
+	 * Parse the header data from the raw module headers.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $data The raw headers.
+	 *
+	 * @return array The parsed header data.
+	 */
+	private static function parse_headers( $data ) {
+
+		$parsed = array();
+
 		$lines = explode( "\n", $data );
 
 		foreach ( $lines as $line ) {
@@ -162,12 +186,21 @@ final class WordPoints_Modules {
 				$data_slug = self::$default_headers[ $parts[0] ];
 			}
 
-			self::$registered[ $slug ][ $data_slug ] = trim( $parts[1] );
+			$parsed[ $data_slug ] = trim( $parts[1] );
 		}
 
-		self::$registered[ $slug ] = self::$registered[ $slug ] + array_fill_keys( self::$default_headers, '' );
+		return $parsed + array_fill_keys( self::$default_headers, '' );
+	}
 
-		self::$registered[ $slug ]['raw'] = $data;
+	/**
+	 * Register the installable for a module.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $slug The module slug.
+	 * @param string $file The main module file.
+	 */
+	private static function register_installable( $slug, $file ) {
 
 		WordPoints_Installables::register(
 			'module'
@@ -178,8 +211,32 @@ final class WordPoints_Modules {
 				'network_wide' => is_wordpoints_module_active_for_network( $file ),
 			)
 		);
+	}
 
-		return true;
+	/**
+	 * Load the text domain for a module, if one is specified.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $slug The module slug.
+	 * @param string $file The main module file.
+	 */
+	private static function maybe_load_textdomain( $slug, $file ) {
+
+		if ( empty( self::$registered[ $slug ]['text_domain'] ) ) {
+			return;
+		}
+
+		$path = false;
+
+		if ( ! empty( self::$registered[ $slug ]['domain_path'] ) ) {
+			$path = wordpoints_module_basename( $file ) . self::$registered[ $slug ]['domain_path'];
+		}
+
+		wordpoints_load_module_textdomain(
+			self::$registered[ $slug ]['text_domain']
+			, $path
+		);
 	}
 }
 

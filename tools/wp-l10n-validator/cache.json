@@ -126,13 +126,13 @@
             "errors": false
         },
         "\/components\/points\/includes\/deprecated.php": {
-            "size": 12768,
-            "hash": "98193fd32fc6707cb6f2aeb041f4799a",
+            "size": 13221,
+            "hash": "73700b7201f242a8150f6f21ea037927",
             "errors": false
         },
         "\/components\/points\/includes\/functions.php": {
-            "size": 7304,
-            "hash": "67b6ab44bf006602ca6bf0554e2c3ea0",
+            "size": 6791,
+            "hash": "75e9eb6d5dde94f8f9fad1e145b9cf1d",
             "errors": false
         },
         "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
@@ -291,8 +291,8 @@
             "errors": false
         },
         "\/includes\/class-installables.php": {
-            "size": 9827,
-            "hash": "396c26bd878345915c66997cc1f5aed4",
+            "size": 10604,
+            "hash": "c427784faa0b56a84fe6c53d04ff7a54",
             "errors": false
         },
         "\/includes\/class-modules.php": {
@@ -306,8 +306,8 @@
             "errors": false
         },
         "\/includes\/class-un-installer-base.php": {
-            "size": 38781,
-            "hash": "70d9666ab49b9e043f2e8291ab5d17b9",
+            "size": 39358,
+            "hash": "68f3338ac9b13805c4abc75cc66caf49",
             "errors": false
         },
         "\/includes\/class-un-installer.php": {
@@ -331,13 +331,13 @@
             "errors": false
         },
         "\/includes\/deprecated.php": {
-            "size": 917,
-            "hash": "9594a910de710f40515929f6c913c5d3",
+            "size": 1356,
+            "hash": "9cb87ee638b3c08ea6387a7968832a94",
             "errors": false
         },
         "\/includes\/functions.php": {
-            "size": 24694,
-            "hash": "5b1b75d26e138f597a4b0bf187390992",
+            "size": 24202,
+            "hash": "dbc26559f44767c1f3d25fd241c85f96",
             "errors": false
         },
         "\/includes\/modules.php": {

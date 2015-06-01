@@ -426,6 +426,22 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 			WordPoints_Installables::get_installer( 'module', __METHOD__ )
 		);
 	}
+
+	/**
+	 * Test that network-wide installables are installed on new sites on creation.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_wpmu_new_blog() {
+
+		$blog_id = $this->factory->blog->create();
+
+		switch_to_blog( $blog_id );
+		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
+		restore_current_blog();
+	}
 }
 
 // EOF

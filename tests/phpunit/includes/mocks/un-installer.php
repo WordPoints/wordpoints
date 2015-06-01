@@ -17,6 +17,15 @@
 class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 
 	/**
+	 * The calls to inaccessible methods.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var array[]
+	 */
+	protected $method_calls = array();
+
+	/**
 	 * @since 2.0.0
 	 */
 	public function &__get( $var ) {
@@ -48,6 +57,9 @@ class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	public function __call( $method, $args ) {
+
+		$this->method_calls[] = array( 'method' => $method, 'args' => $args );
+
 		return call_user_func_array( array( $this, $method ), $args );
 	}
 }

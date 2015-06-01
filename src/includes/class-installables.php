@@ -396,8 +396,44 @@ final class WordPoints_Installables {
 			, self::$registered[ $type ][ $slug ]['version']
 		);
 	}
+
+	/**
+	 * Install network-wide installables on a new site when it is created.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @WordPress\action wpmu_new_blog
+	 *
+	 * @param int $blog_id The ID of the new blog.
+	 */
+	public static function wpmu_new_blog( $blog_id ) {
+
+		foreach ( self::$registered as $type => $installables ) {
+
+			$network_installables = wp_list_filter(
+				$installables
+				, array( 'network_wide' => true )
+			);
+
+			if ( empty( $network_installables ) ) {
+				continue;
+			}
+
+			foreach ( $network_installables as $slug => $installable ) {
+
+				$installer = self::get_installer( $type, $slug );
+
+				if ( ! $installer ) {
+					continue;
+				}
+
+				$installer->install_on_site( $blog_id );
+			}
+		}
+	}
 }
 add_action( 'wordpoints_modules_loaded', 'WordPoints_Installables::maybe_do_updates', 5 );
 add_action( 'admin_notices', 'WordPoints_Installables::admin_notices' );
+add_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 
 // EOF

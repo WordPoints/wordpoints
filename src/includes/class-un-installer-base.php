@@ -329,6 +329,34 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Run the install routine on a certain site on the network.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $site_id The ID of the site to install on.
+	 */
+	public function install_on_site( $site_id ) {
+
+		$this->action = 'install';
+		$this->network_wide = true;
+
+		$this->before_install();
+
+		/**
+		 * Include the upgrade script so that we can use dbDelta() to create DBs.
+		 *
+		 * @since 1.8.0
+		 */
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+		$this->context = 'site';
+
+		switch_to_blog( $site_id );
+		$this->install_site();
+		restore_current_blog();
+	}
+
+	/**
 	 * Run the uninstallation routine.
 	 *
 	 * @since 1.8.0

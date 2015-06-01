@@ -273,24 +273,6 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
 	}
-
-	/**
-	 * Test wordpoints_points_add_custom_caps_to_new_sites().
-	 *
-	 * @since 1.5.0
-	 *
-	 * @covers ::wordpoints_points_add_custom_caps_to_new_sites
-	 *
-	 * @requires WordPoints network-active
-	 */
-	public function test_wordpoints_points_add_custom_caps_to_new_sites() {
-
-		$blog_id = $this->factory->blog->create();
-
-		switch_to_blog( $blog_id );
-		$this->assertTrue( get_role( 'administrator' )->has_cap( 'set_wordpoints_points' ) );
-		restore_current_blog();
-	}
 }
 
 // EOF

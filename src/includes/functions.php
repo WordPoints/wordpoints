@@ -823,27 +823,6 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 3 );
 
 /**
- * Add custom capabilities to new sites on creation when in network mode.
- *
- * @since 1.5.0
- *
- * @action wpmu_new_blog
- *
- * @param int $blog_id The ID of the new site.
- */
-function wordpoints_add_custom_caps_to_new_sites( $blog_id ) {
-
-	if ( ! is_wordpoints_network_active() ) {
-		return;
-	}
-
-	switch_to_blog( $blog_id );
-	wordpoints_add_custom_caps( wordpoints_get_custom_caps() );
-	restore_current_blog();
-}
-add_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );
-
-/**
  * Register the points component.
  *
  * @since 1.0.0

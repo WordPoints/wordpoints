@@ -53,27 +53,6 @@ function wordpoints_points_get_custom_caps() {
 }
 
 /**
- * Add custom capabilities to new sites on creation when in network mode.
- *
- * @since 1.5.0
- *
- * @action wpmu_new_blog
- *
- * @param int $blog_id The ID of the new site.
- */
-function wordpoints_points_add_custom_caps_to_new_sites( $blog_id ) {
-
-	if ( ! is_wordpoints_network_active() ) {
-		return;
-	}
-
-	switch_to_blog( $blog_id );
-	wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
-	restore_current_blog();
-}
-add_action( 'wpmu_new_blog', 'wordpoints_points_add_custom_caps_to_new_sites' );
-
-/**
  * Format points for display.
  *
  * @since 1.0.0

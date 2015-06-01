@@ -33,9 +33,9 @@ class WordPoints_1_5_0_Update_Test extends WordPoints_UnitTestCase {
 	public function test_custom_caps_added_to_new_sites() {
 
 		// Create a second site on the network.
-		remove_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );
+		remove_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 		$blog_id = $this->factory->blog->create();
-		add_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );
+		add_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 
 		// Check that the caps don't exist.
 		switch_to_blog( $blog_id );

@@ -18,7 +18,7 @@ if (
 
 	// - The form has been submitted.
 
-	$excluded_users = preg_replace( '/\s/', '', sanitize_text_field( $_POST['excluded_users'] ) );
+	$excluded_users = preg_replace( '/\s/', '', sanitize_text_field( wp_unslash( $_POST['excluded_users'] ) ) );
 
 	if ( ! empty( $excluded_users ) ) {
 

@@ -352,7 +352,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$empty_name = true;
 
 		if ( ! empty( $_POST['name'] ) ) { // WPCS: CSRF OK.
-			$name = wp_unslash( sanitize_text_field( $_POST['name'] ) ); // WPCS: CSRF OK.
+			$name = sanitize_text_field( wp_unslash( $_POST['name'] ) ); // WPCS: CSRF OK.
 
 			if ( ! empty( $name ) ) {
 				$empty_name = false;
@@ -384,7 +384,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			$this->_unexpected_error( 'type' );
 		}
 
-		$type = wp_unslash( sanitize_text_field( $_POST['type'] ) ); // WPCS: CSRF OK.
+		$type = sanitize_text_field( wp_unslash( $_POST['type'] ) ); // WPCS: CSRF OK.
 
 		if ( ! WordPoints_Rank_Types::is_type_registered( $type ) ) {
 			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.', 'wordpoints' ) ) );

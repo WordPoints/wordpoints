@@ -391,7 +391,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 		if ( isset( $_POST['wordpoints_points_logs_search'] ) ) { // WPCS: CSRF OK
 			$search_term = trim(
-				sanitize_text_field( $_POST['wordpoints_points_logs_search'] ) // WPCS: CSRF OK
+				sanitize_text_field( wp_unslash( $_POST['wordpoints_points_logs_search'] ) ) // WPCS: CSRF OK
 			);
 		}
 

@@ -24,13 +24,22 @@ class WordPoints_Mock_Filter {
 	public $return_value;
 
 	/**
-	 * The number of times the filter has been called.
+	 * The number of times the action/filter has been called.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @var int
 	 */
 	public $call_count = 0;
+
+	/**
+	 * Lists of arguments the action/filter was called with.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var array[]
+	 */
+	public $calls = array();
 
 	/**
 	 * @since 2.0.0
@@ -55,12 +64,24 @@ class WordPoints_Mock_Filter {
 	public function filter( $var ) {
 
 		$this->call_count++;
+		$this->calls[] = func_get_args();
 
 		if ( isset( $this->return_value ) ) {
 			$var = $this->return_value;
 		}
 
 		return $var;
+	}
+
+	/**
+	 * A method that can be hooked to an action.
+	 *
+	 * @since 2.0.0
+	 */
+	public function action() {
+
+		$this->call_count++;
+		$this->calls[] = func_get_args();
 	}
 }
 

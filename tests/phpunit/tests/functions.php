@@ -46,24 +46,6 @@ class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 			, 'site-options'
 		);
 	}
-
-	/**
-	 * Test wordpoints_add_custom_caps_to_new_sites().
-	 *
-	 * @since 1.5.0
-	 *
-	 * @covers ::wordpoints_add_custom_caps_to_new_sites
-	 *
-	 * @requires WordPoints network-active
-	 */
-	public function test_wordpoints_add_custom_caps_to_new_sites() {
-
-		$blog_id = $this->factory->blog->create();
-
-		switch_to_blog( $blog_id );
-		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
-		restore_current_blog();
-	}
 }
 
 // EOF

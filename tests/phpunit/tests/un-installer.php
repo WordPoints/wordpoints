@@ -117,6 +117,120 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test the basic behaviour of install_on_site().
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site() {
+
+		$site_id = get_current_blog_id();
+
+		$this->un_installer->install_on_site( $site_id );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->assertEmpty( $this->un_installer->get_db_version() );
+	}
+
+	/**
+	 * Test that custom caps are loaded and installed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site_custom_caps() {
+
+		$this->un_installer->custom_caps_getter = array( $this, 'custom_caps_getter' );
+		$this->un_installer->install_on_site( get_current_blog_id() );
+
+		$this->assertCustomCapsLoaded();
+
+		// We just check that the first cap was added.
+		$this->assertCapWasAdded(
+			reset( $this->custom_caps )
+			, key( $this->custom_caps )
+		);
+	}
+
+	/**
+	 * Test that the schema shortcuts are mapped before install.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site_map_schema_shortcuts() {
+
+		$this->set_un_installer_schema();
+
+		$this->un_installer->install_on_site( get_current_blog_id() );
+
+		$this->assertSchemaMapped();
+	}
+
+	/**
+	 * Test that the site being installed on is switched to.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site_switch_to_site() {
+
+		$site_id = get_current_blog_id();
+
+		$filter_mock = new WordPoints_Mock_Filter();
+		add_action( 'switch_blog', array( $filter_mock, 'action' ) );
+
+		$this->un_installer->install_on_site( $site_id );
+
+		$this->assertEquals(
+			array( array( $site_id ), array( $site_id ) )
+			, $filter_mock->calls
+		);
+	}
+
+	/**
+	 * Test database schema is created on site install.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site_db_schema() {
+
+		global $wpdb;
+
+		$this->un_installer->schema['site'] = array(
+			'tables' => array(
+				'test' => 'id BIGINT(20) NOT NULL',
+			),
+		);
+
+		$this->un_installer->install_on_site( get_current_blog_id() );
+
+		$this->assertEquals(
+			array()
+			, $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}test" )
+		);
+	}
+
+	/**
 	 * Test that we don't attempt to load custom capabilities when no getter is set.
 	 *
 	 * @since 2.0.0
@@ -189,52 +303,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 */
 	public function test_map_schema_shortcuts_before_install() {
 
-		$this->un_installer->schema['single'] = array(
-			'key' => array( 'from_single' ),
-		);
-
-		$this->un_installer->schema['site'] = array(
-			'key' => array( 'from_site' ),
-		);
-
-		$this->un_installer->schema['network'] = array(
-			'key' => array( 'from_network' ),
-		);
-
-		$this->un_installer->schema['local'] = array(
-			'key' => array( 'from_local' ),
-		);
-
-		$this->un_installer->schema['global'] = array(
-			'key' => array( 'from_global' ),
-		);
-
-		$this->un_installer->schema['universal'] = array(
-			'key' => array( 'from_universal' ),
-		);
+		$this->set_un_installer_schema();
 
 		$this->un_installer->before_install();
 
-		$this->assertEquals(
-			array(
-				'key' => array( 'from_single', 'from_local', 'from_global', 'from_universal' ),
-			)
-			, $this->un_installer->schema['single']
-		);
-
-		$this->assertEquals(
-			array(
-				'key' => array( 'from_site', 'from_local', 'from_universal' ),
-			)
-			, $this->un_installer->schema['site']
-		);
-
-		$this->assertEquals(
-			array(
-				'key' => array( 'from_network', 'from_global', 'from_universal' ),
-			)
-			, $this->un_installer->schema['network']
-		);
+		$this->assertSchemaMapped();
 	}
 
 	/**
@@ -2631,6 +2704,69 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 */
 	public function custom_caps_getter() {
 		return $this->custom_caps;
+	}
+
+	/**
+	 * Sets the schema for the uninstaller.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @see self::assertSchemaMapped()
+	 */
+	public function set_un_installer_schema() {
+
+		$this->un_installer->schema['single'] = array(
+			'key' => array( 'from_single' ),
+		);
+
+		$this->un_installer->schema['site'] = array(
+			'key' => array( 'from_site' ),
+		);
+
+		$this->un_installer->schema['network'] = array(
+			'key' => array( 'from_network' ),
+		);
+
+		$this->un_installer->schema['local'] = array(
+			'key' => array( 'from_local' ),
+		);
+
+		$this->un_installer->schema['global'] = array(
+			'key' => array( 'from_global' ),
+		);
+
+		$this->un_installer->schema['universal'] = array(
+			'key' => array( 'from_universal' ),
+		);
+	}
+
+	/**
+	 * Asserts that the schema was mapped.
+	 *
+	 * @since 2.0.0
+	 */
+	public function assertSchemaMapped() {
+
+		$this->assertEquals(
+			array(
+				'key' => array( 'from_single', 'from_local', 'from_global', 'from_universal' ),
+			)
+			, $this->un_installer->schema['single']
+		);
+
+		$this->assertEquals(
+			array(
+				'key' => array( 'from_site', 'from_local', 'from_universal' ),
+			)
+			, $this->un_installer->schema['site']
+		);
+
+		$this->assertEquals(
+			array(
+				'key' => array( 'from_network', 'from_global', 'from_universal' ),
+			)
+			, $this->un_installer->schema['network']
+		);
 	}
 }
 

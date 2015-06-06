@@ -216,6 +216,8 @@ function wordpoints_delete_points_type( $slug ) {
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
 
+	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
+
 	// Delete all user points of this type.
 	delete_metadata( 'user', 0, $meta_key, '', true );
 

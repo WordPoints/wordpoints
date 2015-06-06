@@ -127,7 +127,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 			DROP INDEX type,
 			ADD INDEX type(type(191))
 			"
-		);
+		); // WPCS: cache pass.
 
 		$this->maybe_update_tables_to_utf8mb4( 'global' );
 	}

@@ -216,6 +216,8 @@ function wordpoints_delete_points_type( $slug ) {
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
 
+	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
+
 	// Delete all user points of this type.
 	delete_metadata( 'user', 0, $meta_key, '', true );
 
@@ -897,7 +899,7 @@ function wordpoints_points_log_delete_all_metadata( $log_id ) {
 			"
 			, $log_id
 		)
-	);
+	); // WPCS: cache pass.
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
@@ -994,6 +996,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	global $wpdb;
 
+	$flushed = array( 'points_types' => array(), 'user_ids' => array() );
+
 	foreach ( $logs as $log ) {
 
 		$meta = wordpoints_get_points_log_meta( $log->id );
@@ -1016,6 +1020,15 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				, array( '%s' )
 				, array( '%d' )
 			);
+
+			if ( ! isset( $flushed['points_types'][ $log->points_type ], $flushed['user_ids'][ $log->user_id ] ) ) {
+				wordpoints_flush_points_logs_caches(
+					array( 'user_id' => $log->user_id, 'points_type' => $log->points_type )
+				);
+
+				$flushed['points_types'][ $log->points_type ] = true;
+				$flushed['user_ids'][ $log->user_id ] = true;
+			}
 		}
 	}
 }

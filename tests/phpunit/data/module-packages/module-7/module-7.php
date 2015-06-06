@@ -10,6 +10,8 @@
  * Description: Description.
  * Channel:     wordpoints.org
  * ID:          7
+ *
+ * @package Module7
  */
 
 // Code here.

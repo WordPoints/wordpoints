@@ -153,6 +153,8 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 		,$where
 		,'%d'
 	);
+
+	wordpoints_flush_points_logs_caches( array( 'user_id' => $user_id ) );
 }
 add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 

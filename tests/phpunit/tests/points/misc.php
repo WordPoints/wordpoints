@@ -25,8 +25,12 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_logs_tables_cleaned_on_user_deletion() {
 
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
 		// Create a user and give them some points.
 		$user_id = $this->factory->user->create();
+
+		wp_set_current_user( $user_id );
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test', array( 'test' => 10 ) );
 
@@ -37,6 +41,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 1, $query->count() );
 
+		// Run this query so we can check caches are deleted.
+		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
+
+		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+
 		$log_id = $query->get( 'row' )->id;
 
 		// Now delete the user.
@@ -46,11 +55,23 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
-		// If we aren't on multisite, we've completed our mission.
-		if ( ! is_multisite() ) {
-			$this->markTestIncomplete( 'Unable to test multisite network user deletion.' );
-			return;
-		}
+		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
+
+		// Check that the cache was cleared as well.
+		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
+		$this->assertEquals( 8, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
+	 * Test that points logs and log meta tables are cleaned up on user deletion.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_delete_points_logs_for_user
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_logs_tables_cleaned_on_user_deletion_multisite() {
 
 		// Same as above, create a user and give them some points.
 		$user_id = $this->factory->user->create();

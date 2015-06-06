@@ -312,6 +312,14 @@ final class WordPoints_Rank_Group {
 				, array( 'rank_id' => $rank_id )
 				, '%d'
 			);
+
+			$group_ranks = wp_cache_get( $this->slug, 'wordpoints_user_ranks' );
+			unset( $group_ranks[ $rank_id ] );
+			wp_cache_set( $this->slug, $group_ranks, 'wordpoints_user_ranks' );
+
+			unset( $group_ranks );
+
+			wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
 		}
 
 		return true;

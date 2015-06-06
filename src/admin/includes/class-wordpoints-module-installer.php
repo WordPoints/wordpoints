@@ -119,7 +119,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 
 		add_filter( 'upgrader_source_selection', array( $this, 'check_package' ) );
 
-		$this->run(
+		$result = $this->run(
 			array(
 				'package'           => $package,
 				'destination'       => wordpoints_modules_dir(),
@@ -130,6 +130,10 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		);
 
 		remove_filter( 'upgrader_source_selection', array( $this, 'check_package' ) );
+
+		if ( ! $result || is_wp_error( $result ) ) {
+			return $result;
+		}
 
 		if ( ! $this->result || is_wp_error( $this->result ) ) {
 			return $this->result;

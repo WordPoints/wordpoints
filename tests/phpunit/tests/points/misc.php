@@ -240,14 +240,16 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_wordpoints_regenerate_points_logs() {
 
+		// We do this so we can check that the caches are flushed.
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
 		// Create a user and add a points log.
 		$user_id = $this->factory->user->create();
 
 		wordpoints_add_points( $user_id, 10, 'points', 'register' );
 
 		// Get the log from the database.
-		$log = new WordPoints_Points_Logs_Query;
-		$log = $log->get( 'row' );
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
 
 		// Check that all is as expected.
 		$this->assertInternalType( 'object', $log );
@@ -274,9 +276,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Now, regenerate it.
 		wordpoints_regenerate_points_logs( array( $log ) );
 
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
 		// Check that the log was regenerated.
-		$log = new WordPoints_Points_Logs_Query;
-		$log = $log->get( 'row' );
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		// Check that the cache was cleared and a new query was made.
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
@@ -301,9 +307,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Now, regenerate it.
 		wordpoints_regenerate_points_logs( array( $log->id ) );
 
+		$this->assertEquals( 5, $this->filter_was_called( 'query' ) );
+
 		// Check that the log was regenerated.
-		$log = new WordPoints_Points_Logs_Query;
-		$log = $log->get( 'row' );
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		// Check that the cache was cleared and a new query was made.
+		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
 
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );

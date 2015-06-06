@@ -272,7 +272,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 					FROM {$wpdb->wordpoints_points_logs}
 					WHERE `id` IN (" . implode( ',', array_map( 'absint', $log_ids ) ) . ')
 				'
-			);
+			); // WPCS: cache pass (points logs weren't cached until 1.5.0).
 
 			foreach ( $log_ids as $log_id ) {
 				wordpoints_points_log_delete_all_metadata( $log_id );

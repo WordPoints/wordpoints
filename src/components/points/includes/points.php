@@ -897,7 +897,7 @@ function wordpoints_points_log_delete_all_metadata( $log_id ) {
 			"
 			, $log_id
 		)
-	);
+	); // WPCS: cache pass.
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;

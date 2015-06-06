@@ -1395,7 +1395,7 @@ abstract class WordPoints_Un_Installer_Base {
 					"
 					, $option
 				)
-			);
+			); // WPCS: cache pass.
 
 		} else {
 			$options = array( $option );
@@ -1448,7 +1448,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$table = str_replace( '`', '``', $table );
 
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->get_blog_prefix( $site_id ) . $table . '`' );
+		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->get_blog_prefix( $site_id ) . $table . '`' ); // WPCS: cache pass.
 	}
 
 	//

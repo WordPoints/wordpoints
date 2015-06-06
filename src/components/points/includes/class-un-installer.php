@@ -262,7 +262,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 					ON wppl.user_id = u.ID
 				WHERE u.ID IS NULL
 			"
-		);
+		); // WPCS: cache pass.
 
 		if ( $log_ids && is_array( $log_ids ) ) {
 
@@ -298,7 +298,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				WHERE p.ID IS NULL
 					AND wpplm.meta_key = 'post_id'
 			"
-		);
+		); // WPCS: cache pass.
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 
@@ -327,7 +327,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				WHERE c.comment_ID IS NULL
 					AND wpplm.meta_key = 'comment_id'
 			"
-		);
+		); // WPCS: cache pass.
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 
@@ -529,7 +529,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 					AND wpplm.meta_key = 'post_id'
 					AND wppl.log_type = 'comment_approve'
 			"
-		);
+		); // WPCS: cache pass.
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 
@@ -572,8 +572,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			$charset_collate .= " COLLATE {$wpdb->collate}";
 		}
 
-		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" );
-		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" );
+		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" ); // WPCS: cache pass.
+		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" ); // WPCS: cache pass.
 	}
 
 	/**
@@ -803,7 +803,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			DROP INDEX points_type,
 			ADD INDEX points_type(points_type(191))
 			"
-		);
+		); // WPCS: cache pass.
 
 		$wpdb->query(
 			"
@@ -811,7 +811,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			DROP INDEX log_type,
 			ADD INDEX log_type(log_type(191))
 			"
-		);
+		); // WPCS: cache pass.
 
 		$wpdb->query(
 			"
@@ -819,7 +819,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			DROP INDEX meta_key,
 			ADD INDEX meta_key(meta_key(191))
 			"
-		);
+		); // WPCS: cache pass.
 
 		$this->maybe_update_tables_to_utf8mb4( 'global' );
 	}

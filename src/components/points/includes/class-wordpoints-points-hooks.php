@@ -426,7 +426,7 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $points_types_hooks
+	 * @param array $points_types_hooks The list of points types and their hooks.
 	 */
 	public static function save_points_types_hooks( array $points_types_hooks ) {
 

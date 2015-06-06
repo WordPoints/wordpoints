@@ -283,9 +283,12 @@ function wordpointstests_ui_user() {
  *
  * @since 1.0.1
  *
+ * @param string $plugin     The basename path of the main plugin file.
+ * @param string $plugin_dir The name to give the symlinked plugin directory.
+ *
  * @return bool Whether this was successful.
  */
-function wordpointstests_symlink_plugin( $plugin, $plugin_dir, $link_name = null ) {
+function wordpointstests_symlink_plugin( $plugin, $plugin_dir ) {
 
 	$link_name = dirname( WP_PLUGIN_DIR . '/' . $plugin );
 

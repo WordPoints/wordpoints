@@ -125,16 +125,11 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	 * Test that the cache is per-site when the plugin isn't network active.
 	 *
 	 * @since 1.10.2
+	 *
+	 * @requires WordPress multisite
+	 * @requires WordPoints !network-active
 	 */
 	public function test_cache_per_site_on_multisite() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be enabled.' );
-		}
-
-		if ( is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must not be network active.' );
-		}
 
 		$this->listen_for_filter( 'query', array( $this, 'is_top_users_query' ) );
 
@@ -177,12 +172,10 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	 * Test that the cache is network-wide when the plugin is network active.
 	 *
 	 * @since 1.10.2
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_cache_network_wide_when_network_active() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active on multisite.' );
-		}
 
 		$this->listen_for_filter( 'query', array( $this, 'is_top_users_query' ) );
 

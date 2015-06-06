@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Dropdown_Builder
  */
-class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
+class WordPoints_Dropdown_Builder_Test extends WordPoints_UnitTestCase {
 
 	//
 	// Helper Methods.
@@ -25,7 +25,8 @@ class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @param array $args The arguments for the dropdown builder.
+	 * @param array $args    The arguments for the dropdown builder.
+	 * @param array $options The options to include in the dropdown.
 	 *
 	 * @return string The output of the generator.
 	 */
@@ -47,7 +48,8 @@ class WordPoints_Dropdown_Builder_Test extends WP_UnitTestCase {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param $args The arguments for the dropdown builder.
+	 * @param array $args The arguments for the dropdown builder.
+	 * @param array $options The options to include in the dropdown.
 	 *
 	 * @return DOMXPath The XPath object to run queries on the dropdown HTML.
 	 */

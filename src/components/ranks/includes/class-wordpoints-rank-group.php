@@ -312,6 +312,14 @@ final class WordPoints_Rank_Group {
 				, array( 'rank_id' => $rank_id )
 				, '%d'
 			);
+
+			$group_ranks = wp_cache_get( $this->slug, 'wordpoints_user_ranks' );
+			unset( $group_ranks[ $rank_id ] );
+			wp_cache_set( $this->slug, $group_ranks, 'wordpoints_user_ranks' );
+
+			unset( $group_ranks );
+
+			wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
 		}
 
 		return true;
@@ -483,6 +491,13 @@ final class WordPoints_Rank_Group {
 		);
 	}
 
+	/**
+	 * Increases users with the previous rank if needed.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param int $rank_id A rank ID.
+	 */
 	private function _maybe_increase_users_with_previous_rank( $rank_id ) {
 
 		$rank = wordpoints_get_rank( $rank_id );

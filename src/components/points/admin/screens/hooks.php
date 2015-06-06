@@ -20,9 +20,9 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 		$settings = array();
 
-		$settings['name']   = trim( wp_unslash( esc_html( $_POST['points-name'] ) ) );
-		$settings['prefix'] = ltrim( wp_unslash( esc_html( $_POST['points-prefix'] ) ) );
-		$settings['suffix'] = rtrim( wp_unslash( esc_html( $_POST['points-suffix'] ) ) );
+		$settings['name']   = trim( sanitize_text_field( wp_unslash( $_POST['points-name'] ) ) );
+		$settings['prefix'] = ltrim( sanitize_text_field( wp_unslash( $_POST['points-prefix'] ) ) );
+		$settings['suffix'] = rtrim( sanitize_text_field( wp_unslash( $_POST['points-suffix'] ) ) );
 
 		if ( ! wordpoints_add_points_type( $settings ) ) {
 
@@ -40,7 +40,7 @@ if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
 
 		unset( $_GET['error'], $_GET['message'] );
 
-		if ( wordpoints_delete_points_type( $_POST['points-slug'] ) ) {
+		if ( wordpoints_delete_points_type( sanitize_key( $_POST['points-slug'] ) ) ) {
 
 			$_GET['message'] = 1;
 

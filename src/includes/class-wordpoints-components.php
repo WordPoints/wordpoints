@@ -90,15 +90,6 @@ final class WordPoints_Components {
 	 */
 	private $active;
 
-	/**
-	 * The installers for the components.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $installers
-	 */
-	private $installers;
-
 	//
 	// Private Methods.
 	//
@@ -141,7 +132,6 @@ final class WordPoints_Components {
 		self::$instance = new WordPoints_Components();
 
 		add_action( 'plugins_loaded', array( self::$instance, 'load' ) );
-		add_action( 'admin_notices', array( self::$instance, 'admin_notices' ) );
 	}
 
 	/**
@@ -196,8 +186,6 @@ final class WordPoints_Components {
 		 * @since 1.0.0
 		 */
 		do_action( 'wordpoints_components_loaded' );
-
-		$this->maybe_do_updates();
 	}
 
 	/**
@@ -273,7 +261,9 @@ final class WordPoints_Components {
 	 * @since 1.8.0 The un_installer argument added, uninstall_file was deprecated.
 	 * @since 2.0.0 The 'file' argument is now required.
 	 *
-	 * @param array $args The component's data. {
+	 * @param array $args {
+	 *        The component's data.
+	 *
 	 *        @type string $slug          The component slug. Must be unique.
 	 *        @type string $name          The name of the component.
 	 *        @type string $author        The name of the component's author.
@@ -315,6 +305,16 @@ final class WordPoints_Components {
 		}
 
 		$this->registered[ $component['slug'] ] = array_intersect_key( $component, $defaults );
+
+		WordPoints_Installables::register(
+			'component'
+			, $component['slug']
+			, array(
+				'version'      => $this->registered[ $component['slug'] ]['version'],
+				'un_installer' => $this->registered[ $component['slug'] ]['un_installer'],
+				'network_wide' => is_wordpoints_network_active(),
+			)
+		);
 
 		return true;
 	}
@@ -379,7 +379,9 @@ final class WordPoints_Components {
 
 			include_once( $this->registered[ $slug ]['file'] );
 
-			$this->get_installer( $slug )->install( is_wordpoints_network_active() );
+			WordPoints_Installables::get_installer( 'component', $slug )->install(
+				is_wordpoints_network_active()
+			);
 
 			/**
 			 * Component activated.
@@ -464,105 +466,60 @@ final class WordPoints_Components {
 	 * Uninstall a component.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 2.0.0 Use WordPoints_Installables::uninstall() instead.
 	 *
 	 * @param string $slug The component's slug.
 	 */
 	public function uninstall( $slug ) {
 
-		if ( ! $this->is_registered( $slug ) ) {
-			return;
-		}
+		_deprecated_function(
+			__METHOD__
+			, '2.0.0'
+			, 'WordPoints_Installables::uninstall()'
+		);
 
-		/**
-		 * Before uninstalling a component.
-		 *
-		 * @since 1.0.0
-		 */
-		do_action( "wordpoints_uninstall_component-{$slug}" );
-
-		$this->get_installer( $slug )->uninstall();
+		WordPoints_Installables::uninstall( 'component', $slug );
 	}
 
 	/**
 	 * Check if any of the active components has an update, and run it if so.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.0.0 Use WordPoints_Installables::maybe_do_updates() instead.
 	 */
 	public function maybe_do_updates() {
 
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		_deprecated_function(
+			__METHOD__
+			, '2.0.0'
+			, 'WordPoints_Installables::maybe_do_updates()'
+		);
 
-		foreach ( array_keys( $this->get_active() ) as $component ) {
-
-			if (
-				! isset( $wordpoints_data['components'][ $component ]['version'] )
-				|| ! isset( $this->registered[ $component ]['un_installer'] )
-			) {
-				continue;
-			}
-
-			$db_version = $wordpoints_data['components'][ $component ]['version'];
-
-			// If the DB version isn't less than the code version, we don't need to upgrade.
-			if ( version_compare( $db_version, WORDPOINTS_VERSION ) !== -1 ) {
-				continue;
-			}
-
-			$this->get_installer( $component )->update( $db_version, WORDPOINTS_VERSION );
-
-			$wordpoints_data['components'][ $component ]['version'] = WORDPOINTS_VERSION;
-		}
-
-		if ( isset( $db_version ) ) {
-			wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
-		}
+		WordPoints_Installables::maybe_do_updates();
 	}
 
 	/**
 	 * Show the admin a notice if the update/install for a component was skipped.
 	 *
 	 * @since 1.8.0
-	 *
-	 * @WordPoints\action admin_notices Added by self::set_up().
+	 * @deprecated 2.0.0 Use WordPoints_Installables::admin_notices() instead.
 	 */
 	public function admin_notices() {
 
-		if ( ! current_user_can( 'manage_network_plugins' ) ) {
-			return;
-		}
+		_deprecated_function(
+			__METHOD__
+			, '2.0.0'
+			, 'WordPoints_Installables::admin_notices()'
+		);
 
-		foreach ( array_keys( $this->get_active() ) as $component ) {
-
-			// Show a notice if we've skipped part of the install/update process.
-			if ( get_site_option( "wordpoints_{$component}_network_install_skipped" ) ) {
-				$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the installation process for the &#8220;%s&#8221; component.', 'wordpoints' ), $this->registered[ $component ]['name'] ) );
-				$option  = "wordpoints_{$component}_network_install_skipped";
-			} elseif ( get_site_option( "wordpoints_{$component}_network_update_skipped" ) ) {
-				$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for the &#8220;%s&#8221; component for version %s (and possibly later versions).', 'wordpoints' ), $this->registered[ $component ]['name'], get_site_option( 'wordpoints_network_update_skipped' ) ) );
-				$option  = "wordpoints_{$component}_network_update_skipped";
-			}
-
-			if ( isset( $message ) ) {
-
-				$message .= ' ' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the component may not function properly.', 'wordpoints' );
-				$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
-
-				$args = array(
-					'dismissible' => true,
-					'option'      => $option,
-				);
-
-				wordpoints_show_admin_error( $message, $args );
-
-				unset( $message );
-			}
-		}
+		WordPoints_Installables::admin_notices();
 	}
 
 	/**
 	 * Get the installer class for a component.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.0.0 Use WordPoints_Installables::get_installer() instead.
 	 *
 	 * @param string $slug The slug of the component to get the installer for.
 	 *
@@ -570,19 +527,13 @@ final class WordPoints_Components {
 	 */
 	public function get_installer( $slug ) {
 
-		if ( ! isset( $this->installers[ $slug ] ) ) {
+		_deprecated_function(
+			__METHOD__
+			, '2.0.0'
+			, 'WordPoints_Installables::get_installer()'
+		);
 
-			/**
-			 * Uninstall base class.
-			 *
-			 * @since 1.8.0
-			 */
-			require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
-
-			$this->installers[ $slug ] = require( $this->registered[ $slug ]['un_installer'] );
-		}
-
-		return new $this->installers[ $slug ];
+		return WordPoints_Installables::get_installer( 'component', $slug );
 	}
 }
 

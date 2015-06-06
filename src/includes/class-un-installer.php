@@ -15,17 +15,18 @@
 class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_';
+	protected $type = 'plugin';
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.3.0' => array( 'single' => true                ),
-		'1.5.0' => array(                  'site' => true ),
-		'1.8.0' => array(                  'site' => true ),
+		'1.3.0'  => array( 'single' => true, /*     -     */ /*      -      */ ),
+		'1.5.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'1.8.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -38,6 +39,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'network' => array(
 			'options' => array(
 				'wordpoints_sitewide_active_modules',
+				'wordpoints_network_install_skipped',
+		        'wordpoints_network_installed',
+		        'wordpoints_network_update_skipped',
 			),
 		),
 		'local'   => array(
@@ -116,8 +120,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_single() {
 
-		parent::install_single();
-
+		$this->install_custom_caps();
 		$this->install_network();
 	}
 
@@ -125,29 +128,23 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function load_dependencies() {
-		require_once dirname( __FILE__ ) . '/uninstall-bootstrap.php';
+
+		require_once dirname( __FILE__ ) . '/constants.php';
+		require_once WORDPOINTS_DIR . '/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/includes/modules.php';
+		require_once WORDPOINTS_DIR . '/includes/class-installables.php';
+		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function uninstall_network() {
-
-		parent::uninstall_network();
+	protected function before_uninstall() {
 
 		$this->uninstall_modules();
 		$this->uninstall_components();
-	}
 
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		parent::uninstall_single();
-
-		$this->uninstall_modules();
-		$this->uninstall_components();
+		parent::before_uninstall();
 	}
 
 	/**
@@ -199,7 +196,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		// Uninstall the components.
 		foreach ( $components->get() as $component => $data ) {
-			$components->uninstall( $component );
+			WordPoints_Installables::uninstall( 'component', $component );
 		}
 	}
 
@@ -229,6 +226,39 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function update_site_to_1_8_0() {
 		$this->add_installed_site_id();
 	}
+
+	/**
+	 * Update a multisite network to 1.10.3.
+	 *
+	 * @since 1.10.3
+	 */
+	protected function update_network_to_1_10_3() {
+		$this->update_single_to_1_10_3();
+	}
+
+	/**
+	 * Update a non-multisite install to 1.10.3
+	 *
+	 * @since 1.10.3
+	 */
+	protected function update_single_to_1_10_3() {
+
+		global $wp_filesystem;
+
+		$modules_dir = wordpoints_modules_dir();
+
+		if ( ! WP_Filesystem( false, $modules_dir ) ) {
+			return;
+		}
+
+		$index_file = $modules_dir . '/index.php';
+
+		if ( ! $wp_filesystem->exists( $index_file ) ) {
+			$wp_filesystem->put_contents( $index_file, '<?php // Gold is silent.' );
+		}
+	}
 }
+
+return 'WordPoints_Un_Installer';
 
 // EOF

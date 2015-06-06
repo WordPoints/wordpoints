@@ -21,10 +21,14 @@ if (
 $components = WordPoints_Components::instance();
 $component  = sanitize_key( $_POST['wordpoints_component'] );
 
-switch ( $_POST['wordpoints_component_action'] ) {
+$action = sanitize_key( $_POST['wordpoints_component_action'] );
+
+check_admin_referer( "wordpoints_{$action}_component-{$component}" );
+
+switch ( $action ) {
 
 	case 'activate':
-		if ( 1 === wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_activate_component-{$component}" ) && $components->activate( $component ) ) {
+		if ( $components->activate( $component ) ) {
 
 			$message = array( 'message' => 1 );
 
@@ -35,7 +39,7 @@ switch ( $_POST['wordpoints_component_action'] ) {
 	break;
 
 	case 'deactivate':
-		if ( 1 === wp_verify_nonce( $_POST['_wpnonce'], "wordpoints_deactivate_component-{$component}" ) && $components->deactivate( $component ) ) {
+		if ( $components->deactivate( $component ) ) {
 
 			$message = array( 'message' => 2 );
 
@@ -48,7 +52,7 @@ switch ( $_POST['wordpoints_component_action'] ) {
 	default: return;
 }
 
-wp_redirect(
+wp_safe_redirect(
 	add_query_arg(
 		$message + array(
 			'page'                 => 'wordpoints_configure',

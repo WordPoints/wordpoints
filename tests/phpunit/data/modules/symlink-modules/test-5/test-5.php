@@ -10,6 +10,8 @@
  * Text Domain: test-5
  *
  * This is a test module.
+ *
+ * @package Test5
  */
 
 // Code would go here, but hey, who needs code?

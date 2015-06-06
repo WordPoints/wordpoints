@@ -528,7 +528,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $number
+	 * @param int $number The number of the hook instance to display the form for.
 	 *
 	 * @return bool|void Whether the form was displayed.
 	 */
@@ -758,7 +758,7 @@ abstract class WordPoints_Points_Hook {
 
 		// Option names can only be 64 characters long.
 		if ( isset( $this->option_name{65} ) ) {
-			_doing_it_wrong( __METHOD__, sprintf( 'Points hook class names cannot be longer than 48 characters, %s is %s charachter(s) too long.', $this->id_base, strlen( $this->id_base ) - 48 ), '1.5.0' );
+			_doing_it_wrong( __METHOD__, sprintf( 'Points hook class names cannot be longer than 48 characters, %s is %s character(s) too long.', esc_html( $this->id_base ), (int) strlen( $this->id_base ) - 48 ), '1.5.0' );
 			return;
 		}
 

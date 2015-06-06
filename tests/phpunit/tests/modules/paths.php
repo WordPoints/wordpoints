@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Module_Paths
  */
-class WordPoints_Module_Paths_Test extends WP_UnitTestCase {
+class WordPoints_Module_Paths_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * Test that paths are normalized.

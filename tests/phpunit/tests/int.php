@@ -18,7 +18,7 @@
  *
  * @since 1.0.0
  */
-class WordPoints_Int_Test extends WP_UnitTestCase {
+class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 
 	//
 	// wordpoints_int()

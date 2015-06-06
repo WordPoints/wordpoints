@@ -38,37 +38,39 @@ function wordpoints_ajax_points_hooks_order() {
 	}
 
 	// Save hooks order for all points types.
-	if ( is_array( $_POST['points_types'] ) ) {
-
-		$points_types_hooks = array();
-
-		foreach ( $_POST['points_types'] as $points_type => $hooks ) {
-
-			$points_type_hooks = array();
-
-			if ( ! empty( $hooks ) ) {
-
-				$hooks = explode( ',', $hooks );
-
-				foreach ( $hooks as $order => $hook_id ) {
-
-					if ( false === strpos( $hook_id, 'hook-' ) ) {
-						continue;
-					}
-
-					$points_type_hooks[ $order ] = substr( $hook_id, strpos( $hook_id, '_' ) + 1 );
-				}
-			}
-
-			$points_types_hooks[ $points_type ] = $points_type_hooks;
-		}
-
-		WordPoints_Points_Hooks::save_points_types_hooks( wp_unslash( $points_types_hooks ) );
-
-		wp_die( 1, '', array( 'response' => 200 ) );
+	if ( ! isset( $_POST['points_types'] ) || ! is_array( $_POST['points_types'] ) ) {
+		wp_die( -1, '', array( 'response' => 400 ) );
 	}
 
-	wp_die( -1, '', array( 'response' => 400 ) );
+	$points_types_hooks = array();
+
+	foreach ( array_keys( wordpoints_get_points_types() ) as $points_type ) {
+
+		if ( empty( $_POST['points_types'][ $points_type ] ) ) {
+			continue;
+		}
+
+		$hooks = sanitize_text_field( wp_unslash( $_POST['points_types'][ $points_type ] ) );
+
+		$points_type_hooks = array();
+
+		$hooks = explode( ',', $hooks );
+
+		foreach ( $hooks as $order => $hook_id ) {
+
+			if ( false === strpos( $hook_id, 'hook-' ) ) {
+				continue;
+			}
+
+			$points_type_hooks[ $order ] = substr( $hook_id, strpos( $hook_id, '_' ) + 1 );
+		}
+
+		$points_types_hooks[ $points_type ] = $points_type_hooks;
+	}
+
+	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
+
+	wp_die( 1, '', array( 'response' => 200 ) );
 }
 add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hooks_order' );
 
@@ -115,15 +117,15 @@ function wordpoints_ajax_save_points_hook() {
 		$settings = array();
 
 		if ( isset( $_POST['points-name'] ) ) {
-			$settings['name'] = wp_unslash( trim( esc_html( $_POST['points-name'] ) ) );
+			$settings['name'] = trim( sanitize_text_field( wp_unslash( $_POST['points-name'] ) ) );
 		}
 
 		if ( isset( $_POST['points-prefix'] ) ) {
-			$settings['prefix'] = wp_unslash( ltrim( esc_html( $_POST['points-prefix'] ) ) );
+			$settings['prefix'] = ltrim( sanitize_text_field( wp_unslash( $_POST['points-prefix'] ) ) );
 		}
 
 		if ( isset( $_POST['points-suffix'] ) ) {
-			$settings['suffix'] = wp_unslash( rtrim( esc_html( $_POST['points-suffix'] ) ) );
+			$settings['suffix'] = rtrim( sanitize_text_field( wp_unslash( $_POST['points-suffix'] ) ) );
 		}
 
 		$points_type = sanitize_key( $_POST['points-slug'] );
@@ -181,7 +183,7 @@ function wordpoints_ajax_save_points_hook() {
 		$settings = false;
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$settings = wp_unslash( $_POST[ 'hook-' . $id_base ] ); // XSS pass WPCS.
+			$settings = wp_unslash( $_POST[ 'hook-' . $id_base ] ); // WPCS: sanitization OK.
 		}
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();

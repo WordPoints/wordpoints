@@ -328,7 +328,7 @@ function wordpoints_module_basename( $file ) {
 }
 
 /**
- * Parse the plugin contents to retrieve plugin's metadata.
+ * Parse the module contents to retrieve module's metadata.
  *
  * Module metadata headers are essentially the same as WordPress plugin headers. The
  * main difference is that the module name is "Module Name:" instead of "Plugin
@@ -377,7 +377,13 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'ID'          => 'ID',
 	);
 
-	$module_data = get_file_data( $module_file, $default_headers, 'wordpoints_module' );
+	$module_data = WordPoints_Modules::get_data( $module_file );
+
+	if ( $module_data && wp_normalize_path( $module_file ) === $module_data['raw_file'] ) {
+		unset( $module_data['raw'], $module_data['raw_file'] );
+	} else {
+		$module_data = get_file_data( $module_file, $default_headers, 'wordpoints_module' );
+	}
 
 	if ( ! empty( $module_data['update_api'] ) ) {
 		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Channel".' );
@@ -519,13 +525,16 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
  * the folder name as the first parameter.
  *
  * @since 1.1.0
+ * @since 2.0.0 The $markup and $translate parameters were added.
  *
  * @param string $module_folder A specific subfolder of the modules directory to look
  *                              in. Default is empty (search in all folders).
+ * @param bool   $markup        Whether to mark up the module data for display.
+ * @param bool   $translate     Whether to translate the module data.
  *
  * @return array A list of the module files found (files with module headers).
  */
-function wordpoints_get_modules( $module_folder = '' ) {
+function wordpoints_get_modules( $module_folder = '', $markup = false, $translate = false ) {
 
 	if ( ! $cache_modules = wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) ) {
 		$cache_modules = array();
@@ -574,7 +583,7 @@ function wordpoints_get_modules( $module_folder = '' ) {
 			continue;
 		}
 
-		$module_data = wordpoints_get_module_data( $module_file, false, false );
+		$module_data = wordpoints_get_module_data( $module_file, $markup, $translate );
 
 		if ( empty( $module_data['name'] ) ) {
 			continue;
@@ -667,6 +676,11 @@ function wordpoints_validate_active_modules() {
  * Callback to sort an array by 'name' key.
  *
  * @since 1.1.0
+ *
+ * @param array $a One item.
+ * @param array $b Another item.
+ *
+ * @return int {@see strnatcasecmp()}.
  */
 function _wordpoints_sort_uname_callback( $a, $b ) {
 
@@ -692,7 +706,7 @@ function _wordpoints_sort_uname_callback( $a, $b ) {
  *
  * @since 1.1.0
  *
- * @param string $module The basename path tot he main file of the module to activate.
+ * @param string $module The basename path to the main file of the module to activate.
  * @param string $redirect The URL to redirect to on failure.
  * @param bool   $network_wide Whether to activate the module network wide. False by
  *                             default. Only applicable on multisite and when the
@@ -732,7 +746,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		 * Redirect. We'll override this later if the module can be included
 		 * without a fatal error.
 		 */
-		wp_redirect(
+		wp_safe_redirect(
 			add_query_arg(
 				'_error_nonce'
 				, wp_create_nonce( 'module-activation-error_' . $module )
@@ -746,6 +760,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	include_once wordpoints_modules_dir() . '/' . $module;
 
 	if ( ! $silent ) {
+
 		/**
 		 * Fires before a module is activated.
 		 *
@@ -768,6 +783,12 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		 *                           site.
 		 */
 		do_action( "wordpoints_module_activate-{$module}", $network_wide );
+
+		WordPoints_Installables::install(
+			'module'
+			, WordPoints_Modules::get_slug( $module )
+			, $network_wide
+		);
 	}
 
 	if ( $network_wide ) {
@@ -921,9 +942,10 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
  *
  * @since 1.1.0
  *
- * @param array  $modules  A list of modules to delete.
+ * @param array $modules A list of modules to delete.
  *
- * @return bool|WP_Error True if all modules deleted successfully, false or WP_Error on failure.
+ * @return bool|WP_Error True if all modules deleted successfully, false or WP_Error
+ *                       on failure.
  */
 function wordpoints_delete_modules( $modules ) {
 
@@ -965,7 +987,7 @@ function wordpoints_delete_modules( $modules ) {
 
 		$data = ob_get_clean();
 
-		if ( ! empty( $data ) ){
+		if ( ! empty( $data ) ) {
 
 			include_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data; // XSS OK here too, WPCS.
@@ -1055,7 +1077,7 @@ function wordpoints_delete_modules( $modules ) {
  *
  * @since 1.1.0
  *
- * @param string $module Relative module path from module directory.\
+ * @param string $module Relative module path from module directory.
  *
  * @return bool Whether the module had an uninstall process.
  */
@@ -1094,9 +1116,14 @@ function wordpoints_uninstall_module( $module ) {
 		include $uninstall_file;
 
 		return true;
-	}
 
-	return false;
+	} else {
+
+		return WordPoints_Installables::uninstall(
+			'module'
+			, WordPoints_Modules::get_slug( $module )
+		);
+	}
 }
 
 /**

@@ -33,13 +33,10 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that the custom capabilities that were'nt added in 1.3.0 are added.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_custom_caps_added_when_network_active() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
 
 		// Create a second site on the network.
 		$this->factory->blog->create();
@@ -114,7 +111,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$hook->get_id(),
 					$delete_hook->get_id(),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -124,13 +121,10 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that the post points hooks are split properly when network-active.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_standard_post_points_hooks_split_when_network_active() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
 
 		// Create a second site on the network.
 		$this->factory->blog->create();
@@ -182,7 +176,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 					'points' => array(
 						$hook->get_id( $hook_number ),
 						$delete_hook->get_id( $delete_hook_number ),
-					)
+					),
 				),
 				WordPoints_Points_Hooks::get_points_types_hooks()
 			);
@@ -196,13 +190,10 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that network post points hooks are split when network-active.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_network_post_points_hooks_split() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
 
 		// Create a network-wide hook.
 		WordPoints_Points_Hooks::set_network_mode( true );
@@ -242,7 +233,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$network_hook_id,
 					$hook->get_id( $hook_number ),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -293,7 +284,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$hook->get_id(),
 					$removed_hook->get_id(),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -303,13 +294,10 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that the comment points hooks are split properly when network-active.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_standard_comment_points_hooks_split_when_network_active() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
 
 		// Create a second site on the network.
 		$this->factory->blog->create();
@@ -367,7 +355,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 					'points' => array(
 						$hook->get_id( $hook_number ),
 						$remove_hook->get_id( $remove_hook_number ),
-					)
+					),
 				),
 				WordPoints_Points_Hooks::get_points_types_hooks()
 			);
@@ -381,13 +369,10 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that network comment points hooks are split when network-active.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_network_comment_points_hooks_split() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
 
 		// Create a network-wide hook.
 		WordPoints_Points_Hooks::set_network_mode( true );
@@ -433,7 +418,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 				'points' => array(
 					$network_hook_id,
 					$hook->get_id( $hook_number ),
-				)
+				),
 			),
 			WordPoints_Points_Hooks::get_points_types_hooks()
 		);

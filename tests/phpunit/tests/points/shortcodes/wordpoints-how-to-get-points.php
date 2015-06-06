@@ -66,12 +66,10 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 	 * Test that it displays network hooks when network active on multisite.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_displays_network_hooks() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		// Create some points hooks for the table to display.
 		wordpointstests_add_points_hook(

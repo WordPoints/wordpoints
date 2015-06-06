@@ -24,17 +24,6 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase
 	/**
 	 * @since 1.9.0
 	 */
-	public function setUp() {
-
-		parent::setUp();
-
-		// Back-compat WP 3.9 and below.
-		remove_action( 'transition_post_status', '_update_blog_date_on_post_publish' );
-	}
-
-	/**
-	 * @since 1.9.0
-	 */
 	public function tearDown() {
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(

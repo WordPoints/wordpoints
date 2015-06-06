@@ -28,8 +28,6 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	);
 
 	/**
-	 * Initialize the hook.
-	 *
 	 * @since 1.8.0
 	 */
 	public function __construct( $title, $args ) {
@@ -305,46 +303,17 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 * @action delete_comment Added by the constructor.
 	 *
 	 * @param int $comment_id The ID of the comment being deleted.
-	 *
-	 * @return void
 	 */
 	public function clean_logs_on_comment_deletion( $comment_id ) {
 
-		$query = new WordPoints_Points_Logs_Query(
-			array(
-				'log_type'   => $this->log_type,
-				'meta_query' => array(
-					array(
-						'key'   => 'comment_id',
-						'value' => $comment_id,
-					),
-				),
-			)
-		);
-
-		$logs = $query->get();
-
-		if ( ! $logs ) {
-			return;
-		}
-
+		$post_id = false;
 		$comment = get_comment( $comment_id );
 
-		foreach ( $logs as $log ) {
-
-			wordpoints_delete_points_log_meta( $log->id, 'comment_id' );
-
-			if ( $comment ) {
-
-				wordpoints_add_points_log_meta(
-					$log->id
-					, 'post_id'
-					, $comment->comment_post_ID
-				);
-			}
+		if ( $comment ) {
+			$post_id = $comment->comment_post_ID;
 		}
 
-		wordpoints_regenerate_points_logs( $logs );
+		$this->clean_logs( 'comment_id', $comment_id, 'post_id', $post_id );
 	}
 
 	/**

@@ -305,11 +305,11 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	private function _get_group() {
 
-		if ( ! isset( $_POST['group'] ) ) {
+		if ( ! isset( $_POST['group'] ) ) { // WPCS: CSRF OK.
 			$this->_unexpected_error( 'group' );
 		}
 
-		$group = WordPoints_Rank_Groups::get_group( sanitize_key( $_POST['group'] ) );
+		$group = WordPoints_Rank_Groups::get_group( sanitize_key( $_POST['group'] ) ); // WPCS: CSRF OK.
 
 		if ( ! $group ) {
 			wp_send_json_error( array( 'message' => __( 'The rank group passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ) );
@@ -327,11 +327,11 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	private function _get_rank() {
 
-		if ( ! isset( $_POST['id'] ) ) {
+		if ( ! isset( $_POST['id'] ) ) { // WPCS: CSRF OK.
 			$this->_unexpected_error( 'id' );
 		}
 
-		$rank = wordpoints_get_rank( wordpoints_int( $_POST['id'] ) );
+		$rank = wordpoints_get_rank( wordpoints_int( $_POST['id'] ) ); // WPCS: CSRF OK.
 
 		if ( ! $rank ) {
 			wp_send_json_error( array( 'message' => __( 'The rank ID passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ) );
@@ -351,8 +351,8 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 
 		$empty_name = true;
 
-		if ( ! empty( $_POST['name'] ) ) {
-			$name = wp_unslash( sanitize_text_field( $_POST['name'] ) );
+		if ( ! empty( $_POST['name'] ) ) { // WPCS: CSRF OK.
+			$name = sanitize_text_field( wp_unslash( $_POST['name'] ) ); // WPCS: CSRF OK.
 
 			if ( ! empty( $name ) ) {
 				$empty_name = false;
@@ -380,11 +380,11 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	private function _get_rank_type() {
 
-		if ( empty( $_POST['type'] ) ) {
+		if ( empty( $_POST['type'] ) ) { // WPCS: CSRF OK.
 			$this->_unexpected_error( 'type' );
 		}
 
-		$type = wp_unslash( sanitize_text_field( $_POST['type'] ) );
+		$type = sanitize_text_field( wp_unslash( $_POST['type'] ) ); // WPCS: CSRF OK.
 
 		if ( ! WordPoints_Rank_Types::is_type_registered( $type ) ) {
 			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.', 'wordpoints' ) ) );
@@ -405,8 +405,8 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	private function _get_rank_position() {
 
 		if (
-			! isset( $_POST['order'] )
-			|| false === wordpoints_int( $_POST['order'] )
+			! isset( $_POST['order'] ) // WPCS: CSRF OK.
+			|| false === wordpoints_int( $_POST['order'] ) // WPCS: CSRF OK.
 		) {
 			$this->_unexpected_error( 'order' );
 		}
@@ -424,7 +424,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	private function _get_rank_meta() {
 
 		return array_intersect_key(
-			wp_unslash( $_POST )
+			wp_unslash( $_POST ) // WPCS: CSRF OK.
 			, $this->rank_type->get_meta_fields()
 		);
 	}
@@ -454,7 +454,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			wp_send_json_error(
 				array(
 					'message' => $result->get_error_message(),
-					'data'    => $result->get_error_data()
+					'data'    => $result->get_error_data(),
 				)
 			);
 		}

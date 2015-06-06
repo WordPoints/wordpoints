@@ -45,7 +45,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 			try {
 
-				if ( strlen( $arg ) > 1 && $arg[0] === '-' && $arg[1] === '-' ) {
+				if ( strlen( $arg ) > 1 && '-' === $arg[0] && '-' === $arg[1] ) {
 					PHPUnit_Util_Getopt::parseLongOption( substr( $arg, 2 ), $this->longOptions, $options, $argv );
 				}
 
@@ -86,18 +86,20 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 			if ( ! wordpointstests_symlink_plugin( 'wordpoints/wordpoints.php', WORDPOINTS_DIR ) ) {
 
-				exit( 'Error: Unable to run the tests.'
+				echo( 'Error: Unable to run the tests.'
 					. PHP_EOL . 'You need to create a symlink to WordPoints /src in /wp-content/plugins named /wordpoints.'
 					. PHP_EOL
 				);
+				exit( 1 );
 			}
 
 			if ( ! class_exists( 'PHPUnit_Extensions_Selenium2TestCase' ) ) {
 
-				exit( 'Error: Unable to run the tests, the PHPUnit Selenium extension is not installed.'
+				echo( 'Error: Unable to run the tests, the PHPUnit Selenium extension is not installed.'
 					. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for installation instructions.'
 					. PHP_EOL
 				);
+				exit( 1 );
 
 			} else {
 
@@ -111,11 +113,12 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 			if ( ! defined( 'WORDPOINTS_TEST_BROWSER' ) ) {
 
-				exit( 'Error: Unable to run the tests, WORDPOINTS_TEST_BROWSER is not defined.'
+				echo( 'Error: Unable to run the tests, WORDPOINTS_TEST_BROWSER is not defined.'
 					. PHP_EOL . 'Add the following to your wp-tests-config.php, for example:'
 					. PHP_EOL . 'define( \'WORDPOINTS_TEST_BROWSER\', \'firefox\' );'
 					. PHP_EOL
 				);
+				exit( 1 );
 			}
 
 			if ( ! wordpointstests_selenium_is_running() ) {
@@ -124,10 +127,11 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 				if ( ! wordpointstests_start_selenium() ) {
 
-					exit( 'Error: Unable to run the tests, Selenium does not appear to be running.'
+					echo( 'Error: Unable to run the tests, Selenium does not appear to be running.'
 						. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for instructions.'
 						. PHP_EOL
 					);
+					exit( 1 );
 				}
 
 				echo 'Selenium started successfully...' . PHP_EOL;

@@ -13,7 +13,9 @@
  * @since 1.0.0
  * @deprecated 1.8.0 Use WordPoints_Shortcodes::do_shortcode() instead.
  *
- * @param array $atts The shortcode attributes. {
+ * @param array $atts {
+ *        The shortcode attributes.
+ *
  *        @type int    $users       The number of users to display.
  *        @type string $points_type The type of points.
  * }
@@ -35,7 +37,9 @@ function wordpoints_points_top_shortcode( $atts ) {
  * @since 1.6.0 The searchable attribute is added.
  * @deprecated 1.8.0 Use WordPoints_Shortcodes::do_shortcode() instead.
  *
- * @param array $atts The shortcode attributes. {
+ * @param array $atts {
+ *        The shortcode attributes.
+ *
  *        @type string $points_type The type of points to display. Required.
  *        @type string $query       The logs query to display.
  *        @type int    $paginate    Whether to paginate the table. 1 or 0.
@@ -287,7 +291,6 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 
 } // class WordPoints_Comment_Removed_Points_Hook
 
-
 /**
  * Post delete points hook.
  *
@@ -425,5 +428,67 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	}
 
 } // class WordPoints_Post_Delete_Points_Hook
+
+/**
+ * Get the database schema for the points component.
+ *
+ * @since 1.5.1
+ * @deprecated 2.0.0
+ *
+ * @return string CREATE TABLE queries that can be passed to dbDelta().
+ */
+function wordpoints_points_get_db_schema() {
+
+	_deprecated_function( __FUNCTION__, '2.0.0' );
+
+	global $wpdb;
+
+	$charset_collate = $wpdb->get_charset_collate();
+
+	return "CREATE TABLE {$wpdb->wordpoints_points_logs} (
+			id BIGINT(20) NOT NULL AUTO_INCREMENT,
+			user_id BIGINT(20) NOT NULL,
+			log_type VARCHAR(255) NOT NULL,
+			points BIGINT(20) NOT NULL,
+			points_type VARCHAR(255) NOT NULL,
+			text LONGTEXT,
+			blog_id SMALLINT(5) UNSIGNED NOT NULL,
+			site_id SMALLINT(5) UNSIGNED NOT NULL,
+			date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+			PRIMARY KEY  (id),
+			KEY user_id (user_id),
+			KEY points_type (points_type(191)),
+			KEY log_type (log_type(191))
+		) {$charset_collate};
+		CREATE TABLE {$wpdb->wordpoints_points_log_meta} (
+			meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			log_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+			meta_key VARCHAR(255) DEFAULT NULL,
+			meta_value LONGTEXT,
+			PRIMARY KEY  (meta_id),
+			KEY log_id (log_id),
+			KEY meta_key (meta_key(191))
+		) {$charset_collate};";
+}
+
+/**
+ * Add custom capabilities to new sites on creation when in network mode.
+ *
+ * @since 1.5.0
+ *
+ * @param int $blog_id The ID of the new site.
+ */
+function wordpoints_points_add_custom_caps_to_new_sites( $blog_id ) {
+
+	_deprecated_function( __FUNCTION__, '2.0.0' );
+
+	if ( ! is_wordpoints_network_active() ) {
+		return;
+	}
+
+	switch_to_blog( $blog_id );
+	wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
+	restore_current_blog();
+}
 
 // EOF

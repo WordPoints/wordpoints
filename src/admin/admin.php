@@ -229,7 +229,7 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activat
  * @uses wordpoints_show_admin_message()
  *
  * @param string $message The text for the error message.
- * @param array $args     Other optional arguments.
+ * @param array  $args    Other optional arguments.
  */
 function wordpoints_show_admin_error( $message, array $args = array() ) {
 
@@ -443,6 +443,10 @@ add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_
  * if it is a module instead of a plugin.
  *
  * @since 1.9.0
+ *
+ * @param string|WP_Error $source The module source.
+ *
+ * @return string|WP_Error The filtered module source.
  */
 function wordpoints_plugin_upload_error_filter( $source ) {
 
@@ -541,33 +545,6 @@ function wordpoints_admin_notices() {
 
 	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
 		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
-	}
-
-	if ( current_user_can( 'manage_network_plugins' ) ) {
-
-		unset( $message ); // Future proofing.
-
-		// Show a notice if we've skipped part of the install/update process.
-		if ( get_site_option( 'wordpoints_network_install_skipped' ) ) {
-			$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process.', 'wordpoints' );
-			$option  = 'wordpoints_network_install_skipped';
-		} elseif ( get_site_option( 'wordpoints_network_update_skipped' ) ) {
-			$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for version %s (and possibly later versions).', 'wordpoints' ), get_site_option( 'wordpoints_network_update_skipped' ) ) );
-			$option  = 'wordpoints_network_update_skipped';
-		}
-
-		if ( isset( $message ) ) {
-
-			$message .= ' ' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
-			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
-
-			$args = array(
-				'dismissable' => true,
-				'option'      => $option,
-			);
-
-			wordpoints_show_admin_error( $message, $args );
-		}
 	}
 }
 add_action( 'admin_notices', 'wordpoints_admin_notices' );

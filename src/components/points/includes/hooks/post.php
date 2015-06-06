@@ -90,8 +90,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 *
 	 * @WordPress\action transition_post_status Added by the constructor.
 	 *
-	 * @param string $old_status The old status of the post.
 	 * @param string $new_status The new status of the post.
+	 * @param string $old_status The old status of the post.
 	 * @param object $post       The post object.
 	 *
 	 * @return void
@@ -139,8 +139,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 * @since 1.0.0
 	 * @deprecated 2.0.0 Use self::hook() instead.
 	 *
-	 * @param string $old_status The old status of the post.
 	 * @param string $new_status The new status of the post.
+	 * @param string $old_status The old status of the post.
 	 * @param object $post       The post object.
 	 *
 	 * @return void
@@ -158,6 +158,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 * @since 1.9.0
 	 *
 	 * @WordPress\action delete_post Added by the constructor.
+	 *
+	 * @param int $post_id The ID of the post being deleted.
 	 */
 	public function reverse_hook( $post_id ) {
 

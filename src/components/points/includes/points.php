@@ -216,6 +216,8 @@ function wordpoints_delete_points_type( $slug ) {
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
 
+	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
+
 	// Delete all user points of this type.
 	delete_metadata( 'user', 0, $meta_key, '', true );
 
@@ -485,9 +487,9 @@ function wordpoints_get_points_above_minimum( $user_id, $type ) {
  * @uses wordpoints_get_points()   To get the points of the user.
  * @uses wordpoints_alter_points() To alter the user's points.
  *
+ * @param int    $user_id     The ID of the user to set the points of.
  * @param int    $points      The number of points to the user should have.
  * @param string $points_type The type of points to alter.
- * @param int    $user_id     The ID of the user to set the points of.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
  *
@@ -542,7 +544,7 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * @param int    $points      The number of points to add/subtract.
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
- * @param array  $meta        The metadata for this transaction. Default: array()
+ * @param array  $meta        The metadata for this transaction. Default: array().
  *
  * @return int|bool On success, the log ID if the transaction is logged, or true if
  *                  it is not. False on failure.
@@ -897,7 +899,7 @@ function wordpoints_points_log_delete_all_metadata( $log_id ) {
 			"
 			, $log_id
 		)
-	);
+	); // WPCS: cache pass.
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
@@ -994,6 +996,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	global $wpdb;
 
+	$flushed = array( 'points_types' => array(), 'user_ids' => array() );
+
 	foreach ( $logs as $log ) {
 
 		$meta = wordpoints_get_points_log_meta( $log->id );
@@ -1016,6 +1020,15 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				, array( '%s' )
 				, array( '%d' )
 			);
+
+			if ( ! isset( $flushed['points_types'][ $log->points_type ], $flushed['user_ids'][ $log->user_id ] ) ) {
+				wordpoints_flush_points_logs_caches(
+					array( 'user_id' => $log->user_id, 'points_type' => $log->points_type )
+				);
+
+				$flushed['points_types'][ $log->points_type ] = true;
+				$flushed['user_ids'][ $log->user_id ] = true;
+			}
 		}
 	}
 }
@@ -1070,10 +1083,8 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		}
 
 		/*
-		 * We can't use WP_User_Query here because the meta value must be converted
-		 * to a signed integer for ordering.
-		 *
-		 * (But see <https://core.trac.wordpress.org/ticket/27887>, fixed in 4.2).
+		 * We can't use WP_User_Query here because we need to coalesce the meta value
+		 * with 0 for ordering.
 		 */
 		$top_users = $wpdb->get_col(
 			$wpdb->prepare(

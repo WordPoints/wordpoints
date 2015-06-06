@@ -17,21 +17,21 @@ $components = $wordpoints_components->get();
 // Show messages and errors.
 //
 
-if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_components->is_registered( $_GET['wordpoints_component'] ) ) {
+if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_components->is_registered( sanitize_key( $_GET['wordpoints_component'] ) ) ) {
 
 	$component = sanitize_key( $_GET['wordpoints_component'] );
 
-	if ( isset( $_GET['message'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wordpoints_component_message-{$component}" ) ) {
+	if ( isset( $_GET['message'] ) && wordpoints_verify_nonce( '_wpnonce', "wordpoints_component_message-{$component}" ) ) {
 
-		switch ( $_GET['message'] ) {
+		switch ( (int) $_GET['message'] ) {
 
-			case '1':
+			case 1:
 				if ( $wordpoints_components->is_active( $component ) ) {
 					$message = __( 'Component &#8220;%s&#8221; activated!', 'wordpoints' );
 				}
 			break;
 
-			case '2':
+			case 2:
 				if ( ! $wordpoints_components->is_active( $component ) ) {
 					$message = __( 'Component &#8220;%s&#8221; deactivated!', 'wordpoints' );
 				}
@@ -43,17 +43,17 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 			wordpoints_show_admin_message( esc_html( sprintf( $message, $components[ $component ]['name'] ) ) );
 		}
 
-	} elseif ( isset( $_GET['error'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wordpoints_component_error-{$component}" ) ) {
+	} elseif ( isset( $_GET['error'] ) && wordpoints_verify_nonce( '_wpnonce', "wordpoints_component_error-{$component}" ) ) {
 
-		switch ( $_GET['error'] ) {
+		switch ( (int) $_GET['error'] ) {
 
-			case '1':
+			case 1:
 				if ( ! $wordpoints_components->is_active( $component ) ) {
 					$error = __( 'The component &#8220;%s&#8221; could not be activated. Please try again.', 'wordpoints' );
 				}
 			break;
 
-			case '2':
+			case 2:
 				if ( $wordpoints_components->is_active( $component ) ) {
 					$error = __( 'The component &#8220;%s&#8221; could not be deactivated. Please try again.', 'wordpoints' );
 				}
@@ -112,27 +112,27 @@ do_action( 'wordpoints_admin_components_top' );
 
 		<tr>
 			<td>
-				<?php if ( $component['component_uri'] !== '' ) : ?>
+				<?php if ( '' !== $component['component_uri'] ) : ?>
 					<a href="<?php echo esc_attr( esc_url( $component['component_uri'] ) ); ?>">
 				<?php endif; ?>
 					<?php echo esc_html( $component['name'] ); ?>
-				<?php if ( $component['component_uri'] !== '' ) : ?>
+				<?php if ( '' !== $component['component_uri'] ) : ?>
 					</a>
 				<?php endif; ?>
 			</td>
 			<td>
 				<?php echo wp_kses( $component['description'], 'wordpoints_component_description' ); ?>
-				<?php if ( $component['author'] !== '' ) : ?>
+				<?php if ( '' !== $component['author'] ) : ?>
 					&nbsp;|&nbsp;
 					<?php
 					/* translators: %s is the component author's name. */
 					echo esc_html( sprintf( __( 'By %s', 'wordpoints' ), '' /* This space intentionally left blank */ ) );
 					?>
-					<?php if ( $component['author_uri'] !== '' ) : ?>
+					<?php if ( '' !== $component['author_uri'] ) : ?>
 						<a href="<?php echo esc_attr( esc_url( $component['author_uri'] ) ); ?>">
 					<?php endif; ?>
 						<?php echo esc_html( $component['author'] ); ?>
-					<?php if ( $component['author_uri'] !== '' ) : ?>
+					<?php if ( '' !== $component['author_uri'] ) : ?>
 						</a>
 					<?php endif; ?>
 				<?php endif; ?>

@@ -28,7 +28,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Create a user and give them some points.
 		$user_id = $this->factory->user->create();
 
+		wp_set_current_user( $user_id );
+
 		wordpoints_alter_points( $user_id, 10, 'points', 'test', array( 'test' => 10 ) );
+
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
 		// Make sure that was a success.
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
@@ -36,6 +40,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 1, $query->count() );
+
+		// Run this query so we can check caches are deleted.
+		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
+
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 
 		$log_id = $query->get( 'row' )->id;
 
@@ -46,11 +55,23 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
-		// If we aren't on multisite, we've completed our mission.
-		if ( ! is_multisite() ) {
-			$this->markTestIncomplete( 'Unable to test multisite network user deletion.' );
-			return;
-		}
+		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+
+		// Check that the cache was cleared as well.
+		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
+		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
+	}
+
+	/**
+	 * Test that points logs and log meta tables are cleaned up on user deletion.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_delete_points_logs_for_user
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_logs_tables_cleaned_on_user_deletion_multisite() {
 
 		// Same as above, create a user and give them some points.
 		$user_id = $this->factory->user->create();
@@ -126,13 +147,12 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.2.0
 	 *
 	 * @covers ::wordpoints_delete_points_logs_for_blog
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_logs_tables_cleaned_on_blog_deletion() {
 
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Blog deletion tests only apply on multisite.' );
-			return;
-		}
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
 		// Create a blog, and switch to it.
 		$blog_id = $this->factory->blog->create();
@@ -155,6 +175,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 1, $query->count() );
 
+		// Run this query so we can check caches are deleted.
+		wordpoints_get_points_logs_query( 'points', 'network' )->get();
+
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+
 		$log_id = $query->get( 'row' )->id;
 
 		// Back to Kansas.
@@ -166,6 +191,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Here is the real test. The logs for the blog should be gone.
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'blog_id' ) );
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
+
+		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+
+		// The caches should be deleted.
+		wordpoints_get_points_logs_query( 'points', 'network' )->get();
+
+		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -208,14 +240,16 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_wordpoints_regenerate_points_logs() {
 
+		// We do this so we can check that the caches are flushed.
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
 		// Create a user and add a points log.
 		$user_id = $this->factory->user->create();
 
 		wordpoints_add_points( $user_id, 10, 'points', 'register' );
 
 		// Get the log from the database.
-		$log = new WordPoints_Points_Logs_Query;
-		$log = $log->get( 'row' );
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
 
 		// Check that all is as expected.
 		$this->assertInternalType( 'object', $log );
@@ -242,9 +276,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Now, regenerate it.
 		wordpoints_regenerate_points_logs( array( $log ) );
 
+		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+
 		// Check that the log was regenerated.
-		$log = new WordPoints_Points_Logs_Query;
-		$log = $log->get( 'row' );
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		// Check that the cache was cleared and a new query was made.
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
@@ -269,32 +307,16 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Now, regenerate it.
 		wordpoints_regenerate_points_logs( array( $log->id ) );
 
+		$this->assertEquals( 5, $this->filter_was_called( 'query' ) );
+
 		// Check that the log was regenerated.
-		$log = new WordPoints_Points_Logs_Query;
-		$log = $log->get( 'row' );
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		// Check that the cache was cleared and a new query was made.
+		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
 
 		$this->assertInternalType( 'object', $log );
 		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
-	}
-
-	/**
-	 * Test wordpoints_points_add_custom_caps_to_new_sites().
-	 *
-	 * @since 1.5.0
-	 *
-	 * @covers ::wordpoints_points_add_custom_caps_to_new_sites
-	 */
-	public function test_wordpoints_points_add_custom_caps_to_new_sites() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints is not network active.' );
-		}
-
-		$blog_id = $this->factory->blog->create();
-
-		switch_to_blog( $blog_id );
-		$this->assertTrue( get_role( 'administrator' )->has_cap( 'set_wordpoints_points' ) );
-		restore_current_blog();
 	}
 }
 

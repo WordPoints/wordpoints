@@ -12,7 +12,7 @@
  *
  * @since 1.2.0
  */
-class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
+class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * Test is_wordpoints_network_active().
@@ -38,26 +38,13 @@ class WordPoints_Core_Functions_Test extends WP_UnitTestCase {
 		} else {
 			$this->assertFalse( is_wordpoints_network_active() );
 		}
-	}
 
-	/**
-	 * Test wordpoints_add_custom_caps_to_new_sites().
-	 *
-	 * @since 1.5.0
-	 *
-	 * @covers ::wordpoints_add_custom_caps_to_new_sites
-	 */
-	public function test_wordpoints_add_custom_caps_to_new_sites() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints is not network active.' );
-		}
-
-		$blog_id = $this->factory->blog->create();
-
-		switch_to_blog( $blog_id );
-		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
-		restore_current_blog();
+		// Without this checkRequirements() will not work for the next test, because
+		// the cache is only cleared in setUp(), which is called after that.
+		wp_cache_delete(
+			"{$GLOBALS['wpdb']->siteid}:active_sitewide_plugins"
+			, 'site-options'
+		);
 	}
 }
 

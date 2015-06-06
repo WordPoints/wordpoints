@@ -114,7 +114,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 
 		$xpath = $this->get_rank_meta_form_xpath(
 			array(
-				'test_field' => array( 'type' => 'text', 'default' => 'default' )
+				'test_field' => array( 'type' => 'text', 'default' => 'default' ),
 			)
 		);
 
@@ -191,8 +191,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 			array(
 				'slug' => 'test',
 				'meta_fields' => array(
-					'bad' => array( 'type' => 'invalid', 'default' => '' )
-				)
+					'bad' => array( 'type' => 'invalid', 'default' => '' ),
+				),
 			)
 		);
 
@@ -218,7 +218,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 					'type' => 'text',
 					'default' => 'default',
 					'label' => 'Field label',
-				)
+				),
 			)
 		);
 
@@ -242,8 +242,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 			array(
 				'slug' => 'test',
 				'meta_fields' => array(
-					'test_field' => array( 'type' => 'text', 'default' => '' )
-				)
+					'test_field' => array( 'type' => 'text', 'default' => '' ),
+				),
 			)
 		);
 

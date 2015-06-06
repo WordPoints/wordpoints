@@ -37,15 +37,6 @@ add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 abstract class WordPoints_Points_Widget extends WordPoints_Widget {
 
 	/**
-	 * Default settings for the widget.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @type array $defaults
-	 */
-	protected $defaults;
-
-	/**
 	 * @since 1.9.0
 	 */
 	protected function verify_settings( $instance ) {
@@ -90,6 +81,54 @@ abstract class WordPoints_Points_Widget extends WordPoints_Widget {
 				$maybe_points_type = key( $points_types );
 			}
 		}
+	}
+
+	/**
+	 * @since 2.0.0
+	 */
+	public function update( $new_instance, $old_instance ) {
+
+		parent::update( $new_instance, $old_instance );
+
+		$this->make_a_points_type( $this->instance['points_type'] );
+
+		return $this->instance;
+	}
+
+	/**
+	 * @since 2.0.0
+	 */
+	public function form( $instance ) {
+
+		parent::form( $instance );
+
+		$this->form_points_type_field();
+
+		return true;
+	}
+
+	/**
+	 * Display the points type field for a widget form.
+	 *
+	 * @since 2.0.0
+	 */
+	public function form_points_type_field() {
+
+		$dropdown_args = array(
+			'selected' => $this->instance['points_type'],
+			'id'       => $this->get_field_id( 'points_type' ),
+			'name'     => $this->get_field_name( 'points_type' ),
+			'class'    => 'widefat',
+		);
+
+		?>
+
+		<p>
+			<label for="<?php echo esc_attr( $dropdown_args['id'] ); ?>"><?php echo esc_html_x( 'Points type', 'form label', 'wordpoints' ); ?></label>
+			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
+		</p>
+
+		<?php
 	}
 }
 
@@ -223,53 +262,30 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
+		parent::update( $new_instance, $old_instance );
 
-		$new_instance['title']    = strip_tags( $new_instance['title'] );
-		$new_instance['text']     = trim( $new_instance['text'] );
-		$new_instance['alt_text'] = trim( $new_instance['alt_text'] );
+		$this->instance['text']     = trim( $this->instance['text'] );
+		$this->instance['alt_text'] = trim( $this->instance['alt_text'] );
 
-		if ( ! wordpoints_posint( $new_instance['number_logs'] ) ) {
-			$new_instance['number_logs'] = 0;
+		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
+			$this->instance['number_logs'] = 0;
 		}
 
-		$this->make_a_points_type( $new_instance['points_type'] );
-
-		return $new_instance;
+		return $this->instance;
 	}
 
 	/**
-	 * Display widget settings form.
-	 *
 	 * @since 1.0.0
-	 *
-	 * @param array $instance The settings for this widget instance.
 	 */
 	public function form( $instance ) {
 
-		$instance = array_merge( $this->defaults, $instance );
-
-		$dropdown_args = array(
-			'selected' => $instance['points_type'],
-			'id'       => $this->get_field_id( 'points_type' ),
-			'name'     => $this->get_field_name( 'points_type' ),
-			'class'    => 'widefat',
-		);
+		parent::form( $instance );
 
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $dropdown_args['id'] ); ?>"><?php esc_html_e( 'Points type to display', 'wordpoints' ); ?></label>
-			<br />
-			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
-		</p>
-		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>" value="<?php echo esc_attr( $instance['text'] ); ?>" />
+			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>" value="<?php echo esc_attr( $this->instance['text'] ); ?>" />
 			<small><i><?php echo esc_html( sprintf( __( '%s will be replaced with the points of the logged in user', 'wordpoints' ), '%points%' ) ); ?></i></small>
 			<?php
 
@@ -280,18 +296,18 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 			 *
 			 * @param array $instance The settings of the current widget instance.
 			 */
-			do_action( 'wordpoints_my_points_widget_below_text_field', $instance );
+			do_action( 'wordpoints_my_points_widget_below_text_field', $this->instance );
 
 			?>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'alt_text' ) ); ?>"><?php esc_html_e( 'Text if the user is not logged in', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'alt_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'alt_text' ) ); ?>" value="<?php echo esc_attr( $instance['alt_text'] ); ?>" />
+			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'alt_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'alt_text' ) ); ?>" value="<?php echo esc_attr( $this->instance['alt_text'] ); ?>" />
 			<small><i><?php esc_html_e( 'Leave this field blank to hide the widget if the user is not logged in', 'wordpoints' ); ?></i></small>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>"><?php esc_html_e( 'Number of latest log entries for this user to display', 'wordpoints' ); ?></label>
-			<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_logs' ) ); ?>" value="<?php echo esc_attr( $instance['number_logs'] ); ?>" />
+			<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_logs' ) ); ?>" value="<?php echo esc_attr( $this->instance['number_logs'] ); ?>" />
 			<small><i><?php esc_html_e( 'Set this to 0 to keep from showing any logs', 'wordpoints' ); ?></i></small>
 		</p>
 
@@ -373,54 +389,31 @@ class WordPoints_Top_Users_Points_Widget extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
+		parent::update( $new_instance, $old_instance );
 
-		$new_instance['title'] = strip_tags( $new_instance['title'] );
-
-		if ( ! wordpoints_posint( $new_instance['num_users'] ) ) {
-			$new_instance['num_users'] = $this->defaults['num_users'];
+		if ( ! wordpoints_posint( $this->instance['num_users'] ) ) {
+			$this->instance['num_users'] = $this->defaults['num_users'];
 		}
 
-		$this->make_a_points_type( $new_instance['points_type'] );
-
-		return $new_instance;
+		return $this->instance;
 	}
 
 	/**
-	 * Display widget settings form.
-	 *
 	 * @since 1.0.0
-	 *
-	 * @param array $instance The settings for this widget instance.
 	 */
 	public function form( $instance ) {
 
-		$instance = array_merge( $this->defaults, $instance );
+		parent::form( $instance );
 
-		$dropdown_args = array(
-			'selected' => $instance['points_type'],
-			'id'       => $this->get_field_id( 'points_type' ),
-			'name'     => $this->get_field_name( 'points_type' ),
-			'class'    => 'widefat',
-		);
-
-		if ( ! wordpoints_posint( $instance['num_users'] ) ) {
-			$instance['num_users'] = $this->defaults['num_users'];
+		if ( ! wordpoints_posint( $this->instance['num_users'] ) ) {
+			$this->instance['num_users'] = $this->defaults['num_users'];
 		}
 
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $dropdown_args['id'] ); ?>"><?php echo esc_html_x( 'Points type', 'form label', 'wordpoints' ); ?></label>
-			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
-		</p>
-		<p>
-			<label for="<?php echo esc_html( $this->get_field_id( 'num_users' ) ); ?>"><?php esc_html_e( 'Number of top users to show', 'wordpoints' ); ?></label>
-			<input type="number" min="1" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'num_users' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'num_users' ) ); ?>" value="<?php echo absint( $instance['num_users'] ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'num_users' ) ); ?>"><?php esc_html_e( 'Number of top users to show', 'wordpoints' ); ?></label>
+			<input type="number" min="1" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'num_users' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'num_users' ) ); ?>" value="<?php echo absint( $this->instance['num_users'] ); ?>" />
 		</p>
 
 		<?php
@@ -498,54 +491,31 @@ class WordPoints_Points_Logs_Widget extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$new_instance = array_merge( $this->defaults, $old_instance, $new_instance );
+		parent::update( $new_instance, $old_instance );
 
-		$new_instance['title'] = strip_tags( $new_instance['title'] );
-
-		if ( ! wordpoints_posint( $new_instance['number_logs'] ) ) {
-			$new_instance['number_logs'] = $this->defaults['number_logs'];
+		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
+			$this->instance['number_logs'] = $this->defaults['number_logs'];
 		}
 
-		$this->make_a_points_type( $new_instance['points_type'] );
-
-		return $new_instance;
+		return $this->instance;
 	}
 
 	/**
-	 * Display widget settings form.
-	 *
 	 * @since 1.0.0
-	 *
-	 * @param array $instance The settings for this widget instance.
 	 */
 	public function form( $instance ) {
 
-		$instance = array_merge( $this->defaults, $instance );
+		parent::form( $instance );
 
-		$dropdown_args = array(
-			'selected' => $instance['points_type'],
-			'id'       => $this->get_field_id( 'points_type' ),
-			'name'     => $this->get_field_name( 'points_type' ),
-			'class'    => 'widefat',
-		);
-
-		if ( ! wordpoints_posint( $instance['number_logs'] ) ) {
-			$instance['number_logs'] = $this->defaults['number_logs'];
+		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
+			$this->instance['number_logs'] = $this->defaults['number_logs'];
 		}
 
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html_x( 'Title', 'form label', 'wordpoints' ); ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $dropdown_args['id'] ); ?>"><?php echo esc_html_x( 'Points type', 'form label', 'wordpoints' ); ?></label>
-			<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
-		</p>
-		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>"><?php esc_html_e( 'Number of log entries to display', 'wordpoints' ); ?></label>
-			<input type="number" min="1" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_logs' ) ); ?>" value="<?php echo absint( $instance['number_logs'] ); ?>" />
+			<input type="number" min="1" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_logs' ) ); ?>" value="<?php echo absint( $this->instance['number_logs'] ); ?>" />
 		</p>
 
 		<?php

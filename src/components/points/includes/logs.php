@@ -721,33 +721,68 @@ add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_de
  */
 function wordpoints_clean_points_logs_cache( $user_id, $points, $points_type ) {
 
+	wordpoints_flush_points_logs_caches(
+		array( 'user_id' => $user_id, 'points_type' => $points_type )
+	);
+}
+add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
+
+/**
+ * Flush the points logs caches.
+ *
+ * It clears the cache for all points types by default, but doesn't clear the caches
+ * for specific users. To clear the cache(s) for a user, you must pass the $user_id
+ * argument. For this reason, you should always pass the $user_id argument, except in
+ * cases where the current_user queries will not be run again anyway (such as when
+ * the users are being deleted).
+ *
+ * @since 2.0.0
+ *
+ * @param array $args {
+ *        Arguments to limit which caches to flush.
+ *
+ *        @type string|string[] $points_type Only clear cache for these points types.
+ *        @type int             $user_id     Only clear the cache for this user.
+ * }
+ */
+function wordpoints_flush_points_logs_caches( $args = array() ) {
+
+	$args = array_merge( array( 'points_type' => false, 'user_id' => 0 ), $args );
+
 	$find = array(
 		'%points_type%',
 		'%user_id%',
 	);
 
-	$replace = array(
-		$points_type,
-		$user_id,
-	);
+	if ( empty( $args['points_type'] ) ) {
+		$points_types = array_keys( wordpoints_get_points_types() );
+	} else {
+		$points_types = (array) $args['points_type'];
+	}
 
-	foreach ( WordPoints_Points_Log_Queries::get_queries() as $query ) {
+	foreach ( $points_types as $points_type ) {
+		foreach ( WordPoints_Points_Log_Queries::get_queries() as $query ) {
 
-		if ( ! empty( $query['cache_key'] ) ) {
+			if ( ! empty( $query['cache_key'] ) ) {
 
-			if ( $query['network_wide'] ) {
-				$group = 'wordpoints_network_points_logs_query';
-			} else {
-				$group = 'wordpoints_points_logs_query';
+				if ( $query['network_wide'] ) {
+					$group = 'wordpoints_network_points_logs_query';
+				} else {
+					$group = 'wordpoints_points_logs_query';
+				}
+
+				$replace = array(
+					$points_type,
+					$args['user_id'],
+				);
+
+				wp_cache_delete(
+					str_replace( $find, $replace, $query['cache_key'] )
+					, $group
+				);
 			}
-
-			wp_cache_delete(
-				str_replace( $find, $replace, $query['cache_key'] )
-				, $group
-			);
 		}
 	}
 }
-add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
 
 // EOF

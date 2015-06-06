@@ -152,6 +152,8 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_logs_tables_cleaned_on_blog_deletion() {
 
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
 		// Create a blog, and switch to it.
 		$blog_id = $this->factory->blog->create();
 
@@ -173,6 +175,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$this->assertEquals( 1, $query->count() );
 
+		// Run this query so we can check caches are deleted.
+		wordpoints_get_points_logs_query( 'points', 'network' )->get();
+
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+
 		$log_id = $query->get( 'row' )->id;
 
 		// Back to Kansas.
@@ -184,6 +191,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Here is the real test. The logs for the blog should be gone.
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'blog_id' ) );
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
+
+		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+
+		// The caches should be deleted.
+		wordpoints_get_points_logs_query( 'points', 'network' )->get();
+
+		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
 	}
 
 	/**

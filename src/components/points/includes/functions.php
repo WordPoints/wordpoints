@@ -184,6 +184,8 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 		,array( 'blog_id' => $blog_id )
 		,'%d'
 	);
+
+	wordpoints_flush_points_logs_caches();
 }
 add_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
 

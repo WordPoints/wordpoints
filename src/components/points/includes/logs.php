@@ -70,7 +70,7 @@ final class WordPoints_Points_Log_Queries {
 		do_action( 'wordpoints_register_points_logs_queries' );
 
 		// Make sure that the default query is registered.
-		self::register_query( 'default', array(), array( 'cache_queries' => 'results' ) );
+		self::register_query( 'default', array(), array( 'cache_queries' => true ) );
 
 		self::$initialized = true;
 	}

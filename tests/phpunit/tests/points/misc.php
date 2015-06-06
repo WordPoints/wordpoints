@@ -25,14 +25,14 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_logs_tables_cleaned_on_user_deletion() {
 
-		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
-
 		// Create a user and give them some points.
 		$user_id = $this->factory->user->create();
 
 		wp_set_current_user( $user_id );
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test', array( 'test' => 10 ) );
+
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
 		// Make sure that was a success.
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
@@ -44,7 +44,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		// Run this query so we can check caches are deleted.
 		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
 
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 
 		$log_id = $query->get( 'row' )->id;
 
@@ -55,11 +55,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
-		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
+		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
 
 		// Check that the cache was cleared as well.
 		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
-		$this->assertEquals( 8, $this->filter_was_called( 'query' ) );
+		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
 	}
 
 	/**

@@ -1019,6 +1019,14 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 		if ( $new_log_text !== $log->text ) {
 
+			if ( ! isset( $is_utf8 ) ) {
+				$is_utf8 = 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' );
+			}
+
+			if ( $is_utf8 ) {
+				$new_log_text = wp_encode_emoji( $new_log_text );
+			}
+
 			$wpdb->update(
 				$wpdb->wordpoints_points_logs
 				, array( 'text' => $new_log_text )

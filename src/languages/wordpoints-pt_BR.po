@@ -3,16 +3,17 @@ msgstr ""
 "Project-Id-Version: WordPoints_pt_BR\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-02-27 21:33:55+00:00\n"
-"PO-Revision-Date: 2013-12-21 02:20-0300\n"
-"Last-Translator: Gabriel Galvão <admin@threadsgeneration.com>\n"
-"Language-Team: Gabriel Galvão <admin@threadsgeneration.com>\n"
+"PO-Revision-Date: 2015-06-11 17:36+0200\n"
+"Last-Translator: Leonardo Faria <leomedufu@yahoo.com.br>\n"
+"Language-Team: Portuguese (Brazil) "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4-dev\n"
 "X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 1.10.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
@@ -40,9 +41,8 @@ msgid "Modules"
 msgstr "Modulos"
 
 #: admin/admin.php:124
-#, fuzzy
 msgid "WordPoints — Install Modules"
-msgstr "WordPoints - Instalar Modulos"
+msgstr "WordPoints - Instalar Módulos"
 
 #: admin/admin.php:125 admin/screens/module-install.php:28
 msgid "Install Modules"
@@ -1469,10 +1469,9 @@ msgid "(no description)"
 msgstr "(sem descrição)"
 
 #: components/points/includes/points.php:1114
-#, fuzzy
 msgctxt "top users table heading"
 msgid "Position"
-msgstr "Descrição"
+msgstr "Posição"
 
 #: components/points/includes/points.php:1115
 #, fuzzy

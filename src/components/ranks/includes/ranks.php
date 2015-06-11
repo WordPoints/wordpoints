@@ -45,6 +45,10 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 		return $meta;
 	}
 
+	if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_ranks, 'name' ) ) {
+		$name = wp_encode_emoji( $name );
+	}
+
 	$inserted = $wpdb->insert(
 		$wpdb->wordpoints_ranks
 		, array(
@@ -204,6 +208,10 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 	 * @param array           $meta     The new metadata for the rank.
 	 */
 	do_action( 'wordpoints_pre_update_rank', $rank, $name, $type, $group, $position, $meta );
+
+	if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_ranks, 'name' ) ) {
+		$name = wp_encode_emoji( $name );
+	}
 
 	$updated = $wpdb->update(
 		$wpdb->wordpoints_ranks

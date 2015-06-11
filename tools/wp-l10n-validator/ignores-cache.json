@@ -176,7 +176,7 @@
     },
     "\/components\/points\/admin\/includes\/ajax.php": {
         "deleted:": {
-            "208": {
+            "209": {
                 "name": "esc_html",
                 "type": "unknown",
                 "args_started": true,
@@ -302,8 +302,20 @@
                 "parentheses": 1
             }
         },
+        "utf8": {
+            "1023": false
+        },
+        "text": {
+            "1023": {
+                "name": "$wpdb->get_col_charset",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
         "capabilities'": {
-            "1069": false
+            "1096": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -881,13 +893,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1214": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1219": {
                 "name": "array",
                 "type": "unknown",
@@ -898,24 +903,9 @@
         },
         "site": {
             "290": false,
-            "352": false,
             "376": false,
             "484": false,
             "1179": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1212": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1214": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -941,27 +931,6 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1212": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1213": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1214": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1219": {
                 "name": "array",
                 "type": "unknown",
@@ -977,12 +946,9 @@
             "430": false
         },
         "manage": {
-            "1127": false,
-            "1128": false,
             "1129": false
         },
         "columnshidden": {
-            "1127": false,
             "1128": false
         },
         "-networkcolumnshidden": {

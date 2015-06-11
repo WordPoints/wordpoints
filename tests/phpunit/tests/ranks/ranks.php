@@ -137,6 +137,65 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
+	 * Test adding a rank with emojis.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_add_rank
+	 */
+	public function test_add_rank_with_emoji() {
+
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
+		}
+
+		$name = "\xf0\x9f\x98\x8e Smiler";
+
+		$rank = wordpoints_add_rank(
+			$name
+			, 'test_type'
+			, 'test_group'
+			, 1
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertInternalType( 'int', $rank );
+
+		$rank = wordpoints_get_rank( $rank );
+
+		$this->assertEquals( $name, $rank->name );
+	}
+
+	/**
+	 * Test adding a rank encodes emojis in the name if needed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_add_rank
+	 */
+	public function test_add_rank_with_emoji_utf8() {
+
+		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
+
+		$rank = wordpoints_add_rank(
+			"\xf0\x9f\x98\x8e Smiler"
+			, 'test_type'
+			, 'test_group'
+			, 1
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertInternalType( 'int', $rank );
+
+		$rank = wordpoints_get_rank( $rank );
+
+		$this->assertEquals( '&#x1f60e; Smiler', $rank->name );
+	}
+
+	/**
 	 * Test that updating a rank requires a valid rank ID.
 	 *
 	 * @since 1.7.0
@@ -267,6 +326,71 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 		$this->assertEquals( __CLASS__, $rank->type );
 		$this->assertEquals( __CLASS__, $rank->rank_group );
 		$this->assertEquals( 1, $rank_group->get_rank_position( $rank_id ) );
+	}
+
+	/**
+	 * Test updating a rank with emojis.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_update_rank
+	 */
+	public function test_update_rank_with_emoji() {
+
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
+		}
+
+		$name = "\xf0\x9f\x98\x8e Smiler";
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, $name
+			, __CLASS__
+			, __CLASS__
+			, 0
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertTrue( $result );
+
+		$rank = wordpoints_get_rank( $rank_id );
+
+		$this->assertEquals( $name, $rank->name );
+	}
+
+	/**
+	 * Test updating a rank encodes emojis in the name if needed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_update_rank
+	 */
+	public function test_update_rank_with_emoji_utf8() {
+
+		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, "\xf0\x9f\x98\x8e Smiler"
+			, __CLASS__
+			, __CLASS__
+			, 0
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertTrue( $result );
+
+		$rank = wordpoints_get_rank( $rank_id );
+
+		$this->assertEquals( '&#x1f60e; Smiler', $rank->name );
 	}
 
 	/**

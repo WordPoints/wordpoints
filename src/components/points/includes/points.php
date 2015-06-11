@@ -642,6 +642,12 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	$log_id = false;
 	if ( $log_transaction ) {
 
+		$log_text = wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta );
+
+		if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' ) ) {
+			$log_text = wp_encode_emoji( $log_text );
+		}
+
 		$result = $wpdb->insert(
 			$wpdb->wordpoints_points_logs,
 			array(
@@ -649,7 +655,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 				'points'      => $points,
 				'points_type' => $points_type,
 				'log_type'    => $log_type,
-				'text'        => wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta ),
+				'text'        => $log_text,
 				'date'        => current_time( 'mysql', 1 ),
 				'site_id'     => $wpdb->siteid,
 				'blog_id'     => $wpdb->blogid,
@@ -1012,6 +1018,14 @@ function wordpoints_regenerate_points_logs( $logs ) {
 		);
 
 		if ( $new_log_text !== $log->text ) {
+
+			if ( ! isset( $is_utf8 ) ) {
+				$is_utf8 = 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' );
+			}
+
+			if ( $is_utf8 ) {
+				$new_log_text = wp_encode_emoji( $new_log_text );
+			}
 
 			$wpdb->update(
 				$wpdb->wordpoints_points_logs

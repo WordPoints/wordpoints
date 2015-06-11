@@ -48,8 +48,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		 * @since 2.0.0
 		 */
 		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer-option-prefix.php' );
-
-		delete_site_transient( 'wordpoints_all_site_ids' );
 	}
 
 	/**
@@ -61,6 +59,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 
 		$this->un_installer = new WordPoints_Un_Installer_Mock( 'test', '1.0.0' );
 		$this->un_installer->type = 'module';
+
+		delete_site_transient( 'wordpoints_all_site_ids' );
 	}
 
 	/**

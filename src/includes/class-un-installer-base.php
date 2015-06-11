@@ -548,15 +548,24 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function get_all_site_ids() {
 
-		global $wpdb;
+		$site_ids = get_site_transient( 'wordpoints_all_site_ids' );
 
-		return $wpdb->get_col(
-			"
-				SELECT `blog_id`
-				FROM `{$wpdb->blogs}`
-				WHERE `site_id` = {$wpdb->siteid}
-			"
-		);
+		if ( ! $site_ids ) {
+
+			global $wpdb;
+
+			$site_ids = $wpdb->get_col(
+				"
+					SELECT `blog_id`
+					FROM `{$wpdb->blogs}`
+					WHERE `site_id` = {$wpdb->siteid}
+				"
+			); // WPCS: cache OK.
+
+			set_site_transient( 'wordpoints_all_site_ids', $site_ids, 2 * MINUTE_IN_SECONDS );
+		}
+
+		return $site_ids;
 	}
 
 	/**

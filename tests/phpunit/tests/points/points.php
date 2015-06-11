@@ -360,6 +360,59 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( 1, $this->filter_was_called( 'wordpoints_points_altered' ) );
 	}
 
+	/**
+	 * Test that that emojis work in logs.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_emoji_in_log() {
+
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
+		}
+
+		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
+
+		$filter = new WordPoints_Mock_Filter( $log_text );
+		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
+
+		$log_id = wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
+		);
+
+		$this->assertEquals( $log_text, $query->get( 'var' ) );
+	}
+
+	/**
+	 * Test that that emojis in logs are encoded if needed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_emoji_in_log_utf8() {
+
+		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
+
+		$filter = new WordPoints_Mock_Filter( "You've got Points! \xf0\x9f\x98\x8e" );
+		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
+
+		$log_id = wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
+		);
+
+		$this->assertEquals( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
+	}
+
 	//
 	// wordpoints_add_points()
 	//

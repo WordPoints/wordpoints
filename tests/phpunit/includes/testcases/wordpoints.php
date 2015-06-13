@@ -88,6 +88,15 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	protected $previous_version;
 
 	/**
+	 * A mock filesystem object.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var WP_Mock_Filesystem
+	 */
+	protected $mock_fs;
+
+	/**
 	 * @since 2.0.0
 	 */
 	protected function checkRequirements() {
@@ -655,6 +664,48 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		}
 
 		wp_set_current_user( $user->ID );
+	}
+
+	/**
+	 * Begin mocking the filesystem.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function mock_filesystem() {
+
+		if ( ! class_exists( 'WP_Mock_Filesystem' ) ) {
+
+			/**
+			 * WordPress's base filesystem API class.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+
+			/**
+			 * The filesystem API shim that uses mock filesystems.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-filesystem-mock.php' );
+
+			/**
+			 * The mock filesystem class.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-mock-filesystem.php' );
+		}
+
+		// Creating a new mock filesystem.
+		$this->mock_fs = new WP_Mock_Filesystem;
+
+		// Tell the WordPress filesystem API shim to use this mock filesystem.
+		WP_Filesystem_Mock::set_mock( $this->mock_fs );
+
+		// Tell the shim to start overriding whatever other filesystem access method
+		// is in use.
+		WP_Filesystem_Mock::start();
 	}
 
 	//

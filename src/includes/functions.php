@@ -161,20 +161,21 @@ function wordpoints_negint( &$maybe_int ) {
  * due to it being pluggable.
  *
  * @since 1.9.0
+ * @since 2.0.0 $format_values now accepts a string when there is only one value.
  *
  * @see wp_verify_nonce()
  *
- * @param string   $nonce_key     The key for the nonce in the request parameters array.
- * @param string   $action_format A sprintf()-style format string for the nonce action.
- * @param string[] $format_values The keys of the request values to use to format the action.
- * @param string   $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
+ * @param string          $nonce_key     The key for the nonce in the request parameters array.
+ * @param string          $action_format A sprintf()-style format string for the nonce action.
+ * @param string|string[] $format_values The keys of the request values to use to format the action.
+ * @param string          $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
  *
  * @return int|false Returns 1 or 2 on success, false on failure.
  */
 function wordpoints_verify_nonce(
 	$nonce_key,
 	$action_format,
-	array $format_values = null,
+	$format_values = null,
 	$request_type = 'get'
 ) {
 
@@ -192,7 +193,7 @@ function wordpoints_verify_nonce(
 
 		$values = array();
 
-		foreach ( $format_values as $value ) {
+		foreach ( (array) $format_values as $value ) {
 
 			if ( ! isset( $request[ $value ] ) ) {
 				return false;

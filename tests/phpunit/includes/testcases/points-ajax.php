@@ -23,6 +23,11 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitT
 	protected $wordpoints_component = 'points';
 
 	/**
+	 * @since 2.0.0
+	 */
+	private static $included_functions = false;
+
+	/**
 	 * Set up before the tests begin.
 	 *
 	 * @since 1.3.0
@@ -31,7 +36,19 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitT
 
 		parent::setUpBeforeClass();
 
-		require_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
+		if ( ! self::$included_functions ) {
+
+			/**
+			 * Admin-side functions.
+			 *
+			 * @since 1.3.0
+			 */
+			require_once( WORDPOINTS_DIR . '/components/points/admin/includes/ajax.php' );
+
+			self::$included_functions = true;
+
+			self::backup_hooks();
+		}
 	}
 
 	/**

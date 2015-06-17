@@ -24,18 +24,48 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 	protected $ajax_action;
 
 	/**
+	 * Whether the Ajax callback functions have been included yet.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var bool
+	 */
+	private static $included_functions = false;
+
+	/**
 	 * @since 2.0.0
 	 */
 	public static function setUpBeforeClass() {
 
 		parent::setUpBeforeClass();
 
-		/**
-		 * Admin-side functions.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/admin/admin.php' );
+		if ( ! self::$included_functions ) {
+
+			/**
+			 * Admin-side functions.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( WORDPOINTS_DIR . '/admin/admin.php' );
+
+			self::$included_functions = true;
+
+			self::backup_hooks();
+		}
+	}
+
+	/**
+	 * Back up the hooks.
+	 *
+	 * @since 2.0.0
+	 */
+	protected static function backup_hooks() {
+
+		$globals = array( 'merged_filters', 'wp_actions', 'wp_current_filter', 'wp_filter' );
+
+		foreach ( $globals as $key ) {
+			WP_UnitTestCase::$hooks_saved[ $key ] = $GLOBALS[ $key ];
+		}
 	}
 
 	/**

@@ -89,7 +89,7 @@ function wordpoints_user_rank_shortcode_points_type_attr( $out, $pairs, $atts ) 
 
 			$points_type = wordpoints_get_default_points_type();
 
-			if ( ! $points_type ) {
+			if ( $points_type ) {
 				$out['rank_group'] = "points_type-{$points_type}";
 			}
 		}

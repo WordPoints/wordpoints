@@ -575,4 +575,39 @@ function wordpoints_admin_set_screen_option( $sanitized, $option, $value ) {
 }
 add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
 
+/**
+ * Ajax callback to load the modules admin screen when running module compat checks.
+ *
+ * We run this Ajax action to check module compatibility before loading modules
+ * after WordPoints is updated to a new major version. This avoids breaking the site
+ * if some modules aren't compatible with the backward-incompatible changes that are
+ * present in a major version.
+ *
+ * @since 2.0.0
+ */
+function wordpoints_admin_ajax_breaking_module_check() {
+
+	if ( ! isset( $_GET['wordpoints_module_check'] ) ) {
+		wp_die( '', 400 );
+	}
+
+	if ( is_network_admin() ) {
+		$nonce = get_site_option( 'wordpoints_module_check_nonce' );
+	} else {
+		$nonce = get_option( 'wordpoints_module_check_nonce' );
+	}
+
+	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+		wp_die( '', 403 );
+	}
+
+	// The list table constructor calls WP_Screen::get(), which expects this.
+	$GLOBALS['hook_suffix'] = null;
+
+	wordpoints_admin_screen_modules();
+
+	wp_die( '', 200 );
+}
+add_action( 'wp_ajax_nopriv_wordpoints_breaking_module_check', 'wordpoints_admin_ajax_breaking_module_check' );
+
 // EOF

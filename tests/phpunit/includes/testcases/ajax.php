@@ -26,6 +26,21 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 	/**
 	 * @since 2.0.0
 	 */
+	public static function setUpBeforeClass() {
+
+		parent::setUpBeforeClass();
+
+		/**
+		 * Admin-side functions.
+		 *
+		 * @since 2.0.0
+		 */
+		require_once( WORDPOINTS_DIR . '/admin/admin.php' );
+	}
+
+	/**
+	 * @since 2.0.0
+	 */
 	protected function checkRequirements() {
 
 		parent::checkRequirements();

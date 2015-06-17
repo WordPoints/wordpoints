@@ -15,6 +15,16 @@
 class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 
 	/**
+	 * @since 2.0.0
+	 */
+	public function tearDown() {
+
+		unset( $GLOBALS['current_screen'] );
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Test is_wordpoints_network_active().
 	 *
 	 * @since 1.2.0
@@ -45,6 +55,230 @@ class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 			"{$GLOBALS['wpdb']->siteid}:active_sitewide_plugins"
 			, 'site-options'
 		);
+	}
+
+	/**
+	 * Test that it checks module compatibility when a breaking update is performed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_breaking_update
+	 */
+	public function test_wordpoints_breaking_update() {
+
+		$this->wordpoints_set_db_version();
+
+		if ( is_wordpoints_network_active() ) {
+			$this->listen_for_filter( 'site_option_wordpoints_sitewide_active_modules' );
+		}
+
+		$this->listen_for_filter( 'pre_option_wordpoints_active_modules' );
+
+		wordpoints_breaking_update();
+
+		if ( is_wordpoints_network_active() ) {
+			$this->assertNotEmpty(
+				$this->filter_was_called(
+					'site_option_wordpoints_sitewide_active_modules'
+				)
+			);
+		}
+
+		$this->assertNotEmpty(
+			$this->filter_was_called( 'pre_option_wordpoints_active_modules' )
+		);
+	}
+
+	/**
+	 * Test that it skips checking module compatibility if the update isn't breaking.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_breaking_update
+	 */
+	public function test_wordpoints_breaking_update_not_breaking() {
+
+		$this->wordpoints_set_db_version( '2.0.0' );
+
+		if ( is_wordpoints_network_active() ) {
+			$this->listen_for_filter( 'site_option_wordpoints_sitewide_active_modules' );
+		}
+
+		$this->listen_for_filter( 'pre_option_wordpoints_active_modules' );
+
+		wordpoints_breaking_update();
+
+		if ( is_wordpoints_network_active() ) {
+			$this->assertEmpty(
+				$this->filter_was_called(
+					'site_option_wordpoints_sitewide_active_modules'
+				)
+			);
+		}
+
+		$this->assertEmpty(
+			$this->filter_was_called( 'pre_option_wordpoints_active_modules' )
+		);
+	}
+
+	/**
+	 * Test wordpoints_maintenance_shutdown_print_rand_str().
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_shutdown_print_rand_str
+	 */
+	public function test_wordpoints_maintenance_shutdown_print_rand_str() {
+
+		update_option( 'wordpoints_module_check_rand_str', __METHOD__ );
+		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$_GET['check_module'] = 'test';
+		$_GET['wordpoints_module_check'] = __FUNCTION__;
+
+		ob_start();
+		wordpoints_maintenance_shutdown_print_rand_str();
+		$this->assertEquals( __METHOD__, ob_get_clean() );
+	}
+
+	/**
+	 * Test that it does nothing if the nonce is invalid.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_shutdown_print_rand_str
+	 */
+	public function test_wordpoints_maintenance_shutdown_print_rand_str_requires_nonce() {
+
+		update_option( 'wordpoints_module_check_rand_str', __METHOD__ );
+		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$_GET['check_module'] = 'test';
+		$_GET['wordpoints_module_check'] = 'invalid';
+
+		ob_start();
+		wordpoints_maintenance_shutdown_print_rand_str();
+		$this->assertEmpty( ob_get_clean() );
+	}
+
+	/**
+	 * Test that it uses the site option if in the network admin.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_shutdown_print_rand_str
+	 */
+	public function test_wordpoints_maintenance_shutdown_print_rand_str_network_admin() {
+
+		update_site_option( 'wordpoints_module_check_rand_str', __METHOD__ );
+		update_site_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
+
+		$_GET['check_module'] = 'test';
+		$_GET['wordpoints_module_check'] = __FUNCTION__;
+
+		ob_start();
+		wordpoints_maintenance_shutdown_print_rand_str();
+		$this->assertEquals( __METHOD__, ob_get_clean() );
+	}
+
+	/**
+	 * Test wordpoints_maintenance_filter_modules().
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_filter_modules
+	 */
+	public function test_wordpoints_maintenance_filter_modules() {
+
+		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$_GET['check_module'] = 'test';
+		$_GET['wordpoints_module_check'] = __FUNCTION__;
+
+		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
+
+		$this->assertEquals( array( 'test' ), $modules );
+	}
+
+	/**
+	 * Test that it requires the check_modules GET parameter to be set.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_filter_modules
+	 */
+	public function test_wordpoints_maintenance_filter_modules_requires_check_modules() {
+
+		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$_GET['wordpoints_module_check'] = __FUNCTION__;
+
+		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
+
+		$this->assertEquals( array( __METHOD__ ), $modules );
+	}
+
+	/**
+	 * Test that it requires a valid nonce.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_filter_modules
+	 */
+	public function test_wordpoints_maintenance_filter_modules_requires_nonce() {
+
+		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$_GET['check_module'] = 'test';
+
+		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
+
+		$this->assertEquals( array( __METHOD__ ), $modules );
+	}
+
+	/**
+	 * Test that it splits a comma-delimited string.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_filter_modules
+	 */
+	public function test_wordpoints_maintenance_filter_modules_multiple() {
+
+		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$_GET['check_module'] = 'test1,test2';
+		$_GET['wordpoints_module_check'] = __FUNCTION__;
+
+		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
+
+		$this->assertEquals( array( 'test1', 'test2' ), $modules );
+	}
+
+	/**
+	 * Test wordpoints_maintenance_filter_modules().
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_maintenance_filter_modules
+	 */
+	public function test_wordpoints_maintenance_filter_modules_network_wide() {
+
+		update_site_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
+
+		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
+		$GLOBALS['wp_current_filter'] = array(
+			'pre_site_option_wordpoints_sitewide_active_modules',
+		);
+
+		$_GET['check_module'] = 'test';
+		$_GET['wordpoints_module_check'] = __FUNCTION__;
+
+		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
+
+		$this->assertEquals( array( 'test' => 0 ), $modules );
 	}
 }
 

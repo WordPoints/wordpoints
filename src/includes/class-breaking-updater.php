@@ -147,20 +147,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	 */
 	protected function check_modules( $modules ) {
 
-		foreach ( $modules as $index => $module ) {
-
-			if ( isset( $this->checked_modules[ $module ] ) ) {
-				unset( $modules[ $index ] );
-			}
-
-			$valid = wordpoints_validate_module( $module );
-
-			if ( is_wp_error( $valid ) ) {
-				unset( $modules[ $index ] );
-			}
-
-			$this->checked_modules[ $module ] = true;
-		}
+		$modules = $this->validate_modules( $modules );
 
 		if ( empty( $modules ) ) {
 			return;
@@ -187,6 +174,35 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 		}
 
 		$this->deactivate_modules( $incompatible_modules );
+	}
+
+	/**
+	 * Validate modules and remove any that have already been checked.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string[] $modules A list of modules to validate.
+	 *
+	 * @return string[] The valid modules.
+	 */
+	protected function validate_modules( $modules ) {
+
+		foreach ( $modules as $index => $module ) {
+
+			if ( isset( $this->checked_modules[ $module ] ) ) {
+				unset( $modules[ $index ] );
+			}
+
+			$valid = wordpoints_validate_module( $module );
+
+			if ( is_wp_error( $valid ) ) {
+				unset( $modules[ $index ] );
+			}
+
+			$this->checked_modules[ $module ] = true;
+		}
+
+		return $modules;
 	}
 
 	/**

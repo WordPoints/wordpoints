@@ -489,6 +489,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
 	 */
 	public function test_check_modules() {
 
@@ -509,6 +510,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
 	 */
 	public function test_check_modules_already_checked() {
 
@@ -529,6 +531,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
 	 */
 	public function test_check_modules_invalid() {
 
@@ -545,6 +548,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
 	 */
 	public function test_check_modules_incompatible() {
 
@@ -570,6 +574,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
 	 */
 	public function test_check_modules_multiple_incompatible() {
 
@@ -606,6 +611,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
 	 */
 	public function test_check_modules_multiple() {
 

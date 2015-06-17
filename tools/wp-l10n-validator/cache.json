@@ -1,8 +1,8 @@
 {
     "files": {
         "\/admin\/admin.php": {
-            "size": 16584,
-            "hash": "d206a7e2342db533bd4974c308b3327d",
+            "size": 17653,
+            "hash": "ad52543349cd6be87138cddef9a9ebe6",
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-module-installer-skin.php": {
@@ -306,8 +306,8 @@
             "errors": false
         },
         "\/includes\/class-un-installer-base.php": {
-            "size": 39400,
-            "hash": "f5fcf86f4f2ab2d2d932196ff33d46f5",
+            "size": 39752,
+            "hash": "2c7b7dfc643d6d1232314e166e457dbf",
             "errors": false
         },
         "\/includes\/class-un-installer.php": {
@@ -336,8 +336,8 @@
             "errors": false
         },
         "\/includes\/functions.php": {
-            "size": 24202,
-            "hash": "dbc26559f44767c1f3d25fd241c85f96",
+            "size": 27387,
+            "hash": "bd62eac8ace05fd4260f2c538d74b522",
             "errors": false
         },
         "\/includes\/modules.php": {
@@ -358,6 +358,16 @@
         "\/wordpoints.php": {
             "size": 3715,
             "hash": "e458d2c3704eebdab672971732a58048",
+            "errors": false
+        },
+        "\/includes\/class-breaking-updater.php": {
+            "size": 6497,
+            "hash": "cc4d236c59184b37eca05eb020096c96",
+            "errors": false
+        },
+        "\/includes\/maintenance.php": {
+            "size": 806,
+            "hash": "d4a4cc3c8210f85457a837612b5ae60e",
             "errors": false
         }
     },

@@ -31,10 +31,11 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * Since 1.5.0, this was a part of the WordPoints_Points_UnitTestCase.
 	 *
 	 * @since 1.7.0
+	 * @since 2.0.0 Now an array of WordPoints_Mock_Filter objects.
 	 *
 	 * @see WordPoints_Points_UnitTestCase::listen_for_filter()
 	 *
-	 * @type array $watched_filters
+	 * @type WordPoints_Mock_Filter[] $watched_filters
 	 */
 	protected $watched_filters = array();
 
@@ -86,6 +87,15 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @type string $previous_version
 	 */
 	protected $previous_version;
+
+	/**
+	 * A mock filesystem object.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var WP_Mock_Filesystem
+	 */
+	protected $mock_fs;
 
 	/**
 	 * @since 2.0.0
@@ -143,23 +153,6 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		);
 
 		add_filter( 'query', array( $this, 'do_not_alter_tables' ) );
-	}
-
-	/**
-	 * Clean up after each class.
-	 *
-	 * @since 1.7.0
-	 */
-	public function tearDown() {
-
-		foreach ( $this->watched_filters as $filter => $data ) {
-
-			remove_filter( $filter, array( $this, 'filter_listner' ) );
-		}
-
-		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
-
-		parent::tearDown();
 	}
 
 	//
@@ -466,6 +459,25 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Mock a filter function with an object.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $filter       The filter hook to attach to.
+	 * @param mixed  $return_value The filtered value that should be returned.
+	 *
+	 * @return WordPoints_Mock_Filter The mock filter.
+	 */
+	protected function mock_filter( $filter, $return_value = null ) {
+
+		$mock = new WordPoints_Mock_Filter( $return_value );
+
+		add_filter( $filter, array( $mock, 'filter' ) );
+
+		return $mock;
+	}
+
+	/**
 	 * Listen for a WordPress action or filter.
 	 *
 	 * To limit the counting based on the filtered value, you can pass a
@@ -480,16 +492,20 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * @param string   $filter         The filter to listen for.
 	 * @param callable $count_callback Function to call to test if this filter call
 	 *                                 should be counted.
+	 *
+	 * @return WordPoints_Mock_Filter The mock filter.
 	 */
 	protected function listen_for_filter( $filter, $count_callback = null ) {
 
-		$this->watched_filters[ $filter ]['count'] = 0;
+		$mock = $this->mock_filter( $filter );
 
 		if ( isset( $count_callback ) ) {
-			$this->watched_filters[ $filter ]['callback'] = $count_callback;
+			$mock->count_callback = $count_callback;
 		}
 
-		add_filter( $filter, array( $this, 'filter_listner' ) );
+		$this->watched_filters[ $filter ] = $mock;
+
+		return $mock;
 	}
 
 	/**
@@ -501,6 +517,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 * Since 1.5.0 This was part of the WordPoints_Points_UnitTestCase.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 2.0.0 No longer used.
 	 *
 	 * @param mixed $var The value being filtered.
 	 *
@@ -508,20 +525,22 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 */
 	public function filter_listner( $var ) {
 
+		_deprecated_function( __METHOD__, '2.0.0' );
+
 		$filter = current_filter();
 
 		if (
-			! isset( $this->watched_filters[ $filter ]['callback'] )
-			|| call_user_func( $this->watched_filters[ $filter ]['callback'], $var )
+			! isset( $this->watched_filters[ $filter ]->count_callback )
+			|| call_user_func( $this->watched_filters[ $filter ]->count_callback, $var )
 		) {
-			$this->watched_filters[ $filter ]['count']++;
+			$this->watched_filters[ $filter ]->call_count++;
 		}
 
 		return $var;
 	}
 
 	/**
-	 * Get the number of times a fitler was called.
+	 * Get the number of times a filter was called.
 	 *
 	 * Since 1.5.0 This was part of the WordPoints_Points_UnitTestCase.
 	 *
@@ -533,7 +552,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 */
 	protected function filter_was_called( $filter ) {
 
-		return $this->watched_filters[ $filter ]['count'];
+		return $this->watched_filters[ $filter ]->call_count;
 	}
 
 	/**
@@ -547,7 +566,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return bool Whether the query is a points logs query.
 	 */
-	protected function is_points_logs_query( $sql ) {
+	public function is_points_logs_query( $sql ) {
 
 		return strpos( $sql, "FROM `{$GLOBALS['wpdb']->wordpoints_points_logs}`" ) !== false;
 	}
@@ -563,7 +582,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return bool Whether the query is a points logs query.
 	 */
-	protected function is_top_users_query( $sql ) {
+	public function is_top_users_query( $sql ) {
 
 		global $wpdb;
 
@@ -655,6 +674,52 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		}
 
 		wp_set_current_user( $user->ID );
+	}
+
+	/**
+	 * Begin mocking the filesystem.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function mock_filesystem() {
+
+		if ( ! class_exists( 'WP_Mock_Filesystem' ) ) {
+
+			/**
+			 * WordPress's base filesystem API class.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+
+			/**
+			 * The filesystem API shim that uses mock filesystems.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-filesystem-mock.php' );
+
+			/**
+			 * The mock filesystem class.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-mock-filesystem.php' );
+		}
+
+		// Creating a new mock filesystem.
+		$this->mock_fs = new WP_Mock_Filesystem;
+
+		// Tell the WordPress filesystem API shim to use this mock filesystem.
+		WP_Filesystem_Mock::set_mock( $this->mock_fs );
+
+		// Tell the shim to start overriding whatever other filesystem access method
+		// is in use.
+		WP_Filesystem_Mock::start();
+
+		if ( empty( $GLOBALS['wp_filesystem'] ) || ! ( $GLOBALS['wp_filesystem'] instanceof WP_Filesystem_Mock ) ) {
+			WP_Filesystem();
+		}
 	}
 
 	//

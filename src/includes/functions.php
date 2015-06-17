@@ -49,6 +49,129 @@ function wordpoints_activate( $network_active ) {
 }
 register_activation_hook( __FILE__, 'wordpoints_activate' );
 
+/**
+ * Check module compatibility before breaking updates.
+ *
+ * @since 2.0.0
+ *
+ * @WordPress\action plugins_loaded
+ */
+function wordpoints_breaking_update() {
+
+	if ( is_wordpoints_network_active() ) {
+		$wordpoints_data = get_site_option( 'wordpoints_data' );
+	} else {
+		$wordpoints_data = get_option( 'wordpoints_data' );
+	}
+
+	// The major version is determined by the first number, so we can just cast to
+	// an integer. IF the major versions are equal, we don't need to do anything.
+	if ( (int) WORDPOINTS_VERSION === (int) $wordpoints_data['version'] ) {
+		return;
+	}
+
+	/**
+	 * The base un/installer class.
+	 *
+	 * @since 2.0.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
+
+	/**
+	 * The breaking updater.
+	 *
+	 * @since 2.0.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
+
+	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
+	$updater->update();
+}
+add_action( 'plugins_loaded', 'wordpoints_breaking_update' );
+
+/**
+ * Prints the random string stored in the database.
+ *
+ * @since 2.0.0
+ *
+ * @WordPress\action shutdown Only when checking module compatibility during a
+ *                            breaking update.
+ */
+function wordpoints_maintenance_shutdown_print_rand_str() {
+
+	if ( ! isset( $_GET['wordpoints_module_check'] ) ) {
+		return;
+	}
+
+	if ( is_network_admin() ) {
+		$nonce = get_site_option( 'wordpoints_module_check_nonce' );
+	} else {
+		$nonce = get_option( 'wordpoints_module_check_nonce' );
+	}
+
+	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+		return;
+	}
+
+	if ( is_network_admin() ) {
+		$rand_str = get_site_option( 'wordpoints_module_check_rand_str' );
+	} else {
+		$rand_str = get_option( 'wordpoints_module_check_rand_str' );
+	}
+
+	echo esc_html( $rand_str );
+}
+
+/**
+ * Filters the modules when checking compatibility during a breaking update.
+ *
+ * @since 2.0.0
+ *
+ * @param array $modules The active modules.
+ *
+ * @return array The modules whose compatibility is being checked.
+ */
+function wordpoints_maintenance_filter_modules( $modules ) {
+
+	if ( ! isset( $_GET['check_module'], $_GET['wordpoints_module_check'] ) ) {
+		return $modules;
+	}
+
+	if ( is_network_admin() ) {
+		$nonce = get_site_option( 'wordpoints_module_check_nonce' );
+	} else {
+		$nonce = get_option( 'wordpoints_module_check_nonce' );
+	}
+
+	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+		return $modules;
+	}
+
+	$modules = explode(
+		','
+		, sanitize_text_field( wp_unslash( $_GET['check_module'] ) )
+	);
+
+	if ( 'pre_site_option_wordpoints_sitewide_active_modules' === current_filter() ) {
+		$modules = array_flip( $modules );
+	}
+
+	return $modules;
+}
+
+if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
+
+	add_action( 'shutdown', 'wordpoints_maintenance_shutdown_print_rand_str' );
+
+	if ( is_network_admin() ) {
+		$filter = 'pre_site_option_wordpoints_sitewide_active_modules';
+	} else {
+		$filter = 'pre_option_wordpoints_active_modules';
+	}
+
+	add_filter( $filter, 'wordpoints_maintenance_filter_modules' );
+}
+
 //
 // Sanitizing Functions.
 //
@@ -161,20 +284,21 @@ function wordpoints_negint( &$maybe_int ) {
  * due to it being pluggable.
  *
  * @since 1.9.0
+ * @since 2.0.0 $format_values now accepts a string when there is only one value.
  *
  * @see wp_verify_nonce()
  *
- * @param string   $nonce_key     The key for the nonce in the request parameters array.
- * @param string   $action_format A sprintf()-style format string for the nonce action.
- * @param string[] $format_values The keys of the request values to use to format the action.
- * @param string   $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
+ * @param string          $nonce_key     The key for the nonce in the request parameters array.
+ * @param string          $action_format A sprintf()-style format string for the nonce action.
+ * @param string|string[] $format_values The keys of the request values to use to format the action.
+ * @param string          $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
  *
  * @return int|false Returns 1 or 2 on success, false on failure.
  */
 function wordpoints_verify_nonce(
 	$nonce_key,
 	$action_format,
-	array $format_values = null,
+	$format_values = null,
 	$request_type = 'get'
 ) {
 
@@ -192,7 +316,7 @@ function wordpoints_verify_nonce(
 
 		$values = array();
 
-		foreach ( $format_values as $value ) {
+		foreach ( (array) $format_values as $value ) {
 
 			if ( ! isset( $request[ $value ] ) ) {
 				return false;

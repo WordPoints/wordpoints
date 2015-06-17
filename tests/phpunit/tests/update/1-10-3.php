@@ -22,55 +22,14 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_UnitTestCase {
 	protected $previous_version = '1.10.2';
 
 	/**
-	 * The mock filesystem used in the tests.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @var WP_Mock_Filesystem
-	 */
-	protected $mock_fs;
-
-	/**
-	 * @since 1.10.3
-	 */
-	public static function setUpBeforeClass() {
-
-		parent::setUpBeforeClass();
-
-		/**
-		 * The base filesystem class.
-		 *
-		 * @since 1.10.3
-		 */
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-
-		/**
-		 * The filesystem mocker.
-		 *
-		 * @since 1.10.3
-		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-filesystem-mock.php' );
-
-		/**
-		 * The mock filesystem.
-		 *
-		 * @since 1.10.3
-		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-mock-filesystem.php' );
-	}
-
-	/**
 	 * @since 1.10.3
 	 */
 	public function setUp() {
 
 		parent::setUp();
 
-		$this->mock_fs = new WP_Mock_Filesystem;
+		$this->mock_filesystem();
 		$this->mock_fs->mkdir_p( wordpoints_modules_dir() );
-
-		WP_Filesystem_Mock::set_mock( $this->mock_fs );
-		WP_Filesystem_Mock::start();
 	}
 
 	/**

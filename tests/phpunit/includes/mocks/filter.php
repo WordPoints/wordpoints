@@ -42,6 +42,15 @@ class WordPoints_Mock_Filter {
 	public $calls = array();
 
 	/**
+	 * A function to check the filter against before counting the call.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var callable
+	 */
+	public $count_callback;
+
+	/**
 	 * @since 2.0.0
 	 *
 	 * @param mixed $return_value The value to return when the filter is called.
@@ -61,10 +70,12 @@ class WordPoints_Mock_Filter {
 	 *
 	 * @return mixed The filtered value.
 	 */
-	public function filter( $var ) {
+	public function filter( $var = null ) {
 
-		$this->call_count++;
-		$this->calls[] = func_get_args();
+		if ( ! $this->count_callback || call_user_func( $this->count_callback, $var ) ) {
+			$this->call_count++;
+			$this->calls[] = func_get_args();
+		}
 
 		if ( isset( $this->return_value ) ) {
 			$var = $this->return_value;
@@ -77,11 +88,15 @@ class WordPoints_Mock_Filter {
 	 * A method that can be hooked to an action.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @param mixed $var The first action argument.
 	 */
-	public function action() {
+	public function action( $var = null ) {
 
-		$this->call_count++;
-		$this->calls[] = func_get_args();
+		if ( ! $this->count_callback || call_user_func( $this->count_callback, $var ) ) {
+			$this->call_count++;
+			$this->calls[] = func_get_args();
+		}
 	}
 }
 

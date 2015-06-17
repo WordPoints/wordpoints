@@ -273,6 +273,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->network_wide = $network;
 
+		ignore_user_abort( true );
+
 		$this->before_install();
 
 		/**
@@ -340,6 +342,8 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->action = 'install';
 		$this->network_wide = true;
 
+		ignore_user_abort( true );
+
 		$this->before_install();
 
 		/**
@@ -366,6 +370,8 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->action = 'uninstall';
 
 		$this->load_dependencies();
+
+		ignore_user_abort( true );
 
 		$this->before_uninstall();
 
@@ -466,6 +472,8 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( empty( $this->updates ) ) {
 			return;
 		}
+
+		ignore_user_abort( true );
 
 		$this->before_update();
 

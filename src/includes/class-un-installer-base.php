@@ -519,6 +519,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->context = 'single';
 			$this->update_( 'single', $this->get_updates_for( 'single' ) );
 		}
+
+		$this->after_update();
 	}
 
 	//
@@ -1249,6 +1251,13 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function before_update() {
 		$this->maybe_load_custom_caps();
 	}
+
+	/**
+	 * Run after updating.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function after_update() {}
 
 	/**
 	 * Get the versions that request a given type of update.

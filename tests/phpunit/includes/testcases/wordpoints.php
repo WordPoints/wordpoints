@@ -716,6 +716,10 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		// Tell the shim to start overriding whatever other filesystem access method
 		// is in use.
 		WP_Filesystem_Mock::start();
+
+		if ( empty( $GLOBALS['wp_filesystem'] ) || ! ( $GLOBALS['wp_filesystem'] instanceof WP_Filesystem_Mock ) ) {
+			WP_Filesystem();
+		}
 	}
 
 	//

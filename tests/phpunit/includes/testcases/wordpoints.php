@@ -566,7 +566,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return bool Whether the query is a points logs query.
 	 */
-	protected function is_points_logs_query( $sql ) {
+	public function is_points_logs_query( $sql ) {
 
 		return strpos( $sql, "FROM `{$GLOBALS['wpdb']->wordpoints_points_logs}`" ) !== false;
 	}
@@ -582,7 +582,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return bool Whether the query is a points logs query.
 	 */
-	protected function is_top_users_query( $sql ) {
+	public function is_top_users_query( $sql ) {
 
 		global $wpdb;
 

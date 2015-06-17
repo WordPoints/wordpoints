@@ -72,7 +72,7 @@ class WordPoints_Mock_Filter {
 	 */
 	public function filter( $var = null ) {
 
-		if ( ! $this->count_callback || $this->count_callback( $var ) ) {
+		if ( ! $this->count_callback || call_user_func( $this->count_callback, $var ) ) {
 			$this->call_count++;
 			$this->calls[] = func_get_args();
 		}
@@ -93,7 +93,7 @@ class WordPoints_Mock_Filter {
 	 */
 	public function action( $var = null ) {
 
-		if ( ! $this->count_callback || $this->count_callback( $var ) ) {
+		if ( ! $this->count_callback || call_user_func( $this->count_callback, $var ) ) {
 			$this->call_count++;
 			$this->calls[] = func_get_args();
 		}

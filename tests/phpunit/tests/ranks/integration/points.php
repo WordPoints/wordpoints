@@ -133,6 +133,37 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 	}
 
 	/**
+	 * Test the default points type used if the points component is active.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_user_rank_shortcode_points_type_attr
+	 */
+	public function test_points_type_attr_of_user_ranks_shortcode_default() {
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_update_network_option( 'wordpoints_default_points_type', 'points' );
+
+		wordpoints_get_rank(
+			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
+		);
+
+		$result = wordpointstests_do_shortcode_func(
+			'wordpoints_user_rank'
+			, array( 'user_id' => $user_id )
+		);
+
+		$formatted_rank = wordpoints_get_formatted_user_rank(
+			$user_id
+			, $this->rank_group
+			, 'user_rank_shortcode'
+		);
+
+		$this->assertEquals( $formatted_rank, $result );
+	}
+
+	/**
 	 * Test that wordpoints_register_points_ranks() registers a group for each points type.
 	 *
 	 * @since 1.9.0

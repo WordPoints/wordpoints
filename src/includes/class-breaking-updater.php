@@ -166,6 +166,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 		foreach ( $modules as $module ) {
 			if ( ! $this->check_module( $module ) ) {
 				$incompatible_modules[] = $module;
+				$this->checked_modules[ $module ] = false;
 			}
 		}
 
@@ -187,10 +188,17 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	 */
 	protected function validate_modules( $modules ) {
 
+		$incompatible = array();
+
 		foreach ( $modules as $index => $module ) {
 
 			if ( isset( $this->checked_modules[ $module ] ) ) {
+
 				unset( $modules[ $index ] );
+
+				if ( ! $this->checked_modules[ $module ] ) {
+					$incompatible[] = $module;
+				}
 			}
 
 			$valid = wordpoints_validate_module( $module );
@@ -200,6 +208,10 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 			}
 
 			$this->checked_modules[ $module ] = true;
+		}
+
+		if ( ! empty( $incompatible ) ) {
+			$this->deactivate_modules( $incompatible );
 		}
 
 		return $modules;

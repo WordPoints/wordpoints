@@ -526,6 +526,59 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test checking a module that has already been checked and is incompatible.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Breaking_Updater::check_modules
+	 * @covers WordPoints_Breaking_Updater::validate_modules
+	 */
+	public function test_check_modules_already_checked_incompatible() {
+
+		update_option( 'wordpoints_active_modules', array( 'test-3.php' ) );
+
+		$this->http_responder = array( $this, 'check_module_failure_response' );
+
+		$this->updater->check_modules( array( 'test-3.php' ) );
+
+		$this->assertCount( 1, $this->http_requests );
+		$this->assertStringMatchesFormat(
+			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
+			, $this->http_requests[0]['url']
+		);
+
+		$this->assertEquals(
+			array( 'test-3.php' )
+			, get_option( 'wordpoints_incompatible_modules' )
+		);
+
+		$this->assertEquals(
+			array()
+			, get_option( 'wordpoints_active_modules' )
+		);
+
+		update_option( 'wordpoints_active_modules', array( 'test-3.php' ) );
+		delete_option( 'wordpoints_incompatible_modules' );
+
+		$this->http_responder = array( $this, 'check_module_failure_response' );
+
+		$this->updater->check_modules( array( 'test-3.php' ) );
+
+		// There shouldn't have been a second request made.
+		$this->assertCount( 1, $this->http_requests );
+
+		$this->assertEquals(
+			array()
+			, get_option( 'wordpoints_active_modules' )
+		);
+
+		$this->assertEquals(
+			array( 'test-3.php' )
+			, get_option( 'wordpoints_incompatible_modules' )
+		);
+	}
+
+	/**
 	 * Test checking a module that is invalid.
 	 *
 	 * @since 2.0.0

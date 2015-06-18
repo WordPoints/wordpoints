@@ -256,8 +256,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/integration\/points.php": {
-            "size": 3083,
-            "hash": "2c092fc959e4313387bff03983512c21",
+            "size": 3240,
+            "hash": "4b86d4013910dec215684416a91f8f3a",
             "errors": false
         },
         "\/components\/ranks\/includes\/rank-types\/base.php": {
@@ -306,8 +306,8 @@
             "errors": false
         },
         "\/includes\/class-un-installer-base.php": {
-            "size": 39752,
-            "hash": "2c7b7dfc643d6d1232314e166e457dbf",
+            "size": 39872,
+            "hash": "cb4eeff6b0d7c9b8b836529f1e9fd186",
             "errors": false
         },
         "\/includes\/class-un-installer.php": {
@@ -361,8 +361,8 @@
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
-            "size": 6497,
-            "hash": "cc4d236c59184b37eca05eb020096c96",
+            "size": 6749,
+            "hash": "667557caa6467abcf10ed3670f8b0890",
             "errors": false
         },
         "\/includes\/maintenance.php": {

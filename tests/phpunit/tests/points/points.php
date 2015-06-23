@@ -187,6 +187,9 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	 * @since 1.0.0
 	 *
 	 * @covers ::wordpoints_alter_points
+	 * @covers ::wordpoints_set_points
+	 * @covers ::wordpoints_subtract_points
+	 * @covers ::wordpoints_add_points
 	 */
 	public function test_points_altering() {
 
@@ -361,7 +364,7 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that that emojis work in logs.
+	 * Test that emojis work in logs.
 	 *
 	 * @since 2.0.0
 	 *
@@ -390,7 +393,7 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that that emojis in logs are encoded if needed.
+	 * Test that emojis in logs are encoded if needed.
 	 *
 	 * @since 2.0.0
 	 *
@@ -413,6 +416,61 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
 	}
 
+	/**
+	 * Test that emojis in logs are encoded if needed when the log text is passed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_emoji_in_log_utf8_log_text_param() {
+
+		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
+
+		$log_id = wordpoints_alter_points(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+			, "You've got Points! \xf0\x9f\x98\x8e"
+		);
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
+		);
+
+		$this->assertEquals( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
+	}
+
+	/**
+	 * Test that the log text may be passed as the sixth parameter.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_alter_log_text_param() {
+
+		$log_text = 'Just testing.';
+
+		$log_id = wordpoints_alter_points(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+			, $log_text
+		);
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
+		);
+
+		$this->assertEquals( $log_text, $query->get( 'var' ) );
+	}
+
 	//
 	// wordpoints_add_points()
 	//
@@ -429,6 +487,33 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertFalse( wordpoints_add_points( $this->user_id, -5, 'points', 'test' ) );
 	}
 
+	/**
+	 * Test that the log text may be passed as the sixth parameter.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_add_points
+	 */
+	public function test_add_log_text_param() {
+
+		$log_text = 'Just testing.';
+
+		$log_id = wordpoints_add_points(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+			, $log_text
+		);
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
+		);
+
+		$this->assertEquals( $log_text, $query->get( 'var' ) );
+	}
+
 	//
 	// wordpoints_subtract_points()
 	//
@@ -443,6 +528,108 @@ class WordPoints_Points_Test extends WordPoints_Points_UnitTestCase {
 	public function test_subtract_wont_add() {
 
 		$this->assertFalse( wordpoints_subtract_points( $this->user_id, -5, 'points', 'test' ) );
+	}
+
+	/**
+	 * Test that the log text may be passed as the sixth parameter.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_subtract_points
+	 */
+	public function test_subtract_log_text_param() {
+
+		$log_text = 'Just testing.';
+
+		$log_id = wordpoints_subtract_points(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+			, $log_text
+		);
+
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
+		);
+
+		$this->assertEquals( $log_text, $query->get( 'var' ) );
+	}
+
+	//
+	// wordpoints_render_points_log_text()
+	//
+
+	/**
+	 * Test that it calls the filter.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_render_points_log_text
+	 */
+	public function test_render_log_text() {
+
+		$log_text = 'Just testing.';
+
+		$filter = new WordPoints_Mock_Filter( $log_text );
+		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
+
+		$rendered_text = wordpoints_render_points_log_text(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+		);
+
+		$this->assertEquals( $log_text, $rendered_text );
+	}
+
+	/**
+	 * Test that the default log text is returned if the text is empty.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_render_points_log_text
+	 */
+	public function test_render_log_text_default_text() {
+
+		$rendered_text = wordpoints_render_points_log_text(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+		);
+
+		$this->assertEquals(
+			_x( '(no description)', 'points log', 'wordpoints' )
+			, $rendered_text
+		);
+	}
+
+	/**
+	 * Test that the default log text is returned if the text is empty.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_render_points_log_text
+	 */
+	public function test_render_log_text_default_text_param() {
+
+		$log_text = 'Just testing.';
+
+		$rendered_text = wordpoints_render_points_log_text(
+			$this->user_id
+			, 20
+			, 'points'
+			, 'test'
+			, array()
+			, $log_text
+		);
+
+		$this->assertEquals( $log_text, $rendered_text );
 	}
 
 	//

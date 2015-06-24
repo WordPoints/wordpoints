@@ -492,10 +492,11 @@ function wordpoints_get_points_above_minimum( $user_id, $type ) {
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
+ * @param string $log_text    The log text for the transaction.
  *
  * @return bool Whether the transaction was successful.
  */
-function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
 	if ( false === wordpoints_int( $points ) ) {
 		return false;
@@ -507,7 +508,7 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
 		return false;
 	}
 
-	return wordpoints_alter_points( $user_id, $points - $current, $points_type, $log_type, $meta );
+	return wordpoints_alter_points( $user_id, $points - $current, $points_type, $log_type, $meta, $log_text );
 }
 
 /**
@@ -545,11 +546,12 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for this transaction. Default: array().
+ * @param string $log_text    The log text for this transaction.
  *
  * @return int|bool On success, the log ID if the transaction is logged, or true if
  *                  it is not. False on failure.
  */
-function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
 	if (
 		! wordpoints_posint( $user_id )
@@ -642,7 +644,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	$log_id = false;
 	if ( $log_transaction ) {
 
-		$log_text = wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta );
+		$log_text = wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta, $log_text );
 
 		if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' ) ) {
 			$log_text = wp_encode_emoji( $log_text );
@@ -727,12 +729,13 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
+ * @param string $log_text    The log text for the transaction.
  *
  * @return bool Whether the points were added successfully.
  */
-function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
-	return wordpoints_alter_points( $user_id, wordpoints_posint( $points ), $points_type, $log_type, $meta );
+	return wordpoints_alter_points( $user_id, wordpoints_posint( $points ), $points_type, $log_type, $meta, $log_text );
 }
 
 /**
@@ -749,12 +752,13 @@ function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $met
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
+ * @param string $log_text    The log text for the transaction.
  *
  * @return bool Whether the points were subtracted successfully.
  */
-function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
-	return wordpoints_alter_points( $user_id, -wordpoints_posint( $points ), $points_type, $log_type, $meta );
+	return wordpoints_alter_points( $user_id, -wordpoints_posint( $points ), $points_type, $log_type, $meta, $log_text );
 }
 
 /**
@@ -941,17 +945,16 @@ function wordpoints_get_default_points_type() {
  *
  * @since 1.0.0
  *
- * @param int    $user_id     The user_id of the affected user.
- * @param int    $points      The number of points involved in the transaction.
- * @param string $points_type The type of points involved.
- * @param string $log_type    The type of transaction.
- * @param array  $meta        The metadata for this transaction.
+ * @param int    $user_id      The user_id of the affected user.
+ * @param int    $points       The number of points involved in the transaction.
+ * @param string $points_type  The type of points involved.
+ * @param string $log_type     The type of transaction.
+ * @param array  $meta         The metadata for this transaction.
+ * @param string $default_text The default log text for this transaction.
  *
  * @return string The log text.
  */
-function wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta ) {
-
-	$text = '';
+function wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta, $default_text = '' ) {
 
 	/**
 	 * The text for a points log entry.
@@ -963,7 +966,7 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
 	 * @param string $log_type    The type of transaction being logged.
 	 * @param array  $meta        The metadata for this transaction.
 	 */
-	$text = apply_filters( "wordpoints_points_log-{$log_type}", $text, $user_id, $points, $points_type, $log_type, $meta );
+	$text = apply_filters( "wordpoints_points_log-{$log_type}", $default_text, $user_id, $points, $points_type, $log_type, $meta );
 
 	if ( empty( $text ) ) {
 		$text = _x( '(no description)', 'points log', 'wordpoints' );

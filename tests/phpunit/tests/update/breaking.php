@@ -186,6 +186,44 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test that the list of breaking modules is saved by after_update().
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Breaking_Updater::after_update
+	 */
+	public function test_after_update_saves_breaking_modules() {
+
+		$this->updater->network_wide = true;
+		$this->updater->checked_modules = array( 'test-1' => true, 'test-2' => false );
+
+		$this->updater->after_update();
+
+		$this->assertEquals(
+			array( 'test-2' )
+			, get_site_option( 'wordpoints_breaking_deactivated_modules' )
+		);
+	}
+
+	/**
+	 * Test that the list of breaking modules isn't if not network-wide.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers WordPoints_Breaking_Updater::after_update
+	 */
+	public function test_after_update_saves_breaking_modules_not_network_wide() {
+
+		$this->updater->checked_modules = array( 'test-1' => true, 'test-2' => false );
+
+		$this->updater->after_update();
+
+		$this->assertFalse(
+			get_site_option( 'wordpoints_breaking_deactivated_modules' )
+		);
+	}
+
+	/**
 	 * Test enabling maintenance mode.
 	 *
 	 * @since 2.0.0

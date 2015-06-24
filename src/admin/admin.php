@@ -544,7 +544,73 @@ function wordpoints_admin_notices() {
 	);
 
 	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
-		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
+
+		$option = sanitize_key( $_POST['wordpoints_notice'] );
+
+		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
+			delete_option( $option );
+		} else {
+			wordpoints_delete_network_option( $option );
+		}
+	}
+
+	if ( current_user_can( 'activate_wordpoints_modules' ) ) {
+
+		if ( is_network_admin() ) {
+
+			$deactivated_modules = get_site_option( 'wordpoints_breaking_deactivated_modules' );
+
+			if ( is_array( $deactivated_modules ) ) {
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: 1 is plugin version, 2 is list of modules
+						__( 'WordPoints has deactivated the following modules because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
+						, WORDPOINTS_VERSION
+						, implode( ', ', $deactivated_modules )
+					)
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_breaking_deactivated_modules',
+					)
+				);
+			}
+
+			$incompatible_modules = get_site_option( 'wordpoints_incompatible_modules' );
+
+			if ( is_array( $incompatible_modules ) ) {
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: 1 is plugin version, 2 is list of modules
+						__( 'WordPoints has deactivated the following network-active modules because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
+						, WORDPOINTS_VERSION
+						, implode( ', ', $incompatible_modules )
+					)
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_incompatible_modules',
+					)
+				);
+			}
+
+		} else {
+
+			$incompatible_modules = get_option( 'wordpoints_incompatible_modules' );
+
+			if ( is_array( $incompatible_modules ) ) {
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: 1 is plugin version, 2 is list of modules
+						__( 'WordPoints has deactivated the following modules on this site because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
+						, WORDPOINTS_VERSION
+						, implode( ', ', $incompatible_modules )
+					)
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_incompatible_modules',
+					)
+				);
+			}
+		}
 	}
 }
 add_action( 'admin_notices', 'wordpoints_admin_notices' );

@@ -56,7 +56,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 		>
 		</ul>
 		<div class="spinner-overlay" style="display: block;">
-			<span class="spinner"></span>
+			<span class="spinner is-active"></span>
 		</div>
 		<div class="controls">
 			<button class="add-rank button-primary"><?php esc_html_e( 'Add Rank', 'wordpoints' ); ?></button>
@@ -118,7 +118,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			</div>
 			<div class="actions">
 				<div class="spinner-overlay">
-					<span class="spinner"></span>
+					<span class="spinner is-active"></span>
 				</div>
 				<div class="action-buttons">
 					<button class="save button-primary" disabled><?php esc_html_e( 'Save', 'wordpoints' ); ?></button>

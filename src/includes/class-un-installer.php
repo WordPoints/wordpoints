@@ -42,6 +42,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_network_install_skipped',
 		        'wordpoints_network_installed',
 		        'wordpoints_network_update_skipped',
+				'wordpoints_breaking_deactivated_modules',
 			),
 		),
 		'local'   => array(
@@ -55,6 +56,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_data',
 				'wordpoints_active_components',
 				'wordpoints_excluded_users',
+				'wordpoints_incompatible_modules',
 			),
 		),
 	);

@@ -58,7 +58,21 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function after_update() {
+
 		$this->maintenance_mode( false );
+
+		if ( $this->network_wide ) {
+
+			$deactivated_modules = array_diff(
+				$this->checked_modules
+				, array_filter( $this->checked_modules )
+			);
+
+			update_site_option(
+				'wordpoints_breaking_deactivated_modules'
+				, array_keys( $deactivated_modules )
+			);
+		}
 	}
 
 	/**

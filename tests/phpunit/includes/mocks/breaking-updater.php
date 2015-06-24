@@ -16,6 +16,7 @@
  *
  * @property $context
  * @property $network_wide
+ * @property $checked_modules
  *
  * @method is_network_installed()
  * @method before_update()

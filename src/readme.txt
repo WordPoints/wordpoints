@@ -122,6 +122,46 @@ manage the ranks used on your site.
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
 == Changelog ==
+
+This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.0.0 - 2015-06-30 - (~70 hrs) =
+
+##### Added
+
+- Support for emoji! 🎉✨  You can now use them in points logs and rank names (and
+other places, too).
+
+##### Changed
+
+- Many internal improvements. Great stuff is coming soon!
+
+##### Removed
+
+- Some old code was removed. This could break some modules, so if you are using a
+custom module or plugin that integrates with WordPoints, you should test before
+updating. WordPoints will attempt to detect incompatible modules when it is updated,
+and will deactivate them if necessary.
+
+##### Fixed
+
+- The modules-per-page setting on the Modules screen was not being saved. You could
+enter whatever value you wanted, but it wouldn't change a thing. You no longer have
+to feel like your site is ignoring you.
+- An error on the confirmation screen when attempting to delete a module. This would
+happen for most modules, preventing them from being deleted. Your modules are no
+longer permanent.
+- The points logs cache was not being cleaned in certain cases, like when a user was
+deleted. This would cause deleted logs to continue to display, if persistent caching
+was being used. Your days of being haunted by zombie points logs are over.
+- The `[wordpoints_user_rank]` shortcode wasn't using the default points type by
+default. You always had to use the `points_type` attribute. Now that your fingers
+won't be getting that extra exercise from typing, you may want to take them to the
+gym.
+- The loading spinner was not displaying on the Ranks screen while a rank was being
+saved. It's now back, so you can stare at the center of it and see if you get
+mesmerized.
+
 = 1.10.4 — (~2 hrs) =
 * Fixed: Users would see 0 instead of the correct number of points on the profile
 admin screen.
@@ -296,6 +336,12 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.0.0 =
+* This is a breaking update that includes emoji support, some bug fixes, and many
+internal code improvements in preparation for new features. Some old code has been
+removed, so you should test before upgrading if you are using your own custom
+modules.
+
 = 1.10.4 =
 * Fixes a bug that caused the number of points a non-admin user has to always be
 displayed to them as 0 on the profile screen.

@@ -25,7 +25,7 @@ define( 'WORDPOINTS_VERSION', '2.1.0-alpha-1' );
  *
  * @const WORDPOINTS_DIR
  */
-define( 'WORDPOINTS_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
+define( 'WORDPOINTS_DIR', dirname( dirname( __FILE__ ) ) . '/' );
 
 /**
  * The full URL to the plugin's main directory.

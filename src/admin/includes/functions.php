@@ -1,23 +1,11 @@
 <?php
 
 /**
- * Administration-side functions.
+ * Admin-side functions.
  *
- * This and the included files are run on the admin side only. They create all of
- * the main administration screens, enqueue scripts and styles where needed, etc.
- *
- * Note that each component has its own administration package also.
- *
- * @package WordPoints\Administration
- * @since 1.0.0
+ * @package WordPoints\Admin
+ * @since 2.1.0
  */
-
-/**
- * Screen: Configuration.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 /**
  * Get the slug of the main administration menu item for the plugin.
@@ -51,8 +39,8 @@ function wordpoints_get_main_admin_menu() {
  *
  * @since 1.0.0
  *
- * @action admin_menu
- * @action network_admin_menu
+ * @WordPress\action admin_menu
+ * @WordPress\action network_admin_menu
  */
 function wordpoints_admin_menu() {
 
@@ -121,8 +109,6 @@ function wordpoints_admin_menu() {
 		,'wordpoints_admin_screen_install_modules'
 	);
 }
-add_action( 'admin_menu', 'wordpoints_admin_menu' );
-add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
 
 /**
  * Display the modules admin screen.
@@ -144,8 +130,8 @@ function wordpoints_admin_screen_modules() {
  *
  * @since 1.1.0
  *
- * @action load-wordpoints_page_wordpoints_modules
- * @action load-toplevel_page_wordpoints_modules
+ * @WordPress\action load-wordpoints_page_wordpoints_modules
+ * @WordPress\action load-toplevel_page_wordpoints_modules
  */
 function wordpoints_admin_screen_modules_load() {
 
@@ -156,8 +142,6 @@ function wordpoints_admin_screen_modules_load() {
 	 */
 	require WORDPOINTS_DIR . 'admin/screens/modules-load.php';
 }
-add_action( 'load-wordpoints_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
-add_action( 'load-toplevel_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
 
 /**
  * Display the install modules admin screen.
@@ -179,7 +163,7 @@ function wordpoints_admin_screen_install_modules() {
  *
  * @since 1.5.0
  *
- * @action load-toplevel_page_wordpoints_configure
+ * @WordPress\action load-toplevel_page_wordpoints_configure
  */
 function wordpoints_admin_sreen_configure_load() {
 
@@ -190,7 +174,6 @@ function wordpoints_admin_sreen_configure_load() {
 	 */
 	require WORDPOINTS_DIR . 'admin/screens/configure-settings-load.php';
 }
-add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_sreen_configure_load' );
 
 /**
  * Activate/deactivate components.
@@ -200,7 +183,7 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_sreen_c
  *
  * @since 1.0.1
  *
- * @action load-toplevel_page_wordpoints_configure
+ * @WordPress\action load-toplevel_page_wordpoints_configure
  */
 function wordpoints_admin_activate_components() {
 
@@ -211,7 +194,6 @@ function wordpoints_admin_activate_components() {
 	 */
 	require WORDPOINTS_DIR . 'admin/screens/configure-components-load.php';
 }
-add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activate_components' );
 
 /**
  * Display an error message.
@@ -361,6 +343,8 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
  * Display the upload module from zip form.
  *
  * @since 1.1.0
+ *
+ * @WordPress\action wordpoints_install_modules-upload
  */
 function wordpoints_install_modules_upload() {
 
@@ -377,14 +361,13 @@ function wordpoints_install_modules_upload() {
 
 	<?php
 }
-add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upload', 10 );
 
 /**
- * Perfom module upload from .zip file.
+ * Perform module upload from .zip file.
  *
  * @since 1.1.0
  *
- * @action update-custom_upload-wordpoints-module
+ * @WordPress\action update-custom_upload-wordpoints-module
  */
 function wordpoints_upload_module_zip() {
 
@@ -424,7 +407,6 @@ function wordpoints_upload_module_zip() {
 
 	include ABSPATH . 'wp-admin/admin-footer.php';
 }
-add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
 
 /**
  * Notify the user when they try to install a module on the plugins screen.
@@ -436,6 +418,8 @@ add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_
  * if it is a module instead of a plugin.
  *
  * @since 1.9.0
+ *
+ * @WordPress\action upgrader_source_selection See above for more info.
  *
  * @param string|WP_Error $source The module source.
  *
@@ -490,15 +474,13 @@ function wordpoints_plugin_upload_error_filter( $source ) {
 
 	return $source;
 }
-add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 5 );
-add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 20 );
 
 /**
  * Add a sidebar to the general settings page.
  *
  * @since 1.1.0
  *
- * @action wordpoints_admin_settings_bottom 5 Before other items are added.
+ * @WordPress\action wordpoints_admin_settings_bottom 5 Before other items are added.
  */
 function wordpoints_admin_settings_screen_sidebar() {
 
@@ -519,12 +501,13 @@ function wordpoints_admin_settings_screen_sidebar() {
 
 	<?php
 }
-add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen_sidebar', 5 );
 
 /**
  * Display notices to the user on the administration panels.
  *
  * @since 1.8.0
+ *
+ * @WordPress\action admin_notices
  */
 function wordpoints_admin_notices() {
 
@@ -606,12 +589,13 @@ function wordpoints_admin_notices() {
 		}
 	}
 }
-add_action( 'admin_notices', 'wordpoints_admin_notices' );
 
 /**
  * Save the screen options.
  *
  * @since 2.0.0
+ *
+ * @WordPress\action set-screen-option
  *
  * @param mixed  $sanitized The sanitized option value, or false if not sanitized.
  * @param string $option    The option being saved.
@@ -627,12 +611,11 @@ function wordpoints_admin_set_screen_option( $sanitized, $option, $value ) {
 		case 'wordpoints_page_wordpoints_modules_network_per_page':
 		case 'toplevel_page_wordpoints_modules_per_page':
 			$sanitized = wordpoints_posint( $value );
-		break;
+			break;
 	}
 
 	return $sanitized;
 }
-add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
 
 /**
  * Ajax callback to load the modules admin screen when running module compat checks.
@@ -643,6 +626,8 @@ add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
  * present in a major version.
  *
  * @since 2.0.0
+ *
+ * @WordPress\action wp_ajax_nopriv_wordpoints_breaking_module_check
  */
 function wordpoints_admin_ajax_breaking_module_check() {
 
@@ -667,6 +652,5 @@ function wordpoints_admin_ajax_breaking_module_check() {
 
 	wp_die( '', 200 );
 }
-add_action( 'wp_ajax_nopriv_wordpoints_breaking_module_check', 'wordpoints_admin_ajax_breaking_module_check' );
 
 // EOF

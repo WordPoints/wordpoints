@@ -1,26 +1,18 @@
 <?php
 
 /**
- * Points component administration.
+ * Admin-side functions of the points component.
  *
- * This code is run only on the administration pages. It registers the points
- * administration panels, etc.
- *
- * @package WordPoints\Points\Administration
- * @since 1.0.0
+ * @package WordPoints\Points
+ * @since 2.1.0
  */
-
-/**
- * AJAX callbacks.
- *
- * @since 1.2.0
- */
-include_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
 
 /**
  * Register admin scripts.
  *
  * @since 1.7.0
+ *
+ * @WordPress\action init
  */
 function wordpoints_admin_register_scripts() {
 
@@ -49,22 +41,21 @@ function wordpoints_admin_register_scripts() {
 		, 'WordPointsHooksL10n'
 		, array(
 			'confirmDelete' => esc_html__( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
-				. ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
+			                   . ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
 			'confirmTitle'  => esc_html__( 'Are you sure?', 'wordpoints' ),
 			'deleteText'    => esc_html__( 'Delete', 'wordpoints' ),
 			'cancelText'    => esc_html__( 'Cancel', 'wordpoints' ),
 		)
 	);
 }
-add_action( 'init', 'wordpoints_admin_register_scripts' );
 
 /**
  * Add admin screens to the administration menu.
  *
  * @since 1.0.0
  *
- * @action admin_menu
- * @action network_admin_menu
+ * @WordPress\action admin_menu
+ * @WordPress\action network_admin_menu
  */
 function wordpoints_points_admin_menu() {
 
@@ -90,8 +81,6 @@ function wordpoints_points_admin_menu() {
 		,'wordpoints_points_admin_screen_logs'
 	);
 }
-add_action( 'admin_menu', 'wordpoints_points_admin_menu' );
-add_action( 'network_admin_menu', 'wordpoints_points_admin_menu' );
 
 /**
  * Display the points hooks admin page.
@@ -142,7 +131,7 @@ function wordpoints_points_admin_screen_logs() {
  *
  * @since 1.0.0
  *
- * @action load-wordpoints_page_wordpoints_points_hooks
+ * @WordPress\action load-wordpoints_page_wordpoints_points_hooks
  */
 function wordpoints_admin_points_hooks_help() {
 
@@ -153,12 +142,13 @@ function wordpoints_admin_points_hooks_help() {
 	 */
 	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-load.php';
 }
-add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_admin_points_hooks_help' );
 
 /**
  * Save points hooks from the non-JS form.
  *
  * @since 1.0.0
+ *
+ * @WordPress\action load-wordpoints_page_wordpoints_points_hooks
  */
 function wordpoints_no_js_points_hooks_save() {
 
@@ -173,14 +163,13 @@ function wordpoints_no_js_points_hooks_save() {
 	 */
 	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js-load.php';
 }
-add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_no_js_points_hooks_save' );
 
 /**
  * Add accessibility mode screen option to the points hooks page.
  *
  * @since 1.0.0
  *
- * @action screen_settings
+ * @WordPress\action screen_settings
  *
  * @param string    $screen_options The options for the screen.
  * @param WP_Screen $screen         The screen object.
@@ -203,15 +192,14 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 			}
 
 			$screen_options = '<p><a id="access-on" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=on">'
-				. esc_html__( 'Enable accessibility mode', 'wordpoints' )
-				. '</a><a id="access-off" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=off">'
-				. esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
-		break;
+			                  . esc_html__( 'Enable accessibility mode', 'wordpoints' )
+			                  . '</a><a id="access-off" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=off">'
+			                  . esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
+			break;
 	}
 
 	return $screen_options;
 }
-add_action( 'screen_settings', 'wordpoints_admin_points_hooks_screen_options', 10, 2 );
 
 /**
  * Filter the class of the points hooks page for accessibility mode.
@@ -220,7 +208,7 @@ add_action( 'screen_settings', 'wordpoints_admin_points_hooks_screen_options', 1
  *
  * @WordPress\filter admin_body_class Added when needed by wordpoints_admin_points_hooks_help()
  *
- * @param string $classes The body clases.
+ * @param string $classes The body classes.
  *
  * @return string The classes, with 'wordpoints_hooks_access' added.
  */
@@ -234,7 +222,7 @@ function wordpoints_points_hooks_access_body_class( $classes ) {
  *
  * @since 1.4.0
  *
- * @action wordpoints_in_points_hook_form
+ * @WordPress\action wordpoints_in_points_hook_form
  *
  * @param bool                   $has_form Whether this instance displayed a form.
  * @param array                  $instance The settings for this hook instance.
@@ -262,14 +250,13 @@ function wordpoints_points_hook_description_form( $has_form, $instance, $hook ) 
 
 	<?php
 }
-add_action( 'wordpoints_in_points_hook_form', 'wordpoints_points_hook_description_form', 10, 3 );
 
 /**
  * Display the user's points on their profile page.
  *
  * @since 1.0.0
  *
- * @action personal_options 20 Late so stuff doesn't end up in the wrong section.
+ * @WordPress\action personal_options 20 Late so stuff doesn't end up in the wrong section.
  *
  * @param WP_User $user The user object for the user being edited.
  */
@@ -333,27 +320,26 @@ function wordpoints_points_profile_options( $user ) {
 		<h3><?php echo esc_html( $heading ); ?></h3>
 
 		<table>
-			<tbody>
-				<?php foreach ( wordpoints_get_points_types() as $slug => $type ) : ?>
-					<tr>
-						<th scope="row" style="text-align: left;"><?php echo esc_html( $type['name'] ); ?></th>
-						<td style="text-align: right;"><?php wordpoints_display_points( $user->ID, $slug, 'profile_page' ); ?></td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
+		<tbody>
+		<?php foreach ( wordpoints_get_points_types() as $slug => $type ) : ?>
+			<tr>
+				<th scope="row" style="text-align: left;"><?php echo esc_html( $type['name'] ); ?></th>
+				<td style="text-align: right;"><?php wordpoints_display_points( $user->ID, $slug, 'profile_page' ); ?></td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
 
 		<?php
 	}
 }
-add_action( 'personal_options', 'wordpoints_points_profile_options', 20 );
 
 /**
  * Save the user's points on profile edit.
  *
  * @since 1.0.0
  *
- * @action personal_options_update  User editing own profile.
- * @action edit_user_profile_update Other users editing profile.
+ * @WordPress\action personal_options_update  User editing own profile.
+ * @WordPress\action edit_user_profile_update Other users editing profile.
  *
  * @param int $user_id The ID of the user being edited.
  *
@@ -397,8 +383,6 @@ function wordpoints_points_profile_options_update( $user_id ) {
 		}
 	}
 }
-add_action( 'personal_options_update', 'wordpoints_points_profile_options_update' );
-add_action( 'edit_user_profile_update', 'wordpoints_points_profile_options_update' );
 
 /**
  * Add settings to the top of the admin settings form.
@@ -407,7 +391,7 @@ add_action( 'edit_user_profile_update', 'wordpoints_points_profile_options_updat
  *
  * @since 1.0.0
  *
- * @action wordpoints_admin_settings_top
+ * @WordPress\action wordpoints_admin_settings_top
  */
 function wordpoints_points_admin_settings() {
 
@@ -438,14 +422,13 @@ function wordpoints_points_admin_settings() {
 
 	<?php
 }
-add_action( 'wordpoints_admin_settings_top', 'wordpoints_points_admin_settings' );
 
 /**
  * Save settings on general settings panel.
  *
  * @since 1.0.0
  *
- * @action wordpoints_admin_settings_update
+ * @WordPress\action wordpoints_admin_settings_update
  */
 function wordpoints_points_admin_settings_save() {
 
@@ -466,12 +449,13 @@ function wordpoints_points_admin_settings_save() {
 		}
 	}
 }
-add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_settings_save' );
 
 /**
  * Display notices to the user on the administration panels.
  *
  * @since 1.9.0
+ *
+ * @WordPress\action admin_notices
  */
 function wordpoints_points_admin_notices() {
 
@@ -489,6 +473,5 @@ function wordpoints_points_admin_notices() {
 		);
 	}
 }
-add_action( 'admin_notices', 'wordpoints_points_admin_notices' );
 
 // EOF

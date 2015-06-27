@@ -15,7 +15,7 @@ Gamify your site with points.
 = Features =
 
 This plugin lets you create one or multiple types of points which you can use to
-reward your users by "hooking into" different user actions. WordPoints also includes
+reward your users by "hooking into" different user actions. It also includes
 a Ranks component, which lets you create ranks for your users based on how many
 points they have.
 
@@ -45,14 +45,19 @@ More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
 
 Also on the plugin's website, you can [browse the available extensions](http://wordpoints.org/modules/),
-called "modules". We've just added [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/).
+called "modules". There's [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/),
+one that [integrates with WooCommerce](http://wordpoints.org/modules/woocommerce/),
+and another that let's you [reset your users' points](http://wordpoints.org/modules/reset-points/).
+More are being added regularly, so take a look to see what is new.
 
 = Translations =
 
 WordPoints is fully translatable, and translations are already available in several
 languages:
 
+* **(el) Greek**
 * **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
+* **(lt) Lithuanian**
 * **(ja) Japanese** — Thanks to Raymond Calla.
 * **(pt_BR) Brazilian Portuguese** — Thanks goes to Gabriel Galvão ([@threadsgeneration](https://profiles.wordpress.org/threadsgeneration)).
 * **(zh_CN) Simplified Chinese** — Thanks to Jack Lee ([@suifengtec](https://profiles.wordpress.org/suifengtec)).
@@ -169,8 +174,8 @@ admin screen.
 = 1.10.3 - (~10 hrs) =
 * Fixed: Closes 2 potential SQL injection vulnerabilities in the points logs query
 code. These are not exploitable within WordPoints itself, however, it is possible
-that they could be exploited through custom code if it passes untrusted data to the
-`points__compare` or `text__compare` query args.
+that they could be exploited through custom code if it passes untrusted data to
+the `points__compare` or `text__compare` query args.
 * Fixed: Avoids the potential for directory listing of the modules directory on
 improperly configured servers.
 * Fixed: Closes any potential XSS vulnerabilities through developer error messages

@@ -20,13 +20,6 @@
 include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 /**
- * Deprecated administration-side code.
- *
- * @since 1.7.0
- */
-include_once WORDPOINTS_DIR . 'admin/includes/deprecated.php';
-
-/**
  * Get the slug of the main administration menu item for the plugin.
  *
  * The main item changes in multisite when the plugin is network activated. In the

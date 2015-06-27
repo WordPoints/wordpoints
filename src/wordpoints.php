@@ -62,13 +62,6 @@ include_once dirname( __FILE__ ) . '/includes/constants.php';
 include_once WORDPOINTS_DIR . 'includes/functions.php';
 
 /**
- * Registers scripts and styles.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'includes/scripts.php';
-
-/**
  * Installables class.
  *
  * @since 2.0.0

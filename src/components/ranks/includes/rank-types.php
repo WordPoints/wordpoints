@@ -14,13 +14,4 @@
  */
 include_once( WORDPOINTS_DIR . '/components/ranks/includes/rank-types/base.php' );
 
-/**
- * Register the included rank types.
- *
- * @since 1.7.0
- *
- * @WordPress\action wordpoints_ranks_register
- */
-function wordpoints_register_core_ranks() {}
-
 // EOF

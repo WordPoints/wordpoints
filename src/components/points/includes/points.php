@@ -1323,4 +1323,20 @@ function wordpoints_clean_points_top_users_cache_user_deleted( $user_id ) {
 	}
 }
 
+/**
+ * Register the points hooks.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_points_hooks_register
+ */
+function wordpoints_register_points_hooks() {
+
+	WordPoints_Points_Hooks::register( 'WordPoints_Comment_Received_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Comment_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Periodic_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Registration_Points_Hook' );
+}
+
 // EOF

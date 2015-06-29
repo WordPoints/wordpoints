@@ -7,9 +7,6 @@
  * @since 1.4.0
  */
 
-// Register the periodic hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Periodic_Points_Hook' );
-
 /**
  * Periodic points hook.
  *

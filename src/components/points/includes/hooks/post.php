@@ -7,9 +7,6 @@
  * @since 1.4.0
  */
 
-// Register the post hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
-
 /**
  * Post points hook.
  *

@@ -7,8 +7,6 @@
  * @since 1.8.0
  */
 
-WordPoints_Points_Hooks::register( 'WordPoints_Comment_Received_Points_Hook' );
-
 /**
  * Comment received points hook.
  *

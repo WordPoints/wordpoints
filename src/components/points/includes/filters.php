@@ -35,6 +35,8 @@ add_action( 'wordpoints_modules_loaded', 'WordPoints_Points_Hooks::initialize_ho
 
 add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 
+add_action( 'wordpoints_points_hooks_register', 'wordpoints_register_points_hooks' );
+
 if ( ! is_multisite() || is_wordpoints_network_active() ) {
 	add_action( 'deleted_user', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 } else {

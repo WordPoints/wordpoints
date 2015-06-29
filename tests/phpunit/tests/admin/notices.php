@@ -74,13 +74,13 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
-	 * Test that it displays an update notice by default.
+	 * Test that it displays an success notice by default.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @covers ::wordpoints_show_admin_message
 	 */
-	public function test_displays_update_notice() {
+	public function test_displays_success_notice() {
 
 		$message = 'Testing.';
 
@@ -90,7 +90,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 
 		$this->assertStringMatchesFormat( "%a{$message}%a", $notice );
 
-		$this->assertWordPointsAdminNotice( $notice, array( 'type' => 'updated' ) );
+		$this->assertWordPointsAdminNotice( $notice, array( 'type' => 'success' ) );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		ob_start();
 		wordpoints_show_admin_message(
 			$message
-			, 'updated'
+			, 'success'
 			, array( 'dismissible' => true )
 		);
 		$notice = ob_get_clean();
@@ -151,7 +151,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		ob_start();
 		wordpoints_show_admin_message(
 			$message
-			, 'updated'
+			, 'success'
 			, array( 'dismissible' => true, 'option' => 'test' )
 		);
 		$notice = ob_get_clean();
@@ -180,7 +180,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		ob_start();
 		wordpoints_show_admin_message(
 			$message
-			, 'updated'
+			, 'success'
 			, array( 'dismissable' => true )
 		);
 		$notice = ob_get_clean();
@@ -188,6 +188,31 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		$this->assertStringMatchesFormat( "%a{$message}%a", $notice );
 
 		$this->assertWordPointsAdminNotice( $notice, array( 'dismissible' => true ) );
+	}
+
+	/**
+	 * Test that the 'updated' notice type is deprecated.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_show_admin_message
+	 *
+	 * @expectedDeprecated wordpoints_show_admin_message
+	 */
+	public function test_updated_type_deprecated() {
+
+		$message = 'Testing.';
+
+		ob_start();
+		wordpoints_show_admin_message(
+			$message
+			, 'updated'
+		);
+		$notice = ob_get_clean();
+
+		$this->assertStringMatchesFormat( "%a{$message}%a", $notice );
+
+		$this->assertWordPointsAdminNotice( $notice, array( 'type' => 'success' ) );
 	}
 
 	/**

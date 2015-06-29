@@ -782,7 +782,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 
-		$messages = $xpath->query( '//div[@id = "message"]' );
+		$messages = $xpath->query( '//div[contains(@class, "notice")]' );
 
 		$this->assertEquals( 1, $messages->length );
 
@@ -791,7 +791,7 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		if ( isset( $args['type'] ) ) {
 
 			$this->assertStringMatchesFormat(
-				$args['type']
+				"%Snotice-{$args['type']}%S"
 				, $message->attributes->getNamedItem( 'class' )->nodeValue
 			);
 		}

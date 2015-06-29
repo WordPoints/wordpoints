@@ -20,10 +20,6 @@ function wordpoints-dev-lib-config() {
 	if [[ $DO_CODE_COVERAGE == 1 ]]; then
 		alias phpunit-ms-network='phpunit-ms-network; composer remove --dev jdgrimes/wp-filesystem-mock'
 	fi
-
-	if [[ $TRAVIS_PHP_VERSION == nightly ]]; then
-		alias setup-phpunit='setup-phpunit; wget -O /tmp/31982.1.diff https://core.trac.wordpress.org/raw-attachment/ticket/31982/31982.1.diff; cd $WP_DEVELOP_DIR; patch -p0 < /tmp/31982.1.diff; cd -'
-	fi
 }
 
 # EOF

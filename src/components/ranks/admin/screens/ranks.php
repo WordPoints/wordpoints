@@ -29,7 +29,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 
 	<?php wordpoints_admin_show_tabs( wp_list_pluck( $rank_groups, 'name' ), false ) ?>
 
-	<div id="message" class="error" style="display: none;">
+	<div id="message" class="error hidden">
 		<p></p>
 	</div>
 

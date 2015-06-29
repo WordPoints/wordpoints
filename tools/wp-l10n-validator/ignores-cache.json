@@ -131,6 +131,11 @@
                 "parentheses": 1
             }
         },
+        "hidden": {
+            "555": false,
+            "564": false,
+            "623": false
+        },
         "second module-version-author-uri\">": {
             "574": false
         },
@@ -176,7 +181,7 @@
     },
     "\/components\/points\/admin\/includes\/ajax.php": {
         "deleted:": {
-            "209": {
+            "208": {
                 "name": "esc_html",
                 "type": "unknown",
                 "args_started": true,
@@ -201,31 +206,31 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
         "network": {
-            "185": false
+            "179": false
         },
         "standard": {
-            "185": false
+            "179": false
         },
         "multi": {
-            "286": false
+            "280": false
         },
         "template": {
-            "287": false
+            "281": false
         },
         "instance": {
-            "338": false
+            "332": false
         },
         "site": {
-            "393": false
+            "387": false
         },
         "default": {
-            "395": false
+            "389": false
         },
         ":": {
-            "557": false
+            "551": false
         },
         "points-": {
-            "634": {
+            "628": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -234,7 +239,7 @@
             }
         },
         "-save": {
-            "634": {
+            "628": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -243,10 +248,10 @@
             }
         },
         "\" class=\"hook": {
-            "707": false
+            "701": false
         },
         "-savehook": {
-            "740": {
+            "734": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -303,10 +308,10 @@
             }
         },
         "utf8": {
-            "1023": false
+            "1026": false
         },
         "text": {
-            "1023": {
+            "1026": {
                 "name": "$wpdb->get_col_charset",
                 "type": "unknown",
                 "args_started": true,
@@ -315,7 +320,7 @@
             }
         },
         "capabilities'": {
-            "1096": false
+            "1099": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -331,7 +336,7 @@
     },
     "\/components\/points\/includes\/widgets.php": {
         "points": {
-            "159": {
+            "158": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -340,19 +345,19 @@
             }
         },
         ": %points%": {
-            "194": false
+            "193": false
         },
         "1": {
-            "415": false,
-            "517": false
+            "414": false,
+            "516": false
         }
     },
     "\/includes\/functions.php": {
         "-1": {
-            "685": false
+            "675": false
         },
         "points": {
-            "962": {
+            "951": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -361,7 +366,7 @@
             }
         },
         "ranks": {
-            "987": {
+            "975": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -567,7 +572,7 @@
     },
     "\/components\/points\/includes\/hooks\/periodic.php": {
         "daily": {
-            "30": {
+            "27": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -576,7 +581,7 @@
             }
         },
         "widefat wordpoints-append-to-hook-title": {
-            "231": {
+            "228": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -861,13 +866,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1233": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1238": {
                 "name": "array",
                 "type": "unknown",
@@ -882,20 +880,6 @@
             "382": false,
             "492": false,
             "1198": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1231": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1233": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -921,27 +905,6 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1231": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1232": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1233": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1238": {
                 "name": "array",
                 "type": "unknown",
@@ -957,12 +920,9 @@
             "436": false
         },
         "manage": {
-            "1146": false,
-            "1147": false,
             "1148": false
         },
         "columnshidden": {
-            "1146": false,
             "1147": false
         },
         "-networkcolumnshidden": {
@@ -1042,7 +1002,7 @@
             }
         },
         "<?php \/\/ Gold is silent.": {
-            "257": {
+            "260": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -1051,7 +1011,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "262": false
+            "265": false
         }
     },
     "\/includes\/class-widget.php": {
@@ -1255,16 +1215,52 @@
             "20": false
         },
         ".maintenance": {
-            "89": false
+            "103": false
         },
         "<?php $upgrading =": {
-            "93": false
+            "107": false
         },
         "; include( \"": {
-            "93": false
+            "107": false
         },
         "\/includes\/maintenance.php\" ); ?>": {
-            "93": false
+            "107": false
+        }
+    },
+    "\/admin\/includes\/functions.php": {
+        "upload": {
+            "397": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/admin\/includes\/functions.php": {
+        "1": {
+            "290": false
+        }
+    },
+    "\/components\/ranks\/admin\/includes\/functions.php": {
+        "adding-editing": {
+            "109": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "deleting": {
+            "120": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         }
     }
 }

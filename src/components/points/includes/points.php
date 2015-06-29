@@ -1265,7 +1265,7 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
  *
  * @since 1.5.0
  *
- * @action wordpoints_points_altered
+ * @WordPress\action wordpoints_points_altered
  *
  * @param int    $user_id     The ID of the user being awarded points. Not used.
  * @param int    $points      The number of points. Not used.
@@ -1275,12 +1275,13 @@ function wordpoints_clean_points_top_users_cache( $user_id, $points, $points_typ
 
 	wp_cache_delete( $points_type, 'wordpoints_points_top_users' );
 }
-add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cache', 10, 3 );
 
 /**
  * Clear the top users cache when a new user is added, if needed.
  *
  * @since 1.10.2
+ *
+ * @WordPress\action user_register
  */
 function wordpoints_clean_points_top_users_cache_user_register() {
 
@@ -1296,12 +1297,14 @@ function wordpoints_clean_points_top_users_cache_user_register() {
 		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
 	}
 }
-add_action( 'user_register', 'wordpoints_clean_points_top_users_cache_user_register' );
 
 /**
  * Clear the top users cache when a user is deleted.
  *
  * @since 1.10.2
+ *
+ * @WordPress\action deleted_user          On non-multisite or when network-active.
+ * @WordPress\action remove_user_from_blog When not network-active on multisite.
  *
  * @param int $user_id The ID of the user who was deleted.
  */
@@ -1318,11 +1321,6 @@ function wordpoints_clean_points_top_users_cache_user_deleted( $user_id ) {
 
 		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
 	}
-}
-if ( ! is_multisite() || is_wordpoints_network_active() ) {
-	add_action( 'deleted_user', 'wordpoints_clean_points_top_users_cache_user_deleted' );
-} else {
-	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
 
 // EOF

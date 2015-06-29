@@ -609,7 +609,7 @@ function wordpoints_show_points_logs_query( $points_type, $query_slug = 'default
  *
  * @since 1.0.0
  *
- * @action wordpoints_register_points_logs_queries
+ * @WordPress\action wordpoints_register_points_logs_queries
  */
 function wordpoints_register_default_points_logs_queries() {
 
@@ -641,12 +641,13 @@ function wordpoints_register_default_points_logs_queries() {
 		)
 	);
 }
-add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_default_points_logs_queries' );
 
 /**
  * Admin manage logs render.
  *
  * @since 1.0.0
+ *
+ * @WordPress\action wordpoints_points_log-profile_edit
  */
 function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -654,12 +655,13 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 
 	return sprintf( _x( 'Points adjusted by %s. Reason: %s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
 }
-add_action( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
 
 /**
  * Generate the log entry for a comment_disapprove transaction.
  *
  * @since 1.9.0
+ *
+ * @WordPress\action wordpoints_points_log-comment_disapprove
  */
 function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -679,12 +681,13 @@ function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type
 
 	return $text;
 }
-add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
 
 /**
  * Generate the log entry for a post_delete transaction.
  *
  * @since 1.9.0
+ *
+ * @WordPress\action wordpoints_points_log-post_delete
  */
 function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -704,7 +707,6 @@ function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user
 
 	return _x( 'Post deleted.', 'points log description', 'wordpoints' );
 }
-add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 
 /**
  * Clear the logs caches when new logs are added.
@@ -713,7 +715,7 @@ add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_de
  *
  * @since 1.5.0
  *
- * @action wordpoints_points_altered
+ * @WordPress\action wordpoints_points_altered
  *
  * @param int    $user_id     The ID of the user being awarded points.
  * @param int    $points      The number of points. Not used.
@@ -725,7 +727,6 @@ function wordpoints_clean_points_logs_cache( $user_id, $points, $points_type ) {
 		array( 'user_id' => $user_id, 'points_type' => $points_type )
 	);
 }
-add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
 
 /**
  * Flush the points logs caches.

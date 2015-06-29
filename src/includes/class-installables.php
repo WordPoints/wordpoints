@@ -432,8 +432,5 @@ final class WordPoints_Installables {
 		}
 	}
 }
-add_action( 'wordpoints_modules_loaded', 'WordPoints_Installables::maybe_do_updates', 5 );
-add_action( 'admin_notices', 'WordPoints_Installables::admin_notices' );
-add_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 
 // EOF

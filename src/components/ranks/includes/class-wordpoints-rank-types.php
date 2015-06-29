@@ -163,6 +163,5 @@ final class WordPoints_Rank_Types {
 		do_action( 'wordpoints_ranks_registered' );
 	}
 }
-add_action( 'wordpoints_modules_loaded', 'WordPoints_Rank_Types::init' );
 
 // EOF

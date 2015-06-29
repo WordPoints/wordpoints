@@ -22,6 +22,5 @@ include_once( WORDPOINTS_DIR . '/components/ranks/includes/rank-types/base.php' 
  * @WordPress\action wordpoints_ranks_register
  */
 function wordpoints_register_core_ranks() {}
-add_action( 'wordpoints_ranks_register', 'wordpoints_register_core_ranks' );
 
 // EOF

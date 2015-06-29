@@ -31,4 +31,7 @@ add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_setting
 
 add_action( 'admin_notices', 'wordpoints_points_admin_notices' );
 
+add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hooks_order' );
+add_action( 'wp_ajax_save-wordpoints-points-hook', 'wordpoints_ajax_save_points_hook' );
+
 // EOF

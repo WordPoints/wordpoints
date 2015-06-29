@@ -404,7 +404,7 @@ switch ( $action ) {
 				</form>
 
 				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
-				<div id="files-list" style="display:none;">
+				<div id="files-list" class="hidden">
 					<ul class="code">
 						<?php foreach ( (array) $files_to_delete as $file ) : ?>
 							<li><?php echo esc_html( str_replace( $module_dir, '', $file ) ); ?></li>

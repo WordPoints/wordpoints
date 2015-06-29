@@ -33,13 +33,12 @@ add_action( 'user_register', 'wordpoints_clean_points_top_users_cache_user_regis
 
 add_action( 'wordpoints_modules_loaded', 'WordPoints_Points_Hooks::initialize_hooks' );
 
+add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
+
 if ( ! is_multisite() || is_wordpoints_network_active() ) {
 	add_action( 'deleted_user', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 } else {
 	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
-
-add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
-
 
 // EOF

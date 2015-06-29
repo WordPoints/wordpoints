@@ -108,6 +108,13 @@ include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
 include_once WORDPOINTS_DIR . 'includes/class-widget.php';
 
 /**
+ * Action and filter hooks.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'includes/filters.php';
+
+/**
  * Deprecated functions.
  *
  * @since 1.1.0
@@ -127,18 +134,5 @@ if ( is_admin() ) {
 	 */
 	include_once WORDPOINTS_DIR . 'admin/admin.php';
 }
-
-/**
- * Load the plugin's textdomain.
- *
- * @since 1.1.0
- *
- * @action plugins_loaded
- */
-function wordpoints_load_textdomain() {
-
-	load_plugin_textdomain( 'wordpoints', false, plugin_basename( WORDPOINTS_DIR ) . '/languages/' );
-}
-add_action( 'plugins_loaded', 'wordpoints_load_textdomain' );
 
 // EOF

@@ -12,8 +12,8 @@
  *
  * @since 1.0.0
  *
- * @action wp_enqueue_scripts 5 Register scripts before default enqueue (10).
- * @action admin_enqueue_scripts 5 Register admin scripts so they are ready on 10.
+ * @WordPress\action wp_enqueue_scripts    5 So they are ready on enqueue (10).
+ * @WordPress\action admin_enqueue_scripts 5 So they are ready on enqueue (10).
  */
 function wordpoints_points_register_scripts() {
 
@@ -33,8 +33,6 @@ function wordpoints_points_register_scripts() {
 		,WORDPOINTS_VERSION
 	);
 }
-add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
-add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 
 /**
  * Get the custom caps added by the points component.
@@ -57,8 +55,8 @@ function wordpoints_points_get_custom_caps() {
  *
  * @since 1.0.0
  *
- * @filter wordpoints_format_points 5 Runs before default of 10, but you should
- *         remove the filter if you will always be overriding it.
+ * @WordPress\filter wordpoints_format_points 5 Runs before default of 10, but you
+ *                   should remove the filter if you will always be overriding it.
  *
  * @param string $formatted The formatted points value.
  * @param int    $points    The raw points value.
@@ -83,7 +81,6 @@ function wordpoints_format_points_filter( $formatted, $points, $type ) {
 
 	return $formatted;
 }
-add_filter( 'wordpoints_format_points', 'wordpoints_format_points_filter', 5, 3 );
 
 /**
  * Display a dropdown of points types.
@@ -119,7 +116,7 @@ function wordpoints_points_types_dropdown( array $args ) {
  *
  * @since 1.2.0
  *
- * @action deleted_user
+ * @WordPress\action deleted_user
  *
  * @param int $user_id The ID of the user just deleted.
  */
@@ -156,14 +153,13 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 
 	wordpoints_flush_points_logs_caches( array( 'user_id' => $user_id ) );
 }
-add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 
 /**
  * Delete logs and meta for a blog when it is deleted.
  *
  * @since 1.2.0
  *
- * @action delete_blog
+ * @WordPress\action delete_blog
  *
  * @param int $blog_id The ID of the blog being deleted.
  */
@@ -187,14 +183,13 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 
 	wordpoints_flush_points_logs_caches();
 }
-add_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
 
 /**
  * Display a message with a points type's settings when it uses a custom meta key.
  *
  * @since 1.3.0
  *
- * @action wordpoints_points_type_form_top
+ * @WordPress\action wordpoints_points_type_form_top
  *
  * @param string $points_type The type of points the settings are being shown for.
  */
@@ -206,14 +201,13 @@ function wordpoints_points_settings_custom_meta_key_message( $points_type ) {
 		echo '<p>' . esc_html( sprintf( __( 'This points type uses a custom meta key: %s', 'wordpoints' ), $custom_key ) ) . '</p>';
 	}
 }
-add_action( 'wordpoints_points_type_form_top', 'wordpoints_points_settings_custom_meta_key_message' );
 
 /**
  * Show a message on the points logs admin panel when a type uses a custom meta key.
  *
  * @since 1.3.0
  *
- * @action wordpoints_admin_points_logs_tab
+ * @WordPress\action wordpoints_admin_points_logs_tab
  *
  * @param string $points_type The type of points whose logs are being displayed.
  */
@@ -229,14 +223,14 @@ function wordpoints_points_logs_custom_meta_key_message( $points_type ) {
 		wordpoints_show_admin_error( esc_html( sprintf( __( 'This points type uses a custom meta key (&#8220;%s&#8221;). If this key is also used by another plugin, changes made by it will not be logged. Only transactions performed by WordPoints are included in the logs.', 'wordpoints' ), $custom_key ) ) );
 	}
 }
-add_action( 'wordpoints_admin_points_logs_tab', 'wordpoints_points_logs_custom_meta_key_message' );
 
 /**
  * Register the global cache groups used by this component.
  *
  * @since 1.5.0
  *
- * @action init 5 Earlier than the default so that the groups will be registered.
+ * @WordPress\action init 5 Earlier than the default so that the groups will be
+ *                          registered before any other code runs.
  */
 function wordpoints_points_add_global_cache_groups() {
 
@@ -254,6 +248,5 @@ function wordpoints_points_add_global_cache_groups() {
 		wp_cache_add_global_groups( $groups );
 	}
 }
-add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
 
 // EOF

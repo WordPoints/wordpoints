@@ -7,9 +7,6 @@
  * @since 1.4.0
  */
 
-// Register the comment hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Comment_Points_Hook' );
-
 /**
  * Comment points hook.
  *

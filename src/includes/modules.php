@@ -1137,7 +1137,7 @@ function wordpoints_uninstall_module( $module ) {
  *
  * @since 1.1.0
  *
- * @action plugins_loaded 15 After components.
+ * @WordPress\action plugins_loaded 15 After components.
  *
  * @return void
  */
@@ -1185,7 +1185,6 @@ function wordpoints_load_modules() {
 	 */
 	do_action( 'wordpoints_modules_loaded' );
 }
-add_action( 'plugins_loaded', 'wordpoints_load_modules', 15 );
 
 /**
  * Register a function as the callback on module activation.

@@ -29,7 +29,6 @@ function wordpoints_register_installer() {
 		)
 	);
 }
-add_action( 'plugins_loaded', 'wordpoints_register_installer' );
 
 /**
  * Install the plugin on activation.
@@ -47,7 +46,6 @@ function wordpoints_activate( $network_active ) {
 
 	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
 }
-register_activation_hook( __FILE__, 'wordpoints_activate' );
 
 /**
  * Check module compatibility before breaking updates.
@@ -87,7 +85,6 @@ function wordpoints_breaking_update() {
 	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
 	$updater->update();
 }
-add_action( 'plugins_loaded', 'wordpoints_breaking_update' );
 
 /**
  * Prints the random string stored in the database.
@@ -127,6 +124,12 @@ function wordpoints_maintenance_shutdown_print_rand_str() {
  *
  * @since 2.0.0
  *
+ * @WordPress\filter pre_option_wordpoints_active_modules Only when checking module
+ *                   compatibility during a breaking update.
+ * @WordPress\filter pre_site_option_wordpoints_sitewide_active_modules Only when
+ *                   checking module compatibility during a breaking update. Only in
+ *                   the network admin.
+ *
  * @param array $modules The active modules.
  *
  * @return array The modules whose compatibility is being checked.
@@ -157,19 +160,6 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 	}
 
 	return $modules;
-}
-
-if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
-
-	add_action( 'shutdown', 'wordpoints_maintenance_shutdown_print_rand_str' );
-
-	if ( is_network_admin() ) {
-		$filter = 'pre_site_option_wordpoints_sitewide_active_modules';
-	} else {
-		$filter = 'pre_option_wordpoints_active_modules';
-	}
-
-	add_filter( $filter, 'wordpoints_maintenance_filter_modules' );
 }
 
 //
@@ -920,7 +910,7 @@ function wordpoints_remove_custom_caps( $capabilities ) {
  *
  * @since 1.4.0
  *
- * @filter map_meta_cap
+ * @WordPress\filter map_meta_cap
  *
  * @param array  $caps    The user's capabilities.
  * @param string $cap     The current capability in question.
@@ -944,14 +934,13 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
 	return $caps;
 }
-add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 3 );
 
 /**
  * Register the points component.
  *
  * @since 1.0.0
  *
- * @action wordpoints_components_register
+ * @WordPress\action wordpoints_components_register
  *
  * @uses wordpoints_component_register()
  */
@@ -971,14 +960,13 @@ function wordpoints_points_component_register() {
 		)
 	);
 }
-add_action( 'wordpoints_components_register', 'wordpoints_points_component_register' );
 
 /**
  * Register the ranks component.
  *
  * @since 1.7.0
  *
- * @action wordpoints_components_register
+ * @WordPress\action wordpoints_components_register
  */
 function wordpoints_ranks_component_register() {
 
@@ -996,12 +984,13 @@ function wordpoints_ranks_component_register() {
 		)
 	);
 }
-add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
 
 /**
  * Initialize the plugin's cache groups.
  *
  * @since 1.10.0
+ *
+ * @WordPress\action init
  */
 function wordpoints_init_cache_groups() {
 
@@ -1009,7 +998,6 @@ function wordpoints_init_cache_groups() {
 		wp_cache_add_non_persistent_groups( array( 'wordpoints_modules' ) );
 	}
 }
-add_action( 'init', 'wordpoints_init_cache_groups', 5 );
 
 /**
  * Register scripts and styles.
@@ -1020,11 +1008,21 @@ add_action( 'init', 'wordpoints_init_cache_groups', 5 );
  *
  * @since 1.0.0
  *
- * @action wp_enqueue_scripts    5 Front-end scripts enqueued.
- * @action admin_enqueue_scripts 5 Admin scripts enqueued.
+ * @WordPress\action wp_enqueue_scripts    5 Front-end scripts enqueued.
+ * @WordPress\action admin_enqueue_scripts 5 Admin scripts enqueued.
  */
 function wordpoints_register_scripts() {}
-add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
-add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
+
+/**
+ * Load the plugin's textdomain.
+ *
+ * @since 1.1.0
+ *
+ * @WordPress\action plugins_loaded
+ */
+function wordpoints_load_textdomain() {
+
+	load_plugin_textdomain( 'wordpoints', false, plugin_basename( WORDPOINTS_DIR ) . '/languages/' );
+}
 
 // EOF

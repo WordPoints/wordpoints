@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * Admin-side filter and action hooks.
+ *
+ * @package WordPoints\Admin
+ * @since 2.1.0
+ */
+
+add_action( 'admin_menu', 'wordpoints_admin_menu' );
+add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
+
+add_action( 'load-wordpoints_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
+add_action( 'load-toplevel_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
+
+add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_sreen_configure_load' );
+
+add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activate_components' );
+
+add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upload' );
+
+add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
+
+add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 5 );
+add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 20 );
+
+add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen_sidebar', 5 );
+
+add_action( 'admin_notices', 'wordpoints_admin_notices' );
+
+add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
+
+add_action( 'wp_ajax_nopriv_wordpoints_breaking_module_check', 'wordpoints_admin_ajax_breaking_module_check' );
+
+// EOF

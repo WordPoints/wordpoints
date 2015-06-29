@@ -120,6 +120,13 @@ include_once WORDPOINTS_DIR . 'components/points/includes/widgets.php';
 include_once WORDPOINTS_DIR . 'components/points/includes/logs.php';
 
 /**
+ * Action and filter hooks.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/filters.php';
+
+/**
  * Deprecated functions and classes.
  *
  * @since 1.2.0

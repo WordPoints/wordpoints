@@ -9,9 +9,6 @@
  * @since 1.0.0
  */
 
-// Initialise the class.
-WordPoints_Points_Hooks::init();
-
 /**
  * Points hooks class.
  *
@@ -98,13 +95,10 @@ final class WordPoints_Points_Hooks {
 	 * Initialize the class.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @uses add_action() To hook the initialize_hooks() method to the {@see
-	 *       'wordpoints_modules_loaded'} action.
+	 * @deprecated 2.1.0
 	 */
 	public static function init() {
-
-		add_action( 'wordpoints_modules_loaded', array( __CLASS__, 'initialize_hooks' ) );
+		_deprecated_function( __METHOD__, '2.1.0' );
 	}
 
 	/**

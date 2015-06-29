@@ -43,7 +43,7 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitT
 			 *
 			 * @since 1.3.0
 			 */
-			require_once( WORDPOINTS_DIR . '/components/points/admin/includes/ajax.php' );
+			require_once( WORDPOINTS_DIR . '/components/points/admin/admin.php' );
 
 			self::$included_functions = true;
 

@@ -12,7 +12,7 @@
  *
  * @since 1.0.0
  *
- * @action wp_ajax_wordpoints-points-hooks-order
+ * @WordPress\action wp_ajax_wordpoints-points-hooks-order
  */
 function wordpoints_ajax_points_hooks_order() {
 
@@ -72,14 +72,13 @@ function wordpoints_ajax_points_hooks_order() {
 
 	wp_die( 1, '', array( 'response' => 200 ) );
 }
-add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hooks_order' );
 
 /**
  * Save points hook settings via AJAX.
  *
  * @since 1.0.0
  *
- * @action wp_ajax_save-wordpoints-points-hook
+ * @WordPress\action wp_ajax_save-wordpoints-points-hook
  */
 function wordpoints_ajax_save_points_hook() {
 
@@ -247,6 +246,5 @@ function wordpoints_ajax_save_points_hook() {
 
 	wp_die( '', '', array( 'response' => 200 ) );
 }
-add_action( 'wp_ajax_save-wordpoints-points-hook', 'wordpoints_ajax_save_points_hook' );
 
 // EOF

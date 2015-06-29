@@ -64,6 +64,13 @@ include_once WORDPOINTS_DIR . 'components/ranks/includes/class-wordpoints-rank-g
 include_once WORDPOINTS_DIR . 'components/ranks/includes/rank-types.php';
 
 /**
+ * Action and filter hooks.
+ *
+ * @since 1.7.0
+ */
+include_once WORDPOINTS_DIR . 'components/ranks/includes/filters.php';
+
+/**
  * Ranks shortcodes.
  *
  * @since 1.8.0

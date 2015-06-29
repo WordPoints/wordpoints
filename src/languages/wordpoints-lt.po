@@ -5,15 +5,17 @@ msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-02-27 21:33:55+00:00\n"
+"PO-Revision-Date: 2015-06-22 19:24+0200\n"
+"Last-Translator: Rimantas <info@auksinas.lt>\n"
+"Language-Team: Lithuanian "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/lt/>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-02-27 21:33:55+00:00\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 1.10.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
@@ -24,7 +26,7 @@ msgstr ""
 
 #: admin/admin.php:87
 msgid "WordPoints — Configure"
-msgstr ""
+msgstr "WordPoints - Konfigūracija"
 
 #: admin/admin.php:88
 msgid "Configure"
@@ -32,23 +34,23 @@ msgstr ""
 
 #: admin/admin.php:114
 msgid "WordPoints — Modules"
-msgstr ""
+msgstr "WordPoints - Moduliai"
 
 #: admin/admin.php:115
 msgid "Modules"
-msgstr ""
+msgstr "Moduliai"
 
 #: admin/admin.php:124
 msgid "WordPoints — Install Modules"
-msgstr ""
+msgstr "WordPoints - Instaliuoti modulius"
 
 #: admin/admin.php:125 admin/screens/module-install.php:28
 msgid "Install Modules"
-msgstr ""
+msgstr "Instaliuoti modulius"
 
 #: admin/admin.php:293
 msgid "Hide This Notice"
-msgstr ""
+msgstr "Paslėpti šį pranešimą"
 
 #: admin/admin.php:346
 msgid "WordPoints — %s"
@@ -56,7 +58,7 @@ msgstr ""
 
 #: admin/admin.php:376
 msgid "Install a module in .zip format"
-msgstr ""
+msgstr "Instaliuoti modulį .zip formate"
 
 #: admin/admin.php:377
 msgid ""
@@ -66,7 +68,7 @@ msgstr ""
 
 #: admin/admin.php:380
 msgid "Module zip file"
-msgstr ""
+msgstr "Modulio zip failas"
 
 #: admin/admin.php:382
 msgid "Install Now"
@@ -80,7 +82,7 @@ msgstr ""
 
 #: admin/admin.php:406
 msgid "Upload WordPoints Module"
-msgstr ""
+msgstr "Įkrauti WordPoints modulį"
 
 #: admin/admin.php:418
 msgid "Installing Module from uploaded file: %s"
@@ -94,7 +96,7 @@ msgstr ""
 
 #: admin/admin.php:512
 msgid "Like this plugin?"
-msgstr ""
+msgstr "Ar patinka šis įskiepis?"
 
 #: admin/admin.php:513
 msgid ""
@@ -107,20 +109,22 @@ msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
 msgstr ""
+"Jei manote, kad šis įskiepis nevertas 5 žvaigždučių, prašome mums pranešti, "
+"kaip galėtumėme jį pagerinti."
 
 #: admin/admin.php:517
 msgid "Need help?"
-msgstr ""
+msgstr "Ar reikia pagalbos?"
 
 #: admin/admin.php:518
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
-msgstr ""
+msgstr "Skelbkite savo prašymus ir klausimus <a href=\"%s\">support forums</a>"
 
 #: admin/admin.php:519
 msgid "Thank you for using WordPoints!"
-msgstr ""
+msgstr "Ačiū, kad naudojatės WordPoints!"
 
 #: admin/admin.php:552
 msgid ""
@@ -139,10 +143,12 @@ msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
 "done already, some parts of the plugin may not function properly."
 msgstr ""
+"Likusi proceso dalis turi būti užbaigta rankiniu būdu. Jei tai nepadaryta, "
+"kai kurios įskiepio dalys gali funkcionuoti nepilnai."
 
 #: admin/admin.php:562 includes/class-wordpoints-components.php:574
 msgid "Learn more."
-msgstr ""
+msgstr "Sužinokite daugiau."
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:427
@@ -152,15 +158,15 @@ msgstr ""
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
-msgstr ""
+msgstr "Įjungti modulį"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
 msgid "Return to Modules page"
-msgstr ""
+msgstr "Grįžti į modulių puslapį"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:93
 msgid "Return to Module Installer"
-msgstr ""
+msgstr "Grįžti į modulių instaliuotoją"
 
 #: admin/includes/class-wordpoints-module-installer.php:52
 msgid "Install package not available."
@@ -176,15 +182,15 @@ msgstr ""
 
 #: admin/includes/class-wordpoints-module-installer.php:55
 msgid "The module contains no files."
-msgstr ""
+msgstr "Modulis neturi failų."
 
 #: admin/includes/class-wordpoints-module-installer.php:56
 msgid "Module install failed."
-msgstr ""
+msgstr "Nepavyko instaliuoti modulio."
 
 #: admin/includes/class-wordpoints-module-installer.php:57
 msgid "Module installed successfully."
-msgstr ""
+msgstr "Modulis instaliuotas sėkmingai."
 
 #: admin/includes/class-wordpoints-module-installer.php:58
 msgid "Could not create the modules directory."
@@ -192,25 +198,26 @@ msgstr ""
 
 #: admin/includes/class-wordpoints-module-installer.php:184
 msgid "No valid modules were found."
-msgstr ""
+msgstr "Nerasta tinkamų modulių."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:319
 msgid "No modules found."
-msgstr ""
+msgstr "Nerasta modulių."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:321
 msgid "There are not any modules installed."
-msgstr ""
+msgstr "Neinstaliuoti jokie moduliai."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:336
 msgid "Module"
-msgstr ""
+msgstr "Modulis"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:337
 msgid "Description"
-msgstr ""
+msgstr "Aprašymas"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:363
+#, fuzzy
 msgctxt "modules"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
@@ -219,6 +226,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:367
+#, fuzzy
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -226,6 +234,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:371
+#, fuzzy
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -233,6 +242,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:375
+#, fuzzy
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -243,7 +253,7 @@ msgstr[2] ""
 #: admin/includes/class-wordpoints-modules-list-table.php:722
 #: admin/screens/configure-components.php:108
 msgid "Activate"
-msgstr ""
+msgstr "Aktyvuoti"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:431
 #: admin/includes/class-wordpoints-modules-list-table.php:700
@@ -254,7 +264,7 @@ msgstr ""
 #: admin/includes/class-wordpoints-modules-list-table.php:718
 #: admin/screens/configure-components.php:103
 msgid "Deactivate"
-msgstr ""
+msgstr "Atjungti"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:439
 #: admin/includes/class-wordpoints-modules-list-table.php:710
@@ -264,84 +274,88 @@ msgstr ""
 #: components/ranks/admin/admin.php:53
 #: components/ranks/admin/screens/ranks.php:128
 msgid "Delete"
-msgstr ""
+msgstr "Ištrinti"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:475
 msgid "Clear List"
-msgstr ""
+msgstr "Išvalyti sąraša"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:546
+#, fuzzy
 msgid "Select %s"
 msgstr ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:580
+#, fuzzy
 msgid "Version %s"
 msgstr ""
 
 #. translators: %s is the component author's name.
 #: admin/includes/class-wordpoints-modules-list-table.php:591
 #: admin/screens/configure-components.php:129
+#, fuzzy
 msgid "By %s"
 msgstr ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:595
 msgid "Visit module site"
-msgstr ""
+msgstr "Apsilankyti modulio puslapyje"
 
 #: admin/screens/configure-components.php:30
 msgid "Component &#8220;%s&#8221; activated!"
-msgstr ""
+msgstr "Komponentas &#8220;%s&#8221; ijungta!"
 
 #: admin/screens/configure-components.php:36
 msgid "Component &#8220;%s&#8221; deactivated!"
-msgstr ""
+msgstr "Komponentas &#8220;%s&#8221; išjungta!"
 
 #: admin/screens/configure-components.php:52
 msgid ""
 "The component &#8220;%s&#8221; could not be activated. Please try again."
-msgstr ""
+msgstr "Komponentas &#8220;%s&#8221; neįjungtas. Bandykite dar kartą."
 
 #: admin/screens/configure-components.php:58
 msgid ""
 "The component &#8220;%s&#8221; could not be deactivated. Please try again."
-msgstr ""
+msgstr "Komponentas  &#8220;%s&#8221; neišjungtas. Bandykite dar kartą."
 
 #: admin/screens/configure-components.php:85
 msgid "Installed WordPoints components."
-msgstr ""
+msgstr "Įdiegti WordPoints komponentai."
 
 #: admin/screens/configure-components.php:88
 #: admin/screens/configure-components.php:156
 msgctxt "components table heading"
 msgid "Component"
-msgstr ""
+msgstr "Komponentas"
 
 #: admin/screens/configure-components.php:89
 #: admin/screens/configure-components.php:157
 msgctxt "components table heading"
 msgid "Description"
-msgstr ""
+msgstr "Aprašymas"
 
 #: admin/screens/configure-components.php:90
 #: admin/screens/configure-components.php:158
 msgctxt "components table heading"
 msgid "Version"
-msgstr ""
+msgstr "Versija"
 
 #: admin/screens/configure-components.php:91
 #: admin/screens/configure-components.php:159
 msgctxt "components table heading"
 msgid "Action"
-msgstr ""
+msgstr "Veiksmas"
 
 #: admin/screens/configure-settings-load.php:15
 #: admin/screens/modules-load.php:454
 #: components/points/admin/screens/hooks-load.php:16
 #: components/ranks/admin/admin.php:107
 msgid "Overview"
-msgstr ""
+msgstr "Apžvalga"
 
 #: admin/screens/configure-settings-load.php:17
+#, fuzzy
 msgid ""
 "WordPoints doesn&#8217;t have a lot of configuration options, which makes it "
 "simple and easy to use."
@@ -350,86 +364,94 @@ msgstr ""
 #: admin/screens/configure-settings-load.php:18
 msgid ""
 "The settings provided below are optional, and are mainly for convenience"
-msgstr ""
+msgstr "Nustatymai esantys žemiau yra nebūtini ir yra tik dėl patogumo."
 
 #: admin/screens/configure-settings-load.php:19
 msgid ""
 "If you need more help getting started with WordPoints, see the links in the "
 "help sidebar."
 msgstr ""
+"Jei jums reikia daugiau pagalbos dėl WordPoints, žiūrėkite nuorodas pagalbos "
+"skyrelyje."
 
 #: admin/screens/configure-settings-load.php:24
 #: admin/screens/modules-load.php:472
 #: components/points/admin/screens/hooks-load.php:36
 #: components/ranks/admin/admin.php:135
 msgid "For more information:"
-msgstr ""
+msgstr "Daugiau informacijos:"
 
 #: admin/screens/configure-settings-load.php:25
 msgid "User Guide"
-msgstr ""
+msgstr "Vartotojo vadovas"
 
 #: admin/screens/configure-settings-load.php:26
 #: admin/screens/modules-load.php:474
 #: components/points/admin/screens/hooks-load.php:38
 #: components/ranks/admin/admin.php:137
 msgid "Support Forums"
-msgstr ""
+msgstr "Pagalbos forumai"
 
 #: admin/screens/configure-settings.php:41
 msgid "Settings updated."
-msgstr ""
+msgstr "Nustatymai atnaujinti."
 
 #: admin/screens/configure-settings.php:46
 msgid "Configure WordPoints to your liking."
-msgstr ""
+msgstr "Konfigūruokite WordPoints savo nuožiūra."
 
 #: admin/screens/configure-settings.php:60
 #: admin/screens/configure-settings.php:66
 msgid "Excluded Users"
-msgstr ""
+msgstr "Pašalinti vartotojai"
 
 #: admin/screens/configure-settings.php:61
 msgid ""
 "Enter the IDs of users to exclude from leader boards, logs, etc. This may be "
 "useful if you use certain accounts for testing."
 msgstr ""
+"Įveskite vartotojų ID, kad pašalinti juos iš lyderių sąrašo ir pan. Tai gali "
+"būti svarbu, jei naudojate tikras paskyras testavime."
 
 #: admin/screens/configure.php:37
 msgid "General Settings"
-msgstr ""
+msgstr "Bendrieji nustatymai"
 
 #: admin/screens/configure.php:38
 msgid "Components"
-msgstr ""
+msgstr "Komponentai"
 
 #: admin/screens/modules-load.php:38 admin/screens/modules-load.php:88
 #: admin/screens/modules-load.php:144
 msgid ""
 "You do not have sufficient permissions to activate modules for this site."
-msgstr ""
+msgstr "Jūs neturite pakankamo lygio leidimo įjungti modulius šioje svetainėje."
 
 #: admin/screens/modules-load.php:188 admin/screens/modules-load.php:216
 msgid ""
 "You do not have sufficient permissions to deactivate modules for this site."
 msgstr ""
+"Jūs neturite pakankamo lygio leidimo išjungti modulius šioje svetainėje."
 
 #: admin/screens/modules-load.php:258
 msgid "You do not have sufficient permissions to delete modules for this site."
 msgstr ""
+"Jūs neturite pakankamo lygio leidimo ištrinti modulius iš šios svetainės."
 
 #: admin/screens/modules-load.php:349
+#, fuzzy
 msgid "Delete module"
 msgid_plural "Delete modules"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ištrinti modulį"
+msgstr[1] "Ištrinti modulius"
+msgstr[2] "Ištrinti modulį"
 
 #: admin/screens/modules-load.php:352
 msgid "Caution:"
-msgstr ""
+msgstr "Atsargiai:"
 
 #: admin/screens/modules-load.php:352
+#, fuzzy
 msgid "This module may be active on other sites in the network."
 msgid_plural "These modules may be active on other sites in the network."
 msgstr[0] ""
@@ -437,6 +459,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: admin/screens/modules-load.php:357
+#, fuzzy
 msgid "You are about to remove the following module:"
 msgid_plural "You are about to remove the following modules:"
 msgstr[0] ""
@@ -445,6 +468,7 @@ msgstr[2] ""
 
 #. translators: 1: module name, 2: module author
 #: admin/screens/modules-load.php:369
+#, fuzzy
 msgid ""
 "<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</"
 "strong>)"
@@ -452,45 +476,49 @@ msgstr ""
 
 #. translators: 1: module name, 2: module author
 #: admin/screens/modules-load.php:375
+#, fuzzy
 msgid "<strong>%1$s</strong> by <em>%2$s</em>"
 msgstr ""
 
 #: admin/screens/modules-load.php:386
 msgid "Are you sure you wish to delete these files and data?"
-msgstr ""
+msgstr "Ar jūs tikrai norite ištrinti šiuos failus ir duomenis?"
 
 #: admin/screens/modules-load.php:388
 msgid "Are you sure you wish to delete these files?"
-msgstr ""
+msgstr "Ar tikrai norite ištrinti šiuos failus?"
 
 #: admin/screens/modules-load.php:401
 msgid "Yes, Delete these files and data"
-msgstr ""
+msgstr "Taip, ištrinkite šiuos failus ir duomenis."
 
 #: admin/screens/modules-load.php:401
 msgid "Yes, Delete these files"
-msgstr ""
+msgstr "Taip, ištrinkite šiuos failus"
 
 #: admin/screens/modules-load.php:404
 msgid "No, Return me to the module list"
-msgstr ""
+msgstr "Ne, sugrąžinkite mane į modulių sąrašą"
 
 #: admin/screens/modules-load.php:407
 msgid "Click to view entire list of files which will be deleted"
-msgstr ""
+msgstr "Norėdami pamatyti visą failų, kurie bus ištrinti, sąrašą, paspauskite"
 
 #: admin/screens/modules-load.php:447
 msgctxt "modules per page (screen options)"
 msgid "Modules"
-msgstr ""
+msgstr "Moduliai"
 
 #: admin/screens/modules-load.php:456
 msgid ""
 "Modules extend and expand the functionality of WordPoints. Once a module is "
 "installed, you may activate it or deactivate it here."
 msgstr ""
+"Moduliai pratęsia ir išplečia WordPoints funkcionalumus. Jei modulis yra "
+"įdiegtas, jums reikia jį įjungti, arba išjungti čia."
 
 #: admin/screens/modules-load.php:457
+#, fuzzy
 msgid ""
 "You can find modules for your site by by browsing the <a href=\"%1$s\" "
 "target=\"_blank\">WordPoints Module Directory</a>. To install a module you "
@@ -500,7 +528,7 @@ msgstr ""
 
 #: admin/screens/modules-load.php:464
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Problemų sprendimas"
 
 #: admin/screens/modules-load.php:466
 msgid ""
@@ -511,6 +539,11 @@ msgid ""
 "and re-activating them in various combinations until you isolate which "
 "one(s) caused the issue."
 msgstr ""
+"Daugeliu atvejų, moduliai veikia puikiai su WordPoints branduoliu ir su "
+"kitais moduliais. Tačiau, kartais modulis #8217 turi suderinamumo su kitais "
+"moduliais problemų. Jei jūsų svetainėje pradeda vykti keisti dalykai, "
+"pabandykite išjungti visus modulius ir vėl juos įjungti įvairiomis "
+"kombinacijomis, kol nustatysite kuris modulis yra problemos priežastis."
 
 #: admin/screens/modules-load.php:467
 msgid ""
@@ -518,6 +551,9 @@ msgid ""
 "delete or rename that file in the %s directory and it will be automatically "
 "deactivated."
 msgstr ""
+"Jei kažkas negerai su moduliu ir jūs negalite jo naudoti WordPoints, "
+"ištrinkite arba pervardinkite tą failą direktorijoje ir jis bus automatiškai "
+"išjungtas."
 
 #: admin/screens/modules-load.php:473
 msgid "Developer Documentation"

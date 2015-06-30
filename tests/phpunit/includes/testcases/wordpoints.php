@@ -798,20 +798,16 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 
 		if ( isset( $args['dismissible'] ) ) {
 
-			$dismiss_option_input = $xpath->query(
-				'//input[@name = "wordpoints_notice"]'
-				, $message
+			$this->assertStringMatchesFormat(
+				'%Sis-dismissible%S'
+				, $message->attributes->getNamedItem( 'class' )->nodeValue
 			);
-
-			$this->assertEquals( 1, $dismiss_option_input->length );
-
-			$dismiss_option_input = $dismiss_option_input->item( 0 );
 
 			if ( isset( $args['option'] ) ) {
 
 				$this->assertEquals(
 					$args['option']
-					, $dismiss_option_input->attributes->getNamedItem( 'value' )->nodeValue
+					, $message->attributes->getNamedItem( 'data-option' )->nodeValue
 				);
 			}
 		}

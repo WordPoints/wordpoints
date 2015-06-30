@@ -264,6 +264,95 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that it deletes the option when the dismiss form has been submitted.
 	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints !network-active
+	 */
+	public function test_admin_notice_option_deleted() {
+
+		update_option( 'test', 'test' );
+
+		$_POST['wordpoints_notice'] = 'test';
+		$_POST['_wpnonce'] = wp_create_nonce(
+			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
+		);
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertFalse( get_option( 'test' ) );
+	}
+
+	/**
+	 * Test that it deletes the a network option when WordPoints is network-active.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_admin_notice_option_deleted_network_wide() {
+
+		update_site_option( 'test', 'test' );
+
+		$_POST['wordpoints_notice'] = 'test';
+		$_POST['_wpnonce'] = wp_create_nonce(
+			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
+		);
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertFalse( get_site_option( 'test' ) );
+	}
+
+	/**
+	 * Test that a valid nonce must be present for the option to be deleted.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints !network-active
+	 */
+	public function test_admin_notice_option_not_deleted_without_nonce() {
+
+		update_option( 'test', 'test' );
+
+		$_POST['wordpoints_notice'] = 'test';
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertEquals( 'test', get_option( 'test' ) );
+	}
+
+	/**
+	 * Test that it deletes the a network option when WordPoints is network-active.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_admin_notice_incompatible_modules_option_deleted_network_wide() {
+
+		update_option( 'wordpoints_incompatible_modules', 'test' );
+
+		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
+		$_POST['_wpnonce'] = wp_create_nonce(
+			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
+		);
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertFalse( get_option( 'wordpoints_incompatible_modules' ) );
+	}
+
+	/**
+	 * Test that it deletes the option when the dismiss form has been submitted.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @covers ::wordpoints_admin_notices

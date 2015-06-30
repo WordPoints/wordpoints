@@ -8,6 +8,23 @@
  */
 
 /**
+ * Register the admin scripts and styles.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action init
+ */
+function wordpoints_admin_register_core_scripts() {
+
+	wp_register_script(
+		'wordpoints-admin-dismiss-notice'
+		, WORDPOINTS_URL . '/admin/assets/js/dismiss-notice.js'
+		, array( 'jquery', 'wp-util' )
+		, WORDPOINTS_VERSION
+	);
+}
+
+/**
  * Get the slug of the main administration menu item for the plugin.
  *
  * The main item changes in multisite when the plugin is network activated. In the
@@ -269,14 +286,24 @@ function wordpoints_show_admin_message( $message, $type = 'success', array $args
 		);
 	}
 
+	if ( $args['dismissible'] && $args['option'] ) {
+		wp_enqueue_script( 'wordpoints-admin-dismiss-notice' );
+	}
+
 	?>
 
-	<div class="notice notice-<?php echo sanitize_html_class( $type, 'success' ); ?>">
+	<div
+		class="notice notice-<?php echo sanitize_html_class( $type, 'success' ); ?><?php echo ( $args['dismissible'] ) ? ' is-dismissible' : ''; ?>"
+		<?php if ( $args['dismissible'] && $args['option'] ) : ?>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( "wordpoints_dismiss_notice-{$args['option']}" ) ); ?>"
+			data-option="<?php echo esc_attr( $args['option'] ); ?>"
+		<?php endif; ?>
+		>
 		<p>
 			<?php echo wp_kses( $message, 'wordpoints_admin_message' ); ?>
 		</p>
-		<?php if ( $args['dismissible'] ) : ?>
-			<form method="post" style="padding-bottom: 5px;">
+		<?php if ( $args['dismissible'] && $args['option'] ) : ?>
+			<form method="post" class="wordpoints-notice-dismiss-form" style="padding-bottom: 5px;">
 				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
 				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>
 				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), 'secondary', 'wordpoints_dismiss_notice', false ); ?>
@@ -525,24 +552,7 @@ function wordpoints_admin_settings_screen_sidebar() {
  */
 function wordpoints_admin_notices() {
 
-	// Check if any notices have been dismissed.
-	$is_notice_dismissed = wordpoints_verify_nonce(
-		'_wpnonce'
-		, 'wordpoints_dismiss_notice-%s'
-		, array( 'wordpoints_notice' )
-		, 'post'
-	);
-
-	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
-
-		$option = sanitize_key( $_POST['wordpoints_notice'] );
-
-		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
-			delete_option( $option );
-		} else {
-			wordpoints_delete_network_option( $option );
-		}
-	}
+	wordpoints_delete_admin_notice_option();
 
 	if ( current_user_can( 'activate_wordpoints_modules' ) ) {
 
@@ -601,6 +611,39 @@ function wordpoints_admin_notices() {
 				);
 			}
 		}
+	}
+}
+
+/**
+ * Handle a request to delete an option tied to an admin notice.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wp_ajax_wordpoints-delete-admin-notice-option
+ */
+function wordpoints_delete_admin_notice_option() {
+
+	// Check if any notices have been dismissed.
+	$is_notice_dismissed = wordpoints_verify_nonce(
+		'_wpnonce'
+		, 'wordpoints_dismiss_notice-%s'
+		, array( 'wordpoints_notice' )
+		, 'post'
+	);
+
+	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
+
+		$option = sanitize_key( $_POST['wordpoints_notice'] );
+
+		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
+			delete_option( $option );
+		} else {
+			wordpoints_delete_network_option( $option );
+		}
+	}
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		wp_die( '', 200 );
 	}
 }
 

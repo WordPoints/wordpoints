@@ -216,6 +216,8 @@ function wordpoints_delete_points_type( $slug ) {
 	// Delete logs for this points type.
 	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
 
+	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
+
 	// Delete all user points of this type.
 	delete_metadata( 'user', 0, $meta_key, '', true );
 
@@ -234,7 +236,7 @@ function wordpoints_delete_points_type( $slug ) {
  *
  * The number of points a user has is stored in the user meta. This function was
  * introduced to allow the meta_key for that value to be retrieved easily internally.
- * If the meta_key setting for the ponits type is set, that is used. Otherwise the
+ * If the meta_key setting for the points type is set, that is used. Otherwise the
  * meta key is "wordpoints_points-{$type}" for single sites, and when network
  * active on multisite; and when not network-active on multisite, the key is prefixed
  * with the blog's table prefix, to avoid collisions from different blogs.
@@ -329,7 +331,7 @@ function wordpoints_get_points( $user_id, $type ) {
  *
  * That would set the minimum for the points type with the slug 'score' to 5.
  *
- * The mimimum is cached, so it will only be generated once per points type per
+ * The minimum is cached, so it will only be generated once per points type per
  * script execution.
  *
  * @since 1.0.0
@@ -361,7 +363,7 @@ function wordpoints_get_points_minimum( $type ) {
  * Format points value for display.
  *
  * This function should always be used when displaying points. It will return the
- * integer value of $points formated for display as desired by the user (with the
+ * integer value of $points formatted for display as desired by the user (with the
  * prefix and suffix, for instance). If $points or $type are invalid, $points will
  * be returned unformatted.
  *
@@ -398,7 +400,7 @@ function wordpoints_format_points( $points, $type, $context ) {
 }
 
 /**
- * Get a user's points preformmated for display.
+ * Get a user's points preformatted for display.
  *
  * @since 1.0.0
  *
@@ -485,15 +487,16 @@ function wordpoints_get_points_above_minimum( $user_id, $type ) {
  * @uses wordpoints_get_points()   To get the points of the user.
  * @uses wordpoints_alter_points() To alter the user's points.
  *
+ * @param int    $user_id     The ID of the user to set the points of.
  * @param int    $points      The number of points to the user should have.
  * @param string $points_type The type of points to alter.
- * @param int    $user_id     The ID of the user to set the points of.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
+ * @param string $log_text    The log text for the transaction.
  *
  * @return bool Whether the transaction was successful.
  */
-function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
 	if ( false === wordpoints_int( $points ) ) {
 		return false;
@@ -505,7 +508,7 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
 		return false;
 	}
 
-	return wordpoints_alter_points( $user_id, $points - $current, $points_type, $log_type, $meta );
+	return wordpoints_alter_points( $user_id, $points - $current, $points_type, $log_type, $meta, $log_text );
 }
 
 /**
@@ -517,7 +520,7 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  *
  * If, at any time, this function detects that the user's points are going to be
  * set to less than the minimum amount, it will set the user's points to the
- * minimum. This may be undesireable in certain situations, such as when a user
+ * minimum. This may be undesirable in certain situations, such as when a user
  * is making a purchase using points. In such a case it is important to use {@see
  * wordpoints_get_points_above_minimum()} to determine whether the user has
  * sufficient points before calling this function. Note that this still leaves open
@@ -531,6 +534,8 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * use update_user_meta().
  *
  * @since 1.0.0
+ * @since 2.0.0 Now returns the log ID instead of boolean true on success when the
+ *              transaction is logged.
  *
  * @uses apply_filters()         To let plugins hook into this function.
  * @uses wordpoints_get_points() To get the user's current points.
@@ -540,11 +545,13 @@ function wordpoints_set_points( $user_id, $points, $points_type, $log_type, $met
  * @param int    $points      The number of points to add/subtract.
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
- * @param array  $meta        The metadata for this transaction. Default: array()
+ * @param array  $meta        The metadata for this transaction. Default: array().
+ * @param string $log_text    The log text for this transaction.
  *
- * @return bool Whether the transaction was successful.
+ * @return int|bool On success, the log ID if the transaction is logged, or true if
+ *                  it is not. False on failure.
  */
-function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
 	if (
 		! wordpoints_posint( $user_id )
@@ -625,7 +632,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	/**
 	 * Whether a transaction should be logged.
 	 *
-	 * @param bool   $log_transaction Whether or not to log this transactioin.
+	 * @param bool   $log_transaction Whether or not to log this transactoin.
 	 * @param int    $user_id         The ID of the user.
 	 * @param int    $points          The number of points involved.
 	 * @param string $points_type     The type of points involved.
@@ -637,6 +644,12 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	$log_id = false;
 	if ( $log_transaction ) {
 
+		$log_text = wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta, $log_text );
+
+		if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' ) ) {
+			$log_text = wp_encode_emoji( $log_text );
+		}
+
 		$result = $wpdb->insert(
 			$wpdb->wordpoints_points_logs,
 			array(
@@ -644,7 +657,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 				'points'      => $points,
 				'points_type' => $points_type,
 				'log_type'    => $log_type,
-				'text'        => wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta ),
+				'text'        => $log_text,
 				'date'        => current_time( 'mysql', 1 ),
 				'site_id'     => $wpdb->siteid,
 				'blog_id'     => $wpdb->blogid,
@@ -694,7 +707,11 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	 */
 	do_action( 'wordpoints_points_altered', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 
-	return true;
+	if ( $log_id ) {
+		return $log_id;
+	} else {
+		return true;
+	}
 
 } // function wordpoints_alter_points()
 
@@ -712,12 +729,13 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
+ * @param string $log_text    The log text for the transaction.
  *
  * @return bool Whether the points were added successfully.
  */
-function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
-	return wordpoints_alter_points( $user_id, wordpoints_posint( $points ), $points_type, $log_type, $meta );
+	return wordpoints_alter_points( $user_id, wordpoints_posint( $points ), $points_type, $log_type, $meta, $log_text );
 }
 
 /**
@@ -734,12 +752,13 @@ function wordpoints_add_points( $user_id, $points, $points_type, $log_type, $met
  * @param string $points_type The type of points to alter.
  * @param string $log_type    The type of transaction.
  * @param array  $meta        The metadata for the transaction.
+ * @param string $log_text    The log text for the transaction.
  *
  * @return bool Whether the points were subtracted successfully.
  */
-function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type, $meta = array() ) {
+function wordpoints_subtract_points( $user_id, $points, $points_type, $log_type, $meta = array(), $log_text = '' ) {
 
-	return wordpoints_alter_points( $user_id, -wordpoints_posint( $points ), $points_type, $log_type, $meta );
+	return wordpoints_alter_points( $user_id, -wordpoints_posint( $points ), $points_type, $log_type, $meta, $log_text );
 }
 
 /**
@@ -890,7 +909,7 @@ function wordpoints_points_log_delete_all_metadata( $log_id ) {
 			"
 			, $log_id
 		)
-	);
+	); // WPCS: cache pass.
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
@@ -926,17 +945,16 @@ function wordpoints_get_default_points_type() {
  *
  * @since 1.0.0
  *
- * @param int    $user_id     The user_id of the affected user.
- * @param int    $points      The number of points involved in the transaction.
- * @param string $points_type The type of points involved.
- * @param string $log_type    The type of transaction.
- * @param array  $meta        The metadata for this transaction.
+ * @param int    $user_id      The user_id of the affected user.
+ * @param int    $points       The number of points involved in the transaction.
+ * @param string $points_type  The type of points involved.
+ * @param string $log_type     The type of transaction.
+ * @param array  $meta         The metadata for this transaction.
+ * @param string $default_text The default log text for this transaction.
  *
  * @return string The log text.
  */
-function wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta ) {
-
-	$text = '';
+function wordpoints_render_points_log_text( $user_id, $points, $points_type, $log_type, $meta, $default_text = '' ) {
 
 	/**
 	 * The text for a points log entry.
@@ -948,7 +966,7 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
 	 * @param string $log_type    The type of transaction being logged.
 	 * @param array  $meta        The metadata for this transaction.
 	 */
-	$text = apply_filters( "wordpoints_points_log-{$log_type}", $text, $user_id, $points, $points_type, $log_type, $meta );
+	$text = apply_filters( "wordpoints_points_log-{$log_type}", $default_text, $user_id, $points, $points_type, $log_type, $meta );
 
 	if ( empty( $text ) ) {
 		$text = _x( '(no description)', 'points log', 'wordpoints' );
@@ -987,6 +1005,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	global $wpdb;
 
+	$flushed = array( 'points_types' => array(), 'user_ids' => array() );
+
 	foreach ( $logs as $log ) {
 
 		$meta = wordpoints_get_points_log_meta( $log->id );
@@ -1002,6 +1022,14 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 		if ( $new_log_text !== $log->text ) {
 
+			if ( ! isset( $is_utf8 ) ) {
+				$is_utf8 = 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' );
+			}
+
+			if ( $is_utf8 ) {
+				$new_log_text = wp_encode_emoji( $new_log_text );
+			}
+
 			$wpdb->update(
 				$wpdb->wordpoints_points_logs
 				, array( 'text' => $new_log_text )
@@ -1009,6 +1037,15 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				, array( '%s' )
 				, array( '%d' )
 			);
+
+			if ( ! isset( $flushed['points_types'][ $log->points_type ], $flushed['user_ids'][ $log->user_id ] ) ) {
+				wordpoints_flush_points_logs_caches(
+					array( 'user_id' => $log->user_id, 'points_type' => $log->points_type )
+				);
+
+				$flushed['points_types'][ $log->points_type ] = true;
+				$flushed['user_ids'][ $log->user_id ] = true;
+			}
 		}
 	}
 }
@@ -1063,10 +1100,8 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		}
 
 		/*
-		 * We can't use WP_User_Query here because the meta value must be converted
-		 * to a signed integer for ordering.
-		 *
-		 * (But see <https://core.trac.wordpress.org/ticket/27887>, fixed in 4.2).
+		 * We can't use WP_User_Query here because we need to coalesce the meta value
+		 * with 0 for ordering.
 		 */
 		$top_users = $wpdb->get_col(
 			$wpdb->prepare(

@@ -12,18 +12,19 @@ php:
 
 env:
     - TRAVISCI_RUN=codesniff
-    - TRAVISCI_RUN=phpunit WP_VERSION=nightly
-    - TRAVISCI_RUN=phpunit WP_VERSION=latest
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.0
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.9
+    - TRAVISCI_RUN=phpunit WP_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.2
 
 sudo: false
 
 matrix:
   include:
-    # Only run HHVM against the latest for now.
+    # Only run HHVM against trunk for now.
     - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
+      env: TRAVISCI_RUN=phpunit WP_VERSION=master
+    # Only run nightly against trunk.
+    - php: nightly
+      env: TRAVISCI_RUN=phpunit WP_VERSION=master
   exclude:
     # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
     - php: 5.2
@@ -36,11 +37,13 @@ matrix:
       env: TRAVISCI_RUN=codesniff
   allow_failures:
     - php: hhvm
+    - php: nightly
   fast_finish: true
 
 before_script:
     - export WORDPOINTS_PROJECT_TYPE=wordpoints
-    - export DEV_LIB_PATH=dev-lib-wordpoints
+    - export DEV_LIB_PATH=dev-lib
+    - if [ -e .wordpoints-dev-lib-config.sh ]; then source .wordpoints-dev-lib-config.sh; fi
     - source $DEV_LIB_PATH/travis/before_script.sh
 
 script:
@@ -50,6 +53,7 @@ script:
     - codesniff-l10n
     - codesniff-xmllint
     - codesniff-bash
+    - codesniff-symlinks
     - phpunit-basic
     - phpunit-ms
     - phpunit-ms-network

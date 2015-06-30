@@ -17,6 +17,8 @@ if ( ! class_exists( 'WordPoints_Selenium2TestCase' ) ) {
  * @since 1.0.1
  *
  * @group ui
+ *
+ * @coversNothing
  */
 class WordPoints_General_Settings_Form_Test extends WordPoints_Selenium2TestCase {
 

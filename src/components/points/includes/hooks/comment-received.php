@@ -25,8 +25,6 @@ class WordPoints_Comment_Received_Points_Hook extends WordPoints_Comment_Approve
 	protected $log_type = 'comment_received';
 
 	/**
-	 * Initialize the hook.
-	 *
 	 * @since 1.8.0
 	 */
 	public function __construct() {

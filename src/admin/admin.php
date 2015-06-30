@@ -20,13 +20,6 @@
 include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 /**
- * Deprecated administration-side code.
- *
- * @since 1.7.0
- */
-include_once WORDPOINTS_DIR . 'admin/includes/deprecated.php';
-
-/**
  * Get the slug of the main administration menu item for the plugin.
  *
  * The main item changes in multisite when the plugin is network activated. In the
@@ -229,7 +222,7 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activat
  * @uses wordpoints_show_admin_message()
  *
  * @param string $message The text for the error message.
- * @param array $args     Other optional arguments.
+ * @param array  $args    Other optional arguments.
  */
 function wordpoints_show_admin_error( $message, array $args = array() ) {
 
@@ -443,6 +436,10 @@ add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_
  * if it is a module instead of a plugin.
  *
  * @since 1.9.0
+ *
+ * @param string|WP_Error $source The module source.
+ *
+ * @return string|WP_Error The filtered module source.
  */
 function wordpoints_plugin_upload_error_filter( $source ) {
 
@@ -540,36 +537,136 @@ function wordpoints_admin_notices() {
 	);
 
 	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
-		wordpoints_delete_network_option( sanitize_key( $_POST['wordpoints_notice'] ) );
+
+		$option = sanitize_key( $_POST['wordpoints_notice'] );
+
+		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
+			delete_option( $option );
+		} else {
+			wordpoints_delete_network_option( $option );
+		}
 	}
 
-	if ( current_user_can( 'manage_network_plugins' ) ) {
+	if ( current_user_can( 'activate_wordpoints_modules' ) ) {
 
-		unset( $message ); // Future proofing.
+		if ( is_network_admin() ) {
 
-		// Show a notice if we've skipped part of the install/update process.
-		if ( get_site_option( 'wordpoints_network_install_skipped' ) ) {
-			$message = esc_html__( 'WordPoints detected a large network and has skipped part of the installation process.', 'wordpoints' );
-			$option  = 'wordpoints_network_install_skipped';
-		} elseif ( get_site_option( 'wordpoints_network_update_skipped' ) ) {
-			$message = esc_html( sprintf( __( 'WordPoints detected a large network and has skipped part of the update process for version %s (and possibly later versions).', 'wordpoints' ), get_site_option( 'wordpoints_network_update_skipped' ) ) );
-			$option  = 'wordpoints_network_update_skipped';
-		}
+			$deactivated_modules = get_site_option( 'wordpoints_breaking_deactivated_modules' );
 
-		if ( isset( $message ) ) {
+			if ( is_array( $deactivated_modules ) ) {
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: 1 is plugin version, 2 is list of modules
+						__( 'WordPoints has deactivated the following modules because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
+						, WORDPOINTS_VERSION
+						, implode( ', ', $deactivated_modules )
+					)
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_breaking_deactivated_modules',
+					)
+				);
+			}
 
-			$message .= ' ' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the plugin may not function properly.', 'wordpoints' );
-			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a>';
+			$incompatible_modules = get_site_option( 'wordpoints_incompatible_modules' );
 
-			$args = array(
-				'dismissable' => true,
-				'option'      => $option,
-			);
+			if ( is_array( $incompatible_modules ) ) {
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: 1 is plugin version, 2 is list of modules
+						__( 'WordPoints has deactivated the following network-active modules because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
+						, WORDPOINTS_VERSION
+						, implode( ', ', $incompatible_modules )
+					)
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_incompatible_modules',
+					)
+				);
+			}
 
-			wordpoints_show_admin_error( $message, $args );
+		} else {
+
+			$incompatible_modules = get_option( 'wordpoints_incompatible_modules' );
+
+			if ( is_array( $incompatible_modules ) ) {
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: 1 is plugin version, 2 is list of modules
+						__( 'WordPoints has deactivated the following modules on this site because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
+						, WORDPOINTS_VERSION
+						, implode( ', ', $incompatible_modules )
+					)
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_incompatible_modules',
+					)
+				);
+			}
 		}
 	}
 }
 add_action( 'admin_notices', 'wordpoints_admin_notices' );
+
+/**
+ * Save the screen options.
+ *
+ * @since 2.0.0
+ *
+ * @param mixed  $sanitized The sanitized option value, or false if not sanitized.
+ * @param string $option    The option being saved.
+ * @param mixed  $value     The raw value supplied by the user.
+ *
+ * @return mixed The option value, sanitized if it is for one of the plugin's screens.
+ */
+function wordpoints_admin_set_screen_option( $sanitized, $option, $value ) {
+
+	switch ( $option ) {
+
+		case 'wordpoints_page_wordpoints_modules_per_page':
+		case 'wordpoints_page_wordpoints_modules_network_per_page':
+		case 'toplevel_page_wordpoints_modules_per_page':
+			$sanitized = wordpoints_posint( $value );
+		break;
+	}
+
+	return $sanitized;
+}
+add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
+
+/**
+ * Ajax callback to load the modules admin screen when running module compat checks.
+ *
+ * We run this Ajax action to check module compatibility before loading modules
+ * after WordPoints is updated to a new major version. This avoids breaking the site
+ * if some modules aren't compatible with the backward-incompatible changes that are
+ * present in a major version.
+ *
+ * @since 2.0.0
+ */
+function wordpoints_admin_ajax_breaking_module_check() {
+
+	if ( ! isset( $_GET['wordpoints_module_check'] ) ) {
+		wp_die( '', 400 );
+	}
+
+	if ( is_network_admin() ) {
+		$nonce = get_site_option( 'wordpoints_module_check_nonce' );
+	} else {
+		$nonce = get_option( 'wordpoints_module_check_nonce' );
+	}
+
+	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+		wp_die( '', 403 );
+	}
+
+	// The list table constructor calls WP_Screen::get(), which expects this.
+	$GLOBALS['hook_suffix'] = null;
+
+	wordpoints_admin_screen_modules();
+
+	wp_die( '', 200 );
+}
+add_action( 'wp_ajax_nopriv_wordpoints_breaking_module_check', 'wordpoints_admin_ajax_breaking_module_check' );
 
 // EOF

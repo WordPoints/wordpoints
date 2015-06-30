@@ -21,6 +21,9 @@ class WordPoints_Rank_Meta_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test adding rank meta.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank_meta
+	 * @covers ::wordpoints_get_rank_meta
 	 */
 	public function test_add_rank_meta() {
 
@@ -40,6 +43,8 @@ class WordPoints_Rank_Meta_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test updating rank meta.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank_meta
 	 */
 	public function test_update_rank_meta() {
 
@@ -59,6 +64,8 @@ class WordPoints_Rank_Meta_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test retrieving multiple meta values at once.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_rank_meta
 	 */
 	public function test_get_multiple_rank_metadata() {
 

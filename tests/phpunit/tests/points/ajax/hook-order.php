@@ -13,6 +13,8 @@
  * @since 1.3.0
  *
  * @group ajax
+ *
+ * @covers ::wordpoints_ajax_points_hooks_order
  */
 class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_UnitTestCase {
 
@@ -72,7 +74,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 				'points' => array(
 					'registration_points_hook-1',
 					'comments_points_hook-1',
-				)
+				),
 			)
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
@@ -104,12 +106,10 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 	 * Test that only super admins can save network-wide hooks.
 	 *
 	 * @since 1.3.0
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_network_as_admin() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite is required.' );
-		}
 
 		$this->_setRole( 'administrator' );
 
@@ -130,12 +130,10 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 	 * Test that super admins can save network-wide hooks.
 	 *
 	 * @since 1.3.0
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_network_as_super_admin() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite is required.' );
-		}
 
 		$this->_setRole( 'administrator' );
 		grant_super_admin( get_current_user_id() );
@@ -165,7 +163,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_Uni
 				'points' => array(
 					'registration_points_hook-1',
 					'comments_points_hook-1',
-				)
+				),
 			)
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);

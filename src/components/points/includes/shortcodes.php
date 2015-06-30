@@ -181,7 +181,7 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 			$this->atts['paginate'] = 1;
 		}
 
-		// Back-compat.
+		// Back-compat. Needs to stay here "forever" for legacy installs.
 		if ( isset( $this->atts['datatables'] ) ) {
 			$this->atts['paginate'] = wordpoints_int( $this->atts['datatables'] );
 		}
@@ -293,10 +293,12 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 			$points_heading = $points_type_name;
 		}
 
-		$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">'
-			. '<thead><tr><th style="padding-right: 10px">' . esc_html( $points_heading ) . '</th>'
-			. '<th>' . esc_html_x( 'Action', 'column name', 'wordpoints' ) . '</th></tr></thead>'
-			. '<tbody>';
+		$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">
+			<thead>
+				<tr><th style="padding-right: 10px">' . esc_html( $points_heading ) . '</th>
+				<th>' . esc_html_x( 'Action', 'column name', 'wordpoints' ) . '</th></tr>
+			</thead>
+			<tbody>';
 
 		$html .= $this->list_points_hooks();
 
@@ -353,8 +355,10 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 				, 'how-to-get-points-shortcode'
 			);
 
-			$html .= '<tr><td>' . $points . '</td>'
-				. '<td>' . esc_html( $hook->get_description() ) . '</td></tr>';
+			$html .= '<tr>
+				<td>' . $points . '</td>
+				<td>' . esc_html( $hook->get_description() ) . '</td>
+				</tr>';
 		}
 
 		return $html;

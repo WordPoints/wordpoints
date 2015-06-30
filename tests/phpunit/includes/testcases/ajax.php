@@ -24,6 +24,88 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 	protected $ajax_action;
 
 	/**
+	 * Whether the Ajax callback functions have been included yet.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var bool
+	 */
+	private static $included_functions = false;
+
+	/**
+	 * @since 2.0.0
+	 */
+	public static function setUpBeforeClass() {
+
+		parent::setUpBeforeClass();
+
+		if ( ! self::$included_functions ) {
+
+			/**
+			 * Admin-side functions.
+			 *
+			 * @since 2.0.0
+			 */
+			require_once( WORDPOINTS_DIR . '/admin/admin.php' );
+
+			self::$included_functions = true;
+
+			self::backup_hooks();
+		}
+	}
+
+	/**
+	 * Back up the hooks.
+	 *
+	 * @since 2.0.0
+	 */
+	protected static function backup_hooks() {
+
+		$globals = array( 'merged_filters', 'wp_actions', 'wp_current_filter', 'wp_filter' );
+
+		foreach ( $globals as $key ) {
+			WP_UnitTestCase::$hooks_saved[ $key ] = $GLOBALS[ $key ];
+		}
+	}
+
+	/**
+	 * @since 2.0.0
+	 */
+	protected function checkRequirements() {
+
+		parent::checkRequirements();
+
+		$annotations = $this->getAnnotations();
+
+		foreach ( array( 'class', 'method' ) as $depth ) {
+
+			if ( empty( $annotations[ $depth ]['requires'] ) ) {
+				continue;
+			}
+
+			$requires = array_flip( $annotations[ $depth ]['requires'] );
+
+			if ( isset( $requires['WordPress multisite'] ) && ! is_multisite() ) {
+				$this->markTestSkipped( 'Multisite must be enabled.' );
+			} elseif ( isset( $requires['WordPress !multisite'] ) && is_multisite() ) {
+				$this->markTestSkipped( 'Multisite must not be enabled.' );
+			}
+
+			if (
+				isset( $requires['WordPoints network-active'] )
+				&& ! is_wordpoints_network_active()
+			) {
+				$this->markTestSkipped( 'WordPoints must be network-activated.' );
+			} elseif (
+				isset( $requires['WordPoints !network-active'] )
+				&& is_wordpoints_network_active()
+			) {
+				$this->markTestSkipped( 'WordPoints must not be network-activated.' );
+			}
+		}
+	}
+
+	/**
 	 * Assert that there was a JSON response object with the success property false.
 	 *
 	 * @since 1.7.0
@@ -40,7 +122,7 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 			$this->fail(
 				sprintf(
 					'Failed to detect an error response: %s'
-					, json_encode( $response )
+					, wp_json_encode( $response )
 				)
 			);
 		}
@@ -65,7 +147,7 @@ abstract class WordPoints_Ajax_UnitTestCase extends WP_Ajax_UnitTestCase {
 			$this->fail(
 				sprintf(
 					'Failed to detect a successful response: %s'
-					, json_encode( $response )
+					, wp_json_encode( $response )
 				)
 			);
 		}

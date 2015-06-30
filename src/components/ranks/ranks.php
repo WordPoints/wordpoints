@@ -15,13 +15,6 @@
 include_once WORDPOINTS_DIR . 'components/ranks/includes/constants.php';
 
 /**
- * Ranks component utility functions.
- *
- * @since 1.7.0
- */
-include_once WORDPOINTS_DIR . 'components/ranks/includes/functions.php';
-
-/**
  * Ranks API functions.
  *
  * @since 1.7.0

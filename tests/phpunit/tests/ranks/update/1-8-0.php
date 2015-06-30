@@ -20,16 +20,13 @@ class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_UnitTestCase {
 	 * Test that the installed site IDs are added to the DB option.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @covers WordPoints_Ranks_Un_Installer::update_site_to_1_8_0
+	 *
+	 * @requires WordPress multisite
+	 * @requires WordPoints !network-active
 	 */
 	public function test_installed_site_ids_added() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Multisite is required.' );
-		}
-
-		if ( is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must not be network-active.' );
-		}
 
 		// Create a second site on the network.
 		$blog_id = $this->factory->blog->create();

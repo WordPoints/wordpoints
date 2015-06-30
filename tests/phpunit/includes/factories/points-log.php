@@ -120,16 +120,16 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param int $id The ID of the points log.
+	 * @param int   $id     The ID of the points log.
 	 * @param array $fields The fields to update.
 	 *
-	 * @return
+	 * @return bool Whether the points log was saved successfully.
 	 */
 	public function update_object( $id, $fields ) {
 
 		global $wpdb;
 
-		return $wpdb->update(
+		return (bool) $wpdb->update(
 			$wpdb->wordpoints_points_logs
 			, $fields
 			, array( 'id' => $id )
@@ -143,13 +143,13 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 *
 	 * @since 1.6.0
 	 *
-	 * @pram int $id The points log ID.
+	 * @param int $id The points log ID.
 	 *
 	 * @return stdClass The points log object.
 	 */
 	public function get_object_by_id( $id ) {
 
-		$query = new WordPoints_Points_Log_Query( array( 'id' => $id ) );
+		$query = new WordPoints_Points_Logs_Query( array( 'id' => $id ) );
 
 		return $query->get( 'row' );
 	}

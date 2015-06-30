@@ -56,7 +56,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 		>
 		</ul>
 		<div class="spinner-overlay" style="display: block;">
-			<span class="spinner"></span>
+			<span class="spinner is-active"></span>
 		</div>
 		<div class="controls">
 			<button class="add-rank button-primary"><?php esc_html_e( 'Add Rank', 'wordpoints' ); ?></button>
@@ -93,7 +93,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			<div>
 				<%- name %>
 				<?php if ( ($field = key( wp_list_filter( WordPoints_Rank_Types::get_type( $rank_type )->get_meta_fields(), array( 'in_title' => true ) ) )) ) : ?>
-					<span><% if ( typeof <?php echo sanitize_key( $field ); ?> !== "undefined" ) { print( <?php echo sanitize_key( $field ); ?> ); } %></span>
+					<span><% if ( typeof <?php echo preg_replace( '/[^a-z0-9_]/i', '', $field ); // WPCS: XSS OK ?> !== "undefined" ) { print( <?php echo preg_replace( '/[^a-z0-9_]/i', '', $field ); // WPCS: XSS OK ?> ); } %></span>
 				<?php endif; ?>
 			</div>
 			<a class="edit"><?php echo esc_html_x( 'Edit', 'rank', 'wordpoints' ); ?></a>
@@ -118,7 +118,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			</div>
 			<div class="actions">
 				<div class="spinner-overlay">
-					<span class="spinner"></span>
+					<span class="spinner is-active"></span>
 				</div>
 				<div class="action-buttons">
 					<button class="save button-primary" disabled><?php esc_html_e( 'Save', 'wordpoints' ); ?></button>

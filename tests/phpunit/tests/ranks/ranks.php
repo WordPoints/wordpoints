@@ -45,16 +45,18 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public static function tearDownAfterClass() {
 
-		parent::tearDownAfterClass();
-
 		WordPoints_Rank_Groups::deregister_group( __CLASS__ );
 		WordPoints_Rank_Types::deregister_type( __CLASS__ );
+
+		parent::tearDownAfterClass();
 	}
 
 	/**
 	 * Test that a valid rank type must be passed to add a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_requires_valid_type() {
 
@@ -73,6 +75,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that a valid rank group must be passed to add a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_requires_valid_group() {
 
@@ -91,6 +95,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that valid metadata must be passed to add a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_requires_valid_metadata() {
 
@@ -109,6 +115,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test adding a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_add_rank
 	 */
 	public function test_add_rank() {
 
@@ -129,9 +137,70 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
+	 * Test adding a rank with emojis.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_add_rank
+	 */
+	public function test_add_rank_with_emoji() {
+
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
+		}
+
+		$name = "\xf0\x9f\x98\x8e Smiler";
+
+		$rank = wordpoints_add_rank(
+			$name
+			, 'test_type'
+			, 'test_group'
+			, 1
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertInternalType( 'int', $rank );
+
+		$rank = wordpoints_get_rank( $rank );
+
+		$this->assertEquals( $name, $rank->name );
+	}
+
+	/**
+	 * Test adding a rank encodes emojis in the name if needed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_add_rank
+	 */
+	public function test_add_rank_with_emoji_utf8() {
+
+		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
+
+		$rank = wordpoints_add_rank(
+			"\xf0\x9f\x98\x8e Smiler"
+			, 'test_type'
+			, 'test_group'
+			, 1
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertInternalType( 'int', $rank );
+
+		$rank = wordpoints_get_rank( $rank );
+
+		$this->assertEquals( '&#x1f60e; Smiler', $rank->name );
+	}
+
+	/**
 	 * Test that updating a rank requires a valid rank ID.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_id() {
 
@@ -153,6 +222,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires a valid rank type.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_type() {
 
@@ -174,6 +245,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires a valid rank group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_group() {
 
@@ -195,6 +268,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that updating a rank requires valid meta.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
 	 */
 	public function test_update_rank_requires_valid_meta() {
 
@@ -216,6 +291,9 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test updating a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_update_rank
+	 * @covers ::wordpoints_get_rank
 	 */
 	public function test_update_rank() {
 
@@ -251,9 +329,76 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
+	 * Test updating a rank with emojis.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_update_rank
+	 */
+	public function test_update_rank_with_emoji() {
+
+		global $wpdb;
+
+		if ( 'utf8mb4' !== $wpdb->charset ) {
+			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
+		}
+
+		$name = "\xf0\x9f\x98\x8e Smiler";
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, $name
+			, __CLASS__
+			, __CLASS__
+			, 0
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertTrue( $result );
+
+		$rank = wordpoints_get_rank( $rank_id );
+
+		$this->assertEquals( $name, $rank->name );
+	}
+
+	/**
+	 * Test updating a rank encodes emojis in the name if needed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_update_rank
+	 */
+	public function test_update_rank_with_emoji_utf8() {
+
+		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		$result = wordpoints_update_rank(
+			$rank_id
+			, "\xf0\x9f\x98\x8e Smiler"
+			, __CLASS__
+			, __CLASS__
+			, 0
+			, array( 'test_meta' => 1 )
+		);
+
+		$this->assertTrue( $result );
+
+		$rank = wordpoints_get_rank( $rank_id );
+
+		$this->assertEquals( '&#x1f60e; Smiler', $rank->name );
+	}
+
+	/**
 	 * Test deleting a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_delete_rank
 	 */
 	public function test_delete_rank() {
 
@@ -269,6 +414,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test formatting a rank for display.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_format_rank
 	 */
 	public function test_format_rank() {
 
@@ -288,6 +435,8 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test formatting a rank with an invalid ID.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_format_rank
 	 */
 	public function test_format_invalid_rank() {
 
@@ -302,6 +451,10 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test rank caching.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_get_rank
+	 * @covers ::wordpoints_update_rank
+	 * @covers ::wordpoints_delete_rank
 	 */
 	public function test_ranks_are_cached() {
 
@@ -352,6 +505,11 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test user rank caching.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
+	 * @covers ::wordpoints_get_user_rank
+	 * @covers ::wordpoints_delete_rank
+	 * @covers WordPoints_Rank_Group::move_rank
 	 */
 	public function test_user_ranks_cached() {
 
@@ -451,6 +609,11 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test users with rank caching.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers ::wordpoints_update_user_rank
+	 * @covers ::wordpoints_get_users_with_rank
+	 * @covers ::wordpoints_delete_rank
+	 * @covers WordPoints_Rank_Group::move_rank
 	 */
 	public function test_users_with_rank_caching() {
 

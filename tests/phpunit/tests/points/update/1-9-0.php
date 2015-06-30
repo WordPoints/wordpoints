@@ -14,6 +14,14 @@
  *
  * @group points
  * @group update
+ *
+ * @covers WordPoints_Points_Un_Installer::update_single_to_1_9_0
+ * @covers WordPoints_Points_Un_Installer::update_site_to_1_9_0
+ * @covers WordPoints_Points_Un_Installer::update_network_to_1_9_0
+ * @covers WordPoints_Points_Un_Installer::_1_9_0_combine_hooks
+ *
+ * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
+ * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */
 class WordPoints_Points_1_9_0_Update_Test extends WordPoints_Points_UnitTestCase {
 
@@ -208,12 +216,10 @@ class WordPoints_Points_1_9_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that network hooks are updated on multisite.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_matching_network_hooks_combined() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		WordPoints_Points_Hooks::set_network_mode( true );
 
@@ -247,12 +253,10 @@ class WordPoints_Points_1_9_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that if there are no leftover network hooks the legacy option isn't added.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_legacy_false_if_no_leftover_network_hooks() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		WordPoints_Points_Hooks::set_network_mode( true );
 
@@ -394,12 +398,10 @@ class WordPoints_Points_1_9_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that network hooks are updated on multisite.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_matching_network_post_hooks_combined() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		WordPoints_Points_Hooks::set_network_mode( true );
 
@@ -433,12 +435,10 @@ class WordPoints_Points_1_9_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that if there are no leftover network hooks the legacy option isn't added.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_legacy_false_if_no_leftover_network_post_hooks() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		WordPoints_Points_Hooks::set_network_mode( true );
 

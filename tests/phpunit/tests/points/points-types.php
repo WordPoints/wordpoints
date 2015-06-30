@@ -24,6 +24,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that it returns true when a points type exists.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_is_points_type
 	 */
 	public function test_returns_true_if_exists() {
 
@@ -34,6 +36,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that it returns false if a type doesn't exist.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_is_points_type
 	 */
 	public function test_returns_false_if_nonexistant() {
 
@@ -48,6 +52,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that it returns an array of types present.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points_types
 	 */
 	public function test_get_returns_array_of_types() {
 
@@ -58,6 +64,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test behavior when no types exist.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points_types
 	 */
 	public function test_get_returns_empty_array_if_none() {
 
@@ -74,6 +82,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test passing invalid settings.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points_type
 	 */
 	public function test_add_returns_false_if_invalid_settings() {
 
@@ -86,6 +96,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test creating a new type.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points_type
 	 */
 	public function test_add_updates_option() {
 
@@ -107,6 +119,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test updating a points type.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_update_points_type
 	 */
 	public function test_update_updates_option() {
 
@@ -123,6 +137,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that false is returned if $type is invalid.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_update_points_type
 	 */
 	public function test_update_false_if_not_type() {
 
@@ -130,9 +146,11 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that false is retuned if 'name' isn't set.
+	 * Test that false is returned if 'name' isn't set.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_update_points_type
 	 */
 	public function test_update_false_if_name_missing() {
 
@@ -147,6 +165,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that false is returned if the slug isn't registered.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_delete_points_type
 	 */
 	public function test_delete_returns_false_if_nonexistant() {
 
@@ -157,6 +177,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that it deletes the points type and related stuff.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_delete_points_type
 	 */
 	public function test_points_type_deleted() {
 
@@ -209,6 +231,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that null is returned if the points type doesn't exist.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points_type_setting
 	 */
 	public function test_null_returned_if_nonexistant_setting() {
 
@@ -219,6 +243,8 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 * Test retrieval of a single setting.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_points_type_setting
 	 */
 	public function test_returns_setting_value() {
 

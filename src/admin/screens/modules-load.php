@@ -7,7 +7,7 @@
  * @since 1.1.0
  */
 
-global $status;
+global $status, $wp_version;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';
@@ -20,8 +20,8 @@ if ( isset( $_POST['clear-recent-list'] ) ) {
 }
 
 $page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
-$module = ( isset( $_REQUEST['module'] ) ) ? wp_unslash( sanitize_text_field( $_REQUEST['module'] ) ) : '';
-$s      = ( isset( $_REQUEST['s'] ) ) ? urlencode( $_REQUEST['s'] ) : '';
+$module = ( isset( $_REQUEST['module'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['module'] ) ) : '';
+$s      = ( isset( $_REQUEST['s'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : '';
 
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ) );
@@ -40,7 +40,7 @@ switch ( $action ) {
 
 		if ( is_multisite() && ! is_network_admin() && is_network_only_wordpoints_module( $module ) ) {
 
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -52,7 +52,7 @@ switch ( $action ) {
 
 			if ( 'unexpected_output' === $result->get_error_code() ) {
 
-				wp_redirect(
+				wp_safe_redirect(
 					add_query_arg(
 						array(
 							'_error_nonce' => wp_create_nonce( 'module-activation-error_' . $module ),
@@ -79,7 +79,7 @@ switch ( $action ) {
 			update_option( 'wordpoints_recently_activated_modules', $recent );
 		}
 
-		wp_redirect( add_query_arg( 'activate', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'activate', 'true', $redirect_url ) );
 	exit;
 
 	// Activate multiple modules.
@@ -91,7 +91,7 @@ switch ( $action ) {
 		check_admin_referer( 'bulk-modules' );
 
 		$modules = isset( $_POST['checked'] )
-			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // XSS OK WPCS.
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // WPCS: sanitization OK.
 			: array();
 
 		// Only activate modules which are not already active.
@@ -113,7 +113,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -128,14 +128,14 @@ switch ( $action ) {
 
 			$recent = wordpoints_get_array_option( 'wordpoints_recently_activated_modules' );
 
-			foreach ( $modules as $module )  {
+			foreach ( $modules as $module ) {
 				unset( $recent[ $module ] );
 			}
 
 			update_option( 'wordpoints_recently_activated_modules', $recent );
 		}
 
-		wp_redirect( add_query_arg( 'activate-multi', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'activate-multi', 'true', $redirect_url ) );
 	exit;
 
 	// Get the fatal error from a module.
@@ -191,7 +191,7 @@ switch ( $action ) {
 		check_admin_referer( 'deactivate-module_' . $module );
 
 		if ( ! is_network_admin() && is_wordpoints_module_active_for_network( $module ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -206,7 +206,7 @@ switch ( $action ) {
 		if ( headers_sent() ) {
 			echo '<meta http-equiv="refresh" content="' . esc_attr( '0;url=' . $redirect_url ) . '" />';
 		} else {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 		}
 	exit;
 
@@ -219,7 +219,7 @@ switch ( $action ) {
 		check_admin_referer( 'bulk-modules' );
 
 		$modules = isset( $_POST['checked'] )
-			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // XSS OK WPCS.
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_POST['checked'] ) ) // WPCS: sanitization OK.
 			: array();
 
 		$network_modules = array_filter( $modules, 'is_wordpoints_module_active_for_network' );
@@ -232,7 +232,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -249,7 +249,7 @@ switch ( $action ) {
 			update_option( 'wordpoints_recently_activated_modules', $deactivated + wordpoints_get_array_option( 'wordpoints_recently_activated_modules' ) );
 		}
 
-		wp_redirect( add_query_arg( 'deactivate-multi', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'deactivate-multi', 'true', $redirect_url ) );
 	exit;
 
 	// Delete multiple modules.
@@ -262,11 +262,11 @@ switch ( $action ) {
 
 		// $_POST = from the module form; $_GET = from the FTP details screen.
 		$modules = isset( $_REQUEST['checked'] )
-			? array_map( 'sanitize_text_field', (array) wp_unslash( $_REQUEST['checked'] ) ) // XSS OK WPCS.
+			? array_map( 'sanitize_text_field', (array) wp_unslash( $_REQUEST['checked'] ) ) // WPCS: sanitization OK.
 			: array();
 
 		if ( empty( $modules ) ) {
-			wp_redirect( $redirect_url );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -279,7 +279,7 @@ switch ( $action ) {
 		}
 
 		if ( empty( $modules ) ) {
-			wp_redirect( add_query_arg( array( 'error' => 'true', 'main' => 'true' ), $redirect_url ) );
+			wp_safe_redirect( add_query_arg( array( 'error' => 'true', 'main' => 'true' ), $redirect_url ) );
 			exit;
 		}
 
@@ -333,7 +333,6 @@ switch ( $action ) {
 
 							foreach ( $folder_modules as $module_file => $data ) {
 
-								$module_info[ $module_file ] = _wordpoints_get_module_data_markup_translate( $module_file, $data );
 								$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
 
 								if ( ! $module_info[ $module_file ]['network'] ) {
@@ -391,7 +390,7 @@ switch ( $action ) {
 					?>
 				</p>
 
-				<form method="post" action="<?php echo esc_attr( esc_url( $_SERVER['REQUEST_URI'] ) ); ?>" style="display:inline;">
+				<form method="post" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php foreach ( (array) $modules as $module ) : ?>
@@ -426,7 +425,7 @@ switch ( $action ) {
 		// Store the result in a cache rather than a URL param due to object type & length
 		set_transient( 'wordpoints_modules_delete_result_' . get_current_user_id(), $delete_result );
 
-		wp_redirect( add_query_arg( 'deleted', 'true', $redirect_url ) );
+		wp_safe_redirect( add_query_arg( 'deleted', 'true', $redirect_url ) );
 	exit;
 
 	case 'clear-recent-list':
@@ -444,7 +443,7 @@ switch ( $action ) {
 		do_action( "wordpoints_modules_screen-{$action}" );
 }
 
-add_screen_option( 'per_page', array( 'label' => _x( 'Modules', 'modules per page (screen options)', 'wordpoints' ), 'default' => 999 ) );
+add_screen_option( 'per_page', array( 'default' => 999 ) );
 
 $screen = get_current_screen();
 
@@ -453,8 +452,8 @@ $screen->add_help_tab(
 		'id'		=> 'overview',
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
-			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
-			'<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>'
+			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>
+			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 
@@ -463,15 +462,15 @@ $screen->add_help_tab(
 		'id'		=> 'compatibility-problems',
 		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
 		'content'	=>
-			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
-			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>' // XSS OK WPCS
+			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>
+			<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
 	)
 );
 
 $screen->set_help_sidebar(
-	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>' .
-	'<p><a href="http://wordpoints.org/developer-guide/modules/" target="_blank">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>' .
-	'<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
+	<p><a href="http://wordpoints.org/developer-guide/modules/" target="_blank">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
+	<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 register_column_headers(

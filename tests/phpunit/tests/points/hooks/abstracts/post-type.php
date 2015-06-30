@@ -45,6 +45,8 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_Points_UnitT
 	 * Test that auto-reversal setting is off by default.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Post_Type_Points_Hook_Base::form()
 	 */
 	public function test_auto_reverse_not_disabled_by_default() {
 
@@ -65,6 +67,8 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_Points_UnitT
 	 * Test that auto-reversal checkbox is off when auto-reversal is disabled.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Post_Type_Points_Hook_Base::form()
 	 */
 	public function test_auto_reverse_disabled_checkbox_off() {
 
@@ -88,6 +92,8 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_Points_UnitT
 	 * Test that it isn't possible to disable auto-reversal if the label is not set.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @covers WordPoints_Post_Type_Points_Hook_Base::form()
 	 */
 	public function test_auto_reverse_cant_be_disabled_by_default() {
 

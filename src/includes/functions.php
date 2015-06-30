@@ -3,12 +3,178 @@
 /**
  * WordPoints Common Functions.
  *
- * These are genereal functions that are here to be available to all components,
+ * These are general functions that are here to be available to all components,
  * modules, and plugins.
  *
  * @package WordPoints
  * @since 1.0.0
  */
+
+/**
+ * Register the installer for WordPoints.
+ *
+ * @since 2.0.0
+ *
+ * @WordPress\action plugins_loaded
+ */
+function wordpoints_register_installer() {
+
+	WordPoints_Installables::register(
+		'plugin'
+		, 'wordpoints'
+		, array(
+			'version'      => WORDPOINTS_VERSION,
+			'un_installer' => WORDPOINTS_DIR . '/includes/class-un-installer.php',
+			'network_wide' => is_wordpoints_network_active(),
+		)
+	);
+}
+add_action( 'plugins_loaded', 'wordpoints_register_installer' );
+
+/**
+ * Install the plugin on activation.
+ *
+ * @since 1.0.0
+ *
+ * @WordPress\action activate_wordpoints/wordpoints.php
+ *
+ * @param bool $network_active Whether the plugin is being network activated.
+ */
+function wordpoints_activate( $network_active ) {
+
+	// The installer won't be registered yet.
+	wordpoints_register_installer();
+
+	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
+}
+register_activation_hook( __FILE__, 'wordpoints_activate' );
+
+/**
+ * Check module compatibility before breaking updates.
+ *
+ * @since 2.0.0
+ *
+ * @WordPress\action plugins_loaded
+ */
+function wordpoints_breaking_update() {
+
+	if ( is_wordpoints_network_active() ) {
+		$wordpoints_data = get_site_option( 'wordpoints_data' );
+	} else {
+		$wordpoints_data = get_option( 'wordpoints_data' );
+	}
+
+	// The major version is determined by the first number, so we can just cast to
+	// an integer. IF the major versions are equal, we don't need to do anything.
+	if ( (int) WORDPOINTS_VERSION === (int) $wordpoints_data['version'] ) {
+		return;
+	}
+
+	/**
+	 * The base un/installer class.
+	 *
+	 * @since 2.0.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
+
+	/**
+	 * The breaking updater.
+	 *
+	 * @since 2.0.0
+	 */
+	require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
+
+	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
+	$updater->update();
+}
+add_action( 'plugins_loaded', 'wordpoints_breaking_update' );
+
+/**
+ * Prints the random string stored in the database.
+ *
+ * @since 2.0.0
+ *
+ * @WordPress\action shutdown Only when checking module compatibility during a
+ *                            breaking update.
+ */
+function wordpoints_maintenance_shutdown_print_rand_str() {
+
+	if ( ! isset( $_GET['wordpoints_module_check'] ) ) {
+		return;
+	}
+
+	if ( is_network_admin() ) {
+		$nonce = get_site_option( 'wordpoints_module_check_nonce' );
+	} else {
+		$nonce = get_option( 'wordpoints_module_check_nonce' );
+	}
+
+	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+		return;
+	}
+
+	if ( is_network_admin() ) {
+		$rand_str = get_site_option( 'wordpoints_module_check_rand_str' );
+	} else {
+		$rand_str = get_option( 'wordpoints_module_check_rand_str' );
+	}
+
+	echo esc_html( $rand_str );
+}
+
+/**
+ * Filters the modules when checking compatibility during a breaking update.
+ *
+ * @since 2.0.0
+ *
+ * @param array $modules The active modules.
+ *
+ * @return array The modules whose compatibility is being checked.
+ */
+function wordpoints_maintenance_filter_modules( $modules ) {
+
+	if ( ! isset( $_GET['check_module'], $_GET['wordpoints_module_check'] ) ) {
+		return $modules;
+	}
+
+	if ( is_network_admin() ) {
+		$nonce = get_site_option( 'wordpoints_module_check_nonce' );
+	} else {
+		$nonce = get_option( 'wordpoints_module_check_nonce' );
+	}
+
+	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+		return $modules;
+	}
+
+	$modules = explode(
+		','
+		, sanitize_text_field( wp_unslash( $_GET['check_module'] ) )
+	);
+
+	if ( 'pre_site_option_wordpoints_sitewide_active_modules' === current_filter() ) {
+		$modules = array_flip( $modules );
+	}
+
+	return $modules;
+}
+
+if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
+
+	add_action( 'shutdown', 'wordpoints_maintenance_shutdown_print_rand_str' );
+
+	if ( is_network_admin() ) {
+		$filter = 'pre_site_option_wordpoints_sitewide_active_modules';
+	} else {
+		$filter = 'pre_option_wordpoints_active_modules';
+	}
+
+	add_filter( $filter, 'wordpoints_maintenance_filter_modules' );
+}
+
+//
+// Sanitizing Functions.
+//
 
 /**
  * Convert a value to an integer.
@@ -36,7 +202,7 @@ function wordpoints_int( &$maybe_int ) {
 		case 'integer': break;
 
 		case 'string':
-			if ( $maybe_int === (string) (int) $maybe_int ) {
+			if ( (string) (int) $maybe_int === $maybe_int ) {
 				$maybe_int = (int) $maybe_int;
 			} else {
 				$maybe_int = false;
@@ -44,7 +210,7 @@ function wordpoints_int( &$maybe_int ) {
 		break;
 
 		case 'double':
-			if ( $maybe_int === (float) (int) $maybe_int ) {
+			if ( (float) (int) $maybe_int === $maybe_int ) {
 				$maybe_int = (int) $maybe_int;
 			} else {
 				$maybe_int = false;
@@ -118,25 +284,26 @@ function wordpoints_negint( &$maybe_int ) {
  * due to it being pluggable.
  *
  * @since 1.9.0
+ * @since 2.0.0 $format_values now accepts a string when there is only one value.
  *
  * @see wp_verify_nonce()
  *
- * @param string $nonce_key The key for the nonce in the request parameters array.
- * @param string $action_format A sprintf()-style format string for the nonce action.
- * @param string[] $format_values The keys of the request values to use to format the action.
- * @param string   $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
+ * @param string          $nonce_key     The key for the nonce in the request parameters array.
+ * @param string          $action_format A sprintf()-style format string for the nonce action.
+ * @param string|string[] $format_values The keys of the request values to use to format the action.
+ * @param string          $request_type  The request array to use, 'get' ($_GET) or 'post' ($_POST).
  *
  * @return int|false Returns 1 or 2 on success, false on failure.
  */
 function wordpoints_verify_nonce(
 	$nonce_key,
 	$action_format,
-	array $format_values = null,
+	$format_values = null,
 	$request_type = 'get'
 ) {
 
 	if ( 'post' === $request_type ) {
-		$request = $_POST;
+		$request = $_POST; // WPCS: CSRF OK.
 	} else {
 		$request = $_GET;
 	}
@@ -149,7 +316,7 @@ function wordpoints_verify_nonce(
 
 		$values = array();
 
-		foreach ( $format_values as $value ) {
+		foreach ( (array) $format_values as $value ) {
 
 			if ( ! isset( $request[ $value ] ) ) {
 				return false;
@@ -372,7 +539,7 @@ function wordpoints_delete_network_option( $option ) {
  * @param array  $_in    The values that the column must be IN (or NOT IN).
  * @param string $format The format for the values in $_in: '%s', '%d', or '%f'.
  *
- * @return string|false The comma-delimeted string of values. False on failure.
+ * @return string|false The comma-delimited string of values. False on failure.
  */
 function wordpoints_prepare__in( $_in, $format = '%s' ) {
 
@@ -550,7 +717,9 @@ class WordPoints_Dropdown_Builder {
  * @since 1.0.0
  * @since 1.5.1 The 'filter' option was added.
  *
- * @param array $options An array of display options. {
+ * @param array $options {
+ *        An array of display options.
+ *
  *        @type string $name     The value for the name attribute of the element.
  *        @type string $id       The value for the id attribute of the element.
  *        @type string $selected The name of the selected points type.
@@ -778,27 +947,6 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 3 );
 
 /**
- * Add custom capabilities to new sites on creation when in network mode.
- *
- * @since 1.5.0
- *
- * @action wpmu_new_blog
- *
- * @param int $blog_id The ID of the new site.
- */
-function wordpoints_add_custom_caps_to_new_sites( $blog_id ) {
-
-	if ( ! is_wordpoints_network_active() ) {
-		return;
-	}
-
-	switch_to_blog( $blog_id );
-	wordpoints_add_custom_caps( wordpoints_get_custom_caps() );
-	restore_current_blog();
-}
-add_action( 'wpmu_new_blog', 'wordpoints_add_custom_caps_to_new_sites' );
-
-/**
  * Register the points component.
  *
  * @since 1.0.0
@@ -862,5 +1010,21 @@ function wordpoints_init_cache_groups() {
 	}
 }
 add_action( 'init', 'wordpoints_init_cache_groups', 5 );
+
+/**
+ * Register scripts and styles.
+ *
+ * It is run on both the front and back end with a priority of 5, so the scripts will
+ * all be registered when we want to enqueue them, usually on the default priority of
+ * 10.
+ *
+ * @since 1.0.0
+ *
+ * @action wp_enqueue_scripts    5 Front-end scripts enqueued.
+ * @action admin_enqueue_scripts 5 Admin scripts enqueued.
+ */
+function wordpoints_register_scripts() {}
+add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
+add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 
 // EOF

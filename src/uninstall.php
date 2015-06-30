@@ -14,10 +14,12 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-require_once( dirname( __FILE__ ) . '/includes/class-un-installer-base.php' );
-require_once( dirname( __FILE__ ) . '/includes/class-un-installer.php' );
+require_once( dirname( __FILE__ ) . '/includes/constants.php' );
+require_once( WORDPOINTS_DIR . '/includes/functions.php' );
+require_once( WORDPOINTS_DIR . '/includes/class-installables.php' );
 
-$uninstaller = new WordPoints_Un_Installer;
-$uninstaller->uninstall();
+wordpoints_register_installer();
+
+WordPoints_Installables::uninstall( 'plugin', 'wordpoints' );
 
 // EOF

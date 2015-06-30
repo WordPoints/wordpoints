@@ -90,37 +90,6 @@ final class WordPoints_Points_Hooks {
 	 */
 	private static $network_mode = false;
 
-	/**
-	 * The points hooks, standard or network-wide, depending on network mode.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.5.0
-	 * @deprecated In favour of self::$hook_types.
-	 *
-	 * @type array $hooks
-	 */
-	private static $hooks = array();
-
-	/**
-	 * The standard hooks.
-	 *
-	 * @since 1.2.0
-	 * @deprecated 1.5.0
-	 *
-	 * @type array $standard_hooks
-	 */
-	private static $standard_hooks = array();
-
-	/**
-	 * The network-wide points hooks.
-	 *
-	 * @since 1.2.0
-	 * @deprecated 1.5.0
-	 *
-	 * @type array $network_hooks
-	 */
-	private static $network_hooks = array();
-
 	//
 	// Public Methods.
 	//
@@ -173,9 +142,6 @@ final class WordPoints_Points_Hooks {
 			$hook_type = new $class_name();
 			self::$hook_types[ $hook_type->get_id_base() ] = $hook_type;
 		}
-
-		// Back-compat.
-		self::$hooks = &self::$standard_hooks;
 
 		/**
 		 * All points hooks registered and initialized.
@@ -254,6 +220,7 @@ final class WordPoints_Points_Hooks {
 	 * Delete the database data for a list of hook types.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 2.0.0 Use an un/installer class instead.
 	 *
 	 * @param array|string $hook_types The hook type(s) to uninstall.
 	 * @param int[]        $site_ids   List of site IDs where this hook type is
@@ -261,6 +228,8 @@ final class WordPoints_Points_Hooks {
 	 *                                 omitted, the current site ID is used.
 	 */
 	public static function uninstall_hook_types( $hook_types, array $site_ids = null ) {
+
+		_deprecated_function( __METHOD__, '2.0.0', 'WordPoints_Un_Installer_Base::$uninstall' );
 
 		$hook_types = (array) $hook_types;
 
@@ -393,15 +362,7 @@ final class WordPoints_Points_Hooks {
 	public static function set_network_mode( $on ) {
 
 		if ( $on !== self::$network_mode ) {
-
 			self::$network_mode = (bool) $on;
-
-			// Back-compat.
-			if ( self::$network_mode ) {
-				self::$hooks = &self::$network_hooks;
-			} else {
-				self::$hooks = &self::$standard_hooks;
-			}
 		}
 	}
 
@@ -465,7 +426,7 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $points_types_hooks
+	 * @param array $points_types_hooks The list of points types and their hooks.
 	 */
 	public static function save_points_types_hooks( array $points_types_hooks ) {
 
@@ -809,86 +770,6 @@ final class WordPoints_Points_Hooks {
 	private static function _sort_name_callback( $a, $b ) {
 
 		return strnatcasecmp( $a->get_name(), $b->get_name() );
-	}
-
-	//
-	// Deprecated methods.
-	//
-
-	/**
-	 * Display a list of inactive hooks.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.2.0
-	 * @deprecated No longer used.
-	 */
-	public static function list_inactive() {
-
-		_deprecated_function( __METHOD__, '1.2.0' );
-	}
-
-	/**
-	 * Register a hook instance handler.
-	 *
-	 * Registers the object that will handle all instances of a hook, and the
-	 * specific number for this instance. This function should not be called
-	 * directly, it is called by {@see WordPoints_Points_Hook::init()}.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.5.0
-	 *
-	 * @param WordPoints_Points_Hook $hook The hook object.
-	 */
-	public static function _register_hook( $hook ) {
-
-		self::$standard_hooks[ $hook->get_id() ] = $hook;
-	}
-
-	/**
-	 * Register an instance of a network hook.
-	 *
-	 * This function is used by WordPoints_Points_Hooks::init(), and should not be
-	 * called directly.
-	 *
-	 * @since 1.2.0
-	 * @deprecated 1.5.0
-	 *
-	 * @param WordPoints_Points_Hook $hook The hook object.
-	 */
-	public static function _register_network_hook( $hook ) {
-
-		self::$network_hooks[ $hook->get_id() ] = $hook;
-	}
-
-	/**
-	 * Deregister an instance of a hook.
-	 *
-	 * It will unregister a regular hook or a network hook, depending on the current
-	 * network mode.
-	 *
-	 * @since 1.4.0
-	 * @deprecated 1.5.0
-	 *
-	 * @param string $hook_id The ID of the hook.
-	 */
-	public static function _unregister_hook( $hook_id ) {
-
-		unset( self::$hooks[ $hook_id ] );
-	}
-
-	/**
-	 * Get all registered points hook instances.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.5.0
-	 *
-	 * @return array An array of points hook type handlers.
-	 */
-	public static function get_all() {
-
-		_deprecated_function( __METHOD__, '1.5.0', 'WordPoints_Points_Hooks::get_handlers()' );
-
-		return self::$hooks;
 	}
 
 } // class WordPoints_Points_Hooks

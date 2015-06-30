@@ -20,6 +20,10 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 	 * Test the log meta flow.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points_log_meta
+	 * @covers ::wordpoints_get_points_log_meta
+	 * @covers ::wordpoints_update_points_log_meta
 	 */
 	function test_log_meta() {
 
@@ -47,10 +51,10 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 	 * Test deleting all log meta.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @covers ::wordpoints_points_log_delete_all_metadata
 	 */
 	function test_delete_all_log_meta() {
-
-		global $wpdb;
 
 		$log_id = 1;
 

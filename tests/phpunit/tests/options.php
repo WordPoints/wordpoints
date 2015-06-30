@@ -8,16 +8,18 @@
  */
 
 /**
- * Test wordpoints_get_array_option().
+ * Test custom option API.
  *
  * @since 1.0.1
  */
-class WordPoints_Option_Test extends WP_UnitTestCase {
+class WordPoints_Option_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * Test that wordpoints_get_array_option() handles incorrect types properly.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_get_array_option
 	 */
 	public function test_get_array_typechecks() {
 
@@ -37,6 +39,11 @@ class WordPoints_Option_Test extends WP_UnitTestCase {
 	 * Test get and update of network options.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @covers ::wordpoints_get_network_option
+	 * @covers ::wordpoints_update_network_option
+	 * @covers ::wordpoints_add_network_option
+	 * @covers ::wordpoints_delete_network_option
 	 */
 	public function test_network_options() {
 

@@ -11,6 +11,8 @@
  * Test wordpoints_verify_nonce().
  *
  * @since 1.9.0
+ *
+ * @covers ::wordpoints_verify_nonce
  */
 class WordPoints_Verify_Nonce_Test extends WordPoints_UnitTestCase {
 
@@ -74,6 +76,25 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_UnitTestCase {
 			'nonce'
 			, 'action-%d_%s'
 			, array( 'a_number', 'some_string' )
+		);
+
+		$this->assertEquals( 1, $is_valid );
+	}
+
+	/**
+	 * Test with action format with a string for $format_values.
+	 *
+	 * @since 2.0.0
+	 */
+	public function test_action_format_string_format_value() {
+
+		$_GET['nonce'] = wp_create_nonce( 'action-test' );
+		$_GET['some_string'] = 'test';
+
+		$is_valid = wordpoints_verify_nonce(
+			'nonce'
+			, 'action-%s'
+			, 'some_string'
 		);
 
 		$this->assertEquals( 1, $is_valid );

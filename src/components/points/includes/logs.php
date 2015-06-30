@@ -70,7 +70,7 @@ final class WordPoints_Points_Log_Queries {
 		do_action( 'wordpoints_register_points_logs_queries' );
 
 		// Make sure that the default query is registered.
-		self::register_query( 'default', array(), array( 'cache_queries' => 'results' ) );
+		self::register_query( 'default', array(), array( 'cache_queries' => true ) );
 
 		self::$initialized = true;
 	}
@@ -82,10 +82,10 @@ final class WordPoints_Points_Log_Queries {
 	 * @since 1.5.0 The $data parameter was added.
 	 *
 	 * @param string $slug The query's unique identifier.
-	 * @param array  $args The arguments for the query. {@see
-	 *                     WordPoints_Points_Logs_Query::__construct()}
-	 * @param array  $data Other data for this query. {@see
-	 *                     wordpoints_register_points_logs_query()}
+	 * @param array  $args The arguments for the query {@see
+	 *                     WordPoints_Points_Logs_Query::__construct()}.
+	 * @param array  $data Other data for this query {@see
+	 *                     wordpoints_register_points_logs_query()}.
 	 *
 	 * @return bool Whether the query was registered.
 	 */
@@ -198,8 +198,8 @@ final class WordPoints_Points_Log_Queries {
  *
  * @param string $slug The query's unique identifier. Should contain only lowercase
  *                     letters, numbers, and the underscore (_).
- * @param array  $args The arguments for the query. {@see
- *                     WordPoints_Points_Logs_Query::__construct()}
+ * @param array  $args The arguments for the query {@see
+ *                     WordPoints_Points_Logs_Query::__construct()}.
  * @param array  $data {
  *        Other data for this query.
  *
@@ -389,21 +389,17 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 		$search_term = '';
 
-		if ( isset( $_POST['wordpoints_points_logs_search'] ) ) {
+		if ( isset( $_POST['wordpoints_points_logs_search'] ) ) { // WPCS: CSRF OK
 			$search_term = trim(
-				sanitize_text_field( $_POST['wordpoints_points_logs_search'] )
+				sanitize_text_field( wp_unslash( $_POST['wordpoints_points_logs_search'] ) ) // WPCS: CSRF OK
 			);
 		}
 
 		if ( $search_term ) {
 
-			global $wpdb, $wp_version;
+			global $wpdb;
 
-			if ( version_compare( $wp_version, '4.0-alpha-28611-src', '>=' ) ) {
-				$escaped_search_term = $wpdb->esc_like( $search_term );
-			} else {
-				$escaped_search_term = like_escape( $search_term );
-			}
+			$escaped_search_term = $wpdb->esc_like( $search_term );
 
 			$logs_query->set_args( array( 'text' => "%{$escaped_search_term}%" ) );
 		}
@@ -725,33 +721,68 @@ add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_de
  */
 function wordpoints_clean_points_logs_cache( $user_id, $points, $points_type ) {
 
+	wordpoints_flush_points_logs_caches(
+		array( 'user_id' => $user_id, 'points_type' => $points_type )
+	);
+}
+add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
+
+/**
+ * Flush the points logs caches.
+ *
+ * It clears the cache for all points types by default, but doesn't clear the caches
+ * for specific users. To clear the cache(s) for a user, you must pass the $user_id
+ * argument. For this reason, you should always pass the $user_id argument, except in
+ * cases where the current_user queries will not be run again anyway (such as when
+ * the users are being deleted).
+ *
+ * @since 2.0.0
+ *
+ * @param array $args {
+ *        Arguments to limit which caches to flush.
+ *
+ *        @type string|string[] $points_type Only clear cache for these points types.
+ *        @type int             $user_id     Only clear the cache for this user.
+ * }
+ */
+function wordpoints_flush_points_logs_caches( $args = array() ) {
+
+	$args = array_merge( array( 'points_type' => false, 'user_id' => 0 ), $args );
+
 	$find = array(
 		'%points_type%',
 		'%user_id%',
 	);
 
-	$replace = array(
-		$points_type,
-		$user_id,
-	);
+	if ( empty( $args['points_type'] ) ) {
+		$points_types = array_keys( wordpoints_get_points_types() );
+	} else {
+		$points_types = (array) $args['points_type'];
+	}
 
-	foreach ( WordPoints_Points_Log_Queries::get_queries() as $query ) {
+	foreach ( $points_types as $points_type ) {
+		foreach ( WordPoints_Points_Log_Queries::get_queries() as $query ) {
 
-		if ( ! empty( $query['cache_key'] ) ) {
+			if ( ! empty( $query['cache_key'] ) ) {
 
-			if ( $query['network_wide'] ) {
-				$group = 'wordpoints_network_points_logs_query';
-			} else {
-				$group = 'wordpoints_points_logs_query';
+				if ( $query['network_wide'] ) {
+					$group = 'wordpoints_network_points_logs_query';
+				} else {
+					$group = 'wordpoints_points_logs_query';
+				}
+
+				$replace = array(
+					$points_type,
+					$args['user_id'],
+				);
+
+				wp_cache_delete(
+					str_replace( $find, $replace, $query['cache_key'] )
+					, $group
+				);
 			}
-
-			wp_cache_delete(
-				str_replace( $find, $replace, $query['cache_key'] )
-				, $group
-			);
 		}
 	}
 }
-add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
 
 // EOF

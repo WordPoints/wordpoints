@@ -26,12 +26,13 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCas
 	 * Test that unused 'post_title' log meta deleted on update.
 	 *
 	 * @since 1.10.0
+	 *
+	 * @covers WordPoints_Points_Un_Installer::update_single_to_1_10_0
+	 * @covers WordPoints_Points_Un_Installer::_1_10_0_delete_post_title_points_log_meta
+	 *
+	 * @requires WordPress !multisite
 	 */
 	public function test_post_title_points_log_meta_deleted() {
-
-		if ( is_multisite() ) {
-			$this->markTestSkipped( 'Multisite must be disabled.' );
-		}
 
 		$this->factory->wordpoints_points_log->create(
 			array(
@@ -60,12 +61,13 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCas
 	 * Test that unused 'post_title' log meta deleted on update.
 	 *
 	 * @since 1.10.0
+	 *
+	 * @covers WordPoints_Points_Un_Installer::update_network_to_1_10_0
+	 * @covers WordPoints_Points_Un_Installer::_1_10_0_delete_post_title_points_log_meta
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_post_title_points_log_meta_deleted_network() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-		}
 
 		$this->factory->wordpoints_points_log->create(
 			array(

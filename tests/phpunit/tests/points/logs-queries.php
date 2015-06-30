@@ -14,6 +14,8 @@
  *
  * @group points
  * @group points_logs
+ *
+ * @covers WordPoints_Points_Logs_Query
  */
 class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 
@@ -21,6 +23,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test query registration.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_register_points_logs_query
+	 * @covers ::wordpoints_is_points_logs_query
+	 * @covers ::wordpoints_get_points_logs_query_args
+	 * @covers ::wordpoints_get_points_logs_query
 	 */
 	function test_query_registration() {
 
@@ -46,6 +53,8 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that default queries are registered.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @coversNothing
 	 */
 	function test_default_queries_registered() {
 
@@ -319,38 +328,16 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test 'key' and 'value*' meta query args.
+	 * Test the meta_query arg.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @expectedDeprecated WordPoints_Points_Logs_Query::__construct
 	 */
-	public function test_key_and_value_meta_query_args() {
+	public function test_meta_query_arg() {
 
 		$user_id = $this->factory->user->create();
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test', array( 'test1' => 1 ) );
 		wordpoints_alter_points( $user_id, 20, 'points', 'test', array( 'test2' => 2, 'test3' => 1 ) );
-
-		$query_1 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'key' => 'test1', 'value' => array() ) )
-		);
-		$this->assertEquals( 1, $query_1->count() );
-
-		$query_2 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'value' => 1 ) )
-		);
-		$this->assertEquals( 2, $query_2->count() );
-
-		$query_3 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'value__in' => array( 1, 2 ) ) )
-		);
-		$this->assertEquals( 3, $query_3->count() );
-
-		$query_4 = new WordPoints_Points_Logs_Query(
-			array( 'meta_query' => array( 'value__not_in' => array( 1 ) ) )
-		);
-		$this->assertEquals( 1, $query_4->count() );
 
 		$query_5 = new WordPoints_Points_Logs_Query(
 			array(
@@ -405,12 +392,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test the blog_* query arg.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @requires WordPress multisite
 	 */
 	public function test_blog_query_arg() {
-
-		if ( ! is_multisite() ) {
-			$this->markTestSkipped( 'Tests are not using multisite.' );
-		}
 
 		$user_id = $this->factory->user->create();
 		$blog_id = $this->factory->blog->create();
@@ -654,12 +639,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that network queries are cache for the entire network.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_network_cache_is_network_wide() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
@@ -701,12 +684,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * Test that non-network queries are cached per-site.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_cache_is_per_site() {
-
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network active.' );
-		}
 
 		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 

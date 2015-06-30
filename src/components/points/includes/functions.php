@@ -7,9 +7,6 @@
  * @since 1.0.0
  */
 
-// Back-compat < 1.7.0
-include_once(  WORDPOINTS_DIR . 'components/points/includes/points.php' );
-
 /**
  * Register scripts and styles for the component.
  *
@@ -56,27 +53,6 @@ function wordpoints_points_get_custom_caps() {
 }
 
 /**
- * Add custom capabilities to new sites on creation when in network mode.
- *
- * @since 1.5.0
- *
- * @action wpmu_new_blog
- *
- * @param int $blog_id The ID of the new site.
- */
-function wordpoints_points_add_custom_caps_to_new_sites( $blog_id ) {
-
-	if ( ! is_wordpoints_network_active() ) {
-		return;
-	}
-
-	switch_to_blog( $blog_id );
-	wordpoints_add_custom_caps( wordpoints_points_get_custom_caps() );
-	restore_current_blog();
-}
-add_action( 'wpmu_new_blog', 'wordpoints_points_add_custom_caps_to_new_sites' );
-
-/**
  * Format points for display.
  *
  * @since 1.0.0
@@ -118,7 +94,7 @@ add_filter( 'wordpoints_format_points', 'wordpoints_format_points_filter', 5, 3 
  * @since 1.0.0
  *
  * @param array $args The arguments for the dropdown {@see
- *        WordPoints_Dropdown_Builder::$args}
+ *        WordPoints_Dropdown_Builder::$args}.
  */
 function wordpoints_points_types_dropdown( array $args ) {
 
@@ -177,6 +153,8 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 		,$where
 		,'%d'
 	);
+
+	wordpoints_flush_points_logs_caches( array( 'user_id' => $user_id ) );
 }
 add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 
@@ -206,6 +184,8 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 		,array( 'blog_id' => $blog_id )
 		,'%d'
 	);
+
+	wordpoints_flush_points_logs_caches();
 }
 add_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
 
@@ -275,44 +255,5 @@ function wordpoints_points_add_global_cache_groups() {
 	}
 }
 add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
-
-/**
- * Get the database schema for the points component.
- *
- * @since 1.5.1
- *
- * @return string CREATE TABLE queries that can be passed to dbDelta().
- */
-function wordpoints_points_get_db_schema() {
-
-	global $wpdb;
-
-	$charset_collate = $wpdb->get_charset_collate();
-
-	return "CREATE TABLE {$wpdb->wordpoints_points_logs} (
-			id BIGINT(20) NOT NULL AUTO_INCREMENT,
-			user_id BIGINT(20) NOT NULL,
-			log_type VARCHAR(255) NOT NULL,
-			points BIGINT(20) NOT NULL,
-			points_type VARCHAR(255) NOT NULL,
-			text LONGTEXT,
-			blog_id SMALLINT(5) UNSIGNED NOT NULL,
-			site_id SMALLINT(5) UNSIGNED NOT NULL,
-			date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-			PRIMARY KEY  (id),
-			KEY user_id (user_id),
-			KEY points_type (points_type),
-			KEY log_type (log_type)
-		) {$charset_collate};
-		CREATE TABLE {$wpdb->wordpoints_points_log_meta} (
-			meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			log_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-			meta_key VARCHAR(255) DEFAULT NULL,
-			meta_value LONGTEXT,
-			PRIMARY KEY  (meta_id),
-			KEY log_id (log_id),
-			KEY meta_key (meta_key)
-		) {$charset_collate};";
-}
 
 // EOF

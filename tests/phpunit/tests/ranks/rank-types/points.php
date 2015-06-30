@@ -14,6 +14,8 @@
  *
  * @group ranks
  * @group rank_types
+ *
+ * @covers WordPoints_Points_Rank_Type
  */
 class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
 

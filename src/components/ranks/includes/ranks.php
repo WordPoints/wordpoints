@@ -45,6 +45,10 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 		return $meta;
 	}
 
+	if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_ranks, 'name' ) ) {
+		$name = wp_encode_emoji( $name );
+	}
+
 	$inserted = $wpdb->insert(
 		$wpdb->wordpoints_ranks
 		, array(
@@ -127,7 +131,7 @@ function wordpoints_delete_rank( $id ) {
 			"
 			, $id
 		)
-	);
+	); // WPCS: cache pass.
 
 	WordPoints_Rank_Groups::get_group( $rank->rank_group )->remove_rank( $id );
 
@@ -204,6 +208,10 @@ function wordpoints_update_rank( $id, $name, $type, $group, $position, array $me
 	 * @param array           $meta     The new metadata for the rank.
 	 */
 	do_action( 'wordpoints_pre_update_rank', $rank, $name, $type, $group, $position, $meta );
+
+	if ( 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_ranks, 'name' ) ) {
+		$name = wp_encode_emoji( $name );
+	}
 
 	$updated = $wpdb->update(
 		$wpdb->wordpoints_ranks
@@ -544,7 +552,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 					, $old_rank_id
 					, $user_id
 				)
-			);
+			); // WPCS: cache pass.
 
 			// If the user rank isn't in the database, we can't run an update query,
 			// and need to do this insert instead.

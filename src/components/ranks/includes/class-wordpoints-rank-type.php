@@ -217,7 +217,7 @@ abstract class WordPoints_Rank_Type {
 						type="<?php echo esc_attr( $field['type'] ); ?>"
 						name="<?php echo esc_attr( $name ); ?>"
 						<?php if ( $args['placeholders'] && 'hidden' !== $field['type'] ) : ?>
-						value="<% if ( typeof <?php echo sanitize_key( $name ); ?> !== "undefined" ) { print( <?php echo sanitize_key( $name ); ?> ); } %>"
+						value="<% if ( typeof <?php echo preg_replace( '/[^a-z0-9_]/i', '', $name ); // WPCS: XSS OK ?> !== "undefined" ) { print( <?php echo preg_replace( '/[^a-z0-9_]/i', '', $name ); // WPCS: XSS OK ?> ); } %>"
 						<?php else : ?>
 						value="<?php echo esc_attr( $value ); ?>"
 						<?php endif; ?>

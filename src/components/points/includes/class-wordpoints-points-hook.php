@@ -350,29 +350,24 @@ abstract class WordPoints_Points_Hook {
 	 * Set the hook options.
 	 *
 	 * @since 1.0.0
+	 * @since 2.0.0 Now declares $options as required to be an array.
 	 *
 	 * @param array $options The options for the hook.
 	 */
-	final public function set_options( $options ) {
-
-		if ( ! is_array( $options ) ) {
-			$options = array();
-		}
-
+	final public function set_options( array $options ) {
 		$this->options = $options;
 	}
 
 	/**
 	 * Set a particular option.
 	 *
-	 * This method will probably be declared final in WordPoints 2.0.
-	 *
 	 * @since 1.9.0
+	 * @since 2.0.0 Now declared final.
 	 *
 	 * @param string $option The index for the option.
 	 * @param mixed  $value  The value to assign to this option.
 	 */
-	/*final*/ public function set_option( $option, $value ) {
+	final public function set_option( $option, $value ) {
 
 		$this->options[ $option ] = $value;
 	}
@@ -494,18 +489,6 @@ abstract class WordPoints_Points_Hook {
 		$instance = apply_filters( 'wordpoints_points_hook_update_callback', $instance, $new_instance, $old_instance, $this );
 
 		if ( false !== $instance ) {
-
-			// If this is a new instance, register it.
-			// This is deprecated, but is here for back-compat.
-			if ( ! isset( $all_instances[ $this->number ] ) ) {
-
-				if ( 'network' === $type ) {
-					WordPoints_Points_Hooks::_register_network_hook( $this );
-				} else {
-					WordPoints_Points_Hooks::_register_hook( $this );
-				}
-			}
-
 			$all_instances[ $this->number ] = $instance;
 		}
 
@@ -537,9 +520,6 @@ abstract class WordPoints_Points_Hook {
 			unset( $all_instances[ $number ] );
 
 			$this->_save_instances( $all_instances );
-
-			// This is deprecated, but is here for back-compat.
-			WordPoints_Points_Hooks::_unregister_hook( $hook_id );
 		}
 	}
 
@@ -548,7 +528,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $number
+	 * @param int $number The number of the hook instance to display the form for.
 	 *
 	 * @return bool|void Whether the form was displayed.
 	 */
@@ -792,27 +772,6 @@ abstract class WordPoints_Points_Hook {
 		);
 
 		$this->options['_classname']   = $this->option_name;
-
-		/*
-		 * The below registration is not longer necessary, and is deprecated.
-		 * It is here only for back-compat.
-		 */
-
-		// Register all standard instances of this hook.
-		foreach ( array_keys( $this->get_instances( 'standard' ) ) as $number ) {
-
-			$this->set_number( $number );
-
-			WordPoints_Points_Hooks::_register_hook( $this );
-		}
-
-		// Register all network instances of this hook.
-		foreach ( array_keys( $this->get_instances( 'network' ) ) as $number ) {
-
-			$this->set_number( $number );
-
-			WordPoints_Points_Hooks::_register_network_hook( $this );
-		}
 	}
 
 	//

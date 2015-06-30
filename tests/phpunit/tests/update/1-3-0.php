@@ -15,8 +15,15 @@
  * @since 1.5.0
  *
  * @group update
+ *
+ * @covers WordPoints_Un_Installer::update_single_to_1_3_0
  */
 class WordPoints_1_3_0_Update_Test extends WordPoints_UnitTestCase {
+
+	/**
+	 * @since 2.0.0
+	 */
+	protected $previous_version = '1.2.0';
 
 	/**
 	 * Test the update to 1.3.0.
@@ -34,9 +41,7 @@ class WordPoints_1_3_0_Update_Test extends WordPoints_UnitTestCase {
 		$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
 
 		// Mock an update.
-		$this->wordpoints_set_db_version( '1.2.0' );
-		wordpoints_update();
-		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+		$this->update_wordpoints();
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );

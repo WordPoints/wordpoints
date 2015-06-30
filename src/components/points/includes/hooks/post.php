@@ -79,28 +79,24 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 			);
 		}
 
-		add_action( 'transition_post_status', array( $this, 'publish_hook' ), 10, 3 );
+		add_action( 'transition_post_status', array( $this, 'hook' ), 10, 3 );
 		add_action( 'delete_post', array( $this, 'reverse_hook' ) );
-
-		// Back-compat.
-		remove_filter( "wordpoints_points_log-{$this->log_type}", array( $this, 'logs' ), 10, 6 );
-		add_filter( 'wordpoints_points_log-post_publish', array( $this, 'publish_logs' ), 10, 6 );
 	}
 
 	/**
 	 * Award points when a post is published.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
-	 * @action transition_post_status Added by the constructor.
+	 * @WordPress\action transition_post_status Added by the constructor.
 	 *
-	 * @param string $old_status The old status of the post.
 	 * @param string $new_status The new status of the post.
+	 * @param string $old_status The old status of the post.
 	 * @param object $post       The post object.
 	 *
 	 * @return void
 	 */
-	public function publish_hook( $new_status, $old_status, $post ) {
+	public function hook( $new_status, $old_status, $post ) {
 
 		if ( 'publish' !== $new_status ) {
 			return;
@@ -138,11 +134,32 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	}
 
 	/**
+	 * Award points when a post is published.
+	 *
+	 * @since 1.0.0
+	 * @deprecated 2.0.0 Use self::hook() instead.
+	 *
+	 * @param string $new_status The new status of the post.
+	 * @param string $old_status The old status of the post.
+	 * @param object $post       The post object.
+	 *
+	 * @return void
+	 */
+	public function publish_hook( $new_status, $old_status, $post ) {
+
+		_deprecated_function( __METHOD__, '2.0.0', __CLASS__ . '::hook' );
+
+		$this->hook( $new_status, $old_status, $post );
+	}
+
+	/**
 	 * Automatically reverse any transactions for a post when it is deleted.
 	 *
 	 * @since 1.9.0
 	 *
 	 * @WordPress\action delete_post Added by the constructor.
+	 *
+	 * @param int $post_id The ID of the post being deleted.
 	 */
 	public function reverse_hook( $post_id ) {
 
@@ -164,27 +181,10 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	}
 
 	/**
-	 * Remove points when a post is deleted.
-	 *
-	 * @since 1.0.0
-	 * @since 1.1.0 The post_type is now passed as metadata when points are awarded.
-	 * @since 1.1.2 Points are only removed if the post type is public.
-	 * @deprecated 1.4.0
-	 * @deprecated Use WordPoints_Post_Points_Hook::reverse_hook() instead.
-	 *
-	 * @param int $post_id The post's ID.
-	 */
-	public function delete_hook( $post_id ) {
-
-		_deprecated_function( __METHOD__, '1.4.0', 'WordPoints_Post_Points_Hook::reverse_hook()' );
-	}
-
-	/**
 	 * Generate the log entry for a publish post transaction.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @action wordpoints_points_log-post_publish Added by the constructor.
+	 * @deprecated 2.0.0 Use logs() instead.
 	 *
 	 * @param string $text        The text for the log entry.
 	 * @param int    $points      The number of points.
@@ -197,37 +197,9 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 */
 	public function publish_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
+		_deprecated_function( __METHOD__, '2.0.0', __CLASS__ . '::logs' );
+
 		return $this->logs( $text, $points, $points_type, $user_id, $log_type, $meta );
-	}
-
-	/**
-	 * Generate the log entry for a transaction.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.4.0
-	 * @deprecated Use wordpoints_points_logs_post_delete() instead.
-	 *
-	 * @param string $text        The text for the log entry.
-	 * @param int    $points      The number of points.
-	 * @param string $points_type The type of points for the transaction.
-	 * @param int    $user_id     The affected user's ID.
-	 * @param string $log_type    The type of transaction.
-	 * @param array  $meta        Transaction meta data.
-	 *
-	 * @return string
-	 */
-	public function delete_logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
-
-		_deprecated_function( __METHOD__, '1.4.0', 'wordpoints_points_logs_post_delete' );
-
-		return wordpoints_points_logs_post_delete(
-			$text
-			, $points
-			, $points_type
-			, $user_id
-			, $log_type
-			, $meta
-		);
 	}
 
 	/**

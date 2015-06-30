@@ -19,9 +19,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	//
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_points_';
+	protected $type = 'component';
 
 	/**
 	 * @since 1.8.0
@@ -34,43 +34,75 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.8.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'1.9.0'  => array( 'single' => true, 'site' => true, 'network' => true ),
 		'1.10.0' => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.0.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
-	 * The points types the user has created.
-	 *
-	 * Used during uninstall to keep from having to retrieve them when looping over
-	 * sites on multisite.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $points_types
+	 * @since 2.0.0
 	 */
-	protected $points_types;
+	protected $schema = array(
+		'global' => array(
+			'tables' => array(
+				'wordpoints_points_logs' => "
+					id BIGINT(20) NOT NULL AUTO_INCREMENT,
+					user_id BIGINT(20) NOT NULL,
+					log_type VARCHAR(255) NOT NULL,
+					points BIGINT(20) NOT NULL,
+					points_type VARCHAR(255) NOT NULL,
+					text LONGTEXT,
+					blog_id SMALLINT(5) UNSIGNED NOT NULL,
+					site_id SMALLINT(5) UNSIGNED NOT NULL,
+					date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+					PRIMARY KEY  (id),
+					KEY user_id (user_id),
+					KEY points_type (points_type(191)),
+					KEY log_type (log_type(191))",
+				'wordpoints_points_log_meta' => '
+					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					log_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+					meta_key VARCHAR(255) DEFAULT NULL,
+					meta_value LONGTEXT,
+					PRIMARY KEY  (meta_id),
+					KEY log_id (log_id),
+					KEY meta_key (meta_key(191))',
+			),
+		),
+	);
 
 	/**
-	 * The component's capabilities.
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $custom_caps
+	 * @since 2.0.0
 	 */
-	protected $custom_caps;
+	protected $uninstall = array(
+		'local' => array(
+			'widgets' => array(
+				'wordpoints_points_logs_widget',
+				'wordpoints_top_users_widget',
+				'wordpoints_points_widget',
+			),
+		),
+		'universal' => array(
+			'options' => array(
+				'wordpoints_points_types',
+				'wordpoints_default_points_type',
+				'wordpoints_points_types_hooks',
+			),
+			'points_hooks' => array(
+				'wordpoints_registration_points_hook',
+				'wordpoints_post_points_hook',
+				'wordpoints_comment_points_hook',
+				'wordpoints_periodic_points_hook',
+				'wordpoints_comment_received_points_hook',
+			),
+			'user_meta' => array(
+				'wordpoints_points_period_start',
+			),
+		),
+	);
 
 	/**
-	 * The component's capabilities (keys only).
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $custom_caps_keys
+	 * @since 2.0.0
 	 */
-	protected $custom_caps_keys;
+	protected $custom_caps_getter = 'wordpoints_points_get_custom_caps';
 
 	/**
 	 * The network mode of the points hooks before the updates began.
@@ -86,25 +118,24 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	public function before_install() {
-
-		$this->custom_caps = wordpoints_points_get_custom_caps();
-		$this->custom_caps_keys = array_keys( $this->custom_caps );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function before_uninstall() {
 
-		$this->points_types = wordpoints_get_points_types();
-		$this->custom_caps_keys = array_keys( wordpoints_points_get_custom_caps() );
+		foreach ( wordpoints_get_points_types() as $slug => $unused ) {
+
+			$this->uninstall['universal']['user_meta'][] = "wordpoints_points-{$slug}";
+			$this->uninstall['universal']['comment_meta'][] = "wordpoints_last_status-{$slug}";
+		}
+
+		// We do this after the above, so that we can take advantage of shortcuts.
+		parent::before_uninstall();
 	}
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
+
+		parent::before_update();
 
 		if ( 1 === version_compare( '1.4.0', $this->updating_from ) ) {
 			add_filter( 'wordpoints_points_hook_update_callback', array( $this, '_1_4_0_clean_hook_settings' ), 10, 4 );
@@ -114,8 +145,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 			if ( ! $this->network_wide ) {
 				unset( $this->updates['1_5_0'] );
-			} else {
-				$this->custom_caps = wordpoints_points_get_custom_caps();
 			}
 		}
 
@@ -160,23 +189,18 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function install_network() {
-
-		$this->install_points_main();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function install_site() {
+	protected function install_custom_caps() {
 
 		/*
 		 * Regenerate the custom caps every time on multisite, because they depend on
 		 * network activation status.
 		 */
-		wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		if ( 'site' === $this->context ) {
+			wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		}
+
 		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
@@ -185,22 +209,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_single() {
 
-		wordpoints_add_custom_caps( $this->custom_caps );
+		parent::install_single();
+
 		add_option( 'wordpoints_default_points_type', '' );
-
-		$this->install_points_main();
-	}
-
-	/**
-	 * Install the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function install_points_main() {
-
-		dbDelta( wordpoints_points_get_db_schema() );
-
-		$this->set_component_version( 'points', WORDPOINTS_VERSION );
 	}
 
 	/**
@@ -208,91 +219,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function load_dependencies() {
 
-		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
 		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_network() {
-
-		$this->uninstall_points_main();
-
-		delete_site_option( 'wordpoints_points_types' );
-		delete_site_option( 'wordpoints_default_points_type' );
-		delete_site_option( 'wordpoints_points_types_hooks' );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_site() {
-
-		global $wpdb;
-
-		foreach ( $this->points_types as $slug => $settings ) {
-
-			delete_metadata( 'comment', 0, "wordpoints_last_status-{$slug}", '', true );
-
-			$prefix = $wpdb->get_blog_prefix();
-			delete_metadata( 'user', 0, $prefix . "wordpoints_points-{$slug}", '', true );
-			delete_metadata( 'user', 0, $prefix . 'wordpoints_points_period_start', '', true );
-		}
-
-		$this->uninstall_points_single();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		$this->uninstall_points_main();
-		$this->uninstall_points_single();
-	}
-
-	/**
-	 * Uninstall the main portion of the points component.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_points_main() {
-
-		global $wpdb;
-
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_logs . '`' );
-		$wpdb->query( 'DROP TABLE IF EXISTS `' . $wpdb->wordpoints_points_log_meta . '`' );
-
-		foreach ( $this->points_types as $slug => $settings ) {
-
-			delete_metadata( 'user', 0, "wordpoints_points-{$slug}", '', true );
-		}
-
-		delete_metadata( 'user', 0, 'wordpoints_points_period_start', '', true );
-	}
-
-	/**
-	 * Uninstall the points component from a single site/site on a network.
-	 *
-	 * @since 1.8.0
-	 */
-	protected function uninstall_points_single() {
-
-		delete_option( 'wordpoints_points_types' );
-		delete_option( 'wordpoints_default_points_type' );
-		delete_option( 'wordpoints_points_types_hooks' );
-
-		delete_option( 'wordpoints_hook-wordpoints_registration_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_post_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_comment_points_hook' );
-		delete_option( 'wordpoints_hook-wordpoints_periodic_points_hook' );
-
-		delete_option( 'widget_wordpoints_points_logs_widget' );
-		delete_option( 'widget_wordpoints_top_users_widget' );
-		delete_option( 'widget_wordpoints_points_widget' );
-
-		wordpoints_remove_custom_caps( $this->custom_caps_keys );
+		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/components/points/includes/points.php';
 	}
 
 	/**
@@ -333,7 +262,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 					ON wppl.user_id = u.ID
 				WHERE u.ID IS NULL
 			"
-		);
+		); // WPCS: cache pass.
 
 		if ( $log_ids && is_array( $log_ids ) ) {
 
@@ -343,7 +272,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 					FROM {$wpdb->wordpoints_points_logs}
 					WHERE `id` IN (" . implode( ',', array_map( 'absint', $log_ids ) ) . ')
 				'
-			);
+			); // WPCS: cache pass (points logs weren't cached until 1.5.0).
 
 			foreach ( $log_ids as $log_id ) {
 				wordpoints_points_log_delete_all_metadata( $log_id );
@@ -369,12 +298,12 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				WHERE p.ID IS NULL
 					AND wpplm.meta_key = 'post_id'
 			"
-		);
+		); // WPCS: cache pass.
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 
 		if ( $post_ids && is_array( $post_ids ) && $hook ) {
-			foreach ( $post_ids AS $post_id ) {
+			foreach ( $post_ids as $post_id ) {
 				$hook->clean_logs_on_post_deletion( $post_id );
 			}
 		}
@@ -398,12 +327,12 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				WHERE c.comment_ID IS NULL
 					AND wpplm.meta_key = 'comment_id'
 			"
-		);
+		); // WPCS: cache pass.
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 
 		if ( $comment_ids && is_array( $comment_ids ) && $hook ) {
-			foreach ( $comment_ids AS $comment_id ) {
+			foreach ( $comment_ids as $comment_id ) {
 				$hook->clean_logs_on_comment_deletion( $comment_id );
 			}
 		}
@@ -600,12 +529,12 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 					AND wpplm.meta_key = 'post_id'
 					AND wppl.log_type = 'comment_approve'
 			"
-		);
+		); // WPCS: cache pass.
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 
 		if ( $post_ids && is_array( $post_ids ) && $hook ) {
-			foreach ( $post_ids AS $post_id ) {
+			foreach ( $post_ids as $post_id ) {
 				$hook->clean_logs_on_post_deletion( $post_id );
 			}
 		}
@@ -643,8 +572,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			$charset_collate .= " COLLATE {$wpdb->collate}";
 		}
 
-		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" );
-		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" );
+		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" ); // WPCS: cache pass.
+		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" ); // WPCS: cache pass.
 	}
 
 	/**
@@ -855,6 +784,53 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		}
 
 		wordpoints_regenerate_points_logs( $logs );
+	}
+
+	/**
+	 * Update a site to 2.0.0.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function update_network_to_2_0_0() {
+
+		global $wpdb;
+
+		// So that we can change tables to utf8mb4, we need to shorten the index
+		// lengths to less than 767 bytes;
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_points_logs}
+			DROP INDEX points_type,
+			ADD INDEX points_type(points_type(191))
+			"
+		); // WPCS: cache pass.
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_points_logs}
+			DROP INDEX log_type,
+			ADD INDEX log_type(log_type(191))
+			"
+		); // WPCS: cache pass.
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->wordpoints_points_log_meta}
+			DROP INDEX meta_key,
+			ADD INDEX meta_key(meta_key(191))
+			"
+		); // WPCS: cache pass.
+
+		$this->maybe_update_tables_to_utf8mb4( 'global' );
+	}
+
+	/**
+	 * Update a single site to 2.0.0.
+	 *
+	 * @since 2.0.0
+	 */
+	protected function update_single_to_2_0_0() {
+		$this->update_network_to_2_0_0();
 	}
 }
 

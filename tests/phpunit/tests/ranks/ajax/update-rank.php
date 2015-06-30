@@ -13,9 +13,14 @@
  * @group ajax
  *
  * @since 1.7.0
+ *
+ * @covers WordPoints_Ranks_Admin_Screen_Ajax
  */
 class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_UnitTestCase {
 
+	/**
+	 * @since 1.7.0
+	 */
 	protected $ajax_action = 'wordpoints_admin_update_rank';
 
 	/**

@@ -15,31 +15,56 @@
 class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected $option_prefix = 'wordpoints_';
+	protected $type = 'plugin';
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.3.0' => array( 'single' => true                ),
-		'1.5.0' => array(                  'site' => true ),
-		'1.8.0' => array(                  'site' => true ),
-		'1.10.3' => array( 'single' => true, /*    -    */ 'network' => true ),
+		'1.3.0'  => array( 'single' => true, /*     -     */ /*      -      */ ),
+		'1.5.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'1.8.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
-	 * The plugin's capabilities.
-	 *
-	 * Used to hold the list of capabilities during install and uninstall, so that
-	 * they don't have to be retrieved all over again for each site (if multisite).
-	 *
-	 * @since 1.8.0
-	 *
-	 * @type array $capabilties
+	 * @since 2.0.0
 	 */
-	protected $capabilities;
+	protected $uninstall = array(
+		'list_tables' => array(
+			'wordpoints_modules' => array(),
+		),
+		'network' => array(
+			'options' => array(
+				'wordpoints_sitewide_active_modules',
+				'wordpoints_network_install_skipped',
+		        'wordpoints_network_installed',
+		        'wordpoints_network_update_skipped',
+				'wordpoints_breaking_deactivated_modules',
+			),
+		),
+		'local'   => array(
+			'options' => array(
+				'wordpoints_active_modules',
+				'wordpoints_recently_activated_modules',
+			),
+		),
+		'universal' => array(
+			'options' => array(
+				'wordpoints_data',
+				'wordpoints_active_components',
+				'wordpoints_excluded_users',
+				'wordpoints_incompatible_modules',
+			),
+		),
+	);
+
+	/**
+	 * @since 2.0.0
+	 */
+	protected $custom_caps_getter = 'wordpoints_get_custom_caps';
 
 	/**
 	 * @since 1.8.0
@@ -51,8 +76,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		// Check if the plugin has been activated/installed before.
 		$installed = (bool) wordpoints_get_network_option( 'wordpoints_data' );
-
-		$this->capabilities = wordpoints_get_custom_caps();
 
 		parent::install( $network );
 
@@ -69,21 +92,13 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected function before_uninstall() {
-
-		$this->capabilities = array_keys( wordpoints_get_custom_caps() );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function before_update() {
+
+		parent::before_update();
 
 		if ( $this->network_wide ) {
 			unset( $this->updates['1_8_0'] );
 		}
-
-		$this->capabilities = wordpoints_get_custom_caps();
 	}
 
 	/**
@@ -105,64 +120,33 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	/**
 	 * @since 1.8.0
 	 */
-	protected function install_site() {
-		wordpoints_add_custom_caps( $this->capabilities );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
 	protected function install_single() {
 
+		$this->install_custom_caps();
 		$this->install_network();
-		$this->install_site();
 	}
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected function load_dependencies() {
-		require_once dirname( __FILE__ ) . '/uninstall-bootstrap.php';
+
+		require_once dirname( __FILE__ ) . '/constants.php';
+		require_once WORDPOINTS_DIR . '/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/includes/modules.php';
+		require_once WORDPOINTS_DIR . '/includes/class-installables.php';
+		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.0.0
 	 */
-	protected function uninstall_network() {
+	protected function before_uninstall() {
 
 		$this->uninstall_modules();
 		$this->uninstall_components();
 
-		delete_site_option( 'wordpoints_data' );
-		delete_site_option( 'wordpoints_active_components' );
-		delete_site_option( 'wordpoints_excluded_users' );
-		delete_site_option( 'wordpoints_sitewide_active_modules' );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_site() {
-
-		delete_option( 'wordpoints_data' );
-		delete_option( 'wordpoints_active_modules' );
-		delete_option( 'wordpoints_active_components' );
-		delete_option( 'wordpoints_excluded_users' );
-		delete_option( 'wordpoints_recently_activated_modules' );
-
-		wp_cache_delete( 'wordpoints_modules' );
-
-		wordpoints_remove_custom_caps( $this->capabilities );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function uninstall_single() {
-
-		$this->uninstall_modules();
-		$this->uninstall_components();
-		$this->uninstall_site();
+		parent::before_uninstall();
 	}
 
 	/**
@@ -207,28 +191,14 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_components() {
 
-		/*
-		 * Back compat < 1.7.0
-		 *
-		 * The below notes no longer apply.
-		 * --------------------------------
-		 *
-		 * Bulk 'deactivate' components. No other filters should be applied later than these
-		 * (e.g., after 99) for this hook - doing so could have unexpected results.
-		 *
-		 * We do this so that we can load them to call the uninstall hooks, without them
-		 * being active.
-		 */
-		add_filter( 'wordpoints_component_active', '__return_false', 100 );
+		/** This filter is documented in includes/class-wordpoints-components.php */
+		do_action( 'wordpoints_components_register' );
 
 		$components = WordPoints_Components::instance();
 
-		// Back-compat < 1.7.0
-		$components->load();
-
 		// Uninstall the components.
 		foreach ( $components->get() as $component => $data ) {
-			$components->uninstall( $component );
+			WordPoints_Installables::uninstall( 'component', $component );
 		}
 	}
 
@@ -238,7 +208,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function update_single_to_1_3_0() {
-		wordpoints_add_custom_caps( $this->capabilities );
+		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
 	/**
@@ -247,7 +217,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected function update_site_to_1_5_0() {
-		wordpoints_add_custom_caps( $this->capabilities );
+		wordpoints_add_custom_caps( $this->custom_caps );
 	}
 
 	/**
@@ -290,5 +260,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		}
 	}
 }
+
+return 'WordPoints_Un_Installer';
 
 // EOF

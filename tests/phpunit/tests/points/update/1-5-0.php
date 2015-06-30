@@ -14,6 +14,11 @@
  *
  * @group points
  * @group update
+ *
+ * @covers WordPoints_Points_Un_Installer::update_site_to_1_5_0
+ *
+ * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
+ * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */
 class WordPoints_Points_1_5_0_Update_Test extends WordPoints_Points_UnitTestCase {
 
@@ -21,18 +26,15 @@ class WordPoints_Points_1_5_0_Update_Test extends WordPoints_Points_UnitTestCase
 	 * Test that custom capabilities are added to new sites.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_custom_caps_added_to_new_sites() {
 
-		if ( ! is_wordpoints_network_active() ) {
-			$this->markTestSkipped( 'WordPoints must be network-active.' );
-			return;
-		}
-
 		// Create a second site on the network.
-		remove_action( 'wpmu_new_blog', 'wordpoints_points_add_custom_caps_to_new_sites' );
+		remove_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 		$blog_id = $this->factory->blog->create();
-		add_action( 'wpmu_new_blog', 'wordpoints_points_add_custom_caps_to_new_sites' );
+		add_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 
 		// Check that the caps don't exist.
 		switch_to_blog( $blog_id );

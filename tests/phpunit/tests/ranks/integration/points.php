@@ -65,6 +65,8 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 	 * Test that the My Points widget recognizes the %ranks% placeholder.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers ::wordpoints_ranks_points_widget_text_filter
 	 */
 	public function test_my_points_widget_ranks_placeholder() {
 
@@ -105,6 +107,8 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 	 * Test the points_type attribute is supported if the points component is active.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @covers ::wordpoints_user_rank_shortcode_points_type_attr
 	 */
 	public function test_points_type_attr_of_user_ranks_shortcode() {
 
@@ -117,6 +121,37 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 		$result = wordpointstests_do_shortcode_func(
 			'wordpoints_user_rank'
 			, array( 'user_id' => $user_id, 'points_type' => 'points' )
+		);
+
+		$formatted_rank = wordpoints_get_formatted_user_rank(
+			$user_id
+			, $this->rank_group
+			, 'user_rank_shortcode'
+		);
+
+		$this->assertEquals( $formatted_rank, $result );
+	}
+
+	/**
+	 * Test the default points type used if the points component is active.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_user_rank_shortcode_points_type_attr
+	 */
+	public function test_points_type_attr_of_user_ranks_shortcode_default() {
+
+		$user_id = $this->factory->user->create();
+
+		wordpoints_update_network_option( 'wordpoints_default_points_type', 'points' );
+
+		wordpoints_get_rank(
+			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
+		);
+
+		$result = wordpointstests_do_shortcode_func(
+			'wordpoints_user_rank'
+			, array( 'user_id' => $user_id )
 		);
 
 		$formatted_rank = wordpoints_get_formatted_user_rank(

@@ -34,6 +34,9 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test registering a rank type for a group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::add_type
+	 * @covers WordPoints_Rank_Group::has_type
 	 */
 	public function test_register_type_for_group() {
 
@@ -65,6 +68,9 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test deregistering a rank type for a group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::remove_type
+	 * @covers WordPoints_Rank_Group::has_type
 	 */
 	public function test_deregister_type_for_group() {
 
@@ -91,6 +97,10 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test adding a rank to a group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::add_rank
+	 * @covers WordPoints_Rank_Group::get_rank
+	 * @covers WordPoints_Rank_Group::get_rank_position
 	 */
 	public function test_add_rank() {
 
@@ -106,6 +116,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that you can't add the same rank to a group twice.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::add_rank
 	 */
 	public function test_no_duplicate_ranks() {
 
@@ -121,6 +133,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test adding a rank in the middle.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::add_rank
 	 */
 	public function test_adding_rank() {
 
@@ -139,6 +153,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that a rank added after the end is just added on the end.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::add_rank
 	 */
 	public function test_adding_rank_after_end() {
 
@@ -156,6 +172,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test moving a rank.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::move_rank
 	 */
 	public function test_moving_rank() {
 
@@ -175,6 +193,10 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test removing a rank from a group.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::remove_rank
+	 * @covers WordPoints_Rank_Group::get_rank
+	 * @covers WordPoints_Rank_Group::get_rank_position
 	 */
 	public function test_removing_rank() {
 
@@ -194,6 +216,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test removing a rank that isn't there.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::remove_rank
 	 */
 	public function test_removing_nonexisting_rank() {
 
@@ -216,6 +240,9 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test saving a list of ranks.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::save_ranks
+	 * @covers WordPoints_Rank_Group::get_ranks
 	 */
 	public function test_save_ranks() {
 
@@ -229,9 +256,11 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
-	 * Test saving a list of ranks with muxed-up key values.
+	 * Test saving a list of ranks with mixed-up key values.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::save_ranks
 	 */
 	public function test_save_ranks_with_missing_ranks() {
 
@@ -250,6 +279,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_Ranks_UnitTestCase {
 	 * Test that save_ranks() removes duplicates.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @covers WordPoints_Rank_Group::save_ranks
 	 */
 	public function test_save_ranks_with_duplicates() {
 

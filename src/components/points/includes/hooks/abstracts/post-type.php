@@ -26,11 +26,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	protected $log_type;
 
 	/**
-	 * Initialize the hook.
-	 *
 	 * @since 1.9.0
-	 *
-	 * @see WordPoints_Points_Hook::init()
 	 */
 	public function __construct( $title, $args ) {
 
@@ -45,7 +41,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	}
 
 	/**
-	 * Check if the post type setting matches a certian post type.
+	 * Check if the post type setting matches a certain post type.
 	 *
 	 * @since 1.5.0
 	 *
@@ -59,7 +55,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 		return (
 			$instance_post_type === $post_type
 			|| (
-				$instance_post_type === 'ALL'
+				'ALL' === $instance_post_type
 				&& post_type_exists( $post_type )
 				&& get_post_type_object( $post_type )->public
 			)
@@ -384,18 +380,36 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 	 * @WordPress\action delete_post Added by the constructor.
 	 *
 	 * @param int $post_id The ID of the post being deleted.
-	 *
-	 * @return void
 	 */
 	public function clean_logs_on_post_deletion( $post_id ) {
+
+		$this->clean_logs(
+			'post_id'
+			, $post_id
+			, 'post_type'
+			, get_post_field( 'post_type', $post_id )
+		);
+	}
+
+	/**
+	 * Clean a set of logs.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $key       The log meta key to match on.
+	 * @param mixed  $value     The log meta value to match on.
+	 * @param string $new_key   The key for the new meta value to add.
+	 * @param mixed  $new_value The new meta value to add. If falsey, new meta isn't added.
+	 */
+	protected function clean_logs( $key, $value, $new_key, $new_value ) {
 
 		$logs_query = new WordPoints_Points_Logs_Query(
 			array(
 				'log_type'   => $this->log_type,
 				'meta_query' => array(
 					array(
-						'key'   => 'post_id',
-						'value' => $post_id,
+						'key'   => $key,
+						'value' => $value,
 					),
 				),
 			)
@@ -407,19 +421,12 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 			return;
 		}
 
-		$post = get_post( $post_id );
-
 		foreach ( $logs as $log ) {
 
-			wordpoints_delete_points_log_meta( $log->id, 'post_id' );
+			wordpoints_delete_points_log_meta( $log->id, $key );
 
-			if ( $post ) {
-
-				wordpoints_add_points_log_meta(
-					$log->id
-					, 'post_type'
-					, $post->post_type
-				);
+			if ( $new_value ) {
+				wordpoints_add_points_log_meta( $log->id, $new_key, $new_value );
 			}
 		}
 

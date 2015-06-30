@@ -17,6 +17,8 @@ if ( ! class_exists( 'WordPoints_Selenium2TestCase' ) ) {
  * @since 1.0.1
  *
  * @group ui
+ *
+ * @coversNothing
  */
 class WordPoints_Module_UI_Test extends WordPoints_Selenium2TestCase {
 
@@ -65,14 +67,14 @@ class WordPoints_Module_UI_Test extends WordPoints_Selenium2TestCase {
 		try {
 
 			// Activate the points component.
-			$this->clickOnElement( 'wordpoints-module-activate_test_1' );
+			$this->clickOnElement( 'wordpoints-module-activate_test_3' );
 			$this->flush_cache();
-			$this->assertTrue( wordpoints_module_is_active( 'test_1' ) );
+			$this->assertTrue( is_wordpoints_module_active( 'test_3' ) );
 
 			// Deactivate it.
-			$this->clickOnElement( 'wordpoints-module-deactivate_test_1' );
+			$this->clickOnElement( 'wordpoints-module-deactivate_test_3' );
 			$this->flush_cache();
-			$this->assertFalse( wordpoints_module_is_active( 'test_1' ) );
+			$this->assertFalse( is_wordpoints_module_active( 'test_3' ) );
 
 		} catch ( PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e ) {
 

@@ -100,7 +100,7 @@ add_action( 'network_admin_menu', 'wordpoints_points_admin_menu' );
  */
 function wordpoints_points_admin_screen_hooks() {
 
-	if ( isset( $_GET['edithook'] ) || isset( $_POST['savehook'] ) || isset( $_POST['removehook'] ) ) {
+	if ( isset( $_GET['edithook'] ) || isset( $_POST['savehook'] ) || isset( $_POST['removehook'] ) ) { // WPCS: CSRF OK.
 
 		// - We're doing this without AJAX (JS).
 
@@ -162,7 +162,7 @@ add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_admin_po
  */
 function wordpoints_no_js_points_hooks_save() {
 
-	if ( ! isset( $_POST['savehook'] ) && ! isset( $_POST['removehook'] ) ) {
+	if ( ! isset( $_POST['savehook'] ) && ! isset( $_POST['removehook'] ) ) { // WPCS: CSRF OK.
 		return;
 	}
 
@@ -218,7 +218,11 @@ add_action( 'screen_settings', 'wordpoints_admin_points_hooks_screen_options', 1
  *
  * @since 1.0.0
  *
- * @filter admin_body_class Added when needed by wordpoints_admin_points_hooks_help()
+ * @WordPress\filter admin_body_class Added when needed by wordpoints_admin_points_hooks_help()
+ *
+ * @param string $classes The body clases.
+ *
+ * @return string The classes, with 'wordpoints_hooks_access' added.
  */
 function wordpoints_points_hooks_access_body_class( $classes ) {
 
@@ -387,7 +391,7 @@ function wordpoints_points_profile_options_update( $user_id ) {
 				, 'profile_edit'
 				, array(
 					'user_id' => get_current_user_id(),
-					'reason' => wp_unslash( esc_html( $_POST['wordpoints_set_reason'] ) )
+					'reason' => sanitize_text_field( wp_unslash( $_POST['wordpoints_set_reason'] ) ),
 				)
 			);
 		}
@@ -426,6 +430,7 @@ function wordpoints_points_admin_settings() {
 				</th>
 				<td>
 					<?php wordpoints_points_types_dropdown( $dropdown_args ); ?>
+					<?php wp_nonce_field( 'wordpoints_default_points_type', 'wordpoints_default_points_type_nonce' ); ?>
 				</td>
 			</tr>
 		</tbody>
@@ -444,7 +449,10 @@ add_action( 'wordpoints_admin_settings_top', 'wordpoints_points_admin_settings' 
  */
 function wordpoints_points_admin_settings_save() {
 
-	if ( isset( $_POST['default_points_type'] ) ) {
+	if (
+		isset( $_POST['default_points_type'] )
+		&& wordpoints_verify_nonce( 'wordpoints_default_points_type_nonce', 'wordpoints_default_points_type', null, 'post' )
+	) {
 
 		$points_type = sanitize_key( $_POST['default_points_type'] );
 

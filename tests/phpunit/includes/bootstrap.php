@@ -9,7 +9,8 @@
 
 if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 
-	exit( '$_ENV["WP_TESTS_DIR"] is not set.' . PHP_EOL );
+	echo( '$_ENV["WP_TESTS_DIR"] is not set.' . PHP_EOL );
+	exit( 1 );
 }
 
 /**
@@ -43,7 +44,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
  *
  * @since 1.0.0
  */
-require_once getenv( 'WP_TESTS_DIR' ) . 'includes/functions.php';
+require_once getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
 
 /**
  * Miscellaneous utility functions.
@@ -163,6 +164,13 @@ require_once WORDPOINTS_TESTS_DIR . '/includes/factories/points-log.php';
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/factories/rank.php';
 
+/**
+ * The WordPress filter mock.
+ *
+ * @since 2.0.0
+ */
+require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/filter.php' );
+
 if ( class_exists( 'WordPoints_Points_Hook' ) ) {
 	/**
 	 * The points hook mocks.
@@ -179,6 +187,15 @@ if ( class_exists( 'WordPoints_Rank_Type' ) ) {
 	 * @since 1.7.0
 	 */
 	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/rank-type.php' );
+}
+
+if ( class_exists( 'WordPoints_Un_Installer_Base' ) ) {
+	/**
+	 * The un/installer mock.
+	 *
+	 * @since 2.0.0
+	 */
+	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer.php' );
 }
 
 // https://core.trac.wordpress.org/ticket/25239

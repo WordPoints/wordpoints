@@ -60,7 +60,7 @@ if ( ! empty( $_POST['removehook'] ) ) {
 	if ( ! in_array( $hook_id, $points_type_hooks, true ) ) {
 
 		// The hook isn't hooked to this points type, give an error.
-		wp_redirect( $redirect_url . '&error=0' );
+		wp_safe_redirect( $redirect_url . '&error=0' );
 		exit;
 	}
 
@@ -69,7 +69,7 @@ if ( ! empty( $_POST['removehook'] ) ) {
 
 	$hook->delete_callback( $hook_id );
 
-} elseif ( isset( $_POST['savehook'] ) && $_POST['savehook'] ) {
+} elseif ( ! empty( $_POST['savehook'] ) ) {
 
 	// - We are saving an instance of a hook.
 
@@ -90,7 +90,7 @@ if ( ! empty( $_POST['removehook'] ) ) {
 	} else {
 
 		if ( isset( $_POST[ 'hook-' . $id_base ] ) && is_array( $_POST[ 'hook-' . $id_base ] ) ) {
-			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) ); // XSS pass WPCS.
+			$new_instance = wp_unslash( reset( $_POST[ 'hook-' . $id_base ] ) ); // WPCS sanitization OK.
 		}
 
 		$number = $hook->get_number_by_id( $hook_id );
@@ -121,13 +121,13 @@ if ( ! empty( $_POST['removehook'] ) ) {
 
 } else {
 
-	wp_redirect( $redirect_url . '&error=0' );
+	wp_safe_redirect( $redirect_url . '&error=0' );
 	exit;
 }
 
 WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
-wp_redirect( $redirect_url . '&message=0' );
+wp_safe_redirect( $redirect_url . '&message=0' );
 exit;
 
 // EOF

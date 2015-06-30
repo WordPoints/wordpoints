@@ -16,19 +16,10 @@
  *
  * @group points
  * @group points_hooks
+ *
+ * @covers WordPoints_Post_Points_Hook
  */
 class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
-
-	/**
-	 * @since 1.9.0
-	 */
-	public function setUp() {
-
-		parent::setUp();
-
-		// Back-compat WP 3.9 and below.
-		remove_action( 'transition_post_status', '_update_blog_date_on_post_publish' );
-	}
 
 	/**
 	 * @since 1.9.0
@@ -638,6 +629,11 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 	 * Render the text for a points log.
 	 *
 	 * @since 1.9.0
+	 *
+	 * @param array $post_args The arguments to create a post with.
+	 * @param array $meta      The log meta.
+	 *
+	 * @return string The log text.
 	 */
 	protected function render_log_text( $post_args, $meta = array() ) {
 

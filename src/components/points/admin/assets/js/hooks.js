@@ -437,7 +437,7 @@ WordPointsHooks = {
 	 */
 	saveOrder : function ( sb ) {
 		if ( sb ) {
-			$( '#' + sb ).closest( 'div.hooks-holder-wrap' ).find( '.spinner:first' ).css( 'display', 'inline-block' );
+			$( '#' + sb ).closest( 'div.hooks-holder-wrap' ).find( '.spinner:first').addClass( 'is-active' );
 		}
 
 		var a = {
@@ -455,7 +455,7 @@ WordPointsHooks = {
 
 		$.post( ajaxurl, a, function() {
 
-			$( '.spinner ').hide();
+			$( '.spinner ').removeClass( 'is-active' );
 		});
 
 		this.resize();
@@ -472,7 +472,7 @@ WordPointsHooks = {
 			a;
 
 		hook = $( hook );
-		$( '.spinner', hook ).show();
+		$( '.spinner', hook ).addClass( 'is-active' );
 
 		a = {
 			action: 'save-wordpoints-points-hook',
@@ -520,7 +520,7 @@ WordPointsHooks = {
 
 			} else {
 
-				$( '.spinner' ).hide();
+				$( '.spinner' ).removeClass( 'is-active' );
 
 				if ( r && r.length > 2 ) {
 

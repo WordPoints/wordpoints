@@ -80,8 +80,18 @@ add_filter( 'wordpoints_points_top_users_username', 'wordpoints_ranks_points_top
 function wordpoints_user_rank_shortcode_points_type_attr( $out, $pairs, $atts ) {
 
 	if ( empty( $out['rank_group'] ) ) {
+
 		if ( isset( $atts['points_type'] ) ) {
+
 			$out['rank_group'] = "points_type-{$atts['points_type']}";
+
+		} else {
+
+			$points_type = wordpoints_get_default_points_type();
+
+			if ( $points_type ) {
+				$out['rank_group'] = "points_type-{$points_type}";
+			}
 		}
 	}
 
@@ -108,7 +118,7 @@ function wordpoints_register_points_ranks() {
 						, 'wordpoints'
 					)
 					, $points_type['name']
-				)
+				),
 			)
 		);
 

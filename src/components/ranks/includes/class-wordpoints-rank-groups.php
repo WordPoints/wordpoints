@@ -43,7 +43,7 @@ final class WordPoints_Rank_Groups {
 	 * @since 1.7.0
 	 *
 	 * @param string $slug A unique identifier for this group.
-	 * @param array  $data {@see WordPoints_Rank_Group::__construct()}
+	 * @param array  $data {@see WordPoints_Rank_Group::__construct()}.
 	 *
 	 * @return bool True if registered, false if already registered.
 	 */

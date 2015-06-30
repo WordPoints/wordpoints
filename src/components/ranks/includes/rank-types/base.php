@@ -18,6 +18,9 @@ class WordPoints_Base_Rank_Type extends WordPoints_Rank_Type {
 	// Public Methods.
 	//
 
+	/**
+	 * @since 1.7.0
+	 */
 	public function destruct() {}
 
 	/**

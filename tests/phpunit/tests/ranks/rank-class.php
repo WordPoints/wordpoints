@@ -22,6 +22,9 @@ class WordPoints_Rank_Test extends WordPoints_Ranks_UnitTestCase {
 	 * @since 1.7.0
 	 *
 	 * @expectedIncorrectUsage WordPoints_Rank::__set
+	 *
+	 * @covers WordPoints_Rank::__set
+	 * @covers WordPoints_Rank::__isset
 	 */
 	public function test_properties_are_read_only() {
 

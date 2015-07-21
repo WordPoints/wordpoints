@@ -1027,4 +1027,23 @@ function wordpoints_register_scripts() {}
 add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 
+/**
+ * Generate a cryptographically secure hash.
+ *
+ * You can use wp_hash() instead if you need to use a salt. However, at present that
+ * function uses the outdated MD5 hashing algorithm, so you will want to take that
+ * into consideration as well. The benefit of using this function instead is that it
+ * will use a strong hashing algorithm, and the hashes won't be invalidated when the
+ * salts change.
+ *
+ * @since 2.0.1
+ *
+ * @param string $data The data to generate a hash for.
+ *
+ * @return string The hash.
+ */
+function wordpoints_hash( $data ) {
+	return hash( 'sha256', $data );
+}
+
 // EOF

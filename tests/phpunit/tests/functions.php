@@ -280,6 +280,20 @@ class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 
 		$this->assertEquals( array( 'test' => 0 ), $modules );
 	}
+
+	/**
+	 * Test wordpoints_hash().
+	 *
+	 * @since 2.0.1
+	 *
+	 * @covers ::wordpoints_hash
+	 */
+	public function test_wordpoints_hash() {
+
+		$data = __METHOD__;
+
+		$this->assertEquals( hash( 'sha256', $data ), wordpoints_hash( $data ) );
+	}
 }
 
 // EOF

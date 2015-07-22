@@ -73,7 +73,7 @@
     },
     "\/admin\/admin.php": {
         "upload": {
-            "421": {
+            "414": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -303,10 +303,10 @@
             }
         },
         "utf8": {
-            "1023": false
+            "1026": false
         },
         "text": {
-            "1023": {
+            "1026": {
                 "name": "$wpdb->get_col_charset",
                 "type": "unknown",
                 "args_started": true,
@@ -315,7 +315,7 @@
             }
         },
         "capabilities'": {
-            "1096": false
+            "1099": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -363,6 +363,15 @@
         "ranks": {
             "987": {
                 "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "sha256": {
+            "1046": {
+                "name": "hash",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
@@ -1042,7 +1051,7 @@
             }
         },
         "<?php \/\/ Gold is silent.": {
-            "257": {
+            "259": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -1051,7 +1060,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "262": false
+            "264": false
         }
     },
     "\/includes\/class-widget.php": {
@@ -1255,16 +1264,16 @@
             "20": false
         },
         ".maintenance": {
-            "89": false
+            "103": false
         },
         "<?php $upgrading =": {
-            "93": false
+            "107": false
         },
         "; include( \"": {
-            "93": false
+            "107": false
         },
         "\/includes\/maintenance.php\" ); ?>": {
-            "93": false
+            "107": false
         }
     }
 }

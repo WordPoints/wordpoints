@@ -656,7 +656,7 @@ function wordpoints_admin_ajax_breaking_module_check() {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
 		wp_die( '', 403 );
 	}
 

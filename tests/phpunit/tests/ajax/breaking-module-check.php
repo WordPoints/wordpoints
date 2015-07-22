@@ -19,15 +19,32 @@
 class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTestCase {
 
 	/**
+	 * The nonce value used in the tests.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @var string
+	 */
+	protected $nonce;
+
+	/**
+	 * @since 2.0.1
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		$_GET['wordpoints_module_check'] = $this->nonce = sanitize_key( __METHOD__ );
+
+		update_option( 'wordpoints_module_check_nonce', $this->nonce );
+	}
+
+	/**
 	 * That that the modules screen is displayed.
 	 *
 	 * @since 2.0.0
 	 */
 	public function test_displays_modules_screen() {
-
-		update_option( 'wordpoints_module_check_nonce', __METHOD__ );
-
-		$_GET['wordpoints_module_check'] = __METHOD__;
 
 		try {
 			$this->_handleAjax( 'nopriv_wordpoints_breaking_module_check' );
@@ -51,11 +68,10 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTes
 	 */
 	public function test_network_wide() {
 
-		update_site_option( 'wordpoints_module_check_nonce', __METHOD__ );
+		delete_option( 'wordpoints_module_check_nonce' );
+		update_site_option( 'wordpoints_module_check_nonce', $this->nonce );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
-
-		$_GET['wordpoints_module_check'] = __METHOD__;
 
 		try {
 			$this->_handleAjax( 'nopriv_wordpoints_breaking_module_check' );
@@ -79,8 +95,6 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTes
 	 */
 	public function test_valid_nonce_required() {
 
-		update_option( 'wordpoints_module_check_nonce', __METHOD__ );
-
 		$_GET['wordpoints_module_check'] = 'invalid';
 
 		$this->setExpectedException( 'WPAjaxDieStopException', '' );
@@ -94,7 +108,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTes
 	 */
 	public function test_nonce_required() {
 
-		update_option( 'wordpoints_module_check_nonce', __METHOD__ );
+		unset( $_GET['wordpoints_module_check'] );
 
 		$this->setExpectedException( 'WPAjaxDieStopException', '' );
 		$this->_handleAjax( 'nopriv_wordpoints_breaking_module_check' );

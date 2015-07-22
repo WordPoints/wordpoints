@@ -538,7 +538,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				switch ( $column_name ) {
 
 					case 'cb':
-						$checkbox_id = 'checkbox_' . md5( $module_data['name'] );
+						$checkbox_id = 'checkbox_' . sanitize_key( $module_file );
 
 						?>
 						<th scope="row" class="check-column">

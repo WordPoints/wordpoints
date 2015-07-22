@@ -143,7 +143,7 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
 		return $modules;
 	}
 

@@ -5,121 +5,141 @@ msgstr ""
 "Project-Id-Version: WordPoints 2.1.0-alpha-1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-06-30 14:42:40+00:00\n"
+"PO-Revision-Date: 2015-08-19 08:16+0200\n"
+"Last-Translator: Mohammed Alafranji <franji.pal@gmail.com>\n"
+"Language-Team: Arabic "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/ar/>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-06-30 14:42:40+00:00\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:427
 #: admin/includes/class-wordpoints-modules-list-table.php:706
 msgid "Network Activate"
-msgstr ""
+msgstr "تفعيل الشبكة"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
-msgstr ""
+msgstr "تفعيل الموديول"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
 msgid "Return to Modules page"
-msgstr ""
+msgstr "الرجوع لصفحة الموديولات"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:93
 msgid "Return to Module Installer"
-msgstr ""
+msgstr "الرجوع لمثبت الموديولات"
 
 #: admin/includes/class-wordpoints-module-installer.php:52
 msgid "Install package not available."
-msgstr ""
+msgstr "تثبيت الحزمة غير متوفرة."
 
 #: admin/includes/class-wordpoints-module-installer.php:53
 msgid "Unpacking the package&#8230;"
-msgstr ""
+msgstr "تفريغ حزمة&#8230;"
 
 #: admin/includes/class-wordpoints-module-installer.php:54
 msgid "Installing the module&#8230;"
-msgstr ""
+msgstr "تثبيت الموديول&#8230;"
 
 #: admin/includes/class-wordpoints-module-installer.php:55
 msgid "The module contains no files."
-msgstr ""
+msgstr "الموديول لا يحتوي على ملفات."
 
 #: admin/includes/class-wordpoints-module-installer.php:56
 msgid "Module install failed."
-msgstr ""
+msgstr "فشل تثبيت الموديول."
 
 #: admin/includes/class-wordpoints-module-installer.php:57
 msgid "Module installed successfully."
-msgstr ""
+msgstr "تم تثبيت الموديول بنجاح."
 
 #: admin/includes/class-wordpoints-module-installer.php:58
 msgid "Could not create the modules directory."
-msgstr ""
+msgstr "لا يمكن إنشاء دليل الموديولات."
 
 #: admin/includes/class-wordpoints-module-installer.php:190
 msgid "No valid modules were found."
-msgstr ""
+msgstr "لم يتم العثور على موديولات صالحة."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:319
 msgid "No modules found."
-msgstr ""
+msgstr "لم يعثر على موديولات."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:321
 msgid "There are not any modules installed."
-msgstr ""
+msgstr "لا توجد أي موديولات مثبتة."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:336
 msgid "Module"
-msgstr ""
+msgstr "موديول"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:337
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:363
 msgctxt "modules"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "جميع <span class=\"count\">(%s)</span>"
+msgstr[1] "جميع <span class=\"count\">(%s)</span>"
+msgstr[2] "جميع <span class=\"count\">(%s)</span>"
+msgstr[3] "جميع <span class=\"count\">(%s)</span>"
+msgstr[4] "جميع <span class=\"count\">(%s)</span>"
+msgstr[5] "الجميع <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:367
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "نشيط <span class=\"count\">(%s)</span>"
+msgstr[1] "نشيط <span class=\"count\">(%s)</span>"
+msgstr[2] "نشيط <span class=\"count\">(%s)</span>"
+msgstr[3] "نشيط <span class=\"count\">(%s)</span>"
+msgstr[4] "نشيط <span class=\"count\">(%s)</span>"
+msgstr[5] "نشيط <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:371
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "منشط مؤخرا <span class=\"count\">(%s)</span>"
+msgstr[1] "منشط مؤخرا <span class=\"count\">(%s)</span>"
+msgstr[2] "منشط مؤخرا <span class=\"count\">(%s)</span>"
+msgstr[3] "منشط مؤخرا <span class=\"count\">(%s)</span>"
+msgstr[4] "منشط مؤخرا <span class=\"count\">(%s)</span>"
+msgstr[5] "منشط مؤخرا <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:375
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "غير منشط <span class=\"count\">(%s)</span>"
+msgstr[1] "غير منشط <span class=\"count\">(%s)</span>"
+msgstr[2] "غير منشط <span class=\"count\">(%s)</span>"
+msgstr[3] "غير منشط <span class=\"count\">(%s)</span>"
+msgstr[4] "غير منشط <span class=\"count\">(%s)</span>"
+msgstr[5] "غير منشط <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:427
 #: admin/includes/class-wordpoints-modules-list-table.php:722
 #: admin/screens/configure-components.php:108
 msgid "Activate"
-msgstr ""
+msgstr "تفعيل"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:431
 #: admin/includes/class-wordpoints-modules-list-table.php:700
 msgid "Network Deactivate"
-msgstr ""
+msgstr "الغاء تفعيل الشبكة"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:431
 #: admin/includes/class-wordpoints-modules-list-table.php:718
 #: admin/screens/configure-components.php:103
 msgid "Deactivate"
-msgstr ""
+msgstr "الغاء تفعيل"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:439
 #: admin/includes/class-wordpoints-modules-list-table.php:710
@@ -129,29 +149,29 @@ msgstr ""
 #: components/ranks/admin/includes/functions.php:48
 #: components/ranks/admin/screens/ranks.php:128
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:475
 msgid "Clear List"
-msgstr ""
+msgstr "مسح القائمة"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:546
 msgid "Select %s"
-msgstr ""
+msgstr "تحديد %s"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:580
 msgid "Version %s"
-msgstr ""
+msgstr "النسخة %s"
 
 #. translators: %s is the component author's name.
 #: admin/includes/class-wordpoints-modules-list-table.php:591
 #: admin/screens/configure-components.php:129
 msgid "By %s"
-msgstr ""
+msgstr "بواسطة %s"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:595
 msgid "Visit module site"
-msgstr ""
+msgstr "زيارة موقع الموديول"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.0-alpha-1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
@@ -159,87 +179,92 @@ msgstr ""
 #: components/points/admin/includes/functions.php:271
 #: components/points/includes/widgets.php:155
 msgid "WordPoints"
-msgstr ""
+msgstr "ووردبوينت"
 
 #: admin/includes/functions.php:68
 msgid "WordPoints — Configure"
-msgstr ""
+msgstr "ووردبوينت — إعداد"
 
 #: admin/includes/functions.php:69
 msgid "Configure"
-msgstr ""
+msgstr "إعداد"
 
 #: admin/includes/functions.php:95
 msgid "WordPoints — Modules"
-msgstr ""
+msgstr "ووردبوينت — الموديولات"
 
 #: admin/includes/functions.php:96
 msgid "Modules"
-msgstr ""
+msgstr "الموديولات"
 
 #: admin/includes/functions.php:105
 msgid "WordPoints — Install Modules"
-msgstr ""
+msgstr "ووردبوينت — تثبيت الموديولات"
 
 #: admin/includes/functions.php:106 admin/screens/module-install.php:28
 msgid "Install Modules"
-msgstr ""
+msgstr "تثبيت الموديولات"
 
 #: admin/includes/functions.php:268
 msgid "Hide This Notice"
-msgstr ""
+msgstr "إخفاء هذا الإشعار"
 
 #: admin/includes/functions.php:321
 msgid "WordPoints — %s"
-msgstr ""
+msgstr "ووردبوينت — %s"
 
 #: admin/includes/functions.php:353
 msgid "Install a module in .zip format"
-msgstr ""
+msgstr "تثبيت الموديول على هيئة .zip"
 
 #: admin/includes/functions.php:354
 msgid ""
 "If you have a module in a .zip format, you may install it by uploading it "
 "here."
 msgstr ""
+"اذا كان لديك موديول على هيئة ملف .zip، فيمكنك تثبيته من خلال رفع الملف هنا."
 
 #: admin/includes/functions.php:357
 msgid "Module zip file"
-msgstr ""
+msgstr "الملف المضغوط للموديول"
 
 #: admin/includes/functions.php:359
 msgid "Install Now"
-msgstr ""
+msgstr "تثبيت الآن"
 
 #: admin/includes/functions.php:375
 msgid ""
 "You do not have sufficient permissions to install WordPoints modules on this "
 "site."
-msgstr ""
+msgstr "ليس لديك الصلاحيات الكافية لتثبيت موديولات ووردبوينت على هذا الموقع."
 
 #: admin/includes/functions.php:382
 msgid "Upload WordPoints Module"
-msgstr ""
+msgstr "رفع موديول ووردبوينت"
 
 #: admin/includes/functions.php:394
 msgid "Installing Module from uploaded file: %s"
-msgstr ""
+msgstr "تثبيت الموديول من الملف الذي تم تحميله: %s"
 
 #: admin/includes/functions.php:463
 msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
 msgstr ""
+"يبدو أن هذا موديول ارشيف للووردبوينت، حاول تثبيته من خلال شاشة تثبيت "
+"موديولات ووردبوينت."
 
 #: admin/includes/functions.php:491
 msgid "Like this plugin?"
-msgstr ""
+msgstr "أعجبتك هذه الاضافة؟"
 
 #: admin/includes/functions.php:492
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
 msgstr ""
+"اذا كنت تعتقد ان ووردبوينت عظيم، فاجعل الجميع يعرفون ذلك من خلال اعطائه <a "
+"href=\"%s\">تقييم 5 نجوم</a>."
 
 #: admin/includes/functions.php:493
 msgid ""

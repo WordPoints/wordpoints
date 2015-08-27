@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: WordPoints_pt_BR\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-06-30 14:42:40+00:00\n"
-"PO-Revision-Date: 2015-06-11 17:36+0200\n"
+"PO-Revision-Date: 2015-08-27 23:54+0200\n"
 "Last-Translator: Leonardo Faria <leomedufu@yahoo.com.br>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"wordpoints/wordpoints/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr "Ativar Network"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
-msgstr "Ativar Modulo"
+msgstr "Ativar Módulo"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
 msgid "Return to Modules page"
@@ -70,9 +70,8 @@ msgid "No modules found."
 msgstr "Nenhum módulo foi encontrado."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:321
-#, fuzzy
 msgid "There are not any modules installed."
-msgstr "Não há ligações disponíveis atualmente."
+msgstr "Não há módulos instalados."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:336
 msgid "Module"
@@ -165,22 +164,20 @@ msgid "WordPoints"
 msgstr "WordPoints"
 
 #: admin/includes/functions.php:68
-#, fuzzy
 msgid "WordPoints — Configure"
-msgstr "WordPoints - Configurar"
+msgstr "WordPoints - Configuração"
 
 #: admin/includes/functions.php:69
 msgid "Configure"
 msgstr "Configurar"
 
 #: admin/includes/functions.php:95
-#, fuzzy
 msgid "WordPoints — Modules"
-msgstr "WordPoints - Modulos"
+msgstr "WordPoints - Módulos"
 
 #: admin/includes/functions.php:96
 msgid "Modules"
-msgstr "Modulos"
+msgstr "Módulos"
 
 #: admin/includes/functions.php:105
 msgid "WordPoints — Install Modules"
@@ -192,10 +189,9 @@ msgstr "Instalar Modulos"
 
 #: admin/includes/functions.php:268
 msgid "Hide This Notice"
-msgstr ""
+msgstr "Esconder"
 
 #: admin/includes/functions.php:321
-#, fuzzy
 msgid "WordPoints — %s"
 msgstr "WordPoints - %s"
 
@@ -962,13 +958,12 @@ msgid "Add Hook"
 msgstr "Adiconar Ligação"
 
 #: components/points/admin/screens/logs.php:11
-#, fuzzy
 msgid "WordPoints — Network Points Logs"
 msgstr "WordPoints - Registro de Pontos"
 
 #: components/points/admin/screens/logs.php:20
 msgid "View recent points transactions."
-msgstr "Transações de Pontos Recentes"
+msgstr "Transações de pontos recentes."
 
 #: components/points/admin/screens/logs.php:35
 msgid ""
@@ -979,7 +974,6 @@ msgstr ""
 "esta página."
 
 #: components/points/includes/class-wordpoints-points-hook.php:769
-#, fuzzy
 msgid "Points:"
 msgstr "Pontos:"
 
@@ -1053,36 +1047,31 @@ msgid "Save"
 msgstr "Salvar"
 
 #: components/points/includes/deprecated.php:138
-#, fuzzy
 msgctxt "points hook name"
 msgid "Comment Removed"
-msgstr "Comentario Removido"
+msgstr "Comentário removido"
 
 #: components/points/includes/deprecated.php:140
-#, fuzzy
 msgid "Comment removed from the site."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário removido do site."
 
 #. translators: the post type name.
 #: components/points/includes/deprecated.php:142
-#, fuzzy
 msgid "Comment on a %s removed from the site."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário em %s removido do site."
 
 #: components/points/includes/deprecated.php:144
 msgid "Points subtracted if comment removed:"
-msgstr "Pontos subtraido se comentario for removido."
+msgstr "Pontos subtraídos se um comentário for removido:"
 
 #: components/points/includes/deprecated.php:327
-#, fuzzy
 msgctxt "points hook name"
 msgid "Post Delete"
-msgstr "Deletar"
+msgstr "Deletar artigo"
 
 #: components/points/includes/deprecated.php:329
-#, fuzzy
 msgid "A post is permanently deleted."
-msgstr "Tipos de Pontos deletados."
+msgstr "Um artigo foi permanentemente deletado."
 
 #: components/points/includes/deprecated.php:330
 msgid "Points removed when deleted:"
@@ -1090,9 +1079,8 @@ msgstr "Pontos removidos quando deletado:"
 
 #. translators: the post type name.
 #: components/points/includes/deprecated.php:332
-#, fuzzy
 msgid "%s permanently deleted."
-msgstr "Tipos de Pontos deletados."
+msgstr "%s permanentemente deletado."
 
 #: components/points/includes/deprecated.php:362
 msgid "Auto Draft"
@@ -1116,114 +1104,103 @@ msgstr "(sem titulo)"
 
 #: components/points/includes/hooks/abstracts/post-type.php:291
 msgid "Select post type:"
-msgstr "Selecione o tipo de post:"
+msgstr "Selecione o tipo de artigo:"
 
 #: components/points/includes/hooks/comment-received.php:31
-#, fuzzy
 msgctxt "points hook name"
 msgid "Comment Received"
-msgstr "Comentario Removido"
+msgstr "Comentário recebido"
 
 #: components/points/includes/hooks/comment-received.php:33
 msgid "Receiving a comment."
-msgstr ""
+msgstr "Receber um comentário."
 
 #. translators: the post type name.
 #: components/points/includes/hooks/comment-received.php:35
-#, fuzzy
 msgid "Receiving a comment on a %s."
-msgstr "Comentario em %s."
+msgstr "Comentário recebido em %s."
 
 #. translators: %s will be the post's title.
 #: components/points/includes/hooks/comment-received.php:37
-#, fuzzy
 msgctxt "points log description"
 msgid "Received a comment on %s."
-msgstr "Comentario em %s."
+msgstr "Comentário recebido em %s."
 
 #: components/points/includes/hooks/comment-received.php:38
 msgctxt "points log description"
 msgid "Received a comment."
-msgstr ""
+msgstr "Comentário recebido."
 
 #. translators: %s will be the post's title.
 #: components/points/includes/hooks/comment-received.php:40
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment received on %s removed."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário recebido em %s removido."
 
 #: components/points/includes/hooks/comment-received.php:41
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment received removed."
-msgstr "Comentario Removido"
+msgstr "Comentário recebido removido."
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment-received.php:43
-#, fuzzy
 msgctxt "points log description"
 msgid "Received a comment on a %s."
-msgstr "Comentario em %s."
+msgstr "Comentário recebido em %s."
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment-received.php:45
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment received on a %s removed."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário recebido em %s removido."
 
 #: components/points/includes/hooks/comment.php:34
 msgctxt "points hook name"
 msgid "Comment"
-msgstr "Comentario"
+msgstr "Comentário"
 
 #: components/points/includes/hooks/comment.php:36
 msgid "Leaving a new comment."
-msgstr ""
+msgstr "Comentário publicado."
 
 #. translators: the post type name.
 #: components/points/includes/hooks/comment.php:38
 msgid "Leaving a new comment on a %s."
-msgstr ""
+msgstr "Comentário publicado em %s."
 
 #. translators: %s will be the post's title.
 #: components/points/includes/hooks/comment.php:40
 msgctxt "points log description"
 msgid "Comment on %s."
-msgstr "Comentario em %s."
+msgstr "Comentário em %s."
 
 #: components/points/includes/hooks/comment.php:41
 msgctxt "points log description"
 msgid "Comment"
-msgstr "Comentario"
+msgstr "Comentário"
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment.php:43
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment on a %s."
-msgstr "Comentario em %s."
+msgstr "Comentário em %s."
 
 #. translators: %s will be the post's title.
 #: components/points/includes/hooks/comment.php:45
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment on %s removed."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário em %s removido."
 
 #: components/points/includes/hooks/comment.php:46
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment removed."
-msgstr "Comentario Removido"
+msgstr "Comentário removido."
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment.php:48
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment on a %s removed."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário em %s removido."
 
 #: components/points/includes/hooks/comment.php:56
 msgid "Revoke the points if the comment is removed."
@@ -1249,7 +1226,7 @@ msgstr "Pontos por Hora."
 #: components/points/includes/hooks/periodic.php:138
 msgctxt "points log description"
 msgid "Daily points."
-msgstr "Pontos por Dia."
+msgstr "Visita diária."
 
 #: components/points/includes/hooks/periodic.php:142
 msgctxt "points log description"
@@ -1284,7 +1261,7 @@ msgstr ""
 
 #: components/points/includes/hooks/periodic.php:184
 msgid "Visiting the site periodically."
-msgstr ""
+msgstr "Visita periódica ao site."
 
 #: components/points/includes/hooks/periodic.php:238
 msgctxt "length of time"
@@ -1308,41 +1285,36 @@ msgid "monthly"
 msgstr "Por Mês"
 
 #: components/points/includes/hooks/post.php:50
-#, fuzzy
 msgctxt "points hook name"
 msgid "Post Publish"
-msgstr "Post publicado."
+msgstr "Artigo publicado"
 
 #: components/points/includes/hooks/post.php:52
-#, fuzzy
 msgid "New post published."
-msgstr "Post publicado."
+msgstr "Novo artigo publicado."
 
 #. translators: the post type name.
 #: components/points/includes/hooks/post.php:54
-#, fuzzy
 msgid "New %s published."
-msgstr "Post %s publicado."
+msgstr "Artigo %s publicado."
 
 #. translators: %s will be a link to the post.
 #: components/points/includes/hooks/post.php:56
 msgctxt "points log description"
 msgid "Post %s published."
-msgstr "Post %s publicado."
+msgstr "Artigo %s publicado."
 
 #. translators: 1 is the post type name, 2 is a link to the post.
 #: components/points/includes/hooks/post.php:58
-#, fuzzy
 msgctxt "points log description"
 msgid "%2$s %1$s published."
-msgstr "%1$s %2$s publicado."
+msgstr "Artigo %2$s publicado."
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/post.php:60
-#, fuzzy
 msgctxt "points log description"
 msgid "%s published."
-msgstr "Post publicado."
+msgstr "%s publicado."
 
 #: components/points/includes/hooks/post.php:61
 msgctxt "points log description"
@@ -1353,36 +1325,31 @@ msgstr "Post publicado."
 #. translators: the post type's name.
 #: components/points/includes/hooks/post.php:63
 #: components/points/includes/logs.php:702
-#, fuzzy
 msgctxt "points log description"
 msgid "%s deleted."
-msgstr "Tipos de Pontos deletados."
+msgstr "%s deletado."
 
 #. translators: 1 is the post type name, 2 is the post title.
 #: components/points/includes/hooks/post.php:65
-#, fuzzy
 msgctxt "points log description"
 msgid "%1$s &#8220;%2$s&#8221; deleted."
-msgstr "%1$s \"%2$s\" deletado."
+msgstr "%1$s &#8220;%2$s&#8221; deletado."
 
 #. translators: %s will be the post title.
 #: components/points/includes/hooks/post.php:67
-#, fuzzy
 msgctxt "points log description"
 msgid "Post &#8220;%s&#8221; deleted."
-msgstr "Post \"%s\" deletado."
+msgstr "Artigo &#8220;%s&#8221; deletado."
 
 #: components/points/includes/hooks/post.php:68
 #: components/points/includes/logs.php:708
-#, fuzzy
 msgctxt "points log description"
 msgid "Post deleted."
-msgstr "Deletar"
+msgstr "Artigo deletado."
 
 #: components/points/includes/hooks/post.php:75
-#, fuzzy
 msgid "Revoke the points if the post is permanently deleted."
-msgstr "Tipos de Pontos deletados."
+msgstr "Subtrair os pontos se o artigo for permanentemente deletado."
 
 #: components/points/includes/hooks/registration.php:39
 msgctxt "points hook name"
@@ -1392,7 +1359,7 @@ msgstr "Registro"
 #: components/points/includes/hooks/registration.php:40
 msgctxt "points hook description"
 msgid "Registering with the site."
-msgstr ""
+msgstr "Registro no site."
 
 #: components/points/includes/hooks/registration.php:79
 msgctxt "points log description"
@@ -1420,44 +1387,40 @@ msgid "Time"
 msgstr "Tempo"
 
 #: components/points/includes/logs.php:471
-#, fuzzy
 msgid "Searching for &#8220;%s&#8221;"
-msgstr "Resultados da pesquisa para &#8220;%s&#8221;"
+msgstr "Procurando por &#8220;%s&#8221;"
 
 #: components/points/includes/logs.php:477
-#, fuzzy
 msgid "Search Logs:"
 msgstr "Procurar:"
 
 #: components/points/includes/logs.php:485
-#, fuzzy
 msgid "Search Logs"
-msgstr "Procurar:"
+msgstr "Procurar"
 
 #: components/points/includes/logs.php:505
-#, fuzzy
 msgid "No matching logs found."
-msgstr "Nenhum registro correspondente foi encontrado"
+msgstr "Nenhum registro correspondente foi encontrado."
 
 #: components/points/includes/logs.php:656
 msgctxt "points log description"
 msgid "Points adjusted by %s. Reason: %s"
-msgstr "Pontos ajustados por %s. Razão: %s"
+msgstr "Crédito realizado por %s. Motivo: %s"
 
 #: components/points/includes/logs.php:671
 msgctxt "points log description"
 msgid "Comment marked as spam."
-msgstr "Comentario marcado como spam."
+msgstr "Comentário marcado como spam."
 
 #: components/points/includes/logs.php:675
 msgctxt "points log description"
 msgid "Comment moved to trash."
-msgstr "Comentario movido para o lixo."
+msgstr "Comentário removido."
 
 #: components/points/includes/logs.php:679
 msgctxt "points log description"
 msgid "Comment unapproved."
-msgstr "Comentario não aprovado."
+msgstr "Comentário não aprovado."
 
 #: components/points/includes/points.php:972
 msgctxt "points log"
@@ -1467,80 +1430,69 @@ msgstr "(sem descrição)"
 #: components/points/includes/points.php:1161
 msgctxt "top users table heading"
 msgid "Position"
-msgstr "Posição"
+msgstr "-"
 
 #: components/points/includes/points.php:1162
-#, fuzzy
 msgctxt "top users table heading"
 msgid "User"
 msgstr "Usuário"
 
 #: components/points/includes/points.php:1163
-#, fuzzy
 msgctxt "top users table heading"
 msgid "Points"
 msgstr "Pontos"
 
 #: components/points/includes/shortcodes.php:66
-#, fuzzy
 msgid ""
 "The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a "
 "points type. Example: %3$s."
 msgstr ""
-"O atributo de \"points_type\" para <code>[wordpoints_points_top]</code> "
-"shortcode deve ser a Slug de um tipo pontos. Exemplo: <code>"
-"[wordpoints_points_top points_type=\"points\"]</code>."
+"O atributo &#8220;%1$s&#8221; do shortcode %2$s deve ser a slug de um tipo "
+"de ponto. Exemplo: %3$s."
 
 #: components/points/includes/shortcodes.php:115
-#, fuzzy
 msgid ""
 "The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a positive "
 "integer. Example: %3$s."
 msgstr ""
-"O atributo de \"points_type\" para <code>[wordpoints_points_top]</code> "
-"shortcode deve ser a Slug de um tipo pontos. Exemplo: <code>"
-"[wordpoints_points_top points_type=\"points\"]</code>."
+"O atributo &#8220;%1$s&#8221; do shortcode %2$s deve ser um número inteiro "
+"positivo. Exemplo: %3$s."
 
 #: components/points/includes/shortcodes.php:173
-#, fuzzy
 msgid ""
 "The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a "
 "registered points log query. Example: %3$s."
 msgstr ""
-"O atributo de \"points_type\" para <code>[wordpoints_points_top]</code> "
-"shortcode deve ser a Slug de um tipo pontos. Exemplo: <code>"
-"[wordpoints_points_top points_type=\"points\"]</code>."
+"O atributo &#8220;%1$s&#8221; do shortcode %2$s deve ser a slug de uma query "
+"de registro de pontos. Exemplo: %3$s."
 
 #: components/points/includes/shortcodes.php:285
-#, fuzzy
 msgctxt "column name"
 msgid "Points"
 msgstr "Pontos"
 
 #: components/points/includes/shortcodes.php:299
-#, fuzzy
 msgctxt "column name"
 msgid "Action"
-msgstr "Ações"
+msgstr "Ação"
 
 #: components/points/includes/widgets.php:51
-#, fuzzy
 msgid "Please select a valid points type."
-msgstr "Por favor, escolha um nome único para este Tipo de Ponto."
+msgstr "Por favor, escolha um tipo de ponto válido."
 
 #: components/points/includes/widgets.php:126
 msgctxt "form label"
 msgid "Points type"
-msgstr "Tipos de Ponto"
+msgstr "Tipo de ponto"
 
 #: components/points/includes/widgets.php:157
 msgid "Display the points of the current logged in user."
-msgstr "Apresentar os pontos do atual usuário conectado."
+msgstr "Mostrar os pontos do atual usuário conectado."
 
 #: components/points/includes/widgets.php:163
 msgctxt "widget title"
 msgid "My Points"
-msgstr "Meus Pontos"
+msgstr "Meus pontos"
 
 #: components/points/includes/widgets.php:165
 msgid "Points: %s"
@@ -1552,7 +1504,7 @@ msgstr "Você precisa estar logado para ver seus pontos."
 
 #: components/points/includes/widgets.php:286
 msgid "Widget text"
-msgstr "Texto do Widget"
+msgstr "Texto do widget"
 
 #: components/points/includes/widgets.php:288
 msgid "%s will be replaced with the points of the logged in user"
@@ -1571,11 +1523,11 @@ msgstr ""
 #: components/points/includes/widgets.php:308
 msgid "Number of latest log entries for this user to display"
 msgstr ""
-"Numeros dos últimos registros de entrada para este usuário para apresenetar"
+"Número a ser mostrado dos últimos registros de entrada para este usuário"
 
 #: components/points/includes/widgets.php:310
 msgid "Set this to 0 to keep from showing any logs"
-msgstr "Defina para 0 para não mostrar os registros."
+msgstr "Defina para 0 para não mostrar os registros"
 
 #: components/points/includes/widgets.php:341
 msgctxt "widget name"
@@ -1593,7 +1545,7 @@ msgstr "Top Usuários"
 
 #: components/points/includes/widgets.php:414
 msgid "Number of top users to show"
-msgstr "Numero de Top usuários para mostrar"
+msgstr "Numero de usuários top para mostrar"
 
 #: components/points/includes/widgets.php:440
 msgctxt "widget name"
@@ -1602,7 +1554,7 @@ msgstr "Registro de Pontos"
 
 #: components/points/includes/widgets.php:442
 msgid "Display the latest points activity."
-msgstr "Mostrar as ultimas ativades dos pontos."
+msgstr "Mostrar as últimas pontuações."
 
 #: components/points/includes/widgets.php:448
 msgctxt "widget title"
@@ -1611,7 +1563,7 @@ msgstr "Registro de Pontos"
 
 #: components/points/includes/widgets.php:516
 msgid "Number of log entries to display"
-msgstr "Numero de registro de entradas para mostrar"
+msgstr "Numero de registros de entrada para mostrar"
 
 #: components/ranks/admin/includes/ajax.php:198
 msgid ""
@@ -1620,14 +1572,13 @@ msgid ""
 msgstr ""
 
 #: components/ranks/admin/includes/ajax.php:232
-#, fuzzy
 msgid "There was an error deleting the rank. Please try again."
-msgstr "Ocorreu um erro. Por favor tente novamente."
+msgstr "Ocorreu um erro. Por favor, tente novamente."
 
 #: components/ranks/admin/includes/ajax.php:257
 #: components/ranks/admin/includes/functions.php:43
 msgid "There was an unexpected error. Try reloading the page."
-msgstr ""
+msgstr "Houve um erro inesperado. Tente atualizar a página."
 
 #: components/ranks/admin/includes/ajax.php:274
 msgid ""
@@ -1636,7 +1587,6 @@ msgid ""
 msgstr ""
 
 #: components/ranks/admin/includes/ajax.php:294
-#, fuzzy
 msgid ""
 "Your security token for this action has expired. Refresh the page and try "
 "again."
@@ -1804,13 +1754,11 @@ msgid "This rank group is associated with the &#8220;%s&#8221; points type."
 msgstr ""
 
 #: components/ranks/includes/rank-types/points.php:45
-#, fuzzy
 msgctxt "rank type"
 msgid "Points"
 msgstr "Pontos"
 
 #: components/ranks/includes/rank-types/points.php:56
-#, fuzzy
 msgctxt "form label"
 msgid "Points"
 msgstr "Pontos"
@@ -1879,12 +1827,12 @@ msgid ""
 msgstr ""
 
 #: includes/class-widget.php:75
-#, fuzzy
 msgid ""
 "The &#8220;%1$s&#8221; widget could not be displayed because of an error: "
 "%2$s"
 msgstr ""
-"O componente \"%s\" não pode ser desativado. Por favor tente novamente."
+"O componente &#8220;%1$s&#8221; não pode ser ativado por conta de um erro: "
+"%2$s"
 
 #: includes/class-widget.php:233
 msgctxt "form label"

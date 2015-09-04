@@ -122,6 +122,38 @@ class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test that it skips checking module compatibility if the db version isn't set.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_breaking_update
+	 */
+	public function test_wordpoints_breaking_update_db_version_not_set() {
+
+		$this->wordpoints_set_db_version( '' );
+
+		if ( is_wordpoints_network_active() ) {
+			$this->listen_for_filter( 'site_option_wordpoints_sitewide_active_modules' );
+		}
+
+		$this->listen_for_filter( 'pre_option_wordpoints_active_modules' );
+
+		wordpoints_breaking_update();
+
+		if ( is_wordpoints_network_active() ) {
+			$this->assertEmpty(
+				$this->filter_was_called(
+					'site_option_wordpoints_sitewide_active_modules'
+				)
+			);
+		}
+
+		$this->assertEmpty(
+			$this->filter_was_called( 'pre_option_wordpoints_active_modules' )
+		);
+	}
+
+	/**
 	 * Test wordpoints_maintenance_shutdown_print_rand_str().
 	 *
 	 * @since 2.0.0

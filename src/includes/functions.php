@@ -64,6 +64,12 @@ function wordpoints_breaking_update() {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 	}
 
+	// Normally this should never happen, because the plugins_loaded action won't
+	// run until the next request after WordPoints is activated and installs itself.
+	if ( empty( $wordpoints_data['version'] ) ) {
+		return;
+	}
+
 	// The major version is determined by the first number, so we can just cast to
 	// an integer. IF the major versions are equal, we don't need to do anything.
 	if ( (int) WORDPOINTS_VERSION === (int) $wordpoints_data['version'] ) {

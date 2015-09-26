@@ -349,10 +349,10 @@
     },
     "\/includes\/functions.php": {
         "-1": {
-            "685": false
+            "691": false
         },
         "points": {
-            "962": {
+            "968": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -361,7 +361,7 @@
             }
         },
         "ranks": {
-            "987": {
+            "993": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -370,7 +370,7 @@
             }
         },
         "sha256": {
-            "1046": {
+            "1052": {
                 "name": "hash",
                 "type": "unknown",
                 "args_started": true,
@@ -870,13 +870,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1233": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1238": {
                 "name": "array",
                 "type": "unknown",
@@ -891,20 +884,6 @@
             "382": false,
             "492": false,
             "1198": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1231": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1233": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -930,27 +909,6 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1231": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1232": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1233": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1238": {
                 "name": "array",
                 "type": "unknown",
@@ -966,12 +924,9 @@
             "436": false
         },
         "manage": {
-            "1146": false,
-            "1147": false,
             "1148": false
         },
         "columnshidden": {
-            "1146": false,
             "1147": false
         },
         "-networkcolumnshidden": {
@@ -1051,7 +1006,7 @@
             }
         },
         "<?php \/\/ Gold is silent.": {
-            "259": {
+            "273": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -1060,20 +1015,13 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "264": false
+            "278": false
         }
     },
     "\/includes\/class-widget.php": {
         "title": {
-            "233": {
-                "name": "WordPoints_Widget::get_field_id",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "234": {
-                "name": "WordPoints_Widget::get_field_name",
+                "name": "WordPoints_Widget::get_field_id",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
@@ -1115,7 +1063,7 @@
     },
     "\/includes\/class-installables.php": {
         "install": {
-            "245": {
+            "249": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -1124,7 +1072,7 @@
             }
         },
         "update": {
-            "246": {
+            "250": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,

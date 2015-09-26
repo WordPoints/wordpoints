@@ -47,7 +47,7 @@ function wordpoints_activate( $network_active ) {
 
 	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
 }
-register_activation_hook( __FILE__, 'wordpoints_activate' );
+register_activation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_activate' );
 
 /**
  * Check module compatibility before breaking updates.

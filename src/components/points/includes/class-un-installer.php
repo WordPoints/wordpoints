@@ -266,7 +266,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		if ( $log_ids && is_array( $log_ids ) ) {
 
-			$wpdb->query(
+			$wpdb->query( // WPCS: unprepared SQL OK
 				"
 					DELETE
 					FROM {$wpdb->wordpoints_points_logs}
@@ -572,8 +572,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			$charset_collate .= " COLLATE {$wpdb->collate}";
 		}
 
-		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" ); // WPCS: cache pass.
-		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" ); // WPCS: cache pass.
+		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_logs} CONVERT TO {$charset_collate}" ); // WPCS: unprepared SQL, cache pass.
+		$wpdb->query( "ALTER TABLE {$wpdb->wordpoints_points_log_meta} CONVERT TO {$charset_collate}" ); // WPCS: unprepared SQL, cache pass.
 	}
 
 	/**

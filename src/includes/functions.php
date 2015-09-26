@@ -576,7 +576,7 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 	// String a bunch of format signs together, one for each value in $_in.
 	$in = $format . str_repeat( ",{$format}", $count - 1 );
 
-	return $wpdb->prepare( $in, $_in );
+	return $wpdb->prepare( $in, $_in ); // WPCS: unprepared SQL OK
 }
 
 //

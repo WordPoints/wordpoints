@@ -227,7 +227,7 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test updating WordPoints when it is uninstalled.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 */
 	public function test_maybe_do_updates_wordpoints_not_installed() {
 

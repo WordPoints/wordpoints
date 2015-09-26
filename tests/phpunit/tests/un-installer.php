@@ -4,27 +4,27 @@
  * Test case for the WordPoints_Un_Installer class.
  *
  * @package WordPoints\Tests
- * @since 2.0.0
+ * @since 2.0.2
  */
 
 /**
  * Tests for the WordPoints un/installer class.
  *
- * @since 2.0.0
+ * @since 2.0.2
  */
 class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 
 	/**
 	 * The mock un/installer used in the tests.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @var WordPoints_Un_Installer
 	 */
 	protected $un_installer;
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 */
 	public function setUp() {
 
@@ -41,7 +41,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that custom caps are loaded and installed.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_on_site
 	 *
@@ -57,7 +57,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test database version is set on network install when network wide.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_network
 	 *
@@ -73,7 +73,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test database version is set on site install when not network wide.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_site
 	 *
@@ -90,7 +90,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that custom caps are added on site install.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_site
 	 *
@@ -106,7 +106,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test database version is set on single install.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_single
 	 *
@@ -122,7 +122,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that custom caps are added on single install.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_single
 	 *
@@ -138,7 +138,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test database version is set on reactivation.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
 	 * @covers WordPoints_Un_Installer::install_network
 	 */
@@ -157,7 +157,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Assert that custom capabilities were loaded.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 */
 	public function assertCustomCapsAdded() {
 

@@ -124,7 +124,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that it skips checking module compatibility if the db version isn't set.
 	 *
-	 * @since 2.1.0
+	 * @since 2.0.2
 	 *
 	 * @covers ::wordpoints_breaking_update
 	 */

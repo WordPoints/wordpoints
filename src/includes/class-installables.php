@@ -180,6 +180,10 @@ final class WordPoints_Installables {
 				if ( 'wordpoints' === $slug ) {
 
 					if ( ! isset( $data['version'] ) ) {
+						// WordPoints should always be installed at this point. If it
+						// isn't, the install script didn't run for some reason. See
+						// https://github.com/WordPoints/wordpoints/issues/349
+						self::install( $type, $slug, is_wordpoints_network_active() );
 						continue;
 					}
 

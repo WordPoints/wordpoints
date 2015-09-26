@@ -1103,8 +1103,8 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		 * We can't use WP_User_Query here because we need to coalesce the meta value
 		 * with 0 for ordering.
 		 */
-		$top_users = $wpdb->get_col(
-			$wpdb->prepare(
+		$top_users = $wpdb->get_col( // WPCS: unprepared SQL OK
+			$wpdb->prepare( // WPCS: unprepared SQL OK
 				"
 					SELECT `users`.`ID`
                     FROM `{$wpdb->users}` AS `users`

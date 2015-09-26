@@ -47,7 +47,7 @@ function wordpoints_activate( $network_active ) {
 
 	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
 }
-register_activation_hook( __FILE__, 'wordpoints_activate' );
+register_activation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_activate' );
 
 /**
  * Check module compatibility before breaking updates.
@@ -62,6 +62,12 @@ function wordpoints_breaking_update() {
 		$wordpoints_data = get_site_option( 'wordpoints_data' );
 	} else {
 		$wordpoints_data = get_option( 'wordpoints_data' );
+	}
+
+	// Normally this should never happen, because the plugins_loaded action won't
+	// run until the next request after WordPoints is activated and installs itself.
+	if ( empty( $wordpoints_data['version'] ) ) {
+		return;
 	}
 
 	// The major version is determined by the first number, so we can just cast to
@@ -570,7 +576,7 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 	// String a bunch of format signs together, one for each value in $_in.
 	$in = $format . str_repeat( ",{$format}", $count - 1 );
 
-	return $wpdb->prepare( $in, $_in );
+	return $wpdb->prepare( $in, $_in ); // WPCS: unprepared SQL OK
 }
 
 //

@@ -1002,7 +1002,7 @@ class WordPoints_Points_Logs_Query {
 			$this->_args['points__compare'] = '=';
 		}
 
-		$this->_wheres[] = $wpdb->prepare( "`points` {$this->_args['points__compare']} %d", $this->_args['points'] );
+		$this->_wheres[] = $wpdb->prepare( "`points` {$this->_args['points__compare']} %d", $this->_args['points'] ); // WPCS: unprepared SQL OK
 	}
 
 	/**
@@ -1026,7 +1026,7 @@ class WordPoints_Points_Logs_Query {
 			$this->_args['text__compare'] = '=';
 		}
 
-		$this->_wheres[] = $wpdb->prepare( "`text` {$this->_args['text__compare']} %s", $this->_args['text'] );
+		$this->_wheres[] = $wpdb->prepare( "`text` {$this->_args['text__compare']} %s", $this->_args['text'] ); // WPCS: unprepared SQL OK
 	}
 
 	/**

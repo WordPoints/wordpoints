@@ -7,7 +7,7 @@
  * @since 2.1.0
  */
 
-register_activation_hook( __FILE__, 'wordpoints_activate' );
+register_activation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_activate' );
 
 add_action( 'plugins_loaded', 'wordpoints_register_installer' );
 add_action( 'plugins_loaded', 'wordpoints_breaking_update' );

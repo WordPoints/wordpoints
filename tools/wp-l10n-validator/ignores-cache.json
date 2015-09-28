@@ -672,7 +672,7 @@
     },
     "\/includes\/class-installables.php": {
         "install": {
-            "245": {
+            "249": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -681,7 +681,7 @@
             }
         },
         "update": {
-            "246": {
+            "250": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -939,7 +939,7 @@
             "20": false
         },
         "<?php \/\/ Gold is silent.": {
-            "260": {
+            "274": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -948,7 +948,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "265": false
+            "279": false
         }
     },
     "\/includes\/class-widget.php": {
@@ -961,7 +961,7 @@
                 "parentheses": 1
             },
             "234": {
-                "name": "WordPoints_Widget::get_field_name",
+                "name": "WordPoints_Widget::get_field_id",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
@@ -971,10 +971,10 @@
     },
     "\/includes\/functions.php": {
         "-1": {
-            "675": false
+            "681": false
         },
         "points": {
-            "951": {
+            "957": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -983,7 +983,7 @@
             }
         },
         "ranks": {
-            "975": {
+            "981": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -992,7 +992,7 @@
             }
         },
         "sha256": {
-            "1044": {
+            "1050": {
                 "name": "hash",
                 "type": "unknown",
                 "args_started": true,

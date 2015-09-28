@@ -106,15 +106,29 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_network() {
 
+		$data = wordpoints_get_network_option( 'wordpoints_data' );
+
 		// Add plugin data.
-		wordpoints_add_network_option(
-			'wordpoints_data',
-			array(
-				'version'    => WORDPOINTS_VERSION,
-				'components' => array(), // Components use this to store data.
-				'modules'    => array(), // Modules can use this to store data.
-			)
-		);
+		if ( ! is_array( $data ) ) {
+
+			wordpoints_update_network_option(
+				'wordpoints_data',
+				array(
+					'version'    => WORDPOINTS_VERSION,
+					'components' => array(), // Components use this to store data.
+					'modules'    => array(), // Modules can use this to store data.
+				)
+			);
+
+		} else {
+
+			// Make sure the version is set properly even if the data is already
+			// there, in case the plugin is being reactivated and things had been
+			// corrupted somehow.
+			$data['version'] = WORDPOINTS_VERSION;
+
+			wordpoints_update_network_option( 'wordpoints_data', $data );
+		}
 	}
 
 	/**

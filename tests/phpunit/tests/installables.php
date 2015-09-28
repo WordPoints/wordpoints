@@ -144,7 +144,6 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 		$this->assertEquals( 'uninstall', $installer->action );
 	}
 
-
 	/**
 	 * Test uninstalling an unregistered entity.
 	 *
@@ -223,6 +222,22 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 		WordPoints_Installables::maybe_do_updates();
 
 		$this->assertEmpty( $this->get_module_db_version( 'test' ) );
+	}
+
+	/**
+	 * Test updating WordPoints when it is uninstalled.
+	 *
+	 * @since 2.0.2
+	 */
+	public function test_maybe_do_updates_wordpoints_not_installed() {
+
+		wordpoints_update_network_option( 'wordpoints_data', array( 'a' => 'b' ) );
+
+		$this->assertEmpty( $this->wordpoints_get_db_version() );
+
+		WordPoints_Installables::maybe_do_updates();
+
+		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 	}
 
 	/**

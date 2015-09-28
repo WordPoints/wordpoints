@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.2
-Tested up to: 4.3-beta3-33288
-Stable tag: 2.0.1
+Tested up to: 4.4-alpha-34599
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,17 @@ manage the ranks used on your site.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.0.2 - 2015-09-26 - (~10 hrs) =
+
+##### Fixed
+
+- Since version 2.0.0, the plugin was not running its installation script when it was
+activated. This caused the Points component not to be activated by default, made it
+impossible to use the Modules screen, and, in some cases, also resulted in the site
+sporadically entering maintenance mode. This update will automatically run the
+install script on sites where it was not run on activation, which will fix all of
+these issues.
 
 = 2.0.1 - 2015-07-22 - (~5 hrs) =
 
@@ -362,6 +373,11 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.0.2 =
+* Fixes a bug in version 2.0.0 that has caused the plugin not to run its installation
+script when it was activated. Updating will cause the installation script to be run
+automatically if it hasn't been run yet.
+
 = 2.0.1 =
 * This is a security hardening release, which fixes a small bug and strengthens two
 very minor security weaknesses.

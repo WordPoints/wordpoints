@@ -106,7 +106,7 @@ function wordpoints_maintenance_shutdown_print_rand_str() {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
 		return;
 	}
 
@@ -146,7 +146,7 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || $nonce !== $_GET['wordpoints_module_check'] ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
 		return $modules;
 	}
 
@@ -1023,6 +1023,25 @@ function wordpoints_register_scripts() {}
 function wordpoints_load_textdomain() {
 
 	load_plugin_textdomain( 'wordpoints', false, plugin_basename( WORDPOINTS_DIR ) . '/languages/' );
+}
+
+/**
+ * Generate a cryptographically secure hash.
+ *
+ * You can use wp_hash() instead if you need to use a salt. However, at present that
+ * function uses the outdated MD5 hashing algorithm, so you will want to take that
+ * into consideration as well. The benefit of using this function instead is that it
+ * will use a strong hashing algorithm, and the hashes won't be invalidated when the
+ * salts change.
+ *
+ * @since 2.0.1
+ *
+ * @param string $data The data to generate a hash for.
+ *
+ * @return string The hash.
+ */
+function wordpoints_hash( $data ) {
+	return hash( 'sha256', $data );
 }
 
 // EOF

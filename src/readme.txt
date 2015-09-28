@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.2
-Tested up to: 4.3-alpha-32280
-Stable tag: 2.0.0
+Tested up to: 4.3-beta3-33288
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,27 @@ manage the ranks used on your site.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.0.1 - 2015-07-22 - (~5 hrs) =
+
+##### Fixed
+
+- In the table on the modules screen, the id of each checkbox is now based on the
+module's file, instead of on the module name. This avoids duplicate ids when there
+are multiple modules with the same name installed. Duplicate ids are not allowed,
+and could have caused bugs on the Modules screen. You are now free to install as
+many modules with the same name as you want without any fear of bugs ;-).
+
+##### Security
+
+- Use a stronger hashing algorithm to generate the keys for the points logs cache.
+The use of a weaker algorithm could possibly have allowed a determined attacker to
+view logs which they might not otherwise be able to.
+- Use a stronger hashing algorithm to generate the key used to perform a module
+compatibility check during a breaking update. This is not really a security concern,
+because the time window for exploitation only lasts a few seconds, and all a
+successful attacker would be able to do is view a list of modules installed on the
+site.
 
 = 2.0.0 - 2015-06-30 - (~70 hrs) =
 
@@ -341,6 +362,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.0.1 =
+* This is a security hardening release, which fixes a small bug and strengthens two
+very minor security weaknesses.
+
 = 2.0.0 =
 * This is a breaking update that includes emoji support, some bug fixes, and many
 internal code improvements in preparation for new features. Some old code has been

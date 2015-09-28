@@ -77,13 +77,13 @@ class WordPoints_Points_Logs_Query {
 	private $_cache_group;
 
 	/**
-	 * The MD5 hash of the query for looking it up the the cache.
+	 * The hash of the query for looking it up the the cache.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @type string $_cache_query_md5
+	 * @type string $_cache_query_hash
 	 */
-	private $_cache_query_md5;
+	private $_cache_query_hash;
 
 	/**
 	 * The type of select being performed.
@@ -284,7 +284,7 @@ class WordPoints_Points_Logs_Query {
 		$this->_args = array_merge( $this->_args, $args );
 
 		$this->_query_ready = false;
-		$this->_cache_query_md5 = null;
+		$this->_cache_query_hash = null;
 	}
 
 	/**
@@ -428,7 +428,7 @@ class WordPoints_Points_Logs_Query {
 
 		$this->_select_type = 'SELECT';
 
-		unset( $this->_cache_query_md5 );
+		unset( $this->_cache_query_hash );
 
 		$results = $this->get();
 
@@ -439,7 +439,7 @@ class WordPoints_Points_Logs_Query {
 		$this->_limit = '';
 		$this->_prepare_limit();
 
-		unset( $this->_cache_query_md5 );
+		unset( $this->_cache_query_hash );
 
 		return $results;
 	}
@@ -646,21 +646,21 @@ class WordPoints_Points_Logs_Query {
 			return false;
 		}
 
-		$this->_calc_cache_query_md5();
+		$this->_calc_cache_query_hash();
 
-		if ( ! isset( $cache[ $this->_cache_query_md5 ] ) ) {
+		if ( ! isset( $cache[ $this->_cache_query_hash ] ) ) {
 			return false;
 		}
 
 		if ( isset( $type ) ) {
-			if ( isset( $cache[ $this->_cache_query_md5 ][ $type ] ) ) {
-				return $cache[ $this->_cache_query_md5 ][ $type ];
+			if ( isset( $cache[ $this->_cache_query_hash ][ $type ] ) ) {
+				return $cache[ $this->_cache_query_hash ][ $type ];
 			} else {
 				return false;
 			}
 		}
 
-		return $cache[ $this->_cache_query_md5 ];
+		return $cache[ $this->_cache_query_hash ];
 	}
 
 	/**
@@ -676,33 +676,33 @@ class WordPoints_Points_Logs_Query {
 
 		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
 
-		$this->_calc_cache_query_md5();
+		$this->_calc_cache_query_hash();
 
 		if (
-			! isset( $cache[ $this->_cache_query_md5 ] )
-			|| ! is_array( $cache[ $this->_cache_query_md5 ] )
+			! isset( $cache[ $this->_cache_query_hash ] )
+			|| ! is_array( $cache[ $this->_cache_query_hash ] )
 		) {
-			$cache[ $this->_cache_query_md5 ] = array();
+			$cache[ $this->_cache_query_hash ] = array();
 		}
 
 		if ( isset( $type ) ) {
-			$cache[ $this->_cache_query_md5 ][ $type ] = $value;
+			$cache[ $this->_cache_query_hash ][ $type ] = $value;
 		} else {
-			$cache[ $this->_cache_query_md5 ] = $value;
+			$cache[ $this->_cache_query_hash ] = $value;
 		}
 
 		wp_cache_set( $this->_cache_key, $cache, $this->_cache_group );
 	}
 
 	/**
-	 * Caclulate the MD5 hash of the query.
+	 * Calculate the hash of the query.
 	 *
 	 * @since 1.6.0
 	 */
-	private function _calc_cache_query_md5() {
+	private function _calc_cache_query_hash() {
 
-		if ( ! isset( $this->_cache_query_md5 ) ) {
-			$this->_cache_query_md5 = md5( $this->get_sql() );
+		if ( ! isset( $this->_cache_query_hash ) ) {
+			$this->_cache_query_hash = wordpoints_hash( $this->get_sql() );
 		}
 	}
 

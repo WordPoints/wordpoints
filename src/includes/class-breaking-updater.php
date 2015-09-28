@@ -243,8 +243,8 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	 */
 	protected function check_module( $module ) {
 
-		$rand_str = str_shuffle( md5( microtime() ) );
-		$nonce = md5( $rand_str . 'wordpoints_check_modules-' . $module );
+		$rand_str = str_shuffle( wordpoints_hash( microtime() ) );
+		$nonce = wordpoints_hash( $rand_str . 'wordpoints_check_modules-' . $module );
 
 		if ( 'network' === $this->context ) {
 			update_site_option( 'wordpoints_module_check_rand_str', $rand_str );

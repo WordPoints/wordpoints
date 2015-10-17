@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: WordPoints 1.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-06-30 14:42:40+00:00\n"
-"PO-Revision-Date: 2014-11-29 07:17+0200\n"
+"PO-Revision-Date: 2015-10-17 04:18+0200\n"
 "Last-Translator: Jack Lee <suifengtec@qq.com>\n"
-"Language-Team: Simplified Chinese <https://hosted.weblate.org/projects/"
-"wordpoints/wordpoints/zh_CN/>\n"
+"Language-Team: Chinese (China) "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"X-Generator: Weblate 2.5-dev\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
@@ -230,7 +230,7 @@ msgstr "正在安装上传模块: %s"
 msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
-msgstr ""
+msgstr "这看起来是一个WordPoints模块包。尝试在WordPoints模块安装页面安装它吧。"
 
 #: admin/includes/functions.php:491
 msgid "Like this plugin?"
@@ -268,21 +268,21 @@ msgstr "感谢您使用WordPoints!"
 msgid ""
 "WordPoints has deactivated the following modules because of "
 "incompatibilities with WordPoints %1$s: %2$s"
-msgstr ""
+msgstr "由于与WordPoints%1$s: %2$s不兼容，WordPoints 已禁用下面的模块"
 
 #. translators: 1 is plugin version, 2 is list of modules
 #: admin/includes/functions.php:560
 msgid ""
 "WordPoints has deactivated the following network-active modules because of "
 "incompatibilities with WordPoints %1$s: %2$s"
-msgstr ""
+msgstr "由于与WordPoints %1$s: %2$s不兼容，WordPoints 已禁用下面的全网启用模块"
 
 #. translators: 1 is plugin version, 2 is list of modules
 #: admin/includes/functions.php:579
 msgid ""
 "WordPoints has deactivated the following modules on this site because of "
 "incompatibilities with WordPoints %1$s: %2$s"
-msgstr ""
+msgstr "由于与WordPoints %1$s: %2$s不兼容，WordPoints 已在此站禁用了下面的模块"
 
 #: admin/screens/configure-components.php:30
 msgid "Component &#8220;%s&#8221; activated!"
@@ -719,7 +719,7 @@ msgstr "默认为"
 msgid ""
 "Welcome to WordPoints! Get started by <a href=\"%s\">creating a points type</"
 "a>."
-msgstr ""
+msgstr "欢迎使用WordPoints ！现在就开始<a href=\"%s\">创建一个积分类型</a>吧。"
 
 #: components/points/admin/screens/hooks-load.php:18
 msgid ""
@@ -1087,17 +1087,15 @@ msgstr "已收到的评论被移除."
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment-received.php:43
-#, fuzzy
 msgctxt "points log description"
 msgid "Received a comment on a %s."
-msgstr "在 %s 上收到一条评论."
+msgstr "%s 收到一条评论."
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment-received.php:45
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment received on a %s removed."
-msgstr "%s上已收到的评论被移除。"
+msgstr "%s收到的评论被移除。"
 
 #: components/points/includes/hooks/comment.php:34
 msgctxt "points hook name"
@@ -1126,34 +1124,30 @@ msgstr "评论"
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment.php:43
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment on a %s."
-msgstr "%s 上的评论。"
+msgstr "%s 的评论。"
 
 #. translators: %s will be the post's title.
 #: components/points/includes/hooks/comment.php:45
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment on %s removed."
-msgstr "%s上已收到的评论被移除。"
+msgstr "%s上的评论被移除。"
 
 #: components/points/includes/hooks/comment.php:46
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment removed."
-msgstr "评论被移除"
+msgstr "评论已被移除。"
 
 #. translators: %s is the name of a post type.
 #: components/points/includes/hooks/comment.php:48
-#, fuzzy
 msgctxt "points log description"
 msgid "Comment on a %s removed."
-msgstr "%s上已收到的评论被移除。"
+msgstr "%s上的评论被移除。"
 
 #: components/points/includes/hooks/comment.php:56
 msgid "Revoke the points if the comment is removed."
-msgstr ""
+msgstr "如果评论被删除撤销积分。"
 
 #: components/points/includes/hooks/periodic.php:40
 msgctxt "points hook name"
@@ -1252,7 +1246,6 @@ msgstr "文章 %s 已发布。"
 
 #. translators: 1 is the post type name, 2 is a link to the post.
 #: components/points/includes/hooks/post.php:58
-#, fuzzy
 msgctxt "points log description"
 msgid "%2$s %1$s published."
 msgstr "%1$s %2$s已发布。"
@@ -1272,10 +1265,9 @@ msgstr "文章已发布。"
 #. translators: the post type's name.
 #: components/points/includes/hooks/post.php:63
 #: components/points/includes/logs.php:702
-#, fuzzy
 msgctxt "points log description"
 msgid "%s deleted."
-msgstr "%s已被永久删除。"
+msgstr "%s已被删除。"
 
 #. translators: 1 is the post type name, 2 is the post title.
 #: components/points/includes/hooks/post.php:65
@@ -1291,15 +1283,13 @@ msgstr "文章 &#8220;%s&#8221; 已删除."
 
 #: components/points/includes/hooks/post.php:68
 #: components/points/includes/logs.php:708
-#, fuzzy
 msgctxt "points log description"
 msgid "Post deleted."
-msgstr "文章删除"
+msgstr "文章已被删除。"
 
 #: components/points/includes/hooks/post.php:75
-#, fuzzy
 msgid "Revoke the points if the post is permanently deleted."
-msgstr "文章被删除时，减去多少积分。"
+msgstr "文章被永久删除时撤销积分。"
 
 #: components/points/includes/hooks/registration.php:39
 msgctxt "points hook name"
@@ -1424,9 +1414,8 @@ msgid "Action"
 msgstr "操作"
 
 #: components/points/includes/widgets.php:51
-#, fuzzy
 msgid "Please select a valid points type."
-msgstr "请重新选择一个积分类型名称。"
+msgstr "请选择一个积分类型名称。"
 
 #: components/points/includes/widgets.php:126
 msgctxt "form label"
@@ -1727,39 +1716,32 @@ msgstr "短代码%s中&#8220;%s&#8221;的属性必须是一个评级组的别名
 
 #. translators: 1 module/plugin name, 2 "module", "plugin", or "component".
 #: includes/class-installables.php:270
-#, fuzzy
 msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process for the &#8220;%1$s&#8221; %2$s."
-msgstr ""
-"WordPoints检测到一个大的多站网络并且已经为组件&#8220;%s&#8221;跳过了部分安装"
-"进程。"
+msgstr "WordPoints检测到一个大的多站网络并且已经为组件&#8220;%s&#8221;跳过了部分安装进程。"
 
 #. translators: 1 module/plugin name, 2 "module", "plugin", or "component", 3
 #. version number.
 #: includes/class-installables.php:273
-#, fuzzy
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for the &#8220;%1$s&#8221; %2$s for version %3$s (and possibly later "
 "versions)."
 msgstr ""
-"WordPoints检测到一个大的多站网络并且已经跳过了版本%s (和更新的版本)的更新进"
-"程。"
+"WordPoints检测到一个大的多站网络并且已经跳过了版本&#8220;%1$s&#8221; %2$s的%3$s(和更新的版本)的更新进程。"
 
 #: includes/class-installables.php:285
-#, fuzzy
 msgid "module"
 msgstr "模块"
 
 #: includes/class-installables.php:289
-#, fuzzy
 msgid "component"
 msgstr "组件"
 
 #: includes/class-installables.php:293
 msgid "plugin"
-msgstr ""
+msgstr "插件"
 
 #: includes/class-installables.php:320
 msgid ""
@@ -1783,11 +1765,10 @@ msgstr ""
 "短代码%s中&#8220;%s&#8221; 的值必须被用在一个文章，页面，或者其它文章类型中。"
 
 #: includes/class-widget.php:75
-#, fuzzy
 msgid ""
 "The &#8220;%1$s&#8221; widget could not be displayed because of an error: "
 "%2$s"
-msgstr "组件 &#8220;%s&#8221; 未能禁用，请重试。"
+msgstr "由于错误r: %2$s 组件 &#8220;%s&#8221; 小工具未能显示"
 
 #: includes/class-widget.php:233
 msgctxt "form label"

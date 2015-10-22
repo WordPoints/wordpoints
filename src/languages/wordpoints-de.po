@@ -5,14 +5,16 @@ msgstr ""
 "Project-Id-Version: WordPoints 2.1.0-alpha-1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-06-30 14:42:40+00:00\n"
+"PO-Revision-Date: 2015-10-22 15:06+0200\n"
+"Last-Translator: Jochen <j.hintringer@artworx.at>\n"
+"Language-Team: German "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-06-30 14:42:40+00:00\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.5-dev\n"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:427
@@ -22,105 +24,106 @@ msgstr ""
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
-msgstr ""
+msgstr "Modul aktivieren"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
 msgid "Return to Modules page"
-msgstr ""
+msgstr "Zurück zur Modul-Seite"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:93
 msgid "Return to Module Installer"
-msgstr ""
+msgstr "Zurück zum Modul-Installer"
 
 #: admin/includes/class-wordpoints-module-installer.php:52
 msgid "Install package not available."
-msgstr ""
+msgstr "Installationspaket nicht verfügbar."
 
 #: admin/includes/class-wordpoints-module-installer.php:53
 msgid "Unpacking the package&#8230;"
-msgstr ""
+msgstr "Entpacke das Paket&#8230;"
 
 #: admin/includes/class-wordpoints-module-installer.php:54
 msgid "Installing the module&#8230;"
-msgstr ""
+msgstr "Installiere das Modul&#8230;"
 
 #: admin/includes/class-wordpoints-module-installer.php:55
 msgid "The module contains no files."
-msgstr ""
+msgstr "Das Modul enthält keine Dateien."
 
 #: admin/includes/class-wordpoints-module-installer.php:56
 msgid "Module install failed."
-msgstr ""
+msgstr "Modul-Installation ist fehlgeschlagen."
 
 #: admin/includes/class-wordpoints-module-installer.php:57
 msgid "Module installed successfully."
-msgstr ""
+msgstr "Modul wurde erfolgreich installiert."
 
 #: admin/includes/class-wordpoints-module-installer.php:58
 msgid "Could not create the modules directory."
-msgstr ""
+msgstr "Modul-Verzeichnis konnte nicht angelegt werden."
 
 #: admin/includes/class-wordpoints-module-installer.php:190
 msgid "No valid modules were found."
-msgstr ""
+msgstr "Keine gültigen Module gefunden."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:319
 msgid "No modules found."
-msgstr ""
+msgstr "Keine Module gefunden."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:321
 msgid "There are not any modules installed."
-msgstr ""
+msgstr "Es sind noch keine Module installiert."
 
 #: admin/includes/class-wordpoints-modules-list-table.php:336
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:337
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:363
 msgctxt "modules"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Alle <span class=\"count\">(%s)</span>"
+msgstr[1] "Alle <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:367
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aktiviert <span class=\"count\">(%s)</span>"
+msgstr[1] "Aktiviert <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:371
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kürzlich aktiviert <span class=\"count\">(%s)</span>"
+msgstr[1] "Kürzlich aktiviert <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:375
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inaktiv <span class=\"count\">(%s)</span>"
+msgstr[1] "Inaktiv <span class=\"count\">(%s)</span>"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:427
 #: admin/includes/class-wordpoints-modules-list-table.php:722
 #: admin/screens/configure-components.php:108
 msgid "Activate"
-msgstr ""
+msgstr "Aktivieren"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:431
 #: admin/includes/class-wordpoints-modules-list-table.php:700
+#, fuzzy
 msgid "Network Deactivate"
-msgstr ""
+msgstr "Netzwerk Deaktivierung"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:431
 #: admin/includes/class-wordpoints-modules-list-table.php:718
 #: admin/screens/configure-components.php:103
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktivieren"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:439
 #: admin/includes/class-wordpoints-modules-list-table.php:710
@@ -130,29 +133,29 @@ msgstr ""
 #: components/ranks/admin/includes/functions.php:48
 #: components/ranks/admin/screens/ranks.php:128
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:475
 msgid "Clear List"
-msgstr ""
+msgstr "Liste leeren"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:546
 msgid "Select %s"
-msgstr ""
+msgstr "Zeige %s"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:580
 msgid "Version %s"
-msgstr ""
+msgstr "Version %s"
 
 #. translators: %s is the component author's name.
 #: admin/includes/class-wordpoints-modules-list-table.php:591
 #: admin/screens/configure-components.php:129
 msgid "By %s"
-msgstr ""
+msgstr "von %s"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:595
 msgid "Visit module site"
-msgstr ""
+msgstr "Gehe zur Modul-Seite"
 
 #. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.0-alpha-1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
@@ -160,107 +163,117 @@ msgstr ""
 #: components/points/admin/includes/functions.php:271
 #: components/points/includes/widgets.php:155
 msgid "WordPoints"
-msgstr ""
+msgstr "WordPoints"
 
 #: admin/includes/functions.php:68
 msgid "WordPoints — Configure"
-msgstr ""
+msgstr "WordPoints — Einstellungen"
 
 #: admin/includes/functions.php:69
 msgid "Configure"
-msgstr ""
+msgstr "Einstellungen"
 
 #: admin/includes/functions.php:95
 msgid "WordPoints — Modules"
-msgstr ""
+msgstr "WordPoints — Module"
 
 #: admin/includes/functions.php:96
 msgid "Modules"
-msgstr ""
+msgstr "Module"
 
 #: admin/includes/functions.php:105
 msgid "WordPoints — Install Modules"
-msgstr ""
+msgstr "WordPoints — Module installieren"
 
 #: admin/includes/functions.php:106 admin/screens/module-install.php:28
 msgid "Install Modules"
-msgstr ""
+msgstr "Module installieren"
 
 #: admin/includes/functions.php:268
 msgid "Hide This Notice"
-msgstr ""
+msgstr "Hinweis schließen"
 
 #: admin/includes/functions.php:321
 msgid "WordPoints — %s"
-msgstr ""
+msgstr "WordPoints — %s"
 
 #: admin/includes/functions.php:353
 msgid "Install a module in .zip format"
-msgstr ""
+msgstr "Installiere ein Modul im .zip Format"
 
 #: admin/includes/functions.php:354
 msgid ""
 "If you have a module in a .zip format, you may install it by uploading it "
 "here."
 msgstr ""
+"Wenn du ein Modul im .zip Format hast, kannst du es installieren, indem du "
+"es hier hochlädst."
 
 #: admin/includes/functions.php:357
 msgid "Module zip file"
-msgstr ""
+msgstr "Modul .zip Datei"
 
 #: admin/includes/functions.php:359
 msgid "Install Now"
-msgstr ""
+msgstr "Installieren"
 
 #: admin/includes/functions.php:375
 msgid ""
 "You do not have sufficient permissions to install WordPoints modules on this "
 "site."
 msgstr ""
+"Du hast keine Berechtigung WordPoints Module auf dieser Seite zu "
+"installieren."
 
 #: admin/includes/functions.php:382
 msgid "Upload WordPoints Module"
-msgstr ""
+msgstr "WordPoints Modul hochladen"
 
 #: admin/includes/functions.php:394
 msgid "Installing Module from uploaded file: %s"
-msgstr ""
+msgstr "Installiere Modul aus der hochgeladenen Datei: %s"
 
 #: admin/includes/functions.php:463
 msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
 msgstr ""
+"Dies scheint ein WordPoints Modul-Archiv zu sein. Versuche es auf der Modul-"
+"Seite von WordPoints zu installieren."
 
 #: admin/includes/functions.php:491
 msgid "Like this plugin?"
-msgstr ""
+msgstr "Gefällt dir dieses Plugin?"
 
 #: admin/includes/functions.php:492
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
 msgstr ""
+"Wenn du findest, dass WordPoints super ist, lasse es alle wissen und gibt "
+"ihm eine <a href=\"%s\">5 Sterne Bewertung</a>."
 
 #: admin/includes/functions.php:493
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
 msgstr ""
+"Wenn du findest, dass dieses Plugin keine 5 Sterne verdient, lass&#8217; uns "
+"wissen, wie wie es noch verbessern können."
 
 #: admin/includes/functions.php:496
 msgid "Need help?"
-msgstr ""
+msgstr "Brauchst du Hilfe?"
 
 #: admin/includes/functions.php:497
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
-msgstr ""
+msgstr "Schreibe deine Wünsche oder Fragen ins <a href=\"%s\">Supportforum</a>"
 
 #: admin/includes/functions.php:498
 msgid "Thank you for using WordPoints!"
-msgstr ""
+msgstr "Danke, dass du WordPoints verwendest!"
 
 #. translators: 1 is plugin version, 2 is list of modules
 #: admin/includes/functions.php:543
@@ -268,6 +281,8 @@ msgid ""
 "WordPoints has deactivated the following modules because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
+"WordPoints hat folgende Module deaktiviert, weil sie nicht mit WordPoints %1$"
+"s kompatibel sind: %2$s"
 
 #. translators: 1 is plugin version, 2 is list of modules
 #: admin/includes/functions.php:560
@@ -275,6 +290,8 @@ msgid ""
 "WordPoints has deactivated the following network-active modules because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
+"WordPoints hat die folgenden Netzwerk-Module deaktiviert, weil sie nicht mit "
+"WordPoints %1$s kompatibel sind: %2$s"
 
 #. translators: 1 is plugin version, 2 is list of modules
 #: admin/includes/functions.php:579
@@ -282,158 +299,173 @@ msgid ""
 "WordPoints has deactivated the following modules on this site because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
+"WordPoints hat folgende Module auf dieser Seite deaktiviert, weil sie nicht "
+"mit WordPoints %1$s kompatibel sind: %2$s"
 
 #: admin/screens/configure-components.php:30
 msgid "Component &#8220;%s&#8221; activated!"
-msgstr ""
+msgstr "Komponente &#8220;%s&#8221; aktiviert!"
 
 #: admin/screens/configure-components.php:36
 msgid "Component &#8220;%s&#8221; deactivated!"
-msgstr ""
+msgstr "Komponente &#8220;%s&#8221; deaktiviert!"
 
 #: admin/screens/configure-components.php:52
 msgid ""
 "The component &#8220;%s&#8221; could not be activated. Please try again."
 msgstr ""
+"Die Komponente &#8220;%s&#8221; konnte nicht aktiviert werden. Versuche es "
+"erneut."
 
 #: admin/screens/configure-components.php:58
 msgid ""
 "The component &#8220;%s&#8221; could not be deactivated. Please try again."
 msgstr ""
+"Die Komponente &#8220;%s&#8221; konnte nicht deaktiviert werden. Versuche es "
+"erneut."
 
 #: admin/screens/configure-components.php:85
 msgid "Installed WordPoints components."
-msgstr ""
+msgstr "Installierte WordPoints Komponenten."
 
 #: admin/screens/configure-components.php:88
 #: admin/screens/configure-components.php:156
 msgctxt "components table heading"
 msgid "Component"
-msgstr ""
+msgstr "Komponente"
 
 #: admin/screens/configure-components.php:89
 #: admin/screens/configure-components.php:157
 msgctxt "components table heading"
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: admin/screens/configure-components.php:90
 #: admin/screens/configure-components.php:158
 msgctxt "components table heading"
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: admin/screens/configure-components.php:91
 #: admin/screens/configure-components.php:159
 msgctxt "components table heading"
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: admin/screens/configure-settings-load.php:15
 #: admin/screens/modules-load.php:453
 #: components/points/admin/screens/hooks-load.php:16
 #: components/ranks/admin/includes/functions.php:100
 msgid "Overview"
-msgstr ""
+msgstr "Übersicht"
 
 #: admin/screens/configure-settings-load.php:17
 msgid ""
 "WordPoints doesn&#8217;t have a lot of configuration options, which makes it "
 "simple and easy to use."
 msgstr ""
+"WordPoints hat nicht so viele Einstellungen, was es einfach und leicht "
+"bedienbar macht."
 
 #: admin/screens/configure-settings-load.php:18
+#, fuzzy
 msgid ""
 "The settings provided below are optional, and are mainly for convenience"
 msgstr ""
+"Die Einstellungen unterhalb sind optional und dienen hauptsächlich der "
+"Einfachheit"
 
 #: admin/screens/configure-settings-load.php:19
 msgid ""
 "If you need more help getting started with WordPoints, see the links in the "
 "help sidebar."
 msgstr ""
+"Wenn du mehr Hilfe benötigst, um mit WordPoints zu starten, klicke auf die "
+"Links in der Hilfeleiste."
 
 #: admin/screens/configure-settings-load.php:24
 #: admin/screens/modules-load.php:471
 #: components/points/admin/screens/hooks-load.php:36
 #: components/ranks/admin/includes/functions.php:128
 msgid "For more information:"
-msgstr ""
+msgstr "Für mehr Informationen:"
 
 #: admin/screens/configure-settings-load.php:25
 msgid "User Guide"
-msgstr ""
+msgstr "Benutzerhandbuch"
 
 #: admin/screens/configure-settings-load.php:26
 #: admin/screens/modules-load.php:473
 #: components/points/admin/screens/hooks-load.php:38
 #: components/ranks/admin/includes/functions.php:130
 msgid "Support Forums"
-msgstr ""
+msgstr "Supportforen"
 
 #: admin/screens/configure-settings.php:41
 msgid "Settings updated."
-msgstr ""
+msgstr "Einstellungen gespeichert."
 
 #: admin/screens/configure-settings.php:46
 msgid "Configure WordPoints to your liking."
-msgstr ""
+msgstr "Konfiguiere WordPoints nach Belieben."
 
 #: admin/screens/configure-settings.php:60
 #: admin/screens/configure-settings.php:66
 msgid "Excluded Users"
-msgstr ""
+msgstr "Ausgenommene Benutzer"
 
 #: admin/screens/configure-settings.php:61
 msgid ""
 "Enter the IDs of users to exclude from leader boards, logs, etc. This may be "
 "useful if you use certain accounts for testing."
 msgstr ""
+"Trage die IDs der Benutzer ein, die von Auflistungen, Logs etc. ausgenommen "
+"werden sollen. Das kann für Test-Benutzeraccounts sinnvoll sein."
 
 #: admin/screens/configure.php:37
 msgid "General Settings"
-msgstr ""
+msgstr "Allgemeine Einstellungen"
 
 #: admin/screens/configure.php:38
 msgid "Components"
-msgstr ""
+msgstr "Komponenten"
 
 #: admin/screens/modules-load.php:38 admin/screens/modules-load.php:88
 #: admin/screens/modules-load.php:144
 msgid ""
 "You do not have sufficient permissions to activate modules for this site."
-msgstr ""
+msgstr "Du hast keine Berechtigung, um Module für diese Seite zu aktivieren."
 
 #: admin/screens/modules-load.php:188 admin/screens/modules-load.php:216
 msgid ""
 "You do not have sufficient permissions to deactivate modules for this site."
-msgstr ""
+msgstr "Du hast keine Berechtigung, um Module für diese Seite zu deaktivieren."
 
 #: admin/screens/modules-load.php:258
 msgid "You do not have sufficient permissions to delete modules for this site."
-msgstr ""
+msgstr "Du hast keine Berechtigung, um Module für diese Seite zu löschen."
 
 #: admin/screens/modules-load.php:348
 msgid "Delete module"
 msgid_plural "Delete modules"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Lösche Modul"
+msgstr[1] "Lösche Module"
 
 #: admin/screens/modules-load.php:351
 msgid "Caution:"
-msgstr ""
+msgstr "Achtung:"
 
 #: admin/screens/modules-load.php:351
 msgid "This module may be active on other sites in the network."
 msgid_plural "These modules may be active on other sites in the network."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dieses Modul könnte auf anderen Seiten im Netzwerk noch aktiv sein."
+msgstr[1] "Diese Module könnten auf anderen Seiten im Netzwerk noch aktiv sein."
 
 #: admin/screens/modules-load.php:356
 msgid "You are about to remove the following module:"
 msgid_plural "You are about to remove the following modules:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du bist dabei folgendes Modul zu entfernen:"
+msgstr[1] "Du bist dabei folgende Module zu entfernen:"
 
 #. translators: 1: module name, 2: module author
 #: admin/screens/modules-load.php:368
@@ -441,41 +473,45 @@ msgid ""
 "<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</"
 "strong>)"
 msgstr ""
+"<strong>%1$s</strong> von <em>%2$s</em> (<strong>löscht auch dessen "
+"Daten</strong>)"
 
 #. translators: 1: module name, 2: module author
 #: admin/screens/modules-load.php:374
 msgid "<strong>%1$s</strong> by <em>%2$s</em>"
-msgstr ""
+msgstr "<strong>%1$s</strong> von <em>%2$s</em>"
 
 #: admin/screens/modules-load.php:385
 msgid "Are you sure you wish to delete these files and data?"
-msgstr ""
+msgstr "Bist du sicher, dass du diese Dateien und Daten löschen willst?"
 
 #: admin/screens/modules-load.php:387
 msgid "Are you sure you wish to delete these files?"
-msgstr ""
+msgstr "Bist du sicher, dass du diese Dateien löschen willst?"
 
 #: admin/screens/modules-load.php:400
 msgid "Yes, Delete these files and data"
-msgstr ""
+msgstr "Ja, lösche die Dateien und Daten"
 
 #: admin/screens/modules-load.php:400
 msgid "Yes, Delete these files"
-msgstr ""
+msgstr "Ja, lösche die Dateien"
 
 #: admin/screens/modules-load.php:403
 msgid "No, Return me to the module list"
-msgstr ""
+msgstr "Nein, zurück zur Modul-Liste"
 
 #: admin/screens/modules-load.php:406
 msgid "Click to view entire list of files which will be deleted"
-msgstr ""
+msgstr "Klicke hier, um zum die Dateien anzuzeigen, die gelöscht werden"
 
 #: admin/screens/modules-load.php:455
 msgid ""
 "Modules extend and expand the functionality of WordPoints. Once a module is "
 "installed, you may activate it or deactivate it here."
 msgstr ""
+"Module erweitern die Funktionalität von WordPoints. Wenn ein Modul "
+"installiert ist, kannst du es hier aktivieren oder deaktivieren."
 
 #: admin/screens/modules-load.php:456
 msgid ""
@@ -484,10 +520,14 @@ msgid ""
 "generally just need to <a href=\"%2$s\">upload the module file</a> into your "
 "%3$s directory. Once a module has been installed, you can activate it here."
 msgstr ""
+"Du kannst Module für deine Seite im <a href=\"%1$s\" target=\"_blank\">"
+"WordPoints Modul Verzeichnis</a> finden. Um ein Modul zu installieren "
+"brauchst du nur <a href=\"%2$s\">das Modul hochzuladen</a> in dein %3$s "
+"Verzeichnis. Wenn das Modul installiert wurde, kannst du es hier aktivieren."
 
 #: admin/screens/modules-load.php:463
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Problembehandlung"
 
 #: admin/screens/modules-load.php:465
 msgid ""
@@ -498,6 +538,12 @@ msgid ""
 "and re-activating them in various combinations until you isolate which "
 "one(s) caused the issue."
 msgstr ""
+"Normalerweise passen Module wunderbar zum Kern von WordPoints und zu anderen "
+"Modulen. Manchmal können jedoch, durch den Code eines Moduls, "
+"Kompatibilitätsfehler entstehen. Wenn deine Seite eigenartige Dinge macht, "
+"könnte das das Problem sein. Versuche alle Module zu deaktivieren und wieder "
+"in verschiedenen Kombinationen zu kombinieren, um den/die Fehler zu "
+"isolieren."
 
 #: admin/screens/modules-load.php:466
 msgid ""

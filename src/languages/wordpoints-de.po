@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: WordPoints 2.1.0-alpha-1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-06-30 14:42:40+00:00\n"
-"PO-Revision-Date: 2015-10-22 15:06+0200\n"
-"Last-Translator: Jochen <j.hintringer@artworx.at>\n"
+"PO-Revision-Date: 2015-11-18 21:59+0000\n"
+"Last-Translator: Martin Glaser <n.tram@gmx.de>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/wordpoints/wordpoints/de/>\n"
 "Language: de\n"
@@ -19,8 +19,9 @@ msgstr ""
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:427
 #: admin/includes/class-wordpoints-modules-list-table.php:706
+#, fuzzy
 msgid "Network Activate"
-msgstr ""
+msgstr "Netzwerk aktiviert"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
@@ -368,7 +369,6 @@ msgstr ""
 "bedienbar macht."
 
 #: admin/screens/configure-settings-load.php:18
-#, fuzzy
 msgid ""
 "The settings provided below are optional, and are mainly for convenience"
 msgstr ""
@@ -553,18 +553,19 @@ msgid ""
 msgstr ""
 
 #: admin/screens/modules-load.php:472
+#, fuzzy
 msgid "Developer Documentation"
-msgstr ""
+msgstr "Entwickler dokumentieung"
 
 #: admin/screens/modules-load.php:480
 msgctxt "modules table heading"
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: admin/screens/modules-load.php:481
 msgctxt "modules table heading"
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: admin/screens/modules.php:16
 msgid "The module %s has been <strong>deactivated</strong> due to an error: %s"
@@ -573,6 +574,7 @@ msgstr ""
 #: admin/screens/modules.php:24
 msgid "You cannot delete a module while it is active on the main site."
 msgstr ""
+"Sie können kein Modul löschen, solange es auf der Startseite aktiviert ist."
 
 #: admin/screens/modules.php:28
 msgid ""
@@ -590,7 +592,7 @@ msgstr ""
 
 #: admin/screens/modules.php:65
 msgid "Module could not be deleted due to an error: %s"
-msgstr ""
+msgstr "Modul konnte aufgrund eines Fehlers nicht gelöscht werden"
 
 #: admin/screens/modules.php:67
 msgid "The selected modules have been <strong>deleted</strong>."
@@ -623,7 +625,7 @@ msgstr ""
 #: admin/screens/modules.php:98
 msgctxt "module"
 msgid "Add New"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: admin/screens/modules.php:102
 msgid "Search results for &#8220;%s&#8221;"
@@ -634,12 +636,15 @@ msgid "Search Installed Modules"
 msgstr ""
 
 #: components/points/admin/includes/ajax.php:106
+#, fuzzy
 msgid "An error has occurred. Please reload the page and try again."
 msgstr ""
+"Ein Fehler ist aufgetreten. Bitte laden Sie die Seite neu und versuchen Sie "
+"es erneut"
 
 #: components/points/admin/includes/ajax.php:145
 msgid "An error has occurred. Please try again."
-msgstr ""
+msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
 
 #: components/points/admin/includes/functions.php:43
 msgid ""
@@ -650,11 +655,13 @@ msgstr ""
 #: components/points/admin/includes/functions.php:44
 msgid "Once a points type has been deleted, you cannot bring it back."
 msgstr ""
+"Ist ein Punkt einmal gelöscht, gibt es keine Möglichkeit der "
+"Wiederherstellung."
 
 #: components/points/admin/includes/functions.php:45
 #: components/ranks/admin/includes/functions.php:47
 msgid "Are you sure?"
-msgstr ""
+msgstr "Sind Sie sicher?"
 
 #: components/points/admin/includes/functions.php:47
 #: components/points/admin/screens/hooks-no-js.php:118
@@ -662,7 +669,7 @@ msgstr ""
 #: components/ranks/admin/includes/functions.php:49
 #: components/ranks/admin/screens/ranks.php:125
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: components/points/admin/includes/functions.php:67
 msgid "WordPoints — Points Hooks"
@@ -693,7 +700,7 @@ msgstr ""
 #: components/points/admin/includes/functions.php:244
 msgctxt "points hook"
 msgid "Description (optional):"
-msgstr ""
+msgstr "Beschreibung (optional):"
 
 #: components/points/admin/includes/functions.php:246
 msgctxt "points hook description"
@@ -709,8 +716,9 @@ msgid ""
 msgstr ""
 
 #: components/points/admin/includes/functions.php:273
+#, fuzzy
 msgid "Reason"
-msgstr ""
+msgstr "Grund"
 
 #. translators: %s is the number of points.
 #: components/points/admin/includes/functions.php:293
@@ -719,11 +727,11 @@ msgstr ""
 
 #: components/points/admin/includes/functions.php:314
 msgid "My Points"
-msgstr ""
+msgstr "Meine Punkte"
 
 #: components/points/admin/includes/functions.php:402
 msgid "No default"
-msgstr ""
+msgstr "Kein Standard"
 
 #: components/points/admin/includes/functions.php:407
 msgid "Default Points Type"
@@ -738,7 +746,7 @@ msgstr ""
 
 #: components/points/admin/includes/functions.php:413
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: components/points/admin/includes/functions.php:470
 msgid ""
@@ -823,7 +831,7 @@ msgstr ""
 
 #: components/points/admin/screens/hooks-no-js.php:99
 msgid "Points Type:"
-msgstr ""
+msgstr "Punkte Typ:"
 
 #: components/points/admin/screens/hooks-no-js.php:109
 #: components/points/admin/screens/hooks.php:136
@@ -833,7 +841,7 @@ msgstr ""
 #: components/points/admin/screens/hooks-no-js.php:120
 msgctxt "points hook"
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: components/points/admin/screens/hooks-no-js.php:123
 msgid "Save Hook"
@@ -841,15 +849,15 @@ msgstr ""
 
 #: components/points/admin/screens/hooks.php:60
 msgid "Changes saved."
-msgstr ""
+msgstr "Änderungen gespeichert."
 
 #: components/points/admin/screens/hooks.php:61
 msgid "Points type deleted."
-msgstr ""
+msgstr "Punkte Typ gelöscht."
 
 #: components/points/admin/screens/hooks.php:65
 msgid "Error while saving."
-msgstr ""
+msgstr "Fehler beim speichern."
 
 #: components/points/admin/screens/hooks.php:66
 msgid "Error in displaying the hooks settings form."
@@ -857,11 +865,11 @@ msgstr ""
 
 #: components/points/admin/screens/hooks.php:67
 msgid "Please choose a unique name for this points type."
-msgstr ""
+msgstr "Bitte einen einzigartigen Namen für diesen Punkte Typ wählen."
 
 #: components/points/admin/screens/hooks.php:68
 msgid "Error while deleting."
-msgstr ""
+msgstr "Fehler beim löschen."
 
 #: components/points/admin/screens/hooks.php:72
 msgctxt "page title"
@@ -884,9 +892,10 @@ msgid "Available Hooks"
 msgstr ""
 
 #: components/points/admin/screens/hooks.php:121
+#, fuzzy
 msgctxt "removing-hook"
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: components/points/admin/screens/hooks.php:124
 msgid ""

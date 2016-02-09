@@ -25,7 +25,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 	 * @covers ::wordpoints_get_points_log_meta
 	 * @covers ::wordpoints_update_points_log_meta
 	 */
-	function test_log_meta() {
+	public function test_log_meta() {
 
 		$log_id = 1;
 
@@ -54,7 +54,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_points_log_delete_all_metadata
 	 */
-	function test_delete_all_log_meta() {
+	public function test_delete_all_log_meta() {
 
 		$log_id = 1;
 
@@ -69,6 +69,30 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
 		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
+	}
+
+	/**
+	 * Test that the data isn't expected slashed.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points_log_meta
+	 * @covers ::wordpoints_get_points_log_meta
+	 * @covers ::wordpoints_update_points_log_meta
+	 * @covers ::wordpoints_delete_points_log_meta
+	 */
+	public function test_log_meta_slashing() {
+
+		$log_id = 1;
+
+		wordpoints_add_points_log_meta( $log_id, 'slash\test', 'test\slashing' );
+		$this->assertEquals( 'test\slashing', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
+
+		wordpoints_update_points_log_meta( $log_id, 'slash\test', 'test\slashing2' );
+		$this->assertEquals( 'test\slashing2', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
+
+		wordpoints_delete_points_log_meta( $log_id, 'slash\test', 'test\slashing2' );
+		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
 	}
 }
 

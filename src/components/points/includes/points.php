@@ -789,8 +789,8 @@ function _wordpoints_points_log_meta_column( $column ) {
  * @see add_metadata()
  *
  * @param int    $log_id     The ID of the transaction log to add metadata for.
- * @param string $meta_key   The meta key. Expected unslashed.
- * @param mixed  $meta_value The meta value. Expected unslashed.
+ * @param string $meta_key   The meta key. Not expected slashed.
+ * @param mixed  $meta_value The meta value. Not expected slashed.
  *
  * @return bool Whether the metadata was added successfully.
  */
@@ -800,7 +800,14 @@ function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
-	$result = add_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value );
+
+	$result = add_metadata(
+		'wordpoints_points_log'
+		, $log_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+	);
+
 	unset( $wpdb->wordpoints_points_logmeta );
 	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
@@ -842,9 +849,9 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
  * @see update_metadata()
  *
  * @param int    $log_id     The ID of the transaction.
- * @param string $meta_key   The meta key to update.
- * @param mixed  $meta_value The new value for this meta key.
- * @param mixed  $previous   The previous meta value to update. Not set by defafult.
+ * @param string $meta_key   The meta key to update. Not expected slashed.
+ * @param mixed  $meta_value The new value for this meta key. Not expected slashed.
+ * @param mixed  $previous   The previous meta value to update. Not set by default.
  *
  * @return bool Whether any rows were updated.
  */
@@ -854,7 +861,15 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
-	$result = update_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value, $previous );
+
+	$result = update_metadata(
+		'wordpoints_points_log'
+		, $log_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $previous
+	);
+
 	unset( $wpdb->wordpoints_points_logmeta );
 	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
@@ -869,8 +884,8 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  * @see delete_metadata()
  *
  * @param int    $log_id     The ID of the transaction.
- * @param string $meta_key   The meta key to update.
- * @param mixed  $meta_value The new value for this meta key.
+ * @param string $meta_key   The meta key to update. Not expected slashed.
+ * @param mixed  $meta_value The new value for this meta key. Not expected slashed.
  * @param bool   $delete_all Whether to delete metadata for all matching logs, or
  *                           only the one specified by $log_id (default).
  *
@@ -882,7 +897,15 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
-	$result = delete_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value, $delete_all );
+
+	$result = delete_metadata(
+		'wordpoints_points_log'
+		, $log_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $delete_all
+	);
+
 	unset( $wpdb->wordpoints_points_logmeta );
 	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 

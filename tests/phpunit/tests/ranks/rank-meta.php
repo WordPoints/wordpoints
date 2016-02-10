@@ -61,6 +61,32 @@ class WordPoints_Rank_Meta_Test extends WordPoints_Ranks_UnitTestCase {
 	}
 
 	/**
+	 * Test deleting rank meta.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_rank_meta
+	 */
+	public function test_delete_rank_meta() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		wordpoints_add_rank_meta( $rank_id, 'test', 'value' );
+
+		$this->assertEquals(
+			'value'
+			, wordpoints_get_rank_meta( $rank_id, 'test', true )
+		);
+
+		wordpoints_delete_rank_meta( $rank_id, 'test' );
+
+		$this->assertEquals(
+			''
+			, wordpoints_get_rank_meta( $rank_id, 'test', true )
+		);
+	}
+
+	/**
 	 * Test retrieving multiple meta values at once.
 	 *
 	 * @since 1.7.0
@@ -84,6 +110,73 @@ class WordPoints_Rank_Meta_Test extends WordPoints_Ranks_UnitTestCase {
 		$this->assertEquals( array( 'value' ), $all_meta['test'] );
 		$this->assertArrayHasKey( 'test_meta', $all_meta );
 		$this->assertEquals( array( 1, 'test' ), $all_meta['test_meta'] );
+	}
+
+	/**
+	 * Test adding rank meta with slashes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_add_rank_meta
+	 * @covers ::wordpoints_get_rank_meta
+	 */
+	public function test_add_rank_meta_slashing() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'slashed\value' );
+
+		$this->assertEquals(
+			'slashed\value'
+			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
+		);
+	}
+
+	/**
+	 * Test updating rank meta with slashes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_update_rank_meta
+	 */
+	public function test_update_rank_meta_slashing() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'value' );
+
+		wordpoints_update_rank_meta( $rank_id, 'test\slashing', 'slashed\value' );
+
+		$this->assertEquals(
+			'slashed\value'
+			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
+		);
+	}
+
+	/**
+	 * Test deleting rank meta with slashes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_rank_meta
+	 */
+	public function test_delete_rank_meta_slashing() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+
+		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'value' );
+
+		$this->assertEquals(
+			'value'
+			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
+		);
+
+		wordpoints_delete_rank_meta( $rank_id, 'test\slashing' );
+
+		$this->assertEquals(
+			''
+			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
+		);
 	}
 }
 

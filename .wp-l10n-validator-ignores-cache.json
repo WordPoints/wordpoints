@@ -66,7 +66,6 @@
             }
         },
         "hidden": {
-            "555": false,
             "564": false,
             "623": false
         },
@@ -409,16 +408,16 @@
     },
     "\/components\/points\/includes\/deprecated.php": {
         "approved": {
-            "234": false
+            "238": false
         }
     },
     "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
         "approved": {
-            "150": false,
-            "157": false
+            "155": false,
+            "162": false
         },
         "new": {
-            "151": false
+            "156": false
         }
     },
     "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
@@ -446,7 +445,7 @@
             }
         },
         "widefat wordpoints-append-to-hook-title": {
-            "228": {
+            "233": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -495,19 +494,10 @@
             }
         },
         "utf8": {
-            "1026": false
-        },
-        "text": {
-            "1026": {
-                "name": "$wpdb->get_col_charset",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            }
+            "1052": false
         },
         "capabilities'": {
-            "1099": false
+            "1125": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -637,13 +627,6 @@
             }
         },
         "points": {
-            "105": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "126": {
                 "name": "array",
                 "type": "unknown",
@@ -778,13 +761,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1233": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1238": {
                 "name": "array",
                 "type": "unknown",
@@ -799,20 +775,6 @@
             "382": false,
             "492": false,
             "1198": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1231": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1233": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -838,27 +800,6 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1231": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1232": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1233": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1238": {
                 "name": "array",
                 "type": "unknown",
@@ -874,12 +815,9 @@
             "436": false
         },
         "manage": {
-            "1146": false,
-            "1147": false,
             "1148": false
         },
         "columnshidden": {
-            "1146": false,
             "1147": false
         },
         "-networkcolumnshidden": {
@@ -953,13 +891,6 @@
     },
     "\/includes\/class-widget.php": {
         "title": {
-            "233": {
-                "name": "WordPoints_Widget::get_field_id",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "234": {
                 "name": "WordPoints_Widget::get_field_id",
                 "type": "unknown",

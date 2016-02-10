@@ -785,6 +785,7 @@ function _wordpoints_points_log_meta_column( $column ) {
  * Note that it does not check whether $log_id is real.
  *
  * @since 1.0.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see add_metadata()
  *
@@ -845,6 +846,7 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
  * Update metadata for a points transaction.
  *
  * @since 1.0.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see update_metadata()
  *
@@ -880,6 +882,7 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  * Delete metadata for points transaction.
  *
  * @since 1.0.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see delete_metadata()
  *

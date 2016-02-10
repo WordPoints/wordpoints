@@ -74,7 +74,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 	/**
 	 * Test that the data isn't expected slashed.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_add_points_log_meta
 	 * @covers ::wordpoints_get_points_log_meta

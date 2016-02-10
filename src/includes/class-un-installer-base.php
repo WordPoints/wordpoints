@@ -1387,7 +1387,7 @@ abstract class WordPoints_Un_Installer_Base {
 			$key = $GLOBALS['wpdb']->get_blog_prefix() . $key;
 		}
 
-		delete_metadata( $type, 0, $key, '', true );
+		delete_metadata( $type, 0, wp_slash( $key ), '', true );
 	}
 
 	/**

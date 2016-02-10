@@ -188,7 +188,11 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 
 				wordpoints_subtract_points( $comment->user_id, $instance['points'], $points_type, 'comment_disapprove', array( 'status' => $new_status ) );
 
-				update_comment_meta( $comment->comment_ID, "wordpoints_last_status-{$points_type}", $new_status );
+				update_comment_meta(
+					$comment->comment_ID
+					, wp_slash( "wordpoints_last_status-{$points_type}" )
+					, wp_slash( $new_status )
+				);
 			}
 		}
 	}

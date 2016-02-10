@@ -219,7 +219,7 @@ function wordpoints_delete_points_type( $slug ) {
 	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
 
 	// Delete all user points of this type.
-	delete_metadata( 'user', 0, $meta_key, '', true );
+	delete_metadata( 'user', 0, wp_slash( $meta_key ), '', true );
 
 	// Delete hooks associated with this points type.
 	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
@@ -603,7 +603,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	if ( '' === get_user_meta( $user_id, $meta_key, true ) ) {
 
-		$result = add_user_meta( $user_id, $meta_key, $points, true );
+		$result = add_user_meta( $user_id, wp_slash( $meta_key ), (int) $points, true );
 
 	} else {
 

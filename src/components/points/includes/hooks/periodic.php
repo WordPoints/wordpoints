@@ -106,7 +106,12 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 			$global = ( ! is_multisite() || is_wordpoints_network_active() );
 
-			update_user_option( $user_id, 'wordpoints_points_period_start', $last_visit, $global );
+			update_user_option(
+				$user_id
+				, 'wordpoints_points_period_start'
+				, wp_slash( $last_visit )
+				, $global
+			);
 		}
 	}
 

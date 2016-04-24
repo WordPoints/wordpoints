@@ -5,55 +5,58 @@ msgstr ""
 "Project-Id-Version: WordPoints 2.1.0-alpha-1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wordpoints\n"
 "POT-Creation-Date: 2015-06-30 14:42:40+00:00\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2016-04-24 20:37+0000\n"
+"Last-Translator: shad <shad.designer@gmail.com>\n"
+"Language-Team: Kurdish Sorani "
+"<https://hosted.weblate.org/projects/wordpoints/wordpoints/ckb/>\n"
 "Language: ckb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.6-dev\n"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:427
 #: admin/includes/class-wordpoints-modules-list-table.php:706
 msgid "Network Activate"
-msgstr ""
+msgstr "چالاككردنی ڕایه‌ڵه‌"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
 msgid "Activate Module"
-msgstr ""
+msgstr "چالاككردنی پێوه‌كراو"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
 msgid "Return to Modules page"
-msgstr ""
+msgstr "گه‌ڕانه‌وه‌ بۆ په‌ڕه‌ی پێوه‌كراوه‌كان"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:93
 msgid "Return to Module Installer"
-msgstr ""
+msgstr "گه‌ڕانه‌وه‌ بۆ دابه‌زاندنی پێوه‌كراو"
 
 #: admin/includes/class-wordpoints-module-installer.php:52
 msgid "Install package not available."
-msgstr ""
+msgstr "گورزه‌ی دابه‌زاندن بوونی نییه‌"
 
 #: admin/includes/class-wordpoints-module-installer.php:53
 msgid "Unpacking the package&#8230;"
-msgstr ""
+msgstr "به‌تاڵكردنه‌وه‌ی گورزه‌&#8230;"
 
 #: admin/includes/class-wordpoints-module-installer.php:54
 msgid "Installing the module&#8230;"
-msgstr ""
+msgstr "دابه‌زاندنی پێوه‌كراوی &#8230;"
 
 #: admin/includes/class-wordpoints-module-installer.php:55
 msgid "The module contains no files."
-msgstr ""
+msgstr "هیچ فایلێك له‌م پێوه‌كراودا بونی نییه‌"
 
 #: admin/includes/class-wordpoints-module-installer.php:56
 msgid "Module install failed."
-msgstr ""
+msgstr "دابه‌زاندنی پێوه‌كراو سه‌ركه‌وتوو نه‌بوو"
 
 #: admin/includes/class-wordpoints-module-installer.php:57
 msgid "Module installed successfully."
-msgstr ""
+msgstr "پێوه‌كراو به‌ سه‌ركه‌وتووی دابه‌زی"
 
 #: admin/includes/class-wordpoints-module-installer.php:58
 msgid "Could not create the modules directory."

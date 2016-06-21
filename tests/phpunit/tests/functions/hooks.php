@@ -3,19 +3,19 @@
 /**
  * Test case for the hooks functions.
  *
- * @package wordpoints-hooks-api
- * @since   1.0.0
+ * @package WordPoints\PHPUnit\Tests
+ * @since 2.1.0
  */
 
 /**
  * Tests the hooks functions.
  *
- * @since 1.0.0
+ * @since 2.1.0
  */
 class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 	/**
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 */
 	public function tearDown() {
 
@@ -27,7 +27,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test initializing the API registers the actions.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_init_hooks
 	 */
@@ -54,7 +54,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test getting the app.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks
 	 */
@@ -68,7 +68,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test getting the app when the apps haven't been initialized.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks
 	 */
@@ -82,72 +82,11 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	}
 
 	/**
-	 * Test the reactor registration function.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @covers ::wordpoints_hook_reactors_init
-	 */
-	public function test_reactors() {
-
-		$this->mock_apps();
-
-		$reactors = new WordPoints_Class_Registry_Persistent();
-
-		wordpoints_hook_reactors_init( $reactors );
-
-		$this->assertTrue( $reactors->is_registered( 'points' ) );
-		$this->assertTrue( $reactors->is_registered( 'points_legacy' ) );
-	}
-
-	/**
-	 * Test the reaction store registration function.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @covers ::wordpoints_hook_reaction_stores_init
-	 *
-	 * @requires WordPoints !network-active
-	 */
-	public function test_reaction_stores() {
-
-		$this->mock_apps();
-
-		$reaction_stores = new WordPoints_Class_Registry_Children();
-
-		wordpoints_hook_reaction_stores_init( $reaction_stores );
-
-		$this->assertTrue( $reaction_stores->is_registered( 'standard', 'points' ) );
-		$this->assertFalse( $reaction_stores->is_registered( 'network', 'points' ) );
-	}
-
-	/**
-	 * Test the reaction store registration function with WordPoints network active.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @covers ::wordpoints_hook_reaction_stores_init
-	 *
-	 * @requires WordPoints network-active
-	 */
-	public function test_reaction_stores_network_active() {
-
-		$this->mock_apps();
-
-		$reaction_stores = new WordPoints_Class_Registry_Children();
-
-		wordpoints_hook_reaction_stores_init( $reaction_stores );
-
-		$this->assertTrue( $reaction_stores->is_registered( 'standard', 'points' ) );
-		$this->assertTrue( $reaction_stores->is_registered( 'network', 'points' ) );
-	}
-
-	/**
 	 * Test the extension registration function.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
-	 * @covers ::wordpoints_hook_extension_init
+	 * @covers ::wordpoints_hook_extensions_init
 	 */
 	public function test_extensions() {
 
@@ -155,7 +94,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$extensions = new WordPoints_Class_Registry_Persistent();
 
-		wordpoints_hook_extension_init( $extensions );
+		wordpoints_hook_extensions_init( $extensions );
 
 		$this->assertTrue( $extensions->is_registered( 'blocker' ) );
 		$this->assertTrue( $extensions->is_registered( 'repeat_blocker' ) );
@@ -167,7 +106,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test the conditions registration function.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hook_conditions_init
 	 */
@@ -188,7 +127,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test the action registration function.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hook_actions_init
 	 */
@@ -233,7 +172,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test the events registration function.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hook_events_init
 	 */
@@ -265,7 +204,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test that it registers the expected events.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_register_post_type_hook_events
 	 */
@@ -292,7 +231,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test that it registers the expected events for an attachment.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_register_post_type_hook_events
 	 */
@@ -309,7 +248,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Test that it registers the comment entities only when comments are supported.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_register_post_type_hook_events
 	 */
@@ -336,7 +275,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Assert that an event is registered.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @param string          $event_slug The slug of the event.
 	 * @param string|string[] $arg_slugs The slugs of the args expected to be
@@ -360,7 +299,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	/**
 	 * Assert that an event is not registered.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 *
 	 * @param string          $event_slug The slug of the event.
 	 * @param string|string[] $arg_slugs The slugs of the args expected to be

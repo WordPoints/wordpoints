@@ -30,6 +30,32 @@ function wordpoints_admin_register_scripts() {
 	// JS
 
 	wp_register_script(
+		'wordpoints-admin-points-types'
+		, $assets_url . '/js/points-types.js'
+		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
+		, WORDPOINTS_VERSION
+	);
+
+	wp_localize_script(
+		'wordpoints-admin-points-types'
+		, 'WordPointsPointsTypesL10n'
+		, array(
+			'confirmDelete' => esc_html__( 'Are you sure that you want to delete this points type? This will delete all related logs and event hooks.', 'wordpoints' )
+				. ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
+			'confirmTitle'  => esc_html__( 'Are you sure?', 'wordpoints' ),
+			'deleteText'    => esc_html__( 'Delete', 'wordpoints' ),
+			'cancelText'    => esc_html__( 'Cancel', 'wordpoints' ),
+		)
+	);
+
+	wp_register_script(
+		'wordpoints-hooks-reactor-points'
+		, $assets_url . '/js/hooks/reactors/points.js'
+		, array( 'wordpoints-hooks-views' )
+		, WORDPOINTS_VERSION
+	);
+
+	wp_register_script(
 		'wordpoints-admin-points-hooks'
 		, $assets_url . '/js/hooks.js'
 		, array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
@@ -61,15 +87,46 @@ function wordpoints_points_admin_menu() {
 
 	$wordpoints_menu = wordpoints_get_main_admin_menu();
 
-	// Hooks page.
-	add_submenu_page(
-		$wordpoints_menu
-		,__( 'WordPoints — Points Hooks', 'wordpoints' )
-		,__( 'Points Hooks', 'wordpoints' )
-		,'manage_options'
-		,'wordpoints_points_hooks'
-		,'wordpoints_points_admin_screen_hooks'
+	/** @var WordPoints_Admin_Screens $admin_screens */
+	$admin_screens = wordpoints_apps()->get_sub_app( 'admin' )->get_sub_app(
+		'screen'
 	);
+
+	// Hooks page.
+	$id = add_submenu_page(
+		$wordpoints_menu
+		, __( 'WordPoints — Points Types', 'wordpoints' )
+		, __( 'Points Types', 'wordpoints' )
+		, 'manage_options'
+		, 'wordpoints_points_types'
+		, array( $admin_screens, 'display' )
+	);
+
+	if ( $id ) {
+		$admin_screens->register( $id, 'WordPoints_Points_Admin_Screen_Points_Types' );
+	}
+
+	// Remove the old hooks screen if not needed.
+	$disabled_hooks = wordpoints_get_maybe_network_array_option(
+		'wordpoints_legacy_points_hooks_disabled'
+		, is_network_admin()
+	);
+
+	$hooks = WordPoints_Points_Hooks::get_handlers();
+
+	// If all of the registered hooks have been imported and disabled, then there is
+	// no need to keep the old hooks screen.
+	if ( array_diff_key( $hooks, $disabled_hooks ) ) {
+		// Legacy hooks page.
+		add_submenu_page(
+			$wordpoints_menu
+			,__( 'WordPoints — Points Hooks', 'wordpoints' )
+			,__( 'Points Hooks', 'wordpoints' )
+			,'manage_options'
+			,'wordpoints_points_hooks'
+			,'wordpoints_points_admin_screen_hooks'
+		);
+	}
 
 	// Logs page.
 	add_submenu_page(

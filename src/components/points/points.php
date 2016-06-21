@@ -7,6 +7,11 @@
  * @since 1.0.0
  */
 
+WordPoints_Class_Autoloader::register_dir(
+	WORDPOINTS_DIR . 'components/points/includes/classes'
+	, 'WordPoints_Points_'
+);
+
 /**
  * Points component constants and global vars.
  *

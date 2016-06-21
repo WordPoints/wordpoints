@@ -786,4 +786,49 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
 	}
 }
 
+/**
+ * Check whether a user can view a points log.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\filter wordpoints_user_can_view_points_log
+ *
+ * @param bool   $can_view Whether the user can view the points log.
+ * @param object $log      The points log's data.
+ *
+ * @return bool Whether the user can view the points log.
+ */
+function wordpoints_hooks_user_can_view_points_log( $can_view, $log ) {
+
+	if ( ! $can_view ) {
+		return $can_view;
+	}
+
+	$user_id = get_current_user_id();
+
+	$event_slug = $log->log_type;
+
+	/** @var WordPoints_Hook_ArgI $arg */
+	foreach ( wordpoints_hooks()->get_sub_app( 'events' )->get_sub_app( 'args' )->get_children( $event_slug ) as $slug => $arg ) {
+
+		$value = wordpoints_get_points_log_meta( $log->id, $slug, true );
+
+		if ( ! $value ) {
+			continue;
+		}
+
+		$can_view = wordpoints_entity_user_can_view(
+			$user_id
+			, $arg->get_entity_slug()
+			, $value
+		);
+
+		if ( ! $can_view ) {
+			break;
+		}
+	}
+
+	return $can_view;
+}
+
 // EOF

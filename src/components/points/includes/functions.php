@@ -8,6 +8,60 @@
  */
 
 /**
+ * Register hook reactors when the reactors registry is initialized.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-hooks-reactors
+ *
+ * @param WordPoints_Class_Registry_Persistent $reactors The reactors registry.
+ */
+function wordpoints_points_hook_reactors_init( $reactors ) {
+
+	$reactors->register( 'points', 'WordPoints_Points_Hook_Reactor' );
+	$reactors->register( 'points_legacy', 'WordPoints_Points_Hook_Reactor_Legacy' );
+}
+
+/**
+ * Register hook reaction stores when the reaction store registry is initialized.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-hooks-reaction_stores
+ *
+ * @param WordPoints_Class_Registry_Children $reaction_stores The store registry.
+ */
+function wordpoints_points_hook_reaction_stores_init( $reaction_stores ) {
+
+	$reaction_stores->register(
+		'standard'
+		, 'points'
+		, 'WordPoints_Hook_Reaction_Store_Options'
+	);
+
+	if ( is_wordpoints_network_active() ) {
+		$reaction_stores->register(
+			'network'
+			, 'points'
+			, 'WordPoints_Hook_Reaction_Store_Options_Network'
+		);
+	}
+}
+
+/**
+ * Register hook extensions when the extension registry is initialized.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-hooks-extensions
+ *
+ * @param WordPoints_Class_Registry_Persistent $extensions The extension registry.
+ */
+function wordpoints_points_hook_extensions_init( $extensions ) {
+	$extensions->register( 'points_legacy_reversals', 'WordPoints_Points_Hook_Extension_Legacy_Reversals' );
+}
+
+/**
  * Register scripts and styles for the component.
  *
  * @since 1.0.0

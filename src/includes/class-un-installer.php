@@ -30,6 +30,41 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
+	 * @since 2.1.0
+	 */
+	protected $schema = array(
+		'global' => array(
+			'tables' => array(
+				'wordpoints_hook_periods' => '
+					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					hit_id BIGINT(20) UNSIGNED NOT NULL,
+					signature CHAR(64) NOT NULL,
+					PRIMARY KEY  (id),
+					KEY period_signature (hit_id,signature(8))',
+				'wordpoints_hook_hits' => '
+					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					action_type VARCHAR(255) NOT NULL,
+					primary_arg_guid TEXT NOT NULL,
+					event VARCHAR(255) NOT NULL,
+					reactor VARCHAR(255) NOT NULL,
+					reaction_store VARCHAR(255) NOT NULL,
+					reaction_context_id TEXT NOT NULL,
+					reaction_id BIGINT(20) UNSIGNED NOT NULL,
+					date DATETIME NOT NULL,
+					PRIMARY KEY  (id)',
+				'wordpoints_hook_hitmeta' => '
+					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					wordpoints_hook_hit_id BIGINT(20) UNSIGNED NOT NULL,
+					meta_key VARCHAR(255) NOT NULL,
+					meta_value LONGTEXT,
+					PRIMARY KEY  (meta_id),
+					KEY hit_id (wordpoints_hook_hit_id),
+					KEY meta_key (meta_key(191))',
+			),
+		),
+	);
+
+	/**
 	 * @since 2.0.0
 	 */
 	protected $uninstall = array(
@@ -71,13 +106,24 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	public function install( $network ) {
 
+		// The autoloader won't automatically be initialized because it is usually
+		// hooked to the modules loaded action, which won't have fired when
+		// WordPoints is first being installed.
+		WordPoints_Class_Autoloader::init();
+
 		$filter_func = ( $network ) ? '__return_true' : '__return_false';
 		add_filter( 'is_wordpoints_network_active', $filter_func );
 
 		// Check if the plugin has been activated/installed before.
 		$installed = (bool) wordpoints_get_network_option( 'wordpoints_data' );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		parent::install( $network );
+
+		$hooks->set_current_mode( $hooks_mode );
 
 		// Activate the Points component, if this is the first activation.
 		if ( false === $installed ) {
@@ -129,6 +175,8 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 			wordpoints_update_network_option( 'wordpoints_data', $data );
 		}
+
+		$this->install_db_schema();
 	}
 
 	/**

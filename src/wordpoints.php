@@ -62,6 +62,26 @@ include_once dirname( __FILE__ ) . '/includes/constants.php';
 include_once WORDPOINTS_DIR . 'includes/functions.php';
 
 /**
+ * Apps functions.
+ *
+ * Functions related to registering "apps", or OOP APIs that are loaded in JIT
+ * fashion. Also functions related to core apps.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'includes/apps.php';
+
+/**
+ * Hooks functions.
+ *
+ * Functions for the core hooks app, a framework for reacting to WordPress actions
+ * based on stored predefined criteria.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'includes/hooks.php';
+
+/**
  * Installables class.
  *
  * @since 2.0.0
@@ -106,6 +126,21 @@ include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
  * @since 1.9.0
  */
 include_once WORDPOINTS_DIR . 'includes/class-widget.php';
+
+/**
+ * Class autoloader.
+ *
+ * Unfortunately, it can't be autoloaded. :-)
+ *
+ * @since 2.1.0
+ */
+require_once( WORDPOINTS_DIR . 'includes/classes/class/autoloader.php' );
+
+// Register the classes to autoload.
+WordPoints_Class_Autoloader::register_dir(
+	WORDPOINTS_DIR . 'includes/classes'
+	, 'WordPoints_'
+);
 
 /**
  * Action and filter hooks.

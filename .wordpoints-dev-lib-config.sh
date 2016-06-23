@@ -19,9 +19,9 @@ function wordpoints-dev-lib-config() {
 	CODESNIFF_PATH+=('!' -path "./dev-lib/*")
 	export CODESNIFF_PATH
 
-	# Fix failures on HHVM. See #317.
-	if [[ $DO_CODE_COVERAGE == 1 ]]; then
-		alias phpunit-ms-network='phpunit-ms-network; composer remove --dev jdgrimes/wp-filesystem-mock'
+	# Fix failures on HHVM (#317) and when running Codeception tests (#321).
+	if [[ $DO_CODE_COVERAGE == 1 || $DO_WP_CEPT == 1 ]]; then
+		alias phpunit-ms-network='phpunit-ms-network; A=$?; composer remove --dev jdgrimes/wp-filesystem-mock; [[ $A == 0 ]]'
 	fi
 }
 

@@ -41,4 +41,19 @@ if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
 	add_filter( $filter, 'wordpoints_maintenance_filter_modules' );
 }
 
+add_action( 'wordpoints_init_app-apps', 'wordpoints_apps_init' );
+add_action( 'wordpoints_init_app-entities', 'wordpoints_entities_app_init' );
+
+add_action( 'wordpoints_init_app_registry-apps-entities', 'wordpoints_entities_init' );
+add_action( 'wordpoints_init_app_registry-entities-contexts', 'wordpoints_entity_contexts_init' );
+
+add_action( 'wordpoints_init_app_registry-apps-data_types', 'wordpoints_data_types_init' );
+
+add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_hook_extensions_init' );
+add_action( 'wordpoints_init_app_registry-hooks-events', 'wordpoints_hook_events_init' );
+add_action( 'wordpoints_init_app_registry-hooks-actions', 'wordpoints_hook_actions_init' );
+add_action( 'wordpoints_init_app_registry-hooks-conditions', 'wordpoints_hook_conditions_init' );
+
+add_action( 'wordpoints_modules_loaded', 'wordpoints_init_hooks' );
+
 // EOF

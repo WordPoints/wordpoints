@@ -1,11 +1,17 @@
 <?php
 
 /**
- * WordPoints constants.
+ * WordPoints constants and global vars.
  *
  * @package WordPoints
  * @since 1.2.0
  */
+
+global $wpdb;
+
+$wpdb->wordpoints_hook_hits = $wpdb->base_prefix . 'wordpoints_hook_hits';
+$wpdb->wordpoints_hook_hitmeta = $wpdb->base_prefix . 'wordpoints_hook_hitmeta';
+$wpdb->wordpoints_hook_periods = $wpdb->base_prefix . 'wordpoints_hook_periods';
 
 /**
  * The plugin version.

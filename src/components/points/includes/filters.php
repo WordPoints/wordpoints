@@ -7,6 +7,10 @@
  * @since 2.1.0
  */
 
+add_action( 'wordpoints_init_app_registry-hooks-reactors', 'wordpoints_points_hook_reactors_init' );
+add_action( 'wordpoints_init_app_registry-hooks-reaction_stores', 'wordpoints_points_hook_reaction_stores_init' );
+add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_points_hook_extensions_init' );
+
 add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 
@@ -42,5 +46,7 @@ if ( ! is_multisite() || is_wordpoints_network_active() ) {
 } else {
 	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
+
+add_filter( 'wordpoints_user_can_view_points_log', 'wordpoints_hooks_user_can_view_points_log' );
 
 // EOF

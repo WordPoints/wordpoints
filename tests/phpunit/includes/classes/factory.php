@@ -23,7 +23,16 @@
  * @property-read WordPoints_PHPUnit_Factory_For_Post_Type $post_type
  * @property-read WordPoints_PHPUnit_Factory_For_User_Role $user_role
  */
-class WordPoints_PHPUnit_Factory extends WordPoints_Class_Registry_Persistent{
+class WordPoints_PHPUnit_Factory {
+
+	/**
+	 * The registered classes, indexed by slug.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var string[]
+	 */
+	protected $classes = array();
 
 	/**
 	 * The factory registry.
@@ -50,34 +59,50 @@ class WordPoints_PHPUnit_Factory extends WordPoints_Class_Registry_Persistent{
 	 */
 	public function __get( $var ) {
 
-		if ( $this->is_registered( $var ) ) {
-			return $this->$var = $this->get( $var );
+		if ( $this->is_registered( $var ) && isset( $this->classes[ $var ] ) ) {
+			return $this->$var = new $this->classes[ $var ]( $this );
 		}
 
 		return null;
 	}
 
 	/**
+	 * Register a factory.
+	 *
 	 * @since 2.1.0
+	 *
+	 * @param string $slug  The factory slug.
+	 * @param string $class The factory class.
 	 */
-	public function get( $slug ) {
+	public function register( $slug, $class ) {
 
-		if ( ! isset( $slug ) ) {
+		$this->classes[ $slug ] = $class;
+	}
 
-			$items = array();
+	/**
+	 * Deregister a factory.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $slug The factory slug.
+	 */
+	public function deregister( $slug ) {
 
-			foreach ( $this->classes as $slug => $class ) {
-				$items[ $slug ] = new $class( $this );
-			}
+		unset( $this->classes[ $slug ], $this->$slug );
+	}
 
-			return $items;
-		}
+	/**
+	 * Check if a factory is registered.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $slug The factory slug.
+	 *
+	 * @return bool Whether the factory is registered.
+	 */
+	public function is_registered( $slug ) {
 
-		if ( ! isset( $this->classes[ $slug ] ) ) {
-			return false;
-		}
-
-		return new $this->classes[ $slug ]( $this );
+		return isset( $this->classes[ $slug ] );
 	}
 }
 

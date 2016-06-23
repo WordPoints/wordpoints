@@ -29,7 +29,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 * @covers ::wordpoints_get_points_logs_query_args
 	 * @covers ::wordpoints_get_points_logs_query
 	 */
-	function test_query_registration() {
+	public function test_query_registration() {
 
 		$query      = 'test_query';
 		$query_args = array( 'fields' => 'id' );
@@ -56,7 +56,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @coversNothing
 	 */
-	function test_default_queries_registered() {
+	public function test_default_queries_registered() {
 
 		$this->assertTrue( wordpoints_is_points_logs_query( 'default' ) );
 		$this->assertTrue( wordpoints_is_points_logs_query( 'current_user' ) );
@@ -68,7 +68,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_fields_query_arg() {
+	public function test_fields_query_arg() {
 
 		$user_id = $this->factory->user->create();
 
@@ -86,7 +86,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_limit_query_arg() {
+	public function test_limit_query_arg() {
 
 		$user_id = $this->factory->user->create();
 
@@ -103,7 +103,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_start_query_arg() {
+	public function test_start_query_arg() {
 
 		$user_id = $this->factory->user->create();
 
@@ -131,7 +131,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_order_query_args() {
+	public function test_order_query_args() {
 
 		$user_id = $this->factory->user->create();
 
@@ -167,7 +167,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.2.0
 	 */
-	function test_id_query_args() {
+	public function test_id_query_args() {
 
 		// Create a user and add some points to generate some logs.
 		$user_id = $this->factory->user->create();
@@ -204,7 +204,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_user_query_args() {
+	public function test_user_query_args() {
 
 		$user_ids = $this->factory->user->create_many( 2 );
 
@@ -226,7 +226,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_points_type_query_args() {
+	public function test_points_type_query_args() {
 
 		wordpoints_add_points_type( array( 'name' => 'credits' ) );
 		wordpoints_add_points_type( array( 'name' => 'tests' ) );
@@ -252,7 +252,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_log_type_query_args() {
+	public function test_log_type_query_args() {
 
 		$user_id = $this->factory->user->create();
 
@@ -275,7 +275,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
 	 *
 	 * @since 1.0.0
 	 */
-	function test_points_query_args() {
+	public function test_points_query_args() {
 
 		$user_id = $this->factory->user->create();
 

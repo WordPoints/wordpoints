@@ -26,7 +26,7 @@ class WordPoints_Registration_Points_Hook_Test extends WordPoints_Points_UnitTes
 	 *
 	 * @since 1.3.0
 	 */
-	function test_points_awarded() {
+	public function test_points_awarded() {
 
 		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook', array( 'points' => 10 ) );
 

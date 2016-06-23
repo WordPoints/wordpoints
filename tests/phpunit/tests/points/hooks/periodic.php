@@ -26,7 +26,7 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCas
 	 *
 	 * @since 1.3.0
 	 */
-	function test_points_awarded() {
+	public function test_points_awarded() {
 
 		$hook = wordpointstests_add_points_hook(
 			'wordpoints_periodic_points_hook'

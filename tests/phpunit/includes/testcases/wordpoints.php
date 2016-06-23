@@ -722,6 +722,23 @@ abstract class WordPoints_UnitTestCase extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * Multisite-agnostic way to delete a user from the database.
+	 *
+	 * Back-compat for pre WordPress 4.3.0. After 4.3.0 it was added to
+	 * `WP_UnitTestCase`.
+	 *
+	 * @since 2.1.0
+	 */
+	public static function delete_user( $user_id ) {
+
+		if ( is_multisite() ) {
+			return wpmu_delete_user( $user_id );
+		} else {
+			return wp_delete_user( $user_id );
+		}
+	}
+
 	//
 	// Assertions.
 	//

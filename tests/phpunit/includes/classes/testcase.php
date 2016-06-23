@@ -121,23 +121,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WordPoints_UnitTestCase {
 	public function set_network_admin() {
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 	}
-
-	/**
-	 * Multisite-agnostic way to delete a user from the database.
-	 *
-	 * Back-compat for pre WordPress 4.3.0. After 4.3.0 it was added to
-	 * `WP_UnitTestCase`.
-	 *
-	 * @since 2.1.0
-	 */
-	public static function delete_user( $user_id ) {
-
-		if ( is_multisite() ) {
-			return wpmu_delete_user( $user_id );
-		} else {
-			return wp_delete_user( $user_id );
-		}
-	}
 }
 
 // EOF

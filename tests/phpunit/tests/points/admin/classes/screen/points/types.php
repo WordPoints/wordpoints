@@ -12,7 +12,7 @@
  *
  * @since 2.1.0
  *
- * @covers WordPoints_Admin_Screen_Points_Types
+ * @covers WordPoints_Points_Admin_Screen_Points_Types
  */
 class WordPoints_Admin_Screen_Points_Types_Test
 	extends WordPoints_Points_AJAX_UnitTestCase {

@@ -16,8 +16,6 @@ env:
     - TRAVISCI_RUN=phpunit WP_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=4.5
     - TRAVISCI_RUN=phpunit WP_VERSION=4.4
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.3
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.2
 
 sudo: false
 

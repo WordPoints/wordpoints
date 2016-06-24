@@ -45,9 +45,7 @@ class WordPoints_Entity_Comment
 	 * @since 2.1.0
 	 */
 	protected function get_entity_human_id( $entity ) {
-		// An extra space is added to the end in WP <4.4 if the comment is short.
-		// See https://core.trac.wordpress.org/ticket/27526#comment:5
-		return rtrim( get_comment_excerpt( $entity->comment_ID ) );
+		return get_comment_excerpt( $entity->comment_ID );
 	}
 
 	/**

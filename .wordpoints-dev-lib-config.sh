@@ -65,7 +65,15 @@ wordpoints-wpdl-test-phpunit() {
 	fi
 
 	if [[ $TEST_GROUP == uninstall ]]; then
-		phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}" --testsuite uninstall
+		# Back-compat because PHP 5.2 runs PHPUnit 3.6, which doesn't support the
+		# --testsuite option.
+		if [[ $TRAVIS_PHP_VERSION == 5.2 ]]; then
+			phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}" --no-configuration \
+				--no-globals-backup --bootstrap tests/phpunit/includes/bootstrap.php \
+				tests/phpunit/tests/uninstall.php
+		else
+			phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}" --testsuite uninstall
+		fi
 	else
 		phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}"
 	fi

@@ -225,7 +225,7 @@ function wordpoints_admin_activate_components() {
  */
 function wordpoints_register_admin_scripts() {
 
-	$assets_url = wordpoints_modules_url( '/assets', dirname( __FILE__ ) );
+	$assets_url = WORDPOINTS_URL . '/admin/assets';
 
 	// CSS
 
@@ -240,14 +240,14 @@ function wordpoints_register_admin_scripts() {
 
 	wp_register_script(
 		'wordpoints-hooks-models'
-		, $assets_url . '/js/hooks/models.js'
+		, $assets_url . '/js/hooks/models.manifested.js'
 		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
 		, WORDPOINTS_VERSION
 	);
 
 	wp_register_script(
 		'wordpoints-hooks-views'
-		, $assets_url . '/js/hooks/views.js'
+		, $assets_url . '/js/hooks/views.manifested.js'
 		, array( 'wordpoints-hooks-models' )
 		, WORDPOINTS_VERSION
 	);
@@ -359,7 +359,7 @@ function wordpoints_register_admin_scripts() {
 
 	wp_register_script(
 		'wordpoints-hooks-extension-conditions'
-		, $assets_url . '/js/hooks/extensions/conditions.js'
+		, $assets_url . '/js/hooks/extensions/conditions.manifested.js'
 		, array( 'wordpoints-hooks-views' )
 		, WORDPOINTS_VERSION
 	);
@@ -420,7 +420,7 @@ function wordpoints_register_admin_scripts() {
 
 	wp_register_script(
 		'wordpoints-hooks-extension-periods'
-		, $assets_url . '/js/hooks/extensions/periods.js'
+		, $assets_url . '/js/hooks/extensions/periods.manifested.js'
 		, array( 'wordpoints-hooks-views' )
 		, WORDPOINTS_VERSION
 	);

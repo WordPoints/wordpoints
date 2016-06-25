@@ -50,7 +50,7 @@ function wordpoints_admin_register_scripts() {
 
 	wp_register_script(
 		'wordpoints-hooks-reactor-points'
-		, $assets_url . '/js/hooks/reactors/points.js'
+		, $assets_url . '/js/hooks/reactors/points.manifested.js'
 		, array( 'wordpoints-hooks-views' )
 		, WORDPOINTS_VERSION
 	);

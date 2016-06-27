@@ -14,6 +14,33 @@
  */
 abstract class WordPoints_Un_Installer_Base {
 
+	/**
+	 * Bitmask value directing an install to be performed.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @const int
+	 */
+	const DO_INSTALL = 0;
+
+	/**
+	 * Bitmask value directing an install to be skipped.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @const int
+	 */
+	const SKIP_INSTALL = 1;
+
+	/**
+	 * Bitmask value indicating that manual installation is required.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @const int
+	 */
+	const REQUIRES_MANUAL_INSTALL = 2;
+
 	//
 	// Protected Vars.
 	//
@@ -295,7 +322,9 @@ abstract class WordPoints_Un_Installer_Base {
 
 				$this->set_network_installed();
 
-				if ( $this->do_per_site_install() ) {
+				$skip_per_site_install = $this->skip_per_site_install();
+
+				if ( ! ( $skip_per_site_install & self::SKIP_INSTALL ) ) {
 
 					$original_blog_id = get_current_blog_id();
 
@@ -310,7 +339,9 @@ abstract class WordPoints_Un_Installer_Base {
 					unset( $GLOBALS['_wp_switched_stack'] );
 					$GLOBALS['switched'] = false;
 
-				} else {
+				}
+
+				if ( $skip_per_site_install & self::REQUIRES_MANUAL_INSTALL ) {
 
 					// We'll check this later and let the user know that per-site
 					// install was skipped.
@@ -540,11 +571,34 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * On large networks we don't attempt the per-site install.
 	 *
+	 * @since 2.1.0
+	 *
+	 * @return int Whether to skip the per-site installation.
+	 */
+	protected function skip_per_site_install() {
+
+		return ( wp_is_large_network() )
+			? self::SKIP_INSTALL | self::REQUIRES_MANUAL_INSTALL
+			: self::DO_INSTALL;
+	}
+
+	/**
+	 * Check whether we should run the install for each site in the network.
+	 *
+	 * On large networks we don't attempt the per-site install.
+	 *
 	 * @since 1.8.0
+	 * @deprecated 2.1.0 Use self::skip_per_site_install() instead.
 	 *
 	 * @return bool Whether to do the per-site installation.
 	 */
 	protected function do_per_site_install() {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.1.0'
+			, __CLASS__ . '::skip_per_site_install'
+		);
 
 		return ! wp_is_large_network();
 	}
@@ -674,7 +728,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Set that this entity's network installation has been skipped in the database.
+	 * Set that the per-site network installation has been skipped in the database.
 	 *
 	 * @since 2.0.0
 	 */
@@ -692,7 +746,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Set that network-updating this entity has been skipped in the database.
+	 * Set that per-site network-updating has been skipped in the database.
 	 *
 	 * @since 2.0.0
 	 */

@@ -119,6 +119,209 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test the basic behaviour of install().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_install_not_multisite() {
+
+		$this->un_installer->install( false );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of install() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_multisite() {
+
+		$this->un_installer->install( false );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of install() on when installing network wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide() {
+
+		$this->un_installer->install( true );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test install() when installing network-wide and per-site install is disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_site_disabled() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->install( true );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test install() when per-site install should be skipped without an admin notice.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_site_disabled_skip_only() {
+
+		$this->un_installer->skip_per_site_install
+			= WordPoints_Un_Installer_Base::SKIP_INSTALL;
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->install( true );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
 	 * Test the basic behaviour of install_on_site().
 	 *
 	 * @since 2.0.0
@@ -1512,11 +1715,50 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that it uses the value of wp_is_large_network() by default.
 	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::skip_per_site_install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_skip_per_site_install() {
+
+		$this->assertEquals(
+			WordPoints_Un_Installer_Base::DO_INSTALL
+			, $this->un_installer->skip_per_site_install()
+		);
+	}
+
+	/**
+	 * Test that it skips and requires manual install if wp_is_large_network().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::skip_per_site_install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_skip_per_site_install_large_network() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->assertEquals(
+			WordPoints_Un_Installer_Base::SKIP_INSTALL
+				| WordPoints_Un_Installer_Base::REQUIRES_MANUAL_INSTALL
+			, $this->un_installer->skip_per_site_install()
+		);
+	}
+
+	/**
+	 * Test that it uses the value of wp_is_large_network() by default.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::do_per_site_install
 	 *
 	 * @requires WordPress multisite
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::do_per_site_install
 	 */
 	public function test_do_per_site_install() {
 
@@ -1531,6 +1773,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @covers WordPoints_Un_Installer_Base::do_per_site_install
 	 *
 	 * @requires WordPress multisite
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::do_per_site_install
 	 */
 	public function test_do_per_site_install_large_network() {
 

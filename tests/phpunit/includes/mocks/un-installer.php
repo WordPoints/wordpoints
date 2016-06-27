@@ -31,9 +31,6 @@
  * @method maybe_load_custom_caps()
  * @method before_install()
  * @method install_db_schema()
- * @method install_network()
- * @method install_site()
- * @method install_single()
  * @method before_update()
  * @method install_custom_caps()
  * @method before_uninstall()
@@ -56,7 +53,6 @@
  * @method set_network_installed()
  * @method is_network_installed()
  * @method unset_network_installed()
- * @method set_network_install_skipped()
  * @method unset_network_install_skipped()
  * @method set_network_update_skipped()
  * @method unset_network_update_skipped()
@@ -72,13 +68,22 @@
 class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 
 	/**
+	 * Manually set whether to skip per-site install or not.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var bool
+	 */
+	public $skip_per_site_install;
+
+	/**
 	 * The calls to inaccessible methods.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @var array[]
 	 */
-	protected $method_calls = array();
+	public $method_calls = array();
 
 	/**
 	 * @since 2.0.0
@@ -116,6 +121,58 @@ class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 		$this->method_calls[] = array( 'method' => $method, 'args' => $args );
 
 		return call_user_func_array( array( $this, $method ), $args );
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function skip_per_site_install() {
+
+		if ( isset( $this->skip_per_site_install ) ) {
+			return $this->skip_per_site_install;
+		}
+
+		return parent::skip_per_site_install();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function install_network() {
+
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+
+		parent::install_network();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function install_site() {
+
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+
+		parent::install_site();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function install_single() {
+
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+
+		parent::install_single();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function set_network_install_skipped() {
+
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+
+		parent::set_network_install_skipped();
 	}
 }
 

@@ -81,7 +81,7 @@ function wordpoints_admin_register_scripts() {
  * @since 1.0.0
  *
  * @WordPress\action admin_menu
- * @WordPress\action network_admin_menu
+ * @WordPress\action network_admin_menu Only when the module is network-active.
  */
 function wordpoints_points_admin_menu() {
 

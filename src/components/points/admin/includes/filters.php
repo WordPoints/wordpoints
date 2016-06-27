@@ -10,7 +10,10 @@
 add_action( 'init', 'wordpoints_admin_register_scripts' );
 
 add_action( 'admin_menu', 'wordpoints_points_admin_menu' );
-add_action( 'network_admin_menu', 'wordpoints_points_admin_menu' );
+
+if ( is_wordpoints_network_active() ) {
+	add_action( 'network_admin_menu', 'wordpoints_points_admin_menu' );
+}
 
 add_action( 'load-wordpoints_page_wordpoints_points_hooks', 'wordpoints_admin_points_hooks_help' );
 

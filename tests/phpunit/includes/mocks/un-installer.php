@@ -24,6 +24,7 @@
  * @property $custom_caps
  * @property $custom_caps_keys
  * @property $schema
+ * @property $updates
  * @property $uninstall
  * @property $updating_from
  *
@@ -54,7 +55,6 @@
  * @method is_network_installed()
  * @method unset_network_installed()
  * @method unset_network_install_skipped()
- * @method set_network_update_skipped()
  * @method unset_network_update_skipped()
  * @method do_per_site_uninstall()
  * @method do_per_site_update()
@@ -173,6 +173,37 @@ class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 
 		parent::set_network_install_skipped();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function set_network_update_skipped() {
+
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+
+		parent::set_network_update_skipped();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function update_network_to_1_0_0() {
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+	}
+	
+	/**
+	 * @since 2.1.0
+	 */
+	public function update_site_to_1_0_0() {
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function update_single_to_1_0_0() {
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 	}
 }
 

@@ -524,28 +524,31 @@ abstract class WordPoints_Un_Installer_Base {
 
 			if ( $this->network_wide ) {
 
-				if ( $this->do_per_site_update() ) {
+				$updates = $this->get_updates_for( 'site' );
 
-					$updates = $this->get_updates_for( 'site' );
+				if ( $updates ) {
 
-					$original_blog_id = get_current_blog_id();
+					if ( $this->do_per_site_update() ) {
 
-					foreach ( $this->get_installed_site_ids() as $blog_id ) {
-						switch_to_blog( $blog_id );
-						$this->update_( 'site', $updates );
+						$original_blog_id = get_current_blog_id();
+
+						foreach ( $this->get_installed_site_ids() as $blog_id ) {
+							switch_to_blog( $blog_id );
+							$this->update_( 'site', $updates );
+						}
+
+						switch_to_blog( $original_blog_id );
+
+						// See http://wordpress.stackexchange.com/a/89114/27757
+						unset( $GLOBALS['_wp_switched_stack'] );
+						$GLOBALS['switched'] = false;
+
+					} else {
+
+						// We'll check this later and let the user know that per-site
+						// update was skipped.
+						$this->set_network_update_skipped();
 					}
-
-					switch_to_blog( $original_blog_id );
-
-					// See http://wordpress.stackexchange.com/a/89114/27757
-					unset( $GLOBALS['_wp_switched_stack'] );
-					$GLOBALS['switched'] = false;
-
-				} else {
-
-					// We'll check this later and let the user know that per-site
-					// update was skipped.
-					$this->set_network_update_skipped();
 				}
 
 			} else {

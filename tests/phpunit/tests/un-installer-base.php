@@ -194,7 +194,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
-	 * Test the basic behaviour of install() on when installing network wide.
+	 * Test the basic behaviour of install() when installing network wide.
 	 *
 	 * @since 2.1.0
 	 *
@@ -317,6 +317,452 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 
 		$this->assertContains(
 			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of update().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_not_multisite() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when there are no updates for single sites.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_not_multisite_single_disabled() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => false, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of update() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() on multisite when site updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite_site_disabled() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => false, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() on multisite when network updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite_network_disabled() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => false ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of update() when updating network wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide() {
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when updating network wide and site updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_site_disabled() {
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => false, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when updating network wide and network updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_networK_disabled() {
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => false ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when updating network-wide and per-site update is manual.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_site_manual() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->context = 'network';
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when per-site update is manual and site updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_site_manual_site_disabled() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->context = 'network';
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => false, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
 	}

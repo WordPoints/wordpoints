@@ -1083,8 +1083,10 @@ function wordpoints_delete_modules( $modules ) {
  */
 function wordpoints_uninstall_module( $module ) {
 
-	$file = wordpoints_module_basename( $module );
-	$uninstall_file = wordpoints_modules_dir() . '/' . dirname( $file ) . '/uninstall.php';
+	$file              = wordpoints_module_basename( $module );
+	$module_dir        = wordpoints_modules_dir() . '/' . dirname( $file );
+	$uninstall_file    = $module_dir . '/uninstall.php';
+	$un_installer_file = $module_dir . '/includes/class-un-installer.php';
 
 	if ( file_exists( $uninstall_file ) ) {
 
@@ -1117,12 +1119,24 @@ function wordpoints_uninstall_module( $module ) {
 
 		return true;
 
-	} else {
+	} elseif ( file_exists( $un_installer_file ) ) {
 
-		return WordPoints_Installables::uninstall(
+		$slug = WordPoints_Modules::get_slug( $module );
+
+		WordPoints_Installables::register(
 			'module'
-			, WordPoints_Modules::get_slug( $module )
+			, $slug
+			, array(
+				'version'      => 'uninstall', // Required but not really used.
+				'network_wide' => false, // ditto
+				'un_installer' => $un_installer_file,
+			)
 		);
+
+		return WordPoints_Installables::uninstall( 'module', $slug );
+
+	} else {
+		return false;
 	}
 }
 

@@ -141,6 +141,15 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		$this->assertRanksComponentInstalled();
 
+		// Check that a module was installed by the simulator
+		if ( is_multisite() ) {
+			$value = get_site_option( 'wordpoints_tests_module_6' );
+		} else {
+			$value = get_option( 'wordpoints_tests_module_6' );
+		}
+
+		$this->assertEquals( 'Testing!', $value );
+
 		/*
 		 * Uninstall.
 		 */
@@ -149,6 +158,11 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		$this->assertPointsComponentUninstalled();
 		$this->assertRanksComponentUninstalled();
+
+		// The module should have been uninstalled.
+		$this->assertFalse(
+			wordpoints_get_maybe_network_option( 'wordpoints_tests_module_6' )
+		);
 
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );
 

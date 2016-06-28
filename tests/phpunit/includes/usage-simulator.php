@@ -102,4 +102,21 @@ if ( is_multisite() && is_wordpoints_network_active() ) {
 	wordpointstests_simulate_usage();
 }
 
+// Simulate installing a module.
+if ( ! is_link( wordpoints_modules_dir() . '/test-6' ) ) {
+	symlink(
+		WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
+		, wordpoints_modules_dir() . '/test-6'
+	);
+}
+
+require_once( wordpoints_modules_dir() . '/test-6/main-file.php' );
+
+WordPoints_Installables::install(
+	'module'
+	, WordPoints_Modules::get_slug(
+		WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
+	)
+);
+
 // EOF

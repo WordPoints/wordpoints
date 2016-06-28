@@ -198,6 +198,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		require_once WORDPOINTS_DIR . '/includes/modules.php';
 		require_once WORDPOINTS_DIR . '/includes/class-installables.php';
 		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
+		require_once WORDPOINTS_DIR . '/includes/class-modules.php';
 		require_once WORDPOINTS_DIR . '/includes/filters.php';
 	}
 

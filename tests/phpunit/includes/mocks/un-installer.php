@@ -191,7 +191,7 @@ class WordPoints_Un_Installer_Mock extends WordPoints_Un_Installer_Base {
 	public function update_network_to_1_0_0() {
 		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 	}
-	
+
 	/**
 	 * @since 2.1.0
 	 */

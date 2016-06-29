@@ -893,6 +893,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
+		if ( empty( $site_ids ) || ! is_array( $site_ids ) ) {
+			return array();
+		}
+
 		$site_ids = $wpdb->get_col( // WPCS: unprepared SQL OK
 			"
 				SELECT `blog_id`

@@ -3042,6 +3042,36 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test validate_site_ids() when the array is empty.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::validate_site_ids
+	 */
+	public function test_validate_site_ids_empty() {
+
+		$this->assertEquals(
+			array()
+			, $this->un_installer->validate_site_ids( array() )
+		);
+	}
+
+	/**
+	 * Test validate_site_ids() when the value is not an array.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::validate_site_ids
+	 */
+	public function test_validate_site_ids_not_array() {
+
+		$this->assertEquals(
+			array()
+			, $this->un_installer->validate_site_ids( 'invalid' )
+		);
+	}
+
+	/**
 	 * Test getting the database version of an entity.
 	 *
 	 * @since 2.0.0

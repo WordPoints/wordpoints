@@ -788,8 +788,8 @@ function wordpoints_admin_get_current_tab( array $tabs = null ) {
  * @uses wordpoints_admin_get_current_tab()
  *
  * @param string[] $tabs         The tabs. Keys are slugs, values displayed text.
- * @param bool     $show_heading Whether to show an <h2> element using the current
- *        tab. Default is true.
+ * @param bool     $show_heading Whether to show an <h1> element using the current
+ *                               tab. Default is true.
  */
 function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
@@ -797,7 +797,7 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
 	if ( $show_heading ) {
 
-		echo '<h2>', esc_html( sprintf( __( 'WordPoints — %s', 'wordpoints' ), $tabs[ $current ] ) ), '</h2>';
+		echo '<h1>', esc_html( sprintf( __( 'WordPoints — %s', 'wordpoints' ), $tabs[ $current ] ) ), '</h1>';
 	}
 
 	echo '<h2 class="nav-tab-wrapper">';
@@ -829,7 +829,7 @@ function wordpoints_install_modules_upload() {
 
 	?>
 
-	<h4><?php esc_html_e( 'Install a module in .zip format', 'wordpoints' ); ?></h4>
+	<h2><?php esc_html_e( 'Install a module in .zip format', 'wordpoints' ); ?></h2>
 	<p class="install-help"><?php esc_html_e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
 	<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_attr( esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ) ); ?>">
 		<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
@@ -967,12 +967,12 @@ function wordpoints_admin_settings_screen_sidebar() {
 
 	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
-			<h4><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h4>
+			<h3><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h3>
 			<p><?php echo wp_kses( sprintf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'http://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
-			<h4><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h4>
+			<h3><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h3>
 			<p><?php echo wp_kses( sprintf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'http://wordpress.org/support/plugin/wordpoints' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><em><?php esc_html_e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
 		</div>

@@ -25,7 +25,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 ?>
 
 <div class="wrap">
-	<h2><?php esc_html_e( 'Ranks', 'wordpoints' ); ?></h2>
+	<h1><?php esc_html_e( 'Ranks', 'wordpoints' ); ?></h1>
 
 	<?php wordpoints_admin_show_tabs( wp_list_pluck( $rank_groups, 'name' ), false ) ?>
 

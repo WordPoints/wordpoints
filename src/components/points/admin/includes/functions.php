@@ -325,7 +325,7 @@ function wordpoints_points_profile_options( $user ) {
 
 		</table>
 
-		<h3><?php esc_html_e( 'WordPoints', 'wordpoints' ); ?></h3>
+		<h2><?php esc_html_e( 'WordPoints', 'wordpoints' ); ?></h2>
 		<p><?php esc_html_e( "If you would like to change the value for a type of points, enter the desired value in the text field, and check the checkbox beside it. If you don't check the checkbox, the change will not be saved. To provide a reason for the change, fill out the text field below.", 'wordpoints' ); ?></p>
 		<lable><?php esc_html_e( 'Reason', 'wordpoints' ); ?> <input type="text" name="wordpoints_set_reason" />
 		<table class="form-table">
@@ -374,7 +374,7 @@ function wordpoints_points_profile_options( $user ) {
 
 		</table>
 
-		<h3><?php echo esc_html( $heading ); ?></h3>
+		<h2><?php echo esc_html( $heading ); ?></h2>
 
 		<table>
 		<tbody>

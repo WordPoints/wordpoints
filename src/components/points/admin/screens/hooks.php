@@ -77,7 +77,7 @@ if ( is_network_admin() ) {
 ?>
 
 <div class="wrap">
-	<h2><?php echo esc_html( $title ); ?></h2>
+	<h1><?php echo esc_html( $title ); ?></h1>
 
 	<?php
 
@@ -118,7 +118,7 @@ if ( is_network_admin() ) {
 			<div id="available-hooks" class="hooks-holder-wrap hooks-holder-wrap">
 				<div class="points-type-name">
 					<div class="points-type-name-arrow"><br /></div>
-					<h3><?php esc_html_e( 'Available Hooks', 'wordpoints' ); ?> <span id="removing-hook"><?php echo esc_html_x( 'Deactivate', 'removing-hook', 'wordpoints' ); ?> <span></span></span></h3>
+					<h2><?php esc_html_e( 'Available Hooks', 'wordpoints' ); ?> <span id="removing-hook"><?php echo esc_html_x( 'Deactivate', 'removing-hook', 'wordpoints' ); ?> <span></span></span></h2>
 				</div>
 				<div class="hook-holder hook-holder">
 					<p class="description"><?php esc_html_e( 'Drag hooks from here to a points type on the right to activate them. Drag hooks back here to deactivate them and delete their settings.', 'wordpoints' ); ?></p>
@@ -133,9 +133,9 @@ if ( is_network_admin() ) {
 			<div class="hooks-holder-wrap inactive-points-type">
 				<div class="points-type-name">
 					<div class="points-type-name-arrow"><br /></div>
-					<h3><?php esc_html_e( 'Inactive Hooks', 'wordpoints' ); ?>
+					<h2><?php esc_html_e( 'Inactive Hooks', 'wordpoints' ); ?>
 						<span class="spinner"></span>
-					</h3>
+					</h2>
 				</div>
 				<div class="hook-holder inactive hook-holder">
 					<div id="_inactive_hooks" class="hooks-sortables">
@@ -176,7 +176,7 @@ if ( is_network_admin() ) {
 				<div class="<?php echo esc_attr( $wrap_class ); ?>">
 					<div class="points-type-name">
 						<div class="points-type-name-arrow"><br /></div>
-						<h3><?php echo esc_html( $points_type['name'] ); ?><span class="spinner"></span></h3>
+						<h2><?php echo esc_html( $points_type['name'] ); ?><span class="spinner"></span></h2>
 					</div>
 					<div id="<?php echo esc_attr( $slug ); ?>" class="hooks-sortables">
 
@@ -205,7 +205,7 @@ if ( is_network_admin() ) {
 				<div class="hooks-holder-wrap new-points-type <?php echo ( $i > 0 ) ? 'closed' : ''; ?>">
 					<div class="points-type-name">
 						<div class="points-type-name-arrow"><br /></div>
-						<h3><?php esc_html_e( 'Add New Points Type', 'wordpoints' ); ?><span class="spinner"></span></h3>
+						<h2><?php esc_html_e( 'Add New Points Type', 'wordpoints' ); ?><span class="spinner"></span></h2>
 					</div>
 					<div class="wordpoints-points-add-new hooks-sortables hook">
 						<?php WordPoints_Points_Hooks::points_type_form(); ?>

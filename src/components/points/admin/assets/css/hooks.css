@@ -43,7 +43,7 @@
 	box-shadow: none; /* :focus styles */
 }
 
-.hook-title h4 {
+.hook-title h3 {
 	margin: 0;
 	padding: 15px;
 	line-height: 1;
@@ -182,7 +182,7 @@
 	cursor: pointer;
 }
 
-.points-type-name h3 {
+.points-type-name h2 {
 	margin: 0;
 	padding: 8px 10px;
 	overflow: hidden;
@@ -274,7 +274,7 @@ div#hooks-left .inactive-points-type.closed .points-type-name {
 	margin-bottom: 10px;
 }
 
-div#hooks-left .points-type-name h3 {
+div#hooks-left .points-type-name h2 {
 	padding: 10px 0;
 	margin: 0 10px 0 0;
 }
@@ -379,7 +379,7 @@ div#hooks-right .points-type-description {
 	margin-top: -5px;
 }
 
-div#hooks-right .points-type-name h3 {
+div#hooks-right .points-type-name h2 {
 	padding: 15px 12px;
 }
 

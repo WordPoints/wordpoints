@@ -345,7 +345,7 @@ switch ( $action ) {
 
 				$modules_to_delete = count( $module_info );
 
-				echo '<h2>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h2>';
+				echo '<h1>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h1>';
 
 				if ( $have_non_network_modules && is_network_admin() ) {
 					wordpoints_show_admin_error( '<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>' . esc_html( _n( 'This module may be active on other sites in the network.', 'These modules may be active on other sites in the network.', $modules_to_delete, 'wordpoints' ) ) );

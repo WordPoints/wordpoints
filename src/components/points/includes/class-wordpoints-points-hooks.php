@@ -536,7 +536,7 @@ final class WordPoints_Points_Hooks {
 					<div class="hook-title-action">
 						<a class="hook-action hide-if-no-js" href="#available-hooks"></a>
 					</div>
-					<div class="hook-title"><h4><?php esc_html_e( 'Settings', 'wordpoints' ); ?><span class="in-hook-title"></span></h4></div>
+					<div class="hook-title"><h3><?php esc_html_e( 'Settings', 'wordpoints' ); ?><span class="in-hook-title"></span></h3></div>
 				</div>
 
 				<div class="hook-inside">
@@ -708,7 +708,7 @@ final class WordPoints_Points_Hooks {
 					<span class="screen-reader-text"><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?></span>
 				</a>
 			</div>
-			<div class="hook-title"><h4><?php echo esc_html( strip_tags( $hook->get_name() ) ) ?><span class="in-hook-title"></span></h4></div>
+			<div class="hook-title"><h3><?php echo esc_html( strip_tags( $hook->get_name() ) ) ?><span class="in-hook-title"></span></h3></div>
 		</div>
 
 		<div class="hook-inside">

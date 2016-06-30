@@ -25,7 +25,7 @@ jQuery( document ).ready( function() {
 });
 </script>
 <div class="wrap">
-	<h2><?php esc_html_e( 'Install Modules', 'wordpoints' ); ?></h2>
+	<h1><?php esc_html_e( 'Install Modules', 'wordpoints' ); ?></h1>
 	<?php
 
 	/**

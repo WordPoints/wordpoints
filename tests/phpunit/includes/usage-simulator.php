@@ -103,20 +103,17 @@ if ( is_multisite() && is_wordpoints_network_active() ) {
 }
 
 // Simulate installing a module.
-if ( ! is_link( wordpoints_modules_dir() . '/test-6' ) ) {
-	symlink(
-		WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
-		, wordpoints_modules_dir() . '/test-6'
-	);
+$module_path     = wordpoints_modules_dir() . '/test-6';
+$module_realpath = realpath(
+	WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
+);
+
+if ( ! is_link( $module_path ) ) {
+	symlink( $module_realpath, $module_path );
 }
 
-require_once( wordpoints_modules_dir() . '/test-6/main-file.php' );
+WordPoints_Module_Paths::register( $module_path . '/main-file.php' );
 
-WordPoints_Installables::install(
-	'module'
-	, WordPoints_Modules::get_slug(
-		WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
-	)
-);
+wordpoints_activate_module( $module_path . '/main-file.php' );
 
 // EOF

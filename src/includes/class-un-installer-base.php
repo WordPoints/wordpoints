@@ -1463,7 +1463,7 @@ abstract class WordPoints_Un_Installer_Base {
 					"
 					, $key
 				)
-			); // WPCS: SQLi, cache pass.
+			); // WPCS: unprepared SQL, cache pass.
 
 		} else {
 			$keys = array( $key );

@@ -13,7 +13,7 @@ function wordpoints-dev-lib-config() {
 	#export WPCS_GIT_TREE=develop
 
 	# Use a stable commit for PHPCS.
-	export PHPCS_GIT_TREE=4122da6604e2967c257d6c81151122d08cae60cf
+	export PHPCS_GIT_TREE=fb72ed32f8418db5e7770be1653e62e0d6f5dd3d
 
 	# Ignore the WordPress dev lib when codesniffing.
 	CODESNIFF_PATH+=('!' -path "./dev-lib/*")

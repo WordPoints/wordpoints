@@ -25,27 +25,15 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 	//
 
 	/**
-	 * The full path to the main plugin file.
-	 *
 	 * @since 1.2.0
-	 *
-	 * @type string $plugin_file
 	 */
-	protected $plugin_file;
-
-	/**
-	 * The plugin's install function.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @type callable $install_function
-	 */
-	protected $install_function = 'wordpoints_activate';
+	protected $plugin_file = 'wordpoints/wordpoints.php';
 
 	/**
 	 * Whether the tests are being run with the plugin network-activated.
 	 *
 	 * @since 1.2.0
+	 * @deprecated 2.1.0 Use $this->network_active instead.
 	 *
 	 * @type bool $network_wide
 	 */
@@ -62,8 +50,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 	 */
 	public function setUp() {
 
-		$this->plugin_file = dirname( dirname( WORDPOINTS_TESTS_DIR ) ) . '/src/wordpoints.php';
 		$this->simulation_file = WORDPOINTS_TESTS_DIR . '/includes/usage-simulator.php';
+		$this->network_active = (bool) getenv( 'WORDPOINTS_NETWORK_ACTIVE' );
 
 		parent::setUp();
 	}
@@ -95,7 +83,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		 */
 
 		// Check the the basic plugin data option was added.
-		if ( $this->network_wide ) {
+		if ( $this->network_active ) {
 			$wordpoints_data = get_site_option( 'wordpoints_data' );
 		} else {
 			$wordpoints_data = get_option( 'wordpoints_data' );
@@ -114,7 +102,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
 
-		if ( $this->network_wide ) {
+		if ( $this->network_active ) {
 			$active_components = get_site_option( 'wordpoints_active_components' );
 		} else {
 			$active_components = get_option( 'wordpoints_active_components' );
@@ -236,7 +224,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$administrator = get_role( 'administrator' );
 		$this->assertTrue( $administrator->has_cap( 'set_wordpoints_points' ) );
 
-		if ( $this->network_wide ) {
+		if ( $this->network_active ) {
 			$this->assertFalse( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
 		} else {
 			$this->assertTrue( $administrator->has_cap( 'manage_wordpoints_points_types' ) );
@@ -257,7 +245,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		if ( is_multisite() ) {
 
-			if ( $this->network_wide ) {
+			if ( $this->network_active ) {
 
 				$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
@@ -305,7 +293,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		global $wpdb;
 
-		if ( $this->network_wide ) {
+		if ( $this->network_active ) {
 			$active_components = get_site_option( 'wordpoints_active_components' );
 		} else {
 			$active_components = get_option( 'wordpoints_active_components' );

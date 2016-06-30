@@ -96,6 +96,10 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			),
 			'user_meta' => array(
 				'wordpoints_points_period_start',
+				'wordpoints_points-%',
+			),
+			'comment_meta' => array(
+				'wordpoints_last_status-%',
 			),
 		),
 	);
@@ -115,21 +119,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @type bool $points_hooks_network_mode
 	 */
 	protected $points_hooks_network_mode;
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function before_uninstall() {
-
-		foreach ( wordpoints_get_points_types() as $slug => $unused ) {
-
-			$this->uninstall['universal']['user_meta'][] = "wordpoints_points-{$slug}";
-			$this->uninstall['universal']['comment_meta'][] = "wordpoints_last_status-{$slug}";
-		}
-
-		// We do this after the above, so that we can take advantage of shortcuts.
-		parent::before_uninstall();
-	}
 
 	/**
 	 * @since 1.8.0

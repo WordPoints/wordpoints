@@ -1448,7 +1448,30 @@ abstract class WordPoints_Un_Installer_Base {
 			$key = $GLOBALS['wpdb']->get_blog_prefix() . $key;
 		}
 
-		delete_metadata( $type, 0, wp_slash( $key ), '', true );
+		if ( false !== strpos( $key, '%' ) ) {
+
+			global $wpdb;
+
+			$table = wordpoints_escape_mysql_identifier( _get_meta_table( $type ) );
+
+			$keys = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+						SELECT `meta_key`
+						FROM {$table}
+						WHERE `meta_key` LIKE %s
+					"
+					, $key
+				)
+			); // WPCS: SQLi, cache pass.
+
+		} else {
+			$keys = array( $key );
+		}
+
+		foreach ( $keys as $key ) {
+			delete_metadata( $type, 0, wp_slash( $key ), '', true );
+		}
 	}
 
 	/**

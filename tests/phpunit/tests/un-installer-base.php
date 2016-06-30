@@ -1796,6 +1796,27 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test that it supports wildcards.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_metadata
+	 */
+	public function test_uninstall_metadata_wildcards() {
+
+		$post_id = $this->factory->post->create();
+		add_post_meta( $post_id, 'test', 'test' );
+		add_post_meta( $post_id, 'test2', 'test' );
+		add_post_meta( $post_id, 'other', 'test' );
+
+		$this->un_installer->uninstall_metadata( 'post', 'test%' );
+
+		$this->assertEmpty( get_post_meta( $post_id, 'test' ) );
+		$this->assertEmpty( get_post_meta( $post_id, 'test2' ) );
+		$this->assertEquals( 'test', get_post_meta( $post_id, 'other', true ) );
+	}
+
+	/**
 	 * Test uninstalling user metadata.
 	 *
 	 * @since 2.0.0
@@ -1827,11 +1848,36 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		add_user_meta( $user_id, __METHOD__, 'test' );
 		update_user_option( $user_id, __METHOD__, 'test2' );
 
+		$this->assertEquals( 'test2', get_user_option( __METHOD__, $user_id ) );
+
 		$this->un_installer->context = 'site';
 		$this->un_installer->uninstall_metadata( 'user', __METHOD__ );
 
-		$this->assertEmpty( get_user_option( $user_id, __METHOD__ ) );
+		// If the user option had not been deleted, 'test2' would have been returned.
+		$this->assertEquals( 'test', get_user_option( __METHOD__, $user_id ) );
 		$this->assertEquals( 'test', get_user_meta( $user_id, __METHOD__, true ) );
+	}
+
+	/**
+	 * Test that it supports wildcards for user options.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_metadata
+	 */
+	public function test_uninstall_user_metadata_site_context_wildcards() {
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, 'test', 'test' );
+		update_user_option( $user_id, 'test2', 'test' );
+		update_user_option( $user_id, 'other', 'test' );
+
+		$this->un_installer->context = 'site';
+		$this->un_installer->uninstall_metadata( 'user', 'test%' );
+
+		$this->assertEquals( 'test', get_user_meta( $user_id, 'test', true ) );
+		$this->assertEmpty( get_user_option( 'test2', $user_id ) );
+		$this->assertEquals( 'test', get_user_option( 'other', $user_id ) );
 	}
 
 	/**

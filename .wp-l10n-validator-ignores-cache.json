@@ -249,18 +249,18 @@
             "24": false
         },
         "network": {
-            "425": false,
-            "654": false
+            "414": false,
+            "643": false
         },
         "standard": {
-            "428": false,
-            "657": false
+            "417": false,
+            "646": false
         },
         "post": {
-            "664": false
+            "653": false
         },
         "EXISTS": {
-            "771": {
+            "760": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -781,28 +781,35 @@
     },
     "\/includes\/class-un-installer-base.php": {
         "install": {
-            "272": false,
-            "342": false
+            "299": false,
+            "373": false
         },
         "network": {
-            "289": false,
-            "404": false,
-            "489": false,
-            "1198": {
+            "316": false,
+            "435": false,
+            "520": false,
+            "1259": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1232": {
+            "1293": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1238": {
+            "1294": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
+            "1299": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -811,18 +818,32 @@
             }
         },
         "site": {
-            "292": false,
-            "356": false,
-            "382": false,
-            "492": false,
-            "1198": {
+            "319": false,
+            "387": false,
+            "413": false,
+            "523": false,
+            "1259": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1238": {
+            "1292": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1294": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1299": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -831,17 +852,38 @@
             }
         },
         "single": {
-            "328": false,
-            "419": false,
-            "527": false,
-            "1198": {
+            "359": false,
+            "450": false,
+            "561": false,
+            "1259": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1238": {
+            "1292": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1293": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1294": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1299": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -850,29 +892,32 @@
             }
         },
         "uninstall": {
-            "370": false
+            "401": false
         },
         "update": {
-            "436": false
+            "467": false
         },
         "manage": {
-            "1148": false
+            "1207": false,
+            "1208": false,
+            "1209": false
         },
         "columnshidden": {
-            "1147": false
+            "1207": false,
+            "1208": false
         },
         "-networkcolumnshidden": {
-            "1148": false
+            "1209": false
         },
         "local": {
-            "1198": {
+            "1259": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "1238": {
+            "1299": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -881,14 +926,14 @@
             }
         },
         "global": {
-            "1198": {
+            "1259": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 4,
                 "parentheses": 1
             },
-            "1238": {
+            "1299": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -897,14 +942,14 @@
             }
         },
         "universal": {
-            "1198": {
+            "1259": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 5,
                 "parentheses": 1
             },
-            "1238": {
+            "1299": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -918,7 +963,7 @@
             "20": false
         },
         "<?php \/\/ Gold is silent.": {
-            "322": {
+            "323": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -927,7 +972,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "327": false
+            "328": false
         }
     },
     "\/includes\/class-widget.php": {

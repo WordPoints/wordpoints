@@ -1454,8 +1454,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$table = wordpoints_escape_mysql_identifier( _get_meta_table( $type ) );
 
-			$keys = $wpdb->get_col(
-				$wpdb->prepare(
+			$keys = $wpdb->get_col( // WPCS: unprepared SQL OK.
+				$wpdb->prepare( // WPCS: unprepared SQL OK.
 					"
 						SELECT `meta_key`
 						FROM {$table}
@@ -1463,7 +1463,7 @@ abstract class WordPoints_Un_Installer_Base {
 					"
 					, $key
 				)
-			); // WPCS: unprepared SQL, cache pass.
+			); // WPCS: cache pass.
 
 		} else {
 			$keys = array( $key );

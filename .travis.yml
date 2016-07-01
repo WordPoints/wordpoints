@@ -71,5 +71,5 @@ script:
 
 after_script:
     - ls -l build/logs/
-    - composer update --prefer-source satooshi/php-coveralls '~1.0'
+    - composer update --prefer-source satooshi/php-coveralls:'~1.0'
     - source $DEV_LIB_PATH/travis/after_script.sh

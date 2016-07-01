@@ -189,6 +189,14 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function load_dependencies() {
 
 		require_once dirname( __FILE__ ) . '/constants.php';
+		require_once WORDPOINTS_DIR . '/includes/classes/class/autoloader.php';
+
+		// For the sake of modules.
+		WordPoints_Class_Autoloader::register_dir(
+			WORDPOINTS_DIR . '/includes/classes'
+			, 'WordPoints_'
+		);
+
 		require_once WORDPOINTS_DIR . '/includes/functions.php';
 		require_once WORDPOINTS_DIR . '/includes/modules.php';
 		require_once WORDPOINTS_DIR . '/includes/class-installables.php';

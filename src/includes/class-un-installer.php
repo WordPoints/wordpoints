@@ -106,11 +106,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	public function install( $network ) {
 
-		// The autoloader won't automatically be initialized because it is usually
-		// hooked to the modules loaded action, which won't have fired when
-		// WordPoints is first being installed.
-		WordPoints_Class_Autoloader::init();
-
 		$filter_func = ( $network ) ? '__return_true' : '__return_false';
 		add_filter( 'is_wordpoints_network_active', $filter_func );
 

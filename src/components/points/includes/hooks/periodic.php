@@ -24,7 +24,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'period' => 'daily', 'points' => 10 );
+	protected $defaults = array( 'period' => DAY_IN_SECONDS, 'points' => 10 );
 
 	/**
 	 * Initialize the hook.

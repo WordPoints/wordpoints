@@ -1940,6 +1940,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_option
+	 * @covers WordPoints_Un_Installer_Base::uninstall_network_option
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -1972,26 +1973,25 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
-	 * Wildcards aren't currently supported for network ("site") options.
+	 * Wildcards are now supported for network ("site") options.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_option
+	 * @covers WordPoints_Un_Installer_Base::uninstall_network_option
 	 *
 	 * @requires WordPress multisite
 	 */
 	public function test_uninstall_network_option_wildcards() {
 
-		add_site_option( 'test%', 'test' );
 		add_site_option( 'testing', 'test' );
 		add_site_option( 'tester', 'test' );
 
 		$this->un_installer->context = 'network';
 		$this->un_installer->uninstall_option( 'test%' );
 
-		$this->assertFalse( get_site_option( 'test%' ) );
-		$this->assertEquals( 'test', get_site_option( 'testing' ) );
-		$this->assertEquals( 'test', get_site_option( 'tester' ) );
+		$this->assertFalse( get_site_option( 'testing' ) );
+		$this->assertFalse( get_site_option( 'tester' ) );
 	}
 
 	/**

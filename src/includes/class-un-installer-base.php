@@ -1488,7 +1488,7 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_option( $option ) {
 
 		if ( 'network' === $this->context ) {
-			delete_site_option( $option );
+			$this->uninstall_network_option( $option );
 			return;
 		}
 
@@ -1512,6 +1512,41 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		array_map( 'delete_option', $options );
+	}
+
+	/**
+	 * Uninstall a network option.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @see WordPoints_Un_Installer_Base::uninstall_option()
+	 *
+	 * @param string $option The network option to uninstall.
+	 */
+	protected function uninstall_network_option( $option ) {
+
+		if ( false !== strpos( $option, '%' ) ) {
+
+			global $wpdb;
+
+			$options = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+						SELECT `meta_key`
+						FROM `{$wpdb->sitemeta}`
+						WHERE `meta_key` LIKE %s
+							AND `site_id` = %d
+					"
+					, $option
+					, $wpdb->siteid
+				)
+			); // WPCS: cache pass.
+
+		} else {
+			$options = array( $option );
+		}
+
+		array_map( 'delete_site_option', $options );
 	}
 
 	/**

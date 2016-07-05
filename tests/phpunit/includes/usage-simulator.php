@@ -83,6 +83,18 @@ function wordpointstests_simulate_points_hooks_usage() {
 	wp_set_current_user( $user->ID );
 	$periodic_hook->hook();
 	wp_set_current_user( $current_user_id );
+
+	wordpoints_hooks()->get_reaction_store( 'points' )->create_reaction(
+		array(
+			'reactor' => 'points',
+			'event' => 'user_register',
+			'target' => array( 'user' ),
+			'points' => 10,
+			'points_type' => 'points',
+			'log_text' => 'Registered.',
+			'description' => 'Registration.',
+		)
+	);
 }
 
 // Include the test functions so we can simulate adding points hooks and widgets.
@@ -115,9 +127,11 @@ if ( is_multisite() && is_wordpoints_network_active() ) {
 	unset( $GLOBALS['_wp_switched_stack'] );
 	$GLOBALS['switched'] = false;
 
+	wordpoints_hooks()->set_current_mode( 'network' );
 	WordPoints_Points_Hooks::set_network_mode( true );
 	wordpointstests_simulate_points_hooks_usage();
 	WordPoints_Points_Hooks::set_network_mode( false );
+	wordpoints_hooks()->set_current_mode( 'standard' );
 
 } else {
 

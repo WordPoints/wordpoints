@@ -86,6 +86,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_points_types',
 				'wordpoints_default_points_type',
 				'wordpoints_points_types_hooks',
+				'wordpoints_legacy_points_hooks_disabled',
+				'wordpoints_imported_points_hooks',
 			),
 			'points_hooks' => array(
 				'wordpoints_registration_points_hook',

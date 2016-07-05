@@ -92,6 +92,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_active_components',
 				'wordpoints_excluded_users',
 				'wordpoints_incompatible_modules',
+				'wordpoints_hook_reaction-%',
+				'wordpoints_hook_reaction_index-%',
+				'wordpoints_hook_reaction_last_id-%',
 			),
 		),
 	);

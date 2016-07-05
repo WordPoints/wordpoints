@@ -110,6 +110,11 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 
 		$this->assertInternalType( 'array', $active_components );
 
+		// Check that the tables were added.
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_hook_hits' );
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_hook_hitmeta' );
+		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_hook_periods' );
+
 		$this->assertPointsComponentInstalled( $active_components );
 
 		/**
@@ -153,6 +158,10 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		);
 
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );
+
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_hook_hits' );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_hook_hitmeta' );
+		$this->assertTableNotExists( $wpdb->base_prefix . 'wordpoints_hook_periods' );
 
 		if ( is_multisite() ) {
 

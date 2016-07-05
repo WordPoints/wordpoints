@@ -21,8 +21,6 @@
  */
 function wordpointstests_simulate_usage() {
 
-	global $wp_test_factory;
-
 	// Add each of our widgets.
 	wordpointstests_add_widget( 'wordpoints_points_widget' );
 	wordpointstests_add_widget( 'wordpoints_top_users_widget' );
@@ -37,22 +35,7 @@ function wordpointstests_simulate_usage() {
 		)
 	);
 
-	// Add each of our points hooks.
-	wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
-	wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
-	wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
-	$periodic_hook = wordpointstests_add_points_hook( 'wordpoints_periodic_points_hook' );
-
-	// Award some points to a user.
-	$user = $wp_test_factory->user->create_and_get();
-
-	wordpoints_add_points( $user->ID, 10, 'points', 'test', array( 'a' => 'a', 'b' => 'b' ) );
-
-	// Fire the periodic points hook.
-	$current_user_id = get_current_user_id();
-	wp_set_current_user( $user->ID );
-	$periodic_hook->hook();
-	wp_set_current_user( $current_user_id );
+	wordpointstests_simulate_points_hooks_usage();
 
 	// Add a rank group.
 	WordPoints_Rank_Groups::register_group(
@@ -65,6 +48,41 @@ function wordpointstests_simulate_usage() {
 	WordPoints_Rank_Groups::register_type_for_group( 'test', 'test' );
 
 	wordpoints_add_rank( 'Test', 'test', 'test', 1, array( 'testing' => true ) );
+}
+
+/**
+ * Simulate points hook usage.
+ *
+ * @since 2.1.0
+ */
+function wordpointstests_simulate_points_hooks_usage() {
+
+	global $wp_test_factory;
+
+	// Add each of our points hooks.
+	wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
+	wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+	wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
+	$periodic_hook = wordpointstests_add_points_hook(
+		'wordpoints_periodic_points_hook'
+	);
+
+	// Award some points to a user.
+	$user = $wp_test_factory->user->create_and_get();
+
+	wordpoints_add_points(
+		$user->ID
+		, 10
+		, 'points'
+		, 'test'
+		, array( 'a' => 'a', 'b' => 'b' )
+	);
+
+	// Fire the periodic points hook.
+	$current_user_id = get_current_user_id();
+	wp_set_current_user( $user->ID );
+	$periodic_hook->hook();
+	wp_set_current_user( $current_user_id );
 }
 
 // Include the test functions so we can simulate adding points hooks and widgets.
@@ -96,6 +114,10 @@ if ( is_multisite() && is_wordpoints_network_active() ) {
 	// See http://wordpress.stackexchange.com/a/89114/27757
 	unset( $GLOBALS['_wp_switched_stack'] );
 	$GLOBALS['switched'] = false;
+
+	WordPoints_Points_Hooks::set_network_mode( true );
+	wordpointstests_simulate_points_hooks_usage();
+	WordPoints_Points_Hooks::set_network_mode( false );
 
 } else {
 

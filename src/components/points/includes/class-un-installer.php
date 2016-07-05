@@ -80,6 +80,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_top_users_widget',
 				'wordpoints_points_widget',
 			),
+			'options' => array(
+				'wordpoints_%_hook_legacy',
+			),
 		),
 		'universal' => array(
 			'options' => array(
@@ -92,7 +95,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			'points_hooks' => array(
 				'wordpoints_registration_points_hook',
 				'wordpoints_post_points_hook',
+				'wordpoints_post_delete_points_hook',
 				'wordpoints_comment_points_hook',
+				'wordpoints_comment_removed_points_hook',
 				'wordpoints_periodic_points_hook',
 				'wordpoints_comment_received_points_hook',
 			),

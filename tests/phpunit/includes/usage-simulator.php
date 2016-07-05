@@ -21,6 +21,8 @@
  */
 function wordpointstests_simulate_usage() {
 
+	global $wp_test_factory;
+
 	// Add each of our widgets.
 	wordpointstests_add_widget( 'wordpoints_points_widget' );
 	wordpointstests_add_widget( 'wordpoints_top_users_widget' );
@@ -33,6 +35,17 @@ function wordpointstests_simulate_usage() {
 			'prefix' => '$',
 			'suffix' => 'pts.',
 		)
+	);
+
+	// Award some points to a user.
+	$user = $wp_test_factory->user->create_and_get();
+
+	wordpoints_add_points(
+		$user->ID
+		, 10
+		, 'points'
+		, 'test'
+		, array( 'a' => 'a', 'b' => 'b' )
 	);
 
 	wordpointstests_simulate_points_hooks_usage();
@@ -62,21 +75,14 @@ function wordpointstests_simulate_points_hooks_usage() {
 	// Add each of our points hooks.
 	wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
 	wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
+	wordpointstests_add_points_hook( 'wordpoints_post_delete_points_hook' );
 	wordpointstests_add_points_hook( 'wordpoints_comment_points_hook' );
+	wordpointstests_add_points_hook( 'wordpoints_comment_remove_points_hook' );
 	$periodic_hook = wordpointstests_add_points_hook(
 		'wordpoints_periodic_points_hook'
 	);
 
-	// Award some points to a user.
 	$user = $wp_test_factory->user->create_and_get();
-
-	wordpoints_add_points(
-		$user->ID
-		, 10
-		, 'points'
-		, 'test'
-		, array( 'a' => 'a', 'b' => 'b' )
-	);
 
 	// Fire the periodic points hook.
 	$current_user_id = get_current_user_id();

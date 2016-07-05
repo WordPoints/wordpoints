@@ -22,6 +22,28 @@
 class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
+	 * Test the defaults.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_defaults() {
+
+		$hook = wordpointstests_add_points_hook( 'wordpoints_periodic_points_hook' );
+
+		$this->assertInstanceOf( 'WordPoints_Periodic_Points_Hook', $hook );
+	
+		$this->assertEquals(
+			array(
+				1 => array(
+					'points' => 10,
+					'period' => DAY_IN_SECONDS,
+				),
+			)
+			, $hook->get_instances()
+		);
+	}
+	
+	/**
 	 * Test the points are awarded.
 	 *
 	 * @since 1.3.0

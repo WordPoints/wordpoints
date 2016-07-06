@@ -108,6 +108,9 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			'comment_meta' => array(
 				'wordpoints_last_status-%',
 			),
+			'meta_boxes' => array(
+				'wordpoints_points_types' => array(),
+			),
 		),
 	);
 

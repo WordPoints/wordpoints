@@ -41,6 +41,7 @@
  * @method uninstall_custom_caps()
  * @method uninstall_()
  * @method uninstall_metadata()
+ * @method uninstall_meta_boxes()
  * @method uninstall_option()
  * @method uninstall_widget()
  * @method uninstall_points_hook()

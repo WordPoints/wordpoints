@@ -1437,6 +1437,56 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test preparing a meta box for uninstall.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_meta_boxes
+	 */
+	public function test_prepare_uninstall_meta_boxes() {
+
+		$meta_box = array( 'screen_id' => array(), );
+
+		$this->un_installer->uninstall['universal']['meta_boxes'] = $meta_box;
+		$this->un_installer->prepare_uninstall_meta_boxes();
+
+		$this->assertEquals(
+			array(
+				'global'    => array( 'meta_boxes' => $meta_box ),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test that meta boxes are prepared before uninstall.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 */
+	public function test_prepare_meta_boxes_before_uninstall() {
+
+		$meta_box = array( 'screen_id' => array(), );
+
+		$this->un_installer->uninstall['universal']['meta_boxes'] = $meta_box;
+		$this->un_installer->before_uninstall();
+
+		$this->assertEquals(
+			array(
+				'single' => array( 'meta_boxes' => $meta_box ),
+				'site' => array(),
+				'network' => array( 'meta_boxes' => $meta_box ),
+				'local' => array(),
+				'global' => array( 'meta_boxes' => $meta_box ),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
 	 * Test mapping an uninstall shortcut.
 	 *
 	 * @since 2.0.0
@@ -1916,6 +1966,136 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->uninstall_( 'site' );
 
 		$this->assertEmpty( get_comment_meta( $comment_id, __METHOD__ ) );
+	}
+
+	/**
+	 * Test uninstalling meta boxes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall_meta_boxes( 'screen_id', array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes with a custom parent page.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes_custom_parent() {
+
+		$parent = 'parent_screen';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall_meta_boxes(
+			'screen_id'
+			, array( 'parent' => $parent )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes with custom options.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes_custom_options() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "option_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall_meta_boxes(
+			'screen_id'
+			, array( 'options' => array( 'option' ) )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "option_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_
+	 */
+	public function test_uninstall__meta_boxes() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall['site']['meta_boxes'] = array(
+			'screen_id' => array()
+		);
+
+		$this->un_installer->uninstall_( 'site' );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
 	}
 
 	/**

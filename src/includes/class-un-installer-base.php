@@ -175,6 +175,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * List of things to uninstall.
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 Added support for uninstalling meta boxes.
 	 *
 	 * @type array[] $uninstall {
 	 *       Different kinds of things to uninstall.
@@ -197,6 +198,15 @@ abstract class WordPoints_Un_Installer_Base {
 	 *                                          DB prefix will be prepended.
 	 *             @type string[] $comment_meta A list of keys for comment metadata
 	 *                                          to delete.
+	 *             @type array[]  $meta_boxes {
+	 *                   Admin screens with meta boxes to uninstall, keyed by screen slug.
+	 *
+	 *                   @type string   $parent  The slug of the parent screen.
+	 *                                           Defaults to 'wordpoints'. Use
+	 *                                           'toplevel' if no parent.
+	 *                   @type string[] $options Extra meta box options provided by
+	 *                                           this screen.
+	 *             }
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
 	 *                           network. See $single for list of keys. Note that
@@ -1123,6 +1133,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->maybe_load_custom_caps();
 
 		$this->prepare_uninstall_list_tables();
+		$this->prepare_uninstall_meta_boxes();
 		$this->map_uninstall_shortcut( 'widgets', 'options', array( 'prefix' => 'widget_' ) );
 		$this->map_uninstall_shortcut( 'points_hooks', 'options', array( 'prefix' => 'wordpoints_hook-' ) );
 
@@ -1216,6 +1227,27 @@ abstract class WordPoints_Un_Installer_Base {
 				$this->uninstall['network']['user_meta'][] = "{$site_parent}_{$screen_id}_{$option}";
 				$this->uninstall['network']['user_meta'][] = "{$args['parent']}_{$screen_id}_network_{$option}";
 			}
+		}
+	}
+
+	/**
+	 * Prepare to uninstall meta boxes.
+	 *
+	 * Screen options are retrieved with get_user_option(), however, they are saved
+	 * by update_user_option() with the $global argument set to true. Because of
+	 * this, even on multisite, they are saved like regular user metadata, which is
+	 * network wide, *not* prefixed for each site.
+	 *
+	 * So we only need to run the meta box uninstall for network and single (i.e.,
+	 * "global"), even if the screen is "universal".
+	 *
+	 * @since 2.1.0
+	 */
+	public function prepare_uninstall_meta_boxes() {
+
+		if ( isset( $this->uninstall['universal']['meta_boxes'] ) ) {
+			$this->uninstall['global']['meta_boxes'] = $this->uninstall['universal']['meta_boxes'];
+			unset( $this->uninstall['universal']['meta_boxes'] );
 		}
 	}
 
@@ -1397,7 +1429,13 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$uninstall = array_merge(
-			array( 'user_meta' => array(), 'options' => array(), 'tables' => array(), 'comment_meta' => array() )
+			array(
+				'user_meta'    => array(),
+				'options'      => array(),
+				'tables'       => array(),
+				'comment_meta' => array(),
+				'meta_boxes'   => array(),
+			)
 			, $this->uninstall[ $type ]
 		);
 
@@ -1419,6 +1457,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['comment_meta'] as $meta_key ) {
 			$this->uninstall_metadata( 'comment', $meta_key );
+		}
+
+		foreach ( $uninstall['meta_boxes'] as $screen_id => $args ) {
+			$this->uninstall_meta_boxes( $screen_id, $args );
 		}
 	}
 
@@ -1471,6 +1513,63 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $keys as $key ) {
 			delete_metadata( $type, 0, wp_slash( $key ), '', true );
+		}
+	}
+
+	/**
+	 * Uninstall a screen with meta boxes.
+	 *
+	 * Any admin screen that uses meta boxes also will automatically have certain
+	 * screen options associated with it. Each user is able to configure these
+	 * options for themselves, and this is saved as user metadata.
+	 *
+	 * The default options currently are:
+	 * - Hidden meta boxes.
+	 * - Closed meta boxes.
+	 * - Reordered meta boxes.
+	 *
+	 * This function will automatically remove all of these.
+	 *
+	 * A note on screen options: they are retrieved with get_user_option(), however,
+	 * they are saved by update_user_option() with the $global argument set to true.
+	 * Because of this, even on multisite, they are saved like regular user metadata,
+	 * which is network wide, *not* prefixed for each site.
+	 *
+	 * @param string $screen_id The screen ID.
+	 * @param array  $args {
+	 *        Other args.
+	 *
+	 *        @type string   $parent  The parent screen slug, or 'toplevel' if none.
+	 *                                Defaults to 'wordpoints'.
+	 *        @type string[] $options The list of options to delete. Defaults to
+	 *                                'closedpostboxes', 'metaboxhidden',
+	 *                                'meta-box-order'.
+	 * }
+	 */
+	protected function uninstall_meta_boxes( $screen_id, $args ) {
+
+		$defaults = array(
+			'parent' => 'wordpoints',
+			'options' => array( 'closedpostboxes', 'metaboxhidden', 'meta-box-order' ),
+		);
+
+		$args = array_merge( $defaults, $args );
+		$args['options'] = array_merge( $defaults['options'], $args['options'] );
+
+		// Each user gets to set the options to their liking.
+		foreach ( $args['options'] as $option ) {
+
+			$this->uninstall_metadata(
+				'user'
+				, "{$option}_{$args['parent']}_page_{$screen_id}"
+			);
+
+			if ( 'network' === $this->context ) {
+				$this->uninstall_metadata(
+					'user'
+					, "{$option}_{$args['parent']}_page_{$screen_id}-network"
+				);
+			}
 		}
 	}
 

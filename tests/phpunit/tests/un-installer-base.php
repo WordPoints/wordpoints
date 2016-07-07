@@ -1438,7 +1438,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @covers prepare_uninstall_non_per_site_items::prepare_uninstall_no_site_items
+	 * @covers prepare_uninstall_non_per_site_items::prepare_uninstall_non_per_site_items
 	 */
 	public function test_prepare_uninstall_non_per_site_items() {
 

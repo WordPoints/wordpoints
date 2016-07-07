@@ -15,14 +15,14 @@ Gamify your site with points.
 = Features =
 
 This plugin lets you create one or multiple types of points which you can use to
-reward your users by "hooking into" different user actions. It also includes
+reward your users when certain events occur on your site. It also includes
 a Ranks component, which lets you create ranks for your users based on how many
 points they have.
 
 You can currently award points to users for:
 
 * Registration
-* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is deleted.
+* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is removed.
 * Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
 * Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
 

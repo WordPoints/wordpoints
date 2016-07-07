@@ -68,9 +68,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected $uninstall = array(
-		'list_tables' => array(
-			'wordpoints_modules' => array(),
-		),
 		'network' => array(
 			'options' => array(
 				'wordpoints_sitewide_active_modules',
@@ -97,6 +94,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_hook_reaction-%',
 				'wordpoints_hook_reaction_index-%',
 				'wordpoints_hook_reaction_last_id-%',
+			),
+			'list_tables' => array(
+				'wordpoints_modules' => array(),
 			),
 		),
 	);

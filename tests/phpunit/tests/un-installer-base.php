@@ -1357,12 +1357,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
 	 */
 	public function test_prepare_uninstall_list_tables() {
 
 		$list_table = array(
 			'screen_id' => array(
-				'parent' => 'parent_screen',
+				'parent' => 'parent_page',
 				'options' => array( 'an_option' ),
 			),
 		);
@@ -1370,48 +1372,21 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->uninstall['list_tables'] = $list_table;
 		$this->un_installer->prepare_uninstall_list_tables();
 
-		$this->assertListTablePrepared( $list_table );
-	}
-
-	/**
-	 * Test the default list table args used when preparing for uninstall.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
-	 */
-	public function test_prepare_uninstall_list_tables_defaults() {
-
-		$list_table = array( 'screen_id' => array() );
-
-		$this->un_installer->uninstall['list_tables'] = $list_table;
-		$this->un_installer->prepare_uninstall_list_tables();
-
-		$this->assertListTableHiddenColumnsPrepared( 'screen_id', 'wordpoints_page' );
-		$this->assertListTableOptionPrepared( 'screen_id', 'wordpoints_page', 'per_page' );
-	}
-
-	/**
-	 * Test that the wordpoints_modules screen receives special handling.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
-	 */
-	public function test_prepare_uninstall_list_tables_wordpoints_modules() {
-
-		$list_table = array( 'wordpoints_modules' => array() );
-
-		$this->un_installer->uninstall['list_tables'] = $list_table;
-		$this->un_installer->prepare_uninstall_list_tables();
-
-		$this->assertContains( 'managewordpoints_page_wordpoints_modulescolumnshidden', $this->un_installer->uninstall['single']['user_meta'] );
-		$this->assertContains( 'managetoplevel_page_wordpoints_modulescolumnshidden', $this->un_installer->uninstall['network']['user_meta'] );
-		$this->assertContains( 'managewordpoints_page_wordpoints_modules-networkcolumnshidden', $this->un_installer->uninstall['network']['user_meta'] );
-
-		$this->assertContains( 'wordpoints_page_wordpoints_modules_per_page', $this->un_installer->uninstall['single']['user_meta'] );
-		$this->assertContains( 'toplevel_page_wordpoints_modules_per_page', $this->un_installer->uninstall['network']['user_meta'] );
-		$this->assertContains( 'wordpoints_page_wordpoints_modules_network_per_page', $this->un_installer->uninstall['network']['user_meta'] );
+		$this->assertEquals(
+			array(
+				'global' => array(
+					'list_tables' => array(
+						'screen_id' => array(
+							'parent' => 'parent',
+							'options' => array( 'an_option' ),
+						),
+					),
+				),
+				'universal' => array(),
+				'list_tables' => $list_table,
+			)
+			, $this->un_installer->uninstall
+		);
 	}
 
 	/**
@@ -1420,12 +1395,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
 	 */
 	public function test_prepare_list_tables_before_uninstall() {
 
 		$list_table = array(
 			'screen_id' => array(
-				'parent' => 'parent_screen',
+				'parent' => 'parent_page',
 				'options' => array( 'an_option' ),
 			),
 		);
@@ -1433,27 +1410,49 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->uninstall['list_tables'] = $list_table;
 		$this->un_installer->before_uninstall();
 
-		$this->assertListTablePrepared( $list_table );
-	}
-
-	/**
-	 * Test preparing a meta box for uninstall.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_meta_boxes
-	 */
-	public function test_prepare_uninstall_meta_boxes() {
-
-		$meta_box = array( 'screen_id' => array(), );
-
-		$this->un_installer->uninstall['universal']['meta_boxes'] = $meta_box;
-		$this->un_installer->prepare_uninstall_meta_boxes();
+		$array = array(
+			'list_tables' => array(
+				'screen_id' => array(
+					'parent'  => 'parent',
+					'options' => array( 'an_option' ),
+				),
+			),
+		);
 
 		$this->assertEquals(
 			array(
-				'global'    => array( 'meta_boxes' => $meta_box ),
 				'universal' => array(),
+				'single' => $array,
+				'site' => array(),
+				'network' => $array,
+				'global' => $array,
+				'local' => array(),
+				'list_tables' => $list_table,
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test preparing a non per-site items for uninstall.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers prepare_uninstall_non_per_site_items::prepare_uninstall_no_site_items
+	 */
+	public function test_prepare_uninstall_non_per_site_items() {
+
+		$this->un_installer->uninstall['universal']['key'] = 'data';
+		$this->un_installer->uninstall['site']['key'] = 'other';
+
+		$this->un_installer->prepare_uninstall_non_per_site_items( 'key' );
+
+		$this->assertEquals(
+			array(
+				'network'   => array( 'key' => 'other' ),
+				'global'    => array( 'key' => 'data' ),
+				'universal' => array(),
+				'site'      => array(),
 			)
 			, $this->un_installer->uninstall
 		);
@@ -2095,6 +2094,220 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		);
 		$this->assertEmpty(
 			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables in network context.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table_network_context() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables with a custom parent page.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table_custom_parent() {
+
+		$parent = 'parent';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table(
+			$screen_id
+			, array( 'parent' => $parent )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_modules screen receives special handling.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_modules() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'wordpoints_modules';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_modules screen receives special handling.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_modules_multisite() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'wordpoints_modules';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page", 'test' );
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables with custom options.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table_custom_options() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_option", 'test' );
+
+		$this->un_installer->uninstall_list_table(
+			'screen_id'
+			, array( 'options' => array( 'option' ) )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_option" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_
+	 */
+	public function test_uninstall__list_table() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall['single']['list_tables'] = array(
+			$screen_id => array()
+		);
+
+		$this->un_installer->uninstall_( 'single' );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
 		);
 	}
 

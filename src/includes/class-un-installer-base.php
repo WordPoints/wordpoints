@@ -176,17 +176,13 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @since 2.0.0
 	 * @since 2.1.0 Added support for uninstalling meta boxes.
+	 * @since 2.1.0 Deprecated $list_tables in favor of $*['list_tables'].
 	 *
 	 * @type array[] $uninstall {
 	 *       Different kinds of things to uninstall.
 	 *
-	 *       @type array[] $list_tables {
-	 *             List tables to uninstall, keyed by screen slug.
-	 *
-	 *             @type string   $parent  The slug of the parent screen.
-	 *             @type string[] $options The options provided by this screen.
-	 *                                     Defaults to [ 'per_page' ].
-	 *       }
+	 *       @type array[] $list_tables Deprecated. Use the list tables key in one of
+	 *                                  the below options instead.
 	 *       @type array[] $single {
 	 *             Things to be uninstalled on a single site (non-multisite) install.
 	 *
@@ -206,6 +202,13 @@ abstract class WordPoints_Un_Installer_Base {
 	 *                                           'toplevel' if no parent.
 	 *                   @type string[] $options Extra meta box options provided by
 	 *                                           this screen.
+	 *             }
+	 *             @type array[] $list_tables {
+	 *                   Admin screens with list tables to uninstall, keyed by screen slug.
+	 *
+	 *                   @type string   $parent  The slug of the parent screen.
+	 *                   @type string[] $options The options provided by this screen.
+	 *                                           Defaults to [ 'per_page' ].
 	 *             }
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
@@ -1133,7 +1136,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->maybe_load_custom_caps();
 
 		$this->prepare_uninstall_list_tables();
-		$this->prepare_uninstall_meta_boxes();
+		$this->prepare_uninstall_non_per_site_items( 'meta_boxes' );
 		$this->map_uninstall_shortcut( 'widgets', 'options', array( 'prefix' => 'widget_' ) );
 		$this->map_uninstall_shortcut( 'points_hooks', 'options', array( 'prefix' => 'wordpoints_hook-' ) );
 
@@ -1195,59 +1198,58 @@ abstract class WordPoints_Un_Installer_Base {
 			return;
 		}
 
-		// We define the default args outside the loop, for micro-optimization.
-		$defaults = array(
-			'parent' => 'wordpoints_page',
-			'options' => array( 'per_page' ),
+		_deprecated_argument(
+			__METHOD__
+			, '2.1.0'
+			, '$this->uninstall["list_tables"] is deprecated,'
+				. ' use $this->uninstall[*]["list_tables"] instead.'
 		);
 
 		// Loop through all of the list table screens.
 		foreach ( $this->uninstall['list_tables'] as $screen_id => $args ) {
 
-			$args = array_merge( $defaults, $args );
-
-			// The parent page is usually the same on a multisite site...
-			$site_parent = $args['parent'];
-
-			// ...But we need to handle the special case of the modules screen.
-			if ( 'wordpoints_modules' === $screen_id ) {
-				$site_parent = 'toplevel_page';
+			// Back-compat for pre-2.1.0.
+			if ( isset( $args['parent'] ) && '_page' === substr( $args['parent'], -5 /* _page */ ) ) {
+				$args['parent'] = substr( $args['parent'], 0, -5 );
 			}
 
-			// Each user can hide specific columns of the table.
-			$this->uninstall['single']['user_meta'][]  = "manage{$args['parent']}_{$screen_id}columnshidden";
-			$this->uninstall['network']['user_meta'][] = "manage{$site_parent}_{$screen_id}columnshidden";
-			$this->uninstall['network']['user_meta'][] = "manage{$args['parent']}_{$screen_id}-networkcolumnshidden";
-
-			// Loop through each of the other options provided by this list table.
-			foreach ( $args['options'] as $option ) {
-
-				// Each user gets to set the options to their liking.
-				$this->uninstall['single']['user_meta'][]  = "{$args['parent']}_{$screen_id}_{$option}";
-				$this->uninstall['network']['user_meta'][] = "{$site_parent}_{$screen_id}_{$option}";
-				$this->uninstall['network']['user_meta'][] = "{$args['parent']}_{$screen_id}_network_{$option}";
-			}
+			$this->uninstall['universal']['list_tables'][ $screen_id ] = $args;
 		}
+
+		$this->prepare_uninstall_non_per_site_items( 'list_tables' );
 	}
 
 	/**
-	 * Prepare to uninstall meta boxes.
+	 * Prepare to uninstall items which don't need to be uninstalled per-site.
 	 *
 	 * Screen options are retrieved with get_user_option(), however, they are saved
 	 * by update_user_option() with the $global argument set to true. Because of
 	 * this, even on multisite, they are saved like regular user metadata, which is
 	 * network wide, *not* prefixed for each site.
 	 *
-	 * So we only need to run the meta box uninstall for network and single (i.e.,
-	 * "global"), even if the screen is "universal".
+	 * So we only need to run the meta box and list table uninstall for network and
+	 * single (i.e.,  "global"), even if the screen is "universal".
 	 *
 	 * @since 2.1.0
+	 *
+	 * @param string $items_key The key name of the items in the uninstall[*] arrays.
 	 */
-	public function prepare_uninstall_meta_boxes() {
+	protected function prepare_uninstall_non_per_site_items( $items_key) {
 
-		if ( isset( $this->uninstall['universal']['meta_boxes'] ) ) {
-			$this->uninstall['global']['meta_boxes'] = $this->uninstall['universal']['meta_boxes'];
-			unset( $this->uninstall['universal']['meta_boxes'] );
+		if ( isset( $this->uninstall['universal'][ $items_key ] ) ) {
+
+			$this->uninstall['global'][ $items_key ]
+				= $this->uninstall['universal'][ $items_key ];
+
+			unset( $this->uninstall['universal'][ $items_key ] );
+		}
+
+		if ( isset( $this->uninstall['site'][ $items_key ] ) ) {
+
+			$this->uninstall['network'][ $items_key ]
+				= $this->uninstall['site'][ $items_key ];
+
+			unset( $this->uninstall['site'][ $items_key ] );
 		}
 	}
 
@@ -1435,6 +1437,7 @@ abstract class WordPoints_Un_Installer_Base {
 				'tables'       => array(),
 				'comment_meta' => array(),
 				'meta_boxes'   => array(),
+				'list_tables'  => array(),
 			)
 			, $this->uninstall[ $type ]
 		);
@@ -1461,6 +1464,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['meta_boxes'] as $screen_id => $args ) {
 			$this->uninstall_meta_boxes( $screen_id, $args );
+		}
+
+		foreach ( $uninstall['list_tables'] as $screen_id => $args ) {
+			$this->uninstall_list_table( $screen_id, $args );
 		}
 	}
 
@@ -1570,6 +1577,80 @@ abstract class WordPoints_Un_Installer_Base {
 					, "{$option}_{$args['parent']}_page_{$screen_id}-network"
 				);
 			}
+		}
+	}
+
+	/**
+	 * Uninstall list tables.
+	 *
+	 * Any admin screen that uses list tables also will automatically have certain
+	 * screen options associated with it. Each user is able to configure these
+	 * options for themselves, and this is saved as user metadata.
+	 *
+	 * List tables have two main configuration options, which are both saves as user
+	 * metadata:
+	 * - Hidden Columns
+	 * - Screen Options
+	 *
+	 * The hidden columns metadata is removed by default, as well as the 'per_page'
+	 * screen options.
+	 *
+	 * A note on screen options: they are retrieved with get_user_option(), however,
+	 * they are saved by update_user_option() with the $global argument set to true.
+	 * Because of this, even on multisite, they are saved like regular user metadata,
+	 * which is network wide, *not* prefixed for each site.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $screen_id The screen ID.
+	 * @param array  $args {
+	 *        Other args.
+	 *
+	 *        @type string   $parent  The parent screen slug, or 'toplevel' if none.
+	 *                                Defaults to 'wordpoints'.
+	 *        @type string[] $options The list of options to delete. Defaults to
+	 *                                'per_page'.
+	 * }
+	 */
+	protected function uninstall_list_table( $screen_id, $args ) {
+
+		$defaults = array(
+			'parent' => 'wordpoints',
+			'options' => array( 'per_page' ),
+		);
+
+		$args = array_merge( $defaults, $args );
+
+		$parent = $network_parent = $args['parent'];
+
+		// The parent page is usually the same on a multisite site, but we need to
+		// handle the special case of the modules screen.
+		if ( 'wordpoints_modules' === $screen_id && is_multisite() ) {
+			$parent = 'toplevel';
+		}
+
+		$meta_keys = array();
+
+		// Each user can hide specific columns of the table.
+		$meta_keys[] = "manage{$parent}_page_{$screen_id}columnshidden";
+
+		if ( 'network' === $this->context ) {
+			$meta_keys[] = "manage{$network_parent}_page_{$screen_id}-networkcolumnshidden";
+		}
+
+		// Loop through each of the other options provided by this list table.
+		foreach ( $args['options'] as $option ) {
+
+			// Each user gets to set the options to their liking.
+			$meta_keys[]  = "{$parent}_page_{$screen_id}_{$option}";
+
+			if ( 'network' === $this->context ) {
+				$meta_keys[] = "{$network_parent}_page_{$screen_id}_network_{$option}";
+			}
+		}
+
+		foreach ( $meta_keys as $meta_key ) {
+			$this->uninstall_metadata( 'user', $meta_key );
 		}
 	}
 

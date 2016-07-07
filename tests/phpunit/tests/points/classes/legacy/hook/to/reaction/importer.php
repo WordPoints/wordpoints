@@ -1,28 +1,20 @@
 <?php
 
 /**
- * Test case for the points component update to 2.1.0.
+ * Test case for WordPoints_Points_Legacy_Hook_To_Reaction_Importer.
  *
  * @package WordPoints\PHPUnit\Tests
  * @since 2.1.0
  */
 
 /**
- * Tests WordPoints_Hooks_API_Un_Installer.
+ * Tests WordPoints_Points_Legacy_Hook_To_Reaction_Importer.
  *
  * @since 2.1.0
  *
- * @covers WordPoints_Points_Un_Installer::update_network_to_2_1_0
- * @covers WordPoints_Points_Un_Installer::update_single_to_2_1_0
- * @covers WordPoints_Points_Un_Installer::update_site_to_2_1_0
  * @covers WordPoints_Points_Legacy_Hook_To_Reaction_Importer
  */
-class WordPoints_Points_2_1_0_Update_Test extends WordPoints_Points_UnitTestCase {
-
-	/**
-	 * @since 2.1.0
-	 */
-	protected $previous_version = '2.0.0';
+class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints_Points_UnitTestCase {
 
 	/**
 	 * Test that it imports legacy points hooks on install.
@@ -46,7 +38,7 @@ class WordPoints_Points_2_1_0_Update_Test extends WordPoints_Points_UnitTestCase
 			, $handler->get_instances( 'standard' )
 		);
 
-		$this->update_component();
+		$this->import();
 
 		$this->assertEquals(
 			array( 'points' => array() )
@@ -283,7 +275,7 @@ class WordPoints_Points_2_1_0_Update_Test extends WordPoints_Points_UnitTestCase
 			, $handler->get_instances( 'standard' )
 		);
 
-		$this->update_component();
+		$this->import();
 
 		$this->assertEquals(
 			array( 'points' => array( "{$hook_type}-1" ) )
@@ -357,7 +349,7 @@ class WordPoints_Points_2_1_0_Update_Test extends WordPoints_Points_UnitTestCase
 			, $handler->get_instances( 'standard' )
 		);
 
-		$this->update_component();
+		$this->import();
 
 		$this->assertEquals(
 			array( 'points' => array() )
@@ -449,7 +441,7 @@ class WordPoints_Points_2_1_0_Update_Test extends WordPoints_Points_UnitTestCase
 			, $handler->get_instances( 'standard' )
 		);
 
-		$this->update_component();
+		$this->import();
 
 		$this->assertEquals(
 			array( 'points' => array() )
@@ -535,6 +527,123 @@ class WordPoints_Points_2_1_0_Update_Test extends WordPoints_Points_UnitTestCase
 			$hook_type
 			, get_option( 'wordpoints_legacy_points_hooks_disabled' )
 		);
+	}
+
+	//
+	// Helpers
+	//
+
+	/**
+	 * Run an import of the core hooks.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function import() {
+
+		$this->import_legacy_points_hooks();
+
+		if ( is_wordpoints_network_active() ) {
+
+			WordPoints_Points_Hooks::set_network_mode( true );
+			wordpoints_hooks()->set_current_mode( 'network' );
+
+			$this->import_legacy_points_hooks();
+
+			WordPoints_Points_Hooks::set_network_mode( false );
+			wordpoints_hooks()->set_current_mode( 'standard' );
+		}
+	}
+
+	/**
+	 * Import legacy points hooks to the new hooks API.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function import_legacy_points_hooks() {
+
+		$this->import_legacy_points_hook(
+			'registration',
+			'user_register',
+			array( 'points' => true ),
+			'register',
+			array( 'user' )
+		);
+
+		$this->import_legacy_points_hook(
+			'post',
+			'post_publish\post',
+			array(
+				'points'       => true,
+				'post_type'    => true,
+				'auto_reverse' => true,
+			),
+			'post_publish',
+			array( 'post\post', 'author', 'user' )
+		);
+
+		$this->import_legacy_points_hook(
+			'comment',
+			'comment_leave\post',
+			array(
+				'points'       => true,
+				'post_type'    => true,
+				'auto_reverse' => true,
+			),
+			'comment_approve',
+			array( 'comment\post', 'author', 'user' )
+		);
+
+		$this->import_legacy_points_hook(
+			'comment_received',
+			'comment_leave\post',
+			array(
+				'points'       => true,
+				'post_type'    => true,
+				'auto_reverse' => true,
+			),
+			'comment_received',
+			array( 'comment\post', 'post\post', 'post\post', 'author', 'user' )
+		);
+
+		$this->import_legacy_points_hook(
+			'periodic',
+			'user_visit',
+			array( 'points' => true, 'period' => true ),
+			'periodic',
+			array( 'current:user' )
+		);
+	}
+
+	/**
+	 * Import a legacy points hook.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $legacy_slug       The legacy hook slug.
+	 * @param string $event_slug        The slug of the event to use when converting
+	 *                                  the hook to a reaction.
+	 * @param array  $expected_settings The expected settings for this hook.
+	 * @param string $legacy_log_type   The legacy log type.
+	 * @param array  $target            The target to use when converting the hook to
+	 *                                  a reaction.
+	 */
+	protected function import_legacy_points_hook(
+		$legacy_slug,
+		$event_slug,
+		$expected_settings,
+		$legacy_log_type,
+		$target
+	) {
+
+		$importer = new WordPoints_Points_Legacy_Hook_To_Reaction_Importer(
+			"wordpoints_{$legacy_slug}_points_hook"
+			, $event_slug
+			, $expected_settings
+			, $legacy_log_type
+			, $target
+		);
+
+		$importer->import();
 	}
 
 	//

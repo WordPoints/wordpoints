@@ -1363,6 +1363,14 @@ function wordpoints_register_points_hooks() {
 	WordPoints_Points_Hooks::register( 'WordPoints_Periodic_Points_Hook' );
 	WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
 	WordPoints_Points_Hooks::register( 'WordPoints_Registration_Points_Hook' );
+
+	if ( get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+		WordPoints_Points_Hooks::register( 'WordPoints_Post_Delete_Points_Hook' );
+	}
+
+	if ( get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+		WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
+	}
 }
 
 // EOF

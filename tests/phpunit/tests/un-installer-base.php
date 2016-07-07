@@ -1467,7 +1467,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 */
 	public function test_prepare_meta_boxes_before_uninstall() {
 
-		$meta_box = array( 'screen_id' => array(), );
+		$meta_box = array( 'screen_id' => array() );
 
 		$this->un_installer->uninstall['universal']['meta_boxes'] = $meta_box;
 		$this->un_installer->before_uninstall();
@@ -2123,7 +2123,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
 
 		$this->un_installer->uninstall['site']['meta_boxes'] = array(
-			'screen_id' => array()
+			'screen_id' => array(),
 		);
 
 		$this->un_installer->uninstall_( 'site' );
@@ -2340,7 +2340,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
 
 		$this->un_installer->uninstall['single']['list_tables'] = array(
-			$screen_id => array()
+			$screen_id => array(),
 		);
 
 		$this->un_installer->uninstall_( 'single' );

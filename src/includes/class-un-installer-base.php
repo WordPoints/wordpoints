@@ -1201,8 +1201,7 @@ abstract class WordPoints_Un_Installer_Base {
 		_deprecated_argument(
 			__METHOD__
 			, '2.1.0'
-			, '$this->uninstall["list_tables"] is deprecated,'
-				. ' use $this->uninstall[*]["list_tables"] instead.'
+			, '$this->uninstall["list_tables"] is deprecated, use $this->uninstall[*]["list_tables"] instead.'
 		);
 
 		// Loop through all of the list table screens.
@@ -1234,7 +1233,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @param string $items_key The key name of the items in the uninstall[*] arrays.
 	 */
-	protected function prepare_uninstall_non_per_site_items( $items_key) {
+	protected function prepare_uninstall_non_per_site_items( $items_key ) {
 
 		if ( isset( $this->uninstall['universal'][ $items_key ] ) ) {
 

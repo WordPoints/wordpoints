@@ -31,7 +31,7 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCas
 		$hook = wordpointstests_add_points_hook( 'wordpoints_periodic_points_hook' );
 
 		$this->assertInstanceOf( 'WordPoints_Periodic_Points_Hook', $hook );
-	
+
 		$this->assertEquals(
 			array(
 				1 => array(
@@ -42,7 +42,7 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCas
 			, $hook->get_instances()
 		);
 	}
-	
+
 	/**
 	 * Test the points are awarded.
 	 *

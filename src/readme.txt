@@ -26,6 +26,9 @@ You can currently award points to users for:
 * Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
 * Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
 
+You can also conditionally award points based on a post's contents, a user's role,
+and more!
+
 All points transactions are logged and can be reviewed by administrators from the
 WordPoints » Points Logs admin screen. The logs can be displayed on the front end of
 your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)

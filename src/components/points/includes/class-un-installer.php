@@ -205,6 +205,26 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * @since 2.1.0
+	 */
+	protected function install_network() {
+
+		parent::install_network();
+
+		$this->disable_legacy_hooks();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	protected function install_site() {
+
+		parent::install_site();
+
+		$this->disable_legacy_hooks();
+	}
+
+	/**
 	 * @since 1.8.0
 	 */
 	protected function install_single() {
@@ -212,6 +232,28 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		parent::install_single();
 
 		add_option( 'wordpoints_default_points_type', '' );
+
+		$this->disable_legacy_hooks();
+	}
+
+	/**
+	 * Disable the legacy points hooks.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function disable_legacy_hooks() {
+
+		wordpoints_add_maybe_network_option(
+			'wordpoints_legacy_points_hooks_disabled'
+			, array(
+				'wordpoints_post_points_hook',
+				'wordpoints_comment_points_hook',
+				'wordpoints_comment_received_points_hook',
+				'wordpoints_periodic_points_hook',
+				'wordpoints_registration_points_hook',
+			)
+			, 'network' === $this->context
+		);
 	}
 
 	/**

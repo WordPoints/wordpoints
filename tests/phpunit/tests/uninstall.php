@@ -115,6 +115,8 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_hook_hitmeta' );
 		$this->assertTableExists( $wpdb->base_prefix . 'wordpoints_hook_periods' );
 
+		$this->assertLegacyPointsHooksDisabled();
+
 		$this->assertPointsComponentInstalled( $active_components );
 
 		/**
@@ -210,6 +212,30 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 	//
 	// Assertions.
 	//
+
+	/**
+	 * Assert that the legacy points hooks were disabled.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function assertLegacyPointsHooksDisabled() {
+
+		$array = array(
+			'wordpoints_post_points_hook',
+			'wordpoints_comment_points_hook',
+			'wordpoints_comment_received_points_hook',
+			'wordpoints_periodic_points_hook',
+			'wordpoints_registration_points_hook',
+		);
+
+		$option = 'wordpoints_legacy_points_hooks_disabled';
+
+		$this->assertEquals( $array, get_option( $option ) );
+
+		if ( $this->network_active ) {
+			$this->assertEquals( $array, get_site_option( $option ) );
+		}
+	}
 
 	/**
 	 * Assert that the points component is installed.

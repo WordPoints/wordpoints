@@ -1997,6 +1997,48 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test uninstalling meta boxes in network context.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes_network() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id-network", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id-network", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id-network", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_meta_boxes( 'screen_id', array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id-network" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id-network" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id-network" )
+		);
+	}
+
+	/**
 	 * Test uninstalling meta boxes with a custom parent page.
 	 *
 	 * @since 2.1.0

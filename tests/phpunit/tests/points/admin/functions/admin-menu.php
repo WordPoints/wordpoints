@@ -115,6 +115,12 @@ class WordPoints_Admin_Menu_Functions_Test extends WordPoints_PHPUnit_TestCase_A
 
 		$this->give_current_user_caps( 'manage_options' );
 
+		wordpoints_update_maybe_network_option(
+			'wordpoints_legacy_points_hooks_disabled'
+			, array( 'wordpoints_post_points_hook' )
+			, is_network_admin()
+		);
+
 		wordpoints_points_admin_menu();
 
 		$this->assertAdminSubmenuRegistered( 'wordpoints_points_types' );

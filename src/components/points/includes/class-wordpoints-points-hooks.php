@@ -480,6 +480,7 @@ final class WordPoints_Points_Hooks {
 	 * and the .hook-content div, then $wrap may be set to 'hook-content'.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.1.0
 	 *
 	 * @uses do_action() Calls 'wordpoints_points_type_form_top' at the top of the
 	 *       settings form with $slug and $settings. A null slug indicated a new
@@ -490,6 +491,12 @@ final class WordPoints_Points_Hooks {
 	 * @param string $wrap Whether to wrap the form inputs in a "widget" or not.
 	 */
 	public static function points_type_form( $slug = null, $wrap = 'hook' ) {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.1.0'
+			, 'Only the Points Types screen should be used to manage points types.'
+		);
 
 		$add_new = 0;
 

@@ -35,6 +35,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.9.0'  => array( 'single' => true, 'site' => true, 'network' => true ),
 		'1.10.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.0.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.1.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -81,6 +82,11 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			),
 			'options' => array(
 				'wordpoints_%_hook_legacy',
+			),
+		),
+		'global' => array(
+			'options' => array(
+				'wordpoints_disabled_points_hooks_edit_points_types',
 			),
 		),
 		'universal' => array(
@@ -878,6 +884,24 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_single_to_2_0_0() {
 		$this->update_network_to_2_0_0();
+	}
+
+	/**
+	 * Update a multisite network to 2.1.0
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_network_to_2_1_0() {
+		add_site_option( 'wordpoints_disabled_points_hooks_edit_points_types', true );
+	}
+
+	/**
+	 * Update a single site to 2.1.0
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_single_to_2_1_0() {
+		add_option( 'wordpoints_disabled_points_hooks_edit_points_types', true );
 	}
 }
 

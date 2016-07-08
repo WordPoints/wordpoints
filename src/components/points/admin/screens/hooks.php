@@ -7,64 +7,18 @@
  * @since 1.0.0
  */
 
-if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
-
-	if (
-		isset( $_POST['save-points-type'], $_POST['points-name'], $_POST['points-prefix'], $_POST['points-suffix'] )
-		&& wordpoints_verify_nonce( 'add_new', 'wordpoints_add_new_points_type', null, 'post' )
-	) {
-
-		// - We are creating a new points type.
-
-		unset( $_GET['error'], $_GET['message'] );
-
-		$settings = array();
-
-		$settings['name']   = trim( sanitize_text_field( wp_unslash( $_POST['points-name'] ) ) );
-		$settings['prefix'] = ltrim( sanitize_text_field( wp_unslash( $_POST['points-prefix'] ) ) );
-		$settings['suffix'] = rtrim( sanitize_text_field( wp_unslash( $_POST['points-suffix'] ) ) );
-
-		if ( ! wordpoints_add_points_type( $settings ) ) {
-
-			// - Unable to create this, give an error.
-			$_GET['error'] = 2;
-		}
-
-	} elseif (
-		! empty( $_POST['delete-points-type'] )
-		&& isset( $_POST['points-slug'] )
-		&& wordpoints_verify_nonce( 'delete-points-type-nonce', 'wordpoints_delete_points_type-%s', array( 'points-slug' ), 'post' )
-	) {
-
-		// - We are deleting a points type.
-
-		unset( $_GET['error'], $_GET['message'] );
-
-		if ( wordpoints_delete_points_type( sanitize_key( $_POST['points-slug'] ) ) ) {
-
-			$_GET['message'] = 1;
-
-		} else {
-
-			$_GET['error'] = 3;
-		}
-	}
-
-} // if ( current_user_can( 'manage_wordpoints_points_types' ) )
-
 // Get all points types.
 $points_types = wordpoints_get_points_types();
 
 // These messages/errors are used upon redirection from the non-JS version.
 $messages = array(
 	__( 'Changes saved.', 'wordpoints' ),
-	__( 'Points type deleted.', 'wordpoints' ),
 );
 
 $errors = array(
 	__( 'Error while saving.', 'wordpoints' ),
 	__( 'Error in displaying the hooks settings form.', 'wordpoints' ),
-	__( 'Please choose a unique name for this points type.', 'wordpoints' ),
+	'', // Back-compat for pre-2.1.0.
 	__( 'Error while deleting.', 'wordpoints' ),
 );
 
@@ -182,8 +136,36 @@ if ( is_network_admin() ) {
 
 						<?php
 
-						if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
-							WordPoints_Points_Hooks::points_type_form( $slug );
+						if (
+							get_site_option( 'wordpoints_disabled_points_hooks_edit_points_types' )
+							&& current_user_can( 'manage_wordpoints_points_types' )
+						) {
+							?>
+							<div class="notice notice-info inline notice-alt">
+								<p>
+									<?php
+
+									echo wp_kses_data(
+										sprintf(
+											__(
+												'You can edit this points type&#8219;s settings on the <a href="%s">Points Types screen</a>.'
+												, 'wordpoints'
+											)
+											, esc_attr(
+												esc_url(
+													self_admin_url(
+														'admin.php?page=wordpoints_points_types&tab='
+															. $slug
+													)
+												)
+											)
+										)
+									);
+
+									?>
+								</p>
+							</div>
+							<?php
 						}
 
 						WordPoints_Points_Hooks::list_by_points_type( $slug );
@@ -198,7 +180,10 @@ if ( is_network_admin() ) {
 				$i++;
 			}
 
-			if ( current_user_can( 'manage_wordpoints_points_types' ) ) {
+			if (
+				get_site_option( 'wordpoints_disabled_points_hooks_edit_points_types' )
+				&& current_user_can( 'manage_wordpoints_points_types' )
+			) {
 
 				?>
 
@@ -208,7 +193,29 @@ if ( is_network_admin() ) {
 						<h2><?php esc_html_e( 'Add New Points Type', 'wordpoints' ); ?><span class="spinner"></span></h2>
 					</div>
 					<div class="wordpoints-points-add-new hooks-sortables hook">
-						<?php WordPoints_Points_Hooks::points_type_form(); ?>
+						<div class="notice notice-info inline notice-alt">
+							<p>
+								<?php
+
+								echo wp_kses_data(
+									sprintf(
+										__(
+											'You can create new points types on the <a href="%s">Points Types screen</a>.'
+											, 'wordpoints'
+										)
+										, esc_attr(
+											esc_url(
+												self_admin_url(
+													'admin.php?page=wordpoints_points_types&tab=add-new'
+												)
+											)
+										)
+									)
+								);
+
+								?>
+							</p>
+						</div>
 					</div>
 				</div>
 

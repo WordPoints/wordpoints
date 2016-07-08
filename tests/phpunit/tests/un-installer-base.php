@@ -422,7 +422,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->uninstall();
 
 		$this->assertEquals(
-			array( 'iunnstall_single' => 'standard' )
+			array( 'uninstall_single' => 'standard' )
 			, $this->un_installer->mode
 		);
 

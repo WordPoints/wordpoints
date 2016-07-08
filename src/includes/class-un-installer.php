@@ -117,13 +117,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		// Check if the plugin has been activated/installed before.
 		$installed = (bool) wordpoints_get_network_option( 'wordpoints_data' );
 
-		$hooks = wordpoints_hooks();
-		$hooks_mode = $hooks->get_current_mode();
-		$hooks->set_current_mode( 'standard' );
-
 		parent::install( $network );
-
-		$hooks->set_current_mode( $hooks_mode );
 
 		// Activate the Points component, if this is the first activation.
 		if ( false === $installed ) {

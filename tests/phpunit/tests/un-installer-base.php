@@ -12,7 +12,7 @@
  *
  * @since 2.0.0
  */
-class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
+class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * The mock un/installer used in the tests.
@@ -154,6 +154,33 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test how hooks mode is handled during install().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_install_not_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install( false );
+
+		$this->assertEquals(
+			array( 'install_single' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
 	 * Test the basic behaviour of install() on multisite.
 	 *
 	 * @since 2.1.0
@@ -191,6 +218,33 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during install() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install( false );
+
+		$this->assertEquals(
+			array( 'install_network' => 'network', 'install_site' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -232,6 +286,33 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during install() when network-wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install( true );
+
+		$this->assertEquals(
+			array( 'install_network' => 'network', 'install_site' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -322,6 +403,61 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test how hooks mode is handled during uninstall().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_uninstall_not_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->uninstall();
+
+		$this->assertEquals(
+			array( 'iunnstall_single' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test how hooks mode is handled during uninstall() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->set_network_installed();
+		$this->un_installer->uninstall();
+
+		$this->assertEquals(
+			array( 'uninstall_site' => 'standard', 'uninstall_network' => 'network' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
 	 * Test the basic behaviour of update().
 	 *
 	 * @since 2.1.0
@@ -358,6 +494,38 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during update().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_not_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals(
+			array( 'update_single_to_1_0_0' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -441,6 +609,41 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during update() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals(
+			array(
+				'update_network_to_1_0_0' => 'network',
+				'update_site_to_1_0_0' => 'standard',
+			)
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -575,6 +778,42 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during update() when network-wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->set_network_installed();
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals(
+			array(
+				'update_site_to_1_0_0' => 'standard',
+				'update_network_to_1_0_0' => 'network',
+			)
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -787,6 +1026,35 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->assertTrue( $this->un_installer->network_wide );
 
 		$this->assertEmpty( $this->un_installer->get_db_version() );
+	}
+
+	/**
+	 * Test how hooks mode is handled during install_on_site().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$site_id = get_current_blog_id();
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install_on_site( $site_id );
+
+		$this->assertEquals(
+			array( 'install_site' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**

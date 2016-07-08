@@ -315,6 +315,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		ignore_user_abort( true );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		$this->before_install();
 
 		/**
@@ -327,9 +331,12 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( is_multisite() ) {
 
 			$this->context = 'network';
+			$hooks->set_current_mode( 'network' );
+
 			$this->install_network();
 
 			$this->context = 'site';
+			$hooks->set_current_mode( 'standard' );
 
 			if ( $network ) {
 
@@ -372,6 +379,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->context = 'single';
 			$this->install_single();
 		}
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	/**
@@ -388,6 +397,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		ignore_user_abort( true );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		$this->before_install();
 
 		/**
@@ -402,6 +415,8 @@ abstract class WordPoints_Un_Installer_Base {
 		switch_to_blog( $site_id );
 		$this->install_site();
 		restore_current_blog();
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	/**
@@ -416,6 +431,10 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->load_dependencies();
 
 		ignore_user_abort( true );
+
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
 
 		$this->before_uninstall();
 
@@ -446,6 +465,8 @@ abstract class WordPoints_Un_Installer_Base {
 			}
 
 			$this->context = 'network';
+			$hooks->set_current_mode( 'network' );
+
 			$this->uninstall_network();
 
 			$this->delete_installed_site_ids();
@@ -463,6 +484,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->context = 'single';
 			$this->uninstall_single();
 		}
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	/**
@@ -519,6 +542,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		ignore_user_abort( true );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		$this->before_update();
 
 		/**
@@ -531,9 +558,12 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( is_multisite() ) {
 
 			$this->context = 'network';
+			$hooks->set_current_mode( 'network' );
+
 			$this->update_( 'network', $this->get_updates_for( 'network' ) );
 
 			$this->context = 'site';
+			$hooks->set_current_mode( 'standard' );
 
 			if ( $this->network_wide ) {
 
@@ -576,6 +606,8 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$this->after_update();
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	//

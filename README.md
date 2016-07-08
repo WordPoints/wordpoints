@@ -1,7 +1,7 @@
 WordPoints [![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?branch=master)](https://travis-ci.org/WordPoints/wordpoints) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WordPoints/wordpoints/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WordPoints/wordpoints/?branch=master) [![Coverage Status](https://img.shields.io/coveralls/WordPoints/wordpoints.svg)](https://coveralls.io/r/WordPoints/wordpoints?branch=master) [![Translation Status](https://hosted.weblate.org/widgets/wordpoints/-/shields-badge.svg)](https://hosted.weblate.org/engage/wordpoints/?utm_source=widget)
 ==========
 
-This is were development of the WordPoints WordPress plugin takes place. To
+This is where development of the WordPoints WordPress plugin takes place. To
 download the latest stable release, seek support, or for more information about the
 plugin, see [its home on WordPress.org](http://wordpress.org/plugins/wordpoints/).
 You may also want to visit [the plugin's website](http://wordpoints.org/), where
@@ -16,9 +16,9 @@ steps to reproduce the bug. Please also give as much information as you can abou
 your WordPress install and its envireonment: WordPress and PHP versions, active
 plugins, etc.
 
-Whatever you do, never, ever report a bug for an old version of WordPoints. Make sure
+Whatever you do: never, ever report a bug for an old version of WordPoints. Make sure
 that you have the latest version installed before filing an issue. If possible, test
-that the bug exists in the development trunk, too.
+that the bug exists in the development trunk as well.
 
 If you aren't sure what all that means (or sometimes maybe even if you are) you
 should probably seek help in the [support forums](http://wordpress.org/support/plugin/wordpoints)

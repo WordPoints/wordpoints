@@ -251,11 +251,11 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		wordpoints_add_maybe_network_option(
 			'wordpoints_legacy_points_hooks_disabled'
 			, array(
-				'wordpoints_post_points_hook',
-				'wordpoints_comment_points_hook',
-				'wordpoints_comment_received_points_hook',
-				'wordpoints_periodic_points_hook',
-				'wordpoints_registration_points_hook',
+				'wordpoints_post_points_hook' => true,
+				'wordpoints_comment_points_hook' => true,
+				'wordpoints_comment_received_points_hook' => true,
+				'wordpoints_periodic_points_hook' => true,
+				'wordpoints_registration_points_hook' => true,
 			)
 			, 'network' === $this->context
 		);

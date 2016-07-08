@@ -525,7 +525,7 @@ function wordpoints_points_admin_notices() {
 		wordpoints_show_admin_message(
 			sprintf(
 				__( 'Welcome to WordPoints! Get started by <a href="%s">creating a points type</a>.', 'wordpoints' )
-				, esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) )
+				, esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
 			)
 		);
 	}

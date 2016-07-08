@@ -268,10 +268,19 @@ final class WordPoints_Points_Hooks {
 		$hook_types = self::$hook_types;
 		uasort( $hook_types, array( __CLASS__, '_sort_name_callback' ) );
 
+		$disabled_hooks = wordpoints_get_maybe_network_array_option(
+			'wordpoints_legacy_points_hooks_disabled'
+			, is_network_admin()
+		);
+
 		$i = 0;
 
 		// Display a representative for each hook type.
 		foreach ( $hook_types as $id_base => $hook_type ) {
+
+			if ( isset( $disabled_hooks[ $id_base ] ) ) {
+				continue;
+			}
 
 			$i++;
 

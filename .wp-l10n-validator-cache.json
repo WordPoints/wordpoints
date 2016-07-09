@@ -41,8 +41,8 @@
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 32690,
-            "hash": "1177292b03b596e0f1db140fab627a08",
+            "size": 32696,
+            "hash": "a10cd76d5ba0b43251b982f1f4fc2a32",
             "errors": false
         },
         "\/admin\/screens\/configure-components-load.php": {
@@ -61,8 +61,8 @@
             "errors": false
         },
         "\/admin\/screens\/configure-settings.php": {
-            "size": 2238,
-            "hash": "d74a639c59d60f337520cefc4dd3173e",
+            "size": 2253,
+            "hash": "5163016e80dde84bb820cb2074f4bad5",
             "errors": false
         },
         "\/admin\/screens\/configure.php": {
@@ -106,8 +106,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/includes\/functions.php": {
-            "size": 15088,
-            "hash": "efeb75e40a3cee8d34b44140df652b54",
+            "size": 15100,
+            "hash": "58660ae71b44fc19e242a0a339f0524b",
             "errors": false
         },
         "\/components\/points\/admin\/screens\/hooks-load.php": {
@@ -141,13 +141,13 @@
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
-            "size": 20998,
-            "hash": "68ed357d0844d2bb6ef01b3f2404c907",
+            "size": 21002,
+            "hash": "94e8db08a7ac3faba82a035a08234ccf",
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
-            "size": 22337,
-            "hash": "9bea5c3c81d6b08bb868b142a02c5d5a",
+            "size": 22286,
+            "hash": "8a4912871d16e5bdce73326dd9381833",
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
@@ -171,8 +171,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/classes\/legacy\/hook\/to\/reaction\/importer.php": {
-            "size": 12855,
-            "hash": "5eee6954cffa1993848f0d8f872eb9b7",
+            "size": 12848,
+            "hash": "22d7693599697b6e2d05159bd329a898",
             "errors": false
         },
         "\/components\/points\/includes\/constants.php": {
@@ -236,13 +236,13 @@
             "errors": false
         },
         "\/components\/points\/includes\/points.php": {
-            "size": 40038,
-            "hash": "84f45a27c03cf321c7994294cbb81f7a",
+            "size": 40068,
+            "hash": "1cd3fb9bd69fd2066c1b24008e8ee5c8",
             "errors": false
         },
         "\/components\/points\/includes\/shortcodes.php": {
-            "size": 8447,
-            "hash": "9993e885b3b7bf887cdc7ee174c3425a",
+            "size": 9521,
+            "hash": "47550bc270c0707f68b5928f3715487f",
             "errors": false
         },
         "\/components\/points\/includes\/widgets.php": {
@@ -396,13 +396,13 @@
             "errors": false
         },
         "\/includes\/class-un-installer-base.php": {
-            "size": 49058,
-            "hash": "a3f642b5cf618c9dd928fc1a91f0b710",
+            "size": 49712,
+            "hash": "a90e7b6d841b4aebe3d4de4fe7ef4e80",
             "errors": false
         },
         "\/includes\/class-un-installer.php": {
-            "size": 7731,
-            "hash": "301261db566f3937b3f8b36287d1a381",
+            "size": 7512,
+            "hash": "d91134f25c69ea13ed2ba0b7669dc36c",
             "errors": false
         },
         "\/includes\/class-widget.php": {
@@ -411,8 +411,8 @@
             "errors": false
         },
         "\/includes\/class-wordpoints-components.php": {
-            "size": 12077,
-            "hash": "8264a38416c5d14279632f60835e6e95",
+            "size": 12098,
+            "hash": "ee5774d05e283e4b2c0b91c9cf9ea514",
             "errors": false
         },
         "\/includes\/classes\/app\/registry.php": {
@@ -431,8 +431,8 @@
             "errors": false
         },
         "\/includes\/classes\/class\/registry\/children.php": {
-            "size": 2696,
-            "hash": "7b07492738601f753f59c33b4eb97b5a",
+            "size": 2823,
+            "hash": "a0a75ad51693be9d1d60025788f1171b",
             "errors": false
         },
         "\/includes\/classes\/class\/registry\/childreni.php": {
@@ -671,8 +671,8 @@
             "errors": false
         },
         "\/includes\/classes\/hook\/arg.php": {
-            "size": 2551,
-            "hash": "337bb2f5d3781274b5530bf95ce6a784",
+            "size": 2654,
+            "hash": "eb6ddad0bf5e168daf5f3de7a8dc49ae",
             "errors": false
         },
         "\/includes\/classes\/hook\/argi.php": {
@@ -686,8 +686,8 @@
             "errors": false
         },
         "\/includes\/classes\/hook\/condition\/equals.php": {
-            "size": 770,
-            "hash": "a52509bd127520f4770e9cd54b31c021",
+            "size": 792,
+            "hash": "e4f2796f576f3c8b43b6ec86ed876f1a",
             "errors": false
         },
         "\/includes\/classes\/hook\/condition\/string\/contains.php": {
@@ -781,8 +781,8 @@
             "errors": false
         },
         "\/includes\/classes\/hook\/extension\/periods.php": {
-            "size": 10322,
-            "hash": "62a8786b292eb7193ddbfbcd68980dbe",
+            "size": 10388,
+            "hash": "b755960f4cce667634bf156f04c5f5ee",
             "errors": false
         },
         "\/includes\/classes\/hook\/extension\/repeat\/blocker.php": {
@@ -811,13 +811,13 @@
             "errors": false
         },
         "\/includes\/classes\/hook\/hit\/logger.php": {
-            "size": 1408,
-            "hash": "f0b1da156fac7368e86b37b9590bfabc",
+            "size": 1471,
+            "hash": "16ed0e64cef7a189b67e4d2a47a326ad",
             "errors": false
         },
         "\/includes\/classes\/hook\/hit\/query.php": {
-            "size": 6109,
-            "hash": "4d0ba29623303500075854bc4b8943d9",
+            "size": 6585,
+            "hash": "92324a795800479d10050d84ee73705b",
             "errors": false
         },
         "\/includes\/classes\/hook\/reaction\/options.php": {
@@ -831,18 +831,18 @@
             "errors": false
         },
         "\/includes\/classes\/hook\/reaction\/store\/options.php": {
-            "size": 7444,
-            "hash": "45a97facf6ffa6c8efc4ffa199fcc181",
+            "size": 7273,
+            "hash": "19224f9b7c558ad1fa36c7f1a1f9b79d",
             "errors": false
         },
         "\/includes\/classes\/hook\/reaction\/store.php": {
-            "size": 4069,
-            "hash": "57f2c0f3358ed27112a8af3bc85ead65",
+            "size": 4366,
+            "hash": "dceca9e81f08e4b1a4e619468bf5bb19",
             "errors": false
         },
         "\/includes\/classes\/hook\/reaction\/storei.php": {
-            "size": 2992,
-            "hash": "204759a74c7721f161ec1847cc95c089",
+            "size": 3192,
+            "hash": "bc7355d1b6f5ad56a1118775615d53f5",
             "errors": false
         },
         "\/includes\/classes\/hook\/reaction\/validator.php": {
@@ -851,13 +851,13 @@
             "errors": false
         },
         "\/includes\/classes\/hook\/reaction.php": {
-            "size": 1413,
-            "hash": "5135d06fb17c771e2c6f5bb4b522c3a6",
+            "size": 1556,
+            "hash": "c1101b27b7b7a1ed8938c7eac2196650",
             "errors": false
         },
         "\/includes\/classes\/hook\/reactioni.php": {
-            "size": 3212,
-            "hash": "8b30937ebc9ec2ef585e2e54c93f6547",
+            "size": 3381,
+            "hash": "1d9124b1dcd0992d0df6aa0d65490ff2",
             "errors": false
         },
         "\/includes\/classes\/hook\/reactor.php": {
@@ -891,8 +891,8 @@
             "errors": false
         },
         "\/includes\/classes\/hooks.php": {
-            "size": 5942,
-            "hash": "9390c158d8abd734c850ea2f36bf0370",
+            "size": 6805,
+            "hash": "5f4d56e0a34d9f90357d3cac079f6b0f",
             "errors": false
         },
         "\/includes\/classes\/index.php": {
@@ -916,8 +916,8 @@
             "errors": false
         },
         "\/includes\/functions.php": {
-            "size": 34394,
-            "hash": "904d565ec18cb0ea8d83150e5bd329b7",
+            "size": 35035,
+            "hash": "fe6ef414c0c4ab7c4cb4f7bb4fac448e",
             "errors": false
         },
         "\/includes\/hooks.php": {

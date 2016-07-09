@@ -352,7 +352,7 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 
 			$points = wordpoints_format_points(
 				$points
-				, $hook->points_type()
+				, $this->atts['points_type']
 				, 'how-to-get-points-shortcode'
 			);
 

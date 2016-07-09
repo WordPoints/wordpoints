@@ -51,7 +51,6 @@ hooks.Args       = new hooks.controller.Args({ events: data.events, entities: da
 hooks.view.Base              = require( './views/base.js' );
 hooks.view.Reaction          = require( './views/reaction.js' );
 hooks.view.Reactions         = require( './views/reactions.js' );
-hooks.view.ArgOption         = require( './views/arg-option.js' );
 hooks.view.ArgSelector       = require( './views/arg-selector.js' );
 hooks.view.ArgSelectors      = require( './views/arg-selectors.js' );
 hooks.view.ArgSelector2      = require( './views/arg-selector2.js' );

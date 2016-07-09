@@ -932,43 +932,11 @@ hooks.Args       = new hooks.controller.Args({ events: data.events, entities: da
 hooks.view.Base              = require( './views/base.js' );
 hooks.view.Reaction          = require( './views/reaction.js' );
 hooks.view.Reactions         = require( './views/reactions.js' );
-hooks.view.ArgOption         = require( './views/arg-option.js' );
 hooks.view.ArgSelector       = require( './views/arg-selector.js' );
 hooks.view.ArgSelectors      = require( './views/arg-selectors.js' );
 hooks.view.ArgSelector2      = require( './views/arg-selector2.js' );
 
-},{"./controllers/args.js":1,"./controllers/extension.js":2,"./controllers/extensions.js":3,"./controllers/fields.js":4,"./controllers/reactor.js":5,"./controllers/reactors.js":6,"./views/arg-option.js":8,"./views/arg-selector.js":9,"./views/arg-selector2.js":10,"./views/arg-selectors.js":11,"./views/base.js":12,"./views/reaction.js":13,"./views/reactions.js":14}],8:[function(require,module,exports){
-/**
- * wp.wordpoints.hooks.view.ArgOption
- *
- * @class
- * @augments Backbone.View
- * @augments wp.wordpoints.hooks.view.Base
- */
-var Base = wp.wordpoints.hooks.view.Base,
-	template = wp.wordpoints.hooks.template,
-	$ = Backbone.$,
-	ArgOption;
-
-ArgOption = Base.extend({
-
-	namespace: 'arg-option',
-
-	tagName: 'option',
-
-	template: template( 'hook-arg-option' ),
-
-	render: function () {
-
-		this.$el = $( template( this.model ) );
-
-		return this;
-	}
-});
-
-module.exports = ArgOption;
-
-},{}],9:[function(require,module,exports){
+},{"./controllers/args.js":1,"./controllers/extension.js":2,"./controllers/extensions.js":3,"./controllers/fields.js":4,"./controllers/reactor.js":5,"./controllers/reactors.js":6,"./views/arg-selector.js":8,"./views/arg-selector2.js":9,"./views/arg-selectors.js":10,"./views/base.js":11,"./views/reaction.js":12,"./views/reactions.js":13}],8:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.ArgSelector
  *
@@ -1034,7 +1002,7 @@ ArgSelector = Base.extend({
 
 module.exports = ArgSelector;
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.ArgSelectors
  *
@@ -1132,7 +1100,7 @@ ArgSelector2 = Base.extend({
 
 module.exports = ArgSelector2;
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.ArgSelectors
  *
@@ -1297,7 +1265,7 @@ ArgSelectors = Base.extend({
 
 module.exports = ArgSelectors;
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.Base
  *
@@ -1344,7 +1312,7 @@ Base = Backbone.View.extend( {
 
 module.exports = Base;
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.Base
  *
@@ -1764,7 +1732,7 @@ Reaction = Base.extend({
 
 module.exports = Reaction;
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.Hooks
  *

@@ -95,7 +95,6 @@ require_once( $dir . '/hook/extension/periods.php' );
 require_once( $dir . '/hook/extension/repeat/blocker.php' );
 require_once( $dir . '/hook/extension/reversals.php' );
 require_once( $dir . '/hook/fire.php' );
-require_once( $dir . '/hook/hit/logger.php' );
 require_once( $dir . '/hook/hit/query.php' );
 require_once( $dir . '/hook/reaction.php' );
 require_once( $dir . '/hook/reaction/options.php' );

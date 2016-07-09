@@ -42,15 +42,6 @@ class WordPoints_Hook_Fire {
 	public $reaction;
 
 	/**
-	 * The hit logger for this fire.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @var WordPoints_Hook_Hit_Logger
-	 */
-	public $hit_logger;
-
-	/**
 	 * The ID of the hit (if this fire has hit).
 	 *
 	 * @since 2.1.0
@@ -86,7 +77,6 @@ class WordPoints_Hook_Fire {
 		$this->action_type = $action_type;
 		$this->event_args = $event_args;
 		$this->reaction   = $reaction;
-		$this->hit_logger = new WordPoints_Hook_Hit_Logger( $this );
 	}
 
 	/**
@@ -100,7 +90,7 @@ class WordPoints_Hook_Fire {
 
 		if ( ! $this->hit_id ) {
 
-			$this->hit_id = $this->hit_logger->log_hit();
+			$this->hit_id = $this->log_hit();
 
 			if ( ! $this->hit_id ) {
 				return false;
@@ -108,6 +98,47 @@ class WordPoints_Hook_Fire {
 		}
 
 		return $this->hit_id;
+	}
+
+	/**
+	 * Logs a hit for this fire.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return int|false The hit ID, or false if logging the hit failed.
+	 */
+	protected function log_hit() {
+
+		global $wpdb;
+
+		$signature = wordpoints_hooks_get_event_primary_arg_guid_json(
+			$this->event_args
+		);
+
+		$inserted = $wpdb->insert(
+			$wpdb->wordpoints_hook_hits
+			, array(
+				'action_type' => $this->action_type,
+				'primary_arg_guid' => $signature,
+				'event' => $this->reaction->get_event_slug(),
+				'reactor' => $this->reaction->get_reactor_slug(),
+				'reaction_mode' => $this->reaction->get_mode_slug(),
+				'reaction_store' => $this->reaction->get_store_slug(),
+				'reaction_context_id' => wp_json_encode(
+					$this->reaction->get_context_id()
+				),
+				'reaction_id' => $this->reaction->get_id(),
+				'date' => current_time( 'mysql' ),
+			)
+		);
+
+		if ( ! $inserted ) {
+			return false;
+		}
+
+		$hit_id = $wpdb->insert_id;
+
+		return $hit_id;
 	}
 
 	/**

@@ -32,8 +32,6 @@ class WordPoints_Hook_Fire_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertEquals( $action_type, $fire->action_type );
 		$this->assertEquals( $event_args, $fire->event_args );
 		$this->assertEquals( $reaction, $fire->reaction );
-
-		$this->assertInstanceOf( 'WordPoints_Hook_Hit_Logger', $fire->hit_logger );
 	}
 
 	/**

@@ -250,9 +250,9 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function wordpoints_set_db_version( $version = '1.0.0' ) {
 
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 		$wordpoints_data['version'] = $version;
-		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
 	}
 
 	/**
@@ -266,7 +266,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function wordpoints_get_db_version() {
 
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 
 		return ( isset( $wordpoints_data['version'] ) )
 			? $wordpoints_data['version']
@@ -284,9 +284,9 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function set_component_db_version( $component, $version = '1.0.0' ) {
 
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 		$wordpoints_data['components'][ $component ]['version'] = $version;
-		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
 	}
 
 	/**
@@ -301,7 +301,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function get_component_db_version( $component ) {
 
-		$wordpoints_data = wordpoints_get_network_option( 'wordpoints_data' );
+		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 
 		return ( isset( $wordpoints_data['components'][ $component ]['version'] ) )
 			? $wordpoints_data['components'][ $component ]['version']
@@ -402,7 +402,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		$this->set_component_db_version( $component, $from );
 
 		// Make sure that the component is marked as active in the database.
-		wordpoints_update_network_option(
+		wordpoints_update_maybe_network_option(
 			'wordpoints_active_components'
 			, array( $component => 1 )
 		);
@@ -426,7 +426,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			'suffix' => 'pts.',
 		);
 
-		wordpoints_add_network_option(
+		wordpoints_add_maybe_network_option(
 			'wordpoints_points_types'
 			, array( 'points' => $this->points_data )
 		);

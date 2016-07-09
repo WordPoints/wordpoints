@@ -143,7 +143,10 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 
 		$user_id = $this->factory->user->create();
 
-		wordpoints_update_network_option( 'wordpoints_default_points_type', 'points' );
+		wordpoints_update_maybe_network_option(
+			'wordpoints_default_points_type'
+			, 'points'
+		);
 
 		wordpoints_get_rank(
 			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
@@ -227,7 +230,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTest
 	 */
 	protected function set_points_types() {
 
-		wordpoints_update_network_option(
+		wordpoints_update_maybe_network_option(
 			'wordpoints_points_types'
 			, array(
 				'credits' => array(

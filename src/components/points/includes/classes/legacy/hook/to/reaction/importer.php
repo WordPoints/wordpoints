@@ -525,9 +525,9 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 	 */
 	protected function get_array_option( $option ) {
 
-		return wordpoints_get_array_option(
+		return wordpoints_get_maybe_network_array_option(
 			$option
-			, 'network' === $this->hook_mode ? 'site' : 'default'
+			, 'network' === $this->hook_mode
 		);
 	}
 }

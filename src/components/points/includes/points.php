@@ -55,7 +55,7 @@ function wordpoints_is_points_type( $slug ) {
  */
 function wordpoints_get_points_types() {
 
-	return wordpoints_get_array_option( 'wordpoints_points_types', 'network' );
+	return wordpoints_get_maybe_network_array_option( 'wordpoints_points_types' );
 }
 
 /**
@@ -137,7 +137,7 @@ function wordpoints_add_points_type( $settings ) {
 	 */
 	$points_types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, true );
 
-	if ( ! wordpoints_update_network_option( 'wordpoints_points_types', $points_types ) ) {
+	if ( ! wordpoints_update_maybe_network_option( 'wordpoints_points_types', $points_types ) ) {
 		return false;
 	}
 
@@ -167,7 +167,7 @@ function wordpoints_update_points_type( $slug, $settings ) {
 	 */
 	$points_types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, false );
 
-	return wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
+	return wordpoints_update_maybe_network_option( 'wordpoints_points_types', $points_types );
 }
 
 /**
@@ -194,7 +194,7 @@ function wordpoints_delete_points_type( $slug ) {
 
 	unset( $points_types[ $slug ] );
 
-	$result = wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
+	$result = wordpoints_update_maybe_network_option( 'wordpoints_points_types', $points_types );
 
 	if ( ! $result ) {
 		return $result;
@@ -957,7 +957,9 @@ function wordpoints_points_log_delete_all_metadata( $log_id ) {
  */
 function wordpoints_get_default_points_type() {
 
-	$points_type = wordpoints_get_network_option( 'wordpoints_default_points_type' );
+	$points_type = wordpoints_get_maybe_network_option(
+		'wordpoints_default_points_type'
+	);
 
 	if ( ! wordpoints_is_points_type( $points_type ) ) {
 		return false;

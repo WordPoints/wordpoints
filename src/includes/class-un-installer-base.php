@@ -1057,13 +1057,15 @@ abstract class WordPoints_Un_Installer_Base {
 
 		_deprecated_function( __METHOD__, '2.0.0', '::set_db_version()' );
 
-		$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
+		$wordpoints_data = wordpoints_get_maybe_network_array_option(
+			'wordpoints_data'
+		);
 
 		if ( empty( $wordpoints_data['components'][ $component ]['version'] ) ) {
 			$wordpoints_data['components'][ $component ]['version'] = $version;
 		}
 
-		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
 	}
 
 	/**

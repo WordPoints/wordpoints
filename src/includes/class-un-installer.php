@@ -116,7 +116,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		add_filter( 'is_wordpoints_network_active', $filter_func );
 
 		// Check if the plugin has been activated/installed before.
-		$installed = (bool) wordpoints_get_network_option( 'wordpoints_data' );
+		$installed = (bool) wordpoints_get_maybe_network_option( 'wordpoints_data' );
 
 		parent::install( $network );
 
@@ -147,12 +147,12 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_network() {
 
-		$data = wordpoints_get_network_option( 'wordpoints_data' );
+		$data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 
 		// Add plugin data.
 		if ( ! is_array( $data ) ) {
 
-			wordpoints_update_network_option(
+			wordpoints_update_maybe_network_option(
 				'wordpoints_data',
 				array(
 					'version'    => WORDPOINTS_VERSION,
@@ -168,7 +168,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 			// corrupted somehow.
 			$data['version'] = WORDPOINTS_VERSION;
 
-			wordpoints_update_network_option( 'wordpoints_data', $data );
+			wordpoints_update_maybe_network_option( 'wordpoints_data', $data );
 		}
 
 		$this->install_db_schema();

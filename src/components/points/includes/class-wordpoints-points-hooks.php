@@ -392,13 +392,10 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function get_points_types_hooks() {
 
-		if ( self::$network_mode ) {
-			$type = 'site';
-		} else {
-			$type = 'default';
-		}
-
-		return wordpoints_get_array_option( 'wordpoints_points_types_hooks', $type );
+		return wordpoints_get_maybe_network_array_option(
+			'wordpoints_points_types_hooks'
+			, self::$network_mode
+		);
 	}
 
 	/**

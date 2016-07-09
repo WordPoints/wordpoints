@@ -69,7 +69,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_get_returns_empty_array_if_none() {
 
-		wordpoints_delete_network_option( 'wordpoints_points_types' );
+		wordpoints_delete_maybe_network_option( 'wordpoints_points_types' );
 
 		$this->assertEquals( array(), wordpoints_get_points_types() );
 	}
@@ -107,7 +107,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals(
 			array( 'points' => $this->points_data, $slug => $points_type )
-			, wordpoints_get_network_option( 'wordpoints_points_types' )
+			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
 	}
 
@@ -129,7 +129,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals(
 			array( 'points' => $this->points_data )
-			, wordpoints_get_network_option( 'wordpoints_points_types' )
+			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
 	}
 

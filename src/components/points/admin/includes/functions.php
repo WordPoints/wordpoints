@@ -498,11 +498,11 @@ function wordpoints_points_admin_settings_save() {
 
 		if ( '-1' === $points_type ) {
 
-			wordpoints_update_network_option( 'wordpoints_default_points_type', '' );
+			wordpoints_update_maybe_network_option( 'wordpoints_default_points_type', '' );
 
 		} elseif ( wordpoints_is_points_type( $points_type ) ) {
 
-			wordpoints_update_network_option( 'wordpoints_default_points_type', $points_type );
+			wordpoints_update_maybe_network_option( 'wordpoints_default_points_type', $points_type );
 		}
 	}
 }

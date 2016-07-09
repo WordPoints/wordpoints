@@ -68,7 +68,10 @@ abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitT
 			'suffix' => 'pts.',
 		);
 
-		wordpoints_add_network_option( 'wordpoints_points_types', array( 'points' => $points_data ) );
+		wordpoints_add_maybe_network_option(
+			'wordpoints_points_types'
+			, array( 'points' => $points_data )
+		);
 	}
 
 	/**

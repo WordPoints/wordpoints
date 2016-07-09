@@ -419,6 +419,7 @@ function wordpoints_escape_mysql_identifier( $identifier ) {
  * @since 1.0.0
  * @since 1.1.0 The $context parameter was added for site options.
  * @since 1.2.0 The 'network' context was added.
+ * @since 2.1.0 The 'network' context was deprecated.
  *
  * @param string $option The name of the option to get.
  * @param string $context The context for the option. Use 'site' to get site options.
@@ -438,7 +439,13 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
 		break;
 
 		case 'network':
-			$value = wordpoints_get_network_option( $option, array() );
+			_deprecated_argument(
+				__FUNCTION__
+				, '2.1.0'
+				, 'Using "network" as the value of $context is deprecated, use wordpoints_get_maybe_network_array_option() instead.'
+			);
+
+			$value = wordpoints_get_maybe_network_option( $option, array() );
 		break;
 
 		default:
@@ -460,6 +467,7 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
  * network ('site') option. Otherwise it will return a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_get_maybe_network_option() instead.
  *
  * @param string $option  The name of the option to get.
  * @param mixed  $default A default value to return if the option isn't found.
@@ -468,11 +476,13 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
  */
 function wordpoints_get_network_option( $option, $default = false ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return get_site_option( $option, $default );
-	} else {
-		return get_option( $option, $default );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_get_maybe_network_option()'
+	);
+
+	return wordpoints_get_maybe_network_option( $option, null, $default );
 }
 
 /**
@@ -482,21 +492,24 @@ function wordpoints_get_network_option( $option, $default = false ) {
  * network ('site') option. Otherwise it will create a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_add_maybe_network_option() instead.
  *
  * @param string $option   The name of the option to add.
  * @param mixed  $value    The value for the option.
- * @param string $autoload Whether to automaticaly load the option. 'yes' (default)
+ * @param string $autoload Whether to automatically load the option. 'yes' (default)
  *                         or 'no'. Does not apply if WordPoints is network active.
  *
  * @return bool Whether the option was added successfully.
  */
 function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return add_site_option( $option, $value );
-	} else {
-		return add_option( $option, $value, '', $autoload );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_add_maybe_network_option()'
+	);
+
+	wordpoints_add_maybe_network_option( $option, $value, null, $autoload );
 }
 
 /**
@@ -506,6 +519,7 @@ function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
  * network ('site') option. Otherwise it will update a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_update_maybe_network_option() instead.
  *
  * @param string $option The name of the option to update.
  * @param mixed  $value  The new value for the option.
@@ -514,11 +528,13 @@ function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
  */
 function wordpoints_update_network_option( $option, $value ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return update_site_option( $option, $value );
-	} else {
-		return update_option( $option, $value );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_update_maybe_network_option()'
+	);
+
+	wordpoints_update_maybe_network_option( $option, $value );
 }
 
 /**
@@ -528,6 +544,7 @@ function wordpoints_update_network_option( $option, $value ) {
  * network ('site') option. Otherwise it will delete a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_delete_maybe_network_option() instead.
  *
  * @param string $option The name of the option to delete.
  *
@@ -535,11 +552,13 @@ function wordpoints_update_network_option( $option, $value ) {
  */
 function wordpoints_delete_network_option( $option ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return delete_site_option( $option );
-	} else {
-		return delete_option( $option );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_delete_maybe_network_option()'
+	);
+
+	return wordpoints_delete_maybe_network_option( $option );
 }
 
 /**
@@ -938,7 +957,9 @@ function is_wordpoints_network_active() {
  */
 function wordpoints_get_excluded_users( $context ) {
 
-	$user_ids = wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' );
+	$user_ids = wordpoints_get_maybe_network_array_option(
+		'wordpoints_excluded_users'
+	);
 
 	/**
 	 * Excluded users option.

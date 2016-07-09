@@ -228,7 +228,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	 */
 	public function test_excluded_users_excluded() {
 
-		wordpoints_update_network_option(
+		wordpoints_update_maybe_network_option(
 			'wordpoints_excluded_users'
 			, array( $this->user_ids[2], $this->user_ids[0] )
 		);

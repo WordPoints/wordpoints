@@ -27,7 +27,10 @@ if (
 		$excluded_users = array_unique( array_filter( $excluded_users, 'wordpoints_posint' ) );
 	}
 
-	wordpoints_update_network_option( 'wordpoints_excluded_users', $excluded_users );
+	wordpoints_update_maybe_network_option(
+		'wordpoints_excluded_users'
+		, $excluded_users
+	);
 
 	/**
 	 * WordPoints settings form submitted.
@@ -66,7 +69,7 @@ if (
 					<label for="excluded_users"><?php esc_html_e( 'Excluded Users', 'wordpoints' ); ?></label>
 				</th>
 				<td>
-					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo esc_attr( implode( ', ', wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' ) ) ); ?>" />
+					<input type="text" name="excluded_users" id="excluded_users" value="<?php echo esc_attr( implode( ', ', wordpoints_get_maybe_network_array_option( 'wordpoints_excluded_users' ) ) ); ?>" />
 				</td>
 			</tr>
 		</tbody>

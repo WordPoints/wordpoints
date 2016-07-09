@@ -1005,7 +1005,7 @@ function wordpoints_admin_notices() {
 		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
 			delete_option( $option );
 		} else {
-			wordpoints_delete_network_option( $option );
+			wordpoints_delete_maybe_network_option( $option );
 		}
 	}
 

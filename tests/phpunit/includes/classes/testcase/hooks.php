@@ -195,35 +195,6 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 	}
 
 	/**
-	 * Assert that a value is a hook reaction.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param mixed $reaction The reaction.
-	 */
-	public function assertIsReaction( $reaction ) {
-
-		if ( $reaction instanceof WP_Error ) {
-			$reaction = $reaction->get_error_data();
-		}
-
-		if ( $reaction instanceof WordPoints_Hook_Reaction_Validator ) {
-
-			$message = '';
-
-			foreach ( $reaction->get_errors() as $error ) {
-				$message .= PHP_EOL . 'Field: ' . implode( '.',  $error['field'] );
-				$message .= PHP_EOL . 'Error: ' . $error['message'];
-
-			}
-
-			$this->fail( $message );
-		}
-
-		$this->assertInstanceOf( 'WordPoints_Hook_ReactionI', $reaction );
-	}
-
-	/**
 	 * Assert that one or more hits were logged.
 	 *
 	 * @since 2.1.0

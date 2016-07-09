@@ -509,7 +509,7 @@ function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
 		, 'wordpoints_add_maybe_network_option()'
 	);
 
-	wordpoints_add_maybe_network_option( $option, $value, null, $autoload );
+	return wordpoints_add_maybe_network_option( $option, $value, null, $autoload );
 }
 
 /**
@@ -534,7 +534,7 @@ function wordpoints_update_network_option( $option, $value ) {
 		, 'wordpoints_update_maybe_network_option()'
 	);
 
-	wordpoints_update_maybe_network_option( $option, $value );
+	return wordpoints_update_maybe_network_option( $option, $value );
 }
 
 /**

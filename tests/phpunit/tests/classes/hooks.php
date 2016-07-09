@@ -151,6 +151,87 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test getting reaction stores.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_get_reaction_stores() {
+
+		$slug = $this->factory->wordpoints->hook_reaction_store->create();
+
+		$hooks = wordpoints_hooks();
+
+		$hooks->set_current_mode( 'test' );
+		$slug_2 = $this->factory->wordpoints->hook_reaction_store->create();
+		$hooks->set_current_mode( 'standard' );
+
+		$reaction_stores = $hooks->get_reaction_stores( $slug );
+
+		$this->assertInstanceOf(
+			'WordPoints_PHPUnit_Mock_Hook_Reaction_Store'
+			, $reaction_stores['standard']
+		);
+
+		$this->assertEquals( $slug, $reaction_stores['standard']->get_slug() );
+
+		$this->assertInstanceOf(
+			'WordPoints_PHPUnit_Mock_Hook_Reaction_Store'
+			, $reaction_stores['test']
+		);
+
+		$this->assertEquals( $slug_2, $reaction_stores['test']->get_slug() );
+	}
+
+	/**
+	 * Test getting unregistered reaction stores.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_get_reaction_stores_unregistered() {
+
+		$this->assertSame(
+			array()
+			, wordpoints_hooks()->get_reaction_stores( 'unregistered' )
+		);
+	}
+
+	/**
+	 * Test getting reaction stores when some are out of context.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_get_reaction_stores_out_of_context() {
+
+		$slug = $this->factory->wordpoints->hook_reaction_store->create(
+			array(
+				'class' => 'WordPoints_PHPUnit_Mock_Hook_Reaction_Store_Contexted',
+			)
+		);
+
+		$hooks = wordpoints_hooks();
+
+		$hooks->set_current_mode( 'test' );
+		$slug_2 = $this->factory->wordpoints->hook_reaction_store->create();
+		$hooks->set_current_mode( 'standard' );
+
+		wordpoints_entities()->get_sub_app( 'contexts' )->register(
+			'test_context'
+			, 'WordPoints_PHPUnit_Mock_Entity_Context_OutOfState'
+		);
+
+		$reaction_stores = $hooks->get_reaction_stores( $slug );
+
+		$this->assertCount( 1, $reaction_stores );
+
+		$this->assertInstanceOf(
+			'WordPoints_PHPUnit_Mock_Hook_Reaction_Store'
+			, $reaction_stores['test']
+		);
+
+		$this->assertEquals( $slug_2, $reaction_stores['test']->get_slug() );
+	}
+
+	/**
 	 * Test firing an event.
 	 *
 	 * @since 2.1.0

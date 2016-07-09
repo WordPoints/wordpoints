@@ -121,6 +121,44 @@ class WordPoints_Hooks extends WordPoints_App {
 	}
 
 	/**
+	 * Get all in-context reaction stores with a particular slug.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $slug Slug of the reaction stores to get.
+	 *
+	 * @return WordPoints_Hook_Reaction_StoreI[] The reaction stores with this slug.
+	 */
+	public function get_reaction_stores( $slug ) {
+
+		$reaction_stores = $this->get_sub_app( 'reaction_stores' );
+
+		$stores = array();
+
+		foreach ( $reaction_stores->get_all_slugs() as $mode => $slugs ) {
+
+			if ( ! in_array( $slug, $slugs ) ) {
+				continue;
+			}
+
+			$store = $reaction_stores->get( $mode, $slug, array( $mode ) );
+
+			if ( ! $store instanceof WordPoints_Hook_Reaction_StoreI ) {
+				continue;
+			}
+
+			// Allowing access to stores out-of-context would lead to strange behavior.
+			if ( false === $store->get_context_id() ) {
+				continue;
+			}
+
+			$stores[ $mode ] = $store;
+		}
+
+		return $stores;
+	}
+
+	/**
 	 * Fire an event at each of the reactions.
 	 *
 	 * @since 2.1.0

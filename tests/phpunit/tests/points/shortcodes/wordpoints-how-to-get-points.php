@@ -136,6 +136,155 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_Unit
 
 		wp_set_current_user( $old_current_user->ID );
 	}
+
+	/**
+	 * Test that it displays the reactions in the table.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_displays_reactions() {
+
+		$hooks = wordpoints_hooks();
+		$reaction_store = $hooks->get_reaction_store( 'points' );
+		$reaction_1 = $reaction_store->create_reaction(
+			array(
+				'event' => 'user_register',
+				'target' => array( 'user' ),
+				'reactor' => 'points',
+				'points' => 100,
+				'points_type' => 'points',
+				'description' => 'Registration.',
+				'log_text' => 'Registration.',
+			)
+		);
+
+		$this->assertIsReaction( $reaction_1 );
+
+		$reaction_2 = $reaction_store->create_reaction(
+			array(
+				'event' => 'comment_leave\post',
+				'target' => array( 'comment\post', 'author', 'user' ),
+				'reactor' => 'points',
+				'points' => 20,
+				'points_type' => 'points',
+				'description' => 'Leaving a comment.',
+				'log_text' => 'Left a comment on a post.',
+			)
+		);
+
+		$this->assertIsReaction( $reaction_2 );
+
+		// Test that the hooks are displayed in the table.
+		$document = new DOMDocument;
+		$document->preserveWhiteSpace = false;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
+				'wordpoints_how_to_get_points'
+				, array( 'points_type' => 'points' )
+			)
+		);
+
+		$xpath = new DOMXPath( $document );
+		$table_rows = $xpath->query( '//tbody/tr' );
+		$this->assertEquals( 2, $table_rows->length );
+
+		$columns = $table_rows->item( 0 )->childNodes;
+		$this->assertEquals(
+			'$100pts.'
+			, $columns->item( 0 )->textContent
+		);
+		$this->assertEquals(
+			$reaction_1->get_meta( 'description' )
+			, $columns->item( 2 )->textContent
+		);
+
+		$columns = $table_rows->item( 1 )->childNodes;
+		$this->assertEquals(
+			'$20pts.'
+			, $columns->item( 0 )->textContent
+		);
+		$this->assertEquals(
+			$reaction_2->get_meta( 'description' )
+			, $columns->item( 2 )->textContent
+		);
+	}
+
+	/**
+	 * Test that it displays network reactions when network active on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_displays_network_reactions() {
+
+		$hooks = wordpoints_hooks();
+		$reaction_store = $hooks->get_reaction_store( 'points' );
+		$reaction_1 = $reaction_store->create_reaction(
+			array(
+				'event' => 'user_register',
+				'target' => array( 'user' ),
+				'reactor' => 'points',
+				'points' => 100,
+				'points_type' => 'points',
+				'description' => 'Registration.',
+				'log_text' => 'Registration.',
+			)
+		);
+
+		$this->assertIsReaction( $reaction_1 );
+
+		$hooks->set_current_mode( 'network' );
+		$reaction_store = $hooks->get_reaction_store( 'points' );
+		$reaction_2 = $reaction_store->create_reaction(
+			array(
+				'event' => 'comment_leave\post',
+				'target' => array( 'comment\post', 'author', 'user' ),
+				'reactor' => 'points',
+				'points' => 20,
+				'points_type' => 'points',
+				'description' => 'Leaving a comment.',
+				'log_text' => 'Left a comment on a post.',
+			)
+		);
+
+		$this->assertIsReaction( $reaction_2 );
+		$hooks->set_current_mode( 'standard' );
+
+		// Test that the hooks are displayed in the table.
+		$document = new DOMDocument;
+		$document->preserveWhiteSpace = false;
+		$document->loadHTML(
+			wordpointstests_do_shortcode_func(
+				'wordpoints_how_to_get_points'
+				, array( 'points_type' => 'points' )
+			)
+		);
+
+		$xpath = new DOMXPath( $document );
+		$table_rows = $xpath->query( '//tbody/tr' );
+		$this->assertEquals( 2, $table_rows->length );
+
+		$columns = $table_rows->item( 0 )->childNodes;
+		$this->assertEquals(
+			'$100pts.'
+			, $columns->item( 0 )->textContent
+		);
+		$this->assertEquals(
+			$reaction_1->get_meta( 'description' )
+			, $columns->item( 2 )->textContent
+		);
+
+		$columns = $table_rows->item( 1 )->childNodes;
+		$this->assertEquals(
+			'$20pts.'
+			, $columns->item( 0 )->textContent
+		);
+		$this->assertEquals(
+			$reaction_2->get_meta( 'description' )
+			, $columns->item( 2 )->textContent
+		);
+	}
 }
 
 // EOF

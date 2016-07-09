@@ -428,6 +428,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->action = 'uninstall';
 
+		$this->load_base_dependencies();
 		$this->load_dependencies();
 
 		ignore_user_abort( true );
@@ -1865,6 +1866,27 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->install_db_schema();
 		$this->install_custom_caps();
 		$this->set_db_version();
+	}
+
+	/**
+	 * Load the dependencies of the man un/install routine.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function load_base_dependencies() {
+
+		require_once dirname( __FILE__ ) . '/constants.php';
+		require_once WORDPOINTS_DIR . '/includes/classes/class/autoloader.php';
+
+		WordPoints_Class_Autoloader::register_dir(
+			WORDPOINTS_DIR . '/includes/classes'
+			, 'WordPoints_'
+		);
+
+		require_once WORDPOINTS_DIR . '/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/includes/apps.php';
+		require_once WORDPOINTS_DIR . '/includes/hooks.php';
+		require_once WORDPOINTS_DIR . '/includes/filters.php';
 	}
 
 	/**

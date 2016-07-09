@@ -121,7 +121,8 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 				),
 				'event' => 'test_event',
 				'reactor' => 'test_reactor',
-				'reaction_store' => 'standard',
+				'reaction_mode' => 'standard',
+				'reaction_store' => 'test',
 				'reaction_context_id' => wp_json_encode(
 					array( 'site' => 1, 'network' => 1 )
 				),
@@ -158,6 +159,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertObjectHasAttribute( 'primary_arg_guid', $row );
 		$this->assertObjectHasAttribute( 'event', $row );
 		$this->assertObjectHasAttribute( 'reactor', $row );
+		$this->assertObjectHasAttribute( 'reaction_mode', $row );
 		$this->assertObjectHasAttribute( 'reaction_store', $row );
 		$this->assertObjectHasAttribute( 'reaction_context_id', $row );
 		$this->assertObjectHasAttribute( 'reaction_id', $row );

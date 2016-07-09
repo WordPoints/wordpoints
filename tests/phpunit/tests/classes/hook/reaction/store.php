@@ -29,6 +29,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		);
 
 		$this->assertEquals( 'test_store', $store->get_slug() );
+		$this->assertEquals( 'standard', $store->get_mode_slug() );
 	}
 
 	/**

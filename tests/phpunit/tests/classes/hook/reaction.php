@@ -32,6 +32,7 @@ class WordPoints_Hook_Reaction_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->assertEquals( 1, $reaction->get_id() );
 		$this->assertEquals( 'test_store', $reaction->get_store_slug() );
+		$this->assertEquals( 'standard', $reaction->get_mode_slug() );
 		$this->assertSame(
 			array( 'site' => 1, 'network' => 1 )
 			, $reaction->get_context_id()
@@ -40,6 +41,7 @@ class WordPoints_Hook_Reaction_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertSame(
 			array(
 				'id' => 1,
+				'mode' => 'standard',
 				'store' => 'test_store',
 				'context_id' => array( 'site' => 1, 'network' => 1 ),
 			)

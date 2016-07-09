@@ -23,6 +23,7 @@ class WordPoints_Hook_Hit_Query extends WordPoints_DB_Query {
 		'primary_arg_guid' => array( 'format' => '%s' ),
 		'event' => array( 'format' => '%s' ),
 		'reactor' => array( 'format' => '%s' ),
+		'reaction_mode' => array( 'format' => '%s' ),
 		'reaction_store' => array( 'format' => '%s' ),
 		'reaction_context_id' => array( 'format' => '%s' ),
 		'reaction_id' => array( 'format' => '%d', 'unsigned' => true ),
@@ -76,6 +77,10 @@ class WordPoints_Hook_Hit_Query extends WordPoints_DB_Query {
 	 *        @type string       $reactor__compare             The comparison operator to use with the above value.
 	 *        @type string[]     $reactor__in                  A list of reactors to query for.
 	 *        @type string[]     $reactor__not_in              A list of reactors to exclude.
+	 *        @type string       $reaction_mode                The slug of the reaction hook mode to query for.
+	 *        @type string       $reaction_mode__compare       The comparison operator to use with the above value.
+	 *        @type string[]     $reaction_mode__in            A list of reaction hook modes to query for.
+	 *        @type string[]     $reaction_mode__not_in        A list of reaction hook modes to exclude.
 	 *        @type string       $reaction_store               The slug of the reaction store to query for.
 	 *        @type string       $reaction_store__compare      The comparison operator to use with the above value.
 	 *        @type string[]     $reaction_store__in           A list of reaction stores to query for.

@@ -768,6 +768,77 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$this->assertEquals( 'test_store', $other_reaction->get_store_slug() );
 		$this->assertEquals( $reaction->get_id(), $other_reaction->get_id() );
 		$this->assertEquals(
+			$reaction->get_mode_slug()
+			, $other_reaction->get_mode_slug()
+		);
+		$this->assertEquals(
+			$reaction->get_context_id()
+			, $other_reaction->get_context_id()
+		);
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertCount( 2, $test_reactor->hits );
+	}
+
+	/**
+	 * Test that the periods are per-hook mode.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_periods_per_reaction_hook_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->get_sub_app( 'extensions' )->register(
+			'periods'
+			, 'WordPoints_Hook_Extension_Periods'
+		);
+
+		$settings = array(
+			'periods' => array( 'test_fire' => array( array( 'length' => MINUTE_IN_SECONDS ) ) ),
+			'target'  => array( 'test_entity' ),
+		);
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create( $settings );
+
+		$this->assertIsReaction( $reaction );
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		$event_args->add_entity(
+			new WordPoints_PHPUnit_Mock_Entity( 'test_entity' )
+		);
+
+		$hooks->get_sub_app( 'events' )->get_sub_app( 'args' )->register(
+			'test_event'
+			, 'another:test_entity'
+			, 'WordPoints_PHPUnit_Mock_Hook_Arg'
+		);
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$test_reactor = $hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
+
+		$this->assertCount( 1, $test_reactor->hits );
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertCount( 1, $test_reactor->hits );
+
+		// Create another reaction in a different mode.
+		$hooks->set_current_mode( 'test' );
+		$other_reaction = $this->factory->wordpoints->hook_reaction->create();
+		$hooks->set_current_mode( 'standard' );
+
+		$this->assertEquals( 'test', $other_reaction->get_mode_slug() );
+		$this->assertEquals( $reaction->get_id(), $other_reaction->get_id() );
+		$this->assertEquals(
+			$reaction->get_store_slug()
+			, $other_reaction->get_store_slug()
+		);
+		$this->assertEquals(
 			$reaction->get_context_id()
 			, $other_reaction->get_context_id()
 		);

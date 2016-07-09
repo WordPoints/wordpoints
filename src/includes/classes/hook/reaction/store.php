@@ -27,13 +27,13 @@ abstract class WordPoints_Hook_Reaction_Store implements WordPoints_Hook_Reactio
 	protected $slug;
 
 	/**
-	 * The mode that this store relates to.
+	 * The slug of the mode that this store relates to.
 	 *
 	 * @since 2.1.0
 	 *
 	 * @var string
 	 */
-	protected $mode;
+	protected $mode_slug;
 
 	/**
 	 * The slug of the contexts in which the reactions are stored.
@@ -60,12 +60,12 @@ abstract class WordPoints_Hook_Reaction_Store implements WordPoints_Hook_Reactio
 	/**
 	 * @since 2.1.0
 	 *
-	 * @param string $slug The slug of this store.
-	 * @param string $mode The slug of the mode this store relates to.
+	 * @param string $slug      The slug of this store.
+	 * @param string $mode_slug The slug of the mode this store relates to.
 	 */
-	public function __construct( $slug, $mode ) {
-		$this->slug = $slug;
-		$this->mode = $mode;
+	public function __construct( $slug, $mode_slug ) {
+		$this->slug      = $slug;
+		$this->mode_slug = $mode_slug;
 	}
 
 	/**
@@ -73,6 +73,13 @@ abstract class WordPoints_Hook_Reaction_Store implements WordPoints_Hook_Reactio
 	 */
 	public function get_slug() {
 		return $this->slug;
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function get_mode_slug() {
+		return $this->mode_slug;
 	}
 
 	/**

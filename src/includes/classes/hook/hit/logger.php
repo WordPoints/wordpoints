@@ -53,6 +53,7 @@ class WordPoints_Hook_Hit_Logger {
 				'primary_arg_guid' => $signature,
 				'event' => $this->fire->reaction->get_event_slug(),
 				'reactor' => $this->fire->reaction->get_reactor_slug(),
+				'reaction_mode' => $this->fire->reaction->get_mode_slug(),
 				'reaction_store' => $this->fire->reaction->get_store_slug(),
 				'reaction_context_id' => wp_json_encode( $this->fire->reaction->get_context_id() ),
 				'reaction_id' => $this->fire->reaction->get_id(),

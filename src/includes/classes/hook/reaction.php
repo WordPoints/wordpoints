@@ -60,6 +60,7 @@ abstract class WordPoints_Hook_Reaction implements WordPoints_Hook_ReactionI {
 
 		return array(
 			'id' => $this->ID,
+			'mode' => $this->get_mode_slug(),
 			'store' => $this->get_store_slug(),
 			'context_id' => $this->get_context_id(),
 		);
@@ -70,6 +71,13 @@ abstract class WordPoints_Hook_Reaction implements WordPoints_Hook_ReactionI {
 	 */
 	public function get_reactor_slug() {
 		return $this->get_meta( 'reactor' );
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	public function get_mode_slug() {
+		return $this->store->get_mode_slug();
 	}
 
 	/**

@@ -30,6 +30,15 @@ interface WordPoints_Hook_Reaction_StoreI {
 	public function get_slug();
 
 	/**
+	 * Get the slug of the hook mode that this store relates to.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return string The slug of the hook mode this store relates to.
+	 */
+	public function get_mode_slug();
+
+	/**
 	 * Get the ID of the current context in which reactions are being stored.
 	 *
 	 * @since 2.1.0

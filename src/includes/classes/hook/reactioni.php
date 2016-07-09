@@ -76,6 +76,15 @@ interface WordPoints_Hook_ReactionI {
 	public function get_reactor_slug();
 
 	/**
+	 * Get the slug of the hook mode that this reaction relates to.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return string The mode slug.
+	 */
+	public function get_mode_slug();
+
+	/**
 	 * Get the slug of the store this reaction is from.
 	 *
 	 * Each reactor can store reactions in multiple different stores. For example,

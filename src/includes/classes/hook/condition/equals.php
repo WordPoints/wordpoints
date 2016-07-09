@@ -29,7 +29,7 @@ class WordPoints_Hook_Condition_Equals extends WordPoints_Hook_Condition {
 		return array(
 			'value' => array(
 				'type' => 'text',
-				'label' => __( 'Equals', 'wordpoints' ), // TODO
+				'label' => _x( 'Value', 'equals hook condition label', 'wordpoints' ),
 			),
 		);
 	}

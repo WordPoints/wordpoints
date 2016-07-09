@@ -23,7 +23,10 @@ class WordPoints_Hook_Reaction_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_construct() {
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$reaction = new WordPoints_PHPUnit_Mock_Hook_Reaction( 1, $store );
 
@@ -53,7 +56,7 @@ class WordPoints_Hook_Reaction_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
 			'test'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$reaction = new WordPoints_PHPUnit_Mock_Hook_Reaction( 'invalid', $store );

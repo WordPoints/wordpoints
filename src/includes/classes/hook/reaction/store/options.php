@@ -315,10 +315,7 @@ class WordPoints_Hook_Reaction_Store_Options extends WordPoints_Hook_Reaction_St
 	 * @return string The name of the option where the settings are stored.
 	 */
 	public function get_settings_option_name( $id ) {
-
-		$current_mode = wordpoints_hooks()->get_current_mode();
-
-		return "wordpoints_hook_reaction-{$this->slug}-{$current_mode}-{$id}";
+		return "wordpoints_hook_reaction-{$this->slug}-{$this->mode}-{$id}";
 	}
 
 	/**
@@ -329,10 +326,7 @@ class WordPoints_Hook_Reaction_Store_Options extends WordPoints_Hook_Reaction_St
 	 * @return string The name of the option where the reaction index is stored.
 	 */
 	protected function get_reaction_index_option_name() {
-
-		$current_mode = wordpoints_hooks()->get_current_mode();
-
-		return "wordpoints_hook_reaction_index-{$this->slug}-{$current_mode}";
+		return "wordpoints_hook_reaction_index-{$this->slug}-{$this->mode}";
 	}
 
 	/**
@@ -343,10 +337,7 @@ class WordPoints_Hook_Reaction_Store_Options extends WordPoints_Hook_Reaction_St
 	 * @return string The name of the option where the last reaction ID is stored.
 	 */
 	protected function get_last_reaction_id_option_name() {
-
-		$current_mode = wordpoints_hooks()->get_current_mode();
-
-		return "wordpoints_hook_reaction_last_id-{$this->slug}-{$current_mode}";
+		return "wordpoints_hook_reaction_last_id-{$this->slug}-{$this->mode}";
 	}
 }
 

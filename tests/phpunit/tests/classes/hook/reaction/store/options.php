@@ -25,7 +25,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$store = new WordPoints_Hook_Reaction_Store_Options(
 			'test_store'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$this->assertFalse( $store->reaction_exists( 1 ) );
@@ -56,7 +56,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$store = new WordPoints_Hook_Reaction_Store_Options(
 			'test_store'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$this->assertSame( array(), $store->get_reactions() );
@@ -81,6 +81,28 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 	}
 
 	/**
+	 * Test getting all reactions when the hook mode has changed.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @link https://github.com/WordPoints/wordpoints/issues/411
+	 */
+	public function test_get_reactions_switched_modes() {
+
+		$reaction_store = $this->factory->wordpoints->hook_reaction_store->create_and_get(
+			array( 'class' => 'WordPoints_Hook_Reaction_Store_Options' )
+		);
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+		$reactions = $reaction_store->get_reactions();
+
+		$this->assertEquals( array( $reaction ), $reactions );
+	}
+
+	/**
 	 * Test getting all reactions to an event when there are no reactions.
 	 *
 	 * @since 2.1.0
@@ -89,7 +111,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$store = new WordPoints_Hook_Reaction_Store_Options(
 			'test_store'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$this->assertSame(
@@ -149,7 +171,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$store = new WordPoints_Hook_Reaction_Store_Options(
 			'test_store'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$this->assertFalse( $store->get_reaction_event_from_index( 1 ) );
@@ -184,7 +206,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$store = new WordPoints_Hook_Reaction_Store_Options(
 			'test_store'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$this->assertFalse(
@@ -225,7 +247,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$store = new WordPoints_Hook_Reaction_Store_Options(
 			'test_store'
-			, new WordPoints_PHPUnit_Mock_Hook_Reactor( 'test_reactor' )
+			, 'standard'
 		);
 
 		$this->assertFalse( $store->delete_reaction( 1 ) );
@@ -338,9 +360,8 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 		$this->assertEquals( 2, $reactions[1]->get_id() );
 		$this->assertEquals( 3, $reactions[2]->get_id() );
 
-		$current_mode = wordpoints_hooks()->get_current_mode();
 		$slug         = $reaction_store->get_slug();
-		$option_name  = "wordpoints_hook_reaction_last_id-{$slug}-{$current_mode}";
+		$option_name  = "wordpoints_hook_reaction_last_id-{$slug}-standard";
 
 		// When the index max is equal to the next ID as calculated from the option.
 		$reaction_store->update_option( $option_name, 2 );

@@ -58,7 +58,7 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( $entity_id )
 		);
 
-		$arg = new WordPoints_Hook_Arg( 'test_entity', $action );
+		$arg = new WordPoints_Hook_Arg( 'test_entity', 'test_action', $action );
 
 		$this->assertEquals( $entity_id, $arg->get_value() );
 
@@ -87,7 +87,7 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 'arg_index' => array( 'current:test_entity' => 0 ) )
 		);
 
-		$arg = new WordPoints_Hook_Arg( 'current:test_entity', $action );
+		$arg = new WordPoints_Hook_Arg( 'current:test_entity', 'test_action', $action );
 		$this->assertEquals( $entity_id, $arg->get_value() );
 
 		$entity = $arg->get_entity();
@@ -112,7 +112,7 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( $entity_id )
 		);
 
-		$arg = new WordPoints_Hook_Arg( 'test_entity', $action );
+		$arg = new WordPoints_Hook_Arg( 'test_entity', 'test_action', $action );
 		$this->assertEquals( $entity_id, $arg->get_value() );
 
 		$this->assertFalse( $arg->get_entity() );

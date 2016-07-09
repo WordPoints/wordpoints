@@ -23,7 +23,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_construct() {
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$this->assertEquals( 'test_store', $store->get_slug() );
 	}
@@ -35,7 +38,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_get_context_id() {
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$this->assertEquals(
 			array( 'network' => 1, 'site' => 1 )
@@ -50,7 +56,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_get_reaction_nonexistent() {
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$this->assertFalse( $store->get_reaction( 1 ) );
 	}
@@ -68,7 +77,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 			'target' => array( 'test_entity' ),
 		);
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$this->factory->wordpoints->hook_event->create();
 
@@ -94,7 +106,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->factory->wordpoints->hook_reactor->create();
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		// Event is missing.
 		$settings = array(
@@ -119,7 +134,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $reactor */
 		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$settings = array(
 			'event' => 'test_event',
@@ -148,7 +166,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $extension */
 		$extension = $this->factory->wordpoints->hook_extension->create_and_get();
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$settings = array(
 			'event' => 'test_event',
@@ -185,7 +206,10 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$mock = new WordPoints_Mock_Filter();
 		add_action( 'wordpoints_hook_reaction_save', array( $mock, 'action' ), 10, 5 );
 
-		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store( 'test_store' );
+		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
+			'test_store'
+			, 'standard'
+		);
 
 		$result = $store->create_reaction( $settings );
 

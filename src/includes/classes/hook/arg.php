@@ -62,10 +62,15 @@ class WordPoints_Hook_Arg implements WordPoints_Hook_ArgI {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string                  $slug   The arg slug.
-	 * @param WordPoints_Hook_ActionI $action The calling action's object.
+	 * @param string                  $slug        The arg slug.
+	 * @param string                  $action_slug The action slug.
+	 * @param WordPoints_Hook_ActionI $action      The calling action's object.
 	 */
-	public function __construct( $slug, WordPoints_Hook_ActionI $action = null ) {
+	public function __construct(
+		$slug,
+		$action_slug = null,
+		WordPoints_Hook_ActionI $action = null
+	) {
 
 		$this->slug = $slug;
 		$this->action = $action;

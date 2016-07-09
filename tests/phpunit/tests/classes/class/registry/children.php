@@ -136,7 +136,10 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['test']
 		);
 
-		$this->assertEquals( 'test', $objects['test']->calls[0]['arguments'][0] );
+		$this->assertEquals(
+			array( 'test', 'parent' )
+			, $objects['test']->calls[0]['arguments']
+		);
 
 		$this->assertArrayHasKey( 'test_2', $objects );
 		$this->assertInstanceOf(
@@ -144,7 +147,10 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['test_2']
 		);
 
-		$this->assertEquals( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
+		$this->assertEquals(
+			array( 'test_2', 'parent' )
+			, $objects['test_2']->calls[0]['arguments']
+		);
 
 		$this->assertEquals(
 			array( 'test', 'test_2' )
@@ -181,7 +187,10 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $object
 		);
 
-		$this->assertEquals( 'test', $object->calls[0]['arguments'][0] );
+		$this->assertEquals(
+			array( 'test', 'parent' )
+			, $object->calls[0]['arguments']
+		);
 
 		$this->assertEquals(
 			array( 'test', 'test_2' )
@@ -225,8 +234,8 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 		);
 
 		$this->assertEquals(
-			'test'
-			, $objects['parent']['test']->calls[0]['arguments'][0]
+			array( 'test', 'parent' )
+			, $objects['parent']['test']->calls[0]['arguments']
 		);
 
 		$this->assertArrayHasKey( 'test_2', $objects['parent'] );
@@ -236,8 +245,8 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 		);
 
 		$this->assertEquals(
-			'test_2'
-			, $objects['parent']['test_2']->calls[0]['arguments'][0]
+			array( 'test_2', 'parent' )
+			, $objects['parent']['test_2']->calls[0]['arguments']
 		);
 
 		$this->assertArrayHasKey( 'parent_2', $objects );
@@ -251,8 +260,8 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 		);
 
 		$this->assertEquals(
-			'test'
-			, $objects['parent_2']['test']->calls[0]['arguments'][0]
+			array( 'test', 'parent_2' )
+			, $objects['parent_2']['test']->calls[0]['arguments']
 		);
 
 		$this->assertEquals(
@@ -286,7 +295,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $object
 		);
 
-		array_unshift( $args, 'test' );
+		array_unshift( $args, 'test', 'parent' );
 
 		$this->assertEquals(
 			array( 'name' => '__construct', 'arguments' => $args )
@@ -317,7 +326,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		$this->assertCount( 2, $objects );
 
-		array_unshift( $args, 'test' );
+		array_unshift( $args, 'test', 'parent' );
 
 		$this->assertEquals(
 			array( 'name' => '__construct', 'arguments' => $args )
@@ -359,7 +368,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		$this->assertCount( 2, $objects );
 
-		array_unshift( $args, 'test' );
+		array_unshift( $args, 'test', 'parent' );
 
 		$this->assertArrayHasKey( 'parent', $objects );
 
@@ -386,6 +395,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey( 'test', $objects['parent_2'] );
 
 		$args[0] = 'test';
+		$args[1] = 'parent_2';
 
 		$this->assertEquals(
 			array( 'name' => '__construct', 'arguments' => $args )

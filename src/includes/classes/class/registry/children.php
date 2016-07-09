@@ -37,10 +37,12 @@ class WordPoints_Class_Registry_Children
 
 		$items = array();
 
+		array_unshift( $args, null );
+
 		foreach ( $this->classes as $parent_slug => $classes ) {
 			$items[ $parent_slug ] = WordPoints_Class_Registry::construct_with_args(
 				$classes
-				, $args
+				, array( $parent_slug ) + $args
 			);
 		}
 
@@ -62,6 +64,8 @@ class WordPoints_Class_Registry_Children
 		$items = array();
 
 		if ( isset( $this->classes[ $parent_slug ] ) ) {
+
+			array_unshift( $args, $parent_slug );
 
 			$items = WordPoints_Class_Registry::construct_with_args(
 				$this->classes[ $parent_slug ]
@@ -98,9 +102,9 @@ class WordPoints_Class_Registry_Children
 		$class = $this->classes[ $parent_slug ][ $slug ];
 
 		if ( empty( $args ) ) {
-			return new $class( $slug );
+			return new $class( $slug, $parent_slug );
 		} else {
-			array_unshift( $args, $slug );
+			array_unshift( $args, $slug, $parent_slug );
 
 			return wordpoints_construct_class_with_args( $class, $args );
 		}

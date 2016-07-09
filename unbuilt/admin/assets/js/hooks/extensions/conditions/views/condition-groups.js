@@ -7,7 +7,7 @@
  */
 var Base = wp.wordpoints.hooks.view.Base,
 	ConditionGroupView = wp.wordpoints.hooks.view.ConditionGroup,
-	ArgSelector2 = wp.wordpoints.hooks.view.ArgSelector2,
+	ArgHierarchySelector = wp.wordpoints.hooks.view.ArgHierarchySelector,
 	ConditionSelector = wp.wordpoints.hooks.view.ConditionSelector,
 	Extensions = wp.wordpoints.hooks.Extensions,
 	Args = wp.wordpoints.hooks.Args,
@@ -106,7 +106,7 @@ ConditionGroups = Base.extend({
 
 			} else {
 
-				this.ArgSelector = new ArgSelector2({
+				this.ArgSelector = new ArgHierarchySelector({
 					hierarchies: hierarchies,
 					el: this.$( '.arg-selectors' )
 				});

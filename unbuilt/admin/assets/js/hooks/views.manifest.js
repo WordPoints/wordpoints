@@ -53,4 +53,4 @@ hooks.view.Reaction          = require( './views/reaction.js' );
 hooks.view.Reactions         = require( './views/reactions.js' );
 hooks.view.ArgSelector       = require( './views/arg-selector.js' );
 hooks.view.ArgSelectors      = require( './views/arg-selectors.js' );
-hooks.view.ArgSelector2      = require( './views/arg-selector2.js' );
+hooks.view.ArgHierarchySelector = require( './views/arg-hierarchy-selector.js' );

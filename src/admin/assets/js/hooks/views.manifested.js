@@ -934,75 +934,9 @@ hooks.view.Reaction          = require( './views/reaction.js' );
 hooks.view.Reactions         = require( './views/reactions.js' );
 hooks.view.ArgSelector       = require( './views/arg-selector.js' );
 hooks.view.ArgSelectors      = require( './views/arg-selectors.js' );
-hooks.view.ArgSelector2      = require( './views/arg-selector2.js' );
+hooks.view.ArgHierarchySelector = require( './views/arg-hierarchy-selector.js' );
 
-},{"./controllers/args.js":1,"./controllers/extension.js":2,"./controllers/extensions.js":3,"./controllers/fields.js":4,"./controllers/reactor.js":5,"./controllers/reactors.js":6,"./views/arg-selector.js":8,"./views/arg-selector2.js":9,"./views/arg-selectors.js":10,"./views/base.js":11,"./views/reaction.js":12,"./views/reactions.js":13}],8:[function(require,module,exports){
-/**
- * wp.wordpoints.hooks.view.ArgSelector
- *
- * @class
- * @augments Backbone.View
- * @augments wp.wordpoints.hooks.view.Base
- */
-var Base = wp.wordpoints.hooks.view.Base,
-	template = wp.wordpoints.hooks.template,
-	ArgSelector;
-
-ArgSelector = Base.extend({
-
-	namespace: 'arg-selector',
-
-	template: template( 'hook-arg-selector' ),
-
-	optionTemplate: template( 'hook-arg-option' ),
-
-	events: {
-		'change select': 'triggerChange'
-	},
-
-	initialize: function ( options ) {
-
-		this.label = options.label;
-		this.number = options.number;
-
-		this.listenTo( this.collection, 'update', this.render );
-		this.listenTo( this.collection, 'reset', this.render );
-	},
-
-	render: function () {
-
-		this.$el.html(
-			this.template( { label: this.label, name: this.cid + '_' + this.number } )
-		);
-
-		this.$select = this.$( 'select' );
-
-		this.collection.each( function ( arg ) {
-
-			this.$select.append( this.optionTemplate( arg.attributes ) );
-
-		}, this );
-
-		this.trigger( 'render', this );
-
-		return this;
-	},
-
-	triggerChange: function ( event ) {
-
-		var value = this.$select.val();
-
-		if ( '0' === value ) {
-			value = false;
-		}
-
-		this.trigger( 'change', this, value, event );
-	}
-});
-
-module.exports = ArgSelector;
-
-},{}],9:[function(require,module,exports){
+},{"./controllers/args.js":1,"./controllers/extension.js":2,"./controllers/extensions.js":3,"./controllers/fields.js":4,"./controllers/reactor.js":5,"./controllers/reactors.js":6,"./views/arg-hierarchy-selector.js":8,"./views/arg-selector.js":9,"./views/arg-selectors.js":10,"./views/base.js":11,"./views/reaction.js":12,"./views/reactions.js":13}],8:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.ArgSelectors
  *
@@ -1014,9 +948,9 @@ var Base = wp.wordpoints.hooks.view.Base,
 	Args = wp.wordpoints.hooks.Args,
 	template = wp.wordpoints.hooks.template,
 	$ = Backbone.$,
-	ArgSelector2;
+	ArgHierarchySelector;
 
-ArgSelector2 = Base.extend({
+ArgHierarchySelector = Base.extend({
 
 	namespace: 'arg-selector2',
 
@@ -1098,7 +1032,73 @@ ArgSelector2 = Base.extend({
 	}
 });
 
-module.exports = ArgSelector2;
+module.exports = ArgHierarchySelector;
+
+},{}],9:[function(require,module,exports){
+/**
+ * wp.wordpoints.hooks.view.ArgSelector
+ *
+ * @class
+ * @augments Backbone.View
+ * @augments wp.wordpoints.hooks.view.Base
+ */
+var Base = wp.wordpoints.hooks.view.Base,
+	template = wp.wordpoints.hooks.template,
+	ArgSelector;
+
+ArgSelector = Base.extend({
+
+	namespace: 'arg-selector',
+
+	template: template( 'hook-arg-selector' ),
+
+	optionTemplate: template( 'hook-arg-option' ),
+
+	events: {
+		'change select': 'triggerChange'
+	},
+
+	initialize: function ( options ) {
+
+		this.label = options.label;
+		this.number = options.number;
+
+		this.listenTo( this.collection, 'update', this.render );
+		this.listenTo( this.collection, 'reset', this.render );
+	},
+
+	render: function () {
+
+		this.$el.html(
+			this.template( { label: this.label, name: this.cid + '_' + this.number } )
+		);
+
+		this.$select = this.$( 'select' );
+
+		this.collection.each( function ( arg ) {
+
+			this.$select.append( this.optionTemplate( arg.attributes ) );
+
+		}, this );
+
+		this.trigger( 'render', this );
+
+		return this;
+	},
+
+	triggerChange: function ( event ) {
+
+		var value = this.$select.val();
+
+		if ( '0' === value ) {
+			value = false;
+		}
+
+		this.trigger( 'change', this, value, event );
+	}
+});
+
+module.exports = ArgSelector;
 
 },{}],10:[function(require,module,exports){
 /**

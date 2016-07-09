@@ -9,9 +9,9 @@ var Base = wp.wordpoints.hooks.view.Base,
 	Args = wp.wordpoints.hooks.Args,
 	template = wp.wordpoints.hooks.template,
 	$ = Backbone.$,
-	ArgSelector2;
+	ArgHierarchySelector;
 
-ArgSelector2 = Base.extend({
+ArgHierarchySelector = Base.extend({
 
 	namespace: 'arg-selector2',
 
@@ -93,4 +93,4 @@ ArgSelector2 = Base.extend({
 	}
 });
 
-module.exports = ArgSelector2;
+module.exports = ArgHierarchySelector;

@@ -53,25 +53,6 @@ one that [integrates with WooCommerce](http://wordpoints.org/modules/woocommerce
 and another that let's you [reset your users' points](http://wordpoints.org/modules/reset-points/).
 More are being added regularly, so take a look to see what is new.
 
-= Translations =
-
-WordPoints is fully translatable, and translations are already available in several
-languages:
-
-* **(el) Greek**
-* **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
-* **(lt) Lithuanian**
-* **(ja) Japanese** — Thanks to Raymond Calla.
-* **(pt_BR) Brazilian Portuguese** — Thanks goes to Gabriel Galvão ([@threadsgeneration](https://profiles.wordpress.org/threadsgeneration)).
-* **(zh_CN) Simplified Chinese** — Thanks to Jack Lee ([@suifengtec](https://profiles.wordpress.org/suifengtec)).
-
-Not all of these translations are complete, and if you'd like to help maintain and
-improve them, or you'd like to translate WordPoints into another language, you can
-join the [translation project on Weblate](https://hosted.weblate.org/engage/wordpoints/).
-
-If you have a completed translation you'd like to share, you can also send it to us
-using the [contact form on WordPoints.org](http://wordpoints.org/contact/).
-
 = Developers =
 
 If you are a developer, designer, or accessibility expert, and you'd like to give

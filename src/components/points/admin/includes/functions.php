@@ -8,13 +8,13 @@
  */
 
 /**
- * Register admin scripts.
+ * Register points component admin scripts.
  *
- * @since 1.7.0
+ * @since 2.1.0
  *
  * @WordPress\action init
  */
-function wordpoints_admin_register_scripts() {
+function wordpoints_points_admin_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/points/admin/assets';
 

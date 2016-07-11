@@ -7,7 +7,7 @@
  * @since 2.1.0
  */
 
-add_action( 'init', 'wordpoints_admin_register_scripts' );
+add_action( 'init', 'wordpoints_points_admin_register_scripts' );
 
 add_action( 'admin_menu', 'wordpoints_points_admin_menu' );
 

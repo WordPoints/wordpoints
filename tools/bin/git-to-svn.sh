@@ -10,7 +10,7 @@ fi
 svn=$1
 
 if [ -z "$2" ]; then
-	subpath=trunk/src
+	subpath=trunk
 else
 	subpath=$2
 fi

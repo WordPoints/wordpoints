@@ -527,6 +527,7 @@ function wordpoints_points_admin_notices() {
 				__( 'Welcome to WordPoints! Get started by <a href="%s">creating a points type</a>.', 'wordpoints' )
 				, esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
 			)
+			, 'info'
 		);
 	}
 }

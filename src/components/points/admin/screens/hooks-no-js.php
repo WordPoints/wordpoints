@@ -42,7 +42,11 @@ if ( isset( $_GET['addnew'] ) ) {
 
 		if ( ! $hook ) {
 
-			wordpoints_show_admin_error( esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+			wordpoints_show_admin_error(
+				esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' )
+				, array( 'dismissible' => true )
+			);
+
 			return;
 		}
 
@@ -54,7 +58,11 @@ if ( isset( $_GET['addnew'] ) ) {
 
 	} else {
 
-		wordpoints_show_admin_error( esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+		wordpoints_show_admin_error(
+			esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' )
+			, array( 'dismissible' => true )
+		);
+
 		return;
 	}
 

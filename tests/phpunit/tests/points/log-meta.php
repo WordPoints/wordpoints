@@ -94,6 +94,69 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
 		wordpoints_delete_points_log_meta( $log_id, 'slash\test', 'test\slashing2' );
 		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
 	}
+
+	/**
+	 * Test the $unique parameter of the add meta function.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_add_points_log_meta
+	 */
+	public function test_add_log_meta_unique() {
+
+		$log_id = 1;
+
+		$this->assertInternalType(
+			'int'
+			, wordpoints_add_points_log_meta( $log_id, 'test', 'one' )
+		);
+
+		$this->assertEquals(
+			'one'
+			, wordpoints_get_points_log_meta( $log_id, 'test', true )
+		);
+
+		$this->assertFalse(
+			wordpoints_add_points_log_meta( $log_id, 'test', 'two', true )
+		);
+
+		$this->assertEquals(
+			'one'
+			, wordpoints_get_points_log_meta( $log_id, 'test', true )
+		);
+	}
+
+	/**
+	 * Test the $unique parameter of the add meta function is false by default.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_add_points_log_meta
+	 */
+	public function test_add_log_meta_unique_false_by_default() {
+
+		$log_id = 1;
+
+		$this->assertInternalType(
+			'int'
+			, wordpoints_add_points_log_meta( $log_id, 'test', 'one' )
+		);
+
+		$this->assertEquals(
+			array( 'one' )
+			, wordpoints_get_points_log_meta( $log_id, 'test' )
+		);
+
+		$this->assertInternalType(
+			'int'
+			, wordpoints_add_points_log_meta( $log_id, 'test', 'two' )
+		);
+
+		$this->assertEquals(
+			array( 'one', 'two' )
+			, wordpoints_get_points_log_meta( $log_id, 'test' )
+		);
+	}
 }
 
 // EOF

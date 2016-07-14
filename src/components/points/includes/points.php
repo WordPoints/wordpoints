@@ -786,16 +786,18 @@ function _wordpoints_points_log_meta_column( $column ) {
  *
  * @since 1.0.0
  * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
+ * @since 2.1.0 $unique parameter was added.
  *
  * @see add_metadata()
  *
  * @param int    $log_id     The ID of the transaction log to add metadata for.
  * @param string $meta_key   The meta key. Not expected slashed.
  * @param mixed  $meta_value The meta value. Not expected slashed.
+ * @param bool   $unique     Whether this meta key should be unique per-object.
  *
  * @return bool Whether the metadata was added successfully.
  */
-function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
+function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value, $unique = false ) {
 
 	global $wpdb;
 
@@ -807,6 +809,7 @@ function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
 		, $log_id
 		, wp_slash( $meta_key )
 		, wp_slash( $meta_value )
+		, $unique
 	);
 
 	unset( $wpdb->wordpoints_points_logmeta );

@@ -60,17 +60,21 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 		</div>
 		<div class="controls">
 			<button class="add-rank button-primary"><?php esc_html_e( 'Add Rank', 'wordpoints' ); ?></button>
-			<select class="wordpoints-rank-types">
-				<option><?php esc_html_e( 'Select Type', 'wordpoints' ); ?></option>
-
-				<?php foreach ( $rank_group->get_types() as $rank_type ) : ?>
-					<?php if ( 'base' !== $rank_type ) : ?>
-						<option value="<?php echo esc_attr( $rank_type ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( "wordpoints_create_rank|{$rank_group->slug}|{$rank_type}" ) ); ?>">
-							<?php echo esc_html( WordPoints_Rank_Types::get_type( $rank_type )->get_name() ); ?>
-						</option>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			</select>
+			<label class="wordpoints-rank-types">
+				<?php esc_html_e( 'Rank Type:', 'wordpoints' ); ?>
+				<select>
+					<?php foreach ( $rank_group->get_types() as $rank_type ) : ?>
+						<?php if ( 'base' !== $rank_type ) : ?>
+							<option
+								value="<?php echo esc_attr( $rank_type ); ?>"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( "wordpoints_create_rank|{$rank_group->slug}|{$rank_type}" ) ); ?>"
+							>
+								<?php echo esc_html( WordPoints_Rank_Types::get_type( $rank_type )->get_name() ); ?>
+							</option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</select>
+			</label>
 		</div>
 	</div>
 	<?php

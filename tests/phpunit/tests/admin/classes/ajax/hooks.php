@@ -12,6 +12,8 @@
  *
  * @since 2.1.0
  *
+ * @group ajax
+ *
  * @covers WordPoints_Admin_Ajax_Hooks
  */
 class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax {

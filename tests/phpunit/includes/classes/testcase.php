@@ -846,7 +846,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 
-		$messages = $xpath->query( '//div[@id = "message"]' );
 
 		$this->assertEquals( 1, $messages->length );
 
@@ -855,27 +854,18 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		if ( isset( $args['type'] ) ) {
 
 			$this->assertStringMatchesFormat(
-				$args['type']
 				, $message->attributes->getNamedItem( 'class' )->nodeValue
 			);
 		}
 
 		if ( isset( $args['dismissible'] ) ) {
 
-			$dismiss_option_input = $xpath->query(
-				'//input[@name = "wordpoints_notice"]'
-				, $message
 			);
-
-			$this->assertEquals( 1, $dismiss_option_input->length );
-
-			$dismiss_option_input = $dismiss_option_input->item( 0 );
 
 			if ( isset( $args['option'] ) ) {
 
 				$this->assertEquals(
 					$args['option']
-					, $dismiss_option_input->attributes->getNamedItem( 'value' )->nodeValue
 				);
 			}
 		}

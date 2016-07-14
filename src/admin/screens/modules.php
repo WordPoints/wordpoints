@@ -38,7 +38,7 @@ if ( isset( $_GET['error'] ) ) {
 
 			?>
 
-			<div id="message" class="error">
+			<div class="notice notice-error">
 				<p>
 					<?php echo wp_kses( $error_message, '' ); ?>
 					<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['module'] ) ) ); ?>&amp;_wpnonce=<?php echo esc_attr( sanitize_key( $_GET['_error_nonce'] ) ); ?>"></iframe>

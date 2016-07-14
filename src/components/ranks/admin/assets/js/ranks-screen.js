@@ -443,7 +443,7 @@ jQuery( function ( $ ) {
 				return;
 			}
 
-			$( '#message.error p' )
+			$( '#ranks-error-message p' )
 				.text(
 					response.message || ranks.l10n.unexpectedError
 				)

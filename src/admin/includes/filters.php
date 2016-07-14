@@ -38,5 +38,6 @@ add_action( 'admin_notices', 'wordpoints_admin_notices' );
 add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
 
 add_action( 'wp_ajax_nopriv_wordpoints_breaking_module_check', 'wordpoints_admin_ajax_breaking_module_check' );
+add_action( 'wp_ajax_wordpoints-delete-admin-notice-option', 'wordpoints_delete_admin_notice_option' );
 
 // EOF

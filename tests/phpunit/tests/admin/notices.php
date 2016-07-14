@@ -74,13 +74,13 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
-	 * Test that it displays an update notice by default.
+	 * Test that it displays an success notice by default.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @covers ::wordpoints_show_admin_message
 	 */
-	public function test_displays_update_notice() {
+	public function test_displays_success_notice() {
 
 		$message = 'Testing.';
 
@@ -90,7 +90,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 
 		$this->assertStringMatchesFormat( "%a{$message}%a", $notice );
 
-		$this->assertWordPointsAdminNotice( $notice, array( 'type' => 'updated' ) );
+		$this->assertWordPointsAdminNotice( $notice, array( 'type' => 'success' ) );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		ob_start();
 		wordpoints_show_admin_message(
 			$message
-			, 'updated'
+			, 'success'
 			, array( 'dismissible' => true )
 		);
 		$notice = ob_get_clean();
@@ -151,7 +151,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		ob_start();
 		wordpoints_show_admin_message(
 			$message
-			, 'updated'
+			, 'success'
 			, array( 'dismissible' => true, 'option' => 'test' )
 		);
 		$notice = ob_get_clean();
@@ -180,7 +180,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		ob_start();
 		wordpoints_show_admin_message(
 			$message
-			, 'updated'
+			, 'success'
 			, array( 'dismissable' => true )
 		);
 		$notice = ob_get_clean();
@@ -188,6 +188,31 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 		$this->assertStringMatchesFormat( "%a{$message}%a", $notice );
 
 		$this->assertWordPointsAdminNotice( $notice, array( 'dismissible' => true ) );
+	}
+
+	/**
+	 * Test that the 'updated' notice type is deprecated.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_show_admin_message
+	 *
+	 * @expectedDeprecated wordpoints_show_admin_message
+	 */
+	public function test_updated_type_deprecated() {
+
+		$message = 'Testing.';
+
+		ob_start();
+		wordpoints_show_admin_message(
+			$message
+			, 'updated'
+		);
+		$notice = ob_get_clean();
+
+		$this->assertStringMatchesFormat( "%a{$message}%a", $notice );
+
+		$this->assertWordPointsAdminNotice( $notice, array( 'type' => 'success' ) );
 	}
 
 	/**
@@ -234,6 +259,95 @@ class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
 			$notice
 			, array( 'dismissible' => true, 'type' => 'error' )
 		);
+	}
+
+	/**
+	 * Test that it deletes the option when the dismiss form has been submitted.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints !network-active
+	 */
+	public function test_admin_notice_option_deleted() {
+
+		update_option( 'test', 'test' );
+
+		$_POST['wordpoints_notice'] = 'test';
+		$_POST['_wpnonce'] = wp_create_nonce(
+			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
+		);
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertFalse( get_option( 'test' ) );
+	}
+
+	/**
+	 * Test that it deletes the a network option when WordPoints is network-active.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_admin_notice_option_deleted_network_wide() {
+
+		update_site_option( 'test', 'test' );
+
+		$_POST['wordpoints_notice'] = 'test';
+		$_POST['_wpnonce'] = wp_create_nonce(
+			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
+		);
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertFalse( get_site_option( 'test' ) );
+	}
+
+	/**
+	 * Test that a valid nonce must be present for the option to be deleted.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints !network-active
+	 */
+	public function test_admin_notice_option_not_deleted_without_nonce() {
+
+		update_option( 'test', 'test' );
+
+		$_POST['wordpoints_notice'] = 'test';
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertEquals( 'test', get_option( 'test' ) );
+	}
+
+	/**
+	 * Test that it deletes the a network option when WordPoints is network-active.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_admin_notice_option
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_admin_notice_incompatible_modules_option_deleted_network_wide() {
+
+		update_option( 'wordpoints_incompatible_modules', 'test' );
+
+		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
+		$_POST['_wpnonce'] = wp_create_nonce(
+			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
+		);
+
+		wordpoints_delete_admin_notice_option();
+
+		$this->assertFalse( get_option( 'wordpoints_incompatible_modules' ) );
 	}
 
 	/**

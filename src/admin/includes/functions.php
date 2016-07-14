@@ -239,6 +239,13 @@ function wordpoints_register_admin_scripts() {
 	// JS
 
 	wp_register_script(
+		'wordpoints-admin-dismiss-notice'
+		, $assets_url . '/js/dismiss-notice.js'
+		, array( 'jquery', 'wp-util' )
+		, WORDPOINTS_VERSION
+	);
+
+	wp_register_script(
 		'wordpoints-hooks-models'
 		, $assets_url . '/js/hooks/models.manifested.js'
 		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
@@ -698,13 +705,16 @@ function wordpoints_show_admin_error( $message, array $args = array() ) {
  * in WordPoints core.
  *
  * @since 1.0.0
- * @since 1.2.0 The $type parameter is now properly escaped.
- * @since 1.8.0 The $message will be passed through wp_kses().
- * @since 1.8.0 The $args parameter was added with "dismissable" and "option" args.
+ * @since 1.2.0  The $type parameter is now properly escaped.
+ * @since 1.8.0  The $message will be passed through wp_kses().
+ * @since 1.8.0  The $args parameter was added with "dismissable" and "option" args.
  * @since 1.10.0 The "dismissable" arg was renamed to "dismissible".
+ * @since 2.1.0  Now supports 'warning' and 'info' message types, and 'updated' is
+ *               deprecated in favor of 'success'.
  *
  * @param string $message The text for the message.
- * @param string $type    The type of message to display. Default is 'updated'.
+ * @param string $type    The type of message to display, 'success' (default),
+ *                        'error', 'warning' or 'info'.
  * @param array  $args    {
  *        Other optional arguments.
  *
@@ -714,7 +724,7 @@ function wordpoints_show_admin_error( $message, array $args = array() ) {
  *                                  Required when $dismissible is true.
  * }
  */
-function wordpoints_show_admin_message( $message, $type = 'updated', array $args = array() ) {
+function wordpoints_show_admin_message( $message, $type = 'success', array $args = array() ) {
 
 	$defaults = array(
 		'dismissible' => false,
@@ -734,14 +744,35 @@ function wordpoints_show_admin_message( $message, $type = 'updated', array $args
 		);
 	}
 
+	if ( 'updated' === $type ) {
+
+		$type = 'success';
+
+		_deprecated_argument(
+			__FUNCTION__
+			, '2.1.0'
+			, 'Use "success" instead of "updated" for the $type argument.'
+		);
+	}
+
+	if ( $args['dismissible'] && $args['option'] ) {
+		wp_enqueue_script( 'wordpoints-admin-dismiss-notice' );
+	}
+
 	?>
 
-	<div id="message" class="<?php echo sanitize_html_class( $type, 'updated' ); ?>">
+	<div
+		class="notice notice-<?php echo sanitize_html_class( $type, 'success' ); ?><?php echo ( $args['dismissible'] ) ? ' is-dismissible' : ''; ?>"
+		<?php if ( $args['dismissible'] && $args['option'] ) : ?>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( "wordpoints_dismiss_notice-{$args['option']}" ) ); ?>"
+			data-option="<?php echo esc_attr( $args['option'] ); ?>"
+		<?php endif; ?>
+		>
 		<p>
 			<?php echo wp_kses( $message, 'wordpoints_admin_message' ); ?>
 		</p>
-		<?php if ( $args['dismissible'] ) : ?>
-			<form method="post" style="padding-bottom: 5px;">
+		<?php if ( $args['dismissible'] && $args['option'] ) : ?>
+			<form method="post" class="wordpoints-notice-dismiss-form" style="padding-bottom: 5px;">
 				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
 				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>
 				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), 'secondary', 'wordpoints_dismiss_notice', false ); ?>
@@ -990,24 +1021,7 @@ function wordpoints_admin_settings_screen_sidebar() {
  */
 function wordpoints_admin_notices() {
 
-	// Check if any notices have been dismissed.
-	$is_notice_dismissed = wordpoints_verify_nonce(
-		'_wpnonce'
-		, 'wordpoints_dismiss_notice-%s'
-		, array( 'wordpoints_notice' )
-		, 'post'
-	);
-
-	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
-
-		$option = sanitize_key( $_POST['wordpoints_notice'] );
-
-		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
-			delete_option( $option );
-		} else {
-			wordpoints_delete_maybe_network_option( $option );
-		}
-	}
+	wordpoints_delete_admin_notice_option();
 
 	if ( current_user_can( 'activate_wordpoints_modules' ) ) {
 
@@ -1066,6 +1080,39 @@ function wordpoints_admin_notices() {
 				);
 			}
 		}
+	}
+}
+
+/**
+ * Handle a request to delete an option tied to an admin notice.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wp_ajax_wordpoints-delete-admin-notice-option
+ */
+function wordpoints_delete_admin_notice_option() {
+
+	// Check if any notices have been dismissed.
+	$is_notice_dismissed = wordpoints_verify_nonce(
+		'_wpnonce'
+		, 'wordpoints_dismiss_notice-%s'
+		, array( 'wordpoints_notice' )
+		, 'post'
+	);
+
+	if ( $is_notice_dismissed && isset( $_POST['wordpoints_notice'] ) ) {
+
+		$option = sanitize_key( $_POST['wordpoints_notice'] );
+
+		if ( ! is_network_admin() && 'wordpoints_incompatible_modules' === $option ) {
+			delete_option( $option );
+		} else {
+			wordpoints_delete_maybe_network_option( $option );
+		}
+	}
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		wp_die( '', 200 );
 	}
 }
 

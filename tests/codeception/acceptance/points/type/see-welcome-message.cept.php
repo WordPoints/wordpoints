@@ -10,7 +10,7 @@
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( "See a welcome message if I haven't created any points types yet" );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/' );
-$I->see( 'Welcome to WordPoints! Get started by creating a points type.', '.notice-success' );
+$I->see( 'Welcome to WordPoints! Get started by creating a points type.', '.notice-info' );
 $I->seeLink( 'creating a points type' );
 $I->click( 'creating a points type' );
 $I->see( 'Points Types' );

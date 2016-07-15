@@ -222,6 +222,31 @@ abstract class WordPoints_Shortcode {
 
 		$this->atts = shortcode_atts( $this->pairs, $this->atts, $this->shortcode );
 
+		/**
+		 * Filter the shortcode attribute values supplied by the user.
+		 *
+		 * This filter is applied before the shortcode atts are verified, but after
+		 * they are passed through {@see shortcode_atts()}.
+		 *
+		 * If you want to hook into just one shortcode, you can use {@see
+		 * "shortcode_atts_{$shortcode}"} instead.
+		 *
+		 * @since 2.1.0
+		 *
+		 * @param array  $out       The filtered attribute => value pairs.
+		 * @param array  $pairs     The list of atts this shortcode supports, and
+		 *                          their default values.
+		 * @param array  $atts      The attribute => value pairs supplied by the user.
+		 * @param string $shortcode The name of the shortcode the attributes are for.
+		 */
+		$this->pairs = apply_filters(
+			'wordpoints_user_supplied_shortcode_atts'
+			, $this->atts
+			, $this->pairs
+			, $this->atts
+			, $this->shortcode
+		);
+
 		$error = $this->verify_atts();
 
 		if ( ! empty( $error ) ) {

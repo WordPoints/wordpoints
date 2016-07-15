@@ -230,6 +230,15 @@ function wordpoints_delete_points_type( $slug ) {
 
 	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
+	// Delete reactions associated with this points type.
+	foreach ( wordpoints_hooks()->get_reaction_stores( 'points' ) as $reaction_store ) {
+		foreach ( $reaction_store->get_reactions() as $reaction ) {
+			if ( $slug === $reaction->get_meta( 'points_type' ) ) {
+				$reaction_store->delete_reaction( $reaction->get_id() );
+			}
+		}
+	}
+
 	unset( $points_types[ $slug ] );
 
 	wordpoints_update_maybe_network_option(

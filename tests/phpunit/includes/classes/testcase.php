@@ -941,6 +941,37 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$this->assertInstanceOf( 'WordPoints_Hook_ReactionI', $reaction );
 	}
+
+	/**
+	 * Create a points reaction.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param array $settings The settings for this reaction.
+	 *
+	 * @return false|WordPoints_Hook_Reaction_Validator|WordPoints_Hook_ReactionI
+	 *         The reaction, or false on failure.
+	 */
+	public function create_points_reaction( array $settings = array() ) {
+
+		$settings = array_merge(
+			$settings
+			,
+			array(
+				'event'       => 'user_register',
+				'target'      => array( 'user' ),
+				'reactor'     => 'points',
+				'points'      => 100,
+				'points_type' => 'points',
+				'log_text'    => 'Test log text.',
+				'description' => 'Test description.',
+			)
+		);
+
+		$store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+		return $store->create_reaction( $settings );
+	}
 }
 
 // EOF

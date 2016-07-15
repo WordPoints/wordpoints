@@ -243,6 +243,37 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Test that it deletes all reactions associated with this points type.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_points_type
+	 */
+	public function test_delete_deletes_reactions() {
+
+		$reaction = $this->create_points_reaction();
+		$other_reaction = $this->create_points_reaction(
+			array( 'points_type' => 'other' )
+		);
+
+		$this->assertIsReaction( $reaction );
+		$this->assertIsReaction( $other_reaction );
+
+		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+		$reaction_id = $reaction->get_id();
+		$other_reaction_id = $reaction->get_id();
+
+		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+
+		wordpoints_delete_points_type( 'points' );
+
+		$this->assertFalse( $reaction_store->reaction_exists( $reaction_id ) );
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+	}
+
 	//
 	// wordpoints_get_points_type_setting()
 	//

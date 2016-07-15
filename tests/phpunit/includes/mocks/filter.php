@@ -98,6 +98,32 @@ class WordPoints_Mock_Filter {
 			$this->calls[] = func_get_args();
 		}
 	}
+
+	/**
+	 * Listen to an action.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $action        The name of the action to listen to.
+	 * @param int    $priority      The priority of this callback.
+	 * @param int    $accepted_args The number of args to accept.
+	 */
+	public function add_action( $action, $priority = 10, $accepted_args = 1 ) {
+		add_action( $action, array( $this, 'action' ), $priority, $accepted_args );
+	}
+
+	/**
+	 * Listen to a filter.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $filter        The name of the filter to listen to.
+	 * @param int    $priority      The priority of this callback.
+	 * @param int    $accepted_args The number of args to accept.
+	 */
+	public function add_filter( $filter, $priority = 10, $accepted_args = 1 ) {
+		add_filter( $filter, array( $this, 'filter' ), $priority, $accepted_args );
+	}
 }
 
 // EOF

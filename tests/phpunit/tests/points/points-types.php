@@ -223,6 +223,26 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 		$this->assertEquals( '0', $meta );
 	}
 
+	/**
+	 * Test that it calls an action.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_points_type
+	 */
+	public function test_delete_calls_action() {
+
+		$mock = new WordPoints_Mock_Filter();
+		$mock->add_action( 'wordpoints_delete_points_type', 10, 6 );
+
+		$this->assertTrue( wordpoints_delete_points_type( 'points' ) );
+
+		$this->assertEquals(
+			array( array( 'points', $this->points_data ) )
+			, $mock->calls
+		);
+	}
+
 	//
 	// wordpoints_get_points_type_setting()
 	//

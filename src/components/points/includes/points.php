@@ -190,15 +190,17 @@ function wordpoints_delete_points_type( $slug ) {
 		return false;
 	}
 
+	/**
+	 * Fires when a points type is being deleted.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $slug      The slug of the points type being deleted.
+	 * @param array  $settings The settings of the points type being deleted.
+	 */
+	do_action( 'wordpoints_delete_points_type', $slug, $points_types[ $slug ] );
+
 	$meta_key = wordpoints_get_points_user_meta_key( $slug );
-
-	unset( $points_types[ $slug ] );
-
-	$result = wordpoints_update_maybe_network_option( 'wordpoints_points_types', $points_types );
-
-	if ( ! $result ) {
-		return $result;
-	}
 
 	global $wpdb;
 
@@ -227,6 +229,13 @@ function wordpoints_delete_points_type( $slug ) {
 	unset( $points_types_hooks[ $slug ] );
 
 	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
+
+	unset( $points_types[ $slug ] );
+
+	wordpoints_update_maybe_network_option(
+		'wordpoints_points_types'
+		, $points_types
+	);
 
 	return true;
 }

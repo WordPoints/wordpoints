@@ -96,13 +96,13 @@
             }
         },
         "attr": {
-            "552": false
+            "559": false
         },
         "relationship": {
-            "557": false
+            "564": false
         },
         "entity": {
-            "582": {
+            "589": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -110,8 +110,17 @@
                 "parentheses": 1
             }
         },
+        "success": {
+            "749": false
+        },
+        "is-dismissible": {
+            "765": false
+        },
+        "data-nonce=\"": {
+            "767": false
+        },
         "upload": {
-            "876": {
+            "907": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -122,10 +131,10 @@
     },
     "\/admin\/screens\/configure-components.php": {
         "deactivate": {
-            "102": false
+            "109": false
         },
         "activate": {
-            "107": false
+            "114": false
         }
     },
     "\/admin\/screens\/module-install.php": {
@@ -138,13 +147,13 @@
             "13": false
         },
         "1": {
-            "391": false
+            "402": false
         },
         "delete-selected": {
-            "391": false
+            "402": false
         },
         "compatibility-problems": {
-            "462": {
+            "473": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -215,25 +224,25 @@
     },
     "\/components\/points\/admin\/screens\/hooks-no-js.php": {
         "px\">": {
-            "88": false
+            "96": false
         }
     },
     "\/components\/points\/admin\/screens\/hooks.php": {
         "hooks-holder-wrap": {
-            "119": false
+            "126": false
         },
         "points-type-": {
-            "121": false
+            "128": false
         },
         "closed": {
-            "125": false,
-            "190": false
+            "132": false,
+            "197": false
         },
         "save-network-wordpoints-points-hooks": {
-            "234": false
+            "241": false
         },
         "save-wordpoints-points-hooks": {
-            "236": false
+            "243": false
         }
     },
     "\/components\/points\/admin\/screens\/logs.php": {
@@ -542,10 +551,10 @@
             }
         },
         "utf8": {
-            "1054": false
+            "1057": false
         },
         "capabilities'": {
-            "1127": false
+            "1130": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -619,16 +628,16 @@
     },
     "\/components\/ranks\/admin\/screens\/ranks.php": {
         "\">\n\t\t\n\t\t\t\n\t\t\t\t<%- name %>": {
-            "91": false
+            "95": false
         },
         "<% if ( typeof": {
-            "96": false
+            "100": false
         },
         "!== \"undefined\" ) { print(": {
-            "96": false
+            "100": false
         },
         "); } %>": {
-            "96": false
+            "100": false
         }
     },
     "\/components\/ranks\/includes\/class-un-installer.php": {

@@ -185,7 +185,15 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 		<form method="post">
 			<?php if ( is_wordpoints_network_active() && ! is_network_admin() ) : ?>
-				<div class="notice notice-info inline"><p><?php esc_html_e( 'Changes to this points type&#8217;s settings will affect all sites on this network.', 'wordpoints' ) ?></p></div>
+				<div class="notice notice-info inline">
+					<p>
+						<?php if ( $slug ) : ?>
+							<?php esc_html_e( 'Changes to this points type&#8217;s settings will affect all sites on this network.', 'wordpoints' ) ?>
+						<?php else : ?>
+							<?php esc_html_e( 'The new points type will be global across all sites on this network.', 'wordpoints' ) ?>
+						<?php endif; ?>
+					</p>
+				</div>
 			<?php endif; ?>
 
 			<?php if ( $slug ) : ?>

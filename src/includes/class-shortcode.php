@@ -291,9 +291,18 @@ abstract class WordPoints_Shortcode {
 
 				$this->atts['user_id'] = $post->post_author;
 
-			} elseif ( ! wordpoints_posint( $this->atts['user_id'] ) ) {
+			} elseif ( ! $this->atts['user_id'] ) {
 
 				$this->atts['user_id'] = get_current_user_id();
+
+			} elseif ( ! wordpoints_posint( $this->atts['user_id'] ) ) {
+
+				return sprintf(
+					esc_html__( 'Unrecognized value for the %1$s attribute of the %2$s shortcode. Expected &#8220;%3$s&#8221; or a user ID.', 'wordpoints' )
+					, 'user_id'
+					, "<code>[{$this->shortcode}]</code>"
+					, 'post_author'
+				);
 			}
 		}
 	}

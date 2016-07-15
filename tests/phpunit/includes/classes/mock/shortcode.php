@@ -17,7 +17,7 @@ class WordPoints_PHPUnit_Mock_Shortcode extends WordPoints_Shortcode {
 	/**
 	 * @since 2.1.0
 	 */
-	public $shortcode;
+	public $shortcode = 'test_shortcode';
 
 	/**
 	 * @since 2.1.0

@@ -757,6 +757,14 @@ Condition = Base.extend({
 		);
 	},
 
+	isNew: function () {
+		return 'undefined' === typeof this.reaction.get(
+			[ 'conditions' ]
+				.concat( this.getFullHierarchy() )
+				.concat( [ '_conditions', this.id ] )
+		);
+	},
+
 	sync: function ( method, model, options ) {
 		options.error(
 			{ message: 'Fetching and saving hook conditions is not supported.' }
@@ -854,7 +862,13 @@ ConditionGroup = Base.extend({
 			reaction: this.reaction
 		} );
 
-		this.$el.append( view.render().$el ).show();
+		var $view = view.render().$el;
+
+		this.$el.append( $view ).show();
+
+		if ( condition.isNew() ) {
+			$view.find( ':input:visible:eq( 1 )' ).focus();
+		}
 
 		this.listenTo( condition, 'destroy', function () {
 			this.model.get( 'conditions' ).remove( condition.id );
@@ -875,6 +889,7 @@ ConditionGroup = Base.extend({
 });
 
 module.exports = ConditionGroup;
+
 },{}],13:[function(require,module,exports){
 /**
  * wp.wordpoints.hooks.view.ConditionGroups

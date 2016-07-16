@@ -111,6 +111,14 @@ Condition = Base.extend({
 		);
 	},
 
+	isNew: function () {
+		return 'undefined' === typeof this.reaction.get(
+			[ 'conditions' ]
+				.concat( this.getFullHierarchy() )
+				.concat( [ '_conditions', this.id ] )
+		);
+	},
+
 	sync: function ( method, model, options ) {
 		options.error(
 			{ message: 'Fetching and saving hook conditions is not supported.' }

@@ -59,7 +59,13 @@ ConditionGroup = Base.extend({
 			reaction: this.reaction
 		} );
 
-		this.$el.append( view.render().$el ).show();
+		var $view = view.render().$el;
+
+		this.$el.append( $view ).show();
+
+		if ( condition.isNew() ) {
+			$view.find( ':input:visible:eq( 1 )' ).focus();
+		}
 
 		this.listenTo( condition, 'destroy', function () {
 			this.model.get( 'conditions' ).remove( condition.id );

@@ -8,9 +8,6 @@ module.exports = function( grunt ) {
 	// Load tasks.
 	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
 
-	// Load legacy utils
-	//grunt.util = require('grunt-legacy-util');
-
 	jsManifests.forEach( function ( manifest ) {
 
 		var build;

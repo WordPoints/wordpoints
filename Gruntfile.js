@@ -61,6 +61,10 @@ module.exports = function( grunt ) {
 			css: {
 				files: [ UNBUILT_DIR + '**/*.scss' ],
 				tasks: ['sass:all']
+			},
+			livereload: {
+				options: { livereload: true },
+				files: [ SOURCE_DIR + '/**/*' ]
 			}
 		}
 	});

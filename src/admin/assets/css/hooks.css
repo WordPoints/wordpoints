@@ -54,17 +54,19 @@
  * Hook Reactions Group Container.
  */
 /* In case the containers are in meta boxes. */
-#events-sortables {
-  -webkit-column-width: 400px;
-  -moz-column-width: 400px;
-  column-width: 400px;
+#events-sortables .postbox,
+#events-sortables .sortable-placeholder {
+  float: left;
+  width: 100%;
 }
 
-#events-sortables .postbox {
-  display: block;
-  break-inside: avoid-column;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
+@media only screen and (min-width: 1250px) {
+  #events-sortables .postbox,
+  #events-sortables .sortable-placeholder {
+    width: 48%;
+    margin-right: 1.8%;
+    margin-right: calc(2% - 2px);
+  }
 }
 
 #events-sortables .inside {

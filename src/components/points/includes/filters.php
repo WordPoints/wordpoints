@@ -47,6 +47,6 @@ if ( ! is_multisite() || is_wordpoints_network_active() ) {
 	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
 
-add_filter( 'wordpoints_user_can_view_points_log', 'wordpoints_hooks_user_can_view_points_log' );
+add_filter( 'wordpoints_user_can_view_points_log', 'wordpoints_hooks_user_can_view_points_log', 10, 3 );
 
 // EOF

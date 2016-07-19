@@ -508,6 +508,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 			<?php else : ?>
 				<?php
 
+				$current_user_id = get_current_user_id();
 				$current_time = current_time( 'timestamp', true );
 
 				$i = 0;
@@ -516,20 +517,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 					$i++;
 
-					/**
-					 * Filter whether the current user can view this points log.
-					 *
-					 * This is a dynamic hook, where the {$log->log_type} portion will
-					 * be the type of this log entry. For example, for a registration log
-					 * it would be 'wordpoints_user_can_view_points_log-register'.
-					 *
-					 * @since 1.3.0
-					 *
-					 * @param bool   $can_view Whether the user can view the log entry
-					 *                         (the default is true).
-					 * @param object $log      The log entry object.
-					 */
-					if ( ! apply_filters( "wordpoints_user_can_view_points_log-{$log->log_type}", true, $log ) ) {
+					if ( ! wordpoints_user_can_view_points_log( $current_user_id, $log ) ) {
 						continue;
 					}
 
@@ -787,6 +775,72 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
 }
 
 /**
+ * Check if a user can view a points log entry.
+ *
+ * @since 2.1.0
+ *
+ * @param int    $user_id The ID of the user.
+ * @param object $log     The object for the points log entry..
+ *
+ * @return bool Whether the user can view this points log entry.
+ */
+function wordpoints_user_can_view_points_log( $user_id, $log ) {
+
+	$current_user = wp_get_current_user();
+
+	// Back-compat for WordPoints pre-2.1.0, when the below filter assumed that the
+	// user in question was the current user.
+	if ( $user_id !== $current_user->ID ) {
+		wp_set_current_user( $user_id );
+	}
+
+	/**
+	 * Filter whether a user can view this points log.
+	 *
+	 * This is a dynamic hook, where the {$log->log_type} portion will
+	 * be the type of this log entry. For example, for a registration log
+	 * it would be 'wordpoints_user_can_view_points_log-register'.
+	 *
+	 * @since 1.3.0
+	 * @since 2.1.0 The $user_id parameter was added.
+	 *
+	 * @param bool   $can_view Whether the user can view the log entry
+	 *                         (the default is true).
+	 * @param object $log      The log entry object.
+	 * @param int    $user_id  The ID of the user to check
+	 */
+	$can_view = apply_filters(
+		"wordpoints_user_can_view_points_log-{$log->log_type}"
+		, true
+		, $log
+		, $user_id
+	);
+
+	// Restore the current user after the temporary override above.
+	if ( $user_id !== $current_user->ID ) {
+		wp_set_current_user( $current_user->ID );
+	}
+
+	/**
+	 * Filter whether a user can view a points log.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param bool   $can_view Whether the user can view the points log.
+	 * @param int    $user_id  The user's ID.
+	 * @param object $log      The points log object.
+	 */
+	$can_view = apply_filters(
+		'wordpoints_user_can_view_points_log'
+		, $can_view
+		, $user_id
+		, $log
+	);
+
+	return $can_view;
+}
+
+/**
  * Check whether a user can view a points log.
  *
  * @since 2.1.0
@@ -794,17 +848,16 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
  * @WordPress\filter wordpoints_user_can_view_points_log
  *
  * @param bool   $can_view Whether the user can view the points log.
+ * @param int    $user_id  The ID of the user.
  * @param object $log      The points log's data.
  *
  * @return bool Whether the user can view the points log.
  */
-function wordpoints_hooks_user_can_view_points_log( $can_view, $log ) {
+function wordpoints_hooks_user_can_view_points_log( $can_view, $user_id, $log ) {
 
 	if ( ! $can_view ) {
 		return $can_view;
 	}
-
-	$user_id = get_current_user_id();
 
 	$event_slug = $log->log_type;
 

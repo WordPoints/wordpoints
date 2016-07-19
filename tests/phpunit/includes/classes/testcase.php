@@ -979,8 +979,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	public function create_points_reaction( array $settings = array() ) {
 
 		$settings = array_merge(
-			$settings
-			,
 			array(
 				'event'       => 'user_register',
 				'target'      => array( 'user' ),
@@ -990,6 +988,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				'log_text'    => 'Test log text.',
 				'description' => 'Test description.',
 			)
+			, $settings
 		);
 
 		$store = wordpoints_hooks()->get_reaction_store( 'points' );

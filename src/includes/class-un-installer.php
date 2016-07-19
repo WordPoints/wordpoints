@@ -27,6 +27,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.5.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
 		'1.8.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
 		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -316,6 +317,26 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		if ( ! $wp_filesystem->exists( $index_file ) ) {
 			$wp_filesystem->put_contents( $index_file, '<?php // Gold is silent.' );
 		}
+	}
+
+	/**
+	 * Update a multisite network to 2.1.0.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_network_to_2_1_0_alpha_3() {
+		$this->map_shortcuts( 'schema' );
+		$this->install_db_schema();
+	}
+
+	/**
+	 * Update a non-multisite install to 2.1.0.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_single_to_2_1_0_alpha_3() {
+		$this->map_shortcuts( 'schema' );
+		$this->install_db_schema();
 	}
 }
 

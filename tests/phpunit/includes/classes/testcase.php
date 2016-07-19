@@ -943,6 +943,30 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Assert that a database table exists.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $table_name The name of the table to assert exists.
+	 */
+	public function assertDBTableExists( $table_name ) {
+
+		global $wpdb;
+
+		$this->assertEquals(
+			$table_name
+			,
+			$wpdb->get_var(
+				$wpdb->prepare(
+					'SHOW TABLES LIKE %s'
+					,
+					$wpdb->esc_like( $table_name )
+				)
+			)
+		);
+	}
+
+	/**
 	 * Create a points reaction.
 	 *
 	 * @since 2.1.0

@@ -191,6 +191,152 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			wordpoints_user_can_view_points_log( $user_id, $log )
 		);
 	}
+
+	/**
+	 * Test the hooks API integration function returns true by default.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_true_by_default() {
+
+		$event_slug = $this->factory->wordpoints->hook_event->create();
+
+		$user_id = $this->factory->user->create();
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array( 'log_type' => $event_slug )
+		);
+
+		$this->assertTrue(
+			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+		);
+	}
+
+	/**
+	 * Test the hooks API integration function returns false if it was passed that.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_returns_false_if_passed_false() {
+
+		$event_slug = $this->factory->wordpoints->hook_event->create();
+
+		$user_id = $this->factory->user->create();
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array( 'log_type' => $event_slug )
+		);
+
+		$this->assertFalse(
+			wordpoints_hooks_user_can_view_points_log( false, $user_id, $log )
+		);
+	}
+
+	/**
+	 * Test the hooks API integration function returns true by default.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_can_view_entity() {
+
+		$event_slug = $this->factory->wordpoints->hook_event->create();
+
+		$user_id = $this->factory->user->create();
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array(
+				'log_type' => $event_slug,
+				'log_meta' => array( 'test_entity' => 1 ),
+			)
+		);
+
+		$this->assertTrue(
+			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+		);
+	}
+
+	/**
+	 * Test the hooks API integration function returns true by default.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_cannot_view_entity() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility::$can_view = false;
+
+		$this->factory->wordpoints->entity->create(
+			array(
+				'slug' => 'test_entity',
+				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility'
+			)
+		);
+
+		$event_slug = $this->factory->wordpoints->hook_event->create();
+
+		$user_id = $this->factory->user->create();
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array(
+				'log_type' => $event_slug,
+				'log_meta' => array( 'test_entity' => 1 ),
+			)
+		);
+
+		$this->assertFalse(
+			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+		);
+	}
+
+	/**
+	 * Test the hooks API function is hooked into the filter and integrated properly.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_integration() {
+
+		$reaction = $this->create_points_reaction(
+			array(
+				'event' => 'post_publish\post',
+				'target' => array( 'post\post', 'author', 'user' ),
+			)
+		);
+
+		$this->assertIsReaction( $reaction );
+
+		$post_author_id = $this->factory->user->create();
+		$user_id = $this->factory->user->create();
+
+		$post_id = $this->factory->post->create(
+			array( 'post_status' => 'publish', 'post_author' => $post_author_id )
+		);
+
+		$query = new WordPoints_Points_Logs_Query();
+		$log = $query->get( 'row' );
+
+		$this->assertTrue(
+			wordpoints_user_can_view_points_log( $user_id, $log )
+		);
+
+		$this->assertTrue(
+			wordpoints_user_can_view_points_log( $post_author_id, $log )
+		);
+
+		wp_update_post( array( 'ID' => $post_id, 'post_status' => 'private' ) );
+
+		$this->assertFalse(
+			wordpoints_user_can_view_points_log( $user_id, $log )
+		);
+
+		$this->assertTrue(
+			wordpoints_user_can_view_points_log( $post_author_id, $log )
+		);
+	}
 }
 
 // EOF

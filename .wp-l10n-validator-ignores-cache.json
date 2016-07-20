@@ -538,6 +538,9 @@
                 "arg_count": 6,
                 "parentheses": 1
             }
+        },
+        "reverse-": {
+            "866": false
         }
     },
     "\/components\/points\/includes\/points.php": {
@@ -551,10 +554,10 @@
             }
         },
         "utf8": {
-            "1057": false
+            "1075": false
         },
         "capabilities'": {
-            "1130": false
+            "1148": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -827,13 +830,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1362": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1367": {
                 "name": "array",
                 "type": "unknown",
@@ -854,20 +850,6 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1360": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1362": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "1367": {
                 "name": "array",
                 "type": "unknown",
@@ -881,27 +863,6 @@
             "485": false,
             "605": false,
             "1327": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1360": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1361": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1362": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1031,7 +992,7 @@
             "20": false
         },
         "<?php \/\/ Gold is silent.": {
-            "317": {
+            "318": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
@@ -1040,7 +1001,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "322": false
+            "343": false
         }
     },
     "\/includes\/class-widget.php": {
@@ -1203,7 +1164,7 @@
             "124": false
         },
         "points-": {
-            "286": {
+            "294": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1212,7 +1173,7 @@
             }
         },
         "-save": {
-            "286": {
+            "294": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1221,7 +1182,7 @@
             }
         },
         "points": {
-            "317": {
+            "325": {
                 "name": "(unknown)->get",
                 "type": "unknown",
                 "args_started": true,
@@ -1230,31 +1191,24 @@
             }
         },
         "WordPointsHooksAdminData.events[": {
-            "407": false
+            "415": false
         },
         "] =": {
-            "409": false,
-            "410": false
+            "417": false,
+            "418": false
         },
         ";\n\t\t\tWordPointsHooksAdminData.reactions[": {
-            "409": false
+            "417": false
         },
         "1": {
-            "717": false
+            "725": false
         },
         "2": {
-            "717": false
+            "725": false
         }
     },
     "\/components\/points\/includes\/classes\/hook\/reactor.php": {
         "text": {
-            "37": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "41": {
                 "name": "array",
                 "type": "unknown",
@@ -1282,7 +1236,7 @@
             }
         },
         "IN": {
-            "178": {
+            "179": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

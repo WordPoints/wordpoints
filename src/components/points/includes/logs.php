@@ -859,12 +859,26 @@ function wordpoints_hooks_user_can_view_points_log( $can_view, $user_id, $log ) 
 		return $can_view;
 	}
 
+	$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+	$log_id = $log->id;
 	$event_slug = $log->log_type;
 
-	/** @var WordPoints_Hook_ArgI $arg */
-	foreach ( wordpoints_hooks()->get_sub_app( 'events' )->get_sub_app( 'args' )->get_children( $event_slug ) as $slug => $arg ) {
+	if ( 'reverse-' === substr( $log->log_type, 0, 8 ) ) {
+		$event_slug = substr( $log->log_type, 8 );
 
-		$value = wordpoints_get_points_log_meta( $log->id, $slug, true );
+		// Just to save us from touching the DB unnecessarily.
+		if ( ! $events->is_registered( $event_slug ) ) {
+			return $can_view;
+		}
+
+		$log_id = wordpoints_get_points_log_meta( $log_id, 'original_log_id', true );
+	}
+
+	/** @var WordPoints_Hook_ArgI $arg */
+	foreach ( $events->get_sub_app( 'args' )->get_children( $event_slug ) as $slug => $arg ) {
+
+		$value = wordpoints_get_points_log_meta( $log_id, $slug, true );
 
 		if ( ! $value ) {
 			continue;

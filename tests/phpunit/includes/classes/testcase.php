@@ -987,6 +987,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				'points_type' => 'points',
 				'log_text'    => 'Test log text.',
 				'description' => 'Test description.',
+				'reversals'   => array( 'toggle_off' => 'toggle_on' ),
 			)
 			, $settings
 		);

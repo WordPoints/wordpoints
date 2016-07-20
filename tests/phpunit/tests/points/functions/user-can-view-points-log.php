@@ -214,6 +214,25 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	}
 
 	/**
+	 * Test the hooks API integration function returns true by default.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_returns_true_for_unrecognized_event() {
+
+		$user_id = $this->factory->user->create();
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array( 'log_type' => 'not_event' )
+		);
+
+		$this->assertTrue(
+			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+		);
+	}
+
+	/**
 	 * Test the hooks API integration function returns false if it was passed that.
 	 *
 	 * @since 2.1.0
@@ -235,7 +254,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	}
 
 	/**
-	 * Test the hooks API integration function returns true by default.
+	 * Test the hooks API function returns true if the user can view the entity.
 	 *
 	 * @since 2.1.0
 	 *
@@ -259,7 +278,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	}
 
 	/**
-	 * Test the hooks API integration function returns true by default.
+	 * Test the hooks API function returns false if the user can't view the entity.
 	 *
 	 * @since 2.1.0
 	 *
@@ -283,6 +302,67 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
+			)
+		);
+
+		$this->assertFalse(
+			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+		);
+	}
+
+	/**
+	 * Test that it returns true for reverse logs if the user can view the entity.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_reverse_can_view_entity() {
+
+		$event_slug = $this->factory->wordpoints->hook_event->create();
+
+		$user_id = $this->factory->user->create();
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array(
+				'log_type' => "reverse-{$event_slug}",
+				'log_meta' => array( 'test_entity' => 1 ),
+			)
+		);
+
+		$this->assertTrue(
+			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+		);
+	}
+
+	/**
+	 * Test that it returns false for reverse logs if the user can't view the entity.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 */
+	public function test_hooks_reverse_cannot_view_entity() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility::$can_view = false;
+
+		$this->factory->wordpoints->entity->create(
+			array(
+				'slug' => 'test_entity',
+				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility'
+			)
+		);
+
+		$event_slug = $this->factory->wordpoints->hook_event->create();
+
+		$user_id         = $this->factory->user->create();
+		$original_log_id = $this->factory->wordpoints_points_log->create(
+			array( 'log_meta' => array( 'test_entity' => 1 ) )
+		);
+
+		$log = $this->factory->wordpoints_points_log->create_and_get(
+			array(
+				'log_type' => "reverse-{$event_slug}",
+				'log_meta' => array( 'original_log_id' => $original_log_id ),
 			)
 		);
 
@@ -316,7 +396,10 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			array( 'post_status' => 'publish', 'post_author' => $post_author_id )
 		);
 
-		$query = new WordPoints_Points_Logs_Query();
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'order' => 'DESC', 'orderby' => 'id' )
+		);
+
 		$log = $query->get( 'row' );
 
 		$this->assertTrue(
@@ -335,6 +418,17 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$this->assertTrue(
 			wordpoints_user_can_view_points_log( $post_author_id, $log )
+		);
+
+		// Now also check the reverse log.
+		$reverse_log = $query->get( 'row' );
+
+		$this->assertFalse(
+			wordpoints_user_can_view_points_log( $user_id, $reverse_log )
+		);
+
+		$this->assertTrue(
+			wordpoints_user_can_view_points_log( $post_author_id, $reverse_log )
 		);
 	}
 }

@@ -14,32 +14,6 @@
  */
 class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For_Thing {
 
-	//
-	// Private Vars.
-	//
-
-	/**
-	 * Whether we are listening for the insert ID of a query.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @var bool $listen_for_insert_id
-	 */
-	private $listen_for_insert_id = false;
-
-	/**
-	 * The insert ID of the last points log.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @var int $insert_id
-	 */
-	private $insert_id;
-
-	//
-	// Standard Methods.
-	//
-
 	/**
 	 * Construct the factory with a factory object.
 	 *
@@ -78,8 +52,6 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 */
 	public function create_object( $args ) {
 
-		global $wpdb;
-
 		if ( ! isset( $args['user_id'] ) ) {
 			$args['user_id'] = $this->factory->user->create();
 		}
@@ -88,25 +60,13 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			$args['log_meta'] = array();
 		}
 
-		if ( ! empty( $args['log_meta'] ) ) {
-			$this->listen_for_insert_id = false;
-			add_action( 'query', array( $this, 'get_log_id' ) );
-		}
-
-		wordpoints_alter_points(
+		$log_id = wordpoints_alter_points(
 			$args['user_id']
 			, $args['points']
 			, $args['points_type']
 			, $args['log_type']
 			, $args['log_meta']
 		);
-
-		if ( empty( $args['log_meta'] ) ) {
-			$log_id = $wpdb->insert_id;
-		} else {
-			$log_id = $this->insert_id;
-			remove_action( 'query', array( $this, 'get_log_id' ) );
-		}
 
 		if ( isset( $args['text'] ) ) {
 			$this->update_object( $log_id, array( 'text' => $args['text'] ) );
@@ -152,37 +112,6 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 		$query = new WordPoints_Points_Logs_Query( array( 'id' => $id ) );
 
 		return $query->get( 'row' );
-	}
-
-	//
-	// Non-standard Methods.
-	//
-
-	/**
-	 * Helps get the log ID of an inserted hook when meta is also being inserted.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @WordPress\filter query Added by self::create_object().
-	 *
-	 * @param string $sql The SQL for a query.
-	 *
-	 * @return string The query SQL.
-	 */
-	public function get_log_id( $sql ) {
-
-		global $wpdb;
-
-		if (
-			! $this->listen_for_insert_id
-			&& false !== strpos( $sql, "INSERT INTO {$wpdb->wordpoints_points_logs}" )
-		) {
-			$this->listen_for_insert_id = true;
-		} elseif ( $this->listen_for_insert_id ) {
-			$this->insert_id = $wpdb->insert_id;
-		}
-
-		return $sql;
 	}
 }
 

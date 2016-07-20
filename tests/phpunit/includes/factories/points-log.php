@@ -29,6 +29,7 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			'points'      => 10,
 			'points_type' => 'points',
 			'log_type'    => 'test',
+			'text'        => new WP_UnitTest_Generator_Sequence( 'Log text %s' ),
 		);
 	}
 
@@ -66,11 +67,8 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			, $args['points_type']
 			, $args['log_type']
 			, $args['log_meta']
+			, $args['text']
 		);
-
-		if ( isset( $args['text'] ) ) {
-			$this->update_object( $log_id, array( 'text' => $args['text'] ) );
-		}
 
 		return $log_id;
 	}
@@ -109,7 +107,9 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 */
 	public function get_object_by_id( $id ) {
 
-		$query = new WordPoints_Points_Logs_Query( array( 'id' => $id ) );
+		$query = new WordPoints_Points_Logs_Query(
+			array( 'id__in' => array( $id ) )
+		);
 
 		return $query->get( 'row' );
 	}

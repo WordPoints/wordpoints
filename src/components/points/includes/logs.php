@@ -863,15 +863,17 @@ function wordpoints_hooks_user_can_view_points_log( $can_view, $user_id, $log ) 
 
 	$log_id = $log->id;
 	$event_slug = $log->log_type;
+	$is_reversal = ( 'reverse-' === substr( $log->log_type, 0, 8 ) );
 
-	if ( 'reverse-' === substr( $log->log_type, 0, 8 ) ) {
+	if ( $is_reversal ) {
 		$event_slug = substr( $log->log_type, 8 );
+	}
 
-		// Just to save us from touching the DB unnecessarily.
-		if ( ! $events->is_registered( $event_slug ) ) {
-			return $can_view;
-		}
+	if ( ! $events->is_registered( $event_slug ) ) {
+		return $can_view;
+	}
 
+	if ( $is_reversal ) {
 		$log_id = wordpoints_get_points_log_meta( $log_id, 'original_log_id', true );
 	}
 
@@ -880,6 +882,8 @@ function wordpoints_hooks_user_can_view_points_log( $can_view, $user_id, $log ) 
 
 		$value = wordpoints_get_points_log_meta( $log_id, $slug, true );
 
+		// If we don't find the value it may mean that a new arg has been registered
+		// or something. Just skip over it.
 		if ( ! $value ) {
 			continue;
 		}

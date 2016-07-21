@@ -689,7 +689,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 			foreach ( $meta as $meta_key => $meta_value ) {
 
-				wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value );
+				wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value );
 			}
 
 			/**

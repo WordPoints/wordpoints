@@ -291,7 +291,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$this->factory->wordpoints->entity->create(
 			array(
 				'slug' => 'test_entity',
-				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility'
+				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility',
 			)
 		);
 
@@ -348,7 +348,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$this->factory->wordpoints->entity->create(
 			array(
 				'slug' => 'test_entity',
-				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility'
+				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility',
 			)
 		);
 

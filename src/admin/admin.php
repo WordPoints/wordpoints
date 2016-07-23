@@ -34,7 +34,7 @@ require_once( WORDPOINTS_DIR . '/admin/includes/filters.php' );
 include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 WordPoints_Class_Autoloader::register_dir(
-	dirname( __FILE__ ) . '/includes/classes'
+	dirname( __FILE__ ) . '/classes'
 );
 
 // EOF

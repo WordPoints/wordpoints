@@ -1878,11 +1878,9 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function load_base_dependencies() {
 
 		require_once dirname( __FILE__ ) . '/constants.php';
-		require_once WORDPOINTS_DIR . '/includes/classes/class/autoloader.php';
+		require_once WORDPOINTS_DIR . '/classes/class/autoloader.php';
 
-		WordPoints_Class_Autoloader::register_dir(
-			WORDPOINTS_DIR . '/includes/classes'
-		);
+		WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . '/classes' );
 
 		require_once WORDPOINTS_DIR . '/includes/functions.php';
 		require_once WORDPOINTS_DIR . '/includes/apps.php';

@@ -39,15 +39,15 @@ module.exports = function( grunt ) {
 
 					switch ( class_dir ) {
 
-						case 'src/admin/includes/classes/':
+						case 'src/admin/classes/':
 							prefix += 'admin_';
 						break;
 
-						case 'src/components/points/includes/classes/':
+						case 'src/components/points/classes/':
 							prefix += 'points_';
 						break;
 
-						case 'src/components/points/admin/includes/classes/':
+						case 'src/components/points/admin/classes/':
 							prefix += 'points_admin_';
 						break;
 					}
@@ -56,7 +56,7 @@ module.exports = function( grunt ) {
 				},
 				filter:  function ( class_files, class_dir ) {
 
-					if ( 'src/includes/classes/' !== class_dir ) {
+					if ( 'src/classes/' !== class_dir ) {
 						return class_files;
 					}
 
@@ -138,8 +138,8 @@ module.exports = function( grunt ) {
 		watch: {
 			autoloader: {
 				files: [
-					SOURCE_DIR + 'includes/classes/**/*.php',
-					'!' + SOURCE_DIR + 'includes/classes/index.php'
+					SOURCE_DIR + '**/classes/**/*.php',
+					'!' + SOURCE_DIR + '**/classes/index.php'
 				],
 				tasks: ['autoloader'],
 				options: {

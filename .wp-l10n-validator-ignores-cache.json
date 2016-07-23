@@ -1151,12 +1151,12 @@
             "392": false
         }
     },
-    "\/admin\/includes\/classes\/screen.php": {
+    "\/admin\/classes\/screen.php": {
         "<!-- .wrap -->": {
             "110": false
         }
     },
-    "\/components\/points\/admin\/includes\/classes\/screen\/points\/types.php": {
+    "\/components\/points\/admin\/classes\/screen\/points\/types.php": {
         "jQuery( document ).ready( function ( $ ) {\n\n\t\t\t\t$( '.if-js-closed' )\n\t\t\t\t\t.removeClass( 'if-js-closed' )\n\t\t\t\t\t.addClass( 'closed' );\n\n\t\t\t\tpostboxes.add_postbox_toggles(": {
             "114": false
         },
@@ -1207,7 +1207,7 @@
             "725": false
         }
     },
-    "\/components\/points\/includes\/classes\/hook\/reactor.php": {
+    "\/components\/points\/classes\/hook\/reactor.php": {
         "text": {
             "41": {
                 "name": "array",
@@ -1245,7 +1245,7 @@
             }
         }
     },
-    "\/components\/points\/includes\/classes\/legacy\/hook\/to\/reaction\/importer.php": {
+    "\/components\/points\/classes\/legacy\/hook\/to\/reaction\/importer.php": {
         "network": {
             "197": false,
             "530": {
@@ -1260,7 +1260,7 @@
             "199": false
         }
     },
-    "\/includes\/classes\/db\/query.php": {
+    "\/classes\/db\/query.php": {
         "results": {
             "295": {
                 "name": "array",
@@ -1325,7 +1325,7 @@
             "743": false
         }
     },
-    "\/includes\/classes\/entity\/attr\/field.php": {
+    "\/classes\/entity\/attr\/field.php": {
         "field": {
             "51": {
                 "name": "array",
@@ -1336,7 +1336,7 @@
             }
         }
     },
-    "\/includes\/classes\/entity\/comment\/post.php": {
+    "\/classes\/entity\/comment\/post.php": {
         "db": {
             "46": {
                 "name": "array",
@@ -1356,7 +1356,7 @@
             }
         }
     },
-    "\/includes\/classes\/entity\/relationship\/dynamic.php": {
+    "\/classes\/entity\/relationship\/dynamic.php": {
         "\\\\": {
             "30": false,
             "31": false
@@ -1365,7 +1365,7 @@
             "34": false
         }
     },
-    "\/includes\/classes\/entity\/relationship\/stored\/field.php": {
+    "\/classes\/entity\/relationship\/stored\/field.php": {
         "field": {
             "51": {
                 "name": "array",
@@ -1376,7 +1376,7 @@
             }
         }
     },
-    "\/includes\/classes\/entity\/stored\/array.php": {
+    "\/classes\/entity\/stored\/array.php": {
         "array": {
             "33": {
                 "name": "array",
@@ -1396,7 +1396,7 @@
             }
         }
     },
-    "\/includes\/classes\/entity\/stored\/db\/table.php": {
+    "\/classes\/entity\/stored\/db\/table.php": {
         "db": {
             "33": {
                 "name": "array",
@@ -1416,7 +1416,7 @@
             }
         }
     },
-    "\/includes\/classes\/entity\/user\/roles.php": {
+    "\/classes\/entity\/user\/roles.php": {
         "db": {
             "53": {
                 "name": "array",
@@ -1445,7 +1445,7 @@
             }
         }
     },
-    "\/includes\/classes\/hook\/condition\/entity\/array\/contains.php": {
+    "\/classes\/hook\/condition\/entity\/array\/contains.php": {
         "conditions": {
             "51": {
                 "name": "(unknown)->get",
@@ -1490,7 +1490,7 @@
             }
         }
     },
-    "\/includes\/classes\/hook\/condition\/equals.php": {
+    "\/classes\/hook\/condition\/equals.php": {
         "text": {
             "31": {
                 "name": "array",
@@ -1501,7 +1501,7 @@
             }
         }
     },
-    "\/includes\/classes\/hook\/condition\/string\/contains.php": {
+    "\/classes\/hook\/condition\/string\/contains.php": {
         "text": {
             "30": {
                 "name": "array",
@@ -1512,12 +1512,12 @@
             }
         }
     },
-    "\/includes\/classes\/hook\/event\/dynamic.php": {
+    "\/classes\/hook\/event\/dynamic.php": {
         "\\\\": {
             "52": false
         }
     },
-    "\/includes\/classes\/hook\/events.php": {
+    "\/classes\/hook\/events.php": {
         "args": {
             "52": {
                 "name": "(unknown)->register",
@@ -1537,17 +1537,17 @@
             }
         }
     },
-    "\/includes\/classes\/hook\/extension\/conditions.php": {
+    "\/classes\/hook\/extension\/conditions.php": {
         "entity": {
             "289": false
         }
     },
-    "\/includes\/classes\/hook\/hit\/query.php": {
+    "\/classes\/hook\/hit\/query.php": {
         "date": {
             "116": false
         }
     },
-    "\/includes\/classes\/hook\/reactor.php": {
+    "\/classes\/hook\/reactor.php": {
         "network": {
             "101": false
         },
@@ -1555,7 +1555,7 @@
             "101": false
         }
     },
-    "\/includes\/classes\/hook\/router.php": {
+    "\/classes\/hook\/router.php": {
         ",": {
             "206": false
         }

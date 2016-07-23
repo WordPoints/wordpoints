@@ -268,7 +268,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		// For the sake of modules.
 		WordPoints_Class_Autoloader::register_dir(
-			WORDPOINTS_DIR . 'components/points/includes/classes'
+			WORDPOINTS_DIR . 'components/points/classes'
 		);
 
 		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';

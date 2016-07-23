@@ -8,7 +8,7 @@
  */
 
 WordPoints_Class_Autoloader::register_dir(
-	WORDPOINTS_DIR . 'components/points/includes/classes'
+	WORDPOINTS_DIR . 'components/points/classes'
 );
 
 /**

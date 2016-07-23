@@ -33,7 +33,6 @@ require_once( WORDPOINTS_DIR . '/components/points/admin/includes/filters.php' )
 
 WordPoints_Class_Autoloader::register_dir(
 	WORDPOINTS_DIR . '/components/points/admin/includes/classes'
-	, 'WordPoints_Points_Admin_'
 );
 
 // EOF

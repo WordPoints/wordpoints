@@ -8,7 +8,7 @@
  */
 
 return array(
-	'wordpoints_class_autoloader_test_load2' => 'load2.php',
+	'wordpoints_class_autoloader_test_load' => 'load.php',
 );
 
 // EOF

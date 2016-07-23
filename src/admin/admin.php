@@ -35,7 +35,6 @@ include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 WordPoints_Class_Autoloader::register_dir(
 	dirname( __FILE__ ) . '/includes/classes'
-	, 'WordPoints_Admin_'
 );
 
 // EOF

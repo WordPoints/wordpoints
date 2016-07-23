@@ -29,7 +29,6 @@ class WordPoints_Class_Autoloader_Test extends PHPUnit_Framework_TestCase {
 
 		WordPoints_Class_Autoloader::register_dir(
 			WORDPOINTS_TESTS_DIR . '/data/autoloader/directory-1'
-			, 'WordPoints_Class_Autoloader_Test_'
 		);
 	}
 
@@ -88,14 +87,10 @@ class WordPoints_Class_Autoloader_Test extends PHPUnit_Framework_TestCase {
 
 		$class = 'WordPoints_Class_Autoloader_Test_Load2';
 
-		WordPoints_PHPUnit_Mock_Class_Autoloader::set( 'spl_enabled', false );
-
 		WordPoints_PHPUnit_Mock_Class_Autoloader::register_dir(
 			WORDPOINTS_TESTS_DIR . '/data/autoloader/directory-2'
-			, 'WordPoints_Class_Autoloader_Test_'
 		);
 
-		$this->assertTrue( defined( 'WORDPOINTS_PHPUNIT_TESTS_AUTOLOADED_INDEX' ) );
 		$this->assertTrue( class_exists( $class ) );
 	}
 }

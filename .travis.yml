@@ -52,6 +52,7 @@ before_script:
 
 script:
     - codesniff-php-syntax
+    - codesniff-php-autoloaders
     - codesniff-phpcs
     - codesniff-jshint
     - codesniff-l10n

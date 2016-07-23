@@ -10,10 +10,11 @@
 /**
  * Autoloads classes.
  *
- * {@link http://www.php-fig.org/psr/psr-0/ PSR-0} is loosely followed, with the
- * following differences:
- * - Currently, no provision is made for namespaces.
- * - The file names are expected to be all lowercase.
+ * Classes are loaded using a class map approach, where the class files in a
+ * directory are returned by the index.php file in that directory. The array
+ * returned by the index.php file is expected to be a list of files indexed by the
+ * name of the class that they contain. The class names are expected to be all
+ * lowercase.
  *
  * If the autoloading feature of PHP is enabled, self::load_class() is registered
  * as an autoloader. The PHP autoloader is provided by the SPL package, which is
@@ -21,34 +22,29 @@
  * it is enabled by default, but PHP can be compiled without it.
  *
  * In the rare case that autoloading is not available the classes need to be included
- * manually instead. This class allows that to be done by putting code to manually
- * include all of the classes in an index.php file in the root of the registered
- * directory that those classes are in. This index.php file will be included if
- * autoloading is disabled.
+ * manually instead. This is done by looping over the class map and including every
+ * file in it. For this reason it is important that the classes occur in the correct
+ * order in the map. If a class extends another class but occurs earlier in the class
+ * map than the class it extends, this will result in a fatal error when autoloading
+ * is disabled, as the extended class will not be found when the extending class is
+ * included. It is recommended that you generate and verify your class map files
+ * using the Grunt task included in the {@link https://github.com/WordPoints/dev-lib/
+ * WordPoints dev-lib}.
  *
  * @since 2.1.0
  */
 class WordPoints_Class_Autoloader {
 
 	/**
-	 * The prefixes of classes to autoload.
+	 * The directories of classes to autoload.
+	 *
+	 * Array of class => file map arrays, indexed by directory.
 	 *
 	 * @since 2.1.0
 	 *
 	 * @var array[]
 	 */
-	protected static $prefixes = array();
-
-	/**
-	 * Whether the registered directories have been sorted.
-	 *
-	 * We use this flag to prevent us from resorting the directories unnecessarily.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @var bool
-	 */
-	protected static $sorted = false;
+	protected static $dirs = array();
 
 	/**
 	 * Whether the SPL autoloader is available.
@@ -64,10 +60,9 @@ class WordPoints_Class_Autoloader {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string $dir    The full path of the directory.
-	 * @param string $prefix The prefix used for class names in this directory.
+	 * @param string $dir The full path of the directory.
 	 */
-	public static function register_dir( $dir, $prefix ) {
+	public static function register_dir( $dir ) {
 
 		if ( ! isset( self::$spl_enabled ) ) {
 
@@ -78,24 +73,19 @@ class WordPoints_Class_Autoloader {
 			}
 		}
 
+		$dir = trailingslashit( $dir );
+
+		self::$dirs[ $dir ] = require( $dir . '/index.php' );
+
 		if ( ! self::$spl_enabled ) {
-			if ( file_exists( $dir . '/index.php' ) ) {
-				require( $dir . '/index.php' );
+			foreach ( self::$dirs[ $dir ] as $file ) {
+				require_once( $dir . $file );
 			}
 		}
-
-		self::$prefixes[ $prefix ]['length'] = strlen( $prefix );
-		self::$prefixes[ $prefix ]['dirs'][] = trailingslashit( $dir );
-
-		self::$sorted = false;
 	}
 
 	/**
 	 * Load a class.
-	 *
-	 * Checks if the class name matches any of the registered prefixes, and if so,
-	 * checks whether a file for that class exists in the registered directories for
-	 * that prefix. If the file does exist, it is included.
 	 *
 	 * @since 2.1.0
 	 *
@@ -103,30 +93,11 @@ class WordPoints_Class_Autoloader {
 	 */
 	public static function load_class( $class_name ) {
 
-		if ( ! self::$sorted ) {
-			arsort( self::$prefixes );
-			self::$sorted = true;
-		}
+		$class_name = strtolower( $class_name );
 
-		foreach ( self::$prefixes as $prefix => $data ) {
-
-			if ( substr( $class_name, 0, $data['length'] ) !== $prefix ) {
-				continue;
-			}
-
-			$trimmed_class_name = substr( $class_name, $data['length'] );
-
-			$file_name = str_replace( '_', '/', strtolower( $trimmed_class_name ) );
-			$file_name = $file_name . '.php';
-
-			foreach ( $data['dirs'] as $dir ) {
-
-				if ( ! file_exists( $dir . $file_name ) ) {
-					continue;
-				}
-
-				require_once( $dir . $file_name );
-
+		foreach ( self::$dirs as $dir => $map ) {
+			if ( isset( $map[ $class_name ] ) ) {
+				require_once( $dir . $map[ $class_name ] );
 				return;
 			}
 		}

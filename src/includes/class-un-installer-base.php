@@ -1882,7 +1882,6 @@ abstract class WordPoints_Un_Installer_Base {
 
 		WordPoints_Class_Autoloader::register_dir(
 			WORDPOINTS_DIR . '/includes/classes'
-			, 'WordPoints_'
 		);
 
 		require_once WORDPOINTS_DIR . '/includes/functions.php';

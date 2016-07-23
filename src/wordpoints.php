@@ -137,10 +137,7 @@ include_once WORDPOINTS_DIR . 'includes/class-widget.php';
 require_once( WORDPOINTS_DIR . 'includes/classes/class/autoloader.php' );
 
 // Register the classes to autoload.
-WordPoints_Class_Autoloader::register_dir(
-	WORDPOINTS_DIR . 'includes/classes'
-	, 'WordPoints_'
-);
+WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'includes/classes' );
 
 /**
  * Action and filter hooks.

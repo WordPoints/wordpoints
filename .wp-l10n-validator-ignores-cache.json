@@ -265,18 +265,18 @@
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "477": false,
-            "706": false
+            "476": false,
+            "705": false
         },
         "standard": {
-            "480": false,
-            "709": false
+            "479": false,
+            "708": false
         },
         "post": {
-            "716": false
+            "715": false
         },
         "EXISTS": {
-            "823": {
+            "822": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

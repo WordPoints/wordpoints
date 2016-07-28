@@ -757,7 +757,10 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	ob_start();
 
-	include_once wordpoints_modules_dir() . '/' . $module;
+	$module_file = wordpoints_modules_dir() . '/' . $module;
+	WordPoints_Module_Paths::register( $module_file );
+
+	include_once $module_file;
 
 	if ( ! $silent ) {
 

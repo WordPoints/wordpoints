@@ -25,10 +25,13 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals
 	 */
 	public function should_hit( WordPoints_Hook_Fire $fire ) {
 
+		// Normally we wouldn't let the hit occur if there is nothing to reverse.
 		if ( ! parent::should_hit( $fire ) ) {
 
+			// But in this case we want to check the points logs as well.
 			$logs = $this->get_points_logs_to_be_reversed( $fire );
 
+			// If there are logs to reverse, we'll let the hit happen.
 			return count( $logs ) > 0;
 		}
 

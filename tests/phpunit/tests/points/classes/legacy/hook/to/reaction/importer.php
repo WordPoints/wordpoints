@@ -205,6 +205,22 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
+			'comment_on_attachment' => array(
+				'legacy_slug' => 'comment',
+				'settings'    => array(
+					'points'       => 10,
+					'post_type'    => 'attachment',
+					'auto_reverse' => 1,
+				),
+				'import_settings' => array(
+					'target'          => array( 'comment\attachment', 'author', 'user' ),
+					'event'           => 'comment_leave\attachment',
+					'description'     => 'Leaving a new comment on a Media.',
+					'log_text'        => 'Comment on a Media.',
+					'legacy_log_type' => 'comment_approve',
+					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+				),
+			),
 			'comment_received' => array(
 				'legacy_slug' => 'comment_received',
 				'settings'    => array(
@@ -233,6 +249,22 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'event'           => 'comment_leave\page',
 					'description'     => 'Receiving a comment on a Page.',
 					'log_text'        => 'Received a comment on a Page.',
+					'legacy_log_type' => 'comment_received',
+					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+				),
+			),
+			'comment_received_on_attachment' => array(
+				'legacy_slug' => 'comment_received',
+				'settings'    => array(
+					'points'       => 10,
+					'post_type'    => 'attachment',
+					'auto_reverse' => 1,
+				),
+				'import_settings' => array(
+					'target'          => array( 'comment\attachment', 'post\attachment', 'post\attachment', 'author', 'user' ),
+					'event'           => 'comment_leave\attachment',
+					'description'     => 'Receiving a comment on a Media.',
+					'log_text'        => 'Received a comment on a Media.',
 					'legacy_log_type' => 'comment_received',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),

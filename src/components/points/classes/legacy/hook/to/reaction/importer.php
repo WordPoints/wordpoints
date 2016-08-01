@@ -439,7 +439,10 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 	 */
 	protected function format_settings_for_post_type( $post_type, $settings ) {
 
-		if ( 'attachment' === $post_type ) {
+		if (
+			'attachment' === $post_type
+			&& 'post_publish\post' === $settings['event']
+		) {
 
 			$settings['event'] = 'media_upload';
 

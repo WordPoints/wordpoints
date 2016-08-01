@@ -206,8 +206,6 @@ ConditionGroups = Base.extend({
 
 		this.$c( '> .add-condition-form' ).hide();
 		this.$c( '> .conditions-title .add-new' ).attr( 'disabled', false );
-
-		// TODO highlight new condition?
 	}
 });
 

@@ -91,6 +91,7 @@ class WordPoints_Points_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase
 		wordpoints_points_hook_extensions_init( $extensions );
 
 		$this->assertTrue( $extensions->is_registered( 'points_legacy_reversals' ) );
+		$this->assertTrue( $extensions->is_registered( 'points_legacy_repeat_blocker' ) );
 	}
 }
 

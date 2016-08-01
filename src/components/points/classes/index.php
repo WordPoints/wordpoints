@@ -9,6 +9,7 @@
 
 return array(
 	// auto-generated {
+	'wordpoints_points_hook_extension_legacy_repeat_blocker' => 'hook/extension/legacy/repeat/blocker.php',
 	'wordpoints_points_hook_extension_legacy_reversals' => 'hook/extension/legacy/reversals.php',
 	'wordpoints_points_hook_reactor' => 'hook/reactor.php',
 	'wordpoints_points_hook_reactor_legacy' => 'hook/reactor/legacy.php',

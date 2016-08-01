@@ -58,7 +58,16 @@ function wordpoints_points_hook_reaction_stores_init( $reaction_stores ) {
  * @param WordPoints_Class_Registry_Persistent $extensions The extension registry.
  */
 function wordpoints_points_hook_extensions_init( $extensions ) {
-	$extensions->register( 'points_legacy_reversals', 'WordPoints_Points_Hook_Extension_Legacy_Reversals' );
+
+	$extensions->register(
+		'points_legacy_reversals'
+		, 'WordPoints_Points_Hook_Extension_Legacy_Reversals'
+	);
+
+	$extensions->register(
+		'points_legacy_repeat_blocker'
+		, 'WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker'
+	);
 }
 
 /**

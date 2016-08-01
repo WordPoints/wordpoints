@@ -17,6 +17,24 @@
 class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 	/**
+	 * The slug of the extension being tested.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var string
+	 */
+	protected $extension_slug = 'repeat_blocker';
+
+	/**
+	 * The extension class being tested.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var string
+	 */
+	protected $extension_class = 'WordPoints_Hook_Extension_Repeat_Blocker';
+
+	/**
 	 * The hooks app.
 	 *
 	 * @since 2.1.0
@@ -63,7 +81,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	 */
 	public function test_validate_settings( array $settings ) {
 
-		$extension = new WordPoints_Hook_Extension_Repeat_Blocker();
+		$extension = new $this->extension_class();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
@@ -106,14 +124,14 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	public function test_should_hit( array $settings ) {
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
-		$reaction->add_meta( 'repeat_blocker', $settings );
+		$reaction->add_meta( $this->extension_slug, $settings );
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
 		$fire->hit();
 
-		$extension = new WordPoints_Hook_Extension_Repeat_Blocker();
+		$extension = new $this->extension_class();
 
 		$this->assertTrue( $extension->should_hit( $fire ) );
 
@@ -146,14 +164,14 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	public function test_should_not_hit( array $settings ) {
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
-		$reaction->add_meta( 'repeat_blocker', $settings );
+		$reaction->add_meta( $this->extension_slug, $settings );
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
 		$fire->hit();
 
-		$extension = new WordPoints_Hook_Extension_Repeat_Blocker();
+		$extension = new $this->extension_class();
 
 		$this->assertFalse( $extension->should_hit( $fire ) );
 
@@ -184,12 +202,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 
 		$hooks = wordpoints_hooks();
 		$extensions = $hooks->get_sub_app( 'extensions' );
-
-		$extensions->register(
-			'repeat_blocker'
-			, 'WordPoints_Hook_Extension_Repeat_Blocker'
-		);
-
+		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
 			'test_extension'
 			, 'WordPoints_PHPUnit_Mock_Hook_Extension'
@@ -197,7 +210,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 
 		$this->factory->wordpoints->hook_reactor->create();
 		$this->factory->wordpoints->hook_reaction->create(
-			array( 'repeat_blocker' => array( 'test_fire' => true, 'fire' => true ) )
+			array( $this->extension_slug => array( 'test_fire' => true, 'fire' => true ) )
 		);
 
 		$this->factory->wordpoints->entity->create();
@@ -370,22 +383,15 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 
 		$this->hooks = wordpoints_hooks();
 		$extensions = $this->hooks->get_sub_app( 'extensions' );
-
-		$extensions->register(
-			'repeat_blocker'
-			,
-			'WordPoints_Hook_Extension_Repeat_Blocker'
-		);
-
+		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
 			'test_extension'
-			,
-			'WordPoints_PHPUnit_Mock_Hook_Extension'
+			, 'WordPoints_PHPUnit_Mock_Hook_Extension'
 		);
 
 		$this->factory->wordpoints->hook_reactor->create();
 		$this->factory->wordpoints->hook_reaction->create(
-			array( 'repeat_blocker' => array( 'test_fire' => true ) )
+			array( $this->extension_slug => array( 'test_fire' => true ) )
 		);
 
 		$this->factory->wordpoints->entity->create();

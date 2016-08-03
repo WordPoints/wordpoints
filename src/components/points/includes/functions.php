@@ -71,6 +71,39 @@ function wordpoints_points_hook_extensions_init( $extensions ) {
 }
 
 /**
+ * Register the legacy post publish hook event for a post type.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_register_post_type_hook_events When registering
+ *                   legacy events is enabled.
+ *
+ * @param string $slug The slug of the post type.
+ */
+function wordpoints_points_register_legacy_post_publish_events( $slug ) {
+
+	if ( 'attachment' === $slug ) {
+		return;
+	}
+
+	$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+	$events->register(
+		"points_legacy_post_publish\\{$slug}"
+		, 'WordPoints_Points_Hook_Event_Post_Publish_Legacy'
+		, array(
+			'actions' => array(
+				'toggle_on'  => "post_publish\\{$slug}",
+				'toggle_off' => "post_delete\\{$slug}",
+			),
+			'args'    => array(
+				"post\\{$slug}" => 'WordPoints_Hook_Arg',
+			),
+		)
+	);
+}
+
+/**
  * Register scripts and styles for the component.
  *
  * @since 1.0.0

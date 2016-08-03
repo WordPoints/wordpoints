@@ -26,8 +26,13 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 		&& '_Test' === substr( $class_name, -5 )
 	) {
 
-		$file_name = str_replace( '_', '/', strtolower( substr( $class_name, 11, -5 ) ) );
-		$file_name = dirname( __FILE__ ) . '/../tests/classes/' . $file_name . '.php';
+		if ( 'Points_' === substr( $class_name, 11, 7 ) ) {
+			$file_name = str_replace( '_', '/', strtolower( substr( $class_name, 18, -5 ) ) );
+			$file_name = dirname( __FILE__ ) . '/../tests/points/classes/' . $file_name . '.php';
+		} else {
+			$file_name = str_replace( '_', '/', strtolower( substr( $class_name, 11, -5 ) ) );
+			$file_name = dirname( __FILE__ ) . '/../tests/classes/' . $file_name . '.php';
+		}
 
 		if ( ! file_exists( $file_name ) ) {
 			return;

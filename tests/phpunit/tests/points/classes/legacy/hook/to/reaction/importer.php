@@ -134,11 +134,12 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				),
 				'import_settings' => array(
 					'target'          => array( 'post\post', 'author', 'user' ),
-					'event'           => 'post_publish\post',
+					'event'           => 'points_legacy_post_publish\post',
 					'description'     => 'New Post published.',
 					'log_text'        => 'Post published.',
 					'legacy_log_type' => 'post_publish',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+					'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 				),
 			),
 			'page' => array(
@@ -150,11 +151,12 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				),
 				'import_settings' => array(
 					'target'          => array( 'post\page', 'author', 'user' ),
-					'event'           => 'post_publish\page',
+					'event'           => 'points_legacy_post_publish\page',
 					'description'     => 'New Page published.',
 					'log_text'        => 'Page published.',
 					'legacy_log_type' => 'post_publish',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+					'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 				),
 			),
 			'attachment' => array(
@@ -453,11 +455,12 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$imported_settings = array(
 			'target'          => array( 'post\post', 'author', 'user' ),
-			'event'           => 'post_publish\post',
+			'event'           => 'points_legacy_post_publish\post',
 			'description'     => 'New post published.',
 			'log_text'        => 'Post published.',
 			'legacy_log_type' => 'post_publish',
 			'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+			'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 		);
 
 		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
@@ -515,6 +518,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			if ( $post_type->name === 'attachment' ) {
 
 				$post_type_settings['event'] = 'media_upload';
+				unset( $post_type_settings['points_legacy_repeat_blocker'] );
 
 			} else {
 
@@ -561,6 +565,62 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 		);
 	}
 
+	/**
+	 * Test that post hooks do not refire if they had been fired before import.
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_imported_post_points_hook_does_not_refire() {
+
+		$legacy_slug = 'post';
+		$settings = array(
+			'points' => 10,
+			'post_type' => 'post',
+			'auto_reverse' => 1,
+		);
+
+		$this->create_points_type();
+
+		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
+		wordpointstests_add_points_hook( $hook_type, $settings );
+
+		$user_id = $this->factory->user->create();
+
+		$post_id = $this->factory->post->create(
+			array(
+				'post_author' => $user_id,
+				'post_type'   => $settings['post_type'],
+			)
+		);
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		$this->factory->post->update_object(
+			$post_id
+			, array( 'post_status' => 'draft' )
+		);
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		$this->import();
+
+		$this->factory->post->update_object(
+			$post_id
+			, array( 'post_status' => 'publish' )
+		);
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+	}
+
 	//
 	// Helpers
 	//
@@ -593,6 +653,11 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 	 */
 	protected function import_legacy_points_hooks() {
 
+		array_map(
+			'wordpoints_points_register_legacy_post_publish_events'
+			, get_post_types( array( 'public' => true ) )
+		);
+
 		$this->import_legacy_points_hook(
 			'registration',
 			'user_register',
@@ -603,7 +668,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$this->import_legacy_points_hook(
 			'post',
-			'post_publish\post',
+			'points_legacy_post_publish\post',
 			array(
 				'points'       => true,
 				'post_type'    => true,
@@ -755,13 +820,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			break;
 
 			case 'post':
-				if ( 'attachment' === $settings['post_type'] ) {
-					wp_delete_post( $post_id );
-				} else {
-					wp_update_post(
-						array( 'ID' => $post_id, 'post_status' => 'draft' )
-					);
-				}
+				wp_delete_post( $post_id, true );
+
 			break;
 
 			case 'comment':

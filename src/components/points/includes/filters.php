@@ -11,6 +11,10 @@ add_action( 'wordpoints_init_app_registry-hooks-reactors', 'wordpoints_points_ho
 add_action( 'wordpoints_init_app_registry-hooks-reaction_stores', 'wordpoints_points_hook_reaction_stores_init' );
 add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_points_hook_extensions_init' );
 
+if ( get_option( 'wordpoints_points_register_legacy_post_publish_event' ) ) {
+	add_action( 'wordpoints_register_post_type_hook_events', 'wordpoints_points_register_legacy_post_publish_events' );
+}
+
 add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 

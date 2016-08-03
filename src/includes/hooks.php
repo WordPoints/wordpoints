@@ -251,18 +251,18 @@ function wordpoints_register_post_type_hook_actions( $slug ) {
 				),
 			)
 		);
-
-		$actions->register(
-			"post_delete\\{$slug}"
-			, 'WordPoints_Hook_Action_Post_Type'
-			, array(
-				'action' => 'delete_post',
-				'data'   => array(
-					'arg_index' => array( "post\\{$slug}" => 0 ),
-				),
-			)
-		);
 	}
+
+	$actions->register(
+		"post_delete\\{$slug}"
+		, 'WordPoints_Hook_Action_Post_Type'
+		, array(
+			'action' => 'delete_post',
+			'data'   => array(
+				'arg_index' => array( "post\\{$slug}" => 0 ),
+			),
+		)
+	);
 
 	/**
 	 * Fires when registering the hook actions for a post type.

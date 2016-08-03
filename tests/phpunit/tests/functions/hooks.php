@@ -151,6 +151,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$this->assertTrue( $actions->is_registered( 'post_publish\post' ) );
 		$this->assertTrue( $actions->is_registered( 'post_depublish\post' ) );
 		$this->assertTrue( $actions->is_registered( 'post_depublish_delete\post' ) );
+		$this->assertTrue( $actions->is_registered( 'post_delete\post' ) );
 		$this->assertTrue( $actions->is_registered( 'comment_approve\post' ) );
 		$this->assertTrue( $actions->is_registered( 'comment_new\post' ) );
 		$this->assertTrue( $actions->is_registered( 'comment_deapprove\post' ) );
@@ -158,6 +159,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$this->assertTrue( $actions->is_registered( 'post_publish\page' ) );
 		$this->assertTrue( $actions->is_registered( 'post_depublish\page' ) );
 		$this->assertTrue( $actions->is_registered( 'post_depublish_delete\page' ) );
+		$this->assertTrue( $actions->is_registered( 'post_delete\page' ) );
 		$this->assertTrue( $actions->is_registered( 'comment_approve\page' ) );
 		$this->assertTrue( $actions->is_registered( 'comment_new\page' ) );
 		$this->assertTrue( $actions->is_registered( 'comment_deapprove\page' ) );

@@ -93,6 +93,28 @@ class WordPoints_Points_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase
 		$this->assertTrue( $extensions->is_registered( 'points_legacy_reversals' ) );
 		$this->assertTrue( $extensions->is_registered( 'points_legacy_repeat_blocker' ) );
 	}
+
+	/**
+	 * Test the legacy post publish event registration function.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_points_register_legacy_post_publish_events
+	 */
+	public function test_legacy_post_publish_events() {
+
+		$this->mock_apps();
+
+		wordpoints_points_register_legacy_post_publish_events( 'post' );
+		wordpoints_points_register_legacy_post_publish_events( 'page' );
+		wordpoints_points_register_legacy_post_publish_events( 'attachment' );
+
+		$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+		$this->assertTrue( $events->is_registered( 'points_legacy_post_publish\post' ) );
+		$this->assertTrue( $events->is_registered( 'points_legacy_post_publish\page' ) );
+		$this->assertFalse( $events->is_registered( 'points_legacy_post_publish\attachment' ) );
+	}
 }
 
 // EOF

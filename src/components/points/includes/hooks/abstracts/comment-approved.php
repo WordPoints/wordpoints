@@ -70,6 +70,10 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		$post = get_post( $comment->comment_post_ID );
 
+		if ( ! $post ) {
+			return;
+		}
+
 		foreach ( $this->get_instances() as $number => $instance ) {
 
 			$instance = array_merge( $this->defaults, $instance );

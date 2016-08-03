@@ -58,7 +58,7 @@ class WordPoints_Comment_Received_Points_Hook extends WordPoints_Comment_Approve
 
 		$post = get_post( $comment->comment_post_ID );
 
-		if ( (int) $post->post_author === (int) $comment->user_id ) {
+		if ( $post && (int) $post->post_author === (int) $comment->user_id ) {
 			return true;
 		}
 

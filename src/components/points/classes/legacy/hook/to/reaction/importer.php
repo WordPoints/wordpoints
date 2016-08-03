@@ -75,6 +75,15 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 	protected $legacy_log_type;
 
 	/**
+	 * The legacy points logs meta key used to store the ID of the primary entity.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var string
+	 */
+	protected $legacy_meta_key;
+
+	/**
 	 * Whether or not to skip importing of points hooks that don't auto-reverse.
 	 *
 	 * If true, hooks that have the auto_reverse setting set to a falsey value will
@@ -162,13 +171,17 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 	 *                                  being imported.
 	 * @param array  $target            The target to use when converting an instance
 	 *                                  to a reaction.
+	 * @param string $legacy_meta_key   The legacy points logs meta key used to store
+	 *                                  the ID of the primary entity for the type of
+	 *                                  hook being imported. Defaults to none.
 	 */
 	public function __construct(
 		$legacy_id_base,
 		$event_slug,
 		$expected_settings,
 		$legacy_log_type,
-		$target
+		$target,
+		$legacy_meta_key = null
 	) {
 
 		$this->event_slug        = $event_slug;
@@ -176,6 +189,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 		$this->expected_settings = $expected_settings;
 		$this->legacy_log_type   = $legacy_log_type;
 		$this->legacy_id_base    = $legacy_id_base;
+		$this->legacy_meta_key   = $legacy_meta_key;
 	}
 
 	/**
@@ -266,6 +280,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 			'points_type'     => $points_type,
 			'description'     => $this->legacy_handler->get_description(),
 			'legacy_log_type' => $this->legacy_log_type,
+			'legacy_meta_key' => $this->legacy_meta_key,
 		);
 
 		$order = array_search(

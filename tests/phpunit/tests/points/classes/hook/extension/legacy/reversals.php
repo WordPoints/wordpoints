@@ -52,10 +52,62 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'event' => $event_slug )
 		);
 
+		$reaction->add_meta( 'legacy_meta_key', $arg->get_entity_slug() );
 		$reaction->add_meta(
 			$this->extension_slug
 			, array( 'test_reverse' => 'test_fire' )
 		);
+
+		$fire = new WordPoints_Hook_Fire(
+			new WordPoints_Hook_Event_Args( array( $arg ) )
+			, $reaction
+			, 'test_reverse'
+		);
+
+		$this->assertTrue( $this->extension->should_hit( $fire ) );
+	}
+
+	/**
+	 * Test checking whether we should hit the target when there are unreversed logs.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_should_hit_no_hits_unreversed_logs_integration() {
+
+		$this->create_points_type();
+
+		$settings = array( 'points' => 10 );
+
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook', $settings );
+
+		$user_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id )
+		);
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		$reaction = $this->create_points_reaction(
+			array(
+				'event' => 'post_publish\post',
+				'target' => array( 'post\post', 'author', 'user' ),
+			)
+		);
+
+		$this->assertIsReaction( $reaction );
+
+		$reaction->add_meta( 'legacy_log_type', 'post_publish' );
+		$reaction->add_meta( 'legacy_meta_key', 'post_id' );
+		$reaction->add_meta(
+			$this->extension_slug
+			, array( 'test_reverse' => 'test_fire' )
+		);
+
+		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'post\post' );
+		$arg->value = $post_id;
 
 		$fire = new WordPoints_Hook_Fire(
 			new WordPoints_Hook_Event_Args( array( $arg ) )
@@ -94,6 +146,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'event' => $event_slug )
 		);
 
+		$reaction->add_meta( 'legacy_meta_key', $arg->get_entity_slug() );
 		$reaction->add_meta(
 			$this->extension_slug
 			, array( 'test_reverse' => 'test_fire' )
@@ -134,6 +187,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'event' => $event_slug )
 		);
 
+		$reaction->add_meta( 'legacy_meta_key', $arg->get_entity_slug() );
 		$reaction->add_meta(
 			$this->extension_slug
 			, array( 'test_reverse' => 'test_fire' )
@@ -175,6 +229,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'event' => $event_slug )
 		);
 
+		$reaction->add_meta( 'legacy_meta_key', $arg->get_entity_slug() );
 		$reaction->add_meta(
 			$this->extension_slug
 			, array( 'test_reverse' => 'test_fire' )
@@ -193,19 +248,15 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 	}
 
 	/**
-	 * Test checking whether we should hit the target with a namespaced entity.
+	 * Test checking whether we should hit the target with no legacy meta key.
 	 *
 	 * @since 2.1.0
 	 */
-	public function test_should_hit_no_hits_unreversed_logs_namespaced_entity() {
+	public function test_should_hit_no_hits_unreversed_logs_no_legacy_meta_key() {
 
 		$event_slug = 'test_event';
 
-		$this->factory->wordpoints->entity->create(
-			array( 'slug' => 'test_entity\test' )
-		);
-
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity\test' );
+		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity' );
 
 		$this->create_points_type();
 
@@ -214,7 +265,6 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			, 10
 			, 'points'
 			, $event_slug
-			, array( 'test_entity' => $arg->get_value() )
 		);
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create(
@@ -260,6 +310,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'event' => $event_slug )
 		);
 
+		$reaction->add_meta( 'legacy_meta_key', $arg->get_entity_slug() );
 		$reaction->add_meta(
 			$this->extension_slug
 			, array( 'test_reverse' => 'test_fire' )
@@ -340,6 +391,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'event' => $event_slug )
 		);
 
+		$reaction->add_meta( 'legacy_meta_key', $arg->get_entity_slug() );
 		$reaction->add_meta(
 			$this->extension_slug
 			, array( 'test_reverse' => 'test_fire' )

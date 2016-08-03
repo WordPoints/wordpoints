@@ -34,6 +34,13 @@ class WordPoints_Points_Hook_Reactor_Legacy extends WordPoints_Points_Hook_React
 			);
 		}
 
+		if ( isset( $settings['legacy_meta_key'] ) ) {
+			$reaction->update_meta(
+				'legacy_meta_key',
+				$settings['legacy_meta_key']
+			);
+		}
+
 		parent::update_settings( $reaction, $settings );
 	}
 

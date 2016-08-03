@@ -111,6 +111,63 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 	}
 
 	/**
+	 * Test that it integrates correctly with the points hooks.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_should_hit_integration() {
+
+		$this->create_points_type();
+
+		$settings = array( 'points' => 10 );
+
+		wordpointstests_add_points_hook( 'wordpoints_post_points_hook', $settings );
+
+		$user_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create(
+			array( 'post_author' => $user_id )
+		);
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		$reaction = $this->create_points_reaction(
+			array(
+				'event' => 'post_publish\post',
+				'target' => array( 'post\post', 'author', 'user' ),
+			)
+		);
+
+		$this->assertIsReaction( $reaction );
+
+		$reaction->add_meta( 'legacy_log_type', 'post_publish' );
+		$reaction->add_meta( 'legacy_meta_key', 'post_id' );
+		$reaction->add_meta(
+			$this->extension_slug
+			, array( 'test_fire' => true )
+		);
+
+		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'post\post' );
+		$arg->value = $post_id;
+
+		$fire = new WordPoints_Hook_Fire(
+			new WordPoints_Hook_Event_Args( array( $arg ) )
+			, $reaction
+			, 'test_fire'
+		);
+
+		$extension = new $this->extension_class();
+
+		$this->assertFalse( $extension->should_hit( $fire ) );
+	}
+
+	//
+	// Helpers.
+	//
+
+	/**
 	 * Fire an event for a legacy reaction.
 	 *
 	 * @since 2.1.0
@@ -138,7 +195,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 
 		$this->mock_apps();
 
-		$this->hooks      = wordpoints_hooks();
+		$this->hooks = wordpoints_hooks();
 		$extensions = $this->hooks->get_sub_app( 'extensions' );
 		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
@@ -161,6 +218,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 		);
 
 		$this->reaction->update_meta( 'legacy_log_type', 'test_log_type' );
+		$this->reaction->update_meta( 'legacy_meta_key', 'test_entity' );
 
 		$arg        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity' );
 		$arg->value = $entity_id;

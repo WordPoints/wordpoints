@@ -69,19 +69,6 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals
 			return $fire->data[ $this->slug ]['points_logs'];
 		}
 
-		$entity = $fire->event_args->get_primary_arg();
-
-		if ( ! $entity ) {
-			$fire->data[ $this->slug ]['points_logs'] = array();
-			return array();
-		}
-
-		$slug = $entity->get_slug();
-
-		if ( ( $pos = strpos( $slug, '\\' ) ) ) {
-			$slug = substr( $slug, 0, $pos );
-		}
-
 		$meta_queries = array(
 			array(
 				// This is needed for back-compat with the way the points hooks
@@ -89,11 +76,24 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals
 				'key'     => 'auto_reversed',
 				'compare' => 'NOT EXISTS',
 			),
-			array(
-				'key'   => $slug,
-				'value' => $entity->get_the_id(),
-			),
 		);
+
+		$meta_key = $fire->reaction->get_meta( 'legacy_meta_key' );
+
+		if ( $meta_key ) {
+
+			$entity = $fire->event_args->get_primary_arg();
+
+			if ( ! $entity ) {
+				$fire->data[ $this->slug ]['points_logs'] = array();
+				return array();
+			}
+
+			$meta_queries[] = array(
+				'key'   => $meta_key,
+				'value' => $entity->get_the_id(),
+			);
+		}
 
 		$log_type = $fire->reaction->get_meta( 'legacy_log_type' );
 

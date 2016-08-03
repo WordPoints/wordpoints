@@ -138,6 +138,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'New Post published.',
 					'log_text'        => 'Post published.',
 					'legacy_log_type' => 'post_publish',
+					'legacy_meta_key' => 'post_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 					'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 				),
@@ -155,6 +156,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'New Page published.',
 					'log_text'        => 'Page published.',
 					'legacy_log_type' => 'post_publish',
+					'legacy_meta_key' => 'post_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 					'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 				),
@@ -172,6 +174,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'New Media published.',
 					'log_text'        => 'Media published.',
 					'legacy_log_type' => 'post_publish',
+					'legacy_meta_key' => 'post_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -188,6 +191,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Leaving a new comment on a Post.',
 					'log_text'        => 'Comment on a Post.',
 					'legacy_log_type' => 'comment_approve',
+					'legacy_meta_key' => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -204,6 +208,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Leaving a new comment on a Page.',
 					'log_text'        => 'Comment on a Page.',
 					'legacy_log_type' => 'comment_approve',
+					'legacy_meta_key' => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -220,6 +225,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Leaving a new comment on a Media.',
 					'log_text'        => 'Comment on a Media.',
 					'legacy_log_type' => 'comment_approve',
+					'legacy_meta_key' => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -236,6 +242,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Receiving a comment on a Post.',
 					'log_text'        => 'Received a comment on a Post.',
 					'legacy_log_type' => 'comment_received',
+					'legacy_meta_key' => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -252,6 +259,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Receiving a comment on a Page.',
 					'log_text'        => 'Received a comment on a Page.',
 					'legacy_log_type' => 'comment_received',
+					'legacy_meta_key' => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -268,6 +276,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Receiving a comment on a Media.',
 					'log_text'        => 'Received a comment on a Media.',
 					'legacy_log_type' => 'comment_received',
+					'legacy_meta_key' => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
@@ -459,6 +468,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			'description'     => 'New post published.',
 			'log_text'        => 'Post published.',
 			'legacy_log_type' => 'post_publish',
+			'legacy_meta_key' => 'post_id',
 			'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 			'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 		);
@@ -610,6 +620,11 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$this->import();
 
+		$this->assertCount(
+			1
+			, wordpoints_hooks()->get_reaction_store( 'points' )->get_reactions()
+		);
+
 		$this->factory->post->update_object(
 			$post_id
 			, array( 'post_status' => 'publish' )
@@ -675,7 +690,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				'auto_reverse' => true,
 			),
 			'post_publish',
-			array( 'post\post', 'author', 'user' )
+			array( 'post\post', 'author', 'user' ),
+			'post_id'
 		);
 
 		$this->import_legacy_points_hook(
@@ -687,7 +703,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				'auto_reverse' => true,
 			),
 			'comment_approve',
-			array( 'comment\post', 'author', 'user' )
+			array( 'comment\post', 'author', 'user' ),
+			'comment_id'
 		);
 
 		$this->import_legacy_points_hook(
@@ -699,7 +716,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				'auto_reverse' => true,
 			),
 			'comment_received',
-			array( 'comment\post', 'post\post', 'post\post', 'author', 'user' )
+			array( 'comment\post', 'post\post', 'post\post', 'author', 'user' ),
+			'comment_id'
 		);
 
 		$this->import_legacy_points_hook(
@@ -723,13 +741,15 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 	 * @param string $legacy_log_type   The legacy log type.
 	 * @param array  $target            The target to use when converting the hook to
 	 *                                  a reaction.
+	 * @param string $legacy_meta_key   The legacy meta key.
 	 */
 	protected function import_legacy_points_hook(
 		$legacy_slug,
 		$event_slug,
 		$expected_settings,
 		$legacy_log_type,
-		$target
+		$target,
+		$legacy_meta_key = null
 	) {
 
 		$importer = new WordPoints_Points_Legacy_Hook_To_Reaction_Importer(
@@ -738,6 +758,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			, $expected_settings
 			, $legacy_log_type
 			, $target
+			, $legacy_meta_key
 		);
 
 		$importer->import();

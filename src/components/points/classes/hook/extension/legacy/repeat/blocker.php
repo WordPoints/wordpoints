@@ -46,24 +46,25 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker
 			return false;
 		}
 
-		$entity = $fire->event_args->get_primary_arg();
+		$meta_queries = array();
 
-		if ( ! $entity ) {
-			return true;
+		$meta_key = $fire->reaction->get_meta( 'legacy_meta_key' );
+
+		if ( $meta_key ) {
+
+			$entity = $fire->event_args->get_primary_arg();
+
+			if ( ! $entity ) {
+				return true;
+			}
+
+			$meta_queries = array(
+				array(
+					'key'   => $meta_key,
+					'value' => $entity->get_the_id(),
+				),
+			);
 		}
-
-		$slug = $entity->get_slug();
-
-		if ( ( $pos = strpos( $slug, '\\' ) ) ) {
-			$slug = substr( $slug, 0, $pos );
-		}
-
-		$meta_queries = array(
-			array(
-				'key'   => $slug,
-				'value' => $entity->get_the_id(),
-			),
-		);
 
 		$user = $fire->event_args->get_from_hierarchy(
 			$fire->reaction->get_meta( 'target' )

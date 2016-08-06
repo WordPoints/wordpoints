@@ -5,8 +5,6 @@
  *
  * @class
  * @augments Backbone.Model
- *
- *
  */
 var $ = Backbone.$,
 	hooks = wp.wordpoints.hooks,
@@ -69,7 +67,9 @@ Fields = Backbone.Model.extend({
 	createSelect: function ( data ) {
 
 		var $template = $( '<div></div>' ).html( this.templateSelect( data ) ),
-			options = '';
+			options = '',
+			foundValue = typeof data.value === 'undefined'
+				|| typeof data.options[ data.value ] !== 'undefined';
 
 		_.each( data.options, function ( option, index ) {
 
@@ -78,6 +78,10 @@ Fields = Backbone.Model.extend({
 			if ( option.value ) {
 				value = option.value;
 				label = option.label;
+
+				if ( ! foundValue && data.value === value ) {
+					foundValue = true;
+				}
 			} else {
 				value = index;
 				label = option;
@@ -88,6 +92,14 @@ Fields = Backbone.Model.extend({
 				.text( label ? label : value )
 				.prop( 'outerHTML' );
 		});
+
+		// If the current value isn't in the list, add it in.
+		if ( ! foundValue ) {
+			options += $( '<option></option>' )
+				.attr( 'value', data.value )
+				.text( data.value )
+				.prop( 'outerHTML' );
+		}
 
 		$template.find( 'select' )
 			.append( options )

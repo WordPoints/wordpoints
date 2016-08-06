@@ -289,6 +289,14 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 					'description'     => 'Visiting the site at least once in a day.',
 					'log_text'        => 'Daily points.',
 					'legacy_log_type' => 'periodic',
+					'points_legacy_periods' => array(
+						'fire' => array(
+							array(
+								'length' => DAY_IN_SECONDS,
+								'args' => array( array( 'current:user' ) ),
+							),
+						),
+					),
 				),
 			),
 		);
@@ -632,6 +640,87 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$this->assertEquals(
 			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+	}
+
+	/**
+	 * Test that post hooks do not refire if they had been fired before import.
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_imported_periodic_points_hook_does_not_refire() {
+
+		$legacy_slug = 'periodic';
+		$settings = array( 'points' => 10, 'period' => DAY_IN_SECONDS );
+
+		$this->create_points_type();
+
+		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
+		/** @var WordPoints_Periodic_Points_Hook $hook */
+		$hook = wordpointstests_add_points_hook( $hook_type, $settings );
+
+		$user_id = $this->factory->user->create();
+
+		wp_set_current_user( $user_id );
+
+		$hook->hook();
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		$hook->hook();
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		$this->import();
+
+		$this->assertCount(
+			1
+			, wordpoints_hooks()->get_reaction_store( 'points' )->get_reactions()
+		);
+
+		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		// Fast-forward.
+		global $wpdb;
+
+		$id = $wpdb->get_var(
+			"
+				SELECT `id`
+				FROM `{$wpdb->wordpoints_points_logs}`
+				ORDER BY `id` DESC
+				LIMIT 1
+			"
+		);
+
+		$updated = $wpdb->update(
+			$wpdb->wordpoints_points_logs
+			, array( 'date' => gmdate( 'Y-m-d H:i:s', current_time( 'timestamp' ) - DAY_IN_SECONDS ) )
+			, array( 'id' => $id )
+			, array( '%s' )
+			, array( '%d' )
+		);
+
+		$this->assertEquals( 1, $updated );
+
+		// The periods cache will still hold the old date.
+		$this->flush_cache();
+
+		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
+
+		$this->assertEquals(
+			2 * $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 	}

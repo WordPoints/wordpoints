@@ -223,10 +223,7 @@ class WordPoints_Hook_Extension_Periods
 		WordPoints_Hook_ReactionI $reaction
 	) {
 
-		$period = $this->get_period_by_reaction(
-			$this->get_period_signature( $settings, $reaction )
-			, $reaction
-		);
+		$period = $this->get_period_by_reaction( $settings, $reaction );
 
 		// If the period isn't found, we know that we can still fire.
 		if ( ! $period ) {
@@ -322,17 +319,17 @@ class WordPoints_Hook_Extension_Periods
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string                    $signature The values of the args this period
-	 *                                             relates to.
-	 * @param WordPoints_Hook_ReactionI $reaction  The reaction object.
+	 * @param array                     $settings The period's settings.
+	 * @param WordPoints_Hook_ReactionI $reaction The reaction object.
 	 *
 	 * @return object|false The period data, or false if not found.
 	 */
 	protected function get_period_by_reaction(
-		$signature,
+		array $settings,
 		WordPoints_Hook_ReactionI $reaction
 	) {
 
+		$signature = $this->get_period_signature( $settings, $reaction );
 		$reaction_guid = $reaction->get_guid();
 
 		$cache_key = wp_json_encode( $reaction_guid ) . "-{$signature}-{$this->action_type}";

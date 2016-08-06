@@ -10,6 +10,7 @@
 return array(
 	// auto-generated {
 	'wordpoints_points_hook_event_post_publish_legacy' => 'hook/event/post/publish/legacy.php',
+	'wordpoints_points_hook_extension_legacy_periods' => 'hook/extension/legacy/periods.php',
 	'wordpoints_points_hook_extension_legacy_repeat_blocker' => 'hook/extension/legacy/repeat/blocker.php',
 	'wordpoints_points_hook_extension_legacy_reversals' => 'hook/extension/legacy/reversals.php',
 	'wordpoints_points_hook_reactor' => 'hook/reactor.php',

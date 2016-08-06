@@ -68,6 +68,11 @@ function wordpoints_points_hook_extensions_init( $extensions ) {
 		'points_legacy_repeat_blocker'
 		, 'WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker'
 	);
+
+	$extensions->register(
+		'points_legacy_periods'
+		, 'WordPoints_Points_Hook_Extension_Legacy_Periods'
+	);
 }
 
 /**

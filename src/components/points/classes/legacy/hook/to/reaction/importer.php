@@ -396,7 +396,19 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 	 */
 	protected function filter_reaction_settings( $settings, $order ) {
 
-		if ( 'wordpoints_periodic_points_hook' !== $this->legacy_id_base ) {
+		if ( 'wordpoints_periodic_points_hook' === $this->legacy_id_base ) {
+
+			$settings['points_legacy_periods'] = array(
+				'fire' => array(
+					array(
+						'length' => $this->legacy_instance['period'],
+						'args' => array( array( 'current:user' ) ),
+					),
+				),
+			);
+
+		} else {
+
 			// We do this even if reversals will be blocked, in case the blocking
 			// is ever removed for this reaction.
 			$settings['points_legacy_reversals'] = array(

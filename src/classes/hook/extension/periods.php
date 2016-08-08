@@ -230,15 +230,20 @@ class WordPoints_Hook_Extension_Periods
 			return true;
 		}
 
-		$now = current_time( 'timestamp' );
+		$now = current_time( 'timestamp', true );
 		$hit_time = strtotime( $period->date, $now );
 
 		if ( ! empty( $settings['relative'] ) ) {
-			return ( $hit_time < $now - $settings['length'] );
+
+			return ( $now > $hit_time + $settings['length'] );
+
 		} else {
+
+			$offset = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
+
 			return (
-				(int) ( $hit_time / $settings['length'] )
-				< (int) ( $now / $settings['length'] )
+				(int) ( ( $hit_time + $offset ) / $settings['length'] )
+				< (int) ( ( $now + $offset ) / $settings['length'] )
 			);
 		}
 	}

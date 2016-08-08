@@ -204,7 +204,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 	 */
 	public function assertHitsLogged( array $data, $count = 1 ) {
 
-		$now = current_time( 'timestamp' );
+		$now = current_time( 'timestamp', true );
 
 		$data = array_merge(
 			array(

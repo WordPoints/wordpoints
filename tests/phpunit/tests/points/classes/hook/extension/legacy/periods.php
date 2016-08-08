@@ -31,8 +31,10 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 	 * Test checking that an event will hit the target only once in a period.
 	 *
 	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_relative
 	 */
-	public function test_should_hit_period_started_points() {
+	public function test_should_hit_period_started_points( $relative ) {
 
 		$this->create_points_type();
 
@@ -67,6 +69,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 						array(
 							'length' => $settings['period'],
 							'args' => array( array( 'current:user' ) ),
+							'relative' => $relative,
 						),
 					),
 				),
@@ -86,11 +89,55 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 	}
 
 	/**
+	 * Data provider for the the 'relative' period setting
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return bool[][] The possible values for the 'relative' setting
+	 */
+	public function data_provider_relative() {
+		return array(
+			'absolute' => array( false ),
+			'relative' => array( true ),
+		);
+	}
+
+	/**
+	 * Test checking that an event will hit the target only once in a period.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_relative
+	 */
+	public function test_should_hit_period_started_points_positive_offset( $relative ) {
+
+		update_option( 'gmt_offset', 5 );
+
+		$this->test_should_hit_period_started_points( $relative );
+	}
+
+	/**
+	 * Test checking that an event will hit the target only once in a period.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_relative
+	 */
+	public function test_should_hit_period_started_points_negative_offset( $relative ) {
+
+		update_option( 'gmt_offset', -5 );
+
+		$this->test_should_hit_period_started_points( $relative );
+	}
+
+	/**
 	 * Test checking that an event will hit the target once the period has ended.
 	 *
 	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_relative
 	 */
-	public function test_should_hit_period_over_points() {
+	public function test_should_hit_period_over_points( $relative ) {
 
 		$this->create_points_type();
 
@@ -125,6 +172,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 						array(
 							'length' => $settings['period'],
 							'args' => array( array( 'current:user' ) ),
+							'relative' => $relative,
 						),
 					),
 				),
@@ -142,7 +190,27 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 
-		$this->fast_forward_points( $settings['period'] + 1 );
+		$period = $settings['period'];
+
+		// Calculate the time until the end of the period, using local time.
+		if ( ! $relative ) {
+			$period = current_time( 'timestamp' ) % $period;
+		}
+
+		// First only fast-forward part way.
+		$this->fast_forward_points( $period - HOUR_IN_SECONDS );
+
+		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
+
+		$this->assertPeriodsExist( 0, $reaction );
+
+		$this->assertEquals(
+			$settings['points']
+			, wordpoints_get_points( $user_id, 'points' )
+		);
+
+		// Now fast-forward all the way.
+		$this->fast_forward_points( $period + 1 );
 
 		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
 
@@ -152,6 +220,34 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 			2 * $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
+	}
+
+	/**
+	 * Test checking that an event will hit the target once the period has ended.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_relative
+	 */
+	public function test_should_hit_period_over_points_positive_offset( $relative ) {
+
+		update_option( 'gmt_offset', 5 );
+
+		$this->test_should_hit_period_over_points( $relative );
+	}
+
+	/**
+	 * Test checking that an event will hit the target once the period has ended.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_relative
+	 */
+	public function test_should_hit_period_over_points_negative_offset( $relative ) {
+
+		update_option( 'gmt_offset', -5 );
+
+		$this->test_should_hit_period_over_points( $relative );
 	}
 
 	/**
@@ -476,7 +572,12 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$updated = $wpdb->update(
 			$wpdb->wordpoints_points_logs
-			, array( 'date' => gmdate( 'Y-m-d H:i:s', current_time( 'timestamp' ) - $seconds ) )
+			, array(
+				'date' => date(
+					'Y-m-d H:i:s'
+					, current_time( 'timestamp', true ) - $seconds
+				),
+			)
 			, array( 'id' => $id )
 			, array( '%s' )
 			, array( '%d' )

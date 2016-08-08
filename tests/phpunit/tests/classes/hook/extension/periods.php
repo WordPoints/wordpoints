@@ -317,6 +317,38 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 	}
 
 	/**
+	 * Test checking whether an event should hit the target.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_valid_period_settings
+	 *
+	 * @param array $settings Reaction settings.
+	 */
+	public function test_should_hit_positive_offset( array $settings ) {
+
+		update_option( 'gmt_offset', 5 );
+
+		$this->test_should_hit( $settings );
+	}
+
+	/**
+	 * Test checking whether an event should hit the target.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_valid_period_settings
+	 *
+	 * @param array $settings Reaction settings.
+	 */
+	public function test_should_hit_negative_offset( array $settings ) {
+
+		update_option( 'gmt_offset', -5 );
+
+		$this->test_should_hit( $settings );
+	}
+
+	/**
 	 * Test adding a period to the DB after hitting the target.
 	 *
 	 * @since 2.1.0
@@ -401,7 +433,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 			$this->assertArrayHasKey( $index, $results );
 
-			$now = current_time( 'timestamp' );
+			$now = current_time( 'timestamp', true );
 
 			$this->assertEquals( $reaction->get_id(), $results[ $index ]->reaction_id );
 			$this->assertLessThanOrEqual( 2, $now - strtotime( $results[ $index ]->date, $now ) );
@@ -485,6 +517,40 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 	}
 
 	/**
+	 * Test checking that an event will hit the target only once in a period.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_non_empty_period_settings
+	 *
+	 * @param array $settings An array of valid settings.
+	 * @param array $periods  Data for the periods expected to be created.
+	 */
+	public function test_should_hit_period_started_positive_offset( array $settings, $periods = array() ) {
+
+		update_option( 'gmt_offset', 5 );
+
+		$this->test_should_hit_period_started( $settings, $periods );
+	}
+
+	/**
+	 * Test checking that an event will hit the target only once in a period.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_non_empty_period_settings
+	 *
+	 * @param array $settings An array of valid settings.
+	 * @param array $periods  Data for the periods expected to be created.
+	 */
+	public function test_should_hit_period_started_negative_offset( array $settings, $periods = array() ) {
+
+		update_option( 'gmt_offset', -5 );
+
+		$this->test_should_hit_period_started( $settings, $periods );
+	}
+
+	/**
 	 * Test checking that an event will hit the target once the period has ended.
 	 *
 	 * @since 2.1.0
@@ -559,6 +625,128 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 				array( $this->extension_slug => array( 'test_fire' => array( array( 'length' => MINUTE_IN_SECONDS, 'relative' => true ) ) ) ),
 				array( array( 'signature' => '7228811153da11efc20245206d55935d4face04940fa8c80c0ad1b1f0cb52932' ) ),
 			),
+		);
+	}
+
+	/**
+	 * Test checking that an event will hit the target once the period has ended.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_period_settings_period_over
+	 *
+	 * @param array $settings An array of valid settings.
+	 * @param array $periods  Data for the periods expected to be created.
+	 */
+	public function test_should_hit_period_over_positive_offset( array $settings, $periods = array() ) {
+
+		update_option( 'gmt_offset', 5 );
+
+		$this->test_should_hit_period_over( $settings, $periods );
+	}
+
+	/**
+	 * Test checking that an event will hit the target once the period has ended.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_period_settings_period_over
+	 *
+	 * @param array $settings An array of valid settings.
+	 * @param array $periods  Data for the periods expected to be created.
+	 */
+	public function test_should_hit_period_over_negative_offset( array $settings, $periods = array() ) {
+
+		update_option( 'gmt_offset', -5 );
+
+		$this->test_should_hit_period_over( $settings, $periods );
+	}
+
+	/**
+	 * Test that absolute periods are calculated relative to the site's GMT offset.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @dataProvider data_provider_gmt_offset
+	 *
+	 * @param int $offset The GMT offset to test against.
+	 */
+	public function test_should_hit_absolute_gmt_offset( $offset ) {
+
+		update_option( 'gmt_offset', $offset );
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->get_sub_app( 'extensions' )->register(
+			$this->extension_slug
+			, $this->extension_class
+		);
+
+		wordpoints_entities()->get_sub_app( 'children' )->register(
+			'test_entity'
+			, 'child'
+			, 'WordPoints_PHPUnit_Mock_Entity_Attr'
+		);
+
+		$settings['target'] = array( 'test_entity' );
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create(
+			array(
+				'target' => array( 'test_entity' ),
+				$this->extension_slug => array(
+					'test_fire' => array( array( 'length' => DAY_IN_SECONDS ) ),
+				),
+			)
+		);
+
+		$this->assertIsReaction( $reaction );
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		$event_args->add_entity(
+			new WordPoints_PHPUnit_Mock_Entity( 'test_entity' )
+		);
+
+		$event_args->add_entity(
+			new WordPoints_PHPUnit_Mock_Entity( 'another' )
+		);
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertPeriodsExist( 1, $reaction );
+
+		$test_reactor = $hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
+
+		$this->assertCount( 1, $test_reactor->hits );
+
+		// Calculate the time until the end of the period, using local time.
+		$time_to_end = current_time( 'timestamp' ) % DAY_IN_SECONDS;
+
+		// Fast-forward almost all the way, but not quite.
+		$this->fast_forward( $test_reactor->hits[0]->hit_id, $time_to_end - 10 );
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertCount( 1, $test_reactor->hits );
+
+		$this->fast_forward( $test_reactor->hits[0]->hit_id, $time_to_end + 1 );
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertCount( 2, $test_reactor->hits );
+	}
+
+	/**
+	 * Data provider for GMT offset values.
+	 *
+	 * @since 2.1.0
+	 */
+	public function data_provider_gmt_offset() {
+		return array(
+			'+5' => array( 5 ),
+			'+0' => array( 0 ),
+			'-5' => array( -5 ),
 		);
 	}
 
@@ -1325,7 +1513,12 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$updated = $wpdb->update(
 			$wpdb->wordpoints_hook_hits
-			, array( 'date' => gmdate( 'Y-m-d H:i:s', current_time( 'timestamp' ) - $seconds ) )
+			, array(
+				'date' => date(
+					'Y-m-d H:i:s'
+					, current_time( 'timestamp', true ) - $seconds
+				),
+			)
 			, array( 'id' => $hit_id )
 			, array( '%s' )
 			, array( '%d' )

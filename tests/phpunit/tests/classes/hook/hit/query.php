@@ -127,7 +127,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 					array( 'site' => 1, 'network' => 1 )
 				),
 				'reaction_id' => 1,
-				'date' => current_time( 'mysql' ),
+				'date' => current_time( 'mysql', true ),
 			)
 			, $values
 		);

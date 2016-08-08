@@ -128,7 +128,7 @@ class WordPoints_Hook_Fire {
 					$this->reaction->get_context_id()
 				),
 				'reaction_id' => $this->reaction->get_id(),
-				'date' => current_time( 'mysql' ),
+				'date' => current_time( 'mysql', true ),
 			)
 		);
 

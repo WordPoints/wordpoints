@@ -706,7 +706,12 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$updated = $wpdb->update(
 			$wpdb->wordpoints_points_logs
-			, array( 'date' => gmdate( 'Y-m-d H:i:s', current_time( 'timestamp' ) - DAY_IN_SECONDS ) )
+			, array(
+				'date' => date(
+					'Y-m-d H:i:s'
+					, current_time( 'timestamp', true ) - DAY_IN_SECONDS
+				),
+			)
 			, array( 'id' => $id )
 			, array( '%s' )
 			, array( '%d' )

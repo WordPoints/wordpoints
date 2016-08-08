@@ -156,23 +156,23 @@
             "errors": false
         },
         "\/components\/points\/classes\/hook\/extension\/legacy\/reversals.php": {
-            "size": 2389,
-            "hash": "1f8add4131e61d8f6a0f59c278a3222a",
+            "size": 2591,
+            "hash": "579604cc66879e83d24017eabb564dfb",
             "errors": false
         },
         "\/components\/points\/classes\/hook\/reactor\/legacy.php": {
-            "size": 1521,
-            "hash": "a61356fe2d8d6fcfb8a7d8de327a7896",
+            "size": 1664,
+            "hash": "81d6cc86a8ef4569fae609ad50705f6a",
             "errors": false
         },
         "\/components\/points\/classes\/hook\/reactor.php": {
-            "size": 6054,
-            "hash": "99a9af43111df6243822023c94aa203e",
+            "size": 5985,
+            "hash": "c6eb75dee0767a849ab99e1b1c693401",
             "errors": false
         },
         "\/components\/points\/classes\/legacy\/hook\/to\/reaction\/importer.php": {
-            "size": 12848,
-            "hash": "22d7693599697b6e2d05159bd329a898",
+            "size": 13804,
+            "hash": "1a5ac21898672d9e13ddcc0de9868d99",
             "errors": false
         },
         "\/components\/points\/includes\/constants.php": {
@@ -186,18 +186,18 @@
             "errors": false
         },
         "\/components\/points\/includes\/filters.php": {
-            "size": 2399,
-            "hash": "44819470c2f2446156c87e7f68645a5a",
+            "size": 2597,
+            "hash": "b52a1e01747ce651dd4ecbb45d1a0e65",
             "errors": false
         },
         "\/components\/points\/includes\/functions.php": {
-            "size": 7921,
-            "hash": "3de64d91cdb57523afdaca238b79a659",
+            "size": 8943,
+            "hash": "d1dd2f4ca35ec53a847126448e36a01c",
             "errors": false
         },
         "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
-            "size": 9013,
-            "hash": "27d7b8820e23850376c8f9c56bd841c9",
+            "size": 9048,
+            "hash": "9673a1f804c42e82f7d3e76595c4379f",
             "errors": false
         },
         "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
@@ -206,8 +206,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/hooks\/comment-received.php": {
-            "size": 2225,
-            "hash": "22d0e2e957f661ccb1877c65b8b904aa",
+            "size": 2234,
+            "hash": "d1c4a04f820ff20af21e6007ba254612",
             "errors": false
         },
         "\/components\/points\/includes\/hooks\/comment.php": {
@@ -781,8 +781,8 @@
             "errors": false
         },
         "\/classes\/hook\/extension\/periods.php": {
-            "size": 10388,
-            "hash": "b755960f4cce667634bf156f04c5f5ee",
+            "size": 10433,
+            "hash": "9350ea42af7a7d9370829a07cd84bb0c",
             "errors": false
         },
         "\/classes\/hook\/extension\/repeat\/blocker.php": {
@@ -806,8 +806,8 @@
             "errors": false
         },
         "\/classes\/hook\/fire.php": {
-            "size": 3736,
-            "hash": "36bc7d78b4c727400dcae6773a4daea5",
+            "size": 3742,
+            "hash": "02deba6577d9843a3fa111e99b8cd00d",
             "errors": false
         },
         "\/classes\/hook\/hit\/logger.php": {
@@ -921,8 +921,8 @@
             "errors": false
         },
         "\/includes\/hooks.php": {
-            "size": 9589,
-            "hash": "396917c6edd08f5c0a89ceba488efe74",
+            "size": 9579,
+            "hash": "02dcdfbd6a7619eff8be8d9434bb2885",
             "errors": false
         },
         "\/includes\/maintenance.php": {
@@ -931,8 +931,8 @@
             "errors": false
         },
         "\/includes\/modules.php": {
-            "size": 34614,
-            "hash": "ac61caed8175f8e4230ff3c03882e8ba",
+            "size": 34697,
+            "hash": "c91ff29652310f7c021ea6d1b7c1f921",
             "errors": false
         },
         "\/uninstall.php": {
@@ -961,8 +961,23 @@
             "errors": false
         },
         "\/components\/points\/classes\/index.php": {
-            "size": 500,
-            "hash": "f3b298ded191b728fd96fda22b504fbd",
+            "size": 789,
+            "hash": "4243a67c4bc9f7d8a8190b8def67a74b",
+            "errors": false
+        },
+        "\/components\/points\/classes\/hook\/event\/post\/publish\/legacy.php": {
+            "size": 1399,
+            "hash": "b2521f8dc90f7ce98edac05ad1750909",
+            "errors": false
+        },
+        "\/components\/points\/classes\/hook\/extension\/legacy\/repeat\/blocker.php": {
+            "size": 1920,
+            "hash": "86725792237bcf8f2492147d7ffd601d",
+            "errors": false
+        },
+        "\/components\/points\/classes\/hook\/extension\/legacy\/periods.php": {
+            "size": 1985,
+            "hash": "9ee64a6c05d06fd80d5771232dc702d0",
             "errors": false
         }
     },

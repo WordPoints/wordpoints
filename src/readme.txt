@@ -100,8 +100,8 @@ upgrade now before it's too late. Seriously!
 
 1. An example of a table of points log entries.
 
-2. The Points Hooks administration screen. This is where you configure when and where
-points are awarded.
+2. The Points Types administration screen. This is where you create your points
+types and configure when points are awarded in reaction to various events.
 
 3. A rank group on the Ranks administration screen. This is where you create and
 manage the ranks used on your site.
@@ -109,6 +109,9 @@ manage the ranks used on your site.
 4. An example of the `[wordpoints_points_top]` shortcode.
 
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
+
+6. You can manually edit a user's points on their profile in the administration
+screens.
 
 == Changelog ==
 

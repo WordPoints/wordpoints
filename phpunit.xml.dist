@@ -4,8 +4,12 @@
 	colors="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="default">
 			<directory suffix=".php">tests/phpunit/tests/</directory>
+		</testsuite>
+		<testsuite name="uninstall">
+			<!-- You must use "-\-group uninstall" when running this suite. -->
+			<file>tests/phpunit/tests/uninstall.php</file>
 		</testsuite>
 	</testsuites>
 	<groups>
@@ -15,4 +19,20 @@
 			<group>ui</group>
 		</exclude>
 	</groups>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">src/</directory>
+		</whitelist>
+	</filter>
+	<listeners>
+		<listener class="SpeedTrapListener">
+			<arguments>
+				<array>
+					<element key="slowThreshold">
+						<integer>150</integer>
+					</element>
+				</array>
+			</arguments>
+		</listener>
+	</listeners>
 </phpunit>

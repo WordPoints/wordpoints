@@ -51,6 +51,17 @@ class WordPoints_Mock_Filter {
 	public $count_callback;
 
 	/**
+	 * The IDs of the current users each time the hook was called.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @see self::listen_for_current_user()
+	 *
+	 * @var int[]
+	 */
+	public $current_user = array();
+
+	/**
 	 * @since 2.0.0
 	 *
 	 * @param mixed $return_value The value to return when the filter is called.
@@ -97,6 +108,56 @@ class WordPoints_Mock_Filter {
 			$this->call_count++;
 			$this->calls[] = func_get_args();
 		}
+	}
+
+	/**
+	 * Listen to an action.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $action        The name of the action to listen to.
+	 * @param int    $priority      The priority of this callback.
+	 * @param int    $accepted_args The number of args to accept.
+	 */
+	public function add_action( $action, $priority = 10, $accepted_args = 1 ) {
+		add_action( $action, array( $this, 'action' ), $priority, $accepted_args );
+	}
+
+	/**
+	 * Listen to a filter.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $filter        The name of the filter to listen to.
+	 * @param int    $priority      The priority of this callback.
+	 * @param int    $accepted_args The number of args to accept.
+	 */
+	public function add_filter( $filter, $priority = 10, $accepted_args = 1 ) {
+		add_filter( $filter, array( $this, 'filter' ), $priority, $accepted_args );
+	}
+
+	/**
+	 * Listen for the ID of the current user when a filter runs.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $filter   The name of the filter to listen to.
+	 * @param int    $priority The priority of this callback.
+	 */
+	public function listen_for_current_user( $filter, $priority = 10 ) {
+		add_filter( $filter, array( $this, 'record_current_user' ), $priority );
+	}
+
+	/**
+	 * Record the ID of the current user.
+	 *
+	 * @since 2.1.0
+	 */
+	public function record_current_user( $value ) {
+
+		$this->current_user[] = get_current_user_id();
+
+		return $value;
 	}
 }
 

@@ -144,7 +144,10 @@ class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
 	 */
 	public function test_reactivate_set_db_version() {
 
-		wordpoints_update_network_option( 'wordpoints_data', array( 'a' => 'b' ) );
+		wordpoints_update_maybe_network_option(
+			'wordpoints_data'
+			, array( 'a' => 'b' )
+		);
 
 		$this->un_installer->install( is_wordpoints_network_active() );
 

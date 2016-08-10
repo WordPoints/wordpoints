@@ -7,9 +7,6 @@
  * @since 1.4.0
  */
 
-// Register the periodic hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Periodic_Points_Hook' );
-
 /**
  * Periodic points hook.
  *
@@ -27,7 +24,7 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	 *
 	 * @type array $defaults
 	 */
-	protected $defaults = array( 'period' => 'daily', 'points' => 10 );
+	protected $defaults = array( 'period' => DAY_IN_SECONDS, 'points' => 10 );
 
 	/**
 	 * Initialize the hook.
@@ -109,7 +106,12 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 
 			$global = ( ! is_multisite() || is_wordpoints_network_active() );
 
-			update_user_option( $user_id, 'wordpoints_points_period_start', $last_visit, $global );
+			update_user_option(
+				$user_id
+				, 'wordpoints_points_period_start'
+				, wp_slash( $last_visit )
+				, $global
+			);
 		}
 	}
 

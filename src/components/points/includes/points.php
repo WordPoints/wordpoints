@@ -55,7 +55,7 @@ function wordpoints_is_points_type( $slug ) {
  */
 function wordpoints_get_points_types() {
 
-	return wordpoints_get_array_option( 'wordpoints_points_types', 'network' );
+	return wordpoints_get_maybe_network_array_option( 'wordpoints_points_types' );
 }
 
 /**
@@ -137,7 +137,7 @@ function wordpoints_add_points_type( $settings ) {
 	 */
 	$points_types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, true );
 
-	if ( ! wordpoints_update_network_option( 'wordpoints_points_types', $points_types ) ) {
+	if ( ! wordpoints_update_maybe_network_option( 'wordpoints_points_types', $points_types ) ) {
 		return false;
 	}
 
@@ -167,7 +167,7 @@ function wordpoints_update_points_type( $slug, $settings ) {
 	 */
 	$points_types[ $slug ] = apply_filters( 'wordpoints_points_settings', $settings, $slug, false );
 
-	return wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
+	return wordpoints_update_maybe_network_option( 'wordpoints_points_types', $points_types );
 }
 
 /**
@@ -190,15 +190,17 @@ function wordpoints_delete_points_type( $slug ) {
 		return false;
 	}
 
+	/**
+	 * Fires when a points type is being deleted.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $slug      The slug of the points type being deleted.
+	 * @param array  $settings The settings of the points type being deleted.
+	 */
+	do_action( 'wordpoints_delete_points_type', $slug, $points_types[ $slug ] );
+
 	$meta_key = wordpoints_get_points_user_meta_key( $slug );
-
-	unset( $points_types[ $slug ] );
-
-	$result = wordpoints_update_network_option( 'wordpoints_points_types', $points_types );
-
-	if ( ! $result ) {
-		return $result;
-	}
 
 	global $wpdb;
 
@@ -219,7 +221,7 @@ function wordpoints_delete_points_type( $slug ) {
 	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
 
 	// Delete all user points of this type.
-	delete_metadata( 'user', 0, $meta_key, '', true );
+	delete_metadata( 'user', 0, wp_slash( $meta_key ), '', true );
 
 	// Delete hooks associated with this points type.
 	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
@@ -227,6 +229,22 @@ function wordpoints_delete_points_type( $slug ) {
 	unset( $points_types_hooks[ $slug ] );
 
 	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
+
+	// Delete reactions associated with this points type.
+	foreach ( wordpoints_hooks()->get_reaction_stores( 'points' ) as $reaction_store ) {
+		foreach ( $reaction_store->get_reactions() as $reaction ) {
+			if ( $slug === $reaction->get_meta( 'points_type' ) ) {
+				$reaction_store->delete_reaction( $reaction->get_id() );
+			}
+		}
+	}
+
+	unset( $points_types[ $slug ] );
+
+	wordpoints_update_maybe_network_option(
+		'wordpoints_points_types'
+		, $points_types
+	);
 
 	return true;
 }
@@ -603,7 +621,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	if ( '' === get_user_meta( $user_id, $meta_key, true ) ) {
 
-		$result = add_user_meta( $user_id, $meta_key, $points, true );
+		$result = add_user_meta( $user_id, wp_slash( $meta_key ), (int) $points, true );
 
 	} else {
 
@@ -785,22 +803,33 @@ function _wordpoints_points_log_meta_column( $column ) {
  * Note that it does not check whether $log_id is real.
  *
  * @since 1.0.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
+ * @since 2.1.0 $unique parameter was added.
  *
  * @see add_metadata()
  *
  * @param int    $log_id     The ID of the transaction log to add metadata for.
- * @param string $meta_key   The meta key. Expected unslashed.
- * @param mixed  $meta_value The meta value. Expected unslashed.
+ * @param string $meta_key   The meta key. Not expected slashed.
+ * @param mixed  $meta_value The meta value. Not expected slashed.
+ * @param bool   $unique     Whether this meta key should be unique per-object.
  *
  * @return bool Whether the metadata was added successfully.
  */
-function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value ) {
+function wordpoints_add_points_log_meta( $log_id, $meta_key, $meta_value, $unique = false ) {
 
 	global $wpdb;
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
-	$result = add_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value );
+
+	$result = add_metadata(
+		'wordpoints_points_log'
+		, $log_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $unique
+	);
+
 	unset( $wpdb->wordpoints_points_logmeta );
 	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
@@ -838,13 +867,14 @@ function wordpoints_get_points_log_meta( $log_id, $meta_key = '', $single = fals
  * Update metadata for a points transaction.
  *
  * @since 1.0.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see update_metadata()
  *
  * @param int    $log_id     The ID of the transaction.
- * @param string $meta_key   The meta key to update.
- * @param mixed  $meta_value The new value for this meta key.
- * @param mixed  $previous   The previous meta value to update. Not set by defafult.
+ * @param string $meta_key   The meta key to update. Not expected slashed.
+ * @param mixed  $meta_value The new value for this meta key. Not expected slashed.
+ * @param mixed  $previous   The previous meta value to update. Not set by default.
  *
  * @return bool Whether any rows were updated.
  */
@@ -854,7 +884,15 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
-	$result = update_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value, $previous );
+
+	$result = update_metadata(
+		'wordpoints_points_log'
+		, $log_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $previous
+	);
+
 	unset( $wpdb->wordpoints_points_logmeta );
 	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
@@ -865,12 +903,13 @@ function wordpoints_update_points_log_meta( $log_id, $meta_key, $meta_value, $pr
  * Delete metadata for points transaction.
  *
  * @since 1.0.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see delete_metadata()
  *
  * @param int    $log_id     The ID of the transaction.
- * @param string $meta_key   The meta key to update.
- * @param mixed  $meta_value The new value for this meta key.
+ * @param string $meta_key   The meta key to update. Not expected slashed.
+ * @param mixed  $meta_value The new value for this meta key. Not expected slashed.
  * @param bool   $delete_all Whether to delete metadata for all matching logs, or
  *                           only the one specified by $log_id (default).
  *
@@ -882,7 +921,15 @@ function wordpoints_delete_points_log_meta( $log_id, $meta_key = '', $meta_value
 
 	add_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 	$wpdb->wordpoints_points_logmeta = $wpdb->wordpoints_points_log_meta;
-	$result = delete_metadata( 'wordpoints_points_log', $log_id, $meta_key, $meta_value, $delete_all );
+
+	$result = delete_metadata(
+		'wordpoints_points_log'
+		, $log_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $delete_all
+	);
+
 	unset( $wpdb->wordpoints_points_logmeta );
 	remove_filter( 'sanitize_key', '_wordpoints_points_log_meta_column' );
 
@@ -931,7 +978,9 @@ function wordpoints_points_log_delete_all_metadata( $log_id ) {
  */
 function wordpoints_get_default_points_type() {
 
-	$points_type = wordpoints_get_network_option( 'wordpoints_default_points_type' );
+	$points_type = wordpoints_get_maybe_network_option(
+		'wordpoints_default_points_type'
+	);
 
 	if ( ! wordpoints_is_points_type( $points_type ) ) {
 		return false;
@@ -1265,7 +1314,7 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
  *
  * @since 1.5.0
  *
- * @action wordpoints_points_altered
+ * @WordPress\action wordpoints_points_altered
  *
  * @param int    $user_id     The ID of the user being awarded points. Not used.
  * @param int    $points      The number of points. Not used.
@@ -1275,12 +1324,13 @@ function wordpoints_clean_points_top_users_cache( $user_id, $points, $points_typ
 
 	wp_cache_delete( $points_type, 'wordpoints_points_top_users' );
 }
-add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cache', 10, 3 );
 
 /**
  * Clear the top users cache when a new user is added, if needed.
  *
  * @since 1.10.2
+ *
+ * @WordPress\action user_register
  */
 function wordpoints_clean_points_top_users_cache_user_register() {
 
@@ -1296,12 +1346,14 @@ function wordpoints_clean_points_top_users_cache_user_register() {
 		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
 	}
 }
-add_action( 'user_register', 'wordpoints_clean_points_top_users_cache_user_register' );
 
 /**
  * Clear the top users cache when a user is deleted.
  *
  * @since 1.10.2
+ *
+ * @WordPress\action deleted_user          On non-multisite or when network-active.
+ * @WordPress\action remove_user_from_blog When not network-active on multisite.
  *
  * @param int $user_id The ID of the user who was deleted.
  */
@@ -1319,10 +1371,29 @@ function wordpoints_clean_points_top_users_cache_user_deleted( $user_id ) {
 		wp_cache_delete( $slug, 'wordpoints_points_top_users' );
 	}
 }
-if ( ! is_multisite() || is_wordpoints_network_active() ) {
-	add_action( 'deleted_user', 'wordpoints_clean_points_top_users_cache_user_deleted' );
-} else {
-	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
+
+/**
+ * Register the points hooks.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_points_hooks_register
+ */
+function wordpoints_register_points_hooks() {
+
+	WordPoints_Points_Hooks::register( 'WordPoints_Comment_Received_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Comment_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Periodic_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Post_Points_Hook' );
+	WordPoints_Points_Hooks::register( 'WordPoints_Registration_Points_Hook' );
+
+	if ( get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+		WordPoints_Points_Hooks::register( 'WordPoints_Post_Delete_Points_Hook' );
+	}
+
+	if ( get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+		WordPoints_Points_Hooks::register( 'WordPoints_Comment_Removed_Points_Hook' );
+	}
 }
 
 // EOF

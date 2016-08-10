@@ -25,7 +25,6 @@ function wordpoints_register_points_widgets() {
 	// Points logs widget.
 	register_widget( 'WordPoints_Points_Logs_Widget' );
 }
-add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 
 /**
  * WordPoints points widget template class.

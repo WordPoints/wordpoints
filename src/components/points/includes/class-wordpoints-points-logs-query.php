@@ -848,7 +848,7 @@ class WordPoints_Points_Logs_Query {
 			if ( isset( $this->_args['meta_type'] ) ) {
 
 				$meta_type = $this->meta_query->get_cast_for_type( $this->_args['meta_type'] );
-				$order_by  = "CAST({$wpdb->wordpoints_points_log_meta}.meta_value AS {$meta_type}";
+				$order_by  = "CAST({$wpdb->wordpoints_points_log_meta}.meta_value AS {$meta_type})";
 
 			} else {
 

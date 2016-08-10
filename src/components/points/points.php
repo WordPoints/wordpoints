@@ -7,6 +7,10 @@
  * @since 1.0.0
  */
 
+WordPoints_Class_Autoloader::register_dir(
+	WORDPOINTS_DIR . 'components/points/classes'
+);
+
 /**
  * Points component constants and global vars.
  *
@@ -118,6 +122,13 @@ include_once WORDPOINTS_DIR . 'components/points/includes/widgets.php';
  * @since 1.0.0
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/logs.php';
+
+/**
+ * Action and filter hooks.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/filters.php';
 
 /**
  * Deprecated functions and classes.

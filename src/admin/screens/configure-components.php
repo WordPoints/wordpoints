@@ -40,7 +40,11 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 		if ( isset( $message ) ) {
 
-			wordpoints_show_admin_message( esc_html( sprintf( $message, $components[ $component ]['name'] ) ) );
+			wordpoints_show_admin_message(
+				esc_html( sprintf( $message, $components[ $component ]['name'] ) )
+				, 'success'
+				, array( 'dismissible' => true )
+			);
 		}
 
 	} elseif ( isset( $_GET['error'] ) && wordpoints_verify_nonce( '_wpnonce', "wordpoints_component_error-{$component}" ) ) {
@@ -62,7 +66,10 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 		if ( isset( $error ) ) {
 
-			wordpoints_show_admin_error( esc_html( sprintf( $error, $components[ $component ]['name'] ) ) );
+			wordpoints_show_admin_error(
+				esc_html( sprintf( $error, $components[ $component ]['name'] ) )
+				, array( 'dismissible' => true )
+			);
 		}
 	}
 }

@@ -8,12 +8,113 @@
  */
 
 /**
+ * Register hook reactors when the reactors registry is initialized.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-hooks-reactors
+ *
+ * @param WordPoints_Class_Registry_Persistent $reactors The reactors registry.
+ */
+function wordpoints_points_hook_reactors_init( $reactors ) {
+
+	$reactors->register( 'points', 'WordPoints_Points_Hook_Reactor' );
+	$reactors->register( 'points_legacy', 'WordPoints_Points_Hook_Reactor_Legacy' );
+}
+
+/**
+ * Register hook reaction stores when the reaction store registry is initialized.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-hooks-reaction_stores
+ *
+ * @param WordPoints_Class_Registry_Children $reaction_stores The store registry.
+ */
+function wordpoints_points_hook_reaction_stores_init( $reaction_stores ) {
+
+	$reaction_stores->register(
+		'standard'
+		, 'points'
+		, 'WordPoints_Hook_Reaction_Store_Options'
+	);
+
+	if ( is_wordpoints_network_active() ) {
+		$reaction_stores->register(
+			'network'
+			, 'points'
+			, 'WordPoints_Hook_Reaction_Store_Options_Network'
+		);
+	}
+}
+
+/**
+ * Register hook extensions when the extension registry is initialized.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-hooks-extensions
+ *
+ * @param WordPoints_Class_Registry_Persistent $extensions The extension registry.
+ */
+function wordpoints_points_hook_extensions_init( $extensions ) {
+
+	$extensions->register(
+		'points_legacy_reversals'
+		, 'WordPoints_Points_Hook_Extension_Legacy_Reversals'
+	);
+
+	$extensions->register(
+		'points_legacy_repeat_blocker'
+		, 'WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker'
+	);
+
+	$extensions->register(
+		'points_legacy_periods'
+		, 'WordPoints_Points_Hook_Extension_Legacy_Periods'
+	);
+}
+
+/**
+ * Register the legacy post publish hook event for a post type.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\action wordpoints_register_post_type_hook_events When registering
+ *                   legacy events is enabled.
+ *
+ * @param string $slug The slug of the post type.
+ */
+function wordpoints_points_register_legacy_post_publish_events( $slug ) {
+
+	if ( 'attachment' === $slug ) {
+		return;
+	}
+
+	$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+	$events->register(
+		"points_legacy_post_publish\\{$slug}"
+		, 'WordPoints_Points_Hook_Event_Post_Publish_Legacy'
+		, array(
+			'actions' => array(
+				'toggle_on'  => "post_publish\\{$slug}",
+				'toggle_off' => "post_delete\\{$slug}",
+			),
+			'args'    => array(
+				"post\\{$slug}" => 'WordPoints_Hook_Arg',
+			),
+		)
+	);
+}
+
+/**
  * Register scripts and styles for the component.
  *
  * @since 1.0.0
  *
- * @action wp_enqueue_scripts 5 Register scripts before default enqueue (10).
- * @action admin_enqueue_scripts 5 Register admin scripts so they are ready on 10.
+ * @WordPress\action wp_enqueue_scripts    5 So they are ready on enqueue (10).
+ * @WordPress\action admin_enqueue_scripts 5 So they are ready on enqueue (10).
  */
 function wordpoints_points_register_scripts() {
 
@@ -33,8 +134,6 @@ function wordpoints_points_register_scripts() {
 		,WORDPOINTS_VERSION
 	);
 }
-add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
-add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 
 /**
  * Get the custom caps added by the points component.
@@ -57,8 +156,8 @@ function wordpoints_points_get_custom_caps() {
  *
  * @since 1.0.0
  *
- * @filter wordpoints_format_points 5 Runs before default of 10, but you should
- *         remove the filter if you will always be overriding it.
+ * @WordPress\filter wordpoints_format_points 5 Runs before default of 10, but you
+ *                   should remove the filter if you will always be overriding it.
  *
  * @param string $formatted The formatted points value.
  * @param int    $points    The raw points value.
@@ -83,7 +182,6 @@ function wordpoints_format_points_filter( $formatted, $points, $type ) {
 
 	return $formatted;
 }
-add_filter( 'wordpoints_format_points', 'wordpoints_format_points_filter', 5, 3 );
 
 /**
  * Display a dropdown of points types.
@@ -119,7 +217,7 @@ function wordpoints_points_types_dropdown( array $args ) {
  *
  * @since 1.2.0
  *
- * @action deleted_user
+ * @WordPress\action deleted_user
  *
  * @param int $user_id The ID of the user just deleted.
  */
@@ -156,14 +254,13 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 
 	wordpoints_flush_points_logs_caches( array( 'user_id' => $user_id ) );
 }
-add_action( 'deleted_user', 'wordpoints_delete_points_logs_for_user' );
 
 /**
  * Delete logs and meta for a blog when it is deleted.
  *
  * @since 1.2.0
  *
- * @action delete_blog
+ * @WordPress\action delete_blog
  *
  * @param int $blog_id The ID of the blog being deleted.
  */
@@ -187,14 +284,13 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 
 	wordpoints_flush_points_logs_caches();
 }
-add_action( 'delete_blog', 'wordpoints_delete_points_logs_for_blog' );
 
 /**
  * Display a message with a points type's settings when it uses a custom meta key.
  *
  * @since 1.3.0
  *
- * @action wordpoints_points_type_form_top
+ * @WordPress\action wordpoints_points_type_form_top
  *
  * @param string $points_type The type of points the settings are being shown for.
  */
@@ -206,14 +302,13 @@ function wordpoints_points_settings_custom_meta_key_message( $points_type ) {
 		echo '<p>' . esc_html( sprintf( __( 'This points type uses a custom meta key: %s', 'wordpoints' ), $custom_key ) ) . '</p>';
 	}
 }
-add_action( 'wordpoints_points_type_form_top', 'wordpoints_points_settings_custom_meta_key_message' );
 
 /**
  * Show a message on the points logs admin panel when a type uses a custom meta key.
  *
  * @since 1.3.0
  *
- * @action wordpoints_admin_points_logs_tab
+ * @WordPress\action wordpoints_admin_points_logs_tab
  *
  * @param string $points_type The type of points whose logs are being displayed.
  */
@@ -226,17 +321,25 @@ function wordpoints_points_logs_custom_meta_key_message( $points_type ) {
 	$custom_key = wordpoints_get_points_type_setting( $points_type, 'meta_key' );
 
 	if ( ! empty( $custom_key ) ) {
-		wordpoints_show_admin_error( esc_html( sprintf( __( 'This points type uses a custom meta key (&#8220;%s&#8221;). If this key is also used by another plugin, changes made by it will not be logged. Only transactions performed by WordPoints are included in the logs.', 'wordpoints' ), $custom_key ) ) );
+		wordpoints_show_admin_message(
+			esc_html(
+				sprintf(
+					__( 'This points type uses a custom meta key (&#8220;%s&#8221;). If this key is also used by another plugin, changes made by it will not be logged. Only transactions performed by WordPoints are included in the logs.', 'wordpoints' )
+					, $custom_key
+				)
+			)
+			, 'warning'
+		);
 	}
 }
-add_action( 'wordpoints_admin_points_logs_tab', 'wordpoints_points_logs_custom_meta_key_message' );
 
 /**
  * Register the global cache groups used by this component.
  *
  * @since 1.5.0
  *
- * @action init 5 Earlier than the default so that the groups will be registered.
+ * @WordPress\action init 5 Earlier than the default so that the groups will be
+ *                          registered before any other code runs.
  */
 function wordpoints_points_add_global_cache_groups() {
 
@@ -254,6 +357,5 @@ function wordpoints_points_add_global_cache_groups() {
 		wp_cache_add_global_groups( $groups );
 	}
 }
-add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
 
 // EOF

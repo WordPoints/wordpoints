@@ -42,7 +42,11 @@ if ( isset( $_GET['addnew'] ) ) {
 
 		if ( ! $hook ) {
 
-			wordpoints_show_admin_error( esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+			wordpoints_show_admin_error(
+				esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' )
+				, array( 'dismissible' => true )
+			);
+
 			return;
 		}
 
@@ -54,7 +58,11 @@ if ( isset( $_GET['addnew'] ) ) {
 
 	} else {
 
-		wordpoints_show_admin_error( esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' ) );
+		wordpoints_show_admin_error(
+			esc_html__( 'Unable to add the points hook, please try again.', 'wordpoints' )
+			, array( 'dismissible' => true )
+		);
+
 		return;
 	}
 
@@ -84,9 +92,9 @@ $name = esc_html( $hook->get_name() );
 ?>
 
 <div class="wrap">
-	<h2><?php esc_html_e( 'Points Hooks', 'wordpoints' ); ?></h2>
+	<h1><?php esc_html_e( 'Points Hooks', 'wordpoints' ); ?></h1>
 	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
-		<h3><?php echo esc_html( sprintf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ) ); ?></h3>
+		<h2><?php echo esc_html( sprintf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ) ); ?></h2>
 
 		<form action="admin.php?page=wordpoints_points_hooks" method="post">
 			<div class="hook-inside">

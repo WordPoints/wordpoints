@@ -132,7 +132,9 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function __construct() {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		$this->init(
 			_x( 'Comment Removed', 'points hook name', 'wordpoints' )
@@ -166,7 +168,9 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function hook( $new_status, $old_status, $comment ) {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		if ( ! $comment->user_id || $old_status === $new_status ) {
 			return;
@@ -188,7 +192,11 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 
 				wordpoints_subtract_points( $comment->user_id, $instance['points'], $points_type, 'comment_disapprove', array( 'status' => $new_status ) );
 
-				update_comment_meta( $comment->comment_ID, "wordpoints_last_status-{$points_type}", $new_status );
+				update_comment_meta(
+					$comment->comment_ID
+					, wp_slash( "wordpoints_last_status-{$points_type}" )
+					, wp_slash( $new_status )
+				);
 			}
 		}
 	}
@@ -214,7 +222,9 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function new_comment_hook( $comment_id, $comment ) {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		if ( 0 === (int) $comment->user_id ) {
 			return;
@@ -255,7 +265,9 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		_deprecated_function( __METHOD__, '1.9.0', 'wordpoints_points_logs_comment_disapprove' );
+		if ( ! get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0', 'wordpoints_points_logs_comment_disapprove' );
+		}
 
 		return wordpoints_points_logs_comment_disapprove(
 			$text
@@ -278,7 +290,9 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 */
 	public function get_points( $number = null ) {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_comment_removed_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		$points = parent::get_points( $number );
 
@@ -321,7 +335,9 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	 */
 	public function __construct() {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		$this->init(
 			_x( 'Post Delete', 'points hook name', 'wordpoints' )
@@ -348,7 +364,9 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	 */
 	public function hook( $post_id ) {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		$post = get_post( $post_id, OBJECT, 'display' );
 
@@ -393,7 +411,9 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	 */
 	public function logs( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
-		_deprecated_function( __METHOD__, '1.9.0', 'wordpoints_points_logs_post_delete' );
+		if ( ! get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0', 'wordpoints_points_logs_post_delete' );
+		}
 
 		return wordpoints_points_logs_post_delete(
 			$text
@@ -416,7 +436,9 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 	 */
 	public function get_points( $number = null ) {
 
-		_deprecated_function( __METHOD__, '1.9.0' );
+		if ( ! get_site_option( 'wordpoints_post_delete_hook_legacy' ) ) {
+			_deprecated_function( __METHOD__, '1.9.0' );
+		}
 
 		$points = parent::get_points( $number );
 

@@ -7,9 +7,6 @@
  * @since 1.4.0
  */
 
-// Register the comment hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Comment_Points_Hook' );
-
 /**
  * Comment points hook.
  *
@@ -98,7 +95,12 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 
 		if ( 'approved' !== $last_status ) {
 
-			update_comment_meta( $comment_id, $meta_key, 'approved', $last_status );
+			update_comment_meta(
+				$comment_id
+				, wp_slash( $meta_key )
+				, 'approved'
+				, $last_status
+			);
 
 			return false;
 		}

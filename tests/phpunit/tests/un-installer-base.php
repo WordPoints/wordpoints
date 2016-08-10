@@ -12,7 +12,7 @@
  *
  * @since 2.0.0
  */
-class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
+class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * The mock un/installer used in the tests.
@@ -119,6 +119,894 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test the basic behaviour of install().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_install_not_multisite() {
+
+		$this->un_installer->install( false );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during install().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_install_not_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install( false );
+
+		$this->assertEquals(
+			array( 'install_single' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test the basic behaviour of install() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_multisite() {
+
+		$this->un_installer->install( false );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during install() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install( false );
+
+		$this->assertEquals(
+			array( 'install_network' => 'network', 'install_site' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test the basic behaviour of install() when installing network wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide() {
+
+		$this->un_installer->install( true );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during install() when network-wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install( true );
+
+		$this->assertEquals(
+			array( 'install_network' => 'network', 'install_site' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test install() when installing network-wide and per-site install is disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_site_disabled() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->install( true );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test install() when per-site install should be skipped without an admin notice.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_site_disabled_skip_only() {
+
+		$this->un_installer->skip_per_site_install
+			= WordPoints_Un_Installer_Base::SKIP_INSTALL;
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->install( true );
+
+		$this->assertEquals( 'install', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_install_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_single', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'install_site', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'install_network', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during uninstall().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_uninstall_not_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->uninstall();
+
+		$this->assertEquals(
+			array( 'uninstall_single' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test how hooks mode is handled during uninstall() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->set_network_installed();
+		$this->un_installer->uninstall();
+
+		$this->assertEquals(
+			array( 'uninstall_site' => 'standard', 'uninstall_network' => 'network' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test the basic behaviour of update().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_not_multisite() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during update().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_not_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals(
+			array( 'update_single_to_1_0_0' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test update() when there are no updates for single sites.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_not_multisite_single_disabled() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => false, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of update() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during update() on multisite.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals(
+			array(
+				'update_network_to_1_0_0' => 'network',
+				'update_site_to_1_0_0' => 'standard',
+			)
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test update() on multisite when site updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite_site_disabled() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => false, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() on multisite when network updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_multisite_network_disabled() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => false ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', false );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the basic behaviour of update() when updating network wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide() {
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test how hooks mode is handled during update() when network-wide.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->set_network_installed();
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals(
+			array(
+				'update_site_to_1_0_0' => 'standard',
+				'update_network_to_1_0_0' => 'network',
+			)
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
+	}
+
+	/**
+	 * Test update() when updating network wide and site updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_site_disabled() {
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => false, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when updating network wide and network updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_networK_disabled() {
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => false ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when updating network-wide and per-site update is manual.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_site_manual() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->context = 'network';
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when per-site update is manual and site updates are disabled.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_site_manual_site_disabled() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->context = 'network';
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => false, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( 'update', $this->un_installer->action );
+		$this->assertEquals( 'site', $this->un_installer->context );
+		$this->assertTrue( $this->un_installer->network_wide );
+
+		$this->un_installer->context = 'network';
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'set_network_update_skipped', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertContains(
+			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
 	 * Test the basic behaviour of install_on_site().
 	 *
 	 * @since 2.0.0
@@ -138,6 +1026,35 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->assertTrue( $this->un_installer->network_wide );
 
 		$this->assertEmpty( $this->un_installer->get_db_version() );
+	}
+
+	/**
+	 * Test how hooks mode is handled during install_on_site().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install_on_site
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_on_site_hooks_mode() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->set_current_mode( 'test' );
+
+		$site_id = get_current_blog_id();
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->install_on_site( $site_id );
+
+		$this->assertEquals(
+			array( 'install_site' => 'standard' )
+			, $this->un_installer->mode
+		);
+
+		$this->assertEquals( 'test', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -708,12 +1625,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
 	 */
 	public function test_prepare_uninstall_list_tables() {
 
 		$list_table = array(
 			'screen_id' => array(
-				'parent' => 'parent_screen',
+				'parent' => 'parent_page',
 				'options' => array( 'an_option' ),
 			),
 		);
@@ -721,48 +1640,21 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->uninstall['list_tables'] = $list_table;
 		$this->un_installer->prepare_uninstall_list_tables();
 
-		$this->assertListTablePrepared( $list_table );
-	}
-
-	/**
-	 * Test the default list table args used when preparing for uninstall.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
-	 */
-	public function test_prepare_uninstall_list_tables_defaults() {
-
-		$list_table = array( 'screen_id' => array() );
-
-		$this->un_installer->uninstall['list_tables'] = $list_table;
-		$this->un_installer->prepare_uninstall_list_tables();
-
-		$this->assertListTableHiddenColumnsPrepared( 'screen_id', 'wordpoints_page' );
-		$this->assertListTableOptionPrepared( 'screen_id', 'wordpoints_page', 'per_page' );
-	}
-
-	/**
-	 * Test that the wordpoints_modules screen receives special handling.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
-	 */
-	public function test_prepare_uninstall_list_tables_wordpoints_modules() {
-
-		$list_table = array( 'wordpoints_modules' => array() );
-
-		$this->un_installer->uninstall['list_tables'] = $list_table;
-		$this->un_installer->prepare_uninstall_list_tables();
-
-		$this->assertContains( 'managewordpoints_page_wordpoints_modulescolumnshidden', $this->un_installer->uninstall['single']['user_meta'] );
-		$this->assertContains( 'managetoplevel_page_wordpoints_modulescolumnshidden', $this->un_installer->uninstall['network']['user_meta'] );
-		$this->assertContains( 'managewordpoints_page_wordpoints_modules-networkcolumnshidden', $this->un_installer->uninstall['network']['user_meta'] );
-
-		$this->assertContains( 'wordpoints_page_wordpoints_modules_per_page', $this->un_installer->uninstall['single']['user_meta'] );
-		$this->assertContains( 'toplevel_page_wordpoints_modules_per_page', $this->un_installer->uninstall['network']['user_meta'] );
-		$this->assertContains( 'wordpoints_page_wordpoints_modules_network_per_page', $this->un_installer->uninstall['network']['user_meta'] );
+		$this->assertEquals(
+			array(
+				'global' => array(
+					'list_tables' => array(
+						'screen_id' => array(
+							'parent' => 'parent',
+							'options' => array( 'an_option' ),
+						),
+					),
+				),
+				'universal' => array(),
+				'list_tables' => $list_table,
+			)
+			, $this->un_installer->uninstall
+		);
 	}
 
 	/**
@@ -771,12 +1663,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::prepare_uninstall_list_tables
 	 */
 	public function test_prepare_list_tables_before_uninstall() {
 
 		$list_table = array(
 			'screen_id' => array(
-				'parent' => 'parent_screen',
+				'parent' => 'parent_page',
 				'options' => array( 'an_option' ),
 			),
 		);
@@ -784,7 +1678,79 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->un_installer->uninstall['list_tables'] = $list_table;
 		$this->un_installer->before_uninstall();
 
-		$this->assertListTablePrepared( $list_table );
+		$array = array(
+			'list_tables' => array(
+				'screen_id' => array(
+					'parent'  => 'parent',
+					'options' => array( 'an_option' ),
+				),
+			),
+		);
+
+		$this->assertEquals(
+			array(
+				'universal' => array(),
+				'single' => $array,
+				'site' => array(),
+				'network' => $array,
+				'global' => $array,
+				'local' => array(),
+				'list_tables' => $list_table,
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test preparing a non per-site items for uninstall.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::prepare_uninstall_non_per_site_items
+	 */
+	public function test_prepare_uninstall_non_per_site_items() {
+
+		$this->un_installer->uninstall['universal']['key'] = 'data';
+		$this->un_installer->uninstall['site']['key'] = 'other';
+
+		$this->un_installer->prepare_uninstall_non_per_site_items( 'key' );
+
+		$this->assertEquals(
+			array(
+				'network'   => array( 'key' => 'other' ),
+				'global'    => array( 'key' => 'data' ),
+				'universal' => array(),
+				'site'      => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test that meta boxes are prepared before uninstall.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 */
+	public function test_prepare_meta_boxes_before_uninstall() {
+
+		$meta_box = array( 'screen_id' => array() );
+
+		$this->un_installer->uninstall['universal']['meta_boxes'] = $meta_box;
+		$this->un_installer->before_uninstall();
+
+		$this->assertEquals(
+			array(
+				'single' => array( 'meta_boxes' => $meta_box ),
+				'site' => array(),
+				'network' => array( 'meta_boxes' => $meta_box ),
+				'local' => array(),
+				'global' => array( 'meta_boxes' => $meta_box ),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
 	}
 
 	/**
@@ -1147,6 +2113,27 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test that it supports wildcards.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_metadata
+	 */
+	public function test_uninstall_metadata_wildcards() {
+
+		$post_id = $this->factory->post->create();
+		add_post_meta( $post_id, 'test', 'test' );
+		add_post_meta( $post_id, 'test2', 'test' );
+		add_post_meta( $post_id, 'other', 'test' );
+
+		$this->un_installer->uninstall_metadata( 'post', 'test%' );
+
+		$this->assertEmpty( get_post_meta( $post_id, 'test' ) );
+		$this->assertEmpty( get_post_meta( $post_id, 'test2' ) );
+		$this->assertEquals( 'test', get_post_meta( $post_id, 'other', true ) );
+	}
+
+	/**
 	 * Test uninstalling user metadata.
 	 *
 	 * @since 2.0.0
@@ -1178,11 +2165,36 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		add_user_meta( $user_id, __METHOD__, 'test' );
 		update_user_option( $user_id, __METHOD__, 'test2' );
 
+		$this->assertEquals( 'test2', get_user_option( __METHOD__, $user_id ) );
+
 		$this->un_installer->context = 'site';
 		$this->un_installer->uninstall_metadata( 'user', __METHOD__ );
 
-		$this->assertEmpty( get_user_option( $user_id, __METHOD__ ) );
+		// If the user option had not been deleted, 'test2' would have been returned.
+		$this->assertEquals( 'test', get_user_option( __METHOD__, $user_id ) );
 		$this->assertEquals( 'test', get_user_meta( $user_id, __METHOD__, true ) );
+	}
+
+	/**
+	 * Test that it supports wildcards for user options.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_metadata
+	 */
+	public function test_uninstall_user_metadata_site_context_wildcards() {
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, 'test', 'test' );
+		update_user_option( $user_id, 'test2', 'test' );
+		update_user_option( $user_id, 'other', 'test' );
+
+		$this->un_installer->context = 'site';
+		$this->un_installer->uninstall_metadata( 'user', 'test%' );
+
+		$this->assertEquals( 'test', get_user_meta( $user_id, 'test', true ) );
+		$this->assertEmpty( get_user_option( 'test2', $user_id ) );
+		$this->assertEquals( 'test', get_user_option( 'other', $user_id ) );
 	}
 
 	/**
@@ -1224,6 +2236,392 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
+	 * Test uninstalling meta boxes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall_meta_boxes( 'screen_id', array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes in network context.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes_network() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id-network", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id-network", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id-network", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_meta_boxes( 'screen_id', array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id-network" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id-network" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id-network" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes with a custom parent page.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes_custom_parent() {
+
+		$parent = 'parent_screen';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall_meta_boxes(
+			'screen_id'
+			, array( 'parent' => $parent )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes with custom options.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_meta_boxes
+	 */
+	public function test_uninstall_meta_boxes_custom_options() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "option_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall_meta_boxes(
+			'screen_id'
+			, array( 'options' => array( 'option' ) )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "option_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling meta boxes.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_
+	 */
+	public function test_uninstall__meta_boxes() {
+
+		$parent = 'wordpoints';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id", 'test' );
+		add_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id", 'test' );
+
+		$this->un_installer->uninstall['site']['meta_boxes'] = array(
+			'screen_id' => array(),
+		);
+
+		$this->un_installer->uninstall_( 'site' );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables in network context.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table_network_context() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables with a custom parent page.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table_custom_parent() {
+
+		$parent = 'parent';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table(
+			$screen_id
+			, array( 'parent' => $parent )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_modules screen receives special handling.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_modules() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'wordpoints_modules';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_modules screen receives special handling.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_modules_multisite() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'wordpoints_modules';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page", 'test' );
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables with custom options.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 */
+	public function test_uninstall_list_table_custom_options() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_option", 'test' );
+
+		$this->un_installer->uninstall_list_table(
+			'screen_id'
+			, array( 'options' => array( 'option' ) )
+		);
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_option" )
+		);
+	}
+
+	/**
+	 * Test uninstalling list tables.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_
+	 */
+	public function test_uninstall__list_table() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'screen_id';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall['single']['list_tables'] = array(
+			$screen_id => array(),
+		);
+
+		$this->un_installer->uninstall_( 'single' );
+
+		$this->assertEmpty(
+			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertEmpty(
+			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
 	 * Test uninstalling options.
 	 *
 	 * @since 2.0.0
@@ -1245,6 +2643,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_option
+	 * @covers WordPoints_Un_Installer_Base::uninstall_network_option
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -1277,26 +2676,25 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	}
 
 	/**
-	 * Wildcards aren't currently supported for network ("site") options.
+	 * Wildcards are now supported for network ("site") options.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall_option
+	 * @covers WordPoints_Un_Installer_Base::uninstall_network_option
 	 *
 	 * @requires WordPress multisite
 	 */
 	public function test_uninstall_network_option_wildcards() {
 
-		add_site_option( 'test%', 'test' );
 		add_site_option( 'testing', 'test' );
 		add_site_option( 'tester', 'test' );
 
 		$this->un_installer->context = 'network';
 		$this->un_installer->uninstall_option( 'test%' );
 
-		$this->assertFalse( get_site_option( 'test%' ) );
-		$this->assertEquals( 'test', get_site_option( 'testing' ) );
-		$this->assertEquals( 'test', get_site_option( 'tester' ) );
+		$this->assertFalse( get_site_option( 'testing' ) );
+		$this->assertFalse( get_site_option( 'tester' ) );
 	}
 
 	/**
@@ -1512,11 +2910,50 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	/**
 	 * Test that it uses the value of wp_is_large_network() by default.
 	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::skip_per_site_install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_skip_per_site_install() {
+
+		$this->assertEquals(
+			WordPoints_Un_Installer_Base::DO_INSTALL
+			, $this->un_installer->skip_per_site_install()
+		);
+	}
+
+	/**
+	 * Test that it skips and requires manual install if wp_is_large_network().
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::skip_per_site_install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_skip_per_site_install_large_network() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->assertEquals(
+			WordPoints_Un_Installer_Base::SKIP_INSTALL
+				| WordPoints_Un_Installer_Base::REQUIRES_MANUAL_INSTALL
+			, $this->un_installer->skip_per_site_install()
+		);
+	}
+
+	/**
+	 * Test that it uses the value of wp_is_large_network() by default.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::do_per_site_install
 	 *
 	 * @requires WordPress multisite
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::do_per_site_install
 	 */
 	public function test_do_per_site_install() {
 
@@ -1531,6 +2968,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 	 * @covers WordPoints_Un_Installer_Base::do_per_site_install
 	 *
 	 * @requires WordPress multisite
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::do_per_site_install
 	 */
 	public function test_do_per_site_install_large_network() {
 
@@ -2348,6 +3787,36 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_UnitTestCase {
 		$this->assertEquals(
 			array( get_current_blog_id(), $site_id )
 			, $this->un_installer->validate_site_ids( $site_ids )
+		);
+	}
+
+	/**
+	 * Test validate_site_ids() when the array is empty.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::validate_site_ids
+	 */
+	public function test_validate_site_ids_empty() {
+
+		$this->assertEquals(
+			array()
+			, $this->un_installer->validate_site_ids( array() )
+		);
+	}
+
+	/**
+	 * Test validate_site_ids() when the value is not an array.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::validate_site_ids
+	 */
+	public function test_validate_site_ids_not_array() {
+
+		$this->assertEquals(
+			array()
+			, $this->un_installer->validate_site_ids( 'invalid' )
 		);
 	}
 

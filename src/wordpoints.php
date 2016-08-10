@@ -4,7 +4,7 @@
  * Plugin Name: WordPoints
  * Plugin URI: http://wordpoints.org/
  * Description: Create one or more points systems for your site, and reward user activity.
- * Version: 2.0.2
+ * Version: 2.1.0
  * Author: J.D. Grimes
  * Author URI: http://codesymphony.co/
  * License: GPLv2
@@ -40,7 +40,7 @@
  *
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
- * @version 2.0.2
+ * @version 2.1.0
  * @license http://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
  * @copyright 2013-2015 J.D. Grimes
  */
@@ -60,6 +60,26 @@ include_once dirname( __FILE__ ) . '/includes/constants.php';
  * @since 1.0.0
  */
 include_once WORDPOINTS_DIR . 'includes/functions.php';
+
+/**
+ * Apps functions.
+ *
+ * Functions related to registering "apps", or OOP APIs that are loaded in JIT
+ * fashion. Also functions related to core apps.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'includes/apps.php';
+
+/**
+ * Hooks functions.
+ *
+ * Functions for the core hooks app, a framework for reacting to WordPress actions
+ * based on stored predefined criteria.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
  * Installables class.
@@ -108,6 +128,25 @@ include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
 include_once WORDPOINTS_DIR . 'includes/class-widget.php';
 
 /**
+ * Class autoloader.
+ *
+ * Unfortunately, it can't be autoloaded. :-)
+ *
+ * @since 2.1.0
+ */
+require_once( WORDPOINTS_DIR . 'classes/class/autoloader.php' );
+
+// Register the classes to autoload.
+WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
+
+/**
+ * Action and filter hooks.
+ *
+ * @since 2.1.0
+ */
+include_once WORDPOINTS_DIR . 'includes/filters.php';
+
+/**
  * Deprecated functions.
  *
  * @since 1.1.0
@@ -127,18 +166,5 @@ if ( is_admin() ) {
 	 */
 	include_once WORDPOINTS_DIR . 'admin/admin.php';
 }
-
-/**
- * Load the plugin's textdomain.
- *
- * @since 1.1.0
- *
- * @action plugins_loaded
- */
-function wordpoints_load_textdomain() {
-
-	load_plugin_textdomain( 'wordpoints', false, plugin_basename( WORDPOINTS_DIR ) . '/languages/' );
-}
-add_action( 'plugins_loaded', 'wordpoints_load_textdomain' );
 
 // EOF

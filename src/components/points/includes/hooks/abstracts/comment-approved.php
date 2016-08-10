@@ -70,6 +70,10 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 		$post = get_post( $comment->comment_post_ID );
 
+		if ( ! $post ) {
+			return;
+		}
+
 		foreach ( $this->get_instances() as $number => $instance ) {
 
 			$instance = array_merge( $this->defaults, $instance );
@@ -95,7 +99,12 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 				, array( 'comment_id' => $comment->comment_ID )
 			);
 
-			update_comment_meta( $comment->comment_ID, $meta_key, 'approved', $last_status );
+			update_comment_meta(
+				$comment->comment_ID
+				, wp_slash( $meta_key )
+				, 'approved'
+				, $last_status
+			);
 		}
 	}
 
@@ -201,7 +210,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 
 			$this->auto_reverse_log( $log );
 
-			delete_comment_meta( $comment->comment_ID, $meta_key );
+			delete_comment_meta( $comment->comment_ID, wp_slash( $meta_key ) );
 		}
 	}
 

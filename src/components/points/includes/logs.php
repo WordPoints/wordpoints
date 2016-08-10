@@ -508,6 +508,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 			<?php else : ?>
 				<?php
 
+				$current_user_id = get_current_user_id();
 				$current_time = current_time( 'timestamp', true );
 
 				$i = 0;
@@ -516,20 +517,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 					$i++;
 
-					/**
-					 * Filter whether the current user can view this points log.
-					 *
-					 * This is a dynamic hook, where the {$log->log_type} portion will
-					 * be the type of this log entry. For example, for a registration log
-					 * it would be 'wordpoints_user_can_view_points_log-register'.
-					 *
-					 * @since 1.3.0
-					 *
-					 * @param bool   $can_view Whether the user can view the log entry
-					 *                         (the default is true).
-					 * @param object $log      The log entry object.
-					 */
-					if ( ! apply_filters( "wordpoints_user_can_view_points_log-{$log->log_type}", true, $log ) ) {
+					if ( ! wordpoints_user_can_view_points_log( $current_user_id, $log ) ) {
 						continue;
 					}
 
@@ -609,7 +597,7 @@ function wordpoints_show_points_logs_query( $points_type, $query_slug = 'default
  *
  * @since 1.0.0
  *
- * @action wordpoints_register_points_logs_queries
+ * @WordPress\action wordpoints_register_points_logs_queries
  */
 function wordpoints_register_default_points_logs_queries() {
 
@@ -641,12 +629,13 @@ function wordpoints_register_default_points_logs_queries() {
 		)
 	);
 }
-add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_default_points_logs_queries' );
 
 /**
  * Admin manage logs render.
  *
  * @since 1.0.0
+ *
+ * @WordPress\action wordpoints_points_log-profile_edit
  */
 function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -654,12 +643,13 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 
 	return sprintf( _x( 'Points adjusted by %s. Reason: %s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
 }
-add_action( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
 
 /**
  * Generate the log entry for a comment_disapprove transaction.
  *
  * @since 1.9.0
+ *
+ * @WordPress\action wordpoints_points_log-comment_disapprove
  */
 function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -679,12 +669,13 @@ function wordpoints_points_logs_comment_disapprove( $text, $points, $points_type
 
 	return $text;
 }
-add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
 
 /**
  * Generate the log entry for a post_delete transaction.
  *
  * @since 1.9.0
+ *
+ * @WordPress\action wordpoints_points_log-post_delete
  */
 function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user_id, $log_type, $meta ) {
 
@@ -704,7 +695,6 @@ function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user
 
 	return _x( 'Post deleted.', 'points log description', 'wordpoints' );
 }
-add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 
 /**
  * Clear the logs caches when new logs are added.
@@ -713,7 +703,7 @@ add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_de
  *
  * @since 1.5.0
  *
- * @action wordpoints_points_altered
+ * @WordPress\action wordpoints_points_altered
  *
  * @param int    $user_id     The ID of the user being awarded points.
  * @param int    $points      The number of points. Not used.
@@ -725,7 +715,6 @@ function wordpoints_clean_points_logs_cache( $user_id, $points, $points_type ) {
 		array( 'user_id' => $user_id, 'points_type' => $points_type )
 	);
 }
-add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
 
 /**
  * Flush the points logs caches.
@@ -783,6 +772,134 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
 			}
 		}
 	}
+}
+
+/**
+ * Check if a user can view a points log entry.
+ *
+ * @since 2.1.0
+ *
+ * @param int    $user_id The ID of the user.
+ * @param object $log     The object for the points log entry..
+ *
+ * @return bool Whether the user can view this points log entry.
+ */
+function wordpoints_user_can_view_points_log( $user_id, $log ) {
+
+	$current_user = wp_get_current_user();
+
+	// Back-compat for WordPoints pre-2.1.0, when the below filter assumed that the
+	// user in question was the current user.
+	if ( $user_id !== $current_user->ID ) {
+		wp_set_current_user( $user_id );
+	}
+
+	/**
+	 * Filter whether a user can view this points log.
+	 *
+	 * This is a dynamic hook, where the {$log->log_type} portion will
+	 * be the type of this log entry. For example, for a registration log
+	 * it would be 'wordpoints_user_can_view_points_log-register'.
+	 *
+	 * @since 1.3.0
+	 * @since 2.1.0 The $user_id parameter was added.
+	 *
+	 * @param bool   $can_view Whether the user can view the log entry
+	 *                         (the default is true).
+	 * @param object $log      The log entry object.
+	 * @param int    $user_id  The ID of the user to check
+	 */
+	$can_view = apply_filters(
+		"wordpoints_user_can_view_points_log-{$log->log_type}"
+		, true
+		, $log
+		, $user_id
+	);
+
+	// Restore the current user after the temporary override above.
+	if ( $user_id !== $current_user->ID ) {
+		wp_set_current_user( $current_user->ID );
+	}
+
+	/**
+	 * Filter whether a user can view a points log.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param bool   $can_view Whether the user can view the points log.
+	 * @param int    $user_id  The user's ID.
+	 * @param object $log      The points log object.
+	 */
+	$can_view = apply_filters(
+		'wordpoints_user_can_view_points_log'
+		, $can_view
+		, $user_id
+		, $log
+	);
+
+	return $can_view;
+}
+
+/**
+ * Check whether a user can view a points log.
+ *
+ * @since 2.1.0
+ *
+ * @WordPress\filter wordpoints_user_can_view_points_log
+ *
+ * @param bool   $can_view Whether the user can view the points log.
+ * @param int    $user_id  The ID of the user.
+ * @param object $log      The points log's data.
+ *
+ * @return bool Whether the user can view the points log.
+ */
+function wordpoints_hooks_user_can_view_points_log( $can_view, $user_id, $log ) {
+
+	if ( ! $can_view ) {
+		return $can_view;
+	}
+
+	$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+	$log_id = $log->id;
+	$event_slug = $log->log_type;
+	$is_reversal = ( 'reverse-' === substr( $log->log_type, 0, 8 ) );
+
+	if ( $is_reversal ) {
+		$event_slug = substr( $log->log_type, 8 );
+	}
+
+	if ( ! $events->is_registered( $event_slug ) ) {
+		return $can_view;
+	}
+
+	if ( $is_reversal ) {
+		$log_id = wordpoints_get_points_log_meta( $log_id, 'original_log_id', true );
+	}
+
+	/** @var WordPoints_Hook_ArgI $arg */
+	foreach ( $events->get_sub_app( 'args' )->get_children( $event_slug ) as $slug => $arg ) {
+
+		$value = wordpoints_get_points_log_meta( $log_id, $slug, true );
+
+		// If we don't find the value it may mean that a new arg has been registered
+		// or something. Just skip over it.
+		if ( ! $value ) {
+			continue;
+		}
+
+		$can_view = wordpoints_entity_user_can_view(
+			$user_id
+			, $arg->get_entity_slug()
+			, $value
+		);
+
+		if ( ! $can_view ) {
+			break;
+		}
+	}
+
+	return $can_view;
 }
 
 // EOF

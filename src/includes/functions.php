@@ -29,7 +29,6 @@ function wordpoints_register_installer() {
 		)
 	);
 }
-add_action( 'plugins_loaded', 'wordpoints_register_installer' );
 
 /**
  * Install the plugin on activation.
@@ -47,7 +46,6 @@ function wordpoints_activate( $network_active ) {
 
 	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
 }
-register_activation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_activate' );
 
 /**
  * Check module compatibility before breaking updates.
@@ -93,7 +91,6 @@ function wordpoints_breaking_update() {
 	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
 	$updater->update();
 }
-add_action( 'plugins_loaded', 'wordpoints_breaking_update' );
 
 /**
  * Prints the random string stored in the database.
@@ -133,6 +130,12 @@ function wordpoints_maintenance_shutdown_print_rand_str() {
  *
  * @since 2.0.0
  *
+ * @WordPress\filter pre_option_wordpoints_active_modules Only when checking module
+ *                   compatibility during a breaking update.
+ * @WordPress\filter pre_site_option_wordpoints_sitewide_active_modules Only when
+ *                   checking module compatibility during a breaking update. Only in
+ *                   the network admin.
+ *
  * @param array $modules The active modules.
  *
  * @return array The modules whose compatibility is being checked.
@@ -163,19 +166,6 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 	}
 
 	return $modules;
-}
-
-if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
-
-	add_action( 'shutdown', 'wordpoints_maintenance_shutdown_print_rand_str' );
-
-	if ( is_network_admin() ) {
-		$filter = 'pre_site_option_wordpoints_sitewide_active_modules';
-	} else {
-		$filter = 'pre_option_wordpoints_active_modules';
-	}
-
-	add_filter( $filter, 'wordpoints_maintenance_filter_modules' );
 }
 
 //
@@ -397,6 +387,25 @@ function wordpoints_sanitize_wp_error( $error ) {
 	return $error;
 }
 
+/**
+ * Escape a MySQL identifier.
+ *
+ * Quotes the identifier with backticks and escapes any backticks within it by
+ * doubling them.
+ *
+ * @since 2.1.0
+ *
+ * @link https://dev.mysql.com/doc/refman/5.7/en/identifiers.html#idm139700789409120
+ *
+ * @param string $identifier The identifier (column, table, alias, etc.).
+ *
+ * @return string The escaped identifier. Already quoted, do not place within
+ *                backticks.
+ */
+function wordpoints_escape_mysql_identifier( $identifier ) {
+	return '`' . str_replace( '`', '``', $identifier ) . '`';
+}
+
 //
 // Database Helpers.
 //
@@ -410,6 +419,7 @@ function wordpoints_sanitize_wp_error( $error ) {
  * @since 1.0.0
  * @since 1.1.0 The $context parameter was added for site options.
  * @since 1.2.0 The 'network' context was added.
+ * @since 2.1.0 The 'network' context was deprecated.
  *
  * @param string $option The name of the option to get.
  * @param string $context The context for the option. Use 'site' to get site options.
@@ -429,7 +439,13 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
 		break;
 
 		case 'network':
-			$value = wordpoints_get_network_option( $option, array() );
+			_deprecated_argument(
+				__FUNCTION__
+				, '2.1.0'
+				, 'Using "network" as the value of $context is deprecated, use wordpoints_get_maybe_network_array_option() instead.'
+			);
+
+			$value = wordpoints_get_maybe_network_option( $option, array() );
 		break;
 
 		default:
@@ -451,6 +467,7 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
  * network ('site') option. Otherwise it will return a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_get_maybe_network_option() instead.
  *
  * @param string $option  The name of the option to get.
  * @param mixed  $default A default value to return if the option isn't found.
@@ -459,11 +476,13 @@ function wordpoints_get_array_option( $option, $context = 'default' ) {
  */
 function wordpoints_get_network_option( $option, $default = false ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return get_site_option( $option, $default );
-	} else {
-		return get_option( $option, $default );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_get_maybe_network_option()'
+	);
+
+	return wordpoints_get_maybe_network_option( $option, null, $default );
 }
 
 /**
@@ -473,21 +492,24 @@ function wordpoints_get_network_option( $option, $default = false ) {
  * network ('site') option. Otherwise it will create a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_add_maybe_network_option() instead.
  *
  * @param string $option   The name of the option to add.
  * @param mixed  $value    The value for the option.
- * @param string $autoload Whether to automaticaly load the option. 'yes' (default)
+ * @param string $autoload Whether to automatically load the option. 'yes' (default)
  *                         or 'no'. Does not apply if WordPoints is network active.
  *
  * @return bool Whether the option was added successfully.
  */
 function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return add_site_option( $option, $value );
-	} else {
-		return add_option( $option, $value, '', $autoload );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_add_maybe_network_option()'
+	);
+
+	return wordpoints_add_maybe_network_option( $option, $value, null, $autoload );
 }
 
 /**
@@ -497,6 +519,7 @@ function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
  * network ('site') option. Otherwise it will update a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_update_maybe_network_option() instead.
  *
  * @param string $option The name of the option to update.
  * @param mixed  $value  The new value for the option.
@@ -505,11 +528,13 @@ function wordpoints_add_network_option( $option, $value, $autoload = 'yes' ) {
  */
 function wordpoints_update_network_option( $option, $value ) {
 
-	if ( is_wordpoints_network_active() ) {
-		return update_site_option( $option, $value );
-	} else {
-		return update_option( $option, $value );
-	}
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_update_maybe_network_option()'
+	);
+
+	return wordpoints_update_maybe_network_option( $option, $value );
 }
 
 /**
@@ -519,6 +544,7 @@ function wordpoints_update_network_option( $option, $value ) {
  * network ('site') option. Otherwise it will delete a regular option.
  *
  * @since 1.2.0
+ * @deprecated 2.1.0 Use wordpoints_delete_maybe_network_option() instead.
  *
  * @param string $option The name of the option to delete.
  *
@@ -526,7 +552,129 @@ function wordpoints_update_network_option( $option, $value ) {
  */
 function wordpoints_delete_network_option( $option ) {
 
-	if ( is_wordpoints_network_active() ) {
+	_deprecated_function(
+		__FUNCTION__
+		, '2.1.0'
+		, 'wordpoints_delete_maybe_network_option()'
+	);
+
+	return wordpoints_delete_maybe_network_option( $option );
+}
+
+/**
+ * Get an option or network option that must be an array.
+ *
+ * This is a wrapper for {@see wordpoints_get_maybe_network_option()} that will force
+ * the return value to be an array.
+ *
+ * @since 2.1.0
+ *
+ * @param string $option The name of the option to get.
+ * @param bool   $network Whether to retrieve a network option, or a regular option.
+ *                        By default a regular option will be retrieved, unless
+ *                        WordPoints is network active, in which case a network
+ *                        option will be retrieved.
+ *
+ * @return array The option value if it is an array, or an empty array if not.
+ */
+function wordpoints_get_maybe_network_array_option( $option, $network = null ) {
+
+	$value = wordpoints_get_maybe_network_option( $option, $network );
+
+	if ( ! is_array( $value ) ) {
+		$value = array();
+	}
+
+	return $value;
+}
+
+/**
+ * Get an option or network option from the database.
+ *
+ * @since 2.1.0
+ *
+ * @param string $option  The name of the option to get.
+ * @param bool   $network Whether to retrieve a network option, or a regular option.
+ *                        By default a regular option will be retrieved, unless
+ *                        WordPoints is network active, in which case a network
+ *                        option will be retrieved.
+ * @param mixed  $default A default value to return if the option isn't found.
+ *
+ * @return mixed The option value if it exists, or $default (false by default).
+ */
+function wordpoints_get_maybe_network_option( $option, $network = null, $default = false ) {
+
+	if ( $network || ( null === $network && is_wordpoints_network_active() ) ) {
+		return get_site_option( $option, $default );
+	} else {
+		return get_option( $option, $default );
+	}
+}
+
+/**
+ * Add an option or network option.
+ *
+ * @since 2.1.0
+ *
+ * @param string $option   The name of the option to add.
+ * @param mixed  $value    The value for the option.
+ * @param bool   $network  Whether to add a network option, or a regular option. By
+ *                         default a regular option will be added, unless WordPoints
+ *                         is network active, in which case a network option will be
+ *                         added.
+ * @param string $autoload Whether to automatically load the option. 'yes' (default)
+ *                         or 'no'. Does not apply if WordPoints is network active.
+ *
+ * @return bool Whether the option was added successfully.
+ */
+function wordpoints_add_maybe_network_option( $option, $value, $network = null, $autoload = 'yes' ) {
+
+	if ( $network || ( null === $network && is_wordpoints_network_active() ) ) {
+		return add_site_option( $option, $value );
+	} else {
+		return add_option( $option, $value, '', $autoload );
+	}
+}
+
+/**
+ * Update an option or network option.
+ *
+ * @since 2.1.0
+ *
+ * @param string $option  The name of the option to update.
+ * @param mixed  $value   The new value for the option.
+ * @param bool   $network Whether to update a network option, or a regular option.
+ *                        By default a regular option will be updated, unless
+ *                        WordPoints is network active, in which case a network
+ *                        option will be updated.
+ *
+ * @return bool Whether the option was updated successfully.
+ */
+function wordpoints_update_maybe_network_option( $option, $value, $network = null ) {
+
+	if ( $network || ( null === $network && is_wordpoints_network_active() ) ) {
+		return update_site_option( $option, $value );
+	} else {
+		return update_option( $option, $value );
+	}
+}
+
+/**
+ * Delete an option or network option.
+ *
+ * @since 2.1.0
+ *
+ * @param string $option  The name of the option to delete.
+ * @param bool   $network Whether to delete a network option, or a regular option.
+ *                        By default a regular option will be deleted, unless
+ *                        WordPoints is network active, in which case a network
+ *                        option will be deleted.
+ *
+ * @return bool Whether the option was successfully deleted.
+ */
+function wordpoints_delete_maybe_network_option( $option, $network = null ) {
+
+	if ( $network || ( null === $network && is_wordpoints_network_active() ) ) {
 		return delete_site_option( $option );
 	} else {
 		return delete_option( $option );
@@ -809,7 +957,9 @@ function is_wordpoints_network_active() {
  */
 function wordpoints_get_excluded_users( $context ) {
 
-	$user_ids = wordpoints_get_array_option( 'wordpoints_excluded_users', 'network' );
+	$user_ids = wordpoints_get_maybe_network_array_option(
+		'wordpoints_excluded_users'
+	);
 
 	/**
 	 * Excluded users option.
@@ -926,7 +1076,7 @@ function wordpoints_remove_custom_caps( $capabilities ) {
  *
  * @since 1.4.0
  *
- * @filter map_meta_cap
+ * @WordPress\filter map_meta_cap
  *
  * @param array  $caps    The user's capabilities.
  * @param string $cap     The current capability in question.
@@ -950,14 +1100,13 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
 	return $caps;
 }
-add_filter( 'map_meta_cap', 'wordpoints_map_custom_meta_caps', 10, 3 );
 
 /**
  * Register the points component.
  *
  * @since 1.0.0
  *
- * @action wordpoints_components_register
+ * @WordPress\action wordpoints_components_register
  *
  * @uses wordpoints_component_register()
  */
@@ -977,14 +1126,13 @@ function wordpoints_points_component_register() {
 		)
 	);
 }
-add_action( 'wordpoints_components_register', 'wordpoints_points_component_register' );
 
 /**
  * Register the ranks component.
  *
  * @since 1.7.0
  *
- * @action wordpoints_components_register
+ * @WordPress\action wordpoints_components_register
  */
 function wordpoints_ranks_component_register() {
 
@@ -1002,20 +1150,31 @@ function wordpoints_ranks_component_register() {
 		)
 	);
 }
-add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
 
 /**
  * Initialize the plugin's cache groups.
  *
  * @since 1.10.0
+ *
+ * @WordPress\action init 5 Earlier than the default so that the groups will be
+ *                          registered before any other code runs.
  */
 function wordpoints_init_cache_groups() {
 
 	if ( function_exists( 'wp_cache_add_non_persistent_groups' ) ) {
 		wp_cache_add_non_persistent_groups( array( 'wordpoints_modules' ) );
 	}
+
+	if ( function_exists( 'wp_cache_add_global_groups' ) ) {
+
+		wp_cache_add_global_groups(
+			array(
+				'wordpoints_hook_periods',
+				'wordpoints_hook_period_ids_by_reaction',
+			)
+		);
+	}
 }
-add_action( 'init', 'wordpoints_init_cache_groups', 5 );
 
 /**
  * Register scripts and styles.
@@ -1026,12 +1185,22 @@ add_action( 'init', 'wordpoints_init_cache_groups', 5 );
  *
  * @since 1.0.0
  *
- * @action wp_enqueue_scripts    5 Front-end scripts enqueued.
- * @action admin_enqueue_scripts 5 Admin scripts enqueued.
+ * @WordPress\action wp_enqueue_scripts    5 Front-end scripts enqueued.
+ * @WordPress\action admin_enqueue_scripts 5 Admin scripts enqueued.
  */
 function wordpoints_register_scripts() {}
-add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
-add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
+
+/**
+ * Load the plugin's textdomain.
+ *
+ * @since 1.1.0
+ *
+ * @WordPress\action plugins_loaded
+ */
+function wordpoints_load_textdomain() {
+
+	load_plugin_textdomain( 'wordpoints', false, plugin_basename( WORDPOINTS_DIR ) . '/languages/' );
+}
 
 /**
  * Generate a cryptographically secure hash.
@@ -1050,6 +1219,34 @@ add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
  */
 function wordpoints_hash( $data ) {
 	return hash( 'sha256', $data );
+}
+
+/**
+ * Construct a class with a variable number of args.
+ *
+ * @since 2.1.0
+ *
+ * @param string $class_name The name of the class to construct.
+ * @param array  $args       Up to 4 args to pass to the constructor.
+ *
+ * @return object|false The constructed object, or false if to many args were passed.
+ */
+function wordpoints_construct_class_with_args( $class_name, array $args ) {
+
+	switch ( count( $args ) ) {
+		case 0:
+			return new $class_name();
+		case 1:
+			return new $class_name( $args[0] );
+		case 2:
+			return new $class_name( $args[0], $args[1] );
+		case 3:
+			return new $class_name( $args[0], $args[1], $args[2] );
+		case 4:
+			return new $class_name( $args[0], $args[1], $args[2], $args[3] );
+		default:
+			return false;
+	}
 }
 
 // EOF

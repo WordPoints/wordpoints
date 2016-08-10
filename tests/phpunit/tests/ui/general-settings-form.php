@@ -63,7 +63,7 @@ class WordPoints_General_Settings_Form_Test extends WordPoints_Selenium2TestCase
 	 */
 	public function tearDown() {
 
-		wordpoints_delete_network_option( 'wordpoints_excluded_users' );
+		wordpoints_delete_maybe_network_option( 'wordpoints_excluded_users' );
 
 		parent::tearDown();
 	}

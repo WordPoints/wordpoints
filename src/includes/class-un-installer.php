@@ -27,15 +27,49 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.5.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
 		'1.8.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
 		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
+	);
+
+	/**
+	 * @since 2.1.0
+	 */
+	protected $schema = array(
+		'global' => array(
+			'tables' => array(
+				'wordpoints_hook_periods' => '
+					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					hit_id BIGINT(20) UNSIGNED NOT NULL,
+					signature CHAR(64) NOT NULL,
+					PRIMARY KEY  (id),
+					KEY period_signature (hit_id,signature(8))',
+				'wordpoints_hook_hits' => '
+					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					action_type VARCHAR(255) NOT NULL,
+					primary_arg_guid TEXT NOT NULL,
+					event VARCHAR(255) NOT NULL,
+					reactor VARCHAR(255) NOT NULL,
+					reaction_mode VARCHAR(255) NOT NULL,
+					reaction_store VARCHAR(255) NOT NULL,
+					reaction_context_id TEXT NOT NULL,
+					reaction_id BIGINT(20) UNSIGNED NOT NULL,
+					date DATETIME NOT NULL,
+					PRIMARY KEY  (id)',
+				'wordpoints_hook_hitmeta' => '
+					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					wordpoints_hook_hit_id BIGINT(20) UNSIGNED NOT NULL,
+					meta_key VARCHAR(255) NOT NULL,
+					meta_value LONGTEXT,
+					PRIMARY KEY  (meta_id),
+					KEY hit_id (wordpoints_hook_hit_id),
+					KEY meta_key (meta_key(191))',
+			),
+		),
 	);
 
 	/**
 	 * @since 2.0.0
 	 */
 	protected $uninstall = array(
-		'list_tables' => array(
-			'wordpoints_modules' => array(),
-		),
 		'network' => array(
 			'options' => array(
 				'wordpoints_sitewide_active_modules',
@@ -57,6 +91,14 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_active_components',
 				'wordpoints_excluded_users',
 				'wordpoints_incompatible_modules',
+				'wordpoints_module_check_rand_str',
+				'wordpoints_module_check_nonce',
+				'wordpoints_hook_reaction-%',
+				'wordpoints_hook_reaction_index-%',
+				'wordpoints_hook_reaction_last_id-%',
+			),
+			'list_tables' => array(
+				'wordpoints_modules' => array(),
 			),
 		),
 	);
@@ -75,7 +117,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		add_filter( 'is_wordpoints_network_active', $filter_func );
 
 		// Check if the plugin has been activated/installed before.
-		$installed = (bool) wordpoints_get_network_option( 'wordpoints_data' );
+		$installed = (bool) wordpoints_get_maybe_network_option( 'wordpoints_data' );
 
 		parent::install( $network );
 
@@ -106,12 +148,12 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function install_network() {
 
-		$data = wordpoints_get_network_option( 'wordpoints_data' );
+		$data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 
 		// Add plugin data.
 		if ( ! is_array( $data ) ) {
 
-			wordpoints_update_network_option(
+			wordpoints_update_maybe_network_option(
 				'wordpoints_data',
 				array(
 					'version'    => WORDPOINTS_VERSION,
@@ -127,8 +169,10 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 			// corrupted somehow.
 			$data['version'] = WORDPOINTS_VERSION;
 
-			wordpoints_update_network_option( 'wordpoints_data', $data );
+			wordpoints_update_maybe_network_option( 'wordpoints_data', $data );
 		}
+
+		$this->install_db_schema();
 	}
 
 	/**
@@ -145,11 +189,12 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function load_dependencies() {
 
-		require_once dirname( __FILE__ ) . '/constants.php';
-		require_once WORDPOINTS_DIR . '/includes/functions.php';
+		// Note that some things are loaded by
+		// WordPoints_Un_Installer_Base::load_base_dependencies()
 		require_once WORDPOINTS_DIR . '/includes/modules.php';
 		require_once WORDPOINTS_DIR . '/includes/class-installables.php';
 		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
+		require_once WORDPOINTS_DIR . '/includes/class-modules.php';
 	}
 
 	/**
@@ -272,6 +317,26 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		if ( ! $wp_filesystem->exists( $index_file ) ) {
 			$wp_filesystem->put_contents( $index_file, '<?php // Gold is silent.' );
 		}
+	}
+
+	/**
+	 * Update a multisite network to 2.1.0.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_network_to_2_1_0_alpha_3() {
+		$this->map_shortcuts( 'schema' );
+		$this->install_db_schema();
+	}
+
+	/**
+	 * Update a non-multisite install to 2.1.0.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_single_to_2_1_0_alpha_3() {
+		$this->map_shortcuts( 'schema' );
+		$this->install_db_schema();
 	}
 }
 

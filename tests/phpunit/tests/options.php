@@ -20,6 +20,8 @@ class WordPoints_Option_Test extends WordPoints_UnitTestCase {
 	 * @since 1.0.0
 	 *
 	 * @covers ::wordpoints_get_array_option
+	 *
+	 * @expectedDeprecated wordpoints_get_array_option
 	 */
 	public function test_get_array_typechecks() {
 
@@ -44,6 +46,11 @@ class WordPoints_Option_Test extends WordPoints_UnitTestCase {
 	 * @covers ::wordpoints_update_network_option
 	 * @covers ::wordpoints_add_network_option
 	 * @covers ::wordpoints_delete_network_option
+	 *
+	 * @expectedDeprecated wordpoints_get_network_option
+	 * @expectedDeprecated wordpoints_update_network_option
+	 * @expectedDeprecated wordpoints_add_network_option
+	 * @expectedDeprecated wordpoints_delete_network_option
 	 */
 	public function test_network_options() {
 

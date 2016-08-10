@@ -85,11 +85,10 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.1.0
 	 */
-	protected function do_per_site_install() {
-
-		return false;
+	protected function skip_per_site_install() {
+		return self::SKIP_INSTALL;
 	}
 
 	/**
@@ -108,7 +107,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function update_site_to_1_8_0() {
 		$this->add_installed_site_id();
 	}
-
 
 	/**
 	 * Update a site to 2.0.0.

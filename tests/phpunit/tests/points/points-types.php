@@ -69,7 +69,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_get_returns_empty_array_if_none() {
 
-		wordpoints_delete_network_option( 'wordpoints_points_types' );
+		wordpoints_delete_maybe_network_option( 'wordpoints_points_types' );
 
 		$this->assertEquals( array(), wordpoints_get_points_types() );
 	}
@@ -107,7 +107,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals(
 			array( 'points' => $this->points_data, $slug => $points_type )
-			, wordpoints_get_network_option( 'wordpoints_points_types' )
+			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
 	}
 
@@ -129,7 +129,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 
 		$this->assertEquals(
 			array( 'points' => $this->points_data )
-			, wordpoints_get_network_option( 'wordpoints_points_types' )
+			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
 	}
 
@@ -221,6 +221,59 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 		);
 
 		$this->assertEquals( '0', $meta );
+	}
+
+	/**
+	 * Test that it calls an action.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_points_type
+	 */
+	public function test_delete_calls_action() {
+
+		$mock = new WordPoints_Mock_Filter();
+		$mock->add_action( 'wordpoints_delete_points_type', 10, 6 );
+
+		$this->assertTrue( wordpoints_delete_points_type( 'points' ) );
+
+		$this->assertEquals(
+			array( array( 'points', $this->points_data ) )
+			, $mock->calls
+		);
+	}
+
+	/**
+	 * Test that it deletes all reactions associated with this points type.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @covers ::wordpoints_delete_points_type
+	 */
+	public function test_delete_deletes_reactions() {
+
+		wordpoints_add_points_type( array( 'name' => 'Other' ) );
+
+		$reaction = $this->create_points_reaction();
+		$other_reaction = $this->create_points_reaction(
+			array( 'points_type' => 'other' )
+		);
+
+		$this->assertIsReaction( $reaction );
+		$this->assertIsReaction( $other_reaction );
+
+		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+		$reaction_id = $reaction->get_id();
+		$other_reaction_id = $other_reaction->get_id();
+
+		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+
+		wordpoints_delete_points_type( 'points' );
+
+		$this->assertFalse( $reaction_store->reaction_exists( $reaction_id ) );
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
 	}
 
 	//

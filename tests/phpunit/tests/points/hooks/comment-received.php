@@ -360,7 +360,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 	public function test_log_text_with_comment_link() {
 
 		$this->assertStringMatchesFormat(
-			'Received a comment on <a href="%s#comment-%d">Post title 1</a>.'
+			'Received a comment on <a href="%s#comment-%d">Post title %d</a>.'
 			, $this->render_log_text(
 				array( 'post_type' => 'not', 'comment' => true )
 			)
@@ -375,7 +375,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_Uni
 	public function test_log_text_with_post_title() {
 
 		$this->assertStringMatchesFormat(
-			'Received a comment on <a href="%s">Post title 1</a>.'
+			'Received a comment on <a href="%s">Post title %d</a>.'
 			, $this->render_log_text( array( 'post_type' => 'not' ) )
 		);
 	}

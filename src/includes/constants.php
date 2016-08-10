@@ -1,11 +1,17 @@
 <?php
 
 /**
- * WordPoints constants.
+ * WordPoints constants and global vars.
  *
  * @package WordPoints
  * @since 1.2.0
  */
+
+global $wpdb;
+
+$wpdb->wordpoints_hook_hits = $wpdb->base_prefix . 'wordpoints_hook_hits';
+$wpdb->wordpoints_hook_hitmeta = $wpdb->base_prefix . 'wordpoints_hook_hitmeta';
+$wpdb->wordpoints_hook_periods = $wpdb->base_prefix . 'wordpoints_hook_periods';
 
 /**
  * The plugin version.
@@ -16,7 +22,7 @@
  *
  * @const WORDPOINTS_VERSION
  */
-define( 'WORDPOINTS_VERSION', '2.0.2' );
+define( 'WORDPOINTS_VERSION', '2.1.0' );
 
 /**
  * The full path to the plugin's main directory.
@@ -25,7 +31,7 @@ define( 'WORDPOINTS_VERSION', '2.0.2' );
  *
  * @const WORDPOINTS_DIR
  */
-define( 'WORDPOINTS_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
+define( 'WORDPOINTS_DIR', dirname( dirname( __FILE__ ) ) . '/' );
 
 /**
  * The full URL to the plugin's main directory.

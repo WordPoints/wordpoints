@@ -14,6 +14,33 @@
  */
 abstract class WordPoints_Un_Installer_Base {
 
+	/**
+	 * Bitmask value directing an install to be performed.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @const int
+	 */
+	const DO_INSTALL = 0;
+
+	/**
+	 * Bitmask value directing an install to be skipped.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @const int
+	 */
+	const SKIP_INSTALL = 1;
+
+	/**
+	 * Bitmask value indicating that manual installation is required.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @const int
+	 */
+	const REQUIRES_MANUAL_INSTALL = 2;
+
 	//
 	// Protected Vars.
 	//
@@ -22,6 +49,9 @@ abstract class WordPoints_Un_Installer_Base {
 	 * The type of entity.
 	 *
 	 * For example, 'module' or 'component'.
+	 *
+	 * Note that this is singular, even though in the 'wordpoints_data' option the
+	 * plural forms are used for legacy reasons.
 	 *
 	 * @since 2.0.0
 	 *
@@ -148,17 +178,14 @@ abstract class WordPoints_Un_Installer_Base {
 	 * List of things to uninstall.
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 Added support for uninstalling meta boxes.
+	 * @since 2.1.0 Deprecated $list_tables in favor of $*['list_tables'].
 	 *
 	 * @type array[] $uninstall {
 	 *       Different kinds of things to uninstall.
 	 *
-	 *       @type array[] $list_tables {
-	 *             List tables to uninstall, keyed by screen slug.
-	 *
-	 *             @type string   $parent  The slug of the parent screen.
-	 *             @type string[] $options The options provided by this screen.
-	 *                                     Defaults to [ 'per_page' ].
-	 *       }
+	 *       @type array[] $list_tables Deprecated. Use the list tables key in one of
+	 *                                  the below options instead.
 	 *       @type array[] $single {
 	 *             Things to be uninstalled on a single site (non-multisite) install.
 	 *
@@ -170,6 +197,22 @@ abstract class WordPoints_Un_Installer_Base {
 	 *                                          DB prefix will be prepended.
 	 *             @type string[] $comment_meta A list of keys for comment metadata
 	 *                                          to delete.
+	 *             @type array[]  $meta_boxes {
+	 *                   Admin screens with meta boxes to uninstall, keyed by screen slug.
+	 *
+	 *                   @type string   $parent  The slug of the parent screen.
+	 *                                           Defaults to 'wordpoints'. Use
+	 *                                           'toplevel' if no parent.
+	 *                   @type string[] $options Extra meta box options provided by
+	 *                                           this screen.
+	 *             }
+	 *             @type array[] $list_tables {
+	 *                   Admin screens with list tables to uninstall, keyed by screen slug.
+	 *
+	 *                   @type string   $parent  The slug of the parent screen.
+	 *                   @type string[] $options The options provided by this screen.
+	 *                                           Defaults to [ 'per_page' ].
+	 *             }
 	 *       }
 	 *       @type array[] $site Things to be uninstalled on each site in a multisite
 	 *                           network. See $single for list of keys. Note that
@@ -275,6 +318,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		ignore_user_abort( true );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		$this->before_install();
 
 		/**
@@ -287,15 +334,20 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( is_multisite() ) {
 
 			$this->context = 'network';
+			$hooks->set_current_mode( 'network' );
+
 			$this->install_network();
 
 			$this->context = 'site';
+			$hooks->set_current_mode( 'standard' );
 
 			if ( $network ) {
 
 				$this->set_network_installed();
 
-				if ( $this->do_per_site_install() ) {
+				$skip_per_site_install = $this->skip_per_site_install();
+
+				if ( ! ( $skip_per_site_install & self::SKIP_INSTALL ) ) {
 
 					$original_blog_id = get_current_blog_id();
 
@@ -310,7 +362,9 @@ abstract class WordPoints_Un_Installer_Base {
 					unset( $GLOBALS['_wp_switched_stack'] );
 					$GLOBALS['switched'] = false;
 
-				} else {
+				}
+
+				if ( $skip_per_site_install & self::REQUIRES_MANUAL_INSTALL ) {
 
 					// We'll check this later and let the user know that per-site
 					// install was skipped.
@@ -328,6 +382,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->context = 'single';
 			$this->install_single();
 		}
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	/**
@@ -344,6 +400,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		ignore_user_abort( true );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		$this->before_install();
 
 		/**
@@ -358,6 +418,8 @@ abstract class WordPoints_Un_Installer_Base {
 		switch_to_blog( $site_id );
 		$this->install_site();
 		restore_current_blog();
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	/**
@@ -369,9 +431,14 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->action = 'uninstall';
 
+		$this->load_base_dependencies();
 		$this->load_dependencies();
 
 		ignore_user_abort( true );
+
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
 
 		$this->before_uninstall();
 
@@ -402,6 +469,8 @@ abstract class WordPoints_Un_Installer_Base {
 			}
 
 			$this->context = 'network';
+			$hooks->set_current_mode( 'network' );
+
 			$this->uninstall_network();
 
 			$this->delete_installed_site_ids();
@@ -419,6 +488,8 @@ abstract class WordPoints_Un_Installer_Base {
 			$this->context = 'single';
 			$this->uninstall_single();
 		}
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	/**
@@ -448,7 +519,7 @@ abstract class WordPoints_Un_Installer_Base {
 		foreach ( $this->updates as $version => $types ) {
 
 			if ( version_compare( $from, $version, '<' ) ) {
-				$updates[ str_replace( '.', '_', $version ) ] = $types;
+				$updates[ str_replace( array( '.', '-' ), '_', $version ) ] = $types;
 			}
 		}
 
@@ -475,6 +546,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		ignore_user_abort( true );
 
+		$hooks = wordpoints_hooks();
+		$hooks_mode = $hooks->get_current_mode();
+		$hooks->set_current_mode( 'standard' );
+
 		$this->before_update();
 
 		/**
@@ -487,34 +562,40 @@ abstract class WordPoints_Un_Installer_Base {
 		if ( is_multisite() ) {
 
 			$this->context = 'network';
+			$hooks->set_current_mode( 'network' );
+
 			$this->update_( 'network', $this->get_updates_for( 'network' ) );
 
 			$this->context = 'site';
+			$hooks->set_current_mode( 'standard' );
 
 			if ( $this->network_wide ) {
 
-				if ( $this->do_per_site_update() ) {
+				$updates = $this->get_updates_for( 'site' );
 
-					$updates = $this->get_updates_for( 'site' );
+				if ( $updates ) {
 
-					$original_blog_id = get_current_blog_id();
+					if ( $this->do_per_site_update() ) {
 
-					foreach ( $this->get_installed_site_ids() as $blog_id ) {
-						switch_to_blog( $blog_id );
-						$this->update_( 'site', $updates );
+						$original_blog_id = get_current_blog_id();
+
+						foreach ( $this->get_installed_site_ids() as $blog_id ) {
+							switch_to_blog( $blog_id );
+							$this->update_( 'site', $updates );
+						}
+
+						switch_to_blog( $original_blog_id );
+
+						// See http://wordpress.stackexchange.com/a/89114/27757
+						unset( $GLOBALS['_wp_switched_stack'] );
+						$GLOBALS['switched'] = false;
+
+					} else {
+
+						// We'll check this later and let the user know that per-site
+						// update was skipped.
+						$this->set_network_update_skipped();
 					}
-
-					switch_to_blog( $original_blog_id );
-
-					// See http://wordpress.stackexchange.com/a/89114/27757
-					unset( $GLOBALS['_wp_switched_stack'] );
-					$GLOBALS['switched'] = false;
-
-				} else {
-
-					// We'll check this later and let the user know that per-site
-					// update was skipped.
-					$this->set_network_update_skipped();
 				}
 
 			} else {
@@ -529,6 +610,8 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$this->after_update();
+
+		$hooks->set_current_mode( $hooks_mode );
 	}
 
 	//
@@ -540,11 +623,34 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * On large networks we don't attempt the per-site install.
 	 *
+	 * @since 2.1.0
+	 *
+	 * @return int Whether to skip the per-site installation.
+	 */
+	protected function skip_per_site_install() {
+
+		return ( wp_is_large_network() )
+			? self::SKIP_INSTALL | self::REQUIRES_MANUAL_INSTALL
+			: self::DO_INSTALL;
+	}
+
+	/**
+	 * Check whether we should run the install for each site in the network.
+	 *
+	 * On large networks we don't attempt the per-site install.
+	 *
 	 * @since 1.8.0
+	 * @deprecated 2.1.0 Use self::skip_per_site_install() instead.
 	 *
 	 * @return bool Whether to do the per-site installation.
 	 */
 	protected function do_per_site_install() {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.1.0'
+			, __CLASS__ . '::skip_per_site_install'
+		);
 
 		return ! wp_is_large_network();
 	}
@@ -674,7 +780,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Set that this entity's network installation has been skipped in the database.
+	 * Set that the per-site network installation has been skipped in the database.
 	 *
 	 * @since 2.0.0
 	 */
@@ -692,7 +798,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Set that network-updating this entity has been skipped in the database.
+	 * Set that per-site network-updating has been skipped in the database.
 	 *
 	 * @since 2.0.0
 	 */
@@ -836,6 +942,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
+		if ( empty( $site_ids ) || ! is_array( $site_ids ) ) {
+			return array();
+		}
+
 		$site_ids = $wpdb->get_col( // WPCS: unprepared SQL OK
 			"
 				SELECT `blog_id`
@@ -950,13 +1060,15 @@ abstract class WordPoints_Un_Installer_Base {
 
 		_deprecated_function( __METHOD__, '2.0.0', '::set_db_version()' );
 
-		$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'network' );
+		$wordpoints_data = wordpoints_get_maybe_network_array_option(
+			'wordpoints_data'
+		);
 
 		if ( empty( $wordpoints_data['components'][ $component ]['version'] ) ) {
 			$wordpoints_data['components'][ $component ]['version'] = $version;
 		}
 
-		wordpoints_update_network_option( 'wordpoints_data', $wordpoints_data );
+		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
 	}
 
 	/**
@@ -1062,6 +1174,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->maybe_load_custom_caps();
 
 		$this->prepare_uninstall_list_tables();
+		$this->prepare_uninstall_non_per_site_items( 'meta_boxes' );
 		$this->map_uninstall_shortcut( 'widgets', 'options', array( 'prefix' => 'widget_' ) );
 		$this->map_uninstall_shortcut( 'points_hooks', 'options', array( 'prefix' => 'wordpoints_hook-' ) );
 
@@ -1123,38 +1236,57 @@ abstract class WordPoints_Un_Installer_Base {
 			return;
 		}
 
-		// We define the default args outside the loop, for micro-optimization.
-		$defaults = array(
-			'parent' => 'wordpoints_page',
-			'options' => array( 'per_page' ),
+		_deprecated_argument(
+			__METHOD__
+			, '2.1.0'
+			, '$this->uninstall["list_tables"] is deprecated, use $this->uninstall[*]["list_tables"] instead.'
 		);
 
 		// Loop through all of the list table screens.
 		foreach ( $this->uninstall['list_tables'] as $screen_id => $args ) {
 
-			$args = array_merge( $defaults, $args );
-
-			// The parent page is usually the same on a multisite site...
-			$site_parent = $args['parent'];
-
-			// ...But we need to handle the special case of the modules screen.
-			if ( 'wordpoints_modules' === $screen_id ) {
-				$site_parent = 'toplevel_page';
+			// Back-compat for pre-2.1.0.
+			if ( isset( $args['parent'] ) && '_page' === substr( $args['parent'], -5 /* _page */ ) ) {
+				$args['parent'] = substr( $args['parent'], 0, -5 );
 			}
 
-			// Each user can hide specific columns of the table.
-			$this->uninstall['single']['user_meta'][]  = "manage{$args['parent']}_{$screen_id}columnshidden";
-			$this->uninstall['network']['user_meta'][] = "manage{$site_parent}_{$screen_id}columnshidden";
-			$this->uninstall['network']['user_meta'][] = "manage{$args['parent']}_{$screen_id}-networkcolumnshidden";
+			$this->uninstall['universal']['list_tables'][ $screen_id ] = $args;
+		}
 
-			// Loop through each of the other options provided by this list table.
-			foreach ( $args['options'] as $option ) {
+		$this->prepare_uninstall_non_per_site_items( 'list_tables' );
+	}
 
-				// Each user gets to set the options to their liking.
-				$this->uninstall['single']['user_meta'][]  = "{$args['parent']}_{$screen_id}_{$option}";
-				$this->uninstall['network']['user_meta'][] = "{$site_parent}_{$screen_id}_{$option}";
-				$this->uninstall['network']['user_meta'][] = "{$args['parent']}_{$screen_id}_network_{$option}";
-			}
+	/**
+	 * Prepare to uninstall items which don't need to be uninstalled per-site.
+	 *
+	 * Screen options are retrieved with get_user_option(), however, they are saved
+	 * by update_user_option() with the $global argument set to true. Because of
+	 * this, even on multisite, they are saved like regular user metadata, which is
+	 * network wide, *not* prefixed for each site.
+	 *
+	 * So we only need to run the meta box and list table uninstall for network and
+	 * single (i.e.,  "global"), even if the screen is "universal".
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $items_key The key name of the items in the uninstall[*] arrays.
+	 */
+	protected function prepare_uninstall_non_per_site_items( $items_key ) {
+
+		if ( isset( $this->uninstall['universal'][ $items_key ] ) ) {
+
+			$this->uninstall['global'][ $items_key ]
+				= $this->uninstall['universal'][ $items_key ];
+
+			unset( $this->uninstall['universal'][ $items_key ] );
+		}
+
+		if ( isset( $this->uninstall['site'][ $items_key ] ) ) {
+
+			$this->uninstall['network'][ $items_key ]
+				= $this->uninstall['site'][ $items_key ];
+
+			unset( $this->uninstall['site'][ $items_key ] );
 		}
 	}
 
@@ -1336,7 +1468,14 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		$uninstall = array_merge(
-			array( 'user_meta' => array(), 'options' => array(), 'tables' => array(), 'comment_meta' => array() )
+			array(
+				'user_meta'    => array(),
+				'options'      => array(),
+				'tables'       => array(),
+				'comment_meta' => array(),
+				'meta_boxes'   => array(),
+				'list_tables'  => array(),
+			)
 			, $this->uninstall[ $type ]
 		);
 
@@ -1358,6 +1497,14 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['comment_meta'] as $meta_key ) {
 			$this->uninstall_metadata( 'comment', $meta_key );
+		}
+
+		foreach ( $uninstall['meta_boxes'] as $screen_id => $args ) {
+			$this->uninstall_meta_boxes( $screen_id, $args );
+		}
+
+		foreach ( $uninstall['list_tables'] as $screen_id => $args ) {
+			$this->uninstall_list_table( $screen_id, $args );
 		}
 	}
 
@@ -1387,7 +1534,161 @@ abstract class WordPoints_Un_Installer_Base {
 			$key = $GLOBALS['wpdb']->get_blog_prefix() . $key;
 		}
 
-		delete_metadata( $type, 0, $key, '', true );
+		if ( false !== strpos( $key, '%' ) ) {
+
+			global $wpdb;
+
+			$table = wordpoints_escape_mysql_identifier( _get_meta_table( $type ) );
+
+			$keys = $wpdb->get_col( // WPCS: unprepared SQL OK.
+				$wpdb->prepare( // WPCS: unprepared SQL OK.
+					"
+						SELECT `meta_key`
+						FROM {$table}
+						WHERE `meta_key` LIKE %s
+					"
+					, $key
+				)
+			); // WPCS: cache pass.
+
+		} else {
+			$keys = array( $key );
+		}
+
+		foreach ( $keys as $key ) {
+			delete_metadata( $type, 0, wp_slash( $key ), '', true );
+		}
+	}
+
+	/**
+	 * Uninstall a screen with meta boxes.
+	 *
+	 * Any admin screen that uses meta boxes also will automatically have certain
+	 * screen options associated with it. Each user is able to configure these
+	 * options for themselves, and this is saved as user metadata.
+	 *
+	 * The default options currently are:
+	 * - Hidden meta boxes.
+	 * - Closed meta boxes.
+	 * - Reordered meta boxes.
+	 *
+	 * This function will automatically remove all of these.
+	 *
+	 * A note on screen options: they are retrieved with get_user_option(), however,
+	 * they are saved by update_user_option() with the $global argument set to true.
+	 * Because of this, even on multisite, they are saved like regular user metadata,
+	 * which is network wide, *not* prefixed for each site.
+	 *
+	 * @param string $screen_id The screen ID.
+	 * @param array  $args {
+	 *        Other args.
+	 *
+	 *        @type string   $parent  The parent screen slug, or 'toplevel' if none.
+	 *                                Defaults to 'wordpoints'.
+	 *        @type string[] $options The list of options to delete. Defaults to
+	 *                                'closedpostboxes', 'metaboxhidden',
+	 *                                'meta-box-order'.
+	 * }
+	 */
+	protected function uninstall_meta_boxes( $screen_id, $args ) {
+
+		$defaults = array(
+			'parent' => 'wordpoints',
+			'options' => array( 'closedpostboxes', 'metaboxhidden', 'meta-box-order' ),
+		);
+
+		$args = array_merge( $defaults, $args );
+		$args['options'] = array_merge( $defaults['options'], $args['options'] );
+
+		// Each user gets to set the options to their liking.
+		foreach ( $args['options'] as $option ) {
+
+			$this->uninstall_metadata(
+				'user'
+				, "{$option}_{$args['parent']}_page_{$screen_id}"
+			);
+
+			if ( 'network' === $this->context ) {
+				$this->uninstall_metadata(
+					'user'
+					, "{$option}_{$args['parent']}_page_{$screen_id}-network"
+				);
+			}
+		}
+	}
+
+	/**
+	 * Uninstall list tables.
+	 *
+	 * Any admin screen that uses list tables also will automatically have certain
+	 * screen options associated with it. Each user is able to configure these
+	 * options for themselves, and this is saved as user metadata.
+	 *
+	 * List tables have two main configuration options, which are both saves as user
+	 * metadata:
+	 * - Hidden Columns
+	 * - Screen Options
+	 *
+	 * The hidden columns metadata is removed by default, as well as the 'per_page'
+	 * screen options.
+	 *
+	 * A note on screen options: they are retrieved with get_user_option(), however,
+	 * they are saved by update_user_option() with the $global argument set to true.
+	 * Because of this, even on multisite, they are saved like regular user metadata,
+	 * which is network wide, *not* prefixed for each site.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $screen_id The screen ID.
+	 * @param array  $args {
+	 *        Other args.
+	 *
+	 *        @type string   $parent  The parent screen slug, or 'toplevel' if none.
+	 *                                Defaults to 'wordpoints'.
+	 *        @type string[] $options The list of options to delete. Defaults to
+	 *                                'per_page'.
+	 * }
+	 */
+	protected function uninstall_list_table( $screen_id, $args ) {
+
+		$defaults = array(
+			'parent' => 'wordpoints',
+			'options' => array( 'per_page' ),
+		);
+
+		$args = array_merge( $defaults, $args );
+
+		$parent = $network_parent = $args['parent'];
+
+		// The parent page is usually the same on a multisite site, but we need to
+		// handle the special case of the modules screen.
+		if ( 'wordpoints_modules' === $screen_id && is_multisite() ) {
+			$parent = 'toplevel';
+		}
+
+		$meta_keys = array();
+
+		// Each user can hide specific columns of the table.
+		$meta_keys[] = "manage{$parent}_page_{$screen_id}columnshidden";
+
+		if ( 'network' === $this->context ) {
+			$meta_keys[] = "manage{$network_parent}_page_{$screen_id}-networkcolumnshidden";
+		}
+
+		// Loop through each of the other options provided by this list table.
+		foreach ( $args['options'] as $option ) {
+
+			// Each user gets to set the options to their liking.
+			$meta_keys[]  = "{$parent}_page_{$screen_id}_{$option}";
+
+			if ( 'network' === $this->context ) {
+				$meta_keys[] = "{$network_parent}_page_{$screen_id}_network_{$option}";
+			}
+		}
+
+		foreach ( $meta_keys as $meta_key ) {
+			$this->uninstall_metadata( 'user', $meta_key );
+		}
 	}
 
 	/**
@@ -1404,7 +1705,7 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_option( $option ) {
 
 		if ( 'network' === $this->context ) {
-			delete_site_option( $option );
+			$this->uninstall_network_option( $option );
 			return;
 		}
 
@@ -1428,6 +1729,41 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		array_map( 'delete_option', $options );
+	}
+
+	/**
+	 * Uninstall a network option.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @see WordPoints_Un_Installer_Base::uninstall_option()
+	 *
+	 * @param string $option The network option to uninstall.
+	 */
+	protected function uninstall_network_option( $option ) {
+
+		if ( false !== strpos( $option, '%' ) ) {
+
+			global $wpdb;
+
+			$options = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+						SELECT `meta_key`
+						FROM `{$wpdb->sitemeta}`
+						WHERE `meta_key` LIKE %s
+							AND `site_id` = %d
+					"
+					, $option
+					, $wpdb->siteid
+				)
+			); // WPCS: cache pass.
+
+		} else {
+			$options = array( $option );
+		}
+
+		array_map( 'delete_site_option', $options );
 	}
 
 	/**
@@ -1535,6 +1871,24 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->install_db_schema();
 		$this->install_custom_caps();
 		$this->set_db_version();
+	}
+
+	/**
+	 * Load the dependencies of the man un/install routine.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function load_base_dependencies() {
+
+		require_once dirname( __FILE__ ) . '/constants.php';
+		require_once WORDPOINTS_DIR . '/classes/class/autoloader.php';
+
+		WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . '/classes' );
+
+		require_once WORDPOINTS_DIR . '/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/includes/apps.php';
+		require_once WORDPOINTS_DIR . '/includes/hooks.php';
+		require_once WORDPOINTS_DIR . '/includes/filters.php';
 	}
 
 	/**

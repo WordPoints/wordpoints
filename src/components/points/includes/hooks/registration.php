@@ -7,9 +7,6 @@
  * @since 1.4.0
  */
 
-// Register the registration hook.
-WordPoints_Points_Hooks::register( 'WordPoints_Registration_Points_Hook' );
-
 /**
  * Registration hook.
  *

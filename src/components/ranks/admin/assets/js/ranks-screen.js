@@ -346,12 +346,12 @@ jQuery( function ( $ ) {
 		initialize: function() {
 
 			this.$addRank = this.$( '.add-rank' );
-			this.$rankTypes = this.$( '.wordpoints-rank-types' );
+			this.$rankTypes = this.$( '.wordpoints-rank-types select' );
 
 			// Check how many different rank types this group supports. If it is only
 			// one, we can hide the rank type selector.
-			if ( 2 === this.$rankTypes.children( 'option' ).length ) {
-				this.$rankTypes.prop( 'selectedIndex', 1 ).hide();
+			if ( 1 === this.$rankTypes.children( 'option' ).length ) {
+				this.$( '.wordpoints-rank-types' ).hide();
 			}
 
 			// Make sure that the add rank button isn't disabled, because sometimes
@@ -443,7 +443,7 @@ jQuery( function ( $ ) {
 				return;
 			}
 
-			$( '#message.error p' )
+			$( '#ranks-error-message p' )
 				.text(
 					response.message || ranks.l10n.unexpectedError
 				)

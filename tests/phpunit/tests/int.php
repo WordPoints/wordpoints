@@ -31,7 +31,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_int
 	 */
-	function test_integers_unchanged() {
+	public function test_integers_unchanged() {
 
 		$maybe_int = 5;
 		wordpoints_int( $maybe_int );
@@ -49,7 +49,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_int
 	 */
-	function test_string_integers_converted() {
+	public function test_string_integers_converted() {
 
 		$maybe_int = '5';
 		wordpoints_int( $maybe_int );
@@ -67,7 +67,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_int
 	 */
-	function test_float_intetegers_converted() {
+	public function test_float_intetegers_converted() {
 
 		$maybe_int = 5.0;
 		wordpoints_int( $maybe_int );
@@ -81,7 +81,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_int
 	 */
-	function test_false_for_edge_strings() {
+	public function test_false_for_edge_strings() {
 
 		$maybe_int = '3 blind mice';
 		wordpoints_int( $maybe_int );
@@ -99,7 +99,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_int
 	 */
-	function test_false_for_floats() {
+	public function test_false_for_floats() {
 
 		$maybe_int = 5.5;
 		wordpoints_int( $maybe_int );
@@ -113,7 +113,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_int
 	 */
-	function test_false_for_everything_else() {
+	public function test_false_for_everything_else() {
 
 		$maybe_int = array( 'foo', 'bar' );
 		wordpoints_int( $maybe_int );
@@ -143,7 +143,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_posint
 	 */
-	function test_positive_integers_unchanged() {
+	public function test_positive_integers_unchanged() {
 
 		$maybe_positive = 5;
 		wordpoints_posint( $maybe_positive );
@@ -157,7 +157,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_posint
 	 */
-	function test_negative_returns_false() {
+	public function test_negative_returns_false() {
 
 		$maybe_positive = -5;
 		wordpoints_posint( $maybe_positive );
@@ -171,7 +171,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_posint
 	 */
-	function test_zero_not_positive() {
+	public function test_zero_not_positive() {
 
 		$maybe_positive = 0;
 		wordpoints_posint( $maybe_positive );
@@ -189,7 +189,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_negint
 	 */
-	function test_positive_returns_false() {
+	public function test_positive_returns_false() {
 
 		$maybe_negative = 5;
 		wordpoints_negint( $maybe_negative );
@@ -203,7 +203,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_negint
 	 */
-	function test_negative_unchanged() {
+	public function test_negative_unchanged() {
 
 		$maybe_negative = -5;
 		wordpoints_negint( $maybe_negative );
@@ -217,7 +217,7 @@ class WordPoints_Int_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @covers ::wordpoints_negint
 	 */
-	function test_zero_not_negative() {
+	public function test_zero_not_negative() {
 
 		$maybe_negative = 0;
 		wordpoints_negint( $maybe_negative );

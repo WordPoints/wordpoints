@@ -37,6 +37,15 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 
 		parent::setUp();
 
+		// We expect just one user in the DB so if there are extra ones, delete them.
+		$existing_users = get_users( array( 'fields' => 'ids' ) );
+
+		if ( count( $existing_users ) > 1 ) {
+
+			array_shift( $existing_users );
+			array_map( array( $this, 'delete_user' ), $existing_users );
+		}
+
 		$this->user_ids = $this->factory->user->create_many( 3 );
 
 		wordpoints_set_points( $this->user_ids[0], 40, 'points', 'test' );
@@ -219,7 +228,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_Points_UnitTestCas
 	 */
 	public function test_excluded_users_excluded() {
 
-		wordpoints_update_network_option(
+		wordpoints_update_maybe_network_option(
 			'wordpoints_excluded_users'
 			, array( $this->user_ids[2], $this->user_ids[0] )
 		);

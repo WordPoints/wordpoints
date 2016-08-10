@@ -12,7 +12,7 @@
  *
  * @since 1.0.0
  *
- * @action wp_ajax_wordpoints-points-hooks-order
+ * @WordPress\action wp_ajax_wordpoints-points-hooks-order
  */
 function wordpoints_ajax_points_hooks_order() {
 
@@ -72,14 +72,14 @@ function wordpoints_ajax_points_hooks_order() {
 
 	wp_die( 1, '', array( 'response' => 200 ) );
 }
-add_action( 'wp_ajax_wordpoints-points-hooks-order', 'wordpoints_ajax_points_hooks_order' );
 
 /**
  * Save points hook settings via AJAX.
  *
  * @since 1.0.0
+ * @since 2.1.0 Deprecated handling of CRUD actions for points types.
  *
- * @action wp_ajax_save-wordpoints-points-hook
+ * @WordPress\action wp_ajax_save-wordpoints-points-hook
  */
 function wordpoints_ajax_save_points_hook() {
 
@@ -109,6 +109,13 @@ function wordpoints_ajax_save_points_hook() {
 	if ( isset( $_POST['points-slug'] ) ) {
 
 		// - We are saving the settings for a points type.
+
+		// We don't use this part after 2.1.0, but we keep it around for back-compat.
+		_deprecated_argument(
+			__FUNCTION__
+			, '2.1.0'
+			, 'Performing CRUD actions on points types using this function is deprecated.'
+		);
 
 		if ( ! current_user_can( 'manage_wordpoints_points_types' ) ) {
 			wp_die( -1, '', array( 'response' => 403 ) );
@@ -247,6 +254,5 @@ function wordpoints_ajax_save_points_hook() {
 
 	wp_die( '', '', array( 'response' => 200 ) );
 }
-add_action( 'wp_ajax_save-wordpoints-points-hook', 'wordpoints_ajax_save_points_hook' );
 
 // EOF

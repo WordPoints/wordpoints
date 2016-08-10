@@ -13,7 +13,14 @@ $invalid = wordpoints_validate_active_modules();
 
 if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
-		wordpoints_show_admin_error( sprintf( __( 'The module %s has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' ), esc_html( $module_file ), '<code>' . esc_html( $error->get_error_message() ) . '</code>' ) );
+		wordpoints_show_admin_error(
+			sprintf(
+				__( 'The module %s has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' )
+				, esc_html( $module_file )
+				, '<code>' . esc_html( $error->get_error_message() ) . '</code>'
+			)
+			, array( 'dismissible' => true )
+		);
 	}
 }
 
@@ -21,11 +28,21 @@ if ( isset( $_GET['error'] ) ) {
 
 	if ( isset( $_GET['main'] ) ) {
 
-		wordpoints_show_admin_error( esc_html__( 'You cannot delete a module while it is active on the main site.', 'wordpoints' ) );
+		wordpoints_show_admin_error(
+			esc_html__( 'You cannot delete a module while it is active on the main site.', 'wordpoints' )
+			, array( 'dismissible' => true )
+		);
 
 	} elseif ( isset( $_GET['charsout'] ) ) {
 
-		wordpoints_show_admin_error( sprintf( __( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' ), (int) $_GET['charsout'] ) );
+		wordpoints_show_admin_message(
+			sprintf(
+				__( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' )
+				, (int) $_GET['charsout']
+			)
+			, 'warning'
+			, array( 'dismissible' => true )
+		);
 
 	} else {
 
@@ -38,7 +55,7 @@ if ( isset( $_GET['error'] ) ) {
 
 			?>
 
-			<div id="message" class="error">
+			<div class="notice notice-error is-dismissible">
 				<p>
 					<?php echo wp_kses( $error_message, '' ); ?>
 					<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['module'] ) ) ); ?>&amp;_wpnonce=<?php echo esc_attr( sanitize_key( $_GET['_error_nonce'] ) ); ?>"></iframe>
@@ -49,7 +66,10 @@ if ( isset( $_GET['error'] ) ) {
 
 		} else {
 
-			wordpoints_show_admin_error( $error_message );
+			wordpoints_show_admin_error(
+				$error_message
+				, array( 'dismissible' => true )
+			);
 		}
 	}
 
@@ -62,46 +82,79 @@ if ( isset( $_GET['error'] ) ) {
 	delete_transient( 'wordpoints_modules_delete_result_' . $user_ID );
 
 	if ( is_wp_error( $delete_result ) ) {
-		wordpoints_show_admin_error( sprintf( __( 'Module could not be deleted due to an error: %s', 'wordpoints' ), $delete_result->get_error_message() ) );
+
+		wordpoints_show_admin_error(
+			sprintf(
+				__( 'Module could not be deleted due to an error: %s', 'wordpoints' )
+				, $delete_result->get_error_message()
+			)
+			, array( 'dismissible' => true )
+		);
+
 	} else {
-		wordpoints_show_admin_message( __( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' ) );
+
+		wordpoints_show_admin_message(
+			__( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' )
+			, 'success'
+			, array( 'dismissible' => true )
+		);
 	}
 
 } elseif ( isset( $_GET['activate'] ) ) {
 
-	wordpoints_show_admin_message( __( 'Module <strong>activated</strong>.', 'wordpoints' ) );
+	wordpoints_show_admin_message(
+		__( 'Module <strong>activated</strong>.', 'wordpoints' )
+		, 'success'
+		, array( 'dismissible' => true )
+	);
 
 } elseif ( isset( $_GET['activate-multi'] ) ) {
 
-	wordpoints_show_admin_message( __( 'Selected modules <strong>activated</strong>.', 'wordpoints' ) );
+	wordpoints_show_admin_message(
+		__( 'Selected modules <strong>activated</strong>.', 'wordpoints' )
+		, 'success'
+		, array( 'dismissible' => true )
+	);
 
 } elseif ( isset( $_GET['deactivate'] ) ) {
 
-	wordpoints_show_admin_message( __( 'Module <strong>deactivated</strong>.', 'wordpoints' ) );
+	wordpoints_show_admin_message(
+		__( 'Module <strong>deactivated</strong>.', 'wordpoints' )
+		, 'success'
+		, array( 'dismissible' => true )
+	);
 
 } elseif ( isset( $_GET['deactivate-multi'] ) ) {
 
-	wordpoints_show_admin_message( __( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' ) );
+	wordpoints_show_admin_message(
+		__( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' )
+		, 'success'
+		, array( 'dismissible' => true )
+	);
 
 } elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === sanitize_key( $_REQUEST['action'] ) ) {
 
-	wordpoints_show_admin_message( esc_html__( 'No out of date modules were selected.', 'wordpoints' ) );
+	wordpoints_show_admin_message(
+		esc_html__( 'No out of date modules were selected.', 'wordpoints' )
+		, 'warning'
+		, array( 'dismissible' => true )
+	);
 }
 
 ?>
 
 <div class="wrap">
-	<h2>
+	<h1>
 		<?php esc_html_e( 'WordPoints Modules', 'wordpoints' ); ?>
 
 		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) : ?>
-			<a href="<?php echo esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ); ?>" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
+			<a href="<?php echo esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
 			<span class="subtitle"><?php echo esc_html( sprintf( __( 'Search results for &#8220;%s&#8221;', 'wordpoints' ), sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ) ); ?></span>
 		<?php endif; ?>
-	</h2>
+	</h1>
 
 	<?php
 

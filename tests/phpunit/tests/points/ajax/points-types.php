@@ -38,6 +38,8 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_Points_AJAX_UnitT
 	 * Test that it succeeds for an administrator.
 	 *
 	 * @since 1.3.0
+	 *
+	 * @expectedDeprecated wordpoints_ajax_save_points_hook
 	 */
 	public function test_as_admin() {
 
@@ -82,6 +84,8 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_Points_AJAX_UnitT
 	 * Test that it fails for non-existant points types.
 	 *
 	 * @since 1.3.0
+	 *
+	 * @expectedDeprecated wordpoints_ajax_save_points_hook
 	 */
 	public function test_bad_points_type() {
 

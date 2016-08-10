@@ -35,6 +35,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.9.0'  => array( 'single' => true, 'site' => true, 'network' => true ),
 		'1.10.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.0.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.1.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -79,22 +80,41 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_top_users_widget',
 				'wordpoints_points_widget',
 			),
+			'options' => array(
+				'wordpoints_%_hook_legacy',
+			),
+		),
+		'global' => array(
+			'options' => array(
+				'wordpoints_disabled_points_hooks_edit_points_types',
+			),
 		),
 		'universal' => array(
 			'options' => array(
 				'wordpoints_points_types',
 				'wordpoints_default_points_type',
 				'wordpoints_points_types_hooks',
+				'wordpoints_legacy_points_hooks_disabled',
+				'wordpoints_imported_points_hooks',
 			),
 			'points_hooks' => array(
 				'wordpoints_registration_points_hook',
 				'wordpoints_post_points_hook',
+				'wordpoints_post_delete_points_hook',
 				'wordpoints_comment_points_hook',
+				'wordpoints_comment_removed_points_hook',
 				'wordpoints_periodic_points_hook',
 				'wordpoints_comment_received_points_hook',
 			),
 			'user_meta' => array(
 				'wordpoints_points_period_start',
+				'wordpoints_points-%',
+			),
+			'comment_meta' => array(
+				'wordpoints_last_status-%',
+			),
+			'meta_boxes' => array(
+				'wordpoints_points_types' => array(),
 			),
 		),
 	);
@@ -114,21 +134,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @type bool $points_hooks_network_mode
 	 */
 	protected $points_hooks_network_mode;
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function before_uninstall() {
-
-		foreach ( wordpoints_get_points_types() as $slug => $unused ) {
-
-			$this->uninstall['universal']['user_meta'][] = "wordpoints_points-{$slug}";
-			$this->uninstall['universal']['comment_meta'][] = "wordpoints_last_status-{$slug}";
-		}
-
-		// We do this after the above, so that we can take advantage of shortcuts.
-		parent::before_uninstall();
-	}
 
 	/**
 	 * @since 1.8.0
@@ -205,6 +210,26 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * @since 2.1.0
+	 */
+	protected function install_network() {
+
+		parent::install_network();
+
+		$this->disable_legacy_hooks();
+	}
+
+	/**
+	 * @since 2.1.0
+	 */
+	protected function install_site() {
+
+		parent::install_site();
+
+		$this->disable_legacy_hooks();
+	}
+
+	/**
 	 * @since 1.8.0
 	 */
 	protected function install_single() {
@@ -212,12 +237,39 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		parent::install_single();
 
 		add_option( 'wordpoints_default_points_type', '' );
+
+		$this->disable_legacy_hooks();
+	}
+
+	/**
+	 * Disable the legacy points hooks.
+	 *
+	 * @since 2.1.0
+	 */
+	protected function disable_legacy_hooks() {
+
+		wordpoints_add_maybe_network_option(
+			'wordpoints_legacy_points_hooks_disabled'
+			, array(
+				'wordpoints_post_points_hook' => true,
+				'wordpoints_comment_points_hook' => true,
+				'wordpoints_comment_received_points_hook' => true,
+				'wordpoints_periodic_points_hook' => true,
+				'wordpoints_registration_points_hook' => true,
+			)
+			, 'network' === $this->context
+		);
 	}
 
 	/**
 	 * @since 1.8.0
 	 */
 	protected function load_dependencies() {
+
+		// For the sake of modules.
+		WordPoints_Class_Autoloader::register_dir(
+			WORDPOINTS_DIR . 'components/points/classes'
+		);
 
 		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
 		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
@@ -831,6 +883,24 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_single_to_2_0_0() {
 		$this->update_network_to_2_0_0();
+	}
+
+	/**
+	 * Update a multisite network to 2.1.0
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_network_to_2_1_0() {
+		add_site_option( 'wordpoints_disabled_points_hooks_edit_points_types', true );
+	}
+
+	/**
+	 * Update a single site to 2.1.0
+	 *
+	 * @since 2.1.0
+	 */
+	protected function update_single_to_2_1_0() {
+		add_option( 'wordpoints_disabled_points_hooks_edit_points_types', true );
 	}
 }
 

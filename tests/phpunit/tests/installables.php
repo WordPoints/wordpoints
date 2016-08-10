@@ -231,7 +231,10 @@ class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
 	 */
 	public function test_maybe_do_updates_wordpoints_not_installed() {
 
-		wordpoints_update_network_option( 'wordpoints_data', array( 'a' => 'b' ) );
+		wordpoints_update_maybe_network_option(
+			'wordpoints_data'
+			, array( 'a' => 'b' )
+		);
 
 		$this->assertEmpty( $this->wordpoints_get_db_version() );
 

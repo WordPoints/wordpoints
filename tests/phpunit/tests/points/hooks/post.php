@@ -405,7 +405,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 	public function test_log_text_with_post_title_and_type() {
 
 		$this->assertStringMatchesFormat(
-			'Page <a href="%s">Post title 1</a> published.'
+			'Page <a href="%s">Post title %d</a> published.'
 			, $this->render_log_text( array( 'post_type' => 'page' ) )
 		);
 	}
@@ -418,7 +418,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
 	public function test_log_text_with_post_title() {
 
 		$this->assertStringMatchesFormat(
-			'Post <a href="%s">Post title 1</a> published.'
+			'Post <a href="%s">Post title %d</a> published.'
 			, $this->render_log_text( array( 'post_type' => 'not' ) )
 		);
 	}

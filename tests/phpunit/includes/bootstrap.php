@@ -72,6 +72,9 @@ if (
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 }
 
+// Now that our functions are loaded, we can register the autoloader function.
+spl_autoload_register( 'wordpoints_phpunit_autoloader' );
+
 /**
  * Checks which groups we are running, and gives helpful messages.
  *
@@ -197,6 +200,21 @@ if ( class_exists( 'WordPoints_Un_Installer_Base' ) ) {
 	 */
 	require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer.php' );
 }
+
+$factory = WordPoints_PHPUnit_Factory::init();
+$factory->register( 'entity', 'WordPoints_PHPUnit_Factory_For_Entity' );
+$factory->register( 'hook_reaction', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction' );
+$factory->register( 'hook_reaction_store', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction_Store' );
+$factory->register( 'hook_reactor', 'WordPoints_PHPUnit_Factory_For_Hook_Reactor' );
+$factory->register( 'hook_extension', 'WordPoints_PHPUnit_Factory_For_Hook_Extension' );
+$factory->register( 'hook_event', 'WordPoints_PHPUnit_Factory_For_Hook_Event' );
+$factory->register( 'hook_action', 'WordPoints_PHPUnit_Factory_For_Hook_Action' );
+$factory->register( 'hook_condition', 'WordPoints_PHPUnit_Factory_For_Hook_Condition' );
+$factory->register( 'post_type', 'WordPoints_PHPUnit_Factory_For_Post_Type' );
+$factory->register( 'user_role', 'WordPoints_PHPUnit_Factory_For_User_Role' );
+
+global $EZSQL_ERROR;
+$EZSQL_ERROR = new WordPoints_PHPUnit_Error_Handler_Database();
 
 // https://core.trac.wordpress.org/ticket/25239
 $_SERVER['SERVER_NAME'] = 'example.com';

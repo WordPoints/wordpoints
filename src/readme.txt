@@ -2,9 +2,9 @@
 Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
-Requires at least: 4.2
-Tested up to: 4.4-alpha-34599
-Stable tag: 2.0.2
+Requires at least: 4.4
+Tested up to: 4.7-alpha-38178
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,16 +15,19 @@ Gamify your site with points.
 = Features =
 
 This plugin lets you create one or multiple types of points which you can use to
-reward your users by "hooking into" different user actions. It also includes
+reward your users when certain events occur on your site. It also includes
 a Ranks component, which lets you create ranks for your users based on how many
 points they have.
 
 You can currently award points to users for:
 
 * Registration
-* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is deleted.
+* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is removed.
 * Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
 * Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
+
+You can also conditionally award points based on a post's contents, a user's role,
+and more!
 
 All points transactions are logged and can be reviewed by administrators from the
 WordPoints » Points Logs admin screen. The logs can be displayed on the front end of
@@ -49,25 +52,6 @@ called "modules". There's [a module that imports from CubePoints to WordPoints](
 one that [integrates with WooCommerce](http://wordpoints.org/modules/woocommerce/),
 and another that let's you [reset your users' points](http://wordpoints.org/modules/reset-points/).
 More are being added regularly, so take a look to see what is new.
-
-= Translations =
-
-WordPoints is fully translatable, and translations are already available in several
-languages:
-
-* **(el) Greek**
-* **(es) Spanish** — Thanks to Andrew Kurtis of WebHostingHub.
-* **(lt) Lithuanian**
-* **(ja) Japanese** — Thanks to Raymond Calla.
-* **(pt_BR) Brazilian Portuguese** — Thanks goes to Gabriel Galvão ([@threadsgeneration](https://profiles.wordpress.org/threadsgeneration)).
-* **(zh_CN) Simplified Chinese** — Thanks to Jack Lee ([@suifengtec](https://profiles.wordpress.org/suifengtec)).
-
-Not all of these translations are complete, and if you'd like to help maintain and
-improve them, or you'd like to translate WordPoints into another language, you can
-join the [translation project on Weblate](https://hosted.weblate.org/engage/wordpoints/).
-
-If you have a completed translation you'd like to share, you can also send it to us
-using the [contact form on WordPoints.org](http://wordpoints.org/contact/).
 
 = Developers =
 
@@ -116,8 +100,8 @@ upgrade now before it's too late. Seriously!
 
 1. An example of a table of points log entries.
 
-2. The Points Hooks administration screen. This is where you configure when and where
-points are awarded.
+2. The Points Types administration screen. This is where you create your points
+types and configure when points are awarded in reaction to various events.
 
 3. A rank group on the Ranks administration screen. This is where you create and
 manage the ranks used on your site.
@@ -126,9 +110,74 @@ manage the ranks used on your site.
 
 5. An example of the `[wordpoints_how_to_get_points]` shortcode.
 
+6. You can manually edit a user's points on their profile in the administration
+screens.
+
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.1.0 - 2016-08-10 - (countless hrs) =
+
+**Requires: WordPress 4.4+**
+
+##### Added
+
+- New Points Types administration screen. This will eventually completely replace the
+old Points Hooks administration screen. It includes a new UI for creating, updating,
+and deleting points types, and for configuring when points are awarded in reaction to
+different events that take place on the site. Because there are still a few minor
+differences in the behavior of the code that underlies this new UI and the old points
+hooks, the old points hooks have not yet been imported to the new screen. The plan
+is to eventually achieve feature parity between the new hooks and the old hooks, and
+then the old hooks will be automatically imported to the new screen.
+- "Post content contains" condition for event reactions created on the new Points
+Types screen. This means that you can have an event reaction fire only when a Post
+contains a particular word or phrase.
+- "User role" condition for event reactions created on the new Points Types screen.
+This means that you can have an event reaction fire only when a user has a particular
+role.
+- Upload Media event (on the new Points Types screen), allowing points to be awarded
+when a new file is uploaded to the media library.
+
+##### Changed
+
+- Heading levels on the admin screens to better match the rest of WordPress after
+version 4.3.
+- Most notices shown in the administration screens to be dismissible.
+
+##### Deprecated
+
+- The Points Hooks screen, as noted above. It will be removed in a future release.
+
+##### Removed
+
+- The ability to create, update, and delete points types on the Points Hooks screen.
+This should be done on the new Points Types screen instead.
+- Some of the language files (Greek, Japanese, and Simplified Chinese). These can now
+be found on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/wordpoints).
+The rest of the language files will be removed from the plugin in the future in favor
+of WordPress.org's new language pack system. The Simplified Chinese translation is
+already available as a language pack there. If you don't see your language, jump in
+and start translating! Everyone is welcome.
+
+##### Fixed
+
+- Network administration menus being displayed in some cases on multisite even when
+WordPoints wasn't activated network-wide.
+- A notice incorrectly being shown when the ranks component was installed on
+multisite.
+- A fatal error when uninstalling the plugin if WordPoints modules had been
+installed.
+- Some modules not being uninstalled properly.
+- Database error on multisite when uninstalling modules or components that had never
+been activated.
+- The user points data not being removed from the database for all points types when
+the plugin was uninstalled on multisite.
+- The Post Delete and Comment Removed points hooks not being displayed on legacy
+sites where they are still used.
+- [Dev-speak warning!] Symlinked modules not being uninstalled correctly (only file
+removed, not data). [Told you!]
 
 = 2.0.2 - 2015-09-26 - (~10 hrs) =
 

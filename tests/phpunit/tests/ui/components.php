@@ -40,7 +40,7 @@ class WordPoints_Component_UI_Test extends WordPoints_Selenium2TestCase {
 
 		parent::setUp();
 
-		wordpoints_delete_network_option( 'wordpoints_active_components' );
+		wordpoints_delete_maybe_network_option( 'wordpoints_active_components' );
 
 		remove_filter( 'wordpoints_component_active', '__return_true', 100 );
 	}
@@ -80,7 +80,7 @@ class WordPoints_Component_UI_Test extends WordPoints_Selenium2TestCase {
 	 */
 	public function tearDown() {
 
-		wordpoints_delete_network_option( 'wordpoints_active_components' );
+		wordpoints_delete_maybe_network_option( 'wordpoints_active_components' );
 
 		add_filter( 'wordpoints_component_active', '__return_true', 100 );
 

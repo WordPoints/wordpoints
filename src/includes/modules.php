@@ -757,7 +757,10 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	ob_start();
 
-	include_once wordpoints_modules_dir() . '/' . $module;
+	$module_file = wordpoints_modules_dir() . '/' . $module;
+	WordPoints_Module_Paths::register( $module_file );
+
+	include_once $module_file;
 
 	if ( ! $silent ) {
 
@@ -1083,8 +1086,10 @@ function wordpoints_delete_modules( $modules ) {
  */
 function wordpoints_uninstall_module( $module ) {
 
-	$file = wordpoints_module_basename( $module );
-	$uninstall_file = wordpoints_modules_dir() . '/' . dirname( $file ) . '/uninstall.php';
+	$file              = wordpoints_module_basename( $module );
+	$module_dir        = wordpoints_modules_dir() . '/' . dirname( $file );
+	$uninstall_file    = $module_dir . '/uninstall.php';
+	$un_installer_file = $module_dir . '/includes/class-un-installer.php';
 
 	if ( file_exists( $uninstall_file ) ) {
 
@@ -1117,12 +1122,24 @@ function wordpoints_uninstall_module( $module ) {
 
 		return true;
 
-	} else {
+	} elseif ( file_exists( $un_installer_file ) ) {
 
-		return WordPoints_Installables::uninstall(
+		$slug = WordPoints_Modules::get_slug( $module );
+
+		WordPoints_Installables::register(
 			'module'
-			, WordPoints_Modules::get_slug( $module )
+			, $slug
+			, array(
+				'version'      => 'uninstall', // Required but not really used.
+				'network_wide' => false, // ditto
+				'un_installer' => $un_installer_file,
+			)
 		);
+
+		return WordPoints_Installables::uninstall( 'module', $slug );
+
+	} else {
+		return false;
 	}
 }
 
@@ -1137,7 +1154,7 @@ function wordpoints_uninstall_module( $module ) {
  *
  * @since 1.1.0
  *
- * @action plugins_loaded 15 After components.
+ * @WordPress\action plugins_loaded 15 After components.
  *
  * @return void
  */
@@ -1185,7 +1202,6 @@ function wordpoints_load_modules() {
 	 */
 	do_action( 'wordpoints_modules_loaded' );
 }
-add_action( 'plugins_loaded', 'wordpoints_load_modules', 15 );
 
 /**
  * Register a function as the callback on module activation.

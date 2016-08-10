@@ -16,7 +16,7 @@ if ( is_network_admin() ) {
 ?>
 
 <div class="wrap">
-	<h2><?php echo esc_html( $title ); ?></h2>
+	<h1><?php echo esc_html( $title ); ?></h1>
 	<p class="wordpoints-admin-panel-desc"><?php esc_html_e( 'View recent points transactions.', 'wordpoints' ); ?></p>
 
 	<?php
@@ -32,7 +32,7 @@ if ( is_network_admin() ) {
 
 	if ( empty( $points_types ) ) {
 
-		wordpoints_show_admin_error( sprintf( __( 'You need to <a href="%s">create a type of points</a> before you can use this page.', 'wordpoints' ), 'admin.php?page=wordpoints_points_hooks' ) );
+		wordpoints_show_admin_error( sprintf( __( 'You need to <a href="%s">create a type of points</a> before you can use this page.', 'wordpoints' ), 'admin.php?page=wordpoints_points_types' ) );
 
 	} else {
 

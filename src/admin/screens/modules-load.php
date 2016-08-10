@@ -345,10 +345,21 @@ switch ( $action ) {
 
 				$modules_to_delete = count( $module_info );
 
-				echo '<h2>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h2>';
+				echo '<h1>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h1>';
 
 				if ( $have_non_network_modules && is_network_admin() ) {
-					wordpoints_show_admin_error( '<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>' . esc_html( _n( 'This module may be active on other sites in the network.', 'These modules may be active on other sites in the network.', $modules_to_delete, 'wordpoints' ) ) );
+					wordpoints_show_admin_message(
+						'<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>'
+							. esc_html(
+								_n(
+									'This module may be active on other sites in the network.'
+									, 'These modules may be active on other sites in the network.'
+									, $modules_to_delete
+									, 'wordpoints'
+								)
+							)
+						, 'warning'
+					);
 				}
 
 				?>
@@ -404,7 +415,7 @@ switch ( $action ) {
 				</form>
 
 				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
-				<div id="files-list" style="display:none;">
+				<div id="files-list" class="hidden">
 					<ul class="code">
 						<?php foreach ( (array) $files_to_delete as $file ) : ?>
 							<li><?php echo esc_html( str_replace( $module_dir, '', $file ) ); ?></li>

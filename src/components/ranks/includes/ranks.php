@@ -337,31 +337,39 @@ function wordpoints_format_rank( $rank_id, $context, array $args = array() ) {
  * Add a meta field for a rank of this type.
  *
  * @since 1.7.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see add_metadata() For fuller explanation of args and return value.
  *
  * @param int    $rank_id    The ID of the rank to add the meta field for.
- * @param string $meta_key   The key for this meta field.
- * @param mixed  $meta_value The value for this meta field.
+ * @param string $meta_key   The key for this meta field. Not expected slashed.
+ * @param mixed  $meta_value The value for this meta field. Not expected slashed.
  * @param bool   $unique     Whether this meta field must be unique for this rank.
  *
  * @return int|bool The meta ID on success, false on failure.
  */
 function wordpoints_add_rank_meta( $rank_id, $meta_key, $meta_value, $unique = false ) {
 
-	return add_metadata( 'wordpoints_rank', $rank_id, $meta_key, $meta_value, $unique );
+	return add_metadata(
+		'wordpoints_rank'
+		, $rank_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $unique
+	);
 }
 
 /**
  * Update a meta field for a rank of this type.
  *
  * @since 1.7.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see update_metadata() For fuller explanation of args and return value.
  *
  * @param int    $rank_id    The ID of the rank to add the meta field for.
- * @param string $meta_key   The key for this meta field.
- * @param mixed  $meta_value The new value for this meta field.
+ * @param string $meta_key   The key for this meta field. Not expected slashed.
+ * @param mixed  $meta_value The new value for this meta field. Not expected slashed.
  * @param mixed  $prev_value The previous value for this meta field.
  *
  * @return int|bool Meta ID if the key didn't exist, true on successful update,
@@ -369,26 +377,39 @@ function wordpoints_add_rank_meta( $rank_id, $meta_key, $meta_value, $unique = f
  */
 function wordpoints_update_rank_meta( $rank_id, $meta_key, $meta_value, $prev_value = '' ) {
 
-	return update_metadata( 'wordpoints_rank', $rank_id, $meta_key, $meta_value, $prev_value );
+	return update_metadata(
+		'wordpoints_rank'
+		, $rank_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $prev_value
+	);
 }
 
 /**
  * Delete meta fields for a rank of this type.
  *
  * @since 1.7.0
+ * @since 2.1.0 $meta_key and $meta_value are no longer expected slashed.
  *
  * @see delete_metadata() For fuller explanation of args and return value.
  *
  * @param int    $rank_id    The ID of the rank to delete metadata of.
- * @param string $meta_key   The key for this meta field.
- * @param mixed  $meta_value The value for this meta field. Default is ''.
+ * @param string $meta_key   The key for this meta field. Not expected slashed.
+ * @param mixed  $meta_value The value for this meta field. Default is ''. Not expected slashed.
  * @param bool   $delete_all Ignore the rank ID and delete for all ranks. Default: false.
  *
  * @return bool True on successful delete, false on failure.
  */
 function wordpoints_delete_rank_meta( $rank_id, $meta_key, $meta_value = '', $delete_all = false ) {
 
-	return delete_metadata( 'wordpoints_rank', $rank_id, $meta_key, $meta_value, $delete_all );
+	return delete_metadata(
+		'wordpoints_rank'
+		, $rank_id
+		, wp_slash( $meta_key )
+		, wp_slash( $meta_value )
+		, $delete_all
+	);
 }
 
 /**
@@ -745,5 +766,14 @@ function wordpoints_refresh_rank_users( $rank_id ) {
 		}
 	}
 }
+
+/**
+ * Register the included rank types.
+ *
+ * @since 1.7.0
+ *
+ * @WordPress\action wordpoints_ranks_register
+ */
+function wordpoints_register_core_ranks() {}
 
 // EOF

@@ -9,9 +9,6 @@
  * @since 1.0.0
  */
 
-// Initialise the class.
-WordPoints_Points_Hooks::init();
-
 /**
  * Points hooks class.
  *
@@ -98,13 +95,10 @@ final class WordPoints_Points_Hooks {
 	 * Initialize the class.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @uses add_action() To hook the initialize_hooks() method to the {@see
-	 *       'wordpoints_modules_loaded'} action.
+	 * @deprecated 2.1.0
 	 */
 	public static function init() {
-
-		add_action( 'wordpoints_modules_loaded', array( __CLASS__, 'initialize_hooks' ) );
+		_deprecated_function( __METHOD__, '2.1.0' );
 	}
 
 	/**
@@ -274,10 +268,19 @@ final class WordPoints_Points_Hooks {
 		$hook_types = self::$hook_types;
 		uasort( $hook_types, array( __CLASS__, '_sort_name_callback' ) );
 
+		$disabled_hooks = wordpoints_get_maybe_network_array_option(
+			'wordpoints_legacy_points_hooks_disabled'
+			, is_network_admin()
+		);
+
 		$i = 0;
 
 		// Display a representative for each hook type.
 		foreach ( $hook_types as $id_base => $hook_type ) {
+
+			if ( isset( $disabled_hooks[ $id_base ] ) ) {
+				continue;
+			}
 
 			$i++;
 
@@ -389,13 +392,10 @@ final class WordPoints_Points_Hooks {
 	 */
 	public static function get_points_types_hooks() {
 
-		if ( self::$network_mode ) {
-			$type = 'site';
-		} else {
-			$type = 'default';
-		}
-
-		return wordpoints_get_array_option( 'wordpoints_points_types_hooks', $type );
+		return wordpoints_get_maybe_network_array_option(
+			'wordpoints_points_types_hooks'
+			, self::$network_mode
+		);
 	}
 
 	/**
@@ -486,6 +486,7 @@ final class WordPoints_Points_Hooks {
 	 * and the .hook-content div, then $wrap may be set to 'hook-content'.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.1.0
 	 *
 	 * @uses do_action() Calls 'wordpoints_points_type_form_top' at the top of the
 	 *       settings form with $slug and $settings. A null slug indicated a new
@@ -496,6 +497,12 @@ final class WordPoints_Points_Hooks {
 	 * @param string $wrap Whether to wrap the form inputs in a "widget" or not.
 	 */
 	public static function points_type_form( $slug = null, $wrap = 'hook' ) {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.1.0'
+			, 'Only the Points Types screen should be used to manage points types.'
+		);
 
 		$add_new = 0;
 
@@ -542,7 +549,7 @@ final class WordPoints_Points_Hooks {
 					<div class="hook-title-action">
 						<a class="hook-action hide-if-no-js" href="#available-hooks"></a>
 					</div>
-					<div class="hook-title"><h4><?php esc_html_e( 'Settings', 'wordpoints' ); ?><span class="in-hook-title"></span></h4></div>
+					<div class="hook-title"><h3><?php esc_html_e( 'Settings', 'wordpoints' ); ?><span class="in-hook-title"></span></h3></div>
 				</div>
 
 				<div class="hook-inside">
@@ -714,7 +721,7 @@ final class WordPoints_Points_Hooks {
 					<span class="screen-reader-text"><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?></span>
 				</a>
 			</div>
-			<div class="hook-title"><h4><?php echo esc_html( strip_tags( $hook->get_name() ) ) ?><span class="in-hook-title"></span></h4></div>
+			<div class="hook-title"><h3><?php echo esc_html( strip_tags( $hook->get_name() ) ) ?><span class="in-hook-title"></span></h3></div>
 		</div>
 
 		<div class="hook-inside">

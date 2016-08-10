@@ -25,7 +25,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 * @covers WordPoints_Points_Hooks::get_points_types_hooks
 	 * @covers WordPoints_Points_Hooks::save_points_types_hooks
 	 */
-	function test_get_and_save() {
+	public function test_get_and_save() {
 
 		$hook = wordpointstests_add_points_hook(
 			'wordpoints_registration_points_hook'

@@ -47,7 +47,7 @@ class WordPoints_Module_Header_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @since 1.1.0
 	 */
-	function test_basic_module_header_parsing() {
+	public function test_basic_module_header_parsing() {
 
 		$found_headers = wordpoints_get_module_data( WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php', false, false );
 
@@ -59,7 +59,7 @@ class WordPoints_Module_Header_Test extends WordPoints_UnitTestCase {
 	 *
 	 * @since 1.1.0
 	 */
-	function test_module_header_parsing_with_markup() {
+	public function test_module_header_parsing_with_markup() {
 
 		$this->expected_headers['title'] = '<a href="http://www.example.com/test-3/">Test 3</a>';
 		$this->expected_headers['author'] = '<a href="http://www.example.com/">WordPoints Tester</a>';

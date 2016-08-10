@@ -61,18 +61,6 @@ function wordpoints_points_admin_register_scripts() {
 		, array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
 		, WORDPOINTS_VERSION
 	);
-
-	wp_localize_script(
-		'wordpoints-admin-points-hooks'
-		, 'WordPointsHooksL10n'
-		, array(
-			'confirmDelete' => esc_html__( 'Are you sure that you want to delete this points type? This will delete all related logs and hooks.', 'wordpoints' )
-			                   . ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
-			'confirmTitle'  => esc_html__( 'Are you sure?', 'wordpoints' ),
-			'deleteText'    => esc_html__( 'Delete', 'wordpoints' ),
-			'cancelText'    => esc_html__( 'Cancel', 'wordpoints' ),
-		)
-	);
 }
 
 /**

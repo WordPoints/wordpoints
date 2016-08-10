@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-/* global ajaxurl, isRtl, WordPointsHooksL10n, jQuery */
+/* global ajaxurl, isRtl, jQuery */
 
 /**
  * @var object WordPointsHooks
@@ -32,46 +32,7 @@ WordPointsHooks = {
 			selectPointsType = chooser.find( '.hooks-chooser-points-types' ),
 			points_types = $( 'div.hooks-sortables' ),
 			isRTL = !! ( 'undefined' !== typeof isRtl && isRtl ),
-			margin = ( isRTL ? 'marginRight' : 'marginLeft' ),
-			$currentDelete = false;
-
-		// Require confirmation for points type delete.
-		$( '.points-settings .delete' ).click( function( event ) {
-
-			if ( ! $currentDelete ) {
-
-				$currentDelete = $( this );
-
-				event.preventDefault();
-
-				$( '<div title="' + WordPointsHooksL10n.confirmTitle + '"><p>' + WordPointsHooksL10n.confirmDelete + '</p></div>' ).dialog({
-					dialogClass: 'wp-dialog wordpoints-delete-type-dialog',
-					resizable: false,
-					draggable: false,
-					height: 250,
-					modal: true,
-					buttons: [
-						{
-							text: WordPointsHooksL10n.deleteText,
-							'class': 'button-primary',
-							click: function() {
-								$( this ).dialog( 'close' );
-								$currentDelete.click();
-								$currentDelete = false;
-							}
-						},
-						{
-							text: WordPointsHooksL10n.cancelText,
-							'class': 'button-secondary',
-							click: function() {
-								$( this ).dialog( 'close' );
-								$currentDelete = false;
-							}
-						}
-					]
-				});
-			}
-		});
+			margin = ( isRTL ? 'marginRight' : 'marginLeft' );
 
 		$( '#hooks-right' ).children( '.hooks-holder-wrap' ).children( '.points-type-name' ).click( function () {
 

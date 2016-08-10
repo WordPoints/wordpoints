@@ -426,7 +426,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		if ( is_int( $periods ) ) {
 			if ( 0 === $periods ) {
 				// Back-compat for pre PHP 5.6.
-				$periods = array( array() );
+				$periods = array();
 			} else {
 				$periods = array_fill( 0, $periods, array() );
 			}

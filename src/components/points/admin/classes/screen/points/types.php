@@ -441,7 +441,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 			<div class="controls">
 				<button type="button" class="button-primary add-reaction">
-					<?php esc_html_e( 'Add New', 'wordpoints' ); ?>
+					<?php esc_html_e( 'Add New Reaction', 'wordpoints' ); ?>
 				</button>
 			</div>
 		</div>
@@ -703,10 +703,10 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 		if ( is_network_admin() ) {
 			$title = __( 'Network Events', 'wordpoints' );
-			$description = __( 'Award points when various events happen on this network.', 'wordpoints' );
+			$description = __( 'Add reactions to these events to award points whenever they take place on this network.', 'wordpoints' );
 		} else {
 			$title = __( 'Events', 'wordpoints' );
-			$description = __( 'Award points when various events happen on this site.', 'wordpoints' );
+			$description = __( 'Add reactions to these events to award points whenever they take place on this site.', 'wordpoints' );
 		}
 
 		$points_type = wordpoints_get_points_type( $this->current_points_type );

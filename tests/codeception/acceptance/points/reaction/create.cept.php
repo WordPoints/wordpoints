@@ -11,7 +11,7 @@ $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Create a points reaction' );
 $I->hadCreatedAPointsType();
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' );
-$I->click( 'Add New', '#points-user_register' );
+$I->click( 'Add New Reaction', '#points-user_register' );
 $I->waitForNewReaction();
 $I->seeElement( '#points-user_register .add-reaction[disabled]' );
 $I->fillField( 'description', 'Registering.' );

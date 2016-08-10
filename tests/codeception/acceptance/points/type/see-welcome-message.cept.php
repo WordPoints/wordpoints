@@ -14,7 +14,7 @@ $I->see( 'Welcome to WordPoints! Get started by creating a points type.', '.noti
 $I->seeLink( 'creating a points type' );
 $I->click( 'creating a points type' );
 $I->see( 'Points Types' );
-$I->see( 'Add New' );
+$I->see( 'Add New', '.nav-tab-active' );
 $I->see( 'Settings' );
 $I->canSeeInFormFields(
 	'#settings form'

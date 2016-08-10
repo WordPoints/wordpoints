@@ -117,6 +117,68 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
+= 2.1.0 - 2016-08-10 - (countless hrs) =
+
+**Requires: WordPress 4.4+**
+
+##### Added
+
+- New Points Types administration screen. This will eventually completely replace the
+old Points Hooks administration screen. It includes a new UI for creating, updating,
+and deleting points types, and for configuring when points are awarded in reaction to
+different events that take place on the site. Because there are still a few minor
+differences in the behavior of the code that underlies this new UI and the old points
+hooks, the old points hooks have not yet been imported to the new screen. The plan
+is to eventually achieve feature parity between the new hooks and the old hooks, and
+then the old hooks will be automatically imported to the new screen.
+- "Post content contains" condition for event reactions created on the new Points
+Types screen. This means that you can have an event reaction fire only when a Post
+contains a particular word or phrase.
+- "User role" condition for event reactions created on the new Points Types screen.
+This means that you can have an event reaction fire only when a user has a particular
+role.
+- Upload Media event (on the new Points Types screen), allowing points to be awarded
+when a new file is uploaded to the media library.
+
+##### Changed
+
+- Heading levels on the admin screens to better match the rest of WordPress after
+version 4.3.
+- Most notices shown in the administration screens to be dismissible.
+
+##### Deprecated
+
+- The Points Hooks screen, as noted above. It will be removed in a future release.
+
+##### Removed
+
+- The ability to create, update, and delete points types on the Points Hooks screen.
+This should be done on the new Points Types screen instead.
+- Some of the language files (Greek, Japanese, and Simplified Chinese). These can now
+be found on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/wordpoints).
+The rest of the language files will be removed from the plugin in the future in favor
+of WordPress.org's new language pack system. The Simplified Chinese translation is
+already available as a language pack there. If you don't see your language, jump in
+and start translating! Everyone is welcome.
+
+##### Fixed
+
+- Network administration menus being displayed in some cases on multisite even when
+WordPoints wasn't activated network-wide.
+- A notice incorrectly being shown when the ranks component was installed on
+multisite.
+- A fatal error when uninstalling the plugin if WordPoints modules had been
+installed.
+- Some modules not being uninstalled properly.
+- Database error on multisite when uninstalling modules or components that had never
+been activated.
+- The user points data not being removed from the database for all points types when
+the plugin was uninstalled on multisite.
+- The Post Delete and Comment Removed points hooks not being displayed on legacy
+sites where they are still used.
+- [Dev-speak warning!] Symlinked modules not being uninstalled correctly (only file
+removed, not data). [Told you!]
+
 = 2.0.2 - 2015-09-26 - (~10 hrs) =
 
 ##### Fixed

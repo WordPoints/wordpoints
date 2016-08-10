@@ -52,7 +52,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * Note that this is singular, even though in the 'wordpoints_data' option the
 	 * plural forms are used for legacy reasons.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @var string

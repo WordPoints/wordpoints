@@ -19,16 +19,10 @@ $hook_id = sanitize_key( $_POST['hook-id'] );
 
 check_admin_referer( "save-delete-hook-{$hook_id}" );
 
-$redirect_path = 'admin.php?page=wordpoints_points_hooks';
+$redirect_url = self_admin_url( 'admin.php?page=wordpoints_points_hooks' );
 
 if ( is_network_admin() ) {
-
 	WordPoints_Points_Hooks::set_network_mode( true );
-	$redirect_url = network_admin_url( $redirect_path );
-
-} else {
-
-	$redirect_url = admin_url( $redirect_path );
 }
 
 if ( ! isset( $_POST['points_type'], $_POST['id_base'] ) ) {

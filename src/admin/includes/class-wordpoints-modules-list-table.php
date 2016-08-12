@@ -393,7 +393,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 				$status_links[ $type ] = sprintf(
 					"<a href='%s' %s>%s</a>"
-					, esc_attr( esc_url( add_query_arg( 'module_status', $type, 'admin.php?page=wordpoints_modules' ) ) )
+					, esc_attr( esc_url( add_query_arg( 'module_status', $type, self_admin_url( 'admin.php?page=wordpoints_modules' ) ) ) )
 					, ( $type === $status ) ? ' class="current"' : ''
 					, sprintf( $text, number_format_i18n( $count ) )
 				);
@@ -690,7 +690,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'delete'     => '',
 		);
 
-		$url = 'admin.php?page=wordpoints_modules&module=' . $module_file . '&module_status=' . $context . '&paged=' . $page . '&s=' . $s;
+		$url = self_admin_url( 'admin.php?page=wordpoints_modules&module=' . $module_file . '&module_status=' . $context . '&paged=' . $page . '&s=' . $s );
 
 		if ( $this->screen->in_admin( 'network' ) ) {
 
@@ -707,7 +707,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				}
 
 				if ( current_user_can( 'delete_wordpoints_modules' ) && ! is_wordpoints_module_active( $module_file ) ) {
-					$actions['delete'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s, 'bulk-modules' ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
+					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}
 			}
 
@@ -722,7 +722,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				$actions['activate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'activate', $url ), "activate-module_{$module_file}" ) . '" class="edit">' . esc_html__( 'Activate', 'wordpoints' ) . '</a>';
 
 				if ( ! is_multisite() && current_user_can( 'delete_wordpoints_modules' ) ) {
-					$actions['delete'] = '<a href="' . wp_nonce_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s, 'bulk-modules' ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
+					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}
 			}
 		}

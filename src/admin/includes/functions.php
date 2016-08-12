@@ -903,7 +903,7 @@ function wordpoints_upload_module_zip() {
 			array(
 				'title' => sprintf( esc_html__( 'Installing Module from uploaded file: %s', 'wordpoints' ), esc_html( basename( $file_upload->filename ) ) ),
 				'nonce' => 'wordpoints-module-upload',
-				'url'   => add_query_arg( array( 'package' => $file_upload->id ), 'update.php?action=upload-wordpoints-module' ),
+				'url'   => add_query_arg( array( 'package' => $file_upload->id ), self_admin_url( 'update.php?action=upload-wordpoints-module' ) ),
 				'type'  => 'upload',
 			)
 		)

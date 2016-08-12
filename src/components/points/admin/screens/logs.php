@@ -32,7 +32,12 @@ if ( is_network_admin() ) {
 
 	if ( empty( $points_types ) ) {
 
-		wordpoints_show_admin_error( sprintf( __( 'You need to <a href="%s">create a type of points</a> before you can use this page.', 'wordpoints' ), 'admin.php?page=wordpoints_points_types' ) );
+		wordpoints_show_admin_error(
+			sprintf(
+				__( 'You need to <a href="%s">create a type of points</a> before you can use this page.', 'wordpoints' )
+				, esc_url( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
+			)
+		);
 
 	} else {
 

@@ -53,12 +53,18 @@ if ( isset( $_GET['error'] ) ) {
 			&& wordpoints_verify_nonce( '_error_nonce', 'module-activation-error_%s', array( 'module' ) )
 		) {
 
+			$url = self_admin_url(
+				'admin.php?page=wordpoints_modules&action=error_scrape&amp;module='
+					. sanitize_text_field( wp_unslash( $_GET['module'] ) )
+					. '&amp;_wpnonce=' . sanitize_key( $_GET['_error_nonce'] )
+			);
+
 			?>
 
 			<div class="notice notice-error is-dismissible">
 				<p>
 					<?php echo wp_kses( $error_message, '' ); ?>
-					<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['module'] ) ) ); ?>&amp;_wpnonce=<?php echo esc_attr( sanitize_key( $_GET['_error_nonce'] ) ); ?>"></iframe>
+					<iframe style="border:0" width="100%" height="70px" src="<?php esc_url( $url ); ?>"></iframe>
 				</p>
 			</div>
 
@@ -167,12 +173,12 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php $wp_list_table->views(); ?>
 
-	<form method="get" action="admin.php">
+	<form method="get" action="<?php echo esc_url( self_admin_url( 'admin.php' ) ) ); ?>">
 		<input type="hidden" name="page" value="wordpoints_modules" />
 		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Modules', 'wordpoints' ), 'module' ); ?>
 	</form>
 
-	<form method="post" action="admin.php?page=wordpoints_modules">
+	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) ); ?>">
 		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ) ?>" />
 		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ) ?>" />
 		<?php $wp_list_table->display(); ?>

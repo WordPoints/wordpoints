@@ -472,7 +472,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 				</div>
 			<?php endif; ?>
 			<div class="wordpoints-points-logs-search">
-				<form method="POST" action="<?php echo esc_attr( esc_url( remove_query_arg( 'wordpoints_points_logs_page' ) ) ); ?>">
+				<form method="POST" action="<?php echo esc_url( remove_query_arg( 'wordpoints_points_logs_page' ) ); ?>">
 					<label class="screen-reader-text" for="wordpoints_points_logs_search">
 						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
 					</label>

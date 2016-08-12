@@ -154,7 +154,7 @@ if ( isset( $_GET['error'] ) ) {
 		<?php esc_html_e( 'WordPoints Modules', 'wordpoints' ); ?>
 
 		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) : ?>
-			<a href="<?php echo esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
+			<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>

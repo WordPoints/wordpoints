@@ -204,7 +204,7 @@ switch ( $action ) {
 		$redirect_url = add_query_arg( 'deactivate', 'true', $redirect_url );
 
 		if ( headers_sent() ) {
-			echo '<meta http-equiv="refresh" content="' . esc_attr( '0;url=' . $redirect_url ) . '" />';
+			echo '<meta http-equiv="refresh" content="0;url=' . esc_url( $redirect_url ) . '" />';
 		} else {
 			wp_safe_redirect( $redirect_url );
 		}
@@ -410,7 +410,7 @@ switch ( $action ) {
 					<?php wp_nonce_field( 'bulk-modules' ) ?>
 					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
-				<form method="post" action="<?php echo esc_attr( esc_url( wp_get_referer() ) ); ?>" style="display:inline;">
+				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" style="display:inline;">
 					<?php submit_button( __( 'No, Return me to the module list', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
 
@@ -464,7 +464,7 @@ $screen->add_help_tab(
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
 			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>
-			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
+			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'http://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 

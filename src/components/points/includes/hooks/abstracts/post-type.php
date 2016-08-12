@@ -231,7 +231,7 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 
 		$args = array();
 
-		$args[] = '<a href="' . esc_attr( $url ) . '">'
+		$args[] = '<a href="' . esc_url( $url ) . '">'
 			. ( $post_title ? $post_title : _x( '(no title)', 'post title', 'wordpoints' ) )
 			. '</a>';
 

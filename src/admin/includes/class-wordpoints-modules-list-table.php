@@ -393,7 +393,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 				$status_links[ $type ] = sprintf(
 					"<a href='%s' %s>%s</a>"
-					, esc_attr( esc_url( add_query_arg( 'module_status', $type, self_admin_url( 'admin.php?page=wordpoints_modules' ) ) ) )
+					, esc_url( add_query_arg( 'module_status', $type, self_admin_url( 'admin.php?page=wordpoints_modules' ) ) )
 					, ( $type === $status ) ? ' class="current"' : ''
 					, sprintf( $text, number_format_i18n( $count ) )
 				);
@@ -585,14 +585,14 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 									$author = $module_data['author'];
 
 									if ( ! empty( $module_data['author_uri'] ) ) {
-										$author = '<a href="' . esc_attr( esc_url( $module_data['author_uri'] ) ) . '">' . esc_html( $module_data['author'] ) . '</a>';
+										$author = '<a href="' . esc_url( $module_data['author_uri'] ) . '">' . esc_html( $module_data['author'] ) . '</a>';
 									}
 
 									$module_meta[] = sprintf( __( 'By %s', 'wordpoints' ), $author );
 								}
 
 								if ( ! empty( $module_data['module_uri'] ) ) {
-									$module_meta[] = '<a href="' . esc_attr( esc_url( $module_data['module_uri'] ) ) . '">' . esc_html__( 'Visit module site', 'wordpoints' ) . '</a>';
+									$module_meta[] = '<a href="' . esc_url( $module_data['module_uri'] ) . '">' . esc_html__( 'Visit module site', 'wordpoints' ) . '</a>';
 								}
 
 								/**

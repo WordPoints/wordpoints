@@ -1249,4 +1249,22 @@ function wordpoints_construct_class_with_args( $class_name, array $args ) {
 	}
 }
 
+/**
+ * Check if a function is disabled by PHP's `disabled_functions` INI directive.
+ *
+ * @since 2.2.0
+ *
+ * @param string $function The name of the function to check.
+ *
+ * @return bool Whether the function is disabled.
+ */
+function wordpoints_is_function_disabled( $function ) {
+
+	if ( 'set_time_limit' === $function && ini_get( 'safe_mode' ) ) {
+		return true;
+	}
+
+	return in_array( $function, explode( ',', ini_get( 'disable_functions' ) ) );
+}
+
 // EOF

@@ -316,7 +316,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->network_wide = $network;
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -398,7 +398,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->action = 'install';
 		$this->network_wide = true;
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -434,7 +434,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->load_base_dependencies();
 		$this->load_dependencies();
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -544,7 +544,7 @@ abstract class WordPoints_Un_Installer_Base {
 			return;
 		}
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -617,6 +617,20 @@ abstract class WordPoints_Un_Installer_Base {
 	//
 	// Protected Methods.
 	//
+
+	/**
+	 * Prevent any interruptions from occurring during the update.
+	 *
+	 * @since 2.2.0
+	 */
+	protected function no_interruptions() {
+
+		ignore_user_abort( true );
+
+		if ( ! wordpoints_is_function_disabled( 'set_time_limit' ) ) {
+			set_time_limit( 0 );
+		}
+	}
 
 	/**
 	 * Check whether we should run the install for each site in the network.

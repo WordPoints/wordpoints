@@ -882,7 +882,7 @@ function wordpoints_install_modules_upload() {
 function wordpoints_upload_module_zip() {
 
 	if ( ! current_user_can( 'install_wordpoints_modules' ) ) {
-		wp_die( esc_html__( 'You do not have sufficient permissions to install WordPoints modules on this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+		wp_die( esc_html__( 'Sorry, you are not allowed to install WordPoints modules on this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 	}
 
 	check_admin_referer( 'wordpoints-module-upload' );

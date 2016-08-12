@@ -197,7 +197,7 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $id_base The basic identifier the the type of hook.
+	 * @param string $id_base The basic identifier the type of hook.
 	 *
 	 * @return WordPoints_Points_Hook|false False if no handler found.
 	 */

@@ -533,7 +533,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 	}
 
 	/**
-	 * Update a network or regular option based on the the current hook mode.
+	 * Update a network or regular option based on the current hook mode.
 	 *
 	 * @since 2.1.0
 	 *

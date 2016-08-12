@@ -368,7 +368,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @param WordPoints_Entity $arg          The object for the main event arg.
 	 * @param string            $reactor_slug The reactor slug.
 	 *
-	 * @return mixed The ID of the the $arg in the event. You may also return an
+	 * @return mixed The ID of the $arg in the event. You may also return an
 	 *               array of args, for each of which the event has been fired.
 	 */
 	abstract protected function fire_event( $arg, $reactor_slug );

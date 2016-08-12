@@ -40,7 +40,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTes
 	}
 
 	/**
-	 * That that the modules screen is displayed.
+	 * That the modules screen is displayed.
 	 *
 	 * @since 2.0.0
 	 */

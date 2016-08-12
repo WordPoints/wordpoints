@@ -82,7 +82,7 @@ class WordPoints_Uninstall_Test extends WP_Plugin_Uninstall_UnitTestCase {
 		 * Install.
 		 */
 
-		// Check the the basic plugin data option was added.
+		// Check that the basic plugin data option was added.
 		if ( $this->network_active ) {
 			$wordpoints_data = get_site_option( 'wordpoints_data' );
 		} else {

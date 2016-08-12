@@ -280,7 +280,7 @@ class WordPoints_Hook_Extension_Periods
 	}
 
 	/**
-	 * Get a a period from the database by ID.
+	 * Get a period from the database by ID.
 	 *
 	 * @since 2.1.0
 	 *

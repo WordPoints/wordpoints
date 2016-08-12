@@ -84,7 +84,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @return array The classes for the the table.
+	 * @return array The classes for the table.
 	 */
 	public function get_table_classes() {
 

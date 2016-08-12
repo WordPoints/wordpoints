@@ -91,7 +91,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		restore_current_blog();
 
-		// Now we'll do do the same for a third blog.
+		// Now we'll do the same for a third blog.
 		$blog_id_2 = $this->factory->blog->create();
 
 		switch_to_blog( $blog_id_2 );
@@ -320,7 +320,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that that emojis work in logs wen they are regenerated.
+	 * Test that emojis work in logs wen they are regenerated.
 	 *
 	 * @since 2.0.0
 	 *
@@ -351,7 +351,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that that emojis in logs are encoded if needed.
+	 * Test that emojis in logs are encoded if needed.
 	 *
 	 * @since 2.0.0
 	 *

@@ -61,7 +61,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_Points_Unit
 	}
 
 	/**
-	 * Test that the the user's points are updated successfully.
+	 * Test that the user's points are updated successfully.
 	 *
 	 * @since 1.9.2
 	 */

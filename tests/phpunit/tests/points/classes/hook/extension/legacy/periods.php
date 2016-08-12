@@ -89,7 +89,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 	}
 
 	/**
-	 * Data provider for the the 'relative' period setting
+	 * Data provider for the 'relative' period setting
 	 *
 	 * @since 2.1.0
 	 *

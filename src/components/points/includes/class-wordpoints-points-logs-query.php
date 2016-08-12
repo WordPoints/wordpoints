@@ -77,7 +77,7 @@ class WordPoints_Points_Logs_Query {
 	private $_cache_group;
 
 	/**
-	 * The hash of the query for looking it up the the cache.
+	 * The hash of the query for looking it up the cache.
 	 *
 	 * @since 1.6.0
 	 *

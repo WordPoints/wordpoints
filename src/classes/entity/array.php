@@ -10,7 +10,7 @@
 /**
  * Represents an array of entities.
  *
- * All of the entities an an array must be of the same type. For example, you can
+ * All of the entities an array must be of the same type. For example, you can
  * have an array of Posts, or an array of Users, but you cannot have an array of
  * Posts and Users both together.
  *

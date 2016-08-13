@@ -403,10 +403,15 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 			if ( $textdomain ) {
 
-				if ( $module_data['domain_path'] ) {
-					wordpoints_load_module_textdomain( $textdomain, dirname( $module_file ) . $module_data['domain_path'] );
-				} else {
-					wordpoints_load_module_textdomain( $textdomain, dirname( $module_file ) );
+				if ( ! is_textdomain_loaded( $textdomain ) ) {
+
+					$domain_path = dirname( $module_file );
+
+					if ( $module_data['domain_path'] ) {
+						$domain_path .= $module_data['domain_path'];
+					}
+
+					wordpoints_load_module_textdomain( $textdomain, $domain_path );
 				}
 
 				foreach ( array( 'name', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {

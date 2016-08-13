@@ -1351,14 +1351,28 @@ Reaction = Base.extend({
 	template: wp.wordpoints.hooks.template( 'hook-reaction' ),
 
 	// The DOM events specific to an item.
-	events: {
-		'click .actions .delete':    'confirmDelete',
-		'click .save':      'save',
-		'click .cancel':    'cancel',
-		'click .close':     'close',
-		'click .edit':      'edit',
-		'change .fields *': 'lockOpen',
-		'keyup input':      'maybeLockOpen'
+	events: function () {
+
+		var events = {
+			'click .actions .delete': 'confirmDelete',
+			'click .save':            'save',
+			'click .cancel':          'cancel',
+			'click .close':           'close',
+			'click .edit':            'edit',
+			'change .fields *':       'lockOpen'
+		};
+
+		/*
+		 * Use feature detection to determine whether we should use the `input`
+		 * event. Input is preferred but lacks support in legacy browsers.
+		 */
+		if ( 'oninput' in document.createElement( 'input' ) ) {
+			events['input input'] = 'lockOpen';
+		} else {
+			events['keyup input'] = 'maybeLockOpen';
+		}
+
+		return events;
 	},
 
 	initialize: function () {

@@ -116,14 +116,28 @@ jQuery( function ( $ ) {
 		tagName: 'li',
 
 		// The DOM events specific to an item.
-		events: {
-			'click .delete': 'confirmDelete',
-			'click .save':   'save',
-			'click .cancel': 'cancel',
-			'click .close':  'close',
-			'click .edit':   'edit',
-			'change form *': 'lockOpen',
-			'keyup input':   'maybeLockOpen'
+		events: function () {
+
+			var events = {
+				'click .delete': 'confirmDelete',
+				'click .save':   'save',
+				'click .cancel': 'cancel',
+				'click .close':  'close',
+				'click .edit':   'edit',
+				'change form *': 'lockOpen'
+			};
+
+			/*
+			 * Use feature detection to determine whether we should use the `input`
+			 * event. Input is preferred but lacks support in legacy browsers.
+			 */
+			if ( 'oninput' in document.createElement( 'input' ) ) {
+				events['input input'] = 'lockOpen';
+			} else {
+				events['keyup input'] = 'maybeLockOpen';
+			}
+
+			return events;
 		},
 
 		// The Rank view listens for changes to its model, re-rendering. Since there's

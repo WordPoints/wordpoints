@@ -493,4 +493,12 @@ register_column_headers(
 	)
 );
 
+$screen->set_screen_reader_content(
+	array(
+		'heading_views'      => __( 'Filter modules list', 'wordpoints' ),
+		'heading_pagination' => __( 'Modules list navigation', 'wordpoints' ),
+		'heading_list'       => __( 'Modules list', 'wordpoints' ),
+	)
+);
+
 // EOF

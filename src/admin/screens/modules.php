@@ -64,7 +64,7 @@ if ( isset( $_GET['error'] ) ) {
 			<div class="notice notice-error is-dismissible">
 				<p>
 					<?php echo wp_kses( $error_message, '' ); ?>
-					<iframe style="border:0" width="100%" height="70px" src="<?php esc_url( $url ); ?>"></iframe>
+					<iframe style="border:0" width="100%" height="70px" src="<?php echo esc_url( $url ); ?>"></iframe>
 				</p>
 			</div>
 
@@ -173,12 +173,12 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php $wp_list_table->views(); ?>
 
-	<form method="get" action="<?php echo esc_url( self_admin_url( 'admin.php' ) ) ); ?>">
+	<form method="get" action="<?php echo esc_url( self_admin_url( 'admin.php' ) ); ?>">
 		<input type="hidden" name="page" value="wordpoints_modules" />
 		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Modules', 'wordpoints' ), 'module' ); ?>
 	</form>
 
-	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) ); ?>">
+	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ); ?>">
 		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ) ?>" />
 		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ) ?>" />
 		<?php $wp_list_table->display(); ?>

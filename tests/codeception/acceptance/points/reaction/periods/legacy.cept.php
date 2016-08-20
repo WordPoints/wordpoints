@@ -24,7 +24,7 @@ $I->hadCreatedAPointsReaction(
 	)
 );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' );
-$I->waitForElementVisible( '#points-user_visit .wordpoints-hook-reaction' );
+$I->waitForElement( '#points-user_visit .wordpoints-hook-reaction' );
 $I->click( 'Edit', '#points-user_visit .wordpoints-hook-reaction' );
 $I->see( 'Rate Limit', '#points-user_visit .wordpoints-hook-reaction' );
 $I->cantSeeElement( '#points-user_visit .wordpoints-hook-reaction [name="periods[fire][0][length]"]' );

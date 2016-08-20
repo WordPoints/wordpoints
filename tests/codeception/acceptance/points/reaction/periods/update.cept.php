@@ -13,8 +13,8 @@ $I->hadCreatedAPointsReaction(
 	array( 'event' => 'user_visit', 'target' => array( 'current:user' ) )
 );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' );
+$I->waitForElementVisible( '#points-user_visit .wordpoints-hook-reaction' );
 $I->click( 'Edit', '#points-user_visit .wordpoints-hook-reaction' );
-$I->wait( 1 );
 $I->see( 'Rate Limit', '#points-user_visit .wordpoints-hook-reaction' );
 $I->canSeeOptionIsSelected(
 	'#points-user_visit .wordpoints-hook-reaction [name="periods[fire][0][length]"]'

@@ -17,7 +17,7 @@ $I->hadCreatedAPointsReaction(
 			'fire' => array(
 				array(
 					'arg' => array( 'current:user' ),
-					'length' => HOUR_IN_SECONDS
+					'length' => HOUR_IN_SECONDS,
 				),
 			),
 		),

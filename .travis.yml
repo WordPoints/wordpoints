@@ -71,8 +71,6 @@ script:
     - wpcept-run
 
 after_script:
-    - cat tests/codeception/_output/pointsreactionperiodsupdate.cept.fail.html
-    - cat tests/codeception/_output/pointsreactionperiodslegacy.cept.fail.html
     - ls -l build/logs/
     - composer require --prefer-source satooshi/php-coveralls:'~1.0'
     - source $DEV_LIB_PATH/travis/after_script.sh

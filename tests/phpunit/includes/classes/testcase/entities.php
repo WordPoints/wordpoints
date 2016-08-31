@@ -16,6 +16,17 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 	extends WordPoints_PHPUnit_TestCase {
 
 	/**
+	 * Data provider for the entities test.
+	 *
+	 * Should provide a list of entities to test.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @return array[]
+	 */
+	abstract public function data_provider_entities();
+
+	/**
 	 * Test an entity
 	 *
 	 * @since 2.1.0
@@ -49,8 +60,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 		$this->assertEquals(
 			$the_human_id
-			,
-			$entity->get_human_id( $the_id )
+			, $entity->get_human_id( $the_id )
 		);
 
 		$this->assertTrue( $entity->exists( $the_id ) );
@@ -62,8 +72,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		$this->assertEquals( $the_id, $entity->get_the_id() );
 		$this->assertEquals(
 			$the_human_id
-			,
-			$entity->get_the_attr_value( $data['human_id_field'] )
+			, $entity->get_the_attr_value( $data['human_id_field'] )
 		);
 
 		if ( isset( $data['context'] ) ) {
@@ -99,22 +108,34 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		$this->assertEquals( $the_id, $entity->get_the_id() );
 		$this->assertEquals(
 			$the_human_id
-			,
-			$entity->get_the_attr_value( $data['human_id_field'] )
+			, $entity->get_the_attr_value( $data['human_id_field'] )
 		);
 
 		if ( $entity instanceof WordPoints_Entity_Restricted_VisibilityI ) {
 
 			$can_view = ( isset( $data['can_view'] ) ) ? $data['can_view'] : $the_id;
 
-			$user_id = $this->factory->user->create();
+			foreach ( (array) $can_view as $user_id => $entity_id ) {
 
-			$this->assertTrue(
-				$entity->user_can_view( $user_id, $can_view )
-			);
-			$this->assertFalse(
-				$entity->user_can_view( $user_id, $data['cant_view'] )
-			);
+				if ( empty( $user_id ) ) {
+					$user_id = $this->factory->user->create();
+				}
+
+				$this->assertTrue(
+					$entity->user_can_view( $user_id, $entity_id )
+				);
+			}
+
+			foreach ( (array) $data['cant_view'] as $user_id => $entity_id ) {
+
+				if ( empty( $user_id ) ) {
+					$user_id = $this->factory->user->create();
+				}
+
+				$this->assertFalse(
+					$entity->user_can_view( $user_id, $entity_id )
+				);
+			}
 		}
 
 		if ( isset( $data['children'] ) ) {
@@ -131,16 +152,14 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 				$this->assertEquals(
 					$child_data['storage_info']
-					,
-					$child->get_storage_info()
+					, $child->get_storage_info()
 				);
 
 				if ( $child instanceof WordPoints_Entity_Attr ) {
 
 					$this->assertEquals(
 						$child_data['data_type']
-						,
-						$child->get_data_type()
+						, $child->get_data_type()
 					);
 
 					$child->set_the_value_from_entity( $entity );
@@ -149,14 +168,12 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 					$this->assertEquals(
 						$child_data['primary']
-						,
-						$child->get_primary_entity_slug()
+						, $child->get_primary_entity_slug()
 					);
 
 					$this->assertEquals(
 						$child_data['related']
-						,
-						$child->get_related_entity_slug()
+						, $child->get_related_entity_slug()
 					);
 
 					$child->set_the_value_from_entity( $entity );

@@ -268,7 +268,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		foreach ( $module_data as $value ) {
 
-			if ( false !== stripos( $value, $term ) ) {
+			if ( false !== stripos( strip_tags( $value ), $term ) ) {
 				return true;
 			}
 		}

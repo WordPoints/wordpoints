@@ -34,6 +34,8 @@ abstract class WordPoints_Entity
 	 * multisite—when not on multisite they are just global to the install). Entities
 	 * with other contexts need to specify that by overriding this property.
 	 *
+	 * You must either define this or override get_context() in your subclass.
+	 *
 	 * @since 2.1.0
 	 *
 	 * @see wordpoints_entities_get_current_context_id()

@@ -44,8 +44,13 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 		$the_entity = call_user_func( $data['create_func'] );
 
-		$the_id       = $the_entity->{$data['id_field']};
-		$the_human_id = $the_entity->{$data['human_id_field']};
+		$the_id = $the_entity->{$data['id_field']};
+
+		if ( isset( $data['human_id_field'] ) ) {
+			$the_human_id = $the_entity->{$data['human_id_field']};
+		} else {
+			$the_human_id = call_user_func( $data['get_human_id'], $the_entity );
+		}
 
 		$this->assertNotEmpty( $entity->get_title() );
 
@@ -65,15 +70,17 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 		$this->assertTrue( $entity->exists( $the_id ) );
 
-		$this->assertTrue(
-			$entity->set_the_value( $the_entity )
-		);
+		$this->assertTrue( $entity->set_the_value( $the_entity ) );
 		$this->assertEquals( $the_id, $entity->get_the_value() );
 		$this->assertEquals( $the_id, $entity->get_the_id() );
-		$this->assertEquals(
-			$the_human_id
-			, $entity->get_the_attr_value( $data['human_id_field'] )
-		);
+		$this->assertEquals( $the_human_id, $entity->get_the_human_id() );
+
+		if ( isset( $data['human_id_field'] ) ) {
+			$this->assertEquals(
+				$the_human_id
+				, $entity->get_the_attr_value( $data['human_id_field'] )
+			);
+		}
 
 		if ( isset( $data['context'] ) ) {
 
@@ -102,14 +109,6 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 				$entity->get_the_context()
 			);
 		}
-
-		$this->assertTrue( $entity->set_the_value( $the_id ) );
-		$this->assertEquals( $the_id, $entity->get_the_value() );
-		$this->assertEquals( $the_id, $entity->get_the_id() );
-		$this->assertEquals(
-			$the_human_id
-			, $entity->get_the_attr_value( $data['human_id_field'] )
-		);
 
 		if ( $entity instanceof WordPoints_Entity_Restricted_VisibilityI ) {
 
@@ -294,10 +293,18 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 	 * Creates a role.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.2.0 Use $this->factory->wordpoints->user_role->create_and_get()
+	 *                   instead.
 	 *
 	 * @return object The role object.
 	 */
 	public function create_role() {
+
+		_deprecated_function(
+			__FUNCTION__
+			, '2.2.0'
+			, '$this->factory->wordpoints->user_role->create_and_get()'
+		);
 
 		global $wp_roles;
 
@@ -313,6 +320,29 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		$role->_display_name = $names[ $role->name ];
 
 		return $role;
+	}
+
+	/**
+	 * Gets the display name for a role.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param WP_Role $role The role object.
+	 *
+	 * @return string The display name of the role.
+	 */
+	public function get_role_display_name( $role ) {
+
+		global $wp_roles;
+
+		if ( ! isset( $wp_roles ) ) {
+			$wp_roles = new WP_Roles();
+		}
+
+		$names = $wp_roles->get_names();
+
+		// See https://core.trac.wordpress.org/ticket/34608
+		return $names[ $role->name ];
 	}
 }
 

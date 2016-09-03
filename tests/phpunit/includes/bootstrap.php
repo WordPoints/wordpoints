@@ -22,6 +22,33 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
  */
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
+/**
+ * Class autoloader for PHPUnit tests and helpers from the dev lib.
+ *
+ * @since 2.2.0
+ */
+require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib-wordpoints/phpunit/classes/class/autoloader.php' );
+
+WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_TESTS_DIR . '/tests/'
+	, 'WordPoints_'
+);
+
+WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_TESTS_DIR . '/tests/classes/'
+	, 'WordPoints_'
+);
+
+WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_TESTS_DIR . '/tests/points/classes/'
+	, 'WordPoints_Points_'
+);
+
+WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_TESTS_DIR . '/includes/classes/'
+	, 'WordPoints_PHPUnit_'
+);
+
 if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 	/**
 	 * The WP plugin uninstall testing functions.
@@ -71,9 +98,6 @@ if (
 	// If we aren't running the uninstall tests, we need to hook in to load the plugin.
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 }
-
-// Now that our functions are loaded, we can register the autoloader function.
-spl_autoload_register( 'wordpoints_phpunit_autoloader' );
 
 /**
  * Checks which groups we are running, and gives helpful messages.

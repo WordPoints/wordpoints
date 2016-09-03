@@ -14,10 +14,17 @@
  * always loaded during the tests.
  *
  * @since 2.1.0
+ * @deprecated 2.2.0 Use WordPoints_Dev_Lib_PHPUnit_Class_Autoloader instead.
  *
  * @param string $class_name The name of the class to load.
  */
 function wordpoints_phpunit_autoloader( $class_name ) {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '2.2.0'
+		, 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader'
+	);
 
 	// Autoloading for tests, in case they sub-class one another (which generally
 	// they shouldn't).

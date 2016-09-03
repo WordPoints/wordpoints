@@ -22,12 +22,14 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
  */
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
-/**
- * Class autoloader for PHPUnit tests and helpers from the dev lib.
- *
- * @since 2.2.0
- */
-require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib-wordpoints/phpunit/classes/class/autoloader.php' );
+if ( ! class_exists( 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader' ) ) {
+	/**
+	 * Class autoloader for PHPUnit tests and helpers from the dev lib.
+	 *
+	 * @since 2.2.0
+	 */
+	require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib-wordpoints/phpunit/classes/class/autoloader.php' );
+}
 
 WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
 	WORDPOINTS_TESTS_DIR . '/tests/'

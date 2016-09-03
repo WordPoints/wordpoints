@@ -62,6 +62,17 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	protected $wordpoints_component;
 
 	/**
+	 * The slug of the WordPoints module that this testcase is for.
+	 *
+	 * The slug of the module is the name of its base directory.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var string
+	 */
+	protected $wordpoints_module;
+
+	/**
 	 * The database schema defined by this component.
 	 *
 	 * @see self::get_db_schema()
@@ -405,6 +416,36 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		wordpoints_update_maybe_network_option(
 			'wordpoints_active_components'
 			, array( $component => 1 )
+		);
+
+		// Run the update.
+		WordPoints_Installables::maybe_do_updates();
+	}
+
+	/**
+	 * Run an update for a module.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $module The slug of the module to update.
+	 * @param string $from   The version to update from.
+	 */
+	protected function update_module( $module = null, $from = null ) {
+
+		if ( ! isset( $module ) ) {
+			$module = $this->wordpoints_module;
+		}
+
+		if ( ! isset( $from ) ) {
+			$from = $this->previous_version;
+		}
+
+		$this->set_module_db_version( $module, $from );
+
+		// Make sure that the module is marked as active in the database.
+		wordpoints_update_maybe_network_option(
+			'wordpoints_active_modules'
+			, array( $module => 1 )
 		);
 
 		// Run the update.

@@ -238,21 +238,17 @@ function wordpoints_modules_dir() {
 
 			$modules_dir = WP_CONTENT_DIR . '/wordpoints-modules/';
 		}
-
-		/**
-		 * Filter the path to the modules directory.
-		 *
-		 * Note that the value is stored in a static variable, and so is only
-		 * calculated once, meaning that it wont change during a single page load.
-		 *
-		 * @since 1.1.0
-		 *
-		 * @param string $module_dir The full path to the modules folder.
-		 */
-		$modules_dir = apply_filters( 'wordpoints_modules_dir', $modules_dir );
 	}
 
-	return $modules_dir;
+	/**
+	 * Filter the path to the modules directory.
+	 *
+	 * @since 1.1.0
+	 * @since 2.2.0 The filter is no longer called only once per page load.
+	 *
+	 * @param string $module_dir The full path to the modules folder.
+	 */
+	return apply_filters( 'wordpoints_modules_dir', $modules_dir );
 }
 
 /**

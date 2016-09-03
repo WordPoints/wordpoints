@@ -84,6 +84,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 		$this->http_requests = array();
 
 		add_filter( 'pre_http_request', array( $this, 'http_request_listner' ), 10, 3 );
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 	}
 
 	/**

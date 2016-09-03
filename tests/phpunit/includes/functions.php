@@ -71,7 +71,6 @@ function wordpointstests_manually_load_plugin() {
 
 	global $wpdb;
 
-	add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 	add_filter( 'wordpoints_component_active', '__return_true', 100 );
 	add_action( 'wordpoints_components_loaded', 'wordpointstests_manually_activate_components', 0 );
 
@@ -107,8 +106,6 @@ function wordpointstests_manually_load_plugin() {
  * Get the modules directory for the test modules.
  *
  * @since 1.1.0
- *
- * @filter wordpoints_modules_dir Added by wordpointstests_manually_load_plugin()
  *
  * @return string The path to the test modules directory.
  */

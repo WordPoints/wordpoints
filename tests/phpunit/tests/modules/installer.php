@@ -70,6 +70,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 
 		parent::setUp();
 
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 		add_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
 		add_filter( 'upgrader_pre_download', array( $this, 'module_package' ) );
 

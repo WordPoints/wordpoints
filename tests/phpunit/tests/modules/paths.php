@@ -14,7 +14,17 @@
  *
  * @covers WordPoints_Module_Paths
  */
-class WordPoints_Module_Paths_Test extends WordPoints_UnitTestCase {
+class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+	}
 
 	/**
 	 * Test that paths are normalized.

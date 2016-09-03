@@ -15,7 +15,7 @@
  *
  * @group modules
  */
-class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
+class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Expected basic module header data.
@@ -40,6 +40,16 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 		'channel'     => '',
 		'ID'          => '',
 	);
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+	}
 
 	/**
 	 * Test wordpoints_module_basename().

@@ -137,6 +137,30 @@ class WordPoints_Mock_Filter {
 	}
 
 	/**
+	 * Stop listening to an action.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $action   The name of the action to stop listening to.
+	 * @param int    $priority The priority of this callback.
+	 */
+	public function remove_action( $action, $priority = 10 ) {
+		remove_action( $action, array( $this, 'action' ), $priority );
+	}
+
+	/**
+	 * Stop listening to a filter.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $filter   The name of the filter to stop listening to.
+	 * @param int    $priority The priority of this callback.
+	 */
+	public function remove_filter( $filter, $priority = 10 ) {
+		remove_filter( $filter, array( $this, 'filter' ), $priority );
+	}
+
+	/**
 	 * Listen for the ID of the current user when a filter runs.
 	 *
 	 * @since 2.1.0

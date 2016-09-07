@@ -234,7 +234,9 @@ $factory->register( 'hook_extension', 'WordPoints_PHPUnit_Factory_For_Hook_Exten
 $factory->register( 'hook_event', 'WordPoints_PHPUnit_Factory_For_Hook_Event' );
 $factory->register( 'hook_action', 'WordPoints_PHPUnit_Factory_For_Hook_Action' );
 $factory->register( 'hook_condition', 'WordPoints_PHPUnit_Factory_For_Hook_Condition' );
+$factory->register( 'points_log', 'WordPoints_PHPUnit_Factory_For_Points_Log' );
 $factory->register( 'post_type', 'WordPoints_PHPUnit_Factory_For_Post_Type' );
+$factory->register( 'rank', 'WordPoints_PHPUnit_Factory_For_Rank' );
 $factory->register( 'user_role', 'WordPoints_PHPUnit_Factory_For_User_Role' );
 
 global $EZSQL_ERROR;

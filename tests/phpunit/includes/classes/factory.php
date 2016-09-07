@@ -20,7 +20,9 @@
  * @property-read WordPoints_PHPUnit_Factory_For_Hook_Reaction $hook_reaction
  * @property-read WordPoints_PHPUnit_Factory_For_Hook_Reaction_Store $hook_reaction_store
  * @property-read WordPoints_PHPUnit_Factory_For_Hook_Reactor $hook_reactor
+ * @property-read WordPoints_PHPUnit_Factory_For_Points_Log $points_log
  * @property-read WordPoints_PHPUnit_Factory_For_Post_Type $post_type
+ * @property-read WordPoints_PHPUnit_Factory_For_Rank $rank
  * @property-read WordPoints_PHPUnit_Factory_For_User_Role $user_role
  */
 class WordPoints_PHPUnit_Factory {

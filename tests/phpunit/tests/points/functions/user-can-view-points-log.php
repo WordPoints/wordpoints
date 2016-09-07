@@ -24,7 +24,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_can_view_by_default() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$this->assertTrue(
@@ -41,7 +41,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_calls_generic_filter() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$filter = new WordPoints_Mock_Filter();
@@ -66,7 +66,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_calls_specific_filter() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$filter = new WordPoints_Mock_Filter();
@@ -95,7 +95,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_specific_filter_value_passed_to_generic_filter() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$generic_filter = new WordPoints_Mock_Filter();
@@ -125,7 +125,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_sets_current_user_when_calling_specific_filter() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$generic_filter = new WordPoints_Mock_Filter();
@@ -159,7 +159,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_returns_false_if_generic_filter_returns_false() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$filter = new WordPoints_Mock_Filter( false );
@@ -179,7 +179,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_returns_false_if_specific_filter_returns_false() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
 		$filter = new WordPoints_Mock_Filter( false );
@@ -204,7 +204,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
 		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => $event_slug )
 		);
 
@@ -223,7 +223,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	public function test_hooks_returns_true_for_unrecognized_event() {
 
 		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => 'not_event' )
 		);
 
@@ -244,7 +244,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
 		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => $event_slug )
 		);
 
@@ -265,7 +265,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
 		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
@@ -298,7 +298,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
 		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
@@ -322,7 +322,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
 		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => "reverse-{$event_slug}",
 				'log_meta' => array( 'test_entity' => 1 ),
@@ -355,11 +355,11 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
 		$user_id         = $this->factory->user->create();
-		$original_log_id = $this->factory->wordpoints_points_log->create(
+		$original_log_id = $this->factory->wordpoints->points_log->create(
 			array( 'log_meta' => array( 'test_entity' => 1 ) )
 		);
 
-		$log = $this->factory->wordpoints_points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => "reverse-{$event_slug}",
 				'log_meta' => array( 'original_log_id' => $original_log_id ),

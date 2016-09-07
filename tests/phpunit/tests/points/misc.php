@@ -334,7 +334,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
 		}
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 
 		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
 
@@ -359,7 +359,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_emoji_in_log_utf8() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 
 		$filter = new WordPoints_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );

@@ -71,7 +71,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 	public function test_datatables_attribute() {
 
 		// Create some data for the table to display.
-		$this->factory->wordpoints_points_log->create_many( 4 );
+		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		$_GET['wordpoints_points_logs_per_page'] = 3;
 
@@ -127,7 +127,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 	public function test_paginate_attribute() {
 
 		// Create some data for the table to display.
-		$this->factory->wordpoints_points_log->create_many( 4 );
+		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		$_GET['wordpoints_points_logs_per_page'] = 3;
 
@@ -280,8 +280,8 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 	public function test_searchabe_attribute() {
 
 		// Create some data for the table to display.
-		$this->factory->wordpoints_points_log->create_many( 2 );
-		$this->factory->wordpoints_points_log->create_many( 2, array( 'text' => __METHOD__ ) );
+		$this->factory->wordpoints->points_log->create_many( 2 );
+		$this->factory->wordpoints->points_log->create_many( 2, array( 'text' => __METHOD__ ) );
 
 		$_POST['wordpoints_points_logs_search'] = __METHOD__;
 

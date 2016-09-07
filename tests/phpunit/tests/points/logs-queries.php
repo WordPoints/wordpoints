@@ -443,15 +443,15 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_text_args() {
 
-		$log_id_1 = $this->factory->wordpoints_points_log->create(
+		$log_id_1 = $this->factory->wordpoints->points_log->create(
 			array( 'text' => 'Test searching 100.' )
 		);
 
-		$log_id_2 = $this->factory->wordpoints_points_log->create(
+		$log_id_2 = $this->factory->wordpoints->points_log->create(
 			array( 'text' => 'A test with 100%.' )
 		);
 
-		$log_id_3 = $this->factory->wordpoints_points_log->create(
+		$log_id_3 = $this->factory->wordpoints->points_log->create(
 			array( 'text' => 'A test.' )
 		);
 
@@ -732,7 +732,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page() {
 
-		$ids = $this->factory->wordpoints_points_log->create_many( 9 );
+		$ids = $this->factory->wordpoints->points_log->create_many( 9 );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'orderby' => 'id', 'order' => 'ASC' )
@@ -778,7 +778,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page_doesnt_alter_main_query() {
 
-		$this->factory->wordpoints_points_log->create_many( 2 );
+		$this->factory->wordpoints->points_log->create_many( 2 );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'orderby' => 'id', 'order' => 'ASC' )
@@ -798,7 +798,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page_uses_cache() {
 
-		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
 
 		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
@@ -834,7 +834,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_pages_cached_individually() {
 
-		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
 
 		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
 
@@ -883,7 +883,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page_with_start() {
 
-		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'start' => 2, 'orderby' => 'id', 'order' => 'ASC' )
@@ -906,7 +906,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page_with_limit() {
 
-		$ids = $this->factory->wordpoints_points_log->create_many( 5 );
+		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'limit' => 3, 'orderby' => 'id', 'order' => 'ASC' )
@@ -923,7 +923,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_set_args_alters_query_args() {
 
-		$this->factory->wordpoints_points_log->create_many( 2 );
+		$this->factory->wordpoints->points_log->create_many( 2 );
 
 		$query = new WordPoints_Points_Logs_Query;
 
@@ -941,7 +941,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_set_args_resets_cache() {
 
-		$this->factory->wordpoints_points_log->create_many( 2 );
+		$this->factory->wordpoints->points_log->create_many( 2 );
 
 		$query = new WordPoints_Points_Logs_Query;
 		$query->prime_cache( __METHOD__ );

@@ -12,7 +12,7 @@
  *
  * @since 2.0.0
  */
-class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
+class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * The breaking updater mock.

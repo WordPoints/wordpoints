@@ -15,7 +15,7 @@
  * @group points
  * @group points_logs
  */
-class WordPoints_Points_Logs_Caching_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that it doesn't clear the caches for any users by default.

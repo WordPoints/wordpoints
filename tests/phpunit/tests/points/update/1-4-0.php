@@ -27,7 +27,7 @@
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */
-class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that the custom capabilities that were'nt added in 1.3.0 are added.

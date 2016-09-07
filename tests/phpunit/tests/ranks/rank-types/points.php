@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_Points_Rank_Type
  */
-class WordPoints_Points_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Set up before each test.

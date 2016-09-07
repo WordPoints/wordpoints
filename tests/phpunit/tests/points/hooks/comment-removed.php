@@ -21,7 +21,7 @@
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::hook
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::logs
  */
-class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that points are removed as expected.

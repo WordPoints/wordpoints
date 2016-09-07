@@ -19,7 +19,7 @@
  *
  * @covers WordPoints_Periodic_Points_Hook
  */
-class WordPoints_Periodic_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Periodic_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test the defaults.

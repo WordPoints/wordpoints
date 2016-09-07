@@ -15,7 +15,7 @@
  * @group points
  * @group update
  */
-class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_1_10_0_Update_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.10.0

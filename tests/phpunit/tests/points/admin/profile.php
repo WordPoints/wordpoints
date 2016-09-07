@@ -14,7 +14,7 @@
  *
  * @covers ::wordpoints_points_profile_options_update
  */
-class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * The object for the user used in the test.

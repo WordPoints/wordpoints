@@ -16,7 +16,7 @@
  *
  * @group modules
  */
-class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
+class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test the parsing of the header data.

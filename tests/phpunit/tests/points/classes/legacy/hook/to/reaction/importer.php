@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Points_Legacy_Hook_To_Reaction_Importer
  */
-class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that it imports legacy points hooks on install.

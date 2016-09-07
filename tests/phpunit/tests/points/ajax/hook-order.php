@@ -16,7 +16,7 @@
  *
  * @covers ::wordpoints_ajax_points_hooks_order
  */
-class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_Points_Ajax_UnitTestCase {
+class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax_Points {
 
 	/**
 	 * Test that subscribers can't change the order.

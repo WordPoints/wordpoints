@@ -15,7 +15,7 @@
  * @group points
  * @group points_hooks
  */
-class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that it is possible to disable auto-reversal when the label is set.

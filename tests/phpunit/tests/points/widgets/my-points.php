@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_My_Points_Widget
  */
-class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0

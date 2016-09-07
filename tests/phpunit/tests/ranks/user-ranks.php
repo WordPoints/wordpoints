@@ -14,7 +14,7 @@
  *
  * @group ranks
  */
-class WordPoints_User_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Test that the user's rank defaults to the base rank of the group.

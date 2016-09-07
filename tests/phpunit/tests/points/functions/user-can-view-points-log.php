@@ -13,7 +13,7 @@
  * @since 2.1.0
  */
 class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
-	extends WordPoints_Points_UnitTestCase {
+	extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that the user can view the points log by default.

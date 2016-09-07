@@ -15,7 +15,7 @@
  * @group points
  * @group points_hooks
  */
-class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test the get and save hooks functions.

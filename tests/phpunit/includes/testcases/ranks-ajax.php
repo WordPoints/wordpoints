@@ -10,9 +10,9 @@
 /**
  * Test that the ranks screen Ajax callbacks work correctly.
  *
- * @since 1.7.0
+ * @since 1.7.0 Use WordPoints_PHPUnit_TestCase_Ajax instead.
  */
-abstract class WordPoints_Ranks_Ajax_UnitTestCase extends WordPoints_Ajax_UnitTestCase {
+abstract class WordPoints_Ranks_Ajax_UnitTestCase extends WordPoints_PHPUnit_TestCase_Ajax {
 
 	/**
 	 * @since 1.9.0

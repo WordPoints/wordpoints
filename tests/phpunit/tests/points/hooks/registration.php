@@ -19,7 +19,7 @@
  *
  * @covers WordPoints_Registration_Points_Hook
  */
-class WordPoints_Registration_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Registration_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that points are awarded on registration.

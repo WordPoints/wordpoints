@@ -12,7 +12,7 @@
  *
  * @since 1.0.1
  */
-class WordPoints_Option_Test extends WordPoints_UnitTestCase {
+class WordPoints_Option_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test that wordpoints_get_array_option() handles incorrect types properly.

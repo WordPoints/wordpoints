@@ -18,7 +18,7 @@
  *
  * @since 1.0.0
  */
-class WordPoints_Int_Test extends WordPoints_UnitTestCase {
+class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 	//
 	// wordpoints_int()

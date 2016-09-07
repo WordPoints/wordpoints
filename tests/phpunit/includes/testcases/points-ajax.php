@@ -5,6 +5,7 @@
  *
  * @package WordPoints\Tests
  * @since 1.3.0
+ * @deprecated 2.2.0
  */
 
 /**
@@ -14,76 +15,25 @@
  * be repeated in each of the tests.
  *
  * @since 1.3.0
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_TestCase_Ajax_Points instead.
  */
-abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_Ajax_UnitTestCase {
-
-	/**
-	 * @since 1.9.0
-	 */
-	protected $wordpoints_component = 'points';
-
-	/**
-	 * @since 2.0.0
-	 */
-	private static $included_functions = false;
+abstract class WordPoints_Points_AJAX_UnitTestCase extends WordPoints_PHPUnit_TestCase_Ajax_Points {
 
 	/**
 	 * Set up before the tests begin.
 	 *
 	 * @since 1.3.0
+	 * @deprecated 2.2.0
 	 */
 	public static function setUpBeforeClass() {
 
 		parent::setUpBeforeClass();
 
-		if ( ! self::$included_functions ) {
-
-			/**
-			 * Admin-side functions.
-			 *
-			 * @since 1.3.0
-			 */
-			require_once( WORDPOINTS_DIR . '/components/points/admin/admin.php' );
-
-			self::$included_functions = true;
-
-			self::backup_hooks();
-		}
-	}
-
-	/**
-	 * Set up for the tests.
-	 *
-	 * @since 1.3.0
-	 */
-	public function setUp() {
-
-		parent::setUp();
-
-		WordPoints_Points_Hooks::set_network_mode( false );
-
-		$points_data = array(
-			'name'   => 'Points',
-			'prefix' => '$',
-			'suffix' => 'pts.',
+		_deprecated_function(
+			__CLASS__
+			, '2.2.0'
+			, 'WordPoints_PHPUnit_TestCase_Ajax_Points'
 		);
-
-		wordpoints_add_maybe_network_option(
-			'wordpoints_points_types'
-			, array( 'points' => $points_data )
-		);
-	}
-
-	/**
-	 * Clean up after each test.
-	 *
-	 * @since 1.3.0
-	 */
-	public function tearDown() {
-
-		WordPoints_Points_Hooks::set_network_mode( false );
-
-		parent::tearDown();
 	}
 
 } // class WordPoints_Points_AJAX_UnitTestCase

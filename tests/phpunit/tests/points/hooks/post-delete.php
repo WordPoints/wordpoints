@@ -23,7 +23,7 @@
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::hook
  */
-class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that points are removed when a post is permanently deleted.

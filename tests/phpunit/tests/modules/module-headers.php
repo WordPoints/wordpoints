@@ -16,7 +16,7 @@
  *
  * @covers ::wordpoints_get_module_data
  */
-class WordPoints_Module_Header_Test extends WordPoints_UnitTestCase {
+class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Expected basic module header data.

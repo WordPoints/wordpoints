@@ -15,7 +15,7 @@
  * @group ranks
  * @group rank_types
  */
-class WordPoints_Rank_Type_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * The mock rank type used in the test.

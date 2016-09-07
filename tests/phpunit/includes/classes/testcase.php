@@ -35,7 +35,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @since 2.0.0 Now an array of WordPoints_Mock_Filter objects.
 	 * @since 2.1.0
 	 *
-	 * @see WordPoints_Points_UnitTestCase::listen_for_filter()
+	 * @see WordPoints_PHPUnit_TestCase::listen_for_filter()
 	 *
 	 * @type WordPoints_Mock_Filter[] $watched_filters
 	 */

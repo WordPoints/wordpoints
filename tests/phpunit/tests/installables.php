@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Installables
  */
-class WordPoints_Installables_Test extends WordPoints_UnitTestCase {
+class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * @since 2.0.0

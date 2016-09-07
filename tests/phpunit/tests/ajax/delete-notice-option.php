@@ -16,7 +16,7 @@
  *
  * @covers ::wordpoints_delete_admin_notice_option
  */
-class WordPoints_Delete_Notice_option_Ajax_Test extends WordPoints_AJAX_UnitTestCase {
+class WordPoints_Delete_Notice_option_Ajax_Test extends WordPoints_PHPUnit_TestCase_Ajax {
 
 	/**
 	 * Test that it deletes the option when the dismiss form has been submitted.

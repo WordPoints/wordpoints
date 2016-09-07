@@ -20,7 +20,7 @@
  *
  * @covers WordPoints_Points_Top_Shortcode
  */
-class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that the [wordpoints_points_top] shortcode exists.

@@ -15,7 +15,7 @@
  * @group ranks
  * @group ranks-points
  */
-class WordPoints_Ranks_Points_Integration_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Set up before each test.

@@ -14,7 +14,7 @@
  *
  * @group points
  */
-class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that points logs and log meta tables are cleaned up on user deletion.

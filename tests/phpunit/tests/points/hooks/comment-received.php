@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_Comment_Received_Points_Hook
  */
-class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that points are awarded as expected.

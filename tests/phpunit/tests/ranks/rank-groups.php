@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_Rank_Groups
  */
-class WordPoints_Rank_Groups_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Rank_Groups_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Clean up after each test.

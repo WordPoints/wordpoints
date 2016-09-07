@@ -14,7 +14,7 @@
  *
  * @group points
  */
-class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	//
 	// wordpoints_is_points_type()

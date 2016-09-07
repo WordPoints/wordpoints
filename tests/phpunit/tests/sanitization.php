@@ -12,7 +12,7 @@
  *
  * @since 1.10.0
  */
-class WordPoints_Sanitization_Functions_Test extends WordPoints_UnitTestCase {
+class WordPoints_Sanitization_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test that the title is sanitized.

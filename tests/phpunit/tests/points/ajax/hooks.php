@@ -16,7 +16,7 @@
  *
  * @covers ::wordpoints_ajax_save_points_hook
  */
-class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_Points_AJAX_UnitTestCase {
+class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax_Points {
 
 	/**
 	 * Test that it fails for subscribers.

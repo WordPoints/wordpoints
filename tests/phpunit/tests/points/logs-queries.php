@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_Points_Logs_Query
  */
-class WordPoints_Points_Log_Query_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test query registration.

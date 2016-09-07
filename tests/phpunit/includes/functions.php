@@ -366,4 +366,44 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir ) {
 	return true;
 }
 
+/**
+ * An autoloading function for the deprecated classes.
+ *
+ * We don't autoload the following classes, because they are not expected to always
+ * be loaded:
+ * - WordPoints_Selenium2TestCase (testcases/selenium2.php)
+ * - WordPoints_Un_Installer_Module_Mock (mocks/un-installer-module.php)
+ * - WordPoints_Un_Installer_Module_Mock2 (mocks/un-installer-module2.php)
+ * - WordPoints_Un_Installer_Option_Prefix_Mock (mocks/un-installer-option-prefix.php)
+ *
+ * @since 2.2.0
+ *
+ * @param string $class_name A class name.
+ */
+function wordpoints_phpunit_deprecated_class_autoloader( $class_name ) {
+
+	$map = array(
+		'WordPoints_UnitTest_Factory_For_Points_Log' => 'factories/points-log.php',
+		'WordPoints_UnitTest_Factory_For_Rank' => 'factories/rank.php',
+		'WordPoints_Breaking_Updater_Mock' => 'mocks/breaking-updater.php',
+		'WordPoints_Mock_Filter' => 'mocks/filter.php',
+		'WordPoints_Module_Installer_Skin_TestDouble' => 'mocks/module-installer-skin.php',
+		'WordPoints_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
+		'WordPoints_Post_Type_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
+		'WordPoints_Test_Rank_Type' => 'mocks/rank-type.php',
+		'WordPoints_Un_Installer_Mock' => 'mocks/un-installer.php',
+		'WordPoints_Ajax_UnitTestCase' => 'testcases/ajax.php',
+		'WordPoints_Points_UnitTestCase' => 'testcases/points.php',
+		'WordPoints_Points_AJAX_UnitTestCase' => 'testcases/points-ajax.php',
+		'WordPoints_Ranks_UnitTestCase' => 'testcases/ranks.php',
+		'WordPoints_Ranks_Ajax_UnitTestCase' => 'testcases/ranks-ajax.php',
+		'WordPoints_UnitTestCase' => 'testcases/wordpoints.php',
+		'WordPoints_PHPUnit_Util_Getopt' => 'class-wordpoints-phpunit-util-getopt.php',
+	);
+
+	if ( isset( $map[ $class_name ] ) ) {
+		require dirname( __FILE__ ) . '/' . $map[ $class_name ];
+	}
+}
+
 // EOF

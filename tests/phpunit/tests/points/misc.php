@@ -338,7 +338,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
 
-		$filter = new WordPoints_Mock_Filter( $log_text );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $log_text );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		wordpoints_regenerate_points_logs( array( $log ) );
@@ -361,12 +361,12 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
 
-		$filter = new WordPoints_Mock_Filter( $log_text );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $log_text );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		wordpoints_regenerate_points_logs( array( $log ) );

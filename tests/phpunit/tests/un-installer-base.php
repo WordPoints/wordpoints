@@ -19,7 +19,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @var WordPoints_Un_Installer_Mock
+	 * @var WordPoints_PHPUnit_Mock_Un_Installer
 	 */
 	protected $un_installer;
 
@@ -57,7 +57,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		$this->un_installer = new WordPoints_Un_Installer_Mock( 'test', '1.0.0' );
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer( 'test', '1.0.0' );
 		$this->un_installer->type = 'module';
 
 		delete_site_transient( 'wordpoints_all_site_ids' );
@@ -87,7 +87,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_construct_requires_slug() {
 
-		new WordPoints_Un_Installer_Mock( null, '1.0.0' );
+		new WordPoints_PHPUnit_Mock_Un_Installer( null, '1.0.0' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_construct_requires_version() {
 
-		new WordPoints_Un_Installer_Mock( 'test' );
+		new WordPoints_PHPUnit_Mock_Un_Installer( 'test' );
 	}
 
 	/**
@@ -1320,7 +1320,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$site_id = get_current_blog_id();
 
-		$filter_mock = new WordPoints_Mock_Filter();
+		$filter_mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_action( 'switch_blog', array( $filter_mock, 'action' ) );
 
 		$this->un_installer->install_on_site( $site_id );
@@ -3458,7 +3458,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		add_filter( 'wp_is_large_network', '__return_true' );
 
 		// We don't actually create 10000 sites in the database.
-		$mock_filter = new WordPoints_Mock_Filter( array_fill( 0, 10001, 1 ) );
+		$mock_filter = new WordPoints_PHPUnit_Mock_Filter( array_fill( 0, 10001, 1 ) );
 
 		add_filter(
 			'pre_site_option_wordpoints_module_test_installed_sites'

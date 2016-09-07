@@ -13,7 +13,7 @@
  * @since 2.1.0
  */
 class WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode
-	extends WordPoints_Un_Installer_Mock {
+	extends WordPoints_PHPUnit_Mock_Un_Installer {
 
 	/**
 	 * The mode of the hooks API when each method was called, indexed by method.

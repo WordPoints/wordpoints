@@ -77,7 +77,7 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uses_wordpoints_modules_data_if_available() {
 
-		$mock_filter = new WordPoints_Mock_Filter();
+		$mock_filter = new WordPoints_PHPUnit_Mock_Filter();
 
 		add_filter( 'extra_wordpoints_module_headers', array( $mock_filter, 'filter' ) );
 

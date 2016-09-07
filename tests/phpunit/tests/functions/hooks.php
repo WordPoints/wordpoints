@@ -33,7 +33,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	 */
 	public function test_init() {
 
-		$action = new WordPoints_Mock_Filter();
+		$action = new WordPoints_PHPUnit_Mock_Filter();
 
 		add_action(
 			'wordpoints_init_app_registry-hooks-actions'

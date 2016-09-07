@@ -30,7 +30,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @var WordPoints_Module_Installer_Skin_TestDouble
+	 * @var WordPoints_PHPUnit_Mock_Module_Installer_Skin
 	 */
 	protected $skin;
 
@@ -54,13 +54,6 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 		 * @since 2.0.0
 		 */
 		require_once( WORDPOINTS_DIR . '/admin/includes/class-wordpoints-module-installer-skin.php' );
-
-		/**
-		 * The module installer skin mock.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/module-installer-skin.php' );
 	}
 
 	/**
@@ -202,7 +195,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 			'version'   => '1.0.0',
 		);
 
-		$this->skin = new WordPoints_Module_Installer_Skin_TestDouble(
+		$this->skin = new WordPoints_PHPUnit_Mock_Module_Installer_Skin(
 			array(
 				'title'  => 'Installing module',
 				'url'    => '',

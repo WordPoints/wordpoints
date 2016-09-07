@@ -232,7 +232,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_delete_calls_action() {
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		$mock->add_action( 'wordpoints_delete_points_type', 10, 6 );
 
 		$this->assertTrue( wordpoints_delete_points_type( 'points' ) );

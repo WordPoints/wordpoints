@@ -1403,11 +1403,11 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 			array( new WordPoints_Hook_Arg( 'test_entity' ) )
 		);
 
-		$get_period_queries = new WordPoints_Mock_Filter();
+		$get_period_queries = new WordPoints_PHPUnit_Mock_Filter();
 		$get_period_queries->count_callback = array( $this, 'is_get_period_query' );
 		add_filter( 'query', array( $get_period_queries, 'filter' ) );
 
-		$get_by_reaction_queries = new WordPoints_Mock_Filter();
+		$get_by_reaction_queries = new WordPoints_PHPUnit_Mock_Filter();
 		$get_by_reaction_queries->count_callback = array( $this, 'is_get_period_by_reaction_query' );
 		add_filter( 'query', array( $get_by_reaction_queries, 'filter' ) );
 
@@ -1463,11 +1463,11 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 			array( new WordPoints_Hook_Arg( 'test_entity' ) )
 		);
 
-		$get_period_queries = new WordPoints_Mock_Filter();
+		$get_period_queries = new WordPoints_PHPUnit_Mock_Filter();
 		$get_period_queries->count_callback = array( $this, 'is_get_period_query' );
 		add_filter( 'query', array( $get_period_queries, 'filter' ) );
 
-		$get_by_reaction_queries = new WordPoints_Mock_Filter();
+		$get_by_reaction_queries = new WordPoints_PHPUnit_Mock_Filter();
 		$get_by_reaction_queries->count_callback = array( $this, 'is_get_period_by_reaction_query' );
 		add_filter( 'query', array( $get_by_reaction_queries, 'filter' ) );
 

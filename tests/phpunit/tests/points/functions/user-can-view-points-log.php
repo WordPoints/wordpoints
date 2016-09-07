@@ -44,7 +44,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
-		$filter = new WordPoints_Mock_Filter();
+		$filter = new WordPoints_PHPUnit_Mock_Filter();
 		$filter->add_filter( 'wordpoints_user_can_view_points_log', 10, 6 );
 
 		$this->assertTrue(
@@ -69,7 +69,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
-		$filter = new WordPoints_Mock_Filter();
+		$filter = new WordPoints_PHPUnit_Mock_Filter();
 		$filter->add_filter(
 			"wordpoints_user_can_view_points_log-{$log->log_type}"
 			, 10
@@ -98,10 +98,10 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
-		$generic_filter = new WordPoints_Mock_Filter();
+		$generic_filter = new WordPoints_PHPUnit_Mock_Filter();
 		$generic_filter->add_filter( 'wordpoints_user_can_view_points_log', 10, 6 );
 
-		$specific_filter = new WordPoints_Mock_Filter( false );
+		$specific_filter = new WordPoints_PHPUnit_Mock_Filter( false );
 		$specific_filter->add_filter(
 			"wordpoints_user_can_view_points_log-{$log->log_type}"
 		);
@@ -128,12 +128,12 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
-		$generic_filter = new WordPoints_Mock_Filter();
+		$generic_filter = new WordPoints_PHPUnit_Mock_Filter();
 		$generic_filter->listen_for_current_user(
 			'wordpoints_user_can_view_points_log'
 		);
 
-		$specific_filter = new WordPoints_Mock_Filter();
+		$specific_filter = new WordPoints_PHPUnit_Mock_Filter();
 		$specific_filter->listen_for_current_user(
 			"wordpoints_user_can_view_points_log-{$log->log_type}"
 		);
@@ -162,7 +162,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
-		$filter = new WordPoints_Mock_Filter( false );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( false );
 		$filter->add_filter( 'wordpoints_user_can_view_points_log' );
 
 		$this->assertFalse(
@@ -182,7 +182,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $this->factory->wordpoints->points_log->create_and_get();
 		$user_id = $this->factory->user->create();
 
-		$filter = new WordPoints_Mock_Filter( false );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( false );
 		$filter->add_filter(
 			"wordpoints_user_can_view_points_log-{$log->log_type}"
 		);

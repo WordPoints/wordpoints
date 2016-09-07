@@ -12,7 +12,7 @@
  *
  * @since 2.0.0
  */
-class WordPoints_Un_Installer_Option_Prefix_Mock extends WordPoints_Un_Installer_Mock {
+class WordPoints_Un_Installer_Option_Prefix_Mock extends WordPoints_PHPUnit_Mock_Un_Installer {
 
 	/**
 	 * @since 2.0.0

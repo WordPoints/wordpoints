@@ -177,7 +177,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_add_rank_with_emoji_utf8() {
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$rank = wordpoints_add_rank(
@@ -372,7 +372,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_with_emoji_utf8() {
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$rank_id = $this->factory->wordpoints_rank->create();

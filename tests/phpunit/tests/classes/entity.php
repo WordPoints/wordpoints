@@ -25,7 +25,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$return_value = array( 'id' => 1 );
 
-		$mock = new WordPoints_Mock_Filter( $return_value );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $return_value );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -46,7 +46,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$return_value = new WP_Error();
 
-		$mock = new WordPoints_Mock_Filter( $return_value );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $return_value );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -240,7 +240,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$object = (object) array( 'id' => 1, 'title' => 'Title' );
 
-		$mock = new WordPoints_Mock_Filter( $object );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $object );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -258,7 +258,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$object = array( 'id' => 1, 'title' => 'Title' );
 
-		$mock = new WordPoints_Mock_Filter( $object );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $object );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -274,7 +274,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_get_human_id_invalid() {
 
-		$mock = new WordPoints_Mock_Filter( false );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( false );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -292,7 +292,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$object = array( 'id' => 1, 'title' => 'Title' );
 
-		$mock = new WordPoints_Mock_Filter( $object );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $object );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -307,7 +307,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_exists_not() {
 
-		$mock = new WordPoints_Mock_Filter( false );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( false );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -447,7 +447,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_set_the_value_from_id_invalid() {
 
-		$mock = new WordPoints_Mock_Filter( false );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( false );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -468,7 +468,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_set_the_value_from_entity_invalid() {
 
-		$mock = new WordPoints_Mock_Filter( false );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( false );
 
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity->set( 'getter', array( $mock, 'filter' ) );
@@ -499,7 +499,7 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertEquals( array( 'network' => 1, 'site' => 1 ), $entity->get_the_context() );
 		$this->assertEquals( array( 'network' => 1, 'site' => 1, 'test' => 1 ), $entity->get_the_guid() );
 
-		$mock = new WordPoints_Mock_Filter( false );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( false );
 
 		$entity->set( 'getter', array( $mock, 'filter' ) );
 

@@ -19,7 +19,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @var WordPoints_Breaking_Updater_Mock
+	 * @var WordPoints_PHPUnit_Mock_Breaking_Updater
 	 */
 	protected $updater;
 
@@ -60,13 +60,6 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		 * @since 2.0.0
 		 */
 		require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
-
-		/**
-		 * The breaking updater mock class.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/breaking-updater.php' );
 	}
 
 	/**
@@ -76,7 +69,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		$this->updater = new WordPoints_Breaking_Updater_Mock(
+		$this->updater = new WordPoints_PHPUnit_Mock_Breaking_Updater(
 			'wordpoints_breaking'
 			, 'breaking'
 		);
@@ -492,7 +485,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_check_module_request_failure() {
 
-		$filter = new WordPoints_Mock_Filter( new WP_Error );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error );
 		$this->http_responder = array( $filter, 'filter' );
 
 		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );

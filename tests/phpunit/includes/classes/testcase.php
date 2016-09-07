@@ -32,12 +32,12 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @since 1.5.0 This was a part of the WordPoints_Points_UnitTestCase.
 	 * @since 1.7.0 This was a part of the WordPoints_UnitTestCase.
-	 * @since 2.0.0 Now an array of WordPoints_Mock_Filter objects.
+	 * @since 2.0.0 Now an array of WordPoints_PHPUnit_Mock_Filter objects.
 	 * @since 2.1.0
 	 *
 	 * @see WordPoints_PHPUnit_TestCase::listen_for_filter()
 	 *
-	 * @type WordPoints_Mock_Filter[] $watched_filters
+	 * @type WordPoints_PHPUnit_Mock_Filter[] $watched_filters
 	 */
 	protected $watched_filters = array();
 
@@ -569,11 +569,11 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @param string $filter       The filter hook to attach to.
 	 * @param mixed  $return_value The filtered value that should be returned.
 	 *
-	 * @return WordPoints_Mock_Filter The mock filter.
+	 * @return WordPoints_PHPUnit_Mock_Filter The mock filter.
 	 */
 	protected function mock_filter( $filter, $return_value = null ) {
 
-		$mock = new WordPoints_Mock_Filter( $return_value );
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $return_value );
 
 		add_filter( $filter, array( $mock, 'filter' ) );
 
@@ -596,7 +596,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @param callable $count_callback Function to call to test if this filter call
 	 *                                 should be counted.
 	 *
-	 * @return WordPoints_Mock_Filter The mock filter.
+	 * @return WordPoints_PHPUnit_Mock_Filter The mock filter.
 	 */
 	protected function listen_for_filter( $filter, $count_callback = null ) {
 

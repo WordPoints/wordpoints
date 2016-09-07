@@ -380,7 +380,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
 
-		$filter = new WordPoints_Mock_Filter( $log_text );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $log_text );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		$log_id = wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
@@ -401,10 +401,10 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_emoji_in_log_utf8() {
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
-		$filter = new WordPoints_Mock_Filter( "You've got Points! \xf0\x9f\x98\x8e" );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( "You've got Points! \xf0\x9f\x98\x8e" );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		$log_id = wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
@@ -425,7 +425,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_emoji_in_log_utf8_log_text_param() {
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$log_id = wordpoints_alter_points(
@@ -572,7 +572,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$log_text = 'Just testing.';
 
-		$filter = new WordPoints_Mock_Filter( $log_text );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $log_text );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		$rendered_text = wordpoints_render_points_log_text(

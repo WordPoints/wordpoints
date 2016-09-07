@@ -31,12 +31,12 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		);
 
 		$input = $xpath->query(
-			'//input[@id = "hook-wordpoints_post_type_points_hook_testdouble-__i__-auto_reverse"]'
+			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
 		$this->assertEquals( 1, $input->length );
 
 		$label = $xpath->query(
-			'//label[@for = "hook-wordpoints_post_type_points_hook_testdouble-__i__-auto_reverse"]'
+			'//label[@for = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
 		$this->assertEquals( 'Test label', $label->item( 0 )->textContent );
 	}
@@ -55,7 +55,7 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		);
 
 		$input = $xpath->query(
-			'//input[@id = "hook-wordpoints_post_type_points_hook_testdouble-__i__-auto_reverse"]'
+			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
 		$this->assertEquals( 1, $input->length );
 
@@ -78,7 +78,7 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		);
 
 		$input = $xpath->query(
-			'//input[@id = "hook-wordpoints_post_type_points_hook_testdouble-1-auto_reverse"]'
+			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-1-auto_reverse"]'
 		);
 		$this->assertEquals( 1, $input->length );
 
@@ -100,7 +100,7 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		$xpath = $this->get_form_xpath();
 
 		$input = $xpath->query(
-			'//input[@id = "hook-wordpoints_post_type_points_hook_testdouble-__i__-auto_reverse"]'
+			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
 		$this->assertEquals( 0, $input->length );
 	}
@@ -121,7 +121,7 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 	 */
 	protected function get_form_xpath( array $args = array(), array $instance = array() ) {
 
-		$hook = new WordPoints_Post_Type_Points_Hook_TestDouble( __METHOD__, $args );
+		$hook = new WordPoints_PHPUnit_Mock_Points_Hook_Post_Type( __METHOD__, $args );
 
 		$number = 0;
 

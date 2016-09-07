@@ -108,8 +108,6 @@ if (
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-phpunit-util-getopt.php';
 
-new WordPoints_PHPUnit_Util_Getopt( $_SERVER['argv'] );
-
 /**
  * Sets up the WordPress test environment.
  *

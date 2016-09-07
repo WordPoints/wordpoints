@@ -267,6 +267,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
  * Selenium is required for the UI tests.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  *
  * @return bool Whether selenium is running.
  */
@@ -291,6 +292,7 @@ function wordpointstests_selenium_is_running() {
  * define( 'WORDPOINTS_TESTS_SELENIUM', '/path/to/selenium.jar' );
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  */
 function wordpointstests_start_selenium() {
 
@@ -307,10 +309,13 @@ function wordpointstests_start_selenium() {
  * Get the user that is used in the UI tests.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  *
  * @return WP_User The user object.
  */
 function wordpointstests_ui_user() {
+
+	_deprecated_function( __FUNCTION__, '2.2.0' );
 
 	$user = get_user_by( 'login', 'wordpoints_ui_tester' );
 
@@ -337,6 +342,7 @@ function wordpointstests_ui_user() {
  * Create a symlink of a plugin in the WordPress tests suite and activate it.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  *
  * @param string $plugin     The basename path of the main plugin file.
  * @param string $plugin_dir The name to give the symlinked plugin directory.

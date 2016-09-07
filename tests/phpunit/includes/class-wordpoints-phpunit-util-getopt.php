@@ -5,6 +5,7 @@
  *
  * @package WordPoints\Tests
  * @since 1.0.1
+ * @deprecated 2.2.0
  */
 
 /**
@@ -15,6 +16,7 @@
  *
  * @since 1.0.1
  * @since 1.2.0 No longer extends the PHPUnit_TextUI_Command class.
+ * @deprecated 2.2.0
  */
 class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 

@@ -155,6 +155,13 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	public static $backup_app;
 
 	/**
+	 * @since 2.2.0
+	 */
+	public static function factory() {
+		return parent::factory();
+	}
+
+	/**
 	 * @since 2.0.0 This was a part of the WordPoints_UnitTestCase.
 	 * @since 2.1.0
 	 */

@@ -61,7 +61,7 @@ class WordPoints_PHPUnit_Factory_For_Points_Log extends WP_UnitTest_Factory_For_
 	public function create_object( $args ) {
 
 		if ( ! isset( $args['user_id'] ) ) {
-			$args['user_id'] = $this->factory->user->create();
+			$args['user_id'] = WordPoints_PHPUnit_TestCase::factory()->user->create();
 		}
 
 		if ( ! isset( $args['log_meta'] ) ) {

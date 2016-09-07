@@ -22,7 +22,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 *
 	 * @since 1.9.1
 	 *
-	 * @var WordPoints_Test_Rank_Type
+	 * @var WordPoints_PHPUnit_Mock_Rank_Type
 	 */
 	protected $mock_rank_type;
 
@@ -35,7 +35,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		parent::setUp();
 
-		$this->mock_rank_type = new WordPoints_Test_Rank_Type(
+		$this->mock_rank_type = new WordPoints_PHPUnit_Mock_Rank_Type(
 			array( 'slug' => 'test' )
 		);
 	}
@@ -187,7 +187,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_display_rank_meta_form_fields_invalid_field_type_error() {
 
-		$rank_type = new WordPoints_Test_Rank_Type(
+		$rank_type = new WordPoints_PHPUnit_Mock_Rank_Type(
 			array(
 				'slug' => 'test',
 				'meta_fields' => array(
@@ -238,7 +238,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_display_rank_meta_form_fields_field_placeholders() {
 
-		$rank_type = new WordPoints_Test_Rank_Type(
+		$rank_type = new WordPoints_PHPUnit_Mock_Rank_Type(
 			array(
 				'slug' => 'test',
 				'meta_fields' => array(
@@ -309,7 +309,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank_type = $this->mock_rank_type;
 
 		if ( ! empty( $meta_fields ) ) {
-			$rank_type = new WordPoints_Test_Rank_Type(
+			$rank_type = new WordPoints_PHPUnit_Mock_Rank_Type(
 				array( 'slug' => 'test', 'meta_fields' => $meta_fields )
 			);
 		}

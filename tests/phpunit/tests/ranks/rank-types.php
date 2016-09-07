@@ -40,7 +40,7 @@ class WordPoints_Rank_Types_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$result = WordPoints_Rank_Types::register_type(
 			__CLASS__
-			, 'WordPoints_Test_Rank_Type'
+			, 'WordPoints_PHPUnit_Mock_Rank_Type'
 		);
 
 		$this->assertTrue( $result );
@@ -52,12 +52,12 @@ class WordPoints_Rank_Types_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertArrayHasKey( __CLASS__, $rank_types );
 
 		$this->assertInstanceOf(
-			'WordPoints_Test_Rank_Type'
+			'WordPoints_PHPUnit_Mock_Rank_Type'
 			, $rank_types[ __CLASS__ ]
 		);
 
 		$this->assertInstanceOf(
-			'WordPoints_Test_Rank_Type'
+			'WordPoints_PHPUnit_Mock_Rank_Type'
 			, WordPoints_Rank_Types::get_type( __CLASS__ )
 		);
 
@@ -72,7 +72,7 @@ class WordPoints_Rank_Types_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$result = WordPoints_Rank_Types::register_type(
 			'test_type'
-			, 'WordPoints_Test_Rank_Type'
+			, 'WordPoints_PHPUnit_Mock_Rank_Type'
 		);
 
 		$this->assertFalse( $result );

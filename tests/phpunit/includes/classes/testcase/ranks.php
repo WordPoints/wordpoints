@@ -52,7 +52,7 @@ class WordPoints_PHPUnit_TestCase_Ranks extends WordPoints_PHPUnit_TestCase {
 
 		WordPoints_Rank_Types::register_type(
 			$this->rank_type
-			, 'WordPoints_Test_Rank_Type'
+			, 'WordPoints_PHPUnit_Mock_Rank_Type'
 		);
 
 		WordPoints_Rank_Groups::register_group(

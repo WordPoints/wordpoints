@@ -27,7 +27,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		WordPoints_Rank_Types::register_type(
 			__CLASS__
-			, 'WordPoints_Test_Rank_Type'
+			, 'WordPoints_PHPUnit_Mock_Rank_Type'
 		);
 
 		WordPoints_Rank_Groups::register_group(

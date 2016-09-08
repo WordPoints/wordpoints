@@ -102,13 +102,6 @@ if (
 }
 
 /**
- * Checks which groups we are running, and gives helpful messages.
- *
- * @since 1.0.1
- */
-require_once WORDPOINTS_TESTS_DIR . '/includes/class-wordpoints-phpunit-util-getopt.php';
-
-/**
  * Sets up the WordPress test environment.
  *
  * We've got our action set up, so we can load this now, and viola, the tests begin.

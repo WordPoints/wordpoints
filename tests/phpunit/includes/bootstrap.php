@@ -51,55 +51,25 @@ WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
 	, 'WordPoints_PHPUnit_'
 );
 
-if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
-	/**
-	 * The WP plugin uninstall testing functions.
-	 *
-	 * We need this so we can check if the uninstall tests are being run.
-	 *
-	 * @since 1.2.0
-	 * @since 1.7.0 Only when not RUNNING_WORDPOINTS_MODULE_TESTS.
-	 */
-	require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php';
-}
-
 /**
- * The WordPress tests functions.
+ * The Composer generated autoloader.
  *
- * Clearly, WP_TESTS_DIR should be the path to the WordPress PHPUnit tests checkout.
- *
- * We are loading this so that we can add our tests filter to load the plugin, using
- * tests_add_filter().
- *
- * @since 1.0.0
+ * @since 2.2.0
  */
-require_once getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
+require_once( dirname( __FILE__ ) . '/../../../vendor/autoload_52.php' );
+
+$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
+$loader->add_plugin( 'wordpoints/wordpoints.php', getenv( 'WORDPOINTS_NETWORK_ACTIVE' ) );
+$loader->add_component( 'ranks' );
 
 /**
  * Miscellaneous utility functions.
  *
- * Among these is the one that manually loads the plugin. We need to hook it to
- * 'muplugins_loaded'.
+ * Loaded before WordPress, for backward compatibility with pre-2.2.0.
  *
  * @since 1.0.0
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/functions.php';
-
-if (
-	defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' )
-	&& (
-		! function_exists( 'running_wordpoints_module_uninstall_tests' )
-		|| ! running_wordpoints_module_uninstall_tests()
-	)
-) {
-
-	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
-
-} elseif ( ! running_wp_plugin_uninstall_tests() ) {
-
-	// If we aren't running the uninstall tests, we need to hook in to load the plugin.
-	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
-}
 
 /**
  * Sets up the WordPress test environment.
@@ -117,16 +87,6 @@ require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
  * @since 1.4.0
  */
 require_once WORDPOINTS_TESTS_DIR . '/../../src/includes/constants.php';
-
-if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
-	/**
-	 * The bootstrap for the uninstall tests.
-	 *
-	 * @since 1.2.0
-	 * @since 1.7.0 Only when not RUNNING_WORDPOINTS_MODULE_TESTS.
-	 */
-	require WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php';
-}
 
 // Autoload deprecated classes, for back-compat.
 spl_autoload_register( 'wordpoints_phpunit_deprecated_class_autoloader' );

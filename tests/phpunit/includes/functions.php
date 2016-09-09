@@ -66,15 +66,16 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 /**
  * Manually load the plugin main file.
  *
- * The plugin won't be activated within the test WP environment, that's why we need
- * to load it manually. We also mock activate all components so they will be fully
- * loaded too.
+ * The plugin wouldn't be activated within the test WP environment, that's why we
+ * needed to load it manually. However, this is no longer the case, as we use WPPPB
+ * to remotely activate the plugin and have WordPress load it naturally.
  *
  * @since 1.0.0
- *
- * @filter muplugins_loaded
+ * @deprecated 2.2.0
  */
 function wordpointstests_manually_load_plugin() {
+
+	_deprecated_function( __FUNCTION__, '2.2.0' );
 
 	global $wpdb;
 
@@ -125,10 +126,11 @@ function wordpointstests_modules_dir() {
  * Manually activate all components.
  *
  * @since 1.0.0
- *
- * @action wordpoints_components_loaded 0 Added by wordpointstests_manually_load_plugin().
+ * @deprecated 2.2.0
  */
 function wordpointstests_manually_activate_components() {
+
+	_deprecated_function( __FUNCTION__, '2.2.0' );
 
 	add_filter( 'wordpoints_component_active', '__return_false', 110 );
 

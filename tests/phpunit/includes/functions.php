@@ -20,11 +20,13 @@
  */
 function wordpoints_phpunit_autoloader( $class_name ) {
 
-	_deprecated_function(
-		__FUNCTION__
-		, '2.2.0'
-		, 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader'
-	);
+	if ( function_exists( '_deprecated_function' ) ) {
+		_deprecated_function(
+			__FUNCTION__
+			, '2.2.0'
+			, 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader'
+		);
+	}
 
 	// Autoloading for tests, in case they sub-class one another (which generally
 	// they shouldn't).
@@ -54,7 +56,7 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 	}
 
 	$file_name = str_replace( '_', '/', strtolower( substr( $class_name, 19 ) ) );
-	$file_name = dirname( __FILE__ ) . '/classes/' . $file_name . '.php';
+	$file_name = dirname( __FILE__ ) . '/../classes/' . $file_name . '.php';
 
 	if ( ! file_exists( $file_name ) ) {
 		return;

@@ -22,34 +22,60 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
  */
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
 
-if ( ! class_exists( 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader' ) ) {
-	/**
-	 * Class autoloader for PHPUnit tests and helpers from the dev lib.
-	 *
-	 * @since 2.2.0
-	 */
-	require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib-wordpoints/phpunit/classes/class/autoloader.php' );
+/**
+ * Miscellaneous utility functions.
+ *
+ * Loaded before WordPress, for backward compatibility with pre-2.2.0.
+ *
+ * @since 1.0.0
+ */
+require_once WORDPOINTS_TESTS_DIR . '/includes/functions.php';
+
+$autoloader_exists = class_exists( 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader' );
+
+// The module bootstrap used to load the autoloader after WordPoints's bootstrap,
+// which means that for back-compat, we can only use the new autoloader here if
+// the module tests aren't running, or it is a newer version of the module bootstrap
+// that loads the autoloader early so that it will be available here. Not doing
+// this back-compat checking here will cause fatal errors when the module bootstrap
+// tries to load the autoloader too late and the tests are being run against
+// WordPoints >= 2.2.0.
+if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) || $autoloader_exists ) {
+
+	if ( ! $autoloader_exists ) {
+		/**
+		 * Class autoloader for PHPUnit tests and helpers from the dev lib.
+		 *
+		 * @since 2.2.0
+		 */
+		require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib-wordpoints/phpunit/classes/class/autoloader.php' );
+	}
+
+	WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+		WORDPOINTS_TESTS_DIR . '/tests/'
+		, 'WordPoints_'
+	);
+
+	WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+		WORDPOINTS_TESTS_DIR . '/tests/classes/'
+		, 'WordPoints_'
+	);
+
+	WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+		WORDPOINTS_TESTS_DIR . '/tests/points/classes/'
+		, 'WordPoints_Points_'
+	);
+
+	WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+		WORDPOINTS_TESTS_DIR . '/classes/'
+		, 'WordPoints_PHPUnit_'
+	);
+
+} else {
+
+	// Old version of the module tests are running, use the deprecated auotloader.
+	spl_autoload_register( 'wordpoints_phpunit_autoloader' );
 }
-
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	WORDPOINTS_TESTS_DIR . '/tests/'
-	, 'WordPoints_'
-);
-
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	WORDPOINTS_TESTS_DIR . '/tests/classes/'
-	, 'WordPoints_'
-);
-
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	WORDPOINTS_TESTS_DIR . '/tests/points/classes/'
-	, 'WordPoints_Points_'
-);
-
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	WORDPOINTS_TESTS_DIR . '/classes/'
-	, 'WordPoints_PHPUnit_'
-);
 
 /**
  * The Composer generated autoloader.
@@ -61,15 +87,6 @@ require_once( dirname( __FILE__ ) . '/../../../vendor/autoload_52.php' );
 $loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
 $loader->add_plugin( 'wordpoints/wordpoints.php', getenv( 'WORDPOINTS_NETWORK_ACTIVE' ) );
 $loader->add_component( 'ranks' );
-
-/**
- * Miscellaneous utility functions.
- *
- * Loaded before WordPress, for backward compatibility with pre-2.2.0.
- *
- * @since 1.0.0
- */
-require_once WORDPOINTS_TESTS_DIR . '/includes/functions.php';
 
 /**
  * Sets up the WordPress test environment.

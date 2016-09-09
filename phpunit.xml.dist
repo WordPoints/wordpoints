@@ -16,7 +16,6 @@
 		<exclude>
 			<group>ajax</group>
 			<group>uninstall</group>
-			<group>ui</group>
 		</exclude>
 	</groups>
 	<filter>

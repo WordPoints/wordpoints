@@ -47,7 +47,7 @@ WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
 );
 
 WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	WORDPOINTS_TESTS_DIR . '/includes/classes/'
+	WORDPOINTS_TESTS_DIR . '/classes/'
 	, 'WordPoints_PHPUnit_'
 );
 

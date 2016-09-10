@@ -73,11 +73,15 @@ function wordpoints_phpunit_autoloader( $class_name ) {
  * to remotely activate the plugin and have WordPress load it naturally.
  *
  * @since 1.0.0
- * @deprecated 2.2.0
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_Bootstrap_Loader::add_plugin() instead.
  */
 function wordpointstests_manually_load_plugin() {
 
-	_deprecated_function( __FUNCTION__, '2.2.0' );
+	_deprecated_function(
+		__FUNCTION__
+		, '2.2.0'
+		, 'WordPoints_PHPUnit_Bootstrap_Loader::add_plugin()'
+	);
 
 	global $wpdb;
 
@@ -128,11 +132,15 @@ function wordpointstests_modules_dir() {
  * Manually activate all components.
  *
  * @since 1.0.0
- * @deprecated 2.2.0
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_Bootstrap_Loader::add_component() instead.
  */
 function wordpointstests_manually_activate_components() {
 
-	_deprecated_function( __FUNCTION__, '2.2.0' );
+	_deprecated_function(
+		__FUNCTION__
+		, '2.2.0'
+		, 'WordPoints_PHPUnit_Bootstrap_Loader::add_component()'
+	);
 
 	add_filter( 'wordpoints_component_active', '__return_false', 110 );
 

@@ -220,7 +220,11 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 		$arg = new WordPoints_Hook_Arg( $target[0] );
 
-		$base_entity_ids = $this->fire_event( $arg->get_entity(), $reactor_slug );
+		$base_entity_ids = $this->fire_event(
+			$arg->get_entity()
+			, $reactor_slug
+			, $target[0]
+		);
 
 		foreach ( (array) $base_entity_ids as $index => $base_entity_id ) {
 
@@ -363,15 +367,20 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	/**
 	 * Fire the event.
 	 *
+	 * The third arg is not actually declared for backward compatibility with pre-
+	 * 2.2.0.
+	 *
 	 * @since 2.1.0
+	 * @since 2.2.0 Now called with the third arg, $arg_slug.
 	 *
 	 * @param WordPoints_Entity $arg          The object for the main event arg.
 	 * @param string            $reactor_slug The reactor slug.
+	 * @param string            $arg_slug     The slug of the arg.
 	 *
 	 * @return mixed The ID of the $arg in the event. You may also return an
 	 *               array of args, for each of which the event has been fired.
 	 */
-	abstract protected function fire_event( $arg, $reactor_slug );
+	abstract protected function fire_event( $arg, $reactor_slug /* , $arg_slug = null */ );
 
 	/**
 	 * Reverse fire the event.

@@ -20,14 +20,6 @@
  */
 function wordpoints_phpunit_autoloader( $class_name ) {
 
-	if ( function_exists( '_deprecated_function' ) ) {
-		_deprecated_function(
-			__FUNCTION__
-			, '2.2.0'
-			, 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader'
-		);
-	}
-
 	// Autoloading for tests, in case they sub-class one another (which generally
 	// they shouldn't).
 	if (

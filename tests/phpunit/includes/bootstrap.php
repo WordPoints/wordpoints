@@ -75,6 +75,8 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) || $autoloader_exists ) {
 
 	// Old version of the module tests are running, use the deprecated auotloader.
 	spl_autoload_register( 'wordpoints_phpunit_autoloader' );
+
+	trigger_error( 'Using the deprecated wordpoints_phpunit_autoloader() function, you should be loading WordPoints_Dev_Lib_PHPUnit_Class_Autoloader earlier instead since version 2.2.0' );
 }
 
 /**

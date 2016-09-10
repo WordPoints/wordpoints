@@ -643,6 +643,8 @@ Fields = Backbone.Model.extend({
 
 		if ( _.isArray( field ) ) {
 
+			field = _.clone( field );
+
 			if ( 1 === field.length ) {
 				field = field.shift();
 			} else {

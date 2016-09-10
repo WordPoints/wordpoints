@@ -84,9 +84,22 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) || $autoloader_exists ) {
  */
 require_once( dirname( __FILE__ ) . '/../../../vendor/autoload_52.php' );
 
-$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
-$loader->add_plugin( 'wordpoints/wordpoints.php', getenv( 'WORDPOINTS_NETWORK_ACTIVE' ) );
-$loader->add_component( 'ranks' );
+// For back-compat with old versions of the module bootstrap, expecting pre-2.2.0
+// behavior. Newer versions of the module bootstrap have already loaded the loader,
+// and expect us to use it.
+if (
+	! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' )
+	|| class_exists( 'WordPoints_PHPUnit_Bootstrap_Loader', false )
+) {
+
+	$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
+	$loader->add_plugin(
+		'wordpoints/wordpoints.php'
+		, getenv( 'WORDPOINTS_NETWORK_ACTIVE' )
+	);
+
+	$loader->add_component( 'ranks' );
+}
 
 /**
  * Sets up the WordPress test environment.

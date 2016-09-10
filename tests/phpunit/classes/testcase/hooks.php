@@ -14,6 +14,62 @@
  */
 abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_TestCase {
 
+	//
+	// Assertions.
+	//
+
+	/**
+	 * Assert that an event is registered.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string          $event_slug The slug of the event.
+	 * @param string|string[] $arg_slugs The slugs of the args expected to be
+	 *                                   registered for this event.
+	 */
+	protected function assertEventRegistered( $event_slug, $arg_slugs = array() ) {
+
+		$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+		$this->assertTrue( $events->is_registered( $event_slug ) );
+
+		foreach ( (array) $arg_slugs as $slug ) {
+
+			$this->assertTrue(
+				$events->get_sub_app( 'args' )->is_registered( $event_slug, $slug )
+				, "The {$slug} arg must be registered for the {$event_slug} event."
+			);
+		}
+	}
+
+	/**
+	 * Assert that an event is not registered.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string          $event_slug The slug of the event.
+	 * @param string|string[] $arg_slugs The slugs of the args expected to be
+	 *                                   registered for this event.
+	 */
+	protected function assertEventNotRegistered( $event_slug, $arg_slugs = array() ) {
+
+		$events = wordpoints_hooks()->get_sub_app( 'events' );
+
+		$this->assertFalse( $events->is_registered( $event_slug ) );
+
+		foreach ( (array) $arg_slugs as $slug ) {
+
+			$this->assertFalse(
+				$events->get_sub_app( 'args' )->is_registered( $event_slug, $slug )
+				, "The {$slug} arg must not be registered for the {$event_slug} event."
+			);
+		}
+	}
+
+	//
+	// Data Providers.
+	//
+
 	/**
 	 * Provides several different sets of valid condition settings.
 	 *

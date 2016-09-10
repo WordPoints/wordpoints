@@ -191,16 +191,16 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
 
-		$this->assert_registered( 'user_register', 'user' );
-		$this->assert_registered( 'user_visit', 'current:user' );
+		$this->assertEventRegistered( 'user_register', 'user' );
+		$this->assertEventRegistered( 'user_visit', 'current:user' );
 
-		$this->assert_registered( 'post_publish\post', 'post\post' );
-		$this->assert_registered( 'post_publish\page', 'post\page' );
-		$this->assert_registered( 'media_upload', 'post\attachment' );
+		$this->assertEventRegistered( 'post_publish\post', 'post\post' );
+		$this->assertEventRegistered( 'post_publish\page', 'post\page' );
+		$this->assertEventRegistered( 'media_upload', 'post\attachment' );
 
-		$this->assert_registered( 'comment_leave\post', 'comment\post' );
-		$this->assert_registered( 'comment_leave\page', 'comment\page' );
-		$this->assert_registered( 'comment_leave\attachment', 'comment\attachment' );
+		$this->assertEventRegistered( 'comment_leave\post', 'comment\post' );
+		$this->assertEventRegistered( 'comment_leave\page', 'comment\page' );
+		$this->assertEventRegistered( 'comment_leave\attachment', 'comment\attachment' );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$this->assertEquals( 1, $mock->call_count );
 		$this->assertEquals( array( 'test' ), $mock->calls[0] );
 
-		$this->assert_registered( 'post_publish\test', 'post\test' );
+		$this->assertEventRegistered( 'post_publish\test', 'post\test' );
 	}
 
 	/**
@@ -243,8 +243,8 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		wordpoints_register_post_type_hook_events( 'attachment' );
 
-		$this->assert_not_registered( 'post_publish\attachment', 'post\attachment' );
-		$this->assert_registered( 'media_upload', 'post\attachment' );
+		$this->assertEventNotRegistered( 'post_publish\attachment', 'post\attachment' );
+		$this->assertEventRegistered( 'media_upload', 'post\attachment' );
 	}
 
 	/**
@@ -264,62 +264,13 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		wordpoints_register_post_type_hook_events( 'test' );
 
-		$this->assert_not_registered( 'comment_leave\test', 'comment\test' );
+		$this->assertEventNotRegistered( 'comment_leave\test', 'comment\test' );
 
 		add_post_type_support( 'test', 'comments' );
 
 		wordpoints_register_post_type_hook_events( 'test' );
 
-		$this->assert_registered( 'comment_leave\test', 'comment\test' );
-
-	}
-
-	/**
-	 * Assert that an event is registered.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string          $event_slug The slug of the event.
-	 * @param string|string[] $arg_slugs The slugs of the args expected to be
-	 *                                   registered for this event.
-	 */
-	protected function assert_registered( $event_slug, $arg_slugs = array() ) {
-
-		$events = wordpoints_hooks()->get_sub_app( 'events' );
-
-		$this->assertTrue( $events->is_registered( $event_slug ) );
-
-		foreach ( (array) $arg_slugs as $slug ) {
-
-			$this->assertTrue(
-				$events->get_sub_app( 'args' )->is_registered( $event_slug, $slug )
-				, "The {$slug} arg must be registered for the {$event_slug} event."
-			);
-		}
-	}
-
-	/**
-	 * Assert that an event is not registered.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string          $event_slug The slug of the event.
-	 * @param string|string[] $arg_slugs The slugs of the args expected to be
-	 *                                   registered for this event.
-	 */
-	protected function assert_not_registered( $event_slug, $arg_slugs = array() ) {
-
-		$events = wordpoints_hooks()->get_sub_app( 'events' );
-
-		$this->assertFalse( $events->is_registered( $event_slug ) );
-
-		foreach ( (array) $arg_slugs as $slug ) {
-
-			$this->assertFalse(
-				$events->get_sub_app( 'args' )->is_registered( $event_slug, $slug )
-				, "The {$slug} arg must not be registered for the {$event_slug} event."
-			);
-		}
+		$this->assertEventRegistered( 'comment_leave\test', 'comment\test' );
 	}
 }
 

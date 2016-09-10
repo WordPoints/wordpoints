@@ -93,7 +93,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	}
 
 	/**
-	 * @since 0.1.0
+	 * @since 2.1.0
 	 */
 	public function enqueue_scripts() {
 
@@ -106,7 +106,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	}
 
 	/**
-	 * @since 0.1.0
+	 * @since 2.1.0
 	 */
 	public function footer_scripts() {
 

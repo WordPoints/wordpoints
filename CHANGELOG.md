@@ -12,6 +12,13 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 - This changelog.
 
+## [2.1.1] - 2016-09-12
+
+### Fixed
+
+- Periods being sorted in ascending order when being queried, and thus not working after the first period ended. #505
+- The legacy periods extension not being shown in the UI for reactions that used it, and the regular periods form being shown instead. #480
+
 ## [2.1.0] - 2016-08-10
 
 ### Requires
@@ -126,5 +133,6 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Symlinked modules using the intallables API not being installed. #429
 - Notices for ophaned comments in comment points hooks. #436
 
-[unreleased]: https://github.com/WordPoints/wordpoints/compare/2.1.0...HEAD
+[unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.1.1]: https://github.com/WordPoints/wordpoints/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/WordPoints/wordpoints/compare/2.0.2...2.1.0

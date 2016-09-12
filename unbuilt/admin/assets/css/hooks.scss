@@ -19,6 +19,7 @@
  * -- Groups
  * -- Group
  * -- Condition
+ * - Periods
  *
  * @package WordPoints
  * @since 2.1.0
@@ -396,6 +397,19 @@ $lighter_border_color: #ddd;
 	.condition-settings {
 		padding-left: 5px;
 		border-left: 3px solid $background_color;
+	}
+
+	/*
+	 * Periods.
+	 */
+
+	.wordpoints-hook-period-length-in-units {
+		width: 48%;
+	}
+
+	.wordpoints-hook-period-units {
+		width: 50%;
+		float: right;
 	}
 }
 

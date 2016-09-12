@@ -73,7 +73,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 		$data = parent::get_ui_script_data();
 
 		$data['target_label'] = __( 'Award To', 'wordpoints' );
-		$data['periods_label'] = __( 'Award each user no more than once per:', 'wordpoints' );
+		$data['periods_label'] = __( 'Award each user no more than once in:', 'wordpoints' );
 
 		return $data;
 	}

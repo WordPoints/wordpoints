@@ -64,12 +64,16 @@ Fields = Backbone.Model.extend({
 		}
 	},
 
-	createSelect: function ( data ) {
+	createSelect: function ( data, template ) {
 
-		var $template = $( '<div></div>' ).html( this.templateSelect( data ) ),
+		var $template = $( '<div></div>' ).html( template || this.templateSelect( data ) ),
 			options = '',
 			foundValue = typeof data.value === 'undefined'
 				|| typeof data.options[ data.value ] !== 'undefined';
+
+		if ( ! $template ) {
+			$template = $( '<div></div>' ).html( this.templateSelect( data ) );
+		}
 
 		_.each( data.options, function ( option, index ) {
 

@@ -442,6 +442,25 @@ function wordpoints_register_admin_scripts() {
 				</div>
 				<div class="periods section-content"></div>
 			</script>
+			
+			<script type="text/template" id="tmpl-wordpoints-hook-reaction-simple-period">
+				<div class="wordpoints-period">
+					<input type="hidden" name="{{ data.name }}" value="{{ data.length }}" class="widefat wordpoints-hook-period-length" />
+					<fieldset>
+						<p class="description description-thin">
+							<legend>{{ data.length_in_units_label }}</legend>
+							<label>
+								<span class="screen-reader-text">' . esc_html__( 'Time Units:', 'wordpoints' ) . '</span>
+								<select class="widefat wordpoints-hook-period-sync wordpoints-hook-period-units"></select>
+							</label>
+							<label>
+								<span class="screen-reader-text">' . esc_html__( 'Number:', 'wordpoints' ) . '</span>
+								<input type="number" value="{{ data.length_in_units }}" class="widefat wordpoints-hook-period-sync wordpoints-hook-period-length-in-units" />
+							</label>
+						</p>
+					</fieldset>
+				</div>
+			</script>
 		'
 	);
 }

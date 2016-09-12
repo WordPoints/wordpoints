@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-08-10 13:14:14+00:00\n"
+"POT-Creation-Date: 2016-09-12 19:58:08+00:00\n"
 "PO-Revision-Date: 2015-06-22 19:24+0200\n"
 "Last-Translator: Rimantas <info@auksinas.lt>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/wordpoints/"
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Visit module site"
 msgstr "Apsilankyti modulio puslapyje"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316
@@ -1190,6 +1190,12 @@ msgstr ""
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this site."
+msgstr ""
+
+#: components/points/admin/classes/screen/points/types.php:740
+msgid ""
+"You can learn more about how they work from <a href=\"%s\" target=\"_blank"
+"\">the user guide on WordPoints.org</a>."
 msgstr ""
 
 #: components/points/admin/includes/ajax.php:107

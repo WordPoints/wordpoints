@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.4
 Tested up to: 4.7-alpha-38178
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,17 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.1.1 - 2016-09-12 =
+
+##### Fixed
+
+- Rate Limits for reactions to the Visit event not working after the end of the first
+time period. After the first period expired for a user, they would be awarded every
+time they visited the site.
+- The settings form for Rate Limits for reactions imported from CubePoints using the
+Importer module not working correctly. The imported rate limits have to use a special
+form, but the regular one was being displayed instead.
 
 = 2.1.0 - 2016-08-10 - (countless hrs) =
 
@@ -422,6 +433,13 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.1.1 =
+* Fixes the Rate Limits for the Visit event.
+
+= 2.1.0 =
+* Introduces a new admin screen for managing points types and how points are awarded.
+The old Points Hooks screen remains for now on legacy sites, and continues to work.
+
 = 2.0.2 =
 * Fixes a bug in version 2.0.0 that has caused the plugin not to run its installation
 script when it was activated. Updating will cause the installation script to be run

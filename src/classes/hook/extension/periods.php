@@ -363,7 +363,7 @@ class WordPoints_Hook_Extension_Periods
 						AND `hit`.`reaction_context_id` = %s
 						AND `hit`.`reaction_id` = %d
 						AND `hit`.`action_type` = %s
-					ORDER BY `hit`.`date`
+					ORDER BY `hit`.`date` DESC
 					LIMIT 1
 				"
 				, $signature

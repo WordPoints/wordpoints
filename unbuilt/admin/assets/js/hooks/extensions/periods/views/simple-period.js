@@ -33,7 +33,7 @@ SimplePeriod = Base.extend({
 	// Display the period settings form.
 	render: function () {
 
-		var name = [ 'periods', this.actionType, 0, 'length' ];
+		var name = [ this.extension.get( 'slug' ), this.actionType, 0, 'length' ];
 		var periodLength = this.reaction.model.get( name );
 
 		// Which units should this period be displayed in (second, minutes, &c.)?

@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WordPoints package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPoints 2.1.0\n"
+"Project-Id-Version: WordPoints 2.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-08-10 13:14:14+00:00\n"
+"POT-Creation-Date: 2016-09-12 19:58:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Visit module site"
 msgstr ""
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316
@@ -1156,6 +1156,12 @@ msgstr ""
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this site."
+msgstr ""
+
+#: components/points/admin/classes/screen/points/types.php:740
+msgid ""
+"You can learn more about how they work from <a href=\"%s\" target=\"_blank"
+"\">the user guide on WordPoints.org</a>."
 msgstr ""
 
 #: components/points/admin/includes/ajax.php:107

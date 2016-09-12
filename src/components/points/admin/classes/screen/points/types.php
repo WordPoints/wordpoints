@@ -731,7 +731,20 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 						<?php if ( isset( $this->current_points_type ) ) : ?>
 							<div class="wordpoints-hook-events-heading">
 								<h2><?php echo esc_html( $title ); ?></h2>
-								<p class="description"><?php echo esc_html( $description ); ?></p>
+								<p class="description">
+									<?php echo esc_html( $description ); ?>
+									<?php
+
+									echo wp_kses(
+										sprintf(
+											__( 'You can learn more about how they work from <a href="%s" target="_blank">the user guide on WordPoints.org</a>.', 'wordpoints' )
+											, 'http://wordpoints.org/user-guide/points-reactions/'
+										)
+										, array( 'a' => array( 'href' => true, 'target' => true ) )
+									);
+
+									?>
+								</p>
 							</div>
 
 							<div id="postbox-container-2" class="postbox-container">

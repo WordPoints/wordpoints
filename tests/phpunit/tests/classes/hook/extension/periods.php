@@ -556,6 +556,71 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 	}
 
 	/**
+	 * Test that the latest period is checked when multiple old periods exist.
+	 *
+	 * @since 2.1.1
+	 *
+	 * @dataProvider data_provider_period_settings_period_over
+	 *
+	 * @param array $settings An array of valid settings.
+	 * @param array $periods  Data for the periods expected to be created.
+	 */
+	public function test_should_hit_period_started_period_over( $settings, $periods = array() ) {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+		$hooks->get_sub_app( 'extensions' )->register(
+			$this->extension_slug
+			, $this->extension_class
+		);
+
+		wordpoints_entities()->get_sub_app( 'children' )->register(
+			'test_entity'
+			, 'child'
+			, 'WordPoints_PHPUnit_Mock_Entity_Attr'
+		);
+
+		$settings['target'] = array( 'test_entity' );
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create( $settings );
+
+		$this->assertIsReaction( $reaction );
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		$event_args->add_entity(
+			new WordPoints_PHPUnit_Mock_Entity( 'test_entity' )
+		);
+
+		$event_args->add_entity(
+			new WordPoints_PHPUnit_Mock_Entity( 'another' )
+		);
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertPeriodsExist( $periods, $reaction );
+
+		$test_reactor = $hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
+		$this->assertCount( 1, $test_reactor->hits );
+
+		$this->fast_forward( $test_reactor->hits[0]->hit_id, MINUTE_IN_SECONDS + 1 );
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertCount( 2, $test_reactor->hits );
+
+		// Don't let caching interfere with this.
+		$this->flush_cache();
+
+		// Fire again. This checks that the periods are sorted properly, and that
+		// the latest one is checked, not the old one.
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertCount( 2, $test_reactor->hits );
+	}
+
+	/**
 	 * Test checking that an event will hit the target once the period has ended.
 	 *
 	 * @since 2.1.0

@@ -30,7 +30,7 @@ Periods = Extension.extend({
 
 			var $periods = $( '<div></div>' ).html( this.template() );
 
-			var name = [ 'periods', currentActionType, 0, 'length' ];
+			var name = [ this.get( 'slug' ), currentActionType, 0, 'length' ];
 
 			var label = reaction.Reactor.get( 'periods_label' );
 

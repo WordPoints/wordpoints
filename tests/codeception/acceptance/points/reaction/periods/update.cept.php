@@ -16,6 +16,7 @@ $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' )
 $I->waitForElement( '#points-user_visit .wordpoints-hook-reaction' );
 $I->click( 'Edit', '#points-user_visit .wordpoints-hook-reaction' );
 $I->see( 'Rate Limit', '#points-user_visit .wordpoints-hook-reaction' );
+$I->cantSeeElement( '#points-user_visit .wordpoints-hook-reaction [name="points_legacy_periods[fire][0][length]"]' );
 $I->canSeeOptionIsSelected(
 	'#points-user_visit .wordpoints-hook-reaction [name="periods[fire][0][length]"]'
 	, 'Minute'

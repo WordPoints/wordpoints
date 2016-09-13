@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.4
 Tested up to: 4.7-alpha-38178
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,13 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.1.2 = 2016-09-13 =
+
+##### Fixed
+
+- The form for legacy Rate Limits being displayed on non-legacy reactions. It is only
+supposed to display on reactions imported with the Importer module.
 
 = 2.1.1 - 2016-09-12 =
 
@@ -433,6 +440,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.1.2 =
+* Fixes a bug that caused two Rate Limit forms to be displayed for the Visit event
+reactions.
+
 = 2.1.1 =
 * Fixes the Rate Limits for the Visit event.
 

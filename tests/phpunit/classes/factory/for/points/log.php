@@ -112,7 +112,7 @@ class WordPoints_PHPUnit_Factory_For_Points_Log extends WP_UnitTest_Factory_For_
 	 *
 	 * @param int $id The points log ID.
 	 *
-	 * @return stdClass The points log object.
+	 * @return object The points log object.
 	 */
 	public function get_object_by_id( $id ) {
 

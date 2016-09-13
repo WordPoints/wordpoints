@@ -60,7 +60,7 @@ final class WordPoints_Rank {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @type stdClass $data
+	 * @type object $data
 	 */
 	private $data;
 
@@ -211,7 +211,7 @@ final class WordPoints_Rank {
 	 *
 	 * @param int $id The ID of the rank to get.
 	 *
-	 * @return stdClass|false The rank's data, or false if not found.
+	 * @return object|false The rank's data, or false if not found.
 	 */
 	public static function get_data( $id ) {
 

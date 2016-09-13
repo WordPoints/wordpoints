@@ -142,8 +142,8 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 *
 	 * @action wp_insert_comment Added by the constructor.
 	 *
-	 * @param int      $comment_id The comment's ID.
-	 * @param stdClass $comment    The comment object.
+	 * @param int        $comment_id The comment's ID.
+	 * @param WP_Comment $comment    The comment object.
 	 *
 	 * @return void
 	 */
@@ -223,8 +223,8 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param stdClass $comment The object for the comment that triggerd the hook.
-	 * @param WP_Post  $post    The object for the post this comment was on.
+	 * @param WP_Comment $comment The object for the comment that triggerd the hook.
+	 * @param WP_Post    $post    The object for the post this comment was on.
 	 *
 	 * @return int The ID of the user the points should be awarded to.
 	 */

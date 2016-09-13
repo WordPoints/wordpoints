@@ -386,7 +386,7 @@ class WordPoints_Points_Logs_Query {
 	 * @param int $page     The page number to get. Pages are numbered starting at 1.
 	 * @param int $per_page The number of logs being displayed per page.
 	 *
-	 * @return stdClass[]|false The logs for this page, or false if $page or $per_page is invalid.
+	 * @return object[]|false The logs for this page, or false if $page or $per_page is invalid.
 	 */
 	public function get_page( $page, $per_page = 25 ) {
 

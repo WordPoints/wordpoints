@@ -1030,7 +1030,7 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
  * @since 1.2.0
  * @since 1.6.0 Now expects an array of log objects, instead of an array of log IDs.
  *
- * @param stdClass[] $logs The logs to regenerate the log messages for.
+ * @param object[] $logs The logs to regenerate the log messages for.
  *
  * @return void
  */

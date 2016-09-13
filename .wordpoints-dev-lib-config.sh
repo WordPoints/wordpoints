@@ -10,7 +10,7 @@ export DEV_LIB_PATH=dev-lib-wordpoints
 function wordpoints-dev-lib-config() {
 
 	# Use the develop branch for WPCS.
-	#export WPCS_GIT_TREE=develop
+	export WPCS_GIT_TREE=develop
 
 	# Use a stable commit for PHPCS.
 	export PHPCS_GIT_TREE=fb72ed32f8418db5e7770be1653e62e0d6f5dd3d

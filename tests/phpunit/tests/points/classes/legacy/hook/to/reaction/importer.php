@@ -533,7 +533,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				, $post_type_settings['log_text']
 			);
 
-			if ( $post_type->name === 'attachment' ) {
+			if ( 'attachment' === $post_type->name ) {
 
 				$post_type_settings['event'] = 'media_upload';
 				unset( $post_type_settings['points_legacy_repeat_blocker'] );

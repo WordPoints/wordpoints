@@ -25,7 +25,7 @@ final class WordPoints_Points_Log_Queries {
 	 * Whether the class has been initialized.
 	 *
 	 * This is used to check whether the queries have been registered yet. This
-	 * action is perfermed by the init() method, and is only performed if needed.
+	 * action is performed by the init() method, and is only performed if needed.
 	 *
 	 * @since 1.0.0
 	 *
@@ -641,7 +641,7 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 
 	$user_name = sanitize_user_field( 'display_name', get_userdata( $meta['user_id'] )->display_name, $meta['user_id'], 'display' );
 
-	return sprintf( _x( 'Points adjusted by %s. Reason: %s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
+	return sprintf( _x( 'Points adjusted by %1$s. Reason: %2$s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
 }
 
 /**

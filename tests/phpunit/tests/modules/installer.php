@@ -170,7 +170,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 		$package_name = WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $this->package_name;
 
 		if ( ! file_exists( $package_name . '.zip' ) ) {
-			copy( $package_name . '.bk.zip', $package_name  . '.zip' );
+			copy( $package_name . '.bk.zip', $package_name . '.zip' );
 		}
 
 		return $package_name . '.zip';

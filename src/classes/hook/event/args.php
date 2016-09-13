@@ -200,7 +200,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 				if ( ! $child_arg ) {
 					$this->validator->add_error(
 						sprintf(
-							__( '%s does not have a child &#8220;%s&#8221;.', 'wordpoints' )
+							__( '%1$s does not have a child &#8220;%2$s&#8221;.', 'wordpoints' )
 							, $this->current->get_slug()
 							, $child_slug
 						)

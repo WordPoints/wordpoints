@@ -412,7 +412,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 				foreach ( array( 'name', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {
 
-					$module_data[ $field ] = translate( $module_data[ $field ], $textdomain );
+					$module_data[ $field ] = translate( $module_data[ $field ], $textdomain ); // @codingStandardsIgnoreLine
 				}
 			}
 		}
@@ -508,7 +508,7 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 	// Load the textdomain according to the module first.
 	$mofile = $domain . '-' . $locale . '.mo';
 
-	if ( $loaded = load_textdomain( $domain, $path . '/'. $mofile ) ) {
+	if ( $loaded = load_textdomain( $domain, $path . '/' . $mofile ) ) {
 		return $loaded;
 	}
 

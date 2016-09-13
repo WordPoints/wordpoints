@@ -283,7 +283,7 @@ abstract class WordPoints_Shortcode {
 
 				if ( ! $post ) {
 					return sprintf(
-						esc_html__( 'The &#8220;%s&#8221; attribute of the %s shortcode must be used inside of a Post, Page, or other post type.', 'wordpoints' )
+						esc_html__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be used inside of a Post, Page, or other post type.', 'wordpoints' )
 						, 'user_id="post_author"'
 						, "<code>[{$this->shortcode}]</code>"
 					);

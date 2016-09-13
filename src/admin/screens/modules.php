@@ -15,7 +15,7 @@ if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
 		wordpoints_show_admin_error(
 			sprintf(
-				__( 'The module %s has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' )
+				__( 'The module %1$s has been <strong>deactivated</strong> due to an error: %2$s', 'wordpoints' )
 				, esc_html( $module_file )
 				, '<code>' . esc_html( $error->get_error_message() ) . '</code>'
 			)
@@ -81,11 +81,11 @@ if ( isset( $_GET['error'] ) ) {
 
 } elseif ( isset( $_GET['deleted'] ) ) {
 
-	$user_ID = get_current_user_id();
-	$delete_result = get_transient( 'wordpoints_modules_delete_result_' . $user_ID );
+	$user_id       = get_current_user_id();
+	$delete_result = get_transient( 'wordpoints_modules_delete_result_' . $user_id );
 
 	// Delete it once we're done.
-	delete_transient( 'wordpoints_modules_delete_result_' . $user_ID );
+	delete_transient( 'wordpoints_modules_delete_result_' . $user_id );
 
 	if ( is_wp_error( $delete_result ) ) {
 

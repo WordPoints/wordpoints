@@ -14,10 +14,6 @@ function wordpoints-dev-lib-config() {
 
 	# Use PHPCS 2.7.0, since WPCS 0.11.0 requires it.
 	export PHPCS_GIT_TREE=571e27b6348e5b3a637b2abc82ac0d01e6d7bbed
-
-	# Ignore the WordPress dev lib when codesniffing.
-	CODESNIFF_PATH+=('!' -path "./dev-lib/*")
-	export CODESNIFF_PATH
 }
 
 # EOF

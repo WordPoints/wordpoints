@@ -17,7 +17,8 @@
  *
  * @since 2.2.0
  */
-class WordPoints_PHPUnit_TestCase_Points extends WordPoints_PHPUnit_TestCase {
+abstract class WordPoints_PHPUnit_TestCase_Points
+	extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * @since 1.9.0 As part of WordPoints_Points_UnitTestCase.

@@ -12,7 +12,8 @@
  *
  * @since 1.7.0 As WordPoints_Ranks_UnitTestCase.
  */
-class WordPoints_PHPUnit_TestCase_Ranks extends WordPoints_PHPUnit_TestCase {
+abstract class WordPoints_PHPUnit_TestCase_Ranks
+	extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * @since 1.9.0 As part of WordPoints_Ranks_UnitTestCase.

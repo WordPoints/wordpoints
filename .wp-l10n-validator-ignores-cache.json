@@ -95,14 +95,41 @@
                 "parentheses": 1
             }
         },
+        "{{ data.length }}": {
+            "441": {
+                "name": "wp_script_add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "{{ data.length_in_units_label }}": {
+            "441": {
+                "name": "wp_script_add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "{{ data.length_in_units }}": {
+            "457": {
+                "name": "wp_script_add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
         "attr": {
-            "575": false
+            "578": false
         },
         "relationship": {
-            "580": false
+            "583": false
         },
         "entity": {
-            "605": {
+            "608": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -111,16 +138,16 @@
             }
         },
         "success": {
-            "765": false
+            "768": false
         },
         "is-dismissible": {
-            "781": false
+            "784": false
         },
         "data-nonce=\"": {
-            "783": false
+            "786": false
         },
         "upload": {
-            "923": {
+            "926": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1082,7 +1109,7 @@
     },
     "\/includes\/modules.php": {
         "Module Name": {
-            "366": {
+            "362": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1091,7 +1118,7 @@
             }
         },
         "Module URI": {
-            "367": {
+            "363": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1100,7 +1127,7 @@
             }
         },
         "Version": {
-            "368": {
+            "364": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1109,7 +1136,7 @@
             }
         },
         "Description": {
-            "369": {
+            "365": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1118,7 +1145,7 @@
             }
         },
         "Author": {
-            "370": {
+            "366": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1127,7 +1154,7 @@
             }
         },
         "Author URI": {
-            "371": {
+            "367": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1136,7 +1163,7 @@
             }
         },
         "Text Domain": {
-            "372": {
+            "368": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1145,7 +1172,7 @@
             }
         },
         "Domain Path": {
-            "373": {
+            "369": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1154,7 +1181,7 @@
             }
         },
         "Network": {
-            "374": {
+            "370": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1163,7 +1190,7 @@
             }
         },
         "Update API": {
-            "375": {
+            "371": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1172,7 +1199,7 @@
             }
         },
         "Channel": {
-            "376": {
+            "372": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1181,7 +1208,7 @@
             }
         },
         "ID": {
-            "377": {
+            "373": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1190,7 +1217,7 @@
             }
         },
         "true": {
-            "392": false
+            "388": false
         }
     },
     "\/admin\/classes\/screen.php": {
@@ -1277,7 +1304,7 @@
             }
         },
         "IN": {
-            "179": {
+            "178": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

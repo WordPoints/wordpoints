@@ -3,9 +3,6 @@
 # This project is a plugin.
 export WORDPOINTS_PROJECT_TYPE=wordpoints
 
-# The dev lib uses a non-default path.
-export DEV_LIB_PATH=dev-lib-wordpoints
-
 # Sets up custom configuration.
 function wordpoints-dev-lib-config() {
 

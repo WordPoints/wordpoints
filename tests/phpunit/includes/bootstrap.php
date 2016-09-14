@@ -48,7 +48,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) || $autoloader_exists ) {
 		 *
 		 * @since 2.2.0
 		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib-wordpoints/phpunit/classes/class/autoloader.php' );
+		require_once( WORDPOINTS_TESTS_DIR . '/../../dev-lib/phpunit/classes/class/autoloader.php' );
 	}
 
 	WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(

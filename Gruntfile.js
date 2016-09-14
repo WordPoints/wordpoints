@@ -10,7 +10,7 @@ module.exports = function( grunt ) {
 	var SOURCE_DIR = 'src/',
 		UNBUILT_DIR = 'unbuilt/',
 		browserifyConfig = {},
-		DEV_LIB_DIR = 'dev-lib-wordpoints/',
+		DEV_LIB_DIR = 'dev-lib/',
 		jsManifests = grunt.file.expand( { cwd: UNBUILT_DIR }, ['**/*.manifest.js'] );
 
 	// Load tasks.

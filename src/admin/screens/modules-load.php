@@ -333,6 +333,7 @@ switch ( $action ) {
 
 							foreach ( $folder_modules as $module_file => $data ) {
 
+								$module_info[ $module_file ] = $data;
 								$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
 
 								if ( ! $module_info[ $module_file ]['network'] ) {
@@ -405,7 +406,7 @@ switch ( $action ) {
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php foreach ( (array) $modules as $module ) : ?>
-						<input type="hidden" name="checked[]" value="'<?php echo esc_attr( $module ); ?>" />
+						<input type="hidden" name="checked[]" value="<?php echo esc_attr( $module ); ?>" />
 					<?php endforeach; ?>
 					<?php wp_nonce_field( 'bulk-modules' ) ?>
 					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), 'button', 'submit', false ); ?>

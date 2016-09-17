@@ -102,7 +102,10 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 		$globals = array( 'merged_filters', 'wp_actions', 'wp_current_filter', 'wp_filter' );
 
 		foreach ( $globals as $key ) {
-			WP_UnitTestCase::$hooks_saved[ $key ] = $GLOBALS[ $key ];
+			// merged_filters no longer used in 4.7.
+			if ( isset( $GLOBALS[ $key ] ) ) { 
+				WP_UnitTestCase::$hooks_saved[ $key ] = $GLOBALS[ $key ];
+			}
 		}
 	}
 

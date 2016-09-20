@@ -15,6 +15,15 @@
 class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 
 	/**
+	 * List of functions to call indexed by action slug.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var callable[]
+	 */
+	protected $actions;
+
+	/**
 	 * List of modules to be installed.
 	 *
 	 * @since 2.2.0
@@ -61,6 +70,56 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	//
 	// Public methods.
 	//
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function __construct() {
+
+		parent::__construct();
+
+		$this->add_action(
+			'after_load_wordpress'
+			, array( $this, 'init_wordpoints_factory' )
+		);
+
+		$this->add_action(
+			'after_load_wordpress'
+			, array( $this, 'throw_errors_for_database_errors' )
+		);
+	}
+
+	/**
+	 * Hook a function to a custom action.
+	 *
+	 * These aren't related to the WordPress actions, but are a similar concept.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string   $action   The action to hook the function to
+	 * @param callable $function The function to hook to this action.
+	 */
+	public function add_action( $action, $function ) {
+		$this->actions[ $action ][] = $function;
+	}
+
+	/**
+	 * Calls all of the functions hooked to an action.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $action The action to fire.
+	 */
+	public function do_action( $action ) {
+
+		if ( ! isset( $this->actions[ $action ] ) ) {
+			return;
+		}
+
+		foreach ( $this->actions[ $action ] as $function ) {
+			$function();
+		}
+	}
 
 	/**
 	 * Add a module to load.
@@ -123,6 +182,61 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		}
 
 		return parent::should_install_plugins();
+	}
+
+	/**
+	 * Loads WordPress and its test environment.
+	 *
+	 * @since 2.2.0
+	 */
+	public function load_wordpress() {
+
+		$this->do_action( 'before_load_wordpress' );
+
+		/**
+		 * Sets up the WordPress test environment.
+		 *
+		 * @since 2.2.0
+		 */
+		require( $this->get_wp_tests_dir() . '/includes/bootstrap.php' );
+
+		$this->do_action( 'after_load_wordpress' );
+	}
+
+	/**
+	 * Initialize the WordPoints PHPUnit factory.
+	 *
+	 * @since 2.2.0
+	 */
+	public function init_wordpoints_factory() {
+
+		$factory = WordPoints_PHPUnit_Factory::init();
+		$factory->register( 'entity', 'WordPoints_PHPUnit_Factory_For_Entity' );
+		$factory->register( 'hook_reaction', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction' );
+		$factory->register( 'hook_reaction_store', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction_Store' );
+		$factory->register( 'hook_reactor', 'WordPoints_PHPUnit_Factory_For_Hook_Reactor' );
+		$factory->register( 'hook_extension', 'WordPoints_PHPUnit_Factory_For_Hook_Extension' );
+		$factory->register( 'hook_event', 'WordPoints_PHPUnit_Factory_For_Hook_Event' );
+		$factory->register( 'hook_action', 'WordPoints_PHPUnit_Factory_For_Hook_Action' );
+		$factory->register( 'hook_condition', 'WordPoints_PHPUnit_Factory_For_Hook_Condition' );
+		$factory->register( 'points_log', 'WordPoints_PHPUnit_Factory_For_Points_Log' );
+		$factory->register( 'post_type', 'WordPoints_PHPUnit_Factory_For_Post_Type' );
+		$factory->register( 'rank', 'WordPoints_PHPUnit_Factory_For_Rank' );
+		$factory->register( 'user_role', 'WordPoints_PHPUnit_Factory_For_User_Role' );
+
+		$this->do_action( 'init_wordpoints_factory' );
+	}
+
+	/**
+	 * Causes database errors to be converted into actual PHP errors.
+	 *
+	 * @since 2.2.0
+	 */
+	public function throw_errors_for_database_errors() {
+
+		global $EZSQL_ERROR;
+
+		$EZSQL_ERROR = new WordPoints_PHPUnit_Error_Handler_Database();
 	}
 }
 

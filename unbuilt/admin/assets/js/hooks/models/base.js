@@ -54,6 +54,7 @@ Base = Backbone.Model.extend( {
 			, this
 			, attributes
 			, errors
+			, options
 		);
 
 		if ( errors.length > 0 ) {

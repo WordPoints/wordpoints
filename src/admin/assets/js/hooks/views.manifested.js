@@ -1575,7 +1575,7 @@ Reaction = Base.extend({
 			formData.target = formData.target.split( ',' );
 		}
 
-		this.model.save( formData, { wait: true } );
+		this.model.save( formData, { wait: true, rawAtts: formData } );
 	},
 
 	// Display a spinner while changes are being saved.

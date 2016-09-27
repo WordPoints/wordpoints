@@ -89,9 +89,12 @@ Conditions = Extension.extend({
 		}
 	},
 
-	validateReaction: function ( model, attributes, errors ) {
+	validateReaction: function ( model, attributes, errors, options ) {
 
-		if ( ! attributes.conditions ) {
+		// https://github.com/WordPoints/wordpoints/issues/519.
+		if ( ! options.rawAtts.conditions ) {
+			delete attributes.conditions;
+			delete model.attributes.conditions;
 			return;
 		}
 

@@ -231,6 +231,7 @@ var Extension = wp.wordpoints.hooks.controller.Extension,
 	ConditionGroups = wp.wordpoints.hooks.model.ConditionGroups,
 	ConditionsGroupsView = wp.wordpoints.hooks.view.ConditionGroups,
 	getDeep = wp.wordpoints.hooks.util.getDeep,
+	data = wp.wordpoints.hooks.view.data,
 	Conditions;
 
 Conditions = Extension.extend({
@@ -259,7 +260,20 @@ Conditions = Extension.extend({
 			conditions = {};
 		}
 
-		_.each( reaction.Reactor.get( 'action_types' ), function ( actionType ) {
+		var actionTypes = _.keys(
+			data.event_action_types[ reaction.model.get( 'event' ) ]
+		);
+
+		if ( ! actionTypes ) {
+			return;
+		}
+
+		actionTypes = _.intersection(
+			reaction.Reactor.get( 'action_types' )
+			, actionTypes
+		);
+
+		_.each( actionTypes, function ( actionType ) {
 
 			var conditionGroups = conditions[ actionType ];
 

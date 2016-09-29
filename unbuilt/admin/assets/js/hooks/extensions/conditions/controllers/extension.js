@@ -60,15 +60,45 @@ Conditions = Extension.extend({
 
 		}, this );
 
+		var appended = false;
+
 		this.listenTo( reaction, 'render:fields', function ( $el, currentActionType ) {
 
-			var conditions = reaction.conditions[ currentActionType ];
+			var conditionsView = reaction.conditions[ currentActionType ];
 
-			if ( ! conditions ) {
+			if ( ! conditionsView ) {
 				return;
 			}
 
-			$el.append( conditions.render().$el );
+			// If we've already appended the container view to the reaction view,
+			// then we don't need to do that again.
+			if ( appended ) {
+
+				var conditionsCollection = reaction.model.conditions[ currentActionType ];
+				var conditions = reaction.model.get( 'conditions' );
+
+				if ( ! conditions ) {
+					conditions = {};
+				}
+
+				// However, we do need to update the condition collection, in case
+				// some of the condition models have been removed or new ones added.
+				conditionsCollection.set(
+					conditionsCollection.mapConditionGroups(
+						conditions[ currentActionType ] || []
+					)
+					, { parse: true }
+				);
+
+				// And then re-render everything.
+				conditionsView.render();
+
+			} else {
+
+				$el.append( conditionsView.render().$el );
+
+				appended = true;
+			}
 		});
 	},
 

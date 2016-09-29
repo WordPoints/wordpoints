@@ -287,11 +287,6 @@ Conditions = Extension.extend({
 				_conditions: conditionGroups
 			} );
 
-			reaction.conditions[ actionType ] = new ConditionsGroupsView( {
-				collection: reaction.model.conditions[ actionType ],
-				reaction: reaction
-			});
-
 		}, this );
 
 		var appended = false;
@@ -301,7 +296,10 @@ Conditions = Extension.extend({
 			var conditionsView = reaction.conditions[ currentActionType ];
 
 			if ( ! conditionsView ) {
-				return;
+				conditionsView = reaction.conditions[ currentActionType ] = new ConditionsGroupsView( {
+					collection: reaction.model.conditions[ currentActionType ],
+					reaction: reaction
+				});
 			}
 
 			// If we've already appended the container view to the reaction view,

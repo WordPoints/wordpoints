@@ -1124,6 +1124,8 @@ ConditionGroups = Base.extend({
 				this.ConditionSelector.$el
 			);
 
+			this.ArgSelector.delegateEvents();
+			this.ConditionSelector.delegateEvents();
 			this.ConditionSelector.triggerChange();
 		}
 

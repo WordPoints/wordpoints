@@ -1113,6 +1113,20 @@ ConditionGroups = Base.extend({
 
 		this.trigger( 'render', this );
 
+		// See https://github.com/WordPoints/wordpoints/issues/520.
+		if ( this.ArgSelector ) {
+
+			this.$( '> .add-condition-form .arg-selectors' ).replaceWith(
+				this.ArgSelector.$el
+			);
+
+			this.$( '> .add-condition-form .condition-selector' ).replaceWith(
+				this.ConditionSelector.$el
+			);
+
+			this.ConditionSelector.triggerChange();
+		}
+
 		return this;
 	},
 
@@ -1169,7 +1183,7 @@ ConditionGroups = Base.extend({
 
 				this.ArgSelector = new ArgHierarchySelector({
 					hierarchies: hierarchies,
-					el: this.$( '.arg-selectors' )
+					el: this.$( '> .add-condition-form .arg-selectors' )
 				});
 
 				this.listenTo( this.ArgSelector, 'change', this.maybeShowConditionSelector );
@@ -1218,7 +1232,7 @@ ConditionGroups = Base.extend({
 		if ( ! this.ConditionSelector ) {
 
 			this.ConditionSelector = new ConditionSelector({
-				el: this.$( '.condition-selector' )
+				el: this.$( '> .add-condition-form .condition-selector' )
 			});
 
 			this.listenTo( this.ConditionSelector, 'change', this.conditionSelectionChange );

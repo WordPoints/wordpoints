@@ -64,7 +64,13 @@ Periods = Extension.extend({
 				)
 			);
 
-			$el.append( $periods.html() );
+			var $existingPeriods = $el.find( '.periods' );
+
+			if ( $existingPeriods.length ) {
+				$existingPeriods.replaceWith( $periods.find( '.periods' ) );
+			} else {
+				$el.append( $periods.html() );
+			}
 		});
 	},
 

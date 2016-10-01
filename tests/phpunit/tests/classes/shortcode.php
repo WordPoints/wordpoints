@@ -61,7 +61,9 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
-		$filter = new WordPoints_Mock_Filter();
+		$filtered_atts = array( 'test' => 'filtered' );
+		$filter        = new WordPoints_Mock_Filter( $filtered_atts );
+
 		add_filter(
 			'wordpoints_user_supplied_shortcode_atts'
 			, array( $filter, 'filter' )
@@ -76,6 +78,9 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 			array( $atts, $pairs, $atts, $shortcode->shortcode )
 			, $filter->calls[0]
 		);
+
+		$this->assertEquals( $filtered_atts, $shortcode->atts );
+		$this->assertEquals( $pairs, $shortcode->pairs );
 	}
 
 	/**

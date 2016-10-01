@@ -239,7 +239,7 @@ abstract class WordPoints_Shortcode {
 		 * @param array  $atts      The attribute => value pairs supplied by the user.
 		 * @param string $shortcode The name of the shortcode the attributes are for.
 		 */
-		$this->pairs = apply_filters(
+		$this->atts = apply_filters(
 			'wordpoints_user_supplied_shortcode_atts'
 			, $this->atts
 			, $this->pairs

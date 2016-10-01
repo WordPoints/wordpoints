@@ -11,7 +11,21 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 ### Added
 
 - This changelog.
-- 
+
+## [2.1.3] - 2016-10-01
+
+### Fixed
+
+- Module info not being displayed on the Delete module screen. #509
+- Deleting a module showing success without actually deleting it. #509
+- Reaction conditions not being deleted form the database when deleted within the UI. #519
+- Cancelling editing a reaction causing a second Rate Limits section to be added to the reaction form. #516
+- Cancelling editing a reaction not restoring removed conditions or removing restored conditions. #517
+- Cancelling editing a reaction removing the add new condition selectors. #520
+- Cancelling editing a reaction removing newly saved conditions. #521
+- JS error `TypeError: this.$c is not a function` when cancelling editing a reaction. #523
+- `wordpoints_user_supplied_shortcode_atts` filter filtered value not being used correctly. #530
+
 ## [2.1.2] - 2016-09-13
 
 ### Fixed
@@ -141,6 +155,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.1.3]: https://github.com/WordPoints/wordpoints/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/WordPoints/wordpoints/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/WordPoints/wordpoints/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/WordPoints/wordpoints/compare/2.0.2...2.1.0

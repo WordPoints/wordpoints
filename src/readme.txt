@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.4
 Tested up to: 4.7-alpha-38178
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,7 +117,23 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
-= 2.1.2 = 2016-09-13 =
+= 2.1.3 - 2016-10-01 =
+
+##### Fixed
+
+- Issues when deleting a module. The module data wouldn't be shown correctly on the
+Delete Module screen, and PHP errors would occur. A success message would be shown
+saying that the module was deleted, but it would still be present. All of this is
+now fixed, so your modules are no loner permanent.
+- Reaction conditions not actually being removed when deleted. Reloading the page
+would show that they were still there. This is now fixed, so your reaction conditions
+are no longer indestructible either.
+- Issues when cancelling editing a reaction. Weird things would happen, like a
+duplicate Rate Limits section getting added, the Add Condition form being mangled,
+and unsaved conditions not being removed. You no longer have to put up with this kind
+of mayhem. At least not from WordPoints reactions.
+
+= 2.1.2 - 2016-09-13 =
 
 ##### Fixed
 
@@ -440,6 +456,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.1.3 =
+* Fixes issues when deleting a module, when deleting a reaction condition, and when
+cancelling editing a reaction (on the Points Types screen).
+
 = 2.1.2 =
 * Fixes a bug that caused two Rate Limit forms to be displayed for the Visit event
 reactions.

@@ -681,7 +681,7 @@ ConditionGroups = Backbone.Collection.extend({
 					id:          this.getIdFromHierarchy( hierarchy ),
 					hierarchy:   _.clone( hierarchy ),
 					groups:      this,
-					_conditions: arg
+					_conditions: _.toArray( arg )
 				} );
 
 			} else {

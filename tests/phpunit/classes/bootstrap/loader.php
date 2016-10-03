@@ -87,6 +87,11 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			'after_load_wordpress'
 			, array( $this, 'throw_errors_for_database_errors' )
 		);
+
+		$this->add_action(
+			'after_load_wordpress'
+			, array( $this, 'clean_database' )
+		);
 	}
 
 	/**
@@ -237,6 +242,15 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		global $EZSQL_ERROR;
 
 		$EZSQL_ERROR = new WordPoints_PHPUnit_Error_Handler_Database();
+	}
+
+	/**
+	 * Remove cruft from the database that will interfere with the tests.
+	 *
+	 * @since 2.2.0
+	 */
+	public function clean_database() {
+		delete_site_transient( 'wordpoints_all_site_ids' );
 	}
 }
 

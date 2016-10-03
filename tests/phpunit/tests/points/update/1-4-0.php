@@ -56,7 +56,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Simulate the update.
 		$this->update_component( 'points', '1.3.0' );
 
-		// Check that the custom capabilties were added.
+		// Check that the custom capabilities were added.
 		foreach ( $blog_ids as $blog_id ) {
 
 			switch_to_blog( $blog_id );

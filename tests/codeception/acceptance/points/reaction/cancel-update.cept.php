@@ -21,9 +21,18 @@ $I->canSeeInFormFields(
 		'points' => '10',
 	)
 );
+$I->cantSee( 'Edit', '#points-user_register .wordpoints-hook-reaction .view' );
+$I->canSee( 'Close', '#points-user_register .wordpoints-hook-reaction .view' );
+$I->canSee( 'Close', '#points-user_register .wordpoints-hook-reaction .actions' );
+$I->canSee( 'Save', '#points-user_register .wordpoints-hook-reaction .actions :disabled' );
+$I->cantSee( 'Cancel', '#points-user_register .wordpoints-hook-reaction .actions' );
 $I->fillField( 'description', 'Registering.' );
 $I->fillField( 'log_text', 'Registration.' );
 $I->fillField( 'points', '50' );
+$I->cantSee( 'Edit', '#points-user_register .wordpoints-hook-reaction .view' );
+$I->cantSee( 'Close', '#points-user_register .wordpoints-hook-reaction .view' );
+$I->cantSee( 'Close', '#points-user_register .wordpoints-hook-reaction .actions' );
+$I->canSee( 'Save', '#points-user_register .wordpoints-hook-reaction .actions :not(:disabled)' );
 $I->click( 'Cancel', '#points-user_register .wordpoints-hook-reaction .actions' );
 $I->canSeeInFormFields(
 	'#points-user_register .wordpoints-hook-reaction form'
@@ -33,5 +42,9 @@ $I->canSeeInFormFields(
 		'points' => '10',
 	)
 );
+$I->canSee( 'Close', '#points-user_register .wordpoints-hook-reaction .view' );
+$I->canSee( 'Close', '#points-user_register .wordpoints-hook-reaction .actions' );
+$I->canSee( 'Save', '#points-user_register .wordpoints-hook-reaction .actions :disabled' );
+$I->cantSee( 'Cancel', '#points-user_register .wordpoints-hook-reaction .actions' );
 
 // EOF

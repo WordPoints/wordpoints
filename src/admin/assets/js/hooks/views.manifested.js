@@ -1560,6 +1560,10 @@ Reaction = Base.extend({
 	// Lock the form open when the form values have been changed.
 	lockOpen: function () {
 
+		if ( this.cancelling ) {
+			return;
+		}
+
 		this.$el.addClass( 'changed' );
 		this.$( '.save' ).prop( 'disabled', false );
 		this.$( '.success' ).fadeOut();
@@ -1575,10 +1579,15 @@ Reaction = Base.extend({
 		}
 
 		this.$el.removeClass( 'changed' );
+		this.$( '.save' ).prop( 'disabled', true );
+
+		this.cancelling = true;
 
 		this.renderFields();
 
 		this.trigger( 'cancel' );
+
+		this.cancelling = false;
 	},
 
 	// Save changes to the reaction.
@@ -1593,7 +1602,7 @@ Reaction = Base.extend({
 			formData.target = formData.target.split( ',' );
 		}
 
-		this.model.save( formData, { wait: true } );
+		this.model.save( formData, { wait: true, rawAtts: formData } );
 	},
 
 	// Display a spinner while changes are being saved.

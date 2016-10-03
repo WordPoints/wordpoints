@@ -44,15 +44,25 @@ Periods = Extension.extend({
 
 		this.listenTo( reaction, 'render:fields', function ( $el, currentActionType ) {
 
-			$el.append( this.template() );
-
 			var simplePeriod = new SimplePeriod( {
 				extension: this,
 				reaction: reaction,
 				actionType: currentActionType
 			} );
 
-			$el.find( '.periods' ).append( simplePeriod.render().$el );
+			var $existingPeriods = $el.find( '.periods' ),
+				$periods = simplePeriod.render().$el;
+
+			if ( $existingPeriods.length ) {
+
+				$existingPeriods.replaceWith( $periods.find( '.periods' ) );
+
+			} else {
+
+				$el.append( this.template() )
+					.find( '.periods' )
+					.append( $periods );
+			}
 		});
 	},
 

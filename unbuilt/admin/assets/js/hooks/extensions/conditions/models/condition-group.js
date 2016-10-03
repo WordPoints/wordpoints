@@ -48,6 +48,37 @@ ConditionGroup = Backbone.Model.extend({
 		return conditions.reset.call( conditions, models, options );
 	},
 
+	/**
+	 * @summary Update the conditions collection.
+	 *
+	 * This is a wrapper for the `set()` method of the collection stored in the
+	 * `conditions` attribute of this Model. It ensures that the passed model
+	 * objects have been given proper IDs, and sets options.group to this object.
+	 *
+	 * Note that the `_conditions` attribute itself is not modified, only the
+	 * collection that is stored in the `conditions` attribute.
+	 *
+	 * @since 2.1.3
+	 *
+	 * @param {Object[]} models                    - The conditions.
+	 * @param {Object}   [options={ group: this }] - Options to pass to
+	 *                                               `Conditions.set()`. The `group`
+	 *                                               will always be set to `this`.
+	 *
+	 * @returns {Object[]} The added models.
+	 */
+	setConditions: function ( models, options ) {
+
+		options = options || {};
+		options.group = this;
+
+		var conditions = this.get( 'conditions' );
+
+		this.setIds( models, 0 );
+
+		return conditions.set.call( conditions, models, options );
+	},
+
 	add: function ( models, options ) {
 
 		options = options || {};

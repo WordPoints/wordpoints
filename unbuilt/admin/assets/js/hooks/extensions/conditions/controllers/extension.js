@@ -11,6 +11,7 @@ var Extension = wp.wordpoints.hooks.controller.Extension,
 	ConditionGroups = wp.wordpoints.hooks.model.ConditionGroups,
 	ConditionsGroupsView = wp.wordpoints.hooks.view.ConditionGroups,
 	getDeep = wp.wordpoints.hooks.util.getDeep,
+	data = wp.wordpoints.hooks.view.data,
 	Conditions;
 
 Conditions = Extension.extend({
@@ -39,7 +40,20 @@ Conditions = Extension.extend({
 			conditions = {};
 		}
 
-		_.each( reaction.Reactor.get( 'action_types' ), function ( actionType ) {
+		var actionTypes = _.keys(
+			data.event_action_types[ reaction.model.get( 'event' ) ]
+		);
+
+		if ( ! actionTypes ) {
+			return;
+		}
+
+		actionTypes = _.intersection(
+			reaction.Reactor.get( 'action_types' )
+			, actionTypes
+		);
+
+		_.each( actionTypes, function ( actionType ) {
 
 			var conditionGroups = conditions[ actionType ];
 
@@ -53,22 +67,50 @@ Conditions = Extension.extend({
 				_conditions: conditionGroups
 			} );
 
-			reaction.conditions[ actionType ] = new ConditionsGroupsView( {
-				collection: reaction.model.conditions[ actionType ],
-				reaction: reaction
-			});
-
 		}, this );
+
+		var appended = false;
 
 		this.listenTo( reaction, 'render:fields', function ( $el, currentActionType ) {
 
-			var conditions = reaction.conditions[ currentActionType ];
+			var conditionsView = reaction.conditions[ currentActionType ];
 
-			if ( ! conditions ) {
-				return;
+			if ( ! conditionsView ) {
+				conditionsView = reaction.conditions[ currentActionType ] = new ConditionsGroupsView( {
+					collection: reaction.model.conditions[ currentActionType ],
+					reaction: reaction
+				});
 			}
 
-			$el.append( conditions.render().$el );
+			// If we've already appended the container view to the reaction view,
+			// then we don't need to do that again.
+			if ( appended ) {
+
+				var conditionsCollection = reaction.model.conditions[ currentActionType ];
+				var conditions = reaction.model.get( 'conditions' );
+
+				if ( ! conditions ) {
+					conditions = {};
+				}
+
+				// However, we do need to update the condition collection, in case
+				// some of the condition models have been removed or new ones added.
+				conditionsCollection.set(
+					conditionsCollection.mapConditionGroups(
+						conditions[ currentActionType ] || []
+					)
+					, { parse: true }
+				);
+
+				// And then re-render everything.
+				conditionsView.render();
+
+			} else {
+
+				$el.append( conditionsView.render().$el );
+
+				appended = true;
+			}
 		});
 	},
 
@@ -89,9 +131,12 @@ Conditions = Extension.extend({
 		}
 	},
 
-	validateReaction: function ( model, attributes, errors ) {
+	validateReaction: function ( model, attributes, errors, options ) {
 
-		if ( ! attributes.conditions ) {
+		// https://github.com/WordPoints/wordpoints/issues/519.
+		if ( ! options.rawAtts.conditions ) {
+			delete attributes.conditions;
+			delete model.attributes.conditions;
 			return;
 		}
 

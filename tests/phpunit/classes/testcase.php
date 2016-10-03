@@ -767,7 +767,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function mock_filesystem() {
 
-		if ( ! class_exists( 'WP_Mock_Filesystem' ) ) {
+		if ( ! class_exists( 'WP_Filesystem_Base' ) ) {
 
 			/**
 			 * WordPress's base filesystem API class.
@@ -775,20 +775,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			 * @since 2.0.0
 			 */
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-
-			/**
-			 * The filesystem API shim that uses mock filesystems.
-			 *
-			 * @since 2.0.0
-			 */
-			require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-filesystem-mock.php' );
-
-			/**
-			 * The mock filesystem class.
-			 *
-			 * @since 2.0.0
-			 */
-			require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/jdgrimes/wp-filesystem-mock/src/wp-mock-filesystem.php' );
 		}
 
 		// Creating a new mock filesystem.

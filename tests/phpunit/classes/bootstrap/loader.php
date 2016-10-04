@@ -122,7 +122,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		}
 
 		foreach ( $this->actions[ $action ] as $function ) {
-			$function();
+			call_user_func( $function );
 		}
 	}
 

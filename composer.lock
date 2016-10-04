@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "53991c4b5b1555667799b2f7a3915193",
-    "content-hash": "a6c8fa4d1493229bdf9031c2a7063966",
+    "hash": "8a1c25fff0e12afb98ffe598f984e7ef",
+    "content-hash": "cb48f125294219e3569fdf9a39a4f65a",
     "packages": [],
     "packages-dev": [
         {
@@ -49,21 +49,24 @@
         },
         {
             "name": "jdgrimes/wpppb",
-            "version": "0.1.1",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wpppb.git",
-                "reference": "3443970c2e60d92db18477162bb841576e282209"
+                "reference": "c4f82d9a031384cac2d4ee38b39d4552d18c45a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wpppb/zipball/3443970c2e60d92db18477162bb841576e282209",
-                "reference": "3443970c2e60d92db18477162bb841576e282209",
+                "url": "https://api.github.com/repos/JDGrimes/wpppb/zipball/c4f82d9a031384cac2d4ee38b39d4552d18c45a1",
+                "reference": "c4f82d9a031384cac2d4ee38b39d4552d18c45a1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
+            "bin": [
+                "bin/wpppb-init"
+            ],
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -84,7 +87,7 @@
             ],
             "description": "Bootstrap for integration testing WordPress plugins with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wpppb",
-            "time": "2016-09-14 14:18:51"
+            "time": "2016-10-04 14:54:27"
         },
         {
             "name": "xrstf/composer-php52",

@@ -62,7 +62,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$shortcode->pairs = $pairs;
 
 		$filtered_atts = array( 'test' => 'filtered' );
-		$filter        = new WordPoints_PHPUnit_Mock_Filter();
+		$filter        = new WordPoints_PHPUnit_Mock_Filter( $filtered_atts );
 		add_filter(
 			'wordpoints_user_supplied_shortcode_atts'
 			, array( $filter, 'filter' )

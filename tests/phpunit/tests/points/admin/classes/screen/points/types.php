@@ -412,7 +412,8 @@ class WordPoints_Admin_Screen_Points_Types_Test
 		} else {
 
 			parent::fulfill_posts_requirement( $requirement_parts );
-		}
+
+		} // End if ( nonce ) elseif ( points name ) elseif ( points slug ) else.
 	}
 
 	/**

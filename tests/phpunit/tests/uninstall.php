@@ -171,7 +171,8 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
 			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
 			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
-		}
+
+		} // End if ( is_multisite() ) else.
 
 	} // function test_uninstall()
 
@@ -282,7 +283,8 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 			$this->assertFalse(
 				$administrator->has_cap( 'set_wordpoints_points' )
 			);
-		}
+
+		} // End if ( is_multisite() ) else.
 	}
 
 	/**

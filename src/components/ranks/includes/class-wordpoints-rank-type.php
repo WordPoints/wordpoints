@@ -239,8 +239,10 @@ abstract class WordPoints_Rank_Type {
 						)
 						, '1.7.0'
 					);
-			}
-		}
+
+			} // End switch ( $field['type'] ).
+
+		} // End foreach ( $this->meta_fields ).
 	}
 
 	/**

@@ -341,8 +341,10 @@ switch ( $action ) {
 								}
 							}
 						}
-					}
-				}
+
+					} // End if ( single file module ) else.
+
+				} // End foreach( $modules ).
 
 				$modules_to_delete = count( $module_info );
 
@@ -430,7 +432,7 @@ switch ( $action ) {
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 
-		} // if ( ! isset( $_REQUEST['verify-delete'] ) )
+		}  // End if ( ! isset( $_REQUEST['verify-delete'] ) ).
 
 		$delete_result = wordpoints_delete_modules( $modules );
 
@@ -453,7 +455,8 @@ switch ( $action ) {
 		 * @since 1.1.0
 		 */
 		do_action( "wordpoints_modules_screen-{$action}" );
-}
+
+} // End switch ( $action ).
 
 add_screen_option( 'per_page', array( 'default' => 999 ) );
 

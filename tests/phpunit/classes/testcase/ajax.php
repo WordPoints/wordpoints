@@ -103,7 +103,7 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 
 		foreach ( $globals as $key ) {
 			// merged_filters no longer used in 4.7.
-			if ( isset( $GLOBALS[ $key ] ) ) { 
+			if ( isset( $GLOBALS[ $key ] ) ) {
 				WP_UnitTestCase::$hooks_saved[ $key ] = $GLOBALS[ $key ];
 			}
 		}
@@ -369,7 +369,8 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 					}
 				break;
 			}
-		}
+
+		} // End foreach ( $specs ).
 
 		return $invalid_requests;
 	}

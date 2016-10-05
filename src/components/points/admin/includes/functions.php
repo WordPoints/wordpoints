@@ -375,7 +375,8 @@ function wordpoints_points_profile_options( $user ) {
 		</tbody>
 
 		<?php
-	}
+
+	} // End if ( can set points ) elseif ( is my profile ).
 }
 
 /**

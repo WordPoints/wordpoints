@@ -71,8 +71,9 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 				, array( 'dismissible' => true )
 			);
 		}
-	}
-}
+	} // End if ( message ) elseif ( error ).
+
+} // End if ( valid submission ).
 
 //
 // Display the page.

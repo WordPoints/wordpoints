@@ -177,8 +177,10 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 					$child->set_the_value_from_entity( $entity );
 				}
-			}
-		}
+
+			} // End foreach ( $data['children'] ).
+
+		} // End if ( $data['children'] ).
 
 		if ( $entity instanceof WordPoints_Entity_EnumerableI ) {
 			$this->assertInternalType(

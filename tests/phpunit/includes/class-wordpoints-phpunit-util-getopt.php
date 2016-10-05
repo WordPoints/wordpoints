@@ -138,7 +138,8 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 				echo 'Selenium started successfully...' . PHP_EOL;
 			}
-		}
+
+		} // End if ( $ui_message ) else.
 	}
 }
 

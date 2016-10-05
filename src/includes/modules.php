@@ -466,7 +466,8 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 		$module_data['title']       = $module_data['name'];
 		$module_data['author_name'] = $module_data['author'];
-	}
+
+	} // End if ( $markup || $translate ) else.
 
 	return $module_data;
 }
@@ -927,7 +928,8 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
 			 */
 			do_action( 'wordpoints_deactivated_module', $module, $network_deactivating );
 		}
-	}
+
+	} // End foreach ( $modules ).
 
 	if ( $do_blog ) {
 		update_option( 'wordpoints_active_modules', $current );
@@ -1140,8 +1142,10 @@ function wordpoints_uninstall_module( $module ) {
 		return WordPoints_Installables::uninstall( 'module', $slug );
 
 	} else {
+
 		return false;
-	}
+
+	} // End if ( uninstall file ) elseif ( uninstaller ) else.
 }
 
 /**

@@ -606,7 +606,8 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 				, '%d'
 				, '%d'
 			);
-	}
+
+	} // End switch ( $old_rank->type ).
 
 	if ( false === $result ) {
 		return false;
@@ -696,7 +697,8 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 		}
 
 		wp_cache_set( $rank_id, $user_ids, 'wordpoints_users_with_rank' );
-	}
+
+	} // End if ( not cached ).
 
 	return $user_ids;
 }

@@ -199,7 +199,8 @@ function wordpoints_register_post_type_hook_actions( $slug ) {
 				),
 			)
 		);
-	}
+
+	} // End if ( post type supports comments ).
 
 	// This works for all post types except attachments.
 	if ( 'attachment' !== $slug ) {
@@ -251,7 +252,8 @@ function wordpoints_register_post_type_hook_actions( $slug ) {
 				),
 			)
 		);
-	}
+
+	} // End if ( not attachment ) else.
 
 	$actions->register(
 		"post_delete\\{$slug}"

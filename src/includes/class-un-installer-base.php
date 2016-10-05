@@ -385,7 +385,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->context = 'single';
 			$this->install_single();
-		}
+
+		} // End if ( is_multisite() ) else.
 
 		$hooks->set_current_mode( $hooks_mode );
 	}
@@ -487,7 +488,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->context = 'single';
 			$this->uninstall_single();
-		}
+
+		} // End if ( is_multisite() ) else.
 
 		$hooks->set_current_mode( $hooks_mode );
 	}
@@ -603,7 +605,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->context = 'single';
 			$this->update_( 'single', $this->get_updates_for( 'single' ) );
-		}
+
+		} // End if ( is_multisite() ) else.
 
 		$this->after_update();
 

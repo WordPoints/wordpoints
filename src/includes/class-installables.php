@@ -221,8 +221,10 @@ final class WordPoints_Installables {
 				}
 
 				$updated = true;
-			}
-		}
+
+			} // End foreach ( $installables ).
+
+		} // End foreach ( installable types  ).
 
 		if ( $updated ) {
 			update_option( 'wordpoints_data', $wordpoints_data );
@@ -316,7 +318,8 @@ final class WordPoints_Installables {
 					)
 				);
 			}
-		}
+
+		} // End foreach ( $all_skipped ).
 
 		if ( ! empty( $messages ) ) {
 

@@ -203,7 +203,8 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 					$field,
 				);
 			}
-		}
+
+		} // End foreach ( conditions settings ).
 
 		return $invalid_settings;
 	}

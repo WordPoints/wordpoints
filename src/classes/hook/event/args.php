@@ -212,7 +212,8 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 		} elseif ( $this->push_on_descend ) {
 
 			$this->validator->push_field( $child_slug );
-		}
+
+		} // End if ( ! $result ) elseif ( $this->push_on_descend ).
 
 		return $result;
 	}

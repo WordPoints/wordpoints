@@ -79,7 +79,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 		global $wp_filesystem;
 
 		if ( $wp_filesystem && $wp_filesystem->exists( wordpoints_modules_dir() . '/' . $this->package_name ) ) {
-			$wp_filesystem->delete( wordpoints_modules_dir() . '/' .  $this->package_name, true );
+			$wp_filesystem->delete( wordpoints_modules_dir() . '/' . $this->package_name, true );
 		}
 
 		remove_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );

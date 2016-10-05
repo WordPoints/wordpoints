@@ -77,7 +77,8 @@ if ( isset( $_GET['error'] ) ) {
 				, array( 'dismissible' => true )
 			);
 		}
-	}
+
+	} // End if ( main error ) elseif ( unexpected output error ) else.
 
 } elseif ( isset( $_GET['deleted'] ) ) {
 
@@ -145,7 +146,8 @@ if ( isset( $_GET['error'] ) ) {
 		, 'warning'
 		, array( 'dismissible' => true )
 	);
-}
+
+} // End if ( error ) elseif ( other messages/errors ).
 
 ?>
 

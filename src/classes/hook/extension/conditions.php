@@ -131,7 +131,8 @@ class WordPoints_Hook_Extension_Conditions
 			}
 
 			$conditions[ $arg_slug ] = $sub_args;
-		}
+
+		} // End foreach ( $conditions ).
 
 		return $conditions;
 	}

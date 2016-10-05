@@ -195,7 +195,8 @@ final class WordPoints_Hook_Reaction_Validator {
 
 			// Do nothing.
 			unset( $e );
-		}
+
+		} // End try { validating settings } catch ( validator exception ).
 
 		return $this->settings;
 	}

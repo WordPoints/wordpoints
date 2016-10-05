@@ -14,7 +14,7 @@
  *
  * @covers ::wordpoints_modules_dir
  */
-class WordPoints_Modules_Dir_Test extends WordPoints_PHPUnit_TestCase  {
+class WordPoints_Modules_Dir_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test that it is filterable.

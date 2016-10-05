@@ -361,7 +361,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			);
 
 			restore_current_blog();
-		}
+
+		} // End foreach ( $blog_ids ).
 
 	} // public function test_standard_comment_points_hooks_split_when_network_active()
 

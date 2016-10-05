@@ -575,7 +575,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			);
 
 			$i++;
-		}
+
+		} // End foreach ( $post_types ).
 
 		$this->assertArrayHasKey(
 			$hook_type
@@ -921,7 +922,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 			default:
 				$this->fail( 'Missing hook works assertion for legacy slug ' . $legacy_slug );
-		}
+
+		} // End switch ( $legacy_slug ).
 
 		$this->assertEquals(
 			$settings['points']

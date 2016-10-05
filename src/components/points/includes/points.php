@@ -708,7 +708,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 		}
 
-	} // If logging the transaction.
+	}  // End if ( $log_transaction ).
 
 	/**
 	 * User points altered.
@@ -1096,7 +1096,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				$flushed['user_ids'][ $log->user_id ] = true;
 			}
 		}
-	}
+
+	} // End foreach ( $logs ).
 }
 
 /**
@@ -1182,7 +1183,8 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		}
 
 		wp_cache_set( $points_type, $cache, 'wordpoints_points_top_users' );
-	}
+
+	} // End if ( not cached ).
 
 	return array_slice( $cache['top_users'], 0, $num_users );
 }
@@ -1292,7 +1294,8 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 				<?php
 
 				$position++;
-			}
+
+			} // End foreach ( $top_users ).
 
 			?>
 		</tbody>

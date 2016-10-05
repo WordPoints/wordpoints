@@ -242,7 +242,8 @@ function wordpoints_ajax_save_points_hook() {
 			}
 
 			$new_instance = ( ! empty( $settings ) ) ? reset( $settings ) : array();
-		}
+
+		} // End if ( deleting ) elseif ( creating ) else { updating }.
 
 		$hook->update_callback( wp_unslash( $new_instance ), $number );
 
@@ -250,7 +251,7 @@ function wordpoints_ajax_save_points_hook() {
 			$hook->form_callback( $number );
 		}
 
-	} // if ( isset( $_POST['points-name'] ) ) {} else
+	} // End if ( saving points type ) else { deleting/creation/updating hook }.
 
 	wp_die( '', '', array( 'response' => 200 ) );
 }

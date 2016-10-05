@@ -108,7 +108,8 @@ function wordpoints_admin_menu() {
 			,'wordpoints_modules'
 			,'wordpoints_admin_screen_modules'
 		);
-	}
+
+	} // End if ( configure is main menu ) else.
 
 	// Modules page.
 	add_submenu_page(
@@ -635,7 +636,8 @@ function wordpoints_hooks_ui_get_script_data_entities() {
 			, $entities_data[ $slug ]
 			, $entity
 		);
-	}
+
+	} // End foreach ( $entities->get_all() ).
 
 	return $entities_data;
 }
@@ -999,7 +1001,8 @@ function wordpoints_plugin_upload_error_filter( $source ) {
 		}
 
 		unset( $_source );
-	}
+
+	} // End if ( ! isset( $_source ) ) else.
 
 	return $source;
 }
@@ -1098,8 +1101,10 @@ function wordpoints_admin_notices() {
 					)
 				);
 			}
-		}
-	}
+
+		} // End if ( is_network_admin() ) else.
+
+	} // End if ( user can activate modules ).
 }
 
 /**

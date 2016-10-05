@@ -117,7 +117,8 @@ if ( ! empty( $_POST['removehook'] ) ) {
 
 	wp_safe_redirect( $redirect_url . '&error=0' );
 	exit;
-}
+
+} // End if ( deleting hook ) elseif ( saving hook ) else.
 
 WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 

@@ -337,7 +337,8 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 			}
 
 			array_pop( $target_stack );
-		}
+
+		} // End foreach ( $args ).
 
 		return $targets;
 	}
@@ -364,6 +365,8 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
+	// @codingStandardsIgnoreStart
+
 	/**
 	 * Fire the event.
 	 *
@@ -381,6 +384,8 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 *               array of args, for each of which the event has been fired.
 	 */
 	abstract protected function fire_event( $arg, $reactor_slug /* , $arg_slug = null */ );
+
+	// @codingStandardsIgnoreEnd
 
 	/**
 	 * Reverse fire the event.

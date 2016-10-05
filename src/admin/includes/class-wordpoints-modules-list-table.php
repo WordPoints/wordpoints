@@ -398,7 +398,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					, sprintf( $text, number_format_i18n( $count ) )
 				);
 			}
-		}
+
+		} // End foreach ( $totals ).
 
 		return $status_links;
 	}
@@ -636,9 +637,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 						</td>
 						<?php
 
-				} // switch ( $column_name )
+				}  // End switch ( $column_name ).
 
-			} // foreach ( $columns )
+			}  // End foreach ( $columns ).
 
 			?>
 		</tr>

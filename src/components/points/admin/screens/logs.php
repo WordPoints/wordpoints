@@ -81,7 +81,8 @@ if ( is_network_admin() ) {
 		 * @param string $query       The current logs query being performed.
 		 */
 		do_action( 'wordpoints_admin_points_logs_tab_after', $current_type, $query );
-	}
+
+	} // End if ( empty( $points_types ) ) else.
 
 	/**
 	 * After points logs on administration panel.

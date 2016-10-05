@@ -528,7 +528,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				// If not, delete this instance.
 				$hook->delete_callback( $hook->get_id( $number ) );
 			}
-		}
+
+		} // End foreach ( $instances ).
 
 		WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 	}

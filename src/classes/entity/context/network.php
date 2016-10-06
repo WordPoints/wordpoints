@@ -27,6 +27,30 @@ class WordPoints_Entity_Context_Network extends WordPoints_Entity_Context {
 
 		return (int) get_current_site()->id;
 	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function switch_to( $id ) {
+
+		if ( function_exists( 'switch_to_network' ) ) {
+			return switch_to_network( $id );
+		}
+
+		return false;
+	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function switch_back() {
+
+		if ( function_exists( 'restore_current_network' ) ) {
+			return restore_current_network();
+		}
+
+		return false;
+	}
 }
 
 // EOF

@@ -217,6 +217,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 
 		$factory = WordPoints_PHPUnit_Factory::init();
 		$factory->register( 'entity', 'WordPoints_PHPUnit_Factory_For_Entity' );
+		$factory->register( 'entity_context', 'WordPoints_PHPUnit_Factory_For_Entity_Context' );
 		$factory->register( 'hook_reaction', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction' );
 		$factory->register( 'hook_reaction_store', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction_Store' );
 		$factory->register( 'hook_reactor', 'WordPoints_PHPUnit_Factory_For_Hook_Reactor' );

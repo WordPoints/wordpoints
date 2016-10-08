@@ -250,7 +250,10 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			}
 		}
 
-		WordPoints_PHPUnit_Mock_Entity_Context::$current_id = 1;
+		WordPoints_PHPUnit_Mock_Entity_Context::$current_id     = 1;
+		WordPoints_PHPUnit_Mock_Entity_Context::$stack          = array();
+		WordPoints_PHPUnit_Mock_Entity_Context::$current_ids    = array();
+		WordPoints_PHPUnit_Mock_Entity_Context::$fail_switching = array();
 	}
 
 	//

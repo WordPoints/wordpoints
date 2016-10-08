@@ -108,7 +108,7 @@ function wordpoints_entities_app_init( $entities ) {
 
 	$sub_apps = $entities->sub_apps();
 	$sub_apps->register( 'children', 'WordPoints_Class_Registry_Children' );
-	$sub_apps->register( 'contexts', 'WordPoints_Class_Registry' );
+	$sub_apps->register( 'contexts', 'WordPoints_Entity_Contexts' );
 }
 
 /**

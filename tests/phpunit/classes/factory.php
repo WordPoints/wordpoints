@@ -13,6 +13,7 @@
  * @since 2.1.0
  *
  * @property-read WordPoints_PHPUnit_Factory_For_Entity $entity
+ * @property-read WordPoints_PHPUnit_Factory_For_Entity_Context $entity_context
  * @property-read WordPoints_PHPUnit_Factory_For_Hook_Action $hook_action
  * @property-read WordPoints_PHPUnit_Factory_For_Hook_Condition $hook_condition
  * @property-read WordPoints_PHPUnit_Factory_For_Hook_Event $hook_event

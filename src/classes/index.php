@@ -58,6 +58,7 @@ return array(
 	'wordpoints_entity_context' => 'entity/context.php',
 	'wordpoints_entity_context_network' => 'entity/context/network.php',
 	'wordpoints_entity_context_site' => 'entity/context/site.php',
+	'wordpoints_entity_contexts' => 'entity/contexts.php',
 	'wordpoints_entity_hierarchy' => 'entity/hierarchy.php',
 	'wordpoints_entity_post' => 'entity/post.php',
 	'wordpoints_entity_post_author' => 'entity/post/author.php',

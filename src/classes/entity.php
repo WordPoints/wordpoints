@@ -138,6 +138,77 @@ abstract class WordPoints_Entity
 	}
 
 	/**
+	 * Get an entity from a (possibly) foreign context.
+	 *
+	 * Normally we only get entities from the current context. This method will grab
+	 * an entity from a particular context, regardless of whether it is the current
+	 * context or not.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int|string $id      The unique ID of the entity.
+	 * @param array      $context The context to get the the entity from.
+	 *
+	 * @return mixed The entity, or false if not found.
+	 */
+	protected function get_entity_from_context( $id, $context ) {
+
+		/** @var WordPoints_Entity_Contexts $contexts */
+		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
+
+		if ( ! $contexts->switch_to( $context ) ) {
+			return false;
+		}
+
+		$entity = $this->get_entity( $id );
+
+		$contexts->switch_back();
+
+		return $entity;
+	}
+
+	/**
+	 * Checks if a value is a GUID for an entity of this type.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param array $guid A value that might be an entity GUID.
+	 *
+	 * @return bool Whether the passed value is a GUID for an entity of this type.
+	 */
+	protected function is_guid( $guid ) {
+
+		if ( ! is_array( $guid ) ) {
+			return false;
+		}
+
+		return isset( $guid[ $this->get_slug() ], $guid[ $this->get_context() ] );
+	}
+
+	/**
+	 * Splits an entity GUID into the ID and context.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param array $guid An entity GUID.
+	 *
+	 * @return array {
+	 *         @type string|int $id      The entity ID.
+	 *         @type array      $context The entity context.
+	 * }
+	 */
+	protected function split_guid( $guid ) {
+
+		$slug    = $this->get_slug();
+		$id      = $guid[ $slug ];
+		$context = $guid;
+
+		unset( $context[ $slug ] );
+
+		return array( 'id' => $id, 'context' => $context );
+	}
+
+	/**
 	 * Gets the value of one of an entity's attributes.
 	 *
 	 * @since 2.1.0
@@ -294,8 +365,9 @@ abstract class WordPoints_Entity
 	 * ignored and the value will not be set.
 	 *
 	 * @since 2.1.0
+	 * @since 2.2.0 The $value parameter now accepts an entity GUID.
 	 *
-	 * @param mixed $value An entity or entity ID.
+	 * @param mixed $value An entity or entity ID or GUID.
 	 *
 	 * @return bool Whether the value was set.
 	 */
@@ -308,20 +380,32 @@ abstract class WordPoints_Entity
 			$entity = $value;
 			$value = $this->get_entity_id( $value );
 
+		} elseif ( $this->is_guid( $value ) ) {
+
+			$guid = $this->split_guid( $value );
+			$context = $guid['context'];
+			$value   = $guid['id'];
+
+			$entity = $this->get_entity_from_context( $guid['id'], $context );
+
 		} else {
 
 			$entity = $this->get_entity( $value );
+		}
 
-			if ( ! $entity ) {
-				return false;
-			}
+		if ( ! $entity ) {
+			return false;
+		}
+
+		if ( ! isset( $context ) ) {
+			$context = wordpoints_entities_get_current_context_id(
+				$this->get_context()
+			);
 		}
 
 		$this->the_value   = $value;
 		$this->the_entity  = $entity;
-		$this->the_context = wordpoints_entities_get_current_context_id(
-			$this->get_context()
-		);
+		$this->the_context = $context;
 
 		return true;
 	}

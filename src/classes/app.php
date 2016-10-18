@@ -119,7 +119,8 @@ class WordPoints_App {
 	 *
 	 * @param string $slug The slug of the sub-app to get.
 	 *
-	 * @return null|object|WordPoints_App|WordPoints_Class_RegistryI|WordPoints_Class_Registry_ChildrenI The sub app, or null if not found.
+	 * @return null|object|WordPoints_App|WordPoints_Class_RegistryI|WordPoints_Class_Registry_ChildrenI|WordPoints_Class_Registry_DeepI
+	 *         The sub app, or null if not found.
 	 */
 	public function get_sub_app( $slug ) {
 
@@ -175,6 +176,7 @@ class WordPoints_App {
 		return (
 		   $registry instanceof WordPoints_Class_RegistryI
 		   || $registry instanceof WordPoints_Class_Registry_ChildrenI
+		   || $registry instanceof WordPoints_Class_Registry_DeepI
 		);
 	}
 

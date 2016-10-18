@@ -202,6 +202,35 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that getting a deep registry sub-app calls an init action.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_get_deep_registry_sub_app() {
+
+		$app = new WordPoints_App( 'test' );
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
+
+		add_action(
+			'wordpoints_init_app_registry-test-registry'
+			, array( $mock, 'action' )
+		);
+
+		$this->assertTrue(
+			$app->sub_apps()->register(
+				'registry'
+				, 'WordPoints_Class_Registry_Deep_Multilevel'
+			)
+		);
+
+		$registry = $app->get_sub_app( 'registry' );
+
+		$this->assertEquals( 1, $mock->call_count );
+
+		$this->assertTrue( $registry === $mock->calls[0][0] );
+	}
+
+	/**
 	 * Test that getting a registry sub-app calls an init action only the first time.
 	 *
 	 * @since 2.1.0

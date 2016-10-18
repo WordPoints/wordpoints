@@ -63,6 +63,26 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->assertInstanceOf( 'WordPoints_App', wordpoints_apps() );
 	}
+
+	/**
+	 * Test the get post types for auto-integration function.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_get_post_types_for_auto_integration
+	 */
+	public function test_get_post_types_for_auto_integration() {
+
+		$filter = 'wordpoints_post_types_for_auto_integration';
+		$this->listen_for_filter( $filter );
+
+		$this->assertEquals(
+			get_post_types( array( 'public' => true ) )
+			, wordpoints_get_post_types_for_auto_integration()
+		);
+
+		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+	}
 }
 
 // EOF

@@ -765,7 +765,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		array_map(
 			'wordpoints_points_register_legacy_post_publish_events'
-			, get_post_types( array( 'public' => true ) )
+			, wordpoints_get_post_types_for_hook_events()
 		);
 
 		$this->import_legacy_points_hook(

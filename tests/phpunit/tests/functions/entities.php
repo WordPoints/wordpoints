@@ -115,6 +115,26 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 	}
 
 	/**
+	 * Test the get post types for entities function.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_get_post_types_for_entities
+	 */
+	public function test_get_post_types_for_entities() {
+
+		$filter = 'wordpoints_register_entities_for_post_types';
+		$this->listen_for_filter( $filter );
+
+		$this->assertEquals(
+			get_post_types( array( 'public' => true ) )
+			, wordpoints_get_post_types_for_entities()
+		);
+
+		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+	}
+
+	/**
 	 * Test the entity user capability check function.
 	 *
 	 * @since 2.1.0

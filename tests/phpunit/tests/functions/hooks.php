@@ -130,6 +130,8 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hook_actions_init
+	 *
+	 * @expectedDeprecated wordpoints_register_hook_actions_for_post_types
 	 */
 	public function test_actions() {
 
@@ -140,9 +142,13 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$filter = 'wordpoints_register_hook_actions_for_post_types';
 		$this->listen_for_filter( $filter );
 
+		$events_filter = 'wordpoints_register_hook_events_for_post_types';
+		$this->listen_for_filter( $events_filter );
+
 		wordpoints_hook_actions_init( $actions );
 
 		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+		$this->assertEquals( 1, $this->filter_was_called( $events_filter ) );
 
 		$this->assertTrue( $actions->is_registered( 'user_register' ) );
 		$this->assertTrue( $actions->is_registered( 'user_delete' ) );
@@ -201,6 +207,26 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$this->assertEventRegistered( 'comment_leave\post', 'comment\post' );
 		$this->assertEventRegistered( 'comment_leave\page', 'comment\page' );
 		$this->assertEventRegistered( 'comment_leave\attachment', 'comment\attachment' );
+	}
+
+	/**
+	 * Test the get post types for hook events function.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_get_post_types_for_hook_events
+	 */
+	public function test_get_post_types_for_entities() {
+
+		$filter = 'wordpoints_register_hook_events_for_post_types';
+		$this->listen_for_filter( $filter );
+
+		$this->assertEquals(
+			get_post_types( array( 'public' => true ) )
+			, wordpoints_get_post_types_for_hook_events()
+		);
+
+		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
 	}
 
 	/**

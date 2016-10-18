@@ -75,6 +75,27 @@ function wordpoints_parse_dynamic_slug( $slug ) {
 	return $parsed;
 }
 
+/**
+ * Get the slugs of the post types to automatically integrate with.
+ *
+ * @since 2.2.0
+ *
+ * @return string[] The slugs of the post types to automatically integrate with.
+ */
+function wordpoints_get_post_types_for_auto_integration() {
+
+	$post_types = get_post_types( array( 'public' => true ) );
+
+	/**
+	 * Filter which post types to automatically integrate with.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string[] $post_types The post type slugs ("names").
+	 */
+	return apply_filters( 'wordpoints_post_types_for_auto_integration', $post_types );
+}
+
 //
 // Entities API
 //
@@ -144,21 +165,30 @@ function wordpoints_entities_init( $entities ) {
 
 	$entities->register( 'user_role', 'WordPoints_Entity_User_Role' );
 
-	// Register entities for all of the public post types.
-	$post_types = get_post_types( array( 'public' => true ) );
+	foreach ( wordpoints_get_post_types_for_entities() as $slug ) {
+		wordpoints_register_post_type_entities( $slug );
+	}
+}
+
+/**
+ * Get the slugs of the post types to register entities for.
+ *
+ * @since 2.2.0
+ *
+ * @return string[] The slugs of the post types to register entities for.
+ */
+function wordpoints_get_post_types_for_entities() {
+
+	$post_types = wordpoints_get_post_types_for_auto_integration();
 
 	/**
 	 * Filter which post types to register entities for.
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string[] The post type slugs ("names").
+	 * @param string[] $post_types The post type slugs ("names").
 	 */
-	$post_types = apply_filters( 'wordpoints_register_entities_for_post_types', $post_types );
-
-	foreach ( $post_types as $slug ) {
-		wordpoints_register_post_type_entities( $slug );
-	}
+	return apply_filters( 'wordpoints_register_entities_for_post_types', $post_types );
 }
 
 /**

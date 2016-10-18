@@ -136,16 +136,22 @@ function wordpoints_hook_actions_init( $actions ) {
 	);
 
 	// Register actions for all of the public post types.
-	$post_types = get_post_types( array( 'public' => true ) );
+	$post_types = wordpoints_get_post_types_for_hook_events();
 
 	/**
 	 * Filter which post types to register hook actions for.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.2.0 Use 'wordpoints_register_hook_actions_for_post_types' instead.
 	 *
 	 * @param string[] The post type slugs ("names").
 	 */
-	$post_types = apply_filters( 'wordpoints_register_hook_actions_for_post_types', $post_types );
+	$post_types = apply_filters_deprecated(
+		'wordpoints_register_hook_actions_for_post_types'
+		, array( $post_types )
+		, '2.2.0'
+		, 'wordpoints_register_hook_events_for_post_types'
+	);
 
 	foreach ( $post_types as $slug ) {
 		wordpoints_register_post_type_hook_actions( $slug );
@@ -314,21 +320,31 @@ function wordpoints_hook_events_init( $events ) {
 		)
 	);
 
-	// Register events for all of the public post types.
-	$post_types = get_post_types( array( 'public' => true ) );
+	foreach ( wordpoints_get_post_types_for_hook_events() as $slug ) {
+		wordpoints_register_post_type_hook_events( $slug );
+	}
+}
+
+/**
+ * Get the slugs of the post types to register events for.
+ *
+ * @since 2.2.0
+ *
+ * @return string[] The post type slugs to register hook events for.
+ */
+function wordpoints_get_post_types_for_hook_events() {
 
 	/**
 	 * Filter which post types to register hook events for.
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string[] The post type slugs ("names").
+	 * @param string[] $post_types The post type slugs ("names").
 	 */
-	$post_types = apply_filters( 'wordpoints_register_hook_events_for_post_types', $post_types );
-
-	foreach ( $post_types as $slug ) {
-		wordpoints_register_post_type_hook_events( $slug );
-	}
+	return apply_filters(
+		'wordpoints_register_hook_events_for_post_types'
+		, wordpoints_get_post_types_for_auto_integration()
+	);
 }
 
 /**

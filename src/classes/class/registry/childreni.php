@@ -107,7 +107,7 @@ interface WordPoints_Class_Registry_ChildrenI {
 	/**
 	 * Check if a type of object is registered by its slug.
 	 *
-	 * If the $slug is omitted, it will check if any children of the parent are de-
+	 * If the $slug is omitted, it will check if any children of the parent are
 	 * registered.
 	 *
 	 * @since 2.1.0

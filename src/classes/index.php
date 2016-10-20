@@ -107,6 +107,7 @@ return array(
 	'wordpoints_hook_router' => 'hook/router.php',
 	'wordpoints_hook_validator_exception' => 'hook/validator/exception.php',
 	'wordpoints_hooks' => 'hooks.php',
+	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	// }
 );
 

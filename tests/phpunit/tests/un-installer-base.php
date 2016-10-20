@@ -294,8 +294,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.2.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::install
-	 * @covers WordPoints_Un_Installer_Base::backup_current_site
-	 * @covers WordPoints_Un_Installer_Base::restore_current_site
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -322,8 +320,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.2.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::install
-	 * @covers WordPoints_Un_Installer_Base::backup_current_site
-	 * @covers WordPoints_Un_Installer_Base::restore_current_site
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -473,8 +469,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.2.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall
-	 * @covers WordPoints_Un_Installer_Base::backup_current_site
-	 * @covers WordPoints_Un_Installer_Base::restore_current_site
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -503,8 +497,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.2.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::uninstall
-	 * @covers WordPoints_Un_Installer_Base::backup_current_site
-	 * @covers WordPoints_Un_Installer_Base::restore_current_site
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -920,8 +912,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.2.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::update
-	 * @covers WordPoints_Un_Installer_Base::backup_current_site
-	 * @covers WordPoints_Un_Installer_Base::restore_current_site
 	 *
 	 * @requires WordPress multisite
 	 */
@@ -953,8 +943,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.2.0
 	 *
 	 * @covers WordPoints_Un_Installer_Base::update
-	 * @covers WordPoints_Un_Installer_Base::backup_current_site
-	 * @covers WordPoints_Un_Installer_Base::restore_current_site
 	 *
 	 * @requires WordPress multisite
 	 */

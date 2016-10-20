@@ -273,15 +273,6 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected $custom_caps_keys;
 
-	/**
-	 * Used to backup the values of global variables so that they can be restored later.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @var array
-	 */
-	protected $globals_backup = array();
-
 	//
 	// Public Methods.
 	//
@@ -358,14 +349,15 @@ abstract class WordPoints_Un_Installer_Base {
 
 				if ( ! ( $skip_per_site_install & self::SKIP_INSTALL ) ) {
 
-					$this->backup_current_site();
+					$ms_switched_state = new WordPoints_Multisite_Switched_State();
+					$ms_switched_state->backup();
 
 					foreach ( $this->get_all_site_ids() as $blog_id ) {
 						switch_to_blog( $blog_id );
 						$this->install_site();
 					}
 
-					$this->restore_current_site();
+					$ms_switched_state->restore();
 				}
 
 				if ( $skip_per_site_install & self::REQUIRES_MANUAL_INSTALL ) {
@@ -453,7 +445,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 				$this->context = 'site';
 
-				$this->backup_current_site();
+				$ms_switched_state = new WordPoints_Multisite_Switched_State();
+				$ms_switched_state->backup();
 
 				$site_ids = $this->get_installed_site_ids();
 
@@ -466,7 +459,9 @@ abstract class WordPoints_Un_Installer_Base {
 					$this->uninstall_site();
 				}
 
-				$this->restore_current_site();
+				$ms_switched_state->restore();
+
+				unset( $ms_switched_state, $site_ids );
 			}
 
 			$this->context = 'network';
@@ -579,14 +574,15 @@ abstract class WordPoints_Un_Installer_Base {
 
 					if ( $this->do_per_site_update() ) {
 
-						$this->backup_current_site();
+						$ms_switched_state = new WordPoints_Multisite_Switched_State();
+						$ms_switched_state->backup();
 
 						foreach ( $this->get_installed_site_ids() as $blog_id ) {
 							switch_to_blog( $blog_id );
 							$this->update_( 'site', $updates );
 						}
 
-						$this->restore_current_site();
+						$ms_switched_state->restore();
 
 					} else {
 
@@ -695,50 +691,6 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		return $site_ids;
-	}
-
-	/**
-	 * Backup the globals that determine the current site and switched state.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @link http://wordpress.stackexchange.com/a/89114/27757
-	 */
-	protected function backup_current_site() {
-
-		$this->globals_backup['original_blog_id'] = get_current_blog_id();
-
-		if ( isset( $GLOBALS['_wp_switched_stack'] ) ) {
-			$this->globals_backup['switched_stack'] = $GLOBALS['_wp_switched_stack'];
-		}
-
-		if ( isset( $GLOBALS['switched'] ) ) {
-			$this->globals_backup['switched'] = $GLOBALS['switched'];
-		}
-	}
-
-	/**
-	 * Restore the globals that determine the current site and switched state.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @link http://wordpress.stackexchange.com/a/89114/27757
-	 */
-	protected function restore_current_site() {
-
-		switch_to_blog( $this->globals_backup['original_blog_id'] );
-
-		if ( isset( $this->globals_backup['switched_stack'] ) ) {
-			$GLOBALS['_wp_switched_stack'] = $this->globals_backup['switched_stack'];
-		} else {
-			unset( $GLOBALS['_wp_switched_stack'] );
-		}
-
-		if ( isset( $this->globals_backup['switched'] ) ) {
-			$GLOBALS['switched'] = $this->globals_backup['switched'];
-		} else {
-			unset( $GLOBALS['switched'] );
-		}
 	}
 
 	/**

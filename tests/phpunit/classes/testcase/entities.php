@@ -251,18 +251,6 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 	}
 
 	/**
-	 * Fully deletes a post.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param int $id The post ID.
-	 */
-	public function delete_post( $id ) {
-
-		wp_delete_post( $id, true );
-	}
-
-	/**
 	 * Creates a comment.
 	 *
 	 * @since 2.1.0
@@ -277,18 +265,6 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 				'comment_post_ID' => $this->factory->post->create(),
 			)
 		);
-	}
-
-	/**
-	 * Fully deletes a comment.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param int $id The comment ID.
-	 */
-	public function delete_comment( $id ) {
-
-		wp_delete_comment( $id, true );
 	}
 
 	/**

@@ -17,6 +17,35 @@
 abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 	/**
+	 * Fixtures to share across all of the tests in this testcase.
+	 *
+	 * If you need to use some fixtures across your tests and these will not be
+	 * modified during the tests, then you can ask the testcase to automatically
+	 * create them for you here. This will cause them to only be created once, before
+	 * the first test, and then only destroyed once, after the last test.
+	 *
+	 * The keys of the array should correspond to factory properties on the core or
+	 * WordPoints factories. Values are the number of items to create of that type.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array
+	 */
+	protected $shared_fixtures;
+
+	/**
+	 * The IDs of fixtures that were requested to be created via `$shared_fixtures`.
+	 *
+	 * Indexed just as the `self::$shared_fixtures` array is, with the slugs of the
+	 * types of fixtures.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array[]
+	 */
+	protected $fixture_ids;
+
+	/**
 	 * The default points data set up for each test.
 	 *
 	 * @since 1.0.0 This was a part of the WordPoints_Points_UnitTestCase.
@@ -155,10 +184,90 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	public static $backup_app;
 
 	/**
+	 * The IDs of the fixtures created for the testcase that is currently running.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array[]
+	 */
+	protected static $_fixtures;
+
+	/**
 	 * @since 2.2.0
 	 */
 	public static function factory() {
 		return parent::factory();
+	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	public static function tearDownAfterClass() {
+
+		if ( isset( self::$_fixtures ) ) {
+
+			/** @var WordPoints_PHPUnit_Factory_Stub $factories */
+			$factories = self::factory();
+
+			foreach ( self::$_fixtures as $type => $ids ) {
+
+				/** @var WP_UnitTest_Factory_For_Thing $factory */
+				$factory = isset( $factories->$type )
+					? $factories->$type
+					: $factories->wordpoints->$type;
+
+
+				if ( $factory instanceof WordPoints_PHPUnit_Factory_DeletingI ) {
+					$delete_method = array( $factory, 'delete' );
+				} else {
+					$delete_method = array( __CLASS__, "delete_{$type}" );
+				}
+
+				array_map( $delete_method, $ids );
+			}
+
+			self::$_fixtures = null;
+		}
+
+		parent::tearDownAfterClass();
+	}
+
+	/**
+	 * Fully deletes a site from the network.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int $site_id The ID of the site to delete.
+	 */
+	protected static function delete_site( $site_id ) {
+
+		wpmu_delete_blog( $site_id, true );
+	}
+
+	/**
+	 * Fully deletes a post.
+	 *
+	 * @since 2.1.0 As part of WordPoints_PHPUnit_TestCase_Entities.
+	 * @since 2.2.0
+	 *
+	 * @param int $id The post ID.
+	 */
+	public static function delete_post( $id ) {
+
+		wp_delete_post( $id, true );
+	}
+
+	/**
+	 * Fully deletes a comment.
+	 *
+	 * @since 2.1.0 As part of WordPoints_PHPUnit_TestCase_Entities.
+	 * @since 2.2.0
+	 *
+	 * @param int $id The comment ID.
+	 */
+	public function delete_comment( $id ) {
+
+		wp_delete_comment( $id, true );
 	}
 
 	/**
@@ -203,6 +312,30 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @since 2.1.0
 	 */
 	public function setUp() {
+
+		if ( isset( self::$_fixtures ) ) {
+
+			$this->fixture_ids = self::$_fixtures;
+
+		} elseif ( isset( $this->shared_fixtures ) ) {
+
+			foreach ( $this->shared_fixtures as $type => $count ) {
+
+				if ( 'site' === $type ) {
+
+					$factory = $this->factory->blog;
+
+				} else {
+
+					/** @var WP_UnitTest_Factory_For_Thing $factory */
+					$factory = isset( $this->factory->$type )
+						? $this->factory->$type
+						: $this->factory->wordpoints->$type;
+				}
+
+				self::$_fixtures[ $type ] = $factory->create_many( $count );
+			}
+		}
 
 		parent::setUp();
 

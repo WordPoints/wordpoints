@@ -26,6 +26,13 @@ include_once WORDPOINTS_DIR . 'components/points/includes/constants.php';
 include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
 
 /**
+ * Points component apps registration functions.
+ *
+ * @since 2.2.0
+ */
+include_once WORDPOINTS_DIR . 'components/points/includes/apps.php';
+
+/**
  * Points component API functions.
  *
  * @since 1.7.0

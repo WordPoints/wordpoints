@@ -321,19 +321,17 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
 }
 
 /**
- * Display the logs in a table.
+ * Displays the points logs from a query.
  *
  * This function takes an instance of a WordPoints_Points_Logs_Query and displays the
- * results in a table.
- *
- * When $paginate is true, it is important that you call this function before it is
- * too late for scripts to be enqueued, or enqueue the scripts yourself ahead of
- * time.
+ * results in a table (or optionally some other view).
  *
  * @since 1.0.0
  * @since 1.6.0 The datatable argument was deprecated.
  * @since 1.6.0 The paginate argument was added.
- * @since 1.6.0 The searchable arguent was added.
+ * @since 1.6.0 The searchable argument was added.
+ * @since 2.2.0 The view argument was added. Previously the table HTML was hard-coded
+ *              within the function.
  *
  * @uses WordPoints_Points_Logs_Query::get()
  *
@@ -341,13 +339,14 @@ function wordpoints_get_points_logs_query( $points_type, $query_slug = 'default'
  *
  * @param WordPoints_Points_Logs_Query $logs_query The query to use to get the logs.
  * @param array                        $args {
- *        Display arguments.
+ *        Display settings.
  *
- *        @type bool $paginate   Whether to paginate the table. Default is true.
- *        @type bool $searchable Whether to display a search form. Default is true.
- *        @type bool $show_users Whether to show the users column of the table.
- *              Default is true. The column will still be output, but will be hidden
- *              with CSS.
+ *        @type string $view       The slug of the view to use to display the logs.
+ *                                 The default is 'table'.
+ *        @type bool   $paginate   Whether to paginate the table. Default is true.
+ *        @type bool   $searchable Whether to display a search form. Default is true.
+ *        @type bool   $show_users Whether to show the users column of the table.
+ *                                 Default is true.
  * }
  *
  * @return void
@@ -358,9 +357,8 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		return;
 	}
 
-	wp_enqueue_style( 'wordpoints-points-logs' );
-
 	$defaults = array(
+		'view'       => 'table',
 		'paginate'   => true,
 		'searchable' => true,
 		'datatable'  => true,
@@ -380,197 +378,16 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 		$args['paginate'] = false;
 	}
 
-	$extra_classes = array();
+	$view = wordpoints_component( 'points' )
+		->get_sub_app( 'logs' )
+		->get_sub_app( 'views' )
+		->get( $args['view'], array( $logs_query, $args ) );
 
-	if ( $args['searchable'] ) {
-
-		$extra_classes[] = 'searchable';
-
-		$search_term = '';
-
-		if ( isset( $_POST['wordpoints_points_logs_search'] ) ) { // WPCS: CSRF OK
-			$search_term = trim(
-				sanitize_text_field( wp_unslash( $_POST['wordpoints_points_logs_search'] ) ) // WPCS: CSRF OK
-			);
-		}
-
-		if ( $search_term ) {
-
-			global $wpdb;
-
-			$escaped_search_term = $wpdb->esc_like( $search_term );
-
-			$logs_query->set_args( array( 'text' => "%{$escaped_search_term}%" ) );
-		}
+	if ( ! $view instanceof WordPoints_Points_Logs_View ) {
+		return;
 	}
 
-	if ( $args['paginate'] ) {
-
-		$extra_classes[] = 'paginated';
-
-		$page = 1;
-		$per_page = 25;
-
-		if (
-			isset( $_GET['wordpoints_points_logs_page'] )
-			&& wordpoints_posint( $_GET['wordpoints_points_logs_page'] )
-		) {
-			$page = (int) $_GET['wordpoints_points_logs_page'];
-		}
-
-		if (
-			isset( $_GET['wordpoints_points_logs_per_page'] )
-			&& wordpoints_posint( $_GET['wordpoints_points_logs_per_page'] )
-		) {
-			$per_page = (int) $_GET['wordpoints_points_logs_per_page'];
-		}
-
-		$logs = $logs_query->get_page( $page, $per_page );
-
-	} else {
-
-		$logs = $logs_query->get();
-	}
-
-	/**
-	 * Filter the extra HTML classes to give to the points logs table element.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string[] $extra_classes Classes to add to the table beyond the defaults.
-	 * @param array    $args          The arguments for displaying the table.
-	 * @param object[] $logs          The logs being displayed.
-	 */
-	$extra_classes = apply_filters( 'wordpoints_points_logs_table_extra_classes', $extra_classes, $args, $logs );
-
-	$columns = array(
-		'user'        => _x( 'User', 'points logs table heading', 'wordpoints' ),
-		'points'      => _x( 'Points', 'points logs table heading', 'wordpoints' ),
-		'description' => _x( 'Description', 'points logs table heading', 'wordpoints' ),
-		'time'        => _x( 'Time', 'points logs table heading', 'wordpoints' ),
-	);
-
-	$points_type = $logs_query->get_arg( 'points_type' );
-
-	if ( ! empty( $points_type ) ) {
-
-		$points_type_name = wordpoints_get_points_type_setting( $points_type, 'name' );
-
-		if ( ! empty( $points_type_name ) ) {
-			$columns['points'] = $points_type_name;
-		}
-	}
-
-	?>
-
-	<div class="wordpoints-points-logs-wrapper">
-		<?php if ( $args['searchable'] ) : ?>
-			<?php if ( ! empty( $search_term ) ) : ?>
-				<div class="wordpoints-points-logs-searching">
-					<?php echo esc_html( sprintf( __( 'Searching for &#8220;%s&#8221;', 'wordpoints' ), $search_term ) ); ?>
-				</div>
-			<?php endif; ?>
-			<div class="wordpoints-points-logs-search">
-				<form method="POST" action="<?php echo esc_url( remove_query_arg( 'wordpoints_points_logs_page' ) ); ?>">
-					<label class="screen-reader-text" for="wordpoints_points_logs_search">
-						<?php esc_html_e( 'Search Logs:', 'wordpoints' ); ?>
-					</label>
-					<input
-						type="text"
-						name="wordpoints_points_logs_search"
-						id="wordpoints_points_logs_search"
-						value="<?php echo esc_attr( $search_term ); ?>"
-					/>
-					<input name="" class="button" value="<?php esc_attr_e( 'Search Logs', 'wordpoints' ); ?>" type="submit" />
-				</form>
-			</div>
-		<?php endif; ?>
-
-	<table class="wordpoints-points-logs widefat <?php echo esc_attr( implode( ' ', $extra_classes ) ); ?>">
-		<thead>
-			<tr>
-				<?php if ( $args['show_users'] ) : ?>
-				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
-				<?php endif; ?>
-				<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
-				<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php if ( empty( $logs ) ) : ?>
-				<tr>
-					<td colspan="<?php echo ( $args['show_users'] ) ? 3 : 4; ?>">
-						<?php esc_html_e( 'No matching logs found.', 'wordpoints' ); ?>
-					</td>
-				</tr>
-			<?php else : ?>
-				<?php
-
-				$current_user_id = get_current_user_id();
-				$current_time = current_time( 'timestamp', true );
-
-				$i = 0;
-
-				foreach ( $logs as $log ) {
-
-					$i++;
-
-					if ( ! wordpoints_user_can_view_points_log( $current_user_id, $log ) ) {
-						continue;
-					}
-
-					$user = get_userdata( $log->user_id );
-
-					?>
-
-					<tr class="wordpoints-log-id-<?php echo (int) $log->id; ?> <?php echo ( $i % 2 ) ? 'odd' : 'even'; ?>">
-						<?php if ( $args['show_users'] ) : ?>
-						<td><?php echo get_avatar( $user->ID, 32 ); ?><?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?></td>
-						<?php endif; ?>
-						<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>
-						<td><?php echo wp_kses( $log->text, 'wordpoints_points_log' ); ?></td>
-						<td title="<?php echo esc_attr( $log->date ); ?> UTC"><?php echo esc_html( human_time_diff( strtotime( $log->date ), $current_time ) ); ?></td>
-					</tr>
-
-					<?php
-				}
-
-				?>
-			<?php endif; ?>
-		</tbody>
-		<tfoot>
-		<tr>
-			<?php if ( $args['show_users'] ) : ?>
-				<th scope="col"><?php echo esc_html( $columns['user'] ); ?></th>
-			<?php endif; ?>
-			<th scope="col"><?php echo esc_html( $columns['points'] ); ?></th>
-			<th scope="col"><?php echo esc_html( $columns['description'] ); ?></th>
-			<th scope="col"><?php echo esc_html( $columns['time'] ); ?></th>
-		</tr>
-		</tfoot>
-	</table>
-
-	<?php if ( $args['paginate'] ) : ?>
-		<?php
-
-		echo paginate_links( // XSS pass WPCS.
-			array(
-				'base'     => add_query_arg( '%_%', '' ),
-				'format'   => 'wordpoints_points_logs_page=%#%',
-				'total'    => ceil( $logs_query->count() / $per_page ),
-				'current'  => $page,
-				'add_args' => array(
-					'wordpoints_points_logs_per_page' => $per_page,
-				),
-			)
-		);
-
-		?>
-	<?php endif; ?>
-	</div>
-
-	<?php
+	$view->display();
 
 } // function wordpoints_points_show_logs()
 

@@ -7,6 +7,13 @@
  * @since 2.1.0
  */
 
+add_action( 'wordpoints_init_app-components', 'wordpoints_points_components_app_init' );
+
+add_action( 'wordpoints_init_app-components-points', 'wordpoints_points_apps_init' );
+add_action( 'wordpoints_init_app-components-points-logs', 'wordpoints_points_logs_apps_init' );
+
+add_action( 'wordpoints_init_app_registry-components-points-logs-views', 'wordpoints_points_logs_views_init' );
+
 add_action( 'wordpoints_init_app_registry-hooks-reactors', 'wordpoints_points_hook_reactors_init' );
 add_action( 'wordpoints_init_app_registry-hooks-reaction_stores', 'wordpoints_points_hook_reaction_stores_init' );
 add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_points_hook_extensions_init' );

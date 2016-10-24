@@ -43,6 +43,8 @@ function wordpoints_apps_init( $app ) {
 	$apps->register( 'hooks', 'WordPoints_Hooks' );
 	$apps->register( 'entities', 'WordPoints_App_Registry' );
 	$apps->register( 'data_types', 'WordPoints_Class_Registry' );
+	$apps->register( 'components', 'WordPoints_App' );
+	$apps->register( 'modules', 'WordPoints_App' );
 }
 
 /**
@@ -94,6 +96,50 @@ function wordpoints_get_post_types_for_auto_integration() {
 	 * @param string[] $post_types The post type slugs ("names").
 	 */
 	return apply_filters( 'wordpoints_post_types_for_auto_integration', $post_types );
+}
+
+//
+// Components API
+//
+
+/**
+ * Gets the app for a component.
+ *
+ * @since 2.2.0
+ *
+ * @param string $slug The slug of the component.
+ *
+ * @return false|WordPoints_App The component's app.
+ */
+function wordpoints_component( $slug ) {
+
+	if ( ! isset( WordPoints_App::$main ) ) {
+		wordpoints_apps();
+	}
+
+	return WordPoints_App::$main->get_sub_app( 'components' )->get_sub_app( $slug );
+}
+
+//
+// Modules API
+//
+
+/**
+ * Gets the app for a module.
+ *
+ * @since 2.2.0
+ *
+ * @param string $slug The slug of the module.
+ *
+ * @return false|WordPoints_App The module's app.
+ */
+function wordpoints_module( $slug ) {
+
+	if ( ! isset( WordPoints_App::$main ) ) {
+		wordpoints_apps();
+	}
+
+	return WordPoints_App::$main->get_sub_app( 'modules' )->get_sub_app( $slug );
 }
 
 //

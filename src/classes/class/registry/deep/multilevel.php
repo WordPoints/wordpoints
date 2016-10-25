@@ -38,7 +38,10 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 */
-	public function get_children( $parent_slugs = array(), array $args = array() ) {
+	public function get_children(
+		array $parent_slugs = array(),
+		array $args = array()
+	) {
 
 		$classes = $this->get_deep( $this->classes, $parent_slugs );
 
@@ -57,7 +60,7 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 */
-	public function get_children_slugs( $parent_slugs = array() ) {
+	public function get_children_slugs( array $parent_slugs = array() ) {
 
 		$slugs = array();
 
@@ -73,7 +76,11 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 */
-	public function get( $slug, $parent_slugs = array(), array $args = array() ) {
+	public function get(
+		$slug,
+		array $parent_slugs = array(),
+		array $args = array()
+	) {
 
 		$classes = $this->get_deep( $this->classes, $parent_slugs );
 
@@ -95,11 +102,16 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.1.0
 	 */
-	public function register( $slug, $parent_slugs, $class, array $args = array() ) {
+	public function register(
+		$slug,
+		array $parent_slugs,
+		$class,
+		array $args = array()
+	) {
 
 		$classes = &$this->classes;
 
-		foreach ( (array) $parent_slugs as $parent_slug ) {
+		foreach ( $parent_slugs as $parent_slug ) {
 
 			if ( ! isset( $classes[ $parent_slug ] ) ) {
 				$classes[ $parent_slug ] = array();
@@ -116,7 +128,7 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 */
-	public function deregister( $slug, $parent_slugs = array() ) {
+	public function deregister( $slug, array $parent_slugs = array() ) {
 
 		$classes = &$this->get_deep( $this->classes, $parent_slugs );
 
@@ -130,7 +142,7 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 */
-	public function deregister_children( $parent_slugs = array() ) {
+	public function deregister_children( array $parent_slugs = array() ) {
 
 		$classes = &$this->get_deep( $this->classes, $parent_slugs );
 
@@ -144,9 +156,8 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 */
-	public function is_registered( $slug, $parent_slugs = array() ) {
+	public function is_registered( $slug, array $parent_slugs = array() ) {
 
-		$parent_slugs = (array) $parent_slugs;
 		$parent_slugs[] = '_classes';
 
 		if ( null !== $slug ) {
@@ -166,13 +177,11 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	 *
 	 * @return mixed|false A reference to the value, or false if not found.
 	 */
-	protected function &get_deep( array &$array, $indexes ) {
+	protected function &get_deep( array &$array, array $indexes ) {
 
 		// Only variable references can be returned by reference.
 		$false = false;
 		$false_reference = &$false;
-
-		$indexes = (array) $indexes;
 
 		foreach ( $indexes as $index ) {
 

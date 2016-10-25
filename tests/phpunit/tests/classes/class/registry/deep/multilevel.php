@@ -57,10 +57,11 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	public function data_provider_valid_parents() {
 		return array(
 			'none' => array( array() ),
-			'string' => array( 'parent' ),
-			'one' => array( 'parent' ),
-			'two' => array( 'parent', 'child' ),
-			'deep' => array( 'parent', 'child', 'grandchild', 'great', 'great-2' ),
+			'one' => array( array( 'parent' ) ),
+			'two' => array( array( 'parent', 'child' ) ),
+			'deep' => array(
+				array( 'parent', 'child', 'grandchild', 'great', 'great-2' )
+			),
 		);
 	}
 
@@ -100,25 +101,33 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
 
 		$this->assertTrue(
-			$registry->register( 'test', 'parent', 'WordPoints_PHPUnit_Mock_Object' )
+			$registry->register(
+				'test'
+				, array( 'parent' )
+				, 'WordPoints_PHPUnit_Mock_Object'
+			)
 		);
 
-		$this->assertTrue( $registry->is_registered( 'test', 'parent' ) );
+		$this->assertTrue( $registry->is_registered( 'test', array( 'parent' ) ) );
 
 		$this->assertInstanceOf(
 			'WordPoints_PHPUnit_Mock_Object'
-			, $registry->get( 'test', 'parent' )
+			, $registry->get( 'test', array( 'parent' ) )
 		);
 
 		$this->assertTrue(
-			$registry->register( 'test', 'parent', 'WordPoints_PHPUnit_Mock_Object2' )
+			$registry->register(
+				'test'
+				, array( 'parent' )
+				, 'WordPoints_PHPUnit_Mock_Object2'
+			)
 		);
 
-		$this->assertTrue( $registry->is_registered( 'test', 'parent' ) );
+		$this->assertTrue( $registry->is_registered( 'test', array( 'parent' ) ) );
 
 		$this->assertInstanceOf(
 			'WordPoints_PHPUnit_Mock_Object2'
-			, $registry->get( 'test', 'parent' )
+			, $registry->get( 'test', array( 'parent' ) )
 		);
 	}
 
@@ -143,14 +152,18 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 		);
 
 		$this->assertTrue(
-			$registry->register( 'test', 'parent', 'WordPoints_PHPUnit_Mock_Object2' )
+			$registry->register(
+				'test'
+				, array( 'parent' )
+				, 'WordPoints_PHPUnit_Mock_Object2'
+			)
 		);
 
-		$this->assertTrue( $registry->is_registered( 'test', 'parent' ) );
+		$this->assertTrue( $registry->is_registered( 'test', array( 'parent' ) ) );
 
 		$this->assertInstanceOf(
 			'WordPoints_PHPUnit_Mock_Object2'
-			, $registry->get( 'test', 'parent' )
+			, $registry->get( 'test', array( 'parent' ) )
 		);
 	}
 
@@ -163,7 +176,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
 
-		$this->assertFalse( $registry->is_registered( 'test', 'parent' ) );
+		$this->assertFalse( $registry->is_registered( 'test', array( 'parent' ) ) );
 	}
 
 	/**
@@ -175,13 +188,17 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
 
-		$this->assertFalse( $registry->is_registered( null, 'parent' ) );
+		$this->assertFalse( $registry->is_registered( null, array( 'parent' ) ) );
 
 		$this->assertTrue(
-			$registry->register( 'test', 'parent', 'WordPoints_PHPUnit_Mock_Object' )
+			$registry->register(
+				'test'
+				, array( 'parent' )
+				, 'WordPoints_PHPUnit_Mock_Object'
+			)
 		);
 
-		$this->assertTrue( $registry->is_registered( null, 'parent' ) );
+		$this->assertTrue( $registry->is_registered( null, array( 'parent' ) ) );
 	}
 
 	/**
@@ -410,17 +427,21 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
 
 		$this->assertTrue(
-			$registry->register( 'test', 'parent', 'WordPoints_PHPUnit_Mock_Object' )
+			$registry->register(
+				'test'
+				, array( 'parent' )
+				, 'WordPoints_PHPUnit_Mock_Object'
+			)
 		);
 
-		$object = $registry->get( 'test', 'parent' );
+		$object = $registry->get( 'test', array( 'parent' ) );
 
 		$this->assertInstanceOf(
 			'WordPoints_PHPUnit_Mock_Object'
 			, $object
 		);
 
-		$object_2 = $registry->get( 'test', 'parent' );
+		$object_2 = $registry->get( 'test', array( 'parent' ) );
 
 		$this->assertInstanceOf(
 			'WordPoints_PHPUnit_Mock_Object'

@@ -24,69 +24,69 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string|string[] $parent_slugs The parent slug(s).
+	 * @param string[] $parent_slugs The parent slug(s).
 	 *
 	 * @return object[] The child objects, indexed by slug.
 	 */
-	public function get_children( $parent_slugs );
+	public function get_children( array $parent_slugs );
 
 	/**
 	 * Get the slugs of all of the direct children of a certain parent.
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string|string[] $parent_slugs The parent slug(s).
+	 * @param string[] $parent_slugs The parent slug(s).
 	 *
 	 * @return string[] The child slugs.
 	 */
-	public function get_children_slugs( $parent_slugs );
+	public function get_children_slugs( array $parent_slugs );
 
 	/**
 	 * Get an object by its slug.
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string          $slug         The slug of the type of object to get.
-	 * @param string|string[] $parent_slugs The slug(s) of the object's parent(s) in
-	 *                                      the hierarchy.
+	 * @param string   $slug         The slug of the type of object to get.
+	 * @param string[] $parent_slugs The slug(s) of the object's parent(s) in the
+	 *                               hierarchy.
 	 *
 	 * @return false|object The object or false on failure.
 	 */
-	public function get( $slug, $parent_slugs );
+	public function get( $slug, array $parent_slugs );
 
 	/**
 	 * Register a type of object.
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string          $slug         The slug for this type of object.
-	 * @param string|string[] $parent_slugs The hierarchy for this object.
-	 * @param string          $class        The class name.
-	 * @param array           $args         Other arguments.
+	 * @param string   $slug         The slug for this type of object.
+	 * @param string[] $parent_slugs The hierarchy for this object.
+	 * @param string   $class        The class name.
+	 * @param array    $args         Other arguments.
 	 *
 	 * @return bool Whether the class was registered successfully.
 	 */
-	public function register( $slug, $parent_slugs, $class, array $args = array() );
+	public function register( $slug, array $parent_slugs, $class, array $args = array() );
 
 	/**
 	 * Deregister a type of object.
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string          $slug         The slug of the class to deregister.
-	 * @param string|string[] $parent_slugs The slug(s) of the class's parent(s) in
-	 *                                      the hierarchy
+	 * @param string   $slug         The slug of the class to deregister.
+	 * @param string[] $parent_slugs The slug(s) of the class's parent(s) in the
+	 *                               hierarchy.
 	 */
-	public function deregister( $slug, $parent_slugs );
+	public function deregister( $slug, array $parent_slugs );
 
 	/**
 	 * Deregister all children of a particular parent in the hierarchy.
 	 *
-	 * @since 2.1.0
+	 * @since 2.2.0
 	 *
-	 * @param string|string[] $parent_slugs The hierarchy of the parent.
+	 * @param string[] $parent_slugs The hierarchy of the parent.
 	 */
-	public function deregister_children( $parent_slugs );
+	public function deregister_children( array $parent_slugs );
 
 	/**
 	 * Check if a type of object is registered by its slug.
@@ -96,12 +96,12 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string          $slug         The slug of the class to check for.
-	 * @param string|string[] $parent_slugs The hierarchy for the class to check for.
+	 * @param string   $slug         The slug of the class to check for.
+	 * @param string[] $parent_slugs The hierarchy for the class to check for.
 	 *
 	 * @return bool Whether the class is registered.
 	 */
-	public function is_registered( $slug, $parent_slugs );
+	public function is_registered( $slug, array $parent_slugs );
 }
 
 // EOF

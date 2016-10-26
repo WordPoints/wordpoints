@@ -36,7 +36,56 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	protected $classes = array();
 
 	/**
+	 * Settings for this registry.
+	 *
 	 * @since 2.2.0
+	 *
+	 * @var array {
+	 *      Other arguments.
+	 *
+	 *      @type bool $pass_slugs Whether to pass the class slugs to the
+	 *                             constructors as the first argument. Default is
+	 *                             true.
+	 * }
+	 */
+	protected $settings = array(
+		'pass_slugs' => true,
+	);
+
+	/**
+	 * Get a setting for the registry.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $setting The slug of the setting whose value to retreive.
+	 *
+	 * @return mixed The setting value, or null if not set.
+	 */
+	public function get_setting( $setting ) {
+
+		if ( ! isset( $this->settings[ $setting ] ) ) {
+			return null;
+		}
+
+		return $this->settings[ $setting ];
+	}
+
+	/**
+	 * Update a setting for the registry.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $setting The setting slug.
+	 * @param mixed  $value   The value to give this setting.
+	 */
+	public function update_setting( $setting, $value ) {
+		$this->settings[ $setting ] = $value;
+	}
+
+	/**
+	 * @since 2.2.0
+	 *
+	 * @param array $args Args to construct each class with.
 	 */
 	public function get_children(
 		array $parent_slugs = array(),
@@ -49,11 +98,14 @@ class WordPoints_Class_Registry_Deep_Multilevel
 			return array();
 		}
 
-		array_unshift( $args, $parent_slugs );
+		if ( $this->settings['pass_slugs'] ) {
+			array_unshift( $args, $parent_slugs );
+		}
 
 		return WordPoints_Class_Registry::construct_with_args(
 			$classes['_classes']
 			, $args
+			, $this->settings
 		);
 	}
 
@@ -75,6 +127,8 @@ class WordPoints_Class_Registry_Deep_Multilevel
 
 	/**
 	 * @since 2.2.0
+	 *
+	 * @param array $args Args to construct the class with.
 	 */
 	public function get(
 		$slug,
@@ -91,16 +145,25 @@ class WordPoints_Class_Registry_Deep_Multilevel
 		$class = $classes['_classes'][ $slug ];
 
 		if ( empty( $args ) ) {
-			return new $class( $slug, $parent_slugs );
+
+			if ( $this->settings['pass_slugs'] ) {
+				return new $class( $slug, $parent_slugs );
+			} else {
+				return new $class();
+			}
+
 		} else {
-			array_unshift( $args, $slug, $parent_slugs );
+
+			if ( $this->settings['pass_slugs'] ) {
+				array_unshift( $args, $slug, $parent_slugs );
+			}
 
 			return wordpoints_construct_class_with_args( $class, $args );
 		}
 	}
 
 	/**
-	 * @since 2.1.0
+	 * @since 2.2.0
 	 */
 	public function register(
 		$slug,

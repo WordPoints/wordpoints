@@ -370,6 +370,146 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	}
 
 	/**
+	 * Test getting a registered class constructed with some args.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @dataProvider data_provider_valid_parents
+	 *
+	 * @param string|string[] $parent The parent slug(s).
+	 */
+	public function test_get_with_args_no_slugs( $parent ) {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry->update_setting( 'pass_slugs', false );
+
+		$this->assertTrue(
+			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
+		);
+
+		$args = array( 'one', 2 );
+
+		$object = $registry->get( 'test', $parent, $args );
+
+		$this->assertInstanceOf(
+			'WordPoints_PHPUnit_Mock_Object'
+			, $object
+		);
+
+		$this->assertEquals(
+			array( 'name' => '__construct', 'arguments' => $args )
+			, $object->calls[0]
+		);
+	}
+
+	/**
+	 * Test getting all children of a parent constructed with some args.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @dataProvider data_provider_valid_parents
+	 *
+	 * @param string|string[] $parent The parent slug(s).
+	 */
+	public function test_get_all_children_with_args_no_slugs( $parent ) {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry->update_setting( 'pass_slugs', false );
+
+		$this->assertTrue(
+			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
+		);
+
+		$this->assertTrue(
+			$registry->register( 'test_2', $parent, 'WordPoints_PHPUnit_Mock_Object2' )
+		);
+
+		$args = array( 'one', 2 );
+
+		$objects = $registry->get_children( $parent, $args );
+
+		$this->assertCount( 2, $objects );
+
+		$this->assertEquals(
+			array( 'name' => '__construct', 'arguments' => $args )
+			, $objects['test']->calls[0]
+		);
+
+		$this->assertEquals(
+			array( 'name' => '__construct', 'arguments' => $args )
+			, $objects['test_2']->calls[0]
+		);
+	}
+
+	/**
+	 * Test getting a registered class constructed with some args.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @dataProvider data_provider_valid_parents
+	 *
+	 * @param string|string[] $parent The parent slug(s).
+	 */
+	public function test_get_no_slugs( $parent ) {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry->update_setting( 'pass_slugs', false );
+
+		$this->assertTrue(
+			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
+		);
+
+		$object = $registry->get( 'test', $parent );
+
+		$this->assertInstanceOf(
+			'WordPoints_PHPUnit_Mock_Object'
+			, $object
+		);
+
+		$this->assertEquals(
+			array( 'name' => '__construct', 'arguments' => array() )
+			, $object->calls[0]
+		);
+	}
+
+	/**
+	 * Test getting all children of a parent constructed with some args.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @dataProvider data_provider_valid_parents
+	 *
+	 * @param string|string[] $parent The parent slug(s).
+	 */
+	public function test_get_all_children_no_slugs( $parent ) {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry->update_setting( 'pass_slugs', false );
+
+		$this->assertTrue(
+			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
+		);
+
+		$this->assertTrue(
+			$registry->register( 'test_2', $parent, 'WordPoints_PHPUnit_Mock_Object2' )
+		);
+
+		$objects = $registry->get_children( $parent );
+
+		$this->assertCount( 2, $objects );
+
+		$this->assertEquals(
+			array( 'name' => '__construct', 'arguments' => array() )
+			, $objects['test']->calls[0]
+		);
+
+		$this->assertEquals(
+			array( 'name' => '__construct', 'arguments' => array() )
+			, $objects['test_2']->calls[0]
+		);
+	}
+
+	/**
 	 * Test getting an unregistered class.
 	 *
 	 * @since 2.2.0
@@ -548,6 +688,43 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 		$this->assertFalse( $registry->get( 'test', $parent ) );
 		$this->assertFalse( $registry->get( 'test_2', $parent ) );
 		$this->assertEmpty( $registry->get_children( $parent ) );
+	}
+
+	/**
+	 * Test getting a setting.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_get_setting() {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+
+		$this->assertTrue( $registry->get_setting( 'pass_slugs' ) );
+	}
+
+	/**
+	 * Test getting a setting that isn't set.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_get_setting_unset() {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+
+		$this->assertNull( $registry->get_setting( 'not_set' ) );
+	}
+
+	/**
+	 * Test updating a setting.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_update_setting() {
+
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry->update_setting( 'pass_slugs', false );
+
+		$this->assertFalse( $registry->get_setting( 'pass_slugs' ) );
 	}
 }
 

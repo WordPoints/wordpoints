@@ -101,6 +101,16 @@ module.exports = function( grunt ) {
 						)[0]
 					);
 
+					// This class needs to come before other entity restriction classes.
+					class_files.splice(
+						class_files.indexOf( 'entity/restrictioni.php' ) + 1
+						, 0
+						, class_files.splice(
+							class_files.indexOf( 'entity/restriction/post/status/nonpublic.php' )
+							, 1
+						)[0]
+					);
+
 					// Action classes that need to come before other action classes.
 					Array.prototype.splice.apply(
 						class_files

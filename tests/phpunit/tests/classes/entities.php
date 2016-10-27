@@ -86,7 +86,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 			'post'    => array(
 				array(
 					'class'          => 'WordPoints_Entity_Post',
-					'slug'           => 'post',
+					'slug'           => 'post\post',
 					'id_field'       => 'ID',
 					'human_id_field' => 'post_title',
 					'storage_info'   => array(
@@ -131,7 +131,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 			'comment' => array(
 				array(
 					'class'          => 'WordPoints_Entity_Comment',
-					'slug'           => 'post',
+					'slug'           => 'comment\post',
 					'id_field'       => 'comment_ID',
 					'human_id_field' => 'comment_content',
 					'storage_info'   => array(

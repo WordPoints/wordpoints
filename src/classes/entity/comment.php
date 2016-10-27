@@ -11,10 +11,10 @@
  * Represents a Comment as an entity.
  *
  * @since 2.1.0
+ * @since 2.2.0 No longer implements WordPoints_Entity_Restricted_VisibilityI.
  */
 class WordPoints_Entity_Comment
-	extends WordPoints_Entity_Stored_DB_Table
-	implements WordPoints_Entity_Restricted_VisibilityI {
+	extends WordPoints_Entity_Stored_DB_Table {
 
 	/**
 	 * @since 2.1.0
@@ -57,16 +57,17 @@ class WordPoints_Entity_Comment
 
 	/**
 	 * @since 2.1.0
+	 * @deprecated 2.2.0 Use entity restrictions API instead.
 	 */
 	public function user_can_view( $user_id, $id ) {
 
-		$comment = get_comment( $id );
+		_deprecated_function( __METHOD__, '2.2.0' );
 
-		if ( $comment ) {
-			return user_can( $user_id, 'read_post', $comment->comment_post_ID );
-		}
+		/** @var WordPoints_Entity_Restrictions $restrictions */
+		$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
+		$restriction = $restrictions->get( $id, $this->get_slug(), 'view' );
 
-		return false;
+		return $restriction->user_can( $user_id );
 	}
 }
 

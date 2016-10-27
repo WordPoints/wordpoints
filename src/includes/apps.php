@@ -176,6 +176,7 @@ function wordpoints_entities_app_init( $entities ) {
 	$sub_apps = $entities->sub_apps();
 	$sub_apps->register( 'children', 'WordPoints_Class_Registry_Children' );
 	$sub_apps->register( 'contexts', 'WordPoints_Entity_Contexts' );
+	$sub_apps->register( 'restrictions', 'WordPoints_Entity_Restrictions' );
 }
 
 /**
@@ -191,6 +192,87 @@ function wordpoints_entity_contexts_init( $contexts ) {
 
 	$contexts->register( 'network', 'WordPoints_Entity_Context_Network' );
 	$contexts->register( 'site', 'WordPoints_Entity_Context_Site' );
+}
+
+/**
+ * Register sub-apps when the Entity Restrictions app is initialized.
+ *
+ * @since 2.2.0
+ *
+ * @WordPress\action wordpoints_init_app-entities-restrictions
+ *
+ * @param WordPoints_App $restrictions The entity restrictions app.
+ */
+function wordpoints_entities_restrictions_app_init( $restrictions ) {
+
+	$sub_apps = $restrictions->sub_apps();
+	$sub_apps->register( 'know', 'WordPoints_Class_Registry_Deep_Multilevel_Slugless' );
+	$sub_apps->register( 'view', 'WordPoints_Class_Registry_Deep_Multilevel_Slugless' );
+}
+
+/**
+ * Register entity restrictions when the "know" restrictions registry is initialized.
+ *
+ * These are entities that are totally restricted, so that when the restriction
+ * applies, the user is not even allowed to know that such an object exists.
+ *
+ * @since 2.2.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-entities-restrictions-know
+ *
+ * @param WordPoints_Class_Registry_Deep_Multilevel $restrictions The restrictions
+ *                                                                registry.
+ */
+function wordpoints_entity_restrictions_know_init( $restrictions ) {
+
+	$restrictions->register(
+		'unregistered'
+		, array()
+		, 'WordPoints_Entity_Restriction_Unregistered'
+	);
+
+	$restrictions->register(
+		'legacy'
+		, array()
+		, 'WordPoints_Entity_Restriction_Legacy'
+	);
+
+	foreach ( wordpoints_get_post_types_for_entities() as $slug ) {
+
+		$restrictions->register(
+			'status_nonpublic'
+			, array( "post\\$slug" )
+			, 'WordPoints_Entity_Restriction_Post_Status_Nonpublic'
+		);
+
+		$restrictions->register(
+			'post_status_nonpublic'
+			, array( "comment\\$slug" )
+			, 'WordPoints_Entity_Restriction_Comment_Post_Status_Nonpublic'
+		);
+	}
+}
+
+/**
+ * Register entity restrictions when the View restrictions registry is initialized.
+ *
+ * @since 2.2.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-entities-restrictions-view
+ *
+ * @param WordPoints_Class_Registry_Deep_Multilevel $restrictions The restrictions
+ *                                                                registry.
+ */
+function wordpoints_entity_restrictions_view_init( $restrictions ) {
+
+	foreach ( wordpoints_get_post_types_for_entities() as $slug ) {
+
+		$restrictions->register(
+			'password_protected'
+			, array( "post\\$slug", 'content' )
+			, 'WordPoints_Entity_Restriction_View_Post_Content_Password_Protected'
+		);
+	}
 }
 
 /**
@@ -278,6 +360,7 @@ function wordpoints_register_post_type_entities( $slug ) {
  * Check whether a user can view an entity.
  *
  * @since 2.1.0
+ * @since 2.2.0 Now uses the new entity restrictions API.
  *
  * @param int    $user_id     The user ID.
  * @param string $entity_slug The slug of the entity type.
@@ -287,37 +370,10 @@ function wordpoints_register_post_type_entities( $slug ) {
  */
 function wordpoints_entity_user_can_view( $user_id, $entity_slug, $entity_id ) {
 
-	$entity = wordpoints_entities()->get( $entity_slug );
-
-	// If this entity type is not found, we have no way of determining whether it is
-	// safe for the user to view it.
-	if ( ! ( $entity instanceof WordPoints_Entity ) ) {
-		return false;
-	}
-
-	$can_view = true;
-
-	if ( $entity instanceof WordPoints_Entity_Restricted_VisibilityI ) {
-		$can_view = $entity->user_can_view( $user_id, $entity_id );
-	}
-
-	/**
-	 * Filter whether a user can view an entity.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param bool              $can_view  Whether the user can view the entity.
-	 * @param int               $user_id   The user ID.
-	 * @param int               $entity_id The entity ID.
-	 * @param WordPoints_Entity $entity    The entity object.
-	 */
-	return apply_filters(
-		'wordpoints_entity_user_can_view'
-		, $can_view
-		, $user_id
-		, $entity_id
-		, $entity
-	);
+	/** @var WordPoints_Entity_Restrictions $restrictions */
+	$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
+	$restriction = $restrictions->get( $entity_id, $entity_slug, 'view' );
+	return $restriction->user_can( $user_id );
 }
 
 /**

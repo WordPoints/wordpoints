@@ -110,7 +110,16 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			);
 		}
 
-		if ( $entity instanceof WordPoints_Entity_Restricted_VisibilityI ) {
+		if (
+			$entity instanceof WordPoints_Entity_Restricted_VisibilityI
+			|| ( $has_method = method_exists( $entity, 'user_can_view' ) )
+		) {
+
+			if ( ! empty( $has_method ) ) {
+				$this->setExpectedDeprecated(
+					get_class( $entity ) . '::user_can_view'
+				);
+			}
 
 			$can_view = ( isset( $data['can_view'] ) ) ? $data['can_view'] : $the_id;
 

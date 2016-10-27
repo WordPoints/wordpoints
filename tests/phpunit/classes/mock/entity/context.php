@@ -15,6 +15,15 @@
 class WordPoints_PHPUnit_Mock_Entity_Context extends WordPoints_Entity_Context {
 
 	/**
+	 * Whether to use the parent methods instead of the mock logic.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var bool
+	 */
+	public $use_parent_methods = false;
+
+	/**
 	 * The ID of the current context.
 	 *
 	 * Note that this is mainly here for backward compatibility, and it is not affected
@@ -70,6 +79,10 @@ class WordPoints_PHPUnit_Mock_Entity_Context extends WordPoints_Entity_Context {
 	 */
 	public function switch_to( $id ) {
 
+		if ( $this->use_parent_methods ) {
+			return parent::switch_to( $id );
+		}
+
 		if ( ! empty( self::$fail_switching[ $this->slug ] ) ) {
 			return false;
 		}
@@ -84,6 +97,10 @@ class WordPoints_PHPUnit_Mock_Entity_Context extends WordPoints_Entity_Context {
 	 * @since 2.2.0
 	 */
 	public function switch_back() {
+
+		if ( $this->use_parent_methods ) {
+			return parent::switch_back();
+		}
 
 		if ( empty( self::$stack[ $this->slug ] ) ) {
 			return false;

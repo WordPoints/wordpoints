@@ -52,6 +52,7 @@ class WordPoints_Entity_Context_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_to() {
 
 		$context = new WordPoints_PHPUnit_Mock_Entity_Context( 'test' );
+		$context->use_parent_methods = true;
 
 		$this->assertFalse( $context->switch_to( 1 ) );
 	}
@@ -64,6 +65,7 @@ class WordPoints_Entity_Context_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_back() {
 
 		$context = new WordPoints_PHPUnit_Mock_Entity_Context( 'test' );
+		$context->use_parent_methods = true;
 
 		$this->assertFalse( $context->switch_back() );
 	}

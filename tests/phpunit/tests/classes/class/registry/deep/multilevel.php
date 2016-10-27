@@ -13,6 +13,7 @@
  * @since 2.2.0
  *
  * @covers WordPoints_Class_Registry_Deep_Multilevel
+ * @covers WordPoints_Class_Registry_Deep_Multilevel_Slugless
  */
 class WordPoints_Class_Registry_Deep_Multilevel_Test
 	extends PHPUnit_Framework_TestCase {
@@ -380,8 +381,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_with_args_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-		$registry->update_setting( 'pass_slugs', false );
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -413,8 +413,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_all_children_with_args_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-		$registry->update_setting( 'pass_slugs', false );
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -452,8 +451,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-		$registry->update_setting( 'pass_slugs', false );
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -483,8 +481,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_all_children_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-		$registry->update_setting( 'pass_slugs', false );
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -688,43 +685,6 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 		$this->assertFalse( $registry->get( 'test', $parent ) );
 		$this->assertFalse( $registry->get( 'test_2', $parent ) );
 		$this->assertEmpty( $registry->get_children( $parent ) );
-	}
-
-	/**
-	 * Test getting a setting.
-	 *
-	 * @since 2.2.0
-	 */
-	public function test_get_setting() {
-
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-
-		$this->assertTrue( $registry->get_setting( 'pass_slugs' ) );
-	}
-
-	/**
-	 * Test getting a setting that isn't set.
-	 *
-	 * @since 2.2.0
-	 */
-	public function test_get_setting_unset() {
-
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-
-		$this->assertNull( $registry->get_setting( 'not_set' ) );
-	}
-
-	/**
-	 * Test updating a setting.
-	 *
-	 * @since 2.2.0
-	 */
-	public function test_update_setting() {
-
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
-		$registry->update_setting( 'pass_slugs', false );
-
-		$this->assertFalse( $registry->get_setting( 'pass_slugs' ) );
 	}
 }
 

@@ -53,36 +53,6 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	);
 
 	/**
-	 * Get a setting for the registry.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @param string $setting The slug of the setting whose value to retreive.
-	 *
-	 * @return mixed The setting value, or null if not set.
-	 */
-	public function get_setting( $setting ) {
-
-		if ( ! isset( $this->settings[ $setting ] ) ) {
-			return null;
-		}
-
-		return $this->settings[ $setting ];
-	}
-
-	/**
-	 * Update a setting for the registry.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @param string $setting The setting slug.
-	 * @param mixed  $value   The value to give this setting.
-	 */
-	public function update_setting( $setting, $value ) {
-		$this->settings[ $setting ] = $value;
-	}
-
-	/**
 	 * @since 2.2.0
 	 *
 	 * @param array $args Args to construct each class with.

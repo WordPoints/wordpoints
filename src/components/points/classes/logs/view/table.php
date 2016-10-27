@@ -188,8 +188,8 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 		if ( isset( $_POST['wordpoints_points_logs_search'] ) ) { // WPCS: CSRF OK
 			$search_term = trim(
 				sanitize_text_field(
-					wp_unslash( $_POST['wordpoints_points_logs_search'] )
-				) // WPCS: CSRF OK
+					wp_unslash( $_POST['wordpoints_points_logs_search'] ) // WPCS: CSRF OK
+				)
 			);
 
 			return $search_term;

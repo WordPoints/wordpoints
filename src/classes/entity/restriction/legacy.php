@@ -64,7 +64,7 @@ class WordPoints_Entity_Restriction_Legacy
 			_deprecated_argument(
 				__METHOD__
 				, '2.2.0'
-				, get_class( $this->entity )
+				, esc_html( get_class( $this->entity ) )
 				    . ' implements the WordPoints_Entity_Restricted_VisibilityI'
 				    . ' interface, which has been deprecated. Use the entity'
 				    . ' restrictions API instead.'

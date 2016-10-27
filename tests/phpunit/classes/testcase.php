@@ -216,7 +216,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 					? $factories->$type
 					: $factories->wordpoints->$type;
 
-
 				if ( $factory instanceof WordPoints_PHPUnit_Factory_DeletingI ) {
 					$delete_method = array( $factory, 'delete' );
 				} else {

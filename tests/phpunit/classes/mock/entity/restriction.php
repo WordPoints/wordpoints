@@ -81,8 +81,10 @@ class WordPoints_PHPUnit_Mock_Entity_Restriction
 	/**
 	 * @since 2.2.0
 	 *
-	 * @param bool $user_can Whether the user can.
-	 * @param bool $applies  Whether this restriction applies.
+	 * @param int|string $entity_id The entity ID.
+	 * @param array      $hierarchy The entity hierarchy.
+	 * @param bool       $user_can  Whether the user can.
+	 * @param bool       $applies   Whether this restriction applies.
 	 */
 	public function __construct(
 		$entity_id,

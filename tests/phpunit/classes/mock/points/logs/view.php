@@ -54,7 +54,7 @@ class WordPoints_PHPUnit_Mock_Points_Logs_View extends WordPoints_Points_Logs_Vi
 	 * @since 2.2.0
 	 */
 	protected function before() {
-		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array()  );
+		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class WordPoints_PHPUnit_Mock_Points_Logs_View extends WordPoints_Points_Logs_Vi
 	 * @since 2.2.0
 	 */
 	protected function after() {
-		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array()  );
+		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class WordPoints_PHPUnit_Mock_Points_Logs_View extends WordPoints_Points_Logs_Vi
 	 */
 	protected function get_search_term() {
 
-		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array()  );
+		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 
 		return $this->search_term;
 	}
@@ -99,7 +99,7 @@ class WordPoints_PHPUnit_Mock_Points_Logs_View extends WordPoints_Points_Logs_Vi
 	 */
 	protected function get_page_number() {
 
-		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array()  );
+		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 
 		return $this->page_number;
 	}
@@ -109,7 +109,7 @@ class WordPoints_PHPUnit_Mock_Points_Logs_View extends WordPoints_Points_Logs_Vi
 	 */
 	protected function get_per_page() {
 
-		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array()  );
+		$this->calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 
 		return $this->per_page;
 	}

@@ -82,7 +82,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create();
 		$this->factory->wordpoints->points_log->create(
-			array( 'text' => 'Test searching.')
+			array( 'text' => 'Test searching.' )
 		);
 
 		$query = new WordPoints_Points_Logs_Query;
@@ -118,7 +118,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create();
 		$this->factory->wordpoints->points_log->create(
-			array( 'text' => 'Test searching.')
+			array( 'text' => 'Test searching.' )
 		);
 
 		$query = new WordPoints_Points_Logs_Query;

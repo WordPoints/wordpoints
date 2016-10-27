@@ -47,6 +47,8 @@ class WordPoints_Entity_Restriction_Wrapper
 	/**
 	 * @since 2.2.0
 	 *
+	 * @param int|string                       $entity_id    Entity ID.
+	 * @param string[]                         $hierarchy    Entity hierarchy.
 	 * @param WordPoints_Entity_RestrictionI[] $restrictions Restrictions to wrap.
 	 * @param array                            $context      Entity context.
 	 */

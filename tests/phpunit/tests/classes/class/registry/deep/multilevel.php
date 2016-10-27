@@ -61,7 +61,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			'one' => array( array( 'parent' ) ),
 			'two' => array( array( 'parent', 'child' ) ),
 			'deep' => array(
-				array( 'parent', 'child', 'grandchild', 'great', 'great-2' )
+				array( 'parent', 'child', 'grandchild', 'great', 'great-2' ),
 			),
 		);
 	}

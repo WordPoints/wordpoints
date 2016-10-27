@@ -55,7 +55,8 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 *
-	 * @param array $args Args to construct each class with.
+	 * @param string[] $parent_slugs The parent slug(s).
+	 * @param array    $args         Args to construct each class with.
 	 */
 	public function get_children(
 		array $parent_slugs = array(),
@@ -98,7 +99,10 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	/**
 	 * @since 2.2.0
 	 *
-	 * @param array $args Args to construct the class with.
+	 * @param string   $slug         The slug of the type of object to get.
+	 * @param string[] $parent_slugs The slug(s) of the object's parent(s) in the
+	 *                               hierarchy.
+	 * @param array    $args         Args to construct the class with.
 	 */
 	public function get(
 		$slug,

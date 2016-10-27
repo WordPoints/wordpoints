@@ -46,7 +46,7 @@ class WordPoints_Entity_Restriction_Comment_Post_Status_Nonpublic_Test
 				array(
 					'comment_post_ID' => $this->factory->post->create(
 						array( 'post_status' => 'draft' )
-					)
+					),
 				)
 			)
 			, array( 'test' )
@@ -116,7 +116,7 @@ class WordPoints_Entity_Restriction_Comment_Post_Status_Nonpublic_Test
 				array(
 					'comment_post_ID' => $this->factory->post->create(
 						array( 'post_status' => 'draft' )
-					)
+					),
 				)
 			)
 			, array( 'test' )
@@ -173,7 +173,7 @@ class WordPoints_Entity_Restriction_Comment_Post_Status_Nonpublic_Test
 				array(
 					'comment_post_ID' => $this->factory->post->create(
 						array( 'post_status' => 'draft' )
-					)
+					),
 				)
 			)
 			, array( 'test' )

@@ -253,7 +253,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-				$log = $this->factory->wordpoints->points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => $event_slug )
 		);
 
@@ -273,7 +273,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_hooks_returns_true_for_unrecognized_event() {
 
-				$log = $this->factory->wordpoints->points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => 'not_event' )
 		);
 
@@ -295,7 +295,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-				$log = $this->factory->wordpoints->points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => $event_slug )
 		);
 
@@ -317,7 +317,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-				$log = $this->factory->wordpoints->points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
@@ -358,7 +358,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-				$log = $this->factory->wordpoints->points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
@@ -389,7 +389,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-				$log = $this->factory->wordpoints->points_log->create_and_get(
+		$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => "reverse-{$event_slug}",
 				'log_meta' => array( 'test_entity' => 1 ),

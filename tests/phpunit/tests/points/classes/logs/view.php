@@ -315,7 +315,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 	public function test_returns_false_if_specific_filter_returns_false() {
 
 		add_filter(
-			"wordpoints_user_can_view_points_log-hidden"
+			'wordpoints_user_can_view_points_log-hidden'
 			, '__return_false'
 		);
 

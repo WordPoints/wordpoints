@@ -207,7 +207,6 @@ abstract class WordPoints_Points_Logs_View {
 				$current_site_id = $log->blog_id;
 			}
 
-
 			$this->restriction = $viewing_restrictions->get_restriction( $log );
 
 			if ( ! $this->restriction->user_can( $current_user_id ) ) {

@@ -482,14 +482,17 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 						self::$_fixtures_ids[ $type ]
 						, $ids
 					);
-				}
+
+				} // End foreach ( $definitions ).
 
 				$this->fixture_ids = self::$_fixtures_ids;
 				$this->fixtures = self::$_fixtures;
-			}
+
+			} // End foreach ( $this->shared_fixtures ).
 
 			self::$creating_fixtures = false;
-		}
+
+		} // End if ( fixtures exist ) elseif ( fixtures to create ).
 
 		parent::setUp();
 

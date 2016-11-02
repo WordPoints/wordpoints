@@ -34,7 +34,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "514": false
+            "515": false
         },
         "inactive": {
             "59": {
@@ -44,7 +44,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "514": false
+            "515": false
         },
         "search": {
             "59": {
@@ -66,14 +66,14 @@
             }
         },
         "hidden": {
-            "555": false,
-            "623": false
+            "565": false,
+            "624": false
         },
         "second module-version-author-uri\">": {
-            "574": false
+            "575": false
         },
         "column-": {
-            "623": false
+            "624": false
         }
     },
     "\/admin\/includes\/functions.php": {
@@ -96,7 +96,7 @@
             }
         },
         "{{ data.length }}": {
-            "441": {
+            "442": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -105,7 +105,7 @@
             }
         },
         "{{ data.length_in_units_label }}": {
-            "441": {
+            "442": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -114,7 +114,7 @@
             }
         },
         "{{ data.length_in_units }}": {
-            "457": {
+            "458": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -123,13 +123,13 @@
             }
         },
         "attr": {
-            "578": false
+            "579": false
         },
         "relationship": {
-            "583": false
+            "584": false
         },
         "entity": {
-            "608": {
+            "609": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -138,16 +138,16 @@
             }
         },
         "success": {
-            "768": false
+            "770": false
         },
         "is-dismissible": {
-            "784": false
-        },
-        "data-nonce=\"": {
             "786": false
         },
+        "data-nonce=\"": {
+            "788": false
+        },
         "upload": {
-            "926": {
+            "928": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -158,10 +158,10 @@
     },
     "\/admin\/screens\/configure-components.php": {
         "deactivate": {
-            "109": false
+            "110": false
         },
         "activate": {
-            "114": false
+            "115": false
         }
     },
     "\/admin\/screens\/module-install.php": {
@@ -174,13 +174,13 @@
             "13": false
         },
         "1": {
-            "402": false
+            "405": false
         },
         "delete-selected": {
-            "402": false
+            "405": false
         },
         "compatibility-problems": {
-            "473": {
+            "477": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -251,7 +251,7 @@
     },
     "\/components\/points\/admin\/screens\/hooks-no-js.php": {
         "px\">": {
-            "96": false
+            "97": false
         }
     },
     "\/components\/points\/admin\/screens\/hooks.php": {
@@ -262,13 +262,13 @@
             "128": false
         },
         "closed": {
-            "197": false
+            "198": false
         },
         "save-network-wordpoints-points-hooks": {
-            "241": false
+            "242": false
         },
         "save-wordpoints-points-hooks": {
-            "243": false
+            "244": false
         }
     },
     "\/components\/points\/admin\/screens\/logs.php": {
@@ -292,17 +292,17 @@
                 "parentheses": 1
             },
             "476": false,
-            "705": false
+            "706": false
         },
         "standard": {
             "479": false,
-            "708": false
+            "709": false
         },
         "post": {
-            "715": false
+            "716": false
         },
         "EXISTS": {
-            "822": {
+            "823": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -501,15 +501,33 @@
         },
         "new": {
             "160": false
+        },
+        "logs": {
+            "358": {
+                "name": "\n\t\t\t\t\t->get_sub_app",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         }
     },
     "\/components\/points\/includes\/hooks\/abstracts\/post-type.php": {
         "\" type=\"checkbox\" value=\"1\"": {
-            "319": false
+            "334": false
         },
         "1": {
-            "319": {
+            "334": {
                 "name": "checked",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "logs": {
+            "389": {
+                "name": "\n\t\t\t\t\t->get_sub_app",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
@@ -538,35 +556,30 @@
         }
     },
     "\/components\/points\/includes\/logs.php": {
-        "points": {
-            "255": {
-                "name": "array",
+        "logs": {
+            "382": {
+                "name": "\n\t\t->get_sub_app",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 2,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "646": {
+                "name": "\n\t\t\t->get_sub_app",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
                 "parentheses": 1
             }
         },
-        "text": {
-            "255": {
-                "name": "array",
+        "views": {
+            "383": {
+                "name": "\n\t\t->get_sub_app",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 5,
+                "arg_count": 0,
                 "parentheses": 1
             }
-        },
-        "date": {
-            "255": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 6,
-                "parentheses": 1
-            }
-        },
-        "reverse-": {
-            "866": false
         }
     },
     "\/components\/points\/includes\/points.php": {
@@ -583,7 +596,7 @@
             "1075": false
         },
         "capabilities'": {
-            "1148": false
+            "1149": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -750,7 +763,7 @@
     },
     "\/includes\/class-installables.php": {
         "install": {
-            "249": {
+            "251": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -759,7 +772,7 @@
             }
         },
         "update": {
-            "250": {
+            "252": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -835,35 +848,35 @@
     },
     "\/includes\/class-un-installer-base.php": {
         "install": {
-            "324": false,
-            "402": false
+            "315": false,
+            "395": false
         },
         "network": {
-            "345": false,
-            "471": false,
-            "564": false,
-            "1384": {
+            "336": false,
+            "467": false,
+            "561": false,
+            "1339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1418": {
+            "1373": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1419": {
+            "1374": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1424": {
+            "1379": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -872,32 +885,32 @@
             }
         },
         "site": {
-            "350": false,
-            "420": false,
-            "453": false,
-            "569": false,
-            "1384": {
+            "341": false,
+            "413": false,
+            "446": false,
+            "566": false,
+            "1339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1417": {
+            "1372": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1419": {
+            "1374": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1424": {
+            "1379": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -906,38 +919,38 @@
             }
         },
         "single": {
-            "386": false,
-            "488": false,
-            "604": false,
-            "1384": {
+            "378": false,
+            "484": false,
+            "602": false,
+            "1339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1417": {
+            "1372": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1418": {
+            "1373": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1419": {
+            "1374": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1424": {
+            "1379": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -946,20 +959,20 @@
             }
         },
         "uninstall": {
-            "436": false
+            "429": false
         },
         "update": {
-            "507": false
+            "504": false
         },
         "local": {
-            "1384": {
+            "1339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "1424": {
+            "1379": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -968,14 +981,14 @@
             }
         },
         "global": {
-            "1384": {
+            "1339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 4,
                 "parentheses": 1
             },
-            "1424": {
+            "1379": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -984,14 +997,14 @@
             }
         },
         "universal": {
-            "1384": {
+            "1339": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 5,
                 "parentheses": 1
             },
-            "1424": {
+            "1379": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1000,14 +1013,14 @@
             }
         },
         "wordpoints": {
-            "1650": {
+            "1605": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1709": {
+            "1664": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1016,7 +1029,7 @@
             }
         },
         "closedpostboxes": {
-            "1651": {
+            "1606": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1025,7 +1038,7 @@
             }
         },
         "metaboxhidden": {
-            "1651": {
+            "1606": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1034,7 +1047,7 @@
             }
         },
         "meta-box-order": {
-            "1651": {
+            "1606": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1043,17 +1056,17 @@
             }
         },
         "toplevel": {
-            "1720": false
+            "1675": false
         },
         "manage": {
-            "1726": false,
-            "1729": false
+            "1681": false,
+            "1684": false
         },
         "columnshidden": {
-            "1726": false
+            "1681": false
         },
         "-networkcolumnshidden": {
-            "1729": false
+            "1684": false
         }
     },
     "\/includes\/class-un-installer.php": {
@@ -1608,7 +1621,7 @@
     },
     "\/classes\/hook\/extension\/conditions.php": {
         "entity": {
-            "289": false
+            "290": false
         }
     },
     "\/classes\/hook\/hit\/query.php": {
@@ -1640,14 +1653,14 @@
             }
         },
         "comment\\\\": {
-            "393": {
+            "411": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "197": {
+            "203": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1656,7 +1669,7 @@
             }
         },
         "approved": {
-            "198": {
+            "204": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1665,21 +1678,21 @@
             }
         },
         "post\\\\": {
-            "237": {
+            "244": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "262": {
+            "270": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "373": {
+            "391": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1688,7 +1701,7 @@
             }
         },
         "publish": {
-            "226": {
+            "233": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1713,7 +1726,7 @@
             }
         },
         "WordPoints_Hook_Arg_Current_User": {
-            "310": {
+            "318": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1760,6 +1773,76 @@
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/entity\/restrictions.php": {
+        "know": {
+            "75": false
+        }
+    },
+    "\/components\/points\/classes\/logs\/view.php": {
+        "logs": {
+            "191": {
+                "name": "\n\t\t\t->get_sub_app",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/classes\/logs\/viewing\/restriction\/hooks.php": {
+        "reverse-": {
+            "41": false
+        },
+        "view": {
+            "75": {
+                "name": "$entity_restrictions->get",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/includes\/apps.php": {
+        "WordPoints_Points_Logs_View_Table": {
+            "70": {
+                "name": "$views->register",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/includes\/apps.php": {
+        "post\\\\": {
+            "272": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "comment\\\\": {
+            "250": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "content": {
+            "272": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
                 "parentheses": 1
             }
         }

@@ -53,6 +53,7 @@ function wordpoints_points_logs_apps_init( $app ) {
 	$apps = $app->sub_apps();
 
 	$apps->register( 'views', 'WordPoints_Class_Registry' );
+	$apps->register( 'viewing_restrictions', 'WordPoints_Points_Logs_Viewing_Restrictions' );
 }
 
 /**
@@ -67,6 +68,24 @@ function wordpoints_points_logs_apps_init( $app ) {
 function wordpoints_points_logs_views_init( $views ) {
 
 	$views->register( 'table', 'WordPoints_Points_Logs_View_Table' );
+}
+
+/**
+ * Register points logs viewing restrictions when the registry is initialized.
+ *
+ * @since 2.2.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-components-points-logs-viewing_restrictions
+ *
+ * @param WordPoints_Points_Logs_Viewing_Restrictions $restrictions The registry.
+ */
+function wordpoints_points_logs_viewing_restrictions_init( $restrictions ) {
+
+	$restrictions->register( 'all', 'hooks', 'WordPoints_Points_Logs_Viewing_Restriction_Hooks' );
+
+	$restrictions->register( 'comment_approve', 'read_comment', 'WordPoints_Points_Logs_Viewing_Restriction_Read_Comment_Post' );
+	$restrictions->register( 'comment_received', 'read_comment', 'WordPoints_Points_Logs_Viewing_Restriction_Read_Comment_Post' );
+	$restrictions->register( 'post_publish', 'read_post', 'WordPoints_Points_Logs_Viewing_Restriction_Read_Post' );
 }
 
 // EOF

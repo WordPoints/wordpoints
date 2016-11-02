@@ -16,6 +16,14 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
+	 * @since 2.2.0
+	 */
+	protected $shared_fixtures = array(
+		'user' => 1,
+		'points_log' => array( 'get' => true ),
+	);
+
+	/**
 	 * Test that the user can view the points log by default.
 	 *
 	 * @since 2.1.0
@@ -24,11 +32,10 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 */
 	public function test_can_view_by_default() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$this->assertTrue(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -38,21 +45,22 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log
 	 */
 	public function test_calls_generic_filter() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$filter = new WordPoints_PHPUnit_Mock_Filter();
 		$filter->add_filter( 'wordpoints_user_can_view_points_log', 10, 6 );
 
 		$this->assertTrue(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
 		$this->assertEquals(
-			array( array( true, $user_id, $log ) )
+			array( array( true, $this->fixture_ids['user'][0], $log ) )
 			, $filter->calls
 		);
 	}
@@ -63,11 +71,12 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log-test
 	 */
 	public function test_calls_specific_filter() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$filter = new WordPoints_PHPUnit_Mock_Filter();
 		$filter->add_filter(
@@ -77,11 +86,11 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		);
 
 		$this->assertTrue(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
 		$this->assertEquals(
-			array( array( true, $log, $user_id ) )
+			array( array( true, $log, $this->fixture_ids['user'][0] ) )
 			, $filter->calls
 		);
 	}
@@ -92,11 +101,13 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log
+	 * @expectedDeprecated wordpoints_user_can_view_points_log-test
 	 */
 	public function test_specific_filter_value_passed_to_generic_filter() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$generic_filter = new WordPoints_PHPUnit_Mock_Filter();
 		$generic_filter->add_filter( 'wordpoints_user_can_view_points_log', 10, 6 );
@@ -107,11 +118,11 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		);
 
 		$this->assertFalse(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
 		$this->assertEquals(
-			array( array( false, $user_id, $log ) )
+			array( array( false, $this->fixture_ids['user'][0], $log ) )
 			, $generic_filter->calls
 		);
 	}
@@ -122,11 +133,13 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log
+	 * @expectedDeprecated wordpoints_user_can_view_points_log-test
 	 */
 	public function test_sets_current_user_when_calling_specific_filter() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$generic_filter = new WordPoints_PHPUnit_Mock_Filter();
 		$generic_filter->listen_for_current_user(
@@ -142,10 +155,10 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		wp_set_current_user( $current_user );
 
 		$this->assertTrue(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals( $user_id, $specific_filter->current_user[0] );
+		$this->assertEquals( $this->fixture_ids['user'][0], $specific_filter->current_user[0] );
 		$this->assertEquals( $current_user, $generic_filter->current_user[0] );
 		$this->assertEquals( $current_user, get_current_user_id() );
 	}
@@ -156,17 +169,18 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log
 	 */
 	public function test_returns_false_if_generic_filter_returns_false() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$filter = new WordPoints_PHPUnit_Mock_Filter( false );
 		$filter->add_filter( 'wordpoints_user_can_view_points_log' );
 
 		$this->assertFalse(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -176,11 +190,12 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log-test
 	 */
 	public function test_returns_false_if_specific_filter_returns_false() {
 
-		$log = $this->factory->wordpoints->points_log->create_and_get();
-		$user_id = $this->factory->user->create();
+		$log = $this->fixtures['points_log'][0];
 
 		$filter = new WordPoints_PHPUnit_Mock_Filter( false );
 		$filter->add_filter(
@@ -188,7 +203,40 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		);
 
 		$this->assertFalse(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
+		);
+	}
+
+	/**
+	 * Test that the user can't when some of the restrictions apply to them.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_returns_false_if_some_restricted() {
+
+		$log = $this->fixtures['points_log'][0];
+
+		$this->mock_apps();
+
+		/** @var WordPoints_Points_Logs_Viewing_Restrictions $restrictions */
+		$restrictions = wordpoints_component( 'points' )
+			->get_sub_app( 'logs' )
+			->get_sub_app( 'viewing_restrictions' );
+
+		$restrictions->register(
+			'test'
+			, 'test_1'
+			, 'WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction_Not_Applicable'
+		);
+
+		$restrictions->register(
+			'test'
+			, 'test_2'
+			, 'WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction'
+		);
+
+		$this->assertFalse(
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -198,18 +246,19 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
 	 */
 	public function test_hooks_true_by_default() {
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints->points_log->create_and_get(
+				$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => $event_slug )
 		);
 
 		$this->assertTrue(
-			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( true, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -219,16 +268,17 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
 	 */
 	public function test_hooks_returns_true_for_unrecognized_event() {
 
-		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints->points_log->create_and_get(
+				$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => 'not_event' )
 		);
 
 		$this->assertTrue(
-			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( true, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -238,18 +288,19 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
 	 */
 	public function test_hooks_returns_false_if_passed_false() {
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints->points_log->create_and_get(
+				$log = $this->factory->wordpoints->points_log->create_and_get(
 			array( 'log_type' => $event_slug )
 		);
 
 		$this->assertFalse(
-			wordpoints_hooks_user_can_view_points_log( false, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( false, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -259,21 +310,28 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
 	 */
 	public function test_hooks_can_view_entity() {
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints->points_log->create_and_get(
+				$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
 			)
 		);
 
+		wordpoints_entity_restrictions_know_init(
+			wordpoints_entities()
+				->get_sub_app( 'restrictions' )
+				->get_sub_app( 'know' )
+		);
+
 		$this->assertTrue(
-			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( true, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -283,6 +341,9 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
+	 * @expectedDeprecated WordPoints_Entity_Restriction_Legacy::__construct
 	 */
 	public function test_hooks_cannot_view_entity() {
 
@@ -297,16 +358,21 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints->points_log->create_and_get(
+				$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => $event_slug,
 				'log_meta' => array( 'test_entity' => 1 ),
 			)
 		);
 
+		wordpoints_entity_restrictions_know_init(
+			wordpoints_entities()
+				->get_sub_app( 'restrictions' )
+				->get_sub_app( 'know' )
+		);
+
 		$this->assertFalse(
-			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( true, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -316,21 +382,28 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
 	 */
 	public function test_hooks_reverse_can_view_entity() {
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-		$user_id = $this->factory->user->create();
-		$log = $this->factory->wordpoints->points_log->create_and_get(
+				$log = $this->factory->wordpoints->points_log->create_and_get(
 			array(
 				'log_type' => "reverse-{$event_slug}",
 				'log_meta' => array( 'test_entity' => 1 ),
 			)
 		);
 
+		wordpoints_entity_restrictions_know_init(
+			wordpoints_entities()
+				->get_sub_app( 'restrictions' )
+				->get_sub_app( 'know' )
+		);
+
 		$this->assertTrue(
-			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( true, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -340,6 +413,9 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_hooks_user_can_view_points_log
+	 *
+	 * @expectedDeprecated wordpoints_hooks_user_can_view_points_log
+	 * @expectedDeprecated WordPoints_Entity_Restriction_Legacy::__construct
 	 */
 	public function test_hooks_reverse_cannot_view_entity() {
 
@@ -354,8 +430,8 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$event_slug = $this->factory->wordpoints->hook_event->create();
 
-		$user_id         = $this->factory->user->create();
-		$original_log_id = $this->factory->wordpoints->points_log->create(
+		$this->fixture_ids['user'][0] = $this->factory->user->create();
+		$original_log_id              = $this->factory->wordpoints->points_log->create(
 			array( 'log_meta' => array( 'test_entity' => 1 ) )
 		);
 
@@ -366,8 +442,14 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			)
 		);
 
+		wordpoints_entity_restrictions_know_init(
+			wordpoints_entities()
+				->get_sub_app( 'restrictions' )
+				->get_sub_app( 'know' )
+		);
+
 		$this->assertFalse(
-			wordpoints_hooks_user_can_view_points_log( true, $user_id, $log )
+			wordpoints_hooks_user_can_view_points_log( true, $this->fixture_ids['user'][0], $log )
 		);
 	}
 
@@ -390,7 +472,6 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$this->assertIsReaction( $reaction );
 
 		$post_author_id = $this->factory->user->create();
-		$user_id = $this->factory->user->create();
 
 		$post_id = $this->factory->post->create(
 			array( 'post_status' => 'publish', 'post_author' => $post_author_id )
@@ -403,7 +484,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$log = $query->get( 'row' );
 
 		$this->assertTrue(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
 		$this->assertTrue(
@@ -413,7 +494,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		wp_update_post( array( 'ID' => $post_id, 'post_status' => 'private' ) );
 
 		$this->assertFalse(
-			wordpoints_user_can_view_points_log( $user_id, $log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
 		$this->assertTrue(
@@ -424,7 +505,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		$reverse_log = $query->get( 'row' );
 
 		$this->assertFalse(
-			wordpoints_user_can_view_points_log( $user_id, $reverse_log )
+			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $reverse_log )
 		);
 
 		$this->assertTrue(

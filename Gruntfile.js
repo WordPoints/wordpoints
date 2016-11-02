@@ -56,7 +56,19 @@ module.exports = function( grunt ) {
 				},
 				filter:  function ( class_files, class_dir ) {
 
-					if ( 'src/classes/' !== class_dir ) {
+					if ( 'src/components/points/classes/' === class_dir ) {
+
+						// This class needs to come before other entity restriction classes.
+						class_files.splice(
+							class_files.indexOf( 'logs/viewing/restrictioni.php' ) + 1
+							, 0
+							, class_files.splice(
+								class_files.indexOf( 'logs/viewing/restriction/post/status/nonpublic.php' )
+								, 1
+							)[0]
+						);
+
+					} else if ( 'src/classes/' !== class_dir ) {
 						return class_files;
 					}
 

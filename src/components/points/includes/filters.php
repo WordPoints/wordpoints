@@ -13,6 +13,7 @@ add_action( 'wordpoints_init_app-components-points', 'wordpoints_points_apps_ini
 add_action( 'wordpoints_init_app-components-points-logs', 'wordpoints_points_logs_apps_init' );
 
 add_action( 'wordpoints_init_app_registry-components-points-logs-views', 'wordpoints_points_logs_views_init' );
+add_action( 'wordpoints_init_app_registry-components-points-logs-viewing_restrictions', 'wordpoints_points_logs_viewing_restrictions_init' );
 
 add_action( 'wordpoints_init_app_registry-hooks-reactors', 'wordpoints_points_hook_reactors_init' );
 add_action( 'wordpoints_init_app_registry-hooks-reaction_stores', 'wordpoints_points_hook_reaction_stores_init' );
@@ -57,7 +58,5 @@ if ( ! is_multisite() || is_wordpoints_network_active() ) {
 } else {
 	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
-
-add_filter( 'wordpoints_user_can_view_points_log', 'wordpoints_hooks_user_can_view_points_log', 10, 3 );
 
 // EOF

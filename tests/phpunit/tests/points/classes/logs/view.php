@@ -217,6 +217,140 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 	}
 
 	/**
+	 * Test that that it skips restricted logs.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_restricted() {
+
+		$this->mock_apps();
+
+		$this->factory->wordpoints->points_log->create(
+			array( 'log_type' => 'hidden' )
+		);
+
+		$log = $this->factory->wordpoints->points_log->create_and_get();
+
+		$this->factory->wordpoints->points_log->create(
+			array( 'log_type' => 'hidden' )
+		);
+
+		$this->factory->wordpoints->points_log->create();
+
+		$query = new WordPoints_Points_Logs_Query;
+		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
+
+		wordpoints_component( 'points' )
+			->get_sub_app( 'logs' )
+			->get_sub_app( 'viewing_restrictions' )
+			->register(
+				'hidden'
+				, 'hide'
+				, 'WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction'
+			);
+
+		$view->display();
+
+		$this->assertEquals(
+			array(
+				array( 'method' => 'get_search_term', 'args' => array() ),
+				array( 'method' => 'get_page_number', 'args' => array() ),
+				array( 'method' => 'get_per_page', 'args' => array() ),
+				array( 'method' => 'before', 'args' => array() ),
+				array( 'method' => 'log', 'args' => array( $log ), 'i' => 1, 'site_id' => 1 ),
+				array( 'method' => 'after', 'args' => array() ),
+			)
+			, $view->calls
+		);
+	}
+
+	/**
+	 * Test that it skips logs restricted by the filters.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log
+	 */
+	public function test_restricted_legacy_filters() {
+
+		add_filter( 'wordpoints_user_can_view_points_log', '__return_false' );
+
+		$this->mock_apps();
+
+		$this->factory->wordpoints->points_log->create(
+			array( 'log_type' => 'hidden' )
+		);
+
+		$this->factory->wordpoints->points_log->create_and_get();
+
+		$this->factory->wordpoints->points_log->create(
+			array( 'log_type' => 'hidden' )
+		);
+
+		$this->factory->wordpoints->points_log->create();
+
+		$query = new WordPoints_Points_Logs_Query;
+		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
+		$view->display();
+
+		$this->assertEquals(
+			array(
+				array( 'method' => 'get_search_term', 'args' => array() ),
+				array( 'method' => 'get_page_number', 'args' => array() ),
+				array( 'method' => 'get_per_page', 'args' => array() ),
+				array( 'method' => 'before', 'args' => array() ),
+				array( 'method' => 'after', 'args' => array() ),
+			)
+			, $view->calls
+		);
+	}
+
+	/**
+	 * Test that it skips logs restricted by the filters.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @expectedDeprecated wordpoints_user_can_view_points_log-hidden
+	 */
+	public function test_returns_false_if_specific_filter_returns_false() {
+
+		add_filter(
+			"wordpoints_user_can_view_points_log-hidden"
+			, '__return_false'
+		);
+
+		$this->mock_apps();
+
+		$this->factory->wordpoints->points_log->create(
+			array( 'log_type' => 'hidden' )
+		);
+
+		$log = $this->factory->wordpoints->points_log->create_and_get();
+
+		$this->factory->wordpoints->points_log->create(
+			array( 'log_type' => 'hidden' )
+		);
+
+		$this->factory->wordpoints->points_log->create();
+
+		$query = new WordPoints_Points_Logs_Query;
+		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
+		$view->display();
+
+		$this->assertEquals(
+			array(
+				array( 'method' => 'get_search_term', 'args' => array() ),
+				array( 'method' => 'get_page_number', 'args' => array() ),
+				array( 'method' => 'get_per_page', 'args' => array() ),
+				array( 'method' => 'before', 'args' => array() ),
+				array( 'method' => 'log', 'args' => array( $log ), 'i' => 1, 'site_id' => 1 ),
+				array( 'method' => 'after', 'args' => array() ),
+			)
+			, $view->calls
+		);
+	}
+
+	/**
 	 * Test behavior on multisite.
 	 *
 	 * @since 2.2.0

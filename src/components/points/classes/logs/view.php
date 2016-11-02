@@ -74,6 +74,15 @@ abstract class WordPoints_Points_Logs_View {
 	 */
 	protected $i;
 
+	/**
+	 * The viewing restriction object for the log currently being displayed.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var WordPoints_Points_Logs_Viewing_RestrictionI
+	 */
+	protected $restriction;
+
 	//
 	// Public Methods.
 	//
@@ -177,6 +186,11 @@ abstract class WordPoints_Points_Logs_View {
 	 */
 	protected function logs() {
 
+		/** @var WordPoints_Points_Logs_Viewing_Restrictions $viewing_restrictions */
+		$viewing_restrictions = wordpoints_component( 'points' )
+			->get_sub_app( 'logs' )
+			->get_sub_app( 'viewing_restrictions' );
+
 		$current_user_id = get_current_user_id();
 
 		if ( is_multisite() ) {
@@ -193,7 +207,16 @@ abstract class WordPoints_Points_Logs_View {
 				$current_site_id = $log->blog_id;
 			}
 
-			if ( ! wordpoints_user_can_view_points_log( $current_user_id, $log ) ) {
+
+			$this->restriction = $viewing_restrictions->get_restriction( $log );
+
+			if ( ! $this->restriction->user_can( $current_user_id ) ) {
+				continue;
+			}
+
+			if (
+				! $viewing_restrictions->apply_legacy_filters( $current_user_id, $log )
+			) {
 				continue;
 			}
 

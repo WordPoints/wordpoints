@@ -12,12 +12,15 @@
  *
  * @since 1.6.0 As WordPoints_UnitTest_Factory_For_Points_Log.
  * @since 2.2.0
+ * @since 2.2.0 Now implements WordPoints_PHPUnit_Factory_DeletingI.
  *
  * @method int create( $args = array(), $generation_definitions = null )
  * @method object create_and_get( $args = array(), $generation_definitions = null )
  * @method int[] create_many( $count, $args = array(), $generation_definitions = null )
  */
-class WordPoints_PHPUnit_Factory_For_Points_Log extends WP_UnitTest_Factory_For_Thing {
+class WordPoints_PHPUnit_Factory_For_Points_Log
+	extends WP_UnitTest_Factory_For_Thing
+	implements WordPoints_PHPUnit_Factory_DeletingI {
 
 	/**
 	 * Construct the factory with a factory object.
@@ -60,8 +63,24 @@ class WordPoints_PHPUnit_Factory_For_Points_Log extends WP_UnitTest_Factory_For_
 	 */
 	public function create_object( $args ) {
 
+		if ( isset( $args['blog_id'] ) ) {
+			switch_to_blog( $args['blog_id'] );
+		}
+
 		if ( ! isset( $args['user_id'] ) ) {
 			$args['user_id'] = WordPoints_PHPUnit_TestCase::factory()->user->create();
+
+			if ( WordPoints_PHPUnit_TestCase::$creating_fixtures ) {
+				WordPoints_PHPUnit_TestCase::$extra_fixture_ids['user'][] = $args['user_id'];
+			}
+		}
+
+		if ( ! wordpoints_is_points_type( $args['points_type'] ) ) {
+			wordpoints_add_points_type( array( 'name' => $args['points_type'] ) );
+
+			if ( WordPoints_PHPUnit_TestCase::$creating_fixtures ) {
+				WordPoints_PHPUnit_TestCase::$extra_fixture_ids['points_type'][] = $args['points_type'];
+			}
 		}
 
 		if ( ! isset( $args['log_meta'] ) ) {
@@ -76,6 +95,10 @@ class WordPoints_PHPUnit_Factory_For_Points_Log extends WP_UnitTest_Factory_For_
 			, $args['log_meta']
 			, $args['text']
 		);
+
+		if ( isset( $args['blog_id'] ) ) {
+			restore_current_blog();
+		}
 
 		return $log_id;
 	}
@@ -117,10 +140,30 @@ class WordPoints_PHPUnit_Factory_For_Points_Log extends WP_UnitTest_Factory_For_
 	public function get_object_by_id( $id ) {
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'id__in' => array( $id ) )
+			array( 'id__in' => array( $id ), 'blog_id' => null )
 		);
 
 		return $query->get( 'row' );
+	}
+
+	/**
+	 * Delete a points log by ID.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int $id The ID of the point slog to delete.
+	 *
+	 * @return bool Whether the points log was deleted successfully.
+	 */
+	public function delete( $id ) {
+
+		global $wpdb;
+
+		return (bool) $wpdb->delete(
+			$wpdb->wordpoints_points_logs
+			, array( 'id' => $id )
+			, array( '%d' )
+		);
 	}
 }
 

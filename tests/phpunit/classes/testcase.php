@@ -24,8 +24,33 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * create them for you here. This will cause them to only be created once, before
 	 * the first test, and then only destroyed once, after the last test.
 	 *
+	 * You can access the IDs of the created fixtures through {@see
+	 * self::$fixture_ids}.
+	 *
 	 * The keys of the array should correspond to factory properties on the core or
-	 * WordPoints factories. Values are the number of items to create of that type.
+	 * WordPoints factories. Values are accepted in several formats:
+	 *
+	 * - An integer to denote the number of items to create of that type.
+	 * - An array of args to pass in to the factory.
+	 * - An array with the keys 'count' and 'args', corresponding to the above two
+	 *   options, respectively. The 'get' key may also be used, which when true will
+	 *   cause the fixture to be retrieved from the database and added to {@see
+	 *   self::$fixtures}.
+	 * - An array of arrays following the above format.
+	 *
+	 * By default the count is 1, the args are an empty array, and the fixture is not
+	 * retrieved.
+	 *
+	 * The values of each of the args to pass to the factory can reference the IDs of
+	 * other fixtures that have been requested, using the format `$fixture_ids[type][0]`,
+	 * where `type` is the slug of the type of fixture, and `0` is the index of the
+	 * particular fixture ID of that type that you want to use. The fixture being
+	 * referenced must have already been created, so you will need to order your
+	 * array of requested fixtures accordingly.
+	 *
+	 * Note that if a site is requested to be created, it will only be created if
+	 * multisite is enabled. The same is true for any fixtures whose args reference
+	 * the IDs of site fixtures.
 	 *
 	 * @since 2.2.0
 	 *
@@ -44,6 +69,18 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @var array[]
 	 */
 	protected $fixture_ids;
+
+	/**
+	 * The fixtures that were requested to be retrieved via `$shared_fixtures`.
+	 *
+	 * Indexed just as the `self::$shared_fixtures` array is, with the slugs of the
+	 * types of fixtures.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array[]
+	 */
+	protected $fixtures;
 
 	/**
 	 * The default points data set up for each test.
@@ -190,7 +227,36 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var array[]
 	 */
+	protected static $_fixtures_ids;
+
+	/**
+	 * The fixtures created for the testcase that is currently running.
+	 *
+	 * Only populated with those fixtures that have been requested to be retrieved.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array[]
+	 */
 	protected static $_fixtures;
+
+	/**
+	 * The IDs of extra fixtures created for the testcase that is currently running.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array[]
+	 */
+	public static $extra_fixture_ids;
+
+	/**
+	 * Whether currently in the process of creating fixtures for the testcase.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var bool
+	 */
+	public static $creating_fixtures;
 
 	/**
 	 * @since 2.2.0
@@ -204,12 +270,17 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	public static function tearDownAfterClass() {
 
-		if ( isset( self::$_fixtures ) ) {
+		if ( isset( self::$_fixtures_ids ) ) {
 
 			/** @var WordPoints_PHPUnit_Factory_Stub $factories */
 			$factories = self::factory();
 
-			foreach ( self::$_fixtures as $type => $ids ) {
+			$fixtures = array_merge_recursive(
+				self::$_fixtures_ids
+				, self::$extra_fixture_ids
+			);
+
+			foreach ( $fixtures as $type => $ids ) {
 
 				/** @var WP_UnitTest_Factory_For_Thing $factory */
 				$factory = isset( $factories->$type )
@@ -225,7 +296,9 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				array_map( $delete_method, $ids );
 			}
 
-			self::$_fixtures = null;
+			self::$_fixtures_ids     = null;
+			self::$_fixtures         = null;
+			self::$extra_fixture_ids = null;
 		}
 
 		parent::tearDownAfterClass();
@@ -264,9 +337,21 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @param int $id The comment ID.
 	 */
-	public function delete_comment( $id ) {
+	public static function delete_comment( $id ) {
 
 		wp_delete_comment( $id, true );
+	}
+
+	/**
+	 * Fully deletes a points type.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $slug The points type slug.
+	 */
+	public static function delete_points_type( $slug ) {
+
+		wordpoints_delete_points_type( $slug );
 	}
 
 	/**
@@ -312,15 +397,26 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	public function setUp() {
 
-		if ( isset( self::$_fixtures ) ) {
+		if ( ! isset( $this->factory->wordpoints ) ) {
+			$this->factory->wordpoints = WordPoints_PHPUnit_Factory::$factory;
+		}
 
-			$this->fixture_ids = self::$_fixtures;
+		if ( isset( self::$_fixtures_ids ) ) {
+
+			$this->fixture_ids = self::$_fixtures_ids;
+			$this->fixtures = self::$_fixtures;
 
 		} elseif ( isset( $this->shared_fixtures ) ) {
 
-			foreach ( $this->shared_fixtures as $type => $count ) {
+			self::$creating_fixtures = true;
+
+			foreach ( $this->shared_fixtures as $type => $definitions ) {
 
 				if ( 'site' === $type ) {
+
+					if ( ! is_multisite() ) {
+						continue;
+					}
 
 					$factory = $this->factory->blog;
 
@@ -332,15 +428,70 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 						: $this->factory->wordpoints->$type;
 				}
 
-				self::$_fixtures[ $type ] = $factory->create_many( $count );
+				self::$_fixtures_ids[ $type ] = array();
+				self::$_fixtures[ $type ] = array();
+
+				if ( is_int( $definitions ) ) {
+					$definitions = array( array( 'count' => $definitions ) );
+				} elseif ( isset( $definitions['count'] ) || isset( $definitions['get'] ) ) {
+					$definitions = array( $definitions );
+				}
+
+				foreach ( $definitions as $definition ) {
+
+					$count_defined = isset( $definition['count'] );
+					$count         = $count_defined ? $definition['count'] : 1;
+
+					$get_defined = isset( $definition['get'] );
+					$get         = $get_defined ? $definition['get'] : false;
+
+					if ( isset( $definition['args'] ) ) {
+						$args = $definition['args'];
+					} elseif ( ! empty( $definition ) && ! $count_defined && ! $get_defined ) {
+						$args = $definition;
+					} else {
+						$args = array();
+					}
+
+					foreach ( $args as $index => $arg ) {
+
+						$args[ $index ] = preg_replace_callback(
+							'/\$fixture_ids\[([a-z_]+)\]\[(\d+)\]/'
+							, array( $this, 'fixture_replace_callback' )
+							, $arg
+						);
+
+						if ( ! $args[ $index ] ) {
+							continue 2;
+						}
+					}
+
+					$ids = $factory->create_many( $count, $args );
+
+					if ( $get ) {
+						self::$_fixtures[ $type ] = array_merge(
+							self::$_fixtures[ $type ]
+							, array_map(
+								array( $factory, 'get_object_by_id' )
+								, $ids
+							)
+						);
+					}
+
+					self::$_fixtures_ids[ $type ] = array_merge(
+						self::$_fixtures_ids[ $type ]
+						, $ids
+					);
+				}
+
+				$this->fixture_ids = self::$_fixtures_ids;
+				$this->fixtures = self::$_fixtures;
 			}
+
+			self::$creating_fixtures = false;
 		}
 
 		parent::setUp();
-
-		if ( ! isset( $this->factory->wordpoints ) ) {
-			$this->factory->wordpoints = WordPoints_PHPUnit_Factory::$factory;
-		}
 
 		if ( ! empty( $this->backup_globals ) ) {
 			foreach ( $this->backup_globals as $global ) {
@@ -950,6 +1101,24 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	public function set_network_admin() {
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
+	}
+
+	/**
+	 * `preg_replace()` callback that fills in fixture IDs.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param array $matches The matches on the fixture ID replacing pattern.
+	 *
+	 * @return string|false The ID of the fixture matched, or false.
+	 */
+	public function fixture_replace_callback( $matches ) {
+
+		if ( 'site' === $matches[1] && ! is_multisite() ) {
+			return false;
+		}
+
+		return self::$_fixtures_ids[ $matches[1] ][ $matches[2] ];
 	}
 
 	//

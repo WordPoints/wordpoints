@@ -594,6 +594,7 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
  * Check if a user can view a points log entry.
  *
  * @since 2.1.0
+ * @since 2.2.0 Now uses the points logs viewing restrictions API.
  *
  * @param int    $user_id The ID of the user.
  * @param object $log     The object for the points log entry..
@@ -602,56 +603,26 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
  */
 function wordpoints_user_can_view_points_log( $user_id, $log ) {
 
-	$current_user = wp_get_current_user();
-
-	// Back-compat for WordPoints pre-2.1.0, when the below filter assumed that the
-	// user in question was the current user.
-	if ( $user_id !== $current_user->ID ) {
-		wp_set_current_user( $user_id );
+	// We do this just once here for optimization, as otherwise it would run 3 times.
+	if ( $log->blog_id && get_current_blog_id() !== $log->blog_id ) {
+		$switched = switch_to_blog( $log->blog_id );
 	}
 
-	/**
-	 * Filter whether a user can view this points log.
-	 *
-	 * This is a dynamic hook, where the {$log->log_type} portion will
-	 * be the type of this log entry. For example, for a registration log
-	 * it would be 'wordpoints_user_can_view_points_log-register'.
-	 *
-	 * @since 1.3.0
-	 * @since 2.1.0 The $user_id parameter was added.
-	 *
-	 * @param bool   $can_view Whether the user can view the log entry
-	 *                         (the default is true).
-	 * @param object $log      The log entry object.
-	 * @param int    $user_id  The ID of the user to check
-	 */
-	$can_view = apply_filters(
-		"wordpoints_user_can_view_points_log-{$log->log_type}"
-		, true
-		, $log
-		, $user_id
-	);
+	/** @var WordPoints_Points_Logs_Viewing_Restrictions $viewing_restrictions */
+	$viewing_restrictions = wordpoints_component( 'points' )
+		->get_sub_app( 'logs' )
+		->get_sub_app( 'viewing_restrictions' );
 
-	// Restore the current user after the temporary override above.
-	if ( $user_id !== $current_user->ID ) {
-		wp_set_current_user( $current_user->ID );
+	$can_view = $viewing_restrictions->get_restriction( $log )
+		->user_can( $user_id );
+
+	if ( $can_view ) {
+		$can_view = $viewing_restrictions->apply_legacy_filters( $user_id, $log );
 	}
 
-	/**
-	 * Filter whether a user can view a points log.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param bool   $can_view Whether the user can view the points log.
-	 * @param int    $user_id  The user's ID.
-	 * @param object $log      The points log object.
-	 */
-	$can_view = apply_filters(
-		'wordpoints_user_can_view_points_log'
-		, $can_view
-		, $user_id
-		, $log
-	);
+	if ( isset( $switched ) ) {
+		restore_current_blog();
+	}
 
 	return $can_view;
 }
@@ -660,6 +631,7 @@ function wordpoints_user_can_view_points_log( $user_id, $log ) {
  * Check whether a user can view a points log.
  *
  * @since 2.1.0
+ * @deprecated 2.2.0 Use the points logs restrictions API instead.
  *
  * @WordPress\filter wordpoints_user_can_view_points_log
  *
@@ -671,51 +643,15 @@ function wordpoints_user_can_view_points_log( $user_id, $log ) {
  */
 function wordpoints_hooks_user_can_view_points_log( $can_view, $user_id, $log ) {
 
+	_deprecated_function( __FUNCTION__, '2.2.0' );
+
 	if ( ! $can_view ) {
 		return $can_view;
 	}
 
-	$events = wordpoints_hooks()->get_sub_app( 'events' );
+	$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
-	$log_id = $log->id;
-	$event_slug = $log->log_type;
-	$is_reversal = ( 'reverse-' === substr( $log->log_type, 0, 8 ) );
-
-	if ( $is_reversal ) {
-		$event_slug = substr( $log->log_type, 8 );
-	}
-
-	if ( ! $events->is_registered( $event_slug ) ) {
-		return $can_view;
-	}
-
-	if ( $is_reversal ) {
-		$log_id = wordpoints_get_points_log_meta( $log_id, 'original_log_id', true );
-	}
-
-	/** @var WordPoints_Hook_ArgI $arg */
-	foreach ( $events->get_sub_app( 'args' )->get_children( $event_slug ) as $slug => $arg ) {
-
-		$value = wordpoints_get_points_log_meta( $log_id, $slug, true );
-
-		// If we don't find the value it may mean that a new arg has been registered
-		// or something. Just skip over it.
-		if ( ! $value ) {
-			continue;
-		}
-
-		$can_view = wordpoints_entity_user_can_view(
-			$user_id
-			, $arg->get_entity_slug()
-			, $value
-		);
-
-		if ( ! $can_view ) {
-			break;
-		}
-	}
-
-	return $can_view;
+	return $restriction->user_can( $user_id );
 }
 
 // EOF

@@ -69,6 +69,7 @@ class WordPoints_Points_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase 
 
 		$sub_apps = $logs_app->sub_apps();
 		$this->assertTrue( $sub_apps->is_registered( 'views' ) );
+		$this->assertTrue( $sub_apps->is_registered( 'viewing_restrictions' ) );
 	}
 
 	/**
@@ -87,6 +88,28 @@ class WordPoints_Points_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase 
 		wordpoints_points_logs_views_init( $views );
 
 		$this->assertTrue( $views->is_registered( 'table' ) );
+	}
+
+	/**
+	 * Test the points logs viewing restriction registration function.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_points_logs_viewing_restrictions_init
+	 */
+	public function test_points_logs_viewing_restrictions() {
+
+		$this->mock_apps();
+
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
+
+		wordpoints_points_logs_viewing_restrictions_init( $restrictions );
+
+		$this->assertTrue( $restrictions->is_registered( 'all', 'hooks' ) );
+
+		$this->assertTrue( $restrictions->is_registered( 'comment_approve', 'read_comment' ) );
+		$this->assertTrue( $restrictions->is_registered( 'comment_received', 'read_comment' ) );
+		$this->assertTrue( $restrictions->is_registered( 'post_publish', 'read_post' ) );
 	}
 }
 

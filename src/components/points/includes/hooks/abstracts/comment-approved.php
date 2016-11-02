@@ -329,22 +329,32 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 * Check if a user can view a particular log entry.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.2.0 Use the points logs viewing restrictions API instead.
 	 *
-	 * @filter wordpoints_user_can_view_points_log-{$this->log_type} Added by the constructor.
+	 * @WordPress\filter wordpoints_user_can_view_points_log-{$this->log_type} Added
+	 *                   by the constructor.
 	 *
 	 * @param bool   $can_view Whether the user can view this log entry.
 	 * @param object $log      The log object.
+	 * @param int    $user_id  The ID of the user to check against.
 	 *
 	 * @return bool Whether the user can view this log.
 	 */
-	public function user_can_view( $can_view, $log ) {
+	public function user_can_view( $can_view, $log, $user_id ) {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.2.0'
+			, 'the points logs viewing restrictions API'
+		);
 
 		if ( $can_view ) {
-			$comment_id = wordpoints_get_points_log_meta( $log->id, 'comment_id', true );
 
-			if ( $comment_id && ( $comment = get_comment( $comment_id ) ) ) {
-				$can_view = current_user_can( 'read_post', $comment->comment_post_ID );
-			}
+			$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Read_Post(
+				$log
+			);
+
+			$can_view = $restriction->user_can( $user_id );
 		}
 
 		return $can_view;

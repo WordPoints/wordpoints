@@ -24,6 +24,11 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	protected $log_type = 'post_publish';
 
 	/**
+	 * @since 2.2.0
+	 */
+	protected $uses_points_logs_viewing_restriction_api = true;
+
+	/**
 	 * The default values.
 	 *
 	 * @since 1.0.0

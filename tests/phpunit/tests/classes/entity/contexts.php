@@ -205,7 +205,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 		$context_slug = $context->get_slug();
 
-		$context::$fail_switching[ $context_slug ] = true;
+		WordPoints_PHPUnit_Mock_Entity_Context::$fail_switching[ $context_slug ] = true;
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
@@ -236,7 +236,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 		$subcontext->set( 'parent_slug', $parent_slug );
 		$subcontext_slug = $subcontext->get_slug();
 
-		$context::$fail_switching[ $subcontext_slug ] = true;
+		WordPoints_PHPUnit_Mock_Entity_Context::$fail_switching[ $subcontext_slug ] = true;
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
@@ -271,7 +271,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 		$subcontext->set( 'parent_slug', $parent_slug );
 		$subcontext_slug = $subcontext->get_slug();
 
-		$context::$fail_switching[ $parent_slug ] = true;
+		WordPoints_PHPUnit_Mock_Entity_Context::$fail_switching[ $parent_slug ] = true;
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 

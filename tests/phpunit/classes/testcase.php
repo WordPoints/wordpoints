@@ -227,7 +227,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var array[]
 	 */
-	protected static $_fixtures_ids;
+	protected static $_fixtures_ids = array();
 
 	/**
 	 * The fixtures created for the testcase that is currently running.
@@ -238,7 +238,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var array[]
 	 */
-	protected static $_fixtures;
+	protected static $_fixtures = array();
 
 	/**
 	 * The IDs of extra fixtures created for the testcase that is currently running.
@@ -247,7 +247,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var array[]
 	 */
-	public static $extra_fixture_ids;
+	public static $extra_fixture_ids = array();
 
 	/**
 	 * Whether currently in the process of creating fixtures for the testcase.
@@ -256,7 +256,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var bool
 	 */
-	public static $creating_fixtures;
+	public static $creating_fixtures = false;
 
 	/**
 	 * @since 2.2.0
@@ -270,7 +270,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	public static function tearDownAfterClass() {
 
-		if ( isset( self::$_fixtures_ids ) ) {
+		if ( ! empty( self::$_fixtures_ids ) ) {
 
 			/** @var WordPoints_PHPUnit_Factory_Stub $factories */
 			$factories = self::factory();
@@ -296,9 +296,11 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				array_map( $delete_method, $ids );
 			}
 
-			self::$_fixtures_ids     = null;
-			self::$_fixtures         = null;
-			self::$extra_fixture_ids = null;
+			self::commit_transaction();
+
+			self::$_fixtures_ids     = array();
+			self::$_fixtures         = array();
+			self::$extra_fixture_ids = array();
 		}
 
 		parent::tearDownAfterClass();
@@ -401,7 +403,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$this->factory->wordpoints = WordPoints_PHPUnit_Factory::$factory;
 		}
 
-		if ( isset( self::$_fixtures_ids ) ) {
+		if ( ! empty( self::$_fixtures_ids ) ) {
 
 			$this->fixture_ids = self::$_fixtures_ids;
 			$this->fixtures = self::$_fixtures;
@@ -489,6 +491,8 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				$this->fixtures = self::$_fixtures;
 
 			} // End foreach ( $this->shared_fixtures ).
+
+			$this->commit_transaction();
 
 			self::$creating_fixtures = false;
 
@@ -763,7 +767,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			'suffix' => 'pts.',
 		);
 
-		wordpoints_add_maybe_network_option(
+		wordpoints_update_maybe_network_option(
 			'wordpoints_points_types'
 			, array( 'points' => $this->points_data )
 		);

@@ -225,6 +225,8 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->mock_apps();
 
+		$this->factory->wordpoints->points_log->create();
+
 		$this->factory->wordpoints->points_log->create(
 			array( 'log_type' => 'hidden' )
 		);
@@ -235,9 +237,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'log_type' => 'hidden' )
 		);
 
-		$this->factory->wordpoints->points_log->create();
-
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query( array( 'orderby' => 'id' ) );
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 
 		wordpoints_component( 'points' )
@@ -321,6 +321,8 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->mock_apps();
 
+		$this->factory->wordpoints->points_log->create();
+
 		$this->factory->wordpoints->points_log->create(
 			array( 'log_type' => 'hidden' )
 		);
@@ -331,9 +333,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'log_type' => 'hidden' )
 		);
 
-		$this->factory->wordpoints->points_log->create();
-
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query( array( 'orderby' => 'id' ) );
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 		$view->display();
 

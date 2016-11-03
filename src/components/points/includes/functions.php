@@ -130,7 +130,7 @@ function wordpoints_points_register_scripts() {
 	wp_register_style(
 		'wordpoints-points-logs'
 		,$assets_url . 'css/points-logs.css'
-		,null
+		,array( 'dashicons' )
 		,WORDPOINTS_VERSION
 	);
 }

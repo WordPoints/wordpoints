@@ -142,7 +142,20 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 				</td>
 			<?php endif; ?>
 			<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>
-			<td><?php echo wp_kses( $log->text, 'wordpoints_points_log' ); ?></td>
+			<td>
+				<div class="wordpoints-log-text">
+					<?php echo wp_kses( $log->text, 'wordpoints_points_log' ); ?>
+				</div>
+				<?php if ( $this->restriction->applies() ) : ?>
+					<div class="wordpoints-log-viewing-restrictions">
+						<?php foreach ( (array) $this->restriction->get_description() as $description ) : ?>
+							<div class="wordpoints-log-viewing-restriction">
+								<?php echo esc_html( $description ); ?>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+			</td>
 			<td title="<?php echo esc_attr( $log->date ); ?> UTC">
 				<?php echo esc_html( human_time_diff( strtotime( $log->date ), $this->current_time ) ); ?>
 			</td>

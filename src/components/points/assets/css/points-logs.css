@@ -10,6 +10,7 @@
  * 3. Pagination.
  * 4. Avatars.
  * 5. Search.
+ * 6. Restrictions.
  */
 
 /**
@@ -103,4 +104,29 @@ table.wordpoints-points-logs {
 	margin: 15px;
 	color: #666;
 	font-size: larger;
+}
+
+/**
+ * 6.0 Restrictions
+ */
+
+.wordpoints-log-viewing-restrictions {
+	font-style: italic;
+	margin-top: 5px;
+	opacity: 0.82;
+}
+
+.wordpoints-log-viewing-restriction:before {
+	content: "\f530";
+	display: inline-block;
+	width: 15px;
+	height: 16px;
+	font-size: 15px;
+	line-height: 1;
+	font-family: dashicons;
+	text-decoration: inherit;
+	font-weight: normal;
+	font-style: normal;
+	vertical-align: middle;
+	text-align: center;
 }

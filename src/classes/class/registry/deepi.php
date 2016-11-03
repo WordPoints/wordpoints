@@ -28,7 +28,7 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @return object[] The child objects, indexed by slug.
 	 */
-	public function get_children( array $parent_slugs );
+	public function get_children( array $parent_slugs = array() );
 
 	/**
 	 * Get the slugs of all of the direct children of a certain parent.
@@ -39,7 +39,7 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @return string[] The child slugs.
 	 */
-	public function get_children_slugs( array $parent_slugs );
+	public function get_children_slugs( array $parent_slugs = array() );
 
 	/**
 	 * Get an object by its slug.
@@ -52,7 +52,7 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @return false|object The object or false on failure.
 	 */
-	public function get( $slug, array $parent_slugs );
+	public function get( $slug, array $parent_slugs = array() );
 
 	/**
 	 * Register a type of object.
@@ -77,7 +77,7 @@ interface WordPoints_Class_Registry_DeepI {
 	 * @param string[] $parent_slugs The slug(s) of the class's parent(s) in the
 	 *                               hierarchy.
 	 */
-	public function deregister( $slug, array $parent_slugs );
+	public function deregister( $slug, array $parent_slugs = array() );
 
 	/**
 	 * Deregister all children of a particular parent in the hierarchy.
@@ -86,7 +86,7 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @param string[] $parent_slugs The hierarchy of the parent.
 	 */
-	public function deregister_children( array $parent_slugs );
+	public function deregister_children( array $parent_slugs = array() );
 
 	/**
 	 * Check if a type of object is registered by its slug.
@@ -101,7 +101,7 @@ interface WordPoints_Class_Registry_DeepI {
 	 *
 	 * @return bool Whether the class is registered.
 	 */
-	public function is_registered( $slug, array $parent_slugs );
+	public function is_registered( $slug, array $parent_slugs = array() );
 }
 
 // EOF

@@ -386,7 +386,6 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
 
-
 		$this->view_restrictions->register(
 			'test'
 			, array( 'test_entity' )

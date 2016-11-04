@@ -198,12 +198,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 
 		$this->do_action( 'before_load_wordpress' );
 
-		/**
-		 * Sets up the WordPress test environment.
-		 *
-		 * @since 2.2.0
-		 */
-		require( $this->get_wp_tests_dir() . '/includes/bootstrap.php' );
+		parent::load_wordpress();
 
 		$this->do_action( 'after_load_wordpress' );
 	}

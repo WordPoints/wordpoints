@@ -57,7 +57,20 @@ class WordPoints_Hook_Action implements WordPoints_Hook_ActionI {
 	 * The requirements are expected arg values indexed by the index of the arg
 	 * in the args array.
 	 *
+	 * By default, the arg's value must equal the value specified. To require that
+	 * the arg not equal the value, you can specify an array like this:
+	 *
+	 * ```
+	 * array( 'comparator' => '!=', 'value' => 5 );
+	 * ```
+	 *
+	 * In this example, we require the arg value not be equal to 5. Strict comparison
+	 * is always used. If the arg is not set at all, this will also count as the arg
+	 * not being equal to the required value.
+	 *
 	 * @since 2.1.0
+	 * @since 2.1.4 Now supports specifying the comparison operator to use. '=' and
+	 *              '!=' supported.
 	 *
 	 * @var array
 	 */
@@ -97,8 +110,27 @@ class WordPoints_Hook_Action implements WordPoints_Hook_ActionI {
 	public function should_fire() {
 
 		foreach ( $this->requirements as $arg => $value ) {
-			if ( ! isset( $this->args[ $arg ] ) || $this->args[ $arg ] !== $value ) {
-				return false;
+
+			$comparator = '=';
+
+			if ( is_array( $value ) && isset( $value['comparator'], $value['value'] ) ) {
+				$comparator = $value['comparator'];
+				$value = $value['value'];
+			}
+
+			switch ( $comparator ) {
+
+				case '=':
+					if ( ! isset( $this->args[ $arg ] ) || $this->args[ $arg ] !== $value ) {
+						return false;
+					}
+				break;
+
+				case '!=':
+					if ( isset( $this->args[ $arg ] ) && $this->args[ $arg ] === $value ) {
+						return false;
+					}
+				break;
 			}
 		}
 

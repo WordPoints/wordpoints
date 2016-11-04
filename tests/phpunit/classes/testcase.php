@@ -457,6 +457,10 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 					foreach ( $args as $index => $arg ) {
 
+						if ( ! is_string( $arg ) ) {
+							continue;
+						}
+
 						$args[ $index ] = preg_replace_callback(
 							'/\$fixture_ids\[([a-z_]+)\]\[(\d+)\]/'
 							, array( $this, 'fixture_replace_callback' )

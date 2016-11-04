@@ -20,7 +20,34 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	/**
 	 * @since 2.2.0
 	 */
-	protected $shared_fixtures = array( 'user' => 1 );
+	protected $shared_fixtures = array(
+		'user' => 1,
+		'points_log' => array(
+			array(
+				'get' => true,
+				'args' => array(
+					'log_type' => 'test_event',
+					'log_meta' => array( 'test_entity' => 1 ),
+				),
+			),
+			array(
+				'get' => true,
+				'args' => array(
+					'log_type' => 'test_event',
+					'log_meta' => array(
+						'test_entity_guid' => array(
+							'test_context' => 3,
+							'test_entity'  => 1,
+						),
+					),
+				),
+			),
+			array(
+				'get' => true,
+				'args' => array( 'log_type' => 'reverse-test_event' ),
+			),
+		),
+	);
 
 	/**
 	 * The entity view restrictions registry.
@@ -48,6 +75,22 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 		);
 
 		wordpoints_entity_restrictions_view_init( $this->view_restrictions );
+
+		$this->factory->wordpoints->hook_event->create(
+			array( 'slug' => 'test_event' )
+		);
+	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function tearDown() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct  = array();
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts            = array();
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = false;
+
+		parent::tearDown();
 	}
 
 	/**
@@ -57,16 +100,9 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_get_description_entity_not_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
 		);
-
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertSame( array(), $restriction->get_description() );
 	}
@@ -77,10 +113,6 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 * @since 2.2.0
 	 */
 	public function test_get_description_entity_restricted() {
-
-		$this->factory->wordpoints->entity->create(
-			array( 'slug' => 'test_entity' )
-		);
 
 		$this->factory->wordpoints->entity->create(
 			array( 'slug' => 'other_entity' )
@@ -131,10 +163,6 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	public function test_get_description_entity_restriction_applicable() {
 
 		$this->factory->wordpoints->entity->create(
-			array( 'slug' => 'test_entity' )
-		);
-
-		$this->factory->wordpoints->entity->create(
 			array( 'slug' => 'other_entity' )
 		);
 
@@ -183,10 +211,8 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_no_log_meta() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
 		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array( 'log_type' => $event_slug )
+			array( 'log_type' => 'test_event' )
 		);
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
@@ -217,16 +243,9 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_entity_not_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
 		);
-
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertFalse( $restriction->applies() );
 	}
@@ -238,22 +257,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_entity_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
-		);
-
 		$this->view_restrictions->register(
 			'test'
 			, array( 'test_entity' )
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
+		);
 
 		$this->assertTrue( $restriction->applies() );
 	}
@@ -265,22 +277,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_entity_restriction_applicable() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
-		);
-
 		$this->view_restrictions->register(
 			'test'
 			, array( 'test_entity' )
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
+		);
 
 		$this->assertTrue( $restriction->applies() );
 	}
@@ -292,14 +297,136 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_entity_restriction_not_applicable() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
 		);
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
+		);
+
+		$this->assertFalse( $restriction->applies() );
+	}
+
+	/**
+	 * Test that it doesn't apply if the entity has no restrictions.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_applies_entity_not_restricted_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertFalse( $restriction->applies() );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test that it applies if the entity is restricted.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_applies_entity_restricted_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertTrue( $restriction->applies() );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
+	}
+
+	/**
+	 * Test that it applies if there are applicable restrictions for the entity.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_applies_entity_restriction_applicable_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertTrue( $restriction->applies() );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
+	}
+
+	/**
+	 * Test that it doesn't apply if the entity restrictions don't apply.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_applies_entity_restriction_not_applicable_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
 
 		$this->view_restrictions->register(
 			'test'
@@ -307,9 +434,26 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
 		);
 
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
 
 		$this->assertFalse( $restriction->applies() );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
 	}
 
 	/**
@@ -319,16 +463,9 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_reverse_entity_not_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => "reverse-{$event_slug}",
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][2]
 		);
-
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertFalse( $restriction->applies() );
 	}
@@ -340,17 +477,12 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_applies_reverse_entity_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
+		$log = $this->fixtures['points_log'][2];
 
-		$original_log_id = $this->factory->wordpoints->points_log->create(
-			array( 'log_meta' => array( 'test_entity' => 1 ) )
-		);
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => "reverse-{$event_slug}",
-				'log_meta' => array( 'original_log_id' => $original_log_id ),
-			)
+		wordpoints_update_points_log_meta(
+			$log->id
+			, 'original_log_id'
+			, $this->fixture_ids['points_log'][0]
 		);
 
 		$this->view_restrictions->register(
@@ -362,6 +494,77 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertTrue( $restriction->applies() );
+	}
+
+	/**
+	 * Test that it doesn't apply to reverse logs when the entity isn't restricted.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_applies_reverse_entity_not_restricted_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertFalse( $restriction->applies() );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test that it applies to reverse logs when the entity is restricted.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_applies_reverse_entity_restricted_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$log = $this->fixtures['points_log'][2];
+
+		wordpoints_update_points_log_meta(
+			$log->id
+			, 'original_log_id'
+			, $this->fixture_ids['points_log'][1]
+		);
+
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+
+		$this->assertTrue( $restriction->applies() );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
 	}
 
 	/**
@@ -405,16 +608,9 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_user_can_entity_not_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
 		);
-
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 	}
@@ -426,22 +622,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_user_can_entity_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
-		);
-
 		$this->view_restrictions->register(
 			'test'
 			, array( 'test_entity' )
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
+		);
 
 		$this->assertFalse( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 	}
@@ -453,22 +642,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_user_can_entity_restriction_applicable() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
-		);
-
 		$this->view_restrictions->register(
 			'test'
 			, array( 'test_entity' )
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
+		);
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 	}
@@ -480,13 +662,132 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_user_can_entity_restriction_not_applicable() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
+		);
 
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => $event_slug,
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][0]
+		);
+
+		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
+	}
+
+	/**
+	 * Test the user can if they can view the entity.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_user_can_entity_not_restricted_guid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test the user can't if they can't view the entity.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_user_can_entity_restricted_guid() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertFalse( $restriction->user_can( $this->fixture_ids['user'][0] ) );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
+	}
+
+	/**
+	 * Test the user can if the entity has applicable restrictions but not blocking.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_user_can_entity_restriction_applicable_guid() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
+
+		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
+	}
+
+	/**
+	 * Test the user can if the entity has some restrictions but they don't apply.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_user_can_entity_restriction_not_applicable_guid() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
 		);
 
 		$this->view_restrictions->register(
@@ -495,9 +796,26 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
 		);
 
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][1]
+		);
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
+		);
 	}
 
 	/**
@@ -507,16 +825,9 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_user_can_reverse_entity_not_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => "reverse-{$event_slug}",
-				'log_meta' => array( 'test_entity' => 1 ),
-			)
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][2]
 		);
-
-		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 	}
@@ -528,17 +839,12 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 */
 	public function test_user_can_reverse_entity_restricted() {
 
-		$event_slug = $this->factory->wordpoints->hook_event->create();
+		$log = $this->fixtures['points_log'][2];
 
-		$original_log_id = $this->factory->wordpoints->points_log->create(
-			array( 'log_meta' => array( 'test_entity' => 1 ) )
-		);
-
-		$log = $this->factory->wordpoints->points_log->create_and_get(
-			array(
-				'log_type' => "reverse-{$event_slug}",
-				'log_meta' => array( 'original_log_id' => $original_log_id ),
-			)
+		wordpoints_update_points_log_meta(
+			$log->id
+			, 'original_log_id'
+			, $this->fixture_ids['points_log'][0]
 		);
 
 		$this->view_restrictions->register(
@@ -551,6 +857,79 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertFalse(
 			$restriction->user_can( $this->fixture_ids['user'][0] )
+		);
+	}
+
+	/**
+	 * Test that the user can view reverse logs if they can view the entity.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_user_can_reverse_entity_not_restricted_guid() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
+			$this->fixtures['points_log'][2]
+		);
+
+		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
+
+		$this->assertEquals( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test that the user can't view reverse logs if they can't view the entity.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_user_can_reverse_entity_restricted_guid() {
+
+		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$log = $this->fixtures['points_log'][2];
+
+		wordpoints_update_points_log_meta(
+			$log->id
+			, 'original_log_id'
+			, $this->fixture_ids['points_log'][1]
+		);
+
+		$this->view_restrictions->register(
+			'test'
+			, array( 'test_entity' )
+			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
+
+		$this->assertFalse(
+			$restriction->user_can( $this->fixture_ids['user'][0] )
+		);
+
+		$this->assertEquals( 1, $context->get_current_id() );
+
+		$construct_args = array(
+			'context'   => 3,
+			'entity_id' => 1,
+			'hierarchy' => array( 'test_entity' ),
+		);
+
+		$this->assertEquals(
+			array( $construct_args )
+			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
 	}
 }

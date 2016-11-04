@@ -63,12 +63,16 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks
 		/** @var WordPoints_Hook_ArgI $arg */
 		foreach ( $events->get_sub_app( 'args' )->get_children( $event_slug ) as $slug => $arg ) {
 
-			$value = wordpoints_get_points_log_meta( $log_id, $slug, true );
+			$value = wordpoints_get_points_log_meta( $log_id, "{$slug}_guid", true );
 
-			// If we don't find the value it may mean that a new arg has been registered
-			// or something. Just skip over it.
 			if ( ! $value ) {
-				continue;
+				$value = wordpoints_get_points_log_meta( $log_id, $slug, true );
+
+				// If we don't find the value it may mean that a new arg has been
+				// registered or something. Just skip over it.
+				if ( ! $value ) {
+					continue;
+				}
 			}
 
 			$entity_slug = $arg->get_entity_slug();

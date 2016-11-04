@@ -146,6 +146,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 
 		foreach ( $fire->event_args->get_entities() as $entity ) {
 			$meta[ $entity->get_slug() ] = $entity->get_the_id();
+			$meta[ $entity->get_slug() . '_guid' ] = $entity->get_the_guid();
 		}
 
 		wordpoints_alter_points(

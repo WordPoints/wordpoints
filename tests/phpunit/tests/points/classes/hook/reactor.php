@@ -311,6 +311,11 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 		);
 
 		$this->assertEquals(
+			array( 'user' => $user_id )
+			, wordpoints_get_points_log_meta( $log->id, 'user_guid', true )
+		);
+
+		$this->assertEquals(
 			$fire->hit_id,
 			wordpoints_get_points_log_meta( $log->id, 'hook_hit_id', true )
 		);

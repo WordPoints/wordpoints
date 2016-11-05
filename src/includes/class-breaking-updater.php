@@ -243,7 +243,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	 */
 	protected function check_module( $module ) {
 
-		$rand_str = str_shuffle( wordpoints_hash( microtime() ) );
+		$rand_str = wp_generate_password( 256, true, true );
 		$nonce = wordpoints_hash( $rand_str . 'wordpoints_check_modules-' . $module );
 
 		if ( 'network' === $this->context ) {

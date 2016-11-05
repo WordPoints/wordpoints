@@ -209,7 +209,7 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 * called when a new comment is created. (This is inconsistent with
 	 * 'transition_post_status'.)
 	 *
-	 * @link http://core.trac.wordpress.org/ticket/16365 Ticket to fix inconsistency.
+	 * @link https://core.trac.wordpress.org/ticket/16365 Ticket to fix inconsistency.
 	 *
 	 * @since 1.4.0
 	 *

@@ -96,7 +96,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 			if ( ! class_exists( 'PHPUnit_Extensions_Selenium2TestCase' ) ) {
 
 				echo( 'Error: Unable to run the tests, the PHPUnit Selenium extension is not installed.'
-					. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for installation instructions.'
+					. PHP_EOL . 'See <https://phpunit.de/manual/current/en/selenium.html#selenium.installation> for installation instructions.'
 					. PHP_EOL
 				);
 				exit( 1 );
@@ -128,7 +128,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 				if ( ! wordpointstests_start_selenium() ) {
 
 					echo( 'Error: Unable to run the tests, Selenium does not appear to be running.'
-						. PHP_EOL . 'See <http://phpunit.de/manual/current/en/selenium.html#selenium.installation> for instructions.'
+						. PHP_EOL . 'See <https://phpunit.de/manual/current/en/selenium.html#selenium.installation> for instructions.'
 						. PHP_EOL
 					);
 					exit( 1 );

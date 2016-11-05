@@ -136,7 +136,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 * called when a new comment is created. (This is inconsistent with
 	 * 'transition_post_status'.)
 	 *
-	 * @link http://core.trac.wordpress.org/ticket/16365 Ticket to fix inconsistency.
+	 * @link https://core.trac.wordpress.org/ticket/16365 Ticket to fix inconsistency.
 	 *
 	 * @since 1.8.0
 	 *

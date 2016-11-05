@@ -765,7 +765,7 @@ final class WordPoints_Points_Hooks {
 	/**
 	 * Callback to sort hooks by name.
 	 *
-	 * @see http://www.php.net/strnatcasecmp strnatcasecmp()
+	 * @see https://www.php.net/strnatcasecmp strnatcasecmp()
 	 *
 	 * @since 1.0.0
 	 *

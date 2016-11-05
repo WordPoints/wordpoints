@@ -22,8 +22,8 @@ $screen->add_help_tab(
 
 $screen->set_help_sidebar(
 	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
-	<p><a href="http://wordpoints.org/user-guide/" target="_blank">' . esc_html__( 'User Guide', 'wordpoints' ) . '</a></p>
-	<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+	<p><a href="https://wordpoints.org/user-guide/" target="_blank">' . esc_html__( 'User Guide', 'wordpoints' ) . '</a></p>
+	<p><a href="https://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 // EOF

@@ -28,8 +28,8 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 		'name'        => 'Test 3',
 		'version'     => '1.0.0-beta',
 		'author'      => 'WordPoints Tester',
-		'author_uri'  => 'http://www.example.com/',
-		'module_uri'  => 'http://www.example.com/test-3/',
+		'author_uri'  => 'https://www.example.com/',
+		'module_uri'  => 'https://www.example.com/test-3/',
 		'description' => 'A test module.',
 		'text_domain' => 'test-3',
 		'domain_path' => '',
@@ -77,11 +77,11 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 		$this->assertEquals(
 			array(
 				'name'        => 'Test 4',
-				'module_uri'  => 'http://www.example.com/test-4/',
+				'module_uri'  => 'https://www.example.com/test-4/',
 				'version'     => '1.0.0',
 				'description' => 'Another test module.',
 				'author'      => 'WordPoints Tester',
-				'author_uri'  => 'http://www.example.com/',
+				'author_uri'  => 'https://www.example.com/',
 				'text_domain' => 'test-4',
 				'domain_path' => '',
 				'network'     => false,
@@ -99,11 +99,11 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 		$this->assertEquals(
 			array(
 				'name'        => 'Test 6',
-				'module_uri'  => 'http://www.example.com/test-6/',
+				'module_uri'  => 'https://www.example.com/test-6/',
 				'version'     => '1.0.0',
 				'description' => 'Another test module.',
 				'author'      => 'WordPoints Tester',
-				'author_uri'  => 'http://www.example.com/',
+				'author_uri'  => 'https://www.example.com/',
 				'text_domain' => 'test-6',
 				'domain_path' => '',
 				'network'     => false,
@@ -129,11 +129,11 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 			array(
 				'test-4.php' => array(
 					'name'        => 'Test 4',
-					'module_uri'  => 'http://www.example.com/test-4/',
+					'module_uri'  => 'https://www.example.com/test-4/',
 					'version'     => '1.0.0',
 					'description' => 'Another test module.',
 					'author'      => 'WordPoints Tester',
-					'author_uri'  => 'http://www.example.com/',
+					'author_uri'  => 'https://www.example.com/',
 					'text_domain' => 'test-4',
 					'domain_path' => '',
 					'network'     => false,
@@ -162,9 +162,9 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 		$this->assertInternalType( 'array', $modules );
 		$this->assertArrayHasKey( 'test-3.php', $modules );
 
-		$this->expected_headers['title']       = '<a href="http://www.example.com/test-3/">Test 3</a>';
-		$this->expected_headers['author']      = '<a href="http://www.example.com/">WordPoints Tester</a>';
-		$this->expected_headers['description'] = 'A test module. <cite>By <a href="http://www.example.com/">WordPoints Tester</a>.</cite>';
+		$this->expected_headers['title']       = '<a href="https://www.example.com/test-3/">Test 3</a>';
+		$this->expected_headers['author']      = '<a href="https://www.example.com/">WordPoints Tester</a>';
+		$this->expected_headers['description'] = 'A test module. <cite>By <a href="https://www.example.com/">WordPoints Tester</a>.</cite>';
 
 		$this->assertEquals( $this->expected_headers, $modules['test-3.php'] );
 	}

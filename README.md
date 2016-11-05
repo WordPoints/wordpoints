@@ -3,8 +3,8 @@ WordPoints [![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?bran
 
 This is where development of the WordPoints WordPress plugin takes place. To
 download the latest stable release, seek support, or for more information about the
-plugin, see [its home on WordPress.org](http://wordpress.org/plugins/wordpoints/).
-You may also want to visit [the plugin's website](http://wordpoints.org/), where
+plugin, see [its home on WordPress.org](https://wordpress.org/plugins/wordpoints/).
+You may also want to visit [the plugin's website](https://wordpoints.org/), where
 you'll find user and developer documentation.
 
 # Reporting a bug #
@@ -21,7 +21,7 @@ that you have the latest version installed before filing an issue. If possible, 
 that the bug exists in the development trunk as well.
 
 If you aren't sure what all that means (or sometimes maybe even if you are) you
-should probably seek help in the [support forums](http://wordpress.org/support/plugin/wordpoints)
+should probably seek help in the [support forums](https://wordpress.org/support/plugin/wordpoints)
 instead.
 
 # Contributing #

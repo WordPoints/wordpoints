@@ -37,6 +37,7 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 * Create a points log.
 	 *
 	 * @since 1.6.0
+	 * @since 2.1.4 $meta arg added and $log_meta deprecated.
 	 *
 	 * @param array $args {
 	 *        Optional arguments to use.
@@ -44,7 +45,8 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 	 *        @type int    $points      The number of points.
 	 *        @type string $points_type The type of points.
 	 *        @type string $log_type    The type of log.
-	 *        @type array  $log_meta    Metadata for the log.
+	 *        @type array  $meta        Metadata for the log.
+	 *        @type array  $log_meta    Deprecated. Metadata for the log.
 	 *        @type int    $user_id     The ID of the user the log is for.
 	 *        @type string $text        The text for the log.
 	 * }
@@ -57,8 +59,12 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			$args['user_id'] = $this->factory->user->create();
 		}
 
-		if ( ! isset( $args['log_meta'] ) ) {
-			$args['log_meta'] = array();
+		if ( isset( $args['log_meta'] ) ) {
+			$args['meta'] = $args['log_meta'];
+		}
+
+		if ( ! isset( $args['meta'] ) ) {
+			$args['meta'] = array();
 		}
 
 		$log_id = wordpoints_alter_points(
@@ -66,7 +72,7 @@ class WordPoints_UnitTest_Factory_For_Points_Log extends WP_UnitTest_Factory_For
 			, $args['points']
 			, $args['points_type']
 			, $args['log_type']
-			, $args['log_meta']
+			, $args['meta']
 			, $args['text']
 		);
 

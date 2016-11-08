@@ -12,6 +12,21 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 - This changelog.
 
+## [2.1.4] - 2016-11-08
+
+### Security
+
+- Use a cryptographically secure PRNG to generate the security token used to check module compatibility during breaking updates.
+- Use HTTPS URLs everywhere, as long as the domain they point to supports them.
+
+### Added
+
+- Support for comparators for the arg requirements for a hook action. Currently only `!=` is supported in addition to `=`. #551
+
+### Fixed
+
+- Post publish hook event firing when a post was updated, via both `toggle_on` and `toggle_off` actions. #550
+
 ## [2.1.3] - 2016-10-01
 
 ### Fixed
@@ -155,6 +170,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.1.4]: https://github.com/WordPoints/wordpoints/compare/2.1.3...2.1.4
 [2.1.3]: https://github.com/WordPoints/wordpoints/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/WordPoints/wordpoints/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/WordPoints/wordpoints/compare/2.1.0...2.1.1

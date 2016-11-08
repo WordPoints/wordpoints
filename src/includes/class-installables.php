@@ -325,7 +325,7 @@ final class WordPoints_Installables {
 
 			$message = '<p>' . implode( '</p><p>', $messages ) . '</p>';
 			$message .= '<p>' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the component may not function properly.', 'wordpoints' );
-			$message .= ' <a href="http://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
+			$message .= ' <a href="https://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
 
 			$args = array(
 				'dismissible' => true,

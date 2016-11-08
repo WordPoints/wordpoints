@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name: WordPoints
- * Plugin URI: http://wordpoints.org/
+ * Plugin URI: https://wordpoints.org/
  * Description: Create one or more points systems for your site, and reward user activity.
  * Version: 2.2.0-alpha
  * Author: J.D. Grimes
- * Author URI: http://codesymphony.co/
+ * Author URI: https://codesymphony.co/
  * License: GPLv2
  * Text Domain: wordpoints
  * Domain Path: /languages
@@ -29,8 +29,8 @@
  * ---------------------------------------------------------------------------------|
  *
  * This plugin uses {@link http://semver.org/ Semantic Versioning}. It is fully
- * {@link http://www.phpdoc.org/docs/latest/index.html docblocked}, and follows the
- * {@link http://codex.wordpress.org/WordPress_Coding_Standards WordPress coding
+ * {@link https://www.phpdoc.org/docs/latest/index.html docblocked}, and follows the
+ * {@link https://codex.wordpress.org/WordPress_Coding_Standards WordPress coding
  * standards}.
  *
  * WordPoints is coded with extension in mind. There are plenty of comments
@@ -41,7 +41,7 @@
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
  * @version 2.2.0-alpha
- * @license http://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
+ * @license https://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
  * @copyright 2013-2016 J.D. Grimes
  */
 

@@ -56,6 +56,12 @@ class WordPoints_Hook_Event_Post_Publish_Test extends WordPoints_PHPUnit_TestCas
 			, array( 'post_status' => 'publish' )
 		);
 
+		// Update the post again. See #550.
+		$this->factory->post->update_object(
+			$post_id
+			, array( 'post_status' => 'publish' )
+		);
+
 		return array(
 			$post_id,
 			$this->factory->post->create(
@@ -80,7 +86,7 @@ class WordPoints_Hook_Event_Post_Publish_Test extends WordPoints_PHPUnit_TestCas
 
 			case 1:
 				wp_update_post(
-					array( 'ID' => $arg_id, 'post_status' => 'publish' )
+					array( 'ID' => $arg_id, 'post_status' => 'draft' )
 				);
 			break;
 		}

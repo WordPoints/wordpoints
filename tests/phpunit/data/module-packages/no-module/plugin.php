@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Not a module
  * Author:      J.D. Grimes
- * Author URI:  http://codesymphony.co/
- * Plugin URI:  http://codesymphony.co/
+ * Author URI:  https://codesymphony.co/
+ * Plugin URI:  https://codesymphony.co/
  * Version:     1.0.0
  * License:     GPLv2+
  * Description: Description.

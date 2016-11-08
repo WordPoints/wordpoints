@@ -218,7 +218,10 @@ function wordpoints_register_post_type_hook_actions( $slug ) {
 				'action' => 'transition_post_status',
 				'data'   => array(
 					'arg_index'    => array( "post\\{$slug}" => 2 ),
-					'requirements' => array( 0 => 'publish' ),
+					'requirements' => array(
+						0 => 'publish',
+						1 => array( 'comparator' => '!=', 'value' => 'publish' ),
+					),
 				),
 			)
 		);
@@ -230,7 +233,10 @@ function wordpoints_register_post_type_hook_actions( $slug ) {
 				'action' => 'transition_post_status',
 				'data'   => array(
 					'arg_index'    => array( "post\\{$slug}" => 2 ),
-					'requirements' => array( 1 => 'publish' ),
+					'requirements' => array(
+						0 => array( 'comparator' => '!=', 'value' => 'publish' ),
+						1 => 'publish',
+					),
 				),
 			)
 		);

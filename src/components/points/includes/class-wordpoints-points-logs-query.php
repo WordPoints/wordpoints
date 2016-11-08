@@ -11,7 +11,7 @@
  * Query the points logs database table.
  *
  * This class lets you query the points logs database. The arguments are similar to
- * those available in {@link http://codex.wordpress.org/Class_Reference/WP_Query
+ * those available in {@link https://codex.wordpress.org/Class_Reference/WP_Query
  * WP_Query}.
  *
  * @since 1.0.0

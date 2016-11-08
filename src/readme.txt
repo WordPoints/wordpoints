@@ -3,10 +3,10 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.4
-Tested up to: 4.7-alpha-38178
-Stable tag: 2.1.3
+Tested up to: 4.7-beta2-39142
+Stable tag: 2.1.4
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Gamify your site with points.
 
@@ -31,26 +31,26 @@ and more!
 
 All points transactions are logged and can be reviewed by administrators from the
 WordPoints » Points Logs admin screen. The logs can be displayed on the front end of
-your site using the [`[wordpoints_points_logs]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
 You can also display a list of the top users with the most points using the
-[`[wordpoints_points_top]`](http://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+[`[wordpoints_points_top]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
 You can display a list of ways that your users can earn points using the
 [`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/)
 shortcode.
 
-The plugin also provides [several widgets](http://wordpoints.org/user-guide/widgets/).
+The plugin also provides [several widgets](https://wordpoints.org/user-guide/widgets/).
 
 More features are always being planned, and you can check out the roadmap on the
-plugin website, [WordPoints.org](http://wordpoints.org/roadmap/).
+plugin website, [WordPoints.org](https://wordpoints.org/roadmap/).
 
-Also on the plugin's website, you can [browse the available extensions](http://wordpoints.org/modules/),
-called "modules". There's [a module that imports from CubePoints to WordPoints](http://wordpoints.org/modules/importer/),
-one that [integrates with WooCommerce](http://wordpoints.org/modules/woocommerce/),
-and another that let's you [reset your users' points](http://wordpoints.org/modules/reset-points/).
+Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/modules/),
+called "modules". There's [a module that imports from CubePoints to WordPoints](https://wordpoints.org/modules/importer/),
+one that [integrates with WooCommerce](https://wordpoints.org/modules/woocommerce/),
+and another that let's you [reset your users' points](https://wordpoints.org/modules/reset-points/).
 More are being added regularly, so take a look to see what is new.
 
 = Developers =
@@ -60,7 +60,7 @@ back to this plugin, you should visit the [plugin's repo on GitHub](https://gith
 where active development takes place.
 
 If you are interested in integrating or extending the plugin, you'll want to read the
-[developer docs](http://wordpoints.org/developer-guide/).
+[developer docs](https://wordpoints.org/developer-guide/).
 
 If you are a security researcher you can report vulnerabilities through our
 [bug bounty program on HackerOne](https://hackerone.com/wordpoints).
@@ -68,7 +68,7 @@ If you are a security researcher you can report vulnerabilities through our
 == Installation ==
 
 Before installing on multisite, it is recommended that you read this
-[explanation of how WordPoints works on multisite](http://wordpoints.org/user-guide/multisite/).
+[explanation of how WordPoints works on multisite](https://wordpoints.org/user-guide/multisite/).
 
 1. Download and unzip the plugin file
 1. Upload the resulting `/wordpoints/` folder to the `/wp-content/plugins/` directory
@@ -84,11 +84,11 @@ Maybe it will soon - just ask for it!
 
 = How can I manually change a user's points? =
 
-You can [manually adjust a user's points](http://wordpoints.org/user-guide/manually-editing-a-users-points/) from their profile page in the admin.
+You can [manually adjust a user's points](https://wordpoints.org/user-guide/manually-editing-a-users-points/) from their profile page in the admin.
 
 = Does WordPoints support Multisite? =
 
-Yes, WordPoints fully supports multisite. It is recommended that you [read up on it here](http://wordpoints.org/user-guide/multisite/)
+Yes, WordPoints fully supports multisite. It is recommended that you [read up on it here](https://wordpoints.org/user-guide/multisite/)
 before you install it.
 
 = Why doesn't WordPoints support my old outdated WordPress version? =
@@ -116,6 +116,26 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.1.4 — 2016-11-08 =
+
+##### Security
+
+- Now using a cryptographically secure pseudo-random number generator when creating
+the security token used during major updates of the plugin. As is often the case,
+this issue wasn't really exploitable, but we want to set a good example.
+- Now uses all HTTPS links to WordPress.org and WordPoints.org. This makes it more
+difficult for an attacker to send users to a fake website when they click these
+links. Once again this is an extra precaution "just in case," and to set a good
+example by following best practices.
+
+##### Fixed
+
+- Points being removed when a post was updated. Whenever a published post was
+updated, points would be awarded and removed at the same time, and if the post author
+had previously been awarded points, those points would be removed also. This is now
+fixed, and the points that were added and removed in error will be corrected by the
+update, along with the points logs.
 
 = 2.1.3 - 2016-10-01 =
 
@@ -353,13 +373,13 @@ when viewing the logs.
 
 = 1.8.0 - (~55 hrs) =
 * New: You can display the points of the current post's author using the
-[`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
+[`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
 shortcode by supplying `post_author` as the value of the `user_id` attribute, like
 this: `[wordpoints_points user_id="post_author"]`.
 * New: Award points to post authors for comments they receive with the
-[Comment Received](http://wordpoints.org/user-guide/points-hooks/comment-received/)
+[Comment Received](https://wordpoints.org/user-guide/points-hooks/comment-received/)
 points hook.
-* New: Display a user's rank with the [`[wordpoints_user_rank]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_user_rank/) shortcode.
+* New: Display a user's rank with the [`[wordpoints_user_rank]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_user_rank/) shortcode.
 * Updated: Part of the install and update process is skipped when the plugin is
 network activated on a very large multisite network (>10,000 sites).
 
@@ -369,7 +389,7 @@ network activated on a very large multisite network (>10,000 sites).
 * Fixed: CSRF vulnerability for toggling accessibility mode on the Points Hooks screen. It would only have been an annoyance.
 
 = 1.7.0 - (~80 hrs) =
-* New: Create ranks for your users by activating [the Ranks component](http://wordpoints.org/user-guide/#ranks).
+* New: Create ranks for your users by activating [the Ranks component](https://wordpoints.org/user-guide/#ranks).
 * * You can manage the ranks on the *WordPoints » Ranks* administration screen.
 * * A user's rank is displayed along with their name in the Top Users table.
 * * You can display a user's rank using the `%rank` placeholder in the WordPoints widget.
@@ -409,7 +429,7 @@ network activated on a very large multisite network (>10,000 sites).
 * Fixed: When network active on multisite, the plugin did not install itself on new sites when they were added to the network.
 
 = 1.4.0 =
-* New: Added [`[wordpoints_how_to_get_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/) shortcode to display a list of active points hooks.
+* New: Added [`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/) shortcode to display a list of active points hooks.
 * New: Override hook descriptions shown by the new how to get points shortcode on the hooks admin screen.
 * Updated: The current number of points a user has is displayed on their admin profile page to administrators in addition to the inputs.
 * Updated: The post points hook has been split in to the Post and Post Delete points hooks.
@@ -419,12 +439,12 @@ network activated on a very large multisite network (>10,000 sites).
 
 = 1.3.0 =
 * New: User avatars are displayed in the points logs table.
-* New: Added [`[wordpoints_points]`](http://wordpoints.org/user-guide/shortcodes/wordpoints_points/) shortcode to display a user's points.
-* New: Users' points total may be [stored in a custom meta key](http://wordpoints.org/?p=153), allowing integration with other plugins.
+* New: Added [`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/) shortcode to display a user's points.
+* New: Users' points total may be [stored in a custom meta key](https://wordpoints.org/?p=153), allowing integration with other plugins.
 * Fixed: Logs for posts that have become private or protected are hidden from users who can't access them.
 
 = 1.2.0 =
-* New: Support for WordPress multisite See [here](http://wordpoints.org/user-guide/multisite/) for full details.
+* New: Support for WordPress multisite See [here](https://wordpoints.org/user-guide/multisite/) for full details.
 * New: Network-wide points hooks for multisite.
 * Fixed: Delete the points logs for a user when they are deleted.
 * Fixed: Clean up the points logs for a post when it is deleted, removing the link.
@@ -444,7 +464,7 @@ network activated on a very large multisite network (>10,000 sites).
 * New: You can now add points hooks to a points type by clicking on the hook and
 choosing the points type to add it to.
 * New: The plugin is fully translatable, and pot file is now included in `/languages`.
-* New: For developers, this version introduces an [improved modules API](http://wordpoints.org/developer-guide/modules/).
+* New: For developers, this version introduces an [improved modules API](https://wordpoints.org/developer-guide/modules/).
 * New: Also for developers, the logs query class now implements `WP_Meta_Query` and `WP_Date_Query`.
 * Fixed: Use the correct post type name in the points logs instead of the generic "Post".
 
@@ -456,6 +476,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.1.4 =
+* Fixes an issue with points being removed when a published post was updated. Also
+includes some minor security hardening.
+
 = 2.1.3 =
 * Fixes issues when deleting a module, when deleting a reaction condition, and when
 cancelling editing a reaction (on the Points Types screen).

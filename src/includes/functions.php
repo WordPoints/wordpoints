@@ -224,7 +224,7 @@ function wordpoints_int( &$maybe_int ) {
  * Convert a value to a positive integer.
  *
  * If the value is negative, false is returned. I prefer this approach over that used
- * in absint() {@link http://codex.wordpress.org/Function_Reference/absint} because
+ * in absint() {@link https://codex.wordpress.org/Function_Reference/absint} because
  * sometimes if you are expecting a positive value and you get a negative value
  * instead, it is unlikely that the absolute value was intended. In many cases we
  * don't want to assume that the absolute value was intended, because if it wasn't
@@ -1118,8 +1118,8 @@ function wordpoints_points_component_register() {
 			'name'          => _x( 'Points', 'component name', 'wordpoints' ),
 			'version'       => WORDPOINTS_VERSION,
 			'author'        => _x( 'WordPoints', 'component author', 'wordpoints' ),
-			'author_uri'    => 'http://wordpoints.org/',
-			'component_uri' => 'http://wordpoints.org/',
+			'author_uri'    => 'https://wordpoints.org/',
+			'component_uri' => 'https://wordpoints.org/',
 			'description'   => __( 'Enables a points system for your site.', 'wordpoints' ),
 			'file'          => WORDPOINTS_DIR . 'components/points/points.php',
 			'un_installer'  => WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php',
@@ -1142,8 +1142,8 @@ function wordpoints_ranks_component_register() {
 			'name'           => _x( 'Ranks', 'component name', 'wordpoints' ),
 			'version'        => WORDPOINTS_VERSION,
 			'author'         => _x( 'WordPoints', 'component author', 'wordpoints' ),
-			'author_uri'     => 'http://wordpoints.org/',
-			'component_uri'  => 'http://wordpoints.org/',
+			'author_uri'     => 'https://wordpoints.org/',
+			'component_uri'  => 'https://wordpoints.org/',
 			'description'    => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
 			'file'           => WORDPOINTS_DIR . 'components/ranks/ranks.php',
 			'un_installer'   => WORDPOINTS_DIR . 'components/ranks/includes/class-un-installer.php',

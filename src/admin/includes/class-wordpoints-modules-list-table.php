@@ -279,7 +279,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	/**
 	 * Callback for sorting the modules.
 	 *
-	 * @link http://php.net/uasort uasort()
+	 * @link https://php.net/uasort uasort()
 	 *
 	 * @since 1.1.0
 	 *

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints_pt_BR\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-10-01 18:47:21+00:00\n"
+"POT-Creation-Date: 2016-11-08 14:31:27+00:00\n"
 "PO-Revision-Date: 2015-08-27 23:54+0200\n"
 "Last-Translator: Leonardo Faria <leomedufu@yahoo.com.br>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -197,7 +197,7 @@ msgstr "Por %s"
 msgid "Visit module site"
 msgstr "Visite o site de módulos"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.3)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316
@@ -675,8 +675,8 @@ msgid ""
 "other modules. Sometimes, though, a module&#8217;s code will get in the way "
 "of another module, causing compatibility issues. If your site starts doing "
 "strange things, this may be the problem. Try deactivating all your modules "
-"and re-activating them in various combinations until you isolate which one"
-"(s) caused the issue."
+"and re-activating them in various combinations until you isolate which "
+"one(s) caused the issue."
 msgstr ""
 "Na maioria das vezes, módulos funcionam bem como o núcleo do WordPoints e "
 "com outros módulos. Porém, as vezes, o código do módulo irá cruzar caminhos "
@@ -2536,7 +2536,8 @@ msgstr[0] "Não foi possível remover completamente o(s) módulo(s) %s."
 msgstr[1] "Não foi possível remover completamente o(s) módulo(s) %s."
 
 #. Plugin URI of the plugin/theme
-msgid "http://wordpoints.org/"
+#, fuzzy
+msgid "https://wordpoints.org/"
 msgstr "http://wordpoints.org/"
 
 #. Description of the plugin/theme
@@ -2549,7 +2550,8 @@ msgid "J.D. Grimes"
 msgstr "J.D. Grimes"
 
 #. Author URI of the plugin/theme
-msgid "http://codesymphony.co/"
+#, fuzzy
+msgid "https://codesymphony.co/"
 msgstr "http://codesymphony.co/"
 
 #, fuzzy
@@ -2591,12 +2593,12 @@ msgstr "http://codesymphony.co/"
 #, fuzzy
 #~ msgid ""
 #~ "The &#8220;users&#8221; attribute of the <code>[wordpoints_points_top]</"
-#~ "code> shortcode must be a positive integer. Example: <code>"
-#~ "[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
+#~ "code> shortcode must be a positive integer. Example: "
+#~ "<code>[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
 #~ msgstr ""
 #~ "O atributo de \"users\" para <code>[wordpoints_points_top]</code> "
-#~ "shortcode deve ser um número inteiro positivo. Exemplo: <code>"
-#~ "[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
+#~ "shortcode deve ser um número inteiro positivo. Exemplo: "
+#~ "<code>[wordpoints_points_top <b>users=\"10\"</b> type=\"points\"]</code>."
 
 #, fuzzy
 #~ msgid ""
@@ -2612,36 +2614,36 @@ msgstr "http://codesymphony.co/"
 
 #, fuzzy
 #~ msgid ""
-#~ "The &#8220;points_type&#8221; attribute of the <code>"
-#~ "[wordpoints_points_top]</code> shortcode must be the slug of a points "
-#~ "type. Example: <code>[wordpoints_points_top points_type=\"points\"]</"
-#~ "code>."
+#~ "The &#8220;points_type&#8221; attribute of the "
+#~ "<code>[wordpoints_points_top]</code> shortcode must be the slug of a "
+#~ "points type. Example: <code>[wordpoints_points_top points_type=\"points"
+#~ "\"]</code>."
 #~ msgstr ""
 #~ "O atributo de \"points_type\" para <code>[wordpoints_points_top]</code> "
-#~ "shortcode deve ser a Slug de um tipo pontos. Exemplo: <code>"
-#~ "[wordpoints_points_top points_type=\"points\"]</code>."
+#~ "shortcode deve ser a Slug de um tipo pontos. Exemplo: "
+#~ "<code>[wordpoints_points_top points_type=\"points\"]</code>."
 
 #, fuzzy
 #~ msgid ""
-#~ "The &#8220;points_type&#8221; attribute of the <code>"
-#~ "[wordpoints_points_logs]</code> shortcode must be the slug of a points "
-#~ "type. Example: <code>[wordpoints_points_logs points_type=\"points\"]</"
-#~ "code>."
+#~ "The &#8220;points_type&#8221; attribute of the "
+#~ "<code>[wordpoints_points_logs]</code> shortcode must be the slug of a "
+#~ "points type. Example: <code>[wordpoints_points_logs points_type=\"points"
+#~ "\"]</code>."
 #~ msgstr ""
 #~ "O atributo de \"points_type\" para <code>[wordpoints_points_logs]</code> "
-#~ "shortcode deve ser a Slug de um tipo pontos. Exemplo: <code>"
-#~ "[wordpoints_points_logs points_type=\"points\"]</code>."
+#~ "shortcode deve ser a Slug de um tipo pontos. Exemplo: "
+#~ "<code>[wordpoints_points_logs points_type=\"points\"]</code>."
 
 #, fuzzy
 #~ msgid ""
-#~ "The &#8220;points_type&#8221; attribute of the <code>"
-#~ "[wordpoints_how_to_get_points]</code> shortcode must be the slug of a "
-#~ "points type. Example: <code>[wordpoints_how_to_get_points points_type="
+#~ "The &#8220;points_type&#8221; attribute of the "
+#~ "<code>[wordpoints_how_to_get_points]</code> shortcode must be the slug of "
+#~ "a points type. Example: <code>[wordpoints_how_to_get_points points_type="
 #~ "\"points\"]</code>."
 #~ msgstr ""
 #~ "O atributo de \"points_type\" para <code>[wordpoints_points_top]</code> "
-#~ "shortcode deve ser a Slug de um tipo pontos. Exemplo: <code>"
-#~ "[wordpoints_points_top points_type=\"points\"]</code>."
+#~ "shortcode deve ser a Slug de um tipo pontos. Exemplo: "
+#~ "<code>[wordpoints_points_top points_type=\"points\"]</code>."
 
 #~ msgid "Currently WordPoints only has one component."
 #~ msgstr "Atualmente WordPoints tem somente um componente."

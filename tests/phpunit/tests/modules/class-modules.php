@@ -30,8 +30,8 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 		        Module Name: Demo Module
 		        Version:     1.0.0
 				Author:      WordPoints Tester
-				Author URI:  http://www.example.com/
-				Module URI:  http://www.example.com/demo/
+				Author URI:  https://www.example.com/
+				Module URI:  https://www.example.com/demo/
 				Description: A demo module.
 				Text Domain: demo
 		    '
@@ -43,8 +43,8 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 				'name'        => 'Demo Module',
 				'version'     => '1.0.0',
 				'author'      => 'WordPoints Tester',
-				'author_uri'  => 'http://www.example.com/',
-				'module_uri'  => 'http://www.example.com/demo/',
+				'author_uri'  => 'https://www.example.com/',
+				'module_uri'  => 'https://www.example.com/demo/',
 				'description' => 'A demo module.',
 				'text_domain' => 'demo',
 				'domain_path' => '',
@@ -57,8 +57,8 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 		        Module Name: Demo Module
 		        Version:     1.0.0
 				Author:      WordPoints Tester
-				Author URI:  http://www.example.com/
-				Module URI:  http://www.example.com/demo/
+				Author URI:  https://www.example.com/
+				Module URI:  https://www.example.com/demo/
 				Description: A demo module.
 				Text Domain: demo
 		    ',
@@ -79,8 +79,8 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 		        Module Name: Demo Module
 		        Version:     1.0.0
 				Author:      WordPoints Tester
-				Author URI:  http://www.example.com/
-				Module URI:  http://www.example.com/demo/
+				Author URI:  https://www.example.com/
+				Module URI:  https://www.example.com/demo/
 				Description: A demo module.
 				Text Domain: demo
 		    '

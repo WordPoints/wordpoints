@@ -585,7 +585,7 @@ class WordPoints_DB_Query {
 		$comparisons = array( '=', '<', '>', '<>', '!=', '<=', '>=' );
 
 		// MySQL doesn't support LIKE and NOT LIKE for int columns.
-		// See http://stackoverflow.com/q/8422455/1924128
+		// See https://stackoverflow.com/q/8422455/1924128
 		if ( '%s' === $data['format'] ) {
 			$comparisons = array_merge( $comparisons, array( 'LIKE', 'NOT LIKE' ) );
 		}
@@ -678,7 +678,7 @@ class WordPoints_DB_Query {
 	protected function prepare_limit() {
 
 		// MySQL doesn't allow for the offset without a limit, so if no limit is set
-		// we can ignore the start arg. See http://stackoverflow.com/a/271650/1924128
+		// we can ignore the start arg. See https://stackoverflow.com/a/271650/1924128
 		if ( ! isset( $this->args['limit'] ) ) {
 			return;
 		}

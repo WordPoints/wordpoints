@@ -29,8 +29,8 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 		'name'        => 'Test 3',
 		'version'     => '1.0.0-beta',
 		'author'      => 'WordPoints Tester',
-		'author_uri'  => 'http://www.example.com/',
-		'module_uri'  => 'http://www.example.com/test-3/',
+		'author_uri'  => 'https://www.example.com/',
+		'module_uri'  => 'https://www.example.com/test-3/',
 		'description' => 'A test module.',
 		'text_domain' => 'test-3',
 		'domain_path' => '',
@@ -61,9 +61,9 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_module_header_parsing_with_markup() {
 
-		$this->expected_headers['title'] = '<a href="http://www.example.com/test-3/">Test 3</a>';
-		$this->expected_headers['author'] = '<a href="http://www.example.com/">WordPoints Tester</a>';
-		$this->expected_headers['description'] = 'A test module. <cite>By <a href="http://www.example.com/">WordPoints Tester</a>.</cite>';
+		$this->expected_headers['title'] = '<a href="https://www.example.com/test-3/">Test 3</a>';
+		$this->expected_headers['author'] = '<a href="https://www.example.com/">WordPoints Tester</a>';
+		$this->expected_headers['description'] = 'A test module. <cite>By <a href="https://www.example.com/">WordPoints Tester</a>.</cite>';
 
 		$marked_up_headers = wordpoints_get_module_data( WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php', true, false );
 
@@ -96,8 +96,8 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 				Module Name: Test 3
 				Version:     1.0.0-beta
 				Author:      WordPoints Tester
-				Author URI:  http://www.example.com/
-				Module URI:  http://www.example.com/test-3/
+				Author URI:  https://www.example.com/
+				Module URI:  https://www.example.com/test-3/
 				Description: A test module.
 				Text Domain: test-3
 			'

@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.4
-Tested up to: 4.7-alpha-38178
-Stable tag: 2.1.3
+Tested up to: 4.7-beta2-39142
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,26 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.1.4 — 2016-11-08 =
+
+##### Security
+
+- Now using a cryptographically secure pseudo-random number generator when creating
+the security token used during major updates of the plugin. As is often the case,
+this issue wasn't really exploitable, but we want to set a good example.
+- Now uses all HTTPS links to WordPress.org and WordPoints.org. This makes it more
+difficult for an attacker to send users to a fake website when they click these
+links. Once again this is an extra precaution "just in case," and to set a good
+example by following best practices.
+
+##### Fixed
+
+- Points being removed when a post was updated. Whenever a published post was
+updated, points would be awarded and removed at the same time, and if the post author
+had previously been awarded points, those points would be removed also. This is now
+fixed, and the points that were added and removed in error will be corrected by the
+update, along with the points logs.
 
 = 2.1.3 - 2016-10-01 =
 
@@ -456,6 +476,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.1.4 =
+* Fixes an issue with points being removed when a published post was updated. Also
+includes some minor security hardening.
+
 = 2.1.3 =
 * Fixes issues when deleting a module, when deleting a reaction condition, and when
 cancelling editing a reaction (on the Points Types screen).

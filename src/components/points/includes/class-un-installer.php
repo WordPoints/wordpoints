@@ -1078,7 +1078,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		$event_slugs = array();
 
 		foreach ( $post_types as $slug ) {
-			$event_slugs["reverse-post_publish\\{$slug}"] = true;
+			$event_slugs[ "reverse-post_publish\\{$slug}" ] = true;
 		}
 
 		return $event_slugs;
@@ -1100,7 +1100,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
-		$hits = $wpdb->get_results(
+		$hits = $wpdb->get_results( // WPCS: caching OK.
 			"
 				SELECT `meta_value` AS `hit_id`, GROUP_CONCAT(`log_id`) AS `log_ids`
 				FROM `{$wpdb->wordpoints_points_log_meta}`
@@ -1209,7 +1209,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			delete_metadata( 'wordpoints_hook_hit', $hit_id, '', '', true );
 		}
 
-		$wpdb->query(
+		$wpdb->query( // WPCS: caching OK.
 			"
 				DELETE
 				FROM `{$wpdb->wordpoints_hook_hits}`
@@ -1383,7 +1383,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
-		$post_ids = $wpdb->get_col(
+		$post_ids = $wpdb->get_col( // WPCS: caching OK.
 			"
 				SELECT `meta_value`
 				FROM `{$wpdb->wordpoints_points_log_meta}` AS `meta`

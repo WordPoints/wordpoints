@@ -828,7 +828,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_Points_UnitTestCase
 				'date' => date(
 					'Y-m-d H:i:s'
 					, strtotime( $logs[5]->date ) + HOUR_IN_SECONDS
-				)
+				),
 			)
 			, array( 'id' => $logs[6]->id )
 		);

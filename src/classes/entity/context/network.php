@@ -20,12 +20,7 @@ class WordPoints_Entity_Context_Network extends WordPoints_Entity_Context {
 	 * @since 2.1.0
 	 */
 	public function get_current_id() {
-
-		if ( ! is_multisite() ) {
-			return 1;
-		}
-
-		return (int) get_current_site()->id;
+		return get_current_network_id();
 	}
 
 	/**

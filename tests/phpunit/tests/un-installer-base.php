@@ -4276,13 +4276,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function assertCapWasAdded( $analog, $cap ) {
 
-		global $wp_roles;
-
-		if ( ! $wp_roles instanceof WP_Roles ) {
-			$wp_roles = new WP_Roles;
-		}
-
-		foreach ( $wp_roles->role_objects as $role ) {
+		/** @var WP_Role $role */
+		foreach ( wp_roles()->role_objects as $role ) {
 			if ( $role->has_cap( $analog ) ) {
 				$this->assertTrue( $role->has_cap( $cap ) );
 			}
@@ -4298,13 +4293,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function assertCapWasRemoved( $cap ) {
 
-		global $wp_roles;
-
-		if ( ! $wp_roles instanceof WP_Roles ) {
-			$wp_roles = new WP_Roles;
-		}
-
-		foreach ( $wp_roles->role_objects as $role ) {
+		/** @var WP_Role $role */
+		foreach ( wp_roles()->role_objects as $role ) {
 			$this->assertFalse( $role->has_cap( $cap ) );
 		}
 	}

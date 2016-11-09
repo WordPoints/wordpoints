@@ -1031,13 +1031,8 @@ function wordpoints_get_custom_caps() {
  */
 function wordpoints_add_custom_caps( $capabilities ) {
 
-	global $wp_roles;
-
-	if ( ! $wp_roles instanceof WP_Roles ) {
-		$wp_roles = new WP_Roles;
-	}
-
-	foreach ( $wp_roles->role_objects as $role ) {
+	/** @var WP_Role $role */
+	foreach ( wp_roles()->role_objects as $role ) {
 
 		foreach ( $capabilities as $custom_cap => $core_cap ) {
 			if ( $role->has_cap( $core_cap ) ) {
@@ -1058,13 +1053,8 @@ function wordpoints_add_custom_caps( $capabilities ) {
  */
 function wordpoints_remove_custom_caps( $capabilities ) {
 
-	global $wp_roles;
-
-	if ( ! $wp_roles instanceof WP_Roles ) {
-		$wp_roles = new WP_Roles;
-	}
-
-	foreach ( $wp_roles->role_objects as $role ) {
+	/** @var WP_Role $role */
+	foreach ( wp_roles()->role_objects as $role ) {
 		foreach ( $capabilities as $custom_cap ) {
 			$role->remove_cap( $custom_cap );
 		}

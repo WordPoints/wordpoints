@@ -31,13 +31,7 @@ class WordPoints_Entity_User_Role
 	 */
 	protected function get_entity_human_id( $entity ) {
 
-		global $wp_roles;
-
-		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new WP_Roles();
-		}
-
-		$names = $wp_roles->get_names();
+		$names = wp_roles()->get_names();
 
 		if ( ! isset( $names[ $entity->name ] ) ) {
 			return false;
@@ -65,13 +59,7 @@ class WordPoints_Entity_User_Role
 	 */
 	public function get_storage_array() {
 
-		global $wp_roles;
-
-		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new WP_Roles();
-		}
-
-		return $wp_roles->role_objects;
+		return wp_roles()->role_objects;
 	}
 }
 

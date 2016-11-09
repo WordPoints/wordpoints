@@ -293,15 +293,9 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			, '$this->factory->wordpoints->user_role->create_and_get()'
 		);
 
-		global $wp_roles;
-
-		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new WP_Roles();
-		}
-
 		$role = $this->factory->wordpoints->user_role->create_and_get();
 
-		$names = $wp_roles->get_names();
+		$names = wp_roles()->get_names();
 
 		// See https://core.trac.wordpress.org/ticket/34608
 		$role->_display_name = $names[ $role->name ];
@@ -320,13 +314,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 	 */
 	public function get_role_display_name( $role ) {
 
-		global $wp_roles;
-
-		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new WP_Roles();
-		}
-
-		$names = $wp_roles->get_names();
+		$names = wp_roles()->get_names();
 
 		// See https://core.trac.wordpress.org/ticket/34608
 		return $names[ $role->name ];

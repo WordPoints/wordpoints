@@ -64,6 +64,5 @@ class WordPoints_User_Rank_Shortcode extends WordPoints_Rank_Shortcode {
 		);
 	}
 }
-WordPoints_Shortcodes::register( 'wordpoints_user_rank', 'WordPoints_User_Rank_Shortcode' );
 
 // EOF

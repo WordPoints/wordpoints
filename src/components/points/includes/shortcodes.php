@@ -137,7 +137,6 @@ class WordPoints_Points_Top_Shortcode extends WordPoints_Points_Shortcode {
 		return ob_get_clean();
 	}
 }
-WordPoints_Shortcodes::register( 'wordpoints_points_top', 'WordPoints_Points_Top_Shortcode' );
 
 /**
  * Handler for the points logs shortcode.
@@ -212,7 +211,6 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 		return ob_get_clean();
 	}
 }
-WordPoints_Shortcodes::register( 'wordpoints_points_logs', 'WordPoints_Points_Logs_Shortcode' );
 
 /**
  * Handler for the user points shortcode.
@@ -246,7 +244,6 @@ class WordPoints_User_Points_Shortcode extends WordPoints_Points_Shortcode {
 		);
 	}
 }
-WordPoints_Shortcodes::register( 'wordpoints_points', 'WordPoints_User_Points_Shortcode' );
 
 /**
  * Handler for the points logs shortcode.
@@ -411,6 +408,5 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 		return $html;
 	}
 }
-WordPoints_Shortcodes::register( 'wordpoints_how_to_get_points', 'WordPoints_How_To_Get_Points_Shortcode' );
 
 // EOF

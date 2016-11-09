@@ -8,6 +8,10 @@
  */
 
 WordPoints_Class_Autoloader::register_dir(
+	WORDPOINTS_DIR . 'components/points/includes'
+);
+
+WordPoints_Class_Autoloader::register_dir(
 	WORDPOINTS_DIR . 'components/points/classes'
 );
 
@@ -38,83 +42,6 @@ include_once WORDPOINTS_DIR . 'components/points/includes/apps.php';
  * @since 1.7.0
  */
 include_once WORDPOINTS_DIR . 'components/points/includes/points.php';
-
-/**
- * Points hooks static class.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-hooks.php';
-
-/**
- * Points hook abstract class.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-hook.php';
-
-/**
- * Post type points hook abstract class.
- *
- * @since 1.5.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/abstracts/post-type.php';
-
-/**
- * Comment approved points hook abstract class.
- *
- * @since 1.5.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/abstracts/comment-approved.php';
-
-/**
- * The registration points hook
- *
- * @since 1.4.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/registration.php';
-
-/**
- * The post publish points hook
- *
- * @since 1.4.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/post.php';
-
-/**
- * The comment points hook
- *
- * @since 1.4.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment.php';
-
-/**
- * The periodic points hook
- *
- * @since 1.4.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/periodic.php';
-
-/**
- * The comment received points hook
- *
- * @since 1.8.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/hooks/comment-received.php';
-
-/**
- * Points logs query class.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/class-wordpoints-points-logs-query.php';
-
-/**
- * Shortcodes/template tags.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/shortcodes.php';
 
 /**
  * Widgets.

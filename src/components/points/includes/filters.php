@@ -59,4 +59,9 @@ if ( ! is_multisite() || is_wordpoints_network_active() ) {
 	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
 
+WordPoints_Shortcodes::register( 'wordpoints_points_top', 'WordPoints_Points_Top_Shortcode' );
+WordPoints_Shortcodes::register( 'wordpoints_points_logs', 'WordPoints_Points_Logs_Shortcode' );
+WordPoints_Shortcodes::register( 'wordpoints_points', 'WordPoints_User_Points_Shortcode' );
+WordPoints_Shortcodes::register( 'wordpoints_how_to_get_points', 'WordPoints_How_To_Get_Points_Shortcode' );
+
 // EOF

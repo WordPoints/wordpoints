@@ -39,6 +39,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		'update_api'  => '',
 		'channel'     => '',
 		'ID'          => '',
+		'namespace'   => '',
 	);
 
 	/**
@@ -100,6 +101,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
+				'namespace'   => '',
 			)
 			, $modules['test-4/test-4.php']
 		);
@@ -122,6 +124,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
+				'namespace'   => '',
 			)
 			, $modules['test-6/main-file.php']
 		);
@@ -152,6 +155,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 					'update_api'  => '',
 					'channel'     => '',
 					'ID'          => '',
+					'namespace'   => '',
 				),
 			)
 			, wordpoints_get_modules( '/test-4' )

@@ -333,6 +333,7 @@ function wordpoints_module_basename( $file ) {
  * @since 1.1.0
  * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
  * @since 1.10.0 The 'update_api' header is deprecated in favor of 'channel'.
+ * @since 2.2.0 The 'namespace' header is now supported.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -354,6 +355,7 @@ function wordpoints_module_basename( $file ) {
  *         @type bool   $network     Whether the module should only be network activated.
  *         @type string $channel     The URL of the update service to be used for this module.
  *         @type mixed  $ID          A unique identifier for this module, used by the update service.
+ *         @type string $namespace   The namespace for this module. Should be Title_Case, and omit "WordPoints" prefix.
  * }
  */
 function wordpoints_get_module_data( $module_file, $markup = true, $translate = true ) {
@@ -371,6 +373,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'update_api'  => 'Update API',
 		'channel'     => 'Channel',
 		'ID'          => 'ID',
+		'namespace'   => 'Namespace',
 	);
 
 	$module_data = WordPoints_Modules::get_data( $module_file );

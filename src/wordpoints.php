@@ -82,13 +82,6 @@ include_once WORDPOINTS_DIR . 'includes/apps.php';
 include_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
- * Installables class.
- *
- * @since 2.0.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-installables.php';
-
-/**
  * Components class.
  *
  * Loads components.
@@ -96,13 +89,6 @@ include_once WORDPOINTS_DIR . 'includes/class-installables.php';
  * @since 1.0.0
  */
 include_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';
-
-/**
- * Modules class.
- *
- * @since 2.0.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-modules.php';
 
 /**
  * Module functions.
@@ -114,20 +100,6 @@ include_once WORDPOINTS_DIR . 'includes/class-modules.php';
 include_once WORDPOINTS_DIR . 'includes/modules.php';
 
 /**
- * Shortcode handler class.
- *
- * @since 1.8.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
-
-/**
- * The base widget class.
- *
- * @since 1.9.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-widget.php';
-
-/**
  * Class autoloader.
  *
  * Unfortunately, it can't be autoloaded. :-)
@@ -137,6 +109,7 @@ include_once WORDPOINTS_DIR . 'includes/class-widget.php';
 require_once( WORDPOINTS_DIR . 'classes/class/autoloader.php' );
 
 // Register the classes to autoload.
+WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'includes' );
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
 
 /**

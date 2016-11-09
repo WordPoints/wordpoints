@@ -166,8 +166,6 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php
 
-	require_once WORDPOINTS_DIR . 'admin/includes/class-wordpoints-modules-list-table.php';
-
 	$wp_list_table = new WordPoints_Modules_List_Table();
 	$wp_list_table->prepare_items();
 

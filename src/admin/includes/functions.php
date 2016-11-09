@@ -916,9 +916,6 @@ function wordpoints_upload_module_zip() {
 
 	require_once ABSPATH . 'wp-admin/admin-header.php';
 
-	require_once WORDPOINTS_DIR . 'admin/includes/class-wordpoints-module-installer.php';
-	require_once WORDPOINTS_DIR . 'admin/includes/class-wordpoints-module-installer-skin.php';
-
 	$upgrader = new WordPoints_Module_Installer(
 		new WordPoints_Module_Installer_Skin(
 			array(

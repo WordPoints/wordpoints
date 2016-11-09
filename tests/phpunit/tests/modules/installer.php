@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Module_Installer
  */
-class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
+class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin {
 
 	/**
 	 * The name of the module package to use in the test.
@@ -33,28 +33,6 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 	 * @var WordPoints_PHPUnit_Mock_Module_Installer_Skin
 	 */
 	protected $skin;
-
-	/**
-	 * @since 2.0.0
-	 */
-	public static function setUpBeforeClass() {
-
-		parent::setUpBeforeClass();
-
-		/**
-		 * Module installer.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/admin/includes/class-wordpoints-module-installer.php' );
-
-		/**
-		 * Module installer skin.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/admin/includes/class-wordpoints-module-installer-skin.php' );
-	}
 
 	/**
 	 * @since 2.0.0

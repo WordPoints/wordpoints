@@ -50,21 +50,6 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	/**
 	 * @since 2.0.0
 	 */
-	public static function setUpBeforeClass() {
-
-		parent::setUpBeforeClass();
-
-		/**
-		 * The breaking updater class.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
-	}
-
-	/**
-	 * @since 2.0.0
-	 */
 	public function setUp() {
 
 		parent::setUp();

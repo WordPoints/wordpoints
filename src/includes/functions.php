@@ -74,20 +74,6 @@ function wordpoints_breaking_update() {
 		return;
 	}
 
-	/**
-	 * The base un/installer class.
-	 *
-	 * @since 2.0.0
-	 */
-	require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
-
-	/**
-	 * The breaking updater.
-	 *
-	 * @since 2.0.0
-	 */
-	require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
-
 	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
 	$updater->update();
 }

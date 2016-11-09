@@ -369,25 +369,11 @@ final class WordPoints_Installables {
 	 */
 	public static function get_installer( $type, $slug ) {
 
-		static $loaded_base_uninstaller = false;
-
 		if ( ! isset( self::$registered[ $type ][ $slug ] ) ) {
 			return false;
 		}
 
 		if ( ! isset( self::$installers[ $type ][ $slug ] ) ) {
-
-			if ( ! $loaded_base_uninstaller ) {
-
-				/**
-				 * Uninstall base class.
-				 *
-				 * @since 2.0.0
-				 */
-				require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
-
-				$loaded_base_uninstaller = true;
-			}
 
 			if ( ! file_exists( self::$registered[ $type ][ $slug ]['un_installer'] ) ) {
 				return false;

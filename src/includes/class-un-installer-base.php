@@ -677,15 +677,13 @@ abstract class WordPoints_Un_Installer_Base {
 
 		if ( ! $site_ids ) {
 
-			global $wpdb;
-
-			$site_ids = $wpdb->get_col(
-				"
-					SELECT `blog_id`
-					FROM `{$wpdb->blogs}`
-					WHERE `site_id` = {$wpdb->siteid}
-				"
-			); // WPCS: cache OK.
+			$site_ids = get_sites(
+				array(
+					'fields'     => 'ids',
+					'network_id' => get_current_network_id(),
+					'number'     => 0,
+				)
+			);
 
 			set_site_transient( 'wordpoints_all_site_ids', $site_ids, 2 * MINUTE_IN_SECONDS );
 		}
@@ -949,20 +947,18 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function validate_site_ids( $site_ids ) {
 
-		global $wpdb;
-
 		if ( empty( $site_ids ) || ! is_array( $site_ids ) ) {
 			return array();
 		}
 
-		$site_ids = $wpdb->get_col( // WPCS: unprepared SQL OK
-			"
-				SELECT `blog_id`
-				FROM `{$wpdb->blogs}`
-				WHERE `blog_id` IN (" . implode( ',', array_map( 'absint', $site_ids ) ) . ")
-					AND `site_id` = {$wpdb->siteid}
-			"
-		); // Cache pass, WPCS.
+		$site_ids = get_sites(
+			array(
+				'fields'     => 'ids',
+				'network_id' => get_current_network_id(),
+				'number'     => 0,
+				'site__in'   => $site_ids,
+			)
+		);
 
 		return $site_ids;
 	}

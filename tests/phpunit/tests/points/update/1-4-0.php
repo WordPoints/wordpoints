@@ -42,9 +42,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->factory->blog->create();
 
 		// Remove the caps on each site for the test.
-		global $wpdb;
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 		foreach ( $blog_ids as $blog_id ) {
 
@@ -130,9 +128,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->factory->blog->create();
 
 		// Create an old-style post points hook on each site.
-		global $wpdb;
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 		foreach ( $blog_ids as $blog_id ) {
 
@@ -303,9 +299,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->factory->blog->create();
 
 		// Create an old-style comment points hook on each site.
-		global $wpdb;
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 		foreach ( $blog_ids as $blog_id ) {
 

@@ -113,9 +113,7 @@ $wordpoints_components->activate( 'ranks' );
 
 if ( is_multisite() && is_wordpoints_network_active() ) {
 
-	global $wpdb;
-
-	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+	$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 	$original_blog_id = get_current_blog_id();
 

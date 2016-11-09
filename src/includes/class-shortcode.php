@@ -76,7 +76,7 @@ final class WordPoints_Shortcodes {
 		if ( isset( $shortcode ) ) {
 
 			if ( isset( self::$shortcodes[ $shortcode ] ) ) {
-				return new self::$shortcodes[ $shortcode ]( $atts, $content );
+				return new self::$shortcodes[ $shortcode ]( $atts, $content, $shortcode );
 			} else {
 				return false;
 			}
@@ -114,7 +114,7 @@ final class WordPoints_Shortcodes {
 			);
 		}
 
-		$shortcode = new self::$shortcodes[ $shortcode ]( $atts, $content );
+		$shortcode = new self::$shortcodes[ $shortcode ]( $atts, $content, $shortcode );
 		return $shortcode->expand();
 	}
 }
@@ -198,13 +198,21 @@ abstract class WordPoints_Shortcode {
 	 * Construct a new instance of this shortcode.
 	 *
 	 * @since 1.8.0
+	 * @since 2.2.0 The $shortcode parameter was added. It is optional for back-
+	 *              compat.
 	 *
-	 * @param array  $atts    The shortcode's attributes.
-	 * @param string $content The shortcode's content.
+	 * @param array  $atts      The shortcode's attributes.
+	 * @param string $content   The shortcode's content.
+	 * @param string $shortcode The shortcode's name.
 	 */
-	public function __construct( $atts, $content ) {
+	public function __construct( $atts, $content, $shortcode = null ) {
+
 		$this->atts = $atts;
 		$this->content = $content;
+
+		if ( isset( $shortcode ) ) {
+			$this->shortcode = $shortcode;
+		}
 	}
 
 	/**

@@ -119,7 +119,12 @@ function wordpoints_add_points_type( $settings ) {
 		return false;
 	}
 
-	$slug = sanitize_key( $settings['name'] );
+	$slug = $settings['name'];
+	$slug = preg_replace( '/\s+/', '-', $slug );
+	$slug = preg_replace( '/-+/', '-', $slug );
+	$slug = trim( $slug, '-' );
+	$slug = sanitize_key( $slug );
+
 	$points_types = wordpoints_get_points_types();
 
 	if ( empty( $slug ) || isset( $points_types[ $slug ] ) ) {

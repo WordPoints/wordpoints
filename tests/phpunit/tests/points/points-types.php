@@ -111,6 +111,20 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 	}
 
+	/**
+	 * Test slug generation for names with multiple words.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points_type
+	 */
+	public function test_add_generates_slug_with_dashes() {
+
+		$this->assertEquals( 'a-test', wordpoints_add_points_type( array( 'name' => 'A test' ) ) );
+		$this->assertEquals( 'an-other-test', wordpoints_add_points_type( array( 'name' => 'An - other test' ) ) );
+		$this->assertEquals( 'third-test', wordpoints_add_points_type( array( 'name' => '- THIRD test- ' ) ) );
+	}
+
 	//
 	// wordpoints_update_points_type()
 	//

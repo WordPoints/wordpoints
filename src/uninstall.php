@@ -17,6 +17,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 require_once( dirname( __FILE__ ) . '/includes/constants.php' );
 require_once( WORDPOINTS_DIR . '/includes/functions.php' );
 require_once( WORDPOINTS_DIR . '/includes/class-installables.php' );
+require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
 
 wordpoints_register_installer();
 

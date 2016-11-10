@@ -2,7 +2,7 @@
 Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
-Requires at least: 4.4
+Requires at least: 4.6
 Tested up to: 4.7-beta2-39142
 Stable tag: 2.1.4
 License: GPLv2 or later
@@ -116,6 +116,28 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.2.0 — 2016-12-?? =
+
+**Requires: WordPress 4.6+**
+
+##### Changed
+
+- Rate Limits for event reactions to now support setting the number of
+minutes/hours/etc. Previously it was only possible to have rate limits of "once per
+minute" or "once per day", now a rate limit can be "once every 5 minutes" or "once
+every 2 days" or any other amount that you want.
+- Points log entries that are hidden from some users to now be marked as such when a
+user who is allowed to see them is viewing them. For example, if a post is not
+public, only users who can view that post can view any points logs that relate to it.
+Such log entries will now be displayed with a note below them explaining to the
+current user that not all other users will be able to view them.
+- Points types slugs to be generated from the name of the points type with any
+spaces replaced with dashes. Previously when a points type was created, the slug
+would be generated from the name, but any spaces would be removed, so if there were
+multiple words they would be run together in the slug. Now if you create a points
+type named "An Example", its slug would be "an-example", instead of "anexample". This
+will not change the slugs of existing points types.
 
 = 2.1.4 — 2016-11-08 =
 
@@ -476,6 +498,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.2.0 =
+* Introduces greater flexibility for Rate Limits for event reactions, and now
+differentiates points log entries that are hidden from some users.
+
 = 2.1.4 =
 * Fixes an issue with points being removed when a published post was updated. Also
 includes some minor security hardening.

@@ -781,8 +781,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/class-un-installer.php": {
-            "size": 34751,
-            "hash": "a4731269cab6b39c67656b8601ccb59f",
+            "size": 34828,
+            "hash": "d837c368201d273457fc9331612d95c8",
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
@@ -1041,8 +1041,8 @@
             "errors": false
         },
         "\/includes\/constants.php": {
-            "size": 912,
-            "hash": "092a17494ee584fcc5fcca59b83f4e4e",
+            "size": 913,
+            "hash": "14d821afe875ad20c03ec3270df8c446",
             "errors": false
         },
         "\/includes\/deprecated.php": {
@@ -1081,8 +1081,8 @@
             "errors": false
         },
         "\/wordpoints.php": {
-            "size": 3771,
-            "hash": "582278d23bf5e0dec92996df22f46fe0",
+            "size": 3806,
+            "hash": "a8af1ac4fe4edd1f139ddb5377e58e5b",
             "errors": false
         },
         "\/admin\/includes\/index.php": {

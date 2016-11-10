@@ -308,13 +308,6 @@
             }
         },
         "post\\\\": {
-            "972": {
-                "name": "wordpoints_get_points_log_meta",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "978": {
                 "name": "wordpoints_get_points_log_meta",
                 "type": "unknown",
@@ -322,14 +315,14 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1243": {
+            "1244": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1366": {
+            "1367": {
                 "name": "wordpoints_get_points_log_meta",
                 "type": "unknown",
                 "args_started": true,
@@ -338,7 +331,7 @@
             }
         },
         "IN": {
-            "1260": {
+            "1261": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

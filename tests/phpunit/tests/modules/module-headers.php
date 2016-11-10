@@ -40,6 +40,7 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 		'update_api'  => '',
 		'channel'     => '',
 		'ID'          => '',
+		'namespace'   => '',
 	);
 
 	/**

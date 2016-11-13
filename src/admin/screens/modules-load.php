@@ -468,7 +468,7 @@ $screen->add_help_tab(
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
 			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>
-			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s" target="_blank">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
+			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 
@@ -484,8 +484,8 @@ $screen->add_help_tab(
 
 $screen->set_help_sidebar(
 	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
-	<p><a href="http://wordpoints.org/developer-guide/modules/" target="_blank">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
-	<p><a href="http://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+	<p><a href="http://wordpoints.org/developer-guide/modules/">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
+	<p><a href="http://wordpress.org/support/plugin/wordpoints">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 register_column_headers(

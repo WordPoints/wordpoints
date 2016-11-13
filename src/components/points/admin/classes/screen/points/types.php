@@ -737,7 +737,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 									echo wp_kses(
 										sprintf(
-											__( 'You can learn more about how they work from <a href="%s" target="_blank">the user guide on WordPoints.org</a>.', 'wordpoints' )
+											__( 'You can learn more about how they work from <a href="%s">the user guide on WordPoints.org</a>.', 'wordpoints' )
 											, 'https://wordpoints.org/user-guide/points-reactions/'
 										)
 										, array( 'a' => array( 'href' => true, 'target' => true ) )

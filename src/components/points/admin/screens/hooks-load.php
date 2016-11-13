@@ -34,8 +34,8 @@ $screen->add_help_tab(
 
 $screen->set_help_sidebar(
 	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
-	<p><a href="https://wordpoints.org/user-guide/points-hooks/" target="_blank">' . esc_html__( 'Documentation on Points Hooks', 'wordpoints' ) . '</a></p>
-	<p><a href="https://wordpress.org/support/plugin/wordpoints" target="_blank">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+	<p><a href="https://wordpoints.org/user-guide/points-hooks/">' . esc_html__( 'Documentation on Points Hooks', 'wordpoints' ) . '</a></p>
+	<p><a href="https://wordpress.org/support/plugin/wordpoints">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 $accessibility_mode = get_user_setting( 'wordpoints_points_hooks_access' );

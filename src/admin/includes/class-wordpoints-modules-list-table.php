@@ -225,13 +225,13 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$total_this_page = $totals[ $status ];
 
-		if ( $orderby ) {
-
-			$orderby = ucfirst( $orderby );
-			$order   = strtoupper( $order );
-
-			uasort( $this->items, array( $this, '_order_callback' ) );
+		if ( ! $orderby ) {
+			$orderby = 'name';
 		}
+
+		$order = strtoupper( $order );
+
+		uasort( $this->items, array( $this, '_order_callback' ) );
 
 		$modules_per_page = $this->get_items_per_page( str_replace( '-', '_', $this->screen->id . '_per_page' ), 999 );
 
@@ -300,9 +300,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		}
 
 		if ( 'DESC' === $order ) {
-			return ( $a < $b ) ? 1 : -1;
+			return strcasecmp( $b, $a );
 		} else {
-			return ( $a < $b ) ? -1 : 1;
+			return strcasecmp( $a, $b );
 		}
 	}
 

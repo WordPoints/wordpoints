@@ -81,11 +81,11 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 
 			if ( is_multisite() && current_user_can( 'manage_network_wordpoints_modules' ) ) {
 
-				$install_actions['network_activate'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;networkwide=1&amp;module=' . urlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Network Activate', 'wordpoints' ) . '</a>';
+				$install_actions['network_activate'] = '<a class="button button-primary" href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;networkwide=1&amp;module=' . urlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Network Activate', 'wordpoints' ) . '</a>';
 
 			} elseif ( current_user_can( 'activate_wordpoints_modules' ) ) {
 
-				$install_actions['activate_module'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . urlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Activate Module', 'wordpoints' ) . '</a>';
+				$install_actions['activate_module'] = '<a class="button button-primary" href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . urlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Activate Module', 'wordpoints' ) . '</a>';
 			}
 		}
 
@@ -111,7 +111,7 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 		$install_actions = apply_filters( 'wordpoints_install_module_complete_actions', $install_actions, $module_file );
 
 		if ( ! empty( $install_actions ) ) {
-			$this->feedback( implode( ' | ', (array) $install_actions ) );
+			$this->feedback( implode( '&nbsp;&nbsp;', (array) $install_actions ) );
 		}
 
 	} // function after()

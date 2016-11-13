@@ -1132,6 +1132,20 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		return self::$_fixtures_ids[ $matches[1] ][ $matches[2] ];
 	}
 
+	/**
+	 * Throws an exception.
+	 *
+	 * Useful for hooking to an action or filter to short-circuit execution at that
+	 * point.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @throws WordPoints_PHPUnit_Exception
+	 */
+	public function throw_exception() {
+		throw new WordPoints_PHPUnit_Exception;
+	}
+
 	//
 	// Assertions.
 	//

@@ -37,7 +37,7 @@ function is_wordpoints_module_active( $module ) {
  */
 function is_wordpoints_module_active_for_network( $module ) {
 
-	if ( ! is_multisite() || ! is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
+	if ( ! is_wordpoints_network_active() ) {
 		return false;
 	}
 
@@ -849,7 +849,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
  */
 function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide = null ) {
 
-	if ( is_multisite() && is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
+	if ( is_wordpoints_network_active() ) {
 		$network_current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
 	}
 
@@ -1163,23 +1163,23 @@ function wordpoints_load_modules() {
 
 	$active_modules = wordpoints_get_array_option( 'wordpoints_active_modules' );
 
+	if ( is_wordpoints_network_active() ) {
+
+		$network_active_modules = array_keys(
+			wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' )
+		);
+
+		// On the network admin screens we only load the network active modules.
+		if ( is_network_admin() ) {
+			$active_modules = $network_active_modules;
+		} else {
+			$active_modules = array_merge( $active_modules, $network_active_modules );
+		}
+	}
+
 	if ( ! empty( $active_modules ) ) {
 
 		$modules_dir = wordpoints_modules_dir();
-
-		if ( is_multisite() && is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
-
-			$network_active_modules = array_keys(
-				wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' )
-			);
-
-			// On the network admin screens we only load the sitewide active modules.
-			if ( is_network_admin() ) {
-				$active_modules = $network_active_modules;
-			} else {
-				$active_modules = array_merge( $active_modules, $network_active_modules );
-			}
-		}
 
 		foreach ( $active_modules as $module ) {
 

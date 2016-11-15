@@ -12,6 +12,13 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 - This changelog.
 
+## [2.1.5] - 2016-11-15
+
+### Fixed
+
+- Network activated modules not being loaded on sites with no active modules. #559
+- `is_plugin_active_for_network()` being used in several places instead of `is_wordpoints_network_active()`. #560
+
 ## [2.1.4] - 2016-11-08
 
 ### Security
@@ -170,6 +177,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.1.5]: https://github.com/WordPoints/wordpoints/compare/2.1.4...2.1.5
 [2.1.4]: https://github.com/WordPoints/wordpoints/compare/2.1.3...2.1.4
 [2.1.3]: https://github.com/WordPoints/wordpoints/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/WordPoints/wordpoints/compare/2.1.1...2.1.2

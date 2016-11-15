@@ -1162,23 +1162,23 @@ function wordpoints_load_modules() {
 
 	$active_modules = wordpoints_get_array_option( 'wordpoints_active_modules' );
 
+	if ( is_multisite() && is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
+
+		$network_active_modules = array_keys(
+			wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' )
+		);
+
+		// On the network admin screens we only load the network active modules.
+		if ( is_network_admin() ) {
+			$active_modules = $network_active_modules;
+		} else {
+			$active_modules = array_merge( $active_modules, $network_active_modules );
+		}
+	}
+
 	if ( ! empty( $active_modules ) ) {
 
 		$modules_dir = wordpoints_modules_dir();
-
-		if ( is_multisite() && is_plugin_active_for_network( plugin_basename( WORDPOINTS_DIR . 'wordpoints.php' ) ) ) {
-
-			$network_active_modules = array_keys(
-				wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' )
-			);
-
-			// On the network admin screens we only load the sitewide active modules.
-			if ( is_network_admin() ) {
-				$active_modules = $network_active_modules;
-			} else {
-				$active_modules = array_merge( $active_modules, $network_active_modules );
-			}
-		}
 
 		foreach ( $active_modules as $module ) {
 

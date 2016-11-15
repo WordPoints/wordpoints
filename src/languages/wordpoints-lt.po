@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-11-08 14:31:27+00:00\n"
+"POT-Creation-Date: 2016-11-15 14:51:32+00:00\n"
 "PO-Revision-Date: 2015-06-22 19:24+0200\n"
 "Last-Translator: Rimantas <info@auksinas.lt>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/wordpoints/"
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Visit module site"
 msgstr "Apsilankyti modulio puslapyje"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.4)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.1.5)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316

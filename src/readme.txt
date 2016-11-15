@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.4
-Tested up to: 4.7-beta2-39142
-Stable tag: 2.1.4
+Tested up to: 4.7-beta3-39201
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,15 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.1.5 – 2016-11-15 =
+
+##### Fixed
+
+- Network activated modules on multisite not being loaded on individual sites in the
+network, unless some other modules were active on those sites. When no modules were
+active on a site, the network-activated modules wouldn't be loaded either. This is
+now fixed.
 
 = 2.1.4 — 2016-11-08 =
 
@@ -476,6 +485,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.1.5 =
+* Fixes a bug on multisite that caused network-activated modules to not always be
+loaded on all sites on the network.
+
 = 2.1.4 =
 * Fixes an issue with points being removed when a published post was updated. Also
 includes some minor security hardening.

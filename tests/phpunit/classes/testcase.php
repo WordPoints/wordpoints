@@ -1241,6 +1241,24 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Assert that a string is not an admin notice.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $string The string expected to not contain an admin notice.
+	 */
+	protected function assertNotWordPointsAdminNotice( $string ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+
+		$messages = $xpath->query( '//div[contains(@class, "notice")]' );
+
+		$this->assertEquals( 0, $messages->length );
+	}
+
+	/**
 	 * Assert that all of this component's database tables have a certain charset.
 	 *
 	 * @since 2.0.0 This was a part of the WordPoints_UnitTestCase.

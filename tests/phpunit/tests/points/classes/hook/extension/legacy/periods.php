@@ -210,7 +210,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 		);
 
 		// Now fast-forward all the way.
-		$this->fast_forward_points( $period + 1 );
+		$this->fast_forward_points( $period + 2 );
 
 		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
 

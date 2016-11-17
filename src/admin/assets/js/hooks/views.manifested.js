@@ -1832,7 +1832,9 @@ Reactions = Base.extend({
 		var view = new ReactionView( { model: reaction } ),
 			element = view.render().el;
 
-		if ( '' === reaction.get( 'description' ) ) {
+		var isNew = '' === reaction.get( 'description' );
+
+		if ( isNew ) {
 			view.edit();
 			view.lockOpen();
 			view.$el.addClass( 'new' );
@@ -1840,6 +1842,10 @@ Reactions = Base.extend({
 
 		// Append the element to the group.
 		this.$reactionGroup.append( element );
+
+		if ( isNew ) {
+			view.$fields.find( ':input:visible' ).first().focus();
+		}
 	},
 
 	// Add all items in the **Reactions** collection at once.

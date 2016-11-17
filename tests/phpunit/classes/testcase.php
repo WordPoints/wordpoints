@@ -1140,7 +1140,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @throws WordPoints_PHPUnit_Exception
+	 * @throws WordPoints_PHPUnit_Exception An exception.
 	 */
 	public function throw_exception() {
 		throw new WordPoints_PHPUnit_Exception;

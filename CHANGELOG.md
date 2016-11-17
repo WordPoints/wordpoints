@@ -11,6 +11,87 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 ### Added
 
 - This changelog.
+- Screen reader content for the modules list table. #447
+- `update_module()` method to the base unit test case. #430
+- `WordPoints_PHPUnit_TestCase_Ajax_Points`, `WordPoints_PHPUnit_TestCase_Points`, and `WordPoints_PHPUnit_TestCase_Ranks` test case classes. #474
+- `WordPoints_PHPUnit_Factory_For_Points_Log` and `WordPoints_PHPUnit_Factory_For_Rank` factory classes. #474
+- `WordPoints_PHPUnit_Mock_Filter`, `WordPoints_PHPUnit_Mock_Breaking_Updater`, `WordPoints_PHPUnit_Mock_Module_Installer_Skin`, `WordPoints_PHPUnit_Mock_Points_Hook`, `WordPoints_PHPUnit_Mock_Points_Hook_Post_Type`, `WordPoints_PHPUnit_Mock_Rank_Type`, and `WordPoints_PHPUnit_Mock_Un_Installer` mock classes. #474
+- `assertEventRegistered()` and `assertEventNotRegistered()` assertions to the `WordPoints_PHPUnit_TestCase_Hooks` testcase. #503
+- Tests for the post-related events using custom post types. #491
+- Entity context switching, via `switch_to()` and `switch_back()` methods on entity context classes, and methods of the same names on the new contexts app (`WordPoints_Entity_Contexts`). #479
+- Support for passed entity GUIDs to `Entity::set_the_value()`. #535
+- `wordpoints_get_post_types_for_entities()`, `wordpoints_get_post_types_for_hook_events()`, `wordpoints_get_post_types_for_auto_integration()`, and the `'wordpoints_post_types_for_auto_integration'` filter. #542
+- `WordPoints_Class_Registry_DeepI` interface and `WordPoints_Class_Registry_Deep_Multilevel` and `WordPoints_Class_Registry_Deep_Multilevel_Slugless` classes implimenting it, and support for it in the apps API. #541
+- `WordPoints_Multisite_Switched_State` class for switching between sites on multisite.
+- Components and modules apps, and `wordpoints_component()` and `wordpoints_module()`. #537
+- Points logs views API, and table view. #544
+- Entity restrictions API. #541
+ - `WordPoints_Entity_RestirctionI` interface.
+ - Post Status Nonpublic, Comment Post Status Nonpublic, Legacy, Unregsitered, and View Post Content Password Protected restrictions.
+ - Restriction wrapper class.
+ - Entity restrictions app.
+ - Regular, applicable, and not applicable mocks for the PHPUnit tests.
+- `pass_slugs` setting to the children class registry.
+- Points Logs Viewing Restrictions API. #536
+ - `WordPoints_Points_Logs_Viewing_RestrictionI` interface.
+ - Hooks, Read Post, and Read Comment Post restrictions.
+ - Restriction wrapper.
+ - Points logs viewing restrictions app.
+ - Regular, applicable, and not applicable mocks for the PHPUnit tests.
+- Support for specifying a list of fixtures to create for a test case in the `$shared_fixtures` property.
+- Support for `Namespace` module header. #540
+
+### Changed
+
+- All permissions related error messages to begin "Sorry, you are not allowed to...". #449
+- All links to admin screens to use `self_admin_url()` rather than relative links. #456
+- All URLs to be escaped with just `esc_url()` instead of also wrapping with `esc_attr()`. #459
+- Un/install/update to disable server execution time limits. #444
+- JS code to use the `input` event instead of `keyup` where appropriate. #446
+- Module search to ignore HTML tags. #488
+- `WordPoints_PHPUnit_TestCase_Entities` to support mutiple `can(t)_view` entities in entity tests. #489
+- Docs for `Entity::$context` to state explicitly that `Entity::get_context()` can be overridden. #495
+- `WordPoints_PHPUnit_TestCase_Entities` to not require the tested entities have the human ID provided via an entity attribute. #496
+- All CSS to use `#fff` instead of `white`. #493
+- `wordpoints_modules_dir()` to call the `'wordpoints_modules_dir'` filter every time it is called, not just once. #497
+- PHPUnit tests to use WPPPB.
+- `WordPoints_PHPUnit_TestCase_Hook_Event` to support testing events with multiple args. #502
+- Reaction Rate Limits UI to support setting the number of minutes/hours/etc. #438
+- PHP inline docs to use `object` instead of `stdClass`. #501
+- `wordpoints_get_points_logs_query_args()` to default registered logs queries to returning all fields, rather than ommitting the `site_id` and `blog_id` fields. #547
+- Points logs that are hidden from some users to be marked as such on display. #424
+- Points reaction to save entity GUIDs as hook metadata.
+- All uses of `global $wp_roles` to use `wp_roles()` instead. #532
+- Points types slug generation to replace spaces with hyphens, instead of stripping them out compeltely. #359
+- Shortcodes API to construct the shortcode classes with the shortcode slugs. #512
+- Direct queries on the `$wpdb->blogs` table to use `get_sites()` instead. #533
+- Use of `get_current_site()->id` to `get_current_network_id()`. #534
+
+### Deprecated
+
+- `WordPoints_Points_AJAX_UnitTestCase`, `WordPoints_Points_UnitTestCase`, `WordPoints_Ranks_UnitTestCase`, `WordPoints_Ajax_UnitTestCase`, `WordPoints_Ranks_Ajax_UnitTestCase`, and `WordPoints_UnitTestCase` test case classes. #474
+- `WordPoints_UnitTest_Factory_For_Points_Log` and `WordPoints_UnitTest_Factory_For_Rank` factory classes. #474
+- `WordPoints_Mock_Filter`, `WordPoints_Breaking_Updater_Mock`, `WordPoints_Module_Installer_Skin_TestDouble`, `WordPoints_Post_Type_Points_Hook_TestDouble`, `WordPoints_Points_Hook_TestDouble`, `WordPoints_Test_Rank_Type`, and `WordPoints_Un_Installer_Mock` mock classes. #474
+- `'wordpoints_register_hook_actions_for_post_types'` filter. #542
+- `wordpoints_hooks_user_can_view_points_log()`. #536
+
+### Removed
+
+- The WordPress plugin dev-lib from the development package of the plugin. #508
+
+### Fixed
+
+- `wordpoints_get_module_data()` reloading module text domains that were already loaded. #454
+- Un/installer not restoring switched state, instead assuming that the context was unswitched to start with. #458
+- `Fields.create()` modifying field name arrays. #504
+- "Undefined index `merged_filters`" errors when runnning the PHPUnit tests on WordPress 4.7. #510
+
+## [2.1.5] - 2016-11-15
+
+### Fixed
+
+- Network activated modules not being loaded on sites with no active modules. #559
+- `is_plugin_active_for_network()` being used in several places instead of `is_wordpoints_network_active()`. #560
 
 ## [2.1.4] - 2016-11-08
 
@@ -170,6 +251,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.1.5]: https://github.com/WordPoints/wordpoints/compare/2.1.4...2.1.5
 [2.1.4]: https://github.com/WordPoints/wordpoints/compare/2.1.3...2.1.4
 [2.1.3]: https://github.com/WordPoints/wordpoints/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/WordPoints/wordpoints/compare/2.1.1...2.1.2

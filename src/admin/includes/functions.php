@@ -881,14 +881,21 @@ function wordpoints_install_modules_upload() {
 
 	?>
 
-	<h2><?php esc_html_e( 'Install a module in .zip format', 'wordpoints' ); ?></h2>
-	<p class="install-help"><?php esc_html_e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
-	<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ); ?>">
-		<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
-		<label class="screen-reader-text" for="modulezip"><?php esc_html_e( 'Module zip file', 'wordpoints' ); ?></label>
-		<input type="file" id="modulezip" name="modulezip" />
-		<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
-	</form>
+	<style type="text/css">
+		.wordpoints-upload-module {
+			display: block;
+		}
+	</style>
+
+	<div class="upload-plugin wordpoints-upload-module">
+		<p class="install-help"><?php esc_html_e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
+		<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ); ?>">
+			<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
+			<label class="screen-reader-text" for="modulezip"><?php esc_html_e( 'Module zip file', 'wordpoints' ); ?></label>
+			<input type="file" id="modulezip" name="modulezip" />
+			<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
+		</form>
+	</div>
 
 	<?php
 }

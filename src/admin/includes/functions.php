@@ -979,19 +979,24 @@ function wordpoints_plugin_upload_error_filter( $source ) {
 
 			if ( is_dir( $working_directory ) ) {
 
-				// Check if the folder contains a module.
-				foreach ( glob( $working_directory . '*.php' ) as $file ) {
+				$files = glob( $working_directory . '*.php' );
 
-					$info = wordpoints_get_module_data( $file, false, false );
+				if ( is_array( $files ) ) {
 
-					if ( ! empty( $info['name'] ) ) {
-						$source = new WP_Error(
-							'wordpoints_module_archive_not_plugin'
-							, $source->get_error_message()
-							, __( 'This appears to be a WordPoints module archive. Try installing it on the WordPoints module install screen instead.', 'wordpoints' )
-						);
+					// Check if the folder contains a module.
+					foreach ( $files as $file ) {
 
-						break;
+						$info = wordpoints_get_module_data( $file, false, false );
+
+						if ( ! empty( $info['name'] ) ) {
+							$source = new WP_Error(
+								'wordpoints_module_archive_not_plugin'
+								, $source->get_error_message()
+								, __( 'This appears to be a WordPoints module archive. Try installing it on the WordPoints module install screen instead.', 'wordpoints' )
+							);
+
+							break;
+						}
 					}
 				}
 			}

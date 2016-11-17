@@ -156,7 +156,7 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 					</div>
 				<?php endif; ?>
 			</td>
-			<td title="<?php echo esc_attr( $log->date ); ?> UTC">
+			<td title="<?php echo esc_attr( $log->date ); ?> <?php /* translators: coordinated universal time */ esc_attr_e( 'UTC', 'wordpoints' ); ?>">
 				<?php echo esc_html( human_time_diff( strtotime( $log->date ), $this->current_time ) ); ?>
 			</td>
 		</tr>

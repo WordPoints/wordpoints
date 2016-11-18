@@ -89,6 +89,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		parent::hooks();
 
 		add_action( 'add_meta_boxes', array( $this, 'add_points_settings_meta_box' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_points_logs_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_event_meta_boxes' ) );
 	}
 
@@ -129,7 +130,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	}
 
 	/**
-	 * Add a meta-box for the settings of a the current points type.
+	 * Add a meta-box for the settings of the current points type.
 	 *
 	 * @since 2.1.0
 	 */
@@ -143,6 +144,23 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			'settings'
 			, __( 'Settings', 'wordpoints' )
 			, array( $this, 'display_points_settings_meta_box' )
+			, $this->id
+			, 'side'
+			, 'default'
+		);
+	}
+
+	/**
+	 * Add a meta-box for the logs of the current points type.
+	 *
+	 * @since 2.2.0
+	 */
+	public function add_points_logs_meta_box() {
+
+		add_meta_box(
+			'logs'
+			, __( 'Logs', 'wordpoints' )
+			, array( $this, 'display_points_logs_meta_box' )
 			, $this->id
 			, 'side'
 			, 'default'
@@ -297,6 +315,22 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 				<br class="clear"/>
 			</div>
 		</form>
+
+		<?php
+	}
+
+	/**
+	 * Display the contents of the meta-box for the points logs.
+	 *
+	 * @since 2.2.0
+	 */
+	public function display_points_logs_meta_box() {
+
+		?>
+
+		<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_logs&tab=' . $this->current_points_type ) ); ?>">
+			<?php esc_html_e( 'Go to the logs for this points type.', 'wordpoints' ); ?>
+		</a>
 
 		<?php
 	}

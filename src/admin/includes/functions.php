@@ -438,10 +438,12 @@ function wordpoints_register_admin_scripts() {
 		, 'wordpoints-templates'
 		, '
 			<script type="text/template" id="tmpl-wordpoints-hook-periods">
-				<div class="periods-title section-title">
-					<h4>' . esc_html__( 'Rate Limit', 'wordpoints' ) . '</h4>
+				<div class="wordpoints-hook-periods">
+					<div class="periods-title section-title">
+						<h4>' . esc_html__( 'Rate Limit', 'wordpoints' ) . '</h4>
+					</div>
+					<div class="periods section-content"></div>
 				</div>
-				<div class="periods section-content"></div>
 			</script>
 			
 			<script type="text/template" id="tmpl-wordpoints-hook-reaction-simple-period">

@@ -38,7 +38,7 @@ Periods = Extension.extend({
 
 			if ( $existingPeriods.length ) {
 
-				$existingPeriods.replaceWith( $periods.find( '.periods' ) );
+				$existingPeriods.html( $periods );
 
 			} else {
 

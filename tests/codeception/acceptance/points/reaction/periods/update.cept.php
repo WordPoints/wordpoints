@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tests use periods with a points reaction.
+ * Tests using periods with a points reaction.
  *
  * @package WordPoints\Codeception
  * @since 2.1.1

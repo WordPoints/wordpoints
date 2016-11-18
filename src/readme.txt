@@ -78,10 +78,6 @@ Before installing on multisite, it is recommended that you read this
 
 == Frequently Asked Questions ==
 
-= Why doesn't WordPoints have (some feature)? =
-
-Maybe it will soon - just ask for it!
-
 = How can I manually change a user's points? =
 
 You can [manually adjust a user's points](https://wordpoints.org/user-guide/manually-editing-a-users-points/) from their profile page in the admin.
@@ -91,10 +87,10 @@ You can [manually adjust a user's points](https://wordpoints.org/user-guide/manu
 Yes, WordPoints fully supports multisite. It is recommended that you [read up on it here](https://wordpoints.org/user-guide/multisite/)
 before you install it.
 
-= Why doesn't WordPoints support my old outdated WordPress version? =
+= When will WordPoints have (some feature)? =
 
-Precisely because it is old, outdated, and most importantly, insecure. Backup and
-upgrade now before it's too late. Seriously!
+You can see what we're currently planning on our [roadmap]((https://wordpoints.org/roadmap/),
+and find out how to request new features.
 
 == Screenshots ==
 

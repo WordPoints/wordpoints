@@ -65,8 +65,10 @@
                 "parentheses": 1
             }
         },
+        "name": {
+            "229": false
+        },
         "hidden": {
-            "565": false,
             "624": false
         },
         "second module-version-author-uri\">": {
@@ -96,7 +98,7 @@
             }
         },
         "{{ data.length }}": {
-            "442": {
+            "443": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -105,7 +107,7 @@
             }
         },
         "{{ data.length_in_units_label }}": {
-            "442": {
+            "443": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -114,7 +116,7 @@
             }
         },
         "{{ data.length_in_units }}": {
-            "458": {
+            "460": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -123,13 +125,13 @@
             }
         },
         "attr": {
-            "579": false
+            "581": false
         },
         "relationship": {
-            "584": false
+            "586": false
         },
         "entity": {
-            "609": {
+            "611": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -138,16 +140,16 @@
             }
         },
         "success": {
-            "770": false
+            "772": false
         },
         "is-dismissible": {
-            "786": false
-        },
-        "data-nonce=\"": {
             "788": false
         },
+        "data-nonce=\"": {
+            "790": false
+        },
         "upload": {
-            "925": {
+            "934": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1303,13 +1305,13 @@
     },
     "\/components\/points\/admin\/classes\/screen\/points\/types.php": {
         "jQuery( document ).ready( function ( $ ) {\n\n\t\t\t\t$( '.if-js-closed' )\n\t\t\t\t\t.removeClass( 'if-js-closed' )\n\t\t\t\t\t.addClass( 'closed' );\n\n\t\t\t\tpostboxes.add_postbox_toggles(": {
-            "114": false
+            "115": false
         },
         ");\n\t\t\t} );": {
-            "124": false
+            "125": false
         },
         "points-": {
-            "294": {
+            "312": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1318,7 +1320,7 @@
             }
         },
         "-save": {
-            "294": {
+            "312": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1327,7 +1329,7 @@
             }
         },
         "points": {
-            "325": {
+            "359": {
                 "name": "(unknown)->get",
                 "type": "unknown",
                 "args_started": true,
@@ -1336,19 +1338,19 @@
             }
         },
         "WordPointsHooksAdminData.events[": {
-            "415": false
+            "449": false
         },
         "] =": {
-            "418": false
+            "452": false
         },
         ";\n\t\t\tWordPointsHooksAdminData.reactions[": {
-            "417": false
+            "451": false
         },
         "1": {
-            "725": false
+            "759": false
         },
         "2": {
-            "725": false
+            "759": false
         }
     },
     "\/components\/points\/classes\/hook\/reactor.php": {

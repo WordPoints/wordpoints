@@ -69,6 +69,7 @@ script:
     - phpunit-ms-ajax
     - phpunit-ms-network-ajax
     - wpcept-run
+    - WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 wpcept-basic acceptance network
 
 after_script:
     - ls -l build/logs/

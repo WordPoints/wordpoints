@@ -732,7 +732,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" aria-label="' . esc_attr( sprintf( __( 'Delete %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}
 			}
-		}
+
+		} // End if ( network admin ) {} else {}.
 
 		$prefix = $this->screen->in_admin( 'network' ) ? 'network_admin_' : '';
 

@@ -177,7 +177,7 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @covers ::wordpoints_activate_module
 	 *
-	 * @dataProvider data_provider_valid_modules
+	 * @requires WordPoints network-active
 	 */
 	public function test_activate_active_network_wide() {
 

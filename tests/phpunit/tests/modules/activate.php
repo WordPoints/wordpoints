@@ -17,6 +17,16 @@
 class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
+	 * @since 2.2.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+	}
+
+	/**
 	 * Test wordpoints_activate_module().
 	 *
 	 * @since 2.2.0
@@ -77,9 +87,9 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_valid_modules() {
 		return array(
-			'full_path' => array( wordpoints_modules_dir() . '/module-7/module-7.php' ),
+			'full_path' => array( wordpointstests_modules_dir() . '/module-7/module-7.php' ),
 			'basename_path' => array( 'module-7/module-7.php' ),
-			'full_path_single_file' => array( wordpoints_modules_dir() . '/test-3.php' ),
+			'full_path_single_file' => array( wordpointstests_modules_dir() . '/test-3.php' ),
 			'basename_path_single_file' => array( 'test-3.php' ),
 		);
 	}
@@ -183,7 +193,7 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true ) );
 		$this->assertTrue( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
-		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true  ) );
+		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true ) );
 		$this->assertTrue( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
 	}
 }

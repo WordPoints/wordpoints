@@ -34,7 +34,8 @@ WordPoints » Points Logs admin screen. The logs can be displayed on the front e
 your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
-You can also display a list of the top users with the most points using the
+You can display how many points a user has using the [`[wordpoints_points]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points/)
+shortcode, and you can also display a list of the top users with the most points using the
 [`[wordpoints_points_top]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 

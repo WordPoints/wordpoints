@@ -724,20 +724,21 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	$module = wordpoints_module_basename( $module );
 
-	if ( is_multisite() && ( $network_wide || is_network_only_wordpoints_module( $module ) ) ) {
-
-		$network_wide = true;
-		$current = array_keys( wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' ) );
-
-	} else {
-
-		$current = wordpoints_get_array_option( 'wordpoints_active_modules' );
-	}
-
 	$valid = wordpoints_validate_module( $module );
 
 	if ( is_wp_error( $valid ) ) {
 		return $valid;
+	}
+
+	if ( is_multisite() && ( $network_wide || is_network_only_wordpoints_module( $module ) ) ) {
+
+		$network_wide = true;
+		$network_current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
+		$current = array_keys( $network_current );
+
+	} else {
+
+		$current = wordpoints_get_array_option( 'wordpoints_active_modules' );
 	}
 
 	// If the module is already active, return.
@@ -801,8 +802,8 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	if ( $network_wide ) {
 
-		$current[ $module ] = time();
-		update_site_option( 'wordpoints_sitewide_active_modules', $current );
+		$network_current[ $module ] = time();
+		update_site_option( 'wordpoints_sitewide_active_modules', $network_current );
 
 	} else {
 

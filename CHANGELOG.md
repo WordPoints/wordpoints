@@ -40,6 +40,10 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
  - Regular, applicable, and not applicable mocks for the PHPUnit tests.
 - Support for specifying a list of fixtures to create for a test case in the `$shared_fixtures` property.
 - Support for `Namespace` module header. #540
+- A method to the PHPUnit test case to throw an exception. #557
+- `aria-label` attributes for action links in modules list table. #351
+- `assertNotWordPointsAdminNotice()` assertion to the main test case. #427
+- Link to the points logs on the points types screen. #452
 
 ### Changed
 
@@ -66,6 +70,15 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Shortcodes API to construct the shortcode classes with the shortcode slugs. #512
 - Direct queries on the `$wpdb->blogs` table to use `get_sites()` instead. #533
 - Use of `get_current_site()->id` to `get_current_network_id()`. #534
+- `ArgHierarchySelector` namespace from `'arg-selector2'` to `'arg-hierarchy-selector'`. #525
+- Modules list table to sort by module name by default. #350
+- Styling of activate module link on module install screen to be a button. #511
+- Styling of the module upload form to better match the plugin upload form. #396
+- Reaction creation to automatically focus on the first reaction field. #443
+- Rate Limit settings to be wrapped in a `div`. #528
+- Summary of the plugin for WordPress.org to be more descriptive.
+- FAQ for WordPress.org, removing an outdated Q&A and improving the one regarding new features. #561
+- WordPress.org plugin feature description to mention the conspicuously absent `[wordpoints_points]` shortcode. #561
 
 ### Deprecated
 
@@ -78,6 +91,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 ### Removed
 
 - The WordPress plugin dev-lib from the development package of the plugin. #508
+- `target="_blank"` from all links. #558
 
 ### Fixed
 
@@ -85,6 +99,9 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Un/installer not restoring switched state, instead assuming that the context was unswitched to start with. #458
 - `Fields.create()` modifying field name arrays. #504
 - "Undefined index `merged_filters`" errors when runnning the PHPUnit tests on WordPress 4.7. #510
+- Inline docs for the dynamic hook event class mentioning the hyphen as the namespace separator instead of the backslash.
+- `glob()` always being assumed to return an array. #353
+- "UTC" to be translatable in the points logs table. #543
 
 ## [2.1.5] - 2016-11-15
 

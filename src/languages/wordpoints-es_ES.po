@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-11-09 22:10:38+00:00\n"
+"POT-Creation-Date: 2016-11-22 20:24:30+00:00\n"
 "PO-Revision-Date: 2015-02-24 19:20+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wordpoints/"
@@ -59,7 +59,7 @@ msgstr "Se ha producido un error. Por favor, inténtelo de nuevo."
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:84
 #: admin/includes/class-wordpoints-modules-list-table.php:428
-#: admin/includes/class-wordpoints-modules-list-table.php:707
+#: admin/includes/class-wordpoints-modules-list-table.php:709
 msgid "Network Activate"
 msgstr "Activar Red"
 
@@ -103,7 +103,7 @@ msgstr "Módulo instalado correctamente."
 msgid "Could not create the modules directory."
 msgstr "No se pudo crear el directorio de módulos."
 
-#: admin/includes/class-wordpoints-module-installer.php:190
+#: admin/includes/class-wordpoints-module-installer.php:196
 msgid "No valid modules were found."
 msgstr "No se encontraron módulos válidos."
 
@@ -149,25 +149,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: admin/includes/class-wordpoints-modules-list-table.php:428
-#: admin/includes/class-wordpoints-modules-list-table.php:723
+#: admin/includes/class-wordpoints-modules-list-table.php:728
 #: admin/screens/configure-components.php:116
 msgid "Activate"
 msgstr "Activar"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:432
-#: admin/includes/class-wordpoints-modules-list-table.php:701
+#: admin/includes/class-wordpoints-modules-list-table.php:702
 msgid "Network Deactivate"
 msgstr "Desactivar Red"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:432
-#: admin/includes/class-wordpoints-modules-list-table.php:719
+#: admin/includes/class-wordpoints-modules-list-table.php:723
 #: admin/screens/configure-components.php:111
 msgid "Deactivate"
 msgstr "Desactivar"
 
 #: admin/includes/class-wordpoints-modules-list-table.php:440
-#: admin/includes/class-wordpoints-modules-list-table.php:711
-#: admin/includes/class-wordpoints-modules-list-table.php:726
+#: admin/includes/class-wordpoints-modules-list-table.php:714
+#: admin/includes/class-wordpoints-modules-list-table.php:732
 #: admin/includes/functions.php:273 admin/includes/functions.php:322
 #: components/points/admin/includes/functions.php:46
 #: components/points/includes/class-wordpoints-points-hooks.php:743
@@ -198,7 +198,38 @@ msgstr "Por %s"
 msgid "Visit module site"
 msgstr "Visitar sitio módulo"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.0-beta-1)  #-#-#-#-#
+#. translators: module name.
+#: admin/includes/class-wordpoints-modules-list-table.php:702
+#, fuzzy
+msgid "Network deactivate %s"
+msgstr "Desactivar Red"
+
+#. translators: module name.
+#: admin/includes/class-wordpoints-modules-list-table.php:709
+#, fuzzy
+msgid "Network activate %s"
+msgstr "Desactivar Red"
+
+#. translators: module name.
+#: admin/includes/class-wordpoints-modules-list-table.php:714
+#: admin/includes/class-wordpoints-modules-list-table.php:732
+#, fuzzy
+msgid "Delete %s"
+msgstr "Borrar"
+
+#. translators: module name.
+#: admin/includes/class-wordpoints-modules-list-table.php:723
+#, fuzzy
+msgid "Deactivate %s"
+msgstr "Desactivar"
+
+#. translators: module name.
+#: admin/includes/class-wordpoints-modules-list-table.php:728
+#, fuzzy
+msgid "Activate %s"
+msgstr "Activar"
+
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.0-beta-2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316
@@ -346,61 +377,57 @@ msgstr "Cancelar"
 msgid "Remove Condition"
 msgstr ""
 
-#: admin/includes/functions.php:442
+#: admin/includes/functions.php:443
 msgid "Rate Limit"
 msgstr ""
 
-#: admin/includes/functions.php:454
+#: admin/includes/functions.php:456
 msgid "Time Units:"
 msgstr ""
 
-#: admin/includes/functions.php:458
+#: admin/includes/functions.php:460
 msgid "Number:"
 msgstr ""
 
-#: admin/includes/functions.php:799
+#: admin/includes/functions.php:801
 msgid "Hide This Notice"
 msgstr "Ocultar Este Aviso"
 
-#: admin/includes/functions.php:852
+#: admin/includes/functions.php:854
 #, fuzzy
 msgid "WordPoints — %s"
 msgstr "WordPoints - %s"
 
-#: admin/includes/functions.php:884
-msgid "Install a module in .zip format"
-msgstr "Instale un módulo en formato zip"
-
-#: admin/includes/functions.php:885
+#: admin/includes/functions.php:893
 msgid ""
 "If you have a module in a .zip format, you may install it by uploading it "
 "here."
 msgstr "Si tiene un módulo en formato zip, podrá instalarlo, subiéndolo aquí."
 
-#: admin/includes/functions.php:888
+#: admin/includes/functions.php:896
 msgid "Module zip file"
 msgstr "Archivo zip de Módulo"
 
-#: admin/includes/functions.php:890
+#: admin/includes/functions.php:898
 msgid "Install Now"
 msgstr "Instalar Ahora"
 
-#: admin/includes/functions.php:906
+#: admin/includes/functions.php:915
 #, fuzzy
 msgid "Sorry, you are not allowed to install WordPoints modules on this site."
 msgstr ""
 "Usted no tiene permisos suficientes para instalar módulos WordPoints en este "
 "sitio."
 
-#: admin/includes/functions.php:913
+#: admin/includes/functions.php:922
 msgid "Upload WordPoints Module"
 msgstr "Subir Módulo WordPoints"
 
-#: admin/includes/functions.php:922
+#: admin/includes/functions.php:931
 msgid "Installing Module from uploaded file: %s"
 msgstr "Instalar Módulo desde archivo cargado: %s"
 
-#: admin/includes/functions.php:991
+#: admin/includes/functions.php:1004
 msgid ""
 "This appears to be a WordPoints module archive. Try installing it on the "
 "WordPoints module install screen instead."
@@ -408,11 +435,11 @@ msgstr ""
 "Este parece ser un archivo de módulo de WordPoints. En su lugar, pruebe a "
 "instalarlo desde la pantalla de módulos de WordPoints."
 
-#: admin/includes/functions.php:1020
+#: admin/includes/functions.php:1034
 msgid "Like this plugin?"
 msgstr "¿Le gusta este plugin?"
 
-#: admin/includes/functions.php:1021
+#: admin/includes/functions.php:1035
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
@@ -420,7 +447,7 @@ msgstr ""
 "Si piensa que WordPoints es maravilloso, permita que todos lo sepan dándole "
 "una <a href=\"%s\">5  estrellas calificación </a>."
 
-#: admin/includes/functions.php:1022
+#: admin/includes/functions.php:1036
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
@@ -428,11 +455,11 @@ msgstr ""
 "Si usted no cree que este plugin se merece 5 estrellas, por favor háganos "
 "saber cómo podemos mejorarlo."
 
-#: admin/includes/functions.php:1025
+#: admin/includes/functions.php:1039
 msgid "Need help?"
 msgstr "¿Necesita ayuda?"
 
-#: admin/includes/functions.php:1026
+#: admin/includes/functions.php:1040
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
@@ -440,26 +467,26 @@ msgstr ""
 "Publique una solicitud de función o soporte pregunta en el <a href=\"%s\"> "
 "foros de soporte </a>"
 
-#: admin/includes/functions.php:1027
+#: admin/includes/functions.php:1041
 msgid "Thank you for using WordPoints!"
 msgstr "¡Gracias por utilizar WordPoints!"
 
 #. translators: 1 is plugin version, 2 is list of modules
-#: admin/includes/functions.php:1055
+#: admin/includes/functions.php:1069
 msgid ""
 "WordPoints has deactivated the following modules because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
 #. translators: 1 is plugin version, 2 is list of modules
-#: admin/includes/functions.php:1072
+#: admin/includes/functions.php:1086
 msgid ""
 "WordPoints has deactivated the following network-active modules because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
 #. translators: 1 is plugin version, 2 is list of modules
-#: admin/includes/functions.php:1091
+#: admin/includes/functions.php:1105
 msgid ""
 "WordPoints has deactivated the following modules on this site because of "
 "incompatibilities with WordPoints %1$s: %2$s"
@@ -687,10 +714,10 @@ msgstr ""
 #: admin/screens/modules-load.php:471
 #, fuzzy
 msgid ""
-"You can find modules for your site by by browsing the <a href=\"%1$s\" "
-"target=\"_blank\">WordPoints Module Directory</a>. To install a module you "
-"generally just need to <a href=\"%2$s\">upload the module file</a> into your "
-"%3$s directory. Once a module has been installed, you can activate it here."
+"You can find modules for your site by by browsing the <a href=\"%1$s"
+"\">WordPoints Module Directory</a>. To install a module you generally just "
+"need to <a href=\"%2$s\">upload the module file</a> into your %3$s "
+"directory. Once a module has been installed, you can activate it here."
 msgstr ""
 "Puede encontrar módulos para su sitio navegando por el <a href=\"%1$s\" "
 "target=\"_blank\"> Directorio de Módulos WordPoints < /a>. Para instalar un "
@@ -1175,135 +1202,144 @@ msgctxt "page title"
 msgid "Points Types"
 msgstr "Tipo de Puntos"
 
-#: components/points/admin/classes/screen/points/types.php:144
+#: components/points/admin/classes/screen/points/types.php:145
 #: components/points/includes/class-wordpoints-points-hooks.php:552
 msgid "Settings"
 msgstr "Ajustes"
 
-#: components/points/admin/classes/screen/points/types.php:191
+#: components/points/admin/classes/screen/points/types.php:162
+msgid "Logs"
+msgstr ""
+
+#: components/points/admin/classes/screen/points/types.php:209
 msgid ""
 "Changes to this points type&#8217;s settings will affect all sites on this "
 "network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:193
+#: components/points/admin/classes/screen/points/types.php:211
 msgid "The new points type will be global across all sites on this network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:203
+#: components/points/admin/classes/screen/points/types.php:221
 #, fuzzy
 msgid "Slug: %s"
 msgstr "Slug"
 
-#: components/points/admin/classes/screen/points/types.php:226
+#: components/points/admin/classes/screen/points/types.php:244
 #: components/points/includes/class-wordpoints-points-hooks.php:583
 msgctxt "points type"
 msgid "Prefix (optional):"
 msgstr "Prefijo (opcional):"
 
-#: components/points/admin/classes/screen/points/types.php:227
+#: components/points/admin/classes/screen/points/types.php:245
 #: components/points/includes/class-wordpoints-points-hooks.php:584
 msgctxt "points type"
 msgid "Suffix (optional):"
 msgstr "Sufijo (opcional):"
 
-#: components/points/admin/classes/screen/points/types.php:231
+#: components/points/admin/classes/screen/points/types.php:249
 #: components/points/includes/class-wordpoints-points-hooks.php:588
 msgctxt "points type"
 msgid "Prefix:"
 msgstr "Prefijo:"
 
-#: components/points/admin/classes/screen/points/types.php:232
+#: components/points/admin/classes/screen/points/types.php:250
 #: components/points/includes/class-wordpoints-points-hooks.php:589
 msgctxt "points type"
 msgid "Suffix:"
 msgstr "Sufijo:"
 
-#: components/points/admin/classes/screen/points/types.php:239
+#: components/points/admin/classes/screen/points/types.php:257
 #: components/points/includes/class-wordpoints-points-hooks.php:595
 msgctxt "points type"
 msgid "Name:"
 msgstr "Nombre:"
 
-#: components/points/admin/classes/screen/points/types.php:288
+#: components/points/admin/classes/screen/points/types.php:306
 #: components/points/includes/class-wordpoints-points-hooks.php:634
 msgctxt "points type"
 msgid "Delete"
 msgstr "Borrar"
 
-#: components/points/admin/classes/screen/points/types.php:294
+#: components/points/admin/classes/screen/points/types.php:312
 #: components/points/includes/class-wordpoints-points-hooks.php:641
 msgctxt "points type"
 msgid "Save"
 msgstr "Guardar"
 
-#: components/points/admin/classes/screen/points/types.php:444
+#: components/points/admin/classes/screen/points/types.php:332
+#, fuzzy
+msgid "Go to the logs for this points type."
+msgstr "Elija un nombre único para este tipo de puntos."
+
+#: components/points/admin/classes/screen/points/types.php:478
 #, fuzzy
 msgid "Add New Reaction"
 msgstr "Añadir Nuevos"
 
-#: components/points/admin/classes/screen/points/types.php:468
+#: components/points/admin/classes/screen/points/types.php:502
 #, fuzzy
 msgid "Add New"
 msgstr "Añadir Nuevos"
 
-#: components/points/admin/classes/screen/points/types.php:564
+#: components/points/admin/classes/screen/points/types.php:598
 msgid "Error: points type name cannot be empty."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:579
-#: components/points/admin/classes/screen/points/types.php:594
+#: components/points/admin/classes/screen/points/types.php:613
+#: components/points/admin/classes/screen/points/types.php:628
 msgid "Error: failed updating points type."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:602
+#: components/points/admin/classes/screen/points/types.php:636
 #, fuzzy
 msgid "Points type updated."
 msgstr "Tipo de Puntos eliminado."
 
-#: components/points/admin/classes/screen/points/types.php:635
+#: components/points/admin/classes/screen/points/types.php:669
 msgid "Please choose a unique name for this points type."
 msgstr "Elija un nombre único para este tipo de puntos."
 
-#: components/points/admin/classes/screen/points/types.php:645
+#: components/points/admin/classes/screen/points/types.php:679
 #, fuzzy
 msgid "Points type created."
 msgstr "Tipo de Puntos eliminado."
 
-#: components/points/admin/classes/screen/points/types.php:677
+#: components/points/admin/classes/screen/points/types.php:711
 msgid "Points type deleted."
 msgstr "Tipo de Puntos eliminado."
 
-#: components/points/admin/classes/screen/points/types.php:686
+#: components/points/admin/classes/screen/points/types.php:720
 #: components/points/admin/screens/hooks.php:22
 msgid "Error while deleting."
 msgstr "Error al borrar."
 
-#: components/points/admin/classes/screen/points/types.php:705
+#: components/points/admin/classes/screen/points/types.php:739
 #, fuzzy
 msgid "Network Events"
 msgstr "Activar Red"
 
-#: components/points/admin/classes/screen/points/types.php:706
+#: components/points/admin/classes/screen/points/types.php:740
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:708
+#: components/points/admin/classes/screen/points/types.php:742
 msgid "Events"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:709
+#: components/points/admin/classes/screen/points/types.php:743
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this site."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:740
+#: components/points/admin/classes/screen/points/types.php:774
 msgid ""
-"You can learn more about how they work from <a href=\"%s\" target=\"_blank"
-"\">the user guide on WordPoints.org</a>."
+"You can learn more about how they work from <a href=\"%s\">the user guide on "
+"WordPoints.org</a>."
 msgstr ""
 
 #: components/points/admin/includes/ajax.php:107
@@ -1751,6 +1787,11 @@ msgstr "Hora"
 #, fuzzy
 msgid "No matching logs found."
 msgstr "No se encontrarn registros coincidentes"
+
+#. translators: coordinated universal time
+#: components/points/classes/logs/view/table.php:159
+msgid "UTC"
+msgstr ""
 
 #: components/points/classes/logs/view/table.php:263
 #, fuzzy
@@ -2635,24 +2676,24 @@ msgstr "Archivo de módulo no existe."
 msgid "The module does not have a valid header."
 msgstr "El módulo no tiene una cabecera válida."
 
-#: includes/modules.php:832
+#: includes/modules.php:833
 msgid "The module generated unexpected output."
 msgstr "El módulo generó una salida inesperada."
 
-#: includes/modules.php:1011
+#: includes/modules.php:1012
 msgid "Could not access filesystem."
 msgstr "No  se pudo acceder al sistema de archivos."
 
-#: includes/modules.php:1015
+#: includes/modules.php:1016
 msgid "Filesystem error."
 msgstr "Error del sistema de archivos."
 
-#: includes/modules.php:1022
+#: includes/modules.php:1023
 msgid "Unable to locate WordPoints Module directory."
 msgstr "No se puede localizar el directorio de Módulos WordPoints."
 
 #. translators: A module or list of modules.
-#: includes/modules.php:1068
+#: includes/modules.php:1069
 #, fuzzy
 msgid "Could not fully remove the module %s."
 msgid_plural "Could not fully remove the modules %s."
@@ -2679,6 +2720,9 @@ msgstr "JD Grimes"
 #, fuzzy
 msgid "https://codesymphony.co/"
 msgstr "http://codesymphony.co/"
+
+#~ msgid "Install a module in .zip format"
+#~ msgstr "Instale un módulo en formato zip"
 
 #~ msgid ""
 #~ "Points Hooks let you award users points by &#8220;hooking into&#8221; "

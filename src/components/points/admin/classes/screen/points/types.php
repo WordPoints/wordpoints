@@ -157,6 +157,10 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	 */
 	public function add_points_logs_meta_box() {
 
+		if ( ! $this->current_points_type ) {
+			return;
+		}
+
 		add_meta_box(
 			'logs'
 			, __( 'Logs', 'wordpoints' )

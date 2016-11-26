@@ -390,9 +390,10 @@ jQuery( function ( $ ) {
 		addOne: function( rank ) {
 
 			var view = new ranks.view.Rank( { model: rank } ),
-				element = view.render().el;
+				element = view.render().el,
+				isNew = '' === rank.get( 'name' );
 
-			if ( '' === rank.get( 'name' ) ) {
+			if ( isNew ) {
 				view.edit();
 				view.lockOpen();
 				view.$el.addClass( 'new' );
@@ -400,6 +401,10 @@ jQuery( function ( $ ) {
 
 			// Append the element to the group.
 			this.$( '.wordpoints-rank-group' ).append( element );
+
+			if ( isNew ) {
+				view.$( ':input:visible' ).first().focus();
+			}
 		},
 
 		// Add all items in the **Ranks** collection at once.

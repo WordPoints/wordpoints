@@ -747,7 +747,12 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			$description = __( 'Add reactions to these events to award points whenever they take place on this site.', 'wordpoints' );
 		}
 
-		$points_type = wordpoints_get_points_type( $this->current_points_type );
+		if ( isset( $this->current_points_type ) ) {
+			$points_type = wordpoints_get_points_type( $this->current_points_type );
+			$points_type['slug'] = $this->current_points_type;
+		} else {
+			$points_type = false;
+		}
 
 		?>
 

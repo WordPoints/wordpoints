@@ -19,7 +19,7 @@
  * @since 2.2.0 Now extends WordPoints_PHPUnit_TestCase_Points.
  * @deprecated 2.2.0 Use WordPoints_PHPUnit_TestCase_Points instead.
  */
-class WordPoints_Points_UnitTestCase extends WordPoints_PHPUnit_TestCase_Points {
+abstract class WordPoints_Points_UnitTestCase extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 2.2.0

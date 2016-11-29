@@ -100,12 +100,18 @@ if (
 	);
 
 	$loader->add_component( 'ranks' );
-}
 
-// We can always use the loader to load WordPress though, even if it isn't being used
-// to load the plugin.
-$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
-$loader->load_wordpress();
+	$loader->load_wordpress();
+
+} else {
+
+	/**
+	 * Sets up the WordPress test environment.
+	 *
+	 * @since 1.0.0
+	 */
+	require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
+}
 
 /**
  * Include the plugin's constants so that we can access the current version.

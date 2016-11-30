@@ -138,7 +138,31 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 			<?php if ( $this->args['show_users'] ) : ?>
 				<td>
 					<?php echo get_avatar( $user->ID, 32 ); ?>
-					<?php echo sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' ); ?>
+					<?php
+
+					/**
+					 * Filters the username displayed in the top users table.
+					 *
+					 * Note that whatever you return from this filter will be passed
+					 * through wp_kses() before display, to avoid XSS.
+					 *
+					 * @since 2.2.0
+					 *
+					 * @param string  $name The name to display for the user.
+					 *                      Defaults to the user's Display Name.
+					 * @param WP_User $user The user object.
+					 * @param object  $log  The object for the log being displayed.
+					 */
+					$name = apply_filters(
+						'wordpoints_points_logs_table_username'
+						, sanitize_user_field( 'display_name', $user->display_name, $log->user_id, 'display' )
+						, $user
+						, $log
+					);
+
+					echo wp_kses( $name, 'wordpoints_points_logs_username' );
+
+					?>
 				</td>
 			<?php endif; ?>
 			<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>

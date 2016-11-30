@@ -285,6 +285,27 @@ class WordPoints_Points_Logs_View_Table_Test
 	}
 
 	/**
+	 * Test that the the user's name is passed through a filter.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_username_filter() {
+
+		$this->factory->wordpoints->points_log->create();
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter( 'test' );
+		$mock->add_filter( 'wordpoints_points_logs_table_username' );
+
+		$xpath = $this->get_xpath_for_view();
+		$nodes = $xpath->query( '//tr/td' );
+
+		$this->assertStringMatchesFormat(
+			'%atest%a'
+			, $nodes->item( 0 )->textContent
+		);
+	}
+
+	/**
 	 * Test a message spanning all columns is displayed when there are no logs.
 	 *
 	 * @since 2.2.0

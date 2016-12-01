@@ -197,7 +197,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 			return parent::running_uninstall_tests();
 		}
-		
+
 		static $uninstall_tests;
 
 		if ( ! isset( $uninstall_tests ) ) {

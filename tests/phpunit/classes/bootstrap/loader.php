@@ -190,6 +190,33 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	}
 
 	/**
+	 * @since 2.2.0
+	 */
+	public function running_uninstall_tests() {
+
+		if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+			return parent::running_uninstall_tests();
+		}
+		
+		static $uninstall_tests;
+
+		if ( ! isset( $uninstall_tests ) ) {
+
+			ob_start();
+			$uninstall_tests = parent::running_uninstall_tests();
+			ob_end_clean();
+
+			if ( ! $uninstall_tests ) {
+				echo 'Not running module install/uninstall tests... To execute these, use -c phpunit.uninstall.xml.dist.' . PHP_EOL;
+			} else {
+				echo 'Running module install/uninstall tests...' . PHP_EOL;
+			}
+		}
+
+		return $uninstall_tests;
+	}
+
+	/**
 	 * Loads WordPress and its test environment.
 	 *
 	 * @since 2.2.0

@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.6
-Tested up to: 4.7-beta4-39263
-Stable tag: 2.1.5
+Tested up to: 4.8-alpha-39357
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,7 +114,7 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
-= 2.2.0 — 2016-12-?? =
+= 2.2.0 — 2016-12-08 =
 
 **Requires: WordPress 4.6+**
 

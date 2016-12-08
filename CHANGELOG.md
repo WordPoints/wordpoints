@@ -8,6 +8,8 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
+## [2.2.0]
+
 ### Added
 
 - This changelog.
@@ -44,6 +46,8 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - `aria-label` attributes for action links in modules list table. #351
 - `assertNotWordPointsAdminNotice()` assertion to the main test case. #427
 - Link to the points logs on the points types screen. #452
+- Link to the ranks on the points types screen. #570
+- `'wordpoints_points_logs_table_username'` filter on the username displayed in the points logs. #574
 
 ### Changed
 
@@ -79,6 +83,10 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Summary of the plugin for WordPress.org to be more descriptive.
 - FAQ for WordPress.org, removing an outdated Q&A and improving the one regarding new features. #561
 - WordPress.org plugin feature description to mention the conspicuously absent `[wordpoints_points]` shortcode. #561
+- Rank creation UI to automatically focus the title of the new rank. #569
+- Points Types screen meta boxes to pass the points type slug along with other points types data. #571
+- Legacy `WordPoints_Points_UnitTestCase` to be `abstract`. #572
+- Plugin header image for WordPress.org. #476
 
 ### Deprecated
 
@@ -102,6 +110,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Inline docs for the dynamic hook event class mentioning the hyphen as the namespace separator instead of the backslash.
 - `glob()` always being assumed to return an array. #353
 - "UTC" to be translatable in the points logs table. #543
+- Randomly failing Periods hook extension tests. #481
 
 ## [2.1.5] - 2016-11-15
 
@@ -268,6 +277,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.2.0]: https://github.com/WordPoints/wordpoints/compare/2.1.5...2.2.0
 [2.1.5]: https://github.com/WordPoints/wordpoints/compare/2.1.4...2.1.5
 [2.1.4]: https://github.com/WordPoints/wordpoints/compare/2.1.3...2.1.4
 [2.1.3]: https://github.com/WordPoints/wordpoints/compare/2.1.2...2.1.3

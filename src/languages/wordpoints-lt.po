@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-11-22 20:24:30+00:00\n"
+"POT-Creation-Date: 2016-12-08 17:02:14+00:00\n"
 "PO-Revision-Date: 2015-06-22 19:24+0200\n"
 "Last-Translator: Rimantas <info@auksinas.lt>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/wordpoints/"
@@ -230,7 +230,7 @@ msgstr "Atjungti"
 msgid "Activate %s"
 msgstr "Aktyvuoti"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.0-beta-2)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316
@@ -1129,130 +1129,130 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:162
+#: components/points/admin/classes/screen/points/types.php:166
 msgid "Logs"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:209
+#: components/points/admin/classes/screen/points/types.php:213
 msgid ""
 "Changes to this points type&#8217;s settings will affect all sites on this "
 "network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:211
+#: components/points/admin/classes/screen/points/types.php:215
 msgid "The new points type will be global across all sites on this network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:221
+#: components/points/admin/classes/screen/points/types.php:225
 msgid "Slug: %s"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:244
+#: components/points/admin/classes/screen/points/types.php:248
 #: components/points/includes/class-wordpoints-points-hooks.php:583
 msgctxt "points type"
 msgid "Prefix (optional):"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:245
+#: components/points/admin/classes/screen/points/types.php:249
 #: components/points/includes/class-wordpoints-points-hooks.php:584
 msgctxt "points type"
 msgid "Suffix (optional):"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:249
+#: components/points/admin/classes/screen/points/types.php:253
 #: components/points/includes/class-wordpoints-points-hooks.php:588
 msgctxt "points type"
 msgid "Prefix:"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:250
+#: components/points/admin/classes/screen/points/types.php:254
 #: components/points/includes/class-wordpoints-points-hooks.php:589
 msgctxt "points type"
 msgid "Suffix:"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:257
+#: components/points/admin/classes/screen/points/types.php:261
 #: components/points/includes/class-wordpoints-points-hooks.php:595
 msgctxt "points type"
 msgid "Name:"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:306
+#: components/points/admin/classes/screen/points/types.php:310
 #: components/points/includes/class-wordpoints-points-hooks.php:634
 msgctxt "points type"
 msgid "Delete"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:312
+#: components/points/admin/classes/screen/points/types.php:316
 #: components/points/includes/class-wordpoints-points-hooks.php:641
 msgctxt "points type"
 msgid "Save"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:332
+#: components/points/admin/classes/screen/points/types.php:336
 msgid "Go to the logs for this points type."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:478
+#: components/points/admin/classes/screen/points/types.php:482
 msgid "Add New Reaction"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:502
+#: components/points/admin/classes/screen/points/types.php:506
 msgid "Add New"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:598
+#: components/points/admin/classes/screen/points/types.php:602
 msgid "Error: points type name cannot be empty."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:613
-#: components/points/admin/classes/screen/points/types.php:628
+#: components/points/admin/classes/screen/points/types.php:617
+#: components/points/admin/classes/screen/points/types.php:632
 msgid "Error: failed updating points type."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:636
+#: components/points/admin/classes/screen/points/types.php:640
 #, fuzzy
 msgid "Points type updated."
 msgstr "Nustatymai atnaujinti."
 
-#: components/points/admin/classes/screen/points/types.php:669
+#: components/points/admin/classes/screen/points/types.php:673
 msgid "Please choose a unique name for this points type."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:679
+#: components/points/admin/classes/screen/points/types.php:683
 msgid "Points type created."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:711
+#: components/points/admin/classes/screen/points/types.php:715
 msgid "Points type deleted."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:720
+#: components/points/admin/classes/screen/points/types.php:724
 #: components/points/admin/screens/hooks.php:22
 msgid "Error while deleting."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:739
+#: components/points/admin/classes/screen/points/types.php:743
 msgid "Network Events"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:740
+#: components/points/admin/classes/screen/points/types.php:744
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:742
+#: components/points/admin/classes/screen/points/types.php:746
 msgid "Events"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:743
+#: components/points/admin/classes/screen/points/types.php:747
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this site."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:774
+#: components/points/admin/classes/screen/points/types.php:783
 msgid ""
 "You can learn more about how they work from <a href=\"%s\">the user guide on "
 "WordPoints.org</a>."
@@ -1648,19 +1648,19 @@ msgid "No matching logs found."
 msgstr ""
 
 #. translators: coordinated universal time
-#: components/points/classes/logs/view/table.php:159
+#: components/points/classes/logs/view/table.php:183
 msgid "UTC"
 msgstr ""
 
-#: components/points/classes/logs/view/table.php:263
+#: components/points/classes/logs/view/table.php:287
 msgid "Searching for &#8220;%s&#8221;"
 msgstr ""
 
-#: components/points/classes/logs/view/table.php:275
+#: components/points/classes/logs/view/table.php:299
 msgid "Search Logs:"
 msgstr ""
 
-#: components/points/classes/logs/view/table.php:286
+#: components/points/classes/logs/view/table.php:310
 msgid "Search Logs"
 msgstr ""
 
@@ -2324,6 +2324,15 @@ msgstr ""
 
 #: components/ranks/includes/integration/points/functions.php:113
 msgid "This rank group is associated with the &#8220;%s&#8221; points type."
+msgstr ""
+
+#: components/ranks/includes/integration/points/functions.php:155
+msgctxt "Points Types screen meta box title"
+msgid "Ranks"
+msgstr ""
+
+#: components/ranks/includes/integration/points/functions.php:175
+msgid "Go to the ranks for this points type."
 msgstr ""
 
 #: components/ranks/includes/rank-types/points.php:45

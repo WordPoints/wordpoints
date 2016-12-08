@@ -11,8 +11,8 @@
  * Represents a hook event that is attached to a dynamic entity.
  *
  * Dynamic events, like dynamic entities, have slugs that are prefixed with a generic
- * identifier (like 'post'). After this comes a hyphen (-) and then the dynamic part
- * of the name.
+ * identifier (like 'post'). After this comes a backslash (\) and then the dynamic
+ * part of the name.
  *
  * This class offers a helper method to let dynamic events build better titles and
  * descriptions by using a dynamic entity title (like "Page" or "Order"), instead of

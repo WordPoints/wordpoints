@@ -10,12 +10,12 @@ php:
     - 5.5
     - 5.6
     - 7.0
+    - 7.1
 
 env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.5
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.4
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.6
 
 sudo: false
 
@@ -39,6 +39,10 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 7.0
       env: TRAVISCI_RUN=codesniff
+    - php: 7.1
+      env: TRAVISCI_RUN=codesniff
+    - php: 7.1
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.6
   allow_failures:
     - php: hhvm
     - php: nightly
@@ -54,6 +58,7 @@ script:
     - codesniff-php-syntax
     - codesniff-php-autoloaders
     - codesniff-phpcs
+    - codesniff-strings
     - codesniff-jshint
     - codesniff-l10n
     - codesniff-xmllint
@@ -69,8 +74,7 @@ script:
     - phpunit-ms-ajax
     - phpunit-ms-network-ajax
     - wpcept-run
+    - WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 wpcept-basic acceptance network
 
 after_script:
-    - ls -l build/logs/
-    - composer require --prefer-source satooshi/php-coveralls:'~1.0'
     - source $DEV_LIB_PATH/travis/after_script.sh

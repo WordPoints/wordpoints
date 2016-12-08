@@ -236,9 +236,9 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 				$url = network_admin_url( $path );
 			}
 
-			$screen_options = '<p><a id="access-on" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=on">'
+			$screen_options = '<p><a id="access-on" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=on">'
 			                  . esc_html__( 'Enable accessibility mode', 'wordpoints' )
-			                  . '</a><a id="access-off" href="' . esc_attr( esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) ) . '&amp;accessibility-mode=off">'
+			                  . '</a><a id="access-off" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=off">'
 			                  . esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
 			break;
 	}
@@ -375,7 +375,8 @@ function wordpoints_points_profile_options( $user ) {
 		</tbody>
 
 		<?php
-	}
+
+	} // End if ( can set points ) elseif ( is my profile ).
 }
 
 /**
@@ -513,7 +514,7 @@ function wordpoints_points_admin_notices() {
 		wordpoints_show_admin_message(
 			sprintf(
 				__( 'Welcome to WordPoints! Get started by <a href="%s">creating a points type</a>.', 'wordpoints' )
-				, esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
+				, esc_url( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
 			)
 			, 'info'
 		);

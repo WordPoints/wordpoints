@@ -32,6 +32,8 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertTrue( $sub_apps->is_registered( 'hooks' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'entities' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'data_types' ) );
+		$this->assertTrue( $sub_apps->is_registered( 'components' ) );
+		$this->assertTrue( $sub_apps->is_registered( 'modules' ) );
 	}
 
 	/**
@@ -62,6 +64,61 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		WordPoints_App::$main = null;
 
 		$this->assertInstanceOf( 'WordPoints_App', wordpoints_apps() );
+	}
+
+	/**
+	 * Test the get post types for auto-integration function.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_get_post_types_for_auto_integration
+	 */
+	public function test_get_post_types_for_auto_integration() {
+
+		$filter = 'wordpoints_post_types_for_auto_integration';
+		$this->listen_for_filter( $filter );
+
+		$this->assertEquals(
+			get_post_types( array( 'public' => true ) )
+			, wordpoints_get_post_types_for_auto_integration()
+		);
+
+		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+	}
+
+	/**
+	 * Test getting the app for a component.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_component
+	 */
+	public function test_get_component_app() {
+
+		$this->assertInstanceOf(
+			'WordPoints_App'
+			, wordpoints_component( 'points' )
+		);
+	}
+
+	/**
+	 * Test getting the app for a module.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_module
+	 */
+	public function test_get_module_app() {
+
+		$this->mock_apps()
+			->get_sub_app( 'modules' )
+			->sub_apps()
+			->register( 'test', 'WordPoints_App' );
+
+		$this->assertInstanceOf(
+			'WordPoints_App'
+			, wordpoints_module( 'test' )
+		);
 	}
 }
 

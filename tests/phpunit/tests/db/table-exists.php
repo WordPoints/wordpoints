@@ -16,7 +16,7 @@
  *
  * @expectedDeprecated wordpoints_db_table_exists
  */
-class WordPoints_Table_Exists_Test extends WordPoints_UnitTestCase {
+class WordPoints_Table_Exists_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test behavior if the table exists.

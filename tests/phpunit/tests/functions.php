@@ -12,7 +12,7 @@
  *
  * @since 1.2.0
  */
-class WordPoints_Core_Functions_Test extends WordPoints_UnitTestCase {
+class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * @since 2.0.0

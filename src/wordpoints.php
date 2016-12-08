@@ -4,7 +4,7 @@
  * Plugin Name: WordPoints
  * Plugin URI: https://wordpoints.org/
  * Description: Create one or more points systems for your site, and reward user activity.
- * Version: 2.1.5
+ * Version: 2.2.0
  * Author: J.D. Grimes
  * Author URI: https://codesymphony.co/
  * License: GPLv2
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  *
  * ---------------------------------------------------------------------------------|
- * Copyright 2013-2015  J.D. Grimes  (email : jdg@codesymphony.co)
+ * Copyright 2013-16  J.D. Grimes  (email : jdg@codesymphony.co)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or later, as
@@ -40,9 +40,9 @@
  *
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
+ * @version 2.2.0
  * @license https://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
- * @version 2.1.5
- * @copyright 2013-2015 J.D. Grimes
+ * @copyright 2013-16 J.D. Grimes
  */
 
 /**
@@ -82,13 +82,6 @@ include_once WORDPOINTS_DIR . 'includes/apps.php';
 include_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
- * Installables class.
- *
- * @since 2.0.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-installables.php';
-
-/**
  * Components class.
  *
  * Loads components.
@@ -96,13 +89,6 @@ include_once WORDPOINTS_DIR . 'includes/class-installables.php';
  * @since 1.0.0
  */
 include_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';
-
-/**
- * Modules class.
- *
- * @since 2.0.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-modules.php';
 
 /**
  * Module functions.
@@ -114,20 +100,6 @@ include_once WORDPOINTS_DIR . 'includes/class-modules.php';
 include_once WORDPOINTS_DIR . 'includes/modules.php';
 
 /**
- * Shortcode handler class.
- *
- * @since 1.8.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-shortcode.php';
-
-/**
- * The base widget class.
- *
- * @since 1.9.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-widget.php';
-
-/**
  * Class autoloader.
  *
  * Unfortunately, it can't be autoloaded. :-)
@@ -137,6 +109,7 @@ include_once WORDPOINTS_DIR . 'includes/class-widget.php';
 require_once( WORDPOINTS_DIR . 'classes/class/autoloader.php' );
 
 // Register the classes to autoload.
+WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'includes' );
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
 
 /**

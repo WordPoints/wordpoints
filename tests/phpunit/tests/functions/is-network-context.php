@@ -85,7 +85,7 @@ class WordPoints_Is_Network_Context_Function_Test extends WordPoints_PHPUnit_Tes
 	 */
 	public function test_has_filter() {
 
-		$filter = new WordPoints_Mock_Filter( true );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( true );
 		add_filter( 'wordpoints_is_network_context', array( $filter, 'filter' ) );
 
 		$this->assertTrue( wordpoints_is_network_context() );

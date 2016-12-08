@@ -14,7 +14,7 @@
  *
  * @group components
  */
-class WordPoints_Components_Test extends WordPoints_UnitTestCase {
+class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Set up for the tests.

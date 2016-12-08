@@ -14,7 +14,7 @@
  *
  * @group points
  */
-class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that points logs and log meta tables are cleaned up on user deletion.
@@ -91,7 +91,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 
 		restore_current_blog();
 
-		// Now we'll do do the same for a third blog.
+		// Now we'll do the same for a third blog.
 		$blog_id_2 = $this->factory->blog->create();
 
 		switch_to_blog( $blog_id_2 );
@@ -320,7 +320,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that that emojis work in logs wen they are regenerated.
+	 * Test that emojis work in logs wen they are regenerated.
 	 *
 	 * @since 2.0.0
 	 *
@@ -334,11 +334,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 			$this->markTestSkipped( 'wpdb database charset must be utf8mb4.' );
 		}
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 
 		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
 
-		$filter = new WordPoints_Mock_Filter( $log_text );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $log_text );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		wordpoints_regenerate_points_logs( array( $log ) );
@@ -351,7 +351,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	}
 
 	/**
-	 * Test that that emojis in logs are encoded if needed.
+	 * Test that emojis in logs are encoded if needed.
 	 *
 	 * @since 2.0.0
 	 *
@@ -359,14 +359,14 @@ class WordPoints_Points_Misc_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_emoji_in_log_utf8() {
 
-		$log = $this->factory->wordpoints_points_log->create_and_get();
+		$log = $this->factory->wordpoints->points_log->create_and_get();
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$log_text = "You've got Points! \xf0\x9f\x98\x8e";
 
-		$filter = new WordPoints_Mock_Filter( $log_text );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $log_text );
 		add_filter( 'wordpoints_points_log-test', array( $filter, 'filter' ) );
 
 		wordpoints_regenerate_points_logs( array( $log ) );

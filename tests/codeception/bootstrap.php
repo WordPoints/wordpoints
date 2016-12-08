@@ -1,1 +1,1 @@
-../../dev-lib-wordpoints/wpcept/bootstrap.php
+../../dev-lib/wpcept/bootstrap.php

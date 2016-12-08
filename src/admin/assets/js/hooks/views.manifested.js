@@ -593,12 +593,16 @@ Fields = Backbone.Model.extend({
 		}
 	},
 
-	createSelect: function ( data ) {
+	createSelect: function ( data, template ) {
 
-		var $template = $( '<div></div>' ).html( this.templateSelect( data ) ),
+		var $template = $( '<div></div>' ).html( template || this.templateSelect( data ) ),
 			options = '',
 			foundValue = typeof data.value === 'undefined'
 				|| typeof data.options[ data.value ] !== 'undefined';
+
+		if ( ! $template ) {
+			$template = $( '<div></div>' ).html( this.templateSelect( data ) );
+		}
 
 		_.each( data.options, function ( option, index ) {
 
@@ -966,7 +970,7 @@ var Base = wp.wordpoints.hooks.view.Base,
 
 ArgHierarchySelector = Base.extend({
 
-	namespace: 'arg-selector2',
+	namespace: 'arg-hierarchy-selector',
 
 	tagName: 'div',
 
@@ -1353,14 +1357,28 @@ Reaction = Base.extend({
 	template: wp.wordpoints.hooks.template( 'hook-reaction' ),
 
 	// The DOM events specific to an item.
-	events: {
-		'click .actions .delete':    'confirmDelete',
-		'click .save':      'save',
-		'click .cancel':    'cancel',
-		'click .close':     'close',
-		'click .edit':      'edit',
-		'change .fields *': 'lockOpen',
-		'keyup input':      'maybeLockOpen'
+	events: function () {
+
+		var events = {
+			'click .actions .delete': 'confirmDelete',
+			'click .save':            'save',
+			'click .cancel':          'cancel',
+			'click .close':           'close',
+			'click .edit':            'edit',
+			'change .fields *':       'lockOpen'
+		};
+
+		/*
+		 * Use feature detection to determine whether we should use the `input`
+		 * event. Input is preferred but lacks support in legacy browsers.
+		 */
+		if ( 'oninput' in document.createElement( 'input' ) ) {
+			events['input input'] = 'lockOpen';
+		} else {
+			events['keyup input'] = 'maybeLockOpen';
+		}
+
+		return events;
 	},
 
 	initialize: function () {
@@ -1814,7 +1832,9 @@ Reactions = Base.extend({
 		var view = new ReactionView( { model: reaction } ),
 			element = view.render().el;
 
-		if ( '' === reaction.get( 'description' ) ) {
+		var isNew = '' === reaction.get( 'description' );
+
+		if ( isNew ) {
 			view.edit();
 			view.lockOpen();
 			view.$el.addClass( 'new' );
@@ -1822,6 +1842,10 @@ Reactions = Base.extend({
 
 		// Append the element to the group.
 		this.$reactionGroup.append( element );
+
+		if ( isNew ) {
+			view.$fields.find( ':input:visible' ).first().focus();
+		}
 	},
 
 	// Add all items in the **Reactions** collection at once.

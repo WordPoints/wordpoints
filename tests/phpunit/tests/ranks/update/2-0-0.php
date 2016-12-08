@@ -18,7 +18,7 @@
  * @covers WordPoints_Ranks_Un_Installer::update_network_to_2_0_0
  * @covers WordPoints_Ranks_Un_Installer::update_single_to_2_0_0
  */
-class WordPoints_Ranks_2_0_0_Update_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Ranks_2_0_0_Update_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * @since 2.0.0

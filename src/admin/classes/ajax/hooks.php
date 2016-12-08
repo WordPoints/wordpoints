@@ -300,7 +300,7 @@ class WordPoints_Admin_Ajax_Hooks {
 	private function verify_user_can() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action. Maybe you have been logged out?', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Sorry, you are not allowed to perform this action. Maybe you have been logged out?', 'wordpoints' ) ) );
 		}
 	}
 

@@ -48,6 +48,7 @@ final class WordPoints_Modules {
 		'Update API'  => 'update_api',
 		'Channel'     => 'channel',
 		'ID'          => 'ID',
+		'Namespace'   => 'namespace',
 	);
 
 	/**

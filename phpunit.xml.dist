@@ -4,19 +4,14 @@
 	colors="true"
 	>
 	<testsuites>
-		<testsuite name="default">
+		<testsuite>
 			<directory suffix=".php">tests/phpunit/tests/</directory>
-		</testsuite>
-		<testsuite name="uninstall">
-			<!-- You must use "-\-group uninstall" when running this suite. -->
-			<file>tests/phpunit/tests/uninstall.php</file>
+			<exclude>tests/phpunit/tests/uninstall.php</exclude>
 		</testsuite>
 	</testsuites>
 	<groups>
 		<exclude>
 			<group>ajax</group>
-			<group>uninstall</group>
-			<group>ui</group>
 		</exclude>
 	</groups>
 	<filter>

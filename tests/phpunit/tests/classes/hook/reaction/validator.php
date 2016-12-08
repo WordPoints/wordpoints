@@ -85,7 +85,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			'target' => array( 'test_entity' ),
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -126,7 +126,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$this->factory->wordpoints->hook_event->create();
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -161,7 +161,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			'target' => array( 'test_entity' ),
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -197,7 +197,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$this->factory->wordpoints->hook_reactor->create();
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -232,7 +232,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			'target' => array( 'test_entity' ),
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -268,7 +268,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			'event' => $this->factory->wordpoints->hook_event->create(),
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -321,7 +321,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			, 'WordPoints_PHPUnit_Mock_Hook_Extension'
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -385,7 +385,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			, 'WordPoints_PHPUnit_Mock_Hook_Extension'
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_filter( 'wordpoints_hook_reaction_validate', array( $mock, 'filter' ), 10, 3 );
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );

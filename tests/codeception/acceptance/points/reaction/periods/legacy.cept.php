@@ -17,7 +17,7 @@ $I->hadCreatedAPointsReaction(
 			'fire' => array(
 				array(
 					'arg' => array( 'current:user' ),
-					'length' => HOUR_IN_SECONDS,
+					'length' => 2 * HOUR_IN_SECONDS,
 				),
 			),
 		),
@@ -27,18 +27,17 @@ $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' )
 $I->waitForElement( '#points-user_visit .wordpoints-hook-reaction' );
 $I->click( 'Edit', '#points-user_visit .wordpoints-hook-reaction' );
 $I->see( 'Rate Limit', '#points-user_visit .wordpoints-hook-reaction' );
-$I->cantSeeElement( '#points-user_visit .wordpoints-hook-reaction [name="periods[fire][0][length]"]' );
+$I->cantSeeElementInDOM( '#points-user_visit .wordpoints-hook-reaction [name="periods[fire][0][length]"]' );
+$I->canSeeElementInDOM( '#points-user_visit .wordpoints-hook-reaction [name="points_legacy_periods[fire][0][length]"]' );
+$I->canSeeInField( '#points-user_visit .wordpoints-hook-reaction .wordpoints-hook-period-length-in-units', 2 );
 $I->canSeeOptionIsSelected(
-	'#points-user_visit .wordpoints-hook-reaction [name="points_legacy_periods[fire][0][length]"]'
-	, 'Hour'
+	'#points-user_visit .wordpoints-hook-reaction .wordpoints-hook-period-units'
+	, 'Hours'
 );
-$I->selectOption( '#points-user_visit .wordpoints-hook-reaction [name="points_legacy_periods[fire][0][length]"]', 'Day' );
+$I->fillField( '#points-user_visit .wordpoints-hook-reaction .wordpoints-hook-period-length-in-units', 1 );
+$I->selectOption( '#points-user_visit .wordpoints-hook-reaction .wordpoints-hook-period-units', 'Days' );
 $I->click( 'Save', '#points-user_visit .wordpoints-hook-reaction' );
 $I->waitForJqueryAjax();
 $I->see( 'Your changes have been saved.', '#points-user_visit .messages' );
-$I->canSeeOptionIsSelected(
-	'#points-user_visit .wordpoints-hook-reaction [name="points_legacy_periods[fire][0][length]"]'
-	, 'Day'
-);
 
 // EOF

@@ -116,14 +116,28 @@ jQuery( function ( $ ) {
 		tagName: 'li',
 
 		// The DOM events specific to an item.
-		events: {
-			'click .delete': 'confirmDelete',
-			'click .save':   'save',
-			'click .cancel': 'cancel',
-			'click .close':  'close',
-			'click .edit':   'edit',
-			'change form *': 'lockOpen',
-			'keyup input':   'maybeLockOpen'
+		events: function () {
+
+			var events = {
+				'click .delete': 'confirmDelete',
+				'click .save':   'save',
+				'click .cancel': 'cancel',
+				'click .close':  'close',
+				'click .edit':   'edit',
+				'change form *': 'lockOpen'
+			};
+
+			/*
+			 * Use feature detection to determine whether we should use the `input`
+			 * event. Input is preferred but lacks support in legacy browsers.
+			 */
+			if ( 'oninput' in document.createElement( 'input' ) ) {
+				events['input input'] = 'lockOpen';
+			} else {
+				events['keyup input'] = 'maybeLockOpen';
+			}
+
+			return events;
 		},
 
 		// The Rank view listens for changes to its model, re-rendering. Since there's
@@ -376,9 +390,10 @@ jQuery( function ( $ ) {
 		addOne: function( rank ) {
 
 			var view = new ranks.view.Rank( { model: rank } ),
-				element = view.render().el;
+				element = view.render().el,
+				isNew = '' === rank.get( 'name' );
 
-			if ( '' === rank.get( 'name' ) ) {
+			if ( isNew ) {
 				view.edit();
 				view.lockOpen();
 				view.$el.addClass( 'new' );
@@ -386,6 +401,10 @@ jQuery( function ( $ ) {
 
 			// Append the element to the group.
 			this.$( '.wordpoints-rank-group' ).append( element );
+
+			if ( isNew ) {
+				view.$( ':input:visible' ).first().focus();
+			}
 		},
 
 		// Add all items in the **Ranks** collection at once.

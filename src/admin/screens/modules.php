@@ -15,7 +15,7 @@ if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
 		wordpoints_show_admin_error(
 			sprintf(
-				__( 'The module %s has been <strong>deactivated</strong> due to an error: %s', 'wordpoints' )
+				__( 'The module %1$s has been <strong>deactivated</strong> due to an error: %2$s', 'wordpoints' )
 				, esc_html( $module_file )
 				, '<code>' . esc_html( $error->get_error_message() ) . '</code>'
 			)
@@ -53,12 +53,18 @@ if ( isset( $_GET['error'] ) ) {
 			&& wordpoints_verify_nonce( '_error_nonce', 'module-activation-error_%s', array( 'module' ) )
 		) {
 
+			$url = self_admin_url(
+				'admin.php?page=wordpoints_modules&action=error_scrape&amp;module='
+					. sanitize_text_field( wp_unslash( $_GET['module'] ) )
+					. '&amp;_wpnonce=' . sanitize_key( $_GET['_error_nonce'] )
+			);
+
 			?>
 
 			<div class="notice notice-error is-dismissible">
 				<p>
 					<?php echo wp_kses( $error_message, '' ); ?>
-					<iframe style="border:0" width="100%" height="70px" src="admin.php?page=wordpoints_modules&action=error_scrape&amp;module=<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['module'] ) ) ); ?>&amp;_wpnonce=<?php echo esc_attr( sanitize_key( $_GET['_error_nonce'] ) ); ?>"></iframe>
+					<iframe style="border:0" width="100%" height="70px" src="<?php echo esc_url( $url ); ?>"></iframe>
 				</p>
 			</div>
 
@@ -71,15 +77,16 @@ if ( isset( $_GET['error'] ) ) {
 				, array( 'dismissible' => true )
 			);
 		}
-	}
+
+	} // End if ( main error ) elseif ( unexpected output error ) else.
 
 } elseif ( isset( $_GET['deleted'] ) ) {
 
-	$user_ID = get_current_user_id();
-	$delete_result = get_transient( 'wordpoints_modules_delete_result_' . $user_ID );
+	$user_id       = get_current_user_id();
+	$delete_result = get_transient( 'wordpoints_modules_delete_result_' . $user_id );
 
 	// Delete it once we're done.
-	delete_transient( 'wordpoints_modules_delete_result_' . $user_ID );
+	delete_transient( 'wordpoints_modules_delete_result_' . $user_id );
 
 	if ( is_wp_error( $delete_result ) ) {
 
@@ -139,7 +146,8 @@ if ( isset( $_GET['error'] ) ) {
 		, 'warning'
 		, array( 'dismissible' => true )
 	);
-}
+
+} // End if ( error ) elseif ( other messages/errors ).
 
 ?>
 
@@ -148,7 +156,7 @@ if ( isset( $_GET['error'] ) ) {
 		<?php esc_html_e( 'WordPoints Modules', 'wordpoints' ); ?>
 
 		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) : ?>
-			<a href="<?php echo esc_attr( esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
+			<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
@@ -158,8 +166,6 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php
 
-	require_once WORDPOINTS_DIR . 'admin/includes/class-wordpoints-modules-list-table.php';
-
 	$wp_list_table = new WordPoints_Modules_List_Table();
 	$wp_list_table->prepare_items();
 
@@ -167,12 +173,12 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php $wp_list_table->views(); ?>
 
-	<form method="get" action="admin.php">
+	<form method="get" action="<?php echo esc_url( self_admin_url( 'admin.php' ) ); ?>">
 		<input type="hidden" name="page" value="wordpoints_modules" />
 		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Modules', 'wordpoints' ), 'module' ); ?>
 	</form>
 
-	<form method="post" action="admin.php?page=wordpoints_modules">
+	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ); ?>">
 		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ) ?>" />
 		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ) ?>" />
 		<?php $wp_list_table->display(); ?>

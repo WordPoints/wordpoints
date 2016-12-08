@@ -12,14 +12,14 @@
  *
  * @since 2.0.0
  */
-class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
+class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * The breaking updater mock.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @var WordPoints_Breaking_Updater_Mock
+	 * @var WordPoints_PHPUnit_Mock_Breaking_Updater
 	 */
 	protected $updater;
 
@@ -50,33 +50,11 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	/**
 	 * @since 2.0.0
 	 */
-	public static function setUpBeforeClass() {
-
-		parent::setUpBeforeClass();
-
-		/**
-		 * The breaking updater class.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
-
-		/**
-		 * The breaking updater mock class.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/breaking-updater.php' );
-	}
-
-	/**
-	 * @since 2.0.0
-	 */
 	public function setUp() {
 
 		parent::setUp();
 
-		$this->updater = new WordPoints_Breaking_Updater_Mock(
+		$this->updater = new WordPoints_PHPUnit_Mock_Breaking_Updater(
 			'wordpoints_breaking'
 			, 'breaking'
 		);
@@ -84,6 +62,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 		$this->http_requests = array();
 
 		add_filter( 'pre_http_request', array( $this, 'http_request_listner' ), 10, 3 );
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 	}
 
 	/**
@@ -396,7 +376,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -437,7 +417,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -476,7 +456,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=broken&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=broken&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -490,7 +470,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 	 */
 	public function test_check_module_request_failure() {
 
-		$filter = new WordPoints_Mock_Filter( new WP_Error );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error );
 		$this->http_responder = array( $filter, 'filter' );
 
 		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
@@ -516,7 +496,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -537,7 +517,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -581,7 +561,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 
@@ -649,7 +629,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 
@@ -676,17 +656,17 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 		$this->assertCount( 3, $this->http_requests );
 
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php&wordpoints_module_check=%s'
 			, $this->http_requests[1]['url']
 		);
 
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-4%2Ftest-4.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-4%2Ftest-4.php&wordpoints_module_check=%s'
 			, $this->http_requests[2]['url']
 		);
 
@@ -712,7 +692,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -744,7 +724,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -800,7 +780,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}
@@ -830,7 +810,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_UnitTestCase {
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
-			'http://%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
+			'%s/wp-admin/admin-ajax.php?action=wordpoints_breaking_module_check&check_module=test-3.php%2Ctest-4%2Ftest-4.php&wordpoints_module_check=%s'
 			, $this->http_requests[0]['url']
 		);
 	}

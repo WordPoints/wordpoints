@@ -14,7 +14,7 @@
  *
  * @covers ::wordpoints_verify_nonce
  */
-class WordPoints_Verify_Nonce_Test extends WordPoints_UnitTestCase {
+class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * @since 1.9.0

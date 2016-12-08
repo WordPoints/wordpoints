@@ -15,7 +15,7 @@
  * @covers WordPoints_Points_Admin_Screen_Points_Types
  */
 class WordPoints_Admin_Screen_Points_Types_Test
-	extends WordPoints_Points_AJAX_UnitTestCase {
+	extends WordPoints_PHPUnit_TestCase_Ajax_Points {
 
 	/**
 	 * Specs for a request to create a points type.
@@ -412,7 +412,8 @@ class WordPoints_Admin_Screen_Points_Types_Test
 		} else {
 
 			parent::fulfill_posts_requirement( $requirement_parts );
-		}
+
+		} // End if ( nonce ) elseif ( points name ) elseif ( points slug ) else.
 	}
 
 	/**

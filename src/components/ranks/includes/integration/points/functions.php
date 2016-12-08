@@ -132,4 +132,50 @@ function wordpoints_register_points_ranks() {
 	}
 }
 
+/**
+ * Add a meta-box for the ranks of the current points type.
+ *
+ * @since 2.2.0
+ *
+ * @WordPress\action add_meta_boxes 20 After the core ones are registered, since they
+ *                                     are hooked up after this inside of the screen
+ *                                     object. Otherwise our box would display above
+ *                                     them.
+ */
+function wordpoints_ranks_add_points_types_meta_box_ranks() {
+
+	$tab = wordpoints_admin_get_current_tab();
+
+	if ( 'add-new' === $tab ) {
+		return;
+	}
+
+	add_meta_box(
+		'ranks'
+		, _x( 'Ranks', 'Points Types screen meta box title', 'wordpoints' )
+		, 'wordpoints_ranks_display_points_types_meta_box_ranks'
+		, 'wordpoints_page_wordpoints_points_types'
+		, 'side'
+		, 'default'
+	);
+}
+
+/**
+ * Display the contents of the meta-box for the ranks.
+ *
+ * @since 2.2.0
+ *
+ * @param array $points_type The data for the points type being edited.
+ */
+function wordpoints_ranks_display_points_types_meta_box_ranks( $points_type ) {
+
+	?>
+
+	<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_ranks&tab=points_type-' . $points_type['slug'] ) ); ?>">
+		<?php esc_html_e( 'Go to the ranks for this points type.', 'wordpoints' ); ?>
+	</a>
+
+	<?php
+}
+
 // EOF

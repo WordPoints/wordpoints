@@ -14,7 +14,7 @@
  *
  * @group points
  */
-class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	//
 	// wordpoints_is_points_type()
@@ -109,6 +109,20 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 			array( 'points' => $this->points_data, $slug => $points_type )
 			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
+	}
+
+	/**
+	 * Test slug generation for names with multiple words.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_add_points_type
+	 */
+	public function test_add_generates_slug_with_dashes() {
+
+		$this->assertEquals( 'a-test', wordpoints_add_points_type( array( 'name' => 'A test' ) ) );
+		$this->assertEquals( 'an-other-test', wordpoints_add_points_type( array( 'name' => 'An - other test' ) ) );
+		$this->assertEquals( 'third-test', wordpoints_add_points_type( array( 'name' => '- THIRD test- ' ) ) );
 	}
 
 	//
@@ -232,7 +246,7 @@ class WordPoints_Points_Type_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_delete_calls_action() {
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		$mock->add_action( 'wordpoints_delete_points_type', 10, 6 );
 
 		$this->assertTrue( wordpoints_delete_points_type( 'points' ) );

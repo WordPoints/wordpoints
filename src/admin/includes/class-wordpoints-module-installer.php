@@ -176,7 +176,13 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 
 		$modules_found = false;
 
-		foreach ( glob( $working_directory . '*.php' ) as $file ) {
+		$files = glob( $working_directory . '*.php' );
+
+		if ( false === $files ) {
+			return $source;
+		}
+
+		foreach ( $files as $file ) {
 
 			$module_data = wordpoints_get_module_data( $file, false, false );
 

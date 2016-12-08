@@ -24,6 +24,11 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	protected $log_type = 'comment_approve';
 
 	/**
+	 * @since 2.2.0
+	 */
+	protected $uses_points_logs_viewing_restriction_api = true;
+
+	/**
 	 * Initialize the hook.
 	 *
 	 * @since 1.0.0

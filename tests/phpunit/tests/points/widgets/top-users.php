@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_Top_Users_Points_Widget
  */
-class WordPoints_Top_Users_Widget_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0
@@ -56,7 +56,7 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_defaults() {
 
-		$this->factory->wordpoints_points_log->create_many( 4 );
+		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		$xpath = $this->get_widget_xpath( array( 'points_type' => 'points' ) );
 
@@ -70,7 +70,7 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_num_users_setting() {
 
-		$this->factory->wordpoints_points_log->create_many( 4 );
+		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		$xpath = $this->get_widget_xpath(
 			array( 'points_type' => 'points', 'num_users' => 2 )

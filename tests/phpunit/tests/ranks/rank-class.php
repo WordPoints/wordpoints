@@ -14,7 +14,7 @@
  *
  * @group ranks
  */
-class WordPoints_Rank_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Rank_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Test that the properties are read only.

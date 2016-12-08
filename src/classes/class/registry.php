@@ -94,32 +94,63 @@ class WordPoints_Class_Registry implements WordPoints_Class_RegistryI {
 	 * Construct an array of classes with the given arguments.
 	 *
 	 * @since 2.1.0
+	 * @since 2.2.0 The $args parameter was introduced with the $pass_slugs arg.
 	 *
-	 * @param string[] $classes The classes, indexed by slug (which will be the first
-	 *                          arg passed to the constructor before the other args).
-	 * @param array    $args    An array of args to pass to the class constructor.
+	 * @param string[] $classes             The classes, indexed by slug.
+	 * @param array    $construct_with_args Args to pass to each constructor.
+	 * @param array    $args                {
+	 *        Other arguments.
+	 *
+	 *        @type bool $pass_slugs Whether to pass the class slugs to the
+	 *                               constructors as the first argument. Default is
+	 *                               true.
+	 * }
 	 *
 	 * @return object[] An array of the constructed objects.
 	 */
-	public static function construct_with_args( array $classes, array $args ) {
+	public static function construct_with_args(
+		array $classes,
+		array $construct_with_args,
+		array $args = array()
+	) {
+
+		$pass_slugs = ( ! isset( $args['pass_slugs'] ) || $args['pass_slugs'] );
 
 		$objects = array();
 
-		if ( empty( $args ) ) {
+		if ( empty( $construct_with_args ) ) {
 
-			foreach ( $classes as $slug => $class ) {
-				$objects[ $slug ] = new $class( $slug );
+			if ( $pass_slugs ) {
+				foreach ( $classes as $slug => $class ) {
+					$objects[ $slug ] = new $class( $slug );
+				}
+			} else {
+				foreach ( $classes as $slug => $class ) {
+					$objects[ $slug ] = new $class();
+				}
 			}
 
 		} else {
 
-			array_unshift( $args, null );
+			if ( $pass_slugs ) {
 
-			foreach ( $classes as $slug => $class ) {
-				$objects[ $slug ] = wordpoints_construct_class_with_args(
-					$class
-					, array( $slug ) + $args
-				);
+				array_unshift( $construct_with_args, null );
+
+				foreach ( $classes as $slug => $class ) {
+					$objects[ $slug ] = wordpoints_construct_class_with_args(
+						$class
+						, array( $slug ) + $construct_with_args
+					);
+				}
+
+			} else {
+
+				foreach ( $classes as $slug => $class ) {
+					$objects[ $slug ] = wordpoints_construct_class_with_args(
+						$class
+						, $construct_with_args
+					);
+				}
 			}
 		}
 

@@ -215,8 +215,8 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 	 *
 	 * @action wp_insert_comment Added by the constructor.
 	 *
-	 * @param int      $comment_id The comment's ID.
-	 * @param stdClass $comment    The comment object.
+	 * @param int        $comment_id The comment's ID.
+	 * @param WP_Comment $comment    The comment object.
 	 *
 	 * @return void
 	 */

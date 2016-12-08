@@ -83,7 +83,8 @@ if ( isset( $_GET['addnew'] ) ) {
 	$id_base = $hook->get_id_base();
 	$multi_number = 0;
 	$number = $hook->get_number_by_id( $hook_id );
-}
+
+} // End if ( adding hook ) else { updating hook }.
 
 $name = esc_html( $hook->get_name() );
 
@@ -96,7 +97,7 @@ $name = esc_html( $hook->get_name() );
 	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
 		<h2><?php echo esc_html( sprintf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ) ); ?></h2>
 
-		<form action="admin.php?page=wordpoints_points_hooks" method="post">
+		<form action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) ); ?>" method="post">
 			<div class="hook-inside">
 				<?php $hook->form_callback( $number ); ?>
 			</div>
@@ -123,7 +124,7 @@ $name = esc_html( $hook->get_name() );
 			<br />
 			<div class="hook-control-actions">
 				<?php if ( isset( $_GET['addnew'] ) ) : ?>
-					<a href="admin.php?page=wordpoints_points_hooks" class="button alignleft"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></a>
+					<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) ); ?>" class="button alignleft"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></a>
 				<?php else :
 						submit_button( _x( 'Delete', 'points hook', 'wordpoints' ), 'button alignleft', 'removehook', false );
 					endif;

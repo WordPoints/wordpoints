@@ -25,13 +25,13 @@ $the_reaction = $I->hadCreatedAPointsReaction(
 								'type'     => 'contains',
 								'settings' => array(
 									'value' => 'Test',
-								)
-							)
-						)
-					)
-				)
-			)
-		)
+								),
+							),
+						),
+					),
+				),
+			),
+		),
 	)
 );
 $reaction  = new Reaction( $I, $the_reaction );

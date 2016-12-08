@@ -36,6 +36,30 @@ class WordPoints_Entity_Context_Site extends WordPoints_Entity_Context {
 
 		return get_current_blog_id();
 	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function switch_to( $id ) {
+
+		if ( ! is_multisite() ) {
+			return false;
+		}
+
+		return switch_to_blog( $id );
+	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function switch_back() {
+
+		if ( ! is_multisite() ) {
+			return false;
+		}
+
+		return restore_current_blog();
+	}
 }
 
 // EOF

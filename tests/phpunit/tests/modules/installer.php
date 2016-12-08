@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Module_Installer
  */
-class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
+class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin {
 
 	/**
 	 * The name of the module package to use in the test.
@@ -30,38 +30,9 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @var WordPoints_Module_Installer_Skin_TestDouble
+	 * @var WordPoints_PHPUnit_Mock_Module_Installer_Skin
 	 */
 	protected $skin;
-
-	/**
-	 * @since 2.0.0
-	 */
-	public static function setUpBeforeClass() {
-
-		parent::setUpBeforeClass();
-
-		/**
-		 * Module installer.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/admin/includes/class-wordpoints-module-installer.php' );
-
-		/**
-		 * Module installer skin.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_DIR . '/admin/includes/class-wordpoints-module-installer-skin.php' );
-
-		/**
-		 * The module installer skin mock.
-		 *
-		 * @since 2.0.0
-		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/module-installer-skin.php' );
-	}
 
 	/**
 	 * @since 2.0.0
@@ -70,6 +41,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 
 		parent::setUp();
 
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 		add_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
 		add_filter( 'upgrader_pre_download', array( $this, 'module_package' ) );
 
@@ -85,7 +57,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 		global $wp_filesystem;
 
 		if ( $wp_filesystem && $wp_filesystem->exists( wordpoints_modules_dir() . '/' . $this->package_name ) ) {
-			$wp_filesystem->delete( wordpoints_modules_dir() . '/' .  $this->package_name, true );
+			$wp_filesystem->delete( wordpoints_modules_dir() . '/' . $this->package_name, true );
 		}
 
 		remove_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
@@ -176,7 +148,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 		$package_name = WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $this->package_name;
 
 		if ( ! file_exists( $package_name . '.zip' ) ) {
-			copy( $package_name . '.bk.zip', $package_name  . '.zip' );
+			copy( $package_name . '.bk.zip', $package_name . '.zip' );
 		}
 
 		return $package_name . '.zip';
@@ -201,7 +173,7 @@ class WordPoints_Module_Installer_Test extends WP_UnitTestCase {
 			'version'   => '1.0.0',
 		);
 
-		$this->skin = new WordPoints_Module_Installer_Skin_TestDouble(
+		$this->skin = new WordPoints_PHPUnit_Mock_Module_Installer_Skin(
 			array(
 				'title'  => 'Installing module',
 				'url'    => '',

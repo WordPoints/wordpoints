@@ -15,7 +15,7 @@
  * @group ranks
  * @group rank_meta
  */
-class WordPoints_Rank_Meta_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Test adding rank meta.

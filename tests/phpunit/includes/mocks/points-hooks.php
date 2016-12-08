@@ -5,12 +5,14 @@
  *
  * @package WordPoints\tests
  * @since 1.9.0
+ * @deprecated 2.2.0
  */
 
 /**
  * Test double for the base points hook class.
  *
  * @since 1.9.0
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_Mock_Points_Hook instead.
  */
 class WordPoints_Points_Hook_TestDouble extends WordPoints_Points_Hook {}
 
@@ -18,14 +20,9 @@ class WordPoints_Points_Hook_TestDouble extends WordPoints_Points_Hook {}
  * Test double for the base Post hook class.
  *
  * @since 1.9.0
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_Mock_Points_Hook_Post_Type instead.
  */
 class WordPoints_Post_Type_Points_Hook_TestDouble
-	extends WordPoints_Post_Type_Points_Hook_Base {
-
-	/**
-	 * @since 1.9.0
-	 */
-	protected $defaults = array( 'post_type' => 'ALL', 'auto_reverse' => 1 );
-}
+	extends WordPoints_PHPUnit_Mock_Points_Hook_Post_Type {}
 
 // EOF

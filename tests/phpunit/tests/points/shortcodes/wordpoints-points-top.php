@@ -20,7 +20,7 @@
  *
  * @covers WordPoints_Points_Top_Shortcode
  */
-class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that the [wordpoints_points_top] shortcode exists.
@@ -40,7 +40,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_Points_UnitTestCas
 	public function test_parameters_work_properly() {
 
 		// Create some data for the table.
-		$this->factory->wordpoints_points_log->create_many( 4 );
+		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		// Check output with valid parameters.
 		$document = new DOMDocument;

@@ -16,7 +16,7 @@
  *
  * @group modules
  */
-class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
+class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test the parsing of the header data.
@@ -34,6 +34,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 				Module URI:  https://www.example.com/demo/
 				Description: A demo module.
 				Text Domain: demo
+				Namespace:   Demo
 		    '
 			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
 		);
@@ -52,6 +53,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
+				'namespace'   => 'Demo',
 				'raw_file'    => wordpoints_modules_dir() . 'demo-module/demo-module.php',
 				'raw'         => '
 		        Module Name: Demo Module
@@ -61,6 +63,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 				Module URI:  https://www.example.com/demo/
 				Description: A demo module.
 				Text Domain: demo
+				Namespace:   Demo
 		    ',
 			)
 			, WordPoints_Modules::get_data( 'demo-module' )
@@ -83,6 +86,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_UnitTestCase {
 				Module URI:  https://www.example.com/demo/
 				Description: A demo module.
 				Text Domain: demo
+				Namespace:   Demo
 		    '
 			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
 		);

@@ -15,7 +15,7 @@
  * @group points
  * @group points_hooks
  */
-class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test the get and save hooks functions.
@@ -445,7 +445,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_set_number_with_placeholder() {
 
-		$hook = new WordPoints_Points_Hook_TestDouble();
+		$hook = new WordPoints_PHPUnit_Mock_Points_Hook();
 
 		$hook->set_number( '__i__' );
 

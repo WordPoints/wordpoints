@@ -14,7 +14,7 @@
  *
  * @group ranks
  */
-class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Set up before the tests.
@@ -27,7 +27,7 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 
 		WordPoints_Rank_Types::register_type(
 			__CLASS__
-			, 'WordPoints_Test_Rank_Type'
+			, 'WordPoints_PHPUnit_Mock_Rank_Type'
 		);
 
 		WordPoints_Rank_Groups::register_group(
@@ -177,7 +177,7 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_add_rank_with_emoji_utf8() {
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$rank = wordpoints_add_rank(
@@ -372,7 +372,7 @@ class WordPoints_Ranks_Test extends WordPoints_Ranks_UnitTestCase {
 	 */
 	public function test_update_rank_with_emoji_utf8() {
 
-		$filter = new WordPoints_Mock_Filter( 'utf8' );
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
 		$rank_id = $this->factory->wordpoints_rank->create();

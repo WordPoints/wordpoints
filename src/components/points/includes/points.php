@@ -119,7 +119,12 @@ function wordpoints_add_points_type( $settings ) {
 		return false;
 	}
 
-	$slug = sanitize_key( $settings['name'] );
+	$slug = $settings['name'];
+	$slug = preg_replace( '/\s+/', '-', $slug );
+	$slug = preg_replace( '/-+/', '-', $slug );
+	$slug = trim( $slug, '-' );
+	$slug = sanitize_key( $slug );
+
 	$points_types = wordpoints_get_points_types();
 
 	if ( empty( $slug ) || isset( $points_types[ $slug ] ) ) {
@@ -708,7 +713,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 		}
 
-	} // If logging the transaction.
+	}  // End if ( $log_transaction ).
 
 	/**
 	 * User points altered.
@@ -1030,7 +1035,7 @@ function wordpoints_render_points_log_text( $user_id, $points, $points_type, $lo
  * @since 1.2.0
  * @since 1.6.0 Now expects an array of log objects, instead of an array of log IDs.
  *
- * @param stdClass[] $logs The logs to regenerate the log messages for.
+ * @param object[] $logs The logs to regenerate the log messages for.
  *
  * @return void
  */
@@ -1096,7 +1101,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				$flushed['user_ids'][ $log->user_id ] = true;
 			}
 		}
-	}
+
+	} // End foreach ( $logs ).
 }
 
 /**
@@ -1182,7 +1188,8 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		}
 
 		wp_cache_set( $points_type, $cache, 'wordpoints_points_top_users' );
-	}
+
+	} // End if ( not cached ).
 
 	return array_slice( $cache['top_users'], 0, $num_users );
 }
@@ -1292,7 +1299,8 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 				<?php
 
 				$position++;
-			}
+
+			} // End foreach ( $top_users ).
 
 			?>
 		</tbody>

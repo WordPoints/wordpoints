@@ -23,6 +23,11 @@
  * entities, so that they can be identified specifically even outside of their usual
  * context.
  *
+ * The context API can also allows us to switch from one context to another, so that
+ * when we see that the GUID for a post indicates that it came from a different site
+ * on the network, for example, we can switch to that site before performing an
+ * operation involving the database.
+ *
  * @since 2.1.0
  */
 abstract class WordPoints_Entity_Context {
@@ -78,6 +83,38 @@ abstract class WordPoints_Entity_Context {
 	 */
 	public function get_parent_slug() {
 		return $this->parent_slug;
+	}
+
+	/**
+	 * Switch to a particular context.
+	 *
+	 * Child classes should strongly consider implementing this method, even if that
+	 * means that they have to build their own context switching logic from scratch
+	 * to do so.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int|string $id The ID of the context to switch to.
+	 *
+	 * @return bool Whether the context was switched to successfully.
+	 */
+	public function switch_to( $id ) {
+		return false;
+	}
+
+	/**
+	 * Switch back to the previous context.
+	 *
+	 * Child classes should strongly consider implementing this method, even if that
+	 * means that they have to build their own context switching logic from scratch
+	 * to do so.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @return bool Whether the previous context was switched back to successfully.
+	 */
+	public function switch_back() {
+		return false;
 	}
 
 	/**

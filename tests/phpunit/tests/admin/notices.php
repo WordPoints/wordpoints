@@ -12,7 +12,7 @@
  *
  * @since 2.0.0
  */
-class WordPoints_Admin_Notices_Test extends WordPoints_UnitTestCase {
+class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Whether the Ajax callback functions have been included yet.

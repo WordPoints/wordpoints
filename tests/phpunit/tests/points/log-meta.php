@@ -14,7 +14,7 @@
  *
  * @group points
  */
-class WordPoints_Points_Logs_Meta_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test the log meta flow.

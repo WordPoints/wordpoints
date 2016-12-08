@@ -5,6 +5,7 @@
  *
  * @package WordPoints\Tests
  * @since 1.0.1
+ * @deprecated 2.2.0
  */
 
 /**
@@ -19,6 +20,7 @@
  * as with WP_UnitTestCase.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0 Use Codeception tests instead.
  */
 class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase {
 
@@ -43,6 +45,20 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 * @type array $user_roles
 	 */
 	protected $user_roles;
+
+	/**
+	 * @since 2.2.0
+	 */
+	public static function setUpBeforeClass() {
+
+		_deprecated_function(
+			__CLASS__
+			, '2.2.0'
+			, 'Codeception tests'
+		);
+
+		parent::setUpBeforeClass();
+	}
 
 	/**
 	 * Set up for the tests.

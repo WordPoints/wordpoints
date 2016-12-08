@@ -27,7 +27,7 @@
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
  */
-class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that the custom capabilities that were'nt added in 1.3.0 are added.
@@ -42,9 +42,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->factory->blog->create();
 
 		// Remove the caps on each site for the test.
-		global $wpdb;
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 		foreach ( $blog_ids as $blog_id ) {
 
@@ -56,7 +54,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		// Simulate the update.
 		$this->update_component( 'points', '1.3.0' );
 
-		// Check that the custom capabilties were added.
+		// Check that the custom capabilities were added.
 		foreach ( $blog_ids as $blog_id ) {
 
 			switch_to_blog( $blog_id );
@@ -130,9 +128,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->factory->blog->create();
 
 		// Create an old-style post points hook on each site.
-		global $wpdb;
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 		foreach ( $blog_ids as $blog_id ) {
 
@@ -303,9 +299,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 		$this->factory->blog->create();
 
 		// Create an old-style comment points hook on each site.
-		global $wpdb;
-
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+		$blog_ids = get_sites( array( 'fields' => 'ids', 'number' => 0 ) );
 
 		foreach ( $blog_ids as $blog_id ) {
 
@@ -361,7 +355,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_Points_UnitTestCase
 			);
 
 			restore_current_blog();
-		}
+
+		} // End foreach ( $blog_ids ).
 
 	} // public function test_standard_comment_points_hooks_split_when_network_active()
 

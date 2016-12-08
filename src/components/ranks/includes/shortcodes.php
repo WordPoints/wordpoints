@@ -22,7 +22,7 @@ abstract class WordPoints_Rank_Shortcode extends WordPoints_Shortcode {
 		if ( isset( $this->pairs['rank_group'] ) && empty( $this->atts['rank_group'] ) ) {
 
 			return sprintf(
-				__( 'The &#8220;%s&#8221; attribute of the %s shortcode must be a rank group slug.', 'wordpoints' )
+				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a rank group slug.', 'wordpoints' )
 				,'rank_group'
 				, "<code>[{$this->shortcode}]</code>"
 			);
@@ -64,6 +64,5 @@ class WordPoints_User_Rank_Shortcode extends WordPoints_Rank_Shortcode {
 		);
 	}
 }
-WordPoints_Shortcodes::register( 'wordpoints_user_rank', 'WordPoints_User_Rank_Shortcode' );
 
 // EOF

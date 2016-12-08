@@ -15,7 +15,7 @@
  * @group points
  * @group update
  */
-class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_1_10_0_Update_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.10.0
@@ -34,7 +34,7 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCas
 	 */
 	public function test_post_title_points_log_meta_deleted() {
 
-		$this->factory->wordpoints_points_log->create(
+		$this->factory->wordpoints->points_log->create(
 			array(
 				'log_type' => 'post_delete',
 				'log_meta' => array( 'post_title' => 'Test Post' ),
@@ -69,7 +69,7 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCas
 	 */
 	public function test_post_title_points_log_meta_deleted_network() {
 
-		$this->factory->wordpoints_points_log->create(
+		$this->factory->wordpoints->points_log->create(
 			array(
 				'log_type' => 'post_delete',
 				'log_meta' => array( 'post_title' => 'Test Post' ),
@@ -79,7 +79,7 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_Points_UnitTestCas
 		$blog_id = $this->factory->blog->create();
 
 		switch_to_blog( $blog_id );
-		$this->factory->wordpoints_points_log->create(
+		$this->factory->wordpoints->points_log->create(
 			array(
 				'log_type' => 'post_delete',
 				'log_meta' => array( 'post_title' => 'Test Post' ),

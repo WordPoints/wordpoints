@@ -43,9 +43,12 @@ if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
 
 add_action( 'wordpoints_init_app-apps', 'wordpoints_apps_init' );
 add_action( 'wordpoints_init_app-entities', 'wordpoints_entities_app_init' );
+add_action( 'wordpoints_init_app-entities-restrictions', 'wordpoints_entities_restrictions_app_init' );
 
 add_action( 'wordpoints_init_app_registry-apps-entities', 'wordpoints_entities_init' );
 add_action( 'wordpoints_init_app_registry-entities-contexts', 'wordpoints_entity_contexts_init' );
+add_action( 'wordpoints_init_app_registry-entities-restrictions-know', 'wordpoints_entity_restrictions_know_init' );
+add_action( 'wordpoints_init_app_registry-entities-restrictions-view', 'wordpoints_entity_restrictions_view_init' );
 
 add_action( 'wordpoints_init_app_registry-apps-data_types', 'wordpoints_data_types_init' );
 

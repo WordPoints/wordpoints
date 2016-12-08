@@ -16,4 +16,6 @@ add_filter( 'shortcode_atts_wordpoints_user_rank', 'wordpoints_user_rank_shortco
 
 add_action( 'wordpoints_ranks_register', 'wordpoints_register_points_ranks' );
 
+add_action( 'add_meta_boxes', 'wordpoints_ranks_add_points_types_meta_box_ranks', 20 );
+
 // EOF

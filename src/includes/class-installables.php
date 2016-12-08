@@ -221,8 +221,10 @@ final class WordPoints_Installables {
 				}
 
 				$updated = true;
-			}
-		}
+
+			} // End foreach ( $installables ).
+
+		} // End foreach ( installable types  ).
 
 		if ( $updated ) {
 			update_option( 'wordpoints_data', $wordpoints_data );
@@ -316,13 +318,14 @@ final class WordPoints_Installables {
 					)
 				);
 			}
-		}
+
+		} // End foreach ( $all_skipped ).
 
 		if ( ! empty( $messages ) ) {
 
 			$message = '<p>' . implode( '</p><p>', $messages ) . '</p>';
 			$message .= '<p>' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the component may not function properly.', 'wordpoints' );
-			$message .= ' <a href="https://wordpoints.org/user-guide/multisite/" target="_blank">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
+			$message .= ' <a href="https://wordpoints.org/user-guide/multisite/">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
 
 			$args = array(
 				'dismissible' => true,
@@ -366,25 +369,11 @@ final class WordPoints_Installables {
 	 */
 	public static function get_installer( $type, $slug ) {
 
-		static $loaded_base_uninstaller = false;
-
 		if ( ! isset( self::$registered[ $type ][ $slug ] ) ) {
 			return false;
 		}
 
 		if ( ! isset( self::$installers[ $type ][ $slug ] ) ) {
-
-			if ( ! $loaded_base_uninstaller ) {
-
-				/**
-				 * Uninstall base class.
-				 *
-				 * @since 2.0.0
-				 */
-				require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
-
-				$loaded_base_uninstaller = true;
-			}
 
 			if ( ! file_exists( self::$registered[ $type ][ $slug ]['un_installer'] ) ) {
 				return false;

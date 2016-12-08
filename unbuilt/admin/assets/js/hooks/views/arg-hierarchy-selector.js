@@ -13,7 +13,7 @@ var Base = wp.wordpoints.hooks.view.Base,
 
 ArgHierarchySelector = Base.extend({
 
-	namespace: 'arg-selector2',
+	namespace: 'arg-hierarchy-selector',
 
 	tagName: 'div',
 

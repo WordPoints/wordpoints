@@ -14,7 +14,7 @@
  *
  * @group update
  */
-class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_UnitTestCase {
+class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test that the installed site IDs are added to the DB option.

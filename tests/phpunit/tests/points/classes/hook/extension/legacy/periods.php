@@ -89,7 +89,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 	}
 
 	/**
-	 * Data provider for the the 'relative' period setting
+	 * Data provider for the 'relative' period setting
 	 *
 	 * @since 2.1.0
 	 *
@@ -210,7 +210,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 		);
 
 		// Now fast-forward all the way.
-		$this->fast_forward_points( $period + 1 );
+		$this->fast_forward_points( $period + 2 );
 
 		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
 
@@ -521,7 +521,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 		$this->assertIsReaction( $reaction );
 
 		// Listen for queries.
-		$point_log_queries = new WordPoints_Mock_Filter();
+		$point_log_queries = new WordPoints_PHPUnit_Mock_Filter();
 		$point_log_queries->count_callback = array( $this, 'is_points_logs_query' );
 		add_filter( 'query', array( $point_log_queries, 'filter' ) );
 

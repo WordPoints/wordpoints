@@ -7,6 +7,14 @@
  * @since 2.1.0
  */
 
+add_action( 'wordpoints_init_app-components', 'wordpoints_points_components_app_init' );
+
+add_action( 'wordpoints_init_app-components-points', 'wordpoints_points_apps_init' );
+add_action( 'wordpoints_init_app-components-points-logs', 'wordpoints_points_logs_apps_init' );
+
+add_action( 'wordpoints_init_app_registry-components-points-logs-views', 'wordpoints_points_logs_views_init' );
+add_action( 'wordpoints_init_app_registry-components-points-logs-viewing_restrictions', 'wordpoints_points_logs_viewing_restrictions_init' );
+
 add_action( 'wordpoints_init_app_registry-hooks-reactors', 'wordpoints_points_hook_reactors_init' );
 add_action( 'wordpoints_init_app_registry-hooks-reaction_stores', 'wordpoints_points_hook_reaction_stores_init' );
 add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_points_hook_extensions_init' );
@@ -51,6 +59,9 @@ if ( ! is_multisite() || is_wordpoints_network_active() ) {
 	add_action( 'remove_user_from_blog', 'wordpoints_clean_points_top_users_cache_user_deleted' );
 }
 
-add_filter( 'wordpoints_user_can_view_points_log', 'wordpoints_hooks_user_can_view_points_log', 10, 3 );
+WordPoints_Shortcodes::register( 'wordpoints_points_top', 'WordPoints_Points_Top_Shortcode' );
+WordPoints_Shortcodes::register( 'wordpoints_points_logs', 'WordPoints_Points_Logs_Shortcode' );
+WordPoints_Shortcodes::register( 'wordpoints_points', 'WordPoints_User_Points_Shortcode' );
+WordPoints_Shortcodes::register( 'wordpoints_how_to_get_points', 'WordPoints_How_To_Get_Points_Shortcode' );
 
 // EOF

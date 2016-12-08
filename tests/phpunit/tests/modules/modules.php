@@ -15,7 +15,7 @@
  *
  * @group modules
  */
-class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
+class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Expected basic module header data.
@@ -39,7 +39,18 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 		'update_api'  => '',
 		'channel'     => '',
 		'ID'          => '',
+		'namespace'   => '',
 	);
+
+	/**
+	 * @since 2.2.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+	}
 
 	/**
 	 * Test wordpoints_module_basename().
@@ -90,6 +101,7 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
+				'namespace'   => '',
 			)
 			, $modules['test-4/test-4.php']
 		);
@@ -112,6 +124,7 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
+				'namespace'   => '',
 			)
 			, $modules['test-6/main-file.php']
 		);
@@ -142,6 +155,7 @@ class WordPoints_Modules_Test extends WordPoints_UnitTestCase {
 					'update_api'  => '',
 					'channel'     => '',
 					'ID'          => '',
+					'namespace'   => '',
 				),
 			)
 			, wordpoints_get_modules( '/test-4' )

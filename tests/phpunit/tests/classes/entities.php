@@ -86,7 +86,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 			'post'    => array(
 				array(
 					'class'          => 'WordPoints_Entity_Post',
-					'slug'           => 'post',
+					'slug'           => 'post\post',
 					'id_field'       => 'ID',
 					'human_id_field' => 'post_title',
 					'storage_info'   => array(
@@ -131,7 +131,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 			'comment' => array(
 				array(
 					'class'          => 'WordPoints_Entity_Comment',
-					'slug'           => 'post',
+					'slug'           => 'comment\post',
 					'id_field'       => 'comment_ID',
 					'human_id_field' => 'comment_content',
 					'storage_info'   => array(
@@ -190,12 +190,12 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					'class'          => 'WordPoints_Entity_User_Role',
 					'slug'           => 'user_role',
 					'id_field'       => 'name',
-					'human_id_field' => '_display_name',
+					'get_human_id'   => array( $this, 'get_role_display_name' ),
 					'storage_info'   => array(
 						'type' => 'array',
 						'info' => array( 'type' => 'method' ),
 					),
-					'create_func'    => array( $this, 'create_role' ),
+					'create_func'    => array( $this->factory->wordpoints->user_role, 'create_and_get' ),
 					'delete_func'    => 'remove_role',
 				),
 			),

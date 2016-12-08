@@ -19,7 +19,7 @@
  *
  * @covers WordPoints_Comment_Points_Hook
  */
-class WordPoints_Comment_Points_Hook_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Comment_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0

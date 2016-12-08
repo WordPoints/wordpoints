@@ -16,7 +16,7 @@
  *
  * @covers WordPoints_Points_Logs_Widget
  */
-class WordPoints_Points_Logs_Widget_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0
@@ -55,7 +55,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_Points_UnitTestCase 
 	 */
 	public function test_defaults() {
 
-		$this->factory->wordpoints_points_log->create_many( 11 );
+		$this->factory->wordpoints->points_log->create_many( 11 );
 
 		$xpath = $this->get_widget_xpath( array( 'points_type' => 'points' ) );
 
@@ -69,7 +69,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_Points_UnitTestCase 
 	 */
 	public function test_number_logs_setting() {
 
-		$this->factory->wordpoints_points_log->create_many( 4 );
+		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		$xpath = $this->get_widget_xpath(
 			array( 'points_type' => 'points', 'number_logs' => 2 )

@@ -19,7 +19,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @var WordPoints_Un_Installer_Mock
+	 * @var WordPoints_PHPUnit_Mock_Un_Installer
 	 */
 	protected $un_installer;
 
@@ -57,7 +57,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		$this->un_installer = new WordPoints_Un_Installer_Mock( 'test', '1.0.0' );
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer( 'test', '1.0.0' );
 		$this->un_installer->type = 'module';
 
 		delete_site_transient( 'wordpoints_all_site_ids' );
@@ -87,7 +87,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_construct_requires_slug() {
 
-		new WordPoints_Un_Installer_Mock( null, '1.0.0' );
+		new WordPoints_PHPUnit_Mock_Un_Installer( null, '1.0.0' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_construct_requires_version() {
 
-		new WordPoints_Un_Installer_Mock( 'test' );
+		new WordPoints_PHPUnit_Mock_Un_Installer( 'test' );
 	}
 
 	/**
@@ -289,6 +289,67 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that install() restores the current site after installing network wide.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_current_site_restored() {
+
+		global $_wp_switched_stack, $switched;
+
+		$this->factory->blog->create();
+		$current_site_id = get_current_blog_id();
+
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+
+		$this->un_installer->install( true );
+
+		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+	}
+
+	/**
+	 * Test that install() restores the current site after installing network wide.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::install
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_install_network_wide_current_site_restored_switched() {
+
+		global $_wp_switched_stack, $switched;
+
+		$previous_site_id = get_current_blog_id();
+
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+
+		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertTrue( $switched );
+
+		$this->un_installer->install( true );
+
+		$this->assertEquals( $site_id, get_current_blog_id() );
+		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertTrue( $switched );
+
+		restore_current_blog();
+
+		$this->assertEquals( $previous_site_id, get_current_blog_id() );
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+	}
+
+	/**
 	 * Test how hooks mode is handled during install() when network-wide.
 	 *
 	 * @since 2.1.0
@@ -400,6 +461,71 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
+	}
+
+	/**
+	 * Test that uninstall() restores the current site after uninstalling network wide.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_network_wide_current_site_restored() {
+
+		global $_wp_switched_stack, $switched;
+
+		$this->factory->blog->create();
+		$current_site_id = get_current_blog_id();
+
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->set_network_installed();
+		$this->un_installer->uninstall();
+
+		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+	}
+
+	/**
+	 * Test that uninstall() restores the current site after uninstalling network wide.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_network_wide_current_site_restored_switched() {
+
+		global $_wp_switched_stack, $switched;
+
+		$previous_site_id = get_current_blog_id();
+
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+
+		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertTrue( $switched );
+
+		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
+		$this->un_installer->set_network_installed();
+		$this->un_installer->uninstall();
+
+		$this->assertEquals( $site_id, get_current_blog_id() );
+		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertTrue( $switched );
+
+		restore_current_blog();
+
+		$this->assertEquals( $previous_site_id, get_current_blog_id() );
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
 	}
 
 	/**
@@ -781,6 +907,77 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that update() restores the current site after updating network wide.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_current_site_restored() {
+
+		global $_wp_switched_stack, $switched;
+
+		$this->factory->blog->create();
+		$current_site_id = get_current_blog_id();
+
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+	}
+
+	/**
+	 * Test that update() restores the current site after updating network wide.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_update_network_wide_current_site_restored_switched() {
+
+		global $_wp_switched_stack, $switched;
+
+		$previous_site_id = get_current_blog_id();
+
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+
+		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertTrue( $switched );
+
+		$this->un_installer->set_network_installed();
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( '0.9.0', '1.0.0', true );
+
+		$this->assertEquals( $site_id, get_current_blog_id() );
+		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertTrue( $switched );
+
+		restore_current_blog();
+
+		$this->assertEquals( $previous_site_id, get_current_blog_id() );
+		$this->assertEmpty( $_wp_switched_stack );
+		$this->assertEmpty( $switched );
+	}
+
+	/**
 	 * Test how hooks mode is handled during update() when network-wide.
 	 *
 	 * @since 2.1.0
@@ -1111,7 +1308,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$site_id = get_current_blog_id();
 
-		$filter_mock = new WordPoints_Mock_Filter();
+		$filter_mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_action( 'switch_blog', array( $filter_mock, 'action' ) );
 
 		$this->un_installer->install_on_site( $site_id );
@@ -3249,7 +3446,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		add_filter( 'wp_is_large_network', '__return_true' );
 
 		// We don't actually create 10000 sites in the database.
-		$mock_filter = new WordPoints_Mock_Filter( array_fill( 0, 10001, 1 ) );
+		$mock_filter = new WordPoints_PHPUnit_Mock_Filter( array_fill( 0, 10001, 1 ) );
 
 		add_filter(
 			'pre_site_option_wordpoints_module_test_installed_sites'
@@ -4079,13 +4276,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function assertCapWasAdded( $analog, $cap ) {
 
-		global $wp_roles;
-
-		if ( ! $wp_roles instanceof WP_Roles ) {
-			$wp_roles = new WP_Roles;
-		}
-
-		foreach ( $wp_roles->role_objects as $role ) {
+		/** @var WP_Role $role */
+		foreach ( wp_roles()->role_objects as $role ) {
 			if ( $role->has_cap( $analog ) ) {
 				$this->assertTrue( $role->has_cap( $cap ) );
 			}
@@ -4101,13 +4293,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function assertCapWasRemoved( $cap ) {
 
-		global $wp_roles;
-
-		if ( ! $wp_roles instanceof WP_Roles ) {
-			$wp_roles = new WP_Roles;
-		}
-
-		foreach ( $wp_roles->role_objects as $role ) {
+		/** @var WP_Role $role */
+		foreach ( wp_roles()->role_objects as $role ) {
 			$this->assertFalse( $role->has_cap( $cap ) );
 		}
 	}

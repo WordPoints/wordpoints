@@ -14,7 +14,7 @@
  *
  * @covers WordPoints_Points_Legacy_Hook_To_Reaction_Importer
  */
-class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that it imports legacy points hooks on install.
@@ -533,7 +533,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				, $post_type_settings['log_text']
 			);
 
-			if ( $post_type->name === 'attachment' ) {
+			if ( 'attachment' === $post_type->name ) {
 
 				$post_type_settings['event'] = 'media_upload';
 				unset( $post_type_settings['points_legacy_repeat_blocker'] );
@@ -575,7 +575,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			);
 
 			$i++;
-		}
+
+		} // End foreach ( $post_types ).
 
 		$this->assertArrayHasKey(
 			$hook_type
@@ -764,7 +765,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		array_map(
 			'wordpoints_points_register_legacy_post_publish_events'
-			, get_post_types( array( 'public' => true ) )
+			, wordpoints_get_post_types_for_hook_events()
 		);
 
 		$this->import_legacy_points_hook(
@@ -921,7 +922,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 			default:
 				$this->fail( 'Missing hook works assertion for legacy slug ' . $legacy_slug );
-		}
+
+		} // End switch ( $legacy_slug ).
 
 		$this->assertEquals(
 			$settings['points']

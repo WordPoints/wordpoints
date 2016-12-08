@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_Rank_Groups
  */
-class WordPoints_Rank_Groups_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_Rank_Groups_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Clean up after each test.
@@ -111,7 +111,7 @@ class WordPoints_Rank_Groups_Test extends WordPoints_Ranks_UnitTestCase {
 
 		WordPoints_Rank_Types::register_type(
 			__CLASS__
-			, 'WordPoints_Test_Rank_Type'
+			, 'WordPoints_PHPUnit_Mock_Rank_Type'
 		);
 
 		$result = WordPoints_Rank_Groups::register_type_for_group(

@@ -108,7 +108,8 @@ function wordpoints_admin_menu() {
 			,'wordpoints_modules'
 			,'wordpoints_admin_screen_modules'
 		);
-	}
+
+	} // End if ( configure is main menu ) else.
 
 	// Modules page.
 	add_submenu_page(
@@ -437,10 +438,31 @@ function wordpoints_register_admin_scripts() {
 		, 'wordpoints-templates'
 		, '
 			<script type="text/template" id="tmpl-wordpoints-hook-periods">
-				<div class="periods-title section-title">
-					<h4>' . esc_html__( 'Rate Limit', 'wordpoints' ) . '</h4>
+				<div class="wordpoints-hook-periods">
+					<div class="periods-title section-title">
+						<h4>' . esc_html__( 'Rate Limit', 'wordpoints' ) . '</h4>
+					</div>
+					<div class="periods section-content"></div>
 				</div>
-				<div class="periods section-content"></div>
+			</script>
+			
+			<script type="text/template" id="tmpl-wordpoints-hook-reaction-simple-period">
+				<div class="wordpoints-period">
+					<input type="hidden" name="{{ data.name }}" value="{{ data.length }}" class="widefat wordpoints-hook-period-length" />
+					<fieldset>
+						<p class="description description-thin">
+							<legend>{{ data.length_in_units_label }}</legend>
+							<label>
+								<span class="screen-reader-text">' . esc_html__( 'Time Units:', 'wordpoints' ) . '</span>
+								<select class="widefat wordpoints-hook-period-sync wordpoints-hook-period-units"></select>
+							</label>
+							<label>
+								<span class="screen-reader-text">' . esc_html__( 'Number:', 'wordpoints' ) . '</span>
+								<input type="number" value="{{ data.length_in_units }}" class="widefat wordpoints-hook-period-sync wordpoints-hook-period-length-in-units" />
+							</label>
+						</p>
+					</fieldset>
+				</div>
 			</script>
 		'
 	);
@@ -616,7 +638,8 @@ function wordpoints_hooks_ui_get_script_data_entities() {
 			, $entities_data[ $slug ]
 			, $entity
 		);
-	}
+
+	} // End foreach ( $entities->get_all() ).
 
 	return $entities_data;
 }
@@ -860,14 +883,21 @@ function wordpoints_install_modules_upload() {
 
 	?>
 
-	<h2><?php esc_html_e( 'Install a module in .zip format', 'wordpoints' ); ?></h2>
-	<p class="install-help"><?php esc_html_e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
-	<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_attr( esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ) ); ?>">
-		<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
-		<label class="screen-reader-text" for="modulezip"><?php esc_html_e( 'Module zip file', 'wordpoints' ); ?></label>
-		<input type="file" id="modulezip" name="modulezip" />
-		<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
-	</form>
+	<style type="text/css">
+		.wordpoints-upload-module {
+			display: block;
+		}
+	</style>
+
+	<div class="upload-plugin wordpoints-upload-module">
+		<p class="install-help"><?php esc_html_e( 'If you have a module in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
+		<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ); ?>">
+			<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
+			<label class="screen-reader-text" for="modulezip"><?php esc_html_e( 'Module zip file', 'wordpoints' ); ?></label>
+			<input type="file" id="modulezip" name="modulezip" />
+			<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
+		</form>
+	</div>
 
 	<?php
 }
@@ -882,7 +912,7 @@ function wordpoints_install_modules_upload() {
 function wordpoints_upload_module_zip() {
 
 	if ( ! current_user_can( 'install_wordpoints_modules' ) ) {
-		wp_die( esc_html__( 'You do not have sufficient permissions to install WordPoints modules on this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+		wp_die( esc_html__( 'Sorry, you are not allowed to install WordPoints modules on this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 	}
 
 	check_admin_referer( 'wordpoints-module-upload' );
@@ -895,15 +925,12 @@ function wordpoints_upload_module_zip() {
 
 	require_once ABSPATH . 'wp-admin/admin-header.php';
 
-	require_once WORDPOINTS_DIR . 'admin/includes/class-wordpoints-module-installer.php';
-	require_once WORDPOINTS_DIR . 'admin/includes/class-wordpoints-module-installer-skin.php';
-
 	$upgrader = new WordPoints_Module_Installer(
 		new WordPoints_Module_Installer_Skin(
 			array(
 				'title' => sprintf( esc_html__( 'Installing Module from uploaded file: %s', 'wordpoints' ), esc_html( basename( $file_upload->filename ) ) ),
 				'nonce' => 'wordpoints-module-upload',
-				'url'   => add_query_arg( array( 'package' => $file_upload->id ), 'update.php?action=upload-wordpoints-module' ),
+				'url'   => add_query_arg( array( 'package' => $file_upload->id ), self_admin_url( 'update.php?action=upload-wordpoints-module' ) ),
 				'type'  => 'upload',
 			)
 		)
@@ -961,26 +988,32 @@ function wordpoints_plugin_upload_error_filter( $source ) {
 
 			if ( is_dir( $working_directory ) ) {
 
-				// Check if the folder contains a module.
-				foreach ( glob( $working_directory . '*.php' ) as $file ) {
+				$files = glob( $working_directory . '*.php' );
 
-					$info = wordpoints_get_module_data( $file, false, false );
+				if ( is_array( $files ) ) {
 
-					if ( ! empty( $info['name'] ) ) {
-						$source = new WP_Error(
-							'wordpoints_module_archive_not_plugin'
-							, $source->get_error_message()
-							, __( 'This appears to be a WordPoints module archive. Try installing it on the WordPoints module install screen instead.', 'wordpoints' )
-						);
+					// Check if the folder contains a module.
+					foreach ( $files as $file ) {
 
-						break;
+						$info = wordpoints_get_module_data( $file, false, false );
+
+						if ( ! empty( $info['name'] ) ) {
+							$source = new WP_Error(
+								'wordpoints_module_archive_not_plugin'
+								, $source->get_error_message()
+								, __( 'This appears to be a WordPoints module archive. Try installing it on the WordPoints module install screen instead.', 'wordpoints' )
+							);
+
+							break;
+						}
 					}
 				}
 			}
 		}
 
 		unset( $_source );
-	}
+
+	} // End if ( ! isset( $_source ) ) else.
 
 	return $source;
 }
@@ -1079,8 +1112,10 @@ function wordpoints_admin_notices() {
 					)
 				);
 			}
-		}
-	}
+
+		} // End if ( is_network_admin() ) else.
+
+	} // End if ( user can activate modules ).
 }
 
 /**

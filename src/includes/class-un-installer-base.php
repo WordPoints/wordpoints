@@ -316,7 +316,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->network_wide = $network;
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -349,19 +349,15 @@ abstract class WordPoints_Un_Installer_Base {
 
 				if ( ! ( $skip_per_site_install & self::SKIP_INSTALL ) ) {
 
-					$original_blog_id = get_current_blog_id();
+					$ms_switched_state = new WordPoints_Multisite_Switched_State();
+					$ms_switched_state->backup();
 
 					foreach ( $this->get_all_site_ids() as $blog_id ) {
 						switch_to_blog( $blog_id );
 						$this->install_site();
 					}
 
-					switch_to_blog( $original_blog_id );
-
-					// See https://wordpress.stackexchange.com/a/89114/27757
-					unset( $GLOBALS['_wp_switched_stack'] );
-					$GLOBALS['switched'] = false;
-
+					$ms_switched_state->restore();
 				}
 
 				if ( $skip_per_site_install & self::REQUIRES_MANUAL_INSTALL ) {
@@ -381,7 +377,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->context = 'single';
 			$this->install_single();
-		}
+
+		} // End if ( is_multisite() ) else.
 
 		$hooks->set_current_mode( $hooks_mode );
 	}
@@ -398,7 +395,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->action = 'install';
 		$this->network_wide = true;
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -434,7 +431,7 @@ abstract class WordPoints_Un_Installer_Base {
 		$this->load_base_dependencies();
 		$this->load_dependencies();
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -448,7 +445,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 				$this->context = 'site';
 
-				$original_blog_id = get_current_blog_id();
+				$ms_switched_state = new WordPoints_Multisite_Switched_State();
+				$ms_switched_state->backup();
 
 				$site_ids = $this->get_installed_site_ids();
 
@@ -461,11 +459,9 @@ abstract class WordPoints_Un_Installer_Base {
 					$this->uninstall_site();
 				}
 
-				switch_to_blog( $original_blog_id );
+				$ms_switched_state->restore();
 
-				// See https://wordpress.stackexchange.com/a/89114/27757
-				unset( $GLOBALS['_wp_switched_stack'] );
-				$GLOBALS['switched'] = false;
+				unset( $ms_switched_state, $site_ids );
 			}
 
 			$this->context = 'network';
@@ -487,7 +483,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->context = 'single';
 			$this->uninstall_single();
-		}
+
+		} // End if ( is_multisite() ) else.
 
 		$hooks->set_current_mode( $hooks_mode );
 	}
@@ -544,7 +541,7 @@ abstract class WordPoints_Un_Installer_Base {
 			return;
 		}
 
-		ignore_user_abort( true );
+		$this->no_interruptions();
 
 		$hooks = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
@@ -577,18 +574,15 @@ abstract class WordPoints_Un_Installer_Base {
 
 					if ( $this->do_per_site_update() ) {
 
-						$original_blog_id = get_current_blog_id();
+						$ms_switched_state = new WordPoints_Multisite_Switched_State();
+						$ms_switched_state->backup();
 
 						foreach ( $this->get_installed_site_ids() as $blog_id ) {
 							switch_to_blog( $blog_id );
 							$this->update_( 'site', $updates );
 						}
 
-						switch_to_blog( $original_blog_id );
-
-						// See https://wordpress.stackexchange.com/a/89114/27757
-						unset( $GLOBALS['_wp_switched_stack'] );
-						$GLOBALS['switched'] = false;
+						$ms_switched_state->restore();
 
 					} else {
 
@@ -607,7 +601,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 			$this->context = 'single';
 			$this->update_( 'single', $this->get_updates_for( 'single' ) );
-		}
+
+		} // End if ( is_multisite() ) else.
 
 		$this->after_update();
 
@@ -617,6 +612,20 @@ abstract class WordPoints_Un_Installer_Base {
 	//
 	// Protected Methods.
 	//
+
+	/**
+	 * Prevent any interruptions from occurring during the update.
+	 *
+	 * @since 2.2.0
+	 */
+	protected function no_interruptions() {
+
+		ignore_user_abort( true );
+
+		if ( ! wordpoints_is_function_disabled( 'set_time_limit' ) ) {
+			set_time_limit( 0 );
+		}
+	}
 
 	/**
 	 * Check whether we should run the install for each site in the network.
@@ -668,15 +677,13 @@ abstract class WordPoints_Un_Installer_Base {
 
 		if ( ! $site_ids ) {
 
-			global $wpdb;
-
-			$site_ids = $wpdb->get_col(
-				"
-					SELECT `blog_id`
-					FROM `{$wpdb->blogs}`
-					WHERE `site_id` = {$wpdb->siteid}
-				"
-			); // WPCS: cache OK.
+			$site_ids = get_sites(
+				array(
+					'fields'     => 'ids',
+					'network_id' => get_current_network_id(),
+					'number'     => 0,
+				)
+			);
 
 			set_site_transient( 'wordpoints_all_site_ids', $site_ids, 2 * MINUTE_IN_SECONDS );
 		}
@@ -940,20 +947,18 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function validate_site_ids( $site_ids ) {
 
-		global $wpdb;
-
 		if ( empty( $site_ids ) || ! is_array( $site_ids ) ) {
 			return array();
 		}
 
-		$site_ids = $wpdb->get_col( // WPCS: unprepared SQL OK
-			"
-				SELECT `blog_id`
-				FROM `{$wpdb->blogs}`
-				WHERE `blog_id` IN (" . implode( ',', array_map( 'absint', $site_ids ) ) . ")
-					AND `site_id` = {$wpdb->siteid}
-			"
-		); // Cache pass, WPCS.
+		$site_ids = get_sites(
+			array(
+				'fields'     => 'ids',
+				'network_id' => get_current_network_id(),
+				'number'     => 0,
+				'site__in'   => $site_ids,
+			)
+		);
 
 		return $site_ids;
 	}

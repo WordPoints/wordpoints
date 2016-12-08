@@ -8,13 +8,6 @@
  */
 
 /**
- * The points rank type.
- *
- * @since 1.7.0
- */
-include_once( WORDPOINTS_DIR . '/components/ranks/includes/rank-types/points.php' );
-
-/**
  * Functions to integrate with the points component.
  *
  * @since 2.1.0

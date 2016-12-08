@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_User_Rank_Shortcode
  */
-class WordPoints_User_Rank_Shortcode_Test extends WordPoints_Ranks_UnitTestCase {
+class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
 	 * Test that the [wordpoints_user_rank] shortcode exists.

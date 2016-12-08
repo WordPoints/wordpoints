@@ -11,6 +11,7 @@
  * Implemented by entities whose visibility may be restricted for some users.
  *
  * @since 2.1.0
+ * @deprecated 2.2.0 Use the entity restrictions API instead.
  */
 interface WordPoints_Entity_Restricted_VisibilityI {
 

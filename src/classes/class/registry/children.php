@@ -31,18 +31,38 @@ class WordPoints_Class_Registry_Children
 	protected $classes = array();
 
 	/**
+	 * Settings for this registry.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array {
+	 *      Other arguments.
+	 *
+	 *      @type bool $pass_slugs Whether to pass the class slugs to the
+	 *                             constructors as the first argument. Default is
+	 *                             true.
+	 * }
+	 */
+	protected $settings = array(
+		'pass_slugs' => true,
+	);
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function get_all( array $args = array() ) {
 
 		$items = array();
 
-		array_unshift( $args, null );
+		if ( $this->settings['pass_slugs'] ) {
+			array_unshift( $args, null );
+		}
 
 		foreach ( $this->classes as $parent_slug => $classes ) {
 			$items[ $parent_slug ] = WordPoints_Class_Registry::construct_with_args(
 				$classes
-				, array( $parent_slug ) + $args
+				, $this->settings['pass_slugs'] ? array( $parent_slug ) + $args : $args
+				, $this->settings
 			);
 		}
 
@@ -65,11 +85,14 @@ class WordPoints_Class_Registry_Children
 
 		if ( isset( $this->classes[ $parent_slug ] ) ) {
 
-			array_unshift( $args, $parent_slug );
+			if ( $this->settings['pass_slugs'] ) {
+				array_unshift( $args, $parent_slug );
+			}
 
 			$items = WordPoints_Class_Registry::construct_with_args(
 				$this->classes[ $parent_slug ]
 				, $args
+				, $this->settings
 			);
 		}
 
@@ -102,9 +125,18 @@ class WordPoints_Class_Registry_Children
 		$class = $this->classes[ $parent_slug ][ $slug ];
 
 		if ( empty( $args ) ) {
-			return new $class( $slug, $parent_slug );
+
+			if ( $this->settings['pass_slugs'] ) {
+				return new $class( $slug, $parent_slug );
+			} else {
+				return new $class();
+			}
+
 		} else {
-			array_unshift( $args, $slug, $parent_slug );
+
+			if ( $this->settings['pass_slugs'] ) {
+				array_unshift( $args, $slug, $parent_slug );
+			}
 
 			return wordpoints_construct_class_with_args( $class, $args );
 		}

@@ -185,7 +185,8 @@ if ( is_network_admin() ) {
 				<?php
 
 				$i++;
-			}
+
+			} // End foreach ( $points_types ).
 
 			if (
 				get_site_option( 'wordpoints_disabled_points_hooks_edit_points_types' )
@@ -228,7 +229,7 @@ if ( is_network_admin() ) {
 
 				<?php
 
-			}
+			} // End if ( user can create points types ).
 
 			?>
 

@@ -5,6 +5,7 @@
  *
  * @package WordPoints\Tests
  * @since 1.5.0
+ * @deprecated 2.1.0
  */
 
 /**
@@ -14,6 +15,20 @@
  * @deprecated 2.1.0 Use WordPoints_PHPUnit_TestCase instead.
  */
 abstract class WordPoints_UnitTestCase extends WordPoints_PHPUnit_TestCase {
+
+	/**
+	 * @since 2.2.0
+	 */
+	public static function setUpBeforeClass() {
+
+		_deprecated_function(
+			__CLASS__
+			, '2.2.0'
+			, 'WordPoints_PHPUnit_TestCase'
+		);
+
+		parent::setUpBeforeClass();
+	}
 
 	/**
 	 * Set the version of the points component.

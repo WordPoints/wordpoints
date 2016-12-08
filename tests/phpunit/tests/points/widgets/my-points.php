@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_My_Points_Widget
  */
-class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0
@@ -100,7 +100,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_defaults() {
 
-		$this->factory->wordpoints_points_log->create_many(
+		$this->factory->wordpoints->points_log->create_many(
 			4
 			, array( 'user_id' => get_current_user_id() )
 		);
@@ -155,7 +155,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_Points_UnitTestCase {
 	 */
 	public function test_number_logs_setting() {
 
-		$this->factory->wordpoints_points_log->create_many(
+		$this->factory->wordpoints->points_log->create_many(
 			4
 			, array( 'user_id' => get_current_user_id() )
 		);

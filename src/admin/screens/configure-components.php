@@ -71,8 +71,9 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 				, array( 'dismissible' => true )
 			);
 		}
-	}
-}
+	} // End if ( message ) elseif ( error ).
+
+} // End if ( valid submission ).
 
 //
 // Display the page.
@@ -120,7 +121,7 @@ do_action( 'wordpoints_admin_components_top' );
 		<tr>
 			<td>
 				<?php if ( '' !== $component['component_uri'] ) : ?>
-					<a href="<?php echo esc_attr( esc_url( $component['component_uri'] ) ); ?>">
+					<a href="<?php echo esc_url( $component['component_uri'] ); ?>">
 				<?php endif; ?>
 					<?php echo esc_html( $component['name'] ); ?>
 				<?php if ( '' !== $component['component_uri'] ) : ?>
@@ -136,7 +137,7 @@ do_action( 'wordpoints_admin_components_top' );
 					echo esc_html( sprintf( __( 'By %s', 'wordpoints' ), '' /* This space intentionally left blank */ ) );
 					?>
 					<?php if ( '' !== $component['author_uri'] ) : ?>
-						<a href="<?php echo esc_attr( esc_url( $component['author_uri'] ) ); ?>">
+						<a href="<?php echo esc_url( $component['author_uri'] ); ?>">
 					<?php endif; ?>
 						<?php echo esc_html( $component['author'] ); ?>
 					<?php if ( '' !== $component['author_uri'] ) : ?>

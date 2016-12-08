@@ -32,7 +32,7 @@ class WordPoints_Hook_Events_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
-	 * Test registering an event without the the extra args is OK.
+	 * Test registering an event without the extra args is OK.
 	 *
 	 * @since 2.1.0
 	 */

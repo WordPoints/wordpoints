@@ -38,27 +38,31 @@ class WordPoints_Hook_Extension_Periods
 	 */
 	public function get_ui_script_data() {
 
-		$periods = array(
-			MINUTE_IN_SECONDS   => __( 'Minute', 'wordpoints' ),
-			HOUR_IN_SECONDS     => __( 'Hour',   'wordpoints' ),
-			DAY_IN_SECONDS      => __( 'Day',    'wordpoints' ),
-			WEEK_IN_SECONDS     => __( 'Week',   'wordpoints' ),
-			30 * DAY_IN_SECONDS => __( 'Month',  'wordpoints' ),
+		$period_units = array(
+			1                   => __( 'Seconds', 'wordpoints' ),
+			MINUTE_IN_SECONDS   => __( 'Minutes', 'wordpoints' ),
+			HOUR_IN_SECONDS     => __( 'Hours',   'wordpoints' ),
+			DAY_IN_SECONDS      => __( 'Days',    'wordpoints' ),
+			WEEK_IN_SECONDS     => __( 'Weeks',   'wordpoints' ),
+			30 * DAY_IN_SECONDS => __( 'Months',  'wordpoints' ),
 		);
 
 		/**
-		 * Filter the list of periods displayed in the hooks UI.
+		 * Filter the list of period units displayed in the hooks UI.
 		 *
-		 * @since 2.1.0
+		 * @since 2.2.0
 		 *
-		 * @param string[] $periods The period titles, indexed by length in seconds.
+		 * @param string[] $units The unit titles, indexed by unit length in seconds.
 		 */
-		$periods = apply_filters( 'wordpoints_hooks_ui_data_periods', $periods );
+		$period_units = apply_filters(
+			'wordpoints_hooks_ui_data_period_units'
+			, $period_units
+		);
 
 		return array(
-			'periods' => $periods,
+			'period_units' => $period_units,
 			'l10n' => array(
-				'label' => __( 'Trigger reaction no more than once per:', 'wordpoints' ),
+				'label' => __( 'Trigger reaction no more than once in:', 'wordpoints' ),
 			),
 		);
 	}
@@ -280,7 +284,7 @@ class WordPoints_Hook_Extension_Periods
 	}
 
 	/**
-	 * Get a a period from the database by ID.
+	 * Get a period from the database by ID.
 	 *
 	 * @since 2.1.0
 	 *

@@ -238,21 +238,17 @@ function wordpoints_modules_dir() {
 
 			$modules_dir = WP_CONTENT_DIR . '/wordpoints-modules/';
 		}
-
-		/**
-		 * Filter the path to the modules directory.
-		 *
-		 * Note that the value is stored in a static variable, and so is only
-		 * calculated once, meaning that it wont change during a single page load.
-		 *
-		 * @since 1.1.0
-		 *
-		 * @param string $module_dir The full path to the modules folder.
-		 */
-		$modules_dir = apply_filters( 'wordpoints_modules_dir', $modules_dir );
 	}
 
-	return $modules_dir;
+	/**
+	 * Filter the path to the modules directory.
+	 *
+	 * @since 1.1.0
+	 * @since 2.2.0 The filter is no longer called only once per page load.
+	 *
+	 * @param string $module_dir The full path to the modules folder.
+	 */
+	return apply_filters( 'wordpoints_modules_dir', $modules_dir );
 }
 
 /**
@@ -337,6 +333,7 @@ function wordpoints_module_basename( $file ) {
  * @since 1.1.0
  * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
  * @since 1.10.0 The 'update_api' header is deprecated in favor of 'channel'.
+ * @since 2.2.0 The 'namespace' header is now supported.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -358,6 +355,7 @@ function wordpoints_module_basename( $file ) {
  *         @type bool   $network     Whether the module should only be network activated.
  *         @type string $channel     The URL of the update service to be used for this module.
  *         @type mixed  $ID          A unique identifier for this module, used by the update service.
+ *         @type string $namespace   The namespace for this module. Should be Title_Case, and omit "WordPoints" prefix.
  * }
  */
 function wordpoints_get_module_data( $module_file, $markup = true, $translate = true ) {
@@ -375,6 +373,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'update_api'  => 'Update API',
 		'channel'     => 'Channel',
 		'ID'          => 'ID',
+		'namespace'   => 'Namespace',
 	);
 
 	$module_data = WordPoints_Modules::get_data( $module_file );
@@ -403,15 +402,20 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 			if ( $textdomain ) {
 
-				if ( $module_data['domain_path'] ) {
-					wordpoints_load_module_textdomain( $textdomain, dirname( $module_file ) . $module_data['domain_path'] );
-				} else {
-					wordpoints_load_module_textdomain( $textdomain, dirname( $module_file ) );
+				if ( ! is_textdomain_loaded( $textdomain ) ) {
+
+					$domain_path = dirname( $module_file );
+
+					if ( $module_data['domain_path'] ) {
+						$domain_path .= $module_data['domain_path'];
+					}
+
+					wordpoints_load_module_textdomain( $textdomain, $domain_path );
 				}
 
 				foreach ( array( 'name', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {
 
-					$module_data[ $field ] = translate( $module_data[ $field ], $textdomain );
+					$module_data[ $field ] = translate( $module_data[ $field ], $textdomain ); // @codingStandardsIgnoreLine
 				}
 			}
 		}
@@ -465,7 +469,8 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 		$module_data['title']       = $module_data['name'];
 		$module_data['author_name'] = $module_data['author'];
-	}
+
+	} // End if ( $markup || $translate ) else.
 
 	return $module_data;
 }
@@ -507,7 +512,7 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 	// Load the textdomain according to the module first.
 	$mofile = $domain . '-' . $locale . '.mo';
 
-	if ( $loaded = load_textdomain( $domain, $path . '/'. $mofile ) ) {
+	if ( $loaded = load_textdomain( $domain, $path . '/' . $mofile ) ) {
 		return $loaded;
 	}
 
@@ -719,20 +724,21 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	$module = wordpoints_module_basename( $module );
 
-	if ( is_multisite() && ( $network_wide || is_network_only_wordpoints_module( $module ) ) ) {
-
-		$network_wide = true;
-		$current = array_keys( wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' ) );
-
-	} else {
-
-		$current = wordpoints_get_array_option( 'wordpoints_active_modules' );
-	}
-
 	$valid = wordpoints_validate_module( $module );
 
 	if ( is_wp_error( $valid ) ) {
 		return $valid;
+	}
+
+	if ( is_multisite() && ( $network_wide || is_network_only_wordpoints_module( $module ) ) ) {
+
+		$network_wide = true;
+		$network_current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
+		$current = array_keys( $network_current );
+
+	} else {
+
+		$current = wordpoints_get_array_option( 'wordpoints_active_modules' );
 	}
 
 	// If the module is already active, return.
@@ -796,8 +802,8 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	if ( $network_wide ) {
 
-		$current[ $module ] = time();
-		update_site_option( 'wordpoints_sitewide_active_modules', $current );
+		$network_current[ $module ] = time();
+		update_site_option( 'wordpoints_sitewide_active_modules', $network_current );
 
 	} else {
 
@@ -926,7 +932,8 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
 			 */
 			do_action( 'wordpoints_deactivated_module', $module, $network_deactivating );
 		}
-	}
+
+	} // End foreach ( $modules ).
 
 	if ( $do_blog ) {
 		update_option( 'wordpoints_active_modules', $current );
@@ -966,7 +973,7 @@ function wordpoints_delete_modules( $modules ) {
 
 	ob_start();
 
-	$url = wp_nonce_url( 'admin.php?page=wordpoints_modules&action=delete-selected&verify-delete=1&' . implode( '&', $checked ), 'bulk-modules' );
+	$url = wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&verify-delete=1&' . implode( '&', $checked ) ), 'bulk-modules' );
 
 	if ( false === ($credentials = request_filesystem_credentials( $url )) ) {
 
@@ -1110,13 +1117,6 @@ function wordpoints_uninstall_module( $module ) {
 			define( 'WORDPOINTS_UNINSTALL_MODULE', true );
 		}
 
-		/**
-		 * Uninstall base class.
-		 *
-		 * @since 1.8.0
-		 */
-		include_once WORDPOINTS_DIR . 'includes/class-un-installer-base.php';
-
 		WordPoints_Module_Paths::register( $uninstall_file );
 		include $uninstall_file;
 
@@ -1139,8 +1139,10 @@ function wordpoints_uninstall_module( $module ) {
 		return WordPoints_Installables::uninstall( 'module', $slug );
 
 	} else {
+
 		return false;
-	}
+
+	} // End if ( uninstall file ) elseif ( uninstaller ) else.
 }
 
 /**

@@ -2,13 +2,13 @@
 Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
-Requires at least: 4.4
-Tested up to: 4.7-beta3-39201
-Stable tag: 2.1.5
+Requires at least: 4.6
+Tested up to: 4.8-alpha-39357
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Gamify your site with points.
+Gamify your site, track user rep, or run a rewards program. WordPoints has a powerful core, infinitely extendable via add-on modules.
 
 == Description ==
 
@@ -34,7 +34,8 @@ WordPoints » Points Logs admin screen. The logs can be displayed on the front e
 your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
-You can also display a list of the top users with the most points using the
+You can display how many points a user has using the [`[wordpoints_points]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points/)
+shortcode, and you can also display a list of the top users with the most points using the
 [`[wordpoints_points_top]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
 shortcode.
 
@@ -78,10 +79,6 @@ Before installing on multisite, it is recommended that you read this
 
 == Frequently Asked Questions ==
 
-= Why doesn't WordPoints have (some feature)? =
-
-Maybe it will soon - just ask for it!
-
 = How can I manually change a user's points? =
 
 You can [manually adjust a user's points](https://wordpoints.org/user-guide/manually-editing-a-users-points/) from their profile page in the admin.
@@ -91,10 +88,10 @@ You can [manually adjust a user's points](https://wordpoints.org/user-guide/manu
 Yes, WordPoints fully supports multisite. It is recommended that you [read up on it here](https://wordpoints.org/user-guide/multisite/)
 before you install it.
 
-= Why doesn't WordPoints support my old outdated WordPress version? =
+= When will WordPoints have (some feature)? =
 
-Precisely because it is old, outdated, and most importantly, insecure. Backup and
-upgrade now before it's too late. Seriously!
+You can see what we're currently planning on our [roadmap]((https://wordpoints.org/roadmap/),
+and find out how to request new features.
 
 == Screenshots ==
 
@@ -116,6 +113,28 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.2.0 — 2016-12-08 =
+
+**Requires: WordPress 4.6+**
+
+##### Changed
+
+- Rate Limits for event reactions to now support setting the number of
+minutes/hours/etc. Previously it was only possible to have rate limits of "once per
+minute" or "once per day", now a rate limit can be "once every 5 minutes" or "once
+every 2 days" or any other amount that you want.
+- Points log entries that are hidden from some users to now be marked as such when a
+user who is allowed to see them is viewing them. For example, if a post is not
+public, only users who can view that post can view any points logs that relate to it.
+Such log entries will now be displayed with a note below them explaining to the
+current user that not all other users will be able to view them.
+- Points types slugs to be generated from the name of the points type with any
+spaces replaced with dashes. Previously when a points type was created, the slug
+would be generated from the name, but any spaces would be removed, so if there were
+multiple words they would be run together in the slug. Now if you create a points
+type named "An Example", its slug would be "an-example", instead of "anexample". This
+will not change the slugs of existing points types.
 
 = 2.1.5 – 2016-11-15 =
 
@@ -485,6 +504,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.2.0 =
+* Introduces greater flexibility for Rate Limits for event reactions, and now
+differentiates points log entries that are hidden from some users.
+
 = 2.1.5 =
 * Fixes a bug on multisite that caused network-activated modules to not always be
 loaded on all sites on the network.

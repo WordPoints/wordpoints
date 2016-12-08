@@ -74,20 +74,6 @@ function wordpoints_breaking_update() {
 		return;
 	}
 
-	/**
-	 * The base un/installer class.
-	 *
-	 * @since 2.0.0
-	 */
-	require_once( WORDPOINTS_DIR . '/includes/class-un-installer-base.php' );
-
-	/**
-	 * The breaking updater.
-	 *
-	 * @since 2.0.0
-	 */
-	require_once( WORDPOINTS_DIR . '/includes/class-breaking-updater.php' );
-
 	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
 	$updater->update();
 }
@@ -1031,13 +1017,8 @@ function wordpoints_get_custom_caps() {
  */
 function wordpoints_add_custom_caps( $capabilities ) {
 
-	global $wp_roles;
-
-	if ( ! $wp_roles instanceof WP_Roles ) {
-		$wp_roles = new WP_Roles;
-	}
-
-	foreach ( $wp_roles->role_objects as $role ) {
+	/** @var WP_Role $role */
+	foreach ( wp_roles()->role_objects as $role ) {
 
 		foreach ( $capabilities as $custom_cap => $core_cap ) {
 			if ( $role->has_cap( $core_cap ) ) {
@@ -1058,13 +1039,8 @@ function wordpoints_add_custom_caps( $capabilities ) {
  */
 function wordpoints_remove_custom_caps( $capabilities ) {
 
-	global $wp_roles;
-
-	if ( ! $wp_roles instanceof WP_Roles ) {
-		$wp_roles = new WP_Roles;
-	}
-
-	foreach ( $wp_roles->role_objects as $role ) {
+	/** @var WP_Role $role */
+	foreach ( wp_roles()->role_objects as $role ) {
 		foreach ( $capabilities as $custom_cap ) {
 			$role->remove_cap( $custom_cap );
 		}
@@ -1247,6 +1223,24 @@ function wordpoints_construct_class_with_args( $class_name, array $args ) {
 		default:
 			return false;
 	}
+}
+
+/**
+ * Check if a function is disabled by PHP's `disabled_functions` INI directive.
+ *
+ * @since 2.2.0
+ *
+ * @param string $function The name of the function to check.
+ *
+ * @return bool Whether the function is disabled.
+ */
+function wordpoints_is_function_disabled( $function ) {
+
+	if ( 'set_time_limit' === $function && ini_get( 'safe_mode' ) ) {
+		return true;
+	}
+
+	return in_array( $function, explode( ',', ini_get( 'disable_functions' ) ) );
 }
 
 // EOF

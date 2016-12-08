@@ -19,6 +19,7 @@
  * -- Groups
  * -- Group
  * -- Condition
+ * - Periods
  *
  * @package WordPoints
  * @since 2.1.0
@@ -175,6 +176,9 @@
 	 */
   /*
 	 * - Condition.
+	 */
+  /*
+	 * Periods.
 	 */
 }
 
@@ -369,6 +373,15 @@
 .wordpoints-hook-reaction .condition-settings {
   padding-left: 5px;
   border-left: 3px solid #f7f7f7;
+}
+
+.wordpoints-hook-reaction .wordpoints-hook-period-length-in-units {
+  width: 48%;
+}
+
+.wordpoints-hook-reaction .wordpoints-hook-period-units {
+  width: 50%;
+  float: right;
 }
 
 /* EOF */

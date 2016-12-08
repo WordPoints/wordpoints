@@ -204,7 +204,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->factory->wordpoints->hook_event->create();
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_action( 'wordpoints_hook_reaction_save', array( $mock, 'action' ), 10, 5 );
 
 		$store = new WordPoints_PHPUnit_Mock_Hook_Reaction_Store(
@@ -442,7 +442,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 			)
 		);
 
-		$mock = new WordPoints_Mock_Filter();
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		add_action( 'wordpoints_hook_reaction_save', array( $mock, 'action' ), 10, 5 );
 
 		$result = $reaction->store->update_reaction( $reaction->get_id(), $settings );

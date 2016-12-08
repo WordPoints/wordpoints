@@ -16,7 +16,7 @@
  *
  * @covers ::wordpoints_admin_ajax_breaking_module_check
  */
-class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTestCase {
+class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_TestCase_Ajax {
 
 	/**
 	 * The nonce value used in the tests.
@@ -40,7 +40,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_AJAX_UnitTes
 	}
 
 	/**
-	 * That that the modules screen is displayed.
+	 * That the modules screen is displayed.
 	 *
 	 * @since 2.0.0
 	 */

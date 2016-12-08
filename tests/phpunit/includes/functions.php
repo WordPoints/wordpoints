@@ -14,6 +14,7 @@
  * always loaded during the tests.
  *
  * @since 2.1.0
+ * @deprecated 2.2.0 Use WordPoints_Dev_Lib_PHPUnit_Class_Autoloader instead.
  *
  * @param string $class_name The name of the class to load.
  */
@@ -47,7 +48,7 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 	}
 
 	$file_name = str_replace( '_', '/', strtolower( substr( $class_name, 19 ) ) );
-	$file_name = dirname( __FILE__ ) . '/classes/' . $file_name . '.php';
+	$file_name = dirname( __FILE__ ) . '/../classes/' . $file_name . '.php';
 
 	if ( ! file_exists( $file_name ) ) {
 		return;
@@ -59,19 +60,23 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 /**
  * Manually load the plugin main file.
  *
- * The plugin won't be activated within the test WP environment, that's why we need
- * to load it manually. We also mock activate all components so they will be fully
- * loaded too.
+ * The plugin wouldn't be activated within the test WP environment, that's why we
+ * needed to load it manually. However, this is no longer the case, as we use WPPPB
+ * to remotely activate the plugin and have WordPress load it naturally.
  *
  * @since 1.0.0
- *
- * @filter muplugins_loaded
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_Bootstrap_Loader::add_plugin() instead.
  */
 function wordpointstests_manually_load_plugin() {
 
+	_deprecated_function(
+		__FUNCTION__
+		, '2.2.0'
+		, 'WordPoints_PHPUnit_Bootstrap_Loader::add_plugin()'
+	);
+
 	global $wpdb;
 
-	add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 	add_filter( 'wordpoints_component_active', '__return_true', 100 );
 	add_action( 'wordpoints_components_loaded', 'wordpointstests_manually_activate_components', 0 );
 
@@ -108,8 +113,6 @@ function wordpointstests_manually_load_plugin() {
  *
  * @since 1.1.0
  *
- * @filter wordpoints_modules_dir Added by wordpointstests_manually_load_plugin()
- *
  * @return string The path to the test modules directory.
  */
 function wordpointstests_modules_dir() {
@@ -121,10 +124,15 @@ function wordpointstests_modules_dir() {
  * Manually activate all components.
  *
  * @since 1.0.0
- *
- * @action wordpoints_components_loaded 0 Added by wordpointstests_manually_load_plugin().
+ * @deprecated 2.2.0 Use WordPoints_PHPUnit_Bootstrap_Loader::add_component() instead.
  */
 function wordpointstests_manually_activate_components() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '2.2.0'
+		, 'WordPoints_PHPUnit_Bootstrap_Loader::add_component()'
+	);
 
 	add_filter( 'wordpoints_component_active', '__return_false', 110 );
 
@@ -263,6 +271,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
  * Selenium is required for the UI tests.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  *
  * @return bool Whether selenium is running.
  */
@@ -287,6 +296,7 @@ function wordpointstests_selenium_is_running() {
  * define( 'WORDPOINTS_TESTS_SELENIUM', '/path/to/selenium.jar' );
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  */
 function wordpointstests_start_selenium() {
 
@@ -303,10 +313,13 @@ function wordpointstests_start_selenium() {
  * Get the user that is used in the UI tests.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  *
  * @return WP_User The user object.
  */
 function wordpointstests_ui_user() {
+
+	_deprecated_function( __FUNCTION__, '2.2.0' );
 
 	$user = get_user_by( 'login', 'wordpoints_ui_tester' );
 
@@ -333,6 +346,7 @@ function wordpointstests_ui_user() {
  * Create a symlink of a plugin in the WordPress tests suite and activate it.
  *
  * @since 1.0.1
+ * @deprecated 2.2.0
  *
  * @param string $plugin     The basename path of the main plugin file.
  * @param string $plugin_dir The name to give the symlinked plugin directory.
@@ -354,6 +368,46 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir ) {
 	}
 
 	return true;
+}
+
+/**
+ * An autoloading function for the deprecated classes.
+ *
+ * We don't autoload the following classes, because they are not expected to always
+ * be loaded:
+ * - WordPoints_Selenium2TestCase (testcases/selenium2.php)
+ * - WordPoints_Un_Installer_Module_Mock (mocks/un-installer-module.php)
+ * - WordPoints_Un_Installer_Module_Mock2 (mocks/un-installer-module2.php)
+ * - WordPoints_Un_Installer_Option_Prefix_Mock (mocks/un-installer-option-prefix.php)
+ *
+ * @since 2.2.0
+ *
+ * @param string $class_name A class name.
+ */
+function wordpoints_phpunit_deprecated_class_autoloader( $class_name ) {
+
+	$map = array(
+		'WordPoints_UnitTest_Factory_For_Points_Log' => 'factories/points-log.php',
+		'WordPoints_UnitTest_Factory_For_Rank' => 'factories/rank.php',
+		'WordPoints_Breaking_Updater_Mock' => 'mocks/breaking-updater.php',
+		'WordPoints_Mock_Filter' => 'mocks/filter.php',
+		'WordPoints_Module_Installer_Skin_TestDouble' => 'mocks/module-installer-skin.php',
+		'WordPoints_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
+		'WordPoints_Post_Type_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
+		'WordPoints_Test_Rank_Type' => 'mocks/rank-type.php',
+		'WordPoints_Un_Installer_Mock' => 'mocks/un-installer.php',
+		'WordPoints_Ajax_UnitTestCase' => 'testcases/ajax.php',
+		'WordPoints_Points_UnitTestCase' => 'testcases/points.php',
+		'WordPoints_Points_AJAX_UnitTestCase' => 'testcases/points-ajax.php',
+		'WordPoints_Ranks_UnitTestCase' => 'testcases/ranks.php',
+		'WordPoints_Ranks_Ajax_UnitTestCase' => 'testcases/ranks-ajax.php',
+		'WordPoints_UnitTestCase' => 'testcases/wordpoints.php',
+		'WordPoints_PHPUnit_Util_Getopt' => 'class-wordpoints-phpunit-util-getopt.php',
+	);
+
+	if ( isset( $map[ $class_name ] ) ) {
+		require dirname( __FILE__ ) . '/' . $map[ $class_name ];
+	}
 }
 
 // EOF

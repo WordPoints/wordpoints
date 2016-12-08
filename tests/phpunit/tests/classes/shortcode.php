@@ -35,6 +35,24 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test the constructor.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_construct_with_shortcode_name() {
+
+		$atts    = array( 'test' => 'value' );
+		$content = 'Content';
+		$name    = 'testing';
+
+		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content, $name );
+
+		$this->assertEquals( $atts, $shortcode->atts );
+		$this->assertEquals( $content, $shortcode->content );
+		$this->assertEquals( $name, $shortcode->shortcode );
+	}
+
+	/**
 	 * Test getting the shortcode name.
 	 *
 	 * @since 2.1.0
@@ -62,8 +80,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$shortcode->pairs = $pairs;
 
 		$filtered_atts = array( 'test' => 'filtered' );
-		$filter        = new WordPoints_Mock_Filter( $filtered_atts );
-
+		$filter        = new WordPoints_PHPUnit_Mock_Filter( $filtered_atts );
 		add_filter(
 			'wordpoints_user_supplied_shortcode_atts'
 			, array( $filter, 'filter' )

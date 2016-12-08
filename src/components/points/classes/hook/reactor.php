@@ -73,7 +73,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 		$data = parent::get_ui_script_data();
 
 		$data['target_label'] = __( 'Award To', 'wordpoints' );
-		$data['periods_label'] = __( 'Award each user no more than once per:', 'wordpoints' );
+		$data['periods_label'] = __( 'Award each user no more than once in:', 'wordpoints' );
 
 		return $data;
 	}
@@ -146,6 +146,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 
 		foreach ( $fire->event_args->get_entities() as $entity ) {
 			$meta[ $entity->get_slug() ] = $entity->get_the_id();
+			$meta[ $entity->get_slug() . '_guid' ] = $entity->get_the_guid();
 		}
 
 		wordpoints_alter_points(

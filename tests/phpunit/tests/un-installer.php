@@ -12,7 +12,7 @@
  *
  * @since 2.0.2
  */
-class WordPoints_Un_Installer_Test extends WordPoints_UnitTestCase {
+class WordPoints_Un_Installer_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * The mock un/installer used in the tests.

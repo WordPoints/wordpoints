@@ -130,7 +130,7 @@ final class WordPoints_Rank_Groups {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $type  The slug of the rank to to check for.
+	 * @param string $type  The slug of the rank to check for.
 	 * @param string $group The slug of the group to check in.
 	 *
 	 * @return bool Whether the rank type is registered for the group.

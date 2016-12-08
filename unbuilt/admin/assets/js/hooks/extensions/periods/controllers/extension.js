@@ -6,10 +6,9 @@
  * @augments wp.wordpoints.hooks.controller.Extension
  */
 var Extension = wp.wordpoints.hooks.controller.Extension,
-	Fields = wp.wordpoints.hooks.Fields,
+	SimplePeriod = wp.wordpoints.hooks.view.SimplePeriod,
 	Args = wp.wordpoints.hooks.Args,
 	template = wp.wordpoints.hooks.template,
-	$ = Backbone.$,
 	Periods;
 
 Periods = Extension.extend({
@@ -28,34 +27,24 @@ Periods = Extension.extend({
 
 		this.listenTo( reaction, 'render:fields', function ( $el, currentActionType ) {
 
-			var $periods = $( '<div></div>' ).html( this.template() );
+			var simplePeriod = new SimplePeriod( {
+				extension: this,
+				reaction: reaction,
+				actionType: currentActionType
+			} );
 
-			var name = [ this.get( 'slug' ), currentActionType, 0, 'length' ];
-
-			var label = reaction.Reactor.get( 'periods_label' );
-
-			if ( ! label ) {
-				label = this.data.l10n.label;
-			}
-
-			$periods.find( '.periods' ).html(
-				Fields.create(
-					name
-					, reaction.model.get( name )
-					, {
-						type: 'select',
-						options: this.data.periods,
-						label: label
-					}
-				)
-			);
-
-			var $existingPeriods = $el.find( '.periods' );
+			var $existingPeriods = $el.find( '.periods' ),
+				$periods = simplePeriod.render().$el;
 
 			if ( $existingPeriods.length ) {
-				$existingPeriods.replaceWith( $periods.find( '.periods' ) );
+
+				$existingPeriods.html( $periods );
+
 			} else {
-				$el.append( $periods.html() );
+
+				$el.append( this.template() )
+					.find( '.periods' )
+					.append( $periods );
 			}
 		});
 	},

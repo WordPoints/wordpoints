@@ -79,7 +79,8 @@ abstract class WordPoints_Hook_Condition implements WordPoints_Hook_ConditionI {
 					, 'value'
 				);
 			}
-		}
+
+		} // End if ( missing ) elseif ( attribute ) elseif ( entity ).
 
 		return $settings;
 	}

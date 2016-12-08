@@ -18,7 +18,7 @@
  *
  * @covers WordPoints_Un_Installer::update_single_to_1_3_0
  */
-class WordPoints_1_3_0_Update_Test extends WordPoints_UnitTestCase {
+class WordPoints_1_3_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * @since 2.0.0

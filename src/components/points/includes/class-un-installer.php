@@ -529,7 +529,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				// If not, delete this instance.
 				$hook->delete_callback( $hook->get_id( $number ) );
 			}
-		}
+
+		} // End foreach ( $instances ).
 
 		WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 	}
@@ -997,7 +998,8 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				, $post_type
 				, $logs_to_delete
 			);
-		}
+
+		} // End foreach ( $hits ).
 
 		// Now the legacy logs.
 		$legacy_logs = $this->_2_1_4_get_legacy_reactor_logs( $post_types );
@@ -1100,7 +1102,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
-		$hits = $wpdb->get_results( // WPCS: caching OK.
+		$hits = $wpdb->get_results(
 			"
 				SELECT `meta_value` AS `hit_id`, GROUP_CONCAT(`log_id`) AS `log_ids`
 				FROM `{$wpdb->wordpoints_points_log_meta}`
@@ -1108,7 +1110,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 				GROUP BY `meta_value`
 				HAVING COUNT(*) > 1
 			"
-		);
+		); // WPCS: cache OK.
 
 		return $hits;
 	}
@@ -1170,12 +1172,12 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			wordpoints_points_log_delete_all_metadata( $log_id );
 		}
 
-		$wpdb->query(
+		$wpdb->query( // WPCS: unprepared SQL OK.
 			"
 				DELETE
 				FROM `{$wpdb->wordpoints_points_logs}`
-				WHERE `id` IN (" . wordpoints_prepare__in( $log_ids, '%d' ) . ")
-			"
+				WHERE `id` IN (" . wordpoints_prepare__in( $log_ids, '%d' ) . ')
+			'
 		);
 
 		wordpoints_flush_points_logs_caches();
@@ -1209,13 +1211,13 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			delete_metadata( 'wordpoints_hook_hit', $hit_id, '', '', true );
 		}
 
-		$wpdb->query( // WPCS: caching OK.
+		$wpdb->query( // WPCS: unprepared SQL OK.
 			"
 				DELETE
 				FROM `{$wpdb->wordpoints_hook_hits}`
-				WHERE `id` IN (" . wordpoints_prepare__in( $hit_ids, '%d' ) . ")
-			"
-		);
+				WHERE `id` IN (" . wordpoints_prepare__in( $hit_ids, '%d' ) . ')
+			'
+		); // WPCS: cache OK.
 	}
 
 	/**
@@ -1383,7 +1385,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		global $wpdb;
 
-		$post_ids = $wpdb->get_col( // WPCS: caching OK.
+		$post_ids = $wpdb->get_col(
 			"
 				SELECT `meta_value`
 				FROM `{$wpdb->wordpoints_points_log_meta}` AS `meta`
@@ -1392,7 +1394,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	            WHERE `meta_key` = 'post_id'
 	            	AND `log`.`log_type` = 'post_publish'
 			"
-		);
+		); // WPCS: cache OK.
 
 		return $post_ids;
 	}

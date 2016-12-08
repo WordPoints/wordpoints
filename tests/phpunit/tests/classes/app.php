@@ -23,7 +23,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_does_action_on_construct() {
 
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action( 'wordpoints_init_app-test', array( $mock, 'action' ) );
 
@@ -41,7 +41,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_does_action_on_construct_parent() {
 
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action( 'wordpoints_init_app-parent-test', array( $mock, 'action' ) );
 
@@ -61,7 +61,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_does_action_on_construct_grandparent() {
 
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action(
 			'wordpoints_init_app-grandparent-parent-test'
@@ -84,7 +84,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_does_action_on_construct_parent_apps() {
 
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action( 'wordpoints_init_app-test', array( $mock, 'action' ) );
 
@@ -103,7 +103,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_does_action_on_construct_parent_not_app() {
 
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action( 'wordpoints_init_app-test', array( $mock, 'action' ) );
 
@@ -154,7 +154,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_registry_sub_app() {
 
 		$app = new WordPoints_App( 'test' );
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action(
 			'wordpoints_init_app_registry-test-registry'
@@ -180,7 +180,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_child_registry_sub_app() {
 
 		$app = new WordPoints_App( 'test' );
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action(
 			'wordpoints_init_app_registry-test-registry'
@@ -202,6 +202,35 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that getting a deep registry sub-app calls an init action.
+	 *
+	 * @since 2.2.0
+	 */
+	public function test_get_deep_registry_sub_app() {
+
+		$app = new WordPoints_App( 'test' );
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
+
+		add_action(
+			'wordpoints_init_app_registry-test-registry'
+			, array( $mock, 'action' )
+		);
+
+		$this->assertTrue(
+			$app->sub_apps()->register(
+				'registry'
+				, 'WordPoints_Class_Registry_Deep_Multilevel'
+			)
+		);
+
+		$registry = $app->get_sub_app( 'registry' );
+
+		$this->assertEquals( 1, $mock->call_count );
+
+		$this->assertTrue( $registry === $mock->calls[0][0] );
+	}
+
+	/**
 	 * Test that getting a registry sub-app calls an init action only the first time.
 	 *
 	 * @since 2.1.0
@@ -209,7 +238,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_registry_sub_app_twice() {
 
 		$app = new WordPoints_App( 'test' );
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action(
 			'wordpoints_init_app_registry-test-registry'
@@ -237,7 +266,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_non_registry_sub_app() {
 
 		$app = new WordPoints_App( 'test' );
-		$mock = new WordPoints_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter;
 
 		add_action(
 			'wordpoints_init_app_registry-test-registry'

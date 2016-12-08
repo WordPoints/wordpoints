@@ -16,7 +16,7 @@
  *
  * @covers ::wordpoints_prepare__in
  */
-class WordPoints_Prepare_In_Test extends WordPoints_UnitTestCase {
+class WordPoints_Prepare_In_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test behavior on invalid $_in parameter.

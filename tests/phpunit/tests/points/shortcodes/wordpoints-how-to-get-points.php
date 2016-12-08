@@ -17,7 +17,7 @@
  *
  * @covers WordPoints_How_To_Get_Points_Shortcode
  */
-class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_Points_UnitTestCase {
+class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * Test that the [wordpoints_how_to_get_points] shortcode exists.

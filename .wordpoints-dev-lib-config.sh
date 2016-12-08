@@ -11,6 +11,15 @@ function wordpoints-dev-lib-config() {
 
 	# Use PHPCS 2.7.0, since WPCS 0.11.0 requires it.
 	export PHPCS_GIT_TREE=master
+
+	# Ignore some strings that are expected.
+	CODESNIFF_IGNORED_STRINGS=(\
+		"${CODESNIFF_IGNORED_STRINGS[@]}" \
+		# Doesn't support HTTPS.
+		-e sodipodi.sourceforge.net \
+		# Ticket related to removing blank target links, mentioned in the changelog.
+		-e '#558' \
+	)
 }
 
 # EOF

@@ -2629,7 +2629,7 @@ msgstr[1] "Não foi possível remover completamente o(s) módulo(s) %s."
 #. Plugin URI of the plugin/theme
 #, fuzzy
 msgid "https://wordpoints.org/"
-msgstr "http://wordpoints.org/"
+msgstr "https://wordpoints.org/"
 
 #. Description of the plugin/theme
 msgid ""
@@ -2643,7 +2643,7 @@ msgstr "J.D. Grimes"
 #. Author URI of the plugin/theme
 #, fuzzy
 msgid "https://codesymphony.co/"
-msgstr "http://codesymphony.co/"
+msgstr "https://codesymphony.co/"
 
 #~ msgid "Install a module in .zip format"
 #~ msgstr "Instalar um modulo no formato .zip"

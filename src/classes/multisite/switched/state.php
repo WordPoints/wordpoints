@@ -32,7 +32,7 @@ class WordPoints_Multisite_Switched_State {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @link http://wordpress.stackexchange.com/a/89114/27757
+	 * @link https://wordpress.stackexchange.com/a/89114/27757
 	 *
 	 * @return int The current site ID.
 	 */
@@ -56,7 +56,7 @@ class WordPoints_Multisite_Switched_State {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @link http://wordpress.stackexchange.com/a/89114/27757
+	 * @link https://wordpress.stackexchange.com/a/89114/27757
 	 *
 	 * @return int The original site ID.
 	 */

@@ -484,8 +484,8 @@ $screen->add_help_tab(
 
 $screen->set_help_sidebar(
 	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
-	<p><a href="http://wordpoints.org/developer-guide/modules/">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
-	<p><a href="http://wordpress.org/support/plugin/wordpoints">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
+	<p><a href="https://wordpoints.org/developer-guide/modules/">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
+	<p><a href="https://wordpress.org/support/plugin/wordpoints">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 
 register_column_headers(

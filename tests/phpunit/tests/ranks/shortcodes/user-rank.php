@@ -41,7 +41,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 
 		wordpoints_update_user_rank( $user_id, $rank_id );
 
-		$result = wordpointstests_do_shortcode_func(
+		$result = $this->do_shortcode(
 			'wordpoints_user_rank'
 			, array( 'user_id' => $user_id, 'rank_group' => $this->rank_group )
 		);
@@ -71,7 +71,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 
 		wordpoints_update_user_rank( $user_id, $rank_id );
 
-		$result = wordpointstests_do_shortcode_func(
+		$result = $this->do_shortcode(
 			'wordpoints_user_rank'
 			, array( 'rank_group' => $this->rank_group )
 		);
@@ -101,7 +101,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 
 		wordpoints_update_user_rank( $user_id, $rank->ID );
 
-		$result = wordpointstests_do_shortcode_func( 'wordpoints_user_rank' );
+		$result = $this->do_shortcode( 'wordpoints_user_rank' );
 
 		// There should be no error with an invalid points type.
 		$this->assertEquals( null, $result );
@@ -128,7 +128,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 		wordpoints_update_user_rank( $user->ID, $rank->ID );
 
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func( 'wordpoints_user_rank' )
+			$this->do_shortcode( 'wordpoints_user_rank' )
 		);
 
 		wp_set_current_user( $old_current_user->ID );

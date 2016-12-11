@@ -152,6 +152,7 @@ function wordpointstests_manually_activate_components() {
  * We can now avoid evil calls to do_shortcode( '[shortcode]' ).
  *
  * @since 1.0.0
+ * @deprecated 2.3.0 Use WordPoints_PHPUnit_TestCase::do_shortcode() instead.
  *
  * @param string $tag     The shortcode whose function to call.
  * @param array  $atts    The attributes to pass to the shortcode function. Optional.

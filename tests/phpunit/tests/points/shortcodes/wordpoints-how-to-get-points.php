@@ -53,7 +53,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$document = new DOMDocument;
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)
@@ -88,7 +88,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$document = new DOMDocument;
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)
@@ -110,7 +110,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		wp_set_current_user( $user_id );
 
 		// There should be no error with an invalid points type.
-		$this->assertEquals( null, wordpointstests_do_shortcode_func( 'wordpoints_how_to_get_points' ) );
+		$this->assertEquals( null, $this->do_shortcode( 'wordpoints_how_to_get_points' ) );
 
 		wp_set_current_user( $old_current_user->ID );
 	}
@@ -131,7 +131,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		// Check for an error when no points type is provided.
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func( 'wordpoints_how_to_get_points' )
+			$this->do_shortcode( 'wordpoints_how_to_get_points' )
 		);
 
 		wp_set_current_user( $old_current_user->ID );
@@ -178,7 +178,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$document = new DOMDocument;
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)
@@ -255,7 +255,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$document = new DOMDocument;
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)

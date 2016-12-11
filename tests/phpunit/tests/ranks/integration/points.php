@@ -118,7 +118,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
 		);
 
-		$result = wordpointstests_do_shortcode_func(
+		$result = $this->do_shortcode(
 			'wordpoints_user_rank'
 			, array( 'user_id' => $user_id, 'points_type' => 'points' )
 		);
@@ -152,7 +152,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
 		);
 
-		$result = wordpointstests_do_shortcode_func(
+		$result = $this->do_shortcode(
 			'wordpoints_user_rank'
 			, array( 'user_id' => $user_id )
 		);

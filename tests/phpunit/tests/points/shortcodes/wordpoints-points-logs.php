@@ -76,7 +76,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$_GET['wordpoints_points_logs_per_page'] = 3;
 
 		// Default datatable.
-		$html = wordpointstests_do_shortcode_func(
+		$html = $this->do_shortcode(
 			'wordpoints_points_logs'
 			, array( 'points_type' => 'points' )
 		);
@@ -105,7 +105,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		// Non-datatable, no pagination.
 		$document = new DOMDocument;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'datatables' => '0' )
 			)
@@ -132,7 +132,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$_GET['wordpoints_points_logs_per_page'] = 3;
 
 		// Default datatable.
-		$html = wordpointstests_do_shortcode_func(
+		$html = $this->do_shortcode(
 			'wordpoints_points_logs'
 			, array( 'points_type' => 'points' )
 		);
@@ -161,7 +161,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		// Non-datatable, no pagination.
 		$document = new DOMDocument;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'paginate' => '0' )
 			)
@@ -193,7 +193,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		// The user column should be displayed by default.
 		$document = new DOMDocument;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points' )
 			)
@@ -205,7 +205,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		// Check that it is hidden.
 		$document = new DOMDocument;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'show_users' => 0 )
 			)
@@ -228,14 +228,14 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$new_current_user->set_role( 'subscriber' );
 
 		$this->assertEmpty(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
 		$this->assertEmpty(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'query' => 'invalid' )
 			)
@@ -256,14 +256,14 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$new_current_user->set_role( 'administrator' );
 
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'query' => 'invalid' )
 			)
@@ -286,7 +286,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$_POST['wordpoints_points_logs_search'] = __METHOD__;
 
 		// Default is searchable.
-		$html = wordpointstests_do_shortcode_func(
+		$html = $this->do_shortcode(
 			'wordpoints_points_logs'
 			, array( 'points_type' => 'points' )
 		);
@@ -320,7 +320,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 				->length
 		);
 
-		$html = wordpointstests_do_shortcode_func(
+		$html = $this->do_shortcode(
 			'wordpoints_points_logs'
 			, array( 'points_type' => 'points', 'searchable' => '0' )
 		);

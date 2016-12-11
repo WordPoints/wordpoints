@@ -45,7 +45,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		// Check output with valid parameters.
 		$document = new DOMDocument;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 3 )
 			)
@@ -76,14 +76,14 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		$new_current_user->set_role( 'subscriber' );
 
 		$this->assertEmpty(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
 		$this->assertEmpty(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 'invalid' )
 			)
@@ -112,14 +112,14 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		);
 
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 'invalid' )
 			)
@@ -142,7 +142,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		// Check output with valid parameters.
 		$document = new DOMDocument;
 		$document->loadHTML(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points_top'
 				, array( 'points_type' => 'points', 'users' => 3 )
 			)

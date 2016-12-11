@@ -46,7 +46,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertEquals(
 			'$0pts.'
-			, wordpointstests_do_shortcode_func(
+			, $this->do_shortcode(
 				'wordpoints_points'
 				, array( 'points_type' => 'points' )
 			)
@@ -73,7 +73,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertEquals(
 			'$10pts.'
-			, wordpointstests_do_shortcode_func(
+			, $this->do_shortcode(
 				'wordpoints_points'
 				, array( 'points_type' => 'points' )
 			)
@@ -96,7 +96,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertEquals(
 			'$10pts.'
-			, wordpointstests_do_shortcode_func(
+			, $this->do_shortcode(
 				'wordpoints_points'
 				, array( 'points_type' => 'points', 'user_id' => $user_id )
 			)
@@ -116,7 +116,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		wp_set_current_user( $user_id );
 
 		// There should be no error with an invalid points type.
-		$this->assertEquals( null, wordpointstests_do_shortcode_func( 'wordpoints_points' ) );
+		$this->assertEquals( null, $this->do_shortcode( 'wordpoints_points' ) );
 
 		wp_set_current_user( $old_current_user->ID );
 	}
@@ -137,7 +137,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		// Check for an error when no points type is provided.
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func( 'wordpoints_points' )
+			$this->do_shortcode( 'wordpoints_points' )
 		);
 
 		wp_set_current_user( $old_current_user->ID );
@@ -159,7 +159,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		wordpoints_set_points( $user_id, 30, 'points', 'test' );
 
-		$result = wordpointstests_do_shortcode_func(
+		$result = $this->do_shortcode(
 			'wordpoints_points'
 			, array(
 				'user_id'     => 'post_author',
@@ -186,7 +186,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		wordpoints_set_points( $user_id, 30, 'points', 'test' );
 
-		$result = wordpointstests_do_shortcode_func(
+		$result = $this->do_shortcode(
 			'wordpoints_points'
 			, array(
 				'user_id'     => 'post_author',
@@ -220,7 +220,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		wp_set_current_user( $user->ID );
 
 		$this->assertWordPointsShortcodeError(
-			wordpointstests_do_shortcode_func(
+			$this->do_shortcode(
 				'wordpoints_points'
 				, array(
 					'user_id'     => 'post_author',

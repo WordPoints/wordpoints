@@ -3,8 +3,12 @@
 /**
  * Set up environment for WordPoints tests suite.
  *
+ * This file is deprecated as of WordPoints 2.3.0, and the PHPUnit bootstrap from
+ * the dev-lib should be used instead.
+ *
  * @package WordPoints\Tests
  * @since 1.0.0
+ * @deprecated 2.3.0
  */
 
 /**
@@ -15,6 +19,15 @@
  * @const WORDPOINTS_TESTS_DIR
  */
 define( 'WORDPOINTS_TESTS_DIR', dirname( dirname( __FILE__ ) ) );
+
+/**
+ * The WordPoints tests directory.
+ *
+ * @since 2.3.0
+ *
+ * @type string
+ */
+define( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR', dirname( dirname( WORDPOINTS_MODULE_TESTS_DIR ) ) . '/dev-lib/phpunit' );
 
 /**
  * Miscellaneous utility functions.
@@ -70,7 +83,7 @@ WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
 );
 
 WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	WORDPOINTS_TESTS_DIR . '/classes/'
+	dirname( dirname( WORDPOINTS_TESTS_DIR ) ) . '/dev-lib/phpunit/classes/'
 	, 'WordPoints_PHPUnit_'
 );
 

@@ -119,7 +119,7 @@ class WordPoints_Hook_Fire {
 			$wpdb->wordpoints_hook_hits
 			, array(
 				'action_type' => $this->action_type,
-				'primary_arg_guid' => $signature,
+				'signature_arg_guids' => $signature,
 				'event' => $this->reaction->get_event_slug(),
 				'reactor' => $this->reaction->get_reactor_slug(),
 				'reaction_mode' => $this->reaction->get_mode_slug(),
@@ -163,7 +163,7 @@ class WordPoints_Hook_Fire {
 		return new WordPoints_Hook_Hit_Query(
 			array(
 				'action_type' => $this->action_type,
-				'primary_arg_guid' => wordpoints_hooks_get_event_signature_arg_guids_json(
+				'signature_arg_guids' => wordpoints_hooks_get_event_signature_arg_guids_json(
 					$this->event_args
 				),
 				'event' => $this->reaction->get_event_slug(),

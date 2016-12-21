@@ -41,6 +41,79 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test constructing the class with deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Hit_Query::__construct
+	 */
+	public function test_construct_with_deprecated_args() {
+
+		$query = new WordPoints_Hook_Hit_Query(
+			array(
+				'primary_arg_guid'          => 'test',
+				'primary_arg_guid__compare' => 'test_compare',
+				'primary_arg_guid__in'      => 'test_in',
+				'primary_arg_guid__not_in'  => 'test_not_in',
+			)
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'signature_arg_guids' ) );
+		$this->assertEquals( 'test_compare', $query->get_arg( 'signature_arg_guids__compare' ) );
+		$this->assertEquals( 'test_in', $query->get_arg( 'signature_arg_guids__in' ) );
+		$this->assertEquals( 'test_not_in', $query->get_arg( 'signature_arg_guids__not_in' ) );
+	}
+
+	/**
+	 * Test getting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Hit_Query::get_arg
+	 */
+	public function test_get_deprecated_args() {
+
+		$query = new WordPoints_Hook_Hit_Query(
+			array(
+				'signature_arg_guids'          => 'test',
+				'signature_arg_guids__compare' => 'test_compare',
+				'signature_arg_guids__in'      => 'test_in',
+				'signature_arg_guids__not_in'  => 'test_not_in',
+			)
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'primary_arg_guid' ) );
+		$this->assertEquals( 'test_compare', $query->get_arg( 'primary_arg_guid__compare' ) );
+		$this->assertEquals( 'test_in', $query->get_arg( 'primary_arg_guid__in' ) );
+		$this->assertEquals( 'test_not_in', $query->get_arg( 'primary_arg_guid__not_in' ) );
+	}
+
+	/**
+	 * Test setting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Hit_Query::set_args
+	 */
+	public function test_set_deprecated_args() {
+
+		$query = new WordPoints_Hook_Hit_Query();
+		$query->set_args(
+			array(
+				'primary_arg_guid'          => 'test',
+				'primary_arg_guid__compare' => 'test_compare',
+				'primary_arg_guid__in'      => 'test_in',
+				'primary_arg_guid__not_in'  => 'test_not_in',
+			)
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'signature_arg_guids' ) );
+		$this->assertEquals( 'test_compare', $query->get_arg( 'signature_arg_guids__compare' ) );
+		$this->assertEquals( 'test_in', $query->get_arg( 'signature_arg_guids__in' ) );
+		$this->assertEquals( 'test_not_in', $query->get_arg( 'signature_arg_guids__not_in' ) );
+	}
+
+	/**
 	 * Test that get() returns the matching rows.
 	 *
 	 * @since 2.1.0
@@ -116,7 +189,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$values = array_merge(
 			array(
 				'action_type' => 'fire',
-				'primary_arg_guid' => wp_json_encode(
+				'signature_arg_guids' => wp_json_encode(
 					array( 'test_entity' => 1, 'site' => 1, 'network' => 1 )
 				),
 				'event' => 'test_event',
@@ -156,7 +229,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertInternalType( 'object', $row );
 		$this->assertObjectHasAttribute( 'id', $row );
 		$this->assertObjectHasAttribute( 'action_type', $row );
-		$this->assertObjectHasAttribute( 'primary_arg_guid', $row );
+		$this->assertObjectHasAttribute( 'signature_arg_guids', $row );
 		$this->assertObjectHasAttribute( 'event', $row );
 		$this->assertObjectHasAttribute( 'reactor', $row );
 		$this->assertObjectHasAttribute( 'reaction_mode', $row );

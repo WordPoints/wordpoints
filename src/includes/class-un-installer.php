@@ -28,6 +28,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.8.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
 		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),
 	);
 
 	/**
@@ -45,7 +46,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_hook_hits' => '
 					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 					action_type VARCHAR(255) NOT NULL,
-					primary_arg_guid TEXT NOT NULL,
+					signature_arg_guids TEXT NOT NULL,
 					event VARCHAR(255) NOT NULL,
 					reactor VARCHAR(255) NOT NULL,
 					reaction_mode VARCHAR(255) NOT NULL,
@@ -337,6 +338,32 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function update_single_to_2_1_0_alpha_3() {
 		$this->map_shortcuts( 'schema' );
 		$this->install_db_schema();
+	}
+
+	/**
+	 * Update a multisite network to 2.3.0.
+	 *
+	 * @since 2.3.0
+	 */
+	protected function update_network_to_2_3_0_alpha_2() {
+
+		global $wpdb;
+
+		$wpdb->query(
+			"
+				ALTER TABLE `{$wpdb->wordpoints_hook_hits}`
+				CHANGE `primary_arg_guid` `signature_arg_guids` TEXT NOT NULL
+			"
+		); // WPCS: cache OK.
+	}
+
+	/**
+	 * Update a non-multisite install to 2.3.0.
+	 *
+	 * @since 2.3.0
+	 */
+	protected function update_single_to_2_3_0_alpha_2() {
+		$this->update_network_to_2_3_0_alpha_2();
 	}
 }
 

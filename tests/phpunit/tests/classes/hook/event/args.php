@@ -20,6 +20,8 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	 * Test checking if an event is repeatable when it has no stateful args.
 	 *
 	 * @since 2.1.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Event_Args::get_primary_arg
 	 */
 	public function test_is_repeatable() {
 
@@ -31,6 +33,11 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertFalse( $args->is_event_repeatable() );
 
+		$this->assertEquals(
+			array( 'test' => $arg->get_entity() )
+			, $args->get_signature_args()
+		);
+
 		$this->assertEquals( $arg->get_entity(), $args->get_primary_arg() );
 		$this->assertSame( array(), $args->get_stateful_args() );
 	}
@@ -39,6 +46,8 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	 * Test checking if an event is repeatable when it has only stateful args.
 	 *
 	 * @since 2.1.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Event_Args::get_primary_arg
 	 */
 	public function test_is_repeatable_stateful_args() {
 
@@ -53,6 +62,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertTrue( $args->is_event_repeatable() );
 
+		$this->assertFalse( $args->get_signature_args() );
 		$this->assertFalse( $args->get_primary_arg() );
 		$this->assertEquals(
 			array(
@@ -67,8 +77,10 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	 * Test checking if an event is repeatable when it has both types of args.
 	 *
 	 * @since 2.1.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Event_Args::get_primary_arg
 	 */
-	public function test_is_repeatable_primary_and_stateful() {
+	public function test_is_repeatable_signature_and_stateful() {
 
 		$this->factory->wordpoints->entity->create( array( 'slug' => 'test' ) );
 
@@ -81,6 +93,11 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertFalse( $args->is_event_repeatable() );
 
+		$this->assertEquals(
+			array( 'test' => $arg->get_entity() )
+			, $args->get_signature_args()
+		);
+
 		$this->assertEquals( $arg->get_entity(), $args->get_primary_arg() );
 		$this->assertEquals(
 			array( 'another:test' => $arg_2->get_entity() )
@@ -89,9 +106,54 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 	}
 
 	/**
+	 * Test checking if an event is repeatable when it has multiple args of both types.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Event_Args::get_primary_arg
+	 */
+	public function test_is_repeatable_multiple_signature_and_stateful() {
+
+		$this->factory->wordpoints->entity->create( array( 'slug' => 'test' ) );
+
+		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
+		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test' );
+		$arg_3 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'third:test' );
+		$arg_4 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'fourth:test' );
+
+		$arg_2->is_stateful = true;
+		$arg_4->is_stateful = true;
+
+		$args = new WordPoints_Hook_Event_Args(
+			array( $arg, $arg_2, $arg_3, $arg_4 )
+		);
+
+		$this->assertFalse( $args->is_event_repeatable() );
+
+		$this->assertEquals(
+			array(
+				'test' => $arg->get_entity(),
+				'third:test' => $arg_3->get_entity(),
+			)
+			, $args->get_signature_args()
+		);
+
+		$this->assertEquals( $arg->get_entity(), $args->get_primary_arg() );
+		$this->assertEquals(
+			array(
+				'another:test' => $arg_2->get_entity(),
+				'fourth:test' => $arg_4->get_entity(),
+			)
+			, $args->get_stateful_args()
+		);
+	}
+
+	/**
 	 * Test checking if an event is repeatable when it has no args.
 	 *
 	 * @since 2.1.0
+	 *
+	 * @expectedDeprecated WordPoints_Hook_Event_Args::get_primary_arg
 	 */
 	public function test_is_repeatable_no_args() {
 
@@ -100,6 +162,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$args = new WordPoints_Hook_Event_Args( array() );
 
 		$this->assertTrue( $args->is_event_repeatable() );
+		$this->assertFalse( $args->get_signature_args() );
 		$this->assertFalse( $args->get_primary_arg() );
 		$this->assertSame( array(), $args->get_stateful_args() );
 	}

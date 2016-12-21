@@ -75,7 +75,7 @@ class WordPoints_Hook_Fire_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertEquals( $action_type, $query->get_arg( 'action_type' ) );
 
 		$this->assertEquals(
-			wordpoints_hooks_get_event_primary_arg_guid_json( $event_args )
+			wordpoints_hooks_get_event_signature_arg_guids_json( $event_args )
 			, $query->get_arg( 'primary_arg_guid' )
 		);
 

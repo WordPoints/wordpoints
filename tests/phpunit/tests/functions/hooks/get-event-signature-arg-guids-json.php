@@ -1,29 +1,26 @@
 <?php
 
 /**
- * Test case for wordpoints_hooks_get_event_primary_arg_guid_json().
+ * Test case for wordpoints_hooks_get_event_signature_arg_guids_json().
  *
  * @package WordPoints\PHPUnit\Tests
- * @since 2.1.0
+ * @since 2.3.0
  */
 
 /**
- * Tests wordpoints_hooks_get_event_primary_arg_guid_json().
+ * Tests wordpoints_hooks_get_event_signature_arg_guids_json().
  *
- * @since 2.1.0
+ * @since 2.3.0
  *
- * @covers ::wordpoints_hooks_get_event_primary_arg_guid_json
- *
- * @expectedDeprecated wordpoints_hooks_get_event_primary_arg_guid_json
- * @expectedDeprecated WordPoints_Hook_Event_Args::get_primary_arg
+ * @covers ::wordpoints_hooks_get_event_signature_arg_guids_json
  */
-class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
+class Wordpoints_Hooks_Get_Event_Signature_Arg_GUIDs_JSON_Function_Test
 	extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test that it returns the GUID serialized as JSON.
 	 *
-	 * @since 2.1.0
+	 * @since 2.3.0
 	 */
 	public function test_returns_json_guid() {
 
@@ -34,7 +31,7 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg ) );
 		$event_args->get_from_hierarchy( array( $entity_slug ) )->set_the_value( 5 );
 
-		$guid = wordpoints_hooks_get_event_primary_arg_guid_json( $event_args );
+		$guid = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
 		$this->assertEquals( '{"test_entity":5,"test_context":1}', $guid );
 	}
@@ -42,9 +39,9 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 	/**
 	 * Test that it returns an empty string if the event doesn't have a primary arg.
 	 *
-	 * @since 2.1.0
+	 * @since 2.3.0
 	 */
-	public function test_no_primary_arg() {
+	public function test_no_signature_args() {
 
 		$entity_slug = $this->factory->wordpoints->entity->create();
 
@@ -54,15 +51,40 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg ) );
 
-		$guid = wordpoints_hooks_get_event_primary_arg_guid_json( $event_args );
+		$guid = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
 		$this->assertEquals( '', $guid );
 	}
 
 	/**
+	 * Test that it returns the GUIDs serialized as JSON.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_multiple_signature_args() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( $entity_slug );
+		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:' . $entity_slug );
+		$arg->value = 5;
+		$arg_2->value = 7;
+
+		$event_args = new WordPoints_Hook_Event_Args( array( $arg, $arg_2 ) );
+
+		$guids = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
+
+		// Note that the args have also been sorted.
+		$this->assertEquals(
+			'{"another:test_entity":{"test_entity":7,"test_context":1},"test_entity":{"test_entity":5,"test_context":1}}'
+			, $guids
+		);
+	}
+
+	/**
 	 * Test that it returns an empty string if the entity GUID isn't set.
 	 *
-	 * @since 2.1.0
+	 * @since 2.3.0
 	 */
 	public function test_entity_guid_not_set() {
 
@@ -79,7 +101,7 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg ) );
 
-		$guid = wordpoints_hooks_get_event_primary_arg_guid_json( $event_args );
+		$guid = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
 		$this->assertEquals( '', $guid );
 	}

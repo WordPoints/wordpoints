@@ -254,17 +254,78 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	}
 
 	/**
-	 * Test that repeats are detected per-primary arg.
+	 * Test that repeats are detected per-signature arg.
 	 *
 	 * @since 2.1.0
 	 */
-	public function test_repeats_detected_per_primary_arg_value() {
+	public function test_repeats_detected_per_signature_arg_value() {
 
 		$this->fire_event();
 
 		// Modify the primary arg's value.
 		$entities = $this->event_args->get_entities();
 		$entities['test_entity']->set_the_value( 5 );
+
+		$this->assertFireHitsAgain();
+	}
+
+	/**
+	 * Test that repeats are detected per-signature arg.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_repeats_detected_per_signature_arg_value_multiple() {
+
+		$this->mock_apps();
+
+		$this->hooks = wordpoints_hooks();
+		$extensions = $this->hooks->get_sub_app( 'extensions' );
+		$extensions->register( $this->extension_slug, $this->extension_class );
+		$extensions->register(
+			'test_extension'
+			, 'WordPoints_PHPUnit_Mock_Hook_Extension'
+		);
+
+		$this->factory->wordpoints->hook_reactor->create();
+		$this->factory->wordpoints->hook_reaction->create(
+			array( $this->extension_slug => array( 'test_fire' => true ) )
+		);
+
+		$this->factory->wordpoints->entity->create();
+
+		$this->event_args = new WordPoints_Hook_Event_Args(
+			array(
+				new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity' ),
+				new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test_entity' ),
+			)
+		);
+
+		$this->hooks->fire( 'test_event', $this->event_args, 'test_fire' );
+
+		// The extension should have been checked.
+		$this->extension = $extensions->get( 'test_extension' );
+
+		$this->assertCount( 1, $this->extension->hit_checks );
+		$this->assertCount( 1, $this->extension->hits );
+
+		// The reactor should have been hit.
+		$this->reactor = $this->hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
+
+		$this->assertCount( 1, $this->reactor->hits );
+
+		// Fire the event again.
+		$this->hooks->fire( 'test_event', $this->event_args, 'test_fire' );
+
+		// The extension should not have been checked a second time.
+		$this->assertCount( 1, $this->extension->hit_checks );
+		$this->assertCount( 1, $this->extension->hits );
+
+		// The reactor should not have been hit a second time.
+		$this->assertCount( 1, $this->reactor->hits );
+
+		// Modify the second arg's value.
+		$entities = $this->event_args->get_entities();
+		$entities['another:test_entity']->set_the_value( 5 );
 
 		$this->assertFireHitsAgain();
 	}

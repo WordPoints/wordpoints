@@ -28,9 +28,19 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 	protected $is_repeatable = true;
 
 	/**
+	 * The signature args for this event.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var WordPoints_Entity[]
+	 */
+	protected $signature_args = array();
+
+	/**
 	 * The slug of the primary arg for this event, if it has one.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.3.0 Use self::$signature_args instead.
 	 *
 	 * @var string|false
 	 */
@@ -79,9 +89,16 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 			$this->entities[ $slug ] = $entity;
 
 			if ( ! $arg->is_stateful() ) {
+
 				// If any of the args aren't stateful the event isn't repeatable.
 				$this->is_repeatable = false;
-				$this->primary_arg_slug = $slug;
+
+				$this->signature_args[ $slug ] = $entity;
+
+				// Back-compat. Some events have multiple "primary" args.
+				if ( ! $this->primary_arg_slug ) {
+					$this->primary_arg_slug = $slug;
+				}
 			}
 		}
 	}
@@ -105,14 +122,39 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 	}
 
 	/**
+	 * Get the signature args for this event.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return WordPoints_Entity[]|false The entity objects for the signature
+	 *                                   args indexed by arg slug, or false if this
+	 *                                   event has none.
+	 */
+	public function get_signature_args() {
+
+		if ( ! $this->signature_args ) {
+			return false;
+		}
+
+		return $this->signature_args;
+	}
+
+	/**
 	 * Get the primary arg for this event.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.3.0 Use self::get_signature_args() instead.
 	 *
 	 * @return WordPoints_Entity|false The entity objects for the primary arg, or
 	 *                                 false if this entity has none.
 	 */
 	public function get_primary_arg() {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.3.0'
+			, __CLASS__ . '::get_signature_args()'
+		);
 
 		if ( ! $this->primary_arg_slug ) {
 			return false;
@@ -130,13 +172,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 	 */
 	public function get_stateful_args() {
 
-		$stateful = $this->entities;
-
-		if ( $this->primary_arg_slug ) {
-			unset( $stateful[ $this->primary_arg_slug ] );
-		}
-
-		return $stateful;
+		return array_diff_key( $this->entities, $this->signature_args );
 	}
 
 	/**

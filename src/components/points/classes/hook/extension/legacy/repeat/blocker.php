@@ -52,11 +52,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker
 
 		if ( $meta_key ) {
 
-			$entity = $fire->event_args->get_primary_arg();
+			$entities = $fire->event_args->get_signature_args();
 
-			if ( ! $entity ) {
+			if ( ! $entities ) {
 				return true;
 			}
+
+			// Legacy hooks only ever related to a single entity.
+			$entity = reset( $entities );
 
 			$meta_queries = array(
 				array(

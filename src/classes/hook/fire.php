@@ -111,7 +111,7 @@ class WordPoints_Hook_Fire {
 
 		global $wpdb;
 
-		$signature = wordpoints_hooks_get_event_primary_arg_guid_json(
+		$signature = wordpoints_hooks_get_event_signature_arg_guids_json(
 			$this->event_args
 		);
 
@@ -163,7 +163,7 @@ class WordPoints_Hook_Fire {
 		return new WordPoints_Hook_Hit_Query(
 			array(
 				'action_type' => $this->action_type,
-				'primary_arg_guid' => wordpoints_hooks_get_event_primary_arg_guid_json(
+				'primary_arg_guid' => wordpoints_hooks_get_event_signature_arg_guids_json(
 					$this->event_args
 				),
 				'event' => $this->reaction->get_event_slug(),

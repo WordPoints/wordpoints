@@ -86,9 +86,8 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 		$this->fire_event_legacy();
 
 		// Change the entity ID.
-		$this->event_args->get_primary_arg()->set_the_value(
-			$this->factory->user->create()
-		);
+		$entities = $this->event_args->get_signature_args();
+		reset( $entities )->set_the_value( $this->factory->user->create() );
 
 		$this->assertFireHits();
 

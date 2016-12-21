@@ -431,17 +431,67 @@ function wordpoints_register_post_type_hook_events( $slug ) {
 }
 
 /**
+ * Get the GUID(s) of the signature arg(s) of an event, serialized as JSON.
+ *
+ * If the event does not have any signature args, an empty string will be returned.
+ *
+ * @since 2.3.0
+ *
+ * @param WordPoints_Hook_Event_Args $event_args The event args.
+ *
+ * @return string The signature arg(s)'s GUID(s), JSON encoded.
+ */
+function wordpoints_hooks_get_event_signature_arg_guids_json( WordPoints_Hook_Event_Args $event_args ) {
+
+	$entities = $event_args->get_signature_args();
+
+	if ( ! $entities ) {
+		return '';
+	}
+
+	$the_guids = array();
+
+	foreach ( $entities as $arg_slug => $entity ) {
+
+		$the_guid = $entity->get_the_guid();
+
+		if ( $the_guid ) {
+			$the_guids[ $arg_slug ] = $the_guid;
+		}
+	}
+
+	if ( ! $the_guids ) {
+		return '';
+	}
+
+	if ( 1 === count( $the_guids ) ) {
+		$the_guids = reset( $the_guids );
+	} else {
+		ksort( $the_guids );
+	}
+
+	return wp_json_encode( $the_guids );
+}
+
+/**
  * Get the GUID of the primary arg of an event, serialized as JSON.
  *
  * If the event does not have a primary arg, an empty string will be returned.
  *
  * @since 2.1.0
+ * @deprecated 2.3.0 Use wordpoints_hooks_get_event_signature_arg_guids_json().
  *
  * @param WordPoints_Hook_Event_Args $event_args The event args.
  *
  * @return string The primary arg's GUID, JSON encoded.
  */
 function wordpoints_hooks_get_event_primary_arg_guid_json( WordPoints_Hook_Event_Args $event_args ) {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '2.3.0'
+		, 'wordpoints_hooks_get_event_signature_arg_guids_json()'
+	);
 
 	$entity = $event_args->get_primary_arg();
 

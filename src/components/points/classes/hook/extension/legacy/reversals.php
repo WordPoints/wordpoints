@@ -82,12 +82,15 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals
 
 		if ( $meta_key ) {
 
-			$entity = $fire->event_args->get_primary_arg();
+			$entities = $fire->event_args->get_signature_args();
 
-			if ( ! $entity ) {
+			if ( ! $entities ) {
 				$fire->data[ $this->slug ]['points_logs'] = array();
 				return array();
 			}
+
+			// Legacy hooks only ever related to a single entity.
+			$entity = reset( $entities );
 
 			$meta_queries[] = array(
 				'key'   => $meta_key,

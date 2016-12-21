@@ -347,6 +347,12 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_network_to_2_3_0_alpha_2() {
 
+		// We don't need to update the table if the new schema has just been used to
+		// install it.
+		if ( version_compare( $this->get_db_version(), '2.1.0-alpha-3', '<' ) ) {
+			return;
+		}
+
 		global $wpdb;
 
 		$wpdb->query(

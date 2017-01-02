@@ -64,6 +64,18 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * @since 2.2.1
+	 */
+	public function tearDown() {
+
+		global $wpdb;
+
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}test" );
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Test that the slug and version are set on construction.
 	 *
 	 * @since 2.0.0
@@ -2952,6 +2964,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_table() {
 
+		// We use real tables, because we can't check if a temporary table exists.
+		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+
 		global $wpdb;
 
 		$wpdb->query( "CREATE TABLE `{$wpdb->base_prefix}test` ( `id` BIGINT );" );
@@ -2972,6 +2988,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_table_site_context() {
 
+		// We use real tables, because we can't check if a temporary table exists.
+		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+
 		global $wpdb;
 
 		$wpdb->query( "CREATE TABLE `{$wpdb->prefix}test` ( `id` BIGINT );" );
@@ -2990,6 +3010,10 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 * @covers WordPoints_Un_Installer_Base::uninstall_
 	 */
 	public function test_uninstall__table() {
+
+		// We use real tables, because we can't check if a temporary table exists.
+		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
 
 		global $wpdb;
 

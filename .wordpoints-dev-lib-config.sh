@@ -7,7 +7,9 @@ export WORDPOINTS_PROJECT_TYPE=wordpoints
 function wordpoints-dev-lib-config() {
 
 	# Use the develop branch for WPCS.
-	export WPCS_GIT_TREE=develop
+	if [[ $TRAVIS_BRANCH != stable && $TRAVIS_BRANCH !=~ release ]]; then
+		export WPCS_GIT_TREE=develop
+	fi
 
 	# Use PHPCS 2.7.0, since WPCS 0.11.0 requires it.
 	export PHPCS_GIT_TREE=master

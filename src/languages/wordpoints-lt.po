@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2016-12-08 17:02:14+00:00\n"
+"POT-Creation-Date: 2017-01-02 20:04:13+00:00\n"
 "PO-Revision-Date: 2015-06-22 19:24+0200\n"
 "Last-Translator: Rimantas <info@auksinas.lt>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/wordpoints/"
@@ -230,7 +230,7 @@ msgstr "Atjungti"
 msgid "Activate %s"
 msgstr "Aktyvuoti"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316
@@ -1741,11 +1741,11 @@ msgstr ""
 msgid "Auto Draft"
 msgstr ""
 
-#: components/points/includes/functions.php:302
+#: components/points/includes/functions.php:306
 msgid "This points type uses a custom meta key: %s"
 msgstr ""
 
-#: components/points/includes/functions.php:327
+#: components/points/includes/functions.php:331
 msgid ""
 "This points type uses a custom meta key (&#8220;%s&#8221;). If this key is "
 "also used by another plugin, changes made by it will not be logged. Only "

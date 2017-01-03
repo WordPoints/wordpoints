@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.6
 Tested up to: 4.8-alpha-39357
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,19 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.2.1 — 2017-01-03 =
+
+##### Fixed
+
+- The Points Types screen locking up when creating a new reaction for some events.
+This only affected events where conditions could be created for items that could
+relate to another item of the same type (like how a comment could have a parent
+comment), causing an infinite loop.
+- Points values not being formatted with the prefix if the suffix wasn't set, and
+vice versa. This would only happen when the value wasn't set at all, not just when it
+was empty, and so only applies to points types that were created programmatically.
+Points types created through the UI were still formatted as expected.
 
 = 2.2.0 — 2016-12-08 =
 
@@ -504,6 +517,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.2.1 =
+* Fixes a bug that could cause the Points Types screen to lock up in some
+circumstances.
+
 = 2.2.0 =
 * Introduces greater flexibility for Rate Limits for event reactions, and now
 differentiates points log entries that are hidden from some users.

@@ -114,7 +114,7 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
-= 2.2.1 — 2017-01-02 =
+= 2.2.1 — 2017-01-03 =
 
 ##### Fixed
 

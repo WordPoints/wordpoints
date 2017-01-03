@@ -311,6 +311,19 @@ Args = Backbone.Model.extend({
 			return;
 		}
 
+		// If this is an entity, check if that entity is already in the
+		// hierarchy, and don't add it again, to prevent infinite loops.
+		if ( hierarchy.length % 2 === 0 ) {
+			var loops = _.filter( hierarchy, function ( item ) {
+				return item.get( 'slug' ) === arg.get( 'slug' );
+			});
+
+			// We allow it to loop twice, but not to add the entity a third time.
+			if ( loops.length > 1 ) {
+				return;
+			}
+		}
+
 		hierarchy.push( arg );
 
 		addMatching( subArgs, hierarchy );

@@ -169,7 +169,7 @@ function wordpoints_format_points_filter( $formatted, $points, $type ) {
 
 	$points_type = wordpoints_get_points_type( $type );
 
-	if ( isset( $points_type['prefix'], $points_type['suffix'] ) ) {
+	if ( isset( $points_type['prefix'] ) ) {
 
 		if ( $points < 0 ) {
 
@@ -177,7 +177,11 @@ function wordpoints_format_points_filter( $formatted, $points, $type ) {
 			$points_type['prefix'] = '-' . $points_type['prefix'];
 		}
 
-		$formatted = esc_html( $points_type['prefix'] . $points . $points_type['suffix'] );
+		$formatted = esc_html( $points_type['prefix'] . $points );
+	}
+
+	if ( isset( $points_type['suffix'] ) ) {
+		$formatted = $formatted . esc_html( $points_type['suffix'] );
 	}
 
 	return $formatted;

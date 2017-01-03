@@ -8,7 +8,16 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
-## [2.2.0]
+## [2.2.1] - 2017-01-03
+
+### Fixed
+
+- Infinite loop on the Points Types screen when an event had args that have relationships with other entities of the same type. #593
+- Points values not being formatted with prefix and suffix if one of these was not set. #588
+- "Table exists" errors from the uninstaller tests when running against WordPress 4.7+. #595
+- PHPCS errors being flagged when working on stable, by pinning the WPCS version.
+
+## [2.2.0] - 2016-12-08
 
 ### Added
 
@@ -277,6 +286,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.2.1]: https://github.com/WordPoints/wordpoints/compare/2.0.0...2.2.1
 [2.2.0]: https://github.com/WordPoints/wordpoints/compare/2.1.5...2.2.0
 [2.1.5]: https://github.com/WordPoints/wordpoints/compare/2.1.4...2.1.5
 [2.1.4]: https://github.com/WordPoints/wordpoints/compare/2.1.3...2.1.4

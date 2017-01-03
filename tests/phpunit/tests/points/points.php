@@ -140,15 +140,59 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	//
 
 	/**
-	 * Test that the result is unaltered by defualt.
+	 * Test that the result is unaltered by default.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @covers ::wordpoints_format_points
+	 * @covers ::wordpoints_format_points_filter
 	 */
 	public function test_default_format() {
 
 		$this->assertEquals( '$5pts.', wordpoints_format_points( 5, 'points', 'testing' ) );
+	}
+
+	/**
+	 * Test that it formats negative values correctly.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_format_points
+	 * @covers ::wordpoints_format_points_filter
+	 */
+	public function test_format_negative() {
+
+		$this->assertEquals( '-$5pts.', wordpoints_format_points( -5, 'points', 'testing' ) );
+	}
+
+	/**
+	 * Test that it formats with the prefix even when the suffix isn't set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_format_points
+	 * @covers ::wordpoints_format_points_filter
+	 */
+	public function test_format_prefix() {
+
+		wordpoints_add_points_type( array( 'name' => 'Credits', 'prefix' => '$' ) );
+
+		$this->assertEquals( '$5', wordpoints_format_points( 5, 'credits', 'testing' ) );
+	}
+
+	/**
+	 * Test that it formats with the suffix even when the prefix isn't set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @covers ::wordpoints_format_points
+	 * @covers ::wordpoints_format_points_filter
+	 */
+	public function test_format_suffix() {
+
+		wordpoints_add_points_type( array( 'name' => 'Credits', 'suffix' => 'c.' ) );
+
+		$this->assertEquals( '5c.', wordpoints_format_points( 5, 'credits', 'testing' ) );
 	}
 
 	/**
@@ -163,8 +207,6 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 		add_filter( 'wordpoints_format_points', array( $this, 'format_filter' ), 10, 3 );
 
 		$this->assertEquals( '5points', wordpoints_format_points( 5, 'points', 'testing' ) );
-
-		remove_filter( 'wordpoints_format_points', array( $this, 'format_filter' ), 10, 3 );
 	}
 
 	/**

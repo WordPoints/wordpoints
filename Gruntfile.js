@@ -8,10 +8,12 @@
 /* jshint node:true */
 module.exports = function( grunt ) {
 	var SOURCE_DIR = 'src/',
+		DEVELOP_DIR = './',
+		ASSETS_DIR = 'assets/',
 		UNBUILT_DIR = 'unbuilt/',
+		DEV_LIB_DIR = 'dev-lib/',
 		autoprefixer = require( 'autoprefixer' ),
 		browserifyConfig = {},
-		DEV_LIB_DIR = 'dev-lib/',
 		jsManifests = grunt.file.expand( { cwd: UNBUILT_DIR }, ['**/*.manifest.js'] );
 
 	// Load tasks.
@@ -156,6 +158,17 @@ module.exports = function( grunt ) {
 				dest: SOURCE_DIR,
 				ext: '.min.css',
 				src: ['**/*.css']
+			}
+		},
+		imagemin: {
+			all: {
+				expand: true,
+				cwd: DEVELOP_DIR,
+				src: [
+					ASSETS_DIR + '**/*.{gif,jpeg,jpg,png}',
+					SOURCE_DIR + '**/*.{gif,jpeg,jpg,png}'
+				],
+				dest: DEVELOP_DIR
 			}
 		},
 		jsvalidate:{
@@ -309,6 +322,13 @@ module.exports = function( grunt ) {
 					'newer:cssmin:all'
 				]
 			},
+			imagemin: {
+				files: [
+					ASSETS_DIR + '**/*.{gif,jpeg,jpg,png}',
+					SOURCE_DIR + '**/*.{gif,jpeg,jpg,png}'
+				],
+				tasks: ['newer:imagemin:all']
+			},
 			js: {
 				files: [ SOURCE_DIR + '**/*.js' ],
 				tasks: [ 'newer:uglify:all', 'newer:jsvalidate:all' ]
@@ -339,7 +359,10 @@ module.exports = function( grunt ) {
 			'sass:all',
 			'rtlcss:all',
 			'postcss:all',
-			'cssmin:all'
+			'cssmin:all',
+
+			// Images
+			'imagemin:all'
 		]
 	);
 

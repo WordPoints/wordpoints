@@ -158,6 +158,18 @@ module.exports = function( grunt ) {
 				src: ['**/*.css']
 			}
 		},
+		jsvalidate:{
+			options: {
+				globals: {},
+				esprimaOptions:{},
+				verbose: false
+			},
+			all: {
+				files: {
+					src: [ SOURCE_DIR + '**/*.js' ]
+				}
+			}
+		},
 		postcss: {
 			options: {
 				processors: [
@@ -299,7 +311,7 @@ module.exports = function( grunt ) {
 			},
 			js: {
 				files: [ SOURCE_DIR + '**/*.js' ],
-				tasks: ['newer:uglify:all']
+				tasks: [ 'newer:uglify:all', 'newer:jsvalidate:all' ]
 			},
 			livereload: {
 				options: { livereload: true },
@@ -321,6 +333,7 @@ module.exports = function( grunt ) {
 			// JS
 			'browserify',
 			'uglify:all',
+			'jsvalidate:all',
 
 			// CSS
 			'sass:all',

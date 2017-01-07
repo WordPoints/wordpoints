@@ -933,6 +933,10 @@ esprima@^2.6.0:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
 
+esprima@~1.0.0:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/esprima/-/esprima-1.0.4.tgz#9f557e08fc3b4d26ece9dd34f8fbf476b62585ad"
+
 eventemitter2@~0.4.13:
   version "0.4.14"
   resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-0.4.14.tgz#8f61b75cde012b2e9eb284d4545583b5643b61ab"
@@ -1260,6 +1264,12 @@ grunt-contrib-watch@^1.0.0:
     gaze "^1.0.0"
     lodash "^3.10.1"
     tiny-lr "^0.2.1"
+
+grunt-jsvalidate:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/grunt-jsvalidate/-/grunt-jsvalidate-0.2.2.tgz#fd094425888d6e63dfaa06cfb09ee052b8ebbe8f"
+  dependencies:
+    esprima "~1.0.0"
 
 grunt-known-options@~1.1.0:
   version "1.1.0"

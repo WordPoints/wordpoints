@@ -157,7 +157,7 @@ module.exports = function( grunt ) {
 				cwd: SOURCE_DIR,
 				dest: SOURCE_DIR,
 				ext: '.min.css',
-				src: ['**/*.css']
+				src: [ '**/*.css', '!**/*.min.css' ]
 			}
 		},
 		imagemin: {
@@ -290,7 +290,7 @@ module.exports = function( grunt ) {
 				cwd: SOURCE_DIR,
 				dest: SOURCE_DIR,
 				ext: '.min.js',
-				src: ['**/*.js']
+				src: [ '**/*.js', '!**/*.min.js' ]
 			}
 		},
 		watch: {

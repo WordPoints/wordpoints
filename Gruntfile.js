@@ -145,6 +145,18 @@ module.exports = function( grunt ) {
 			}
 		},
 		browserify: browserifyConfig,
+		cssmin: {
+			options: {
+				compatibility: 'ie7'
+			},
+			all: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				ext: '.min.css',
+				src: ['**/*.css']
+			}
+		},
 		sass: {
 			all: {
 				expand: true,
@@ -179,17 +191,25 @@ module.exports = function( grunt ) {
 				tasks: ['build']
 			},
 			css: {
-				files: [ UNBUILT_DIR + '**/*.scss' ],
-				tasks: ['sass:all']
+				files: [ SOURCE_DIR + '**/*.css' ],
+				tasks: ['cssmin:all']
 			},
 			livereload: {
 				options: { livereload: true },
 				files: [ SOURCE_DIR + '/**/*' ]
+			},
+			sass: {
+				files: [ UNBUILT_DIR + '**/*.scss' ],
+				tasks: ['sass:all']
 			}
 		}
 	});
 
-	grunt.registerTask( 'build', ['autoloader', 'browserify', 'sass:all'] );
+	grunt.registerTask(
+		'build'
+		, ['autoloader', 'browserify', 'sass:all', 'cssmin:all' ]
+	);
+
 	grunt.registerTask( 'default', 'build' );
 };
 

@@ -17,12 +17,13 @@
 function wordpoints_points_admin_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/points/admin/assets';
+	$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 	// CSS
 
 	wp_register_style(
 		'wordpoints-admin-points-hooks'
-		, $assets_url . '/css/hooks.css'
+		, "{$assets_url}/css/hooks{$suffix}.css"
 		, array( 'dashicons' )
 		, WORDPOINTS_VERSION
 	);

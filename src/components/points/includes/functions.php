@@ -118,20 +118,21 @@ function wordpoints_points_register_legacy_post_publish_events( $slug ) {
  */
 function wordpoints_points_register_scripts() {
 
-	$assets_url = WORDPOINTS_URL . '/components/points/assets/';
+	$assets_url = WORDPOINTS_URL . '/components/points/assets';
+	$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 	wp_register_style(
 		'wordpoints-top-users'
-		,$assets_url . 'css/top-users.css'
-		,null
-		,WORDPOINTS_VERSION
+		, "{$assets_url}/css/top-users{$suffix}.css"
+		, null
+		, WORDPOINTS_VERSION
 	);
 
 	wp_register_style(
 		'wordpoints-points-logs'
-		,$assets_url . 'css/points-logs.css'
-		,array( 'dashicons' )
-		,WORDPOINTS_VERSION
+		, "{$assets_url}/css/points-logs{$suffix}.css"
+		, array( 'dashicons' )
+		, WORDPOINTS_VERSION
 	);
 }
 

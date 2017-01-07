@@ -13,7 +13,7 @@ module.exports = function( grunt ) {
 		UNBUILT_DIR = 'unbuilt/',
 		DEV_LIB_DIR = 'dev-lib/',
 		autoprefixer = require( 'autoprefixer' ),
-		browserifyConfig = {},
+		browserifyConfig = { options: { browserifyOptions: { debug: true } } },
 		jsManifests = grunt.file.expand( { cwd: UNBUILT_DIR }, ['**/*.manifest.js'] );
 
 	// Load tasks.

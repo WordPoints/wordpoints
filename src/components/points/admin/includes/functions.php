@@ -18,6 +18,7 @@ function wordpoints_points_admin_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/points/admin/assets';
 	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$manifested_suffix = SCRIPT_DEBUG ? '.manifested' : '.min';
 
 	// CSS
 
@@ -32,7 +33,7 @@ function wordpoints_points_admin_register_scripts() {
 
 	wp_register_script(
 		'wordpoints-admin-points-types'
-		, $assets_url . '/js/points-types.js'
+		, "{$assets_url}/js/points-types{$suffix}.js"
 		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
 		, WORDPOINTS_VERSION
 	);
@@ -51,14 +52,14 @@ function wordpoints_points_admin_register_scripts() {
 
 	wp_register_script(
 		'wordpoints-hooks-reactor-points'
-		, $assets_url . '/js/hooks/reactors/points.manifested.js'
+		, "{$assets_url}/js/hooks/reactors/points{$manifested_suffix}.js"
 		, array( 'wordpoints-hooks-views' )
 		, WORDPOINTS_VERSION
 	);
 
 	wp_register_script(
 		'wordpoints-admin-points-hooks'
-		, $assets_url . '/js/hooks.js'
+		, "{$assets_url}/js/hooks{$suffix}.js"
 		, array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
 		, WORDPOINTS_VERSION
 	);

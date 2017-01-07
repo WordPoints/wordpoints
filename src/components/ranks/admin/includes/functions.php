@@ -32,7 +32,7 @@ function wordpoints_ranks_admin_register_scripts() {
 
 	wp_register_script(
 		'wordpoints-ranks-admin'
-		, $assets_url . '/js/ranks-screen.js'
+		, "{$assets_url}/js/ranks-screen{$suffix}.js"
 		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
 		, WORDPOINTS_VERSION
 	);

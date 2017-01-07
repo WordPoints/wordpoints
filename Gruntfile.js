@@ -169,6 +169,19 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+		uglify: {
+			options: {
+				ASCIIOnly: true,
+				screwIE8: false
+			},
+			all: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				ext: '.min.js',
+				src: ['**/*.js']
+			}
+		},
 		watch: {
 			autoloader: {
 				files: [
@@ -194,6 +207,10 @@ module.exports = function( grunt ) {
 				files: [ SOURCE_DIR + '**/*.css' ],
 				tasks: ['newer:cssmin:all']
 			},
+			js: {
+				files: [ SOURCE_DIR + '**/*.js' ],
+				tasks: ['newer:uglify:all']
+			},
 			livereload: {
 				options: { livereload: true },
 				files: [ SOURCE_DIR + '/**/*' ]
@@ -207,7 +224,7 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask(
 		'build'
-		, ['autoloader', 'browserify', 'sass:all', 'cssmin:all' ]
+		, ['autoloader', 'browserify', 'uglify:all', 'sass:all', 'cssmin:all' ]
 	);
 
 	grunt.registerTask( 'default', 'build' );

@@ -9,12 +9,14 @@
   "author": "J.D. Grimes",
   "license": "GPL-2.0+",
   "devDependencies": {
+    "autoprefixer": "^6.6.1",
     "grunt": "^1.0.0",
     "grunt-browserify": "~3.8.0",
     "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-newer": "^1.2.0",
+    "grunt-postcss": "^0.8.0",
     "grunt-sass": "~1.1.0",
     "matchdep": "^1.0.1"
   }

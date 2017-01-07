@@ -27,6 +27,7 @@
 	width: 500px;
 	border: 1px solid #ccc;
 	background-color: #fff;
+	-webkit-box-shadow: 0 3px 5px #ddd;
 	box-shadow: 0 3px 5px #ddd;
 	position: relative;
 }
@@ -101,6 +102,7 @@
  */
 
 .wordpoints-rank {
+	-webkit-box-shadow: 0 3px 3px #eee;
 	box-shadow: 0 3px 3px #eee;
 	margin-top: 10px;
 }
@@ -146,6 +148,7 @@
 	display: none;
 	background-color: #fff;
 	border-top: 1px solid #bbb;
+	-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 

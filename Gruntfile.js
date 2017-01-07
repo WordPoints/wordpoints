@@ -9,6 +9,7 @@
 module.exports = function( grunt ) {
 	var SOURCE_DIR = 'src/',
 		UNBUILT_DIR = 'unbuilt/',
+		autoprefixer = require( 'autoprefixer' ),
 		browserifyConfig = {},
 		DEV_LIB_DIR = 'dev-lib/',
 		jsManifests = grunt.file.expand( { cwd: UNBUILT_DIR }, ['**/*.manifest.js'] );
@@ -157,6 +158,30 @@ module.exports = function( grunt ) {
 				src: ['**/*.css']
 			}
 		},
+		postcss: {
+			options: {
+				processors: [
+					autoprefixer({
+						browsers: [
+							'Android >= 2.1',
+							'Chrome >= 21',
+							'Edge >= 12',
+							'Explorer >= 7',
+							'Firefox >= 17',
+							'Opera >= 12.1',
+							'Safari >= 6.0'
+						],
+						cascade: false
+					})
+				]
+			},
+			all: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				src: ['**/*.css']
+			}
+		},
 		sass: {
 			all: {
 				expand: true,
@@ -205,7 +230,7 @@ module.exports = function( grunt ) {
 			},
 			css: {
 				files: [ SOURCE_DIR + '**/*.css' ],
-				tasks: ['newer:cssmin:all']
+				tasks: [ 'newer:postcss:all', 'newer:cssmin:all' ]
 			},
 			js: {
 				files: [ SOURCE_DIR + '**/*.js' ],
@@ -224,7 +249,19 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask(
 		'build'
-		, ['autoloader', 'browserify', 'uglify:all', 'sass:all', 'cssmin:all' ]
+		, [
+			// PHP
+			'autoloader',
+
+			// JS
+			'browserify',
+			'uglify:all',
+
+			// CSS
+			'sass:all',
+			'postcss:all',
+			'cssmin:all'
+		]
 	);
 
 	grunt.registerTask( 'default', 'build' );

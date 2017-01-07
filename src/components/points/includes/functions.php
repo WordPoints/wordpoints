@@ -134,6 +134,18 @@ function wordpoints_points_register_scripts() {
 		, array( 'dashicons' )
 		, WORDPOINTS_VERSION
 	);
+
+	$styles = wp_styles();
+	$rtl_styles = array( 'wordpoints-top-users', 'wordpoints-points-logs' );
+
+	foreach ( $rtl_styles as $rtl_style ) {
+
+		$styles->add_data( $rtl_style, 'rtl', 'replace' );
+
+		if ( $suffix ) {
+			$styles->add_data( $rtl_style, 'suffix', $suffix );
+		}
+	}
 }
 
 /**

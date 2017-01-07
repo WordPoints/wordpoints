@@ -1,0 +1,133 @@
+/**
+ * Styles for points logs tables.
+ *
+ * @package WordPoints
+ * @since 1.6.0
+ *
+ * Index:
+ * 1. General styles for the table.
+ * 2. Table wrapper.
+ * 3. Pagination.
+ * 4. Avatars.
+ * 5. Search.
+ * 6. Restrictions.
+ */
+
+/**
+ * 1.0 Table
+ */
+
+table.wordpoints-points-logs {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.wp-admin table.wordpoints-points-logs tr.odd {
+	background-color: #f3f4ff;
+}
+
+.wp-admin table.wordpoints-points-logs tr.even {
+	background-color: #fff;
+}
+
+/**
+ * 2.0 Table wrapper
+ */
+
+.wordpoints-points-logs-wrapper {
+	position: relative;
+	clear: both;
+	*zoom: 1;
+	margin: 10px 0;
+}
+
+/**
+ * 3.0 Pagination
+ */
+
+.wordpoints-points-logs-wrapper .page-numbers {
+	margin-top: 5px;
+	margin: 2px 3px;
+	color: #222;
+	height: 22px;
+	line-height: 22px;
+}
+
+.wordpoints-points-logs-wrapper a.page-numbers {
+	border: 1px solid #ddd;
+	padding: 2px 5px;
+	margin: 0 3px;
+	cursor: pointer;
+	*cursor: hand;
+	color: #333;
+	-webkit-box-shadow: 0px 0px 1px #e1e1e1;
+	box-shadow: 0px 0px 1px #e1e1e1;
+	background-color: #ddd;
+	text-decoration: none;
+}
+
+.wordpoints-points-logs-wrapper a.page-numbers:active {
+	outline: none;
+}
+
+.wordpoints-points-logs-wrapper a.page-numbers:hover {
+	text-decoration: none;
+	background-color: #fff;
+}
+
+.wordpoints-points-logs-wrapper .page-numbers.current:hover {
+	cursor: default;
+}
+
+/**
+ * 4.0 Avatars
+ */
+
+.wordpoints-points-logs .avatar {
+	vertical-align: middle;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+/**
+ * 5.0 Search
+ */
+
+.wordpoints-points-logs-search {
+	float: left;
+	margin: 10px 0;
+}
+
+.wordpoints-points-logs-searching {
+	float: right;
+	margin: 15px;
+	color: #666;
+	font-size: larger;
+}
+
+/**
+ * 6.0 Restrictions
+ */
+
+.wordpoints-log-viewing-restrictions {
+	font-style: italic;
+	margin-top: 5px;
+	opacity: 0.82;
+}
+
+.wordpoints-log-viewing-restriction:before {
+	content: "\f530";
+	display: inline-block;
+	width: 15px;
+	height: 16px;
+	font-size: 15px;
+	line-height: 1;
+	font-family: dashicons;
+	text-decoration: inherit;
+	font-weight: normal;
+	font-style: normal;
+	vertical-align: middle;
+	text-align: center;
+}

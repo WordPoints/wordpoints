@@ -28,6 +28,13 @@ function wordpoints_ranks_admin_register_scripts() {
 		, WORDPOINTS_VERSION
 	);
 
+	$styles = wp_styles();
+	$styles->add_data( 'wordpoints-ranks-admin', 'rtl', 'replace' );
+
+	if ( $suffix ) {
+		$styles->add_data( 'wordpoints-ranks-admin', 'suffix', $suffix );
+	}
+
 	// JS
 
 	wp_register_script(

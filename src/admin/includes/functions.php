@@ -239,6 +239,13 @@ function wordpoints_register_admin_scripts() {
 		, WORDPOINTS_VERSION
 	);
 
+	$styles = wp_styles();
+	$styles->add_data( 'wordpoints-hooks-admin', 'rtl', 'replace' );
+
+	if ( $suffix ) {
+		$styles->add_data( 'wordpoints-hooks-admin', 'suffix', $suffix );
+	}
+
 	// JS
 
 	wp_register_script(

@@ -1,0 +1,280 @@
+/**
+ * Styles for the ranks administration screen.
+ *
+ * Index:
+ * - Rank Group Container
+ * - Rank Group
+ * - Rank
+ * -- View
+ * -- New
+ * -- Messages
+ * -- Form
+ * -- Editing
+ * -- Changed
+ * - Dialog
+ * - Miscellaneous
+ *
+ * @package WordPoints\Ranks
+ * @since 1.7.0
+ */
+
+/*
+ * Rank Group Container.
+ */
+
+.wordpoints-rank-group-container {
+	margin: 10px auto;
+	width: 500px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	-webkit-box-shadow: 0 3px 5px #ddd;
+	box-shadow: 0 3px 5px #ddd;
+	position: relative;
+}
+
+.wordpoints-rank-group-container .group-description {
+	padding: 5px 10px;
+	border-bottom: 1px solid #ccc;
+	background-color: #f5f5f5;
+	margin: 0;
+}
+
+.wordpoints-rank-group-container .controls {
+	background-color: #f5f5f5;
+	border-top: 1px solid #ccc;
+	padding: 5px;
+	min-height: 30px;
+}
+
+.controls .add-rank,
+.controls .wordpoints-rank-types {
+	float: left;
+}
+
+/* The .button-primary is to override the margin styles for that class */
+.controls .add-rank.button-primary {
+	margin-right: 5px;
+}
+
+/* The .button-primary is to override the display styles for that class */
+.controls.adding .add-rank.button-primary,
+.controls.adding .wordpoints-rank-types {
+	display: none;
+}
+
+.wordpoints-rank-group-container .spinner {
+	width: 22px;
+	position: absolute;
+	right: 50%;
+	top: 50%;
+	margin: -10px -10px auto auto;
+	opacity: 1;
+	display: block;
+}
+
+.wordpoints-rank-group-container .spinner-overlay {
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	background-color: #fff;
+	opacity: 0.75;
+	display: none;
+	position: absolute;
+	top: 0;
+}
+
+/*
+ * Rank Group.
+ */
+
+.wordpoints-rank-group {
+	padding: 0 10px;
+}
+
+.js .wordpoints-rank-group .err {
+	display: none;
+}
+
+/*
+ * Rank.
+ *
+ * - View.
+ */
+
+.wordpoints-rank {
+	-webkit-box-shadow: 0 3px 3px #eee;
+	box-shadow: 0 3px 3px #eee;
+	margin-top: 10px;
+}
+
+.wordpoints-rank .view {
+	border: 1px solid #bbb;
+	padding: 8px;
+	background-color: #f5f5f5;
+}
+
+.wordpoints-rank form {
+	display: none;
+}
+
+.wordpoints-rank .edit,
+.wordpoints-rank .view .close {
+	float: left;
+	margin-top: -18px;
+	cursor: pointer;
+}
+
+.wordpoints-rank .view .close {
+	display: none;
+}
+
+.wordpoints-rank .view span {
+	color: #666;
+	font-style: italic;
+	margin-right: 5px;
+}
+
+/*
+ * - Messages.
+ */
+
+/* We use .success and .err instead of .updated and .error, because the later two are
+ * moved to the top of the page by WordPress.
+ */
+.wordpoints-rank .success,
+.wordpoints-rank .err {
+	padding: 5px;
+	margin: 0;
+	display: none;
+	background-color: #fff;
+	border-top: 1px solid #bbb;
+	-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wordpoints-rank .success {
+	border-right: 4px solid #7ad03a;
+}
+
+.wordpoints-rank .err {
+	border-right: 4px solid #dd3d36;
+	background-color: #fff1f1;
+}
+
+.wordpoints-rank .fields .err {
+	margin: 5px 0;
+	display: block;
+	border: 1px solid #dd3d36;
+	border-right-width: 4px;
+}
+
+/*
+ * - New.
+ */
+
+/* The .button-secondary is to override the default display styles for that class */
+.wordpoints-rank.new .delete.button-secondary {
+	display: none;
+}
+
+/*
+ * - Form.
+ */
+
+.wordpoints-rank form {
+	border: 1px solid #bbb;
+	border-top: none;
+}
+
+.wordpoints-rank .fields {
+	padding: 5px;
+}
+
+.wordpoints-rank .fields .description {
+	margin-bottom: 15px;
+	width: 100%;
+	height: auto;
+}
+
+.wordpoints-rank .actions {
+	position: relative;
+}
+
+.wordpoints-rank .action-buttons {
+	height: 30px;
+	border-top: 1px solid #ccc;
+    padding: 5px;
+    background-color: #f5f5f5;
+}
+
+.wordpoints-rank .cancel,
+.wordpoints-rank .close,
+.wordpoints-rank .save {
+	float: left;
+}
+
+/* The .button-secondary is to override the default display styles for that class */
+.wordpoints-rank .cancel.button-secondary {
+	display: none;
+}
+
+/* The .button-primary is so it overrides the default margin styles for that class */
+.wordpoints-rank .save.button-primary {
+	margin-right: 5px;
+}
+
+.wordpoints-rank .delete {
+	float: right;
+}
+
+/*
+ * - Editing.
+ */
+
+.wordpoints-rank.editing form {
+	display: block;
+}
+
+.wordpoints-rank.editing .view .edit {
+	display: none;
+}
+
+.wordpoints-rank.editing .view .close {
+	display: block;
+}
+
+/*
+ * - Changed.
+ */
+
+.wordpoints-rank.changed .cancel {
+	display: block;
+}
+
+.wordpoints-rank.changed .close,
+.wordpoints-rank.changed .view .close {
+	display: none;
+}
+
+/*
+ * Dialog.
+ */
+
+.wordpoints-delete-rank-dialog .button-primary {
+	float: left;
+}
+
+.wordpoints-delete-rank-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: none;
+	width: 100%;
+}
+
+/*
+ * Miscellaneous.
+ */
+
+.rank-template_base .delete {
+	display: none;
+}
+
+/* EOF */

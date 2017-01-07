@@ -29,6 +29,13 @@ function wordpoints_points_admin_register_scripts() {
 		, WORDPOINTS_VERSION
 	);
 
+	$styles = wp_styles();
+	$styles->add_data( 'wordpoints-admin-points-hooks', 'rtl', 'replace' );
+
+	if ( $suffix ) {
+		$styles->add_data( 'wordpoints-admin-points-hooks', 'suffix', $suffix );
+	}
+
 	// JS
 
 	wp_register_script(

@@ -182,6 +182,67 @@ module.exports = function( grunt ) {
 				src: ['**/*.css']
 			}
 		},
+		rtlcss: {
+			options: {
+				// rtlcss options
+				opts: {
+					clean: false,
+					processUrls: { atrule: true, decl: false },
+					stringMap: [
+						{
+							name: 'import-rtl-stylesheet',
+							priority: 10,
+							exclusive: true,
+							search: [ '.css' ],
+							replace: [ '-rtl.css' ],
+							options: {
+								scope: 'url',
+								ignoreCase: false
+							}
+						}
+					]
+				},
+				saveUnmodified: false,
+				plugins: [
+					{
+						name: 'swap-dashicons-left-right-arrows',
+						priority: 10,
+						directives: {
+							control: {},
+							value: []
+						},
+						processors: [
+							{
+								expr: /content/im,
+								action: function( prop, value ) {
+									if ( value === '"\\f141"' ) { // dashicons-arrow-left
+										value = '"\\f139"';
+									} else if ( value === '"\\f340"' ) { // dashicons-arrow-left-alt
+										value = '"\\f344"';
+									} else if ( value === '"\\f341"' ) { // dashicons-arrow-left-alt2
+										value = '"\\f345"';
+									} else if ( value === '"\\f139"' ) { // dashicons-arrow-right
+										value = '"\\f141"';
+									} else if ( value === '"\\f344"' ) { // dashicons-arrow-right-alt
+										value = '"\\f340"';
+									} else if ( value === '"\\f345"' ) { // dashicons-arrow-right-alt2
+										value = '"\\f341"';
+									}
+									return { prop: prop, value: value };
+								}
+							}
+						]
+					}
+				]
+			},
+			all: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: SOURCE_DIR,
+				ext: '-rtl.css',
+				src: [ '**/*.css', '!**/*-rtl.css', '!**/*.min.css' ]
+			}
+		},
 		sass: {
 			all: {
 				expand: true,
@@ -230,7 +291,11 @@ module.exports = function( grunt ) {
 			},
 			css: {
 				files: [ SOURCE_DIR + '**/*.css' ],
-				tasks: [ 'newer:postcss:all', 'newer:cssmin:all' ]
+				tasks: [
+					'newer:rtlcss:all',
+					'newer:postcss:all',
+					'newer:cssmin:all'
+				]
 			},
 			js: {
 				files: [ SOURCE_DIR + '**/*.js' ],
@@ -259,6 +324,7 @@ module.exports = function( grunt ) {
 
 			// CSS
 			'sass:all',
+			'rtlcss:all',
 			'postcss:all',
 			'cssmin:all'
 		]

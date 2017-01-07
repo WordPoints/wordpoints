@@ -192,7 +192,7 @@ module.exports = function( grunt ) {
 			},
 			css: {
 				files: [ SOURCE_DIR + '**/*.css' ],
-				tasks: ['cssmin:all']
+				tasks: ['newer:cssmin:all']
 			},
 			livereload: {
 				options: { livereload: true },
@@ -200,7 +200,7 @@ module.exports = function( grunt ) {
 			},
 			sass: {
 				files: [ UNBUILT_DIR + '**/*.scss' ],
-				tasks: ['sass:all']
+				tasks: ['newer:sass:all']
 			}
 		}
 	});

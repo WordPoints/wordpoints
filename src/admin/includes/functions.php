@@ -281,7 +281,7 @@ function wordpoints_register_admin_scripts() {
 			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
 			'deleteText'      => __( 'Delete', 'wordpoints' ),
 			'cancelText'      => __( 'Cancel', 'wordpoints' ),
-			'separator'       => __( ' » ', 'wordpoints' ),
+			'separator'       => is_rtl() ? ' « ' : ' » ',
 			'target_label'    => __( 'Target', 'wordpoints' ),
 			// translators: form field
 			'cannotBeChanged' => __( '(cannot be changed)', 'wordpoints' ),

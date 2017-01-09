@@ -966,13 +966,17 @@ abstract class WordPoints_Un_Installer_Base {
 	/**
 	 * Get the database version of the entity.
 	 *
+	 * Note that this should be used with care during uninstall, since
+	 * `$this->network_wide` isn't set by default during uninstall.
+	 *
 	 * @since 2.0.0
+	 * @since 2.3.0 Now based on `$this->network_wide` instead of `$this->context`.
 	 *
 	 * @return string|false The database version of the entity, or false if not set.
 	 */
 	protected function get_db_version() {
 
-		if ( 'network' === $this->context ) {
+		if ( $this->network_wide ) {
 			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
 		} else {
 			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
@@ -995,6 +999,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * Set the version of the entity in the database.
 	 *
 	 * @since 2.0.0
+	 * @since 2.3.0 Now based on `$this->network_wide` instead of `$this->context`.
 	 *
 	 * @param string $version The version of the entity.
 	 */
@@ -1004,7 +1009,7 @@ abstract class WordPoints_Un_Installer_Base {
 			$version = $this->version;
 		}
 
-		if ( 'network' === $this->context ) {
+		if ( $this->network_wide ) {
 			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
 		} else {
 			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
@@ -1016,7 +1021,7 @@ abstract class WordPoints_Un_Installer_Base {
 			$wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'] = $version;
 		}
 
-		if ( 'network' === $this->context ) {
+		if ( $this->network_wide ) {
 			update_site_option( 'wordpoints_data', $wordpoints_data );
 		} else {
 			update_option( 'wordpoints_data', $wordpoints_data );

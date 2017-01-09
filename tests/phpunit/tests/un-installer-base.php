@@ -276,7 +276,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->un_installer->context = 'network';
 		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
 
 		$this->assertNotContains(
@@ -408,7 +407,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->assertFalse( $this->un_installer->get_db_version() );
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
 
 		$this->assertContains(
 			array( 'method' => 'set_network_install_skipped', 'args' => array() )
@@ -452,7 +451,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->assertFalse( $this->un_installer->get_db_version() );
+		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
 
 		$this->assertNotContains(
 			array( 'method' => 'set_network_install_skipped', 'args' => array() )
@@ -894,7 +893,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->un_installer->context = 'network';
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->assertNotContains(
@@ -1047,7 +1045,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->un_installer->context = 'network';
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->assertNotContains(
@@ -1093,7 +1090,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->un_installer->context = 'network';
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->assertNotContains(
@@ -1142,7 +1138,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->un_installer->context = 'network';
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->assertContains(
@@ -1191,7 +1186,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->un_installer->context = 'network';
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->assertNotContains(
@@ -3104,6 +3098,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_uninstall_network_unset_db_version() {
 
 		$this->un_installer->context = 'network';
+		$this->un_installer->network_wide = true;
 
 		$this->un_installer->set_db_version();
 
@@ -3117,6 +3112,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 
 		$this->assertEquals( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->un_installer->network_wide = null;
 
 		$this->un_installer->uninstall_network();
 
@@ -4101,6 +4098,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version_network_wide() {
 
+		$this->un_installer->network_wide = true;
 		$this->un_installer->context = 'network';
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
@@ -4148,16 +4146,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @covers WordPoints_Un_Installer_Base::get_db_version
 	 * @covers WordPoints_Un_Installer_Base::set_db_version
+	 *
+	 * @requires WordPoints !network-active
 	 */
 	public function test_get_db_version_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
 
-		if ( is_wordpoints_network_active() ) {
-			$this->assertFalse( $this->un_installer->get_db_version() );
-		} else {
-			$this->assertEquals( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
-		}
+		$this->assertEquals( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version( '0.9.0' );
 
@@ -4187,17 +4183,16 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @covers WordPoints_Un_Installer_Base::get_db_version
 	 * @covers WordPoints_Un_Installer_Base::set_db_version
+	 *
+	 * @requires WordPoints network-active
 	 */
 	public function test_get_db_version_wordpoints_network_wide() {
 
 		$this->un_installer->slug = 'wordpoints';
 		$this->un_installer->context = 'network';
+		$this->un_installer->network_wide = true;
 
-		if ( ! is_multisite() || is_wordpoints_network_active() ) {
-			$this->assertEquals( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
-		} else {
-			$this->assertFalse( $this->un_installer->get_db_version() );
-		}
+		$this->assertEquals( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version( '0.9.0' );
 

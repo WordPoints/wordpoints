@@ -82,7 +82,8 @@ class WordPoints_Entity_Array extends WordPoints_Entityish {
 	 */
 	public function set_the_value( $values ) {
 
-		$this->the_entities = $this->the_value = array();
+		$this->the_value = array();
+		$this->the_entities = array();
 
 		if ( ! ( $this->entity_object instanceof WordPoints_Entity ) ) {
 			return false;

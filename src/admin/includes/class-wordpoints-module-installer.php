@@ -93,12 +93,14 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 			}
 		}
 
-		$wp_theme_directories[] = $module_dir = wordpoints_modules_dir();
+		$module_dir = wordpoints_modules_dir();
+		$wp_theme_directories[] = $module_dir;
 
 		$result = parent::install_package( $args );
 
-		if ( false !== ( $key = array_search( $module_dir, $wp_theme_directories ) ) ) {
+		$key = array_search( $module_dir, $wp_theme_directories );
 
+		if ( false !== $key ) {
 			unset( $wp_theme_directories[ $key ] );
 		}
 

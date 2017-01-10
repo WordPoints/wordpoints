@@ -373,7 +373,9 @@ abstract class WordPoints_Entity
 	 */
 	public function set_the_value( $value ) {
 
-		$this->the_value = $this->the_entity = $this->the_context = null;
+		$this->the_value = null;
+		$this->the_entity = null;
+		$this->the_context = null;
 
 		if ( $this->is_entity( $value ) ) {
 

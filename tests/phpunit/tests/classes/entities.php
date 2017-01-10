@@ -35,8 +35,8 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 
 		global $wpdb;
 
-		$factory = $this->factory = new WP_UnitTest_Factory();
-		$factory->wordpoints = WordPoints_PHPUnit_Factory::$factory;
+		$this->factory = new WP_UnitTest_Factory();
+		$this->factory->wordpoints = WordPoints_PHPUnit_Factory::$factory;
 
 		$entities = array(
 			'user'    => array(
@@ -54,7 +54,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						),
 					),
 					'the_context'    => array(),
-					'create_func'    => array( $factory->user, 'create_and_get' ),
+					'create_func'    => array( $this->factory->user, 'create_and_get' ),
 					'delete_func'    => array( $this, 'delete_user' ),
 					'children'       => array(
 						'roles' => array(
@@ -98,7 +98,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					),
 					'create_func'    => array( $this, 'create_post' ),
 					'delete_func'    => array( $this, 'delete_post' ),
-					'cant_view'      => $factory->post->create(
+					'cant_view'      => $this->factory->post->create(
 						array( 'post_status' => 'private' )
 					),
 					'children'       => array(
@@ -143,12 +143,12 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					),
 					'create_func'    => array( $this, 'create_comment' ),
 					'delete_func'    => array( $this, 'delete_comment' ),
-					'cant_view'      => $factory->comment->create(
+					'cant_view'      => $this->factory->comment->create(
 						array(
-							'comment_post_ID' => $factory->post->create(
+							'comment_post_ID' => $this->factory->post->create(
 								array(
 									'post_status' => 'private',
-									'post_author' => $factory->user->create(
+									'post_author' => $this->factory->user->create(
 										array(
 											'user_login' => 'Comment entity tester',
 										)

@@ -1668,7 +1668,8 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$args = array_merge( $defaults, $args );
 
-		$parent = $network_parent = $args['parent'];
+		$network_parent = $args['parent'];
+		$parent = $network_parent;
 
 		// The parent page is usually the same on a multisite site, but we need to
 		// handle the special case of the modules screen.

@@ -530,15 +530,18 @@ final class WordPoints_Points_Hooks {
 		switch ( $wrap ) {
 
 			case 'hook':
-				$hook_wrap = $hook_content_wrap = true;
+				$hook_wrap = true;
+				$hook_content_wrap = true;
 			break;
 
 			case 'hook-content':
-				$hook_wrap = ! $hook_content_wrap = true;
+				$hook_wrap = false;
+				$hook_content_wrap = true;
 			break;
 
 			default:
-				$hook_wrap = $hook_content_wrap = false;
+				$hook_wrap = false;
+				$hook_content_wrap = false;
 		}
 
 		?>
@@ -727,7 +730,11 @@ final class WordPoints_Points_Hooks {
 		<div class="hook-inside">
 			<form method="post">
 				<div class="hook-content">
-					<?php $has_form = $hook->form_callback( $number ); ?>
+					<?php
+
+					$has_form = $hook->form_callback( $number );
+
+					?>
 				</div>
 
 				<input type="hidden" name="hook-id" class="hook-id" value="<?php echo esc_attr( $id_format ); ?>" />

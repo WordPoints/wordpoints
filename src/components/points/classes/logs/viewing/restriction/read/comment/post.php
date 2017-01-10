@@ -33,8 +33,12 @@ class WordPoints_Points_Logs_Viewing_Restriction_Read_Comment_Post
 			, true
 		);
 
-		if ( $comment_id && ( $comment = get_comment( $comment_id ) ) ) {
-			return $comment->comment_post_ID;
+		if ( $comment_id ) {
+			$comment = get_comment( $comment_id );
+
+			if ( $comment ) {
+				return $comment->comment_post_ID;
+			}
 		}
 
 		return false;

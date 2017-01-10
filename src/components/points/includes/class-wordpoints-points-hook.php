@@ -515,7 +515,7 @@ abstract class WordPoints_Points_Hook {
 
 		$number = $this->get_number_by_id( $hook_id );
 
-		if ( isset( $all_instances[ $number ] ) && $hook_id = $this->get_id( $number ) ) {
+		if ( isset( $all_instances[ $number ] ) ) {
 
 			unset( $all_instances[ $number ] );
 

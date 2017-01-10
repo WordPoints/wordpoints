@@ -34,7 +34,9 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_Test
 
 		parent::setUp();
 
-		$_GET['wordpoints_module_check'] = $this->nonce = sanitize_key( __METHOD__ );
+		$this->nonce = sanitize_key( __METHOD__ );
+
+		$_GET['wordpoints_module_check'] = $this->nonce;
 
 		update_option( 'wordpoints_module_check_nonce', $this->nonce );
 	}

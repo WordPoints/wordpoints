@@ -80,7 +80,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	 */
 	public function data_provider_valid_settings() {
 
-		$return = $max_and_min = array(
+		$return = array(
 			'empty' => array( array() ),
 			'max_only' => array( array( 'max' => 4 ) ),
 			'min_only' => array( array( 'min' => 1 ) ),

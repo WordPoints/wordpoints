@@ -17,6 +17,15 @@
 class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 	/**
+	 * The ID of the user used in the test.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @var int
+	 */
+	protected $user_id;
+
+	/**
 	 * Set up before the tests.
 	 *
 	 * @since 1.7.0
@@ -513,13 +522,13 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_user_ranks_cached() {
 
-		$user_id = $this->user_id = $this->factory->user->create();
+		$this->user_id = $this->factory->user->create();
 		$rank_id = $this->factory->wordpoints_rank->create();
 		$rank_id_2 = $this->factory->wordpoints_rank->create(
 			array( 'position' => 2 )
 		);
 
-		wordpoints_update_user_rank( $user_id, $rank_id );
+		wordpoints_update_user_rank( $this->user_id, $rank_id );
 
 		// Listen for get user rank database queries.
 		$this->listen_for_filter(
@@ -528,7 +537,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		);
 
 		// Get the user's rank.
-		$rank__id = wordpoints_get_user_rank( $user_id, $this->rank_group );
+		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		$this->assertEquals( $rank_id, $rank__id );
 
@@ -536,16 +545,16 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the user's rank again.
-		wordpoints_get_user_rank( $user_id, $this->rank_group );
+		wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		// The database should still have been called only once.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// The cache should be invalidated when the user's rank is updated.
-		wordpoints_update_user_rank( $user_id, $rank_id_2 );
+		wordpoints_update_user_rank( $this->user_id, $rank_id_2 );
 
 		// Get the user's rank again.
-		$rank__id = wordpoints_get_user_rank( $user_id, $this->rank_group );
+		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		// The database should have been queried again.
 		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
@@ -565,7 +574,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the rank again.
-		$rank__id = wordpoints_get_user_rank( $user_id, $this->rank_group );
+		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		// The user will end up on the same rank again, because the maybe increase
 		// user rank function will always return true. This pushes them all the way
@@ -580,7 +589,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		wordpoints_delete_rank( $rank_id_2 );
 
 		// Get the rank again.
-		$rank__id = wordpoints_get_user_rank( $user_id, $this->rank_group );
+		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		$this->assertEquals( $rank_id_3, $rank__id );
 

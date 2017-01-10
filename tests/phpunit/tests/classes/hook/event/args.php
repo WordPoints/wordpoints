@@ -56,7 +56,8 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
 		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test' );
 
-		$arg->is_stateful = $arg_2->is_stateful = true;
+		$arg->is_stateful = true;
+		$arg_2->is_stateful = true;
 
 		$args = new WordPoints_Hook_Event_Args( array( $arg, $arg_2 ) );
 

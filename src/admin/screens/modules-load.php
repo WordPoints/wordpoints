@@ -299,7 +299,8 @@ switch ( $action ) {
 				<?php
 
 				$module_dir = wordpoints_modules_dir();
-				$files_to_delete = $module_info = array();
+				$module_info = array();
+				$files_to_delete = array();
 				$have_non_network_modules = false;
 
 				foreach ( $modules as $module ) {
@@ -328,17 +329,16 @@ switch ( $action ) {
 							$files_to_delete = array_merge( $files_to_delete, $files );
 						}
 
-						// Get modules list from that folder
-						if ( $folder_modules = wordpoints_get_modules( '/' . dirname( $module ) ) ) {
+						// Get modules list from that folder.
+						$folder_modules = wordpoints_get_modules( '/' . dirname( $module ) );
 
-							foreach ( $folder_modules as $module_file => $data ) {
+						foreach ( $folder_modules as $module_file => $data ) {
 
-								$module_info[ $module_file ] = $data;
-								$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
+							$module_info[ $module_file ] = $data;
+							$module_info[ $module_file ]['is_uninstallable'] = is_uninstallable_wordpoints_module( $module );
 
-								if ( ! $module_info[ $module_file ]['network'] ) {
-									$have_non_network_modules = true;
-								}
+							if ( ! $module_info[ $module_file ]['network'] ) {
+								$have_non_network_modules = true;
 							}
 						}
 

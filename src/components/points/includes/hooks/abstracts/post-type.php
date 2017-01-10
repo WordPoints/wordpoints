@@ -252,11 +252,9 @@ abstract class WordPoints_Post_Type_Points_Hook_Base extends WordPoints_Points_H
 
 		$text = $this->get_option( 'log_text_post_title_and_type' . $reverse );
 
-		if (
-			$text
-			&& ( $post_type = get_post_field( 'post_type', $post_id ) )
-			&& post_type_exists( $post_type )
-		) {
+		$post_type = get_post_field( 'post_type', $post_id );
+
+		if ( $text && $post_type && post_type_exists( $post_type ) ) {
 			$args[] = get_post_type_object( $post_type )->labels->singular_name;
 		} else {
 			$text = $this->get_option( 'log_text_post_title' . $reverse );

@@ -24,6 +24,15 @@ class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 	protected $ajax_action = 'wordpoints_admin_update_rank';
 
 	/**
+	 * The data for the rank.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @var array
+	 */
+	protected $rank_data;
+
+	/**
 	 * Set up for each test.
 	 *
 	 * @since 1.7.0
@@ -42,7 +51,7 @@ class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 			, array( 'test_meta' => 'ss' )
 		);
 
-		$_POST = $this->rank_data = array(
+		$this->rank_data = array(
 			'id'    => $rank_id,
 			'nonce' => wp_create_nonce(
 				"wordpoints_update_rank|{$this->rank_group}|{$rank_id}"
@@ -53,6 +62,8 @@ class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 			'order' => 1,
 			'test_meta' => 'test',
 		);
+
+		$_POST = $this->rank_data;
 	}
 
 	/**
@@ -62,7 +73,7 @@ class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 	 */
 	public function test_as_administrator() {
 
-		$response = $this->assertJSONSuccessResponse();
+		$this->assertJSONSuccessResponse();
 
 		$rank = wordpoints_get_rank( $this->rank_data['id'] );
 

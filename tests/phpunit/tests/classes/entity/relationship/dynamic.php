@@ -65,7 +65,7 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 	 */
 	public function data_provider_relationships() {
 
-		$return = $basic = array(
+		return array(
 			'entity' => array( 'test_entity', 'relationship', 'primary_entity' ),
 			'dynamic' => array( 'test_entity\a', 'relationship\a', 'primary_entity\a' ),
 			'array' => array( 'test_entity{}', 'relationship', 'primary_entity' ),
@@ -73,8 +73,6 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 			'double_dynamic' => array( 'test_entity\a\b', 'relationship\a\b', 'primary_entity\a\b' ),
 			'array_double_dynamic' => array( 'test_entity\a\b{}', 'relationship\a\b', 'primary_entity\a\b' ),
 		);
-
-		return $return;
 	}
 
 	/**

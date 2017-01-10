@@ -138,7 +138,8 @@ final class WordPoints_Hook_Reaction_Validator {
 	 */
 	public function validate() {
 
-		$this->errors = $this->field_stack = array();
+		$this->field_stack = array();
+		$this->errors = array();
 
 		try {
 

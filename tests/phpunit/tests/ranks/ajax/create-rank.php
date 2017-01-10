@@ -24,6 +24,15 @@ class WordPoints_Ranks_Screen_Create_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 	protected $ajax_action = 'wordpoints_admin_create_rank';
 
 	/**
+	 * The data for the rank.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @var array
+	 */
+	protected $rank_data;
+
+	/**
 	 * Set up for each test.
 	 *
 	 * @since 1.7.0
@@ -34,7 +43,7 @@ class WordPoints_Ranks_Screen_Create_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 
 		$this->_setRole( 'administrator' );
 
-		$_POST = $this->rank_data = array(
+		$this->rank_data = array(
 			'nonce' => wp_create_nonce(
 				"wordpoints_create_rank|{$this->rank_group}|{$this->rank_type}"
 			),
@@ -44,6 +53,8 @@ class WordPoints_Ranks_Screen_Create_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 			'order' => 1,
 			'test_meta' => 'test',
 		);
+
+		$_POST = $this->rank_data;
 	}
 
 	/**

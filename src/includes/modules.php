@@ -421,13 +421,15 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		}
 
 		// Sanitize fields.
-		$allowed_tags = $allowed_tags_in_links = array(
+		$allowed_tags_in_links = array(
 			'abbr'    => array( 'title' => true ),
 			'acronym' => array( 'title' => true ),
 			'code'    => true,
 			'em'      => true,
 			'strong'  => true,
 		);
+
+		$allowed_tags = $allowed_tags_in_links;
 		$allowed_tags['a'] = array( 'href' => true, 'title' => true );
 
 		// Name and author ar marked up inside <a> tags. Don't allow these.
@@ -513,8 +515,8 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 	// Load the textdomain according to the module first.
 	$mofile = $domain . '-' . $locale . '.mo';
 
-	if ( $loaded = load_textdomain( $domain, $path . '/' . $mofile ) ) {
-		return $loaded;
+	if ( load_textdomain( $domain, $path . '/' . $mofile ) ) {
+		return true;
 	}
 
 	// Otherwise, load from the languages directory.
@@ -542,7 +544,9 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
  */
 function wordpoints_get_modules( $module_folder = '', $markup = false, $translate = false ) {
 
-	if ( ! $cache_modules = wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) ) {
+	$cache_modules = wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' );
+
+	if ( ! $cache_modules ) {
 		$cache_modules = array();
 	}
 
@@ -856,7 +860,9 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
 	}
 
 	$current = wordpoints_get_array_option( 'wordpoints_active_modules' );
-	$do_blog = $do_network = false;
+
+	$do_network = false;
+	$do_blog = false;
 
 	foreach ( (array) $modules as $module ) {
 
@@ -976,7 +982,9 @@ function wordpoints_delete_modules( $modules ) {
 
 	$url = wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&verify-delete=1&' . implode( '&', $checked ) ), 'bulk-modules' );
 
-	if ( false === ($credentials = request_filesystem_credentials( $url )) ) {
+	$credentials = request_filesystem_credentials( $url );
+
+	if ( false === $credentials ) {
 
 		$data = ob_get_clean();
 

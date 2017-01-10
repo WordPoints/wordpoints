@@ -37,7 +37,8 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		$upgrading = time();
 
-		$_GET['wordpoints_module_check'] = $_GET['check_module'] = 'something';
+		$_GET['wordpoints_module_check'] = 'something';
+		$_GET['check_module'] = 'something';
 
 		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
 
@@ -56,9 +57,12 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertEmpty( $upgrading );
 
-		$upgrading = $raw = time() - 10 * MINUTE_IN_SECONDS - 34;
+		$raw = time() - 10 * MINUTE_IN_SECONDS - 34;
 
-		$_GET['wordpoints_module_check'] = $_GET['check_module'] = 'something';
+		$upgrading = $raw;
+
+		$_GET['wordpoints_module_check'] = 'something';
+		$_GET['check_module'] = 'something';
 
 		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
 

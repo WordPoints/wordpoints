@@ -272,10 +272,10 @@ final class WordPoints_Installables {
 		$messages = array();
 
 		if ( 'install' === $notice_type ) {
-			/* translators: 1 module/plugin name, 2 "module", "plugin", or "component". */
+			// translators: 1. Module/plugin name; 2. "module", "plugin", or "component".
 			$message_template = __( 'WordPoints detected a large network and has skipped part of the installation process for the &#8220;%1$s&#8221; %2$s.', 'wordpoints' );
 		} else {
-			/* translators: 1 module/plugin name, 2 "module", "plugin", or "component", 3 version number. */
+			// translators: 1. Module/plugin name; 2. "module", "plugin", or "component"; 3. Version number.
 			$message_template = __( 'WordPoints detected a large network and has skipped part of the update process for the &#8220;%1$s&#8221; %2$s for version %3$s (and possibly later versions).', 'wordpoints' );
 		}
 

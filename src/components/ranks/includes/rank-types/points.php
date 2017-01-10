@@ -120,6 +120,7 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 			return new WP_Error(
 				'wordpoints_points_rank_type_points_less_than_minimum'
 				, sprintf(
+					// translators: Minimum number of points.
 					__( 'The number of points must be more than the minimum (%s).', 'wordpoints' )
 					, wordpoints_format_points( $minimum, $meta['points_type'], 'points_rank_error' )
 				)

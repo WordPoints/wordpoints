@@ -95,7 +95,8 @@ $name = esc_html( $hook->get_name() );
 <div class="wrap">
 	<h1><?php esc_html_e( 'Points Hooks', 'wordpoints' ); ?></h1>
 	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
-		<h2><?php echo esc_html( sprintf( _x( 'Hook %s', 'hook name', 'wordpoints' ), $name ) ); ?></h2>
+		<?php // translators: Hook name. ?>
+		<h2><?php echo esc_html( sprintf( __( 'Hook %s', 'wordpoints' ), $name ) ); ?></h2>
 
 		<form action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) ); ?>" method="post">
 			<div class="hook-inside">

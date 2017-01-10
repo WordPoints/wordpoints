@@ -24,6 +24,7 @@ class WordPoints_Data_Type_Integer extends WordPoints_Data_Type {
 		if ( false === $value ) {
 			return new WP_Error(
 				'not_integer'
+				// translators: Form field name.
 				, __( '%s must be an integer.', 'wordpoints' )
 			);
 		}

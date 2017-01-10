@@ -172,6 +172,7 @@ class WordPoints_Hook_Extension_Conditions
 
 			$this->validator->add_error(
 				sprintf(
+					// translators: Condition type slug.
 					__( 'Unknown condition type &#8220;%s&#8221;.', 'wordpoints' )
 					, $settings['type']
 				)

@@ -27,12 +27,14 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 			case 1:
 				if ( $wordpoints_components->is_active( $component ) ) {
+					// translators: Component name.
 					$message = __( 'Component &#8220;%s&#8221; activated!', 'wordpoints' );
 				}
 			break;
 
 			case 2:
 				if ( ! $wordpoints_components->is_active( $component ) ) {
+					// translators: Component name.
 					$message = __( 'Component &#8220;%s&#8221; deactivated!', 'wordpoints' );
 				}
 			break;
@@ -53,12 +55,14 @@ if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_co
 
 			case 1:
 				if ( ! $wordpoints_components->is_active( $component ) ) {
+					// translators: Component name.
 					$error = __( 'The component &#8220;%s&#8221; could not be activated. Please try again.', 'wordpoints' );
 				}
 			break;
 
 			case 2:
 				if ( $wordpoints_components->is_active( $component ) ) {
+					// translators: Component name.
 					$error = __( 'The component &#8220;%s&#8221; could not be deactivated. Please try again.', 'wordpoints' );
 				}
 			break;
@@ -133,7 +137,7 @@ do_action( 'wordpoints_admin_components_top' );
 				<?php if ( '' !== $component['author'] ) : ?>
 					&nbsp;|&nbsp;
 					<?php
-					/* translators: %s is the component author's name. */
+					// translators: Author name.
 					echo esc_html( sprintf( __( 'By %s', 'wordpoints' ), '' /* This space intentionally left blank */ ) );
 					?>
 					<?php if ( '' !== $component['author_uri'] ) : ?>

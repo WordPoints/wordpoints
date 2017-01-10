@@ -120,7 +120,7 @@ class WordPoints_Entity_Array extends WordPoints_Entityish {
 		if ( $this->entity_object ) {
 
 			return sprintf(
-				// translators: the singular name of an item
+				// translators: Singular name of an item.
 				__( '%s Collection', 'wordpoints' )
 				, $this->entity_object->get_title()
 			);

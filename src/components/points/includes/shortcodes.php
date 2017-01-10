@@ -63,6 +63,7 @@ abstract class WordPoints_Points_Shortcode extends WordPoints_Shortcode {
 				$points_type = new WP_Error(
 					'wordpoints_shortcode_no_points_type'
 					, sprintf(
+						// translators: 1. Attribute name; 2. Shortcode name; 3. Example of proper usage.
 						__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a points type. Example: %3$s.', 'wordpoints' )
 						, 'points_type'
 						, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
@@ -112,6 +113,7 @@ class WordPoints_Points_Top_Shortcode extends WordPoints_Points_Shortcode {
 
 		if ( ! wordpoints_posint( $this->atts['users'] ) ) {
 			return sprintf(
+				// translators: 1. Attribute name; 2. Shortcode name; 3. Example of proper usage.
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a positive integer. Example: %3$s.', 'wordpoints' )
 				, 'users'
 				, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'
@@ -169,6 +171,7 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 
 		if ( ! wordpoints_is_points_logs_query( $this->atts['query'] ) ) {
 			return sprintf(
+				// translators: 1. Attribute name; 2. Shortcode name; 3. Example of proper usage.
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be the slug of a registered points log query. Example: %3$s.', 'wordpoints' )
 				, 'query'
 				, '<code>[' . sanitize_key( $this->shortcode ) . ']</code>'

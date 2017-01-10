@@ -15,6 +15,7 @@ if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
 		wordpoints_show_admin_error(
 			sprintf(
+				// translators: 1. Module name; 2. Error message.
 				__( 'The module %1$s has been <strong>deactivated</strong> due to an error: %2$s', 'wordpoints' )
 				, esc_html( $module_file )
 				, '<code>' . esc_html( $error->get_error_message() ) . '</code>'
@@ -37,6 +38,7 @@ if ( isset( $_GET['error'] ) ) {
 
 		wordpoints_show_admin_message(
 			sprintf(
+				// translators: Number of characters.
 				__( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' )
 				, (int) $_GET['charsout']
 			)
@@ -92,6 +94,7 @@ if ( isset( $_GET['error'] ) ) {
 
 		wordpoints_show_admin_error(
 			sprintf(
+				// translators: Error message.
 				__( 'Module could not be deleted due to an error: %s', 'wordpoints' )
 				, $delete_result->get_error_message()
 			)
@@ -160,7 +163,19 @@ if ( isset( $_GET['error'] ) ) {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
-			<span class="subtitle"><?php echo esc_html( sprintf( __( 'Search results for &#8220;%s&#8221;', 'wordpoints' ), sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ) ); ?></span>
+			<span class="subtitle">
+				<?php
+
+				echo esc_html(
+					sprintf(
+						// translators: Search term.
+						__( 'Search results for &#8220;%s&#8221;', 'wordpoints' )
+						, sanitize_text_field( wp_unslash( $_REQUEST['s'] ) )
+					)
+				);
+
+				?>
+			</span>
 		<?php endif; ?>
 	</h1>
 

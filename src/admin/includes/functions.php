@@ -275,7 +275,7 @@ function wordpoints_register_admin_scripts() {
 		, array(
 			'unexpectedError' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
 			'changesSaved'    => __( 'Your changes have been saved.', 'wordpoints' ),
-			/* translators: the name of the field that cannot be empty */
+			// translators: Form field name.
 			'emptyField'      => sprintf( __( '%s cannot be empty.', 'wordpoints' ), '{{ data.label }}' ),
 			'confirmDelete'   => __( 'Are you sure that you want to delete this reaction? This action cannot be undone.', 'wordpoints' ),
 			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
@@ -283,7 +283,7 @@ function wordpoints_register_admin_scripts() {
 			'cancelText'      => __( 'Cancel', 'wordpoints' ),
 			'separator'       => is_rtl() ? ' « ' : ' » ',
 			'target_label'    => __( 'Target', 'wordpoints' ),
-			// translators: form field
+			// translators: Form field.
 			'cannotBeChanged' => __( '(cannot be changed)', 'wordpoints' ),
 			'fieldsInvalid'   => __( 'Error: the values of some fields are invalid. Please correct these and then try again.', 'wordpoints' ),
 		)
@@ -860,6 +860,7 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
 	if ( $show_heading ) {
 
+		// translators: Current tab name.
 		echo '<h1>', esc_html( sprintf( __( 'WordPoints — %s', 'wordpoints' ), $tabs[ $current ] ) ), '</h1>';
 	}
 
@@ -937,6 +938,7 @@ function wordpoints_upload_module_zip() {
 	$upgrader = new WordPoints_Module_Installer(
 		new WordPoints_Module_Installer_Skin(
 			array(
+				// translators: File name.
 				'title' => sprintf( esc_html__( 'Installing Module from uploaded file: %s', 'wordpoints' ), esc_html( basename( $file_upload->filename ) ) ),
 				'nonce' => 'wordpoints-module-upload',
 				'url'   => add_query_arg( array( 'package' => $file_upload->id ), self_admin_url( 'update.php?action=upload-wordpoints-module' ) ),
@@ -1041,11 +1043,13 @@ function wordpoints_admin_settings_screen_sidebar() {
 	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
 			<h3><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h3>
+			<?php // translators: URL for leaving a review of WordPoints on WordPress.org. ?>
 			<p><?php echo wp_kses( sprintf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'https://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
 			<h3><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h3>
+			<?php // translators: URL of WordPoints plugin support forums WordPress.org. ?>
 			<p><?php echo wp_kses( sprintf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'https://wordpress.org/support/plugin/wordpoints' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
 			<p><em><?php esc_html_e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
 		</div>
@@ -1074,7 +1078,7 @@ function wordpoints_admin_notices() {
 			if ( is_array( $deactivated_modules ) ) {
 				wordpoints_show_admin_error(
 					sprintf(
-						// translators: 1 is plugin version, 2 is list of modules
+						// translators: 1. Plugin version; 2. List of modules.
 						__( 'WordPoints has deactivated the following modules because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
 						, WORDPOINTS_VERSION
 						, implode( ', ', $deactivated_modules )
@@ -1091,7 +1095,7 @@ function wordpoints_admin_notices() {
 			if ( is_array( $incompatible_modules ) ) {
 				wordpoints_show_admin_error(
 					sprintf(
-						// translators: 1 is plugin version, 2 is list of modules
+						// translators: 1. Plugin version; 2. List of modules.
 						__( 'WordPoints has deactivated the following network-active modules because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
 						, WORDPOINTS_VERSION
 						, implode( ', ', $incompatible_modules )
@@ -1110,7 +1114,7 @@ function wordpoints_admin_notices() {
 			if ( is_array( $incompatible_modules ) ) {
 				wordpoints_show_admin_error(
 					sprintf(
-						// translators: 1 is plugin version, 2 is list of modules
+						// translators: 1. Plugin version; 2. List of modules.
 						__( 'WordPoints has deactivated the following modules on this site because of incompatibilities with WordPoints %1$s: %2$s', 'wordpoints' )
 						, WORDPOINTS_VERSION
 						, implode( ', ', $incompatible_modules )

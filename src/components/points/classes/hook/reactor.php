@@ -226,14 +226,14 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 
 		if ( $event instanceof WordPoints_Hook_Event_ReversingI ) {
 
-			/* translators: 1: log text for transaction that is being reversed, 2: the reason that this is being reversed. */
+			// translators: 1. Log text for reversed transaction; 2. Reason for reversal.
 			$template = __( 'Reversed &#8220;%1$s&#8221; (%2$s)', 'wordpoints' );
 
 			$event_description = $event->get_reversal_text();
 
 		} else {
 
-			/* translators: 1: log text for transaction that is being reversed. */
+			// translators: 1. Log text for reversed transaction.
 			$template = __( 'Reversed &#8220;%1$s&#8221;', 'wordpoints' );
 
 			$event_description = '';

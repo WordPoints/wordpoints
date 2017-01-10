@@ -162,6 +162,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		$this->defaults = array(
 			'title'       => _x( 'My Points', 'widget title', 'wordpoints' ),
 			'points_type' => wordpoints_get_default_points_type(),
+			// translators: Number of points.
 			'text'        => sprintf( __( 'Points: %s', 'wordpoints' ), '%points%' ),
 			'alt_text'    => __( 'You must be logged in to view your points.', 'wordpoints' ),
 			'number_logs' => 5,
@@ -285,6 +286,7 @@ class WordPoints_My_Points_Widget extends WordPoints_Points_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>" value="<?php echo esc_attr( $this->instance['text'] ); ?>" />
+			<?php // translators: Placeholder name. ?>
 			<small><i><?php echo esc_html( sprintf( __( '%s will be replaced with the points of the logged in user', 'wordpoints' ), '%points%' ) ); ?></i></small>
 			<?php
 

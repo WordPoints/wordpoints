@@ -378,13 +378,13 @@ switch ( $action ) {
 
 							if ( $module['is_uninstallable'] ) {
 
-								/* translators: 1: module name, 2: module author */
+								// translators: 1. Module name; 2. Module author.
 								echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</strong>)', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
 								$data_to_delete = true;
 
 							} else {
 
-								/* translators: 1: module name, 2: module author */
+								// translators: 1. Module name; 2. Module author.
 								echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em>', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
 							}
 						}
@@ -467,8 +467,9 @@ $screen->add_help_tab(
 		'id'		=> 'overview',
 		'title'		=> __( 'Overview', 'wordpoints' ),
 		'content'	=>
-			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>
-			<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
+			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
+			// translators: 1. URL of module directory on WordPoints.org; 2. URL of Install Module admin screen; 3. Directory name.
+			'<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 
@@ -477,8 +478,9 @@ $screen->add_help_tab(
 		'id'		=> 'compatibility-problems',
 		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
 		'content'	=>
-			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>
-			<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
+			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
+			// translators: Directory name.
+			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
 	)
 );
 

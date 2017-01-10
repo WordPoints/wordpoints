@@ -457,6 +457,7 @@ function wordpoints_points_logs_profile_edit( $text, $points, $points_type, $use
 
 	$user_name = sanitize_user_field( 'display_name', get_userdata( $meta['user_id'] )->display_name, $meta['user_id'], 'display' );
 
+	// translators: 1. User name; 2. Reason given.
 	return sprintf( _x( 'Points adjusted by %1$s. Reason: %2$s', 'points log description', 'wordpoints' ), $user_name, esc_html( $meta['reason'] ) );
 }
 
@@ -501,8 +502,8 @@ function wordpoints_points_logs_post_delete( $text, $points, $points_type, $user
 
 		if ( ! is_null( $post_type ) ) {
 
-			/* translators: the post type's name. */
 			return sprintf(
+				// translators: Singular post type name.
 				_x( '%s deleted.', 'points log description', 'wordpoints' )
 				, $post_type->labels->singular_name
 			);

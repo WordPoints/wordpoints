@@ -284,6 +284,7 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 
 				echo esc_html(
 					sprintf(
+						// translators: Search term.
 						__( 'Searching for &#8220;%s&#8221;', 'wordpoints' )
 						, $search_term
 					)

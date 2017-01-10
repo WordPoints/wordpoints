@@ -460,6 +460,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 			if ( $module_data['author'] ) {
 				$module_data['description'] .= ' <cite>'
+					// translators: Author name.
 					. sprintf( __( 'By %s.', 'wordpoints' ), $module_data['author'] )
 					. '</cite>';
 			}
@@ -1065,7 +1066,7 @@ function wordpoints_delete_modules( $modules ) {
 		return new WP_Error(
 			'could_not_remove_module'
 			, sprintf(
-				/* translators: A module or list of modules. */
+				// translators: Module or list of modules.
 				_n(
 					'Could not fully remove the module %s.'
 					, 'Could not fully remove the modules %s.'

@@ -41,7 +41,7 @@ class WordPoints_Hook_Event_Comment_Leave
 
 			default:
 				return sprintf(
-					// translators: singular name of the post type
+					// translators: Singular post type name.
 					__( 'Comment on a %s', 'wordpoints' )
 					, $this->get_entity_title()
 				);
@@ -68,7 +68,7 @@ class WordPoints_Hook_Event_Comment_Leave
 
 			default:
 				return sprintf(
-					// translators: singular name of the post type
+					// translators: Singular post type name.
 					__( 'When a user leaves a comment on a %s.', 'wordpoints' )
 					, $this->get_entity_title()
 				);

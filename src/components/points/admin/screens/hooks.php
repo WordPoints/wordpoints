@@ -154,10 +154,8 @@ if ( is_network_admin() ) {
 
 									echo wp_kses_data(
 										sprintf(
-											__(
-												'You can edit this points type&#8219;s settings on the <a href="%s">Points Types screen</a>.'
-												, 'wordpoints'
-											)
+											// translators: URL of Points Types admin screen.
+											__( 'You can edit this points type&#8219;s settings on the <a href="%s">Points Types screen</a>.', 'wordpoints' )
 											, esc_attr(
 												esc_url(
 													self_admin_url(
@@ -207,10 +205,8 @@ if ( is_network_admin() ) {
 
 								echo wp_kses_data(
 									sprintf(
-										__(
-											'You can create new points types on the <a href="%s">Points Types screen</a>.'
-											, 'wordpoints'
-										)
+										// translators: URL of Points Types admin screen.
+										__( 'You can create new points types on the <a href="%s">Points Types screen</a>.', 'wordpoints' )
 										, esc_attr(
 											esc_url(
 												self_admin_url(

@@ -222,7 +222,12 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 				<p>
 					<span class="wordpoints-points-slug">
 						<em>
-							<?php echo esc_html( sprintf( __( 'Slug: %s', 'wordpoints' ), $slug ) ); ?>
+							<?php
+
+							// translators: Points type slug.
+							echo esc_html( sprintf( __( 'Slug: %s', 'wordpoints' ), $slug ) );
+
+							?>
 						</em>
 					</span>
 				</p>
@@ -780,6 +785,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 									echo wp_kses(
 										sprintf(
+											// translators: URL of points reactions user docs on WordPoints.org.
 											__( 'You can learn more about how they work from <a href="%s">the user guide on WordPoints.org</a>.', 'wordpoints' )
 											, 'https://wordpoints.org/user-guide/points-reactions/'
 										)

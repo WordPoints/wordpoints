@@ -38,7 +38,7 @@ class WordPoints_Hook_Event_Post_Publish
 
 			default:
 				return sprintf(
-					// translators: singular name of the post type
+					// translators: Singular post type name.
 					__( 'Publish %s', 'wordpoints' )
 					, $this->get_entity_title()
 				);
@@ -62,7 +62,7 @@ class WordPoints_Hook_Event_Post_Publish
 
 			default:
 				return sprintf(
-					// translators: singular name of the post type
+					// translators: Singular post type name.
 					__( 'When a %s is published.', 'wordpoints' )
 					, $this->get_entity_title()
 				);
@@ -86,7 +86,7 @@ class WordPoints_Hook_Event_Post_Publish
 
 			default:
 				return sprintf(
-					// translators: singular name of the post type
+					// translators: Singular post type name.
 					_x( '%s removed.', 'post type', 'wordpoints' )
 					, $this->get_entity_title()
 				);

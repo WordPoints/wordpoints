@@ -34,6 +34,7 @@ if ( is_network_admin() ) {
 
 		wordpoints_show_admin_error(
 			sprintf(
+				// translators: URL of Points Types admin screen.
 				__( 'You need to <a href="%s">create a type of points</a> before you can use this page.', 'wordpoints' )
 				, esc_url( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
 			)

@@ -93,7 +93,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks
 
 		$entities = wordpoints_entities();
 
-		// translators: the entity title, e.g., Post, Comment, etc.
+		// translators: Entity title (Post, Comment, etc.).
 		$string = __(
 			'This log entry is only visible to users who can view the %s.'
 			, 'wordpoints'

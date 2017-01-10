@@ -215,6 +215,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 
 				$this->validator->add_error(
 					sprintf(
+						// translators: Arg slug.
 						__( 'The &#8220;%s&#8221; arg is not registered for this event.', 'wordpoints' )
 						, $child_slug
 					)
@@ -224,6 +225,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 
 				$this->validator->add_error(
 					sprintf(
+						// translators: Arg name.
 						__( 'Cannot get descendant of %s: not a parent.', 'wordpoints' )
 						, $this->current->get_title()
 					)
@@ -236,6 +238,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 				if ( ! $child_arg ) {
 					$this->validator->add_error(
 						sprintf(
+							// translators: 1. Arg slug; 2. Other arg slug.
 							__( '%1$s does not have a child &#8220;%2$s&#8221;.', 'wordpoints' )
 							, $this->current->get_slug()
 							, $child_slug
@@ -243,7 +246,8 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 						, $this->push_on_descend ? $child_slug : null
 					);
 				}
-			}
+
+			} // End if ( no current ) elseif ( current not parent ) else {}.
 
 		} elseif ( $this->push_on_descend ) {
 

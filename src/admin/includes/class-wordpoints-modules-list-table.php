@@ -360,18 +360,22 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			switch ( $type ) {
 
 				case 'all':
+					// translators: Count.
 					$text = _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $count, 'modules', 'wordpoints' );
 				break;
 
 				case 'active':
+					// translators: Count.
 					$text = _n( 'Active <span class="count">(%s)</span>', 'Active <span class="count">(%s)</span>', $count, 'wordpoints' );
 				break;
 
 				case 'recently_activated':
+					// translators: Count.
 					$text = _n( 'Recently Active <span class="count">(%s)</span>', 'Recently Active <span class="count">(%s)</span>', $count, 'wordpoints' );
 				break;
 
 				case 'inactive':
+					// translators: Count.
 					$text = _n( 'Inactive <span class="count">(%s)</span>', 'Inactive <span class="count">(%s)</span>', $count, 'wordpoints' );
 				break;
 
@@ -544,7 +548,17 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 						?>
 						<th scope="row" class="check-column">
 							<label class="screen-reader-text" for="<?php echo esc_attr( $checkbox_id ); ?>">
-								<?php echo esc_html( sprintf( __( 'Select %s', 'wordpoints' ), $module_data['name'] ) ); ?>
+								<?php
+
+								echo esc_html(
+									sprintf(
+										// translators: Module name.
+										__( 'Select %s', 'wordpoints' )
+										, $module_data['name']
+									)
+								);
+
+								?>
 							</label>
 							<input type="checkbox" name="checked[]" value="<?php echo esc_attr( $module_file ); ?>" id="<?php echo esc_attr( $checkbox_id ); ?>" />
 						</th>
@@ -578,6 +592,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 								$module_meta = array();
 
 								if ( ! empty( $module_data['version'] ) ) {
+									// translators: Module version.
 									$module_meta[] = sprintf( esc_html__( 'Version %s', 'wordpoints' ), $module_data['version'] );
 								}
 
@@ -589,6 +604,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 										$author = '<a href="' . esc_url( $module_data['author_uri'] ) . '">' . esc_html( $module_data['author'] ) . '</a>';
 									}
 
+									// translators: Author name.
 									$module_meta[] = sprintf( __( 'By %s', 'wordpoints' ), $author );
 								}
 
@@ -698,19 +714,19 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			if ( $is_active ) {
 
 				if ( current_user_can( 'manage_network_wordpoints_modules' ) ) {
-					// translators: module name.
+					// translators: Module name.
 					$actions['deactivate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'deactivate', $url ), "deactivate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Network deactivate %s', 'wordpoints' ), $module_data['name'] ) ) . '">' . esc_html__( 'Network Deactivate', 'wordpoints' ) . '</a>';
 				}
 
 			} else {
 
 				if ( current_user_can( 'manage_network_wordpoints_modules' ) ) {
-					// translators: module name.
+					// translators: Module name.
 					$actions['activate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'activate', $url ), "activate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Network activate %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="edit">' . esc_html__( 'Network Activate', 'wordpoints' ) . '</a>';
 				}
 
 				if ( current_user_can( 'delete_wordpoints_modules' ) && ! is_wordpoints_module_active( $module_file ) ) {
-					// translators: module name.
+					// translators: Module name.
 					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" aria-label="' . esc_attr( sprintf( __( 'Delete %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}
 			}
@@ -719,16 +735,16 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 			if ( $is_active ) {
 
-				// translators: module name.
+				// translators: Module name.
 				$actions['deactivate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'deactivate', $url ), "deactivate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Deactivate %s', 'wordpoints' ), $module_data['name'] ) ) . '">' . esc_html__( 'Deactivate', 'wordpoints' ) . '</a>';
 
 			} else {
 
-				// translators: module name.
+				// translators: Module name.
 				$actions['activate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'activate', $url ), "activate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Activate %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="edit">' . esc_html__( 'Activate', 'wordpoints' ) . '</a>';
 
 				if ( ! is_multisite() && current_user_can( 'delete_wordpoints_modules' ) ) {
-					// translators: module name.
+					// translators: Module name.
 					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" aria-label="' . esc_attr( sprintf( __( 'Delete %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}
 			}

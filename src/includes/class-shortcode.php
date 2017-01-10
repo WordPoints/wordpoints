@@ -108,6 +108,7 @@ final class WordPoints_Shortcodes {
 		if ( ! isset( self::$shortcodes[ $shortcode ] ) ) {
 			return wordpoints_shortcode_error(
 				sprintf(
+					// translators: Shortcode name.
 					esc_html__( 'The %s shortcode was not registered properly.', 'wordpoints' )
 					, '<code>[' . esc_html( $shortcode ) . ']</code>'
 				)
@@ -291,6 +292,7 @@ abstract class WordPoints_Shortcode {
 
 				if ( ! $post ) {
 					return sprintf(
+						// translators: 1. Attribute name; 2. Shortcode name.
 						esc_html__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be used inside of a Post, Page, or other post type.', 'wordpoints' )
 						, 'user_id="post_author"'
 						, "<code>[{$this->shortcode}]</code>"
@@ -306,6 +308,7 @@ abstract class WordPoints_Shortcode {
 			} elseif ( ! wordpoints_posint( $this->atts['user_id'] ) ) {
 
 				return sprintf(
+					// translators: 1. Attribute name; 2. Shortcode name; 3. Expected value.
 					esc_html__( 'Unrecognized value for the %1$s attribute of the %2$s shortcode. Expected &#8220;%3$s&#8221; or a user ID.', 'wordpoints' )
 					, 'user_id'
 					, "<code>[{$this->shortcode}]</code>"

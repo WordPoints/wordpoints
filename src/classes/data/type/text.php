@@ -25,6 +25,7 @@ class WordPoints_Data_Type_Text extends WordPoints_Data_Type {
 		if ( ! is_string( $value ) ) {
 			return new WP_Error(
 				'not_string'
+				// translators: Form field name.
 				, __( '%s must be a text value.', 'wordpoints' )
 			);
 		}

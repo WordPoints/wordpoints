@@ -297,7 +297,19 @@ function wordpoints_points_hook_description_form( $has_form, $instance, $hook ) 
 	<div class="hook-instance-description">
 		<label for="<?php $hook->the_field_id( '_description' ); ?>"><?php echo esc_html_x( 'Description (optional):', 'points hook', 'wordpoints' ); ?></label>
 		<input type="text" id="<?php $hook->the_field_id( '_description' ); ?>" name="<?php $hook->the_field_name( '_description' ); ?>" class="widefat" value="<?php echo esc_attr( $description ); ?>" />
-		<p class="description"><?php echo esc_html( sprintf( _x( 'Default: %s', 'points hook description', 'wordpoints' ), $hook->get_description( 'generated' ) ) ); ?></p>
+		<p class="description">
+			<?php
+
+			echo esc_html(
+				sprintf(
+					// translators: Default points hook description.
+					_x( 'Default: %s', 'points hook description', 'wordpoints' )
+					, $hook->get_description( 'generated' )
+				)
+			);
+
+			?>
+		</p>
 	</div>
 
 	<br />
@@ -343,7 +355,7 @@ function wordpoints_points_profile_options( $user ) {
 					<input type="hidden" name="<?php echo esc_attr( "wordpoints_points_old-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" />
 					<input type="number" name="<?php echo esc_attr( "wordpoints_points-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" autocomplete="off" />
 					<input type="checkbox" value="1" name="<?php echo esc_attr( "wordpoints_points_set-{$slug}" ); ?>" />
-					<?php /* translators: %s is the number of points. */ ?>
+					<?php // translators: Number of points. ?>
 					<span><?php echo esc_html( sprintf( __( '(current: %s)', 'wordpoints' ), $points ) ); ?></span>
 				</td>
 			</tr>
@@ -522,6 +534,7 @@ function wordpoints_points_admin_notices() {
 
 		wordpoints_show_admin_message(
 			sprintf(
+				// translators: URL of Points Types admin screen.
 				__( 'Welcome to WordPoints! Get started by <a href="%s">creating a points type</a>.', 'wordpoints' )
 				, esc_url( self_admin_url( 'admin.php?page=wordpoints_points_types' ) )
 			)

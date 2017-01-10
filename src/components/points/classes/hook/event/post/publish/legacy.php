@@ -23,7 +23,7 @@ class WordPoints_Points_Hook_Event_Post_Publish_Legacy
 	 */
 	public function get_title() {
 
-		// translators: hook event title.
+		// translators: Hook event title.
 		return sprintf( __( '%s (Legacy)', 'wordpoints' ), parent::get_title() );
 	}
 
@@ -57,7 +57,7 @@ class WordPoints_Points_Hook_Event_Post_Publish_Legacy
 
 			default:
 				return sprintf(
-					// translators: singular name of the post type
+					// translators: Singular post type name.
 					_x( '%s deleted.', 'post type', 'wordpoints' )
 					, $this->get_entity_title()
 				);

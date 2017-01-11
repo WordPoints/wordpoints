@@ -89,7 +89,7 @@ function wordpoints_get_points_type( $slug ) {
  * @param string $slug    The points type to retrieve a setting for.
  * @param string $setting The setting to retrieve.
  *
- * @return string|void The value of the setting if it exists, otherwise null.
+ * @return string|null The value of the setting if it exists, otherwise null.
  */
 function wordpoints_get_points_type_setting( $slug, $setting ) {
 
@@ -98,6 +98,8 @@ function wordpoints_get_points_type_setting( $slug, $setting ) {
 	if ( isset( $points_type[ $setting ] ) ) {
 		return $points_type[ $setting ];
 	}
+
+	return null;
 }
 
 /**
@@ -423,7 +425,7 @@ function wordpoints_format_points( $points, $type, $context ) {
 }
 
 /**
- * Get a user's points preformatted for display.
+ * Get a user's points pre-formatted for display.
  *
  * @since 1.0.0
  *
@@ -655,7 +657,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 	/**
 	 * Whether a transaction should be logged.
 	 *
-	 * @param bool   $log_transaction Whether or not to log this transactoin.
+	 * @param bool   $log_transaction Whether or not to log this transaction.
 	 * @param int    $user_id         The ID of the user.
 	 * @param int    $points          The number of points involved.
 	 * @param string $points_type     The type of points involved.
@@ -1112,16 +1114,18 @@ function wordpoints_regenerate_points_logs( $logs ) {
  * returned.
  *
  * @since 1.0.0
+ * @since 2.3.0 Now returns false instead of null on failure.
  *
  * @param int    $num_users   The number of users to retrieve.
  * @param string $points_type The type of points.
  *
- * @return int[] The IDs of the users with the most points.
+ * @return int[]|false The IDs of the users with the most points, or false if the
+ *                     args are invalid.
  */
 function wordpoints_points_get_top_users( $num_users, $points_type ) {
 
 	if ( ! wordpoints_posint( $num_users ) || ! wordpoints_is_points_type( $points_type ) ) {
-		return;
+		return false;
 	}
 
 	$cache = wp_cache_get( $points_type, 'wordpoints_points_top_users' );

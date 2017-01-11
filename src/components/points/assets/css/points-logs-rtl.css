@@ -18,10 +18,9 @@
  */
 
 table.wordpoints-points-logs {
-	margin: 0 auto;
 	clear: both;
 	width: 100%;
-	margin-bottom: 10px;
+	margin: 0 auto 10px;
 }
 
 .wp-admin table.wordpoints-points-logs tr.odd {
@@ -48,7 +47,6 @@ table.wordpoints-points-logs {
  */
 
 .wordpoints-points-logs-wrapper .page-numbers {
-	margin-top: 5px;
 	margin: 2px 3px;
 	color: #222;
 	height: 22px;
@@ -62,8 +60,8 @@ table.wordpoints-points-logs {
 	cursor: pointer;
 	*cursor: hand;
 	color: #333;
-	-webkit-box-shadow: 0px 0px 1px #e1e1e1;
-	box-shadow: 0px 0px 1px #e1e1e1;
+	-webkit-box-shadow: 0 0 1px #e1e1e1;
+	box-shadow: 0 0 1px #e1e1e1;
 	background-color: #ddd;
 	text-decoration: none;
 }

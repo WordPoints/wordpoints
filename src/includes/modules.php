@@ -651,7 +651,7 @@ function wordpoints_validate_module( $module ) {
  *
  * @since 1.1.0
  *
- * @return void|array Invalid modules, module as key, error as value.
+ * @return null|WP_Error[] Invalid modules, module as key, error as value.
  */
 function wordpoints_validate_active_modules() {
 
@@ -664,7 +664,7 @@ function wordpoints_validate_active_modules() {
 	}
 
 	if ( empty( $modules ) ) {
-		return;
+		return null;
 	}
 
 	$invalid = array();
@@ -709,7 +709,7 @@ function _wordpoints_sort_uname_callback( $a, $b ) {
  *
  * It should be noted that in no way the below code will actually prevent errors
  * within the file. The code should not be used elsewhere to replicate the "sandbox",
- *  which uses redirection to work.
+ * which uses redirection to work.
  *
  * If any errors are found or text is outputted, then it will be captured to ensure
  * that the success redirection will update the error redirection.
@@ -723,7 +723,7 @@ function _wordpoints_sort_uname_callback( $a, $b ) {
  *                             plugin is network activated.
  * @param bool   $silent       Whether to suppress the normal actions. False by default.
  *
- * @return WP_Error|void
+ * @return WP_Error|null An error object on failure, or null on success.
  */
 function wordpoints_activate_module( $module, $redirect = '', $network_wide = false, $silent = false ) {
 
@@ -748,7 +748,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	// If the module is already active, return.
 	if ( in_array( $module, $current ) ) {
-		return;
+		return null;
 	}
 
 	if ( ! empty( $redirect ) ) {
@@ -841,6 +841,8 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	}
 
 	ob_end_clean();
+
+	return null;
 }
 
 /**
@@ -855,6 +857,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
  */
 function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide = null ) {
 
+	$network_current = array();
 	if ( is_wordpoints_network_active() ) {
 		$network_current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
 	}

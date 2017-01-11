@@ -20,7 +20,7 @@ add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
 add_action( 'load-wordpoints_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
 add_action( 'load-toplevel_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
 
-add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_sreen_configure_load' );
+add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_screen_configure_load' );
 
 add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activate_components' );
 

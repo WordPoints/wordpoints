@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordPoints module install skin.
+ * WordPoints module installer skin.
  *
  * @package WordPoints\Modules
  * @since 1.1.0
@@ -46,7 +46,7 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 	 *
 	 *        @type string $type   The type of install, 'upload' by default.
 	 *        @type string $url    The form URL passed to request_filesystem_credentials() if needed.
-	 *        @type string $nonce  An nonce to be added to the $url before it is passed torequest_filesystem_credentials().
+	 *        @type string $nonce  An nonce to be added to the $url before it is passed to request_filesystem_credentials().
 	 *        @type string $title  Text for H2 title used by WP_Upgrader_Skin::header().
 	 * }
 	 */
@@ -72,6 +72,10 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 	 * @since 1.1.0
 	 */
 	public function after() {
+
+		if ( ! $this->upgrader instanceof WordPoints_Module_Installer ) {
+			return;
+		}
 
 		$module_file = $this->upgrader->module_info();
 

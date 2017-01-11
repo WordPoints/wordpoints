@@ -56,9 +56,9 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 *
 	 * @action transition_comment_status Added by the constructor.
 	 *
-	 * @param string $new_status The new status of the comment.
-	 * @param string $old_status The old status of the comment.
-	 * @param object $comment    The comment object.
+	 * @param string     $new_status The new status of the comment.
+	 * @param string     $old_status The old status of the comment.
+	 * @param WP_Comment $comment    The comment object.
 	 *
 	 * @return void
 	 */
@@ -117,7 +117,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 * @param string $old_status The old status of the comment.
 	 * @param object $comment    The comment object.
 	 *
-	 * @return bool Whether the hook should shortcircuit and not award any points.
+	 * @return bool Whether the hook should short-circuit and not award any points.
 	 */
 	protected function shortcircuit_hook( $new_status, $old_status, $comment ) {
 
@@ -170,7 +170,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	}
 
 	/**
-	 * Reverse a transaction when a comment is deapproved.
+	 * Reverse a transaction when a comment is de-approved.
 	 *
 	 * @since 1.8.0
 	 *
@@ -223,7 +223,7 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param WP_Comment $comment The object for the comment that triggerd the hook.
+	 * @param WP_Comment $comment The object for the comment that triggered the hook.
 	 * @param WP_Post    $post    The object for the post this comment was on.
 	 *
 	 * @return int The ID of the user the points should be awarded to.

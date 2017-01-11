@@ -183,11 +183,12 @@ function wordpoints_admin_screen_install_modules() {
 /**
  * Set up for the configure screen.
  *
- * @since 1.5.0
+ * @since 1.5.0 As wordpoints_admin_sreen_configure_load().
+ * @since 2.3.0
  *
  * @WordPress\action load-toplevel_page_wordpoints_configure
  */
-function wordpoints_admin_sreen_configure_load() {
+function wordpoints_admin_screen_configure_load() {
 
 	/**
 	 * Set up for the WordPoints » Configure administration screen.
@@ -195,6 +196,23 @@ function wordpoints_admin_sreen_configure_load() {
 	 * @since 1.5.0
 	 */
 	require WORDPOINTS_DIR . 'admin/screens/configure-settings-load.php';
+}
+
+/**
+ * Set up for the configure screen.
+ *
+ * @since 1.5.0
+ * @deprecated 2.3.0 Use wordpoints_admin_screen_configure_load() instead.
+ */
+function wordpoints_admin_sreen_configure_load() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '2.3.0'
+		, 'wordpoints_admin_screen_configure_load()'
+	);
+
+	wordpoints_admin_screen_configure_load();
 }
 
 /**
@@ -210,7 +228,7 @@ function wordpoints_admin_sreen_configure_load() {
 function wordpoints_admin_activate_components() {
 
 	/**
-	 * Set up for the WordPoints > Components adminstration screen.
+	 * Set up for the WordPoints > Components administration screen.
 	 *
 	 * @since 1.1.0
 	 */
@@ -921,6 +939,8 @@ function wordpoints_install_modules_upload() {
  */
 function wordpoints_upload_module_zip() {
 
+	global $title, $parent_file, $submenu_file;
+
 	if ( ! current_user_can( 'install_wordpoints_modules' ) ) {
 		wp_die( esc_html__( 'Sorry, you are not allowed to install WordPoints modules on this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 	}
@@ -1040,7 +1060,7 @@ function wordpoints_admin_settings_screen_sidebar() {
 
 	?>
 
-	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);margin-top: 50px;">
+	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
 			<h3><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h3>
 			<?php // translators: URL for leaving a review of WordPoints on WordPress.org. ?>

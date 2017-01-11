@@ -95,7 +95,7 @@ final class WordPoints_Rank_Groups {
 		if ( ! did_action( 'wordpoints_ranks_register' ) ) {
 			_doing_it_wrong(
 				__METHOD__
-				, 'Rank groups should not be retreived until after they are all registered.'
+				, 'Rank groups should not be retrieved until after they are all registered.'
 				, '1.7.0'
 			);
 		}

@@ -344,6 +344,8 @@ abstract class WordPoints_Points_Hook {
 
 			return $this->options[ $option ];
 		}
+
+		return null;
 	}
 
 	/**
@@ -530,7 +532,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @param int $number The number of the hook instance to display the form for.
 	 *
-	 * @return bool|void Whether the form was displayed.
+	 * @return bool|null Whether the form was displayed.
 	 */
 	final public function form_callback( $number ) {
 
@@ -585,6 +587,8 @@ abstract class WordPoints_Points_Hook {
 
 			return $has_form;
 		}
+
+		return null;
 	}
 
 	/**

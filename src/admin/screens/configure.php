@@ -39,17 +39,21 @@ function wordpoints_admin_screen_configure() {
 			)
 		);
 
-		switch ( wordpoints_admin_get_current_tab() ) {
-
-			case 'components':
-				$template = '/configure-components.php';
-			break;
-
-			default:
-				$template = '/configure-settings.php';
+		if ( 'components' === wordpoints_admin_get_current_tab() ) {
+			/**
+			 * The Components screen.
+			 *
+			 * @since 1.0.0
+			 */
+			include WORDPOINTS_DIR . 'admin/screens/configure-components.php';
+		} else {
+			/**
+			 * The Settings screen.
+			 *
+			 * @since 1.0.0
+			 */
+			include WORDPOINTS_DIR . 'admin/screens/configure-settings.php';
 		}
-
-		include WORDPOINTS_DIR . 'admin/screens' . $template;
 
 		/**
 		 * At the bottom of the configure screens.

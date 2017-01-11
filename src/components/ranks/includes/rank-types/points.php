@@ -60,13 +60,13 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 	}
 
 	/**
-	 * Destroy the rank type hanlder when this rank type is deregistered.
+	 * Destroy the rank type handler when this rank type is deregistered.
 	 *
 	 * @since 1.7.0
 	 */
 	public function destruct() {
 
-		remove_action( 'wordpoints_points_altered', array( $this, 'hook' ), 10, 3 );
+		remove_action( 'wordpoints_points_altered', array( $this, 'hook' ), 10 );
 	}
 
 	/**
@@ -88,13 +88,7 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 	}
 
 	/**
-	 * Validate the metadata for a rank of this type.
-	 *
 	 * @since 1.7.0
-	 *
-	 * @param array $meta The metadata to validate.
-	 *
-	 * @return array|false The validated metadata or false if it should't be saved.
 	 */
 	public function validate_rank_meta( array $meta ) {
 

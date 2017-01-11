@@ -238,7 +238,7 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 
 		case 'wordpoints_page_wordpoints_points_hooks':
 			$url = admin_url( $path );
-			// fallthru
+			// Fall through.
 
 		case 'wordpoints_page_wordpoints_points_hooks-network':
 			if ( ! isset( $url ) ) {

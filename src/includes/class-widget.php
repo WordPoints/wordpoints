@@ -180,7 +180,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 *
 	 * When implementing this method, you need to define the wordpoints_hook_slug
 	 * widget option. (The widget options are an array, including the 'description',
-	 * that are passed as the thrid argument when calling parent::__construct()).
+	 * that are passed as the third argument when calling parent::__construct()).
 	 *
 	 * @since 1.9.0
 	 *

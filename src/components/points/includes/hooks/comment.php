@@ -79,7 +79,7 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 	 * and points haven't been awarded, because after the first time it is used in
 	 * such a case it will always return true.
 	 *
-	 * It is possible that this function would be resurected in a later version, with
+	 * It is possible that this function would be resurrected in a later version, with
 	 * this behavior corrected, but until then it should be avoided.
 	 *
 	 * @since 1.0.0

@@ -243,7 +243,7 @@ final class WordPoints_Points_Hooks {
 				foreach ( $hook_types as $hook_type ) {
 					delete_option( "wordpoints_hook-{$hook_type}" );
 				}
-				restore_current_blog( $site_id );
+				restore_current_blog();
 			}
 
 		} else {

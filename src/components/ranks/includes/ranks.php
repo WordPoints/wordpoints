@@ -593,7 +593,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 			}
 
 			// If the rank was in the database, we can use the regular update method.
-			// fallthru
+			// Fall through.
 
 		default:
 			$result = $wpdb->update(

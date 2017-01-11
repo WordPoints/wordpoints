@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordPoints administration sreen: points logs.
+ * WordPoints administration screen: points logs.
  *
  * @package WordPoints\Points\Administration
  * @since 1.0.0

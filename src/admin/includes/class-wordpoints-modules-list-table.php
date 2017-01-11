@@ -189,7 +189,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		}
 
 		/**
-		 * Filter the modules diplayed in the modules list table.
+		 * Filter the modules displayed in the modules list table.
 		 *
 		 * @since 1.1.0
 		 *
@@ -462,9 +462,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param unknown $which Not used.
-	 *
-	 * @return void
+	 * @param string $which Not used.
 	 */
 	public function extra_tablenav( $which ) {
 
@@ -580,7 +578,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 							<div class="module-description">
 								<p>
 									<?php if ( ! empty( $module_data['description'] ) ) : ?>
-										<?php echo wp_kses( $module_data['description'] , 'wordoints_module_description' ); ?>
+										<?php echo wp_kses( $module_data['description'] , 'wordpoints_module_description' ); ?>
 									<?php else : ?>
 										&nbsp;
 									<?php endif; ?>
@@ -623,7 +621,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 								 * @param array  $module_meta The meta links for the module.
 								 * @param string $module_file The main file of the module.
 								 * @param array  $module_data The info about the module.
-								 * @param string $status      The module stati being displayed.
+								 * @param string $status      The module status being displayed.
 								 */
 								$module_meta = apply_filters( 'wordpoints_module_row_meta', $module_meta, $module_file, $module_data, $status );
 
@@ -700,7 +698,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$context = $status;
 
-		// Preorder.
+		// Pre-order.
 		$actions = array(
 			'deactivate' => '',
 			'activate'   => '',
@@ -756,7 +754,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		/**
 		 * Filter the module action links.
 		 *
-		 * Each action link is an HTML anchor attribute. The avaiability of each link
+		 * Each action link is an HTML anchor attribute. The availability of each link
 		 * is subject to the capabilities of the user, and whether the module is
 		 * active or not.
 		 *

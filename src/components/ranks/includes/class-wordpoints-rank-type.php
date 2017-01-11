@@ -85,7 +85,7 @@ abstract class WordPoints_Rank_Type {
 	//
 
 	/**
-	 * Destroy the rank type hanlder when this rank type is deregistered.
+	 * Destroy the rank type handler when this rank type is deregistered.
 	 *
 	 * This method is called if the rank type is deregistered, so that it can revert
 	 * anything done on construction. For example, it should unhook itself from any
@@ -159,7 +159,7 @@ abstract class WordPoints_Rank_Type {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return string[] The meta keys used to store this rank type's metadata.
+	 * @return array[] The meta keys used to store this rank type's metadata.
 	 */
 	final public function get_meta_fields() {
 		return $this->meta_fields;
@@ -188,6 +188,8 @@ abstract class WordPoints_Rank_Type {
 		$args = array_merge( array( 'placeholders' => false ), $args );
 
 		foreach ( $this->meta_fields as $name => $field ) {
+
+			$value = null;
 
 			// If we aren't using placeholders, calculate the value. Hidden fields
 			// never use placeholders.

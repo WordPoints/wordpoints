@@ -18,10 +18,13 @@ if ( empty( $tab ) ) {
 jQuery( document ).ready( function() {
 
 	jQuery( '#toplevel_page_wordpoints_configure, #toplevel_page_wordpoints_configure > a' )
-		.addClass( 'wp-has-current-submenu wp-menu-open' )
+		.addClass( 'wp-has-current-submenu wp-menu-open' );
 
-	jQuery( '#toplevel_page_wordpoints_configure a[href="admin.php?page=wordpoints_modules"]' )
-		.parent().addBack().addClass( 'current' );
+	jQuery( '#toplevel_page_wordpoints_configure' )
+		.find( 'a[href="admin.php?page=wordpoints_modules"]' )
+			.parent()
+			.addBack()
+			.addClass( 'current' );
 });
 </script>
 <div class="wrap">

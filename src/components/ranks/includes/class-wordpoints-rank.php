@@ -19,11 +19,11 @@
  *   will result in a _doing_it_wrong() notice.
  * - The get() and has_prop() methods aren't implemented either. They aren't really
  *   needed since they are just wrappers for __get() and __isset() respectively.
- * - Ranks have only a single unique identifier, their ID, and so can't be retreived
+ * - Ranks have only a single unique identifier, their ID, and so can't be retrieved
  *   by name like users can be. Therefore the get_data() is implemented instead of
  *   get_data_by().
  * - Ranks are tied to a single blog_id and site_id, and so there is no need to pass
- *   a blog_id in when retrieving a rank, either to the contructor or get_data().
+ *   a blog_id in when retrieving a rank, either to the constructor or get_data().
  *
  * There is one other important thing to note: the ID property is made available, but
  * the database column is lowercase (id). Both are therefore valid, but it is

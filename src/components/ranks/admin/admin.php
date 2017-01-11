@@ -22,7 +22,7 @@ include_once( WORDPOINTS_DIR . 'components/ranks/admin/includes/ajax.php' );
 include_once( WORDPOINTS_DIR . 'components/ranks/admin/includes/functions.php' );
 
 /**
- * Admin-side actin and filter hooks of the ranks component.
+ * Admin-side action and filter hooks of the ranks component.
  *
  * @since 2.1.0
  */

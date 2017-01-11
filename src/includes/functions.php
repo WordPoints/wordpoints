@@ -257,7 +257,7 @@ function wordpoints_negint( &$maybe_int ) {
  * Verify an nonce.
  *
  * This is a wrapper for the wp_verify_nonce() function. It was introduced to provide
- * a better bootstrap for verifing an nonce request. In addition, it supplies better
+ * a better bootstrap for verifying an nonce request. In addition, it supplies better
  * input validation and sanitization. Sanitizing the inputs before passing them in to
  * wp_verify_nonce() is especially important, because that function is pluggable, and
  * it is impossible to know how it might be implemented.
@@ -986,6 +986,8 @@ function wordpoints_shortcode_error( $message ) {
 
 		return '<p class="wordpoints-shortcode-error">' . esc_html__( 'Shortcode error:', 'wordpoints' ) . ' ' . wp_kses( $message, 'wordpoints_shortcode_error' ) . '</p>';
 	}
+
+	return '';
 }
 
 /**

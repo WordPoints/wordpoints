@@ -10,7 +10,7 @@
 /**
  * Static class to handle registration of points logs queries.
  *
- * This class allows predifined queries for the points logs to be registered. The
+ * This class allows predefined queries for the points logs to be registered. The
  * query is registered with its slug, and the array of arguments that will be
  * passed to {@see WordPoints_Points_Logs_Query}.
  *
@@ -174,6 +174,8 @@ final class WordPoints_Points_Log_Queries {
 				return self::$queries[ $query_slug ][ $data ];
 			}
 		}
+
+		return null;
 	}
 
 } // class WordPoints_Points_Log_Queries

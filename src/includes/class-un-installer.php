@@ -239,7 +239,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		global $wp_filesystem;
 
-		if ( $wp_filesystem instanceof WP_Filesystem ) {
+		if ( $wp_filesystem instanceof WP_Filesystem_Base ) {
 			$wp_filesystem->delete( wordpoints_modules_dir(), true );
 		}
 	}

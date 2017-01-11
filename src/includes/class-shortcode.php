@@ -60,7 +60,7 @@ final class WordPoints_Shortcodes {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param mixed  $shortcode The shortcode to get. If ommitted, all handlers are
+	 * @param mixed  $shortcode The shortcode to get. If omitted, all handlers are
 	 *                          returned.
 	 * @param array  $atts      The attributes of the shortcode. Only used if
 	 *                          $shortcode is passed.
@@ -89,10 +89,10 @@ final class WordPoints_Shortcodes {
 	 * Execute a shortcode.
 	 *
 	 * This method is automatically registered with add_shortcode() when a new
-	 * shortcode class is registered. It can also be used independantly, instead of
+	 * shortcode class is registered. It can also be used independently, instead of
 	 * an expensive call to the do_shortcode() function.
 	 *
-	 * If there is an attempt to do a shortocode that was not registered with this
+	 * If there is an attempt to do a shortcode that was not registered with this
 	 * class an error message will be returned, if appropriate.
 	 *
 	 * @since 1.8.0
@@ -115,6 +115,7 @@ final class WordPoints_Shortcodes {
 			);
 		}
 
+		/** @var WordPoints_Shortcode $shortcode */
 		$shortcode = new self::$shortcodes[ $shortcode ]( $atts, $content, $shortcode );
 		return $shortcode->expand();
 	}
@@ -164,7 +165,7 @@ abstract class WordPoints_Shortcode {
 	 * the attribute names. This will contain exactly those attributes listed in
 	 * self::$pairs, but with the default values defined there replaced with the
 	 * actual attribute values from the shortcode (for those attributes that were
-	 * set in this occurance of the shortcode).
+	 * set in this occurrence of the shortcode).
 	 *
 	 * @since 1.8.0
 	 *
@@ -316,6 +317,8 @@ abstract class WordPoints_Shortcode {
 				);
 			}
 		}
+
+		return null;
 	}
 
 	/**

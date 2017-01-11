@@ -111,7 +111,7 @@ final class WordPoints_Rank_Types {
 		if ( ! did_action( 'wordpoints_ranks_register' ) ) {
 			_doing_it_wrong(
 				__METHOD__
-				, 'Ranks should not be retreived until after they are all registered.'
+				, 'Ranks should not be retrieved until after they are all registered.'
 				, '1.7.0'
 			);
 		}
@@ -126,7 +126,7 @@ final class WordPoints_Rank_Types {
 	 *
 	 * @param string $type The slug for the type of rank to get the handler of.
 	 *
-	 * @return WordPoints_Rank_Type|false The hander object, or false.
+	 * @return WordPoints_Rank_Type|false The handler object, or false.
 	 */
 	public static function get_type( $type ) {
 

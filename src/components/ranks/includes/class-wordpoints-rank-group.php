@@ -85,6 +85,8 @@ final class WordPoints_Rank_Group {
 			return $this->$key;
 		} elseif ( isset( $this->data[ $key ] ) ) {
 			return $this->data[ $key ];
+		} else {
+			return null;
 		}
 	}
 
@@ -426,7 +428,7 @@ final class WordPoints_Rank_Group {
 	 * @param int   $rank_id  The rank to insert into the list.
 	 * @param int   $position The position in the list to insert it.
 	 *
-	 * @return int[] The list of ranks with the rank insterted.
+	 * @return int[] The list of ranks with the rank inserted.
 	 */
 	private function _insert_rank( $ranks, $rank_id, $position ) {
 

@@ -35,7 +35,7 @@ abstract class WordPoints_Admin_Screen {
 	protected $wp_screen;
 
 	/**
-	 * The tabs to dispaly on this screen.
+	 * The tabs to display on this screen.
 	 *
 	 * @since 2.1.0
 	 *

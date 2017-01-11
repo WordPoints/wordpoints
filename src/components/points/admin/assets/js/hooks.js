@@ -31,7 +31,7 @@ WordPointsHooks = {
 			chooser = $( '.hooks-chooser' ),
 			selectPointsType = chooser.find( '.hooks-chooser-points-types' ),
 			points_types = $( 'div.hooks-sortables' ),
-			isRTL = !! ( 'undefined' !== typeof isRtl && isRtl ),
+			isRTL = ( 'undefined' !== typeof isRtl && isRtl ),
 			margin = ( isRTL ? 'marginRight' : 'marginLeft' );
 
 		$( '#hooks-right' ).children( '.hooks-holder-wrap' ).children( '.points-type-name' ).click( function () {

@@ -48,14 +48,14 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return WordPoints_Ranks_Admin_Screen_Ajax The instace of the class.
+	 * @return WordPoints_Ranks_Admin_Screen_Ajax The instance of the class.
 	 */
 	public static function instance() {
 		return self::$instance;
 	}
 
 	/**
-	 * Get all of the ranks orgainized by group.
+	 * Get all of the ranks organized by group.
 	 *
 	 * @since 1.7.0
 	 *
@@ -349,17 +349,13 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	private function _get_rank_name() {
 
-		$empty_name = true;
+		$name = '';
 
 		if ( ! empty( $_POST['name'] ) ) { // WPCS: CSRF OK.
 			$name = sanitize_text_field( wp_unslash( $_POST['name'] ) ); // WPCS: CSRF OK.
-
-			if ( ! empty( $name ) ) {
-				$empty_name = false;
-			}
 		}
 
-		if ( $empty_name ) {
+		if ( ! $name ) {
 			wp_send_json_error(
 				array(
 					'message' => __( 'Please enter a name for this rank.', 'wordpoints' ),
@@ -376,7 +372,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @reutrn string The rank type specified in the request.
+	 * @return WordPoints_Rank_Type The rank type specified in the request.
 	 */
 	private function _get_rank_type() {
 

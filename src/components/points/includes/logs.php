@@ -254,8 +254,8 @@ function wordpoints_get_points_logs_query_args( $points_type, $query_slug = 'def
 	}
 
 	$defaults = array(
-		'user__not_in' => wordpoints_get_excluded_users( 'points_logs' ),
-		'points_type'  => $points_type,
+		'user_id__not_in' => wordpoints_get_excluded_users( 'points_logs' ),
+		'points_type'     => $points_type,
 	);
 
 	$args = array_merge( $defaults, $args );

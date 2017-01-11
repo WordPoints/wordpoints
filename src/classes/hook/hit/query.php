@@ -36,17 +36,13 @@ class WordPoints_Hook_Hit_Query extends WordPoints_DB_Query {
 	protected $meta_type = 'wordpoints_hook_hit';
 
 	/**
-	 * A list of args that are deprecated and the args that replace them.
-	 *
 	 * @since 2.3.0
-	 *
-	 * @var string[]
 	 */
 	protected $deprecated_args = array(
-		'primary_arg_guid'          => 'signature_arg_guids',
-		'primary_arg_guid__compare' => 'signature_arg_guids__compare',
-		'primary_arg_guid__in'      => 'signature_arg_guids__in',
-		'primary_arg_guid__not_in'  => 'signature_arg_guids__not_in',
+		'primary_arg_guid'          => array( 'replacement' => 'signature_arg_guids', 'version' => '2.3.0', 'class' => __CLASS__ ),
+		'primary_arg_guid__compare' => array( 'replacement' => 'signature_arg_guids__compare', 'version' => '2.3.0', 'class' => __CLASS__ ),
+		'primary_arg_guid__in'      => array( 'replacement' => 'signature_arg_guids__in', 'version' => '2.3.0', 'class' => __CLASS__ ),
+		'primary_arg_guid__not_in'  => array( 'replacement' => 'signature_arg_guids__not_in', 'version' => '2.3.0', 'class' => __CLASS__ ),
 	);
 
 	//
@@ -70,7 +66,7 @@ class WordPoints_Hook_Hit_Query extends WordPoints_DB_Query {
 	 * @param array $args {
 	 *        The arguments for the query.
 	 *
-	 *        @type string|array $fields                       Fields to include in the results.
+	 *        @type string|array $fields                       Fields to include in the results. Default is all fields.
 	 *        @type int          $id                           The ID of the hit to retrieve.
 	 *        @type string       $id__compare                  The comparison operator to use with the above value.
 	 *        @type int[]        $id__in                       A list of IDs to query for.
@@ -133,64 +129,7 @@ class WordPoints_Hook_Hit_Query extends WordPoints_DB_Query {
 
 		$this->defaults['order_by'] = 'date';
 
-		foreach ( $this->deprecated_args as $arg => $replacement ) {
-			if ( isset( $args[ $arg ] ) ) {
-
-				_deprecated_argument(
-					__METHOD__
-					, '2.3.0'
-					, esc_html( "{$arg} is deprecated, use {$replacement} instead" )
-				);
-
-				$args[ $replacement ] = $args[ $arg ];
-
-				unset( $args[ $arg ] );
-			}
-		}
-
 		parent::__construct( $args );
-	}
-
-	/**
-	 * @since 2.3.0
-	 */
-	public function get_arg( $arg ) {
-
-		if ( isset( $this->deprecated_args[ $arg ] ) ) {
-
-			_deprecated_argument(
-				__METHOD__
-				, '2.3.0'
-				, esc_html( "{$arg} is deprecated, use {$this->deprecated_args[ $arg ]} instead" )
-			);
-
-			$arg = $this->deprecated_args[ $arg ];
-		}
-
-		return parent::get_arg( $arg );
-	}
-
-	/**
-	 * @since 2.3.0
-	 */
-	public function set_args( array $args ) {
-
-		foreach ( $this->deprecated_args as $arg => $replacement ) {
-			if ( isset( $args[ $arg ] ) ) {
-
-				_deprecated_argument(
-					__METHOD__
-					, '2.3.0'
-					, esc_html( "{$arg} is deprecated, use {$replacement} instead" )
-				);
-
-				$args[ $replacement ] = $args[ $arg ];
-
-				unset( $args[ $arg ] );
-			}
-		}
-
-		return parent::set_args( $args );
 	}
 }
 

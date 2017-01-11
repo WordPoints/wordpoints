@@ -237,7 +237,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'log_type' => 'hidden' )
 		);
 
-		$query = new WordPoints_Points_Logs_Query( array( 'orderby' => 'id' ) );
+		$query = new WordPoints_Points_Logs_Query( array( 'order_by' => 'id' ) );
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 
 		wordpoints_component( 'points' )
@@ -333,7 +333,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'log_type' => 'hidden' )
 		);
 
-		$query = new WordPoints_Points_Logs_Query( array( 'orderby' => 'id' ) );
+		$query = new WordPoints_Points_Logs_Query( array( 'order_by' => 'id' ) );
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 		$view->display();
 
@@ -368,7 +368,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 		restore_current_blog();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'blog_id' => false, 'orderby' => 'id' )
+			array( 'blog_id' => false, 'order_by' => 'id' )
 		);
 
 		$view = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );

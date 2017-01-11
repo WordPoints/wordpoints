@@ -72,7 +72,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -272,7 +272,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		wordpoints_register_post_type_hook_actions( 'post' );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -446,7 +446,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		wordpoints_register_post_type_hook_actions( 'post' );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -529,7 +529,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -557,7 +557,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -598,7 +598,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -644,7 +644,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -673,7 +673,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -715,7 +715,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -757,7 +757,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -785,7 +785,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -813,7 +813,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->fire_reaction();
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -851,7 +851,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	protected function assertLogsMessedUp() {
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();
@@ -898,7 +898,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	protected function assertExtraLogsMessedUp() {
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'ASC', 'orderby' => 'id' )
+			array( 'order' => 'ASC', 'order_by' => 'id' )
 		);
 
 		$logs = $query->get();

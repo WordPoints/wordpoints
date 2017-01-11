@@ -47,10 +47,11 @@ class WordPoints_DB_Query {
 	 *
 	 * For each column in this array, the following query args are supported:
 	 *
-	 * - "{$column}" A single value that this column should have.
+	 * - "{$column}"          A single value that this column should have.
 	 * - "{$column}__compare" How to compare the above value to the value in the DB.
-	 * - "{$column}__in" An array of values that this column may have.
-	 * - "{$column}__not_in" An array of values that this column may not have.
+	 *                        The default is '='.
+	 * - "{$column}__in"      An array of values that this column may have.
+	 * - "{$column}__not_in"  An array of values that this column may not have.
 	 *
 	 * Where {$column} is the name of the column.
 	 *
@@ -95,6 +96,22 @@ class WordPoints_DB_Query {
 		'start'  => 0,
 		'order'  => 'DESC',
 	);
+
+	/**
+	 * A list of args that are deprecated and information about their replacements.
+	 *
+	 * Each element of the array should contain the following key-value pairs:
+	 *
+	 * - 'replacement' - The replacement arg.
+	 * - 'version'     - The version in which this arg was deprecated.
+	 * - 'class'       - The class this arg is from. Usually you will just want to
+	 *                   use `__CLASS__` here.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var string[][]
+	 */
+	protected $deprecated_args = array();
 
 	/**
 	 * The query arguments.
@@ -202,10 +219,10 @@ class WordPoints_DB_Query {
 	 * @param array $args {
 	 *        The arguments for the query.
 	 *
-	 *        @type string|array $fields              Fields to include in the results.
+	 *        @type string|array $fields              Fields to include in the results. Default is all fields.
 	 *        @type int          $limit               The maximum number of results to return. Default is null (no limit).
 	 *        @type int          $start               The start for the LIMIT clause. Default: 0.
-	 *        @type string       $order_by             The field to use to order the results. Default: 'date'.
+	 *        @type string       $order_by            The field to use to order the results.
 	 *        @type string       $order               The order for the query: ASC or DESC (default).
 	 *        @type string       $meta_key            See WP_Meta_Query.
 	 *        @type mixed        $meta_value          See WP_Meta_Query.
@@ -215,6 +232,22 @@ class WordPoints_DB_Query {
 	 * }
 	 */
 	public function __construct( $args = array() ) {
+
+		foreach ( $this->deprecated_args as $arg => $data ) {
+			if ( isset( $args[ $arg ] ) ) {
+
+				_deprecated_argument(
+					esc_html( "{$data['class']}::__construct" )
+					, esc_html( $data['version'] )
+					, esc_html( "{$arg} is deprecated, use {$data['replacement']} instead" )
+				);
+
+				$args[ $data['replacement'] ] = $args[ $arg ];
+
+				unset( $args[ $arg ] );
+			}
+		}
+
 		$this->args = array_merge( $this->defaults, $args );
 	}
 
@@ -228,6 +261,17 @@ class WordPoints_DB_Query {
 	 * @return mixed|null The query arg's value, or null if it isn't set.
 	 */
 	public function get_arg( $arg ) {
+
+		if ( isset( $this->deprecated_args[ $arg ] ) ) {
+
+			_deprecated_argument(
+				esc_html( "{$this->deprecated_args[ $arg ]['class']}::get_arg" )
+				, esc_html( $this->deprecated_args[ $arg ]['version'] )
+				, esc_html( "{$arg} is deprecated, use {$this->deprecated_args[ $arg ]['replacement']} instead" )
+			);
+
+			$arg = $this->deprecated_args[ $arg ]['replacement'];
+		}
 
 		if ( isset( $this->args[ $arg ] ) ) {
 			return $this->args[ $arg ];
@@ -249,6 +293,21 @@ class WordPoints_DB_Query {
 	 * @return WordPoints_DB_Query To allow for method chaining.
 	 */
 	public function set_args( array $args ) {
+
+		foreach ( $this->deprecated_args as $arg => $data ) {
+			if ( isset( $args[ $arg ] ) ) {
+
+				_deprecated_argument(
+					esc_html( "{$data['class']}::set_args" )
+					, esc_html( $data['version'] )
+					, esc_html( "{$arg} is deprecated, use {$data['replacement']} instead" )
+				);
+
+				$args[ $data['replacement'] ] = $args[ $arg ];
+
+				unset( $args[ $arg ] );
+			}
+		}
 
 		$this->args = array_merge( $this->args, $args );
 

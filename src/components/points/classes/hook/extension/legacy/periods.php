@@ -70,7 +70,6 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods
 				'user_id'     => $user_id,
 				'points_type' => $points_type,
 				'log_type'    => $log_type,
-				'orderby'     => 'date',
 				'limit'       => 1,
 			)
 		);

@@ -41,7 +41,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->assertEquals(
 			$query_args + array(
 				'points_type'  => 'points',
-				'user__not_in' => array(),
+				'user_id__not_in' => array(),
 			)
 			,wordpoints_get_points_logs_query_args( 'points', $query )
 		);
@@ -61,6 +61,169 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->assertTrue( wordpoints_is_points_logs_query( 'default' ) );
 		$this->assertTrue( wordpoints_is_points_logs_query( 'current_user' ) );
 		$this->assertTrue( wordpoints_is_points_logs_query( 'network' ) );
+	}
+
+	/**
+	 * Test constructing the class.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_construct_defaults() {
+
+		$query = new WordPoints_Points_Logs_Query();
+
+		$this->assertEquals( 0,      $query->get_arg( 'start' ) );
+		$this->assertEquals( 'DESC', $query->get_arg( 'order' ) );
+		$this->assertEquals( 'date', $query->get_arg( 'order_by' ) );
+		$this->assertEquals( 'LIKE', $query->get_arg( 'text__compare' ) );
+	}
+
+	/**
+	 * Test constructing the class.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_construct_override_defaults() {
+
+		$query = new WordPoints_Points_Logs_Query( array( 'order_by' => null ) );
+
+		$this->assertNull( $query->get_arg( 'order_by' ) );
+	}
+
+	/**
+	 * Test constructing the class with deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::__construct
+	 */
+	public function test_construct_with_deprecated_args() {
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'orderby'      => 'test',
+				'user__in'     => 'test_user_in',
+				'user__not_in' => 'test_user_not_in',
+				'blog__in'     => 'test_blog_in',
+				'blog__not_in' => 'test_blog_not_in',
+			)
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'order_by' ) );
+		$this->assertEquals( 'test_user_in', $query->get_arg( 'user_id__in' ) );
+		$this->assertEquals( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
+		$this->assertEquals( 'test_blog_in', $query->get_arg( 'blog_id__in' ) );
+		$this->assertEquals( 'test_blog_not_in', $query->get_arg( 'blog_id__not_in' ) );
+	}
+
+	/**
+	 * Test getting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::get_arg
+	 */
+	public function test_get_deprecated_args() {
+
+		$query = new WordPoints_Points_Logs_Query(
+			array(
+				'order_by'        => 'test',
+				'user_id__in'     => 'test_user_in',
+				'user_id__not_in' => 'test_user_not_in',
+				'blog_id__in'     => 'test_blog_in',
+				'blog_id__not_in' => 'test_blog_not_in',
+			)
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'orderby' ) );
+		$this->assertEquals( 'test_user_in', $query->get_arg( 'user__in' ) );
+		$this->assertEquals( 'test_user_not_in', $query->get_arg( 'user__not_in' ) );
+		$this->assertEquals( 'test_blog_in', $query->get_arg( 'blog__in' ) );
+		$this->assertEquals( 'test_blog_not_in', $query->get_arg( 'blog__not_in' ) );
+	}
+
+	/**
+	 * Test setting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::set_args
+	 */
+	public function test_set_deprecated_args() {
+
+		$query = new WordPoints_Points_Logs_Query();
+		$query->set_args(
+			array(
+				'orderby'      => 'test',
+				'user__in'     => 'test_user_in',
+				'user__not_in' => 'test_user_not_in',
+				'blog__in'     => 'test_blog_in',
+				'blog__not_in' => 'test_blog_not_in',
+			)
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'order_by' ) );
+		$this->assertEquals( 'test_user_in', $query->get_arg( 'user_id__in' ) );
+		$this->assertEquals( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
+		$this->assertEquals( 'test_blog_in', $query->get_arg( 'blog_id__in' ) );
+		$this->assertEquals( 'test_blog_not_in', $query->get_arg( 'blog_id__not_in' ) );
+	}
+
+	/**
+	 * Test constructing the class with deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::convert_deprecated_arg_values
+	 */
+	public function test_construct_with_deprecated_fields_all() {
+
+		$query = new WordPoints_Points_Logs_Query( array( 'fields' => 'all' ) );
+
+		$this->assertNull( $query->get_arg( 'fields' ) );
+	}
+
+	/**
+	 * Test setting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::convert_deprecated_arg_values
+	 */
+	public function test_set_deprecated_arg_fields_all() {
+
+		$query = new WordPoints_Points_Logs_Query();
+		$query->set_args( array( 'fields' => 'all' ) );
+
+		$this->assertNull( $query->get_arg( 'fields' ) );
+	}
+	/**
+	 * Test constructing the class with deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::convert_deprecated_arg_values
+	 */
+	public function test_construct_with_deprecated_orderby_none() {
+
+		$query = new WordPoints_Points_Logs_Query( array( 'orderby' => 'none' ) );
+
+		$this->assertNull( $query->get_arg( 'order_by' ) );
+	}
+
+	/**
+	 * Test setting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Query::convert_deprecated_arg_values
+	 */
+	public function test_set_deprecated_arg_orderby_none() {
+
+		$query = new WordPoints_Points_Logs_Query();
+		$query->set_args( array( 'orderby' => 'none' ) );
+
+		$this->assertNull( $query->get_arg( 'order_by' ) );
 	}
 
 	/**
@@ -112,9 +275,9 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'start'   => 1,
-				'limit'   => 2,
-				'orderby' => 'id',
+				'start'    => 1,
+				'limit'    => 2,
+				'order_by' => 'id',
 			)
 		);
 
@@ -127,7 +290,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	}
 
 	/**
-	 * Test the 'orderby' and 'order' query args.
+	 * Test the 'order_by' and 'order' query args.
 	 *
 	 * @since 1.0.0
 	 */
@@ -138,7 +301,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
 		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 
-		$query = new WordPoints_Points_Logs_Query( array( 'orderby' => 'points' ) );
+		$query = new WordPoints_Points_Logs_Query( array( 'order_by' => 'points' ) );
 
 		$result = $query->get();
 
@@ -149,8 +312,8 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'orderby' => 'points',
-				'order'   => 'ASC',
+				'order_by' => 'points',
+				'order'    => 'ASC',
 			)
 		);
 
@@ -214,10 +377,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query_1 = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_ids[0] ) );
 		$this->assertEquals( 1, $query_1->count() );
 
-		$query_2 = new WordPoints_Points_Logs_Query( array( 'user__in' => array( $user_ids[0] ) ) );
+		$query_2 = new WordPoints_Points_Logs_Query( array( 'user_id__in' => array( $user_ids[0] ) ) );
 		$this->assertEquals( 1, $query_2->count() );
 
-		$query_3 = new WordPoints_Points_Logs_Query( array( 'user__not_in' => $user_ids ) );
+		$query_3 = new WordPoints_Points_Logs_Query( array( 'user_id__not_in' => $user_ids ) );
 		$this->assertEquals( 0, $query_3->count() );
 	}
 
@@ -341,7 +504,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query_5 = new WordPoints_Points_Logs_Query(
 			array(
-				'orderby'    => 'meta_value',
+				'order_by'   => 'meta_value',
 				'meta_query' => array(
 					'relation' => 'OR',
 					array( 'key' => 'test1' ),
@@ -397,6 +560,8 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_blog_query_arg() {
 
+		$current_blog_id = get_current_blog_id();
+
 		$user_id = $this->factory->user->create();
 		$blog_id = $this->factory->blog->create();
 
@@ -408,7 +573,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			wordpoints_add_points_type( array( 'name' => 'points' ) );
 		}
 
-		wordpoints_alter_points( $this->factory->user->create(), 20, 'points', 'test' );
+		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 
 		restore_current_blog();
 
@@ -426,11 +591,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertEquals( 2, $query->count() );
 
-		$query = new WordPoints_Points_Logs_Query( array( 'blog__in' => array( 1, $blog_id ) ) );
+		$query = new WordPoints_Points_Logs_Query( array( 'blog_id__in' => array( $current_blog_id, $blog_id ) ) );
 
 		$this->assertEquals( 2, $query->count() );
 
-		$query = new WordPoints_Points_Logs_Query( array( 'blog__not_in' => array( 1 ) ) );
+		$query = new WordPoints_Points_Logs_Query( array( 'blog_id__not_in' => array( $current_blog_id ) ) );
 
 		$this->assertEquals( 1, $query->count() );
 		$this->assertEquals( 20, $query->get( 'row' )->points );
@@ -443,15 +608,15 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_text_args() {
 
-		$log_id_1 = $this->factory->wordpoints->points_log->create(
+		$this->factory->wordpoints->points_log->create(
 			array( 'text' => 'Test searching 100.' )
 		);
 
-		$log_id_2 = $this->factory->wordpoints->points_log->create(
+		$this->factory->wordpoints->points_log->create(
 			array( 'text' => 'A test with 100%.' )
 		);
 
-		$log_id_3 = $this->factory->wordpoints->points_log->create(
+		$this->factory->wordpoints->points_log->create(
 			array( 'text' => 'A test.' )
 		);
 
@@ -515,7 +680,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
 
 		// New query.
-		$query = wordpoints_get_points_logs_query( 'points' );
+		wordpoints_get_points_logs_query( 'points' );
 
 		// The cache should still be good, so no new query should have been made.
 		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
@@ -735,7 +900,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$ids = $this->factory->wordpoints->points_log->create_many( 9 );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'orderby' => 'id', 'order' => 'ASC' )
+			array( 'order_by' => 'id', 'order' => 'ASC' )
 		);
 
 		$page_1 = $query->get_page( 1, 2 );
@@ -781,7 +946,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->factory->wordpoints->points_log->create_many( 2 );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'orderby' => 'id', 'order' => 'ASC' )
+			array( 'order_by' => 'id', 'order' => 'ASC' )
 		);
 
 		$sql = $query->get_sql();
@@ -804,7 +969,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		// Get the query.
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'orderby' => 'id', 'order' => 'ASC' )
+			array( 'order_by' => 'id', 'order' => 'ASC' )
 		);
 		$query->prime_cache( __FUNCTION__ );
 
@@ -840,7 +1005,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		// Get the query.
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'orderby' => 'id', 'order' => 'ASC' )
+			array( 'order_by' => 'id', 'order' => 'ASC' )
 		);
 		$query->prime_cache( __METHOD__ );
 
@@ -886,7 +1051,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'start' => 2, 'orderby' => 'id', 'order' => 'ASC' )
+			array( 'start' => 2, 'order_by' => 'id', 'order' => 'ASC' )
 		);
 
 		$page_1 = $query->get_page( 1, 2 );
@@ -906,10 +1071,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page_with_limit() {
 
-		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
+		$this->factory->wordpoints->points_log->create_many( 5 );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'limit' => 3, 'orderby' => 'id', 'order' => 'ASC' )
+			array( 'limit' => 3, 'order_by' => 'id', 'order' => 'ASC' )
 		);
 
 		$this->assertCount( 2, $query->get_page( 1, 2 ) );

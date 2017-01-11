@@ -478,7 +478,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 		);
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'order' => 'DESC', 'orderby' => 'id' )
+			array( 'order' => 'DESC', 'order_by' => 'id' )
 		);
 
 		$log = $query->get( 'row' );

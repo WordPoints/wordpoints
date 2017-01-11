@@ -91,6 +91,22 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test constructing the class with deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_PHPUnit_Mock_DB_Query::__construct
+	 */
+	public function test_construct_with_deprecated_args() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query(
+			array( 'deprecated' => 'test' )
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'replacement' ) );
+	}
+
+	/**
 	 * Test getting an arg that doesn't exit.
 	 *
 	 * @since 2.1.0
@@ -100,6 +116,22 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$query = new WordPoints_DB_Query();
 
 		$this->assertNull( $query->get_arg( 'nonexistent' ) );
+	}
+
+	/**
+	 * Test getting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_PHPUnit_Mock_DB_Query::get_arg
+	 */
+	public function test_get_deprecated_arg() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query(
+			array( 'replacement' => 'test' )
+		);
+
+		$this->assertEquals( 'test', $query->get_arg( 'deprecated' ) );
 	}
 
 	/**
@@ -120,6 +152,21 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertEquals( 10,    $query->get_arg( 'start' ) );
 		$this->assertEquals( 'ASC', $query->get_arg( 'order' ) );
 		$this->assertEquals( 'b',   $query->get_arg( 'custom' ) );
+	}
+
+	/**
+	 * Test setting the deprecated args.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @expectedDeprecated WordPoints_PHPUnit_Mock_DB_Query::set_args
+	 */
+	public function test_set_deprecated_args() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query();
+		$query->set_args( array( 'deprecated' => 'test' ) );
+
+		$this->assertEquals( 'test', $query->get_arg( 'replacement' ) );
 	}
 
 	/**

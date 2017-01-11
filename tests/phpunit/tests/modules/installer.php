@@ -46,6 +46,12 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		add_filter( 'upgrader_pre_download', array( $this, 'module_package' ) );
 
 		wp_cache_set( 'wordpoints_modules', array( 'test' ), 'wordpoints_modules' );
+
+		// Remove unnecessary actions that will result in requests to WordPress.org.
+		remove_action( 'upgrader_process_complete', array( 'Language_Pack_Upgrader', 'async_upgrade' ), 20 );
+		remove_action( 'upgrader_process_complete', 'wp_version_check' );
+		remove_action( 'upgrader_process_complete', 'wp_update_plugins' );
+		remove_action( 'upgrader_process_complete', 'wp_update_themes' );
 	}
 
 	/**
@@ -160,11 +166,10 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 	 * @since 2.0.0
 	 *
 	 * @param string $package_name The name of the package file, without extension.
-	 * @param array  $args         Optional arguments to pass to install().
 	 *
 	 * @return mixed The result from the upgrader.
 	 */
-	protected function install_test_package( $package_name, $args = array() ) {
+	protected function install_test_package( $package_name ) {
 
 		$this->package_name = $package_name;
 
@@ -188,7 +193,6 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		return $upgrader->install(
 			WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $package_name . '.zip'
-			, $args
 		);
 	}
 }

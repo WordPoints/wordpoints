@@ -112,6 +112,9 @@ require_once( WORDPOINTS_DIR . 'classes/class/autoloader.php' );
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'includes' );
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
 
+// Set up the components class.
+WordPoints_Components::set_up();
+
 /**
  * Action and filter hooks.
  *

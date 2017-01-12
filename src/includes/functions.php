@@ -949,6 +949,38 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 }
 
 /**
+ * Component registration wrapper.
+ *
+ * @since 1.0.0
+ *
+ * @uses WordPoints_Components::register()
+ *
+ * @param array $args The component args.
+ *
+ * @return bool Whether the component was registered.
+ */
+function wordpoints_component_register( $args ) {
+
+	return WordPoints_Components::instance()->register( $args );
+}
+
+/**
+ * Component activation check wrapper.
+ *
+ * @since 1.0.0
+ *
+ * @uses WordPoints_Components::is_active()
+ *
+ * @param string $slug The component slug.
+ *
+ * @return bool Whether the component is active.
+ */
+function wordpoints_component_is_active( $slug ) {
+
+	return WordPoints_Components::instance()->is_active( $slug );
+}
+
+/**
  * Register the points component.
  *
  * @since 1.0.0

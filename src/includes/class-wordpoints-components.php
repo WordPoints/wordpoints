@@ -4,46 +4,11 @@
  * WordPoints_Components class.
  *
  * This class handles the loading, activation/deactivation, etc., of the included
- * components. The file includes the class and a few wrapper functions.
+ * components.
  *
  * @package WordPoints\Components
  * @since 1.0.0
  */
-
-// Instantiate the class.
-WordPoints_Components::set_up();
-
-/**
- * Component registration wrapper.
- *
- * @since 1.0.0
- *
- * @uses WordPoints_Components::register()
- *
- * @param array $args The component args.
- *
- * @return bool Whether the component was registered.
- */
-function wordpoints_component_register( $args ) {
-
-	return WordPoints_Components::instance()->register( $args );
-}
-
-/**
- * Component activation check wrapper.
- *
- * @since 1.0.0
- *
- * @uses WordPoints_Components::is_active()
- *
- * @param string $slug The component slug.
- *
- * @return bool Whether the component is active.
- */
-function wordpoints_component_is_active( $slug ) {
-
-	return WordPoints_Components::instance()->is_active( $slug );
-}
 
 /**
  * Load, register, activate and deactivate components.

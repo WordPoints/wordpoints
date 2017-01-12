@@ -15,7 +15,7 @@
  * @group points
  * @group shortcodes
  *
- * @covers WordPoints_How_To_Get_Points_Shortcode
+ * @covers WordPoints_Points_Shortcode_HTGP
  */
 class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
@@ -29,6 +29,20 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 	public function test_shortcode_exists() {
 
 		$this->assertTrue( shortcode_exists( 'wordpoints_how_to_get_points' ) );
+	}
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_How_To_Get_Points_Shortcode
+	 *
+	 * @expectedDeprecated WordPoints_How_To_Get_Points_Shortcode::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_How_To_Get_Points_Shortcode( array(), '' );
 	}
 
 	/**

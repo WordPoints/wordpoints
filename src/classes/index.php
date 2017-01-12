@@ -119,6 +119,7 @@ return array(
 	'wordpoints_hooks' => 'hooks.php',
 	'wordpoints_module_paths' => 'module/paths.php',
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
+	'wordpoints_shortcodes' => 'shortcodes.php',
 	// }
 );
 

@@ -1236,7 +1236,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		$query = new WordPoints_Points_Logs_Query(
 			array(
 				'order'        => 'ASC',
-				'orderby'      => 'id',
+				'order_by'      => 'id',
 				'id__not_in'   => $logs_to_delete,
 				'log_type__in' => array( 'post_publish\\' . $post_type ),
 				'meta_query'   => array(

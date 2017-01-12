@@ -18,7 +18,7 @@
  * @group points
  * @group shortcodes
  *
- * @covers WordPoints_Points_Top_Shortcode
+ * @covers WordPoints_Points_Shortcode_Top_Users
  */
 class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
@@ -26,10 +26,26 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 	 * Test that the [wordpoints_points_top] shortcode exists.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @coversNothing
 	 */
 	public function test_shortcode_exists() {
 
 		$this->assertTrue( shortcode_exists( 'wordpoints_points_top' ) );
+	}
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_Points_Top_Shortcode
+	 *
+	 * @expectedDeprecated WordPoints_Points_Top_Shortcode::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_Points_Top_Shortcode( array(), '' );
 	}
 
 	/**
@@ -103,13 +119,6 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		$old_current_user = wp_get_current_user();
 		$new_current_user = wp_set_current_user( $this->factory->user->create() );
 		$new_current_user->set_role( 'administrator' );
-
-		$shortcode_error = array(
-			'tag' => 'p',
-			'attributes' => array(
-				'class' => 'wordpoints-shortcode-error',
-			),
-		);
 
 		$this->assertWordPointsShortcodeError(
 			$this->do_shortcode(

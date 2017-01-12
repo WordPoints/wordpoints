@@ -11,7 +11,6 @@ return array(
 	'wordpoints_points_hook' => 'class-wordpoints-points-hook.php',
 	'wordpoints_points_hooks' => 'class-wordpoints-points-hooks.php',
 	'wordpoints_points_logs_query' => 'class-wordpoints-points-logs-query.php',
-	'wordpoints_points_shortcode' => 'shortcodes.php',
 	'wordpoints_comment_approved_points_hook_base' => 'hooks/abstracts/comment-approved.php',
 	'wordpoints_post_type_points_hook_base' => 'hooks/abstracts/post-type.php',
 	'wordpoints_comment_points_hook' => 'hooks/comment.php',

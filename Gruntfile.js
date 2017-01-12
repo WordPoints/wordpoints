@@ -23,10 +23,12 @@ module.exports = function( grunt ) {
 					class_files.indexOf( 'logs/viewing/restrictioni.php' ) + 1
 					, 0
 					, class_files.splice(
-						class_files.indexOf( 'logs/viewing/restriction/post/status/nonpublic.php' )
+						class_files.indexOf( 'logs/viewing/restriction/read/post.php' )
 						, 1
 					)[0]
 				);
+
+				return class_files;
 
 			} else if ( 'src/classes/' !== class_dir ) {
 				return class_files;

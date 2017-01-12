@@ -19,6 +19,7 @@
  * @group shortcodes
  *
  * @covers WordPoints_Points_Shortcode
+ * @covers WordPoints_Points_Shortcode_User_Points
  */
 class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
@@ -26,10 +27,26 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 	 * Test that the [wordpoints_points] shortcode exists.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @coversNothing
 	 */
 	public function test_shortcode_exists() {
 
 		$this->assertTrue( shortcode_exists( 'wordpoints_points' ) );
+	}
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_User_Points_Shortcode
+	 *
+	 * @expectedDeprecated WordPoints_User_Points_Shortcode::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_User_Points_Shortcode( array(), '' );
 	}
 
 	/**
@@ -180,7 +197,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		unset( $GLOBALS['post'] );
 
 		$user_id = $this->factory->user->create();
-		$post = $this->factory->post->create_and_get(
+		$this->factory->post->create_and_get(
 			array( 'post_author' => $user_id )
 		);
 
@@ -210,7 +227,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		$user = $this->factory->user->create_and_get();
 		$user->add_cap( 'manage_options' );
 
-		$post = $this->factory->post->create_and_get(
+		$this->factory->post->create_and_get(
 			array( 'post_author' => $user->ID )
 		);
 

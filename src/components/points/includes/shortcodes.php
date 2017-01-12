@@ -215,37 +215,4 @@ class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode {
 	}
 }
 
-/**
- * Handler for the user points shortcode.
- *
- * @since 1.8.0
- */
-class WordPoints_User_Points_Shortcode extends WordPoints_Points_Shortcode {
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected $shortcode = 'wordpoints_points';
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected $pairs = array(
-		'user_id'     => 0,
-		'points_type' => '',
-	);
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function generate() {
-
-		return wordpoints_get_formatted_points(
-			$this->atts['user_id']
-			, $this->atts['points_type']
-			, 'points-shortcode'
-		);
-	}
-}
-
 // EOF

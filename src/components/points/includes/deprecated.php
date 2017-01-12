@@ -534,7 +534,29 @@ class WordPoints_How_To_Get_Points_Shortcode extends WordPoints_Points_Shortcode
 
 		parent::__construct( $atts, $content, $shortcode );
 	}
+}
 
+/**
+ * Handler for the user points shortcode.
+ *
+ * @since 1.8.0
+ * @deprecated 2.3.0 Use WordPoints_Points_Shortcode_HTGP instead.
+ */
+class WordPoints_User_Points_Shortcode extends WordPoints_Points_Shortcode_User_Points {
+
+	/**
+	 * @since 2.3.0
+	 */
+	public function __construct( $atts, $content, $shortcode = null ) {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.3.0'
+			, 'WordPoints_Points_Shortcode_HTGP::__construct'
+		);
+
+		parent::__construct( $atts, $content, $shortcode );
+	}
 }
 
 // EOF

@@ -46,7 +46,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods
 		// Get the user ID.
 		$user = $this->event_args->get_from_hierarchy( array( 'current:user' ) );
 
-		if ( ! $user ) {
+		if ( ! $user instanceof WordPoints_Entity ) {
 			return false;
 		}
 

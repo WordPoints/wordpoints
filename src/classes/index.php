@@ -47,6 +47,7 @@ return array(
 	'wordpoints_data_type_integer' => 'data/type/integer.php',
 	'wordpoints_data_type_text' => 'data/type/text.php',
 	'wordpoints_db_query' => 'db/query.php',
+	'wordpoints_dropdown_builder' => 'dropdown/builder.php',
 	'wordpoints_entityish' => 'entityish.php',
 	'wordpoints_entity' => 'entity.php',
 	'wordpoints_entity_relationship' => 'entity/relationship.php',

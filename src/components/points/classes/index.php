@@ -20,6 +20,7 @@ return array(
 	'wordpoints_points_hook_reactor' => 'hook/reactor.php',
 	'wordpoints_points_hook_reactor_legacy' => 'hook/reactor/legacy.php',
 	'wordpoints_points_legacy_hook_to_reaction_importer' => 'legacy/hook/to/reaction/importer.php',
+	'wordpoints_points_log_queries' => 'log/queries.php',
 	'wordpoints_points_logs_view' => 'logs/view.php',
 	'wordpoints_points_logs_view_table' => 'logs/view/table.php',
 	'wordpoints_points_logs_viewing_restriction_hooks' => 'logs/viewing/restriction/hooks.php',

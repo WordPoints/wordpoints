@@ -552,7 +552,30 @@ class WordPoints_User_Points_Shortcode extends WordPoints_Points_Shortcode_User_
 		_deprecated_function(
 			__METHOD__
 			, '2.3.0'
-			, 'WordPoints_Points_Shortcode_HTGP::__construct'
+			, 'WordPoints_Points_Shortcode_User_Points::__construct'
+		);
+
+		parent::__construct( $atts, $content, $shortcode );
+	}
+}
+
+/**
+ * Handler for the points logs shortcode.
+ *
+ * @since 1.8.0
+ * @deprecated 2.3.0 Use WordPoints_Points_Shortcode_Logs instead.
+ */
+class WordPoints_Points_Logs_Shortcode extends WordPoints_Points_Shortcode_Logs {
+
+	/**
+	 * @since 2.3.0
+	 */
+	public function __construct( $atts, $content, $shortcode = null ) {
+
+		_deprecated_function(
+			__METHOD__
+			, '2.3.0'
+			, 'WordPoints_Points_Shortcode_Logs::__construct'
 		);
 
 		parent::__construct( $atts, $content, $shortcode );

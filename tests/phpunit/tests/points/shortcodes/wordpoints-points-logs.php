@@ -18,7 +18,7 @@
  * @group points
  * @group shortcodes
  *
- * @covers WordPoints_Points_Logs_Shortcode
+ * @covers WordPoints_Points_Shortcode_Logs
  */
 class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Points {
 
@@ -56,10 +56,26 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 	 * Test that the [wordpoints_points_logs] shortcode exists.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @coversNothing
 	 */
 	public function test_shortcode_exists() {
 
 		$this->assertTrue( shortcode_exists( 'wordpoints_points_logs' ) );
+	}
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_Points_Logs_Shortcode
+	 *
+	 * @expectedDeprecated WordPoints_Points_Logs_Shortcode::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_Points_Logs_Shortcode( array(), '' );
 	}
 
 	/**

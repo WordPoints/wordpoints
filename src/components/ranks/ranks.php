@@ -8,6 +8,10 @@
  */
 
 WordPoints_Class_Autoloader::register_dir(
+	WORDPOINTS_DIR . 'components/ranks/classes'
+);
+
+WordPoints_Class_Autoloader::register_dir(
 	WORDPOINTS_DIR . 'components/ranks/includes'
 );
 

@@ -31,10 +31,6 @@ class WordPoints_Hook_Event_Post_Publish_Custom_Test
 			array( 'name' => $this->dynamic_slug )
 		);
 
-		wordpoints_register_post_type_entities( $this->dynamic_slug );
-		wordpoints_register_post_type_hook_actions( $this->dynamic_slug );
-		wordpoints_register_post_type_hook_events( $this->dynamic_slug );
-
 		return parent::data_provider_targets();
 	}
 }

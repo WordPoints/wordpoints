@@ -156,12 +156,17 @@ function wordpoints_hook_actions_init( $actions ) {
 	foreach ( $post_types as $slug ) {
 		wordpoints_register_post_type_hook_actions( $slug );
 	}
+
+	// Also register actions for any post types that are late to the party.
+	add_action( 'registered_post_type', 'wordpoints_register_post_type_hook_actions' );
 }
 
 /**
  * Register the hook actions for a post type.
  *
  * @since 2.1.0
+ *
+ * @WordPress\action registered_post_type By {@see wordpoints_hook_actions_init()}.
  *
  * @param string $slug The slug of the post type.
  */
@@ -329,6 +334,9 @@ function wordpoints_hook_events_init( $events ) {
 	foreach ( wordpoints_get_post_types_for_hook_events() as $slug ) {
 		wordpoints_register_post_type_hook_events( $slug );
 	}
+
+	// Also register events for any post types that are late to the party.
+	add_action( 'registered_post_type', 'wordpoints_register_post_type_hook_events' );
 }
 
 /**
@@ -357,6 +365,8 @@ function wordpoints_get_post_types_for_hook_events() {
  * Register the hook events for a post type.
  *
  * @since 2.1.0
+ *
+ * @WordPress\action registered_post_type By {@see wordpoints_hook_events_init()}.
  *
  * @param string $slug The slug of the post type.
  */

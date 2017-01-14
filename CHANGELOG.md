@@ -8,6 +8,13 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
+## [2.2.2] - 2017-01-14
+
+### Fixed
+
+- Events for post types registered after the hook actions API is initialized not firing. #491
+- PHPCS errors being flagged for git tags, by pinning the WPCS version. #598
+
 ## [2.2.1] - 2017-01-03
 
 ### Fixed
@@ -286,7 +293,8 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
-[2.2.1]: https://github.com/WordPoints/wordpoints/compare/2.0.0...2.2.1
+[2.2.2]: https://github.com/WordPoints/wordpoints/compare/2.2.1...2.2.2
+[2.2.1]: https://github.com/WordPoints/wordpoints/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/WordPoints/wordpoints/compare/2.1.5...2.2.0
 [2.1.5]: https://github.com/WordPoints/wordpoints/compare/2.1.4...2.1.5
 [2.1.4]: https://github.com/WordPoints/wordpoints/compare/2.1.3...2.1.4

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-01-02 20:04:13+00:00\n"
+"POT-Creation-Date: 2017-01-14 13:57:07+00:00\n"
 "PO-Revision-Date: 2015-02-24 19:20+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wordpoints/"
@@ -229,7 +229,7 @@ msgstr "Desactivar"
 msgid "Activate %s"
 msgstr "Activar"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.2.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:316

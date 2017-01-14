@@ -296,6 +296,9 @@ function wordpoints_entities_init( $entities ) {
 	foreach ( wordpoints_get_post_types_for_entities() as $slug ) {
 		wordpoints_register_post_type_entities( $slug );
 	}
+
+	// Also register entities for any post types that are late to the party.
+	add_action( 'registered_post_type', 'wordpoints_register_post_type_entities' );
 }
 
 /**
@@ -323,6 +326,8 @@ function wordpoints_get_post_types_for_entities() {
  * Register the entities for a post type.
  *
  * @since 2.1.0
+ *
+ * @WordPress\action registered_post_type By {@see wordpoints_entities_init()}.
  *
  * @param string $slug The slug of the post type.
  */

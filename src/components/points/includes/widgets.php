@@ -8,25 +8,6 @@
  */
 
 /**
- * Register the widgets.
- *
- * @since 1.0.0
- *
- * @action widgets_init
- */
-function wordpoints_register_points_widgets() {
-
-	// My points widget.
-	register_widget( 'WordPoints_My_Points_Widget' );
-
-	// Top users widget.
-	register_widget( 'WordPoints_Top_Users_Points_Widget' );
-
-	// Points logs widget.
-	register_widget( 'WordPoints_Points_Logs_Widget' );
-}
-
-/**
  * WordPoints points widget template class.
  *
  * @since 1.0.0

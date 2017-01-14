@@ -15,7 +15,7 @@
  * @group ranks
  * @group shortcodes
  *
- * @covers WordPoints_User_Rank_Shortcode
+ * @covers WordPoints_Rank_Shortcode_User_Rank
  */
 class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
@@ -27,6 +27,20 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 	public function test_shortcode_exists() {
 
 		$this->assertTrue( shortcode_exists( 'wordpoints_user_rank' ) );
+	}
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_User_Rank_Shortcode
+	 *
+	 * @expectedDeprecated WordPoints_User_Rank_Shortcode::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_User_Rank_Shortcode( array(), '' );
 	}
 
 	/**

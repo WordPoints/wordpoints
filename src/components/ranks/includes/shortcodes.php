@@ -5,38 +5,29 @@
  *
  * @package WordPoints\Ranks
  * @since 1.8.0
+ * @deprecated 2.3.0
  */
 
 /**
  * Handler for the user rank shortcode.
  *
  * @since 1.8.0
+ * @deprecated 2.3.0 Use WordPoints_Rank_Shortcode_User_Rank instead.
  */
-class WordPoints_User_Rank_Shortcode extends WordPoints_Rank_Shortcode {
+class WordPoints_User_Rank_Shortcode extends WordPoints_Rank_Shortcode_User_Rank {
 
 	/**
-	 * @since 1.8.0
+	 * @since 2.3.0
 	 */
-	protected $shortcode = 'wordpoints_user_rank';
+	public function __construct( $atts, $content, $shortcode = null ) {
 
-	/**
-	 * @since 1.8.0
-	 */
-	protected $pairs = array(
-		'user_id'    => 0,
-		'rank_group' => '',
-	);
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function generate() {
-
-		return wordpoints_get_formatted_user_rank(
-			$this->atts['user_id']
-			, $this->atts['rank_group']
-			, 'user_rank_shortcode'
+		_deprecated_function(
+			__METHOD__
+			, '2.3.0'
+			, 'WordPoints_Rank_Shortcode_User_Rank::__construct'
 		);
+
+		parent::__construct( $atts, $content, $shortcode );
 	}
 }
 

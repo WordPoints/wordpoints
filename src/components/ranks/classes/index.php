@@ -10,6 +10,7 @@
 return array(
 	// auto-generated {
 	'wordpoints_rank_shortcode' => 'rank/shortcode.php',
+	'wordpoints_rank_shortcode_user_rank' => 'rank/shortcode/user/rank.php',
 	// }
 );
 

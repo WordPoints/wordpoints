@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
 Requires at least: 4.6
 Tested up to: 4.8-alpha-39357
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,7 @@ plugin website, [WordPoints.org](https://wordpoints.org/roadmap/).
 Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/modules/),
 called "modules". There's [a module that imports from CubePoints to WordPoints](https://wordpoints.org/modules/importer/),
 one that [integrates with WooCommerce](https://wordpoints.org/modules/woocommerce/),
+one that [integrates with BuddyPress](https://wordpoints.org/modules/buddypress/),
 and another that let's you [reset your users' points](https://wordpoints.org/modules/reset-points/).
 More are being added regularly, so take a look to see what is new.
 
@@ -113,6 +114,15 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.2.2 — 2017-01-14 =
+
+##### Fixed
+
+- Event reactions for custom post types not awarding points. Plugins like bbPress
+were effected by this, because they register their post types later in the code
+than WordPoints expected. This is now fixed so that WordPoints will work correctly
+for post types no matter how late they are registered.
 
 = 2.2.1 — 2017-01-03 =
 
@@ -517,6 +527,10 @@ choosing the points type to add it to.
 * Initial release
 
 == Upgrade Notice ==
+= 2.2.2 =
+* Fixes a bug that caused event reactions not to award points for some custom post
+types, like bbPress forum topics.
+
 = 2.2.1 =
 * Fixes a bug that could cause the Points Types screen to lock up in some
 circumstances.

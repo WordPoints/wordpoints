@@ -387,7 +387,7 @@ function wordpoints_points_add_global_cache_groups() {
 function wordpoints_register_points_widgets() {
 
 	// My points widget.
-	register_widget( 'WordPoints_My_Points_Widget' );
+	register_widget( 'WordPoints_Points_Widget_User_Points' );
 
 	// Top users widget.
 	register_widget( 'WordPoints_Top_Users_Points_Widget' );

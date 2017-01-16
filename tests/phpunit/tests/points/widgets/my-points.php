@@ -15,14 +15,14 @@
  * @group points
  * @group widgets
  *
- * @covers WordPoints_My_Points_Widget
+ * @covers WordPoints_Points_Widget_User_Points
  */
 class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0
 	 */
-	protected $widget_class = 'WordPoints_My_Points_Widget';
+	protected $widget_class = 'WordPoints_Points_Widget_User_Points';
 
 	/**
 	 * Set up for each test.
@@ -34,6 +34,20 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		parent::setUp();
 
 		wp_set_current_user( $this->factory->user->create() );
+	}
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_My_Points_Widget
+	 *
+	 * @expectedDeprecated WordPoints_My_Points_Widget::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_My_Points_Widget();
 	}
 
 	/**

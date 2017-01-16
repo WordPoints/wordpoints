@@ -30,6 +30,7 @@ return array(
 	'wordpoints_points_shortcode_logs' => 'shortcode/logs.php',
 	'wordpoints_points_shortcode_top_users' => 'shortcode/top/users.php',
 	'wordpoints_points_shortcode_user_points' => 'shortcode/user/points.php',
+	'wordpoints_points_widget' => 'widget.php',
 	// }
 );
 

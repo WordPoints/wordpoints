@@ -31,6 +31,7 @@ return array(
 	'wordpoints_points_shortcode_top_users' => 'shortcode/top/users.php',
 	'wordpoints_points_shortcode_user_points' => 'shortcode/user/points.php',
 	'wordpoints_points_widget' => 'widget.php',
+	'wordpoints_points_widget_top_users' => 'widget/top/users.php',
 	'wordpoints_points_widget_user_points' => 'widget/user/points.php',
 	// }
 );

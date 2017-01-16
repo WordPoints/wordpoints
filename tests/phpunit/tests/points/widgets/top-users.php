@@ -15,14 +15,28 @@
  * @group points
  * @group widgets
  *
- * @covers WordPoints_Top_Users_Points_Widget
+ * @covers WordPoints_Points_Widget_Top_Users
  */
 class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	/**
 	 * @since 1.9.0
 	 */
-	protected $widget_class = 'WordPoints_Top_Users_Points_Widget';
+	protected $widget_class = 'WordPoints_Points_Widget_Top_Users';
+
+	/**
+	 * Test that the old version of the class is deprecated.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers WordPoints_Top_Users_Points_Widget
+	 *
+	 * @expectedDeprecated WordPoints_Top_Users_Points_Widget::__construct
+	 */
+	public function test_deprecated_version() {
+
+		new WordPoints_Top_Users_Points_Widget();
+	}
 
 	/**
 	 * Test that and invalid points_type setting results in an error.
@@ -86,6 +100,7 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_update_method() {
 
+		/** @var WP_Widget $widget */
 		$widget = new $this->widget_class;
 
 		$sanitized = $widget->update(

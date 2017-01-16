@@ -44,13 +44,6 @@ include_once WORDPOINTS_DIR . 'components/points/includes/apps.php';
 include_once WORDPOINTS_DIR . 'components/points/includes/points.php';
 
 /**
- * Widgets.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'components/points/includes/widgets.php';
-
-/**
  * Logs related functions.
  *
  * @since 1.0.0

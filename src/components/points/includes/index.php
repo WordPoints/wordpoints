@@ -22,6 +22,9 @@ return array(
 	'wordpoints_periodic_points_hook' => 'hooks/periodic.php',
 	'wordpoints_post_points_hook' => 'hooks/post.php',
 	'wordpoints_registration_points_hook' => 'hooks/registration.php',
+	'wordpoints_my_points_widget' => 'widgets.php',
+	'wordpoints_top_users_points_widget' => 'widgets.php',
+	'wordpoints_points_logs_widget' => 'widgets.php',
 );
 
 // EOF

@@ -393,7 +393,7 @@ function wordpoints_register_points_widgets() {
 	register_widget( 'WordPoints_Points_Widget_Top_Users' );
 
 	// Points logs widget.
-	register_widget( 'WordPoints_Points_Logs_Widget' );
+	register_widget( 'WordPoints_Points_Widget_Logs' );
 }
 
 // EOF

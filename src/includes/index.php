@@ -12,7 +12,6 @@ return array(
 	'wordpoints_installables' => 'class-installables.php',
 	'wordpoints_modules' => 'class-modules.php',
 	'wordpoints_un_installer_base' => 'class-un-installer-base.php',
-	'wordpoints_widget' => 'class-widget.php',
 );
 
 // EOF

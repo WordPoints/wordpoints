@@ -1885,7 +1885,7 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Load the dependencies of the man un/install routine.
+	 * Load the dependencies of the main un/install routine.
 	 *
 	 * @since 2.1.0
 	 */

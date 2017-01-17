@@ -118,6 +118,7 @@ return array(
 	'wordpoints_hook_validator_exception' => 'hook/validator/exception.php',
 	'wordpoints_hooks' => 'hooks.php',
 	'wordpoints_module_paths' => 'module/paths.php',
+	'wordpoints_modules' => 'modules.php',
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	'wordpoints_shortcode' => 'shortcode.php',
 	'wordpoints_shortcodes' => 'shortcodes.php',

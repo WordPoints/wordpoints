@@ -125,6 +125,7 @@ return array(
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	'wordpoints_shortcode' => 'shortcode.php',
 	'wordpoints_shortcodes' => 'shortcodes.php',
+	'wordpoints_un_installer_base' => 'un/installer/base.php',
 	'wordpoints_widget' => 'widget.php',
 	// }
 );

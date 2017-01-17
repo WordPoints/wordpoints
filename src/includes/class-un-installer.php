@@ -193,7 +193,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		// Note that some things are loaded by
 		// WordPoints_Un_Installer_Base::load_base_dependencies()
 		require_once WORDPOINTS_DIR . '/includes/modules.php';
-		require_once WORDPOINTS_DIR . '/includes/class-installables.php';
 		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
 	}
 

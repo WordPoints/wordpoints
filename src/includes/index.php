@@ -9,7 +9,6 @@
 
 return array(
 	'wordpoints_breaking_updater' => 'class-breaking-updater.php',
-	'wordpoints_installables' => 'class-installables.php',
 	'wordpoints_un_installer_base' => 'class-un-installer-base.php',
 );
 

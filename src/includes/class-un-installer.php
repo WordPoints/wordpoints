@@ -203,6 +203,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function before_uninstall() {
 
+		// Set up the components class.
+		WordPoints_Components::set_up();
+
 		$this->uninstall_modules();
 		$this->uninstall_components();
 

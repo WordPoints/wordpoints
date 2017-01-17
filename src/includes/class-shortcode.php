@@ -10,4 +10,11 @@
 
 _deprecated_file( __FILE__, '2.3.0', 'classes/shortcode.php' );
 
+/**
+ * The shortcode class.
+ *
+ * @since 2.3.0
+ */
+require_once WORDPOINTS_DIR . 'classes/shortcode.php';
+
 // EOF

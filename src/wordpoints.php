@@ -82,15 +82,6 @@ include_once WORDPOINTS_DIR . 'includes/apps.php';
 include_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
- * Components class.
- *
- * Loads components.
- *
- * @since 1.0.0
- */
-include_once WORDPOINTS_DIR . 'includes/class-wordpoints-components.php';
-
-/**
  * Module functions.
  *
  * Loads modules, etc.

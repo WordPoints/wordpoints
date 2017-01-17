@@ -43,6 +43,7 @@ return array(
 	'wordpoints_class_registry_deep_multilevel' => 'class/registry/deep/multilevel.php',
 	'wordpoints_class_registry_deep_multilevel_slugless' => 'class/registry/deep/multilevel/slugless.php',
 	'wordpoints_class_registry_persistent' => 'class/registry/persistent.php',
+	'wordpoints_components' => 'components.php',
 	'wordpoints_data_type' => 'data/type.php',
 	'wordpoints_data_type_integer' => 'data/type/integer.php',
 	'wordpoints_data_type_text' => 'data/type/text.php',

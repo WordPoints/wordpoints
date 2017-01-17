@@ -193,7 +193,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		// Note that some things are loaded by
 		// WordPoints_Un_Installer_Base::load_base_dependencies()
 		require_once WORDPOINTS_DIR . '/includes/modules.php';
-		require_once WORDPOINTS_DIR . '/includes/class-wordpoints-components.php';
 	}
 
 	/**
@@ -252,7 +251,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function uninstall_components() {
 
-		/** This filter is documented in includes/class-wordpoints-components.php */
+		/** This filter is documented in classes/components.php */
 		do_action( 'wordpoints_components_register' );
 
 		$components = WordPoints_Components::instance();

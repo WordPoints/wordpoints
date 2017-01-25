@@ -102,6 +102,16 @@ module.exports = function( grunt ) {
 				)[0]
 			);
 
+			// The breaking updater extends the un/installer class.
+			class_files.splice(
+				class_files.indexOf( 'un/installer/base.php' )
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'breaking/updater.php' )
+					, 1
+				)[0]
+			);
+
 			return class_files;
 		}
 	);

@@ -37,7 +37,6 @@ return array(
 	'wordpoints_entity_restriction_post_status_nonpublic' => 'entity/restriction/post/status/nonpublic.php',
 	'wordpoints_app' => 'app.php',
 	'wordpoints_app_registry' => 'app/registry.php',
-	'wordpoints_breaking_updater' => 'breaking/updater.php',
 	'wordpoints_class_autoloader' => 'class/autoloader.php',
 	'wordpoints_class_registry' => 'class/registry.php',
 	'wordpoints_class_registry_children' => 'class/registry/children.php',
@@ -126,6 +125,7 @@ return array(
 	'wordpoints_shortcode' => 'shortcode.php',
 	'wordpoints_shortcodes' => 'shortcodes.php',
 	'wordpoints_un_installer_base' => 'un/installer/base.php',
+	'wordpoints_breaking_updater' => 'breaking/updater.php',
 	'wordpoints_widget' => 'widget.php',
 	// }
 );

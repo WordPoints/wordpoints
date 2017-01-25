@@ -151,7 +151,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 
 		wordpoints_alter_points(
 			$target->get_the_id()
-			, $reaction->get_meta( 'points' )
+			, $this->get_points_to_award( $fire )
 			, $reaction->get_meta( 'points_type' )
 			, $reaction->get_event_slug()
 			, $meta
@@ -256,6 +256,34 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 			// Mark the old log as reversed by this one.
 			wordpoints_update_points_log_meta( $log->id, 'auto_reversed', $log_id );
 		}
+	}
+
+	/**
+	 * Get the number of points to award for a hook fire.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param WordPoints_Hook_Fire $fire The fire object.
+	 *
+	 * @return int The number of points to award.
+	 */
+	protected function get_points_to_award( WordPoints_Hook_Fire $fire ) {
+
+		$points = $fire->reaction->get_meta( 'points' );
+
+		/**
+		 * Filters the number of points to award in the Points hook reactor.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param int                  $points The number of points.
+		 * @param WordPoints_Hook_Fire $fire   The hook fire object.
+		 */
+		return (int) apply_filters(
+			'wordpoints_points_hook_reactor_points_to_award'
+			, $points
+			, $fire
+		);
 	}
 }
 

@@ -284,6 +284,9 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertIsReaction( $reaction );
 
+		$filter = new WordPoints_PHPUnit_Mock_Filter();
+		$filter->add_filter( 'wordpoints_points_hook_reactor_points_to_award', 10, 6 );
+
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
 
 		$this->reactor->hit( $fire );
@@ -292,6 +295,9 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			100 + $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
+
+		$this->assertSame( 1, $filter->call_count );
+		$this->assertSame( array( $settings['points'], $fire ), $filter->calls[0] );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'user_register' )

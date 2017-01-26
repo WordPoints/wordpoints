@@ -133,6 +133,8 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $event_args
 		);
 
+		unset( $settings['test_extension'] );
+
 		$this->assertEquals( $settings, $validated );
 
 		$this->assertEmpty( $extension->validations );
@@ -141,6 +143,50 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->assertCount( 1, $errors );
 		$this->assertEquals( array( 'test_extension' ), $errors[0]['field'] );
+
+		$this->assertEquals( array(), $validator->get_field_stack() );
+	}
+
+	/**
+	 * Test validating the extension's settings when they are null.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_validate_settings_null() {
+
+		$this->mock_apps();
+
+		$extension = new WordPoints_PHPUnit_Mock_Hook_Extension();
+
+		$settings = array(
+			'test_extension' => array( 'test_fire' => null ),
+			'other_settings' => 'here',
+		);
+
+		$validator = new WordPoints_Hook_Reaction_Validator(
+			array()
+		);
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		$validated = $extension->validate_settings(
+			$settings
+			, $validator
+			, $event_args
+		);
+
+		$settings['test_extension'] = array();
+
+		$this->assertEquals( $settings, $validated );
+
+		$this->assertNull( $extension->validations[0]['settings'] );
+
+		$this->assertEquals( $event_args, $extension->validations[0]['event_args'] );
+		$this->assertEquals( $validator, $extension->validations[0]['validator'] );
+		$this->assertEquals(
+			array( 'test_extension', 'test_fire' )
+			, $extension->validations[0]['field_stack']
+		);
 
 		$this->assertEquals( array(), $validator->get_field_stack() );
 	}

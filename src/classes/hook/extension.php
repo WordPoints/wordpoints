@@ -61,33 +61,65 @@ abstract class WordPoints_Hook_Extension implements WordPoints_Hook_ExtensionI {
 			return $settings;
 		}
 
-		if ( ! is_array( $settings[ $this->slug ] ) ) {
-
-			$validator->add_error(
-				__( 'Invalid settings format.', 'wordpoints' )
-				, $this->slug
-			);
-
-			return $settings;
-		}
-
 		$this->validator = $validator;
 		$this->event_args = $event_args;
 
 		$this->validator->push_field( $this->slug );
 
-		foreach ( $settings[ $this->slug ] as $action_type => $action_type_settings ) {
+		$validated_settings = $this->validate_extension_settings(
+			$settings[ $this->slug ]
+		);
+
+		$this->validator->pop_field();
+
+		if ( null !== $validated_settings ) {
+			$settings[ $this->slug ] = $validated_settings;
+		} else {
+			unset( $settings[ $this->slug ] );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Validate the settings of this particular extension.
+	 *
+	 * Only the settings stored in the meta value corresponding to the key matching
+	 * this extension's slug is passed to this function. The validated version of the
+	 * settings should be returned, or, if the settings are irreconcilably bad, null
+	 * should be returned.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param mixed $settings The raw settings.
+	 *
+	 * @return mixed The validated settings, or null if invalid.
+	 */
+	protected function validate_extension_settings( $settings ) {
+
+		if ( ! is_array( $settings ) ) {
+
+			$this->validator->add_error( __( 'Invalid settings format.', 'wordpoints' ) );
+
+			return null;
+		}
+
+		foreach ( $settings as $action_type => $action_type_settings ) {
 
 			$this->validator->push_field( $action_type );
 
-			$settings[ $this->slug ][ $action_type ] = $this->validate_action_type_settings(
+			$validated_settings = $this->validate_action_type_settings(
 				$action_type_settings
 			);
 
+			if ( null !== $validated_settings ) {
+				$settings[ $action_type ] = $validated_settings;
+			} else {
+				unset( $settings[ $action_type ] );
+			}
+
 			$this->validator->pop_field();
 		}
-
-		$this->validator->pop_field();
 
 		return $settings;
 	}
@@ -107,11 +139,13 @@ abstract class WordPoints_Hook_Extension implements WordPoints_Hook_ExtensionI {
 	/**
 	 * Validate the settings for this extension for a particular action type.
 	 *
+	 * If the settings are irrecoverably bad, just return null.
+	 *
 	 * @since 2.1.0
 	 *
 	 * @param mixed $settings The settings for a particular action type.
 	 *
-	 * @return mixed The validated settings.
+	 * @return mixed The validated settings, or null if invalid.
 	 */
 	protected function validate_action_type_settings( $settings ) {
 		return $settings;

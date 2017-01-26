@@ -35,8 +35,16 @@ Extension = Backbone.Model.extend({
 	},
 
 	/**
+	 * @summary Initializes a reaction.
+	 * 
+	 * This is called when a reaction view is initialized.
+	 * 
 	 * @since 2.1.0
+	 * 
 	 * @abstract
+	 * 
+	 * @param {wp.wordpoints.hooks.view.Reaction} reaction The reaction being
+	 *                                                     initialized.
 	 */
 	initReaction: emptyFunction( 'initReaction' ),
 

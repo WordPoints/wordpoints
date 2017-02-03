@@ -59,6 +59,7 @@ return array(
 	'wordpoints_entity_array' => 'entity/array.php',
 	'wordpoints_entity_attr' => 'entity/attr.php',
 	'wordpoints_entity_attr_field' => 'entity/attr/field.php',
+	'wordpoints_entity_attr_stored_db_table_meta' => 'entity/attr/stored/db/table/meta.php',
 	'wordpoints_entity_comment' => 'entity/comment.php',
 	'wordpoints_entity_comment_author' => 'entity/comment/author.php',
 	'wordpoints_entity_comment_post' => 'entity/comment/post.php',

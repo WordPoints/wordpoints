@@ -49,8 +49,19 @@ Extension = Backbone.Model.extend({
 	initReaction: emptyFunction( 'initReaction' ),
 
 	/**
+	 * @summary Validates a reaction's settings.
+	 * 
+	 * This is called before a reaction model is saved.
+	 * 
 	 * @since 2.1.0
+	 * 
 	 * @abstract
+	 * 
+	 * @param {Reaction} model      The reaction model.
+	 * @param {array}    attributes The model's attributes (the settings being
+	 *                              validated).
+	 * @param {array}    errors     Any errors that were encountered.
+	 * @param {array}    options    Options.
 	 */
 	validateReaction: emptyFunction( 'validateReaction' )
 

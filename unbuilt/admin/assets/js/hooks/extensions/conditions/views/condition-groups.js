@@ -220,6 +220,8 @@ ConditionGroups = Base.extend({
 
 		ConditionGroup.add( { type: selected } );
 
+		wp.a11y.speak( this.Conditions.data.l10n.added_condition );
+
 		this.$c( '> .add-condition-form' ).hide();
 		this.$c( '> .conditions-title .add-new' ).attr( 'disabled', false );
 	}

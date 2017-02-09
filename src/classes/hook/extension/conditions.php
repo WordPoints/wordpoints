@@ -60,7 +60,13 @@ class WordPoints_Hook_Extension_Conditions
 			}
 		}
 
-		return array( 'conditions' => $conditions_data );
+		return array(
+			'conditions' => $conditions_data,
+			'l10n'       => array(
+				'added_condition'   => __( 'Condition added.', 'wordpoints' ),
+				'deleted_condition' => __( 'Condition removed.', 'wordpoints' ),
+			),
+		);
 	}
 
 	/**

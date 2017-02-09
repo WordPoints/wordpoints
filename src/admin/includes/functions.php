@@ -283,7 +283,7 @@ function wordpoints_register_admin_scripts() {
 	wp_register_script(
 		'wordpoints-hooks-views'
 		, "{$assets_url}/js/hooks/views{$manifested_suffix}.js"
-		, array( 'wordpoints-hooks-models' )
+		, array( 'wordpoints-hooks-models', 'wp-a11y' )
 		, WORDPOINTS_VERSION
 	);
 

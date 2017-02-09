@@ -104,6 +104,8 @@ Condition = Base.extend({
 	// Remove the item, destroy the model.
 	destroy: function () {
 
+		wp.a11y.speak( this.extension.data.l10n.deleted_condition );
+
 		this.model.destroy();
 	}
 });

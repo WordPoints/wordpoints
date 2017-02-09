@@ -382,7 +382,7 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 	 */
 	$locale = apply_filters( 'wordpoints_module_locale', $locale, $domain );
 
-	if ( false !== $module_rel_path	) {
+	if ( false !== $module_rel_path ) {
 
 		$path = wordpoints_modules_dir() . '/' . trim( $module_rel_path, '/' );
 

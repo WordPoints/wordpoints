@@ -174,7 +174,7 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		} // End if ( is_multisite() ) else.
 
-	} // function test_uninstall()
+	} // End function test_uninstall().
 
 	//
 	// Assertions.

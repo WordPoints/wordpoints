@@ -21,7 +21,7 @@
 function is_wordpoints_module_active( $module ) {
 
 	return (
-		in_array( $module, wordpoints_get_array_option( 'wordpoints_active_modules' ) )
+		in_array( $module, wordpoints_get_array_option( 'wordpoints_active_modules' ), true )
 		|| is_wordpoints_module_active_for_network( $module )
 	);
 }
@@ -626,7 +626,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	}
 
 	// If the module is already active, return.
-	if ( in_array( $module, $current ) ) {
+	if ( in_array( $module, $current, true ) ) {
 		return null;
 	}
 
@@ -785,7 +785,7 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
 
 		if ( true !== $network_wide ) {
 
-			$key = array_search( $module, $current );
+			$key = array_search( $module, $current, true );
 
 			if ( false !== $key ) {
 
@@ -807,7 +807,7 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
 			 * @param bool $network_deactivating Whether the module is deactivated for all sites in the network
 			 *                                   or just the current site. Multisite only. Default is false.
 			 */
-			do_action( 'wordpoints_deactivate_module-' . $module, $network_deactivating );
+			do_action( "wordpoints_deactivate_module-{$module}", $network_deactivating );
 
 			/**
 			 * Fires for each module being deactivated in deactivate_plugins(), after deactivation

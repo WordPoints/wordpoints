@@ -123,7 +123,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		);
 		$this->assertEquals( 1, $query->count() );
 
-	} // public function test_logs_for_delete_users_deleted()
+	} // End public function test_logs_for_delete_users_deleted().
 
 	/**
 	 * Test that the logs for deleted posts are cleaned up.
@@ -174,7 +174,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		);
 		$this->assertEquals( 1, $query->count() );
 
-	} // public function test_logs_for_deleted_posts_cleaned()
+	} // End public function test_logs_for_deleted_posts_cleaned().
 
 	/**
 	 * Test that the logs for deleted comments are cleaned up.
@@ -233,7 +233,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		);
 		$this->assertEquals( 1, $query->count() );
 
-	} // public function test_logs_for_deleted_comments_cleaned()
+	} // End public function test_logs_for_deleted_comments_cleaned().
 }
 
 // EOF

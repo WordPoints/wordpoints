@@ -68,12 +68,12 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		 */
 		$module_statuses = apply_filters( 'wordpoints_module_statuses', $module_statuses );
 
-		if ( isset( $_REQUEST['module_status'] ) && in_array( wp_unslash( $_REQUEST['module_status'] ), $module_statuses ) ) {
-			$status = sanitize_key( $_REQUEST['module_status'] );
+		if ( isset( $_REQUEST['module_status'] ) && in_array( wp_unslash( $_REQUEST['module_status'] ), $module_statuses, true ) ) { // WPCS: CSRF OK.
+			$status = sanitize_key( $_REQUEST['module_status'] ); // WPCS: CSRF OK.
 		}
 
-		if ( isset( $_REQUEST['s'] ) ) {
-			$_SERVER['REQUEST_URI'] = add_query_arg( 's', sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) );
+		if ( isset( $_REQUEST['s'] ) ) { // WPCS: CSRF OK.
+			$_SERVER['REQUEST_URI'] = add_query_arg( 's', sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ); // WPCS: CSRF OK.
 		}
 
 		$page = $this->get_pagenum();
@@ -212,7 +212,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			$totals[ $type ] = count( $list );
 		}
 
-		if ( empty( $modules[ $status ] ) && ! in_array( $status, array( 'all', 'search' ) ) ) {
+		if ( empty( $modules[ $status ] ) && ! in_array( $status, array( 'all', 'search' ), true ) ) {
 			$status = 'all';
 		}
 
@@ -262,8 +262,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		static $term;
 
-		if ( is_null( $term ) && isset( $_REQUEST['s'] ) ) {
-			$term = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
+		if ( is_null( $term ) && isset( $_REQUEST['s'] ) ) { // WPCS: CSRF OK.
+			$term = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ); // WPCS: CSRF OK.
 		}
 
 		foreach ( $module_data as $value ) {
@@ -536,7 +536,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 			foreach ( $columns as $column_name => $column_display_name ) {
 
-				$is_hidden = in_array( $column_name, $hidden );
+				$is_hidden = in_array( $column_name, $hidden, true );
 
 				switch ( $column_name ) {
 
@@ -679,7 +679,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		 */
 		do_action( "wordpoints_after_module_row_{$module_file}", $module_file, $module_data, $status );
 
-	} // function single_row()
+	} // End function single_row().
 
 	/**
 	 * Get the row actions for a module.

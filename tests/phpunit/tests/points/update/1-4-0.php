@@ -180,7 +180,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			restore_current_blog();
 		}
 
-	} // public function test_standard_post_points_hooks_split_when_network_active()
+	} // End public function test_standard_post_points_hooks_split_when_network_active().
 
 	/**
 	 * Test that network post points hooks are split when network-active.
@@ -236,7 +236,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 
-	} // public function test_network_post_points_hooks_split()
+	} // End public function test_network_post_points_hooks_split().
 
 	/**
 	 * Test that the comment points hooks are split properly on a single site.
@@ -358,7 +358,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		} // End foreach ( $blog_ids ).
 
-	} // public function test_standard_comment_points_hooks_split_when_network_active()
+	} // End public function test_standard_comment_points_hooks_split_when_network_active().
 
 	/**
 	 * Test that network comment points hooks are split when network-active.
@@ -420,7 +420,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 
-	} // public function test_network_comment_points_hooks_split()
+	} // End public function test_network_comment_points_hooks_split().
 
 	/**
 	 * Test comment approve points logs for deleted posts cleaned.
@@ -477,7 +477,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		add_action( 'delete_post', array( $hook, 'clean_logs_on_post_deletion' ) );
 
-	} // public function test_comment_approve_points_logs_cleaned()
+	} // End public function test_comment_approve_points_logs_cleaned().
 }
 
 // EOF

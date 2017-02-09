@@ -40,7 +40,7 @@ if ( isset( $_GET['error'] ) ) {
 			sprintf(
 				// translators: Number of characters.
 				__( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' )
-				, (int) $_GET['charsout']
+				, (int) $_GET['charsout'] // WPCS: CSRF OK.
 			)
 			, 'warning'
 			, array( 'dismissible' => true )

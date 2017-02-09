@@ -88,7 +88,7 @@ function wordpoints_breaking_update() {
  */
 function wordpoints_maintenance_shutdown_print_rand_str() {
 
-	if ( ! isset( $_GET['wordpoints_module_check'] ) ) {
+	if ( ! isset( $_GET['wordpoints_module_check'] ) ) { // WPCS: CSRF OK.
 		return;
 	}
 
@@ -98,7 +98,7 @@ function wordpoints_maintenance_shutdown_print_rand_str() {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) { // WPCS: CSRF OK.
 		return;
 	}
 
@@ -128,7 +128,7 @@ function wordpoints_maintenance_shutdown_print_rand_str() {
  */
 function wordpoints_maintenance_filter_modules( $modules ) {
 
-	if ( ! isset( $_GET['check_module'], $_GET['wordpoints_module_check'] ) ) {
+	if ( ! isset( $_GET['check_module'], $_GET['wordpoints_module_check'] ) ) { // WPCS: CSRF OK.
 		return $modules;
 	}
 
@@ -138,13 +138,13 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) { // WPCS: CSRF OK.
 		return $modules;
 	}
 
 	$modules = explode(
 		','
-		, sanitize_text_field( wp_unslash( $_GET['check_module'] ) )
+		, sanitize_text_field( wp_unslash( $_GET['check_module'] ) ) // WPCS: CSRF OK.
 	);
 
 	if ( 'pre_site_option_wordpoints_sitewide_active_modules' === current_filter() ) {
@@ -287,7 +287,7 @@ function wordpoints_verify_nonce(
 	if ( 'post' === $request_type ) {
 		$request = $_POST; // WPCS: CSRF OK.
 	} else {
-		$request = $_GET;
+		$request = $_GET; // WPCS: CSRF OK.
 	}
 
 	if ( ! isset( $request[ $nonce_key ] ) ) {
@@ -688,7 +688,7 @@ function wordpoints_prepare__in( $_in, $format = '%s' ) {
 	// Validate $format.
 	$formats = array( '%d', '%s', '%f' );
 
-	if ( ! in_array( $format, $formats ) ) {
+	if ( ! in_array( $format, $formats, true ) ) {
 
 		$format = esc_html( $format );
 		_doing_it_wrong( __FUNCTION__, esc_html( "WordPoints Debug Error: invalid format '{$format}', allowed values are %s, %d, and %f" ), '1.0.0' );
@@ -1143,7 +1143,7 @@ function wordpoints_is_function_disabled( $function ) {
 		return true;
 	}
 
-	return in_array( $function, explode( ',', ini_get( 'disable_functions' ) ) );
+	return in_array( $function, explode( ',', ini_get( 'disable_functions' ) ), true );
 }
 
 // EOF

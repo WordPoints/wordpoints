@@ -17,7 +17,7 @@
 class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 	//
-	// wordpoints_is_points_type()
+	// wordpoints_is_points_type().
 	//
 
 	/**
@@ -45,7 +45,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_get_points_type()
+	// wordpoints_get_points_type().
 	//
 
 	/**
@@ -75,7 +75,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_add_points_type()
+	// wordpoints_add_points_type().
 	//
 
 	/**
@@ -126,7 +126,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_update_points_type()
+	// wordpoints_update_points_type().
 	//
 
 	/**
@@ -172,7 +172,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_delete_points_type()
+	// wordpoints_delete_points_type().
 	//
 
 	/**
@@ -291,7 +291,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_get_points_type_setting()
+	// wordpoints_get_points_type_setting().
 	//
 
 	/**

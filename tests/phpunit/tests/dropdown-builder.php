@@ -94,8 +94,7 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 			'2'
 			, $option_2->attributes->getNamedItem( 'value' )->nodeValue
 		);
-
-	} // public function test_basic_dropdown()
+	}
 
 	/**
 	 * Test the 'selected' argument.

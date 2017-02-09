@@ -72,7 +72,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 					case '--group' :
 						$groups = explode( ',', $option[1] );
 
-						$ui_message        = ! in_array( 'ui', $groups );
+						$ui_message        = ! in_array( 'ui', $groups, true );
 					continue 2;
 				}
 			}

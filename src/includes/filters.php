@@ -28,7 +28,7 @@ add_action( 'wordpoints_modules_loaded', 'WordPoints_Installables::maybe_do_upda
 add_action( 'admin_notices', 'WordPoints_Installables::admin_notices' );
 add_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
 
-if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
+if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) { // WPCS: CSRF OK.
 
 	add_action( 'shutdown', 'wordpoints_maintenance_shutdown_print_rand_str' );
 

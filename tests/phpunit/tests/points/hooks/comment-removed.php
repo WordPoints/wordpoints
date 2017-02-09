@@ -106,14 +106,14 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 		// Test that no points were removed for the comment.
 		$this->assertEquals( 80, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_points_only_awarded_for_specified_post_type()
+	} // End public function test_points_only_awarded_for_specified_post_type().
 
 	/**
 	 * Test that points are removed again after the comment points hook runs.
 	 *
 	 * Since 1.4.0 this had been a part of the Comment points hook's tests, but it
 	 * was moved to here because these tests all need to be run separately, because
-	 * of tests bleeding into eachother.
+	 * of tests bleeding into each other.
 	 *
 	 * @since 1.9.0
 	 */
@@ -169,7 +169,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
+	} // End public function test_points_removed_again_after_comment_hook_runs().
 }
 
 // EOF

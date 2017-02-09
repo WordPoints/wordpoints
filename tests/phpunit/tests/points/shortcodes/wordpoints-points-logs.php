@@ -133,7 +133,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
 
-	} // public function test_datatable_attribute()
+	} // End public function test_datatables_attribute().
 
 	/**
 	 * Test the 'paginate' attribute.
@@ -189,7 +189,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
 
-	} // public function test_paginate_attribute()
+	} // End public function test_paginate_attribute().
 
 	/**
 	 * Test the 'show_users' attribute.
@@ -230,7 +230,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->assertEquals( 3, $xpath->query( '//thead/tr/th' )->length );
 
-	} // public function test_show_users_attribute()
+	} // End public function test_show_users_attribute().
 
 	/**
 	 * Check failures with a normal user display nothing.
@@ -293,7 +293,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 	 *
 	 * @since 1.6.0
 	 */
-	public function test_searchabe_attribute() {
+	public function test_searchable_attribute() {
 
 		// Create some data for the table to display.
 		$this->factory->wordpoints->points_log->create_many( 2 );
@@ -358,7 +358,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 				->length
 		);
 
-	} // public function test_searchabe_attribute()
+	} // End public function test_searchable_attribute().
 }
 
 // EOF

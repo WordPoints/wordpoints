@@ -21,7 +21,7 @@
 class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 	//
-	// wordpoints_int()
+	// wordpoints_int().
 	//
 
 	/**
@@ -133,7 +133,7 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	//
-	// wordpoints_posint()
+	// wordpoints_posint().
 	//
 
 	/**
@@ -179,7 +179,7 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	//
-	// wordpoints_negint()
+	// wordpoints_negint().
 	//
 
 	/**

@@ -84,7 +84,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 140, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_points_awarded()
+	} // End public function test_points_awarded().
 
 	/**
 	 * Test automatic reversal of the hook when the comment's status is toggled.
@@ -133,7 +133,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		wp_set_comment_status( $comment_id, 'approve' );
 		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_points_awarded_again_after_comment_remove_hook_runs()
+	} // End public function test_points_auto_reversal().
 
 	/**
 	 * Test that points are only awarded for the specified post type.
@@ -179,7 +179,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		// Test that no points were awarded for the comment.
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_points_only_awarded_for_specified_post_type()
+	} // End public function test_points_only_awarded_for_specified_post_type().
 
 	/**
 	 * Test that the logs are cleaned properly when a comment is deleted.

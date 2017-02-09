@@ -103,7 +103,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertEquals( sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), 'Post' ), $log->text );
 
-	} // public function test_points_awarded()
+	} // End public function test_points_awarded().
 
 	/**
 	 * Test automatic reversal of the hook when the post is deleted.
@@ -153,7 +153,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_points_auto_reversal()
+	} // End public function test_points_auto_reversal().
 
 	/**
 	 * Test that logs aren't reversed for posts that haven't had points awarded.

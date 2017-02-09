@@ -218,7 +218,7 @@ function wordpoints_show_points_logs( $logs_query, array $args = array() ) {
 
 	$view->display();
 
-} // function wordpoints_points_show_logs()
+} // End function wordpoints_points_show_logs().
 
 /**
  * Display points logs by query slug.

@@ -137,7 +137,7 @@ class WordPoints_Hooks extends WordPoints_App {
 
 		foreach ( $reaction_stores->get_all_slugs() as $mode => $slugs ) {
 
-			if ( ! in_array( $slug, $slugs ) ) {
+			if ( ! in_array( $slug, $slugs, true ) ) {
 				continue;
 			}
 

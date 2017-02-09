@@ -243,8 +243,8 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 		$page = 1;
 
 		if (
-			isset( $_GET['wordpoints_points_logs_page'] )
-			&& wordpoints_posint( $_GET['wordpoints_points_logs_page'] )
+			isset( $_GET['wordpoints_points_logs_page'] ) // WPCS: CSRF OK.
+			&& wordpoints_posint( $_GET['wordpoints_points_logs_page'] ) // WPCS: CSRF OK.
 		) {
 			$page = (int) $_GET['wordpoints_points_logs_page'];
 		}
@@ -260,8 +260,8 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 		$per_page = 25;
 
 		if (
-			isset( $_GET['wordpoints_points_logs_per_page'] )
-			&& wordpoints_posint( $_GET['wordpoints_points_logs_per_page'] )
+			isset( $_GET['wordpoints_points_logs_per_page'] ) // WPCS: CSRF OK.
+			&& wordpoints_posint( $_GET['wordpoints_points_logs_per_page'] ) // WPCS: CSRF OK.
 		) {
 			$per_page = (int) $_GET['wordpoints_points_logs_per_page'];
 		}

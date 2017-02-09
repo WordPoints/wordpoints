@@ -130,7 +130,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
 
-	} // public function test_network_and_standard_hooks_fired()
+	} // End public function test_network_and_standard_hooks_fired().
 
 	/**
 	 * Test getting the description of a hook.

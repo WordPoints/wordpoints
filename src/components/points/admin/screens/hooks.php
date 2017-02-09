@@ -43,18 +43,18 @@ if ( is_network_admin() ) {
 		return;
 	}
 
-	if ( isset( $_GET['message'] ) && isset( $messages[ (int) $_GET['message'] ] ) ) {
+	if ( isset( $_GET['message'] ) && isset( $messages[ (int) $_GET['message'] ] ) ) { // WPCS: CSRF OK.
 
 		wordpoints_show_admin_message(
-			esc_html( $messages[ (int) $_GET['message'] ] )
+			esc_html( $messages[ (int) $_GET['message'] ] ) // WPCS: CSRF OK.
 			, 'success'
 			, array( 'dismissible' => true )
 		);
 
-	} elseif ( isset( $_GET['error'] ) && isset( $errors[ (int) $_GET['error'] ] ) ) {
+	} elseif ( isset( $_GET['error'] ) && isset( $errors[ (int) $_GET['error'] ] ) ) { // WPCS: CSRF OK.
 
 		wordpoints_show_admin_error(
-			esc_html( $errors[ (int) $_GET['error'] ] )
+			esc_html( $errors[ (int) $_GET['error'] ] ) // WPCS: CSRF OK.
 			, array( 'dismissible' => true )
 		);
 	}

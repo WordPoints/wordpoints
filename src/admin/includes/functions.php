@@ -666,7 +666,7 @@ function wordpoints_hooks_ui_get_script_data_entities() {
 			, $entity
 		);
 
-	} // End foreach ( $entities->get_all() ).
+	} // End foreach ( entities ).
 
 	return $entities_data;
 }
@@ -847,9 +847,9 @@ function wordpoints_admin_get_current_tab( array $tabs = null ) {
 
 	$tab = '';
 
-	if ( isset( $_GET['tab'] ) ) {
+	if ( isset( $_GET['tab'] ) ) { // WPCS: CSRF OK.
 
-		$tab = sanitize_key( $_GET['tab'] );
+		$tab = sanitize_key( $_GET['tab'] ); // WPCS: CSRF OK.
 	}
 
 	if ( isset( $tabs ) && ! isset( $tabs[ $tab ] ) ) {
@@ -886,8 +886,8 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
 
 	$page = '';
 
-	if ( isset( $_GET['page'] ) ) {
-		$page = sanitize_key( $_GET['page'] );
+	if ( isset( $_GET['page'] ) ) { // WPCS: CSRF OK.
+		$page = sanitize_key( $_GET['page'] ); // WPCS: CSRF OK.
 	}
 
 	foreach ( $tabs as $tab => $name ) {
@@ -1225,7 +1225,7 @@ function wordpoints_admin_set_screen_option( $sanitized, $option, $value ) {
  */
 function wordpoints_admin_ajax_breaking_module_check() {
 
-	if ( ! isset( $_GET['wordpoints_module_check'] ) ) {
+	if ( ! isset( $_GET['wordpoints_module_check'] ) ) { // WPCS: CSRF OK.
 		wp_die( '', 400 );
 	}
 
@@ -1235,7 +1235,7 @@ function wordpoints_admin_ajax_breaking_module_check() {
 		$nonce = get_option( 'wordpoints_module_check_nonce' );
 	}
 
-	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) {
+	if ( ! $nonce || ! hash_equals( $nonce, sanitize_key( $_GET['wordpoints_module_check'] ) ) ) { // WPCS: CSRF OK.
 		wp_die( '', 403 );
 	}
 

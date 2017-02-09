@@ -179,7 +179,7 @@ class WordPoints_Selenium2TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 
 		$current_plugins = get_option( 'active_plugins' );
 
-		if ( ! in_array( 'wordpoints/wordpoints.php', $current_plugins ) ) {
+		if ( ! in_array( 'wordpoints/wordpoints.php', $current_plugins, true ) ) {
 
 			$current_plugins[] = 'wordpoints/wordpoints.php';
 

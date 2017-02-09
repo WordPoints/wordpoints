@@ -16,10 +16,6 @@
  */
 class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
-	//
-	// wordpoints_get_points()
-	//
-
 	/**
 	 * The ID of a user that may be used in the tests.
 	 *
@@ -40,6 +36,10 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->user_id = $this->factory->user->create();
 	}
+
+	//
+	// wordpoints_get_points().
+	//
 
 	/**
 	 * Test behavior with nonexistant points type.
@@ -92,7 +92,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_get_points_minimum()
+	// wordpoints_get_points_minimum().
 	//
 
 	/**
@@ -136,7 +136,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_format_points()
+	// wordpoints_format_points().
 	//
 
 	/**
@@ -220,7 +220,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_alter_points()
+	// wordpoints_alter_points().
 	//
 
 	/**
@@ -514,7 +514,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_add_points()
+	// wordpoints_add_points().
 	//
 
 	/**
@@ -557,7 +557,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_subtract_points()
+	// wordpoints_subtract_points().
 	//
 
 	/**
@@ -600,7 +600,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	//
-	// wordpoints_render_points_log_text()
+	// wordpoints_render_points_log_text().
 	//
 
 	/**

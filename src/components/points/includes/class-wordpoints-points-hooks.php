@@ -450,7 +450,7 @@ final class WordPoints_Points_Hooks {
 
 		foreach ( self::get_points_types_hooks() as $points_type => $hooks ) {
 
-			if ( in_array( $hook_id, $hooks ) ) {
+			if ( in_array( $hook_id, $hooks, true ) ) {
 				return $points_type;
 			}
 		}

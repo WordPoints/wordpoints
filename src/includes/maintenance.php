@@ -20,7 +20,7 @@ if ( $time - $upgrading >= 10 * MINUTE_IN_SECONDS ) {
 }
 
 // If we're not running a module check, let the maintenance message show.
-if ( ! isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) {
+if ( ! isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) { // WPCS: CSRF OK.
 	return;
 }
 

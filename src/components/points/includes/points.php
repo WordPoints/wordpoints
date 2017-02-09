@@ -738,7 +738,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 		return true;
 	}
 
-} // function wordpoints_alter_points()
+} // End function wordpoints_alter_points().
 
 /**
  * Add points.
@@ -1319,7 +1319,7 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 
 	<?php
 
-} // function wordpoints_points_show_top_users()
+} // End function wordpoints_points_show_top_users().
 
 /**
  * Clear the top users cache when a user's points are altered.
@@ -1376,7 +1376,7 @@ function wordpoints_clean_points_top_users_cache_user_deleted( $user_id ) {
 		$cache = wp_cache_get( $slug, 'wordpoints_points_top_users' );
 
 		// If this user isn't in the cache, we don't need to clear it.
-		if ( ! is_array( $cache ) || ! in_array( $user_id, $cache['top_users'] ) ) {
+		if ( ! is_array( $cache ) || ! in_array( (int) $user_id, array_map( 'intval', $cache['top_users'] ), true ) ) {
 			continue;
 		}
 

@@ -11,17 +11,17 @@ global $status, $wp_version;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';
-} elseif ( isset( $_REQUEST['action'] ) && -1 !== (int) $_REQUEST['action'] ) {
+} elseif ( isset( $_REQUEST['action'] ) && -1 !== (int) $_REQUEST['action'] ) { // WPCS: CSRF OK.
 	$action = sanitize_key( $_REQUEST['action'] );
-} elseif ( isset( $_REQUEST['action2'] ) && -1 !== (int) $_REQUEST['action2'] ) {
+} elseif ( isset( $_REQUEST['action2'] ) && -1 !== (int) $_REQUEST['action2'] ) { // WPCS: CSRF OK.
 	$action = sanitize_key( $_REQUEST['action2'] );
 } else {
 	$action = '';
 }
 
-$page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1;
-$module = ( isset( $_REQUEST['module'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['module'] ) ) : '';
-$s      = ( isset( $_REQUEST['s'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : '';
+$page   = ( isset( $_REQUEST['paged'] ) ) ? max( 1, absint( $_REQUEST['paged'] ) ) : 1; // WPCS: CSRF OK.
+$module = ( isset( $_REQUEST['module'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['module'] ) ) : ''; // WPCS: CSRF OK.
+$s      = ( isset( $_REQUEST['s'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : ''; // WPCS: CSRF OK.
 
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ) );
@@ -432,7 +432,7 @@ switch ( $action ) {
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 
-		}  // End if ( ! isset( $_REQUEST['verify-delete'] ) ).
+		}  // End if ( not requesting verification before delete ).
 
 		$delete_result = wordpoints_delete_modules( $modules );
 

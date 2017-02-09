@@ -353,7 +353,7 @@ class WordPoints_DB_Query {
 
 		$methods = array( 'results', 'row', 'col', 'var' );
 
-		if ( ! in_array( $method, $methods ) ) {
+		if ( ! in_array( $method, $methods, true ) ) {
 
 			_doing_it_wrong( __METHOD__, esc_html( sprintf( 'WordPoints Debug Error: invalid get method %s, possible values are %s', $method, implode( ', ', $methods ) ) ), '1.0.0' );
 
@@ -782,7 +782,7 @@ class WordPoints_DB_Query {
 		$order    = $this->args['order'];
 		$order_by = $this->args['order_by'];
 
-		if ( ! in_array( $order, array( 'DESC', 'ASC' ) ) ) {
+		if ( ! in_array( $order, array( 'DESC', 'ASC' ), true ) ) {
 
 			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'order' \"{$order}\", possible values are DESC and ASC" ), '1.0.0' );
 			$order = 'DESC';

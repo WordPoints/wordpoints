@@ -123,7 +123,7 @@ abstract class WordPoints_Hook_Reactor
 
 			if (
 				! $target instanceof WordPoints_Entity
-				|| ! in_array( $target->get_slug(), (array) $this->arg_types )
+				|| ! in_array( $target->get_slug(), (array) $this->arg_types, true )
 			) {
 				$validator->add_error( __( 'Invalid target.', 'wordpoints' ), 'target' );
 			}

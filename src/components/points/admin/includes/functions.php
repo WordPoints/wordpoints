@@ -527,7 +527,7 @@ function wordpoints_points_admin_settings_save() {
 function wordpoints_points_admin_notices() {
 
 	if (
-		( ! isset( $_GET['page'] ) || 'wordpoints_points_types' !== $_GET['page'] )
+		( ! isset( $_GET['page'] ) || 'wordpoints_points_types' !== $_GET['page'] ) // WPCS: CSRF OK.
 		&& current_user_can( 'manage_wordpoints_points_types' )
 		&& ! wordpoints_get_points_types()
 	) {

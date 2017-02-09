@@ -17,7 +17,7 @@ $components = $wordpoints_components->get();
 // Show messages and errors.
 //
 
-if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_components->is_registered( sanitize_key( $_GET['wordpoints_component'] ) ) ) {
+if ( isset( $_GET['wordpoints_component'], $_GET['_wpnonce'] ) && $wordpoints_components->is_registered( sanitize_key( $_GET['wordpoints_component'] ) ) ) { // WPCS: CSRF OK.
 
 	$component = sanitize_key( $_GET['wordpoints_component'] );
 

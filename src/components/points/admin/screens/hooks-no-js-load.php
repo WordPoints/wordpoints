@@ -99,7 +99,7 @@ if ( ! empty( $_POST['removehook'] ) ) {
 	$hook->update_callback( $new_instance, $number );
 
 	// Add hook it to this points type.
-	if ( ! in_array( $hook_id, $points_type_hooks ) ) {
+	if ( ! in_array( $hook_id, $points_type_hooks, true ) ) {
 
 		$points_type_hooks[] = $hook_id;
 		$points_types_hooks[ $points_type_id ] = $points_type_hooks;

@@ -24,7 +24,7 @@ abstract class WordPoints_Entity
 	implements WordPoints_Entity_ParentI {
 
 	//
-	// Protected
+	// Protected Methods.
 	//
 
 	/**
@@ -264,7 +264,7 @@ abstract class WordPoints_Entity
 	}
 
 	//
-	// Public
+	// Public Methods.
 	//
 
 	/**

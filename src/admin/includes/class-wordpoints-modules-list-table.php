@@ -129,8 +129,11 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'recently_activated' => array(),
 		);
 
+		$show_network_active = false;
+
 		if ( ! $this->screen->in_admin( 'network' ) ) {
 
+			// Recently active modules.
 			$recently_activated = get_option( 'wordpoints_recently_activated_modules' );
 
 			if ( ! is_array( $recently_activated ) ) {
@@ -146,18 +149,55 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			}
 
 			update_option( 'wordpoints_recently_activated_modules', $recently_activated );
-		}
+
+			// Showing network-active/network-only modules.
+			$show = current_user_can( 'wordpoints_manage_network_modules' );
+
+			/**
+			 * Filters whether to display network-active modules alongside
+			 * modules active for the current site.
+			 *
+			 * This also controls the display of inactive network-only modules
+			 * (modules with "Network: true" in the module header).
+			 *
+			 * Modules cannot be network-activated or network-deactivated from
+			 * this screen.
+			 *
+			 * @since 2.3.0
+			 *
+			 * @param bool $show Whether to show network-active modules. Default
+			 *                   is whether the current user can manage network
+			 *                   modules (ie. a Network Admin).
+			 */
+			$show_network_active = apply_filters( 'wordpoints_show_network_active_modules', $show );
+
+		} // End if ( not network admin ).
 
 		foreach ( (array) $modules['all'] as $module_file => $module_data ) {
 
 			// Filter into individual sections.
-			if ( is_multisite() && ! $this->screen->in_admin( 'network' ) && is_network_only_wordpoints_module( $module_file ) ) {
+			if (
+				is_multisite()
+				&& ! $this->screen->in_admin( 'network' )
+				&& is_network_only_wordpoints_module( $module_file )
+			) {
 
-				unset( $modules['all'][ $module_file ] );
+				if ( $show_network_active ) {
+					$modules['inactive'][ $module_file ] = $module_data;
+				} else {
+					unset( $modules['all'][ $module_file ] );
+				}
 
-			} elseif ( ! $this->screen->in_admin( 'network' ) && is_wordpoints_module_active_for_network( $module_file ) ) {
+			} elseif (
+				! $this->screen->in_admin( 'network' )
+				&& is_wordpoints_module_active_for_network( $module_file )
+			) {
 
-				unset( $modules['all'][ $module_file ] );
+				if ( $show_network_active ) {
+					$modules['active'][ $module_file ] = $module_data;
+				} else {
+					unset( $modules['all'][ $module_file ] );
+				}
 
 			} elseif (
 				(
@@ -179,8 +219,10 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				}
 
 				$modules['inactive'][ $module_file ] = $module_data;
-			}
-		}
+
+			} // End if ().
+
+		} // End foreach ( modules ).
 
 		if ( $s ) {
 
@@ -509,9 +551,16 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		$context = $status;
 
 		if ( $this->screen->in_admin( 'network' ) ) {
+
 			$is_active = is_wordpoints_module_active_for_network( $module_file );
+			$restricted_network_active = false;
+			$restricted_network_only = false;
+
 		} else {
+
 			$is_active = is_wordpoints_module_active( $module_file );
+			$restricted_network_active = ( is_multisite() && is_wordpoints_module_active_for_network( $module_file ) );
+			$restricted_network_only = ( is_multisite() && is_network_only_wordpoints_module( $module_file ) && ! $is_active );
 		}
 
 		$class = ( $is_active ) ? 'active' : 'inactive';
@@ -545,20 +594,22 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 						?>
 						<th scope="row" class="check-column">
-							<label class="screen-reader-text" for="<?php echo esc_attr( $checkbox_id ); ?>">
-								<?php
+							<?php if ( ! $restricted_network_active && ! $restricted_network_only ) : ?>
+								<label class="screen-reader-text" for="<?php echo esc_attr( $checkbox_id ); ?>">
+									<?php
 
-								echo esc_html(
-									sprintf(
-										// translators: Module name.
-										__( 'Select %s', 'wordpoints' )
-										, $module_data['name']
-									)
-								);
+									echo esc_html(
+										sprintf(
+											// translators: Module name.
+											__( 'Select %s', 'wordpoints' )
+											, $module_data['name']
+										)
+									);
 
-								?>
-							</label>
-							<input type="checkbox" name="checked[]" value="<?php echo esc_attr( $module_file ); ?>" id="<?php echo esc_attr( $checkbox_id ); ?>" />
+									?>
+								</label>
+								<input type="checkbox" name="checked[]" value="<?php echo esc_attr( $module_file ); ?>" id="<?php echo esc_attr( $checkbox_id ); ?>" />
+							<?php endif; ?>
 						</th>
 						<?php
 					break;
@@ -567,7 +618,22 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 						?>
 						<td class="module-title<?php echo ( $is_hidden ) ? ' hidden' : ''; ?>">
 							<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
-							<?php echo $this->row_actions( $this->get_module_row_actions( $module_file, $module_data, $is_active ), true ); // XSS OK WPCS ?>
+							<?php
+
+							echo $this->row_actions( // XSS OK WPCS
+								$this->get_module_row_actions(
+									$module_file
+									, $module_data
+									, array(
+										'is_active' => $is_active,
+										'restricted_network_active' => $restricted_network_active,
+										'restricted_network_only' => $restricted_network_only,
+									)
+								)
+								, true
+							);
+
+							?>
 						</td>
 						<?php
 					break;
@@ -685,14 +751,27 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 * Get the row actions for a module.
 	 *
 	 * @since 1.8.0
+	 * @since 2.3.0 The $is_active arg was converted to the $args array, and now also
+	 *              accepts $restricted_network_active and $restricted_network_only
+	 *              keys.
 	 *
 	 * @param string $module_file The module's filename.
 	 * @param array  $module_data The module's file header data.
-	 * @param bool   $is_active   Whether the module is active.
+	 * @param array  $args        {
+	 *        Other args.
+	 *        @type bool $is_active                 Whether the module is active.
+	 *        @type bool $restricted_network_active Whether the module is active on
+	 *                                              the network level and would
+	 *                                              normally be restricted on the
+	 *                                              current screen.
+	 *        @type bool $restricted_network_only   Whether the module is network-
+	 *                                              only and would normally be
+	 *                                              restricted on the current screen.
+	 * }
 	 *
 	 * @return string[] The action links for this module.
 	 */
-	private function get_module_row_actions( $module_file, $module_data, $is_active ) {
+	private function get_module_row_actions( $module_file, $module_data, $args ) {
 
 		global $page, $s, $status;
 
@@ -709,7 +788,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		if ( $this->screen->in_admin( 'network' ) ) {
 
-			if ( $is_active ) {
+			if ( $args['is_active'] ) {
 
 				if ( current_user_can( 'manage_network_wordpoints_modules' ) ) {
 					// translators: Module name.
@@ -731,7 +810,15 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		} else {
 
-			if ( $is_active ) {
+			if ( $args['restricted_network_active'] ) {
+
+				$actions = array( 'network_active' => __( 'Network Active', 'wordpoints' ) );
+
+			} elseif ( $args['restricted_network_only'] ) {
+
+				$actions = array( 'network_only' => __( 'Network Only', 'wordpoints' ) );
+
+			} elseif ( $args['is_active'] ) {
 
 				// translators: Module name.
 				$actions['deactivate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'deactivate', $url ), "deactivate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Deactivate %s', 'wordpoints' ), $module_data['name'] ) ) . '">' . esc_html__( 'Deactivate', 'wordpoints' ) . '</a>';

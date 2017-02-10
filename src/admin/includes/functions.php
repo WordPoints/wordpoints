@@ -304,6 +304,12 @@ function wordpoints_register_admin_scripts() {
 			// translators: Form field.
 			'cannotBeChanged' => __( '(cannot be changed)', 'wordpoints' ),
 			'fieldsInvalid'   => __( 'Error: the values of some fields are invalid. Please correct these and then try again.', 'wordpoints' ),
+			'discardedReaction' => __( 'Discarded reaction.', 'wordpoints' ),
+			'discardedChanges'  => __( 'Discarded changes.', 'wordpoints' ),
+			'saving'            => __( 'Saving&hellp;', 'wordpoints' ),
+			'deleting'          => __( 'Deleting&hellp;', 'wordpoints' ),
+			'reactionDeleted'   => __( 'Reaction deleted successfully.', 'wordpoints' ),
+			'reactionSaved'     => __( 'Reaction saved successfully.', 'wordpoints' ),
 		)
 	);
 

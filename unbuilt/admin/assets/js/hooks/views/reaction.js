@@ -240,8 +240,12 @@ Reaction = Base.extend({
 	cancel: function () {
 
 		if ( this.$el.hasClass( 'new' ) ) {
+
 			this.model.collection.trigger( 'cancel-add-new' );
 			this.remove();
+
+			wp.a11y.speak( l10n.discardedReaction );
+
 			return;
 		}
 
@@ -254,6 +258,8 @@ Reaction = Base.extend({
 
 		this.trigger( 'cancel' );
 
+		wp.a11y.speak( l10n.discardedChanges );
+
 		this.cancelling = false;
 	},
 
@@ -262,6 +268,8 @@ Reaction = Base.extend({
 
 		this.wait();
 		this.$( '.save' ).prop( 'disabled', true );
+
+		wp.a11y.speak( l10n.saving );
 
 		var formData = Fields.getFormData( this.model, this.$fields );
 
@@ -321,9 +329,18 @@ Reaction = Base.extend({
 	// Remove the item, destroy the model.
 	destroy: function () {
 
+		wp.a11y.speak( l10n.deleting );
+
 		this.wait();
 
-		this.model.destroy( { wait: true } );
+		this.model.destroy(
+			{
+				wait: true,
+				success: function () {
+					wp.a11y.speak( l10n.reactionDeleted );
+				}
+			}
+		);
 	},
 
 	// Display errors when the model has invalid fields.
@@ -350,6 +367,7 @@ Reaction = Base.extend({
 	showError: function ( errors ) {
 
 		var generalErrors = [];
+		var a11yErrors = [];
 		var $errors = this.$( '.messages .err' );
 
 		this.$( '.spinner-overlay' ).hide();
@@ -398,6 +416,8 @@ Reaction = Base.extend({
 					$( '<div class="message err"></div>' ).text( error.message )
 				);
 
+				a11yErrors.push( error.message );
+
 			}, this );
 
 			$errors.html( '' );
@@ -414,10 +434,15 @@ Reaction = Base.extend({
 				$errors.append( $( '<p></p>' ).text( error ) );
 			});
 
+			// Notify unsighted users as well.
+			a11yErrors.unshift( l10n.fieldsInvalid );
+
+			wp.a11y.speak( a11yErrors.join( ' ' ) );
 
 		} else {
 
 			$errors.text( errors );
+			wp.a11y.speak( errors );
 		}
 
 		$errors.fadeIn();
@@ -431,6 +456,8 @@ Reaction = Base.extend({
 		this.$( '.success' )
 			.text( l10n.changesSaved )
 			.slideDown();
+
+		wp.a11y.speak( l10n.reactionSaved );
 
 		this.$target.find( 'select' ).prop( 'disabled', true );
 

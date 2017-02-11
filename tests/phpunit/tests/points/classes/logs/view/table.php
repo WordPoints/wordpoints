@@ -68,22 +68,22 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$this->assertSame( 4, $rows->length );
 
-		$this->assertContains(
+		$this->assertStringContains(
 			'odd'
 			, $rows->item( 0 )->attributes->getNamedItem( 'class' )->nodeValue
 		);
 
-		$this->assertContains(
+		$this->assertStringContains(
 			'even'
 			, $rows->item( 1 )->attributes->getNamedItem( 'class' )->nodeValue
 		);
 
-		$this->assertContains(
+		$this->assertStringContains(
 			'odd'
 			, $rows->item( 2 )->attributes->getNamedItem( 'class' )->nodeValue
 		);
 
-		$this->assertContains(
+		$this->assertStringContains(
 			'even'
 			, $rows->item( 3 )->attributes->getNamedItem( 'class' )->nodeValue
 		);
@@ -400,7 +400,7 @@ class WordPoints_Points_Logs_View_Table_Test
 			->getNamedItem( 'class' )
 			->nodeValue;
 
-		$this->assertContains( $class, $table_classes );
+		$this->assertStringContains( $class, $table_classes );
 	}
 
 	/**

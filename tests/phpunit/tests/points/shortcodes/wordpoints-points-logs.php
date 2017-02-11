@@ -107,8 +107,8 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			->getNamedItem( 'class' )
 			->nodeValue;
 
-		$this->assertContains( 'wordpoints-points-logs', $table_classes );
-		$this->assertContains( 'widefat', $table_classes );
+		$this->assertStringContains( 'wordpoints-points-logs', $table_classes );
+		$this->assertStringContains( 'widefat', $table_classes );
 
 		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 
@@ -163,8 +163,8 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			->getNamedItem( 'class' )
 			->nodeValue;
 
-		$this->assertContains( 'wordpoints-points-logs', $table_classes );
-		$this->assertContains( 'widefat', $table_classes );
+		$this->assertStringContains( 'wordpoints-points-logs', $table_classes );
+		$this->assertStringContains( 'widefat', $table_classes );
 
 		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 
@@ -319,8 +319,8 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			->getNamedItem( 'class' )
 			->nodeValue;
 
-		$this->assertContains( 'wordpoints-points-logs', $table_classes );
-		$this->assertContains( 'widefat', $table_classes );
+		$this->assertStringContains( 'wordpoints-points-logs', $table_classes );
+		$this->assertStringContains( 'widefat', $table_classes );
 
 		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 

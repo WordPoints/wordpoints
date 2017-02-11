@@ -74,7 +74,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 			->getNamedItem( 'class' )
 			->nodeValue;
 
-		$this->assertContains( 'wordpoints-points-top-users', $table_classes );
+		$this->assertStringContains( 'wordpoints-points-top-users', $table_classes );
 
 		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 	}

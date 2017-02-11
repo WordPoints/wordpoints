@@ -661,7 +661,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the users with the second rank.
 		$users = wordpoints_get_users_with_rank( $rank_id_2 );
 
-		$this->assertContains( $user_id_2, $users );
+		$this->assertContainsSame( $user_id_2, $users );
 
 		// The database should have been queried a second time.
 		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
@@ -681,8 +681,8 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the users with the second rank.
 		$users = wordpoints_get_users_with_rank( $rank_id_2 );
 
-		$this->assertContains( $user_id, $users );
-		$this->assertContains( $user_id_2, $users );
+		$this->assertContainsSame( $user_id, $users );
+		$this->assertContainsSame( $user_id_2, $users );
 
 		// The database should have been queried again for this rank as well.
 		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
@@ -698,8 +698,8 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the users for the other rank.
 		$users = wordpoints_get_users_with_rank( $rank_id );
 
-		$this->assertContains( $user_id, $users );
-		$this->assertContains( $user_id_2, $users );
+		$this->assertContainsSame( $user_id, $users );
+		$this->assertContainsSame( $user_id_2, $users );
 
 		// The database should be queried again since the users were moved to this
 		// rank and therefore the cache should be cleared.
@@ -724,8 +724,8 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		// The users will end up here again because the maybe increase rank will
 		// always return true, and this is the highest rank once it is moved.
-		$this->assertContains( $user_id, $users );
-		$this->assertContains( $user_id_2, $users );
+		$this->assertContainsSame( $user_id, $users );
+		$this->assertContainsSame( $user_id_2, $users );
 
 		// The database should be queried again.
 		$this->assertSame( 7, $this->filter_was_called( 'query' ) );

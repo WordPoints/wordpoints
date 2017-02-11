@@ -40,7 +40,7 @@ class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		restore_current_blog();
 
 		// Check that the ID was added.
-		$this->assertContains( $blog_id, get_site_option( 'wordpoints_ranks_installed_sites' ) );
+		$this->assertContainsSame( $blog_id, get_site_option( 'wordpoints_ranks_installed_sites' ) );
 	}
 }
 

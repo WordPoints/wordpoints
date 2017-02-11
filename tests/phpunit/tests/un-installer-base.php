@@ -149,7 +149,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame( '1.0.0', $this->un_installer->get_db_version() );
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_single', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -221,12 +221,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_site', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -288,12 +288,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_site', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -409,7 +409,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame( '1.0.0', $this->un_installer->get_db_version() );
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'set_network_install_skipped', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -424,7 +424,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -468,7 +468,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'install_network', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -617,7 +617,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -737,12 +737,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -821,7 +821,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -860,7 +860,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -905,12 +905,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -1062,7 +1062,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -1102,7 +1102,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_site_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -1140,7 +1140,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'set_network_update_skipped', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -1155,7 +1155,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -1203,7 +1203,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->method_calls
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			array( 'method' => 'update_network_to_1_0_0', 'args' => array() )
 			, $this->un_installer->method_calls
 		);
@@ -4388,9 +4388,18 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function assertListTableHiddenColumnsPrepared( $screen, $parent ) {
 
-		$this->assertContains( "manage{$parent}_{$screen}columnshidden", $this->un_installer->uninstall['single']['user_meta'] );
-		$this->assertContains( "manage{$parent}_{$screen}columnshidden", $this->un_installer->uninstall['network']['user_meta'] );
-		$this->assertContains( "manage{$parent}_{$screen}-networkcolumnshidden", $this->un_installer->uninstall['network']['user_meta'] );
+		$this->assertContainsSame(
+			"manage{$parent}_{$screen}columnshidden"
+			, $this->un_installer->uninstall['single']['user_meta']
+		);
+		$this->assertContainsSame(
+			"manage{$parent}_{$screen}columnshidden"
+			, $this->un_installer->uninstall['network']['user_meta']
+		);
+		$this->assertContainsSame(
+			"manage{$parent}_{$screen}-networkcolumnshidden"
+			, $this->un_installer->uninstall['network']['user_meta']
+		);
 	}
 
 	/**
@@ -4404,9 +4413,18 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function assertListTableOptionPrepared( $screen, $parent, $option ) {
 
-		$this->assertContains( "{$parent}_{$screen}_{$option}", $this->un_installer->uninstall['single']['user_meta'] );
-		$this->assertContains( "{$parent}_{$screen}_{$option}", $this->un_installer->uninstall['network']['user_meta'] );
-		$this->assertContains( "{$parent}_{$screen}_network_{$option}", $this->un_installer->uninstall['network']['user_meta'] );
+		$this->assertContainsSame(
+			"{$parent}_{$screen}_{$option}"
+			, $this->un_installer->uninstall['single']['user_meta']
+		);
+		$this->assertContainsSame(
+			"{$parent}_{$screen}_{$option}"
+			, $this->un_installer->uninstall['network']['user_meta']
+		);
+		$this->assertContainsSame(
+			"{$parent}_{$screen}_network_{$option}"
+			, $this->un_installer->uninstall['network']['user_meta']
+		);
 	}
 
 	/**

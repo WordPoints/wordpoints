@@ -259,7 +259,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 			)
 		);
 
-		$this->assertContains(
+		$this->assertContainsSame(
 			$user_id
 			, wordpoints_points_get_top_users( 10, 'points' )
 		);

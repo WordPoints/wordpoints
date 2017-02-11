@@ -194,7 +194,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$base_rank_users = wordpoints_get_users_with_rank( $base_rank );
 
-		$this->assertContains( $user_ids[2], $base_rank_users );
+		$this->assertContainsSame( $user_ids[2], $base_rank_users );
 		$this->assertNotContains( $user_ids[0], $base_rank_users );
 		$this->assertNotContains( $user_ids[1], $base_rank_users );
 	}

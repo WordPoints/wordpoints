@@ -144,7 +144,7 @@ class WordPoints_Admin_Menu_Functions_Test extends WordPoints_PHPUnit_TestCase_A
 		}
 
 		$this->assertArrayHasKey( $parent, $submenu );
-		$this->assertContains( $slug, wp_list_pluck( $submenu[ $parent ], 2 ) );
+		$this->assertContainsSame( $slug, wp_list_pluck( $submenu[ $parent ], 2 ) );
 	}
 
 	/**

@@ -321,7 +321,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			array( 'slug' => 'test_context' )
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -329,7 +329,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertFalse( $restriction->applies() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -351,7 +351,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -359,15 +359,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertTrue( $restriction->applies() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -392,7 +392,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -400,15 +400,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertTrue( $restriction->applies() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -433,7 +433,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -441,15 +441,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertFalse( $restriction->applies() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -508,7 +508,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		WordPoints_PHPUnit_Mock_Entity_Restriction::$listen_for_contexts = 'test_context';
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -516,7 +516,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertFalse( $restriction->applies() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -546,21 +546,21 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
 		$this->assertTrue( $restriction->applies() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -689,11 +689,11 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			$this->fixtures['points_log'][1]
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -715,7 +715,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -723,15 +723,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertFalse( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -756,7 +756,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -765,12 +765,12 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -795,7 +795,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][1]
@@ -803,15 +803,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
@@ -872,7 +872,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			array( 'slug' => 'test_context' )
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks(
 			$this->fixtures['points_log'][2]
@@ -880,7 +880,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->assertTrue( $restriction->user_can( $this->fixture_ids['user'][0] ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -910,7 +910,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Points_Logs_Viewing_Restriction_Hooks( $log );
 
@@ -918,15 +918,15 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 			$restriction->user_can( $this->fixture_ids['user'][0] )
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
-			'context'   => 3,
-			'entity_id' => 1,
+			'context'   => '3',
+			'entity_id' => '1',
 			'hierarchy' => array( 'test_entity' ),
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);

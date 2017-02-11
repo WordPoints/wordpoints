@@ -41,10 +41,10 @@ class WordPoints_Hook_Condition_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $validator
 		);
 
-		$this->assertEquals( $settings, $validated_settings );
+		$this->assertSame( $settings, $validated_settings );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**
@@ -89,14 +89,14 @@ class WordPoints_Hook_Condition_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $validator
 		);
 
-		$this->assertEquals( $settings, $validated_settings );
+		$this->assertSame( $settings, $validated_settings );
 
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'value' ), $errors[0]['field'] );
+		$this->assertSame( array( 'value' ), $errors[0]['field'] );
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**

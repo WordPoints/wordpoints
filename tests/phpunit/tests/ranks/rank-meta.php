@@ -33,7 +33,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertInternalType( 'int', $result );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'value'
 			, wordpoints_get_rank_meta( $rank_id, 'test', true )
 		);
@@ -54,7 +54,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertTrue( $result );
 
-		$this->assertEquals(
+		$this->assertSame(
 			__METHOD__
 			, wordpoints_get_rank_meta( $rank_id, 'test_meta', true )
 		);
@@ -73,14 +73,14 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		wordpoints_add_rank_meta( $rank_id, 'test', 'value' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'value'
 			, wordpoints_get_rank_meta( $rank_id, 'test', true )
 		);
 
 		wordpoints_delete_rank_meta( $rank_id, 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			''
 			, wordpoints_get_rank_meta( $rank_id, 'test', true )
 		);
@@ -100,16 +100,16 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		wordpoints_add_rank_meta( $rank_id, 'test', 'value' );
 		wordpoints_add_rank_meta( $rank_id, 'test_meta', 'test' );
 
-		$this->assertEquals(
-			array( 1, 'test' )
+		$this->assertSame(
+			array( '1', 'test' )
 			, wordpoints_get_rank_meta( $rank_id, 'test_meta' )
 		);
 
 		$all_meta = wordpoints_get_rank_meta( $rank_id );
 		$this->assertArrayHasKey( 'test', $all_meta );
-		$this->assertEquals( array( 'value' ), $all_meta['test'] );
+		$this->assertSame( array( 'value' ), $all_meta['test'] );
 		$this->assertArrayHasKey( 'test_meta', $all_meta );
-		$this->assertEquals( array( 1, 'test' ), $all_meta['test_meta'] );
+		$this->assertSame( array( '1', 'test' ), $all_meta['test_meta'] );
 	}
 
 	/**
@@ -126,7 +126,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'slashed\value' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'slashed\value'
 			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
 		);
@@ -147,7 +147,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		wordpoints_update_rank_meta( $rank_id, 'test\slashing', 'slashed\value' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'slashed\value'
 			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
 		);
@@ -166,14 +166,14 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'value' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'value'
 			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
 		);
 
 		wordpoints_delete_rank_meta( $rank_id, 'test\slashing' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			''
 			, wordpoints_get_rank_meta( $rank_id, 'test\slashing', true )
 		);

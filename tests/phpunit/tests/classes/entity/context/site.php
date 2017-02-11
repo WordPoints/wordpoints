@@ -27,7 +27,7 @@ class WordPoints_Entity_Context_Site_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = new WordPoints_Entity_Context_Site( 'site' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WordPoints_Entity_Context_Site_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = new WordPoints_Entity_Context_Site( 'site' );
 
-		$this->assertEquals( get_current_blog_id(), $context->get_current_id() );
+		$this->assertSame( get_current_blog_id(), $context->get_current_id() );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class WordPoints_Entity_Context_Site_Test extends WordPoints_PHPUnit_TestCase {
 		$context = new WordPoints_Entity_Context_Site( 'site' );
 
 		$this->assertTrue( $context->switch_to( $site_id ) );
-		$this->assertEquals( $site_id, get_current_blog_id() );
+		$this->assertSame( $site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class WordPoints_Entity_Context_Site_Test extends WordPoints_PHPUnit_TestCase {
 		switch_to_blog( $site_id );
 
 		$this->assertTrue( $context->switch_back() );
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**

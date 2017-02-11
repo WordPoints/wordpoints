@@ -73,7 +73,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 			)
 		);
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 			)
 		);
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		wp_set_current_user( $user_id );
 
 		// There should be no error with an invalid points type.
-		$this->assertEquals( null, $this->do_shortcode( 'wordpoints_how_to_get_points' ) );
+		$this->assertSame( '', $this->do_shortcode( 'wordpoints_how_to_get_points' ) );
 
 		wp_set_current_user( $old_current_user->ID );
 	}
@@ -200,24 +200,24 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		$xpath = new DOMXPath( $document );
 		$table_rows = $xpath->query( '//tbody/tr' );
-		$this->assertEquals( 2, $table_rows->length );
+		$this->assertSame( 2, $table_rows->length );
 
 		$columns = $table_rows->item( 0 )->childNodes;
-		$this->assertEquals(
+		$this->assertSame(
 			'$100pts.'
 			, $columns->item( 0 )->textContent
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction_1->get_meta( 'description' )
 			, $columns->item( 2 )->textContent
 		);
 
 		$columns = $table_rows->item( 1 )->childNodes;
-		$this->assertEquals(
+		$this->assertSame(
 			'$20pts.'
 			, $columns->item( 0 )->textContent
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction_2->get_meta( 'description' )
 			, $columns->item( 2 )->textContent
 		);
@@ -277,24 +277,24 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		$xpath = new DOMXPath( $document );
 		$table_rows = $xpath->query( '//tbody/tr' );
-		$this->assertEquals( 2, $table_rows->length );
+		$this->assertSame( 2, $table_rows->length );
 
 		$columns = $table_rows->item( 0 )->childNodes;
-		$this->assertEquals(
+		$this->assertSame(
 			'$100pts.'
 			, $columns->item( 0 )->textContent
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction_1->get_meta( 'description' )
 			, $columns->item( 2 )->textContent
 		);
 
 		$columns = $table_rows->item( 1 )->childNodes;
-		$this->assertEquals(
+		$this->assertSame(
 			'$20pts.'
 			, $columns->item( 0 )->textContent
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction_2->get_meta( 'description' )
 			, $columns->item( 2 )->textContent
 		);

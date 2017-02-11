@@ -44,8 +44,8 @@ class WordPoints_Functions_Register_Post_Type_Entities_Test extends WordPoints_P
 
 		wordpoints_register_post_type_entities( 'test' );
 
-		$this->assertEquals( 1, $mock->call_count );
-		$this->assertEquals( array( 'test' ), $mock->calls[0] );
+		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame( array( 'test' ), $mock->calls[0] );
 
 		$entities = wordpoints_entities();
 		$children = $entities->get_sub_app( 'children' );

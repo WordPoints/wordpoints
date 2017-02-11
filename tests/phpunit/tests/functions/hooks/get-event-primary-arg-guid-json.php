@@ -36,7 +36,7 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 
 		$guid = wordpoints_hooks_get_event_primary_arg_guid_json( $event_args );
 
-		$this->assertEquals( '{"test_entity":5,"test_context":1}', $guid );
+		$this->assertSame( '{"test_entity":5,"test_context":1}', $guid );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 
 		$guid = wordpoints_hooks_get_event_primary_arg_guid_json( $event_args );
 
-		$this->assertEquals( '', $guid );
+		$this->assertSame( '', $guid );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class WordPoints_Hooks_Get_Event_Primary_Arg_GUID_JSON_Function_Test
 
 		$guid = wordpoints_hooks_get_event_primary_arg_guid_json( $event_args );
 
-		$this->assertEquals( '', $guid );
+		$this->assertSame( '', $guid );
 	}
 }
 

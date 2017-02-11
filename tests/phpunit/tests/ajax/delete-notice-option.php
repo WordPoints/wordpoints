@@ -87,7 +87,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 			unset( $e );
 		}
 
-		$this->assertEquals( 'test', get_option( 'test' ) );
+		$this->assertSame( 'test', get_option( 'test' ) );
 	}
 
 	/**
@@ -135,7 +135,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 			unset( $e );
 		}
 
-		$this->assertEquals( 'test', get_option( 'test' ) );
+		$this->assertSame( 'test', get_option( 'test' ) );
 	}
 
 	/**
@@ -157,7 +157,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 			unset( $e );
 		}
 
-		$this->assertEquals( 'test', get_option( 'test' ) );
+		$this->assertSame( 'test', get_option( 'test' ) );
 	}
 
 
@@ -180,7 +180,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 			unset( $e );
 		}
 
-		$this->assertEquals( 'test', get_option( 'test' ) );
+		$this->assertSame( 'test', get_option( 'test' ) );
 	}
 }
 

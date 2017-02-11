@@ -202,7 +202,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -215,7 +215,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$restriction = new WordPoints_Entity_Restriction_Wrapper(
 			0
@@ -251,7 +251,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -263,7 +263,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$mock = new WordPoints_PHPUnit_Mock_Entity_Restriction(
 			0
@@ -291,8 +291,8 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 5, $mock->context[0] );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 5, $mock->context[0] );
 	}
 
 	/**
@@ -304,7 +304,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$mock = new WordPoints_PHPUnit_Mock_Entity_Restriction(
 			0
@@ -336,8 +336,8 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 
 		$this->assertFalse( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 5, $mock->context[0] );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 5, $mock->context[0] );
 	}
 }
 

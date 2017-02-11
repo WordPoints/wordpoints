@@ -36,15 +36,15 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		// Make sure that was a success.
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		// Run this query so we can check caches are deleted.
 		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
 
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		$log_id = $query->get( 'row' )->id;
 
@@ -52,14 +52,14 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		wp_delete_user( $user_id );
 
 		// Here is the first real test. The logs for the user should be gone.
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
-		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 6, $this->filter_was_called( 'query' ) );
 
 		// Check that the cache was cleared as well.
 		wordpoints_get_points_logs_query( 'points', 'current_user' )->get();
-		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 7, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -104,10 +104,10 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		// While we're here in blog 3, let's test that all of the points got awarded.
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id, 'blog_id' => false ) );
-		$this->assertEquals( 3, $query->count() );
+		$this->assertSame( 3, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => false ) );
-		$this->assertEquals( 3, $query->count() );
+		$this->assertSame( 3, $query->count() );
 
 		// Get the ID of the log on this site.
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
@@ -120,13 +120,13 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		// Test to make sure only the logs and meta for the third blog were deleted.
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id, 'blog_id' => false ) );
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test', 'blog_id' => false ) );
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id, 'user_id' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
 		// Get the IDs of the logs on the remaining blogs.
 		$log_ids = wp_list_pluck( $query->get(), 'user_id' );
@@ -135,10 +135,10 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		wpmu_delete_user( $user_id );
 
 		// All of their logs and meta should now be gone.
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[0], 'user_id' ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[0], 'test' ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[1], 'user_id' ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_ids[1], 'test' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_ids[0], 'user_id' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_ids[0], 'test' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_ids[1], 'user_id' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_ids[1], 'test' ) );
 	}
 
 	/**
@@ -170,15 +170,15 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		// Make sure that was a success.
 		$query = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_id ) );
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		// Run this query so we can check caches are deleted.
 		wordpoints_get_points_logs_query( 'points', 'network' )->get();
 
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		$log_id = $query->get( 'row' )->id;
 
@@ -189,15 +189,15 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		wpmu_delete_blog( $blog_id );
 
 		// Here is the real test. The logs for the blog should be gone.
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'blog_id' ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id, 'blog_id' ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id, 'test' ) );
 
-		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 6, $this->filter_was_called( 'query' ) );
 
 		// The caches should be deleted.
 		wordpoints_get_points_logs_query( 'points', 'network' )->get();
 
-		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 7, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -214,11 +214,11 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
 
 		if ( ! is_multisite() ) {
-			$this->assertEquals( 'wordpoints_points-points', $meta_key );
+			$this->assertSame( 'wordpoints_points-points', $meta_key );
 		} elseif ( is_wordpoints_network_active() ) {
-			$this->assertEquals( 'wordpoints_points-points', $meta_key );
+			$this->assertSame( 'wordpoints_points-points', $meta_key );
 		} else {
-			$this->assertEquals( $wpdb->get_blog_prefix() . 'wordpoints_points-points', $meta_key );
+			$this->assertSame( $wpdb->get_blog_prefix() . 'wordpoints_points-points', $meta_key );
 		}
 
 		// Test that the meta_key points type setting takes precendence when set.
@@ -226,7 +226,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$settings['meta_key'] = 'credits';
 		wordpoints_update_points_type( 'points', $settings );
 
-		$this->assertEquals( 'credits', wordpoints_get_points_user_meta_key( 'points' ) );
+		$this->assertSame( 'credits', wordpoints_get_points_user_meta_key( 'points' ) );
 	}
 
 	/**
@@ -253,7 +253,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		// Check that all is as expected.
 		$this->assertInternalType( 'object', $log );
-		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
+		$this->assertSame( __( 'Registration.', 'wordpoints' ), $log->text );
 
 		// Now, modify the log text.
 		global $wpdb;
@@ -271,21 +271,21 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
-		$this->assertEquals( 'Test', $log->text );
+		$this->assertSame( 'Test', $log->text );
 
 		// Now, regenerate it.
 		wordpoints_regenerate_points_logs( array( $log ) );
 
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Check that the log was regenerated.
 		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
 
 		// Check that the cache was cleared and a new query was made.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		$this->assertInternalType( 'object', $log );
-		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
+		$this->assertSame( __( 'Registration.', 'wordpoints' ), $log->text );
 
 		// Modify the log and test again, to check that it also works with the log
 		// IDs, as this was expected since 1.2.0 but was deprecated in 1.6.0.
@@ -302,21 +302,21 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
-		$this->assertEquals( 'Test', $log->text );
+		$this->assertSame( 'Test', $log->text );
 
 		// Now, regenerate it.
 		wordpoints_regenerate_points_logs( array( $log->id ) );
 
-		$this->assertEquals( 5, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 5, $this->filter_was_called( 'query' ) );
 
 		// Check that the log was regenerated.
 		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
 
 		// Check that the cache was cleared and a new query was made.
-		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 6, $this->filter_was_called( 'query' ) );
 
 		$this->assertInternalType( 'object', $log );
-		$this->assertEquals( __( 'Registration.', 'wordpoints' ), $log->text );
+		$this->assertSame( __( 'Registration.', 'wordpoints' ), $log->text );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log->id ) )
 		);
 
-		$this->assertEquals( $log_text, $query->get( 'var' ) );
+		$this->assertSame( $log_text, $query->get( 'var' ) );
 	}
 
 	/**
@@ -375,7 +375,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log->id ) )
 		);
 
-		$this->assertEquals( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
+		$this->assertSame( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
 	}
 }
 

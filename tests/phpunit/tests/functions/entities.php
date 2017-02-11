@@ -82,7 +82,7 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 
 		wordpoints_entities_init( $entities );
 
-		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+		$this->assertSame( 1, $this->filter_was_called( $filter ) );
 
 		$children = $entities->get_sub_app( 'children' );
 
@@ -127,12 +127,12 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$filter = 'wordpoints_register_entities_for_post_types';
 		$this->listen_for_filter( $filter );
 
-		$this->assertEquals(
+		$this->assertSame(
 			get_post_types( array( 'public' => true ) )
 			, wordpoints_get_post_types_for_entities()
 		);
 
-		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+		$this->assertSame( 1, $this->filter_was_called( $filter ) );
 	}
 
 	/**

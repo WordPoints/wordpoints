@@ -77,7 +77,9 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reactions = $reaction_store->get_reactions();
 
-		$this->assertEquals( array( $reaction ), $reactions );
+		$this->assertCount( 1, $reactions );
+		$this->assertSame( $reaction->get_id(), $reactions[0]->get_id() );
+		$this->assertSame( $reaction->get_all_meta(), $reactions[0]->get_all_meta() );
 	}
 
 	/**
@@ -99,7 +101,9 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 		$hooks->set_current_mode( 'test' );
 		$reactions = $reaction_store->get_reactions();
 
-		$this->assertEquals( array( $reaction ), $reactions );
+		$this->assertCount( 1, $reactions );
+		$this->assertSame( $reaction->get_id(), $reactions[0]->get_id() );
+		$this->assertSame( $reaction->get_all_meta(), $reactions[0]->get_all_meta() );
 	}
 
 	/**
@@ -139,7 +143,9 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reactions = $reaction_store->get_reactions_to_event( 'test_event' );
 
-		$this->assertEquals( array( $reaction ), $reactions );
+		$this->assertCount( 1, $reactions );
+		$this->assertSame( $reaction->get_id(), $reactions[0]->get_id() );
+		$this->assertSame( $reaction->get_all_meta(), $reactions[0]->get_all_meta() );
 	}
 
 	/**
@@ -191,7 +197,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction->get_event_slug()
 			, $reaction_store->get_reaction_event_from_index( $reaction->get_id() )
 		);
@@ -232,7 +238,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 			$reaction_store->update_reaction_event_in_index( 1, 'another_event' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'another_event'
 			, $reaction_store->get_reaction_event_from_index( $reaction->get_id() )
 		);
@@ -295,16 +301,21 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 1, $reaction->get_id() );
+		$this->assertSame( 1, $reaction->get_id() );
 
 		$this->assertTrue( $reaction_store->reaction_exists( $reaction->get_id() ) );
-		$this->assertEquals( array( $reaction ), $reaction_store->get_reactions() );
-		$this->assertEquals(
-			array( $reaction )
-			, $reaction_store->get_reactions_to_event( 'test_event' )
-		);
 
-		$this->assertEquals(
+		$reactions = $reaction_store->get_reactions();
+		$this->assertCount( 1, $reactions );
+		$this->assertSame( $reaction->get_id(), $reactions[0]->get_id() );
+		$this->assertSame( $reaction->get_all_meta(), $reactions[0]->get_all_meta() );
+
+		$reactions = $reaction_store->get_reactions_to_event( 'test_event' );
+		$this->assertCount( 1, $reactions );
+		$this->assertSame( $reaction->get_id(), $reactions[0]->get_id() );
+		$this->assertSame( $reaction->get_all_meta(), $reactions[0]->get_all_meta() );
+
+		$this->assertSame(
 			'test_event'
 			, $reaction_store->get_reaction_event_from_index( $reaction->get_id() )
 		);
@@ -324,22 +335,22 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reactions = $this->factory->wordpoints->hook_reaction->create_many( 3 );
 
-		$this->assertEquals( 1, $reactions[0]->get_id() );
-		$this->assertEquals( 2, $reactions[1]->get_id() );
-		$this->assertEquals( 3, $reactions[2]->get_id() );
+		$this->assertSame( 1, $reactions[0]->get_id() );
+		$this->assertSame( 2, $reactions[1]->get_id() );
+		$this->assertSame( 3, $reactions[2]->get_id() );
 
 		$this->assertTrue( $reaction_store->delete_reaction( 1 ) );
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 4, $reaction->get_id() );
+		$this->assertSame( 4, $reaction->get_id() );
 
 		// When the newest reaction is deleted, the ID shouldn't be reused.
 		$this->assertTrue( $reaction_store->delete_reaction( 4 ) );
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 5, $reaction->get_id() );
+		$this->assertSame( 5, $reaction->get_id() );
 	}
 
 	/**
@@ -356,9 +367,9 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reactions = $this->factory->wordpoints->hook_reaction->create_many( 3 );
 
-		$this->assertEquals( 1, $reactions[0]->get_id() );
-		$this->assertEquals( 2, $reactions[1]->get_id() );
-		$this->assertEquals( 3, $reactions[2]->get_id() );
+		$this->assertSame( 1, $reactions[0]->get_id() );
+		$this->assertSame( 2, $reactions[1]->get_id() );
+		$this->assertSame( 3, $reactions[2]->get_id() );
 
 		$slug         = $reaction_store->get_slug();
 		$option_name  = "wordpoints_hook_reaction_last_id-{$slug}-standard";
@@ -368,14 +379,14 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 4, $reaction->get_id() );
+		$this->assertSame( 4, $reaction->get_id() );
 
 		// When the index max is greater than the next ID as calculated from option.
 		$reaction_store->update_option( $option_name, 1 );
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 5, $reaction->get_id() );
+		$this->assertSame( 5, $reaction->get_id() );
 	}
 
 	/**
@@ -393,7 +404,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 1, $reaction->get_id() );
+		$this->assertSame( 1, $reaction->get_id() );
 
 		// Create another site.
 		$site_id = $this->factory->blog->create();
@@ -402,7 +413,7 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 1, $reaction->get_id() );
+		$this->assertSame( 1, $reaction->get_id() );
 
 		$this->assertTrue( $reaction_store->delete_reaction( $reaction->get_id() ) );
 

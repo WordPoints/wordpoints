@@ -57,7 +57,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_Test
 		$document = new DOMDocument;
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "tablenav bottom"]' )->length
 		);
@@ -84,7 +84,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_Test
 		$document = new DOMDocument;
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "tablenav bottom"]' )->length
 		);

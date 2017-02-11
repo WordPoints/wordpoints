@@ -23,11 +23,11 @@ class WordPoints_Data_Type_Integer_Test extends WP_UnitTestCase {
 	 *
 	 * @dataProvider provider_valid_values
 	 */
-	public function test_validate_value( $value ) {
+	public function test_validate_value( $value, $expected ) {
 
 		$data_type = new WordPoints_Data_Type_Integer( 'test' );
 
-		$this->assertEquals( $value, $data_type->validate_value( $value ) );
+		$this->assertSame( $expected, $data_type->validate_value( $value ) );
 	}
 
 	/**
@@ -39,13 +39,13 @@ class WordPoints_Data_Type_Integer_Test extends WP_UnitTestCase {
 	 */
 	public function provider_valid_values() {
 		return array(
-			array( 15 ),
-			array( 0 ),
-			array( -53 ),
-			array( '15' ),
-			array( '0' ),
-			array( '-53' ),
-			array( 15.0 ),
+			array( 15, 15 ),
+			array( 0, 0 ),
+			array( -53, -53 ),
+			array( '15', 15 ),
+			array( '0', 0 ),
+			array( '-53', -53 ),
+			array( 15.0, 15 ),
 		);
 	}
 

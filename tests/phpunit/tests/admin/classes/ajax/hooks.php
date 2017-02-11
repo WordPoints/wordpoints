@@ -107,7 +107,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$reaction_guid = wp_json_encode( $reaction->get_guid() );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'id' => $reaction->get_id(),
 				'event' => $reaction->get_event_slug(),
@@ -149,16 +149,16 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 		$this->assertObjectHasAttribute( 'id', $response->data );
 
 		$this->assertObjectHasAttribute( 'event', $response->data );
-		$this->assertEquals( $_POST['event'], $response->data->event );
+		$this->assertSame( $_POST['event'], $response->data->event );
 
 		$this->assertObjectHasAttribute( 'reactor', $response->data );
-		$this->assertEquals( $_POST['reactor'], $response->data->reactor );
+		$this->assertSame( $_POST['reactor'], $response->data->reactor );
 
 		$this->assertObjectHasAttribute( 'target', $response->data );
-		$this->assertEquals( $_POST['target'], $response->data->target );
+		$this->assertSame( $_POST['target'], $response->data->target );
 
 		$this->assertObjectHasAttribute( 'reaction_store', $response->data );
-		$this->assertEquals(
+		$this->assertSame(
 			$_POST['reaction_store']
 			, $response->data->reaction_store
 		);
@@ -167,7 +167,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 		$reaction_guid = wp_json_encode( $reaction->get_guid() );
 
 		$this->assertObjectHasAttribute( 'nonce', $response->data );
-		$this->assertEquals(
+		$this->assertSame(
 			wp_create_nonce(
 				"wordpoints_update_hook_reaction|{$reaction_guid}"
 			)
@@ -175,7 +175,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 		);
 
 		$this->assertObjectHasAttribute( 'delete_nonce', $response->data );
-		$this->assertEquals(
+		$this->assertSame(
 			wp_create_nonce(
 				"wordpoints_delete_hook_reaction|{$reaction_guid}"
 			)
@@ -236,7 +236,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->assertObjectHasAttribute( 'data', $response );
 		$this->assertObjectHasAttribute( 'errors', $response->data );
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				(object) array(
 					'message' => 'Event is invalid.',
@@ -266,7 +266,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->reaction->update_meta( 'target', array( 'current:test_entity' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'current:test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);
@@ -279,7 +279,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->assertObjectNotHasAttribute( 'data', $response );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);
@@ -308,7 +308,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->reaction->update_meta( 'target', array( 'current:test_entity' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'current:test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);
@@ -318,7 +318,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 		$this->assertJSONErrorResponse( 'wordpoints_admin_update_hook_reaction' );
 
 		// The value shouldn't have been updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'current:test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);
@@ -354,7 +354,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->reaction->update_meta( 'target', array( 'current:test_entity' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'current:test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);
@@ -370,7 +370,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->assertObjectHasAttribute( 'data', $response );
 		$this->assertObjectHasAttribute( 'errors', $response->data );
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				(object) array(
 					'message' => 'Event is invalid.',
@@ -380,7 +380,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 			, $response->data->errors
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'current:test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);

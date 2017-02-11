@@ -29,7 +29,7 @@ class WordPoints_Hook_Event_Dynamic_Test extends WordPoints_PHPUnit_TestCase_Hoo
 
 		$event = new WordPoints_PHPUnit_Mock_Hook_Event_Dynamic( 'test_event' );
 
-		$this->assertEquals( $entity->get_title(), $event->get_entity_title() );
+		$this->assertSame( $entity->get_title(), $event->get_entity_title() );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class WordPoints_Hook_Event_Dynamic_Test extends WordPoints_PHPUnit_TestCase_Hoo
 
 		$event = new WordPoints_PHPUnit_Mock_Hook_Event_Dynamic( 'event\dynamic' );
 
-		$this->assertEquals( $entity->get_title(), $event->get_entity_title() );
+		$this->assertSame( $entity->get_title(), $event->get_entity_title() );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class WordPoints_Hook_Event_Dynamic_Test extends WordPoints_PHPUnit_TestCase_Hoo
 
 		$event = new WordPoints_PHPUnit_Mock_Hook_Event_Dynamic( 'event\dynamic' );
 
-		$this->assertEquals( $event->get_slug(), $event->get_entity_title() );
+		$this->assertSame( $event->get_slug(), $event->get_entity_title() );
 	}
 }
 

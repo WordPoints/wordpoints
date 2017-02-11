@@ -61,7 +61,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_module_basename() {
 
-		$this->assertEquals( 'module/module.php', wordpoints_module_basename( wordpoints_modules_dir() . '/module/module.php' ) );
+		$this->assertSame( 'module/module.php', wordpoints_module_basename( wordpoints_modules_dir() . '/module/module.php' ) );
 	}
 
 	/**
@@ -82,10 +82,10 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertInternalType( 'array', $modules );
 		$this->assertArrayHasKey( 'test-3.php', $modules );
 
-		$this->assertEquals( $this->expected_headers, $modules['test-3.php'] );
+		$this->assertSameSetsWithIndex( $this->expected_headers, $modules['test-3.php'] );
 
 		$this->assertArrayHasKey( 'test-4/test-4.php', $modules );
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'name'        => 'Test 4',
 				'module_uri'  => 'https://www.example.com/test-4/',
@@ -96,35 +96,35 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 				'text_domain' => 'test-4',
 				'domain_path' => '',
 				'network'     => false,
-				'title'       => 'Test 4',
-				'author_name' => 'WordPoints Tester',
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
 				'namespace'   => '',
+				'title'       => 'Test 4',
+				'author_name' => 'WordPoints Tester',
 			)
 			, $modules['test-4/test-4.php']
 		);
 
 		// Test getting a module that uses the 2.0 API.
 		$this->assertArrayHasKey( 'test-6/main-file.php', $modules );
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'name'        => 'Test 6',
-				'module_uri'  => 'https://www.example.com/test-6/',
 				'version'     => '1.0.0',
-				'description' => 'Another test module.',
 				'author'      => 'WordPoints Tester',
 				'author_uri'  => 'https://www.example.com/',
+				'module_uri'  => 'https://www.example.com/test-6/',
+				'description' => 'Another test module.',
 				'text_domain' => 'test-6',
 				'domain_path' => '',
 				'network'     => false,
-				'title'       => 'Test 6',
-				'author_name' => 'WordPoints Tester',
 				'update_api'  => '',
 				'channel'     => '',
 				'ID'          => '',
 				'namespace'   => '',
+				'title'       => 'Test 6',
+				'author_name' => 'WordPoints Tester',
 			)
 			, $modules['test-6/main-file.php']
 		);
@@ -138,7 +138,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_module_subdir() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'test-4.php' => array(
 					'name'        => 'Test 4',
@@ -150,12 +150,12 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 					'text_domain' => 'test-4',
 					'domain_path' => '',
 					'network'     => false,
-					'title'       => 'Test 4',
-					'author_name' => 'WordPoints Tester',
 					'update_api'  => '',
 					'channel'     => '',
 					'ID'          => '',
 					'namespace'   => '',
+					'title'       => 'Test 4',
+					'author_name' => 'WordPoints Tester',
 				),
 			)
 			, wordpoints_get_modules( '/test-4' )
@@ -180,7 +180,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		$this->expected_headers['author']      = '<a href="https://www.example.com/">WordPoints Tester</a>';
 		$this->expected_headers['description'] = 'A test module. <cite>By <a href="https://www.example.com/">WordPoints Tester</a>.</cite>';
 
-		$this->assertEquals( $this->expected_headers, $modules['test-3.php'] );
+		$this->assertSameSetsWithIndex( $this->expected_headers, $modules['test-3.php'] );
 	}
 }
 

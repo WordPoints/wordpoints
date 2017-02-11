@@ -81,33 +81,33 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$original_log = $logs[1];
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[1]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[2]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[2]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[2]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[2]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[3]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[3]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[3]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[3]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[4]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[4]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[4]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[4]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[5]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[5]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[5]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[5]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[6]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[6]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[6]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[6]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -119,20 +119,20 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 2, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[1]->log_type );
 
-		$this->assertEquals( $original_log, $logs[1] );
+		$this->assertSameProperties( $original_log, $logs[1] );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -142,7 +142,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'post_status' => 'publish' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -152,7 +152,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'post_status' => 'draft' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -162,7 +162,7 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'post_status' => 'publish' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -279,24 +279,24 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 4, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[1]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[2]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[2]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[2]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[2]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[3]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[3]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[3]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[3]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			300
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -308,18 +308,18 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 2, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[1]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -329,14 +329,14 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'post_status' => 'publish' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
 
 		wp_delete_post( $this->post_id, true );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -453,24 +453,24 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 4, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'post_publish', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'post_publish', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'post_publish', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'post_publish', $logs[1]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[2]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[2]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[2]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[2]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[3]->user_id );
-		$this->assertEquals( 'points_legacy_post_publish\\post', $logs[3]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[3]->user_id );
+		$this->assertSame( 'points_legacy_post_publish\\post', $logs[3]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			300
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -482,18 +482,18 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 2, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'post_publish', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'post_publish', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'post_publish', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'post_publish', $logs[1]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -503,14 +503,14 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'post_status' => 'publish' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
 
 		wp_delete_post( $this->post_id, true );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -858,33 +858,33 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 7, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[1]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[2]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[2]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[2]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[2]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[3]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[3]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[3]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[3]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[4]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[4]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[4]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[4]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[5]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[5]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[5]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[5]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[6]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[6]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[6]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[6]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);
@@ -905,24 +905,24 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$this->assertCount( 4, $logs );
 
-		$this->assertEquals( $this->post_author_1, $logs[0]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[0]->log_type );
+		$this->assertSame( $this->post_author_1, (int) $logs[0]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[0]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[1]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[1]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[1]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[1]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[2]->user_id );
-		$this->assertEquals( 'post_publish\post', $logs[2]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[2]->user_id );
+		$this->assertSame( 'post_publish\post', $logs[2]->log_type );
 
-		$this->assertEquals( $this->post_author_2, $logs[3]->user_id );
-		$this->assertEquals( 'reverse-post_publish\post', $logs[3]->log_type );
+		$this->assertSame( $this->post_author_2, (int) $logs[3]->user_id );
+		$this->assertSame( 'reverse-post_publish\post', $logs[3]->log_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_1, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			100
 			, wordpoints_get_points( $this->post_author_2, 'points' )
 		);

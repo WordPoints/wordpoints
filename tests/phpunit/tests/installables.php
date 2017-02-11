@@ -66,9 +66,9 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertInstanceOf( 'WordPoints_Un_Installer_Module_Mock', $installer );
 
-		$this->assertEquals( '1.0.0', $installer->version );
-		$this->assertEquals( 'test', $installer->slug );
-		$this->assertEquals( 'install', $installer->action );
+		$this->assertSame( '1.0.0', $installer->version );
+		$this->assertSame( 'test', $installer->slug );
+		$this->assertSame( 'install', $installer->action );
 		$this->assertFalse( $installer->network_wide );
 	}
 
@@ -85,9 +85,9 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertInstanceOf( 'WordPoints_Un_Installer_Module_Mock2', $installer );
 
-		$this->assertEquals( '1.0.0', $installer->version );
-		$this->assertEquals( 'network_test', $installer->slug );
-		$this->assertEquals( 'install', $installer->action );
+		$this->assertSame( '1.0.0', $installer->version );
+		$this->assertSame( 'network_test', $installer->slug );
+		$this->assertSame( 'install', $installer->action );
 		$this->assertTrue( $installer->network_wide );
 	}
 
@@ -139,9 +139,9 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertInstanceOf( 'WordPoints_Un_Installer_Module_Mock', $installer );
 
-		$this->assertEquals( '1.0.0', $installer->version );
-		$this->assertEquals( 'test', $installer->slug );
-		$this->assertEquals( 'uninstall', $installer->action );
+		$this->assertSame( '1.0.0', $installer->version );
+		$this->assertSame( 'test', $installer->slug );
+		$this->assertSame( 'uninstall', $installer->action );
 	}
 
 	/**
@@ -186,11 +186,11 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_maybe_do_updates() {
 
 		$this->set_module_db_version( 'test', '0.9.2' );
-		$this->assertEquals( '0.9.2', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '0.9.2', $this->get_module_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertEquals( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
 	}
 
 	/**
@@ -203,11 +203,11 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_maybe_do_updates_network() {
 
 		$this->set_module_db_version( 'network_test', '0.9.2', true );
-		$this->assertEquals( '0.9.2', $this->get_module_db_version( 'network_test', true ) );
+		$this->assertSame( '0.9.2', $this->get_module_db_version( 'network_test', true ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertEquals( '1.0.0', $this->get_module_db_version( 'network_test', true ) );
+		$this->assertSame( '1.0.0', $this->get_module_db_version( 'network_test', true ) );
 	}
 
 	/**
@@ -240,7 +240,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+		$this->assertSame( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 	}
 
 	/**
@@ -251,11 +251,11 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_maybe_do_updates_up_to_date() {
 
 		$this->set_module_db_version( 'test', '1.0.0' );
-		$this->assertEquals( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertEquals( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
 	}
 
 	/**
@@ -266,11 +266,11 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_maybe_do_updates_newer_db_version() {
 
 		$this->set_module_db_version( 'test', '1.1.0' );
-		$this->assertEquals( '1.1.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.1.0', $this->get_module_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertEquals( '1.1.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.1.0', $this->get_module_db_version( 'test' ) );
 	}
 
 	/**
@@ -407,8 +407,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertInstanceOf( 'WordPoints_Un_Installer_Module_Mock', $installer );
 
-		$this->assertEquals( '1.0.0', $installer->version );
-		$this->assertEquals( 'test', $installer->slug );
+		$this->assertSame( '1.0.0', $installer->version );
+		$this->assertSame( 'test', $installer->slug );
 	}
 
 	/**

@@ -27,7 +27,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$router->add_action( 'test', array( 'action' => __METHOD__ ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			10
 			, has_action( __METHOD__, array( $router, __METHOD__ . ',10' ) )
 		);
@@ -47,7 +47,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 'action' => __METHOD__, 'priority' => 15 )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			15
 			, has_action( __METHOD__, array( $router, __METHOD__ . ',15' ) )
 		);
@@ -64,7 +64,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$router->add_action( 'test', array( 'action' => __METHOD__ ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			10
 			, has_action( __METHOD__, array( $router, __METHOD__ . ',10' ) )
 		);
@@ -90,7 +90,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 'action' => __METHOD__, 'priority' => 15 )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			15
 			, has_action( __METHOD__, array( $router, __METHOD__ . ',15' ) )
 		);
@@ -115,14 +115,14 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$router->add_action( 'test', array( 'action' => __METHOD__ ) );
 		$router->add_action( 'test_2', array( 'action' => __METHOD__ ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			10
 			, has_action( __METHOD__, array( $router, __METHOD__ . ',10' ) )
 		);
 
 		$router->remove_action( 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			10
 			, has_action( __METHOD__, array( $router, __METHOD__ . ',10' ) )
 		);
@@ -139,7 +139,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array( 'action' => __CLASS__ )
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$result = $this->factory->wordpoints->hook_reaction->create();
 
@@ -173,7 +173,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$router = new WordPoints_Hook_Router;
 
-		$this->assertEquals( 'arg', $router->{'filter,10'}( 'arg' ) );
+		$this->assertSame( 'arg', $router->{'filter,10'}( 'arg' ) );
 	}
 
 	/**
@@ -191,7 +191,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array( 'action' => __CLASS__ )
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		do_action( __CLASS__, 1, 2, 3 );
 
@@ -219,7 +219,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			)
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$this->factory->wordpoints->hook_event->create();
 
@@ -246,7 +246,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array( 'action' => __CLASS__ )
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		/** @var WordPoints_PHPUnit_Mock_Hooks $hooks */
 		$hooks = wordpoints_hooks();
@@ -273,7 +273,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array( 'action' => __CLASS__ )
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$this->factory->wordpoints->hook_event->create();
 
@@ -303,7 +303,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array( 'action' => null )
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$this->factory->wordpoints->hook_event->create();
 
@@ -338,7 +338,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			)
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$this->factory->wordpoints->hook_event->create(
 			array(
@@ -366,9 +366,9 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$event_args = $hooks->fires[0]['event_args'];
 		$entities   = $event_args->get_entities();
 
-		$this->assertEquals( 1, $entities['1:test_entity']->get_the_value() );
-		$this->assertEquals( 2, $entities['2:test_entity']->get_the_value() );
-		$this->assertEquals( null, $entities['3:test_entity']->get_the_value() );
+		$this->assertSame( 1, $entities['1:test_entity']->get_the_value() );
+		$this->assertSame( 2, $entities['2:test_entity']->get_the_value() );
+		$this->assertSame( null, $entities['3:test_entity']->get_the_value() );
 	}
 
 	/**
@@ -395,7 +395,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			)
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$this->factory->wordpoints->hook_event->create(
 			array(
@@ -423,9 +423,9 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$event_args = $hooks->fires[0]['event_args'];
 		$entities   = $event_args->get_entities();
 
-		$this->assertEquals( 1, $entities['1:test_entity']->get_the_value() );
-		$this->assertEquals( 2, $entities['2:test_entity']->get_the_value() );
-		$this->assertEquals( null, $entities['3:test_entity']->get_the_value() );
+		$this->assertSame( 1, $entities['1:test_entity']->get_the_value() );
+		$this->assertSame( 2, $entities['2:test_entity']->get_the_value() );
+		$this->assertSame( null, $entities['3:test_entity']->get_the_value() );
 	}
 
 	/**
@@ -454,7 +454,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			)
 		);
 
-		$this->assertEquals( 'test_action', $slug );
+		$this->assertSame( 'test_action', $slug );
 
 		$this->factory->wordpoints->hook_event->create(
 			array(
@@ -486,9 +486,9 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$event_args = $hooks->fires[0]['event_args'];
 		$entities   = $event_args->get_entities();
 
-		$this->assertEquals( 1, $entities['1:test_entity']->get_the_value() );
-		$this->assertEquals( null, $entities['2:test_entity']->get_the_value() );
-		$this->assertEquals( null, $entities['3:test_entity']->get_the_value() );
+		$this->assertSame( 1, $entities['1:test_entity']->get_the_value() );
+		$this->assertSame( null, $entities['2:test_entity']->get_the_value() );
+		$this->assertSame( null, $entities['3:test_entity']->get_the_value() );
 	}
 
 	/**
@@ -501,7 +501,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$router = new WordPoints_Hook_Router();
 		$router->add_event_to_action( 'test_event', 'test_action' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'test_action' => array( 'fire' => array( 'test_event' => true ) ),
 			)
@@ -519,7 +519,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$router = new WordPoints_Hook_Router();
 		$router->add_event_to_action( 'test_event', 'test_action', 'test_type' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'test_action' => array(
 					'test_type' => array( 'test_event' => true ),
@@ -542,7 +542,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$router->remove_event_from_action( 'test_event', 'test_action' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'test_action' => array( 'fire' => array( 'another_event' => true ) ),
 			)
@@ -563,7 +563,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$router->remove_event_from_action( 'test_event', 'test_action', 'test_type' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'test_action' => array(
 					'test_type' => array( 'another_event' => true ),

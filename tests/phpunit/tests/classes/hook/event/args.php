@@ -33,12 +33,14 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertFalse( $args->is_event_repeatable() );
 
-		$this->assertEquals(
-			array( 'test' => $arg->get_entity() )
-			, $args->get_signature_args()
-		);
+		$entities = $args->get_signature_args();
 
-		$this->assertEquals( $arg->get_entity(), $args->get_primary_arg() );
+		$this->assertCount( 1, $entities );
+
+		$this->assertArrayHasKey( 'test', $entities );
+		$this->assertSameProperties( $arg->get_entity(), $entities['test'] );
+
+		$this->assertSameProperties( $arg->get_entity(), $args->get_primary_arg() );
 		$this->assertSame( array(), $args->get_stateful_args() );
 	}
 
@@ -65,12 +67,18 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertFalse( $args->get_signature_args() );
 		$this->assertFalse( $args->get_primary_arg() );
-		$this->assertEquals(
-			array(
-				'test' => $arg->get_entity(),
-				'another:test' => $arg_2->get_entity(),
-			)
-			, $args->get_stateful_args()
+
+		$entities = $args->get_stateful_args();
+
+		$this->assertCount( 2, $entities );
+
+		$this->assertArrayHasKey( 'test', $entities );
+		$this->assertSameProperties( $arg->get_entity(), $entities['test'] );
+
+		$this->assertArrayHasKey( 'another:test', $entities );
+		$this->assertSameProperties(
+			$arg_2->get_entity()
+			, $entities['another:test']
 		);
 	}
 
@@ -94,15 +102,22 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertFalse( $args->is_event_repeatable() );
 
-		$this->assertEquals(
-			array( 'test' => $arg->get_entity() )
-			, $args->get_signature_args()
-		);
+		$entities = $args->get_signature_args();
 
-		$this->assertEquals( $arg->get_entity(), $args->get_primary_arg() );
-		$this->assertEquals(
-			array( 'another:test' => $arg_2->get_entity() )
-			, $args->get_stateful_args()
+		$this->assertCount( 1, $entities );
+		$this->assertArrayHasKey( 'test', $entities );
+		$this->assertSameProperties( $arg->get_entity(), $entities['test'] );
+
+		$this->assertSameProperties( $arg->get_entity(), $args->get_primary_arg() );
+
+		$entities = $args->get_stateful_args();
+
+		$this->assertCount( 1, $entities );
+
+		$this->assertArrayHasKey( 'another:test', $entities );
+		$this->assertSameProperties(
+			$arg_2->get_entity()
+			, $entities['another:test']
 		);
 	}
 
@@ -131,22 +146,27 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertFalse( $args->is_event_repeatable() );
 
-		$this->assertEquals(
-			array(
-				'test' => $arg->get_entity(),
-				'third:test' => $arg_3->get_entity(),
-			)
-			, $args->get_signature_args()
-		);
+		$entities = $args->get_signature_args();
 
-		$this->assertEquals( $arg->get_entity(), $args->get_primary_arg() );
-		$this->assertEquals(
-			array(
-				'another:test' => $arg_2->get_entity(),
-				'fourth:test' => $arg_4->get_entity(),
-			)
-			, $args->get_stateful_args()
-		);
+		$this->assertCount( 2, $entities );
+
+		$this->assertArrayHasKey( 'test', $entities );
+		$this->assertSameProperties( $arg->get_entity(), $entities['test'] );
+
+		$this->assertArrayHasKey( 'third:test', $entities );
+		$this->assertSameProperties( $arg_3->get_entity(), $entities['third:test'] );
+
+		$this->assertSameProperties( $arg->get_entity(), $args->get_primary_arg() );
+
+		$entities = $args->get_stateful_args();
+
+		$this->assertCount( 2, $entities );
+
+		$this->assertArrayHasKey( 'another:test', $entities );
+		$this->assertSameProperties( $arg_2->get_entity(), $entities['another:test'] );
+
+		$this->assertArrayHasKey( 'fourth:test', $entities );
+		$this->assertSameProperties( $arg_4->get_entity(), $entities['fourth:test'] );
 	}
 
 	/**
@@ -182,12 +202,17 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$args = new WordPoints_Hook_Event_Args( array( $arg, $arg_2 ) );
 
-		$this->assertEquals(
-			array(
-				'test' => $arg->get_entity(),
-				'another:test' => $arg_2->get_entity(),
-			)
-			, $args->get_entities()
+		$entities = $args->get_entities();
+
+		$this->assertCount( 2, $entities );
+
+		$this->assertArrayHasKey( 'test', $entities );
+		$this->assertSameProperties( $arg->get_entity(), $entities['test'] );
+
+		$this->assertArrayHasKey( 'another:test', $entities );
+		$this->assertSameProperties(
+			$arg_2->get_entity()
+			, $entities['another:test']
 		);
 	}
 
@@ -200,7 +225,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$args = new WordPoints_Hook_Event_Args( array() );
 
-		$this->assertEquals( array(), $args->get_entities() );
+		$this->assertSame( array(), $args->get_entities() );
 	}
 
 	/**
@@ -257,14 +282,14 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$args->set_validator( $validator );
 
 		$this->assertNull( $args->get_current() );
-		$this->assertEquals( array(), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertTrue( $args->descend( 'test' ) );
 
-		$this->assertEquals( $entity, $args->get_current() );
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( $entity, $args->get_current() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertTrue( $args->descend( 'child' ) );
 
@@ -273,24 +298,24 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 			, $args->get_current()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'child' )
 			, $validator->get_field_stack()
 		);
 
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertTrue( $args->ascend() );
 
-		$this->assertEquals( $entity, $args->get_current() );
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( $entity, $args->get_current() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertTrue( $args->ascend() );
 
 		$this->assertNull( $args->get_current() );
-		$this->assertEquals( array(), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 	}
 
 	/**
@@ -318,7 +343,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertTrue( $args->descend( 'test' ) );
 
-		$this->assertEquals( $entity, $args->get_current() );
+		$this->assertSame( $entity, $args->get_current() );
 
 		$this->assertTrue( $args->descend( 'child' ) );
 
@@ -329,7 +354,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertTrue( $args->ascend() );
 
-		$this->assertEquals( $entity, $args->get_current() );
+		$this->assertSame( $entity, $args->get_current() );
 
 		$this->assertTrue( $args->ascend() );
 
@@ -351,7 +376,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$this->assertFalse( $args->descend( 'test' ) );
 
 		$this->assertNull( $args->get_current() );
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertCount( 1, $validator->get_errors() );
 	}
 
@@ -380,14 +405,14 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$args->set_validator( $validator );
 
 		$this->assertNull( $args->get_current() );
-		$this->assertEquals( array(), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertTrue( $args->descend( 'test' ) );
 
-		$this->assertEquals( $entity, $args->get_current() );
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( $entity, $args->get_current() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertTrue( $args->descend( 'child' ) );
 
@@ -396,8 +421,8 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 			, $args->get_current()
 		);
 
-		$this->assertEquals( array( 'test', 'child' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array( 'test', 'child' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertFalse( $args->descend( 'grandchild' ) );
 
@@ -406,7 +431,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 			, $args->get_current()
 		);
 
-		$this->assertEquals( array( 'test', 'child' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'test', 'child' ), $validator->get_field_stack() );
 		$this->assertCount( 1, $validator->get_errors() );
 	}
 
@@ -426,15 +451,15 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$args->set_validator( $validator );
 
 		$this->assertTrue( $args->descend( 'test' ) );
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
-		$this->assertEquals( $entity, $args->get_current() );
+		$this->assertSame( $entity, $args->get_current() );
 
 		$this->assertFalse( $args->descend( 'child' ) );
 
-		$this->assertEquals( $entity, $args->get_current() );
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( $entity, $args->get_current() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
 		$this->assertCount( 1, $validator->get_errors() );
 	}
 
@@ -454,13 +479,13 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$validator->push_field( 'test' );
 
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$this->assertFalse( $args->ascend() );
 
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 	}
 
 	/**
@@ -498,26 +523,26 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$args->descend( 'test' );
 		$args->descend( 'child' );
 
-		$this->assertEquals( 'child', $args->get_current()->get_slug() );
-		$this->assertEquals( array( 'test', 'child' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( 'child', $args->get_current()->get_slug() );
+		$this->assertSame( array( 'test', 'child' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$from_hierarchy = $args->get_from_hierarchy(
 			array( 'test', 'child_2' )
 		);
 
-		$this->assertEquals( 'child_2', $from_hierarchy->get_slug() );
+		$this->assertSame( 'child_2', $from_hierarchy->get_slug() );
 
-		$this->assertEquals( array( 'test', 'child' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array( 'test', 'child' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
-		$this->assertEquals( 'child', $args->get_current()->get_slug() );
+		$this->assertSame( 'child', $args->get_current()->get_slug() );
 
 		$args->ascend();
 
-		$this->assertEquals( $entity, $args->get_current() );
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( $entity, $args->get_current() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 	}
 
 	/**
@@ -545,8 +570,8 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$validator->push_field( 'field' );
 		$args->set_validator( $validator );
 
-		$this->assertEquals( array( 'field' ), $validator->get_field_stack() );
-		$this->assertEquals( array(), $validator->get_errors() );
+		$this->assertSame( array( 'field' ), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_errors() );
 
 		$from_hierarchy = $args->get_from_hierarchy(
 			array( 'test', 'child_2' )
@@ -554,11 +579,11 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertNull( $from_hierarchy );
 
-		$this->assertEquals( array( 'field' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'field' ), $validator->get_field_stack() );
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'field' ), $errors[0]['field'] );
+		$this->assertSame( array( 'field' ), $errors[0]['field'] );
 	}
 }
 

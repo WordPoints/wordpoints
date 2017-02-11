@@ -84,7 +84,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->update_component( 'points', '1.3.0' );
 
 		// Test that the post hook instance was updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				$hook->get_number() => array(
 					'points' => 20,
@@ -98,13 +98,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Check that a post delete points hook was created.
 		$delete_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $delete_hook->get_number() => array( 'points' => 25, 'post_type' => 'ALL' ) )
 			, $delete_hook->get_instances()
 		);
 
 		// Check that the points-types-hooks list was updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'points' => array(
 					$hook->get_id(),
@@ -152,7 +152,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 			$hook_number = $hook->get_number();
 
-			$this->assertEquals(
+			$this->assertSame(
 				array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL', 'auto_reverse' => 0 ) )
 				, $hook->get_instances( 'standard' )
 			);
@@ -161,13 +161,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			$delete_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
 			$delete_hook_number = $delete_hook->get_number();
 
-			$this->assertEquals(
+			$this->assertSame(
 				array( $delete_hook_number => array( 'points' => 25, 'post_type' => 'ALL' ) )
 				, $delete_hook->get_instances( 'standard' )
 			);
 
 			// Check that the points-types-hooks list was updated.
-			$this->assertEquals(
+			$this->assertSame(
 				array(
 					'points' => array(
 						$hook->get_id( $hook_number ),
@@ -210,7 +210,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 		$hook_number = $hook->get_number_by_id( $network_hook_id );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $hook_number => array( 'points' => 20, 'post_type' => 'ALL', 'auto_reverse' => 0 ) )
 			, $hook->get_instances( 'network' )
 		);
@@ -218,13 +218,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Check that a post delete points hook was created.
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $hook_number => array( 'points' => 25, 'post_type' => 'ALL' ) )
 			, $hook->get_instances( 'network' )
 		);
 
 		// Check that the points-types-hooks list was updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'points' => array(
 					$network_hook_id,
@@ -255,7 +255,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->update_component( 'points', '1.3.0' );
 
 		// Test that the comment hook instance was updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				$hook->get_number() => array(
 					'points' => 20,
@@ -269,13 +269,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Check that a comment remove points hook was created.
 		$removed_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $removed_hook->get_number() => array( 'points' => 25, 'post_type' => 'ALL' ) )
 			, $removed_hook->get_instances()
 		);
 
 		// Check that the points-types-hooks list was updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'points' => array(
 					$hook->get_id(),
@@ -323,7 +323,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 			$hook_number = $hook->get_number();
 
-			$this->assertEquals(
+			$this->assertSame(
 				array(
 					$hook_number => array(
 						'points' => 20,
@@ -338,13 +338,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			$remove_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 			$remove_hook_number = $remove_hook->get_number();
 
-			$this->assertEquals(
+			$this->assertSame(
 				array( $remove_hook_number => array( 'points' => 25, 'post_type' => 'ALL' ) )
 				, $remove_hook->get_instances( 'standard' )
 			);
 
 			// Check that the points-types-hooks list was updated.
-			$this->assertEquals(
+			$this->assertSame(
 				array(
 					'points' => array(
 						$hook->get_id( $hook_number ),
@@ -388,7 +388,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 		$hook_number = $hook->get_number_by_id( $network_hook_id );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				$hook_number => array(
 					'points' => 20,
@@ -402,13 +402,13 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Check that a comment remove points hook was created.
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $hook_number => array( 'points' => 25, 'post_type' => 'ALL' ) )
 			, $hook->get_instances( 'network' )
 		);
 
 		// Check that the points-types-hooks list was updated.
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'points' => array(
 					$network_hook_id,
@@ -461,7 +461,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			)
 		);
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 
 		// Make sure the log text was regenerated.
 		$query = new WordPoints_Points_Logs_Query(
@@ -470,7 +470,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$log = $query->get( 'row' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			_x( 'Comment on a Post.', 'points log description', 'wordpoints' )
 			, $log->text
 		);

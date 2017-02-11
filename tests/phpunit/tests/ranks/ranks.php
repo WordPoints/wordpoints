@@ -139,7 +139,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertInternalType( 'int', $rank );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'ranks'
 			, wordpoints_get_rank_meta( $rank, 'test_meta', true )
 		);
@@ -174,7 +174,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank = wordpoints_get_rank( $rank );
 
-		$this->assertEquals( $name, $rank->name );
+		$this->assertSame( $name, $rank->name );
 	}
 
 	/**
@@ -201,7 +201,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank = wordpoints_get_rank( $rank );
 
-		$this->assertEquals( '&#x1f60e; Smiler', $rank->name );
+		$this->assertSame( '&#x1f60e; Smiler', $rank->name );
 	}
 
 	/**
@@ -330,11 +330,11 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank_group = WordPoints_Rank_Groups::get_group( $rank->rank_group );
 
-		$this->assertEquals( $rank_id, $rank->id );
-		$this->assertEquals( 'A test', $rank->name );
-		$this->assertEquals( __CLASS__, $rank->type );
-		$this->assertEquals( __CLASS__, $rank->rank_group );
-		$this->assertEquals( 1, $rank_group->get_rank_position( $rank_id ) );
+		$this->assertSame( $rank_id, $rank->id );
+		$this->assertSame( 'A test', $rank->name );
+		$this->assertSame( __CLASS__, $rank->type );
+		$this->assertSame( __CLASS__, $rank->rank_group );
+		$this->assertSame( 1, $rank_group->get_rank_position( $rank_id ) );
 	}
 
 	/**
@@ -369,7 +369,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank = wordpoints_get_rank( $rank_id );
 
-		$this->assertEquals( $name, $rank->name );
+		$this->assertSame( $name, $rank->name );
 	}
 
 	/**
@@ -399,7 +399,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank = wordpoints_get_rank( $rank_id );
 
-		$this->assertEquals( '&#x1f60e; Smiler', $rank->name );
+		$this->assertSame( '&#x1f60e; Smiler', $rank->name );
 	}
 
 	/**
@@ -416,7 +416,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$result = wordpoints_delete_rank( $rank_id );
 
 		$this->assertTrue( $result );
-		$this->assertEquals( array(), wordpoints_get_rank_meta( $rank_id ) );
+		$this->assertSame( array(), wordpoints_get_rank_meta( $rank_id ) );
 	}
 
 	/**
@@ -432,12 +432,12 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->listen_for_filter( 'wordpoints_format_rank' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'<span class="wordpoints-rank">' . $rank->name . '</span>'
 			, wordpoints_format_rank( $rank->ID, 'unittests' )
 		);
 
-		$this->assertEquals( 1, $this->filter_was_called( 'wordpoints_format_rank' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'wordpoints_format_rank' ) );
 	}
 
 	/**
@@ -476,13 +476,13 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank = wordpoints_get_rank( $rank_id );
 
 		// The database should have been queried once.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the rank again.
 		$rank = wordpoints_get_rank( $rank_id );
 
 		// The database should still have been called only once.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// The cache should be invalidated when the rank is updated.
 		wordpoints_update_rank(
@@ -498,7 +498,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank = wordpoints_get_rank( $rank_id );
 
 		// The database should have been queried again.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Delete the rank.
 		wordpoints_delete_rank( $rank_id );
@@ -507,7 +507,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank = wordpoints_get_rank( $rank_id );
 
 		// The database should have been queried again.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -539,16 +539,16 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the user's rank.
 		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
-		$this->assertEquals( $rank_id, $rank__id );
+		$this->assertSame( $rank_id, $rank__id );
 
 		// The database should have been queried once.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the user's rank again.
 		wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		// The database should still have been called only once.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// The cache should be invalidated when the user's rank is updated.
 		wordpoints_update_user_rank( $this->user_id, $rank_id_2 );
@@ -557,9 +557,9 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
 		// The database should have been queried again.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
-		$this->assertEquals( $rank_id_2, $rank__id );
+		$this->assertSame( $rank_id_2, $rank__id );
 
 		// Move the rank.
 		$rank_id_3 = $this->factory->wordpoints_rank->create(
@@ -571,7 +571,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		// The database should have been queried again when checking if the user's
 		// rank should possibly be increased.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the rank again.
 		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
@@ -579,11 +579,11 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// The user will end up on the same rank again, because the maybe increase
 		// user rank function will always return true. This pushes them all the way
 		// to the top, which will be this rank again.
-		$this->assertEquals( $rank_id_2, $rank__id );
+		$this->assertSame( $rank_id_2, $rank__id );
 
 		// The database should have been queried again, since the cache is empty
 		// from updating the users rank back to $rank_id_2.
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 
 		// Delete the rank.
 		wordpoints_delete_rank( $rank_id_2 );
@@ -591,10 +591,10 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the rank again.
 		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
-		$this->assertEquals( $rank_id_3, $rank__id );
+		$this->assertSame( $rank_id_3, $rank__id );
 
 		// The database should have been queried again.
-		$this->assertEquals( 5, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 5, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -645,18 +645,18 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the users with this rank.
 		$users = wordpoints_get_users_with_rank( $rank_id );
 
-		$this->assertEquals( array( $user_id ), $users );
+		$this->assertSame( array( $user_id ), $users );
 
 		// The database should have been queried once.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the users with this rank again.
 		$users = wordpoints_get_users_with_rank( $rank_id );
 
-		$this->assertEquals( array( $user_id ), $users );
+		$this->assertSame( array( $user_id ), $users );
 
 		// The database should still have been queried just once.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the users with the second rank.
 		$users = wordpoints_get_users_with_rank( $rank_id_2 );
@@ -664,7 +664,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertContains( $user_id_2, $users );
 
 		// The database should have been queried a second time.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Update the rank of the first user.
 		wordpoints_update_user_rank( $user_id, $rank_id_2 );
@@ -672,11 +672,11 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the users with the first rank.
 		$users = wordpoints_get_users_with_rank( $rank_id );
 
-		$this->assertEquals( array(), $users );
+		$this->assertSame( array(), $users );
 
 		// The database should have been queried again since the cache for this rank
 		// should have been cleared.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the users with the second rank.
 		$users = wordpoints_get_users_with_rank( $rank_id_2 );
@@ -685,7 +685,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertContains( $user_id_2, $users );
 
 		// The database should have been queried again for this rank as well.
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 
 		// Now let's try deleting the rank.
 		wordpoints_delete_rank( $rank_id_2 );
@@ -693,7 +693,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Get the cache for the deleted rank.
 		$users = wp_cache_get( $rank_id_2, 'wordpoints_users_with_rank' );
 
-		$this->assertEquals( false, $users );
+		$this->assertSame( false, $users );
 
 		// Get the users for the other rank.
 		$users = wordpoints_get_users_with_rank( $rank_id );
@@ -703,7 +703,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		// The database should be queried again since the users were moved to this
 		// rank and therefore the cache should be cleared.
-		$this->assertEquals( 5, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 5, $this->filter_was_called( 'query' ) );
 
 		// Move the rank.
 		$rank_id_3 = $this->factory->wordpoints_rank->create(
@@ -717,7 +717,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// then we get the users of the rank to check if there are any that need to
 		// be moved up, and then the cache is invalidated again by updating the
 		// user's ranks.
-		$this->assertEquals( 6, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 6, $this->filter_was_called( 'query' ) );
 
 		// Get the users for the rank.
 		$users = wordpoints_get_users_with_rank( $rank_id );
@@ -728,7 +728,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertContains( $user_id_2, $users );
 
 		// The database should be queried again.
-		$this->assertEquals( 7, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 7, $this->filter_was_called( 'query' ) );
 	}
 
 	/**

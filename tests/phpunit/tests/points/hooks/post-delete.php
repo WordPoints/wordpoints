@@ -45,13 +45,13 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
 		// Check that points were set correctly.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now delete the post.
 		wp_delete_post( $post_id, true );
 
 		// Check that the points were removed when the post was deleted.
-		$this->assertEquals( 80, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 80, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -78,13 +78,13 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
 		// Check that points were set correctly.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now delete the post.
 		wp_delete_post( $post_id, true );
 
 		// No points should have been removed.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		/*
 		 * If an auto-draft is moved to the trash, it gets the 'trash' status, so
@@ -102,7 +102,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		wp_delete_post( $post_id, true );
 
 		// No points should have been deleted.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -129,13 +129,13 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
 		// Check that points were set correctly.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Delete the post.
 		wp_delete_post( $post_id, true );
 
 		// No points should have been deleted.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -164,13 +164,13 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
 		// Check that points were set correctly.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Delete the post.
 		wp_delete_post( $post_id, true );
 
 		// The points should have been removed.
-		$this->assertEquals( 80, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 80, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now create a page.
 		$post_id = $this->factory->post->create(
@@ -184,7 +184,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		wp_delete_post( $post_id, true );
 
 		// This time, no points should have been deleted.
-		$this->assertEquals( 80, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 80, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }
 

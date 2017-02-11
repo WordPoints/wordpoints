@@ -170,7 +170,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		ob_start();
 		wordpoints_maintenance_shutdown_print_rand_str();
-		$this->assertEquals( __METHOD__, ob_get_clean() );
+		$this->assertSame( __METHOD__, ob_get_clean() );
 	}
 
 	/**
@@ -212,7 +212,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		ob_start();
 		wordpoints_maintenance_shutdown_print_rand_str();
-		$this->assertEquals( __METHOD__, ob_get_clean() );
+		$this->assertSame( __METHOD__, ob_get_clean() );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
 
-		$this->assertEquals( array( 'test' ), $modules );
+		$this->assertSame( array( 'test' ), $modules );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
 
-		$this->assertEquals( array( __METHOD__ ), $modules );
+		$this->assertSame( array( __METHOD__ ), $modules );
 	}
 
 	/**
@@ -267,7 +267,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
 
-		$this->assertEquals( array( __METHOD__ ), $modules );
+		$this->assertSame( array( __METHOD__ ), $modules );
 	}
 
 	/**
@@ -286,7 +286,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
 
-		$this->assertEquals( array( 'test1', 'test2' ), $modules );
+		$this->assertSame( array( 'test1', 'test2' ), $modules );
 	}
 
 	/**
@@ -310,7 +310,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
 
-		$this->assertEquals( array( 'test' => 0 ), $modules );
+		$this->assertSame( array( 'test' => 0 ), $modules );
 	}
 
 	/**
@@ -324,7 +324,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$data = __METHOD__;
 
-		$this->assertEquals( hash( 'sha256', $data ), wordpoints_hash( $data ) );
+		$this->assertSame( hash( 'sha256', $data ), wordpoints_hash( $data ) );
 	}
 }
 

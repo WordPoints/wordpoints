@@ -37,13 +37,13 @@ class WordPoints_Hook_Arg_Current_User_Test extends WordPoints_PHPUnit_TestCase_
 		$action = new WordPoints_PHPUnit_Mock_Hook_Action( 'test_action', array() );
 		$arg = new WordPoints_Hook_Arg_Current_User( 'test_entity', $action );
 
-		$this->assertEquals( $user_id, $arg->get_value()->ID );
+		$this->assertSame( $user_id, $arg->get_value()->ID );
 
 		$entity = $arg->get_entity();
 
 		$this->assertInstanceOf( 'WordPoints_Entity_User', $entity );
 
-		$this->assertEquals( $user_id, $entity->get_the_id() );
+		$this->assertSame( $user_id, $entity->get_the_id() );
 		$this->assertNotEmpty( $arg->get_title() );
 	}
 

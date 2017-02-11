@@ -590,7 +590,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -601,7 +601,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -617,7 +617,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -642,7 +642,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
 			'context'   => 5,
@@ -650,19 +650,19 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -678,7 +678,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -703,7 +703,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
 			'context'   => 5,
@@ -711,19 +711,19 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 5 )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -739,7 +739,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -764,7 +764,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
 			'context'   => 5,
@@ -772,19 +772,19 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
 
 		$this->assertFalse( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 5 )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -800,7 +800,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -825,7 +825,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$depth = count( (array) $hierarchy );
 
@@ -835,7 +835,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth
 				? array( $construct_args, $construct_args )
 				: array( $construct_args )
@@ -844,12 +844,12 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth ? array( 5 ) : array()
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -865,7 +865,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -890,7 +890,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$depth = count( (array) $hierarchy );
 
@@ -900,7 +900,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth
 				? array( $construct_args, $construct_args )
 				: array( $construct_args )
@@ -914,12 +914,12 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			$this->assertTrue( $restriction->user_can( 0 ) );
 		}
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth ? array( 5 ) : array()
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -935,7 +935,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -959,7 +959,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
 			'context'   => 5,
@@ -967,19 +967,19 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 5 )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -995,7 +995,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -1019,7 +1019,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$construct_args = array(
 			'context'   => 5,
@@ -1027,19 +1027,19 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts_construct
 		);
 
 		$this->assertFalse( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 5 )
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -1055,7 +1055,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -1079,7 +1079,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$depth = count( (array) $hierarchy );
 
@@ -1089,7 +1089,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth
 				? array( $construct_args, $construct_args )
 				: array( $construct_args )
@@ -1098,12 +1098,12 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth ? array( 5 ) : array()
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -1119,7 +1119,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = $this->factory->wordpoints->entity_context->create_and_get();
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$context_slug = $context->get_slug();
 
@@ -1143,7 +1143,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 		$guid = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$depth = count( (array) $hierarchy );
 
@@ -1153,7 +1153,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			'hierarchy' => (array) $hierarchy,
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth
 				? array( $construct_args, $construct_args )
 				: array( $construct_args )
@@ -1167,12 +1167,12 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			$this->assertTrue( $restriction->user_can( 0 ) );
 		}
 
-		$this->assertEquals(
+		$this->assertSame(
 			1 === $depth ? array( 5 ) : array()
 			, WordPoints_PHPUnit_Mock_Entity_Restriction::$contexts
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 }
 

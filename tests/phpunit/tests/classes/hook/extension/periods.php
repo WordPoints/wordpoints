@@ -73,7 +73,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -213,13 +213,13 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$errors = $validator->get_errors();
 
 		$this->assertCount( $expected_errors, $errors );
-		$this->assertEquals( $invalid, $errors[0]['field'] );
+		$this->assertSame( $invalid, $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		if ( is_array( $settings[ $this->extension_slug ]['test_fire'] ) ) {
-			$this->assertEquals( $settings, $result );
+			$this->assertSame( $settings, $result );
 		} else {
 			$this->assertSame( array(), $result[ $this->extension_slug ]['test_fire'] );
 		}
@@ -440,11 +440,11 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 			$now = current_time( 'timestamp', true );
 
-			$this->assertEquals( $reaction->get_id(), $results[ $index ]->reaction_id );
+			$this->assertSame( $reaction->get_id(), (int) $results[ $index ]->reaction_id );
 			$this->assertLessThanOrEqual( 2, $now - strtotime( $results[ $index ]->date, $now ) );
 
 			if ( isset( $period['signature'] ) ) {
-				$this->assertEquals( $period['signature'], $results[ $index ]->signature );
+				$this->assertSame( $period['signature'], $results[ $index ]->signature );
 			}
 		}
 	}
@@ -986,7 +986,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$this->assertIsReaction( $other_reaction );
 
-		$this->assertEquals( $reaction->get_id(), $other_reaction->get_id() );
+		$this->assertSame( $reaction->get_id(), $other_reaction->get_id() );
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
@@ -1048,13 +1048,13 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 			array( 'reaction_store' => 'test_store' )
 		);
 
-		$this->assertEquals( 'test_store', $other_reaction->get_store_slug() );
-		$this->assertEquals( $reaction->get_id(), $other_reaction->get_id() );
-		$this->assertEquals(
+		$this->assertSame( 'test_store', $other_reaction->get_store_slug() );
+		$this->assertSame( $reaction->get_id(), $other_reaction->get_id() );
+		$this->assertSame(
 			$reaction->get_mode_slug()
 			, $other_reaction->get_mode_slug()
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction->get_context_id()
 			, $other_reaction->get_context_id()
 		);
@@ -1115,13 +1115,13 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$other_reaction = $this->factory->wordpoints->hook_reaction->create();
 		$hooks->set_current_mode( 'standard' );
 
-		$this->assertEquals( 'test', $other_reaction->get_mode_slug() );
-		$this->assertEquals( $reaction->get_id(), $other_reaction->get_id() );
-		$this->assertEquals(
+		$this->assertSame( 'test', $other_reaction->get_mode_slug() );
+		$this->assertSame( $reaction->get_id(), $other_reaction->get_id() );
+		$this->assertSame(
 			$reaction->get_store_slug()
 			, $other_reaction->get_store_slug()
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$reaction->get_context_id()
 			, $other_reaction->get_context_id()
 		);
@@ -1478,8 +1478,8 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 0, $get_period_queries->call_count );
-		$this->assertEquals( 1, $get_by_reaction_queries->call_count );
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 1, $get_by_reaction_queries->call_count );
 
 		$test_reactor = $hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
 
@@ -1487,15 +1487,15 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 1, $get_period_queries->call_count );
-		$this->assertEquals( 1, $get_by_reaction_queries->call_count );
+		$this->assertSame( 1, $get_period_queries->call_count );
+		$this->assertSame( 1, $get_by_reaction_queries->call_count );
 
 		$this->assertCount( 1, $test_reactor->hits );
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 1, $get_period_queries->call_count );
-		$this->assertEquals( 1, $get_by_reaction_queries->call_count );
+		$this->assertSame( 1, $get_period_queries->call_count );
+		$this->assertSame( 1, $get_by_reaction_queries->call_count );
 
 		$this->assertCount( 1, $test_reactor->hits );
 	}
@@ -1538,8 +1538,8 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 0, $get_period_queries->call_count );
-		$this->assertEquals( 1, $get_by_reaction_queries->call_count );
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 1, $get_by_reaction_queries->call_count );
 
 		$test_reactor = $hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
 
@@ -1549,22 +1549,22 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 0, $get_period_queries->call_count );
-		$this->assertEquals( 2, $get_by_reaction_queries->call_count );
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
 
 		$this->assertCount( 1, $test_reactor->hits );
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 0, $get_period_queries->call_count );
-		$this->assertEquals( 2, $get_by_reaction_queries->call_count );
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
 
 		$this->assertCount( 1, $test_reactor->hits );
 
 		$hooks->fire( 'test_event', $event_args, 'test_fire' );
 
-		$this->assertEquals( 0, $get_period_queries->call_count );
-		$this->assertEquals( 2, $get_by_reaction_queries->call_count );
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
 
 		$this->assertCount( 1, $test_reactor->hits );
 	}
@@ -1594,7 +1594,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 			, array( '%d' )
 		);
 
-		$this->assertEquals( 1, $updated );
+		$this->assertSame( 1, $updated );
 
 		// The periods cache will still hold the old date.
 		$this->flush_cache();

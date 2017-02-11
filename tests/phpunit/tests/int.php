@@ -35,11 +35,11 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 		$maybe_int = 5;
 		wordpoints_int( $maybe_int );
-		$this->assertEquals( 5, $maybe_int );
+		$this->assertSame( 5, $maybe_int );
 
 		$maybe_int = -5;
 		wordpoints_int( $maybe_int );
-		$this->assertEquals( -5, $maybe_int );
+		$this->assertSame( -5, $maybe_int );
 	}
 
 	/**
@@ -53,11 +53,11 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 		$maybe_int = '5';
 		wordpoints_int( $maybe_int );
-		$this->assertEquals( 5, $maybe_int );
+		$this->assertSame( 5, $maybe_int );
 
 		$maybe_int = '-5';
 		wordpoints_int( $maybe_int );
-		$this->assertEquals( -5, $maybe_int );
+		$this->assertSame( -5, $maybe_int );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 		$maybe_int = 5.0;
 		wordpoints_int( $maybe_int );
-		$this->assertEquals( 5, $maybe_int );
+		$this->assertSame( 5, $maybe_int );
 	}
 
 	/**
@@ -147,7 +147,7 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 		$maybe_positive = 5;
 		wordpoints_posint( $maybe_positive );
-		$this->assertEquals( 5, $maybe_positive );
+		$this->assertSame( 5, $maybe_positive );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 
 		$maybe_negative = -5;
 		wordpoints_negint( $maybe_negative );
-		$this->assertEquals( -5, $maybe_negative );
+		$this->assertSame( -5, $maybe_negative );
 	}
 
 	/**

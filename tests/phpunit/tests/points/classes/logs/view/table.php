@@ -66,7 +66,7 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$rows = $xpath->query( '//tbody/tr' );
 
-		$this->assertEquals( 4, $rows->length );
+		$this->assertSame( 4, $rows->length );
 
 		$this->assertContains(
 			'odd'
@@ -103,7 +103,7 @@ class WordPoints_Points_Logs_View_Table_Test
 		// Default is to paginate.
 		$xpath = $this->get_xpath_for_view();
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be paginated.
 		$this->assertNotEquals(
@@ -128,9 +128,9 @@ class WordPoints_Points_Logs_View_Table_Test
 		// Default is to paginate.
 		$xpath = $this->get_xpath_for_view( array( 'paginate' => false ) );
 
-		$this->assertEquals( 4, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 4, $xpath->query( '//tbody/tr' )->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
@@ -150,7 +150,7 @@ class WordPoints_Points_Logs_View_Table_Test
 		// The user column should be displayed by default.
 		$xpath = $this->get_xpath_for_view();
 
-		$this->assertEquals( 4, $xpath->query( '//thead/tr/th' )->length );
+		$this->assertSame( 4, $xpath->query( '//thead/tr/th' )->length );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$xpath = $this->get_xpath_for_view( array( 'show_users' => false ) );
 
-		$this->assertEquals( 3, $xpath->query( '//thead/tr/th' )->length );
+		$this->assertSame( 3, $xpath->query( '//thead/tr/th' )->length );
 	}
 
 	/**
@@ -184,14 +184,14 @@ class WordPoints_Points_Logs_View_Table_Test
 		$xpath = $this->get_xpath_for_view();
 
 		// Should be searchable.
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-search"]' )
 				->length
 		);
 
 		// Should display 'searching for' text.
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-searching"]' )
 				->length
@@ -215,13 +215,13 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$xpath = $this->get_xpath_for_view( array( 'searchable' => false ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-search"]' )
 				->length
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-searching"]' )
 				->length
@@ -239,7 +239,7 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$xpath = $this->get_xpath_for_view();
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Points'
 			, $xpath->query( '//thead/tr/th' )->item( 1 )->textContent
 		);
@@ -259,7 +259,7 @@ class WordPoints_Points_Logs_View_Table_Test
 			, array( 'points_type' => 'credits' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Credits'
 			, $xpath->query( '//thead/tr/th' )->item( 1 )->textContent
 		);
@@ -319,9 +319,9 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$nodes = $xpath->query( '//tr/td' );
 
-		$this->assertEquals( 1, $nodes->length );
+		$this->assertSame( 1, $nodes->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'4'
 			, $nodes->item( 0 )->attributes->getNamedItem( 'colspan' )->textContent
 		);
@@ -341,9 +341,9 @@ class WordPoints_Points_Logs_View_Table_Test
 
 		$nodes = $xpath->query( '//tr/td' );
 
-		$this->assertEquals( 1, $nodes->length );
+		$this->assertSame( 1, $nodes->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'3'
 			, $nodes->item( 0 )->attributes->getNamedItem( 'colspan' )->textContent
 		);

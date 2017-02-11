@@ -1191,6 +1191,8 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 			$cache['is_max'] = true;
 		}
 
+		$cache['top_users'] = array_map( 'intval', $cache['top_users'] );
+
 		wp_cache_set( $points_type, $cache, 'wordpoints_points_top_users' );
 
 	} // End if ( not cached ).

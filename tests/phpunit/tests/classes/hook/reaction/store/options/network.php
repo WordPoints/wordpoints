@@ -31,7 +31,7 @@ class WordPoints_Hook_Reaction_Store_Options_Network_Test extends WordPoints_PHP
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 1, $reaction->get_id() );
+		$this->assertSame( 1, $reaction->get_id() );
 
 		// Create another site.
 		$site_id = $this->factory->blog->create();
@@ -40,7 +40,7 @@ class WordPoints_Hook_Reaction_Store_Options_Network_Test extends WordPoints_PHP
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 2, $reaction->get_id() );
+		$this->assertSame( 2, $reaction->get_id() );
 
 		$this->assertTrue( $reaction_store->delete_reaction( $reaction->get_id() ) );
 

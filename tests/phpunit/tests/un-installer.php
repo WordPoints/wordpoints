@@ -67,7 +67,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->install( true );
 
-		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+		$this->assertSame( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->install( false );
 
-		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+		$this->assertSame( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->install( false );
 
-		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+		$this->assertSame( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 	}
 
 	/**
@@ -151,7 +151,7 @@ class WordPoints_Un_Installer_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->install( is_wordpoints_network_active() );
 
-		$this->assertEquals( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+		$this->assertSame( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
 	}
 	//
 	// Helpers.

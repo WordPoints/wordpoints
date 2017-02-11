@@ -41,7 +41,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertFalse(
 			$contexts->switch_to(
@@ -49,7 +49,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 	}
@@ -65,7 +65,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertFalse(
 			$contexts->switch_to(
@@ -73,7 +73,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 	}
@@ -95,11 +95,11 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			$contexts->switch_to( array( $context->get_slug() => 5 ) )
 		);
 
-		$this->assertEquals( 5, $context->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
 
 		$this->assertTrue( $contexts->switch_back() );
 
-		$this->assertEquals( 5, $context->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
 	}
 
 	/**
@@ -127,13 +127,13 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 5, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 
 		$this->assertTrue( $contexts->switch_back() );
 
-		$this->assertEquals( 5, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 	}
 
 	/**
@@ -147,17 +147,17 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertTrue(
 			$contexts->switch_to( array( $context->get_slug() => 5 ) )
 		);
 
-		$this->assertEquals( 5, $context->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
 
 		$this->assertTrue( $contexts->switch_back() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -176,8 +176,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertTrue(
 			$contexts->switch_to(
@@ -185,13 +185,13 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 5, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 
 		$this->assertTrue( $contexts->switch_back() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 	}
 
 	/**
@@ -209,13 +209,13 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertFalse(
 			$contexts->switch_to( array( $context_slug => 5 ) )
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 	}
@@ -240,8 +240,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertFalse(
 			$contexts->switch_to(
@@ -249,8 +249,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 	}
@@ -275,8 +275,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertFalse(
 			$contexts->switch_to(
@@ -284,8 +284,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 	}
@@ -320,8 +320,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertTrue(
 			$contexts->switch_to(
@@ -329,19 +329,19 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 5, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 
 		// Oops.
 		$this->assertTrue( $subcontext->switch_back() );
 
-		$this->assertEquals( 5, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 	}
 
 	/**
@@ -362,8 +362,8 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 1, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 1, $subcontext->get_current_id() );
 
 		$this->assertTrue(
 			$contexts->switch_to(
@@ -371,19 +371,19 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 5, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 5, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 
 		// Oops.
 		$this->assertTrue( $context->switch_back() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 
 		$this->assertFalse( $contexts->switch_back() );
 
-		$this->assertEquals( 1, $context->get_current_id() );
-		$this->assertEquals( 8, $subcontext->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
+		$this->assertSame( 8, $subcontext->get_current_id() );
 	}
 }
 

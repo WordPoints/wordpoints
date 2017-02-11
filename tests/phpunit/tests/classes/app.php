@@ -29,7 +29,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$app = new WordPoints_App( 'test' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $app === $mock->calls[0][0] );
 	}
@@ -48,7 +48,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 		$parent = new WordPoints_App( 'parent' );
 		$app = new WordPoints_App( 'test', $parent );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $app === $mock->calls[0][0] );
 	}
@@ -72,7 +72,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 		$parent = new WordPoints_App( 'parent', $grandparent );
 		$app = new WordPoints_App( 'test', $parent );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $app === $mock->calls[0][0] );
 	}
@@ -91,7 +91,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 		$parent = new WordPoints_App( 'apps' );
 		$app = new WordPoints_App( 'test', $parent );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $app === $mock->calls[0][0] );
 	}
@@ -110,7 +110,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 		$parent = (object) array( 'full_slug' => 'parent' );
 		$app = new WordPoints_App( 'test', $parent );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $app === $mock->calls[0][0] );
 	}
@@ -167,7 +167,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$registry = $app->get_sub_app( 'registry' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $registry === $mock->calls[0][0] );
 	}
@@ -196,7 +196,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$registry = $app->get_sub_app( 'registry' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $registry === $mock->calls[0][0] );
 	}
@@ -225,7 +225,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$registry = $app->get_sub_app( 'registry' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $registry === $mock->calls[0][0] );
 	}
@@ -251,11 +251,11 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$app->get_sub_app( 'registry' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$app->get_sub_app( 'registry' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 	}
 
 	/**
@@ -279,7 +279,7 @@ class WordPoints_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$app->get_sub_app( 'registry' );
 
-		$this->assertEquals( 0, $mock->call_count );
+		$this->assertSame( 0, $mock->call_count );
 	}
 }
 

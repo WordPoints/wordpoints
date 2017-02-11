@@ -84,12 +84,12 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$user_1_query = new WordPoints_Points_Logs_Query(
 			array( 'user_id' => $user_ids[0] )
 		);
-		$this->assertEquals( 1, $user_1_query->count() );
+		$this->assertSame( 1, $user_1_query->count() );
 
 		$user_1_meta_query = new WordPoints_Points_Logs_Query(
 			array( 'meta_key' => 'test', 'meta_value' => $user_ids[0] )
 		);
-		$this->assertEquals( 1, $user_1_meta_query->count() );
+		$this->assertSame( 1, $user_1_meta_query->count() );
 
 		// Get the log ID.
 		$log_id = $user_1_meta_query->get( 'row' )->id;
@@ -103,25 +103,25 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		// Simulate the update.
 		$this->update_component( 'points', '1.1.0' );
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
+		$this->assertSame( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// Check that the log for the deleted user was deleted.
-		$this->assertEquals( 0, $user_1_query->count() );
+		$this->assertSame( 0, $user_1_query->count() );
 
 		// Make sure the logs for the extant user are still there.
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'user_id' => $user_ids[1] )
 		);
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		// Check that the log meta was deleted also.
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id ) );
 
 		// But not for the existing user.
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'meta_key' => 'test', 'meta_value' => $user_ids[1] )
 		);
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 	} // End public function test_logs_for_delete_users_deleted().
 
@@ -152,17 +152,17 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 				'meta_value' => $post_ids[0],
 			)
 		);
-		$this->assertEquals( 1, $post_1_query->count() );
+		$this->assertSame( 1, $post_1_query->count() );
 
 		// Delete the first post.
 		wp_delete_post( $post_ids[0], true );
 
 		// Simulate the update.
 		$this->update_component( 'points', '1.1.0' );
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
+		$this->assertSame( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// Check the logs for the deleted post where cleaned (meta post_id deleted).
-		$this->assertEquals( 0, $post_1_query->count() );
+		$this->assertSame( 0, $post_1_query->count() );
 
 		// Make sure the data for the extant post was untouched.
 		$query = new WordPoints_Points_Logs_Query(
@@ -172,7 +172,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 				'meta_value' => $post_ids[1],
 			)
 		);
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 	} // End public function test_logs_for_deleted_posts_cleaned().
 
@@ -209,7 +209,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 				'meta_value' => $comment_ids[0],
 			)
 		);
-		$this->assertEquals( 1, $comment_1_query->count() );
+		$this->assertSame( 1, $comment_1_query->count() );
 
 		// Get the data for the first comment before we delete it.
 		$comment = get_comment( $comment_ids[0] );
@@ -218,10 +218,10 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		// Simulate the update.
 		$this->update_component( 'points', '1.1.0' );
-		$this->assertEquals( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
+		$this->assertSame( WORDPOINTS_VERSION, $this->get_component_db_version( 'points' ) );
 
 		// The logs for the deleted comment should be cleaned (meta comment_id deleted).
-		$this->assertEquals( 0, $comment_1_query->count() );
+		$this->assertSame( 0, $comment_1_query->count() );
 
 		// Make sure the existing comment's logs weren't touched.
 		$query = new WordPoints_Points_Logs_Query(
@@ -231,7 +231,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 				'meta_value' => $comment_ids[1],
 			)
 		);
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 	} // End public function test_logs_for_deleted_comments_cleaned().
 }

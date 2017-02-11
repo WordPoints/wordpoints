@@ -74,7 +74,7 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$xpath = $this->get_widget_xpath( array( 'points_type' => 'points' ) );
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'points_type' => 'points', 'num_users' => 2 )
 		);
 
-		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -112,9 +112,9 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 			, array()
 		);
 
-		$this->assertEquals( 'Title', $sanitized['title'] );
-		$this->assertEquals( 3, $sanitized['num_users'] );
-		$this->assertEquals( 'points', $sanitized['points_type'] );
+		$this->assertSame( 'Title', $sanitized['title'] );
+		$this->assertSame( 3, $sanitized['num_users'] );
+		$this->assertSame( 'points', $sanitized['points_type'] );
 	}
 }
 

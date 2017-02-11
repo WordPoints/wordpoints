@@ -55,7 +55,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
 
 		// Check that points were added when the post was created.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now convert the post back to a draft.
 		$post = get_post( $post_id );
@@ -66,7 +66,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		wp_publish_post( $post->ID );
 
 		// Check that points were not awarded a second time.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
 
@@ -83,7 +83,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
@@ -97,11 +97,11 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$log = $query->get( 'row' );
 
-		$this->assertEquals( sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), 'Post' ), $log->text );
+		$this->assertSame( sprintf( _x( '%s published.', 'points log description', 'wordpoints' ), 'Post' ), $log->text );
 
 	} // End public function test_points_awarded().
 
@@ -126,12 +126,12 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Check that points were added when the post was created.
-		$this->assertEquals( 120, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 120, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
 
 		// Check that points were removed when the post was deleted.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Check that the log is marked as reversed.
 		$query = new WordPoints_Points_Logs_Query(
@@ -146,12 +146,12 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		// Check that it doesn't happen twice.
 		$hook->reverse_hook( $post_id );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // End public function test_points_auto_reversal().
 
@@ -171,7 +171,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Check that points were added when the post was created.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wordpointstests_add_points_hook(
 			'wordpoints_post_points_hook'
@@ -181,7 +181,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		wp_delete_post( $post_id, true );
 
 		// Check that no points were removed when the post was deleted.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -210,7 +210,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		$user_id = $this->factory->user->create();
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Create a post.
 		$post_id = $this->factory->post->create(
@@ -218,12 +218,12 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Only the 'post' hook will award the user.
-		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 115, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
 
 		// No reversals will take place.
-		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 115, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -243,7 +243,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		$user_id = $this->factory->user->create();
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Create a post.
 		$post_id = $this->factory->post->create(
@@ -251,12 +251,12 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Only the 'post' hook will award the user.
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
 
 		// No reversals will take place.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -285,19 +285,19 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		$user_id = $this->factory->user->create();
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$post_id = $this->factory->post->create(
 			array( 'post_author' => $user_id, 'post_type' => 'post' )
 		);
 
 		// Only the post hook will award the user.
-		$this->assertEquals( 115, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 115, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_delete_post( $post_id, true );
 
 		// Reversal of the post hook will take place.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -321,7 +321,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Test that no points were awarded.
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Test that points were awarded for the post.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now create a page.
 		$post_id = $this->factory->post->create(
@@ -358,7 +358,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		// Test that no points were awarded for the page.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -394,7 +394,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals( 1, $xpath->query( '//tbody[. = ""]' )->length );
+		$this->assertSame( 1, $xpath->query( '//tbody[. = ""]' )->length );
 	}
 
 	/**
@@ -464,7 +464,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		wp_delete_post( $post_id, true );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Post published.'
 			, $this->render_log_text( null, array( 'post_id' => $post_id ) )
 		);
@@ -477,7 +477,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_log_text_with_no_post_and_post_title_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Post Test title published.'
 			, $this->render_log_text( null, array( 'post_title' => 'Test title' ) )
 		);
@@ -490,7 +490,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_log_text_with_no_post_and_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Page published.'
 			, $this->render_log_text( null, array( 'post_type' => 'page' ) )
 		);
@@ -503,7 +503,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_log_text_with_no_post_and_bad_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Post published.'
 			, $this->render_log_text( null, array( 'post_type' => 'not' ) )
 		);
@@ -516,7 +516,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_reverse_log_text() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Post deleted.'
 			, $this->render_log_text( false )
 		);
@@ -529,7 +529,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_reverse_log_text_with_post_title_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Post &#8220;Test title&#8221; deleted.'
 			, $this->render_log_text( false, array( 'post_title' => 'Test title' ) )
 		);
@@ -542,7 +542,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_reverse_log_text_with_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Page deleted.'
 			, $this->render_log_text( false, array( 'post_type' => 'page' ) )
 		);
@@ -555,7 +555,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_reverse_log_text_with_bad_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Post deleted.'
 			, $this->render_log_text( false, array( 'post_type' => 'not' ) )
 		);
@@ -578,7 +578,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			, array()
 		);
 
-		$this->assertEquals( 'Post deleted.', $text );
+		$this->assertSame( 'Post deleted.', $text );
 	}
 
 	/**
@@ -598,7 +598,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			, array( 'post_type' => 'page' )
 		);
 
-		$this->assertEquals( 'Page deleted.', $text );
+		$this->assertSame( 'Page deleted.', $text );
 	}
 
 	/**
@@ -618,7 +618,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 			, array( 'post_type' => 'not' )
 		);
 
-		$this->assertEquals( 'Post deleted.', $text );
+		$this->assertSame( 'Post deleted.', $text );
 	}
 
 	//

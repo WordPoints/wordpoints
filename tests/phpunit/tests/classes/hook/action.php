@@ -25,7 +25,7 @@ class WordPoints_Hook_Action_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$action = new WordPoints_Hook_Action( 'test', array( 5 ) );
 
-		$this->assertEquals( 'test', $action->get_slug() );
+		$this->assertSame( 'test', $action->get_slug() );
 	}
 
 	/**
@@ -280,7 +280,7 @@ class WordPoints_Hook_Action_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 'arg_index' => array( 'test_entity' => 0 ) )
 		);
 
-		$this->assertEquals( 5, $action->get_arg_value( 'test_entity' ) );
+		$this->assertSame( 5, $action->get_arg_value( 'test_entity' ) );
 	}
 
 	/**
@@ -298,7 +298,7 @@ class WordPoints_Hook_Action_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 'arg_index' => array( 'test_entity' => 1 ) )
 		);
 
-		$this->assertEquals( 5, $action->get_arg_value( 'test_entity' ) );
+		$this->assertSame( 5, $action->get_arg_value( 'test_entity' ) );
 	}
 
 	/**
@@ -315,7 +315,7 @@ class WordPoints_Hook_Action_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 5 )
 		);
 
-		$this->assertEquals( null, $action->get_arg_value( 'test_entity' ) );
+		$this->assertSame( null, $action->get_arg_value( 'test_entity' ) );
 	}
 
 	/**
@@ -333,7 +333,7 @@ class WordPoints_Hook_Action_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, array( 'arg_index' => array( 'test_entity' => 1 ) )
 		);
 
-		$this->assertEquals( null, $action->get_arg_value( 'test_entity' ) );
+		$this->assertSame( null, $action->get_arg_value( 'test_entity' ) );
 	}
 }
 

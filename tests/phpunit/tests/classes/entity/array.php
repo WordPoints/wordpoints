@@ -25,7 +25,7 @@ class WordPoints_Entity_Array_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$array = new WordPoints_Entity_Array( 'test_entity' );
 
-		$this->assertEquals( 'test_entity{}', $array->get_slug() );
+		$this->assertSame( 'test_entity{}', $array->get_slug() );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class WordPoints_Entity_Array_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$array = new WordPoints_Entity_Array( 'test_entity' );
 
-		$this->assertEquals( 'test_entity', $array->get_entity_slug() );
+		$this->assertSame( 'test_entity', $array->get_entity_slug() );
 	}
 
 	/**
@@ -58,10 +58,10 @@ class WordPoints_Entity_Array_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertInternalType( 'array', $entities );
 		$this->assertCount( 2, $entities );
 
-		$this->assertEquals( 1, $entities[0]->get_the_id() );
-		$this->assertEquals( 2, $entities[1]->get_the_id() );
+		$this->assertSame( 1, $entities[0]->get_the_id() );
+		$this->assertSame( 2, $entities[1]->get_the_id() );
 
-		$this->assertEquals( array( 1, 2 ), $array->get_the_value() );
+		$this->assertSame( array( 1, 2 ), $array->get_the_value() );
 	}
 
 	/**
@@ -99,8 +99,8 @@ class WordPoints_Entity_Array_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertInternalType( 'array', $entities );
 		$this->assertCount( 2, $entities );
 
-		$this->assertEquals( 1, $entities[0]->get_the_id() );
-		$this->assertEquals( 2, $entities[1]->get_the_id() );
+		$this->assertSame( 1, $entities[0]->get_the_id() );
+		$this->assertSame( 2, $entities[1]->get_the_id() );
 
 		// The value should be updated, not appended.
 		$this->assertTrue( $array->set_the_value( array( 3, 4 ) ) );
@@ -110,8 +110,8 @@ class WordPoints_Entity_Array_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertInternalType( 'array', $entities );
 		$this->assertCount( 2, $entities );
 
-		$this->assertEquals( 3, $entities[0]->get_the_id() );
-		$this->assertEquals( 4, $entities[1]->get_the_id() );
+		$this->assertSame( 3, $entities[0]->get_the_id() );
+		$this->assertSame( 4, $entities[1]->get_the_id() );
 
 		$this->assertTrue( $array->set_the_value( array() ) );
 

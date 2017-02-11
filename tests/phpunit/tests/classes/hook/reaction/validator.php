@@ -32,14 +32,14 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
 
 		$this->assertFalse( $validator->get_reaction() );
-		$this->assertEquals( $settings, $validator->get_settings() );
+		$this->assertSame( $settings, $validator->get_settings() );
 		$this->assertFalse( $validator->get_id() );
 
-		$this->assertEquals( 'test_event', $validator->get_event_slug() );
-		$this->assertEquals( 'test_reactor', $validator->get_reactor_slug() );
-		$this->assertEquals( 'value', $validator->get_meta( 'key' ) );
+		$this->assertSame( 'test_event', $validator->get_event_slug() );
+		$this->assertSame( 'test_reactor', $validator->get_reactor_slug() );
+		$this->assertSame( 'value', $validator->get_meta( 'key' ) );
 		$this->assertNull( $validator->get_meta( 'nonexistent' ) );
-		$this->assertEquals( $settings, $validator->get_all_meta() );
+		$this->assertSame( $settings, $validator->get_all_meta() );
 	}
 
 	/**
@@ -61,15 +61,15 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $reaction );
 
-		$this->assertEquals( $reaction, $validator->get_reaction() );
-		$this->assertEquals( $reaction->get_all_meta(), $validator->get_settings() );
-		$this->assertEquals( $reaction->get_id(), $validator->get_id() );
+		$this->assertSame( $reaction, $validator->get_reaction() );
+		$this->assertSame( $reaction->get_all_meta(), $validator->get_settings() );
+		$this->assertSame( $reaction->get_id(), $validator->get_id() );
 
-		$this->assertEquals( 'test_event', $validator->get_event_slug() );
-		$this->assertEquals( 'test_reactor', $validator->get_reactor_slug() );
-		$this->assertEquals( array( 'test_entity' ), $validator->get_meta( 'target' ) );
+		$this->assertSame( 'test_event', $validator->get_event_slug() );
+		$this->assertSame( 'test_reactor', $validator->get_reactor_slug() );
+		$this->assertSame( array( 'test_entity' ), $validator->get_meta( 'target' ) );
 		$this->assertNull( $validator->get_meta( 'nonexistent' ) );
-		$this->assertEquals( $settings, $validator->get_all_meta() );
+		$this->assertSame( $settings, $validator->get_all_meta() );
 	}
 
 	/**
@@ -92,13 +92,13 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
 		$event_args = $validator->get_event_args();
 		$this->assertInstanceOf( 'WordPoints_Hook_Event_Args', $event_args );
 
-		$this->assertEquals( 1, $mock->call_count );
-		$this->assertEquals(
+		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame(
 			array( $settings, $validator, $event_args )
 			, $mock->calls[0]
 		);
@@ -133,15 +133,15 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
-		$this->assertEquals( 0, $mock->call_count );
+		$this->assertSame( 0, $mock->call_count );
 
 		$this->assertTrue( $validator->had_errors() );
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'event' ), $errors[0]['field'] );
+		$this->assertSame( array( 'event' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 
@@ -168,15 +168,15 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
-		$this->assertEquals( 0, $mock->call_count );
+		$this->assertSame( 0, $mock->call_count );
 
 		$this->assertTrue( $validator->had_errors() );
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'event' ), $errors[0]['field'] );
+		$this->assertSame( array( 'event' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 
@@ -204,15 +204,15 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
-		$this->assertEquals( 0, $mock->call_count );
+		$this->assertSame( 0, $mock->call_count );
 
 		$this->assertTrue( $validator->had_errors() );
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'reactor' ), $errors[0]['field'] );
+		$this->assertSame( array( 'reactor' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 
@@ -239,15 +239,15 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
-		$this->assertEquals( 0, $mock->call_count );
+		$this->assertSame( 0, $mock->call_count );
 
 		$this->assertTrue( $validator->had_errors() );
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'reactor' ), $errors[0]['field'] );
+		$this->assertSame( array( 'reactor' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 
@@ -275,13 +275,13 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
 		$event_args = $validator->get_event_args();
 		$this->assertInstanceOf( 'WordPoints_Hook_Event_Args', $event_args );
 
-		$this->assertEquals( 1, $mock->call_count );
-		$this->assertEquals(
+		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame(
 			array( $settings, $validator, $event_args )
 			, $mock->calls[0]
 		);
@@ -290,7 +290,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'target' ), $errors[0]['field'] );
+		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 
@@ -328,7 +328,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$result = $validator->validate();
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
 		$event_args = $validator->get_event_args();
 		$this->assertInstanceOf( 'WordPoints_Hook_Event_Args', $event_args );
@@ -338,7 +338,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$this->assertCount( 1, $extension->validations );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'settings' => $settings['test_extension'][ $action_type ],
 				'validator' => $validator,
@@ -348,8 +348,8 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			, $extension->validations[0]
 		);
 
-		$this->assertEquals( 1, $mock->call_count );
-		$this->assertEquals(
+		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame(
 			array( $settings, $validator, $event_args )
 			, $mock->calls[0]
 		);
@@ -396,7 +396,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		// (The extension returns an empty array for its settings on failure.)
 		$settings['test_extension'] = array( $action_type => array() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 
 		$event_args = $validator->get_event_args();
 		$this->assertInstanceOf( 'WordPoints_Hook_Event_Args', $event_args );
@@ -404,7 +404,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $extension */
 		$extension = $extensions->get( 'test_extension' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'settings' => array( 'fail' => 'Testing.' ),
 				'validator' => $validator,
@@ -414,8 +414,8 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			, $extension->validations[0]
 		);
 
-		$this->assertEquals( 1, $mock->call_count );
-		$this->assertEquals(
+		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame(
 			array( $settings, $validator, $event_args )
 			, $mock->calls[0]
 		);
@@ -424,7 +424,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$errors = $validator->get_errors();
 		$this->assertCount( 1, $errors );
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_extension', $action_type, 'fail' )
 			, $errors[0]['field']
 		);
@@ -449,7 +449,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$this->assertTrue( $validator->had_errors() );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( 'message' => 'Testing.', 'field' => array() ) )
 			, $validator->get_errors()
 		);
@@ -468,7 +468,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$validator->add_error( 'Testing.' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( 'message' => 'Testing.', 'field' => array( 'test' ) ) )
 			, $validator->get_errors()
 		);
@@ -485,7 +485,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$validator->add_error( 'Testing.', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( 'message' => 'Testing.', 'field' => array( 'test' ) ) )
 			, $validator->get_errors()
 		);
@@ -504,7 +504,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$validator->add_error( 'Testing.', 'test_again' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				array(
 					'message' => 'Testing.',
@@ -534,7 +534,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		} catch ( WordPoints_Hook_Validator_Exception $e ) {
 
-			$this->assertEquals(
+			$this->assertSame(
 				array( array( 'message' => 'Testing.', 'field' => array( 'test' ) ) )
 				, $validator->get_errors()
 			);
@@ -552,31 +552,31 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$validator->push_field( 'test' );
 
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
 
 		$validator->push_field( 'child' );
 
-		$this->assertEquals( array( 'test', 'child' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'test', 'child' ), $validator->get_field_stack() );
 
 		$validator->pop_field();
 
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
 
 		$validator->push_field( 'b' );
 
-		$this->assertEquals( array( 'test', 'b' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'test', 'b' ), $validator->get_field_stack() );
 
 		$validator->pop_field();
 
-		$this->assertEquals( array( 'test' ), $validator->get_field_stack() );
+		$this->assertSame( array( 'test' ), $validator->get_field_stack() );
 
 		$validator->pop_field();
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**
@@ -588,11 +588,11 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$validator->pop_field();
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 }
 

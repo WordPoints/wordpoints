@@ -30,8 +30,8 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 
-		$this->assertEquals( $atts, $shortcode->atts );
-		$this->assertEquals( $content, $shortcode->content );
+		$this->assertSame( $atts, $shortcode->atts );
+		$this->assertSame( $content, $shortcode->content );
 	}
 
 	/**
@@ -47,9 +47,9 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content, $name );
 
-		$this->assertEquals( $atts, $shortcode->atts );
-		$this->assertEquals( $content, $shortcode->content );
-		$this->assertEquals( $name, $shortcode->shortcode );
+		$this->assertSame( $atts, $shortcode->atts );
+		$this->assertSame( $content, $shortcode->content );
+		$this->assertSame( $name, $shortcode->shortcode );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( array(), '' );
 		$shortcode->shortcode = 'test_shortcode';
 
-		$this->assertEquals( $shortcode->shortcode, $shortcode->get() );
+		$this->assertSame( $shortcode->shortcode, $shortcode->get() );
 	}
 
 	/**
@@ -90,14 +90,14 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode->expand();
 
-		$this->assertEquals( 1, $filter->call_count );
-		$this->assertEquals(
+		$this->assertSame( 1, $filter->call_count );
+		$this->assertSame(
 			array( $atts, $pairs, $atts, $shortcode->shortcode )
 			, $filter->calls[0]
 		);
 
-		$this->assertEquals( $filtered_atts, $shortcode->atts );
-		$this->assertEquals( $pairs, $shortcode->pairs );
+		$this->assertSame( $filtered_atts, $shortcode->atts );
+		$this->assertSame( $pairs, $shortcode->pairs );
 	}
 
 	/**
@@ -118,7 +118,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode->expand();
 
-		$this->assertEquals( $user_id, $shortcode->atts['user_id'] );
+		$this->assertSame( $user_id, $shortcode->atts['user_id'] );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode->expand();
 
-		$this->assertEquals( $user_id, $shortcode->atts['user_id'] );
+		$this->assertSame( $user_id, $shortcode->atts['user_id'] );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode->expand();
 
-		$this->assertEquals( $user_id, $shortcode->atts['user_id'] );
+		$this->assertSame( $user_id, $shortcode->atts['user_id'] );
 	}
 
 	/**
@@ -187,7 +187,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode->expand();
 
-		$this->assertEquals( $pairs, $shortcode->atts );
+		$this->assertSame( $pairs, $shortcode->atts );
 	}
 
 	/**
@@ -213,7 +213,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$shortcode->expand();
 
-		$this->assertEquals( $user_id, $shortcode->atts['user_id'] );
+		$this->assertSame( (string) $user_id, $shortcode->atts['user_id'] );
 	}
 
 	/**
@@ -234,8 +234,8 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $shortcode->expand();
 
-		$this->assertEquals( null, $result );
-		$this->assertEquals( $atts, $shortcode->atts );
+		$this->assertSame( '', $result );
+		$this->assertSame( $atts, $shortcode->atts );
 	}
 
 	/**
@@ -259,7 +259,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$result = $shortcode->expand();
 
 		$this->assertWordPointsShortcodeError( $result );
-		$this->assertEquals( $atts, $shortcode->atts );
+		$this->assertSame( $atts, $shortcode->atts );
 	}
 
 	/**
@@ -278,8 +278,8 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $shortcode->expand();
 
-		$this->assertEquals( null, $result );
-		$this->assertEquals( array( 'user_id' => false ), $shortcode->atts );
+		$this->assertSame( '', $result );
+		$this->assertSame( array( 'user_id' => false ), $shortcode->atts );
 	}
 
 	/**
@@ -301,7 +301,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$result = $shortcode->expand();
 
 		$this->assertWordPointsShortcodeError( $result );
-		$this->assertEquals( array( 'user_id' => false ), $shortcode->atts );
+		$this->assertSame( array( 'user_id' => false ), $shortcode->atts );
 	}
 }
 

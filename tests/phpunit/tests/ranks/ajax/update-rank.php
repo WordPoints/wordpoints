@@ -77,9 +77,9 @@ class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 
 		$rank = wordpoints_get_rank( $this->rank_data['id'] );
 
-		$this->assertEquals( $this->rank_data['id'], $rank->ID );
-		$this->assertEquals( $this->rank_data['name'], $rank->name );
-		$this->assertEquals( $this->rank_data['test_meta'], $rank->test_meta );
+		$this->assertSame( $this->rank_data['id'], $rank->ID );
+		$this->assertSame( $this->rank_data['name'], $rank->name );
+		$this->assertSame( $this->rank_data['test_meta'], $rank->test_meta );
 	}
 
 	/**

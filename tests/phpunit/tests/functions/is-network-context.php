@@ -90,8 +90,8 @@ class WordPoints_Is_Network_Context_Function_Test extends WordPoints_PHPUnit_Tes
 
 		$this->assertTrue( wordpoints_is_network_context() );
 
-		$this->assertEquals( 1, $filter->call_count );
-		$this->assertEquals( array( false ), $filter->calls[0] );
+		$this->assertSame( 1, $filter->call_count );
+		$this->assertSame( array( false ), $filter->calls[0] );
 	}
 }
 

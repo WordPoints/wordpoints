@@ -41,7 +41,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 		$ms_switched_state->backup();
 		$ms_switched_state->restore();
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 		$this->assertEmpty( $_wp_switched_stack );
 		$this->assertEmpty( $switched );
 	}
@@ -63,20 +63,20 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		switch_to_blog( $site_id );
 
-		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		$ms_switched_state = new WordPoints_Multisite_Switched_State;
 		$ms_switched_state->backup();
 		$ms_switched_state->restore();
 
-		$this->assertEquals( $site_id, get_current_blog_id() );
-		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertSame( $site_id, get_current_blog_id() );
+		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		restore_current_blog();
 
-		$this->assertEquals( $previous_site_id, get_current_blog_id() );
+		$this->assertSame( $previous_site_id, get_current_blog_id() );
 		$this->assertEmpty( $_wp_switched_stack );
 		$this->assertEmpty( $switched );
 	}
@@ -104,12 +104,12 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		switch_to_blog( $site_id );
 
-		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		$ms_switched_state->restore();
 
-		$this->assertEquals( $previous_site_id, get_current_blog_id() );
+		$this->assertSame( $previous_site_id, get_current_blog_id() );
 		$this->assertEmpty( $_wp_switched_stack );
 		$this->assertEmpty( $switched );
 	}
@@ -132,7 +132,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		switch_to_blog( $site_id );
 
-		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		$ms_switched_state = new WordPoints_Multisite_Switched_State;
@@ -140,7 +140,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		switch_to_blog( $another_site_id );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $previous_site_id, $site_id )
 			, $_wp_switched_stack
 		);
@@ -149,13 +149,13 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		$ms_switched_state->restore();
 
-		$this->assertEquals( $site_id, get_current_blog_id() );
-		$this->assertEquals( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertSame( $site_id, get_current_blog_id() );
+		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		restore_current_blog();
 
-		$this->assertEquals( $previous_site_id, get_current_blog_id() );
+		$this->assertSame( $previous_site_id, get_current_blog_id() );
 		$this->assertEmpty( $_wp_switched_stack );
 		$this->assertEmpty( $switched );
 	}

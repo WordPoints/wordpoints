@@ -27,14 +27,14 @@ class WordPoints_Option_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_option( 'wordpoints_not_array', 'blah' );
 		$array_option = wordpoints_get_array_option( 'wordpoints_not_array' );
-		$this->assertEquals( array(), $array_option );
+		$this->assertSame( array(), $array_option );
 
 		add_site_option( 'wordpoints_not_array', 'blah' );
 		$array_option = wordpoints_get_array_option( 'wordpoints_not_array', 'site' );
-		$this->assertEquals( array(), $array_option );
+		$this->assertSame( array(), $array_option );
 
 		$array_option = wordpoints_get_array_option( 'wordpoints_not_array', 'network' );
-		$this->assertEquals( array(), $array_option );
+		$this->assertSame( array(), $array_option );
 	}
 
 	/**
@@ -60,9 +60,9 @@ class WordPoints_Option_Test extends WordPoints_PHPUnit_TestCase {
 		$option = wordpoints_get_network_option( 'wordpoints_test' );
 
 		if ( is_wordpoints_network_active() ) {
-			$this->assertEquals( array( 'site_option' ), $option );
+			$this->assertSame( array( 'site_option' ), $option );
 		} else {
-			$this->assertEquals( array( 'option' ), $option );
+			$this->assertSame( array( 'option' ), $option );
 		}
 
 		wordpoints_update_network_option( 'wordpoints_test', array( 'test' ) );
@@ -73,7 +73,7 @@ class WordPoints_Option_Test extends WordPoints_PHPUnit_TestCase {
 			$option = get_option( 'wordpoints_test' );
 		}
 
-		$this->assertEquals( array( 'test' ), $option );
+		$this->assertSame( array( 'test' ), $option );
 
 		wordpoints_delete_network_option( 'wordpoints_test' );
 
@@ -86,9 +86,9 @@ class WordPoints_Option_Test extends WordPoints_PHPUnit_TestCase {
 		wordpoints_add_network_option( 'another_test', 'test' );
 
 		if ( is_wordpoints_network_active() ) {
-			$this->assertEquals( 'test', get_site_option( 'another_test' ) );
+			$this->assertSame( 'test', get_site_option( 'another_test' ) );
 		} else {
-			$this->assertEquals( 'test', get_option( 'another_test' ) );
+			$this->assertSame( 'test', get_option( 'another_test' ) );
 		}
 	}
 }

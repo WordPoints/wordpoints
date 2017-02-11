@@ -52,7 +52,7 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 
 		$found_headers = wordpoints_get_module_data( WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php', false, false );
 
-		$this->assertEquals( $this->expected_headers, $found_headers );
+		$this->assertSameSetsWithIndex( $this->expected_headers, $found_headers );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 
 		$marked_up_headers = wordpoints_get_module_data( WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php', true, false );
 
-		$this->assertEquals( $this->expected_headers, $marked_up_headers );
+		$this->assertSameSetsWithIndex( $this->expected_headers, $marked_up_headers );
 	}
 
 	/**
@@ -88,9 +88,9 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 			, false
 		);
 
-		$this->assertEquals( $this->expected_headers, $found_headers );
+		$this->assertSameSetsWithIndex( $this->expected_headers, $found_headers );
 
-		$this->assertEquals( 1, $mock_filter->call_count );
+		$this->assertSame( 1, $mock_filter->call_count );
 
 		WordPoints_Modules::register(
 			'
@@ -111,9 +111,9 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 			, false
 		);
 
-		$this->assertEquals( $this->expected_headers, $found_headers );
+		$this->assertSameSetsWithIndex( $this->expected_headers, $found_headers );
 
-		$this->assertEquals( 1, $mock_filter->call_count );
+		$this->assertSame( 1, $mock_filter->call_count );
 	}
 }
 

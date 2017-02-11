@@ -29,7 +29,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$hooks = new WordPoints_Hooks( 'hooks' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $hooks === $mock->calls[0][0] );
 	}
@@ -63,11 +63,11 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$hooks->set_current_mode( 'standard' );
 
-		$this->assertEquals( 'standard', $hooks->get_current_mode() );
+		$this->assertSame( 'standard', $hooks->get_current_mode() );
 
 		$hooks->set_current_mode( 'network' );
 
-		$this->assertEquals( 'network', $hooks->get_current_mode() );
+		$this->assertSame( 'network', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$hooks = new WordPoints_Hooks( 'hooks' );
 
-		$this->assertEquals( 'standard', $hooks->get_current_mode() );
+		$this->assertSame( 'standard', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -95,7 +95,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$hooks = new WordPoints_Hooks( 'hooks' );
 
-		$this->assertEquals( 'network', $hooks->get_current_mode() );
+		$this->assertSame( 'network', $hooks->get_current_mode() );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $reaction_store
 		);
 
-		$this->assertEquals( $slug, $reaction_store->get_slug() );
+		$this->assertSame( $slug, $reaction_store->get_slug() );
 	}
 
 	/**
@@ -172,14 +172,14 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $reaction_stores['standard']
 		);
 
-		$this->assertEquals( $slug, $reaction_stores['standard']->get_slug() );
+		$this->assertSame( $slug, $reaction_stores['standard']->get_slug() );
 
 		$this->assertInstanceOf(
 			'WordPoints_PHPUnit_Mock_Hook_Reaction_Store'
 			, $reaction_stores['test']
 		);
 
-		$this->assertEquals( $slug_2, $reaction_stores['test']->get_slug() );
+		$this->assertSame( $slug_2, $reaction_stores['test']->get_slug() );
 	}
 
 	/**
@@ -228,7 +228,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $reaction_stores['test']
 		);
 
-		$this->assertEquals( $slug_2, $reaction_stores['test']->get_slug() );
+		$this->assertSame( $slug_2, $reaction_stores['test']->get_slug() );
 	}
 
 	/**

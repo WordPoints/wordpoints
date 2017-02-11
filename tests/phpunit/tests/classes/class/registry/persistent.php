@@ -108,7 +108,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 			, $objects['test']
 		);
 
-		$this->assertEquals( 'test', $objects['test']->calls[0]['arguments'][0] );
+		$this->assertSame( 'test', $objects['test']->calls[0]['arguments'][0] );
 
 		$this->assertArrayHasKey( 'test_2', $objects );
 		$this->assertInstanceOf(
@@ -116,7 +116,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 			, $objects['test_2']
 		);
 
-		$this->assertEquals( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
+		$this->assertSame( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
 	}
 
 
@@ -143,7 +143,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 			, $objects['test']
 		);
 
-		$this->assertEquals( 'test', $objects['test']->calls[0]['arguments'][0] );
+		$this->assertSame( 'test', $objects['test']->calls[0]['arguments'][0] );
 
 		// Register another class.
 		$this->assertTrue(
@@ -160,7 +160,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 			, $objects['test_2']
 		);
 
-		$this->assertEquals( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
+		$this->assertSame( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
 	}
 
 	/**
@@ -187,7 +187,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 			, $object
 		);
 
-		$this->assertEquals( 'test', $object->calls[0]['arguments'][0] );
+		$this->assertSame( 'test', $object->calls[0]['arguments'][0] );
 	}
 
 	/**
@@ -256,7 +256,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 
 		array_unshift( $args, 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $object->calls[0]
 		);
@@ -287,14 +287,14 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 
 		array_unshift( $args, 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test']->calls[0]
 		);
 
 		$args[0] = 'test_2';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test_2']->calls[0]
 		);
@@ -326,14 +326,14 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 
 		$this->assertCount( 2, $objects );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => array( 'test' ) )
 			, $objects['test']->calls[0]
 		);
 
 		array_unshift( $args, 'test_2' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test_2']->calls[0]
 		);

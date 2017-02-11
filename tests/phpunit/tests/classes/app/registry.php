@@ -37,7 +37,7 @@ class WordPoints_App_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_Reg
 
 		$hooks = new WordPoints_App_Registry( 'test' );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		$this->assertTrue( $hooks === $mock->calls[0][0] );
 	}

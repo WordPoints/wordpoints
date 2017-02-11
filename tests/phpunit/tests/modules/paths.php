@@ -75,7 +75,7 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 			dirname( wordpoints_modules_dir() ) . '/modules/symlink-modules/test-4/test-4.php'
 		);
 
-		$this->assertEquals( wordpoints_modules_dir() . 'test-4/test-4.php', $file );
+		$this->assertSame( wordpoints_modules_dir() . 'test-4/test-4.php', $file );
 	}
 
 	/**
@@ -99,7 +99,7 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 			wordpoints_modules_dir() . '/symlink-modules/test-5/test-5.php'
 		);
 
-		$this->assertEquals( wordpoints_modules_dir() . 'test-5/test-5.php', $file );
+		$this->assertSame( wordpoints_modules_dir() . 'test-5/test-5.php', $file );
 	}
 }
 

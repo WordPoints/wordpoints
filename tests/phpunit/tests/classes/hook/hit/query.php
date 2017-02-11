@@ -25,7 +25,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_Hook_Hit_Query();
 
-		$this->assertEquals( 'date', $query->get_arg( 'order_by' ) );
+		$this->assertSame( 'date', $query->get_arg( 'order_by' ) );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_Hook_Hit_Query( array( 'order_by' => 'id' ) );
 
-		$this->assertEquals( 'id', $query->get_arg( 'order_by' ) );
+		$this->assertSame( 'id', $query->get_arg( 'order_by' ) );
 	}
 
 	/**
@@ -58,10 +58,10 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'signature_arg_guids' ) );
-		$this->assertEquals( 'test_compare', $query->get_arg( 'signature_arg_guids__compare' ) );
-		$this->assertEquals( 'test_in', $query->get_arg( 'signature_arg_guids__in' ) );
-		$this->assertEquals( 'test_not_in', $query->get_arg( 'signature_arg_guids__not_in' ) );
+		$this->assertSame( 'test', $query->get_arg( 'signature_arg_guids' ) );
+		$this->assertSame( 'test_compare', $query->get_arg( 'signature_arg_guids__compare' ) );
+		$this->assertSame( 'test_in', $query->get_arg( 'signature_arg_guids__in' ) );
+		$this->assertSame( 'test_not_in', $query->get_arg( 'signature_arg_guids__not_in' ) );
 	}
 
 	/**
@@ -82,10 +82,10 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'primary_arg_guid' ) );
-		$this->assertEquals( 'test_compare', $query->get_arg( 'primary_arg_guid__compare' ) );
-		$this->assertEquals( 'test_in', $query->get_arg( 'primary_arg_guid__in' ) );
-		$this->assertEquals( 'test_not_in', $query->get_arg( 'primary_arg_guid__not_in' ) );
+		$this->assertSame( 'test', $query->get_arg( 'primary_arg_guid' ) );
+		$this->assertSame( 'test_compare', $query->get_arg( 'primary_arg_guid__compare' ) );
+		$this->assertSame( 'test_in', $query->get_arg( 'primary_arg_guid__in' ) );
+		$this->assertSame( 'test_not_in', $query->get_arg( 'primary_arg_guid__not_in' ) );
 	}
 
 	/**
@@ -107,10 +107,10 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'signature_arg_guids' ) );
-		$this->assertEquals( 'test_compare', $query->get_arg( 'signature_arg_guids__compare' ) );
-		$this->assertEquals( 'test_in', $query->get_arg( 'signature_arg_guids__in' ) );
-		$this->assertEquals( 'test_not_in', $query->get_arg( 'signature_arg_guids__not_in' ) );
+		$this->assertSame( 'test', $query->get_arg( 'signature_arg_guids' ) );
+		$this->assertSame( 'test_compare', $query->get_arg( 'signature_arg_guids__compare' ) );
+		$this->assertSame( 'test_in', $query->get_arg( 'signature_arg_guids__in' ) );
+		$this->assertSame( 'test_not_in', $query->get_arg( 'signature_arg_guids__not_in' ) );
 	}
 
 	/**
@@ -148,7 +148,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'meta_query' => array( array( 'key' => 'test', 'value' => 1 ) ) )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'date_query' => array( array( 'before' => $date ) ) )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**

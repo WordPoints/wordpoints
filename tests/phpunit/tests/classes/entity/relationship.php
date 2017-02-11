@@ -31,7 +31,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$args = array( $entity );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'a'
 			, $relationship->call( 'get_related_entity_ids', $args )
 		);
@@ -47,7 +47,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
 		$relationship->set( 'primary_entity_slug', 'post' );
 
-		$this->assertEquals( 'post', $relationship->get_primary_entity_slug() );
+		$this->assertSame( 'post', $relationship->get_primary_entity_slug() );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
 		$relationship->set( 'related_entity_slug', 'post' );
 
-		$this->assertEquals( 'post', $relationship->get_related_entity_slug() );
+		$this->assertSame( 'post', $relationship->get_related_entity_slug() );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
 
-		$this->assertEquals( 'a', $relationship->get_the_value() );
+		$this->assertSame( 'a', $relationship->get_the_value() );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
 
-		$this->assertEquals( 'a', $relationship->get_the_value() );
+		$this->assertSame( 'a', $relationship->get_the_value() );
 
 		$entity->set_the_value( array( 'id' => 1 ) );
 
@@ -155,7 +155,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$child = $relationship->get_child( 'test_entity' );
 
 		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Entity', $child );
-		$this->assertEquals( 'test_entity', $child->get_slug() );
+		$this->assertSame( 'test_entity', $child->get_slug() );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$child = $relationship->get_child( 'test_entity{}' );
 
 		$this->assertInstanceOf( 'WordPoints_Entity_Array', $child );
-		$this->assertEquals( 'test_entity', $child->get_entity_slug() );
+		$this->assertSame( 'test_entity', $child->get_entity_slug() );
 	}
 
 	/**
@@ -206,7 +206,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$child = $relationship->get_child( 'test_entity' );
 
-		$this->assertEquals( 1, $child->get_the_value() );
+		$this->assertSame( 1, $child->get_the_value() );
 	}
 
 	/**
@@ -229,8 +229,8 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->assertInternalType( 'array', $entities );
 		$this->assertCount( 2, $entities );
 
-		$this->assertEquals( 1, $entities[0]->get_the_id() );
-		$this->assertEquals( 2, $entities[1]->get_the_id() );
+		$this->assertSame( 1, $entities[0]->get_the_id() );
+		$this->assertSame( 2, $entities[1]->get_the_id() );
 	}
 }
 

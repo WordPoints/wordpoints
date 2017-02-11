@@ -33,12 +33,12 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		$input = $xpath->query(
 			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
-		$this->assertEquals( 1, $input->length );
+		$this->assertSame( 1, $input->length );
 
 		$label = $xpath->query(
 			'//label[@for = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
-		$this->assertEquals( 'Test label', $label->item( 0 )->textContent );
+		$this->assertSame( 'Test label', $label->item( 0 )->textContent );
 	}
 
 	/**
@@ -57,10 +57,10 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		$input = $xpath->query(
 			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
-		$this->assertEquals( 1, $input->length );
+		$this->assertSame( 1, $input->length );
 
 		$value = $input->item( 0 )->attributes->getNamedItem( 'checked' )->nodeValue;
-		$this->assertEquals( 'checked', $value );
+		$this->assertSame( 'checked', $value );
 	}
 
 	/**
@@ -80,9 +80,9 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		$input = $xpath->query(
 			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-1-auto_reverse"]'
 		);
-		$this->assertEquals( 1, $input->length );
+		$this->assertSame( 1, $input->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			null
 			, $input->item( 0 )->attributes->getNamedItem( 'checked' )
 		);
@@ -102,7 +102,7 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		$input = $xpath->query(
 			'//input[@id = "hook-wordpoints_phpunit_mock_points_hook_post_type-__i__-auto_reverse"]'
 		);
-		$this->assertEquals( 0, $input->length );
+		$this->assertSame( 0, $input->length );
 	}
 
 	//

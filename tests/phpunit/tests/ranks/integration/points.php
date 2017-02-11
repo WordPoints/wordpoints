@@ -129,7 +129,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 			, 'user_rank_shortcode'
 		);
 
-		$this->assertEquals( $formatted_rank, $result );
+		$this->assertSame( $formatted_rank, $result );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 			, 'user_rank_shortcode'
 		);
 
-		$this->assertEquals( $formatted_rank, $result );
+		$this->assertSame( $formatted_rank, $result );
 	}
 
 	/**
@@ -183,7 +183,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 			WordPoints_Rank_Groups::is_group_registered( 'points_type-credits' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Credits'
 			, WordPoints_Rank_Groups::get_group( 'points_type-credits' )->name
 		);
@@ -216,7 +216,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 		$meta = WordPoints_Rank_Types::get_type( 'points-credits' )
 			->get_meta_fields();
 
-		$this->assertEquals( 'credits', $meta['points_type']['default'] );
+		$this->assertSame( 'credits', $meta['points_type']['default'] );
 	}
 
 	//

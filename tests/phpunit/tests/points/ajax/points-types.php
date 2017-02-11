@@ -75,9 +75,9 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_PHPUnit_TestCase_
 
 		$settings = wordpoints_get_points_type( 'points' );
 
-		$this->assertEquals( 'SuperPoints', $settings['name'] );
-		$this->assertEquals( 'SP:', $settings['prefix'] );
-		$this->assertEquals( '', $settings['suffix'] );
+		$this->assertSame( 'SuperPoints', $settings['name'] );
+		$this->assertSame( 'SP:', $settings['prefix'] );
+		$this->assertSame( '', $settings['suffix'] );
 	}
 
 	/**

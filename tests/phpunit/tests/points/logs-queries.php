@@ -38,12 +38,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->assertTrue( wordpoints_is_points_logs_query( $query ) );
 
-		$this->assertEquals(
-			$query_args + array(
-				'points_type'  => 'points',
+		$this->assertSame(
+			array(
 				'user_id__not_in' => array(),
-			)
-			,wordpoints_get_points_logs_query_args( 'points', $query )
+				'points_type'  => 'points',
+			) + $query_args
+			, wordpoints_get_points_logs_query_args( 'points', $query )
 		);
 
 		$this->assertInstanceOf( 'WordPoints_Points_Logs_Query', wordpoints_get_points_logs_query( 'points', $query ) );
@@ -72,10 +72,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query();
 
-		$this->assertEquals( 0,      $query->get_arg( 'start' ) );
-		$this->assertEquals( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertEquals( 'date', $query->get_arg( 'order_by' ) );
-		$this->assertEquals( 'LIKE', $query->get_arg( 'text__compare' ) );
+		$this->assertSame( 0,      $query->get_arg( 'start' ) );
+		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
+		$this->assertSame( 'date', $query->get_arg( 'order_by' ) );
+		$this->assertSame( 'LIKE', $query->get_arg( 'text__compare' ) );
 	}
 
 	/**
@@ -109,11 +109,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'order_by' ) );
-		$this->assertEquals( 'test_user_in', $query->get_arg( 'user_id__in' ) );
-		$this->assertEquals( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
-		$this->assertEquals( 'test_blog_in', $query->get_arg( 'blog_id__in' ) );
-		$this->assertEquals( 'test_blog_not_in', $query->get_arg( 'blog_id__not_in' ) );
+		$this->assertSame( 'test', $query->get_arg( 'order_by' ) );
+		$this->assertSame( 'test_user_in', $query->get_arg( 'user_id__in' ) );
+		$this->assertSame( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
+		$this->assertSame( 'test_blog_in', $query->get_arg( 'blog_id__in' ) );
+		$this->assertSame( 'test_blog_not_in', $query->get_arg( 'blog_id__not_in' ) );
 	}
 
 	/**
@@ -135,11 +135,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'orderby' ) );
-		$this->assertEquals( 'test_user_in', $query->get_arg( 'user__in' ) );
-		$this->assertEquals( 'test_user_not_in', $query->get_arg( 'user__not_in' ) );
-		$this->assertEquals( 'test_blog_in', $query->get_arg( 'blog__in' ) );
-		$this->assertEquals( 'test_blog_not_in', $query->get_arg( 'blog__not_in' ) );
+		$this->assertSame( 'test', $query->get_arg( 'orderby' ) );
+		$this->assertSame( 'test_user_in', $query->get_arg( 'user__in' ) );
+		$this->assertSame( 'test_user_not_in', $query->get_arg( 'user__not_in' ) );
+		$this->assertSame( 'test_blog_in', $query->get_arg( 'blog__in' ) );
+		$this->assertSame( 'test_blog_not_in', $query->get_arg( 'blog__not_in' ) );
 	}
 
 	/**
@@ -162,11 +162,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'order_by' ) );
-		$this->assertEquals( 'test_user_in', $query->get_arg( 'user_id__in' ) );
-		$this->assertEquals( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
-		$this->assertEquals( 'test_blog_in', $query->get_arg( 'blog_id__in' ) );
-		$this->assertEquals( 'test_blog_not_in', $query->get_arg( 'blog_id__not_in' ) );
+		$this->assertSame( 'test', $query->get_arg( 'order_by' ) );
+		$this->assertSame( 'test_user_in', $query->get_arg( 'user_id__in' ) );
+		$this->assertSame( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
+		$this->assertSame( 'test_blog_in', $query->get_arg( 'blog_id__in' ) );
+		$this->assertSame( 'test_blog_not_in', $query->get_arg( 'blog_id__not_in' ) );
 	}
 
 	/**
@@ -258,7 +258,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query( array( 'limit' => 1 ) );
 
-		$this->assertEquals( 1, count( $query->get() ) );
+		$this->assertSame( 1, count( $query->get() ) );
 	}
 
 	/**
@@ -283,10 +283,10 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$result = $query->get();
 
-		$this->assertEquals( 1, count( $result ) );
+		$this->assertSame( 1, count( $result ) );
 
 		$result = current( $result );
-		$this->assertEquals( 10, $result->points );
+		$this->assertSame( 10, (int) $result->points );
 	}
 
 	/**
@@ -343,23 +343,23 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$logs = $query->get();
 
-		$this->assertEquals( 2, count( $logs ) );
+		$this->assertSame( 2, count( $logs ) );
 
 		// Try the 'id__in' query arg.
 		$query_2 = new WordPoints_Points_Logs_Query( array( 'id__in' => array( $logs[0]->id ) ) );
 
 		$logs_2 = $query_2->get();
 
-		$this->assertEquals( 1, count( $logs_2 ) );
-		$this->assertEquals( $logs[0]->id, $logs_2[0]->id );
+		$this->assertSame( 1, count( $logs_2 ) );
+		$this->assertSame( $logs[0]->id, $logs_2[0]->id );
 
 		// Try the 'id__not_in' query arg.
 		$query_3 = new WordPoints_Points_Logs_Query( array( 'id__not_in' => array( $logs[0]->id ) ) );
 
 		$logs_3 = $query_3->get();
 
-		$this->assertEquals( 1, count( $logs_3 ) );
-		$this->assertEquals( $logs[1]->id, $logs_3[0]->id );
+		$this->assertSame( 1, count( $logs_3 ) );
+		$this->assertSame( $logs[1]->id, $logs_3[0]->id );
 	}
 
 	/**
@@ -375,13 +375,13 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		wordpoints_alter_points( $user_ids[1], 10, 'points', 'test' );
 
 		$query_1 = new WordPoints_Points_Logs_Query( array( 'user_id' => $user_ids[0] ) );
-		$this->assertEquals( 1, $query_1->count() );
+		$this->assertSame( 1, $query_1->count() );
 
 		$query_2 = new WordPoints_Points_Logs_Query( array( 'user_id__in' => array( $user_ids[0] ) ) );
-		$this->assertEquals( 1, $query_2->count() );
+		$this->assertSame( 1, $query_2->count() );
 
 		$query_3 = new WordPoints_Points_Logs_Query( array( 'user_id__not_in' => $user_ids ) );
-		$this->assertEquals( 0, $query_3->count() );
+		$this->assertSame( 0, $query_3->count() );
 	}
 
 	/**
@@ -401,13 +401,13 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		wordpoints_alter_points( $user_id, 10, 'tests', 'test' );
 
 		$query_1 = new WordPoints_Points_Logs_Query( array( 'points_type' => 'points' ) );
-		$this->assertEquals( 1, $query_1->count() );
+		$this->assertSame( 1, $query_1->count() );
 
 		$query_2 = new WordPoints_Points_Logs_Query( array( 'points_type__in' => array( 'points', 'tests' ) ) );
-		$this->assertEquals( 2, $query_2->count() );
+		$this->assertSame( 2, $query_2->count() );
 
 		$query_3 = new WordPoints_Points_Logs_Query( array( 'points_type__not_in' => array( 'points', 'tests' ) ) );
-		$this->assertEquals( 1, $query_3->count() );
+		$this->assertSame( 1, $query_3->count() );
 	}
 
 	/**
@@ -424,13 +424,13 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		wordpoints_alter_points( $user_id, 10, 'points', 'test3' );
 
 		$query_1 = new WordPoints_Points_Logs_Query( array( 'log_type' => 'test' ) );
-		$this->assertEquals( 1, $query_1->count() );
+		$this->assertSame( 1, $query_1->count() );
 
 		$query_2 = new WordPoints_Points_Logs_Query( array( 'log_type__in' => array( 'test2', 'test3' ) ) );
-		$this->assertEquals( 2, $query_2->count() );
+		$this->assertSame( 2, $query_2->count() );
 
 		$query_3 = new WordPoints_Points_Logs_Query( array( 'log_type__not_in' => array( 'test2', 'test3' ) ) );
-		$this->assertEquals( 1, $query_3->count() );
+		$this->assertSame( 1, $query_3->count() );
 	}
 
 	/**
@@ -447,7 +447,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 
 		$query_1 = new WordPoints_Points_Logs_Query( array( 'points' => 10 ) );
-		$this->assertEquals( 1, $query_1->count() );
+		$this->assertSame( 1, $query_1->count() );
 
 		$query_2 = new WordPoints_Points_Logs_Query(
 			array(
@@ -455,7 +455,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'points__compare' => '!=',
 			)
 		);
-		$this->assertEquals( 2, $query_2->count() );
+		$this->assertSame( 2, $query_2->count() );
 
 		$query_3 = new WordPoints_Points_Logs_Query(
 			array(
@@ -463,7 +463,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'points__compare' => '>',
 			)
 		);
-		$this->assertEquals( 2, $query_3->count() );
+		$this->assertSame( 2, $query_3->count() );
 
 		$query_4 = new WordPoints_Points_Logs_Query(
 			array(
@@ -471,7 +471,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'points__compare' => '<',
 			)
 		);
-		$this->assertEquals( 0, $query_4->count() );
+		$this->assertSame( 0, $query_4->count() );
 
 		$query_5 = new WordPoints_Points_Logs_Query(
 			array(
@@ -479,7 +479,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'points__compare' => '<=',
 			)
 		);
-		$this->assertEquals( 1, $query_5->count() );
+		$this->assertSame( 1, $query_5->count() );
 
 		$query_6 = new WordPoints_Points_Logs_Query(
 			array(
@@ -487,7 +487,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'points__compare' => '>=',
 			)
 		);
-		$this->assertEquals( 3, $query_6->count() );
+		$this->assertSame( 3, $query_6->count() );
 	}
 
 	/**
@@ -515,8 +515,8 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$results = $query_5->get();
 
-		$this->assertEquals( 2, count( $results ) );
-		$this->assertEquals( 20, reset( $results )->points );
+		$this->assertSame( 2, count( $results ) );
+		$this->assertSame( 20, (int) reset( $results )->points );
 	}
 
 	/**
@@ -548,7 +548,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 	}
 
 	/**
@@ -579,26 +579,26 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query();
 
-		$this->assertEquals( 1, $query->count() );
-		$this->assertEquals( 10, $query->get( 'row' )->points );
+		$this->assertSame( 1, $query->count() );
+		$this->assertSame( '10', $query->get( 'row' )->points );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'blog_id' => $blog_id ) );
 
-		$this->assertEquals( 1, $query->count() );
-		$this->assertEquals( 20, $query->get( 'row' )->points );
+		$this->assertSame( 1, $query->count() );
+		$this->assertSame( '20', $query->get( 'row' )->points );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'blog_id' => false ) );
 
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'blog_id__in' => array( $current_blog_id, $blog_id ) ) );
 
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query( array( 'blog_id__not_in' => array( $current_blog_id ) ) );
 
-		$this->assertEquals( 1, $query->count() );
-		$this->assertEquals( 20, $query->get( 'row' )->points );
+		$this->assertSame( 1, $query->count() );
+		$this->assertSame( '20', $query->get( 'row' )->points );
 	}
 
 	/**
@@ -621,7 +621,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		);
 
 		$query = new WordPoints_Points_Logs_Query( array( 'text' => 'A test.' ) );
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
@@ -629,7 +629,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'text__compare' => '!=',
 			)
 		);
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
@@ -637,7 +637,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'text__compare' => 'LIKE',
 			)
 		);
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
@@ -645,12 +645,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 				'text__compare' => 'NOT LIKE',
 			)
 		);
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'text' => '%100\%%' )
 		);
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -665,25 +665,25 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query = wordpoints_get_points_logs_query( 'points' );
 
 		// No query yet.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		// Get the results;
 		$query->get();
 
 		// The cache should have been used, no new query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the count.
 		$query->count();
 
 		// The count should also be cached, so no query needed here either.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// New query.
 		wordpoints_get_points_logs_query( 'points' );
 
 		// The cache should still be good, so no new query should have been made.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Now alter some points.
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'test' );
@@ -693,7 +693,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -712,19 +712,19 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query = wordpoints_get_points_logs_query( 'points' );
 
 		// No query yet.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the 'credits' points type.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// A second query should have been made.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Now alter some points.
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'test' );
@@ -734,14 +734,14 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the 'credits' query again.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// The cache should still have been good, no need for another query.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -763,12 +763,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query = wordpoints_get_points_logs_query( 'points', 'current_user' );
 
 		// No query yet.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the second user.
 		wp_set_current_user( $user_ids[1] );
@@ -776,7 +776,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// A second query should have been made to prime this cache.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Now alter the points of the first user.
 		wordpoints_alter_points( $user_ids[0], 10, 'points', 'test' );
@@ -787,7 +787,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the query for the second user again.
 		wp_set_current_user( $user_ids[1] );
@@ -795,7 +795,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should still have been good, no need for another query.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		wp_set_current_user( $old_user->ID );
 	}
@@ -815,12 +815,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query = wordpoints_get_points_logs_query( 'points', 'network' );
 
 		// No query yet.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site.
 		$site_id = $this->factory->blog->create();
@@ -831,7 +831,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should still be good, no query needed.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Now alter some points.
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'test' );
@@ -842,7 +842,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should have been invalidated, and so a new query made.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -860,12 +860,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query = wordpoints_get_points_logs_query( 'points' );
 
 		// No query yet.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site.
 		$site_id = $this->factory->blog->create();
@@ -876,7 +876,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// A new query is needed for this site.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Now alter some points.
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'test' );
@@ -887,7 +887,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->get();
 
 		// The cache should still be good, no new query needed.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -906,18 +906,18 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$page_1 = $query->get_page( 1, 2 );
 
 		$this->assertCount( 2, $page_1 );
-		$this->assertEquals( $ids[0], $page_1[0]->id );
-		$this->assertEquals( $ids[1], $page_1[1]->id );
+		$this->assertSame( $ids[0], (int) $page_1[0]->id );
+		$this->assertSame( $ids[1], (int) $page_1[1]->id );
 
 		$page_3 = $query->get_page( 3, 2 );
 
 		$this->assertCount( 2, $page_3 );
-		$this->assertEquals( $ids[4], $page_3[0]->id );
-		$this->assertEquals( $ids[5], $page_3[1]->id );
+		$this->assertSame( $ids[4], (int) $page_3[0]->id );
+		$this->assertSame( $ids[5], (int) $page_3[1]->id );
 
 		$page_5 = $query->get_page( 5, 2 );
 		$this->assertCount( 1, $page_5 );
-		$this->assertEquals( $ids[8], $page_5[0]->id );
+		$this->assertSame( $ids[8], (int) $page_5[0]->id );
 
 		$page_6 = $query->get_page( 6, 2 );
 		$this->assertCount( 0, $page_6 );
@@ -953,7 +953,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query->get_page( 1 );
 
-		$this->assertEquals( $sql, $query->get_sql() );
+		$this->assertSame( $sql, $query->get_sql() );
 	}
 
 	/**
@@ -974,22 +974,22 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->prime_cache( __FUNCTION__ );
 
 		// The cache should have been primed, but no query made.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get the first page.
 		$page_1 = $query->get_page( 1, 2 );
 
 		// The query shouldn't have been called again.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		$this->assertCount( 2, $page_1 );
-		$this->assertEquals( $ids[0], $page_1[0]->id );
-		$this->assertEquals( $ids[1], $page_1[1]->id );
+		$this->assertSame( $ids[0], (int) $page_1[0]->id );
+		$this->assertSame( $ids[1], (int) $page_1[1]->id );
 	}
 
 	/**
@@ -1010,33 +1010,33 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query->prime_cache( __METHOD__ );
 
 		// The cache should have been primed, but no query made.
-		$this->assertEquals( 0, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 
 		// Get the first page.
 		$page_1 = $query->get_page( 1, 2 );
 
 		// The query shouldn't have been called again.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		$this->assertCount( 2, $page_1 );
-		$this->assertEquals( $ids[0], $page_1[0]->id );
-		$this->assertEquals( $ids[1], $page_1[1]->id );
+		$this->assertSame( $ids[0], (int) $page_1[0]->id );
+		$this->assertSame( $ids[1], (int) $page_1[1]->id );
 
 		// Get the second page.
 		$page_2 = $query->get_page( 2, 2 );
 
 		// The query should have been called again.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		$this->assertCount( 2, $page_2 );
-		$this->assertEquals( $ids[2], $page_2[0]->id );
-		$this->assertEquals( $ids[3], $page_2[1]->id );
+		$this->assertSame( $ids[2], (int) $page_2[0]->id );
+		$this->assertSame( $ids[3], (int) $page_2[1]->id );
 
 		// Get the whole query.
 		$all = $query->get();
 
 		// The query should have been called again.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		$this->assertCount( 5, $all );
 	}
@@ -1056,12 +1056,12 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$page_1 = $query->get_page( 1, 2 );
 
-		$this->assertEquals( $ids[2], $page_1[0]->id );
-		$this->assertEquals( $ids[3], $page_1[1]->id );
+		$this->assertSame( $ids[2], (int) $page_1[0]->id );
+		$this->assertSame( $ids[3], (int) $page_1[1]->id );
 
 		$page_2 = $query->get_page( 2, 2 );
 
-		$this->assertEquals( $ids[4], $page_2[0]->id );
+		$this->assertSame( $ids[4], (int) $page_2[0]->id );
 	}
 
 	/**

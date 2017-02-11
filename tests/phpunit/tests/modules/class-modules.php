@@ -39,7 +39,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
 		);
 
-		$this->assertEquals(
+		$this->assertSameSetsWithIndex(
 			array(
 				'name'        => 'Demo Module',
 				'version'     => '1.0.0',
@@ -91,7 +91,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'1.0.0'
 			, WordPoints_Modules::get_data( 'demo-module', 'version' )
 		);
@@ -119,7 +119,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_slug() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'demo-module'
 			, WordPoints_Modules::get_slug(
 				wordpoints_modules_dir() . '/demo-module/demo-module.php'
@@ -134,7 +134,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_slug_module_outside_modules_dir() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'user'
 			, WordPoints_Modules::get_slug(
 				'/user/var/other-modules/demo-module/demo-module.php'
@@ -149,7 +149,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_slug_subdirectory_file() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'demo-module'
 			, WordPoints_Modules::get_slug(
 				wordpoints_modules_dir() . '/demo-module/another/file.php'

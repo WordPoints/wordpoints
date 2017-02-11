@@ -28,8 +28,8 @@ class WordPoints_Entity_Attr_Stored_DB_Table_Meta_Test
 			'testing'
 		);
 
-		$this->assertEquals( 'testmeta', $attr->get( 'wpdb_table_name' ) );
-		$this->assertEquals( 'test_id', $attr->get( 'entity_id_field' ) );
+		$this->assertSame( 'testmeta', $attr->get( 'wpdb_table_name' ) );
+		$this->assertSame( 'test_id', $attr->get( 'entity_id_field' ) );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class WordPoints_Entity_Attr_Stored_DB_Table_Meta_Test
 
 		$this->assertTrue( $attr->set_the_value_from_entity( $entity ) );
 
-		$this->assertEquals( 'a', $attr->get_the_value() );
+		$this->assertSame( 'a', $attr->get_the_value() );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class WordPoints_Entity_Attr_Stored_DB_Table_Meta_Test
 
 		$this->assertTrue( $attr->set_the_value_from_entity( $entity ) );
 
-		$this->assertEquals( 'a', $attr->get_the_value() );
+		$this->assertSame( 'a', $attr->get_the_value() );
 
 		$this->assertTrue(
 			$attr->set_the_value_from_entity(
@@ -116,7 +116,7 @@ class WordPoints_Entity_Attr_Stored_DB_Table_Meta_Test
 			, 'post'
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'type' => 'db',
 				'info' => array(

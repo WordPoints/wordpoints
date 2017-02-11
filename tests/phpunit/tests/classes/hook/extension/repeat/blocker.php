@@ -92,7 +92,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**

@@ -30,7 +30,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		update_option( 'test', 'option' );
 		update_site_option( 'test', 'network_option' );
 
-		$this->assertEquals( 'option', wordpoints_get_maybe_network_option( 'test' ) );
+		$this->assertSame( 'option', wordpoints_get_maybe_network_option( 'test' ) );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		update_option( 'test', 'option' );
 		update_site_option( 'test', 'network_option' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'network_option'
 			, wordpoints_get_maybe_network_option( 'test' )
 		);
@@ -70,7 +70,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		update_option( 'test', 'option' );
 		update_site_option( 'test', 'network_option' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$result
 			, wordpoints_get_maybe_network_option( 'test', $network )
 		);
@@ -103,7 +103,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 	 */
 	public function test_get_no_option( $network ) {
 
-		$this->assertEquals(
+		$this->assertSame(
 			false
 			, wordpoints_get_maybe_network_option( 'test', $network )
 		);
@@ -122,7 +122,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 	 */
 	public function test_get_no_option_default_passed( $network ) {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'bob'
 			, wordpoints_get_maybe_network_option( 'test', $network, 'bob' )
 		);
@@ -142,7 +142,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		update_option( 'test', array( 'option' ) );
 		update_site_option( 'test', array( 'network_option' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'option' )
 			, wordpoints_get_maybe_network_array_option( 'test' )
 		);
@@ -162,7 +162,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		update_option( 'test', array( 'option' ) );
 		update_site_option( 'test', array( 'network_option' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'network_option' )
 			, wordpoints_get_maybe_network_array_option( 'test' )
 		);
@@ -185,7 +185,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		update_option( 'test', array( 'option' ) );
 		update_site_option( 'test', array( 'network_option' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			(array) $result
 			, wordpoints_get_maybe_network_array_option( 'test', $network )
 		);
@@ -204,7 +204,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 	 */
 	public function test_get_array_no_option( $network ) {
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, wordpoints_get_maybe_network_array_option( 'test', $network )
 		);
@@ -223,7 +223,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 
 		$this->assertTrue( wordpoints_add_maybe_network_option( 'test', 'testing' ) );
 
-		$this->assertEquals( 'testing', get_option( 'test' ) );
+		$this->assertSame( 'testing', get_option( 'test' ) );
 		$this->assertFalse( get_site_option( 'test' ) );
 	}
 
@@ -241,7 +241,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		$this->assertTrue( wordpoints_add_maybe_network_option( 'test', 'testing' ) );
 
 		$this->assertFalse( get_option( 'test' ) );
-		$this->assertEquals( 'testing', get_site_option( 'test' ) );
+		$this->assertSame( 'testing', get_site_option( 'test' ) );
 	}
 
 	/**
@@ -257,7 +257,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_add_maybe_network_option( 'test', 'testing', false )
 		);
 
-		$this->assertEquals( 'testing', get_option( 'test' ) );
+		$this->assertSame( 'testing', get_option( 'test' ) );
 		$this->assertFalse( get_site_option( 'test' ) );
 	}
 
@@ -275,7 +275,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		);
 
 		$this->assertFalse( get_option( 'test' ) );
-		$this->assertEquals( 'testing', get_site_option( 'test' ) );
+		$this->assertSame( 'testing', get_site_option( 'test' ) );
 	}
 
 	/**
@@ -293,7 +293,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_add_maybe_network_option( 'test', 'testing', false )
 		);
 
-		$this->assertEquals( 'option', get_option( 'test' ) );
+		$this->assertSame( 'option', get_option( 'test' ) );
 	}
 
 	/**
@@ -311,7 +311,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_add_maybe_network_option( 'test', 'testing', true )
 		);
 
-		$this->assertEquals( 'network_option', get_site_option( 'test' ) );
+		$this->assertSame( 'network_option', get_site_option( 'test' ) );
 	}
 
 	/**
@@ -383,7 +383,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_update_maybe_network_option( 'test', 'testing' )
 		);
 
-		$this->assertEquals( 'testing', get_option( 'test' ) );
+		$this->assertSame( 'testing', get_option( 'test' ) );
 		$this->assertFalse( get_site_option( 'test' ) );
 	}
 
@@ -403,7 +403,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		);
 
 		$this->assertFalse( get_option( 'test' ) );
-		$this->assertEquals( 'testing', get_site_option( 'test' ) );
+		$this->assertSame( 'testing', get_site_option( 'test' ) );
 	}
 
 	/**
@@ -419,7 +419,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_update_maybe_network_option( 'test', 'testing', false )
 		);
 
-		$this->assertEquals( 'testing', get_option( 'test' ) );
+		$this->assertSame( 'testing', get_option( 'test' ) );
 		$this->assertFalse( get_site_option( 'test' ) );
 	}
 
@@ -437,7 +437,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		);
 
 		$this->assertFalse( get_option( 'test' ) );
-		$this->assertEquals( 'testing', get_site_option( 'test' ) );
+		$this->assertSame( 'testing', get_site_option( 'test' ) );
 	}
 
 	/**
@@ -455,7 +455,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_update_maybe_network_option( 'test', 'testing', false )
 		);
 
-		$this->assertEquals( 'testing', get_option( 'test' ) );
+		$this->assertSame( 'testing', get_option( 'test' ) );
 	}
 
 	/**
@@ -473,7 +473,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_update_maybe_network_option( 'test', 'testing', true )
 		);
 
-		$this->assertEquals( 'testing', get_site_option( 'test' ) );
+		$this->assertSame( 'testing', get_site_option( 'test' ) );
 	}
 
 
@@ -494,7 +494,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		$this->assertTrue( wordpoints_delete_maybe_network_option( 'test' ) );
 
 		$this->assertFalse( get_option( 'test' ) );
-		$this->assertEquals( 'network_option', get_site_option( 'test' ) );
+		$this->assertSame( 'network_option', get_site_option( 'test' ) );
 
 	}
 
@@ -514,7 +514,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 
 		$this->assertTrue( wordpoints_delete_maybe_network_option( 'test' ) );
 
-		$this->assertEquals( 'option', get_option( 'test' ) );
+		$this->assertSame( 'option', get_option( 'test' ) );
 		$this->assertFalse( get_site_option( 'test' ) );
 	}
 
@@ -535,7 +535,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 		);
 
 		$this->assertFalse( get_option( 'test' ) );
-		$this->assertEquals( 'network_option', get_site_option( 'test' ) );
+		$this->assertSame( 'network_option', get_site_option( 'test' ) );
 	}
 
 	/**
@@ -554,7 +554,7 @@ class WordPoints_Maybe_Network_Option_Function_Test extends WordPoints_PHPUnit_T
 			wordpoints_delete_maybe_network_option( 'test', true )
 		);
 
-		$this->assertEquals( 'option', get_option( 'test' ) );
+		$this->assertSame( 'option', get_option( 'test' ) );
 		$this->assertFalse( get_site_option( 'test' ) );
 	}
 

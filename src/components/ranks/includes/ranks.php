@@ -696,6 +696,8 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 			$user_ids = array_merge( $user_ids, $other_user_ids );
 		}
 
+		$user_ids = array_map( 'intval', $user_ids );
+
 		wp_cache_set( $rank_id, $user_ids, 'wordpoints_users_with_rank' );
 
 	} // End if ( not cached ).

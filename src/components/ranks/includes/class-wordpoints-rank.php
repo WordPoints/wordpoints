@@ -238,6 +238,8 @@ final class WordPoints_Rank {
 			return false;
 		}
 
+		$rank_data->id = (int) $rank_data->id;
+
 		wp_cache_add( $rank_data->id, $rank_data, 'wordpoints_ranks' );
 
 		return $rank_data;

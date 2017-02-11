@@ -44,11 +44,11 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		WordPoints_App::$main = null;
 
-		$this->assertEquals( 0, $action->call_count );
+		$this->assertSame( 0, $action->call_count );
 
 		wordpoints_init_hooks();
 
-		$this->assertEquals( 1, $action->call_count );
+		$this->assertSame( 1, $action->call_count );
 	}
 
 	/**
@@ -147,8 +147,8 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		wordpoints_hook_actions_init( $actions );
 
-		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
-		$this->assertEquals( 1, $this->filter_was_called( $events_filter ) );
+		$this->assertSame( 1, $this->filter_was_called( $filter ) );
+		$this->assertSame( 1, $this->filter_was_called( $events_filter ) );
 
 		$this->assertTrue( $actions->is_registered( 'user_register' ) );
 		$this->assertTrue( $actions->is_registered( 'user_delete' ) );
@@ -195,7 +195,7 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		wordpoints_hook_events_init( $events );
 
-		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+		$this->assertSame( 1, $this->filter_was_called( $filter ) );
 
 		$this->assertEventRegistered( 'user_register', 'user' );
 		$this->assertEventRegistered( 'user_visit', 'current:user' );
@@ -221,12 +221,12 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 		$filter = 'wordpoints_register_hook_events_for_post_types';
 		$this->listen_for_filter( $filter );
 
-		$this->assertEquals(
+		$this->assertSame(
 			get_post_types( array( 'public' => true ) )
 			, wordpoints_get_post_types_for_hook_events()
 		);
 
-		$this->assertEquals( 1, $this->filter_was_called( $filter ) );
+		$this->assertSame( 1, $this->filter_was_called( $filter ) );
 	}
 
 	/**
@@ -250,8 +250,8 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		wordpoints_register_post_type_hook_events( 'test' );
 
-		$this->assertEquals( 1, $mock->call_count );
-		$this->assertEquals( array( 'test' ), $mock->calls[0] );
+		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame( array( 'test' ), $mock->calls[0] );
 
 		$this->assertEventRegistered( 'post_publish\test', 'post\test' );
 	}

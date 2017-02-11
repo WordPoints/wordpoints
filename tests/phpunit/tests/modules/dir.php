@@ -28,11 +28,11 @@ class WordPoints_Modules_Dir_Test extends WordPoints_PHPUnit_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( 'test_directory' );
 		$filter->add_filter( 'wordpoints_modules_dir' );
 
-		$this->assertEquals( 'test_directory', wordpoints_modules_dir() );
+		$this->assertSame( 'test_directory', wordpoints_modules_dir() );
 
 		$filter->remove_filter( 'wordpoints_modules_dir' );
 
-		$this->assertEquals( $original, wordpoints_modules_dir() );
+		$this->assertSame( $original, wordpoints_modules_dir() );
 	}
 }
 

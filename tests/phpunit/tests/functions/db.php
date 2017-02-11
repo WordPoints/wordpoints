@@ -28,7 +28,7 @@ class WordPoints_DB_Function_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_wordpoints_escape_mysql_identifier( $value, $escaped ) {
 
-		$this->assertEquals( $escaped, wordpoints_escape_mysql_identifier( $value ) );
+		$this->assertSame( $escaped, wordpoints_escape_mysql_identifier( $value ) );
 	}
 
 	/**

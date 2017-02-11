@@ -179,7 +179,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->after_update();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-2' )
 			, get_site_option( 'wordpoints_breaking_deactivated_modules' )
 		);
@@ -302,12 +302,12 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->deactivate_modules( array( 'test2' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test2' )
 			, get_option( 'wordpoints_incompatible_modules' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test1' )
 			, get_option( 'wordpoints_active_modules' )
 		);
@@ -331,12 +331,12 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->deactivate_modules( array( 'test2' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test2' )
 			, get_site_option( 'wordpoints_incompatible_modules' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test1' => 2343 )
 			, get_site_option( 'wordpoints_sitewide_active_modules' )
 		);
@@ -368,8 +368,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $result );
 
-		$this->assertEquals( 1, $rand_str_update_filter->call_count );
-		$this->assertEquals( 1, $nonce_update_filter->call_count );
+		$this->assertSame( 1, $rand_str_update_filter->call_count );
+		$this->assertSame( 1, $nonce_update_filter->call_count );
 
 		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
 		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
@@ -409,8 +409,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $result );
 
-		$this->assertEquals( 1, $rand_str_update_filter->call_count );
-		$this->assertEquals( 1, $nonce_update_filter->call_count );
+		$this->assertSame( 1, $rand_str_update_filter->call_count );
+		$this->assertSame( 1, $nonce_update_filter->call_count );
 
 		$this->assertEmpty( get_site_option( 'wordpoints_module_check_rand_str' ) );
 		$this->assertEmpty( get_site_option( 'wordpoints_module_check_nonce' ) );
@@ -448,8 +448,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertFalse( $result );
 
-		$this->assertEquals( 1, $rand_str_update_filter->call_count );
-		$this->assertEquals( 1, $nonce_update_filter->call_count );
+		$this->assertSame( 1, $rand_str_update_filter->call_count );
+		$this->assertSame( 1, $nonce_update_filter->call_count );
 
 		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
 		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
@@ -488,8 +488,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertWPError( $result );
 
-		$this->assertEquals( 1, $rand_str_update_filter->call_count );
-		$this->assertEquals( 1, $nonce_update_filter->call_count );
+		$this->assertSame( 1, $rand_str_update_filter->call_count );
+		$this->assertSame( 1, $nonce_update_filter->call_count );
 
 		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
 		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
@@ -565,12 +565,12 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->http_requests[0]['url']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php' )
 			, get_option( 'wordpoints_incompatible_modules' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, get_option( 'wordpoints_active_modules' )
 		);
@@ -585,12 +585,12 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		// There shouldn't have been a second request made.
 		$this->assertCount( 1, $this->http_requests );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, get_option( 'wordpoints_active_modules' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php' )
 			, get_option( 'wordpoints_incompatible_modules' )
 		);
@@ -633,7 +633,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->http_requests[0]['url']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php' )
 			, get_option( 'wordpoints_incompatible_modules' )
 		);
@@ -670,7 +670,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->http_requests[2]['url']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php', 'test-4/test-4.php' )
 			, get_option( 'wordpoints_incompatible_modules' )
 		);
@@ -717,7 +717,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->update_network_to_breaking();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php' => 2343, 'test-4/test-4.php' => 484983 )
 			, get_site_option( 'wordpoints_sitewide_active_modules' )
 		);
@@ -747,7 +747,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->update_network_to_breaking();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php' => 2343, 'test-4/test-4.php' => 484983 )
 			, get_site_option( 'wordpoints_sitewide_active_modules' )
 		);
@@ -773,7 +773,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->update_site_to_breaking();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php', 'test-4/test-4.php' )
 			, get_option( 'wordpoints_active_modules' )
 		);
@@ -803,7 +803,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->updater->update_single_to_breaking();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test-3.php', 'test-4/test-4.php' )
 			, get_option( 'wordpoints_active_modules' )
 		);

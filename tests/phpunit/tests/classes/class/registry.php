@@ -44,12 +44,12 @@ class WordPoints_Class_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_R
 
 		$this->assertCount( 2, $objects );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => array() )
 			, $objects['test']->calls[0]
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => array() )
 			, $objects['test_2']->calls[0]
 		);
@@ -77,12 +77,12 @@ class WordPoints_Class_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_R
 
 		$this->assertCount( 2, $objects );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $construct_with_args )
 			, $objects['test']->calls[0]
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $construct_with_args )
 			, $objects['test_2']->calls[0]
 		);

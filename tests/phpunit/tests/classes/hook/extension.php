@@ -25,7 +25,7 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$extension = new WordPoints_PHPUnit_Mock_Hook_Extension();
 
-		$this->assertEquals( 'test_extension', $extension->get_slug() );
+		$this->assertSame( 'test_extension', $extension->get_slug() );
 	}
 
 	/**
@@ -58,21 +58,21 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $event_args
 		);
 
-		$this->assertEquals( $settings, $validated );
+		$this->assertSame( $settings, $validated );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['test_extension'][ $action_type ]
 			, $extension->validations[0]['settings']
 		);
 
-		$this->assertEquals( $event_args, $extension->validations[0]['event_args'] );
-		$this->assertEquals( $validator, $extension->validations[0]['validator'] );
-		$this->assertEquals(
+		$this->assertSame( $event_args, $extension->validations[0]['event_args'] );
+		$this->assertSame( $validator, $extension->validations[0]['validator'] );
+		$this->assertSame(
 			array( 'test_extension', $action_type )
 			, $extension->validations[0]['field_stack']
 		);
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**
@@ -100,9 +100,9 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, $event_args
 		);
 
-		$this->assertEquals( $settings, $validated );
-		$this->assertEquals( array(), $extension->validations );
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( $settings, $validated );
+		$this->assertSame( array(), $extension->validations );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**
@@ -135,16 +135,16 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		unset( $settings['test_extension'] );
 
-		$this->assertEquals( $settings, $validated );
+		$this->assertSame( $settings, $validated );
 
 		$this->assertEmpty( $extension->validations );
 
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'test_extension' ), $errors[0]['field'] );
+		$this->assertSame( array( 'test_extension' ), $errors[0]['field'] );
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**
@@ -177,18 +177,18 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$settings['test_extension'] = array();
 
-		$this->assertEquals( $settings, $validated );
+		$this->assertSame( $settings, $validated );
 
 		$this->assertNull( $extension->validations[0]['settings'] );
 
-		$this->assertEquals( $event_args, $extension->validations[0]['event_args'] );
-		$this->assertEquals( $validator, $extension->validations[0]['validator'] );
-		$this->assertEquals(
+		$this->assertSame( $event_args, $extension->validations[0]['event_args'] );
+		$this->assertSame( $validator, $extension->validations[0]['validator'] );
+		$this->assertSame(
 			array( 'test_extension', 'test_fire' )
 			, $extension->validations[0]['field_stack']
 		);
 
-		$this->assertEquals( array(), $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 	}
 
 	/**
@@ -209,7 +209,7 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$extension->update_settings( $reaction, $settings );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['test_extension']
 			, $reaction->get_meta( 'test_extension' )
 		);

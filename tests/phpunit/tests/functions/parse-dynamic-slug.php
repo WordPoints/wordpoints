@@ -25,7 +25,7 @@ class WordPoints_Parse_Dynamic_Slug_Functions_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_parse( $slug, $parsed ) {
 
-		$this->assertEquals( $parsed, wordpoints_parse_dynamic_slug( $slug ) );
+		$this->assertSame( $parsed, wordpoints_parse_dynamic_slug( $slug ) );
 	}
 
 	/**

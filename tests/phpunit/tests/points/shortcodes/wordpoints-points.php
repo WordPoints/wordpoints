@@ -61,7 +61,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		$old_current_user = wp_get_current_user();
 		wp_set_current_user( $user_id );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'$0pts.'
 			, $this->do_shortcode(
 				'wordpoints_points'
@@ -86,9 +86,9 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
 
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'$10pts.'
 			, $this->do_shortcode(
 				'wordpoints_points'
@@ -109,9 +109,9 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		$user_id = $this->factory->user->create();
 
 		wordpoints_alter_points( $user_id, 10, 'points', 'test' );
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'$10pts.'
 			, $this->do_shortcode(
 				'wordpoints_points'
@@ -133,7 +133,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		wp_set_current_user( $user_id );
 
 		// There should be no error with an invalid points type.
-		$this->assertEquals( null, $this->do_shortcode( 'wordpoints_points' ) );
+		$this->assertSame( '', $this->do_shortcode( 'wordpoints_points' ) );
 
 		wp_set_current_user( $old_current_user->ID );
 	}
@@ -184,7 +184,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( '$30pts.', $result );
+		$this->assertSame( '$30pts.', $result );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( null, $result );
+		$this->assertSame( '', $result );
 	}
 
 	/**

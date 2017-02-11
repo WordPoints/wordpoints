@@ -57,7 +57,7 @@ class WordPoints_Rank_Groups_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 			, WordPoints_Rank_Groups::get_group( __CLASS__ )
 		);
 
-		$this->assertEquals( __CLASS__, $groups[ __CLASS__ ]->get_slug() );
+		$this->assertSame( __CLASS__, $groups[ __CLASS__ ]->get_slug() );
 	}
 
 	/**

@@ -26,7 +26,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$hierarchy = new WordPoints_Entity_Hierarchy( $entity );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' => $entity )
 			, $hierarchy->get_entities()
 		);
@@ -41,7 +41,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$hierarchy = new WordPoints_Entity_Hierarchy();
 
-		$this->assertEquals( array(), $hierarchy->get_entities() );
+		$this->assertSame( array(), $hierarchy->get_entities() );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$hierarchy = new WordPoints_Entity_Hierarchy();
 		$hierarchy->add_entity( $entity );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' => $entity )
 			, $hierarchy->get_entities()
 		);
@@ -64,7 +64,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$entity_2 = new WordPoints_PHPUnit_Mock_Entity( 'test_2' );
 		$hierarchy->add_entity( $entity_2 );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' => $entity, 'test_2' => $entity_2 )
 			, $hierarchy->get_entities()
 		);
@@ -84,14 +84,14 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$hierarchy->add_entity( $entity );
 		$hierarchy->add_entity( $entity_2 );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' => $entity, 'test_2' => $entity_2 )
 			, $hierarchy->get_entities()
 		);
 
 		$hierarchy->remove_entity( 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_2' => $entity_2 )
 			, $hierarchy->get_entities()
 		);
@@ -109,14 +109,14 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$hierarchy = new WordPoints_Entity_Hierarchy();
 		$hierarchy->add_entity( $entity );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' => $entity )
 			, $hierarchy->get_entities()
 		);
 
 		$hierarchy->remove_entity( 'other' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' => $entity )
 			, $hierarchy->get_entities()
 		);
@@ -207,7 +207,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$this->assertTrue( $hierarchy->ascend() );
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 	}
 
 	/**
@@ -235,7 +235,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$this->assertTrue( $hierarchy->descend( 'test' ) );
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 
 		$this->assertTrue( $hierarchy->descend( 'child' ) );
 
@@ -246,7 +246,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$this->assertTrue( $hierarchy->ascend() );
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 
 		$this->assertTrue( $hierarchy->ascend() );
 
@@ -292,7 +292,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$this->assertTrue( $hierarchy->descend( 'test' ) );
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 
 		$this->assertTrue( $hierarchy->descend( 'child' ) );
 
@@ -323,11 +323,11 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$this->assertTrue( $hierarchy->descend( 'test' ) );
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 
 		$this->assertFalse( $hierarchy->descend( 'child' ) );
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 	}
 
 	/**
@@ -375,19 +375,19 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$hierarchy->descend( 'test' );
 		$hierarchy->descend( 'child' );
 
-		$this->assertEquals( 'child', $hierarchy->get_current()->get_slug() );
+		$this->assertSame( 'child', $hierarchy->get_current()->get_slug() );
 
 		$from_hierarchy = $hierarchy->get_from_hierarchy(
 			array( 'test', 'child_2' )
 		);
 
-		$this->assertEquals( 'child_2', $from_hierarchy->get_slug() );
+		$this->assertSame( 'child_2', $from_hierarchy->get_slug() );
 
-		$this->assertEquals( 'child', $hierarchy->get_current()->get_slug() );
+		$this->assertSame( 'child', $hierarchy->get_current()->get_slug() );
 
 		$hierarchy->ascend();
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 	}
 
 	/**
@@ -414,7 +414,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$hierarchy->descend( 'test' );
 		$hierarchy->descend( 'child' );
 
-		$this->assertEquals( 'child', $hierarchy->get_current()->get_slug() );
+		$this->assertSame( 'child', $hierarchy->get_current()->get_slug() );
 
 		$from_hierarchy = $hierarchy->get_from_hierarchy(
 			array( 'test', 'child_2' )
@@ -422,11 +422,11 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 
 		$this->assertNull( $from_hierarchy );
 
-		$this->assertEquals( 'child', $hierarchy->get_current()->get_slug() );
+		$this->assertSame( 'child', $hierarchy->get_current()->get_slug() );
 
 		$hierarchy->ascend();
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 	}
 
 	/**
@@ -453,17 +453,17 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 		$hierarchy->descend( 'test' );
 		$hierarchy->descend( 'child' );
 
-		$this->assertEquals( 'child', $hierarchy->get_current()->get_slug() );
+		$this->assertSame( 'child', $hierarchy->get_current()->get_slug() );
 
 		$from_hierarchy = $hierarchy->get_from_hierarchy( array() );
 
 		$this->assertNull( $from_hierarchy );
 
-		$this->assertEquals( 'child', $hierarchy->get_current()->get_slug() );
+		$this->assertSame( 'child', $hierarchy->get_current()->get_slug() );
 
 		$hierarchy->ascend();
 
-		$this->assertEquals( $entity, $hierarchy->get_current() );
+		$this->assertSame( $entity, $hierarchy->get_current() );
 	}
 }
 

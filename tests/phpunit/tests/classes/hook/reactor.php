@@ -27,7 +27,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor->slug = 'test_reactor';
 
-		$this->assertEquals( 'test_reactor', $reactor->get_slug() );
+		$this->assertSame( 'test_reactor', $reactor->get_slug() );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor->arg_types = array( 'test_entity', 'another' );
 
-		$this->assertEquals( $reactor->arg_types, $reactor->get_arg_types() );
+		$this->assertSame( $reactor->arg_types, $reactor->get_arg_types() );
 	}
 
 	/**
@@ -55,7 +55,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor->arg_types = 'test_entity';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $reactor->arg_types )
 			, $reactor->get_arg_types()
 		);
@@ -72,7 +72,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor;
 
-		$this->assertEquals( 'site', $reactor->get_context() );
+		$this->assertSame( 'site', $reactor->get_context() );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor;
 
-		$this->assertEquals( 'network', $reactor->get_context() );
+		$this->assertSame( 'network', $reactor->get_context() );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor->settings_fields = array( 'field' => array() );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$reactor->settings_fields
 			, $reactor->get_settings_fields()
 		);
@@ -134,7 +134,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -165,12 +165,12 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'target' ), $errors[0]['field'] );
+		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -202,12 +202,12 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'target' ), $errors[0]['field'] );
+		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -239,13 +239,13 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 2, $errors );
-		$this->assertEquals( array(), $errors[0]['field'] );
-		$this->assertEquals( array( 'target' ), $errors[1]['field'] );
+		$this->assertSame( array(), $errors[0]['field'] );
+		$this->assertSame( array( 'target' ), $errors[1]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -277,12 +277,12 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( 'target' ), $errors[0]['field'] );
+		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -295,7 +295,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_entity' )
 			, $reaction->get_meta( 'target' )
 		);
@@ -307,7 +307,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$reactor->update_settings( $reaction, $settings );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['target']
 			, $reaction->get_meta( 'target' )
 		);

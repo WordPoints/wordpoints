@@ -66,7 +66,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 			, 'user_rank_shortcode'
 		);
 
-		$this->assertEquals( $formatted_rank, $result );
+		$this->assertSame( $formatted_rank, $result );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 			, 'user_rank_shortcode'
 		);
 
-		$this->assertEquals( $formatted_rank, $result );
+		$this->assertSame( $formatted_rank, $result );
 	}
 
 	/**
@@ -118,7 +118,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 		$result = $this->do_shortcode( 'wordpoints_user_rank' );
 
 		// There should be no error with an invalid points type.
-		$this->assertEquals( null, $result );
+		$this->assertSame( '', $result );
 
 		wp_set_current_user( $old_current_user->ID );
 	}

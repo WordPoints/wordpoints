@@ -117,7 +117,7 @@ class WordPoints_Entity_Restriction_Legacy_Test
 
 		$this->assertTrue( $restriction->user_can( $user_id ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $this->filter_was_called( 'wordpoints_entity_user_can_view' )
 		);
@@ -145,7 +145,7 @@ class WordPoints_Entity_Restriction_Legacy_Test
 
 		$this->assertTrue( $restriction->user_can( $user_id ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $this->filter_was_called( 'wordpoints_entity_user_can_view' )
 		);
@@ -176,7 +176,7 @@ class WordPoints_Entity_Restriction_Legacy_Test
 
 		$this->assertTrue( $restriction->user_can( $user_id ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $this->filter_was_called( 'wordpoints_entity_user_can_view' )
 		);
@@ -210,7 +210,7 @@ class WordPoints_Entity_Restriction_Legacy_Test
 
 		$this->assertTrue( $restriction->user_can( $user_id ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $this->filter_was_called( 'wordpoints_entity_user_can_view' )
 		);
@@ -250,7 +250,7 @@ class WordPoints_Entity_Restriction_Legacy_Test
 
 		$this->assertFalse( $restriction->user_can( $user_id ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $this->filter_was_called( 'wordpoints_entity_user_can_view' )
 		);

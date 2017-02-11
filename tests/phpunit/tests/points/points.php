@@ -74,7 +74,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_zero_if_no_points() {
 
-		$this->assertEquals( 0, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $this->user_id, 'points' ) );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		update_user_meta( $this->user_id, wordpoints_get_points_user_meta_key( 'points' ), 23 );
 
-		$this->assertEquals( 23, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 23, wordpoints_get_points( $this->user_id, 'points' ) );
 	}
 
 	//
@@ -104,8 +104,8 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_default_minimum_is_0() {
 
-		$this->assertEquals( 0, wordpoints_get_points_minimum( 'points' ) );
-		$this->assertEquals( 0, wordpoints_get_points_above_minimum( $this->factory->user->create(), 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points_minimum( 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points_above_minimum( $this->factory->user->create(), 'points' ) );
 	}
 
 	/**
@@ -119,8 +119,8 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		add_filter( 'wordpoints_points_minimum', array( $this, 'minimum_filter' ) );
 
-		$this->assertEquals( -50, wordpoints_get_points_minimum( 'points' ) );
-		$this->assertEquals( 50, wordpoints_get_points_above_minimum( $this->factory->user->create(), 'points' ) );
+		$this->assertSame( -50, wordpoints_get_points_minimum( 'points' ) );
+		$this->assertSame( 50, wordpoints_get_points_above_minimum( $this->factory->user->create(), 'points' ) );
 
 		remove_filter( 'wordpoints_points_minimum', array( $this, 'minimum_filter' ) );
 	}
@@ -149,7 +149,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_default_format() {
 
-		$this->assertEquals( '$5pts.', wordpoints_format_points( 5, 'points', 'testing' ) );
+		$this->assertSame( '$5pts.', wordpoints_format_points( 5, 'points', 'testing' ) );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_format_negative() {
 
-		$this->assertEquals( '-$5pts.', wordpoints_format_points( -5, 'points', 'testing' ) );
+		$this->assertSame( '-$5pts.', wordpoints_format_points( -5, 'points', 'testing' ) );
 	}
 
 	/**
@@ -177,7 +177,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		wordpoints_add_points_type( array( 'name' => 'Credits', 'prefix' => '$' ) );
 
-		$this->assertEquals( '$5', wordpoints_format_points( 5, 'credits', 'testing' ) );
+		$this->assertSame( '$5', wordpoints_format_points( 5, 'credits', 'testing' ) );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		wordpoints_add_points_type( array( 'name' => 'Credits', 'suffix' => 'c.' ) );
 
-		$this->assertEquals( '5c.', wordpoints_format_points( 5, 'credits', 'testing' ) );
+		$this->assertSame( '5c.', wordpoints_format_points( 5, 'credits', 'testing' ) );
 	}
 
 	/**
@@ -206,7 +206,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		add_filter( 'wordpoints_format_points', array( $this, 'format_filter' ), 10, 3 );
 
-		$this->assertEquals( '5points', wordpoints_format_points( 5, 'points', 'testing' ) );
+		$this->assertSame( '5points', wordpoints_format_points( 5, 'points', 'testing' ) );
 	}
 
 	/**
@@ -236,22 +236,22 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	public function test_points_altering() {
 
 		wordpoints_set_points( $this->user_id, 50, 'points', 'test' );
-		$this->assertEquals( 50, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 50, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		wordpoints_subtract_points( $this->user_id, 5, 'points', 'test' );
-		$this->assertEquals( 45, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 45, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		wordpoints_add_points( $this->user_id, 10, 'points', 'test' );
-		$this->assertEquals( 55, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 55, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		wordpoints_alter_points( $this->user_id, 5, 'points', 'test' );
-		$this->assertEquals( 60, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 60, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		wordpoints_alter_points( $this->user_id, -10, 'points', 'test' );
-		$this->assertEquals( 50, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 50, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		wordpoints_alter_points( $this->user_id, -60, 'points', 'test' );
-		$this->assertEquals( 0, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $this->user_id, 'points' ) );
 	}
 
 	/**
@@ -383,12 +383,12 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		wordpoints_alter_points( $this->user_id, 50, 'points', 'test' );
 
-		$this->assertEquals( 50, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 50, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		wordpoints_alter_points( $this->user_id, -55, 'points', 'test' );
 
 		// The default minimum is 0.
-		$this->assertEquals( 0, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $this->user_id, 'points' ) );
 	}
 
 	/**
@@ -402,7 +402,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->listen_for_filter( 'wordpoints_points_altered' );
 		wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
-		$this->assertEquals( 1, $this->filter_was_called( 'wordpoints_points_altered' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'wordpoints_points_altered' ) );
 	}
 
 	/**
@@ -431,7 +431,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
 		);
 
-		$this->assertEquals( $log_text, $query->get( 'var' ) );
+		$this->assertSame( $log_text, $query->get( 'var' ) );
 	}
 
 	/**
@@ -455,7 +455,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
 		);
 
-		$this->assertEquals( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
+		$this->assertSame( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
 	}
 
 	/**
@@ -483,7 +483,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
 		);
 
-		$this->assertEquals( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
+		$this->assertSame( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
 	}
 
 	/**
@@ -510,7 +510,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
 		);
 
-		$this->assertEquals( $log_text, $query->get( 'var' ) );
+		$this->assertSame( $log_text, $query->get( 'var' ) );
 	}
 
 	//
@@ -553,7 +553,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
 		);
 
-		$this->assertEquals( $log_text, $query->get( 'var' ) );
+		$this->assertSame( $log_text, $query->get( 'var' ) );
 	}
 
 	//
@@ -596,7 +596,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			array( 'fields' => 'text', 'id__in' => array( $log_id ) )
 		);
 
-		$this->assertEquals( $log_text, $query->get( 'var' ) );
+		$this->assertSame( $log_text, $query->get( 'var' ) );
 	}
 
 	//
@@ -625,7 +625,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			, array()
 		);
 
-		$this->assertEquals( $log_text, $rendered_text );
+		$this->assertSame( $log_text, $rendered_text );
 	}
 
 	/**
@@ -645,7 +645,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			, array()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			_x( '(no description)', 'points log', 'wordpoints' )
 			, $rendered_text
 		);
@@ -671,7 +671,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 			, $log_text
 		);
 
-		$this->assertEquals( $log_text, $rendered_text );
+		$this->assertSame( $log_text, $rendered_text );
 	}
 
 	//
@@ -693,7 +693,7 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 		// Add some points to the user.
 		wordpoints_add_points( $this->user_id, 10, 'points', 'test' );
 
-		$this->assertEquals( 10, wordpoints_get_points( $this->user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $this->user_id, 'points' ) );
 
 		// Now create another blog and add some points there.
 		$blog_id = $this->factory->blog->create();
@@ -708,17 +708,17 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		// Check that the points are separate or universal, based on plugin status.
 		if ( is_wordpoints_network_active() ) {
-			$this->assertEquals( 20, wordpoints_get_points( $this->user_id, 'points' ) );
+			$this->assertSame( 20, wordpoints_get_points( $this->user_id, 'points' ) );
 		} else {
-			$this->assertEquals( 10, wordpoints_get_points( $this->user_id, 'points' ) );
+			$this->assertSame( 10, wordpoints_get_points( $this->user_id, 'points' ) );
 		}
 
 		restore_current_blog();
 
 		if ( is_wordpoints_network_active() ) {
-			$this->assertEquals( 20, wordpoints_get_points( $this->user_id, 'points' ) );
+			$this->assertSame( 20, wordpoints_get_points( $this->user_id, 'points' ) );
 		} else {
-			$this->assertEquals( 10, wordpoints_get_points( $this->user_id, 'points' ) );
+			$this->assertSame( 10, wordpoints_get_points( $this->user_id, 'points' ) );
 		}
 	}
 }

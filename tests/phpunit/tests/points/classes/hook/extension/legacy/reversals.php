@@ -85,7 +85,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			array( 'post_author' => $user_id )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -360,7 +360,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 
 		$this->extension->after_miss( $fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, wordpoints_get_points_log_meta( $log_id, 'auto_reversed' )
 		);
@@ -405,8 +405,8 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 
 		$this->extension->after_miss( $fire );
 
-		$this->assertEquals(
-			array( 0 )
+		$this->assertSame(
+			array( '0' )
 			, wordpoints_get_points_log_meta( $log_id, 'auto_reversed' )
 		);
 	}

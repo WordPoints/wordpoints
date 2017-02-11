@@ -35,16 +35,16 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( 0 => $hook->get_id() ) )
 			, $points_types_hooks
 		);
 
-		$this->assertEquals( $points_types_hooks, get_option( 'wordpoints_points_types_hooks' ) );
+		$this->assertSame( $points_types_hooks, get_option( 'wordpoints_points_types_hooks' ) );
 
 		WordPoints_Points_Hooks::save_points_types_hooks( array() );
 
-		$this->assertEquals( array(), get_option( 'wordpoints_points_types_hooks' ) );
+		$this->assertSame( array(), get_option( 'wordpoints_points_types_hooks' ) );
 
 		// Network mode.
 		WordPoints_Points_Hooks::set_network_mode( true );
@@ -57,22 +57,22 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( 0 => $hook->get_id() ) )
 			, $points_types_hooks
 		);
 
-		$this->assertEquals( $points_types_hooks, get_site_option( 'wordpoints_points_types_hooks' ) );
+		$this->assertSame( $points_types_hooks, get_site_option( 'wordpoints_points_types_hooks' ) );
 
 		WordPoints_Points_Hooks::save_points_types_hooks( array() );
 
-		$this->assertEquals( array(), get_site_option( 'wordpoints_points_types_hooks' ) );
+		$this->assertSame( array(), get_site_option( 'wordpoints_points_types_hooks' ) );
 
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 		WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
 
-		$this->assertEquals( $points_types_hooks, WordPoints_Points_Hooks::get_points_types_hooks() );
+		$this->assertSame( $points_types_hooks, WordPoints_Points_Hooks::get_points_types_hooks() );
 	}
 
 	/**
@@ -111,16 +111,16 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$instances = array( $hook_2_number => array( 'points' => 10 ) );
 		$instances[ 'network_' . $hook_1_number ] = array( 'points' => 10 );
 
-		$this->assertEquals( $instances, $hook->get_instances() );
+		$this->assertSame( $instances, $hook->get_instances() );
 
 		// Standard instances only.
-		$this->assertEquals(
+		$this->assertSame(
 			array( $hook_2_number => array( 'points' => 10 ) )
 			, $hook->get_instances( 'standard' )
 		);
 
 		// Network instances only.
-		$this->assertEquals(
+		$this->assertSame(
 			array( $hook_1_number => array( 'points' => 10 ) )
 			, $hook->get_instances( 'network' )
 		);
@@ -128,7 +128,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 		// Make sure points are awarded.
 		$user_id = $this->factory->user->create();
 
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // End public function test_network_and_standard_hooks_fired().
 
@@ -147,13 +147,13 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		// Description should be the default description of the hook.
-		$this->assertEquals( $hook->get_option( 'description' ), $hook->get_description() );
+		$this->assertSame( $hook->get_option( 'description' ), $hook->get_description() );
 
 		// Now set our own custom description.
 		$hook->update_callback( array( 'points' => 10, '_description' => 'Test.' ), 1 );
 
 		// The custom description should be returned.
-		$this->assertEquals( 'Test.', $hook->get_description() );
+		$this->assertSame( 'Test.', $hook->get_description() );
 	}
 
 	/**
@@ -314,7 +314,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		$hook->set_option( 'testing', __METHOD__ );
-		$this->assertEquals( __METHOD__, $hook->get_option( 'testing' ) );
+		$this->assertSame( __METHOD__, $hook->get_option( 'testing' ) );
 	}
 
 	/**
@@ -330,7 +330,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEquals( null, $hook->get_option( __METHOD__ ) );
+		$this->assertSame( null, $hook->get_option( __METHOD__ ) );
 	}
 
 	/**
@@ -377,7 +377,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$hook->set_number( 4 );
 
-		$this->assertEquals( 4, $hook->get_number() );
+		$this->assertSame( 4, $hook->get_number() );
 		$this->assertInternalType( 'int', $hook->get_number() );
 	}
 
@@ -396,7 +396,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$hook->set_number( $id );
 
-		$this->assertEquals( $hook->get_number_by_id( $id ), $hook->get_number() );
+		$this->assertSame( $hook->get_number_by_id( $id ), (string) $hook->get_number() );
 		$this->assertInternalType( 'int', $hook->get_number() );
 	}
 

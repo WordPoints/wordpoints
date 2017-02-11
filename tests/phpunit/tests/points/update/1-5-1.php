@@ -55,7 +55,7 @@ class WordPoints_Points_1_5_1_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->create_points_type();
 
 		wordpoints_alter_points( $this->factory->user->create(), 10, 'points', 'БВГД' );
-		$this->assertEquals( 'БВГД', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );
+		$this->assertSame( 'БВГД', wordpoints_get_points_logs_query( 'points' )->get( 'row' )->log_type );
 	}
 }
 

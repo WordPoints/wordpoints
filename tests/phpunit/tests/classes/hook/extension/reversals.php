@@ -130,12 +130,12 @@ class WordPoints_Hook_Extension_Reversals_Test extends WordPoints_PHPUnit_TestCa
 
 		$this->extension->after_hit( $reverse_fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, get_metadata( 'wordpoints_hook_hit', $fire->hit_id, 'reverse_fired' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, get_metadata( 'wordpoints_hook_hit', $reverse_fire->hit_id, 'reverse_fired' )
 		);
@@ -166,12 +166,12 @@ class WordPoints_Hook_Extension_Reversals_Test extends WordPoints_PHPUnit_TestCa
 
 		$this->extension->after_hit( $reverse_fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( '1' )
 			, get_metadata( 'wordpoints_hook_hit', $fire->hit_id, 'reverse_fired' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, get_metadata( 'wordpoints_hook_hit', $reverse_fire->hit_id, 'reverse_fired' )
 		);
@@ -199,7 +199,7 @@ class WordPoints_Hook_Extension_Reversals_Test extends WordPoints_PHPUnit_TestCa
 
 		$this->extension->after_miss( $reverse_fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, get_metadata( 'wordpoints_hook_hit', $fire->hit_id, 'reverse_fired' )
 		);
@@ -228,7 +228,7 @@ class WordPoints_Hook_Extension_Reversals_Test extends WordPoints_PHPUnit_TestCa
 
 		$this->extension->after_miss( $reverse_fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( '1' )
 			, get_metadata( 'wordpoints_hook_hit', $fire->hit_id, 'reverse_fired' )
 		);

@@ -64,7 +64,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			, $validator
 		);
 
-		$this->assertEquals( $settings, $validated_settings );
+		$this->assertSame( $settings, $validated_settings );
 
 		$this->assertFalse( $validator->had_errors() );
 		$this->assertEmpty( $validator->get_field_stack() );
@@ -157,7 +157,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 				$settings[ $invalid[0] ] = false;
 			}
 
-			$this->assertEquals( $settings, $validated_settings );
+			$this->assertSame( $settings, $validated_settings );
 		} else {
 			$this->assertSame( array(), $validated_settings['conditions'] );
 		}
@@ -165,7 +165,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( $invalid, $errors[0]['field'] );
+		$this->assertSame( $invalid, $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
@@ -262,12 +262,12 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 
 		$this->assertTrue( $condition->is_met( $settings, $event_args ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_entity', 'relationship', 'test_entity{}' )
 			, $validator->get_field_stack()
 		);
 
-		$this->assertEquals( $current, $event_args->get_current() );
+		$this->assertSame( $current, $event_args->get_current() );
 	}
 
 	/**
@@ -334,12 +334,12 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 
 		$this->assertFalse( $condition->is_met( $settings, $event_args ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_entity', 'relationship', 'test_entity{}' )
 			, $validator->get_field_stack()
 		);
 
-		$this->assertEquals( $current, $event_args->get_current() );
+		$this->assertSame( $current, $event_args->get_current() );
 	}
 
 	/**

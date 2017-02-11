@@ -57,7 +57,7 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'version', $wordpoints_data );
-		$this->assertEquals( WORDPOINTS_VERSION, $wordpoints_data['version'] );
+		$this->assertSame( WORDPOINTS_VERSION, $wordpoints_data['version'] );
 
 		// Flush the cache.
 		unset( $GLOBALS['wp_roles'] );
@@ -109,7 +109,7 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 			$value = get_option( 'wordpoints_tests_module_6' );
 		}
 
-		$this->assertEquals( 'Testing!', $value );
+		$this->assertSame( 'Testing!', $value );
 
 		/*
 		 * Uninstall.
@@ -197,10 +197,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		$option = 'wordpoints_legacy_points_hooks_disabled';
 
-		$this->assertEquals( $array, get_option( $option ) );
+		$this->assertSame( $array, get_option( $option ) );
 
 		if ( $this->network_wide ) {
-			$this->assertEquals( $array, get_site_option( $option ) );
+			$this->assertSame( $array, get_site_option( $option ) );
 		}
 	}
 

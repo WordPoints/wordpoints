@@ -69,7 +69,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 			}
 		}
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'points' => array(
 					'registration_points_hook-1',
@@ -158,7 +158,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 			}
 		}
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'points' => array(
 					'registration_points_hook-1',

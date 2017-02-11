@@ -34,7 +34,13 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$view->display();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $logs[0], $view->calls[4]['args'][0] );
+		$this->assertSameProperties( $logs[1], $view->calls[5]['args'][0] );
+
+		$logs[0] = $view->calls[4]['args'][0];
+		$logs[1] = $view->calls[5]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -60,7 +66,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$view->display();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -92,11 +98,15 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$view->display();
 
-		$this->assertEquals( '%search%', $query->get_arg( 'text' ) );
+		$this->assertSame( '%search%', $query->get_arg( 'text' ) );
 
 		$logs = $query->get();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $logs[0], $view->calls[4]['args'][0] );
+
+		$logs[0] = $view->calls[4]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -136,7 +146,13 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$logs = $query->get();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $logs[0], $view->calls[3]['args'][0] );
+		$this->assertSameProperties( $logs[1], $view->calls[4]['args'][0] );
+
+		$logs[0] = $view->calls[3]['args'][0];
+		$logs[1] = $view->calls[4]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_page_number', 'args' => array() ),
 				array( 'method' => 'get_per_page', 'args' => array() ),
@@ -167,7 +183,11 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$logs = $query->get();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $logs[3], $view->calls[4]['args'][0] );
+
+		$logs[3] = $view->calls[4]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -202,7 +222,17 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$logs = $query->get();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $logs[0], $view->calls[2]['args'][0] );
+		$this->assertSameProperties( $logs[1], $view->calls[3]['args'][0] );
+		$this->assertSameProperties( $logs[2], $view->calls[4]['args'][0] );
+		$this->assertSameProperties( $logs[3], $view->calls[5]['args'][0] );
+
+		$logs[0] = $view->calls[2]['args'][0];
+		$logs[1] = $view->calls[3]['args'][0];
+		$logs[2] = $view->calls[4]['args'][0];
+		$logs[3] = $view->calls[5]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'before', 'args' => array() ),
@@ -251,7 +281,11 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$view->display();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $log, $view->calls[4]['args'][0] );
+
+		$log = $view->calls[4]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -293,7 +327,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 		$view->display();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -337,7 +371,11 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 		$view->display();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $log, $view->calls[4]['args'][0] );
+
+		$log = $view->calls[4]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
@@ -373,24 +411,30 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$view = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 
-		$this->assertEquals( $log->blog_id, get_current_blog_id() );
+		$this->assertSame( (int) $log->blog_id, get_current_blog_id() );
 
 		$view->display();
 
-		$this->assertEquals(
+		$this->assertSameProperties( $log, $view->calls[5]['args'][0] );
+		$this->assertSameProperties( $other_log, $view->calls[4]['args'][0] );
+
+		$log       = $view->calls[5]['args'][0];
+		$other_log = $view->calls[4]['args'][0];
+
+		$this->assertSame(
 			array(
 				array( 'method' => 'get_search_term', 'args' => array() ),
 				array( 'method' => 'get_page_number', 'args' => array() ),
 				array( 'method' => 'get_per_page', 'args' => array() ),
 				array( 'method' => 'before', 'args' => array() ),
-				array( 'method' => 'log', 'args' => array( $other_log ), 'i' => 1, 'site_id' => $other_log->blog_id ),
-				array( 'method' => 'log', 'args' => array( $log ), 'i' => 2, 'site_id' => $log->blog_id ),
+				array( 'method' => 'log', 'args' => array( $other_log ), 'i' => 1, 'site_id' => (int) $other_log->blog_id ),
+				array( 'method' => 'log', 'args' => array( $log ), 'i' => 2, 'site_id' => (int) $log->blog_id ),
 				array( 'method' => 'after', 'args' => array() ),
 			)
 			, $view->calls
 		);
 
-		$this->assertEquals( $log->blog_id, get_current_blog_id() );
+		$this->assertSame( (int) $log->blog_id, get_current_blog_id() );
 	}
 }
 

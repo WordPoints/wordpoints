@@ -25,7 +25,7 @@ class WordPoints_Entity_Post_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$entity = new WordPoints_Entity_Post( 'post\page' );
 
-		$this->assertEquals( __( 'Page' ), $entity->get_title() );
+		$this->assertSame( __( 'Page' ), $entity->get_title() );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class WordPoints_Entity_Post_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$entity = new WordPoints_Entity_Post( 'post\invalid' );
 
-		$this->assertEquals( 'post\invalid', $entity->get_title() );
+		$this->assertSame( 'post\invalid', $entity->get_title() );
 	}
 }
 

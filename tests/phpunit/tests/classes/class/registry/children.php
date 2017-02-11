@@ -36,12 +36,12 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $registry->get( 'parent', 'test' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' )
 			, $registry->get_children_slugs( 'parent' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'parent' => array( 'test' ) )
 			, $registry->get_all_slugs()
 		);
@@ -136,7 +136,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['test']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'parent' )
 			, $objects['test']->calls[0]['arguments']
 		);
@@ -147,17 +147,17 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['test_2']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_2', 'parent' )
 			, $objects['test_2']->calls[0]['arguments']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'test_2' )
 			, $registry->get_children_slugs( 'parent' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'parent' => array( 'test', 'test_2' ) )
 			, $registry->get_all_slugs()
 		);
@@ -187,12 +187,12 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $object
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'parent' )
 			, $object->calls[0]['arguments']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'test_2' )
 			, $registry->get_children_slugs( 'parent' )
 		);
@@ -233,7 +233,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['parent']['test']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'parent' )
 			, $objects['parent']['test']->calls[0]['arguments']
 		);
@@ -244,7 +244,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['parent']['test_2']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_2', 'parent' )
 			, $objects['parent']['test_2']->calls[0]['arguments']
 		);
@@ -259,12 +259,12 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 			, $objects['parent_2']['test']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'parent_2' )
 			, $objects['parent_2']['test']->calls[0]['arguments']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				'parent' => array( 'test', 'test_2' ),
 				'parent_2' => array( 'test' ),
@@ -297,7 +297,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		array_unshift( $args, 'test', 'parent' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $object->calls[0]
 		);
@@ -328,14 +328,14 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		array_unshift( $args, 'test', 'parent' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test']->calls[0]
 		);
 
 		$args[0] = 'test_2';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test_2']->calls[0]
 		);
@@ -376,14 +376,14 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		$this->assertArrayHasKey( 'test', $objects['parent'] );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['parent']['test']->calls[0]
 		);
 
 		$args[0] = 'test_2';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['parent']['test_2']->calls[0]
 		);
@@ -397,7 +397,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 		$args[0] = 'test';
 		$args[1] = 'parent_2';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['parent_2']['test']->calls[0]
 		);

@@ -42,7 +42,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $registry->get( 'test', $parent )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' )
 			, $registry->get_children_slugs( $parent )
 		);
@@ -86,7 +86,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $registry->get( 'test' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test' )
 			, $registry->get_children_slugs()
 		);
@@ -233,7 +233,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $objects['test']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', $parent )
 			, $objects['test']->calls[0]['arguments']
 		);
@@ -244,12 +244,12 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $objects['test_2']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_2', $parent )
 			, $objects['test_2']->calls[0]['arguments']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'test_2' )
 			, $registry->get_children_slugs( $parent )
 		);
@@ -283,12 +283,12 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $object
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', $parent )
 			, $object->calls[0]['arguments']
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test', 'test_2' )
 			, $registry->get_children_slugs( $parent )
 		);
@@ -322,7 +322,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		array_unshift( $args, 'test', $parent );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $object->calls[0]
 		);
@@ -357,14 +357,14 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		array_unshift( $args, 'test', $parent );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test']->calls[0]
 		);
 
 		$args[0] = 'test_2';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test_2']->calls[0]
 		);
@@ -396,7 +396,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $object
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $object->calls[0]
 		);
@@ -429,12 +429,12 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		$this->assertCount( 2, $objects );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test']->calls[0]
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test_2']->calls[0]
 		);
@@ -464,7 +464,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 			, $object
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => array() )
 			, $object->calls[0]
 		);
@@ -495,12 +495,12 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		$this->assertCount( 2, $objects );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => array() )
 			, $objects['test']->calls[0]
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => array() )
 			, $objects['test_2']->calls[0]
 		);

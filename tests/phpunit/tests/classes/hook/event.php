@@ -25,7 +25,7 @@ class WordPoints_Hook_Event_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$event = new WordPoints_PHPUnit_Mock_Hook_Event( 'test' );
 
-		$this->assertEquals( 'test', $event->get_slug() );
+		$this->assertSame( 'test', $event->get_slug() );
 	}
 }
 

@@ -113,18 +113,18 @@ class WordPoints_Admin_Screen_Points_Types_Test
 
 		$points_type = wordpoints_get_points_type( 'points' );
 
-		$this->assertEquals( 'Points', $points_type['name'] );
+		$this->assertSame( 'Points', $points_type['name'] );
 
 		if ( isset( $_POST['points-prefix'] ) ) {
-			$this->assertEquals( '$', $points_type['prefix'] );
+			$this->assertSame( '$', $points_type['prefix'] );
 		}
 
 		if ( isset( $_POST['points-suffix'] ) ) {
-			$this->assertEquals( 'pts.', $points_type['suffix'] );
+			$this->assertSame( 'pts.', $points_type['suffix'] );
 		}
 
 		// We display the points type and not the add new form again.
-		$this->assertEquals( 'points', $_GET['tab'] );
+		$this->assertSame( 'points', $_GET['tab'] );
 	}
 
 	/**
@@ -217,18 +217,18 @@ class WordPoints_Admin_Screen_Points_Types_Test
 
 		$points_type = wordpoints_get_points_type( 'points' );
 
-		$this->assertEquals( 'Points', $points_type['name'] );
+		$this->assertSame( 'Points', $points_type['name'] );
 
 		if ( isset( $_POST['points-prefix'] ) ) {
-			$this->assertEquals( '$', $points_type['prefix'] );
+			$this->assertSame( '$', $points_type['prefix'] );
 		} else {
-			$this->assertEquals( 'o', $points_type['prefix'] );
+			$this->assertSame( 'o', $points_type['prefix'] );
 		}
 
 		if ( isset( $_POST['points-suffix'] ) ) {
-			$this->assertEquals( 'pts.', $points_type['suffix'] );
+			$this->assertSame( 'pts.', $points_type['suffix'] );
 		} else {
-			$this->assertEquals( 'r', $points_type['suffix'] );
+			$this->assertSame( 'r', $points_type['suffix'] );
 		}
 	}
 
@@ -264,7 +264,7 @@ class WordPoints_Admin_Screen_Points_Types_Test
 		$screen = new WordPoints_Points_Admin_Screen_Points_Types();
 		$screen->save_points_type();
 
-		$this->assertEquals( $settings, wordpoints_get_points_type( 'points' ) );
+		$this->assertSame( $settings, wordpoints_get_points_type( 'points' ) );
 	}
 
 	/**
@@ -459,8 +459,8 @@ class WordPoints_Admin_Screen_Points_Types_Test
 
 		$this->assertCount( 1, (array) $wp_settings_errors );
 
-		$this->assertEquals( $code, $wp_settings_errors[0]['code'] );
-		$this->assertEquals( $type, $wp_settings_errors[0]['type'] );
+		$this->assertSame( $code, $wp_settings_errors[0]['code'] );
+		$this->assertSame( $type, $wp_settings_errors[0]['type'] );
 	}
 
 	/**

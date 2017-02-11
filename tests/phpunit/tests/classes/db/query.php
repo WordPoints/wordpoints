@@ -72,8 +72,8 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query();
 
-		$this->assertEquals( 0,      $query->get_arg( 'start' ) );
-		$this->assertEquals( 'DESC', $query->get_arg( 'order' ) );
+		$this->assertSame( 0,      $query->get_arg( 'start' ) );
+		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 	}
 
 	/**
@@ -85,9 +85,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
 
-		$this->assertEquals( 10,     $query->get_arg( 'start' ) );
-		$this->assertEquals( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertEquals( 'a',    $query->get_arg( 'custom' ) );
+		$this->assertSame( 10,     $query->get_arg( 'start' ) );
+		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
+		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'deprecated' => 'test' )
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'replacement' ) );
+		$this->assertSame( 'test', $query->get_arg( 'replacement' ) );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'replacement' => 'test' )
 		);
 
-		$this->assertEquals( 'test', $query->get_arg( 'deprecated' ) );
+		$this->assertSame( 'test', $query->get_arg( 'deprecated' ) );
 	}
 
 	/**
@@ -143,15 +143,15 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
 
-		$this->assertEquals( 10,     $query->get_arg( 'start' ) );
-		$this->assertEquals( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertEquals( 'a',    $query->get_arg( 'custom' ) );
+		$this->assertSame( 10,     $query->get_arg( 'start' ) );
+		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
+		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
 
 		$query->set_args( array( 'order' => 'ASC', 'custom' => 'b' ) );
 
-		$this->assertEquals( 10,    $query->get_arg( 'start' ) );
-		$this->assertEquals( 'ASC', $query->get_arg( 'order' ) );
-		$this->assertEquals( 'b',   $query->get_arg( 'custom' ) );
+		$this->assertSame( 10,    $query->get_arg( 'start' ) );
+		$this->assertSame( 'ASC', $query->get_arg( 'order' ) );
+		$this->assertSame( 'b',   $query->get_arg( 'custom' ) );
 	}
 
 	/**
@@ -166,7 +166,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$query = new WordPoints_PHPUnit_Mock_DB_Query();
 		$query->set_args( array( 'deprecated' => 'test' ) );
 
-		$this->assertEquals( 'test', $query->get_arg( 'replacement' ) );
+		$this->assertSame( 'test', $query->get_arg( 'replacement' ) );
 	}
 
 	/**
@@ -210,7 +210,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->insert_rows( 1 );
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -222,7 +222,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query();
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 	}
 
 	/**
@@ -449,7 +449,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$date_columns = $columns;
 		$date_columns[] = 'date_col';
 
-		$this->assertEquals(
+		$this->assertSame(
 			$date_columns
 			, $query->date_query_valid_columns_filter( $columns )
 		);
@@ -483,7 +483,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$columns
 			, $query->date_query_valid_columns_filter( $columns )
 		);
@@ -610,7 +610,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query( array( 'limit' => 1 ) );
 
-		$this->assertEquals( 1, count( $query->get() ) );
+		$this->assertSame( 1, count( $query->get() ) );
 	}
 
 	/**
@@ -628,7 +628,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'limit' => 'invalid' )
 		);
 
-		$this->assertEquals( 2, count( $query->get() ) );
+		$this->assertSame( 2, count( $query->get() ) );
 	}
 
 	/**
@@ -644,7 +644,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'limit' => -1 )
 		);
 
-		$this->assertEquals( 2, count( $query->get() ) );
+		$this->assertSame( 2, count( $query->get() ) );
 	}
 
 	/**
@@ -667,10 +667,10 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $query->get();
 
-		$this->assertEquals( 1, count( $result ) );
+		$this->assertSame( 1, count( $result ) );
 
 		// Remember, order is descending, so this would be the second result.
-		$this->assertEquals( 1, $result[0]->int_col );
+		$this->assertSame( '1', $result[0]->int_col );
 	}
 
 	/**
@@ -695,7 +695,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $query->get();
 
-		$this->assertEquals( 2, count( $result ) );
+		$this->assertSame( 2, count( $result ) );
 	}
 
 	/**
@@ -718,7 +718,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $query->get();
 
-		$this->assertEquals( 2, count( $result ) );
+		$this->assertSame( 2, count( $result ) );
 	}
 
 	/**
@@ -740,7 +740,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $query->get();
 
-		$this->assertEquals( 2, count( $result ) );
+		$this->assertSame( 2, count( $result ) );
 	}
 
 	/**
@@ -773,9 +773,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$result = $query->get();
 
 		// Order is descending by default.
-		$this->assertEquals( 3, $result[0]->int_col );
-		$this->assertEquals( 2, $result[1]->int_col );
-		$this->assertEquals( 1, $result[2]->int_col );
+		$this->assertSame( '3', $result[0]->int_col );
+		$this->assertSame( '2', $result[1]->int_col );
+		$this->assertSame( '1', $result[2]->int_col );
 	}
 
 	/**
@@ -799,18 +799,18 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$result = $query->get();
 
 		// Order is descending by default.
-		$this->assertEquals(
-			3
+		$this->assertSame(
+			'3'
 			, get_metadata( 'wordpoints_db_query_test', $result[0]->id, 'test', true )
 		);
 
-		$this->assertEquals(
-			2
+		$this->assertSame(
+			'2'
 			, get_metadata( 'wordpoints_db_query_test', $result[1]->id, 'test', true )
 		);
 
-		$this->assertEquals(
-			1
+		$this->assertSame(
+			'1'
 			, get_metadata( 'wordpoints_db_query_test', $result[2]->id, 'test', true )
 		);
 	}
@@ -837,18 +837,18 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$result = $query->get();
 
 		// Order is descending by default.
-		$this->assertEquals(
-			100
+		$this->assertSame(
+			'100'
 			, get_metadata( 'wordpoints_db_query_test', $result[0]->id, 'test', true )
 		);
 
-		$this->assertEquals(
-			10
+		$this->assertSame(
+			'10'
 			, get_metadata( 'wordpoints_db_query_test', $result[1]->id, 'test', true )
 		);
 
-		$this->assertEquals(
-			1
+		$this->assertSame(
+			'1'
 			, get_metadata( 'wordpoints_db_query_test', $result[2]->id, 'test', true )
 		);
 	}
@@ -887,9 +887,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $query->get();
 
-		$this->assertEquals( 1, $result[0]->int_col );
-		$this->assertEquals( 2, $result[1]->int_col );
-		$this->assertEquals( 3, $result[2]->int_col );
+		$this->assertSame( '1', $result[0]->int_col );
+		$this->assertSame( '2', $result[1]->int_col );
+		$this->assertSame( '3', $result[2]->int_col );
 	}
 
 	/**
@@ -912,9 +912,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$result = $query->get();
 
-		$this->assertEquals( 3, $result[0]->int_col );
-		$this->assertEquals( 2, $result[1]->int_col );
-		$this->assertEquals( 1, $result[2]->int_col );
+		$this->assertSame( '3', $result[0]->int_col );
+		$this->assertSame( '2', $result[1]->int_col );
+		$this->assertSame( '1', $result[2]->int_col );
 	}
 
 	/**
@@ -940,9 +940,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$result = $query->get();
 
 		// Defaults to descending.
-		$this->assertEquals( 3, $result[0]->int_col );
-		$this->assertEquals( 2, $result[1]->int_col );
-		$this->assertEquals( 1, $result[2]->int_col );
+		$this->assertSame( '3', $result[0]->int_col );
+		$this->assertSame( '2', $result[1]->int_col );
+		$this->assertSame( '1', $result[2]->int_col );
 	}
 
 	/**
@@ -965,7 +965,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'int_col' => $value )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1005,7 +1005,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query->columns['int_col']['values'] = array( 1, 2, 3 );
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1039,7 +1039,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query( array( 'id' => $value ) );
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1082,7 +1082,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'int_col' => $value, 'int_col__compare' => $comparator )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1132,7 +1132,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'text_col' => $value, 'text_col__compare' => $comparator )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1178,7 +1178,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'int_col__in' => $in )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1223,7 +1223,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query->columns['int_col']['values'] = array( 1, 2, 3 );
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1262,7 +1262,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'id__in' => $in )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1295,7 +1295,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'int_col' => 1, 'int_col__in' => array( 1, 2 ) )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -1319,7 +1319,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'int_col__not_in' => $in )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1364,7 +1364,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query->columns['int_col']['values'] = array( 1, 2, 3 );
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1403,7 +1403,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'id__not_in' => $in )
 		);
 
-		$this->assertEquals( $results, $query->count() );
+		$this->assertSame( $results, $query->count() );
 	}
 
 	/**
@@ -1436,7 +1436,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'int_col' => 1, 'int_col__not_in' => array( 2 ) )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -1457,7 +1457,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			)
 		);
 
-		$this->assertEquals( 2, $query->count() );
+		$this->assertSame( 2, $query->count() );
 	}
 
 	/**
@@ -1477,7 +1477,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'meta_query' => array( array( 'key' => 'test', 'value' => 1 ) ) )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -1499,7 +1499,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'date_col_query' => array( array( 'before' => $date ) ) )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -1553,8 +1553,8 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertObjectHasAttribute( 'id', $row );
 		$this->assertObjectHasAttribute( 'int_col', $row );
 		$this->assertObjectHasAttribute( 'text_col', $row );
-		$this->assertEquals( 10, $row->int_col );
-		$this->assertEquals( 'Testing', $row->text_col );
+		$this->assertSame( '10', $row->int_col );
+		$this->assertSame( 'Testing', $row->text_col );
 	}
 }
 

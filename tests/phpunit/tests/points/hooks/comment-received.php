@@ -34,7 +34,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		$user_id = $this->factory->user->create();
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$post_id = $this->factory->post->create(
 			array( 'post_author' => $user_id )
@@ -44,12 +44,12 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			array( 'comment_post_ID' => $post_id )
 		);
 
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Points should not be awarded twice in a row.
 		do_action( 'transition_comment_status', 'approve', 'hold', get_comment( $comment_id ) );
 
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Test that points are awarded on transition from hold.
 		$comment_id = $this->factory->comment->create(
@@ -60,7 +60,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		);
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 120, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 120, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Test that points are awarded on transition from spam.
 		$comment_id = $this->factory->comment->create(
@@ -71,7 +71,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		);
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 130, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 130, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Test that points are awarded on transition from trash.
 		$comment_id = $this->factory->comment->create(
@@ -82,7 +82,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		);
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 140, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 140, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // End public function test_points_awarded().
 
@@ -102,7 +102,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		$user_id = $this->factory->user->create();
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$comment_id = $this->factory->comment->create(
 			array(
@@ -112,26 +112,26 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			)
 		);
 
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Test that status transitions award/remove points correctly.
 		wp_set_comment_status( $comment_id, 'hold' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'spam' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'trash' );
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_set_comment_status( $comment_id, 'approve' );
-		$this->assertEquals( 110, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 110, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // End public function test_points_auto_reversal().
 
@@ -162,7 +162,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		);
 
 		// Test that points were awarded for the comment.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now create a comment on a page.
 		$this->factory->comment->create(
@@ -177,7 +177,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		);
 
 		// Test that no points were awarded for the comment.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 	} // End public function test_points_only_awarded_for_specified_post_type().
 
@@ -209,7 +209,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			)
 		);
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
@@ -219,7 +219,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			)
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$log = $query->get( 'row' );
 
@@ -227,7 +227,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			. get_the_title( $post_id )
 			. '</a>';
 
-		$this->assertEquals(
+		$this->assertSame(
 			sprintf(
 				_x( 'Received a comment on %s.', 'points log description', 'wordpoints' )
 				, $link
@@ -265,14 +265,14 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			)
 		);
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'comment_received' )
 		);
 		$log = $query->get( 'row' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			_x( 'Received a comment on a Post.', 'points log description', 'wordpoints' )
 			, $log->text
 		);
@@ -318,7 +318,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			)
 		);
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals( 1, $xpath->query( '//tbody[. = ""]' )->length );
+		$this->assertSame( 1, $xpath->query( '//tbody[. = ""]' )->length );
 	}
 
 	/**
@@ -336,7 +336,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		$author_id = $this->factory->user->create();
 
 		wordpoints_set_points( $author_id, 100, 'points', 'test' );
-		$this->assertEquals( 100, wordpoints_get_points( $author_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $author_id, 'points' ) );
 
 		$post_id = $this->factory->post->create(
 			array( 'post_author' => $author_id )
@@ -349,7 +349,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			)
 		);
 
-		$this->assertEquals( 100, wordpoints_get_points( $author_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $author_id, 'points' ) );
 	}
 
 	/**
@@ -406,7 +406,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 
 		wp_delete_post( $post_id, true );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Received a comment.'
 			, $this->render_log_text( null, array( 'post_id' => $post_id ) )
 		);
@@ -419,7 +419,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_log_text_with_no_post_and_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Received a comment on a Page.'
 			, $this->render_log_text( null, array( 'post_type' => 'page' ) )
 		);
@@ -432,7 +432,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_log_text_with_no_post_and_bad_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Received a comment.'
 			, $this->render_log_text( null, array( 'post_type' => 'not' ) )
 		);
@@ -445,7 +445,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_reverse_log_text() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Comment received removed.'
 			, $this->render_log_text( false )
 		);
@@ -458,7 +458,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_reverse_log_text_with_post_title_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Comment received on Test title removed.'
 			, $this->render_log_text( false, array( 'post_title' => 'Test title' ) )
 		);
@@ -471,7 +471,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_reverse_log_text_with_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Comment received on a Page removed.'
 			, $this->render_log_text( false, array( 'post_type' => 'page' ) )
 		);
@@ -484,7 +484,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_reverse_log_text_with_bad_post_type_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			'Comment received removed.'
 			, $this->render_log_text( false, array( 'post_type' => 'not' ) )
 		);

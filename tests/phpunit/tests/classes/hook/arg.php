@@ -25,8 +25,8 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$arg = new WordPoints_Hook_Arg( 'test' );
 
-		$this->assertEquals( 'test', $arg->get_slug() );
-		$this->assertEquals( 'test', $arg->get_entity_slug() );
+		$this->assertSame( 'test', $arg->get_slug() );
+		$this->assertSame( 'test', $arg->get_entity_slug() );
 	}
 
 	/**
@@ -38,8 +38,8 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$arg = new WordPoints_Hook_Arg( 'alias:test' );
 
-		$this->assertEquals( 'alias:test', $arg->get_slug() );
-		$this->assertEquals( 'test', $arg->get_entity_slug() );
+		$this->assertSame( 'alias:test', $arg->get_slug() );
+		$this->assertSame( 'test', $arg->get_entity_slug() );
 	}
 
 	/**
@@ -60,14 +60,14 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$arg = new WordPoints_Hook_Arg( 'test_entity', 'test_action', $action );
 
-		$this->assertEquals( $entity_id, $arg->get_value() );
+		$this->assertSame( $entity_id, $arg->get_value() );
 
 		$entity = $arg->get_entity();
 
 		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Entity', $entity );
 
-		$this->assertEquals( $entity_id, $entity->get_the_id() );
-		$this->assertEquals( $entity->get_title(), $arg->get_title() );
+		$this->assertSame( $entity_id, $entity->get_the_id() );
+		$this->assertSame( $entity->get_title(), $arg->get_title() );
 	}
 
 	/**
@@ -88,14 +88,14 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		);
 
 		$arg = new WordPoints_Hook_Arg( 'current:test_entity', 'test_action', $action );
-		$this->assertEquals( $entity_id, $arg->get_value() );
+		$this->assertSame( $entity_id, $arg->get_value() );
 
 		$entity = $arg->get_entity();
 
 		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Entity', $entity );
 
-		$this->assertEquals( $entity_id, $entity->get_the_id() );
-		$this->assertEquals( $entity->get_title(), $arg->get_title() );
+		$this->assertSame( $entity_id, $entity->get_the_id() );
+		$this->assertSame( $entity->get_title(), $arg->get_title() );
 	}
 
 	/**
@@ -113,10 +113,10 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		);
 
 		$arg = new WordPoints_Hook_Arg( 'test_entity', 'test_action', $action );
-		$this->assertEquals( $entity_id, $arg->get_value() );
+		$this->assertSame( $entity_id, $arg->get_value() );
 
 		$this->assertFalse( $arg->get_entity() );
-		$this->assertEquals( $arg->get_slug(), $arg->get_title() );
+		$this->assertSame( $arg->get_slug(), $arg->get_title() );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class WordPoints_Hook_Arg_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Entity', $entity );
 
 		$this->assertNull( $entity->get_the_id() );
-		$this->assertEquals( $entity->get_title(), $arg->get_title() );
+		$this->assertSame( $entity->get_title(), $arg->get_title() );
 	}
 
 	/**

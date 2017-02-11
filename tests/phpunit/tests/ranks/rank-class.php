@@ -34,7 +34,7 @@ class WordPoints_Rank_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$name = $rank->name;
 		$rank->name = 'test';
-		$this->assertEquals( $name, $rank->name );
+		$this->assertSame( $name, $rank->name );
 	}
 }
 

@@ -27,7 +27,7 @@ class WordPoints_Data_Type_Text_Test extends WP_UnitTestCase {
 
 		$data_type = new WordPoints_Data_Type_Text( 'test' );
 
-		$this->assertEquals( $value, $data_type->validate_value( $value ) );
+		$this->assertSame( $value, $data_type->validate_value( $value ) );
 	}
 
 	/**

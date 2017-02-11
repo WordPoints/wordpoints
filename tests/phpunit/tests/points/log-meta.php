@@ -30,21 +30,21 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 		$log_id = 1;
 
 		wordpoints_add_points_log_meta( $log_id, 'test', 'one' );
-		$this->assertEquals( 'one', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertSame( 'one', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 
 		wordpoints_update_points_log_meta( $log_id, 'test', 'two' );
-		$this->assertEquals( 'two', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertSame( 'two', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 
-		$this->assertEquals( array( 'two' ), wordpoints_get_points_log_meta( $log_id, 'test' ) );
-		$this->assertEquals( array( 'test' => array( 'two' ) ), wordpoints_get_points_log_meta( $log_id ) );
+		$this->assertSame( array( 'two' ), wordpoints_get_points_log_meta( $log_id, 'test' ) );
+		$this->assertSame( array( 'test' => array( 'two' ) ), wordpoints_get_points_log_meta( $log_id ) );
 
 		$result = wordpoints_update_points_log_meta( $log_id, 'test', 'three', 'one' );
-		$this->assertEquals( 0, $result );
-		$this->assertEquals( 'two', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertFalse( $result );
+		$this->assertSame( 'two', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 
 		$result = wordpoints_update_points_log_meta( $log_id, 'test', 'three', 'two' );
-		$this->assertEquals( 1, $result );
-		$this->assertEquals( 'three', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertTrue( $result );
+		$this->assertSame( 'three', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 	}
 
 	/**
@@ -59,16 +59,16 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 		$log_id = 1;
 
 		wordpoints_update_points_log_meta( $log_id, 'test', 'one' );
-		$this->assertEquals( 'one', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertSame( 'one', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
 
 		wordpoints_update_points_log_meta( $log_id, 'test_2', 'two' );
-		$this->assertEquals( 'two', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
+		$this->assertSame( 'two', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
 
 		wordpoints_points_log_delete_all_metadata( $log_id );
 
-		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
-		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
-		$this->assertEquals( array(), wordpoints_get_points_log_meta( $log_id ) );
+		$this->assertSame( '', wordpoints_get_points_log_meta( $log_id, 'test', true ) );
+		$this->assertSame( '', wordpoints_get_points_log_meta( $log_id, 'test_2', true ) );
+		$this->assertSame( array(), wordpoints_get_points_log_meta( $log_id ) );
 	}
 
 	/**
@@ -86,13 +86,13 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 		$log_id = 1;
 
 		wordpoints_add_points_log_meta( $log_id, 'slash\test', 'test\slashing' );
-		$this->assertEquals( 'test\slashing', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
+		$this->assertSame( 'test\slashing', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
 
 		wordpoints_update_points_log_meta( $log_id, 'slash\test', 'test\slashing2' );
-		$this->assertEquals( 'test\slashing2', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
+		$this->assertSame( 'test\slashing2', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
 
 		wordpoints_delete_points_log_meta( $log_id, 'slash\test', 'test\slashing2' );
-		$this->assertEquals( '', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
+		$this->assertSame( '', wordpoints_get_points_log_meta( $log_id, 'slash\test', true ) );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 			, wordpoints_add_points_log_meta( $log_id, 'test', 'one' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'one'
 			, wordpoints_get_points_log_meta( $log_id, 'test', true )
 		);
@@ -120,7 +120,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 			wordpoints_add_points_log_meta( $log_id, 'test', 'two', true )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'one'
 			, wordpoints_get_points_log_meta( $log_id, 'test', true )
 		);
@@ -142,7 +142,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 			, wordpoints_add_points_log_meta( $log_id, 'test', 'one' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'one' )
 			, wordpoints_get_points_log_meta( $log_id, 'test' )
 		);
@@ -152,7 +152,7 @@ class WordPoints_Points_Logs_Meta_Test extends WordPoints_PHPUnit_TestCase_Point
 			, wordpoints_add_points_log_meta( $log_id, 'test', 'two' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'one', 'two' )
 			, wordpoints_get_points_log_meta( $log_id, 'test' )
 		);

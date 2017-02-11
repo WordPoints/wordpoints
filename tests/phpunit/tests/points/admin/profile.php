@@ -157,7 +157,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 
 		wordpoints_points_profile_options_update( $this->user->ID );
 
-		$this->assertEquals( 0, wordpoints_get_points( $this->user->ID, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $this->user->ID, 'points' ) );
 	}
 
 
@@ -199,7 +199,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 
 		wordpoints_points_profile_options_update( $this->user->ID );
 
-		$this->assertEquals( 5, wordpoints_get_points( $this->user->ID, 'points' ) );
+		$this->assertSame( 5, wordpoints_get_points( $this->user->ID, 'points' ) );
 	}
 
 	/**
@@ -244,7 +244,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 
 		wordpoints_points_profile_options_update( $this->user->ID );
 
-		$this->assertEquals( 0, wordpoints_get_points( $this->user->ID, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $this->user->ID, 'points' ) );
 	}
 
 	/**
@@ -256,7 +256,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 
 		wordpoints_points_profile_options_update( $this->user->ID );
 
-		$this->assertEquals( 5, wordpoints_get_points( $this->user->ID, 'points' ) );
+		$this->assertSame( 5, wordpoints_get_points( $this->user->ID, 'points' ) );
 	}
 }
 

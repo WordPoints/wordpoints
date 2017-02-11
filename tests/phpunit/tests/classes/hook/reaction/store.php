@@ -28,8 +28,8 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 			, 'standard'
 		);
 
-		$this->assertEquals( 'test_store', $store->get_slug() );
-		$this->assertEquals( 'standard', $store->get_mode_slug() );
+		$this->assertSame( 'test_store', $store->get_slug() );
+		$this->assertSame( 'standard', $store->get_mode_slug() );
 	}
 
 	/**
@@ -44,8 +44,8 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 			, 'standard'
 		);
 
-		$this->assertEquals(
-			array( 'network' => 1, 'site' => 1 )
+		$this->assertSame(
+			array( 'site' => 1, 'network' => 1 )
 			, $store->get_context_id()
 		);
 	}
@@ -91,11 +91,12 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$reaction = $store->get_reaction( $result->get_id() );
 
-		$this->assertEquals( $result, $reaction );
+		$this->assertSame( $result->get_id(), $reaction->get_id() );
+		$this->assertSame( $result->get_all_meta(), $reaction->get_all_meta() );
 
-		$this->assertEquals( $settings['event'], $reaction->get_event_slug() );
-		$this->assertEquals( $settings['reactor'], $reaction->get_reactor_slug() );
-		$this->assertEquals( $settings['target'], $reaction->get_meta( 'target' ) );
+		$this->assertSame( $settings['event'], $reaction->get_event_slug() );
+		$this->assertSame( $settings['reactor'], $reaction->get_reactor_slug() );
+		$this->assertSame( $settings['target'], $reaction->get_meta( 'target' ) );
 	}
 
 	/**
@@ -153,7 +154,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->assertIsReaction( $result );
 
 		$this->assertCount( 1, $reactor->updates );
-		$this->assertEquals( $result, $reactor->updates[0]['reaction'] );
+		$this->assertSame( $result, $reactor->updates[0]['reaction'] );
 		$this->assertArrayNotHasKey( 'event', $reactor->updates[0]['settings'] );
 	}
 
@@ -185,7 +186,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->assertIsReaction( $result );
 
 		$this->assertCount( 1, $extension->updates );
-		$this->assertEquals( $result, $extension->updates[0]['reaction'] );
+		$this->assertSame( $result, $extension->updates[0]['reaction'] );
 		$this->assertArrayNotHasKey( 'event', $extension->updates[0]['settings'] );
 	}
 
@@ -216,11 +217,11 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertIsReaction( $result );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		unset( $settings['event'] );
 
-		$this->assertEquals( array( $result, $settings, true ), $mock->calls[0] );
+		$this->assertSame( array( $result, $settings, true ), $mock->calls[0] );
 	}
 
 	/**
@@ -256,11 +257,12 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$reaction = $reaction->store->get_reaction( $reaction->get_id() );
 
-		$this->assertEquals( $result, $reaction );
+		$this->assertSame( $result->get_id(), $reaction->get_id() );
+		$this->assertSame( $result->get_all_meta(), $reaction->get_all_meta() );
 
-		$this->assertEquals( $settings['event'], $reaction->get_event_slug() );
-		$this->assertEquals( $settings['reactor'], $reaction->get_reactor_slug() );
-		$this->assertEquals( $settings['target'], $reaction->get_meta( 'target' ) );
+		$this->assertSame( $settings['event'], $reaction->get_event_slug() );
+		$this->assertSame( $settings['reactor'], $reaction->get_reactor_slug() );
+		$this->assertSame( $settings['target'], $reaction->get_meta( 'target' ) );
 	}
 
 	/**
@@ -328,8 +330,8 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertInstanceOf( 'WordPoints_Hook_Reaction_Validator', $result );
 
-		$this->assertEquals( 'test_event', $reaction->get_event_slug() );
-		$this->assertEquals( array( 'test_entity' ), $reaction->get_meta( 'target' ) );
+		$this->assertSame( 'test_event', $reaction->get_event_slug() );
+		$this->assertSame( array( 'test_entity' ), $reaction->get_meta( 'target' ) );
 	}
 
 	/**
@@ -367,7 +369,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->assertIsReaction( $result );
 
 		$this->assertCount( 2, $reactor->updates );
-		$this->assertEquals( $result, $reactor->updates[1]['reaction'] );
+		$this->assertSame( $result, $reactor->updates[1]['reaction'] );
 		$this->assertArrayNotHasKey( 'event', $reactor->updates[1]['settings'] );
 	}
 
@@ -411,7 +413,7 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$extension = $extensions->get( 'test_extension' );
 
 		$this->assertCount( 1, $extension->updates );
-		$this->assertEquals( $result, $extension->updates[0]['reaction'] );
+		$this->assertSame( $result, $extension->updates[0]['reaction'] );
 		$this->assertArrayNotHasKey( 'event', $extension->updates[0]['settings'] );
 	}
 
@@ -449,11 +451,11 @@ class WordPoints_Hook_Reaction_Store_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertIsReaction( $result );
 
-		$this->assertEquals( 1, $mock->call_count );
+		$this->assertSame( 1, $mock->call_count );
 
 		unset( $settings['event'] );
 
-		$this->assertEquals( array( $result, $settings, false ), $mock->calls[0] );
+		$this->assertSame( array( $result, $settings, false ), $mock->calls[0] );
 	}
 }
 

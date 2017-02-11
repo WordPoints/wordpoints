@@ -27,7 +27,7 @@ class WordPoints_Entity_Context_Network_Test extends WordPoints_PHPUnit_TestCase
 
 		$context = new WordPoints_Entity_Context_Network( 'site' );
 
-		$this->assertEquals( 1, $context->get_current_id() );
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WordPoints_Entity_Context_Network_Test extends WordPoints_PHPUnit_TestCase
 
 		$context = new WordPoints_Entity_Context_Network( 'site' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$GLOBALS['current_site']->id
 			, $context->get_current_id()
 		);

@@ -74,7 +74,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		$top_users = wordpoints_points_get_top_users( 3, 'points' );
 
-		$this->assertEquals( $this->user_ids, $top_users );
+		$this->assertSame( $this->user_ids, $top_users );
 	}
 
 	/**
@@ -88,15 +88,15 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		$top_users = wordpoints_points_get_top_users( 3, 'points' );
 
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
-		$this->assertEquals( $this->user_ids[1], $top_users[1] );
+		$this->assertSame( $this->user_ids[1], $top_users[1] );
 
 		// Run the query again.
 		$top_users = wordpoints_points_get_top_users( 3, 'points' );
 
 		// Should have used the cache, so still just one database query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Update the user's points.
 		wordpoints_set_points( $this->user_ids[1], 50, 'points', 'test' );
@@ -104,22 +104,22 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 		$top_users = wordpoints_points_get_top_users( 3, 'points' );
 
 		// Cache should have been invalidated, and so a second database query used.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// This should now be the top user.
-		$this->assertEquals( $this->user_ids[1], $top_users[0] );
+		$this->assertSame( $this->user_ids[1], $top_users[0] );
 
 		// This time, get only the top 2 users.
 		wordpoints_points_get_top_users( 2, 'points' );
 
 		// The same cache can be used, so no new query is needed.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Now get 5 users (there are only 4).
 		$top_users = wordpoints_points_get_top_users( 5, 'points' );
 
 		// The old cache would have been insufficient, and so another query made.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		$this->assertCount( 4, $top_users );
 
@@ -127,7 +127,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 		// there are only 4 users in the cache.
 		wordpoints_points_get_top_users( 5, 'points' );
 
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -144,13 +144,13 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		wordpoints_points_get_top_users( 3, 'points' );
 
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Run the query again.
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Should have used the cache, so still just one database query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site on the network.
 		switch_to_blog( $this->factory->blog->create() );
@@ -161,20 +161,20 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Cache isn't good on this site, should be a new query.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Again.
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Cache is still good.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		restore_current_blog();
 
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Cache is still good.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -190,13 +190,13 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		wordpoints_points_get_top_users( 3, 'points' );
 
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Run the query again.
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Should have used the cache, so still just one database query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site on the network.
 		$site_id = $this->factory->blog->create();
@@ -206,19 +206,19 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Cache should still be good.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Again.
 		wordpoints_points_get_top_users( 3, 'points' );
 
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		restore_current_blog();
 
 		wordpoints_points_get_top_users( 3, 'points' );
 
 		// Cache is still good.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -235,7 +235,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		$top_users = wordpoints_points_get_top_users( 5, 'points' );
 
-		$this->assertEquals( array( $this->user_ids[1], 1 ), $top_users );
+		$this->assertSame( array( $this->user_ids[1], 1 ), $top_users );
 	}
 
 	/**
@@ -250,7 +250,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		$user_id = $this->factory->user->create();
 
-		$this->assertEquals(
+		$this->assertSame(
 			''
 			, get_user_meta(
 				$user_id
@@ -280,7 +280,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 		wordpoints_set_points( $user_id, 500, 'points', 'test' );
 
 		$top_users = wordpoints_points_get_top_users( 2, 'points' );
-		$this->assertEquals( $user_id, $top_users[0] );
+		$this->assertSame( $user_id, $top_users[0] );
 	}
 
 	/**
@@ -317,7 +317,7 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 
 		wordpoints_set_points( $this->user_ids[1], -5, 'points', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $this->user_ids[0], $this->user_ids[2], 1, $this->user_ids[1] )
 			, wordpoints_points_get_top_users( 10, 'points' )
 		);

@@ -25,7 +25,7 @@ class WordPoints_Data_Type_Test extends WP_UnitTestCase {
 
 		$data_type = new WordPoints_PHPUnit_Mock_Data_type( 'test' );
 
-		$this->assertEquals( 'test', $data_type->get_slug() );
+		$this->assertSame( 'test', $data_type->get_slug() );
 	}
 }
 

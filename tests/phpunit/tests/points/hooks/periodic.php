@@ -32,11 +32,11 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_P
 
 		$this->assertInstanceOf( 'WordPoints_Periodic_Points_Hook', $hook );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				1 => array(
-					'points' => 10,
 					'period' => DAY_IN_SECONDS,
+					'points' => 10,
 				),
 			)
 			, $hook->get_instances()
@@ -64,17 +64,17 @@ class WordPoints_Periodic_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_P
 		wp_set_current_user( $user_id );
 
 		$hook->hook();
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 
 		$hook->hook();
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Time machine!
 		$global = ( ! is_multisite() || is_wordpoints_network_active() );
 		update_user_option( $user_id, 'wordpoints_points_period_start', current_time( 'timestamp' ) - DAY_IN_SECONDS, $global );
 
 		$hook->hook();
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }
 

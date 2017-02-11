@@ -28,24 +28,24 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
 		$handler   = wordpointstests_add_points_hook( $hook_type, $settings );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( "{$hook_type}-1" ) )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 1 => $settings )
 			, $handler->get_instances( 'standard' )
 		);
 
 		$this->import();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array() )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, $handler->get_instances( 'standard' )
 		);
@@ -60,14 +60,17 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 		$imported_settings['points']      = $settings['points'];
 		$imported_settings['reactor']     = 'points_legacy';
 
-		$this->assertEquals( $imported_settings, $reactions[0]->get_all_meta() );
+		$this->assertSameSetsWithIndex(
+			$imported_settings
+			, $reactions[0]->get_all_meta()
+		);
 
 		$this->assertArrayHasKey(
 			$hook_type
 			, get_option( 'wordpoints_legacy_points_hooks_disabled' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				array(
 					'order'       => 0,
@@ -282,7 +285,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			),
 			'periodic' => array(
 				'legacy_slug' => 'periodic',
-				'settings'    => array( 'points' => 10, 'period' => DAY_IN_SECONDS ),
+				'settings'    => array( 'period' => DAY_IN_SECONDS, 'points' => 10 ),
 				'import_settings' => array(
 					'target'          => array( 'current:user' ),
 					'event'           => 'user_visit',
@@ -316,24 +319,24 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
 		$handler = wordpointstests_add_points_hook( $hook_type, $settings );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( "{$hook_type}-1" ) )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 1 => $settings )
 			, $handler->get_instances( 'standard' )
 		);
 
 		$this->import();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( "{$hook_type}-1" ) )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 1 => $settings )
 			, $handler->get_instances( 'standard' )
 		);
@@ -390,24 +393,24 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			, array( '_description' => $description )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( 'wordpoints_registration_points_hook-1' ) )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 1 => array( 'points' => 100, '_description' => $description ) )
 			, $handler->get_instances( 'standard' )
 		);
 
 		$this->import();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array() )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, $handler->get_instances( 'standard' )
 		);
@@ -418,7 +421,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$this->assertCount( 1, $reactions );
 
-		$this->assertEquals(
+		$this->assertSameSetsWithIndex(
 			array(
 				'target'          => array( 'user' ),
 				'points_type'     => 'points',
@@ -438,17 +441,17 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			, get_option( 'wordpoints_legacy_points_hooks_disabled' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				array(
 					'order'       => 0,
 					'id_base'     => 'wordpoints_registration_points_hook',
-					'points_type' => 'points',
-					'reaction_id' => $reactions[0]->get_id(),
 					'instance'    => array(
 						'points'       => 100,
 						'_description' => $description,
 					),
+					'points_type' => 'points',
+					'reaction_id' => $reactions[0]->get_id(),
 				),
 			)
 			, get_option( 'wordpoints_imported_points_hooks' )
@@ -484,24 +487,24 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
 		$handler   = wordpointstests_add_points_hook( $hook_type, $settings );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array( "{$hook_type}-1" ) )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 1 => $settings )
 			, $handler->get_instances( 'standard' )
 		);
 
 		$this->import();
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => array() )
 			, WordPoints_Points_Hooks::get_points_types_hooks()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, $handler->get_instances( 'standard' )
 		);
@@ -553,7 +556,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				, $post_type_settings['target']
 			);
 
-			$this->assertEquals(
+			$this->assertSameSetsWithIndex(
 				$post_type_settings
 				, $reactions[ $i ]->get_all_meta()
 			);
@@ -563,7 +566,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				, array_merge( $settings, array( 'post_type' => $post_type->name ) )
 			);
 
-			$this->assertEquals(
+			$this->assertSame(
 				array(
 					'order'       => 0,
 					'id_base'     => $hook_type,
@@ -612,7 +615,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			)
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -622,7 +625,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			, array( 'post_status' => 'draft' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -639,7 +642,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			, array( 'post_status' => 'publish' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -667,14 +670,14 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -688,7 +691,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -718,14 +721,14 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			, array( '%d' )
 		);
 
-		$this->assertEquals( 1, $updated );
+		$this->assertSame( 1, $updated );
 
 		// The periods cache will still hold the old date.
 		$this->flush_cache();
 
 		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			2 * $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -925,7 +928,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		} // End switch ( $legacy_slug ).
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -952,7 +955,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				$this->fail( 'Missing hook works assertion for legacy slug ' . $legacy_slug );
 		}
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, wordpoints_get_points( $user_id, 'points' )
 		);

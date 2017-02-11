@@ -82,7 +82,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		$node = $xpath->query( '//div[@class = "wordpoints-points-widget-text"]' )
 			->item( 0 );
 
-		$this->assertEquals( 'Alt text', $node->textContent );
+		$this->assertSame( 'Alt text', $node->textContent );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
-		$this->assertEquals( 0, $xpath->query( '//table' )->length );
+		$this->assertSame( 0, $xpath->query( '//table' )->length );
 	}
 
 	/**
@@ -124,8 +124,8 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		$node = $xpath->query( '//div[@class = "wordpoints-points-widget-text"]' )
 			->item( 0 );
 
-		$this->assertEquals( 'Points: $40pts.', $node->textContent );
-		$this->assertEquals( 0, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 'Points: $40pts.', $node->textContent );
+		$this->assertSame( 0, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -159,7 +159,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$nodes = $xpath->query( '//div[@class = "wordpoints-points-widget-text"]' );
 
-		$this->assertEquals( 'Widget $0pts. text', $nodes->item( 0 )->textContent );
+		$this->assertSame( 'Widget $0pts. text', $nodes->item( 0 )->textContent );
 	}
 
 	/**
@@ -178,7 +178,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'points_type' => 'points', 'number_logs' => 3 )
 		);
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -201,11 +201,11 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 			, array()
 		);
 
-		$this->assertEquals( 'Title', $sanitized['title'] );
-		$this->assertEquals( 'Some text.', $sanitized['text'] );
-		$this->assertEquals( 'Alt text.', $sanitized['alt_text'] );
-		$this->assertEquals( 0, $sanitized['number_logs'] );
-		$this->assertEquals( 'points', $sanitized['points_type'] );
+		$this->assertSame( 'Title', $sanitized['title'] );
+		$this->assertSame( 'Some text.', $sanitized['text'] );
+		$this->assertSame( 'Alt text.', $sanitized['alt_text'] );
+		$this->assertSame( 0, $sanitized['number_logs'] );
+		$this->assertSame( 'points', $sanitized['points_type'] );
 	}
 }
 

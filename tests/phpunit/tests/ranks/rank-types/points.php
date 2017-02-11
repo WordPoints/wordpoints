@@ -143,7 +143,7 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		wordpoints_add_points( $user_id, 70, 'points', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
@@ -184,14 +184,14 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		wordpoints_add_points( $user_id, 100, 'points', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_3_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
 
 		wordpoints_set_points( $user_id, 40, 'points', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
@@ -216,12 +216,12 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 			, array( 'points_type' => 'points', 'points' => 30 )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_ids[0], 'points_type-points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
 			, wordpoints_get_user_rank( $user_ids[1], 'points_type-points' )
 		);
@@ -246,7 +246,7 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		wordpoints_set_points( $user_id, 50, 'points', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
@@ -260,7 +260,7 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 			, array( 'points_type' => 'points', 'points' => 60 )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
@@ -274,7 +274,7 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 			, array( 'points_type' => 'points', 'points' => 40 )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
@@ -309,7 +309,7 @@ class WordPoints_Points_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		wordpoints_add_points( $user_id, 100, 'points', 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);

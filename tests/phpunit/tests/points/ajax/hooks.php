@@ -83,11 +83,11 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$this->assertCount( 1, $hooks );
-		$this->assertEquals( $hook->get_id(), $hooks[0] );
+		$this->assertSame( $hook->get_id(), $hooks[0] );
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertEquals( array( 'points' => '15' ), $instances[1] );
+		$this->assertSame( array( 'points' => '15' ), $instances[1] );
 	}
 
 	/**
@@ -126,18 +126,18 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 		$document = new DOMDocument;
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals( 1, $xpath->query( '//p/input[@value = "15"]' )->length );
+		$this->assertSame( 1, $xpath->query( '//p/input[@value = "15"]' )->length );
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
 		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
 
 		$this->assertCount( 1, $hooks );
-		$this->assertEquals( $hook->get_id(), $hooks[0] );
+		$this->assertSame( $hook->get_id(), $hooks[0] );
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertEquals( array( 'points' => '15' ), $instances[ $hook->get_number() ] );
+		$this->assertSame( array( 'points' => '15' ), $instances[ $hook->get_number() ] );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 		try {
 			$this->_handleAjax( 'save-wordpoints-points-hook' );
 		} catch ( WPAjaxDieStopException $e ) {
-			$this->assertEquals( 'deleted:' . $hook->get_id(), $e->getMessage() );
+			$this->assertSame( 'deleted:' . $hook->get_id(), $e->getMessage() );
 		}
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
@@ -246,14 +246,14 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
 		$this->assertCount( 1, $hooks );
-		$this->assertEquals( 'wordpoints_registration_points_hook-1', $hooks[0] );
+		$this->assertSame( 'wordpoints_registration_points_hook-1', $hooks[0] );
 
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
 		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertEquals( array( 'points' => '15' ), $instances['network_1'] );
+		$this->assertSame( array( 'points' => '15' ), $instances['network_1'] );
 	}
 }
 

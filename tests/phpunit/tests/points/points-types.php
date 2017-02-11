@@ -57,7 +57,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_get_returns_array_of_types() {
 
-		$this->assertEquals( array( 'points' => $this->points_data ), wordpoints_get_points_types() );
+		$this->assertSame( array( 'points' => $this->points_data ), wordpoints_get_points_types() );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		wordpoints_delete_maybe_network_option( 'wordpoints_points_types' );
 
-		$this->assertEquals( array(), wordpoints_get_points_types() );
+		$this->assertSame( array(), wordpoints_get_points_types() );
 	}
 
 	//
@@ -105,7 +105,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$slug = wordpoints_add_points_type( $points_type );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => $this->points_data, $slug => $points_type )
 			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
@@ -120,9 +120,9 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_add_generates_slug_with_dashes() {
 
-		$this->assertEquals( 'a-test', wordpoints_add_points_type( array( 'name' => 'A test' ) ) );
-		$this->assertEquals( 'an-other-test', wordpoints_add_points_type( array( 'name' => 'An - other test' ) ) );
-		$this->assertEquals( 'third-test', wordpoints_add_points_type( array( 'name' => '- THIRD test- ' ) ) );
+		$this->assertSame( 'a-test', wordpoints_add_points_type( array( 'name' => 'A test' ) ) );
+		$this->assertSame( 'an-other-test', wordpoints_add_points_type( array( 'name' => 'An - other test' ) ) );
+		$this->assertSame( 'third-test', wordpoints_add_points_type( array( 'name' => '- THIRD test- ' ) ) );
 	}
 
 	//
@@ -141,7 +141,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$this->points_data['prefix'] = '€';
 		wordpoints_update_points_type( 'points', $this->points_data );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'points' => $this->points_data )
 			, wordpoints_get_maybe_network_option( 'wordpoints_points_types' )
 		);
@@ -208,8 +208,8 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->assertTrue( $was_deleted );
 		$this->assertFalse( wordpoints_is_points_type( 'points' ) );
-		$this->assertEquals( '', get_user_meta( $user_id, $meta_key, true ) );
-		$this->assertEquals( array(), WordPoints_Points_Hooks::get_points_type_hooks( 'points' ) );
+		$this->assertSame( '', get_user_meta( $user_id, $meta_key, true ) );
+		$this->assertSame( array(), WordPoints_Points_Hooks::get_points_type_hooks( 'points' ) );
 
 		global $wpdb;
 
@@ -224,7 +224,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 			)
 		);
 
-		$this->assertEquals( '0', $logs );
+		$this->assertSame( '0', $logs );
 
 		$meta = $wpdb->get_var(
 			"
@@ -234,7 +234,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 			"
 		);
 
-		$this->assertEquals( '0', $meta );
+		$this->assertSame( '0', $meta );
 	}
 
 	/**
@@ -251,7 +251,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->assertTrue( wordpoints_delete_points_type( 'points' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( 'points', $this->points_data ) )
 			, $mock->calls
 		);
@@ -303,7 +303,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_null_returned_if_nonexistant_setting() {
 
-		$this->assertEquals( null, wordpoints_get_points_type_setting( 'points', 'image' ) );
+		$this->assertSame( null, wordpoints_get_points_type_setting( 'points', 'image' ) );
 	}
 
 	/**
@@ -315,7 +315,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_returns_setting_value() {
 
-		$this->assertEquals( 'Points', wordpoints_get_points_type_setting( 'points', 'name' ) );
+		$this->assertSame( 'Points', wordpoints_get_points_type_setting( 'points', 'name' ) );
 	}
 }
 

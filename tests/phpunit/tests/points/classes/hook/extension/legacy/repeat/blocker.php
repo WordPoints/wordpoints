@@ -127,7 +127,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 			array( 'post_author' => $user_id )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);

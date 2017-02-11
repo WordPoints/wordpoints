@@ -60,16 +60,15 @@ class WordPoints_2_3_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 			"
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'primary_arg_guid'
 			, $wpdb->get_var(
 				"SHOW COLUMNS FROM `{$wpdb->wordpoints_hook_hits}` LIKE 'primary_arg_guid'"
 			)
 		);
 
-		$this->assertEquals(
-			''
-			, $wpdb->get_var(
+		$this->assertNull(
+			$wpdb->get_var(
 				"SHOW COLUMNS FROM `{$wpdb->wordpoints_hook_hits}` LIKE 'signature_arg_guids'"
 			)
 		);
@@ -77,16 +76,15 @@ class WordPoints_2_3_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		// Simulate the update.
 		$this->update_wordpoints();
 
-		$this->assertEquals(
+		$this->assertSame(
 			'signature_arg_guids'
 			, $wpdb->get_var(
 				"SHOW COLUMNS FROM `{$wpdb->wordpoints_hook_hits}` LIKE 'signature_arg_guids'"
 			)
 		);
 
-		$this->assertEquals(
-			''
-			, $wpdb->get_var(
+		$this->assertNull(
+			$wpdb->get_var(
 				"SHOW COLUMNS FROM `{$wpdb->wordpoints_hook_hits}` LIKE 'primary_arg_guid'"
 			)
 		);

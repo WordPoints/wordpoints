@@ -36,7 +36,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 
 		$_GET['nonce'] = wp_create_nonce( 'action' );
 
-		$this->assertEquals( 1, wordpoints_verify_nonce( 'nonce', 'action' ) );
+		$this->assertSame( 1, wordpoints_verify_nonce( 'nonce', 'action' ) );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'a_number', 'some_string' )
 		);
 
-		$this->assertEquals( 1, $is_valid );
+		$this->assertSame( 1, $is_valid );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 			, 'some_string'
 		);
 
-		$this->assertEquals( 1, $is_valid );
+		$this->assertSame( 1, $is_valid );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 
 		$is_valid = wordpoints_verify_nonce( 'nonce', 'action', null, 'post' );
 
-		$this->assertEquals( 1, $is_valid );
+		$this->assertSame( 1, $is_valid );
 	}
 
 	/**

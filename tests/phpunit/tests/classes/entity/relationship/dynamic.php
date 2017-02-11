@@ -50,10 +50,10 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 			array( 'slug' => $entity_slug )
 		);
 
-		$this->assertEquals( $relationship_slug, $relationship->get_slug() );
-		$this->assertEquals( $related_slug, $relationship->get_related_entity_slug() );
-		$this->assertEquals( $primary_slug, $relationship->get_primary_entity_slug() );
-		$this->assertEquals( $entity->get_title(), $relationship->get_title() );
+		$this->assertSame( $relationship_slug, $relationship->get_slug() );
+		$this->assertSame( $related_slug, $relationship->get_related_entity_slug() );
+		$this->assertSame( $primary_slug, $relationship->get_primary_entity_slug() );
+		$this->assertSame( $entity->get_title(), $relationship->get_title() );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 			'relationship'
 		);
 
-		$this->assertEquals( 'test_entity', $relationship->get_title() );
+		$this->assertSame( 'test_entity', $relationship->get_title() );
 	}
 }
 

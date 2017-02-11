@@ -32,7 +32,7 @@ class WordPoints_Registration_Points_Hook_Test extends WordPoints_PHPUnit_TestCa
 
 		$user_id = $this->factory->user->create();
 
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 	}
 }
 

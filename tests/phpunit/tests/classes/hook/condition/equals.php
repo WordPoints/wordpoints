@@ -44,9 +44,9 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 			$condition->is_met( array( 'value' => $value ), $event_args )
 		);
 
-		$this->assertEquals( $entity, $event_args->get_current() );
+		$this->assertSame( $entity, $event_args->get_current() );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $entity->get_slug() )
 			, $validator->get_field_stack()
 		);
@@ -99,9 +99,9 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 			$condition->is_met( array( 'value' => $compare ), $event_args )
 		);
 
-		$this->assertEquals( $entity, $event_args->get_current() );
+		$this->assertSame( $entity, $event_args->get_current() );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $entity->get_slug() )
 			, $validator->get_field_stack()
 		);

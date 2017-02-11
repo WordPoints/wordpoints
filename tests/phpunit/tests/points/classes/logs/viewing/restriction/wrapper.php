@@ -297,7 +297,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Wrapper_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -333,7 +333,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Wrapper_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -372,8 +372,8 @@ class WordPoints_Points_Logs_Viewing_Restriction_Wrapper_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
-		$this->assertEquals( $this->fixture_ids['site'][0], $mock->site[0] );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $this->fixture_ids['site'][0], $mock->site[0] );
 	}
 
 	/**
@@ -413,8 +413,8 @@ class WordPoints_Points_Logs_Viewing_Restriction_Wrapper_Test
 
 		$this->assertFalse( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
-		$this->assertEquals( $this->fixture_ids['site'][0], $mock->site[0] );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $this->fixture_ids['site'][0], $mock->site[0] );
 	}
 }
 

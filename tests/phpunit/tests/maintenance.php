@@ -43,7 +43,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
 
 		/** @var int $time */
-		$this->assertEquals( $time - 10 * MINUTE_IN_SECONDS, $upgrading );
+		$this->assertSame( $time - 10 * MINUTE_IN_SECONDS, $upgrading );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
 
-		$this->assertEquals( $raw, $upgrading );
+		$this->assertSame( $raw, $upgrading );
 	}
 
 	/**

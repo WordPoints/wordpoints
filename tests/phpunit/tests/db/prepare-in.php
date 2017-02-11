@@ -41,7 +41,7 @@ class WordPoints_Prepare_In_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_invalid_format() {
 
 		$result = wordpoints_prepare__in( array( 1, 2, 3 ), '%D' );
-		$this->assertEquals( "'1','2','3'", $result );
+		$this->assertSame( "'1','2','3'", $result );
 	}
 
 	/**
@@ -52,10 +52,10 @@ class WordPoints_Prepare_In_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_valid_params() {
 
 		$result_d = wordpoints_prepare__in( array( 1, 2, 3 ), '%d' );
-		$this->assertEquals( '1,2,3', $result_d );
+		$this->assertSame( '1,2,3', $result_d );
 
 		$result_s = wordpoints_prepare__in( array( 'a', 'b', 'c' ), '%s' );
-		$this->assertEquals( "'a','b','c'", $result_s );
+		$this->assertSame( "'a','b','c'", $result_s );
 
 		// We can't reliably test %f, becuase the precision is system dependant.
 	}

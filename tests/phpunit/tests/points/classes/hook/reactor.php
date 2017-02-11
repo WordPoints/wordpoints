@@ -107,7 +107,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -170,12 +170,12 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$errors = $validator->get_errors();
 
 		$this->assertCount( 1, $errors );
-		$this->assertEquals( array( $invalid ), $errors[0]['field'] );
+		$this->assertSame( array( $invalid ), $errors[0]['field'] );
 
 		$this->assertEmpty( $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
-		$this->assertEquals( $settings, $result );
+		$this->assertSame( $settings, $result );
 	}
 
 	/**
@@ -240,11 +240,11 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->reactor->update_settings( $reaction, $settings );
 
-		$this->assertEquals( $settings['target'], $reaction->get_meta( 'target' ) );
-		$this->assertEquals( $settings['points'], $reaction->get_meta( 'points' ) );
-		$this->assertEquals( $settings['points_type'], $reaction->get_meta( 'points_type' ) );
-		$this->assertEquals( $settings['description'], $reaction->get_meta( 'description' ) );
-		$this->assertEquals( $settings['log_text'], $reaction->get_meta( 'log_text' ) );
+		$this->assertSame( $settings['target'], $reaction->get_meta( 'target' ) );
+		$this->assertSame( $settings['points'], $reaction->get_meta( 'points' ) );
+		$this->assertSame( $settings['points_type'], $reaction->get_meta( 'points_type' ) );
+		$this->assertSame( $settings['description'], $reaction->get_meta( 'description' ) );
+		$this->assertSame( $settings['log_text'], $reaction->get_meta( 'log_text' ) );
 	}
 
 	/**
@@ -276,7 +276,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$reaction = wordpoints_hooks()
 			->get_reaction_store( 'points' )
@@ -288,10 +288,11 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$filter->add_filter( 'wordpoints_points_hook_reactor_points_to_award', 10, 6 );
 
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
+		$fire->hit();
 
 		$this->reactor->hit( $fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100 + $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -305,25 +306,25 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$log = $query->get( 'row' );
 
-		$this->assertEquals( $user_id, $log->user_id );
-		$this->assertEquals( $settings['points'], $log->points );
-		$this->assertEquals( $settings['points_type'], $log->points_type );
-		$this->assertEquals( $settings['event'], $log->log_type );
-		$this->assertEquals( $settings['log_text'], $log->text );
+		$this->assertSame( $user_id, (int) $log->user_id );
+		$this->assertSame( $settings['points'], (int) $log->points );
+		$this->assertSame( $settings['points_type'], $log->points_type );
+		$this->assertSame( $settings['event'], $log->log_type );
+		$this->assertSame( $settings['log_text'], $log->text );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$user_id
-			, wordpoints_get_points_log_meta( $log->id, 'user', true )
+			, (int) wordpoints_get_points_log_meta( $log->id, 'user', true )
 		);
 
-		$this->assertEquals(
-			array( 'user' => $user_id )
+		$this->assertSame(
+			array( 'user' => (string) $user_id )
 			, wordpoints_get_points_log_meta( $log->id, 'user_guid', true )
 		);
 
-		$this->assertEquals(
-			$fire->hit_id,
-			wordpoints_get_points_log_meta( $log->id, 'hook_hit_id', true )
+		$this->assertSame(
+			$fire->hit_id
+			, (int) wordpoints_get_points_log_meta( $log->id, 'hook_hit_id', true )
 		);
 	}
 
@@ -353,7 +354,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$reaction = wordpoints_hooks()
 			->get_reaction_store( 'points' )
@@ -366,7 +367,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->reactor->hit( $fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100 + $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -375,7 +376,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			array( 'log_type' => 'user_register' )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$reverse_fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'toggle_off' );
 		$reverse_fire->hit();
@@ -383,30 +384,30 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->reactor->reverse_hit( $reverse_fire );
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$reverse_query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'reverse-user_register' )
 		);
 
-		$this->assertEquals( 1, $reverse_query->count() );
+		$this->assertSame( 1, $reverse_query->count() );
 
 		$reverse_log_id = $reverse_query->get( 'row' )->id;
 		$log_id         = $query->get( 'row' )->id;
 
-		$this->assertEquals(
+		$this->assertSame(
 			$reverse_log_id
 			, wordpoints_get_points_log_meta( $log_id, 'auto_reversed', true )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$fire->hit_id
-			, wordpoints_get_points_log_meta( $log_id, 'hook_hit_id', true )
+			, (int) wordpoints_get_points_log_meta( $log_id, 'hook_hit_id', true )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$log_id
 			, wordpoints_get_points_log_meta(
 				$reverse_log_id
@@ -415,9 +416,9 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			)
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$reverse_fire->hit_id
-			, wordpoints_get_points_log_meta(
+			, (int) wordpoints_get_points_log_meta(
 				$reverse_log_id
 				, 'hook_hit_id'
 				, true
@@ -454,7 +455,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$user_id = $this->factory->user->create();
 
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $user_id, 'points' ) );
 
 		$post_id = $this->factory->post->create(
 			array(
@@ -463,7 +464,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			)
 		);
 
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Block the reactor from handling this reverse.
 		$instance->update_meta( 'blocker', array( 'toggle_off' => true ) );
@@ -471,12 +472,12 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 		wp_update_post( array( 'ID' => $post_id, 'post_status' => 'draft' ) );
 
 		// The points shouldn't have been removed.
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 
 		wp_update_post( array( 'ID' => $post_id, 'post_status' => 'publish' ) );
 
 		// Points should have been awarded again.
-		$this->assertEquals( 20, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Stop blocking reverses.
 		$instance->delete_meta( 'blocker' );
@@ -484,7 +485,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 		wp_update_post( array( 'ID' => $post_id, 'post_status' => 'draft' ) );
 
 		// Only the last hit should have been reversed.
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**

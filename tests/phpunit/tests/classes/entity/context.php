@@ -25,7 +25,7 @@ class WordPoints_Entity_Context_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context = new WordPoints_PHPUnit_Mock_Entity_Context( 'test' );
 
-		$this->assertEquals( 'test', $context->get_slug() );
+		$this->assertSame( 'test', $context->get_slug() );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WordPoints_Entity_Context_Test extends WordPoints_PHPUnit_TestCase {
 
 		$context->set( 'parent_slug', 'test_parent' );
 
-		$this->assertEquals( 'test_parent', $context->get_parent_slug() );
+		$this->assertSame( 'test_parent', $context->get_parent_slug() );
 	}
 
 	/**

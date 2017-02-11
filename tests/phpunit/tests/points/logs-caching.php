@@ -37,7 +37,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the second user.
 		wp_set_current_user( $user_ids[1] );
@@ -45,7 +45,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// A second query should have been made to prime this cache.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		wordpoints_flush_points_logs_caches();
 
@@ -55,7 +55,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should still be good.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Get the query for the second user again.
 		wp_set_current_user( $user_ids[1] );
@@ -63,7 +63,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should still be good for this user too.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the second user.
 		wp_set_current_user( $user_ids[1] );
@@ -94,7 +94,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// A second query should have been made to prime this cache.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		wordpoints_flush_points_logs_caches( array( 'user_id' => $user_ids[0] ) );
 
@@ -104,7 +104,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should have been invalidated.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the query for the second user again.
 		wp_set_current_user( $user_ids[1] );
@@ -112,7 +112,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache for the second user should still be good.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -134,14 +134,14 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the 'credits' points type to prime the cache.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// A second query should have been made.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		wordpoints_flush_points_logs_caches();
 
@@ -150,14 +150,14 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the 'credits' query again.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -179,14 +179,14 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the 'credits' points type to prime the cache.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// A second query should have been made.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		wordpoints_flush_points_logs_caches( array( 'points_type' => 'points' ) );
 
@@ -195,14 +195,14 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should have been invalidated, and so another query made.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Get the 'credits' query again.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// The cache should still have been good, no need for another query.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -223,7 +223,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site.
 		$site_id = $this->factory->blog->create();
@@ -235,7 +235,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should still be good, no query needed.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		wordpoints_flush_points_logs_caches();
 
@@ -246,7 +246,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should have been invalidated, and so a new query made.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 	/**
@@ -267,7 +267,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Create a second site.
 		$site_id = $this->factory->blog->create();
@@ -279,7 +279,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// A new query is needed for this site.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		wordpoints_flush_points_logs_caches();
 
@@ -290,7 +290,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should still be good, no new query needed.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 	}
 
 
@@ -317,14 +317,14 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// Now there should have been a query.
-		$this->assertEquals( 1, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the 'credits' points type to prime the cache.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// A second query should have been made to prime this cache.
-		$this->assertEquals( 2, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the second user.
 		wp_set_current_user( $user_ids[1] );
@@ -332,7 +332,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// A third query should have been made to prime this cache.
-		$this->assertEquals( 3, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		wordpoints_clean_points_logs_cache( $user_ids[0], 100, 'points' );
 
@@ -342,14 +342,14 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache should have been invalidated.
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 
 		// Get a query for the 'credits' points type.
 		$query = wordpoints_get_points_logs_query( 'credits' );
 		$query->get();
 
 		// The cache should still be good.
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 
 		// Get the query for the second user again.
 		wp_set_current_user( $user_ids[1] );
@@ -357,7 +357,7 @@ class WordPoints_Points_Logs_Caching_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query->get();
 
 		// The cache for the second user should still be good.
-		$this->assertEquals( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 	}
 }
 

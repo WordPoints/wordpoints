@@ -72,7 +72,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 	 */
 	public function test_get_event_slug() {
 
-		$this->assertEquals( 'test_event', $this->reaction->get_event_slug() );
+		$this->assertSame( 'test_event', $this->reaction->get_event_slug() );
 	}
 
 	/**
@@ -84,11 +84,17 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->assertTrue( $this->reaction->update_event_slug( 'another_event' ) );
 
-		$this->assertEquals( 'another_event', $this->reaction->get_event_slug() );
+		$this->assertSame( 'another_event', $this->reaction->get_event_slug() );
 
-		$this->assertEquals(
-			array( $this->reaction )
-			, $this->reaction_store->get_reactions_to_event( 'another_event' )
+		$reactions = $this->reaction_store->get_reactions_to_event(
+			'another_event'
+		);
+
+		$this->assertCount( 1, $reactions );
+		$this->assertSame( $this->reaction->get_id(), $reactions[0]->get_id() );
+		$this->assertSame(
+			$this->reaction->get_all_meta()
+			, $reactions[0]->get_all_meta()
 		);
 	}
 
@@ -99,7 +105,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 	 */
 	public function test_get_meta() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_entity' )
 			, $this->reaction->get_meta( 'target' )
 		);
@@ -124,7 +130,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->assertTrue( $this->reaction->add_meta( 'key', 'value' ) );
 
-		$this->assertEquals( 'value', $this->reaction->get_meta( 'key' ) );
+		$this->assertSame( 'value', $this->reaction->get_meta( 'key' ) );
 	}
 
 	/**
@@ -138,7 +144,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->assertFalse( $this->reaction->add_meta( 'key', 'another' ) );
 
-		$this->assertEquals( 'value', $this->reaction->get_meta( 'key' ) );
+		$this->assertSame( 'value', $this->reaction->get_meta( 'key' ) );
 	}
 
 	/**
@@ -150,7 +156,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->assertTrue( $this->reaction->update_meta( 'key', 'value' ) );
 
-		$this->assertEquals( 'value', $this->reaction->get_meta( 'key' ) );
+		$this->assertSame( 'value', $this->reaction->get_meta( 'key' ) );
 	}
 
 	/**
@@ -164,7 +170,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->assertTrue( $this->reaction->update_meta( 'key', 'another' ) );
 
-		$this->assertEquals( 'another', $this->reaction->get_meta( 'key' ) );
+		$this->assertSame( 'another', $this->reaction->get_meta( 'key' ) );
 	}
 
 	/**
@@ -198,7 +204,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$all_meta = $this->reaction->get_all_meta();
 		$this->assertArrayHasKey( 'target', $all_meta );
-		$this->assertEquals( array( 'test_entity' ), $all_meta['target'] );
+		$this->assertSame( array( 'test_entity' ), $all_meta['target'] );
 	}
 
 	/**
@@ -210,7 +216,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 	 */
 	public function test_options() {
 
-		$this->assertEquals( 1, $this->reaction->get_id() );
+		$this->assertSame( 1, $this->reaction->get_id() );
 
 		$this->assertTrue( $this->reaction->add_meta( 'key', 'value' ) );
 
@@ -221,7 +227,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$reaction_2 = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 1, $reaction_2->get_id() );
+		$this->assertSame( 1, $reaction_2->get_id() );
 
 		$this->assertFalse( $reaction_2->get_meta( 'key' ) );
 
@@ -238,7 +244,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 		restore_current_blog();
 
 		// The value should still be the same.
-		$this->assertEquals( 'value', $this->reaction->get_meta( 'key' ) );
+		$this->assertSame( 'value', $this->reaction->get_meta( 'key' ) );
 	}
 
 	/**
@@ -256,7 +262,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 1, $reaction->get_id() );
+		$this->assertSame( 1, $reaction->get_id() );
 
 		$this->assertTrue( $reaction->add_meta( 'key', 'value' ) );
 
@@ -267,7 +273,7 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
-		$this->assertEquals( 2, $reaction->get_id() );
+		$this->assertSame( 2, $reaction->get_id() );
 
 		$reaction_store = wordpoints_hooks()->get_reaction_store(
 			$reaction->get_store_slug()
@@ -275,14 +281,14 @@ class WordPoints_Hook_Reaction_Options_Test extends WordPoints_PHPUnit_TestCase_
 
 		$reaction = $reaction_store->get_reaction( 1 );
 
-		$this->assertEquals( 'value', $reaction->get_meta( 'key' ) );
+		$this->assertSame( 'value', $reaction->get_meta( 'key' ) );
 
 		$this->assertTrue( $reaction->update_meta( 'key', 'another' ) );
 
 		restore_current_blog();
 
 		// The value should have been updated.
-		$this->assertEquals( 'another', $reaction->get_meta( 'key' ) );
+		$this->assertSame( 'another', $reaction->get_meta( 'key' ) );
 	}
 }
 

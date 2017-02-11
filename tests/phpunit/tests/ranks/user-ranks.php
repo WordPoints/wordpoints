@@ -32,7 +32,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		);
 
 		$this->assertInstanceOf( 'WordPoints_Rank', $rank );
-		$this->assertEquals( 'base', $rank->type );
+		$this->assertSame( 'base', $rank->type );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 			, 'unittests'
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'<span class="wordpoints-rank">' . $rank->name . '</span>'
 			,  $formatted
 		);
@@ -112,7 +112,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertTrue( $result );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, $this->rank_group )
 		);
@@ -184,7 +184,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// We don't give a rank to the third user at all.
 
 		// So only the user we gave the second rank should be returned.
-		$this->assertEquals(
+		$this->assertSame(
 			array( $user_ids[1] )
 			, wordpoints_get_users_with_rank( $rank_2 )
 		);

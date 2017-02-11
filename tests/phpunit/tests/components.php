@@ -137,7 +137,7 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $components->is_active( 'test_2' ) );
 		$this->assertArrayHasKey( 'test_2', $components->get_active() );
-		$this->assertEquals( 1, did_action( 'wordpoints_component_activate-test_2' ) );
+		$this->assertSame( 1, did_action( 'wordpoints_component_activate-test_2' ) );
 
 		// The component should have been loaded.
 		$this->assertTrue(
@@ -148,7 +148,7 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertFalse( $components->is_active( 'test_2' ) );
 		$this->assertArrayNotHasKey( 'test_2', $components->get_active() );
-		$this->assertEquals( 1, did_action( 'wordpoints_component_deactivate-test_2' ) );
+		$this->assertSame( 1, did_action( 'wordpoints_component_deactivate-test_2' ) );
 	}
 
 	/**

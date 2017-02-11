@@ -25,7 +25,7 @@ class WordPoints_Entityish_Test extends WP_UnitTestCase {
 
 		$entityish = new WordPoints_PHPUnit_Mock_Entityish( 'test' );
 
-		$this->assertEquals( 'test', $entityish->get_slug() );
+		$this->assertSame( 'test', $entityish->get_slug() );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class WordPoints_Entityish_Test extends WP_UnitTestCase {
 
 		$entityish->set_the_value( 'a' );
 
-		$this->assertEquals( 'a', $entityish->get_the_value() );
+		$this->assertSame( 'a', $entityish->get_the_value() );
 	}
 }
 

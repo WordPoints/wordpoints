@@ -110,7 +110,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$this->assertContains( 'wordpoints-points-logs', $table_classes );
 		$this->assertContains( 'widefat', $table_classes );
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be paginated.
 		$this->assertNotEquals(
@@ -128,7 +128,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		);
 		$xpath = new DOMXPath( $document );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
@@ -166,7 +166,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$this->assertContains( 'wordpoints-points-logs', $table_classes );
 		$this->assertContains( 'widefat', $table_classes );
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be paginated.
 		$this->assertNotEquals(
@@ -184,7 +184,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		);
 		$xpath = new DOMXPath( $document );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//a[@class = "page-numbers"]' )->length
 		);
@@ -216,7 +216,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		);
 		$xpath = new DOMXPath( $document );
 
-		$this->assertEquals( 4, $xpath->query( '//thead/tr/th' )->length );
+		$this->assertSame( 4, $xpath->query( '//thead/tr/th' )->length );
 
 		// Check that it is hidden.
 		$document = new DOMDocument;
@@ -228,7 +228,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		);
 		$xpath = new DOMXPath( $document );
 
-		$this->assertEquals( 3, $xpath->query( '//thead/tr/th' )->length );
+		$this->assertSame( 3, $xpath->query( '//thead/tr/th' )->length );
 
 	} // End public function test_show_users_attribute().
 
@@ -320,17 +320,17 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$this->assertContains( 'wordpoints-points-logs', $table_classes );
 		$this->assertContains( 'widefat', $table_classes );
 
-		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 
 		// Should be searchable.
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-search"]' )
 				->length
 		);
 
 		// Should display 'searching for' text.
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-searching"]' )
 				->length
@@ -346,13 +346,13 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$xpath = new DOMXPath( $document );
 
 		// Non-searchable.
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-search"]' )
 				->length
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0
 			, $xpath->query( '//div[@class = "wordpoints-points-logs-searching"]' )
 				->length

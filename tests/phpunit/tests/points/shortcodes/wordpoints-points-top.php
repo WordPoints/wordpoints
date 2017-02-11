@@ -76,7 +76,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 
 		$this->assertContains( 'wordpoints-points-top-users', $table_classes );
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -158,7 +158,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		);
 		$xpath = new DOMXPath( $document );
 
-		$this->assertEquals( 3, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 3, $xpath->query( '//tbody/tr' )->length );
 	}
 }
 

@@ -44,7 +44,7 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {
 		$modules_dir = wordpoints_modules_dir();
 
 		$this->assertTrue( $this->mock_fs->exists( $modules_dir . '/index.php' ) );
-		$this->assertEquals(
+		$this->assertSame(
 			'<?php // Gold is silent.'
 			, $this->mock_fs->get_file_attr( $modules_dir . '/index.php', 'contents' )
 		);
@@ -69,7 +69,7 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {
 		$this->update_wordpoints();
 
 		$this->assertTrue( $this->mock_fs->exists( $modules_dir . '/index.php' ) );
-		$this->assertEquals(
+		$this->assertSame(
 			'<?php // test'
 			, $this->mock_fs->get_file_attr( $modules_dir . '/index.php', 'contents' )
 		);

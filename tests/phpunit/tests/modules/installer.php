@@ -89,8 +89,8 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
 
 		$this->assertCount( 0, $this->skin->errors );
-		$this->assertEquals( 1, $this->skin->header_shown );
-		$this->assertEquals( 1, $this->skin->footer_shown );
+		$this->assertSame( 1, $this->skin->header_shown );
+		$this->assertSame( 1, $this->skin->footer_shown );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		$result = $this->install_test_package( 'no-module' );
 
 		$this->assertInstanceOf( 'WP_Error', $result );
-		$this->assertEquals( 'incompatible_archive_no_modules', $result->get_error_code() );
+		$this->assertSame( 'incompatible_archive_no_modules', $result->get_error_code() );
 
 		$this->assertFileNotExists( wordpoints_modules_dir() . '/on-module/plugin.php' );
 	}
@@ -121,7 +121,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		$this->package_name = 'do_not_delete';
 
 		$this->assertInstanceOf( 'WP_Error', $result );
-		$this->assertEquals( 'folder_exists', $result->get_error_code() );
+		$this->assertSame( 'folder_exists', $result->get_error_code() );
 
 		$this->assertFileExists( wordpoints_modules_dir() . '/module-7/module-7.php' );
 	}

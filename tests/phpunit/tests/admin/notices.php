@@ -324,7 +324,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 
 		wordpoints_delete_admin_notice_option();
 
-		$this->assertEquals( 'test', get_option( 'test' ) );
+		$this->assertSame( 'test', get_option( 'test' ) );
 	}
 
 	/**
@@ -413,7 +413,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 
 		wordpoints_admin_notices();
 
-		$this->assertEquals( 'test', get_option( 'test' ) );
+		$this->assertSame( 'test', get_option( 'test' ) );
 	}
 
 	/**

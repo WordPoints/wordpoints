@@ -342,7 +342,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -379,26 +379,26 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 
 		$restriction = $restrictions->get_restriction( $this->fixtures['points_log'][1] );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 
 		$construct_args = array(
 			'site_id' => $this->fixture_ids['site'][0],
 			'log'     => $this->fixtures['points_log'][1],
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites_construct
 		);
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array()
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites
 		);
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -435,26 +435,26 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 
 		$restriction = $restrictions->get_restriction( $this->fixtures['points_log'][1] );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 
 		$construct_args = array(
 			'site_id' => $this->fixture_ids['site'][0],
 			'log'     => $this->fixtures['points_log'][1],
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites_construct
 		);
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $this->fixture_ids['site'][0] )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites
 		);
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -491,26 +491,26 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 
 		$restriction = $restrictions->get_restriction( $this->fixtures['points_log'][1] );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 
 		$construct_args = array(
 			'site_id' => $this->fixture_ids['site'][0],
 			'log'     => $this->fixtures['points_log'][1],
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites_construct
 		);
 
 		$this->assertFalse( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $this->fixture_ids['site'][0] )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites
 		);
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -547,26 +547,26 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 
 		$restriction = $restrictions->get_restriction( $this->fixtures['points_log'][1] );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 
 		$construct_args = array(
 			'site_id' => $this->fixture_ids['site'][0],
 			'log'     => $this->fixtures['points_log'][1],
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites_construct
 		);
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $this->fixture_ids['site'][0] )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites
 		);
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -603,26 +603,26 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 
 		$restriction = $restrictions->get_restriction( $this->fixtures['points_log'][1] );
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 
 		$construct_args = array(
 			'site_id' => $this->fixture_ids['site'][0],
 			'log'     => $this->fixtures['points_log'][1],
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $construct_args, $construct_args )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites_construct
 		);
 
 		$this->assertFalse( $restriction->user_can( 0 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( $this->fixture_ids['site'][0] )
 			, WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction::$sites
 		);
 
-		$this->assertEquals( $current_site_id, get_current_blog_id() );
+		$this->assertSame( $current_site_id, get_current_blog_id() );
 	}
 
 	/**
@@ -660,7 +660,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( true, $this->fixture_ids['user'][0], $log ) )
 			, $filter->calls
 		);
@@ -690,7 +690,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( true, $log, $this->fixture_ids['user'][0] ) )
 			, $filter->calls
 		);
@@ -722,7 +722,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( false, $this->fixture_ids['user'][0], $log ) )
 			, $generic_filter->calls
 		);
@@ -759,9 +759,9 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals( $this->fixture_ids['user'][0], $specific_filter->current_user[0] );
-		$this->assertEquals( $current_user, $generic_filter->current_user[0] );
-		$this->assertEquals( $current_user, get_current_user_id() );
+		$this->assertSame( $this->fixture_ids['user'][0], $specific_filter->current_user[0] );
+		$this->assertSame( $current_user, $generic_filter->current_user[0] );
+		$this->assertSame( $current_user, get_current_user_id() );
 	}
 
 	/**

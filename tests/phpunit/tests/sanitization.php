@@ -25,7 +25,7 @@ class WordPoints_Sanitization_Functions_Test extends WordPoints_PHPUnit_TestCase
 
 		$error = new WP_Error( 'test', 'Testing', array( 'title' => '<script>alert("!");</script>' ) );
 		$error = wordpoints_sanitize_wp_error( $error );
-		$this->assertEquals( array( 'title' => 'alert("!");' ), $error->get_error_data() );
+		$this->assertSame( array( 'title' => 'alert("!");' ), $error->get_error_data() );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class WordPoints_Sanitization_Functions_Test extends WordPoints_PHPUnit_TestCase
 		$error = new WP_Error( 'test', 'Testing', $data );
 		$error = wordpoints_sanitize_wp_error( $error );
 
-		$this->assertEquals( $data, $error->get_error_data() );
+		$this->assertSame( $data, $error->get_error_data() );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WordPoints_Sanitization_Functions_Test extends WordPoints_PHPUnit_TestCase
 
 		$error = new WP_Error( 'test', '<script>alert("!");</script>' );
 		$error = wordpoints_sanitize_wp_error( $error );
-		$this->assertEquals( 'alert("!");', $error->get_error_message() );
+		$this->assertSame( 'alert("!");', $error->get_error_message() );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class WordPoints_Sanitization_Functions_Test extends WordPoints_PHPUnit_TestCase
 
 		$error = wordpoints_sanitize_wp_error( $error );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'alert("!");', '<a>click</a>', '' )
 			, $error->get_error_messages()
 		);

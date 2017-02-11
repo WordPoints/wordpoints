@@ -26,7 +26,7 @@ class WordPoints_Entity_Attr_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$attr = new WordPoints_PHPUnit_Mock_Entity_Attr( 'test' );
 		$attr->set( 'data_type', 'int' );
 
-		$this->assertEquals( 'int', $attr->get_data_type() );
+		$this->assertSame( 'int', $attr->get_data_type() );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class WordPoints_Entity_Attr_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$attr = new WordPoints_PHPUnit_Mock_Entity_Attr( 'test' );
 		$this->assertTrue( $attr->set_the_value_from_entity( $entity ) );
 
-		$this->assertEquals( 'a', $attr->get_the_value() );
+		$this->assertSame( 'a', $attr->get_the_value() );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class WordPoints_Entity_Attr_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$attr = new WordPoints_PHPUnit_Mock_Entity_Attr( 'test' );
 		$attr->set_the_value_from_entity( $entity );
 
-		$this->assertEquals( 'a', $attr->get_the_value() );
+		$this->assertSame( 'a', $attr->get_the_value() );
 
 		$this->assertTrue(
 			$attr->set_the_value_from_entity(

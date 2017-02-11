@@ -33,7 +33,7 @@ class WordPoints_Construct_Class_With_Args_Test extends PHPUnit_Framework_TestCa
 
 		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Object', $object );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $object->calls[0]
 		);

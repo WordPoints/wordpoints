@@ -59,7 +59,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( true, $this->fixture_ids['user'][0], $log ) )
 			, $filter->calls
 		);
@@ -89,7 +89,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( true, $log, $this->fixture_ids['user'][0] ) )
 			, $filter->calls
 		);
@@ -121,7 +121,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( array( false, $this->fixture_ids['user'][0], $log ) )
 			, $generic_filter->calls
 		);
@@ -158,9 +158,9 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 			wordpoints_user_can_view_points_log( $this->fixture_ids['user'][0], $log )
 		);
 
-		$this->assertEquals( $this->fixture_ids['user'][0], $specific_filter->current_user[0] );
-		$this->assertEquals( $current_user, $generic_filter->current_user[0] );
-		$this->assertEquals( $current_user, get_current_user_id() );
+		$this->assertSame( $this->fixture_ids['user'][0], $specific_filter->current_user[0] );
+		$this->assertSame( $current_user, $generic_filter->current_user[0] );
+		$this->assertSame( $current_user, get_current_user_id() );
 	}
 
 	/**

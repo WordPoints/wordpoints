@@ -33,7 +33,7 @@ class Wordpoints_Hooks_Get_Event_Signature_Arg_GUIDs_JSON_Function_Test
 
 		$guid = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
-		$this->assertEquals( '{"test_entity":5,"test_context":1}', $guid );
+		$this->assertSame( '{"test_entity":5,"test_context":1}', $guid );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Wordpoints_Hooks_Get_Event_Signature_Arg_GUIDs_JSON_Function_Test
 
 		$guid = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
-		$this->assertEquals( '', $guid );
+		$this->assertSame( '', $guid );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class Wordpoints_Hooks_Get_Event_Signature_Arg_GUIDs_JSON_Function_Test
 		$guids = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
 		// Note that the args have also been sorted.
-		$this->assertEquals(
+		$this->assertSame(
 			'{"another:test_entity":{"test_entity":7,"test_context":1},"test_entity":{"test_entity":5,"test_context":1}}'
 			, $guids
 		);
@@ -103,7 +103,7 @@ class Wordpoints_Hooks_Get_Event_Signature_Arg_GUIDs_JSON_Function_Test
 
 		$guid = wordpoints_hooks_get_event_signature_arg_guids_json( $event_args );
 
-		$this->assertEquals( '', $guid );
+		$this->assertSame( '', $guid );
 	}
 }
 

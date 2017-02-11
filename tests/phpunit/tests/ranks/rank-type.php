@@ -49,7 +49,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_get_slug() {
 
-		$this->assertEquals( 'test', $this->mock_rank_type->get_slug() );
+		$this->assertSame( 'test', $this->mock_rank_type->get_slug() );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_get_name() {
 
-		$this->assertEquals( 'Test', $this->mock_rank_type->get_name() );
+		$this->assertSame( 'Test', $this->mock_rank_type->get_name() );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_get_meta_fields() {
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'test_meta' => array() )
 			, $this->mock_rank_type->get_meta_fields()
 		);
@@ -95,9 +95,9 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$inputs = $xpath->query( '//input[@type = "text"]' );
 
-		$this->assertEquals( 1, $inputs->length );
+		$this->assertSame( 1, $inputs->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'testing'
 			, $inputs->item( 0 )->attributes->getNamedItem( 'value' )->nodeValue
 		);
@@ -120,9 +120,9 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$inputs = $xpath->query( '//input[@type = "text"]' );
 
-		$this->assertEquals( 1, $inputs->length );
+		$this->assertSame( 1, $inputs->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'default'
 			, $inputs->item( 0 )->attributes->getNamedItem( 'value' )->nodeValue
 		);
@@ -144,10 +144,10 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$inputs = $xpath->query( '//input[@type = "number"]' );
 
-		$this->assertEquals( 1, $inputs->length );
+		$this->assertSame( 1, $inputs->length );
 
-		$this->assertEquals(
-			25
+		$this->assertSame(
+			'25'
 			, $inputs->item( 0 )->attributes->getNamedItem( 'value' )->nodeValue
 		);
 	}
@@ -168,10 +168,10 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$inputs = $xpath->query( '//input[@type = "hidden"]' );
 
-		$this->assertEquals( 1, $inputs->length );
+		$this->assertSame( 1, $inputs->length );
 
-		$this->assertEquals(
-			25
+		$this->assertSame(
+			'25'
 			, $inputs->item( 0 )->attributes->getNamedItem( 'value' )->nodeValue
 		);
 	}
@@ -224,9 +224,9 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$inputs = $xpath->query( '//label' );
 
-		$this->assertEquals( 1, $inputs->length );
+		$this->assertSame( 1, $inputs->length );
 
-		$this->assertEquals( 'Field label', trim( $inputs->item( 0 )->textContent ) );
+		$this->assertSame( 'Field label', trim( $inputs->item( 0 )->textContent ) );
 	}
 
 	/**
@@ -277,9 +277,9 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$inputs = $xpath->query( '//input[@type = "hidden"]' );
 
-		$this->assertEquals( 1, $inputs->length );
+		$this->assertSame( 1, $inputs->length );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'0'
 			, $inputs->item( 0 )->attributes->getNamedItem( 'value' )->nodeValue
 		);

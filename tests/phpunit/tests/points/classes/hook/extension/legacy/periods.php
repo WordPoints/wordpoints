@@ -52,7 +52,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -82,7 +82,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -155,7 +155,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -185,7 +185,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -204,7 +204,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -216,7 +216,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 1, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			2 * $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -273,7 +273,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -302,7 +302,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -315,12 +315,12 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 1, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id_2, 'points' )
 		);
@@ -349,7 +349,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -378,7 +378,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -391,12 +391,12 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 1, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'another' )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -425,7 +425,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -454,7 +454,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -466,7 +466,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 1, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			2 * $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -495,7 +495,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$hook->hook();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -529,25 +529,25 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 
-		$this->assertEquals( 1, $point_log_queries->call_count );
+		$this->assertSame( 1, $point_log_queries->call_count );
 
 		// Run again.
 		do_action_ref_array( 'wp', array( &$GLOBALS['wp'] ) );
 
 		$this->assertPeriodsExist( 0, $reaction );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 
 		// Query should not be run again.
-		$this->assertEquals( 1, $point_log_queries->call_count );
+		$this->assertSame( 1, $point_log_queries->call_count );
 	}
 
 	/**
@@ -583,7 +583,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 			, array( '%d' )
 		);
 
-		$this->assertEquals( 1, $updated );
+		$this->assertSame( 1, $updated );
 
 		// The periods cache will still hold the old date.
 		$this->flush_cache();

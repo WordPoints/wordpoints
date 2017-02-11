@@ -108,8 +108,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank_id = $this->factory->wordpoints_rank->create();
 
-		$this->assertEquals( $rank_id, $group->get_rank( 1 ) );
-		$this->assertEquals( 1, $group->get_rank_position( $rank_id ) );
+		$this->assertSame( $rank_id, $group->get_rank( 1 ) );
+		$this->assertSame( 1, $group->get_rank_position( $rank_id ) );
 	}
 
 	/**
@@ -144,9 +144,9 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank_2 = $this->factory->wordpoints_rank->create( array( 'position' => 2 ) );
 		$rank_3 = $this->factory->wordpoints_rank->create( array( 'position' => 2 ) );
 
-		$this->assertEquals( $rank_1, $group->get_rank( 1 ) );
-		$this->assertEquals( $rank_2, $group->get_rank( 3 ) );
-		$this->assertEquals( $rank_3, $group->get_rank( 2 ) );
+		$this->assertSame( $rank_1, $group->get_rank( 1 ) );
+		$this->assertSame( $rank_2, $group->get_rank( 3 ) );
+		$this->assertSame( $rank_3, $group->get_rank( 2 ) );
 	}
 
 	/**
@@ -164,8 +164,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 			array( 'position' => 5 )
 		);
 
-		$this->assertEquals( $rank_id, $group->get_rank( 1 ) );
-		$this->assertEquals( 1, $group->get_rank_position( $rank_id ) );
+		$this->assertSame( $rank_id, $group->get_rank( 1 ) );
+		$this->assertSame( 1, $group->get_rank_position( $rank_id ) );
 	}
 
 	/**
@@ -185,8 +185,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$result = $group->move_rank( $rank_1, 2 );
 
 		$this->assertTrue( $result );
-		$this->assertEquals( 2, $group->get_rank_position( $rank_1 ) );
-		$this->assertEquals( 1, $group->get_rank_position( $rank_2 ) );
+		$this->assertSame( 2, $group->get_rank_position( $rank_1 ) );
+		$this->assertSame( 1, $group->get_rank_position( $rank_2 ) );
 	}
 
 	/**
@@ -208,8 +208,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertTrue( $result );
 
-		$this->assertEquals( false, $group->get_rank( 1 ) );
-		$this->assertEquals( false, $group->get_rank_position( $rank_id ) );
+		$this->assertSame( false, $group->get_rank( 1 ) );
+		$this->assertSame( false, $group->get_rank_position( $rank_id ) );
 	}
 
 	/**
@@ -252,7 +252,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$result = $group->save_ranks( $rank_ids );
 
 		$this->assertTrue( $result );
-		$this->assertEquals( $rank_ids, $group->get_ranks() );
+		$this->assertSame( $rank_ids, $group->get_ranks() );
 	}
 
 	/**
@@ -272,7 +272,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$result = $group->save_ranks( $rank_ids );
 
 		$this->assertTrue( $result );
-		$this->assertEquals( array_values( $rank_ids ), $group->get_ranks() );
+		$this->assertSame( array_values( $rank_ids ), $group->get_ranks() );
 	}
 
 	/**

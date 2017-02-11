@@ -53,12 +53,12 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		$reactor->update_settings( $reaction, $settings );
 
-		$this->assertEquals( $settings['target'], $reaction->get_meta( 'target' ) );
-		$this->assertEquals( $settings['points'], $reaction->get_meta( 'points' ) );
-		$this->assertEquals( $settings['points_type'], $reaction->get_meta( 'points_type' ) );
-		$this->assertEquals( $settings['description'], $reaction->get_meta( 'description' ) );
-		$this->assertEquals( $settings['log_text'], $reaction->get_meta( 'log_text' ) );
-		$this->assertEquals( $settings['legacy_log_type'], $reaction->get_meta( 'legacy_log_type' ) );
+		$this->assertSame( $settings['target'], $reaction->get_meta( 'target' ) );
+		$this->assertSame( $settings['points'], $reaction->get_meta( 'points' ) );
+		$this->assertSame( $settings['points_type'], $reaction->get_meta( 'points_type' ) );
+		$this->assertSame( $settings['description'], $reaction->get_meta( 'description' ) );
+		$this->assertSame( $settings['log_text'], $reaction->get_meta( 'log_text' ) );
+		$this->assertSame( $settings['legacy_log_type'], $reaction->get_meta( 'legacy_log_type' ) );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$reaction = wordpoints_hooks()
 			->get_reaction_store( 'points' )
@@ -106,7 +106,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		$reactor->hit( $fire );
 
-		$this->assertEquals(
+		$this->assertSame(
 			100 + $settings['points']
 			, wordpoints_get_points( $user_id, 'points' )
 		);
@@ -115,7 +115,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 			array( 'log_type' => 'user_register' )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		$reverse_fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'toggle_off' );
 		$reverse_fire->hit();
@@ -123,15 +123,15 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		$reactor->reverse_hit( $reverse_fire );
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'reverse-user_register' )
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 	}
 
 	/**
@@ -149,7 +149,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		wordpoints_set_points( $user_id, 100, 'points', 'test' );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$reaction = wordpoints_hooks()
 			->get_reaction_store( 'points' )
@@ -187,7 +187,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 			)
 		);
 
-		$this->assertEquals( 1, $query->count() );
+		$this->assertSame( 1, $query->count() );
 
 		// Reverse fire once.
 		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
@@ -197,25 +197,25 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		wordpoints_hooks()->fire( 'user_register', $event_args, 'toggle_off' );
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
 		$reverse_query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'reverse-user_register' )
 		);
 
-		$this->assertEquals( 1, $reverse_query->count() );
+		$this->assertSame( 1, $reverse_query->count() );
 
 		// Reverse fire a second time.
 		wordpoints_hooks()->fire( 'user_register', $event_args, 'toggle_off' );
 
-		$this->assertEquals( 0, $query->count() );
+		$this->assertSame( 0, $query->count() );
 
 		// A second reverse should not have occurred.
-		$this->assertEquals( 100, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 100, wordpoints_get_points( $user_id, 'points' ) );
 
-		$this->assertEquals( 1, $reverse_query->count() );
+		$this->assertSame( 1, $reverse_query->count() );
 	}
 }
 

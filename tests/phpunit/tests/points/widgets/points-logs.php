@@ -73,7 +73,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 
 		$xpath = $this->get_widget_xpath( array( 'points_type' => 'points' ) );
 
-		$this->assertEquals( 10, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 10, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 			array( 'points_type' => 'points', 'number_logs' => 2 )
 		);
 
-		$this->assertEquals( 2, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 	}
 
 	/**
@@ -111,9 +111,9 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 			, array()
 		);
 
-		$this->assertEquals( 'Title', $sanitized['title'] );
-		$this->assertEquals( 10, $sanitized['number_logs'] );
-		$this->assertEquals( 'points', $sanitized['points_type'] );
+		$this->assertSame( 'Title', $sanitized['title'] );
+		$this->assertSame( 10, $sanitized['number_logs'] );
+		$this->assertSame( 'points', $sanitized['points_type'] );
 	}
 }
 

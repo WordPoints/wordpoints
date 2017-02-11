@@ -79,18 +79,18 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$options = $xpath->query( '//option' );
 
-		$this->assertEquals( 2, $options->length );
+		$this->assertSame( 2, $options->length );
 
 		$option_1 = $options->item( 0 );
-		$this->assertEquals( 'Option 1', $option_1->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'Option 1', $option_1->textContent );
+		$this->assertSame(
 			'1'
 			, $option_1->attributes->getNamedItem( 'value' )->nodeValue
 		);
 
 		$option_2 = $options->item( 1 );
-		$this->assertEquals( 'Option 2', $option_2->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'Option 2', $option_2->textContent );
+		$this->assertSame(
 			'2'
 			, $option_2->attributes->getNamedItem( 'value' )->nodeValue
 		);
@@ -105,7 +105,7 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$xpath = $this->get_dropdown_xpath( array( 'selected' => 1 ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//option[@value = "1" and @selected]' )->length
 		);
@@ -120,7 +120,7 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$xpath = $this->get_dropdown_xpath( array( 'name' => 'test' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'test'
 			, $xpath->query( '//select' )
 				->item( 0 )
@@ -139,7 +139,7 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$xpath = $this->get_dropdown_xpath( array( 'id' => 'test' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'test'
 			, $xpath->query( '//select' )
 				->item( 0 )
@@ -158,7 +158,7 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$xpath = $this->get_dropdown_xpath( array( 'class' => 'test' ) );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'test'
 			, $xpath->query( '//select' )
 				->item( 0 )
@@ -179,11 +179,11 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$options = $xpath->query( '//option' );
 
-		$this->assertEquals( 3, $options->length );
+		$this->assertSame( 3, $options->length );
 
 		$option_1 = $options->item( 0 );
-		$this->assertEquals( 'None', $option_1->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'None', $option_1->textContent );
+		$this->assertSame(
 			'-1'
 			, $option_1->attributes->getNamedItem( 'value' )->nodeValue
 		);
@@ -200,7 +200,7 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'show_option_none' => 'None', 'selected' => -1 )
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//option[@value = "-1" and @selected]' )->length
 		);
@@ -223,18 +223,18 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$options = $xpath->query( '//option' );
 
-		$this->assertEquals( 2, $options->length );
+		$this->assertSame( 2, $options->length );
 
 		$option_1 = $options->item( 0 );
-		$this->assertEquals( 'Option 1', $option_1->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'Option 1', $option_1->textContent );
+		$this->assertSame(
 			'1'
 			, $option_1->attributes->getNamedItem( 'value' )->nodeValue
 		);
 
 		$option_2 = $options->item( 1 );
-		$this->assertEquals( 'Option 2', $option_2->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'Option 2', $option_2->textContent );
+		$this->assertSame(
 			'2'
 			, $option_2->attributes->getNamedItem( 'value' )->nodeValue
 		);
@@ -257,18 +257,18 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$options = $xpath->query( '//option' );
 
-		$this->assertEquals( 2, $options->length );
+		$this->assertSame( 2, $options->length );
 
 		$option_1 = $options->item( 0 );
-		$this->assertEquals( 'Option 1', $option_1->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'Option 1', $option_1->textContent );
+		$this->assertSame(
 			'1'
 			, $option_1->attributes->getNamedItem( 'value' )->nodeValue
 		);
 
 		$option_2 = $options->item( 1 );
-		$this->assertEquals( 'Option 2', $option_2->textContent );
-		$this->assertEquals(
+		$this->assertSame( 'Option 2', $option_2->textContent );
+		$this->assertSame(
 			'2'
 			, $option_2->attributes->getNamedItem( 'value' )->nodeValue
 		);

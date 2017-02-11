@@ -200,7 +200,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank_type->display_rank_meta_form_fields();
 		$form = ob_get_clean();
 
-		$this->assertEmpty( $form );
+		$this->assertSame( '', $form );
 	}
 
 	/**

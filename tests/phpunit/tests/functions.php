@@ -109,15 +109,17 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 		wordpoints_breaking_update();
 
 		if ( is_wordpoints_network_active() ) {
-			$this->assertEmpty(
-				$this->filter_was_called(
+			$this->assertSame(
+				0
+				, $this->filter_was_called(
 					'site_option_wordpoints_sitewide_active_modules'
 				)
 			);
 		}
 
-		$this->assertEmpty(
-			$this->filter_was_called( 'pre_option_wordpoints_active_modules' )
+		$this->assertSame(
+			0
+			, $this->filter_was_called( 'pre_option_wordpoints_active_modules' )
 		);
 	}
 
@@ -141,15 +143,17 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 		wordpoints_breaking_update();
 
 		if ( is_wordpoints_network_active() ) {
-			$this->assertEmpty(
-				$this->filter_was_called(
+			$this->assertSame(
+				0
+				, $this->filter_was_called(
 					'site_option_wordpoints_sitewide_active_modules'
 				)
 			);
 		}
 
-		$this->assertEmpty(
-			$this->filter_was_called( 'pre_option_wordpoints_active_modules' )
+		$this->assertSame(
+			0
+			, $this->filter_was_called( 'pre_option_wordpoints_active_modules' )
 		);
 	}
 
@@ -190,7 +194,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		ob_start();
 		wordpoints_maintenance_shutdown_print_rand_str();
-		$this->assertEmpty( ob_get_clean() );
+		$this->assertSame( '', ob_get_clean() );
 	}
 
 	/**

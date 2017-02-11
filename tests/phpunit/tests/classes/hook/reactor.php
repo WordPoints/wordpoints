@@ -131,7 +131,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$result = $reactor->validate_settings( $settings, $validator, $event_args );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -167,7 +167,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -204,7 +204,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -242,7 +242,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertSame( array(), $errors[0]['field'] );
 		$this->assertSame( array( 'target' ), $errors[1]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -279,7 +279,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );

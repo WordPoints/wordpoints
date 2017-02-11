@@ -81,6 +81,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	 */
 	public function test_validate_settings( array $settings ) {
 
+		/** @var WordPoints_Hook_Extension $extension */
 		$extension = new $this->extension_class();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -89,7 +90,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 		$result = $extension->validate_settings( $settings, $validator, $event_args );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -131,6 +132,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
 		$fire->hit();
 
+		/** @var WordPoints_Hook_Extension $extension */
 		$extension = new $this->extension_class();
 
 		$this->assertTrue( $extension->should_hit( $fire ) );
@@ -171,6 +173,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
 		$fire->hit();
 
+		/** @var WordPoints_Hook_Extension $extension */
 		$extension = new $this->extension_class();
 
 		$this->assertFalse( $extension->should_hit( $fire ) );

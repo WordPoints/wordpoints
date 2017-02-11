@@ -315,14 +315,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->factory->blog->create();
 		$current_site_id = get_current_blog_id();
 
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 
 		$this->un_installer->install( true );
 
 		$this->assertSame( $current_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -356,8 +356,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		restore_current_blog();
 
 		$this->assertSame( $previous_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -490,16 +490,16 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->factory->blog->create();
 		$current_site_id = get_current_blog_id();
 
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 
 		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer_Hook_Mode( 'test', '1.0.0' );
 		$this->un_installer->set_network_installed();
 		$this->un_installer->uninstall();
 
 		$this->assertSame( $current_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -535,8 +535,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		restore_current_blog();
 
 		$this->assertSame( $previous_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -932,8 +932,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->factory->blog->create();
 		$current_site_id = get_current_blog_id();
 
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 
 		$this->un_installer->set_network_installed();
 		$this->un_installer->updates = array(
@@ -943,8 +943,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->update( '0.9.0', '1.0.0', true );
 
 		$this->assertSame( $current_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -983,8 +983,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		restore_current_blog();
 
 		$this->assertSame( $previous_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -1228,7 +1228,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame( 'site', $this->un_installer->context );
 		$this->assertTrue( $this->un_installer->network_wide );
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
 
 	/**
@@ -1363,8 +1363,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->maybe_load_custom_caps();
 
-		$this->assertEmpty( $this->un_installer->custom_caps );
-		$this->assertEmpty( $this->un_installer->custom_caps_keys );
+		$this->assertNull( $this->un_installer->custom_caps );
+		$this->assertNull( $this->un_installer->custom_caps_keys );
 	}
 
 	/**
@@ -1470,7 +1470,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->context = 'single';
 
-		$this->assertEmpty( $this->un_installer->get_db_schema() );
+		$this->assertSame( '', $this->un_installer->get_db_schema() );
 	}
 
 	/**
@@ -1629,7 +1629,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->install_network();
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
 
 	/**
@@ -1689,7 +1689,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->install_site();
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
 
 	/**
@@ -2069,7 +2069,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->uninstall['site']
 		);
 
-		$this->assertEmpty( $this->un_installer->uninstall['network'] );
+		$this->assertSame( array(), $this->un_installer->uninstall['network'] );
 	}
 
 	/**
@@ -2109,7 +2109,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, $this->un_installer->uninstall['network']
 		);
 
-		$this->assertEmpty( $this->un_installer->uninstall['site'] );
+		$this->assertSame( array(), $this->un_installer->uninstall['site'] );
 	}
 
 	/**
@@ -2311,8 +2311,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_metadata( 'post', __METHOD__ );
 
-		$this->assertEmpty( get_post_meta( $post_id, __METHOD__ ) );
-		$this->assertEmpty( get_post_meta( $post_id_2, __METHOD__ ) );
+		$this->assertSame( array(), get_post_meta( $post_id, __METHOD__ ) );
+		$this->assertSame( array(), get_post_meta( $post_id_2, __METHOD__ ) );
 	}
 
 	/**
@@ -2331,8 +2331,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_metadata( 'post', 'test%' );
 
-		$this->assertEmpty( get_post_meta( $post_id, 'test' ) );
-		$this->assertEmpty( get_post_meta( $post_id, 'test2' ) );
+		$this->assertSame( array(), get_post_meta( $post_id, 'test' ) );
+		$this->assertSame( array(), get_post_meta( $post_id, 'test2' ) );
 		$this->assertSame( 'test', get_post_meta( $post_id, 'other', true ) );
 	}
 
@@ -2350,7 +2350,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_metadata( 'user', __METHOD__ );
 
-		$this->assertEmpty( get_user_meta( $user_id, __METHOD__ ) );
+		$this->assertSame( array(), get_user_meta( $user_id, __METHOD__ ) );
 	}
 
 	/**
@@ -2396,7 +2396,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->uninstall_metadata( 'user', 'test%' );
 
 		$this->assertSame( 'test', get_user_meta( $user_id, 'test', true ) );
-		$this->assertEmpty( get_user_option( 'test2', $user_id ) );
+		$this->assertFalse( get_user_option( 'test2', $user_id ) );
 		$this->assertSame( 'test', get_user_option( 'other', $user_id ) );
 	}
 
@@ -2415,7 +2415,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->uninstall['site']['user_meta'] = array( __METHOD__ );
 		$this->un_installer->uninstall_( 'site' );
 
-		$this->assertEmpty( get_user_meta( $user_id, __METHOD__ ) );
+		$this->assertSame( array(), get_user_meta( $user_id, __METHOD__ ) );
 	}
 
 	/**
@@ -2435,7 +2435,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->uninstall['site']['comment_meta'] = array( __METHOD__ );
 		$this->un_installer->uninstall_( 'site' );
 
-		$this->assertEmpty( get_comment_meta( $comment_id, __METHOD__ ) );
+		$this->assertSame( array(), get_comment_meta( $comment_id, __METHOD__ ) );
 	}
 
 	/**
@@ -2456,14 +2456,17 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_meta_boxes( 'screen_id', array() );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
 		);
 	}
 
@@ -2489,23 +2492,29 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->context = 'network';
 		$this->un_installer->uninstall_meta_boxes( 'screen_id', array() );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id-network" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id-network" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id-network" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id-network" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id-network" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id-network" )
 		);
 	}
 
@@ -2530,14 +2539,17 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'parent' => $parent )
 		);
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
 		);
 	}
 
@@ -2563,17 +2575,21 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'options' => array( 'option' ) )
 		);
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "option_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "option_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
 		);
 	}
 
@@ -2599,14 +2615,17 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_( 'site' );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "closedpostboxes_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "metaboxhidden_{$parent}_page_screen_id" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "meta-box-order_{$parent}_page_screen_id" )
 		);
 	}
 
@@ -2628,11 +2647,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_list_table( $screen_id, array() );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
 		);
 	}
 
@@ -2657,17 +2678,21 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->context = 'network';
 		$this->un_installer->uninstall_list_table( $screen_id, array() );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
 		);
 	}
 
@@ -2692,11 +2717,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'parent' => $parent )
 		);
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
 		);
 	}
 
@@ -2720,11 +2747,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_list_table( $screen_id, array() );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
 		);
 	}
 
@@ -2751,17 +2780,21 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->context = 'network';
 		$this->un_installer->uninstall_list_table( $screen_id, array() );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
 		);
 	}
 
@@ -2786,11 +2819,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'options' => array( 'option' ) )
 		);
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_option" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_option" )
 		);
 	}
 
@@ -2816,11 +2851,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall_( 'single' );
 
-		$this->assertEmpty(
-			get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
 		);
-		$this->assertEmpty(
-			get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
 		);
 	}
 
@@ -3050,7 +3087,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
 		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
 
 	/**
@@ -3084,7 +3121,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
 		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
 
 
@@ -3122,7 +3159,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
 		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
 
 	/**
@@ -3279,7 +3316,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installer->unset_network_installed();
 
-		$this->assertEmpty( get_site_option( 'prefix_network_installed' ) );
+		$this->assertFalse( get_site_option( 'prefix_network_installed' ) );
 
 		$this->assertFalse( $installer->is_network_installed() );
 	}
@@ -3339,7 +3376,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installer->unset_network_install_skipped();
 
-		$this->assertEmpty( get_site_option( 'prefix_network_install_skipped' ) );
+		$this->assertFalse( get_site_option( 'prefix_network_install_skipped' ) );
 	}
 
 	/**
@@ -3402,7 +3439,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installer->unset_network_update_skipped();
 
-		$this->assertEmpty( get_site_option( 'prefix_network_update_skipped' ) );
+		$this->assertFalse( get_site_option( 'prefix_network_update_skipped' ) );
 	}
 
 	/**
@@ -3897,7 +3934,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->delete_installed_site_ids();
 
-		$this->assertEmpty( $this->un_installer->get_installed_site_ids() );
+		$this->assertSame( array(), $this->un_installer->get_installed_site_ids() );
 	}
 
 	/**
@@ -3925,7 +3962,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installer->delete_installed_site_ids();
 
-		$this->assertEmpty( $installer->get_installed_site_ids() );
+		$this->assertSame( array(), $installer->get_installed_site_ids() );
 	}
 
 	/**
@@ -3948,7 +3985,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->delete_installed_site_ids();
 
-		$this->assertEmpty( $this->un_installer->get_installed_site_ids() );
+		$this->assertSame( array(), $this->un_installer->get_installed_site_ids() );
 	}
 
 	/**
@@ -3971,7 +4008,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->delete_installed_site_ids();
 
-		$this->assertEmpty( $this->un_installer->get_installed_site_ids() );
+		$this->assertSame( array(), $this->un_installer->get_installed_site_ids() );
 	}
 
 	/**
@@ -4071,7 +4108,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
 		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version();
 
@@ -4123,7 +4160,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
 		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
 
-		$this->assertEmpty( $this->un_installer->get_db_version() );
+		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version();
 

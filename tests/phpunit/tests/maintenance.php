@@ -33,7 +33,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		global $upgrading;
 
-		$this->assertEmpty( $upgrading );
+		$this->assertNull( $upgrading );
 
 		$upgrading = time();
 
@@ -55,7 +55,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		global $upgrading;
 
-		$this->assertEmpty( $upgrading );
+		$this->assertNull( $upgrading );
 
 		$raw = time() - 10 * MINUTE_IN_SECONDS - 34;
 
@@ -78,11 +78,11 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		global $upgrading;
 
-		$this->assertEmpty( $upgrading );
+		$this->assertNull( $upgrading );
 
 		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
 
-		$this->assertEmpty( $upgrading );
+		$this->assertNull( $upgrading );
 	}
 }
 

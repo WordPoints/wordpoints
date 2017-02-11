@@ -243,15 +243,17 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$new_current_user = wp_set_current_user( $this->factory->user->create() );
 		$new_current_user->set_role( 'subscriber' );
 
-		$this->assertEmpty(
-			$this->do_shortcode(
+		$this->assertSame(
+			''
+			, $this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'idontexist' )
 			)
 		);
 
-		$this->assertEmpty(
-			$this->do_shortcode(
+		$this->assertSame(
+			''
+			, $this->do_shortcode(
 				'wordpoints_points_logs'
 				, array( 'points_type' => 'points', 'query' => 'invalid' )
 			)

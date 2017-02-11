@@ -35,7 +35,7 @@ class WordPoints_Hook_Extension_Blocker_Test extends WordPoints_PHPUnit_TestCase
 		$result = $extension->validate_settings( $settings, $validator, $event_args );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );

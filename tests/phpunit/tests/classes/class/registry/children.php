@@ -578,7 +578,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		$this->assertFalse( $registry->get( 'parent', 'test' ) );
 		$this->assertFalse( $registry->get( 'parent', 'test_2' ) );
-		$this->assertEmpty( $registry->get_children( 'parent' ) );
+		$this->assertSame( array(), $registry->get_children( 'parent' ) );
 	}
 }
 

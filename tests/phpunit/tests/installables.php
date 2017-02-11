@@ -217,11 +217,11 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_maybe_do_updates_not_installed() {
 
-		$this->assertEmpty( $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '', $this->get_module_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertEmpty( $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '', $this->get_module_db_version( 'test' ) );
 	}
 
 	/**
@@ -236,7 +236,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'a' => 'b' )
 		);
 
-		$this->assertEmpty( $this->wordpoints_get_db_version() );
+		$this->assertSame( '', $this->wordpoints_get_db_version() );
 
 		WordPoints_Installables::maybe_do_updates();
 
@@ -288,7 +288,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 		WordPoints_Installables::admin_notices();
 		$output = ob_get_clean();
 
-		$this->assertEmpty( $output );
+		$this->assertSame( '', $output );
 	}
 
 	/**
@@ -372,7 +372,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 		WordPoints_Installables::admin_notices();
 		$output = ob_get_clean();
 
-		$this->assertEmpty( $output );
+		$this->assertSame( '', $output );
 	}
 
 	/**
@@ -393,7 +393,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 		WordPoints_Installables::admin_notices();
 		$output = ob_get_clean();
 
-		$this->assertEmpty( $output );
+		$this->assertSame( '', $output );
 	}
 
 	/**

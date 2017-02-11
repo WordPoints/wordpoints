@@ -24,7 +24,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	 *
 	 * @dataProvider data_provider_valid_settings
 	 *
-	 * @param string $settings The valid settings.
+	 * @param array $settings The valid settings.
 	 */
 	public function test_validate_settings( $settings ) {
 
@@ -67,7 +67,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 		$this->assertSame( $settings, $validated_settings );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 	}
 
@@ -167,7 +167,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 		$this->assertCount( 1, $errors );
 		$this->assertSame( $invalid, $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 	}
 
@@ -208,7 +208,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	 *
 	 * @dataProvider data_provider_valid_settings
 	 *
-	 * @param string $settings The settings for the condition.
+	 * @param array $settings The settings for the condition.
 	 */
 	public function test_is_met( $settings ) {
 
@@ -277,7 +277,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	 *
 	 * @dataProvider data_provider_unmet_settings
 	 *
-	 * @param string $settings The settings for the condition.
+	 * @param array $settings The settings for the condition.
 	 */
 	public function test_is_met_not( $settings ) {
 

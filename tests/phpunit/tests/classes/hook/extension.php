@@ -137,7 +137,7 @@ class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->assertSame( $settings, $validated );
 
-		$this->assertEmpty( $extension->validations );
+		$this->assertSame( array(), $extension->validations );
 
 		$errors = $validator->get_errors();
 

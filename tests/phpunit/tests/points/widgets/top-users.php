@@ -58,8 +58,9 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		// When the user is logged out no error should be displayed.
 		wp_set_current_user( 0 );
 
-		$this->assertEmpty(
-			$this->get_widget_html( array( 'points_type' => 'invalid' ) )
+		$this->assertSame(
+			''
+			, $this->get_widget_html( array( 'points_type' => 'invalid' ) )
 		);
 	}
 

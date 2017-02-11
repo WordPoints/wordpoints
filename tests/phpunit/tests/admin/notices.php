@@ -651,7 +651,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		wordpoints_admin_notices();
 		$notice = ob_get_clean();
 
-		$this->assertEmpty( $notice );
+		$this->assertSame( '', $notice );
 	}
 
 	/**

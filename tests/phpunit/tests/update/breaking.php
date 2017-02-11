@@ -353,8 +353,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->http_responder = array( $this, 'check_module_success_response' );
 
-		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_nonce' ) );
 
 		$rand_str_update_filter = $this->mock_filter(
 			'pre_update_option_wordpoints_module_check_rand_str'
@@ -371,8 +371,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame( 1, $rand_str_update_filter->call_count );
 		$this->assertSame( 1, $nonce_update_filter->call_count );
 
-		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_nonce' ) );
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
@@ -394,8 +394,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->http_responder = array( $this, 'check_module_success_response' );
 
-		$this->assertEmpty( get_site_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_site_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_site_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_site_option( 'wordpoints_module_check_nonce' ) );
 
 		$rand_str_update_filter = $this->mock_filter(
 			'pre_update_site_option_wordpoints_module_check_rand_str'
@@ -412,8 +412,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame( 1, $rand_str_update_filter->call_count );
 		$this->assertSame( 1, $nonce_update_filter->call_count );
 
-		$this->assertEmpty( get_site_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_site_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_site_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_site_option( 'wordpoints_module_check_nonce' ) );
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
@@ -433,8 +433,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->http_responder = array( $this, 'check_module_failure_response' );
 
-		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_nonce' ) );
 
 		$rand_str_update_filter = $this->mock_filter(
 			'pre_update_option_wordpoints_module_check_rand_str'
@@ -451,8 +451,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame( 1, $rand_str_update_filter->call_count );
 		$this->assertSame( 1, $nonce_update_filter->call_count );
 
-		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_nonce' ) );
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(
@@ -473,8 +473,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error );
 		$this->http_responder = array( $filter, 'filter' );
 
-		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_nonce' ) );
 
 		$rand_str_update_filter = $this->mock_filter(
 			'pre_update_option_wordpoints_module_check_rand_str'
@@ -491,8 +491,8 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame( 1, $rand_str_update_filter->call_count );
 		$this->assertSame( 1, $nonce_update_filter->call_count );
 
-		$this->assertEmpty( get_option( 'wordpoints_module_check_rand_str' ) );
-		$this->assertEmpty( get_option( 'wordpoints_module_check_nonce' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );
+		$this->assertFalse( get_option( 'wordpoints_module_check_nonce' ) );
 
 		$this->assertCount( 1, $this->http_requests );
 		$this->assertStringMatchesFormat(

@@ -60,7 +60,7 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 		$result = $extension->validate_settings( $settings, $validator, $event_args );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -121,7 +121,7 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 		$result = $extension->validate_settings( $settings, $validator, $event_args );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -174,7 +174,7 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 		$this->assertCount( 1, $errors );
 		$this->assertSame( $invalid, $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		if ( is_array( $settings['conditions']['test_fire'] ) ) {

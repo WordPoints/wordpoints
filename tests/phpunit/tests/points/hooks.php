@@ -177,7 +177,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEmpty( $hook_type->get_instances() );
+		$this->assertSame( array(), $hook_type->get_instances() );
 
 		// Try uninstalling multiple hook types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
@@ -194,7 +194,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEmpty( $hook_type->get_instances() );
+		$this->assertSame( array(), $hook_type->get_instances() );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEmpty( $hook_type->get_instances() );
+		$this->assertSame( array(), $hook_type->get_instances() );
 
 		// Try uninstalling multiple post types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
@@ -249,7 +249,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEmpty( $hook_type->get_instances() );
+		$this->assertSame( array(), $hook_type->get_instances() );
 
 		restore_current_blog();
 	}
@@ -279,7 +279,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEmpty( $hook_type->get_instances() );
+		$this->assertSame( array(), $hook_type->get_instances() );
 
 		// Try uninstalling multiple post types.
 		wordpointstests_add_points_hook( 'wordpoints_post_points_hook' );
@@ -296,7 +296,7 @@ class WordPoints_Points_Hooks_Test extends WordPoints_PHPUnit_TestCase_Points {
 			'wordpoints_post_points_hook'
 		);
 
-		$this->assertEmpty( $hook_type->get_instances() );
+		$this->assertSame( array(), $hook_type->get_instances() );
 	}
 
 	/**

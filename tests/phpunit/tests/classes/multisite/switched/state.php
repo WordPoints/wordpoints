@@ -34,16 +34,16 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		$current_site_id = get_current_blog_id();
 
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 
 		$ms_switched_state = new WordPoints_Multisite_Switched_State;
 		$ms_switched_state->backup();
 		$ms_switched_state->restore();
 
 		$this->assertSame( $current_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -77,8 +77,8 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 		restore_current_blog();
 
 		$this->assertSame( $previous_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -96,8 +96,8 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		$site_id = $this->fixture_ids['site'][0];
 
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 
 		$ms_switched_state = new WordPoints_Multisite_Switched_State;
 		$ms_switched_state->backup();
@@ -110,8 +110,8 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 		$ms_switched_state->restore();
 
 		$this->assertSame( $previous_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 
 	/**
@@ -156,8 +156,8 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 		restore_current_blog();
 
 		$this->assertSame( $previous_site_id, get_current_blog_id() );
-		$this->assertEmpty( $_wp_switched_stack );
-		$this->assertEmpty( $switched );
+		$this->assertSame( array(), $_wp_switched_stack );
+		$this->assertFalse( $switched );
 	}
 }
 

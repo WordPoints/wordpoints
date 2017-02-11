@@ -63,7 +63,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'alt_text' => '', 'points_type' => 'points' )
 		);
 
-		$this->assertEmpty( $html );
+		$this->assertSame( '', $html );
 	}
 
 	/**
@@ -188,6 +188,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_update_method() {
 
+		/** @var WordPoints_Widget $widget */
 		$widget = new $this->widget_class;
 
 		$sanitized = $widget->update(

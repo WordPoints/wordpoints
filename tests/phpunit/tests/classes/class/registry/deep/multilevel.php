@@ -684,7 +684,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 
 		$this->assertFalse( $registry->get( 'test', $parent ) );
 		$this->assertFalse( $registry->get( 'test_2', $parent ) );
-		$this->assertEmpty( $registry->get_children( $parent ) );
+		$this->assertSame( array(), $registry->get_children( $parent ) );
 	}
 }
 

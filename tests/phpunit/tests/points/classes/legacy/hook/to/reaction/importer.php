@@ -343,14 +343,14 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
 
-		$this->assertEmpty( $reaction_store->get_reactions() );
+		$this->assertSame( array(), $reaction_store->get_reactions() );
 
 		$this->assertArrayNotHasKey(
 			$hook_type
 			, get_option( 'wordpoints_legacy_points_hooks_disabled' )
 		);
 
-		$this->assertEmpty( get_option( 'wordpoints_imported_points_hooks' ) );
+		$this->assertSame( array(), get_option( 'wordpoints_imported_points_hooks' ) );
 	}
 
 	/**

@@ -142,7 +142,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$view->display();
 
-		$this->assertEmpty( $query->get_arg( 'text' ) );
+		$this->assertNull( $query->get_arg( 'text' ) );
 
 		$logs = $query->get();
 

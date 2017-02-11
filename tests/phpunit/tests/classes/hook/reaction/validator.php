@@ -103,9 +103,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			, $mock->calls[0]
 		);
 
-		$this->assertEmpty( $validator->get_errors() );
+		$this->assertSame( array(), $validator->get_errors() );
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$entities = $event_args->get_entities();
 		$this->assertCount( 1, $entities );
@@ -143,7 +143,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'event' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$this->assertNull( $validator->get_event_args() );
 	}
@@ -178,7 +178,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'event' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$this->assertNull( $validator->get_event_args() );
 	}
@@ -214,7 +214,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'reactor' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$this->assertNull( $validator->get_event_args() );
 	}
@@ -249,7 +249,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'reactor' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$this->assertNull( $validator->get_event_args() );
 	}
@@ -292,7 +292,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$this->assertCount( 1, $errors );
 		$this->assertSame( array( 'target' ), $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$entities = $event_args->get_entities();
 		$this->assertCount( 1, $entities );
@@ -354,9 +354,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 			, $mock->calls[0]
 		);
 
-		$this->assertEmpty( $validator->get_errors() );
+		$this->assertSame( array(), $validator->get_errors() );
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 
 		$entities = $event_args->get_entities();
 		$this->assertCount( 1, $entities );

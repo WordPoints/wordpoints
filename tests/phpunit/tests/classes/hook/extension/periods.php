@@ -53,6 +53,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 			, 'WordPoints_PHPUnit_Mock_Entity_Attr'
 		);
 
+		/** @var WordPoints_Hook_Extension $extension */
 		$extension = new $this->extension_class();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -70,7 +71,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$result = $extension->validate_settings( $settings, $validator, $event_args );
 
 		$this->assertFalse( $validator->had_errors() );
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		$this->assertSame( $settings, $result );
@@ -196,6 +197,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 			, 'WordPoints_PHPUnit_Mock_Entity_Child'
 		);
 
+		/** @var WordPoints_Hook_Extension $extension */
 		$extension = new $this->extension_class();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -215,7 +217,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$this->assertCount( $expected_errors, $errors );
 		$this->assertSame( $invalid, $errors[0]['field'] );
 
-		$this->assertEmpty( $validator->get_field_stack() );
+		$this->assertSame( array(), $validator->get_field_stack() );
 		$this->assertNull( $event_args->get_current() );
 
 		if ( is_array( $settings[ $this->extension_slug ]['test_fire'] ) ) {

@@ -154,26 +154,58 @@ class WordPoints_Points_Shortcode_HTGP extends WordPoints_Points_Shortcode {
 					continue;
 				}
 
-				$points = $reaction->get_meta( 'points' );
+				$points = $this->get_points_from_reaction( $reaction );
 
-				if ( ! $points ) {
+				if ( false === $points ) {
 					continue;
 				}
 
-				$points = wordpoints_format_points(
-					$points
-					, $this->atts['points_type']
-					, 'how-to-get-points-shortcode'
-				);
-
 				$html .= '<tr>
-					<td>' . $points . '</td>
+					<td>' . wp_kses( $points, 'wordpoints_points_shortcode_htgp' ) . '</td>
 					<td>' . esc_html( $reaction->get_meta( 'description' ) ) . '</td>
 					</tr>';
 			}
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Gets the value to show for a reaction in the points column.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param WordPoints_Hook_ReactionI $reaction The reaction object.
+	 *
+	 * @return string|false The value of the points column, or false to hide the row.
+	 */
+	protected function get_points_from_reaction( $reaction ) {
+
+		$points = $reaction->get_meta( 'points' );
+
+		if ( $points ) {
+			$points = wordpoints_format_points(
+				$points
+				, $this->atts['points_type']
+				, 'how-to-get-points-shortcode'
+			);
+		}
+
+		/**
+		 * Filters the value of the points column in the How To Get Points shortcode.
+		 *
+		 * A value of false will prevent the row from being displayed.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param string|false              $points   The value of the points column.
+		 * @param WordPoints_Hook_ReactionI $reaction The reaction object.
+		 */
+		return apply_filters(
+			'wordpoints_htgp_shortcode_reaction_points'
+			, $points
+			, $reaction
+		);
 	}
 }
 

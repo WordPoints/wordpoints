@@ -188,6 +188,9 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		$this->assertIsReaction( $reaction_2 );
 
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
+		$mock->add_filter( 'wordpoints_htgp_shortcode_reaction_points', 10, 6 );
+
 		// Test that the hooks are displayed in the table.
 		$document = new DOMDocument;
 		$document->preserveWhiteSpace = false;
@@ -196,6 +199,19 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 				'wordpoints_how_to_get_points'
 				, array( 'points_type' => 'points' )
 			)
+		);
+
+		$this->assertSame( 2, $mock->call_count );
+		$this->assertSame( '$100pts.', $mock->calls[0][0] );
+		$this->assertInstanceOf(
+			'WordPoints_Hook_ReactionI'
+			, $mock->calls[0][1]
+		);
+
+		$this->assertSame( '$20pts.', $mock->calls[1][0] );
+		$this->assertInstanceOf(
+			'WordPoints_Hook_ReactionI'
+			, $mock->calls[1][1]
 		);
 
 		$xpath = new DOMXPath( $document );

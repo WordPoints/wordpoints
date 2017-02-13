@@ -741,8 +741,8 @@
             "errors": false
         },
         "\/components\/points\/classes\/logs\/view\/table.php": {
-            "size": 8313,
-            "hash": "bbd593b09727b4cd17eb0c23515bd1c4",
+            "size": 8378,
+            "hash": "5698b4bf68eca272b948be45f3ccdd29",
             "errors": false
         },
         "\/components\/points\/classes\/logs\/view.php": {
@@ -1161,8 +1161,8 @@
             "errors": false
         },
         "\/components\/points\/classes\/widget\/logs.php": {
-            "size": 7048,
-            "hash": "edb19075ecbf84fa54c4007a55705d77",
+            "size": 7753,
+            "hash": "1cf79faaee884e4c13761a50f8326b64",
             "errors": false
         },
         "\/components\/points\/classes\/widget\/top\/users.php": {

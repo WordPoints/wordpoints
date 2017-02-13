@@ -138,6 +138,7 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 			<?php if ( $this->args['show_users'] ) : ?>
 				<td>
 					<?php echo get_avatar( $user->ID, 32 ); ?>
+					<span class="wordpoints-points-log-user-name">
 					<?php
 
 					/**
@@ -163,6 +164,7 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 					echo wp_kses( $name, 'wordpoints_points_logs_username' );
 
 					?>
+					</span>
 				</td>
 			<?php endif; ?>
 			<td><?php echo wordpoints_format_points( $log->points, $log->points_type, 'logs' ); ?></td>

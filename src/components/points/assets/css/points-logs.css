@@ -13,6 +13,7 @@
  * 6. Restrictions.
  * 7. Hidden columns.
  * 8. Forced horizontal scrolling.
+ * 9. Hidden user names.
  */
 
 /**
@@ -155,6 +156,24 @@ table.wordpoints-points-logs {
 
 table.wordpoints-points-logs.wordpoints-force-horizontal-scrolling {
 	width: 500px;
+}
+
+/**
+ * 9.0 Hidden user names
+ */
+
+/* This is copied from wp-admin/css/common.css */
+/* Hide visually but not from screen readers */
+.wordpoints-points-logs.wordpoints-hide-user-names .wordpoints-points-log-user-name {
+	position: absolute;
+	margin: -1px;
+	padding: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	border: 0;
+	word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
 }
 
 /* EOF */

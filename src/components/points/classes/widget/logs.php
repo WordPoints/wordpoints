@@ -105,6 +105,10 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			}
 		}
 
+		if ( ! empty( $this->instance['hide_user_names'] ) ) {
+			$classes[] = 'wordpoints-hide-user-names';
+		}
+
 		if ( ! empty( $this->instance['horizontal_scrolling'] ) ) {
 			$classes[] = 'wordpoints-force-horizontal-scrolling';
 		}
@@ -138,6 +142,10 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			} elseif ( $value ) {
 				$this->instance['columns'][ $column ] = '1';
 			}
+		}
+
+		if ( ! empty( $this->instance['hide_user_names'] ) ) {
+			$this->instance['hide_user_names'] = '1';
 		}
 
 		if ( ! empty( $this->instance['horizontal_scrolling'] ) ) {
@@ -220,6 +228,20 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			</label>
 			<br />
 		</fieldset>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'hide_user_names' ) ); ?>">
+				<input
+					type="checkbox"
+					class="widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'hide_user_names' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'hide_user_names' ) ); ?>"
+					value="1"
+					<?php checked( ! empty( $this->instance['hide_user_names'] ) ); ?>
+				/>
+				<?php esc_html_e( 'Hide user names (but not avatars)', 'wordpoints' ); ?>
+			</label>
+		</p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'horizontal_scrolling' ) ); ?>">

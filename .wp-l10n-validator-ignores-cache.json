@@ -2089,20 +2089,25 @@
         "-column": {
             "103": false
         },
-        "wordpoints-force-horizontal-scrolling": {
+        "wordpoints-hide-user-names": {
             "109": false
         },
+        "wordpoints-force-horizontal-scrolling": {
+            "113": false
+        },
         "1": {
-            "139": false,
-            "144": false,
-            "165": false
+            "143": false,
+            "148": false,
+            "152": false,
+            "173": false
         },
         "\"\n\t\t\t\t\tvalue=\"1\"": {
-            "179": false,
-            "191": false,
-            "203": false,
-            "215": false,
-            "230": false
+            "187": false,
+            "199": false,
+            "211": false,
+            "223": false,
+            "238": false,
+            "252": false
         }
     },
     "\/components\/points\/classes\/widget\/top\/users.php": {

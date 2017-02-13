@@ -119,6 +119,26 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 	}
 
 	/**
+	 * Test the hide_user_names setting.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_hide_user_names() {
+
+		$xpath = $this->get_widget_xpath(
+			array(
+				'points_type' => 'points',
+				'hide_user_names' => 1,
+			)
+		);
+
+		$this->assertStringContains(
+			'wordpoints-hide-user-names'
+			, $xpath->query( '//table' )->item( 0 )->getAttribute( 'class' )
+		);
+	}
+
+	/**
 	 * Test the horizontal_scrolling setting.
 	 *
 	 * @since 2.3.0
@@ -159,6 +179,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 					'time'    => '1',
 					'points'  => 'yes',
 				),
+				'hide_user_names' => 'yes',
 				'horizontal_scrolling' => 'yes',
 			)
 			, array()
@@ -167,6 +188,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 		$this->assertSame( 'Title', $sanitized['title'] );
 		$this->assertSame( 10, $sanitized['number_logs'] );
 		$this->assertSame( 'points', $sanitized['points_type'] );
+		$this->assertSame( '1', $sanitized['hide_user_names'] );
 		$this->assertSame( '1', $sanitized['horizontal_scrolling'] );
 		$this->assertSame(
 			array( 'user' => '0', 'time' => '1', 'points' => '1' )

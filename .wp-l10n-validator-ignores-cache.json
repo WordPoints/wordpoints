@@ -24,7 +24,7 @@
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
         "all": {
             "57": false,
-            "216": false
+            "258": false
         },
         "active": {
             "59": {
@@ -34,7 +34,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "517": false
+            "566": false
         },
         "inactive": {
             "59": {
@@ -44,7 +44,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "517": false
+            "566": false
         },
         "search": {
             "59": {
@@ -54,7 +54,7 @@
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "187": false
+            "229": false
         },
         "plugins": {
             "91": {
@@ -66,16 +66,16 @@
             }
         },
         "name": {
-            "229": false
+            "271": false
         },
         "hidden": {
-            "638": false
+            "704": false
         },
         "second module-version-author-uri\">": {
-            "587": false
+            "653": false
         },
         "column-": {
-            "638": false
+            "704": false
         }
     },
     "\/admin\/includes\/functions.php": {
@@ -98,20 +98,12 @@
             }
         },
         ".min": {
-            "248": false,
             "249": false
         },
         ".manifested": {
             "249": false
         },
         "wordpoints-hooks-admin": {
-            "261": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "264": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -166,7 +158,7 @@
             }
         },
         "{{ data.length }}": {
-            "470": {
+            "476": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -175,7 +167,7 @@
             }
         },
         "{{ data.length_in_units_label }}": {
-            "470": {
+            "476": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -184,7 +176,7 @@
             }
         },
         "{{ data.length_in_units }}": {
-            "487": {
+            "493": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -193,13 +185,13 @@
             }
         },
         "attr": {
-            "608": false
+            "614": false
         },
         "relationship": {
-            "613": false
+            "619": false
         },
         "entity": {
-            "638": {
+            "644": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -208,16 +200,16 @@
             }
         },
         "success": {
-            "799": false
+            "805": false
         },
         "is-dismissible": {
-            "815": false
+            "821": false
         },
         "data-nonce=\"": {
-            "817": false
+            "823": false
         },
         "upload": {
-            "965": {
+            "971": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1766,7 +1758,7 @@
     },
     "\/classes\/hook\/extension\/conditions.php": {
         "entity": {
-            "291": false
+            "297": false
         }
     },
     "\/classes\/hook\/hit\/query.php": {
@@ -2091,8 +2083,26 @@
         }
     },
     "\/components\/points\/classes\/widget\/logs.php": {
+        "wordpoints-hide-": {
+            "103": false
+        },
+        "-column": {
+            "103": false
+        },
+        "wordpoints-force-horizontal-scrolling": {
+            "109": false
+        },
         "1": {
-            "108": false
+            "139": false,
+            "144": false,
+            "165": false
+        },
+        "\"\n\t\t\t\t\tvalue=\"1\"": {
+            "179": false,
+            "191": false,
+            "203": false,
+            "215": false,
+            "230": false
         }
     },
     "\/components\/points\/classes\/widget\/top\/users.php": {

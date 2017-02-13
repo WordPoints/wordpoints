@@ -75,6 +75,11 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 		$xpath = $this->get_widget_xpath( array( 'points_type' => 'points' ) );
 
 		$this->assertSame( 10, $xpath->query( '//tbody/tr' )->length );
+
+		$this->assertSame(
+			'wordpoints-points-logs widefat '
+			, $xpath->query( '//table' )->item( 0 )->getAttribute( 'class' )
+		);
 	}
 
 	/**
@@ -94,6 +99,46 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 	}
 
 	/**
+	 * Test the columns setting.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_hidden_columns() {
+
+		$xpath = $this->get_widget_xpath(
+			array(
+				'points_type' => 'points',
+				'columns' => array( 'points' => 1, 'description' => 1 ),
+			)
+		);
+
+		$classes = $xpath->query( '//table' )->item( 0 )->getAttribute( 'class' );
+
+		$this->assertStringContains( 'wordpoints-hide-user-column', $classes );
+		$this->assertStringContains( 'wordpoints-hide-time-column', $classes );
+	}
+
+	/**
+	 * Test the horizontal_scrolling setting.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_horizontal_scrolling() {
+
+		$xpath = $this->get_widget_xpath(
+			array(
+				'points_type' => 'points',
+				'horizontal_scrolling' => 1,
+			)
+		);
+
+		$this->assertStringContains(
+			'wordpoints-force-horizontal-scrolling'
+			, $xpath->query( '//table' )->item( 0 )->getAttribute( 'class' )
+		);
+	}
+
+	/**
 	 * Test the update() method.
 	 *
 	 * @since 1.9.0
@@ -108,6 +153,13 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 				'title'       => '<p>Title</p>',
 				'number_logs' => '5dd',
 				'points_type' => 'invalid',
+				'columns'     => array(
+					'invalid' => '1',
+					'user'    => '0',
+					'time'    => '1',
+					'points'  => 'yes',
+				),
+				'horizontal_scrolling' => 'yes',
 			)
 			, array()
 		);
@@ -115,6 +167,11 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 		$this->assertSame( 'Title', $sanitized['title'] );
 		$this->assertSame( 10, $sanitized['number_logs'] );
 		$this->assertSame( 'points', $sanitized['points_type'] );
+		$this->assertSame( '1', $sanitized['horizontal_scrolling'] );
+		$this->assertSame(
+			array( 'user' => '0', 'time' => '1', 'points' => '1' )
+			, $sanitized['columns']
+		);
 	}
 }
 

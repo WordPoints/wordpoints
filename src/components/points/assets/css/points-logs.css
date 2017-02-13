@@ -11,6 +11,8 @@
  * 4. Avatars.
  * 5. Search.
  * 6. Restrictions.
+ * 7. Hidden columns.
+ * 8. Forced horizontal scrolling.
  */
 
 /**
@@ -21,6 +23,7 @@ table.wordpoints-points-logs {
 	clear: both;
 	width: 100%;
 	margin: 0 auto 10px;
+	table-layout: auto;
 }
 
 .wp-admin table.wordpoints-points-logs tr.odd {
@@ -40,6 +43,7 @@ table.wordpoints-points-logs {
 	clear: both;
 	*zoom: 1;
 	margin: 10px 0;
+	overflow-x: scroll;
 }
 
 /**
@@ -129,3 +133,28 @@ table.wordpoints-points-logs {
 	vertical-align: middle;
 	text-align: center;
 }
+
+/**
+ * 7.0 Hidden columns
+ */
+
+.wordpoints-points-logs.wordpoints-hide-user-column th:nth-of-type(1),
+.wordpoints-points-logs.wordpoints-hide-user-column td:nth-of-type(1),
+.wordpoints-points-logs.wordpoints-hide-points-column th:nth-of-type(2),
+.wordpoints-points-logs.wordpoints-hide-points-column td:nth-of-type(2),
+.wordpoints-points-logs.wordpoints-hide-description-column th:nth-of-type(3),
+.wordpoints-points-logs.wordpoints-hide-description-column td:nth-of-type(3),
+.wordpoints-points-logs.wordpoints-hide-time-column th:nth-of-type(4),
+.wordpoints-points-logs.wordpoints-hide-time-column td:nth-of-type(4) {
+	display: none;
+}
+
+/**
+ * 8.0 Forced horizontal scrolling
+ */
+
+table.wordpoints-points-logs.wordpoints-force-horizontal-scrolling {
+	width: 500px;
+}
+
+/* EOF */

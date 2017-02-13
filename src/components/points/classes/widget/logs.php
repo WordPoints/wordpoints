@@ -36,6 +36,12 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			'title'       => _x( 'Points Logs', 'widget title', 'wordpoints' ),
 			'number_logs' => 10,
 			'points_type' => wordpoints_get_default_points_type(),
+			'columns'     => array(
+				'user'        => 1,
+				'points'      => 1,
+				'description' => 1,
+				'time'        => 1,
+			),
 		);
 	}
 
@@ -65,7 +71,45 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 		$logs_query = new WordPoints_Points_Logs_Query( $query_args );
 		$logs_query->prime_cache();
 
+		$this->instance = $instance;
+
+		add_filter(
+			'wordpoints_points_logs_table_extra_classes'
+			, array( $this, 'add_points_logs_table_extra_classes' )
+		);
+
 		wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false ) );
+
+		remove_filter(
+			'wordpoints_points_logs_table_extra_classes'
+			, array( $this, 'add_points_logs_table_extra_classes' )
+		);
+	}
+
+	/**
+	 * Filter the points log table classes based on the widget's settings.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string[] $classes The extra classes for the table.
+	 *
+	 * @return string[] The extra classes for the table.
+	 */
+	public function add_points_logs_table_extra_classes( $classes ) {
+
+		if ( $this->instance && isset( $this->instance['columns'] ) ) {
+			foreach ( $this->defaults['columns'] as $column => $unused ) {
+				if ( empty( $this->instance['columns'][ $column ] ) ) {
+					$classes[] = "wordpoints-hide-{$column}-column";
+				}
+			}
+		}
+
+		if ( ! empty( $this->instance['horizontal_scrolling'] ) ) {
+			$classes[] = 'wordpoints-force-horizontal-scrolling';
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -85,6 +129,19 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 
 		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
 			$this->instance['number_logs'] = $this->defaults['number_logs'];
+		}
+
+		foreach ( $this->instance['columns'] as $column => $value ) {
+
+			if ( ! isset( $this->defaults['columns'][ $column ] ) ) {
+				unset( $this->instance['columns'][ $column ] );
+			} elseif ( $value ) {
+				$this->instance['columns'][ $column ] = '1';
+			}
+		}
+
+		if ( ! empty( $this->instance['horizontal_scrolling'] ) ) {
+			$this->instance['horizontal_scrolling'] = '1';
 		}
 
 		return $this->instance;
@@ -107,6 +164,75 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>"><?php esc_html_e( 'Number of log entries to display', 'wordpoints' ); ?></label>
 			<input type="number" min="1" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_logs' ) ); ?>" value="<?php echo absint( $this->instance['number_logs'] ); ?>" />
+		</p>
+
+		<fieldset>
+			<legend>
+				<?php esc_html_e( 'Which columns should be displayed?', 'wordpoints' ); ?>
+			</legend>
+
+			<label for="<?php echo esc_attr( $this->get_field_id( 'columns[user]' ) ); ?>">
+				<input
+					type="checkbox"
+					class="widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'columns[user]' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'columns[user]' ) ); ?>"
+					value="1"
+					<?php checked( ! empty( $this->instance['columns']['user'] ) ); ?>
+				/>
+				<?php esc_html_e( 'User', 'wordpoints' ); ?>
+			</label>
+			<br />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'columns[points]' ) ); ?>">
+				<input
+					type="checkbox"
+					class="widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'columns[points]' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'columns[points]' ) ); ?>"
+					value="1"
+					<?php checked( ! empty( $this->instance['columns']['points'] ) ); ?>
+				/>
+				<?php esc_html_e( 'Points', 'wordpoints' ); ?>
+			</label>
+			<br />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'columns[description]' ) ); ?>">
+				<input
+					type="checkbox"
+					class="widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'columns[description]' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'columns[description]' ) ); ?>"
+					value="1"
+					<?php checked( ! empty( $this->instance['columns']['description'] ) ); ?>
+				/>
+				<?php esc_html_e( 'Description', 'wordpoints' ); ?>
+			</label>
+			<br />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'columns[time]' ) ); ?>">
+				<input
+					type="checkbox"
+					class="widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'columns[time]' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'columns[time]' ) ); ?>"
+					value="1"
+					<?php checked( ! empty( $this->instance['columns']['time'] ) ); ?>
+				/>
+				<?php esc_html_e( 'Time', 'wordpoints' ); ?>
+			</label>
+			<br />
+		</fieldset>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'horizontal_scrolling' ) ); ?>">
+				<input
+					type="checkbox"
+					class="widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'horizontal_scrolling' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'horizontal_scrolling' ) ); ?>"
+					value="1"
+					<?php checked( ! empty( $this->instance['horizontal_scrolling'] ) ); ?>
+				/>
+				<?php esc_html_e( 'Enable horizontal scrolling', 'wordpoints' ); ?>
+			</label>
 		</p>
 
 		<?php

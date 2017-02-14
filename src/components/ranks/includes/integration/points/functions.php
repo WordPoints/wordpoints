@@ -56,13 +56,17 @@ function wordpoints_ranks_my_points_widget_below_text_field() {
  */
 function wordpoints_ranks_points_top_users_username_filter( $name, $user_id, $points_type, $context ) {
 
-	$rank = wordpoints_get_formatted_user_rank(
-		$user_id
-		, "points_type-{$points_type}"
-		, $context
-	);
+	// Don't show it in the widget by default, it is often too cramped already.
+	if ( 'top_users_widget' !== $context ) {
 
-	$name = "{$name} ({$rank})";
+		$rank = wordpoints_get_formatted_user_rank(
+			$user_id
+			, "points_type-{$points_type}"
+			, $context
+		);
+
+		$name = "{$name} ({$rank})";
+	}
 
 	return $name;
 }

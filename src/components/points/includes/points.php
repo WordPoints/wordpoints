@@ -1220,6 +1220,7 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 	}
 
 	$column_headers = array(
+		'#'        => _x( '#', 'top users table heading', 'wordpoints' ),
 		'position' => _x( 'Position', 'top users table heading', 'wordpoints' ),
 		'user'     => _x( 'User', 'top users table heading', 'wordpoints' ),
 		'points'   => _x( 'Points', 'top users table heading', 'wordpoints' ),
@@ -1252,7 +1253,10 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 	<table class="wordpoints-points-top-users <?php echo esc_attr( implode( ' ', $extra_classes ) ); ?>">
 		<thead>
 			<tr>
-				<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
+				<th scope="col">
+					<span aria-hidden="true"><?php echo esc_html( $column_headers['#'] ); ?></span>
+					<span class="screen-reader-text"><?php echo esc_html( $column_headers['position'] ); ?></span>
+				</th>
 				<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
 				<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
 			</tr>
@@ -1312,7 +1316,10 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 		</tbody>
 		<tfoot>
 		<tr>
-			<th scope="col"><?php echo esc_html( $column_headers['position'] ); ?></th>
+			<th scope="col">
+				<span aria-hidden="true"><?php echo esc_html( $column_headers['#'] ); ?></span>
+				<span class="screen-reader-text"><?php echo esc_html( $column_headers['position'] ); ?></span>
+			</th>
 			<th scope="col"><?php echo esc_html( $column_headers['user'] ); ?></th>
 			<th scope="col"><?php echo esc_html( $column_headers['points'] ); ?></th>
 		</tr>

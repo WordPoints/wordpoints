@@ -27,3 +27,23 @@
 .wordpoints-points-top-users .avatar {
 	margin-left: 5px;
 }
+
+/*
+ * Screen reader text.
+ */
+
+/* Copied from wp-admin/css/common.css */
+/* Hide visually but not from screen readers */
+.wordpoints-points-top-users .screen-reader-text {
+	position: absolute;
+	margin: -1px;
+	padding: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	border: 0;
+	word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
+}
+
+/* EOF */

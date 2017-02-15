@@ -48,12 +48,13 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->give_current_user_caps( 'edit_theme_options' );
 
 		$this->assertWordPointsWidgetError(
-			$this->get_widget_html( array( 'points_type' => '' ) )
-		);
-
-		$this->assertWordPointsWidgetError(
 			$this->get_widget_html( array( 'points_type' => 'invalid' ) )
 		);
+
+		// It should not error when the points type is empty.
+		$xpath = $this->get_widget_xpath( array( 'points_type' => '' ) );
+
+		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
 
 		// When the user is logged out no error should be displayed.
 		wp_set_current_user( 0 );

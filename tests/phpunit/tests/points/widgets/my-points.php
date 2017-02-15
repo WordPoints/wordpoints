@@ -138,12 +138,16 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->give_current_user_caps( 'edit_theme_options' );
 
 		$this->assertWordPointsWidgetError(
-			$this->get_widget_html( array( 'points_type' => '' ) )
-		);
-
-		$this->assertWordPointsWidgetError(
 			$this->get_widget_html( array( 'points_type' => 'invalid' ) )
 		);
+
+		// It should not error when the points type is empty.
+		$xpath = $this->get_widget_xpath( array( 'points_type' => '' ) );
+
+		$node = $xpath->query( '//div[@class = "wordpoints-points-widget-text"]' )
+			->item( 0 );
+
+		$this->assertSame( 'Points: $0pts.', $node->textContent );
 	}
 
 	/**

@@ -55,7 +55,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 	 */
 	public function test_switched_backup_restore() {
 
-		global $_wp_switched_stack, $switched;
+		global $_wp_switched_stack, $switched, $wp_version;
 
 		$previous_site_id = get_current_blog_id();
 
@@ -63,7 +63,13 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		switch_to_blog( $site_id );
 
-		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
+		$stack = array( $previous_site_id );
+
+		if ( version_compare( $wp_version, '4.7', '<' ) ) {
+			$stack = array( (string) $previous_site_id );
+		}
+
+		$this->assertSame( $stack, $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		$ms_switched_state = new WordPoints_Multisite_Switched_State;
@@ -71,7 +77,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 		$ms_switched_state->restore();
 
 		$this->assertSame( $site_id, get_current_blog_id() );
-		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
+		$this->assertSame( $stack, $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		restore_current_blog();
@@ -90,7 +96,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 	 */
 	public function test_backup_restore_switched() {
 
-		global $_wp_switched_stack, $switched;
+		global $_wp_switched_stack, $switched, $wp_version;
 
 		$previous_site_id = get_current_blog_id();
 
@@ -104,7 +110,13 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		switch_to_blog( $site_id );
 
-		$this->assertSame( array( $previous_site_id ), $_wp_switched_stack );
+		$stack = array( $previous_site_id );
+
+		if ( version_compare( $wp_version, '4.7', '<' ) ) {
+			$stack = array( (string) $previous_site_id );
+		}
+
+		$this->assertSame( $stack, $_wp_switched_stack );
 		$this->assertTrue( $switched );
 
 		$ms_switched_state->restore();

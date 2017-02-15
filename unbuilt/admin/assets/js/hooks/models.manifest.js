@@ -218,7 +218,7 @@ _.extend( hooks, {
 			variable:    'data'
 		};
 
-		return _.template( text, null, options );
+		return _.template( text, options );
 	},
 
 	/**

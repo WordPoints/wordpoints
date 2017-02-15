@@ -42,6 +42,19 @@ abstract class WordPoints_Hook_Extension implements WordPoints_Hook_ExtensionI {
 	protected $event_args;
 
 	/**
+	 * @since 2.3.0
+	 *
+	 * @param string $slug The slug for this extension. This should always be passed,
+	 *                     and is only optional for backward compatibility.
+	 */
+	public function __construct( $slug = null ) {
+
+		if ( $slug ) {
+			$this->slug = $slug;
+		}
+	}
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function get_slug() {

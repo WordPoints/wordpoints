@@ -33,7 +33,10 @@ class WordPoints_Hook_Extension_Conditions
 	/**
 	 * @since 2.1.0
 	 */
-	public function __construct() {
+	public function __construct( $slug ) {
+
+		parent::__construct( $slug );
+
 		$this->conditions = wordpoints_hooks()->get_sub_app( 'conditions' );
 	}
 

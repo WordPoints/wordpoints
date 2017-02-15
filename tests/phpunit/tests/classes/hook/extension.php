@@ -17,6 +17,18 @@
 class WordPoints_Hook_Extension_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 	/**
+	 * Test constructing the extension with a slug.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_construct() {
+
+		$extension = new WordPoints_PHPUnit_Mock_Hook_Extension( 'slug' );
+
+		$this->assertSame( 'slug', $extension->get_slug() );
+	}
+
+	/**
 	 * Test getting the extension slug.
 	 *
 	 * @since 2.1.0

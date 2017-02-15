@@ -15,10 +15,21 @@
  *
  * @since 1.0.0 As WordPoints_My_Points_Widget.
  * @since 2.3.0
+ * @since 2.3.0 Now extends WordPoints_Points_Widget_Logs.
  *
  * @see WordPoints_Points_Widget Parent class.
  */
-class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
+class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget_Logs {
+
+	/**
+	 * @since 2.3.0
+	 */
+	protected $query_slug = 'current_user';
+
+	/**
+	 * @since 2.3.0
+	 */
+	protected $cache_key = 'current_user:%points_type%:%user_id%';
 
 	/**
 	 * Initialize the widget.
@@ -28,7 +39,7 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 	 */
 	public function __construct() {
 
-		parent::__construct(
+		WP_Widget::__construct(
 			'WordPoints_Points_Widget'
 			, __( 'WordPoints', 'wordpoints' )
 			, array(
@@ -44,6 +55,12 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 			'text'        => sprintf( __( 'Points: %s', 'wordpoints' ), '%points%' ),
 			'alt_text'    => __( 'You must be logged in to view your points.', 'wordpoints' ),
 			'number_logs' => 5,
+			'columns'     => array(
+				'user'        => 0,
+				'points'      => 1,
+				'description' => 1,
+				'time'        => 1,
+			),
 		);
 
 		add_filter( 'wordpoints_points_widget_text', 'esc_html', 20 );
@@ -67,7 +84,7 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 		}
 
 		// In case the points type isn't set, we do this first.
-		$instance = parent::verify_settings( $instance );
+		$instance = WordPoints_Points_Widget::verify_settings( $instance );
 
 		if ( ! is_wp_error( $instance ) && is_user_logged_in() && empty( $instance['text'] ) ) {
 			$instance['text'] = wordpoints_get_points_type_setting( $instance['points_type'], 'name' ) . ': %points%';
@@ -118,15 +135,7 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 		echo '<div class="wordpoints-points-widget-text">', $text, '</div><br />'; // XSS OK, WPCS
 
 		if ( is_user_logged_in() && 0 !== $instance['number_logs'] ) {
-
-			$query_args = wordpoints_get_points_logs_query_args( $instance['points_type'], 'current_user' );
-
-			$query_args['limit'] = $instance['number_logs'];
-
-			$logs_query = new WordPoints_Points_Logs_Query( $query_args );
-			$logs_query->prime_cache( 'current_user:%points_type%:%user_id%' );
-
-			wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false, 'show_users' => false ) );
+			parent::widget_body( $instance );
 		}
 	}
 
@@ -143,14 +152,12 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
+		$this->defaults['number_logs'] = 0;
+
 		parent::update( $new_instance, $old_instance );
 
 		$this->instance['text']     = trim( $this->instance['text'] );
 		$this->instance['alt_text'] = trim( $this->instance['alt_text'] );
-
-		if ( ! wordpoints_posint( $this->instance['number_logs'] ) ) {
-			$this->instance['number_logs'] = 0;
-		}
 
 		return $this->instance;
 	}
@@ -161,7 +168,7 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 	 */
 	public function form( $instance ) {
 
-		parent::form( $instance );
+		WordPoints_Points_Widget::form( $instance );
 
 		?>
 
@@ -195,6 +202,10 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget {
 		</p>
 
 		<?php
+
+		$this->display_column_fields();
+		$this->display_hide_user_names_field();
+		$this->display_horizontal_scrolling_field();
 
 		return true;
 	}

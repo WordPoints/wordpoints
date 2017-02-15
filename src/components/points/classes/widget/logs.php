@@ -16,6 +16,33 @@
 class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 
 	/**
+	 * The slug of the points logs query to display.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var string
+	 */
+	protected $query_slug = 'default';
+
+	/**
+	 * The cache key to use for the logs query.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var string
+	 */
+	protected $cache_key = 'default:%points_type%';
+
+	/**
+	 * The args related to the display of the logs.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var array
+	 */
+	protected $show_logs_args = array( 'paginate' => false, 'searchable' => false );
+
+	/**
 	 * Initialize the widget.
 	 *
 	 * @since 1.0.0 As part of WordPoints_Points_Logs_Widget.
@@ -62,14 +89,17 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 	 * @since 1.9.0 As part of WordPoints_Points_Logs_Widget.
 	 * @since 2.3.0
 	 */
-	public function widget_body( $instance ) {
+	protected function widget_body( $instance ) {
 
-		$query_args = wordpoints_get_points_logs_query_args( $instance['points_type'] );
+		$query_args = wordpoints_get_points_logs_query_args(
+			$instance['points_type']
+			, $this->query_slug
+		);
 
 		$query_args['limit'] = $instance['number_logs'];
 
 		$logs_query = new WordPoints_Points_Logs_Query( $query_args );
-		$logs_query->prime_cache();
+		$logs_query->prime_cache( $this->cache_key );
 
 		$this->instance = $instance;
 
@@ -78,7 +108,7 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			, array( $this, 'add_points_logs_table_extra_classes' )
 		);
 
-		wordpoints_show_points_logs( $logs_query, array( 'paginate' => false, 'searchable' => false ) );
+		wordpoints_show_points_logs( $logs_query, $this->show_logs_args );
 
 		remove_filter(
 			'wordpoints_points_logs_table_extra_classes'
@@ -144,11 +174,15 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			}
 		}
 
-		if ( ! empty( $this->instance['hide_user_names'] ) ) {
+		if ( ! isset( $new_instance['hide_user_names'] ) ) {
+			unset( $this->instance['hide_user_names'] );
+		} elseif ( ! empty( $this->instance['hide_user_names'] ) ) {
 			$this->instance['hide_user_names'] = '1';
 		}
 
-		if ( ! empty( $this->instance['horizontal_scrolling'] ) ) {
+		if ( ! isset( $new_instance['horizontal_scrolling'] ) ) {
+			unset( $this->instance['horizontal_scrolling'] );
+		} elseif ( ! empty( $this->instance['horizontal_scrolling'] ) ) {
 			$this->instance['horizontal_scrolling'] = '1';
 		}
 
@@ -173,6 +207,24 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>"><?php esc_html_e( 'Number of log entries to display', 'wordpoints' ); ?></label>
 			<input type="number" min="1" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_logs' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_logs' ) ); ?>" value="<?php echo absint( $this->instance['number_logs'] ); ?>" />
 		</p>
+
+		<?php
+
+		$this->display_column_fields();
+		$this->display_hide_user_names_field();
+		$this->display_horizontal_scrolling_field();
+
+		return true;
+	}
+
+	/**
+	 * Displays fields to decide which columns should be displayed.
+	 *
+	 * @since 2.3.0
+	 */
+	protected function display_column_fields() {
+
+		?>
 
 		<fieldset>
 			<legend>
@@ -229,6 +281,18 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			<br />
 		</fieldset>
 
+		<?php
+	}
+
+	/**
+	 * Displays the hide user names field.
+	 *
+	 * @since 2.3.0
+	 */
+	protected function display_hide_user_names_field() {
+
+		?>
+
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'hide_user_names' ) ); ?>">
 				<input
@@ -242,6 +306,18 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 				<?php esc_html_e( 'Hide user names (but not avatars)', 'wordpoints' ); ?>
 			</label>
 		</p>
+
+		<?php
+	}
+
+	/**
+	 * Displays the horizontal scrolling field.
+	 *
+	 * @since 2.3.0
+	 */
+	protected function display_horizontal_scrolling_field() {
+
+		?>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'horizontal_scrolling' ) ); ?>">
@@ -258,8 +334,6 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 		</p>
 
 		<?php
-
-		return true;
 	}
 }
 

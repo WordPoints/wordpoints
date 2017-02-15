@@ -81,7 +81,7 @@ class WordPoints_Ranks_Screen_Create_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 
 		unset( $this->rank_data['group'] );
 
-		$this->assertSame( (object) $this->rank_data, $response->data );
+		$this->assertSameProperties( (object) $this->rank_data, $response->data );
 	}
 
 	/**

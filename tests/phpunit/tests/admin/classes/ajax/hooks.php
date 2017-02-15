@@ -107,7 +107,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$reaction_guid = wp_json_encode( $reaction->get_guid() );
 
-		$this->assertSame(
+		$this->assertSameSetsWithIndex(
 			array(
 				'id' => $reaction->get_id(),
 				'event' => $reaction->get_event_slug(),
@@ -236,14 +236,13 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->assertObjectHasAttribute( 'data', $response );
 		$this->assertObjectHasAttribute( 'errors', $response->data );
-		$this->assertSame(
-			array(
-				(object) array(
-					'message' => 'Event is invalid.',
-					'field' => array( 'event' ),
-				),
+		$this->assertCount( 1, $response->data->errors );
+		$this->assertSameProperties(
+			(object) array(
+				'message' => 'Event is invalid.',
+				'field' => array( 'event' ),
 			)
-			, $response->data->errors
+			, $response->data->errors[0]
 		);
 	}
 
@@ -370,14 +369,13 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->assertObjectHasAttribute( 'data', $response );
 		$this->assertObjectHasAttribute( 'errors', $response->data );
-		$this->assertSame(
-			array(
-				(object) array(
-					'message' => 'Event is invalid.',
-					'field' => array( 'event' ),
-				),
+		$this->assertCount( 1, $response->data->errors );
+		$this->assertSameProperties(
+			(object) array(
+				'message' => 'Event is invalid.',
+				'field' => array( 'event' ),
 			)
-			, $response->data->errors
+			, $response->data->errors[0]
 		);
 
 		$this->assertSame(

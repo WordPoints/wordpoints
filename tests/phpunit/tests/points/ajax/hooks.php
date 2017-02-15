@@ -87,7 +87,7 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertSame( array( 'points' => '15' ), $instances[1] );
+		$this->assertSame( array( 'points' => 15 ), $instances[1] );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertSame( array( 'points' => '15' ), $instances[ $hook->get_number() ] );
+		$this->assertSame( array( 'points' => 15 ), $instances[ $hook->get_number() ] );
 	}
 
 	/**
@@ -253,7 +253,7 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 
 		$instances = $hook->get_instances();
 		$this->assertCount( 1, $instances );
-		$this->assertSame( array( 'points' => '15' ), $instances['network_1'] );
+		$this->assertSame( array( 'points' => 15 ), $instances['network_1'] );
 	}
 }
 

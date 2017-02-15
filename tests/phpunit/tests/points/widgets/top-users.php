@@ -54,7 +54,7 @@ class WordPoints_Top_Users_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 		// It should not error when the points type is empty.
 		$xpath = $this->get_widget_xpath( array( 'points_type' => '' ) );
 
-		$this->assertSame( 2, $xpath->query( '//tbody/tr' )->length );
+		$this->assertSame( 1, $xpath->query( '//table' )->length );
 
 		// When the user is logged out no error should be displayed.
 		wp_set_current_user( 0 );

@@ -23,10 +23,19 @@ abstract class WordPoints_Points_Widget extends WordPoints_Widget {
 
 		if ( isset( $this->defaults['points_type'] ) ) {
 
-			if (
-				empty( $instance['points_type'] )
-				|| ! wordpoints_is_points_type( $instance['points_type'] )
-			) {
+			// This happens when the widget is first created in the Customizer; the
+			// settings are completely empty.
+			if ( empty( $instance['points_type'] ) ) {
+				$default = $this->defaults['points_type'];
+
+				if ( ! $default ) {
+					$this->make_a_points_type( $default );
+				}
+
+				$instance['points_type'] = $default;
+			}
+
+			if ( ! wordpoints_is_points_type( $instance['points_type'] ) ) {
 				return new WP_Error(
 					'wordpoints_widget_invalid_points_type'
 					, esc_html__( 'Please select a valid points type.', 'wordpoints' )

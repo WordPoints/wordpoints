@@ -92,6 +92,13 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * @since 2.3.0
+	 */
+	protected function get_default_primary_column_name() {
+		return 'name';
+	}
+
+	/**
 	 * Check whether the user has required permissions from AJAX.
 	 *
 	 * @since 1.1.0
@@ -628,11 +635,12 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		$module_data['extra']['restricted_network_active'] = $restricted_network_active;
 		$module_data['extra']['restricted_network_only'] = $restricted_network_only;
 
-		list( $columns, $hidden ) = $this->get_column_info();
+		list( $columns, $hidden, , $primary ) = $this->get_column_info();
 
 		foreach ( $columns as $column_name => $column_display_name ) {
 
 			$is_hidden = in_array( $column_name, $hidden, true );
+			$is_primary = $primary === $column_name;
 
 			switch ( $column_name ) {
 
@@ -641,15 +649,15 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				break;
 
 				case 'name':
-					$this->column_name( $module_data, $is_hidden );
+					$this->column_name( $module_data, $is_hidden, $is_primary );
 				break;
 
 				case 'description':
-					$this->column_description( $module_data, $is_hidden, $class );
+					$this->column_description( $module_data, $is_hidden, $is_primary, $class );
 				break;
 
 				default:
-					$this->column_default( $module_data, $column_name, $is_hidden );
+					$this->column_default( $module_data, $column_name, $is_hidden, $is_primary );
 			}
 		}
 
@@ -695,28 +703,16 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @param array $module_data The module data.
 	 * @param bool  $is_hidden   Whether this column is hidden.
+	 * @param bool  $is_primary  Whether this is the primary column.
 	 */
-	public function column_name( $module_data, $is_hidden ) {
+	public function column_name( $module_data, $is_hidden, $is_primary ) {
 
 		?>
-		<td class="module-title<?php echo ( $is_hidden ) ? ' hidden' : ''; ?>">
+		<td class="module-title<?php echo ( $is_hidden ) ? ' hidden' : ''; ?><?php echo ( $is_primary ) ? ' has-row-actions column-primary' : ''; ?>">
 			<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
-			<?php
-
-			echo $this->row_actions( // XSS OK WPCS
-				$this->get_module_row_actions(
-					$module_data['extra']['module_file']
-					, $module_data
-					, array(
-						'is_active' => $module_data['extra']['is_active'],
-						'restricted_network_active' => $module_data['extra']['restricted_network_active'],
-						'restricted_network_only' => $module_data['extra']['restricted_network_only'],
-					)
-				)
-				, true
-			);
-
-			?>
+			<?php if ( $is_primary ) : ?>
+				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); // WPCS XSS OK. ?>
+			<?php endif; ?>
 		</td>
 		<?php
 	}
@@ -728,14 +724,15 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @param array  $module_data The module data.
 	 * @param bool   $is_hidden   Whether the column is hidden.
+	 * @param bool   $is_primary  Whether this is the primary column.
 	 * @param string $class       The class for this module row.
 	 */
-	public function column_description( $module_data, $is_hidden, $class ) {
+	public function column_description( $module_data, $is_hidden, $is_primary, $class ) {
 
 		global $status;
 
 		?>
-		<td class="column-description desc<?php echo ( $is_hidden ) ? ' hidden' : ''; ?>">
+		<td class="column-description desc<?php echo ( $is_hidden ) ? ' hidden' : ''; ?><?php echo ( $is_primary ) ? ' has-row-actions column-primary' : ''; ?>">
 			<div class="module-description">
 				<p>
 					<?php if ( ! empty( $module_data['description'] ) ) : ?>
@@ -790,6 +787,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 				?>
 			</div>
+			<?php if ( $is_primary ) : ?>
+				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); // WPCS XSS OK. ?>
+			<?php endif; ?>
 		</td>
 		<?php
 	}
@@ -802,11 +802,12 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 * @param array  $module_data The module data.
 	 * @param string $column_name The column name.
 	 * @param bool   $is_hidden   Whether this column is hidden.
+	 * @param bool   $is_primary  Whether this is the primary column.
 	 */
-	public function column_default( $module_data, $column_name, $is_hidden = false ) {
+	public function column_default( $module_data, $column_name, $is_hidden = false, $is_primary = false ) {
 
 		?>
-		<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name ); ?><?php echo ( $is_hidden ) ? ' hidden' : ''; ?>">
+		<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name ); ?><?php echo ( $is_hidden ) ? ' hidden' : ''; ?><?php echo ( $is_primary ) ? ' has-row-actions column-primary' : ''; ?>">
 			<?php
 			/**
 			 * Display the row contents for a custom column in the module list table.
@@ -819,6 +820,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			 */
 			do_action( 'wordpoints_manage_modules_custom_column', $column_name, $module_data['module_file'], $module_data );
 			?>
+			<?php if ( $is_primary ) : ?>
+				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); // WPCS XSS OK. ?>
+			<?php endif; ?>
 		</td>
 		<?php
 	}
@@ -827,31 +831,24 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 * Get the row actions for a module.
 	 *
 	 * @since 1.8.0
-	 * @since 2.3.0 The $is_active arg was converted to the $args array, and now also
-	 *              accepts $restricted_network_active and $restricted_network_only
-	 *              keys.
+	 * @since 2.3.0 Just one argument is now expected, $module_data.
 	 *
-	 * @param string $module_file The module's filename.
-	 * @param array  $module_data The module's file header data.
-	 * @param array  $args        {
-	 *        Other args.
-	 *        @type bool $is_active                 Whether the module is active.
-	 *        @type bool $restricted_network_active Whether the module is active on
-	 *                                              the network level and would
-	 *                                              normally be restricted on the
-	 *                                              current screen.
-	 *        @type bool $restricted_network_only   Whether the module is network-
-	 *                                              only and would normally be
-	 *                                              restricted on the current screen.
-	 * }
+	 * @param array $module_data The module's file header data, and some extra data
+	 *                           in the 'extra' array, including the 'module_file',
+	 *                           and whether the module 'is_active', is
+	 *                           'restricted_network_active', and is
+	 *                           'restricted_network_only'.
 	 *
 	 * @return string[] The action links for this module.
 	 */
-	private function get_module_row_actions( $module_file, $module_data, $args ) {
+	private function get_module_row_actions( $module_data ) {
 
 		global $page, $s, $status;
 
 		$context = $status;
+
+		$module_file = $module_data['extra']['module_file'];
+		$args        = $module_data['extra'];
 
 		// Pre-order.
 		$actions = array(

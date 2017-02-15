@@ -670,7 +670,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @param array $module_data The module data.
 	 */
-	public function column_cb( $module_data ) {
+	protected function column_cb( $module_data ) {
 
 		$checkbox_id = 'checkbox_' . sanitize_key( $module_data['extra']['module_file'] );
 
@@ -705,7 +705,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 * @param bool  $is_hidden   Whether this column is hidden.
 	 * @param bool  $is_primary  Whether this is the primary column.
 	 */
-	public function column_name( $module_data, $is_hidden, $is_primary ) {
+	protected function column_name( $module_data, $is_hidden, $is_primary ) {
 
 		?>
 		<td class="module-title<?php echo ( $is_hidden ) ? ' hidden' : ''; ?><?php echo ( $is_primary ) ? ' has-row-actions column-primary' : ''; ?>">
@@ -727,7 +727,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 * @param bool   $is_primary  Whether this is the primary column.
 	 * @param string $class       The class for this module row.
 	 */
-	public function column_description( $module_data, $is_hidden, $is_primary, $class ) {
+	protected function column_description( $module_data, $is_hidden, $is_primary, $class ) {
 
 		global $status;
 
@@ -804,7 +804,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 * @param bool   $is_hidden   Whether this column is hidden.
 	 * @param bool   $is_primary  Whether this is the primary column.
 	 */
-	public function column_default( $module_data, $column_name, $is_hidden = false, $is_primary = false ) {
+	protected function column_default( $module_data, $column_name, $is_hidden = false, $is_primary = false ) {
 
 		?>
 		<td class="<?php echo sanitize_html_class( $column_name ); ?> column-<?php echo sanitize_html_class( $column_name ); ?><?php echo ( $is_hidden ) ? ' hidden' : ''; ?><?php echo ( $is_primary ) ? ' has-row-actions column-primary' : ''; ?>">

@@ -125,6 +125,17 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								),
 							),
 						),
+						'title' => array(
+							'class'     => 'WordPoints_Entity_Post_Title',
+							'data_type' => 'text',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'  => 'field',
+							        'field' => 'post_title',
+								),
+							),
+						),
 					),
 				),
 			),

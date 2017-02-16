@@ -341,6 +341,10 @@ function wordpoints_register_post_type_entities( $slug ) {
 
 	$supports = get_all_post_type_supports( $slug );
 
+	if ( isset( $supports['title'] ) ) {
+		$children->register( "post\\{$slug}", 'title', 'WordPoints_Entity_Post_Title' );
+	}
+
 	if ( isset( $supports['editor'] ) ) {
 		$children->register( "post\\{$slug}", 'content', 'WordPoints_Entity_Post_Content' );
 	}

@@ -71,6 +71,7 @@ return array(
 	'wordpoints_entity_post' => 'entity/post.php',
 	'wordpoints_entity_post_author' => 'entity/post/author.php',
 	'wordpoints_entity_post_content' => 'entity/post/content.php',
+	'wordpoints_entity_post_title' => 'entity/post/title.php',
 	'wordpoints_entity_restriction_comment_post_status_nonpublic' => 'entity/restriction/comment/post/status/nonpublic.php',
 	'wordpoints_entity_restriction_legacy' => 'entity/restriction/legacy.php',
 	'wordpoints_entity_restriction_unregistered' => 'entity/restriction/unregistered.php',

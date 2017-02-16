@@ -338,6 +338,7 @@ function wordpoints_register_post_type_entities( $slug ) {
 
 	$entities->register( "post\\{$slug}", 'WordPoints_Entity_Post' );
 	$children->register( "post\\{$slug}", 'author', 'WordPoints_Entity_Post_Author' );
+	$children->register( "post\\{$slug}", 'date_published', 'WordPoints_Entity_Post_Date_Published' );
 
 	$supports = get_all_post_type_supports( $slug );
 

@@ -87,18 +87,20 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$children = $entities->get_sub_app( 'children' );
 
 		$this->assertTrue( $entities->is_registered( 'post\post' ) );
-		$this->assertTrue( $children->is_registered( 'post\post', 'content' ) );
-		$this->assertTrue( $children->is_registered( 'post\post', 'title' ) );
 		$this->assertTrue( $children->is_registered( 'post\post', 'author' ) );
+		$this->assertTrue( $children->is_registered( 'post\post', 'content' ) );
+		$this->assertTrue( $children->is_registered( 'post\post', 'date_published' ) );
+		$this->assertTrue( $children->is_registered( 'post\post', 'title' ) );
 
 		$this->assertTrue( $entities->is_registered( 'comment\post' ) );
 		$this->assertTrue( $children->is_registered( 'comment\post', 'post\post' ) );
 		$this->assertTrue( $children->is_registered( 'comment\post', 'author' ) );
 
 		$this->assertTrue( $entities->is_registered( 'post\page' ) );
-		$this->assertTrue( $children->is_registered( 'post\page', 'content' ) );
-		$this->assertTrue( $children->is_registered( 'post\page', 'title' ) );
 		$this->assertTrue( $children->is_registered( 'post\page', 'author' ) );
+		$this->assertTrue( $children->is_registered( 'post\page', 'content' ) );
+		$this->assertTrue( $children->is_registered( 'post\page', 'date_published' ) );
+		$this->assertTrue( $children->is_registered( 'post\page', 'title' ) );
 
 		$this->assertTrue( $entities->is_registered( 'comment\page' ) );
 		$this->assertTrue( $children->is_registered( 'comment\page', 'post\page' ) );
@@ -106,6 +108,7 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 
 		$this->assertTrue( $entities->is_registered( 'post\attachment' ) );
 		$this->assertTrue( $children->is_registered( 'post\attachment', 'author' ) );
+		$this->assertTrue( $children->is_registered( 'post\attachment', 'date_published' ) );
 		$this->assertTrue( $children->is_registered( 'post\attachment', 'title' ) );
 
 		$this->assertTrue( $entities->is_registered( 'comment\attachment' ) );

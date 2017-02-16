@@ -33,7 +33,7 @@ class WordPoints_Entity_Post_Content extends WordPoints_Entity_Attr_Field {
 	 * @since 2.1.0
 	 */
 	public function get_title() {
-		return __( 'Content', 'wordpoints' );
+		return _x( 'Content', 'post entity', 'wordpoints' );
 	}
 }
 

@@ -20,6 +20,8 @@
  * -- Group
  * -- Condition
  * - Periods
+ * - Disable
+ * -- Disabled
  *
  * @package WordPoints
  * @since 2.1.0
@@ -181,6 +183,12 @@
 	 */
   /*
 	 * Periods.
+	 */
+  /*
+	 * Disable.
+	 */
+  /*
+	 * - Disabled.
 	 */
 }
 
@@ -387,6 +395,26 @@
 .wordpoints-hook-reaction .wordpoints-hook-period-units {
   width: 50%;
   float: right;
+}
+
+.wordpoints-hook-reaction .view .wordpoints-hook-disabled-text {
+  display: none;
+}
+
+.wordpoints-hook-reaction .disable .description {
+  margin-bottom: 8px;
+}
+
+.wordpoints-hook-reaction.disabled .view {
+  background-color: #fcfcfc;
+}
+
+.wordpoints-hook-reaction.disabled .view .wordpoints-hook-disabled-text {
+  display: inline;
+}
+
+.wordpoints-hook-reaction.disabled .title {
+  color: #737373;
 }
 
 /* EOF */

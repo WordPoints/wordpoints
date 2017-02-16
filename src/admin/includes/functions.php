@@ -499,6 +499,39 @@ function wordpoints_register_admin_scripts() {
 			</script>
 		'
 	);
+
+	wp_register_script(
+		'wordpoints-hooks-extension-disable'
+		, "{$assets_url}/js/hooks/extensions/disable{$manifested_suffix}.js"
+		, array( 'wordpoints-hooks-views' )
+		, WORDPOINTS_VERSION
+	);
+
+	wp_script_add_data(
+		'wordpoints-hooks-extension-disable'
+		, 'wordpoints-templates'
+		, '
+			<script type="text/template" id="tmpl-wordpoints-hook-disable">
+				<div class="disable">
+					<div class="section-title">
+						<h4>' . esc_html__( 'Disable', 'wordpoints' ) . '</h4>
+					</div>
+					<div class="section-content">
+						<p class="description description-thin">
+							<label>
+								<input type="checkbox" name="disable" value="1" />
+								' . esc_html__( 'Disable (make this reaction inactive without deleting it)', 'wordpoints' ) . '
+							</label>
+						</p>
+					</div>
+				</div>
+			</script>
+			
+			<script type="text/template" id="tmpl-wordpoints-hook-disabled-text">
+				<span class="wordpoints-hook-disabled-text">' . esc_html__( '(Disabled)', 'wordpoints' ) . '</span>
+			</script>
+		'
+	);
 }
 
 /**

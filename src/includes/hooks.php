@@ -52,6 +52,7 @@ function wordpoints_init_hooks() {
 function wordpoints_hook_extensions_init( $extensions ) {
 
 	$extensions->register( 'blocker', 'WordPoints_Hook_Extension_Blocker' );
+	$extensions->register( 'disable', 'WordPoints_Hook_Extension_Blocker' );
 	$extensions->register( 'repeat_blocker', 'WordPoints_Hook_Extension_Repeat_Blocker' );
 	$extensions->register( 'reversals', 'WordPoints_Hook_Extension_Reversals' );
 	$extensions->register( 'conditions', 'WordPoints_Hook_Extension_Conditions' );

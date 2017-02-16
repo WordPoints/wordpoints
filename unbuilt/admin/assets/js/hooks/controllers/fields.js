@@ -168,6 +168,15 @@ Fields = Backbone.Model.extend({
 			formObj[ input.name ] = input.value;
 		} );
 
+		// Set unchecked checkboxes' values to false, so that they will override the
+		// current value when merged.
+		$form.find( 'input[type=checkbox]' ).each( function ( i, el ) {
+
+			if ( typeof formObj[ el.name ] === 'undefined' ) {
+				formObj[ el.name ] = false;
+			}
+		});
+
 		return this.arrayify( formObj );
 	},
 

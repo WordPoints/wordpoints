@@ -125,6 +125,17 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								),
 							),
 						),
+						'date_modified' => array(
+							'class'     => 'WordPoints_Entity_Post_Date_Modified',
+							'data_type' => 'mysql_datetime',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'  => 'field',
+							        'field' => 'post_modified',
+								),
+							),
+						),
 						'date_published' => array(
 							'class'     => 'WordPoints_Entity_Post_Date_Published',
 							'data_type' => 'mysql_datetime',

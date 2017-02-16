@@ -22,6 +22,18 @@ class WordPoints_Hook_Extension_Blocker extends WordPoints_Hook_Extension {
 	protected $slug = 'blocker';
 
 	/**
+	 * @since 2.3.0
+	 */
+	protected function validate_extension_settings( $settings ) {
+
+		if ( ! is_array( $settings ) ) {
+			return wp_validate_boolean( $settings );
+		}
+
+		return parent::validate_extension_settings( $settings );
+	}
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function validate_action_type_settings( $settings ) {

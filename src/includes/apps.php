@@ -350,6 +350,10 @@ function wordpoints_register_post_type_entities( $slug ) {
 		$children->register( "post\\{$slug}", 'content', 'WordPoints_Entity_Post_Content' );
 	}
 
+	if ( isset( $supports['excerpt'] ) ) {
+		$children->register( "post\\{$slug}", 'excerpt', 'WordPoints_Entity_Post_Excerpt' );
+	}
+
 	if ( isset( $supports['comments'] ) ) {
 		$entities->register( "comment\\{$slug}", 'WordPoints_Entity_Comment' );
 		$children->register( "comment\\{$slug}", "post\\{$slug}", 'WordPoints_Entity_Comment_Post' );

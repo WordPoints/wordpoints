@@ -90,6 +90,7 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$this->assertTrue( $children->is_registered( 'post\post', 'author' ) );
 		$this->assertTrue( $children->is_registered( 'post\post', 'content' ) );
 		$this->assertTrue( $children->is_registered( 'post\post', 'date_published' ) );
+		$this->assertTrue( $children->is_registered( 'post\post', 'excerpt' ) );
 		$this->assertTrue( $children->is_registered( 'post\post', 'title' ) );
 
 		$this->assertTrue( $entities->is_registered( 'comment\post' ) );

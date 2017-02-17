@@ -360,6 +360,9 @@ function wordpoints_register_post_type_entities( $slug ) {
 	}
 
 	if ( isset( $supports['comments'] ) ) {
+
+		$children->register( "post\\{$slug}", 'comment_count', 'WordPoints_Entity_Post_Comment_Count' );
+
 		$entities->register( "comment\\{$slug}", 'WordPoints_Entity_Comment' );
 		$children->register( "comment\\{$slug}", "post\\{$slug}", 'WordPoints_Entity_Comment_Post' );
 		$children->register( "comment\\{$slug}", 'author', 'WordPoints_Entity_Comment_Author' );

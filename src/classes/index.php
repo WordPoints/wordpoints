@@ -70,6 +70,7 @@ return array(
 	'wordpoints_entity_hierarchy' => 'entity/hierarchy.php',
 	'wordpoints_entity_post' => 'entity/post.php',
 	'wordpoints_entity_post_author' => 'entity/post/author.php',
+	'wordpoints_entity_post_comment_count' => 'entity/post/comment/count.php',
 	'wordpoints_entity_post_content' => 'entity/post/content.php',
 	'wordpoints_entity_post_date_modified' => 'entity/post/date/modified.php',
 	'wordpoints_entity_post_date_published' => 'entity/post/date/published.php',

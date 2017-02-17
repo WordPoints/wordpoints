@@ -341,6 +341,10 @@ function wordpoints_register_post_type_entities( $slug ) {
 	$children->register( "post\\{$slug}", 'date_modified', 'WordPoints_Entity_Post_Date_Modified' );
 	$children->register( "post\\{$slug}", 'date_published', 'WordPoints_Entity_Post_Date_Published' );
 
+	if ( is_post_type_hierarchical( $slug ) ) {
+		$children->register( "post\\{$slug}", 'parent', 'WordPoints_Entity_Post_Parent' );
+	}
+
 	$supports = get_all_post_type_supports( $slug );
 
 	if ( isset( $supports['title'] ) ) {

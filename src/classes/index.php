@@ -74,6 +74,7 @@ return array(
 	'wordpoints_entity_post_date_modified' => 'entity/post/date/modified.php',
 	'wordpoints_entity_post_date_published' => 'entity/post/date/published.php',
 	'wordpoints_entity_post_excerpt' => 'entity/post/excerpt.php',
+	'wordpoints_entity_post_parent' => 'entity/post/parent.php',
 	'wordpoints_entity_post_title' => 'entity/post/title.php',
 	'wordpoints_entity_restriction_comment_post_status_nonpublic' => 'entity/restriction/comment/post/status/nonpublic.php',
 	'wordpoints_entity_restriction_legacy' => 'entity/restriction/legacy.php',

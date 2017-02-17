@@ -43,13 +43,7 @@ class WordPoints_Hook_Event_Post_Publish_Test extends WordPoints_PHPUnit_TestCas
 	 */
 	protected function fire_event( $arg, $reactor_slug ) {
 
-		$post_id = $this->factory->post->create(
-			array(
-				'post_author' => $this->factory->user->create(),
-				'post_type'   => $this->dynamic_slug,
-				'post_status' => 'draft',
-			)
-		);
+		$post_id = $this->create_post( array( 'post_status' => 'draft' ) );
 
 		$this->factory->post->update_object(
 			$post_id
@@ -64,12 +58,7 @@ class WordPoints_Hook_Event_Post_Publish_Test extends WordPoints_PHPUnit_TestCas
 
 		return array(
 			$post_id,
-			$this->factory->post->create(
-				array(
-					'post_author' => $this->factory->user->create(),
-					'post_type'   => $this->dynamic_slug,
-				)
-			),
+			$this->create_post(),
 		);
 	}
 
@@ -90,6 +79,25 @@ class WordPoints_Hook_Event_Post_Publish_Test extends WordPoints_PHPUnit_TestCas
 				);
 			break;
 		}
+	}
+
+	/**
+	 * Create a post.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $args Args for the post.
+	 *
+	 * @return int The post ID.
+	 */
+	protected function create_post( array $args = array() ) {
+
+		$defaults = array(
+			'post_author' => $this->factory->user->create(),
+			'post_type'   => $this->dynamic_slug,
+		);
+
+		return $this->factory->post->create( array_merge( $args, $defaults ) );
 	}
 }
 

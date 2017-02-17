@@ -27,8 +27,12 @@
  * @covers WordPoints_Entity_Comment_Author
  * @covers WordPoints_Entity_Comment_Content
  * @covers WordPoints_Entity_Comment_Date
+ * @covers WordPoints_Entity_Comment_Parent
  * @covers WordPoints_Entity_Comment_Post
  * @covers WordPoints_Entity_User_Role
+ *
+ * @covers WordPoints_Entity_Relationship_Dynamic_Stored_Field
+ * @covers WordPoints_Entity_Relationship_Stored_Field
  */
 class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities {
 
@@ -264,6 +268,18 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'info' => array(
 									'type'  => 'field',
 									'field' => 'comment_date',
+								),
+							),
+						),
+						'parent' => array(
+							'class'   => 'WordPoints_Entity_Comment_Parent',
+							'primary' => 'comment',
+							'related' => 'comment',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'  => 'field',
+									'field' => 'comment_parent',
 								),
 							),
 						),

@@ -65,6 +65,7 @@ return array(
 	'wordpoints_entity_comment_author' => 'entity/comment/author.php',
 	'wordpoints_entity_comment_content' => 'entity/comment/content.php',
 	'wordpoints_entity_comment_date' => 'entity/comment/date.php',
+	'wordpoints_entity_comment_parent' => 'entity/comment/parent.php',
 	'wordpoints_entity_comment_post' => 'entity/comment/post.php',
 	'wordpoints_entity_context' => 'entity/context.php',
 	'wordpoints_entity_context_network' => 'entity/context/network.php',

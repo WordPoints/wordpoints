@@ -36,6 +36,8 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 	 */
 	protected $expected_targets = array(
 		array( 'comment\\', 'author', 'user' ),
+		array( 'comment\\', 'parent', 'comment\\', 'author', 'user' ),
+		array( 'comment\\', 'parent', 'comment\\', 'post\\', 'post\\', 'author', 'user' ),
 		array( 'comment\\', 'post\\', 'post\\', 'author', 'user' ),
 	);
 
@@ -48,6 +50,17 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 			array(
 				'comment_approved' => 0,
 				'user_id'          => $this->factory->user->create(),
+				'comment_parent'  => $this->factory->comment->create(
+					array(
+						'user_id'         => $this->factory->user->create(),
+						'comment_post_ID' => $this->factory->post->create(
+							array(
+								'post_author' => $this->factory->user->create(),
+								'post_type'   => $this->dynamic_slug,
+							)
+						),
+					)
+				),
 				'comment_post_ID'  => $this->factory->post->create(
 					array(
 						'post_author' => $this->factory->user->create(),
@@ -65,6 +78,17 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 			$this->factory->comment->create(
 				array(
 					'user_id'         => $this->factory->user->create(),
+					'comment_parent'  => $this->factory->comment->create(
+						array(
+							'user_id'         => $this->factory->user->create(),
+							'comment_post_ID' => $this->factory->post->create(
+								array(
+									'post_author' => $this->factory->user->create(),
+									'post_type'   => $this->dynamic_slug,
+								)
+							),
+						)
+					),
 					'comment_post_ID' => $this->factory->post->create(
 						array(
 							'post_author' => $this->factory->user->create(),

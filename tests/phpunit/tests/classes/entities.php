@@ -25,6 +25,7 @@
  * @covers WordPoints_Entity_Post_Title
  * @covers WordPoints_Entity_Comment
  * @covers WordPoints_Entity_Comment_Author
+ * @covers WordPoints_Entity_Comment_Content
  * @covers WordPoints_Entity_Comment_Date
  * @covers WordPoints_Entity_Comment_Post
  * @covers WordPoints_Entity_User_Role
@@ -241,6 +242,17 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'info' => array(
 									'type'  => 'field',
 									'field' => 'user_id',
+								),
+							),
+						),
+						'content' => array(
+							'class'     => 'WordPoints_Entity_Comment_Content',
+							'data_type' => 'text',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'  => 'field',
+									'field' => 'comment_content',
 								),
 							),
 						),

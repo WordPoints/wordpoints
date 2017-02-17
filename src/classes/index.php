@@ -62,6 +62,7 @@ return array(
 	'wordpoints_entity_attr_stored_db_table_meta' => 'entity/attr/stored/db/table/meta.php',
 	'wordpoints_entity_comment' => 'entity/comment.php',
 	'wordpoints_entity_comment_author' => 'entity/comment/author.php',
+	'wordpoints_entity_comment_content' => 'entity/comment/content.php',
 	'wordpoints_entity_comment_date' => 'entity/comment/date.php',
 	'wordpoints_entity_comment_post' => 'entity/comment/post.php',
 	'wordpoints_entity_context' => 'entity/context.php',

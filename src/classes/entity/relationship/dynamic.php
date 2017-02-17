@@ -17,11 +17,18 @@ abstract class WordPoints_Entity_Relationship_Dynamic extends WordPoints_Entity_
 	/**
 	 * @since 2.1.0
 	 */
-	public function __construct( $slug ) {
+	public function __construct( $slug, $parent_slug = null ) {
 
 		parent::__construct( $slug );
 
-		$parts = wordpoints_parse_dynamic_slug( $this->slug );
+		// Back-compat for pre-2.3.0, just in case.
+		if ( ! isset( $parent_slug ) ) {
+			$dynamic_slug = $this->slug;
+		} else {
+			$dynamic_slug = $parent_slug;
+		}
+
+		$parts = wordpoints_parse_dynamic_slug( $dynamic_slug );
 
 		if ( $parts['dynamic'] ) {
 

@@ -19,7 +19,7 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 	/**
 	 * Test getting the arg value.
 	 *
-	 * @since        1.0.0
+	 * @since 2.1.0
 	 *
 	 * @dataProvider data_provider_relationships
 	 *
@@ -51,6 +51,48 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 		);
 
 		$this->assertSame( $relationship_slug, $relationship->get_slug() );
+		$this->assertSame( $related_slug, $relationship->get_related_entity_slug() );
+		$this->assertSame( $primary_slug, $relationship->get_primary_entity_slug() );
+		$this->assertSame( $entity->get_title(), $relationship->get_title() );
+	}
+
+	/**
+	 * Test getting the arg value with the new behavior based on the parent slug.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @dataProvider data_provider_relationships
+	 *
+	 * @param string $related_slug The slug of the related entity.
+	 * @param string $parent_slug  The slug of the parent entity.
+	 * @param array  $primary_slug The slug of the primary entity.
+	 */
+	public function test_get_value_parent( $related_slug, $parent_slug, $primary_slug ) {
+
+		if ( '{}' === substr( $related_slug, -2 ) ) {
+
+			$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship_Dynamic_Array(
+				'relationship'
+				, $parent_slug
+			);
+
+			$entity_slug = substr( $related_slug, 0, -2 );
+
+		} else {
+
+			$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship_Dynamic(
+				'relationship'
+				, $parent_slug
+			);
+
+			$entity_slug = $related_slug;
+		}
+
+		$entity = $this->factory->wordpoints->entity->create_and_get(
+			array( 'slug' => $entity_slug )
+		);
+
+		$this->assertSame( 'relationship', $relationship->get_slug() );
 		$this->assertSame( $related_slug, $relationship->get_related_entity_slug() );
 		$this->assertSame( $primary_slug, $relationship->get_primary_entity_slug() );
 		$this->assertSame( $entity->get_title(), $relationship->get_title() );

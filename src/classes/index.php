@@ -53,6 +53,7 @@ return array(
 	'wordpoints_entity' => 'entity.php',
 	'wordpoints_entity_relationship' => 'entity/relationship.php',
 	'wordpoints_entity_relationship_dynamic' => 'entity/relationship/dynamic.php',
+	'wordpoints_entity_relationship_dynamic_stored_field' => 'entity/relationship/dynamic/stored/field.php',
 	'wordpoints_entity_relationship_stored_field' => 'entity/relationship/stored/field.php',
 	'wordpoints_entity_stored_array' => 'entity/stored/array.php',
 	'wordpoints_entity_stored_db_table' => 'entity/stored/db/table.php',

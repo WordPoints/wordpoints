@@ -13,8 +13,12 @@
  * @since 2.3.0
  */
 class WordPoints_Entity_Post_Parent
-	extends WordPoints_Entity_Relationship_Dynamic
-	implements WordPoints_Entityish_StoredI {
+	extends WordPoints_Entity_Relationship_Dynamic_Stored_Field {
+
+	/**
+	 * @since 2.3.0
+	 */
+	protected $storage_type = 'db';
 
 	/**
 	 * @since 2.3.0
@@ -34,32 +38,12 @@ class WordPoints_Entity_Post_Parent
 	/**
 	 * @since 2.3.0
 	 */
-	protected function get_related_entity_ids( WordPoints_Entity $entity ) {
-		return $entity->get_the_attr_value( $this->related_ids_field );
-	}
-
-	/**
-	 * @since 2.3.0
-	 */
 	public function get_title() {
 
 		return sprintf(
 			// translators: Singular post type name.
 			_x( 'Parent %s', 'post entity', 'wordpoints' )
 			, parent::get_title()
-		);
-	}
-
-	/**
-	 * @since 2.3.0
-	 */
-	public function get_storage_info() {
-		return array(
-			'type' => 'db',
-			'info' => array(
-				'type' => 'field',
-				'field' => $this->related_ids_field,
-			),
 		);
 	}
 }

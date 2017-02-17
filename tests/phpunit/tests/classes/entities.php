@@ -12,8 +12,12 @@
  *
  * @since 2.1.0
  *
- * @covers WordPoints_Entity_User
- * @covers WordPoints_Entity_User_Roles
+ * @covers WordPoints_Entity_Comment
+ * @covers WordPoints_Entity_Comment_Author
+ * @covers WordPoints_Entity_Comment_Content
+ * @covers WordPoints_Entity_Comment_Date
+ * @covers WordPoints_Entity_Comment_Parent
+ * @covers WordPoints_Entity_Comment_Post
  * @covers WordPoints_Entity_Post
  * @covers WordPoints_Entity_Post_Author
  * @covers WordPoints_Entity_Post_Comment_Count
@@ -23,13 +27,9 @@
  * @covers WordPoints_Entity_Post_Excerpt
  * @covers WordPoints_Entity_Post_Parent
  * @covers WordPoints_Entity_Post_Title
- * @covers WordPoints_Entity_Comment
- * @covers WordPoints_Entity_Comment_Author
- * @covers WordPoints_Entity_Comment_Content
- * @covers WordPoints_Entity_Comment_Date
- * @covers WordPoints_Entity_Comment_Parent
- * @covers WordPoints_Entity_Comment_Post
+ * @covers WordPoints_Entity_User
  * @covers WordPoints_Entity_User_Role
+ * @covers WordPoints_Entity_User_Roles
  *
  * @covers WordPoints_Entity_Relationship_Dynamic_Stored_Field
  * @covers WordPoints_Entity_Relationship_Stored_Field

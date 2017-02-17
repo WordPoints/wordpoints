@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Field entity relationship class.
+ * Field stored entity relationship class.
  *
  * @package WordPoints\Entities
  * @since 2.1.0
@@ -24,22 +24,6 @@ abstract class WordPoints_Entity_Relationship_Stored_Field
 	 * @var string
 	 */
 	protected $storage_type;
-
-	/**
-	 * The field on the primary entity where the related entity IDs are stored.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @var string
-	 */
-	protected $related_ids_field;
-
-	/**
-	 * @since 2.1.0
-	 */
-	protected function get_related_entity_ids( WordPoints_Entity $entity ) {
-		return $entity->get_the_attr_value( $this->related_ids_field );
-	}
 
 	/**
 	 * @since 2.1.0

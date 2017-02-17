@@ -98,6 +98,7 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$this->assertTrue( $entities->is_registered( 'comment\post' ) );
 		$this->assertTrue( $children->is_registered( 'comment\post', 'post\post' ) );
 		$this->assertTrue( $children->is_registered( 'comment\post', 'author' ) );
+		$this->assertTrue( $children->is_registered( 'comment\post', 'date' ) );
 
 		$this->assertTrue( $entities->is_registered( 'post\page' ) );
 		$this->assertTrue( $children->is_registered( 'post\page', 'author' ) );
@@ -111,6 +112,7 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$this->assertTrue( $entities->is_registered( 'comment\page' ) );
 		$this->assertTrue( $children->is_registered( 'comment\page', 'post\page' ) );
 		$this->assertTrue( $children->is_registered( 'comment\page', 'author' ) );
+		$this->assertTrue( $children->is_registered( 'comment\page', 'date' ) );
 
 		$this->assertTrue( $entities->is_registered( 'post\attachment' ) );
 		$this->assertTrue( $children->is_registered( 'post\attachment', 'author' ) );
@@ -122,6 +124,7 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$this->assertTrue( $entities->is_registered( 'comment\attachment' ) );
 		$this->assertTrue( $children->is_registered( 'comment\attachment', 'post\attachment' ) );
 		$this->assertTrue( $children->is_registered( 'comment\attachment', 'author' ) );
+		$this->assertTrue( $children->is_registered( 'comment\attachment', 'date' ) );
 
 		$this->assertTrue( $entities->is_registered( 'user' ) );
 		$this->assertTrue( $children->is_registered( 'user', 'roles' ) );

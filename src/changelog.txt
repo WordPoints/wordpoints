@@ -1,0 +1,374 @@
+=== WordPoints ===
+
+== Change Log ==
+
+This is the user change log for older versions of WordPoints. The change log for the
+most recent versions are kept in readme.txt. A developer change log is available
+here: https://github.com/WordPoints/wordpoints/blob/master/CHANGELOG.md
+
+= 2.1.5 – 2016-11-15 =
+
+##### Fixed
+
+- Network activated modules on multisite not being loaded on individual sites in the
+network, unless some other modules were active on those sites. When no modules were
+active on a site, the network-activated modules wouldn't be loaded either. This is
+now fixed.
+
+= 2.1.4 — 2016-11-08 =
+
+##### Security
+
+- Now using a cryptographically secure pseudo-random number generator when creating
+the security token used during major updates of the plugin. As is often the case,
+this issue wasn't really exploitable, but we want to set a good example.
+- Now uses all HTTPS links to WordPress.org and WordPoints.org. This makes it more
+difficult for an attacker to send users to a fake website when they click these
+links. Once again this is an extra precaution "just in case," and to set a good
+example by following best practices.
+
+##### Fixed
+
+- Points being removed when a post was updated. Whenever a published post was
+updated, points would be awarded and removed at the same time, and if the post author
+had previously been awarded points, those points would be removed also. This is now
+fixed, and the points that were added and removed in error will be corrected by the
+update, along with the points logs.
+
+= 2.1.3 - 2016-10-01 =
+
+##### Fixed
+
+- Issues when deleting a module. The module data wouldn't be shown correctly on the
+Delete Module screen, and PHP errors would occur. A success message would be shown
+saying that the module was deleted, but it would still be present. All of this is
+now fixed, so your modules are no loner permanent.
+- Reaction conditions not actually being removed when deleted. Reloading the page
+would show that they were still there. This is now fixed, so your reaction conditions
+are no longer indestructible either.
+- Issues when cancelling editing a reaction. Weird things would happen, like a
+duplicate Rate Limits section getting added, the Add Condition form being mangled,
+and unsaved conditions not being removed. You no longer have to put up with this kind
+of mayhem. At least not from WordPoints reactions.
+
+= 2.1.2 - 2016-09-13 =
+
+##### Fixed
+
+- The form for legacy Rate Limits being displayed on non-legacy reactions. It is only
+supposed to display on reactions imported with the Importer module.
+
+= 2.1.1 - 2016-09-12 =
+
+##### Fixed
+
+- Rate Limits for reactions to the Visit event not working after the end of the first
+time period. After the first period expired for a user, they would be awarded every
+time they visited the site.
+- The settings form for Rate Limits for reactions imported from CubePoints using the
+Importer module not working correctly. The imported rate limits have to use a special
+form, but the regular one was being displayed instead.
+
+= 2.1.0 - 2016-08-10 - (countless hrs) =
+
+**Requires: WordPress 4.4+**
+
+##### Added
+
+- New Points Types administration screen. This will eventually completely replace the
+old Points Hooks administration screen. It includes a new UI for creating, updating,
+and deleting points types, and for configuring when points are awarded in reaction to
+different events that take place on the site. Because there are still a few minor
+differences in the behavior of the code that underlies this new UI and the old points
+hooks, the old points hooks have not yet been imported to the new screen. The plan
+is to eventually achieve feature parity between the new hooks and the old hooks, and
+then the old hooks will be automatically imported to the new screen.
+- "Post content contains" condition for event reactions created on the new Points
+Types screen. This means that you can have an event reaction fire only when a Post
+contains a particular word or phrase.
+- "User role" condition for event reactions created on the new Points Types screen.
+This means that you can have an event reaction fire only when a user has a particular
+role.
+- Upload Media event (on the new Points Types screen), allowing points to be awarded
+when a new file is uploaded to the media library.
+
+##### Changed
+
+- Heading levels on the admin screens to better match the rest of WordPress after
+version 4.3.
+- Most notices shown in the administration screens to be dismissible.
+
+##### Deprecated
+
+- The Points Hooks screen, as noted above. It will be removed in a future release.
+
+##### Removed
+
+- The ability to create, update, and delete points types on the Points Hooks screen.
+This should be done on the new Points Types screen instead.
+- Some of the language files (Greek, Japanese, and Simplified Chinese). These can now
+be found on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/wordpoints).
+The rest of the language files will be removed from the plugin in the future in favor
+of WordPress.org's new language pack system. The Simplified Chinese translation is
+already available as a language pack there. If you don't see your language, jump in
+and start translating! Everyone is welcome.
+
+##### Fixed
+
+- Network administration menus being displayed in some cases on multisite even when
+WordPoints wasn't activated network-wide.
+- A notice incorrectly being shown when the ranks component was installed on
+multisite.
+- A fatal error when uninstalling the plugin if WordPoints modules had been
+installed.
+- Some modules not being uninstalled properly.
+- Database error on multisite when uninstalling modules or components that had never
+been activated.
+- The user points data not being removed from the database for all points types when
+the plugin was uninstalled on multisite.
+- The Post Delete and Comment Removed points hooks not being displayed on legacy
+sites where they are still used.
+- [Dev-speak warning!] Symlinked modules not being uninstalled correctly (only file
+removed, not data). [Told you!]
+
+= 2.0.2 - 2015-09-26 - (~10 hrs) =
+
+##### Fixed
+
+- Since version 2.0.0, the plugin was not running its installation script when it was
+activated. This caused the Points component not to be activated by default, made it
+impossible to use the Modules screen, and, in some cases, also resulted in the site
+sporadically entering maintenance mode. This update will automatically run the
+install script on sites where it was not run on activation, which will fix all of
+these issues.
+
+= 2.0.1 - 2015-07-22 - (~5 hrs) =
+
+##### Fixed
+
+- In the table on the modules screen, the id of each checkbox is now based on the
+module's file, instead of on the module name. This avoids duplicate ids when there
+are multiple modules with the same name installed. Duplicate ids are not allowed,
+and could have caused bugs on the Modules screen. You are now free to install as
+many modules with the same name as you want without any fear of bugs ;-).
+
+##### Security
+
+- Use a stronger hashing algorithm to generate the keys for the points logs cache.
+The use of a weaker algorithm could possibly have allowed a determined attacker to
+view logs which they might not otherwise be able to.
+- Use a stronger hashing algorithm to generate the key used to perform a module
+compatibility check during a breaking update. This is not really a security concern,
+because the time window for exploitation only lasts a few seconds, and all a
+successful attacker would be able to do is view a list of modules installed on the
+site.
+
+= 2.0.0 - 2015-06-30 - (~70 hrs) =
+
+##### Added
+
+- Support for emoji! 🎉✨  You can now use them in points logs and rank names (and
+other places, too).
+
+##### Changed
+
+- Many internal improvements. Great stuff is coming soon!
+
+##### Removed
+
+- Some old code was removed. This could break some modules, so if you are using a
+custom module or plugin that integrates with WordPoints, you should test before
+updating. WordPoints will attempt to detect incompatible modules when it is updated,
+and will deactivate them if necessary.
+
+##### Fixed
+
+- The modules-per-page setting on the Modules screen was not being saved. You could
+enter whatever value you wanted, but it wouldn't change a thing. You no longer have
+to feel like your site is ignoring you.
+- An error on the confirmation screen when attempting to delete a module. This would
+happen for most modules, preventing them from being deleted. Your modules are no
+longer permanent.
+- The points logs cache was not being cleaned in certain cases, like when a user was
+deleted. This would cause deleted logs to continue to display, if persistent caching
+was being used. Your days of being haunted by zombie points logs are over.
+- The `[wordpoints_user_rank]` shortcode wasn't using the default points type by
+default. You always had to use the `points_type` attribute. Now that your fingers
+won't be getting that extra exercise from typing, you may want to take them to the
+gym.
+- The loading spinner was not displaying on the Ranks screen while a rank was being
+saved. It's now back, so you can stare at the center of it and see if you get
+mesmerized.
+
+= 1.10.4 — (~2 hrs) =
+* Fixed: Users would see 0 instead of the correct number of points on the profile
+admin screen.
+
+= 1.10.3 - (~10 hrs) =
+* Fixed: Closes 2 potential SQL injection vulnerabilities in the points logs query
+code. These are not exploitable within WordPoints itself, however, it is possible
+that they could be exploited through custom code if it passes untrusted data to
+the `points__compare` or `text__compare` query args.
+* Fixed: Avoids the potential for directory listing of the modules directory on
+improperly configured servers.
+* Fixed: Closes any potential XSS vulnerabilities through developer error messages
+on poorly configured installs (i.e., with `WP_DEBUG` enabled).
+
+= 1.10.2 — (~6 hrs) =
+* Fixed: There was a bug on multisite causing users from all sites to be displayed in
+the top users table, instead of just users from the current site. Your users will now
+stay out of each others leader boards.
+* Fixed: There was a bug in the ranks component which would cause a user to be
+promoted two ranks when they should have only been promoted one. Your users will no
+longer cut rank on you.
+* Fixed: There was a bug in the top users table that caused users who hadn't been
+awarded any points yet to be ignored, even when they should have been displayed. Your
+points-less users will no longer have to feel left out.
+* Fixed: There was another bug in the top users table that would only affect sites
+where users are allowed to have negative points. Any users with negative points would
+be displayed above users who had never been awarded any points.
+* Fixed: There was another bug in the top users table (yes, really!), for those using
+persistent caching. The cache for the top users wouldn't be cleared when a user
+registered or was deleted. This could cause the table to become stale in some cases.
+You no longer have to feel nostalgia when you view the leader board.
+
+= 1.10.1 — (~1/2 hr) =
+* Fixed: The My Points widget no longer displays points logs to logged-out users.
+
+= 1.10.0 — (~20 hrs) =
+* Requires: WordPress 3.9+
+* Fixed: Current points values not being displayed beside inputs on profile screen.
+* Fixed: The modules cache being preserved too long when using persistent caching.
+* Fixed: Other caching issues on multisite.
+* Updated: Numerous other small fixes and minor improvements.
+
+= 1.9.2 — (~2 hrs) =
+* Fixed: A bug preventing updating a user's points from their admin profile when
+they don't have any points yet.
+
+= 1.9.1 — (~3 hrs) =
+* Fixed: A bug preventing ranks from being saved or updated.
+
+= 1.9.0 - (~65 hrs) =
+* Updated: The title for the "Points" column in the points logs and top users tables
+will be replaced with the name of the points type being displayed.
+* Updated: Display the number of points a rank is for in the rank's title bar (on
+the Ranks admin screen).
+* Updated: Cache user ranks. May improve performance.
+* Updated: Combine the Comment and Comment Removed points hooks once again. The
+Comment hook will automatically remove the points if the comment gets removed, and
+the Comment Removed hook is hidden on new sites. The old behavior is retained as
+needed for current installs, but the Comment Removed hook will likely be removed in
+2.0, so you are recommended to stop using it now.
+* Updated: Combine the Post and Post Delete points hooks also. The Post hook now
+automatically removes points when a post is deleted. Also, the old behavior is
+retained on existing installs, but the Post Delete hook will probably be removed in
+2.0 as well.
+* Fixed: Better caching for the points logs. This could really improve performance
+when viewing the logs.
+* Fixed: Warn the user when they attempt to upload a module on the plugins screen.
+* Fixed: On multisite, only load network-active modules on the network admin screens.
+
+= 1.8.0 - (~55 hrs) =
+* New: You can display the points of the current post's author using the
+[`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
+shortcode by supplying `post_author` as the value of the `user_id` attribute, like
+this: `[wordpoints_points user_id="post_author"]`.
+* New: Award points to post authors for comments they receive with the
+[Comment Received](https://wordpoints.org/user-guide/points-hooks/comment-received/)
+points hook.
+* New: Display a user's rank with the [`[wordpoints_user_rank]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_user_rank/) shortcode.
+* Updated: Part of the install and update process is skipped when the plugin is
+network activated on a very large multisite network (>10,000 sites).
+
+= 1.7.1 — (~5 hrs) =
+* Fixed: Ranks not saving in some cases. Thanks, @atomtheman10, for the report!
+* Fixed: XSS vulnerability from the points logs admin screen. It was only exploitable by Administrators and Editors.
+* Fixed: CSRF vulnerability for toggling accessibility mode on the Points Hooks screen. It would only have been an annoyance.
+
+= 1.7.0 - (~80 hrs) =
+* New: Create ranks for your users by activating [the Ranks component](https://wordpoints.org/user-guide/#ranks).
+* * You can manage the ranks on the *WordPoints » Ranks* administration screen.
+* * A user's rank is displayed along with their name in the Top Users table.
+* * You can display a user's rank using the `%rank` placeholder in the WordPoints widget.
+* Updated: Now requires WordPress 3.8+.
+* Fixed: Display users who have never been awarded points in the Top Users table when appropriate.
+* Fixed: CSRF vulnerability for adding a points type.
+* Fixed: CSRF vulnerability for deleting a points type.
+* Fixed: Many other small internal improvements.
+
+= 1.6.1 =
+* Fixed: Honor the Excluded Users setting in the Top Users widget and shortcode.
+
+= 1.6.0 =
+* New: The value of the main setting for a hook is displayed in its title bar.
+* New: Translation into Spanish thanks to Andrew Kurtis of WebHostingHub.
+* New: Support for symlinked modules (that's devspeak you don't need to understand, for those of you non-techie users :-)
+* New: The HTML classes of the table elements may be filtered by developers.
+* Updated: Improved performance when the logs are regenerated after a post or comment is deleted.
+* Updated: Better pagination for the points logs tables.
+* Updated: Better accessibility for users with screen readers.
+
+= 1.5.1 =
+* Fixed: Cyrillic and other non-English characters not displaying correctly in the points logs.
+* Fixed: Only post types that support comments are shown as options in the Comment and Comment Removed points hooks.
+
+= 1.5.0 =
+* New: The Comment and Comment Removed points hooks now have a post type setting, like the Post points hook.
+* New: Translation into simplified Chinese, provided by Jack Lee.
+* Updated: The points hooks API for developers has received several improvements.
+* * It is now optional to implement the `form()` and `update()` methods when extending `WordPoints_Points_Hook`.
+* * The `WordPoints_Post_Type_Points_Hook_Base` class was introduced as a bootstrap for points hooks implementing a post type setting.
+* * Other internal improvements, to be continued.
+* Updated: The points logs are now cached, offering a performance benefit on sites with persistent caching.
+* Updated: The points types are shown in two columns on the Points Hooks administration panel on devices with wide screens.
+* Updated: By request, it is now possible to enable the use of HTML in the "WordPoints" widget using this code: `remove_filter( 'wordpoints_points_widget_text', 'esc_html', 20 );`
+* Fixed: Module caching was broken because of a code typo.
+* Fixed: When network active on multisite, the plugin did not install itself on new sites when they were added to the network.
+
+= 1.4.0 =
+* New: Added [`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/) shortcode to display a list of active points hooks.
+* New: Override hook descriptions shown by the new how to get points shortcode on the hooks admin screen.
+* Updated: The current number of points a user has is displayed on their admin profile page to administrators in addition to the inputs.
+* Updated: The post points hook has been split in to the Post and Post Delete points hooks.
+* Updated: The comments points hook has been split into the Comment and Comment Removed points hooks.
+* Updated: Calculate the periods for the periodic points hook relative to the calendar instead of the user's last visit.
+* Fixed: Clean the points logs for comment approvals when a post is deleted, removing the dead link to the post.
+
+= 1.3.0 =
+* New: User avatars are displayed in the points logs table.
+* New: Added [`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/) shortcode to display a user's points.
+* New: Users' points total may be [stored in a custom meta key](https://wordpoints.org/?p=153), allowing integration with other plugins.
+* Fixed: Logs for posts that have become private or protected are hidden from users who can't access them.
+
+= 1.2.0 =
+* New: Support for WordPress multisite See [here](https://wordpoints.org/user-guide/multisite/) for full details.
+* New: Network-wide points hooks for multisite.
+* Fixed: Delete the points logs for a user when they are deleted.
+* Fixed: Clean up the points logs for a post when it is deleted, removing the link.
+* Fixed: Clean up the points logs for a comment when it is deleted, removing the link and comment text.
+
+= 1.1.2 =
+* Fixed: The post points hook was awarding points for auto-drafts and post revisions.
+* Fixed: The periodic points hook wasn’t working in some cases.
+* Fixed: There was a fatal error in the uninstall script, causing a blank screen when uninstalling the plugin.
+
+= 1.1.1 =
+* New: The Brazilian Portugese language file was added to the plugin, thanks to Gabriel Galvao.
+* Fixed: The language files are being loaded properly now.
+* Fixed: The points component is activated by default. (We tried and failed to do that back in 1.0.1).
+
+= 1.1.0 =
+* New: You can now add points hooks to a points type by clicking on the hook and
+choosing the points type to add it to.
+* New: The plugin is fully translatable, and pot file is now included in `/languages`.
+* New: For developers, this version introduces an [improved modules API](https://wordpoints.org/developer-guide/modules/).
+* New: Also for developers, the logs query class now implements `WP_Meta_Query` and `WP_Date_Query`.
+* Fixed: Use the correct post type name in the points logs instead of the generic "Post".
+
+= 1.0.1 =
+* Fixed: The points component is now activated upon installation.
+* Fixed: Module/component activation user experience improved slightly.
+
+= 1.0.0 =
+* Initial release

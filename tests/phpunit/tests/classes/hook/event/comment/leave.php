@@ -65,6 +65,12 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 					array(
 						'post_author' => $this->factory->user->create(),
 						'post_type'   => $this->dynamic_slug,
+						'post_parent' => $this->factory->post->create(
+							array(
+								'post_author' => $this->factory->user->create(),
+								'post_type'   => $this->dynamic_slug,
+							)
+						),
 					)
 				),
 			)
@@ -93,6 +99,12 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 						array(
 							'post_author' => $this->factory->user->create(),
 							'post_type'   => $this->dynamic_slug,
+							'post_parent' => $this->factory->post->create(
+								array(
+									'post_author' => $this->factory->user->create(),
+									'post_type'   => $this->dynamic_slug,
+								)
+							),
 						)
 					),
 				)

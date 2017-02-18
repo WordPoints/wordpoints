@@ -20,6 +20,24 @@ class WordPoints_Hook_Event_Comment_Leave_Page_Test extends WordPoints_Hook_Even
 	 * @since 2.1.0
 	 */
 	protected $dynamic_slug = 'page';
+
+	/**
+	 * @since 2.3.0
+	 */
+	public function setUp() {
+
+		$this->expected_targets[] = array(
+			'comment\\',
+			'post\\',
+			'post\\',
+			'parent',
+			'post\\',
+			'author',
+			'user',
+		);
+
+		parent::setUp();
+	}
 }
 
 // EOF

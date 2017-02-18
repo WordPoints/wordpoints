@@ -33,7 +33,7 @@ class WordPoints_Hook_Extension_Conditions
 	/**
 	 * @since 2.1.0
 	 */
-	public function __construct( $slug ) {
+	public function __construct( $slug = null ) {
 
 		parent::__construct( $slug );
 

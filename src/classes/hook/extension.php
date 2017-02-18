@@ -49,7 +49,7 @@ abstract class WordPoints_Hook_Extension implements WordPoints_Hook_ExtensionI {
 	 */
 	public function __construct( $slug = null ) {
 
-		if ( $slug ) {
+		if ( isset( $slug ) ) {
 			$this->slug = $slug;
 		}
 	}

@@ -70,13 +70,9 @@
             "278": false
         },
         "hidden": {
-            "711": false,
-            "735": false,
             "810": false
         },
         "has-row-actions column-primary": {
-            "711": false,
-            "735": false,
             "810": false
         },
         "second module-version-author-uri\">": {
@@ -192,14 +188,23 @@
                 "parentheses": 1
             }
         },
+        "1": {
+            "517": {
+                "name": "wp_script_add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
         "attr": {
-            "614": false
+            "647": false
         },
         "relationship": {
-            "619": false
+            "652": false
         },
         "entity": {
-            "644": {
+            "677": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -208,16 +213,16 @@
             }
         },
         "success": {
-            "805": false
+            "838": false
         },
         "is-dismissible": {
-            "821": false
+            "854": false
         },
         "data-nonce=\"": {
-            "823": false
+            "856": false
         },
         "upload": {
-            "971": {
+            "1004": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -454,9 +459,15 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
         "network": {
+            "391": false,
+            "463": false,
+            "510": false,
             "542": false
         },
         "standard": {
+            "393": false,
+            "465": false,
+            "512": false,
             "544": false
         }
     },
@@ -1545,15 +1556,15 @@
     },
     "\/classes\/entity\/relationship\/dynamic.php": {
         "\\\\": {
-            "31": false
+            "38": false
         },
         "{}": {
-            "34": false
+            "41": false
         }
     },
     "\/classes\/entity\/relationship\/stored\/field.php": {
         "field": {
-            "51": {
+            "35": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1718,7 +1729,7 @@
     },
     "\/classes\/hook\/extension\/conditions.php": {
         "entity": {
-            "297": false
+            "300": false
         }
     },
     "\/classes\/hook\/hit\/query.php": {
@@ -1750,7 +1761,7 @@
     },
     "\/includes\/hooks.php": {
         "wp": {
-            "134": {
+            "135": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1759,22 +1770,13 @@
             }
         },
         "comment\\\\": {
-            "427": {
+            "428": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "208": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            }
-        },
-        "approved": {
             "209": {
                 "name": "array",
                 "type": "unknown",
@@ -1783,15 +1785,24 @@
                 "parentheses": 1
             }
         },
+        "approved": {
+            "210": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
         "post\\\\": {
-            "281": {
+            "282": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "407": {
+            "408": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1800,14 +1811,14 @@
             }
         },
         "publish": {
-            "227": {
+            "228": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "243": {
+            "244": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1816,7 +1827,7 @@
             }
         },
         "WordPoints_Hook_Arg_Current_User": {
-            "329": {
+            "330": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2170,16 +2181,32 @@
     },
     "\/classes\/un\/installer\/base.php": {
         "install": {
+            "315": false,
             "395": false
         },
         "network": {
             "336": false,
+            "467": false,
             "561": false,
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "1374": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
                 "parentheses": 1
             },
             "1380": {
@@ -2191,8 +2218,31 @@
             }
         },
         "site": {
+            "341": false,
+            "413": false,
             "446": false,
             "566": false,
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1373": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2205,6 +2255,34 @@
             "378": false,
             "484": false,
             "602": false,
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1373": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1374": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2236,6 +2314,13 @@
             }
         },
         "local": {
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2245,6 +2330,13 @@
             }
         },
         "global": {
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2254,6 +2346,13 @@
             }
         },
         "universal": {
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2263,6 +2362,13 @@
             }
         },
         "wordpoints": {
+            "1606": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "1665": {
                 "name": "array",
                 "type": "unknown",
@@ -2302,6 +2408,7 @@
             "1677": false
         },
         "manage": {
+            "1683": false,
             "1686": false
         },
         "columnshidden": {
@@ -2309,6 +2416,22 @@
         },
         "-networkcolumnshidden": {
             "1686": false
+        }
+    },
+    "\/classes\/entity\/relationship\/dynamic\/stored\/field.php": {
+        "field": {
+            "35": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/hook\/action\/post\/type\/comment.php": {
+        "comment": {
+            "78": false
         }
     }
 }

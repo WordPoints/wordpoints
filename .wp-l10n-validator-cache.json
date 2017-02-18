@@ -46,8 +46,8 @@
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 36698,
-            "hash": "b8ca5b3280e9adff4c92d7849ab43173",
+            "size": 37713,
+            "hash": "3fb597b816c0d6e17c6964bfa6a7ba19",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -220,9 +220,24 @@
             "hash": "eafe90ab69d83969ebfba7ab60f33d77",
             "errors": false
         },
+        "\/classes\/entity\/comment\/content.php": {
+            "size": 579,
+            "hash": "32e72ef698131adda75ef1b7783d6ede",
+            "errors": false
+        },
+        "\/classes\/entity\/comment\/date.php": {
+            "size": 574,
+            "hash": "b41fe508c3dbd74441faef95d1be534f",
+            "errors": false
+        },
+        "\/classes\/entity\/comment\/parent.php": {
+            "size": 736,
+            "hash": "2a088d3e068bc5ac122a61366dd875e7",
+            "errors": false
+        },
         "\/classes\/entity\/comment\/post.php": {
-            "size": 930,
-            "hash": "9bfd70e8d5438148207aea1a19362683",
+            "size": 674,
+            "hash": "f87c1bbb579ffdff1209e031a322ba91",
             "errors": false
         },
         "\/classes\/entity\/comment.php": {
@@ -275,9 +290,39 @@
             "hash": "be13ec9916fb5f1dcae8dce7f393449d",
             "errors": false
         },
+        "\/classes\/entity\/post\/comment\/count.php": {
+            "size": 592,
+            "hash": "67be95daf454c93222487e124302ad52",
+            "errors": false
+        },
         "\/classes\/entity\/post\/content.php": {
-            "size": 549,
-            "hash": "4432805d15857d8aa72c24507854c165",
+            "size": 564,
+            "hash": "e3db572dfa880259df4a7f6332a18853",
+            "errors": false
+        },
+        "\/classes\/entity\/post\/date\/modified.php": {
+            "size": 599,
+            "hash": "073e22006bb3f490c643a41c52668463",
+            "errors": false
+        },
+        "\/classes\/entity\/post\/date\/published.php": {
+            "size": 599,
+            "hash": "7851ab86f26c7ee149d955932038882f",
+            "errors": false
+        },
+        "\/classes\/entity\/post\/excerpt.php": {
+            "size": 751,
+            "hash": "e342a614b0e8d67572548f1be6a50caa",
+            "errors": false
+        },
+        "\/classes\/entity\/post\/parent.php": {
+            "size": 793,
+            "hash": "5b873b656a210864df47fd6d002d0b6e",
+            "errors": false
+        },
+        "\/classes\/entity\/post\/title.php": {
+            "size": 554,
+            "hash": "958cf950678cae65f887aa2d99311cd0",
             "errors": false
         },
         "\/classes\/entity\/post.php": {
@@ -285,14 +330,19 @@
             "hash": "2e3869a5ac39b2078b28e1395072ad43",
             "errors": false
         },
+        "\/classes\/entity\/relationship\/dynamic\/stored\/field.php": {
+            "size": 735,
+            "hash": "bbb7d812a3a63e38406802126b93e2f7",
+            "errors": false
+        },
         "\/classes\/entity\/relationship\/dynamic.php": {
-            "size": 1109,
-            "hash": "b218538e981a631a0df3131c5f8153c6",
+            "size": 1294,
+            "hash": "b64cd54471df9dbd65611471ad749f86",
             "errors": false
         },
         "\/classes\/entity\/relationship\/stored\/field.php": {
-            "size": 1027,
-            "hash": "fe37640eed8b12ffe9152313234688aa",
+            "size": 703,
+            "hash": "60f3ce1a4a85c836a1435327c2b65f31",
             "errors": false
         },
         "\/classes\/entity\/relationship.php": {
@@ -401,8 +451,8 @@
             "errors": false
         },
         "\/classes\/hook\/action\/post\/type\/comment.php": {
-            "size": 418,
-            "hash": "8eb5acc54027a7a47f0cf4a9021033cd",
+            "size": 1659,
+            "hash": "a93ec6904df8733698a36123ab7d4f9a",
             "errors": false
         },
         "\/classes\/hook\/action\/post\/type.php": {
@@ -521,13 +571,13 @@
             "errors": false
         },
         "\/classes\/hook\/extension\/blocker.php": {
-            "size": 645,
-            "hash": "f7fe162a6e14a4fdb231e0412ce511d6",
+            "size": 883,
+            "hash": "c62bb071f095fda90a638611f38a6b04",
             "errors": false
         },
         "\/classes\/hook\/extension\/conditions.php": {
-            "size": 6697,
-            "hash": "f5eb266bb1b9fb0445836b4015aa8872",
+            "size": 6738,
+            "hash": "fd72ae5f3eb8a813fa5d4dd4eba0a689",
             "errors": false
         },
         "\/classes\/hook\/extension\/hit\/listeneri.php": {
@@ -556,8 +606,8 @@
             "errors": false
         },
         "\/classes\/hook\/extension.php": {
-            "size": 3921,
-            "hash": "a17bc4516dd784abbfb3cb89cf80dbd6",
+            "size": 4205,
+            "hash": "42d3faa62fe6178034c5f4a526b286f3",
             "errors": false
         },
         "\/classes\/hook\/extensioni.php": {
@@ -651,8 +701,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 7762,
-            "hash": "dca61560447c78c9f06c420c6443779a",
+            "size": 8486,
+            "hash": "83a24133b5936fbf36c0f612cc1041b2",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -1131,8 +1181,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 13459,
-            "hash": "9dbad94ae32b3093b6a471189e0c73f8",
+            "size": 14416,
+            "hash": "44d076376b8c593361acacac925c0bc0",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
@@ -1196,8 +1246,8 @@
             "errors": false
         },
         "\/includes\/hooks.php": {
-            "size": 11744,
-            "hash": "6dc48667141da11100f8c636601cc166",
+            "size": 11818,
+            "hash": "e8e6b2f3858554d8ab76309d59fd79c4",
             "errors": false
         },
         "\/includes\/maintenance.php": {
@@ -1221,5 +1271,5 @@
             "errors": false
         }
     },
-    "config_signature": "c3cda3166dbc13e9125113009a7406a9"
+    "config_signature": "ee35d1c8cb02c195a8199313c7016e71"
 }

@@ -18,20 +18,37 @@ class WordPoints_Hook_Action_Post_Type_Test
 	extends WordPoints_PHPUnit_TestCase_Hooks {
 
 	/**
+	 * The class being tested.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var string
+	 */
+	protected $class_name = 'WordPoints_Hook_Action_Post_Type';
+
+	/**
+	 * The slug of the base entity for the action.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @var string
+	 */
+	protected $base_entity_slug = 'post\\post';
+
+	/**
 	 * Test checking if an action should fire.
 	 *
 	 * @since 2.1.0
 	 */
 	public function test_should_fire_correct_post_type() {
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'post' )
-		);
+		$entity = $this->get_entity();
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\post'
-			, array( $post )
-			, array( 'arg_index' => array( 'post\\post' => 0 ) )
+			, array( $entity )
+			, array( 'arg_index' => array( $this->base_entity_slug => 0 ) )
 		);
 
 		$this->assertTrue( $action->should_fire() );
@@ -44,18 +61,20 @@ class WordPoints_Hook_Action_Post_Type_Test
 	 */
 	public function test_should_fire_other_post_type() {
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'page' )
-		);
+		$entity = $this->get_entity( array( 'post_type' => 'page' ) );
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		$slug = str_replace( '\\post', '\\page', $this->base_entity_slug );
+
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\page'
-			, array( $post )
-			, array( 'arg_index' => array( 'post\\page' => 0 ) )
+			, array( $entity )
+			, array( 'arg_index' => array( $slug => 0 ) )
 		);
 
 		$this->assertTrue( $action->should_fire() );
 	}
+
 	/**
 	 * Test checking if an action should fire when the requirements aren't met.
 	 *
@@ -63,101 +82,13 @@ class WordPoints_Hook_Action_Post_Type_Test
 	 */
 	public function test_should_fire_incorrect_post_type() {
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'page' )
-		);
+		$entity = $this->get_entity( array( 'post_type' => 'page' ) );
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\post'
-			, array( $post )
-			, array( 'arg_index' => array( 'post\\post' => 0 ) )
-		);
-
-		$this->assertFalse( $action->should_fire() );
-	}
-
-	/**
-	 * Test checking if an action should fire.
-	 *
-	 * @since 2.1.0
-	 */
-	public function test_should_fire_correct_post_type_hierarchy() {
-
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'post' )
-		);
-
-		$comment = $this->factory->comment->create_and_get(
-			array( 'comment_post_ID' => $post->ID )
-		);
-
-		$action = new WordPoints_PHPUnit_Mock_Hook_Action_Post_Type(
-			'test\\post'
-			, array( $comment )
-			, array( 'arg_index' => array( 'comment\\post' => 0 ) )
-		);
-
-		$action->set(
-			'post_hierarchy'
-			, array( 'comment\\post', 'post\\post', 'post\\post' )
-		);
-
-		$this->assertTrue( $action->should_fire() );
-	}
-
-	/**
-	 * Test checking if an action should fire.
-	 *
-	 * @since 2.1.0
-	 */
-	public function test_should_fire_other_post_type_hierarchy() {
-
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'page' )
-		);
-
-		$comment = $this->factory->comment->create_and_get(
-			array( 'comment_post_ID' => $post->ID )
-		);
-
-		$action = new WordPoints_PHPUnit_Mock_Hook_Action_Post_Type(
-			'test\\page'
-			, array( $comment )
-			, array( 'arg_index' => array( 'comment\\page' => 0 ) )
-		);
-
-		$action->set(
-			'post_hierarchy'
-			, array( 'comment\\post', 'post\\post', 'post\\post' )
-		);
-
-		$this->assertTrue( $action->should_fire() );
-	}
-
-	/**
-	 * Test checking if an action should fire when the post type is incorrect.
-	 *
-	 * @since 2.1.0
-	 */
-	public function test_should_fire_incorrect_post_type_hierarchy() {
-
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'page' )
-		);
-
-		$comment = $this->factory->comment->create_and_get(
-			array( 'comment_post_ID' => $post->ID )
-		);
-
-		$action = new WordPoints_PHPUnit_Mock_Hook_Action_Post_Type(
-			'test\\post'
-			, array( $comment )
-			, array( 'arg_index' => array( 'comment\\post' => 0 ) )
-		);
-
-		$action->set(
-			'post_hierarchy'
-			, array( 'comment\\post', 'post\\post', 'post\\post' )
+			, array( $entity )
+			, array( 'arg_index' => array( $this->base_entity_slug => 0 ) )
 		);
 
 		$this->assertFalse( $action->should_fire() );
@@ -170,14 +101,15 @@ class WordPoints_Hook_Action_Post_Type_Test
 	 */
 	public function test_should_fire_no_dynamic_slug() {
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'post' )
-		);
+		$entity = $this->get_entity();
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		$slug = str_replace( '\\post', '', $this->base_entity_slug );
+
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test'
-			, array( $post )
-			, array( 'arg_index' => array( 'post' => 0 ) )
+			, array( $entity )
+			, array( 'arg_index' => array( $slug => 0 ) )
 		);
 
 		$this->assertFalse( $action->should_fire() );
@@ -193,27 +125,27 @@ class WordPoints_Hook_Action_Post_Type_Test
 		// Clears the registries.
 		$this->mock_apps();
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'post' )
-		);
+		$entity = $this->get_entity();
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\post'
-			, array( $post )
-			, array( 'arg_index' => array( 'post\\post' => 0 ) )
+			, array( $entity )
+			, array( 'arg_index' => array( $this->base_entity_slug => 0 ) )
 		);
 
 		$this->assertFalse( $action->should_fire() );
 	}
 
 	/**
-	 * Test checking if the action should fire when there is no post.
+	 * Test checking if the action should fire when the arg for the entity isn't set.
 	 *
 	 * @since 2.1.0
 	 */
-	public function test_should_fire_no_post() {
+	public function test_should_fire_no_entity_arg() {
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\post'
 			, array( 'a' )
 		);
@@ -228,15 +160,14 @@ class WordPoints_Hook_Action_Post_Type_Test
 	 */
 	public function test_should_fire_other_requirements_met() {
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'post' )
-		);
+		$entity = $this->get_entity();
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\post'
-			, array( $post, 'a' )
+			, array( $entity, 'a' )
 			, array(
-				'arg_index' => array( 'post\\post' => 0 ),
+				'arg_index'    => array( $this->base_entity_slug => 0 ),
 				'requirements' => array( 1 => 'a' ),
 			)
 		);
@@ -251,20 +182,37 @@ class WordPoints_Hook_Action_Post_Type_Test
 	 */
 	public function test_should_fire_other_requirements_not_met() {
 
-		$post = $this->factory->post->create_and_get(
-			array( 'post_type' => 'post' )
-		);
+		$entity = $this->get_entity();
 
-		$action = new WordPoints_Hook_Action_Post_Type(
+		/** @var WordPoints_Hook_Action_Post_Type $action */
+		$action = new $this->class_name(
 			'test\\post'
-			, array( $post, 'b' )
+			, array( $entity, 'b' )
 			, array(
-				'arg_index' => array( 'post\\post' => 0 ),
+				'arg_index'    => array( $this->base_entity_slug => 0 ),
 				'requirements' => array( 1 => 'a' ),
 			)
 		);
 
 		$this->assertFalse( $action->should_fire() );
+	}
+
+	/**
+	 * Get an entity object.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $post_data The data for the post relating to the entity.
+	 *
+	 * @return object The entity object.
+	 */
+	protected function get_entity( array $post_data = null ) {
+
+		if ( ! isset( $post_data ) ) {
+			$post_data = array( 'post_type' => 'post' );
+		}
+
+		return $this->factory->post->create_and_get( $post_data );
 	}
 }
 

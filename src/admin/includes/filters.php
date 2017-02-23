@@ -40,4 +40,8 @@ add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
 add_action( 'wp_ajax_nopriv_wordpoints_breaking_module_check', 'wordpoints_admin_ajax_breaking_module_check' );
 add_action( 'wp_ajax_wordpoints-delete-admin-notice-option', 'wordpoints_delete_admin_notice_option' );
 
+add_action( 'load-plugins.php', 'wordpoints_admin_maybe_disable_update_row_for_php_version_requirement', 100 );
+add_action( 'load-update-core.php', 'wordpoints_admin_maybe_remove_from_updates_screen' );
+add_action( 'install_plugins_pre_plugin-information', 'wordpoints_admin_maybe_remove_from_updates_screen', 9 );
+
 // EOF

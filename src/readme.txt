@@ -1,7 +1,7 @@
 === WordPoints ===
 Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
-Tags: points, awards, rewards, cubepoints, credits, gamify, multisite, ranks
+Tags: points, awards, rewards, credits, gamify, ranks, games
 Requires at least: 4.6
 Tested up to: 4.8-alpha-39357
 Stable tag: 2.2.2

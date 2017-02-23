@@ -120,6 +120,26 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			, wordpoints_module( 'test' )
 		);
 	}
+
+	/**
+	 * Test initializing the Data Types app.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers ::wordpoints_data_types_init
+	 */
+	public function test_data_types_init() {
+
+		$this->mock_apps();
+
+		$data_types = new WordPoints_Class_Registry();
+
+		wordpoints_data_types_init( $data_types );
+
+		$this->assertTrue( $data_types->is_registered( 'decimal_number' ) );
+		$this->assertTrue( $data_types->is_registered( 'integer' ) );
+		$this->assertTrue( $data_types->is_registered( 'text' ) );
+	}
 }
 
 // EOF

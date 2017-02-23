@@ -520,6 +520,7 @@ function wordpoints_is_network_context() {
  */
 function wordpoints_data_types_init( $data_types ) {
 
+	$data_types->register( 'decimal_number', 'WordPoints_Data_Type_Decimal_Number' );
 	$data_types->register( 'integer', 'WordPoints_Data_Type_Integer' );
 	$data_types->register( 'text', 'WordPoints_Data_Type_Text' );
 }

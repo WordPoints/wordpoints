@@ -45,6 +45,7 @@ return array(
 	'wordpoints_class_registry_persistent' => 'class/registry/persistent.php',
 	'wordpoints_components' => 'components.php',
 	'wordpoints_data_type' => 'data/type.php',
+	'wordpoints_data_type_decimal_number' => 'data/type/decimal/number.php',
 	'wordpoints_data_type_integer' => 'data/type/integer.php',
 	'wordpoints_data_type_text' => 'data/type/text.php',
 	'wordpoints_db_query' => 'db/query.php',

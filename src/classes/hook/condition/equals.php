@@ -39,7 +39,30 @@ class WordPoints_Hook_Condition_Equals extends WordPoints_Hook_Condition {
 	 */
 	public function is_met( array $settings, WordPoints_Hook_Event_Args $args ) {
 
-		return $settings['value'] === $args->get_current()->get_the_value();
+		$arg = $args->get_current();
+		$value = $arg->get_the_value();
+
+		// Validate attribute data types, to ensure that they are converted to the
+		// correct underlying PHP types if necessary before the strict comparison
+		// below.
+		if ( $arg instanceof WordPoints_Entity_Attr ) {
+
+			$data_type = wordpoints_apps()
+				->get_sub_app( 'data_types' )
+				->get( $arg->get_data_type() );
+
+			// If we can't get the data type, proceed with the comparison anyway.
+			if ( $data_type instanceof WordPoints_Data_TypeI ) {
+
+				$value = $data_type->validate_value( $value );
+
+				if ( is_wp_error( $value ) ) {
+					return false;
+				}
+			}
+		}
+
+		return $settings['value'] === $value;
 	}
 }
 

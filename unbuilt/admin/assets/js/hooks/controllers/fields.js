@@ -299,9 +299,10 @@ var DataType = Backbone.Model.extend({
 	}
 });
 
-var DataTypes = new Backbone.Collection();
+var DataTypes = new Backbone.Collection( [], { model: DataType });
 
-DataTypes.add( new DataType( { slug: 'text' } ) );
-DataTypes.add( new DataType( { slug: 'integer', inputType: 'number' } ) );
+DataTypes.add( { slug: 'text' } );
+DataTypes.add( { slug: 'integer', inputType: 'number' } );
+DataTypes.add( { slug: 'decimal_number', inputType: 'number' } );
 
 module.exports = Fields;

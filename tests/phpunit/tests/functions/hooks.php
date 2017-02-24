@@ -118,10 +118,12 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		wordpoints_hook_conditions_init( $conditions );
 
-		$this->assertTrue( $conditions->is_registered( 'text', 'contains' ) );
-		$this->assertTrue( $conditions->is_registered( 'text', 'equals' ) );
+		$this->assertTrue( $conditions->is_registered( 'decimal_number', 'equals' ) );
+		$this->assertTrue( $conditions->is_registered( 'integer', 'equals' ) );
 		$this->assertTrue( $conditions->is_registered( 'entity', 'equals' ) );
 		$this->assertTrue( $conditions->is_registered( 'entity_array', 'contains' ) );
+		$this->assertTrue( $conditions->is_registered( 'text', 'contains' ) );
+		$this->assertTrue( $conditions->is_registered( 'text', 'equals' ) );
 	}
 
 	/**

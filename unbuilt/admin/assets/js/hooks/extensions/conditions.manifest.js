@@ -23,14 +23,12 @@ var Conditions = new hooks.extension.Conditions();
 // Conditions.
 var Equals = require( './conditions/controllers/conditions/equals.js' );
 
-Conditions.registerController( 'text', 'equals', Equals );
+Conditions.registerController( 'decimal_number', 'equals', Equals );
 Conditions.registerController( 'entity', 'equals', Equals );
 Conditions.registerController( 'entity_array', 'equals', Equals );
-Conditions.registerController(
-	'entity_array'
-	, 'contains'
-	, require( './conditions/controllers/conditions/entity-array-contains.js' )
-);
+Conditions.registerController( 'entity_array', 'contains', require( './conditions/controllers/conditions/entity-array-contains.js' ) );
+Conditions.registerController( 'integer', 'equals', Equals );
+Conditions.registerController( 'text', 'equals', Equals );
 
 // Register the extension.
 hooks.Extensions.add( Conditions );

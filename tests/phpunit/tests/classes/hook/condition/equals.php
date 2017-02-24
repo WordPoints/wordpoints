@@ -30,7 +30,6 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
 		$entity->set_the_value( $value );
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -85,7 +84,6 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
 		$entity->set_the_value( $value );
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -122,6 +120,106 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 			'true' => array( true, 1 ),
 			'false' => array( false, '' ),
 			'array' => array( array( 2, 3 ), array( 3, 2 ) ),
+		);
+	}
+
+	/**
+	 * Test checking if the condition is met when the attribute type is different.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_is_met_attr_value_validation() {
+
+		$value = '13';
+		$compare = 13;
+
+		$entity = $this->factory->wordpoints->entity->create_and_get();
+
+		wordpoints_entities()->get_sub_app( 'children' )->register(
+			$entity->get_slug()
+			, 'test_attr'
+			, 'WordPoints_PHPUnit_Mock_Entity_Attr'
+		);
+
+		$entity->set_the_value( array( 'id' => 3, 'test_attr' => $value ) );
+
+		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+		$event_args->set_validator( $validator );
+		$event_args->add_entity( $entity );
+		$event_args->descend( $entity->get_slug() );
+		$event_args->descend( 'test_attr' );
+
+		/** @var WordPoints_PHPUnit_Mock_Entity_Attr $attr */
+		$attr = $event_args->get_current();
+		$attr->set( 'data_type', 'integer' );
+
+		wordpoints_apps()
+			->get_sub_app( 'data_types' )
+			->register( 'integer', 'WordPoints_Data_Type_Integer' );
+
+		$condition = new WordPoints_Hook_Condition_Equals();
+
+		$this->assertTrue(
+			$condition->is_met( array( 'value' => $compare ), $event_args )
+		);
+
+		$this->assertSame( $attr, $event_args->get_current() );
+
+		$this->assertSame(
+			array( $entity->get_slug(), 'test_attr' )
+			, $validator->get_field_stack()
+		);
+	}
+
+	/**
+	 * Test checking if the condition is met when the attribute is invalid.
+	 *
+	 * @since 2.3.0
+	 */
+	public function test_is_met_attr_value_validation_invalid() {
+
+		$value = 'not_a_number';
+		$compare = 13;
+
+		$entity = $this->factory->wordpoints->entity->create_and_get();
+
+		wordpoints_entities()->get_sub_app( 'children' )->register(
+			$entity->get_slug()
+			, 'test_attr'
+			, 'WordPoints_PHPUnit_Mock_Entity_Attr'
+		);
+
+		$entity->set_the_value( array( 'id' => 3, 'test_attr' => $value ) );
+
+		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+		$event_args->set_validator( $validator );
+		$event_args->add_entity( $entity );
+		$event_args->descend( $entity->get_slug() );
+		$event_args->descend( 'test_attr' );
+
+		/** @var WordPoints_PHPUnit_Mock_Entity_Attr $attr */
+		$attr = $event_args->get_current();
+		$attr->set( 'data_type', 'integer' );
+
+		wordpoints_apps()
+			->get_sub_app( 'data_types' )
+			->register( 'integer', 'WordPoints_Data_Type_Integer' );
+
+		$condition = new WordPoints_Hook_Condition_Equals();
+
+		$this->assertFalse(
+			$condition->is_met( array( 'value' => $compare ), $event_args )
+		);
+
+		$this->assertSame( $attr, $event_args->get_current() );
+
+		$this->assertSame(
+			array( $entity->get_slug(), 'test_attr' )
+			, $validator->get_field_stack()
 		);
 	}
 }

@@ -102,6 +102,7 @@ return array(
 	'wordpoints_hook_condition' => 'hook/condition.php',
 	'wordpoints_hook_condition_entity_array_contains' => 'hook/condition/entity/array/contains.php',
 	'wordpoints_hook_condition_equals' => 'hook/condition/equals.php',
+	'wordpoints_hook_condition_number_greater_than' => 'hook/condition/number/greater/than.php',
 	'wordpoints_hook_condition_string_contains' => 'hook/condition/string/contains.php',
 	'wordpoints_hook_event' => 'hook/event.php',
 	'wordpoints_hook_event_dynamic' => 'hook/event/dynamic.php',

@@ -71,9 +71,11 @@ function wordpoints_hook_extensions_init( $extensions ) {
 function wordpoints_hook_conditions_init( $conditions ) {
 
 	$conditions->register( 'decimal_number', 'equals', 'WordPoints_Hook_Condition_Equals' );
+	$conditions->register( 'decimal_number', 'greater_than', 'WordPoints_Hook_Condition_Number_Greater_Than' );
 	$conditions->register( 'entity', 'equals', 'WordPoints_Hook_Condition_Equals' );
 	$conditions->register( 'entity_array', 'contains', 'WordPoints_Hook_Condition_Entity_Array_Contains' );
 	$conditions->register( 'integer', 'equals', 'WordPoints_Hook_Condition_Equals' );
+	$conditions->register( 'integer', 'greater_than', 'WordPoints_Hook_Condition_Number_Greater_Than' );
 	$conditions->register( 'text', 'contains', 'WordPoints_Hook_Condition_String_Contains' );
 	$conditions->register( 'text', 'equals', 'WordPoints_Hook_Condition_Equals' );
 }

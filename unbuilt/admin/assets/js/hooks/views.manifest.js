@@ -33,6 +33,14 @@ hooks.view.l10n = window.WordPointsHooksAdminL10n || {};
 // Link any settings.
 data = hooks.view.data = window.WordPointsHooksAdminData || {};
 
+// Set up the data types.
+hooks.controller.DataType = require( './controllers/data-type.js' );
+
+hooks.DataTypes = new Backbone.Collection( [], { model: hooks.controller.DataType });
+hooks.DataTypes.add( { slug: 'text' } );
+hooks.DataTypes.add( { slug: 'integer', inputType: 'number' } );
+hooks.DataTypes.add( { slug: 'decimal_number', inputType: 'number' } );
+
 // Load the controllers.
 hooks.controller.Fields     = require( './controllers/fields.js' );
 hooks.controller.Extension  = require( './controllers/extension.js' );

@@ -7,6 +7,7 @@
  * @augments Backbone.Model
  */
 var $ = Backbone.$,
+	DataTypes = wp.wordpoints.hooks.DataTypes,
 	hooks = wp.wordpoints.hooks,
 	l10n = wp.wordpoints.hooks.view.l10n,
 	template = wp.wordpoints.hooks.template,
@@ -280,29 +281,5 @@ Fields = Backbone.Model.extend({
 		this.validate( this.get( 'fields' ), attributes, errors );
 	}
 });
-
-var DataType = Backbone.Model.extend({
-
-	idAttribute: 'slug',
-
-	defaults: {
-		inputType: 'text'
-	},
-
-	template: template( 'hook-reaction-field' ),
-
-	createField: function ( data ) {
-
-		return this.template(
-			_.extend( {}, data, { type: this.get( 'inputType' ) } )
-		);
-	}
-});
-
-var DataTypes = new Backbone.Collection( [], { model: DataType });
-
-DataTypes.add( { slug: 'text' } );
-DataTypes.add( { slug: 'integer', inputType: 'number' } );
-DataTypes.add( { slug: 'decimal_number', inputType: 'number' } );
 
 module.exports = Fields;

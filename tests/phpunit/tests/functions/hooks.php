@@ -120,10 +120,12 @@ class WordPoints_Hooks_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->assertTrue( $conditions->is_registered( 'decimal_number', 'equals' ) );
 		$this->assertTrue( $conditions->is_registered( 'decimal_number', 'greater_than' ) );
+		$this->assertTrue( $conditions->is_registered( 'decimal_number', 'less_than' ) );
 		$this->assertTrue( $conditions->is_registered( 'entity', 'equals' ) );
 		$this->assertTrue( $conditions->is_registered( 'entity_array', 'contains' ) );
 		$this->assertTrue( $conditions->is_registered( 'integer', 'equals' ) );
 		$this->assertTrue( $conditions->is_registered( 'integer', 'greater_than' ) );
+		$this->assertTrue( $conditions->is_registered( 'integer', 'less_than' ) );
 		$this->assertTrue( $conditions->is_registered( 'text', 'contains' ) );
 		$this->assertTrue( $conditions->is_registered( 'text', 'equals' ) );
 	}

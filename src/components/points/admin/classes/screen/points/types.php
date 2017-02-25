@@ -90,6 +90,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 		add_action( 'add_meta_boxes', array( $this, 'add_points_settings_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_points_logs_meta_box' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_shortcodes_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_event_meta_boxes' ) );
 	}
 
@@ -168,6 +169,27 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			, $this->id
 			, 'side'
 			, 'default'
+		);
+	}
+
+	/**
+	 * Add a meta-box for example shortcodes for the current points type.
+	 *
+	 * @since 2.3.0
+	 */
+	public function add_shortcodes_meta_box() {
+
+		if ( ! $this->current_points_type ) {
+			return;
+		}
+
+		add_meta_box(
+			'shortcodes'
+			, __( 'Shortcodes', 'wordpoints' )
+			, array( $this, 'display_shortcodes_meta_box' )
+			, $this->id
+			, 'side'
+			, 'low'
 		);
 	}
 
@@ -342,6 +364,84 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		</a>
 
 		<?php
+	}
+
+	/**
+	 * Display the contents of the meta-box for the shortcode tips.
+	 *
+	 * @since 2.3.0
+	 */
+	public function display_shortcodes_meta_box() {
+
+		?>
+
+		<p>
+			<label><?php esc_html_e( 'Display the user&#8217;s points:', 'wordpoints' ); ?>
+				<input
+					type="text"
+					class="widefat"
+					onfocus="this.select()"
+					readonly
+					value="[wordpoints_points points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
+				/>
+			</label>
+		</p>
+
+		<p>
+			<label><?php esc_html_e( 'Display a table of the top 5 users:', 'wordpoints' ); ?>
+				<input
+					type="text"
+					class="widefat"
+					onfocus="this.select()"
+					readonly
+					value="[wordpoints_points_top users=&quot;5&quot; points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
+				/>
+			</label>
+		</p>
+
+		<p>
+			<label><?php esc_html_e( 'Display the points logs:', 'wordpoints' ); ?>
+				<input
+					type="text"
+					class="widefat"
+					onfocus="this.select()"
+					readonly
+					value="[wordpoints_points_logs points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
+				/>
+			</label>
+		</p>
+
+		<p>
+			<label><?php esc_html_e( 'Display a list of ways to earn points:', 'wordpoints' ); ?>
+				<input
+					type="text"
+					class="widefat"
+					onfocus="this.select()"
+					readonly
+					value="[wordpoints_how_to_get_points points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
+				/>
+			</label>
+		</p>
+
+		<p>
+			<a href="https://wordpoints.org/user-guide/shortcodes/">
+				<?php esc_html_e( 'Shortcode docs on WordPoints.org.', 'wordpoints' ); ?>
+			</a>
+		</p>
+
+		<?php
+
+		/**
+		 * Fires at the bottom of the Shortcodes meta box on the Points Types screen.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param string $points_type The slug of the points type being displayed.
+		 */
+		do_action(
+			'wordpoints_points_shortcodes_meta_box_bottom'
+			, $this->current_points_type
+		);
 	}
 
 	/**

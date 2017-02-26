@@ -1,9 +1,9 @@
 <?php
 
 /**
- * WordPoints Administration Screen: Configure > Components.
+ * WordPoints Administration Screen: Settings » Components.
  *
- * This template displays the Components tab on the Configure panel.
+ * This template displays the Components tab on the Settings panel.
  *
  * @package WordPoints\Administration
  * @since 1.0.0

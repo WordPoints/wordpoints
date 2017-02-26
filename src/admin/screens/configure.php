@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordPoints administration screen: Configure.
+ * WordPoints administration screen: Settings.
  *
  * @package WordPoints\Administration
  * @since 1.0.0

@@ -86,8 +86,8 @@ function wordpoints_admin_menu() {
 		// Settings page.
 		add_submenu_page(
 			'wordpoints_configure'
-			,__( 'WordPoints — Configure', 'wordpoints' )
-			,esc_html__( 'Configure', 'wordpoints' )
+			,__( 'WordPoints — Settings', 'wordpoints' )
+			,esc_html__( 'Settings', 'wordpoints' )
 			,'manage_options'
 			,'wordpoints_configure'
 			,'wordpoints_admin_screen_configure'
@@ -191,7 +191,7 @@ function wordpoints_admin_screen_install_modules() {
 function wordpoints_admin_screen_configure_load() {
 
 	/**
-	 * Set up for the WordPoints » Configure administration screen.
+	 * Set up for the WordPoints » Settings administration screen.
 	 *
 	 * @since 1.5.0
 	 */
@@ -219,7 +219,7 @@ function wordpoints_admin_sreen_configure_load() {
  * Activate/deactivate components.
  *
  * This function handles activation and deactivation of components from the
- * WordPoints > Configure > Components administration screen.
+ * WordPoints » Settings » Components administration screen.
  *
  * @since 1.0.1
  *

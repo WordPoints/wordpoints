@@ -819,7 +819,7 @@ function wordpoints_get_excluded_users( $context ) {
 	/**
 	 * Excluded users option.
 	 *
-	 * This option is set on the Configure > Settings administration panel.
+	 * This option is set on the Settings » General Settings administration panel.
 	 *
 	 * @since 1.0.0
 	 *

@@ -76,7 +76,7 @@ Before installing on multisite, it is recommended that you read this
 1. Upload the resulting `/wordpoints/` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. You can set up the points hooks to your liking by clicking on the Points Hooks submenu item
-1. If you want to use ranks, you can activate the Ranks component on the WordPoints » Configure screen on the Components tab.
+1. If you want to use ranks, you can activate the Ranks component on the WordPoints » Settings screen on the Components tab.
 
 == Frequently Asked Questions ==
 

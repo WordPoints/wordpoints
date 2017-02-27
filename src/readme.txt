@@ -21,22 +21,28 @@ points they have.
 
 You can currently award points to users for:
 
-* Registration
-* Posts - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is removed.
-* Comments - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
-* Visiting your site - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
+* **Registration**
+* **Posts** - You can be selective in which post types get awarded points, and award
+ different amounts for different types. Points will automatically be removed when a
+ post is removed.
+* **Comments** - You can award points to a user when they leave a comment, and also
+ to post authors when they receive a comment. As with posts, you can award different
+ amounts for comments on different post types, and points will automatically be
+ removed if you delete a user's comment or mark it as spam.
+* **Visiting your site** - You can award points to a user when they visit your site
+ at least once in a time period; once per day, for example.
 
 You can also conditionally award points based on a post's contents, a user's role,
 and more!
 
 All points transactions are logged and can be reviewed by administrators from the
-WordPoints » Points Logs admin screen. The logs can be displayed on the front end of
-your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+*WordPoints » Points Logs* admin screen. The logs can be displayed on the front end
+of your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points_logs/)
 shortcode.
 
-You can display how many points a user has using the [`[wordpoints_points]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points/)
+You can display how many points a user has using the [`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
 shortcode, and you can also display a list of the top users with the most points using the
-[`[wordpoints_points_top]`](https://wordpoints.org/user-guide/points-shortcodes/wordpoints_points_logs/)
+[`[wordpoints_points_top]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points_top/)
 shortcode.
 
 You can display a list of ways that your users can earn points using the
@@ -75,8 +81,8 @@ Before installing on multisite, it is recommended that you read this
 1. Download and unzip the plugin file
 1. Upload the resulting `/wordpoints/` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. You can set up the points hooks to your liking by clicking on the Points Hooks submenu item
-1. If you want to use ranks, you can activate the Ranks component on the WordPoints » Settings screen on the Components tab.
+1. You can set up the points types to your liking by clicking on the *WordPoints » Points Types* menu item
+1. If you want to use ranks, you can activate the Ranks component on the *WordPoints » Settings* screen on the Components tab.
 
 == Frequently Asked Questions ==
 
@@ -86,7 +92,8 @@ You can [manually adjust a user's points](https://wordpoints.org/user-guide/manu
 
 = Does WordPoints support Multisite? =
 
-Yes, WordPoints fully supports multisite. It is recommended that you [read up on it here](https://wordpoints.org/user-guide/multisite/)
+Yes, WordPoints fully supports multisite. It is recommended that you read this
+[explanation of how WordPoints works on multisite](https://wordpoints.org/user-guide/multisite/)
 before you install it.
 
 = When will WordPoints have (some feature)? =

@@ -122,6 +122,46 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
+= 2.3.0 — 2017-00-00 =
+
+##### Added
+
+- The ability to disable an event reaction without deleting it.
+- The ability to set Conditions for a reaction on the post title, excerpt, and
+ comment count.
+- Support for setting Conditions for a reaction on numeric attributes of an entity
+ involved in an event (for example, post comment count). Available conditions are
+ currently Equals, Greater Than, and Less Than.
+- The ability to set Conditions for a reaction or award points based on the parent of
+ a page or other hierarchical post type.
+- The ability to set Conditions for a reaction on the comment content, or attributes
+ of the parent comment if the comment is a reply.
+- Support for events that involve multiple entities (like when a user is added to a
+ group, for example).
+- Better support for right-to-left locales.
+- More comments to aid in translation of the plugin.
+- Meta box with shortcode examples to the Points Types screen.
+
+##### Changed
+
+- CSS and JS files to be minified.
+- Reactions UI to improve accessibility for unsighted users by allowing success and
+ error messages to be spoken aloud by assistive technology.
+- Network-active modules to also be displayed on the per-site Modules screens on
+ multisite.
+- Widgets to improve display in small sidebars. The settings now allow for some of
+ the columns in the points logs tables to be hidden, horizontal scrolling to be
+ enabled, and the user names to be hidden so that just the avatars are displayed.
+ Also makes it so that the user rank is not displayed next to the user name within
+ the widgets.
+- The Comment Leave event to only be fired for comments, not pingbacks or trackbacks.
+- The name of the "Configure" screen to "Settings" instead.
+
+##### Fixed
+
+- Error messages being displayed when first adding a widget to the site via the
+ Customizer.
+
 = 2.2.2 — 2017-01-14 =
 
 ##### Fixed
@@ -173,6 +213,11 @@ If you'd like to view the changelog for older versions, see the
 file included with the plugin.
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+Adds the ability to disable reactions, provides more possibilities for reaction
+conditions, and improves the display of the widgets on narrow sidebars.
+
 = 2.2.2 =
 * Fixes a bug that caused event reactions not to award points for some custom post
 types, like bbPress forum topics.

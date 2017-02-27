@@ -41,13 +41,13 @@
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
-            "size": 1714,
-            "hash": "9ef56eb15b7bfe42ae483d66e1962aa3",
+            "size": 2030,
+            "hash": "a3b46737d5b21dfee41cf35a039bb69c",
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 37713,
-            "hash": "3fb597b816c0d6e17c6964bfa6a7ba19",
+            "size": 45154,
+            "hash": "1cce7ec34d8746433c7dbb8a5b3c4d89",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -61,23 +61,23 @@
             "errors": false
         },
         "\/admin\/screens\/configure-components.php": {
-            "size": 5580,
-            "hash": "62e9aa4b05e34699a6bfc38bab81b7aa",
+            "size": 5579,
+            "hash": "5973cf757518b87268140a301a4db0d4",
             "errors": false
         },
         "\/admin\/screens\/configure-settings-load.php": {
-            "size": 1063,
-            "hash": "b89789a969f9e33b8d57b8e5b05fc4db",
+            "size": 1062,
+            "hash": "66a06e85bdf73b08670862dab43958be",
             "errors": false
         },
         "\/admin\/screens\/configure-settings.php": {
             "size": 2305,
-            "hash": "62c25da82e2702c37490b2dc592497d2",
+            "hash": "5e99c034dde6271c9d3747413de3b0bc",
             "errors": false
         },
         "\/admin\/screens\/configure.php": {
-            "size": 1338,
-            "hash": "ffe528411721ea4d2a04ec4f02ebb324",
+            "size": 1337,
+            "hash": "d84e1856544023ffcc17ecc3d52b20c8",
             "errors": false
         },
         "\/admin\/screens\/module-install.php": {
@@ -158,6 +158,11 @@
         "\/classes\/components.php": {
             "size": 11204,
             "hash": "5f2f1410c7dae14457d68130b1d059c6",
+            "errors": false
+        },
+        "\/classes\/data\/type\/decimal\/number.php": {
+            "size": 684,
+            "hash": "c0cbe03d797203bb2ee5d0d9f8a6da51",
             "errors": false
         },
         "\/classes\/data\/type\/integer.php": {
@@ -496,8 +501,18 @@
             "errors": false
         },
         "\/classes\/hook\/condition\/equals.php": {
-            "size": 792,
-            "hash": "e4f2796f576f3c8b43b6ec86ed876f1a",
+            "size": 1400,
+            "hash": "e8dbf9c7e084e9cef4d1df0408ee78a3",
+            "errors": false
+        },
+        "\/classes\/hook\/condition\/number\/greater\/than.php": {
+            "size": 912,
+            "hash": "61a26af0ea54024192c13f0b74507182",
+            "errors": false
+        },
+        "\/classes\/hook\/condition\/number\/less\/than.php": {
+            "size": 896,
+            "hash": "c0d13b21275df7719aa6ab4e4bf0a5ad",
             "errors": false
         },
         "\/classes\/hook\/condition\/string\/contains.php": {
@@ -576,8 +591,8 @@
             "errors": false
         },
         "\/classes\/hook\/extension\/conditions.php": {
-            "size": 6738,
-            "hash": "fd72ae5f3eb8a813fa5d4dd4eba0a689",
+            "size": 6745,
+            "hash": "038e4f06ee5c90980b11273b59d4042a",
             "errors": false
         },
         "\/classes\/hook\/extension\/hit\/listeneri.php": {
@@ -606,8 +621,8 @@
             "errors": false
         },
         "\/classes\/hook\/extension.php": {
-            "size": 4205,
-            "hash": "42d3faa62fe6178034c5f4a526b286f3",
+            "size": 4214,
+            "hash": "b875a799d915b4eedb90f30e90d543b5",
             "errors": false
         },
         "\/classes\/hook\/extensioni.php": {
@@ -701,8 +716,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 8486,
-            "hash": "83a24133b5936fbf36c0f612cc1041b2",
+            "size": 8742,
+            "hash": "20186aa89034da77956cf15df8403382",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -756,8 +771,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/classes\/screen\/points\/types.php": {
-            "size": 19067,
-            "hash": "d8dbd766f3258fc73939670ccb628a27",
+            "size": 21455,
+            "hash": "426814dde9d19517939eec48c5ac7f4d",
             "errors": false
         },
         "\/components\/points\/admin\/deprecated.php": {
@@ -1181,8 +1196,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 14416,
-            "hash": "44d076376b8c593361acacac925c0bc0",
+            "size": 14499,
+            "hash": "e60f25f711ef315b257340b8a1b44f6f",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
@@ -1226,8 +1241,8 @@
             "errors": false
         },
         "\/includes\/constants.php": {
-            "size": 914,
-            "hash": "b8832abf1809a7591198e6515e0205cc",
+            "size": 913,
+            "hash": "093003b65f0a95fac9ba6078bb422d7e",
             "errors": false
         },
         "\/includes\/deprecated.php": {
@@ -1241,13 +1256,13 @@
             "errors": false
         },
         "\/includes\/functions.php": {
-            "size": 32026,
-            "hash": "e2b72c7b1d0d8f0971f828431ec1031d",
+            "size": 32034,
+            "hash": "4494b2c35fa6f4f330ab95ce3242b2ae",
             "errors": false
         },
         "\/includes\/hooks.php": {
-            "size": 11818,
-            "hash": "e8e6b2f3858554d8ab76309d59fd79c4",
+            "size": 12362,
+            "hash": "86618d5ee267f597189d677c1aeae1a3",
             "errors": false
         },
         "\/includes\/maintenance.php": {
@@ -1266,10 +1281,10 @@
             "errors": false
         },
         "\/wordpoints.php": {
-            "size": 3616,
-            "hash": "a1329b5071fa0b9ef47084ea32658f04",
+            "size": 3614,
+            "hash": "af0a81bb228ec19b69de12c392305fc6",
             "errors": false
         }
     },
-    "config_signature": "ee35d1c8cb02c195a8199313c7016e71"
+    "config_signature": "139ac781e53f2892aebf3efcaba9fdc4"
 }

@@ -8,6 +8,94 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
+### Added
+
+- `yarn.lock` file. #583
+- Support for events with multiple signature args in the Hooks API. #594
+- Minified versions of CSS and JS files, which are served by default. The unminified versions are only used when `SCRIPT_DEBUG` is enabled. #58
+- RTL versions of CSS files, which are automatically served on sites using RTL locales. #601
+- Translator comments to all gettext calls with placeholders. #603
+- Support for handling deprecated query args to `WordPoints_DB_Query`. #546
+- `'wordpoints_points_hook_reactor_points_to_award'` filter to filter the number of points to award in the points reactor. #469
+- Inline docs for the base JS hook extension object. #469
+- `WordPoints_Entity_Attr_Stored_DB_Table_Meta` class to provide a bootstrap for entity attributes that are stored in a meta-style table in the database. #616
+- `'wordpoints_htgp_shortcode_reaction_points'` filter to the How To Get Points shortcode to filter the value of the points column for a reaction.
+- The ability to disable hook reactions via the Disable extension, which uses the Blocker extension under the hood. #470
+- The Title, Excerpt, Date Published, Date Modified, and Comment Count attributes to the post type entities. #422
+- The Post Parent relationship for the hierarchical post type entities. #422
+- The Date and Content attributes and the Parent Comment relationship for the comment entities. #529
+- The `WordPoints_Entity_Relationship_Dynamic_Stored_Field` class for dynamic entity relationships that are stored in an entity field. #529
+- Helper functions to prevent updates if WordPoints changes its PHP version requirements in the future. #623
+ - Added a function to check the description of each WordPoints update to see if a particular PHP version requirement is specified.
+ - If an update of the plugin does have a requirement, we also provide a function that will check if it met by the current install.
+ - If an update's required PHP version isn't met, then we remove the update row in the plugins list table and replace it with an error notice explaining the situation and a link to more information.
+ - We also hide the update on the Dashboard » Updates screen.
+ - And we prevent the user from being able to update via the "View Details" modal.
+- `games` tag to `readme.txt`. #612
+- Decimal Number data type. #615
+- Equals hook condition for the Decimal Number and Integer data types. #615
+- Greater Than and Less Than hook conditions for the Integer and Decimal Number data types. #626
+- Shortcodes meta box to the Points Types admin screen to display shortcode examples for the points type. #610
+
+### Changed
+
+- PHPUnit bootstrap to be a part of the dev-lib instead of WordPoints itself. #587
+- The name of the `primary_arg_guid` column in the hook hits database table to `signature_arg_guids`. #594
+- All CSS to be auto-prefixed. #601
+- All images to be minified, without altering them visibly. #58
+- Configuration bootstrap for Grunt to be a part of the dev-lib. #58
+- The `WordPoints_Points_Logs_Query` class to extend `WordPoints_DB_Query`. #546
+- All non-deprecated classes to be isolated in their own file. #498
+- Many classes to be in the `classes` directories instead of in `includes`. #372
+- Base hook extension class to better support extensions that don't store their settings per-action type. #469
+- Base hook extension class to discard settings when `null` is returned from `validate_extension_settings()` and `validate_action_type_settings()`. #469
+- Hooks JS code to pass message to `wp.a11y.speak()` when conditions are added/removed and reactions are saved/deleted/editing is cancelled. #291
+- Modules list table to also display the network-active modules on the per-site module screens on multisite. #448
+- PHPUnit tests to use `assertSame()` instead of `assertEquals()`, and avoid use of `assertEmpty()` and `assertContains()`. #567
+- Points Logs widget to improve display on narrow sidebars. Added the option to hide some columns of the table, enable horizontal scrolling, hide the usernames (but still display the avatars), and made sure that fixed layout was not used. #333
+- Top Users widget to improve display on narrow sidebars. The user rank is no longer displayed beside thier username, the Position column just uses # as the heading title, and avoids using fixed layout for the table. #333
+- User Points widget to extend the points logs widget, to take advantage of new changes to improve display on narrow sidebars. #333
+- Modules list table `single_row()` method, refactoring the code to display each column into separate methods. #341
+- Modules list table to specify primary column. #354
+- `WordPoints_Hook_Extension` to accept the extension slug via the constructor. #619
+- The Blocker hook extension to support cross-action type extension settings. #470
+- The `WordPoints_Entity_Relationship_Dynamic` class to use the parent slug passed to the constructor rather than requiring the child slug to be dynamic. #529
+- The `WordPoints_Entity_Post_Parent` and `WordPoints_Entity_Comment_Post` classes to extend the new `WordPoints_Entity_Relationship_Dynamic_Stored_Field` class. #529
+- The Comment Leave event to only fire for comments, not pingbacks, trackbacks, or custom comment types. #622
+- Old change log entries to be in `changelog.txt` instead of `readme.txt`. #613
+- The Equals hook condition class to check the validity of an attribute value before comparing it with the setting value. #615
+- The `DataTypes` collection used in the hooks UI API to be publicly accessible. #624
+- "Configure" admin screen title to "Settings". #633
+
+### Deprecated
+
+- Some query args of the `WordPoints_Points_Logs_Query` class (#546): 
+ - `orderby` in favor of `order_by`.
+ - `user__in` and `user__not_in` in favor of `user_id__in` and `user_id__not_in`, respectively.
+ - `blog__in` and `blog__not_in` in favor of `blog_id__in` and `blog_id__not_in`, respectively.
+ - Passing `'all'` as the value for `fields`, in favor of just leaving it empty.
+ - Passing `'none'` as the value for `order_by`, in favor of just leaving it empty.
+- `WordPoints_How_To_Get_Points_Shortcode` class in favor of `WordPoints_Points_Shortcode_HTGP`. #498
+- `WordPoints_User_Points_Shortcode` class in favor of `WordPoints_Points_Shortcode_User_Points`. #498
+- `WordPoints_Points_Logs_Shortcode` class in favor of `WordPoints_Points_Shortcode_Logs`. #498
+- `WordPoints_Points_Top_Shortcode` class in favor of `WordPoints_Points_Shortcode_Top_Users`. #498
+- `WordPoints_User_Rank_Shortcode` class in favor of `WordPoints_Rank_Shortcode_User_Rank`. #498
+- `WordPoints_My_Points_Widget` class in favor of `WordPoints_Points_Widget_User_Points`. #498
+- `WordPoints_Top_Users_Points_Widget` class in favor of `WordPoints_Points_Widget_Top_Users`. #498
+- `WordPoints_Points_Logs_Widget` class in favor of `WordPoints_Points_Widget_Logs`. #498
+
+### Removed
+
+- `WordPoints_Entity_Relationship_Stored_Field`'s `$related_ids_field` property and `get_related_entity_ids()` method, as they were unnecessarily overriding the same members in its parent class.
+- Old update notices from `readme.txt`. #613
+- `cubepoints` and `multisite` tags from `readme.txt`. #612
+
+### Fixed
+
+- Un/installer `get_db_version()` method basing the value on the context instead of the installation status, resulting in the incorrect version being returned when in network context. #604
+- An error message regarding the points type not being set being displayed when first adding a widget via the Customizer. #618
+- `Fields.create()` not properly converting the data type to the input type due to the `DataTypes` collection not recognizing the IDs of the models it contained. #625
+
 ## [2.2.2] - 2017-01-14
 
 ### Fixed

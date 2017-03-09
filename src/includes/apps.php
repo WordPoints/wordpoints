@@ -366,7 +366,7 @@ function wordpoints_register_post_type_entities( $slug ) {
 		$entities->register( "comment\\{$slug}", 'WordPoints_Entity_Comment' );
 		$children->register( "comment\\{$slug}", "post\\{$slug}", 'WordPoints_Entity_Comment_Post' );
 		$children->register( "comment\\{$slug}", 'author', 'WordPoints_Entity_Comment_Author' );
-		$children->register( "comment\\{$slug}", 'content', 'WordPoints_Entity_Comment_Date' );
+		$children->register( "comment\\{$slug}", 'content', 'WordPoints_Entity_Comment_Content' );
 		$children->register( "comment\\{$slug}", 'date', 'WordPoints_Entity_Comment_Date' );
 		$children->register( "comment\\{$slug}", 'parent', 'WordPoints_Entity_Comment_Parent' );
 	}

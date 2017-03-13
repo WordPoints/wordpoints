@@ -919,6 +919,13 @@ function wordpoints_delete_modules( $modules ) {
 
 	foreach ( $modules as $module_file ) {
 
+		$validate = wordpoints_validate_module( $module_file );
+
+		if ( is_wp_error( $validate ) ) {
+			$errors[] = $module_file;
+			continue;
+		}
+
 		// Run uninstall hook.
 		if ( is_uninstallable_wordpoints_module( $module_file ) ) {
 			wordpoints_uninstall_module( $module_file );

@@ -273,7 +273,10 @@ switch ( $action ) {
 		// Do not allow to delete activated modules.
 		foreach ( $modules as $key => $module ) {
 
-			if ( is_wordpoints_module_active( $module ) ) {
+			if (
+				true !== wordpoints_validate_module( $module )
+				|| is_wordpoints_module_active( $module )
+			) {
 				unset( $modules[ $key ] );
 			}
 		}

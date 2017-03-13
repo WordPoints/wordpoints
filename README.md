@@ -1,4 +1,4 @@
-WordPoints [![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?branch=master)](https://travis-ci.org/WordPoints/wordpoints) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WordPoints/wordpoints/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WordPoints/wordpoints/?branch=master) [![codecov](https://codecov.io/gh/WordPoints/wordpoints/branch/master/graph/badge.svg)](https://codecov.io/gh/WordPoints/wordpoints)
+WordPoints [![Build Status](https://travis-ci.org/WordPoints/wordpoints.png?branch=master)](https://travis-ci.org/WordPoints/wordpoints) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WordPoints/wordpoints/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WordPoints/wordpoints/?branch=master) [![codecov](https://codecov.io/gh/WordPoints/wordpoints/branch/master/graph/badge.svg)](https://codecov.io/gh/WordPoints/wordpoints) [![HackerOne Bug Bounty Program](https://img.shields.io/badge/security-HackerOne-blue.svg)](https://hackerone.com/wordpoints)
 ==========
 
 This is where development of the WordPoints WordPress plugin takes place. To
@@ -23,6 +23,10 @@ that the bug exists in the development trunk as well.
 If you aren't sure what all that means (or sometimes maybe even if you are) you
 should probably seek help in the [support forums](https://wordpress.org/support/plugin/wordpoints)
 instead.
+
+# Security
+
+See [SECURITY.md](SECURITY.md).
 
 # Contributing #
 

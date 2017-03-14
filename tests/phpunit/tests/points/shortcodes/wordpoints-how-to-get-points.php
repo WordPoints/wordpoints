@@ -315,6 +315,71 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 			, $columns->item( 2 )->textContent
 		);
 	}
+
+	/**
+	 * Test that it does not display the disabled reactions in the table.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @covers ::wordpoints_points_htgp_shortcode_hide_disabled_reactions
+	 */
+	public function test_does_not_display_disabled_reactions() {
+
+		$hooks = wordpoints_hooks();
+		$reaction_store = $hooks->get_reaction_store( 'points' );
+		$reaction_1 = $reaction_store->create_reaction(
+			array(
+				'event' => 'user_register',
+				'target' => array( 'user' ),
+				'reactor' => 'points',
+				'points' => 100,
+				'points_type' => 'points',
+				'description' => 'Registration.',
+				'log_text' => 'Registration.',
+			)
+		);
+
+		$this->assertIsReaction( $reaction_1 );
+
+		$reaction_2 = $reaction_store->create_reaction(
+			array(
+				'event' => 'comment_leave\post',
+				'target' => array( 'comment\post', 'author', 'user' ),
+				'reactor' => 'points',
+				'points' => 20,
+				'points_type' => 'points',
+				'description' => 'Leaving a comment.',
+				'log_text' => 'Left a comment on a post.',
+				'disable' => true,
+			)
+		);
+
+		$this->assertIsReaction( $reaction_2 );
+
+		// Test that the reactions are displayed in the table.
+		$document = new DOMDocument;
+		$document->preserveWhiteSpace = false;
+		$document->loadHTML(
+			$this->do_shortcode(
+				'wordpoints_how_to_get_points'
+				, array( 'points_type' => 'points' )
+			)
+		);
+
+		$xpath = new DOMXPath( $document );
+		$table_rows = $xpath->query( '//tbody/tr' );
+		$this->assertSame( 1, $table_rows->length );
+
+		$columns = $table_rows->item( 0 )->childNodes;
+		$this->assertSame(
+			'$100pts.'
+			, $columns->item( 0 )->textContent
+		);
+		$this->assertSame(
+			$reaction_1->get_meta( 'description' )
+			, $columns->item( 2 )->textContent
+		);
+	}
 }
 
 // EOF

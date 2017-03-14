@@ -23,6 +23,8 @@ if ( get_option( 'wordpoints_points_register_legacy_post_publish_event' ) ) {
 	add_action( 'wordpoints_register_post_type_hook_events', 'wordpoints_points_register_legacy_post_publish_events' );
 }
 
+add_filter( 'wordpoints_htgp_shortcode_reaction_points', 'wordpoints_points_htgp_shortcode_hide_disabled_reactions', 10, 2 );
+
 add_action( 'wp_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_points_register_scripts', 5 );
 

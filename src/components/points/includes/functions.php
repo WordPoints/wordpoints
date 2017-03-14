@@ -109,6 +109,34 @@ function wordpoints_points_register_legacy_post_publish_events( $slug ) {
 }
 
 /**
+ * Hides the disabled points reactions in the How To Get Points shortcode table.
+ *
+ * @since 2.3.0
+ *
+ * @WordPress\filter wordpoints_htgp_shortcode_reaction_points
+ *
+ * @param string|false              $points   The value of the points column.
+ * @param WordPoints_Hook_ReactionI $reaction The reaction object.
+ *
+ * @return string|false The value of the points column, or false to hide the row.
+ */
+function wordpoints_points_htgp_shortcode_hide_disabled_reactions(
+	$points,
+	$reaction
+) {
+
+	if ( false === $points ) {
+		return $points;
+	}
+
+	if ( $reaction->get_meta( 'disable' ) ) {
+		return false;
+	}
+
+	return $points;
+}
+
+/**
  * Register scripts and styles for the component.
  *
  * @since 1.0.0

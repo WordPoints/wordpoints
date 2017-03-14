@@ -4,10 +4,10 @@ Contributing
 Thank you for your interest in contributing to the plugin! There are several things
 to keep in mind when submitting a pull request:
 
-* Usually changes should be made against the `master` branch, as this is where development
- takes place. The exception are patches for bugs present in both `master` and the latest
- release. Those should be fixed against the `stable` branch, so the fix can be easily
- merged into both `master` and the latest `x.x` branch.
+* Usually changes should be made against the `develop` branch, as this is where development
+ takes place. The exception are patches for bugs present in both `develop` and the latest
+ release. Those should be fixed against the `master` branch, so the fix can be easily
+ merged into both `develop` and `master`.
 * Be sure that your patch conforms to the [WordPress coding
  standards](https://make.wordpress.org/core/handbook/coding-standards/). You'll also
  want to read through the [WordPoints standards](https://github.com/WordPoints/standards).

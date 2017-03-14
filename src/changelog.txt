@@ -4,7 +4,7 @@
 
 This is the user change log for older versions of WordPoints. The change log for the
 most recent versions are kept in readme.txt. A developer change log is available
-here: https://github.com/WordPoints/wordpoints/blob/master/CHANGELOG.md
+here: https://github.com/WordPoints/wordpoints/blob/develop/CHANGELOG.md
 
 = 2.1.5 – 2016-11-15 =
 

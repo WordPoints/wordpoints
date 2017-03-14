@@ -14,7 +14,7 @@ php:
 
 env:
     - TRAVISCI_RUN=codesniff
-    - TRAVISCI_RUN=phpunit WP_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=4.7
     - TRAVISCI_RUN=phpunit WP_VERSION=4.6
 
@@ -24,10 +24,10 @@ matrix:
   include:
     # Only run HHVM against trunk for now.
     - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=master
+      env: TRAVISCI_RUN=phpunit WP_VERSION=develop
     # Only run nightly against trunk.
     - php: nightly
-      env: TRAVISCI_RUN=phpunit WP_VERSION=master
+      env: TRAVISCI_RUN=phpunit WP_VERSION=develop
   exclude:
     # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
     - php: 5.2

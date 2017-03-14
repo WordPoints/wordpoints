@@ -7,7 +7,7 @@ export WORDPOINTS_PROJECT_TYPE=wordpoints
 function wordpoints-dev-lib-config() {
 
 	# Use the develop branch for WPCS.
-	if [[ $TRAVIS_BRANCH == stable || $TRAVIS_BRANCH =~ release || $TRAVIS_TAG ]]; then
+	if [[ $TRAVIS_BRANCH == master || $TRAVIS_BRANCH =~ release || $TRAVIS_TAG ]]; then
 		export WPCS_GIT_TREE=607db751e90e6d32f96fcb15c4aec8609d059d57
 	else
 		export WPCS_GIT_TREE=develop

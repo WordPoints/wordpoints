@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-02-27 20:52:24+00:00\n"
+"POT-Creation-Date: 2017-03-14 13:39:56+00:00\n"
 "PO-Revision-Date: 2015-02-24 19:20+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wordpoints/"
@@ -246,7 +246,7 @@ msgstr "Desactivar"
 msgid "Activate %s"
 msgstr "Activar"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.3.0-beta-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.3.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:337
@@ -617,7 +617,7 @@ msgid "Action"
 msgstr "Acción"
 
 #: admin/screens/configure-settings-load.php:15
-#: admin/screens/modules-load.php:468
+#: admin/screens/modules-load.php:471
 #: components/points/admin/screens/hooks-load.php:16
 #: components/ranks/admin/includes/functions.php:108
 msgid "Overview"
@@ -647,7 +647,7 @@ msgstr ""
 "ayuda de la barra lateral."
 
 #: admin/screens/configure-settings-load.php:24
-#: admin/screens/modules-load.php:488
+#: admin/screens/modules-load.php:491
 #: components/points/admin/screens/hooks-load.php:36
 #: components/ranks/admin/includes/functions.php:136
 msgid "For more information:"
@@ -658,7 +658,7 @@ msgid "User Guide"
 msgstr "Guía del usuario"
 
 #: admin/screens/configure-settings-load.php:26
-#: admin/screens/modules-load.php:490
+#: admin/screens/modules-load.php:493
 #: components/points/admin/screens/hooks-load.php:38
 #: components/ranks/admin/includes/functions.php:138
 msgid "Support Forums"
@@ -715,31 +715,31 @@ msgid "Sorry, you are not allowed to delete modules for this site."
 msgstr ""
 "Usted no tiene permisos suficientes para eliminar los módulos de este sitio."
 
-#: admin/screens/modules-load.php:351
+#: admin/screens/modules-load.php:354
 #, fuzzy
 msgid "Delete module"
 msgid_plural "Delete modules"
 msgstr[0] "Borrar"
 msgstr[1] "Borrar"
 
-#: admin/screens/modules-load.php:355
+#: admin/screens/modules-load.php:358
 msgid "Caution:"
 msgstr "Precaución:"
 
-#: admin/screens/modules-load.php:357
+#: admin/screens/modules-load.php:360
 msgid "This module may be active on other sites in the network."
 msgid_plural "These modules may be active on other sites in the network."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/screens/modules-load.php:370
+#: admin/screens/modules-load.php:373
 msgid "You are about to remove the following module:"
 msgid_plural "You are about to remove the following modules:"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1. Module name; 2. Module author.
-#: admin/screens/modules-load.php:382
+#: admin/screens/modules-load.php:385
 msgid ""
 "<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</"
 "strong>)"
@@ -748,35 +748,35 @@ msgstr ""
 "</strong>)"
 
 #. translators: 1. Module name; 2. Module author.
-#: admin/screens/modules-load.php:388
+#: admin/screens/modules-load.php:391
 msgid "<strong>%1$s</strong> by <em>%2$s</em>"
 msgstr "<strong>%1$s</strong> por <em>%2$s</em>"
 
-#: admin/screens/modules-load.php:399
+#: admin/screens/modules-load.php:402
 msgid "Are you sure you wish to delete these files and data?"
 msgstr "¿Está seguro que desea eliminar estos archivos y datos?"
 
-#: admin/screens/modules-load.php:401
+#: admin/screens/modules-load.php:404
 msgid "Are you sure you wish to delete these files?"
 msgstr "¿Está seguro que desea eliminar estos archivos?"
 
-#: admin/screens/modules-load.php:414
+#: admin/screens/modules-load.php:417
 msgid "Yes, Delete these files and data"
 msgstr "Sí, eliminar estos archivos y datos"
 
-#: admin/screens/modules-load.php:414
+#: admin/screens/modules-load.php:417
 msgid "Yes, Delete these files"
 msgstr "Sí, eliminar estos archivos"
 
-#: admin/screens/modules-load.php:417
+#: admin/screens/modules-load.php:420
 msgid "No, Return me to the module list"
 msgstr "No, regréseme a la lista de módulos"
 
-#: admin/screens/modules-load.php:420
+#: admin/screens/modules-load.php:423
 msgid "Click to view entire list of files which will be deleted"
 msgstr "Pulse aquí para ver toda la lista de archivos que se eliminarán"
 
-#: admin/screens/modules-load.php:470
+#: admin/screens/modules-load.php:473
 msgid ""
 "Modules extend and expand the functionality of WordPoints. Once a module is "
 "installed, you may activate it or deactivate it here."
@@ -786,7 +786,7 @@ msgstr ""
 
 #. translators: 1. URL of module directory on WordPoints.org; 2. URL of Install
 #. Module admin screen; 3. Directory name.
-#: admin/screens/modules-load.php:472
+#: admin/screens/modules-load.php:475
 #, fuzzy
 msgid ""
 "You can find modules for your site by by browsing the <a href=\"%1$s"
@@ -800,11 +800,11 @@ msgstr ""
 "módulo </a> en su <code>/wpcontent/wordpoints-modules</code>. Una vez que el "
 "módulo se ha instalado, se puede activar aquí."
 
-#: admin/screens/modules-load.php:479
+#: admin/screens/modules-load.php:482
 msgid "Troubleshooting"
 msgstr "Solución de problemas"
 
-#: admin/screens/modules-load.php:481
+#: admin/screens/modules-load.php:484
 msgid ""
 "Most of the time, modules play nicely with the core of WordPoints and with "
 "other modules. Sometimes, though, a module&#8217;s code will get in the way "
@@ -821,7 +821,7 @@ msgstr ""
 "combinaciones hasta aislar cuál (es) causó el problema."
 
 #. translators: Directory name.
-#: admin/screens/modules-load.php:483
+#: admin/screens/modules-load.php:486
 #, fuzzy
 msgid ""
 "If something goes wrong with a module and you can&#8217;t use WordPoints, "
@@ -832,30 +832,30 @@ msgstr ""
 "cambie el nombre de ese archivo en el < code>%s </code> y se desactivará "
 "automáticamente."
 
-#: admin/screens/modules-load.php:489
+#: admin/screens/modules-load.php:492
 msgid "Developer Documentation"
 msgstr "Documentación de desarrolladores"
 
-#: admin/screens/modules-load.php:497
+#: admin/screens/modules-load.php:500
 msgctxt "modules table heading"
 msgid "Module"
 msgstr "Módulo"
 
-#: admin/screens/modules-load.php:498
+#: admin/screens/modules-load.php:501
 msgctxt "modules table heading"
 msgid "Description"
 msgstr "Descripción"
 
-#: admin/screens/modules-load.php:504
+#: admin/screens/modules-load.php:507
 #, fuzzy
 msgid "Filter modules list"
 msgstr "Visitar sitio módulo"
 
-#: admin/screens/modules-load.php:505
+#: admin/screens/modules-load.php:508
 msgid "Modules list navigation"
 msgstr ""
 
-#: admin/screens/modules-load.php:506
+#: admin/screens/modules-load.php:509
 #, fuzzy
 msgid "Modules list"
 msgstr "Módulos"
@@ -2333,12 +2333,12 @@ msgid "Auto Draft"
 msgstr "Proyecto Automático"
 
 #. translators: 1. Meta key.
-#: components/points/includes/functions.php:320
+#: components/points/includes/functions.php:348
 msgid "This points type uses a custom meta key: %s"
 msgstr "Este tipo de puntos utiliza una clave personalizada meta: %s"
 
 #. translators: Meta key.
-#: components/points/includes/functions.php:346
+#: components/points/includes/functions.php:374
 msgid ""
 "This points type uses a custom meta key (&#8220;%s&#8221;). If this key is "
 "also used by another plugin, changes made by it will not be logged. Only "
@@ -2953,7 +2953,7 @@ msgid "Unable to locate WordPoints Module directory."
 msgstr "No se puede localizar el directorio de Módulos WordPoints."
 
 #. translators: Module or list of modules.
-#: includes/modules.php:960
+#: includes/modules.php:967
 #, fuzzy
 msgid "Could not fully remove the module %s."
 msgid_plural "Could not fully remove the modules %s."

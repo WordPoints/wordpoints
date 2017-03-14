@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6
 Tags: points, awards, rewards, credits, gamify, ranks, games
 Requires at least: 4.6
 Tested up to: 4.8-alpha-39357
-Stable tag: 2.2.2
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,7 +122,13 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
-= 2.3.0 — 2017-00-00 =
+= 2.3.0 — 2017-03-14 =
+
+##### Security
+
+- Hardening: Module files are now validated before deletion. Previously a user with
+ the capabilities to manage modules could list and delete any directory via the
+ Delete Module admin screen.
 
 ##### Added
 
@@ -215,8 +221,9 @@ file included with the plugin.
 == Upgrade Notice ==
 
 = 2.3.0 =
-Adds the ability to disable reactions, provides more possibilities for reaction
-conditions, and improves the display of the widgets on narrow sidebars.
+**Includes minor security hardening.** Adds the ability to disable reactions,
+provides more possibilities for reaction conditions, and improves the display of the
+widgets on narrow sidebars.
 
 = 2.2.2 =
 * Fixes a bug that caused event reactions not to award points for some custom post

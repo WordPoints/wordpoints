@@ -8,6 +8,14 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
+Nothing documented at present.
+
+## [2.3.0] - 2017-03-14
+
+### Security
+
+- Hardening: Module files are now validated before deletion. Previously a user with the capabilities to manage modules could list and delete any directory via the Delete Module admin screen.
+
 ### Added
 
 - `yarn.lock` file. #583
@@ -36,6 +44,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Equals hook condition for the Decimal Number and Integer data types. #615
 - Greater Than and Less Than hook conditions for the Integer and Decimal Number data types. #626
 - Shortcodes meta box to the Points Types admin screen to display shortcode examples for the points type. #610
+- `SECURITY.md` file.
 
 ### Changed
 
@@ -381,6 +390,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[2.3.0]: https://github.com/WordPoints/wordpoints/compare/2.2.2...2.3.0
 [2.2.2]: https://github.com/WordPoints/wordpoints/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/WordPoints/wordpoints/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/WordPoints/wordpoints/compare/2.1.5...2.2.0

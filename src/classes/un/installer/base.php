@@ -180,6 +180,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 * @since 2.1.0 Added support for uninstalling meta boxes.
 	 * @since 2.1.0 Deprecated $list_tables in favor of $*['list_tables'].
+	 * @since 2.4.0 Added support for uninstalling transients.
 	 *
 	 * @type array[] $uninstall {
 	 *       Different kinds of things to uninstall.
@@ -189,9 +190,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 *       @type array[] $single {
 	 *             Things to be uninstalled on a single site (non-multisite) install.
 	 *
-	 *             @type string[] $user_meta A list of keys for user metadata to delete.
-	 *             @type string[] $options   A list of options to delete.
-	 *             @type string[] $widgets   A list of widget slugs to uninstall.
+	 *             @type string[] $user_meta    A list of keys for user metadata to delete.
+	 *             @type string[] $options      A list of options to delete.
+	 *             @type string[] $transients   A list of transients to delete.
+	 *             @type string[] $widgets      A list of widget slugs to uninstall.
 	 *             @type string[] $points_hooks A list of points hooks to uninstall.
 	 *             @type string[] $tables       A list of tables to uninstall. Base
 	 *                                          DB prefix will be prepended.
@@ -1481,6 +1483,7 @@ abstract class WordPoints_Un_Installer_Base {
 			array(
 				'user_meta'    => array(),
 				'options'      => array(),
+				'transients'   => array(),
 				'tables'       => array(),
 				'comment_meta' => array(),
 				'meta_boxes'   => array(),
@@ -1499,6 +1502,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['options'] as $option ) {
 			$this->uninstall_option( $option );
+		}
+
+		foreach ( $uninstall['transients'] as $transient ) {
+			$this->uninstall_transient( $transient );
 		}
 
 		foreach ( $uninstall['tables'] as $table ) {
@@ -1706,10 +1713,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 * Uninstall an option.
 	 *
 	 * If the $option contains a % wildcard, all matching options will be retrieved
-	 * and deleted. Note that currently this doesn't apply to network options, which
-	 * will ignore wildcards.
+	 * and deleted.
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 Added support for wildcards for network options.
 	 *
 	 * @param string $option The option to uninstall.
 	 */
@@ -1775,6 +1782,22 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		array_map( 'delete_site_option', $options );
+	}
+
+	/**
+	 * Uninstall a transient.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $transient The transient to uninstall.
+	 */
+	protected function uninstall_transient( $transient ) {
+
+		if ( 'network' === $this->context ) {
+			delete_site_transient( $transient );
+		} else {
+			delete_transient( $transient );
+		}
 	}
 
 	/**

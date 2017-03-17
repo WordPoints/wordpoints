@@ -2955,6 +2955,59 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test uninstalling transients.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_transient
+	 */
+	public function test_uninstall_transient() {
+
+		set_transient( __METHOD__, 'test' );
+
+		$this->un_installer->uninstall_transient( __METHOD__ );
+
+		$this->assertFalse( get_transient( __METHOD__ ) );
+	}
+
+	/**
+	 * Test that it uninstalls network ("site") transients in network context.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_transient
+	 * @covers WordPoints_Un_Installer_Base::uninstall_network_transient
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_network_transient() {
+
+		set_site_transient( __METHOD__, 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_transient( __METHOD__ );
+
+		$this->assertFalse( get_site_transient( __METHOD__ ) );
+	}
+
+	/**
+	 * Test uninstalling transients.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_
+	 */
+	public function test_uninstall__transient() {
+
+		set_transient( __METHOD__, 'test' );
+
+		$this->un_installer->uninstall['single']['transients'] = array( __METHOD__ );
+		$this->un_installer->uninstall_( 'single' );
+
+		$this->assertFalse( get_transient( __METHOD__ ) );
+	}
+
+	/**
 	 * Test uninstalling widgets.
 	 *
 	 * @since 2.0.0

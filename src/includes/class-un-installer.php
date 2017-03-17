@@ -29,6 +29,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.4.0-alpha-2'  => array( 'single' => true, 'site' => true, /*      -      */ ),
 	);
 
 	/**
@@ -370,6 +371,38 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_single_to_2_3_0_alpha_2() {
 		$this->update_network_to_2_3_0_alpha_2();
+	}
+
+	/**
+	 * Update a single site on a multisite network to 2.4.0.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_site_to_2_4_0_alpha_2() {
+		$this->update_2_4_0_add_new_custom_caps();
+	}
+
+	/**
+	 * Update a non-multisite install to 2.4.0.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_single_to_2_4_0_alpha_2() {
+		$this->update_2_4_0_add_new_custom_caps();
+	}
+
+	/**
+	 * Adds the new custom caps.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_2_4_0_add_new_custom_caps() {
+
+		$this->custom_caps = array(
+			'update_wordpoints_modules' => 'update_plugins',
+		);
+
+		$this->install_custom_caps();
 	}
 }
 

@@ -87,6 +87,15 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_recently_activated_modules',
 			),
 		),
+		'global' => array(
+			'options' => array(
+				'wordpoints_edd_sl_module_licenses',
+				'wordpoints_edd_sl_module_info',
+			),
+			'transients' => array(
+				'wordpoints_module_updates',
+			),
+		),
 		'universal' => array(
 			'options' => array(
 				'wordpoints_data',

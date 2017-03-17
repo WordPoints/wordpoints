@@ -251,6 +251,13 @@ function wordpoints_register_admin_scripts() {
 	// CSS
 
 	wp_register_style(
+		'wordpoints-admin-modules-list-table'
+		, "{$assets_url}/css/modules-list-table{$suffix}.css"
+		, array()
+		, WORDPOINTS_VERSION
+	);
+
+	wp_register_style(
 		'wordpoints-admin-module-updates-table'
 		, "{$assets_url}/css/module-updates-table{$suffix}.css"
 		, array()
@@ -265,9 +272,11 @@ function wordpoints_register_admin_scripts() {
 	);
 
 	$styles = wp_styles();
+	$styles->add_data( 'wordpoints-admin-modules-list-table', 'rtl', 'replace' );
 	$styles->add_data( 'wordpoints-hooks-admin', 'rtl', 'replace' );
 
 	if ( $suffix ) {
+		$styles->add_data( 'wordpoints-admin-modules-list-table', 'suffix', $suffix );
 		$styles->add_data( 'wordpoints-hooks-admin', 'suffix', $suffix );
 	}
 

@@ -251,6 +251,13 @@ function wordpoints_register_admin_scripts() {
 	// CSS
 
 	wp_register_style(
+		'wordpoints-admin-module-updates-table'
+		, "{$assets_url}/css/module-updates-table{$suffix}.css"
+		, array()
+		, WORDPOINTS_VERSION
+	);
+
+	wp_register_style(
 		'wordpoints-hooks-admin'
 		, "{$assets_url}/css/hooks{$suffix}.css"
 		, array( 'dashicons', 'wp-jquery-ui-dialog' )

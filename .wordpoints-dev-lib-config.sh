@@ -24,6 +24,14 @@ function wordpoints-dev-lib-config() {
 		# Ticket related to removing blank target links, mentioned in the changelog.
 		-e '#558' \
 	)
+
+	CODESNIFF_PATH_STRINGS=(\
+		"${CODESNIFF_PATH_STRINGS[@]}" \
+		# Needs to use non-HTTPS since it may not be supported.
+		'!' -path './src/classes/module/server.php' \
+		# Tests for the above class.
+		'!' -path './tests/phpunit/tests/classes/module/server.php' \
+	)
 }
 
 # EOF

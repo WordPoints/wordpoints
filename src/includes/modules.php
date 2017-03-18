@@ -365,6 +365,41 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 }
 
 /**
+ * Get the server for a module.
+ *
+ * @since 2.4.0
+ *
+ * @param array $module The module to get the server for.
+ *
+ * @return WordPoints_Module_ServerI|false The object for the server to use for this
+ *                                         module, or false.
+ */
+function wordpoints_get_server_for_module( $module ) {
+
+	$server = false;
+
+	if ( isset( $module['server'] ) ) {
+		$server = $module['server'];
+	}
+
+	/**
+	 * Filter the server to use for a module.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|false $server The slug of the server to use, or false for none.
+	 * @param array        $module The module's header data.
+	 */
+	$server = apply_filters( 'wordpoints_server_for_module', $server, $module );
+
+	if ( ! $server ) {
+		return false;
+	}
+
+	return new WordPoints_Module_Server( $server );
+}
+
+/**
  * Load a module's text domain.
  *
  * @since 1.1.0

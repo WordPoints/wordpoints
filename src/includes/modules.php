@@ -213,6 +213,7 @@ function wordpoints_module_basename( $file ) {
  * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
  * @since 1.10.0 The 'update_api' header is deprecated in favor of 'channel'.
  * @since 2.2.0 The 'namespace' header is now supported.
+ * @since 2.4.0 The 'channel' header is deprecated in favor of 'server'.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -232,7 +233,7 @@ function wordpoints_module_basename( $file ) {
  *         @type string $text_domain The module's text domain.
  *         @type string $domain_path The folder containing the module's *.mo translation files.
  *         @type bool   $network     Whether the module should only be network activated.
- *         @type string $channel     The URL of the update service to be used for this module.
+ *         @type string $server      The slug of the remote server for this module (like for updates, etc.).
  *         @type mixed  $ID          A unique identifier for this module, used by the update service.
  *         @type string $namespace   The namespace for this module. Should be Title_Case, and omit "WordPoints" prefix.
  * }
@@ -251,6 +252,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'network'     => 'Network',
 		'update_api'  => 'Update API',
 		'channel'     => 'Channel',
+		'server'      => 'Server',
 		'ID'          => 'ID',
 		'namespace'   => 'Namespace',
 	);
@@ -264,7 +266,12 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 	}
 
 	if ( ! empty( $module_data['update_api'] ) ) {
-		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Channel".' );
+		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Server".' );
+	}
+
+	if ( ! empty( $module_data['channel'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.4.0', 'The "Channel" module header has been deprecated in favor of "Server".' );
+		$module_data['server'] = $module_data['channel'];
 	}
 
 	$module_data['network'] = ( 'true' === strtolower( $module_data['network'] ) );

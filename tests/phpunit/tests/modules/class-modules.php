@@ -52,6 +52,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 				'network'     => '',
 				'update_api'  => '',
 				'channel'     => '',
+				'server'      => '',
 				'ID'          => '',
 				'namespace'   => 'Demo',
 				'raw_file'    => wordpoints_modules_dir() . 'demo-module/demo-module.php',

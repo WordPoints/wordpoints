@@ -45,6 +45,7 @@ function wordpoints_apps_init( $app ) {
 	$apps->register( 'data_types', 'WordPoints_Class_Registry' );
 	$apps->register( 'components', 'WordPoints_App' );
 	$apps->register( 'modules', 'WordPoints_App' );
+	$apps->register( 'module_server_apis', 'WordPoints_Class_Registry' );
 }
 
 /**
@@ -140,6 +141,24 @@ function wordpoints_module( $slug ) {
 	}
 
 	return WordPoints_App::$main->get_sub_app( 'modules' )->get_sub_app( $slug );
+}
+
+//
+// Module Server APIs API
+//
+
+/**
+ * Register module server APIs when the Module Server APIs app is initialized.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-apps-module_server_apis
+ *
+ * @param WordPoints_Class_RegistryI $server_apis The module server APIs app.
+ */
+function wordpoints_module_server_apis_init( $server_apis ) {
+
+	$server_apis->register( 'edd_software_licensing', 'WordPoints_Module_Server_API_EDD_SL' );
 }
 
 //

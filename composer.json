@@ -5,7 +5,8 @@
     "require-dev": {
         "jdgrimes/wp-filesystem-mock": "^0.1",
         "jdgrimes/wpppb": "^0.2",
-        "xrstf/composer-php52": "^1.0"
+        "xrstf/composer-php52": "^1.0",
+        "jdgrimes/wp-http-testcase": "^1.3"
     },
     "scripts": {
         "post-install-cmd": [

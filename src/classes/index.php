@@ -10,6 +10,8 @@
 return array(
 	// auto-generated {
 	'wordpoints_module_serveri' => 'module/serveri.php',
+	'wordpoints_module_server_api_updatesi' => 'module/server/api/updatesi.php',
+	'wordpoints_module_server_api_licensesi' => 'module/server/api/licensesi.php',
 	'wordpoints_hook_ui_script_data_provideri' => 'hook/ui/script/data/provideri.php',
 	'wordpoints_hook_settingsi' => 'hook/settingsi.php',
 	'wordpoints_hook_reactori' => 'hook/reactori.php',
@@ -136,6 +138,7 @@ return array(
 	'wordpoints_installables' => 'installables.php',
 	'wordpoints_module_paths' => 'module/paths.php',
 	'wordpoints_module_server' => 'module/server.php',
+	'wordpoints_module_server_api_edd_sl' => 'module/server/api/edd/sl.php',
 	'wordpoints_modules' => 'modules.php',
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	'wordpoints_shortcode' => 'shortcode.php',

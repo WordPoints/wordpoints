@@ -129,7 +129,7 @@ class WordPoints_Module_Server implements WordPoints_Module_ServerI {
 
 		return wordpoints_apps()
 			->get_sub_app( 'module_server_apis' )
-			->get( $api_slug );
+			->get( $api_slug, array( $this ) );
 	}
 
 	/**

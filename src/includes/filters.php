@@ -51,6 +51,7 @@ add_action( 'wordpoints_init_app_registry-entities-restrictions-know', 'wordpoin
 add_action( 'wordpoints_init_app_registry-entities-restrictions-view', 'wordpoints_entity_restrictions_view_init' );
 
 add_action( 'wordpoints_init_app_registry-apps-data_types', 'wordpoints_data_types_init' );
+add_action( 'wordpoints_init_app_registry-apps-module_server_apis', 'wordpoints_module_server_apis_init' );
 
 add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_hook_extensions_init' );
 add_action( 'wordpoints_init_app_registry-hooks-events', 'wordpoints_hook_events_init' );

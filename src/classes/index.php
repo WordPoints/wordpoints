@@ -11,6 +11,7 @@ return array(
 	// auto-generated {
 	'wordpoints_module_serveri' => 'module/serveri.php',
 	'wordpoints_module_server_api_updatesi' => 'module/server/api/updatesi.php',
+	'wordpoints_module_server_api_module_datai' => 'module/server/api/module/datai.php',
 	'wordpoints_module_server_api_licensesi' => 'module/server/api/licensesi.php',
 	'wordpoints_hook_ui_script_data_provideri' => 'hook/ui/script/data/provideri.php',
 	'wordpoints_hook_settingsi' => 'hook/settingsi.php',

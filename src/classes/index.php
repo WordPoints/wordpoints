@@ -139,6 +139,7 @@ return array(
 	'wordpoints_module_paths' => 'module/paths.php',
 	'wordpoints_module_server' => 'module/server.php',
 	'wordpoints_module_server_api_edd_sl' => 'module/server/api/edd/sl.php',
+	'wordpoints_module_server_api_edd_sl_free' => 'module/server/api/edd/sl/free.php',
 	'wordpoints_modules' => 'modules.php',
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	'wordpoints_shortcode' => 'shortcode.php',

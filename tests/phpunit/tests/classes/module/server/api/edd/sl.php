@@ -19,6 +19,24 @@
 class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 	/**
+	 * Module server API class being tested.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $server_api_class = 'WordPoints_Module_Server_API_EDD_SL';
+
+	/**
+	 * The tests simulator to use to simulate the remote server response.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $tests_simulator = 'Module_Server_API_EDD_SL';
+
+	/**
 	 * @since 2.4.0
 	 */
 	public function setUp() {
@@ -38,9 +56,27 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function add_module_api_header( $request ) {
 
-		$request['headers']['x-wordpoints-tests-simulator'] = 'Module_Server_API_EDD_SL';
+		$request['headers']['x-wordpoints-tests-simulator'] = $this->tests_simulator;
 
 		return $request;
+	}
+
+	/**
+	 * Constructs a server API object to test.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param WordPoints_Module_Server $server The server object.
+	 *
+	 * @return WordPoints_Module_Server_API_EDD_SL The server API object.
+	 */
+	protected function get_server_api( WordPoints_Module_Server $server = null ) {
+
+		if ( ! isset( $server ) ) {
+			$server = new WordPoints_Module_Server( 'example.com' );
+		}
+
+		return new $this->server_api_class( $server );
 	}
 
 	/**
@@ -50,9 +86,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function test_module_requires_license() {
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$mock = $this->getMock( 'WordPoints_Module_Server_API_Module_DataI' );
 
@@ -66,9 +100,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function test_get_module_license_object() {
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$mock = $this->getMock( 'WordPoints_Module_Server_API_Module_DataI' );
 
@@ -85,9 +117,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function test_get_module_latest_version() {
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$version = '2.3.1';
 
@@ -104,9 +134,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function test_get_module_package_url() {
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$url = 'https://example.com/module/?download=1';
 
@@ -123,9 +151,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function test_get_module_changelog() {
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$changelog = 'A list of changes...';
 
@@ -142,9 +168,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 */
 	public function test_get_module_info_returns_cached_if_available() {
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
 		$data->set( 'test', 'test_value' );
@@ -167,7 +191,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL( $server );
+		$api = $this->get_server_api( $server );
 
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 		$data->set( 'license_key', 'test_key' );
@@ -195,9 +219,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 
@@ -214,9 +236,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$this->assertInstanceOf( 'WP_Error', $api->request( 'get_version', 123 ) );
 	}
@@ -236,7 +256,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL( $server );
+		$api = $this->get_server_api( $server );
 
 		$response = $api->request( 'get_version', 123, 'test_key' );
 
@@ -256,9 +276,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( $response );
 		$filter->add_filter( 'pre_http_request' );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$response = $api->request( 'get_version', 123, 'test_key' );
 
@@ -279,9 +297,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( $response );
 		$filter->add_filter( 'pre_http_request' );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$response = $api->request( 'get_version', 123, 'test_key' );
 
@@ -305,9 +321,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( $response );
 		$filter->add_filter( 'pre_http_request' );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL(
-			new WordPoints_Module_Server( 'example.com' )
-		);
+		$api = $this->get_server_api();
 
 		$response = $api->request( 'get_version', 123, 'test_key' );
 

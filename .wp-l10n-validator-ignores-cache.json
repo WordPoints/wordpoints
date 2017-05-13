@@ -2089,15 +2089,24 @@
                 "parentheses": 1
             }
         },
+        "WordPoints_Module_Server_API_EDD_SL_Free": {
+            "162": {
+                "name": "$server_apis->register",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
         "post\\\\": {
-            "263": {
+            "264": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "291": {
+            "292": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2106,7 +2115,7 @@
             }
         },
         "comment\\\\": {
-            "269": {
+            "270": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2115,7 +2124,7 @@
             }
         },
         "content": {
-            "291": {
+            "292": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

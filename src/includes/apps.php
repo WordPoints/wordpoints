@@ -159,6 +159,7 @@ function wordpoints_module( $slug ) {
 function wordpoints_module_server_apis_init( $server_apis ) {
 
 	$server_apis->register( 'edd_software_licensing', 'WordPoints_Module_Server_API_EDD_SL' );
+	$server_apis->register( 'edd_software_licensing_free', 'WordPoints_Module_Server_API_EDD_SL_Free' );
 }
 
 //

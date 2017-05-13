@@ -158,6 +158,7 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		wordpoints_module_server_apis_init( $server_apis );
 
 		$this->assertTrue( $server_apis->is_registered( 'edd_software_licensing' ) );
+		$this->assertTrue( $server_apis->is_registered( 'edd_software_licensing_free' ) );
 	}
 }
 

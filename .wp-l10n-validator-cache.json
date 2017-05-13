@@ -716,8 +716,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 9080,
-            "hash": "1b53e020f712d314a82aad3196e25f7a",
+            "size": 9164,
+            "hash": "b7014e2580b971f619f3528fc81733bb",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -731,8 +731,8 @@
             "errors": false
         },
         "\/classes\/module\/server\/api\/edd\/sl\/free.php": {
-            "size": 1624,
-            "hash": "c367e95e50799f08a6446a6938bd42b7",
+            "size": 1625,
+            "hash": "217d1c82b611875af5018a3b31091588",
             "errors": false
         },
         "\/classes\/module\/server\/api\/edd\/sl.php": {
@@ -1261,8 +1261,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 15028,
-            "hash": "a711037bb52733c95ff5901217721c14",
+            "size": 15130,
+            "hash": "ab1b57eb86dcf3a4651bb1d87180486e",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {

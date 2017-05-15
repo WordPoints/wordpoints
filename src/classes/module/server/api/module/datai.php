@@ -46,6 +46,16 @@ interface WordPoints_Module_Server_API_Module_DataI {
 	 */
 	public function set( $key, $value );
 
+	/**
+	 * Deletes a piece of data for a module.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $key The piece of data to delete.
+	 *
+	 * @return bool Whether the data was deleted successfully.
+	 */
+	public function delete( $key );
 }
 
 // EOF

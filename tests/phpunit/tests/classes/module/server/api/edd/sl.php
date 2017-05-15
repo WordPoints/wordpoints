@@ -207,6 +207,11 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 			'%s://example.org/edd-sl/package_download/%s'
 			, $api->get_module_info( $data, 'package' )
 		);
+
+		$this->assertStringMatchesFormat(
+			'%s://example.org/?download=test-download'
+			, $api->get_module_info( $data, 'homepage' )
+		);
 	}
 
 	/**

@@ -716,8 +716,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 9164,
-            "hash": "b7014e2580b971f619f3528fc81733bb",
+            "size": 9922,
+            "hash": "10f3a0668b9cd171786b57f41b9eb725",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -736,8 +736,8 @@
             "errors": false
         },
         "\/classes\/module\/server\/api\/edd\/sl.php": {
-            "size": 4947,
-            "hash": "5403f6664b7e2799c44f7dcebe49c317",
+            "size": 5053,
+            "hash": "5b8b8403ce5f04464b8d3e5859fe9a3e",
             "errors": false
         },
         "\/classes\/module\/server\/api\/licensesi.php": {
@@ -746,33 +746,33 @@
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/datai.php": {
-            "size": 942,
-            "hash": "0ed97ac412b97691ca575bb507d6885b",
+            "size": 1168,
+            "hash": "cd55226cd73b69de0a7cb9c5be6a3fd5",
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/license\/activatablei.php": {
-            "size": 392,
-            "hash": "e7066aa78e63c00128227199d4276eb1",
+            "size": 958,
+            "hash": "dc06308b83469db5602169bb99179c3b",
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/license\/deactivatablei.php": {
-            "size": 367,
-            "hash": "75dfd0c3e8c151f9c9525b3511973bd4",
+            "size": 785,
+            "hash": "4933e97fde859b6bc9bc11dc69cf5465",
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/license\/edd\/sl.php": {
-            "size": 4298,
-            "hash": "4fd83149a0a34d109cf18c334abe101c",
+            "size": 5796,
+            "hash": "83f3b372e4b5b5bb96e4df75ef126045",
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/license\/expirablei.php": {
-            "size": 361,
-            "hash": "46b7357832ab471eadfda3f51bcae0a0",
+            "size": 920,
+            "hash": "007d9e7f6f38a1b0d9d1e249cc3d4148",
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/license\/renewablei.php": {
-            "size": 362,
-            "hash": "b32621d4a9f46f22b00ac06fe57fa791",
+            "size": 580,
+            "hash": "a55a912ce1cdf792f3ee75febcee3b77",
             "errors": false
         },
         "\/classes\/module\/server\/api\/module\/licensei.php": {
@@ -1348,6 +1348,11 @@
         "\/wordpoints.php": {
             "size": 3616,
             "hash": "cd1bcd013a3ab3b4f507fcd767d6f4ad",
+            "errors": false
+        },
+        "\/classes\/module\/server\/api\/module\/license\/renewable\/urli.php": {
+            "size": 547,
+            "hash": "a4860308f9bb830b5501c6a7b6d83612",
             "errors": false
         }
     },

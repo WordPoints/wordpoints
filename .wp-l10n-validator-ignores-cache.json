@@ -2621,8 +2621,17 @@
                 "parentheses": 1
             }
         },
-        "changelog": {
+        "homepage": {
             "152": {
+                "name": "$module_data->set",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "changelog": {
+            "156": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -2633,10 +2642,41 @@
     },
     "\/classes\/module\/server\/api\/module\/license\/edd\/sl.php": {
         "valid": {
-            "96": false
+            "103": false
+        },
+        "inactive": {
+            "166": false,
+            "169": {
+                "name": "WordPoints_Module_Server_API_Module_License_EDD_SL::module_data->set",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
         },
         "lifetime": {
-            "157": false
+            "178": false
+        },
+        "expired": {
+            "185": false
+        },
+        "UTC": {
+            "199": {
+                "name": "timezone_open",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "homepage": {
+            "213": {
+                "name": "WordPoints_Module_Server_API_Module_License_EDD_SL::api->get_module_info",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
         }
     }
 }

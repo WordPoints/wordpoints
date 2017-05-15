@@ -148,6 +148,10 @@ class WordPoints_Module_Server_API_EDD_SL
 			$module_data->set( 'package', $response['package'] );
 		}
 
+		if ( isset( $response['homepage'] ) ) {
+			$module_data->set( 'homepage', $response['homepage'] );
+		}
+
 		if ( isset( $response['sections']['changelog'] ) ) {
 			$module_data->set( 'changelog', $response['sections']['changelog'] );
 		}

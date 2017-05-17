@@ -41,7 +41,7 @@ interface WordPoints_Module_ServerI {
 	 *
 	 * @since 2.4.0
 	 *
-	 * @return object The API object.
+	 * @return object|false The API object, or false if not available.
 	 */
 	public function get_api();
 }

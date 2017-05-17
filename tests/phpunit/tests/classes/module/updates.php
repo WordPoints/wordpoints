@@ -180,7 +180,7 @@ class WordPoints_Module_Updates_Test extends WordPoints_PHPUnit_TestCase {
 		$updates = new WordPoints_Module_Updates();
 		$updates->fill();
 
-		$this->assertSame( time(), $updates->get_time_checked() );
+		$this->assertSame( 0, $updates->get_time_checked() );
 		$this->assertSame( array(), $updates->get_versions_checked() );
 		$this->assertSame( array(), $updates->get_new_versions() );
 	}
@@ -197,7 +197,26 @@ class WordPoints_Module_Updates_Test extends WordPoints_PHPUnit_TestCase {
 		$updates = new WordPoints_Module_Updates();
 		$updates->fill();
 
-		$this->assertSame( time(), $updates->get_time_checked() );
+		$this->assertSame( 0, $updates->get_time_checked() );
+		$this->assertSame( array(), $updates->get_versions_checked() );
+		$this->assertSame( array(), $updates->get_new_versions() );
+	}
+
+	/**
+	 * Tests filling the object from the database overwrites the properties.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_fill_empty_already_set() {
+
+		$versions = array( 'test/test.php' => '1.2.0' );
+		$checked = array( 'test/test.php' => '1.1.3' );
+		$time = time() - WEEK_IN_SECONDS;
+
+		$updates = new WordPoints_Module_Updates( $versions, $checked, $time );
+		$updates->fill();
+
+		$this->assertSame( 0, $updates->get_time_checked() );
 		$this->assertSame( array(), $updates->get_versions_checked() );
 		$this->assertSame( array(), $updates->get_new_versions() );
 	}

@@ -134,22 +134,28 @@ class WordPoints_Module_Updates implements WordPoints_Module_UpdatesI {
 	 */
 	public function fill() {
 
-		$current = get_site_transient( 'wordpoints_module_updates' );
+		$cache = get_site_transient( 'wordpoints_module_updates' );
 
-		if ( ! is_array( $current ) ) {
-			return;
+		if ( ! is_array( $cache ) ) {
+			$cache = array();
 		}
 
-		if ( isset( $current['time_checked'] ) ) {
-			$this->time = $current['time_checked'];
+		if ( isset( $cache['time_checked'] ) ) {
+			$this->time = $cache['time_checked'];
+		} else {
+			$this->time = 0;
 		}
 
-		if ( isset( $current['checked_versions'] ) ) {
-			$this->checked_versions = $current['checked_versions'];
+		if ( isset( $cache['checked_versions'] ) ) {
+			$this->checked_versions = $cache['checked_versions'];
+		} else {
+			$this->checked_versions = array();
 		}
 
-		if ( isset( $current['new_versions'] ) ) {
-			$this->new_versions = $current['new_versions'];
+		if ( isset( $cache['new_versions'] ) ) {
+			$this->new_versions = $cache['new_versions'];
+		} else {
+			$this->new_versions = array();
 		}
 	}
 

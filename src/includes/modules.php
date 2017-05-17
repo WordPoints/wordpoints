@@ -1206,4 +1206,26 @@ function wordpoints_get_module_updates() {
 	return $updates;
 }
 
+/**
+ * Checks for module updates.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_check_for_module_updates Cron event registered by
+ *                   wordpoints_schedule_module_update_checks().
+ *
+ * @param int $cache_timeout Maximum acceptable age for the cache. If the cache is
+ *                           older than this, it will be updated. The default is 12
+ *                           hours.
+ *
+ * @return WordPoints_Module_UpdatesI|false The updates, or false if the check was
+ *                                          not run (due to the cache being fresh
+ *                                          enough, or some other reason).
+ */
+function wordpoints_check_for_module_updates( $cache_timeout = null ) {
+
+	$check = new WordPoints_Module_Updates_Check( $cache_timeout );
+	return $check->run();
+}
+
 // EOF

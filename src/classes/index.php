@@ -150,6 +150,7 @@ return array(
 	'wordpoints_module_server_api_edd_sl_free' => 'module/server/api/edd/sl/free.php',
 	'wordpoints_module_server_api_module_data' => 'module/server/api/module/data.php',
 	'wordpoints_module_updates' => 'module/updates.php',
+	'wordpoints_module_updates_check' => 'module/updates/check.php',
 	'wordpoints_modules' => 'modules.php',
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	'wordpoints_shortcode' => 'shortcode.php',

@@ -1175,4 +1175,19 @@ function wordpoints_register_module_deactivation_hook( $file, $function ) {
 	add_action( "wordpoints_deactivate_module-{$module_file}", $function );
 }
 
+/**
+ * Gets the available module updates.
+ *
+ * @since 2.4.0
+ *
+ * @return WordPoints_Module_UpdatesI The available module updates.
+ */
+function wordpoints_get_module_updates() {
+
+	$updates = new WordPoints_Module_Updates();
+	$updates->fill();
+
+	return $updates;
+}
+
 // EOF

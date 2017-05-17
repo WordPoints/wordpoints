@@ -9,6 +9,7 @@
 
 return array(
 	// auto-generated {
+	'wordpoints_module_updatesi' => 'module/updatesi.php',
 	'wordpoints_module_serveri' => 'module/serveri.php',
 	'wordpoints_module_server_api_updatesi' => 'module/server/api/updatesi.php',
 	'wordpoints_module_server_api_module_licensei' => 'module/server/api/module/licensei.php',
@@ -148,6 +149,7 @@ return array(
 	'wordpoints_module_server_api_edd_sl' => 'module/server/api/edd/sl.php',
 	'wordpoints_module_server_api_edd_sl_free' => 'module/server/api/edd/sl/free.php',
 	'wordpoints_module_server_api_module_data' => 'module/server/api/module/data.php',
+	'wordpoints_module_updates' => 'module/updates.php',
 	'wordpoints_modules' => 'modules.php',
 	'wordpoints_multisite_switched_state' => 'multisite/switched/state.php',
 	'wordpoints_shortcode' => 'shortcode.php',

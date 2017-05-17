@@ -396,7 +396,23 @@ function wordpoints_get_server_for_module( $module ) {
 		return false;
 	}
 
-	return new WordPoints_Module_Server( $server );
+	$server = new WordPoints_Module_Server( $server );
+
+	/**
+	 * Filter the server object to use for a module.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WordPoints_Module_ServerI $server The server object to use.
+	 * @param array                     $module The module's header data.
+	 */
+	$server = apply_filters( 'wordpoints_server_object_for_module', $server, $module );
+
+	if ( ! $server instanceof WordPoints_Module_ServerI ) {
+		return false;
+	}
+
+	return $server;
 }
 
 /**

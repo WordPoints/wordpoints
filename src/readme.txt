@@ -73,6 +73,15 @@ If you are interested in integrating or extending the plugin, you'll want to rea
 If you are a security researcher you can report vulnerabilities through our
 [bug bounty program on HackerOne](https://hackerone.com/wordpoints).
 
+= Privacy Policy =
+
+WordPoints does not communicate with any remote services by default. However, when
+you install modules from WordPoints.org or other servers, WordPoints may communicate
+with those services in order to provide you updates for the module. Check the privacy
+policy of the module server in question to learn more about what information is
+shared with it, though generally only the ID and version of the module will be sent
+to the update service.
+
 == Installation ==
 
 Before installing on multisite, it is recommended that you read this

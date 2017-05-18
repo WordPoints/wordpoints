@@ -1228,4 +1228,36 @@ function wordpoints_check_for_module_updates( $cache_timeout = null ) {
 	return $check->run();
 }
 
+/**
+ * Schedules the module updates check.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action init
+ */
+function wordpoints_schedule_module_updates_check() {
+
+	$event = 'wordpoints_check_for_module_updates';
+
+	if ( ! wp_next_scheduled( $event ) ) {
+		wp_schedule_event( time(), 'twicedaily', $event );
+	}
+}
+
+/**
+ * Reschedules the module updates check from the current time.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_module_update_check_completed
+ */
+function wordpoints_reschedule_module_updates_check() {
+
+	wp_reschedule_event(
+		time()
+		, 'twicedaily'
+		, 'wordpoints_check_for_module_updates'
+	);
+}
+
 // EOF

@@ -116,6 +116,15 @@ class WordPoints_Module_Updates_Check {
 
 		$updates->save();
 
+		/**
+		 * Fires when a check for any module updates is completed.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param WordPoints_Module_UpdatesI $updates The discovered updates.
+		 */
+		do_action( 'wordpoints_module_update_check_completed', $updates );
+
 		return $updates;
 	}
 

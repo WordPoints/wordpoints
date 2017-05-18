@@ -48,6 +48,18 @@ function wordpoints_activate( $network_active ) {
 }
 
 /**
+ * Performs actions when the plugin is deactivated.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action deactivate_wordpoints/wordpoints.php
+ */
+function wordpoints_deactivate() {
+
+	wp_clear_scheduled_hook( 'wordpoints_check_for_module_updates' );
+}
+
+/**
  * Check module compatibility before breaking updates.
  *
  * @since 2.0.0

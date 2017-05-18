@@ -8,6 +8,7 @@
  */
 
 register_activation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_activate' );
+register_deactivation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_deactivate' );
 
 add_action( 'plugins_loaded', 'wordpoints_register_installer' );
 add_action( 'plugins_loaded', 'wordpoints_breaking_update' );
@@ -20,6 +21,17 @@ add_action( 'wordpoints_components_register', 'wordpoints_points_component_regis
 add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
 
 add_action( 'init', 'wordpoints_init_cache_groups', 5 );
+
+if (
+	! wp_doing_ajax()
+	&& ( is_main_site() || is_network_admin() || ! is_wordpoints_network_active() )
+) {
+
+	add_action( 'init', 'wordpoints_schedule_module_updates_check' );
+	add_action( 'wordpoints_module_update_check_completed', 'wordpoints_reschedule_module_updates_check' );
+
+	add_action( 'wordpoints_check_for_module_updates', 'wordpoints_check_for_module_updates' );
+}
 
 add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );

@@ -144,7 +144,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'upgrade'            => array(),
 		);
 
-		$updates = get_site_transient( 'wordpoints_module_updates' );
+		$updates = wordpoints_get_module_updates();
 
 		$user_can_update = (
 			current_user_can( 'update_wordpoints_modules' )
@@ -254,10 +254,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			 * If the user can update modules, add an 'update' key to the module data
 			 * for modules that have an available update.
 			 */
-			if (
-				$user_can_update
-				&& isset( $updates['response'][ $module_file ] )
-			) {
+			if ( $user_can_update && $updates->has_update( $module_file ) ) {
 				$modules['upgrade'][ $module_file ] = $modules['all'][ $module_file ];
 			}
 
@@ -610,9 +607,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$class = ( $is_active ) ? 'active' : 'inactive';
 
-		$updates = get_site_transient( 'wordpoints_module_updates' );
-
-		if ( ! empty( $updates['response'][ $module_file ] ) ) {
+		if ( wordpoints_get_module_updates()->has_update( $module_file ) ) {
 			$class .= ' update';
 		}
 

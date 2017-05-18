@@ -196,6 +196,9 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL
 			return false;
 		}
 
+		// This is actually returned in the remote site's timezone, which we have no
+		// way of knowing. In a future version a GMT time may be returned, see:
+		// https://github.com/WordPoints/wordpoints/issues/645#issuecomment-302429243
 		return date_create( $expiration, timezone_open( 'UTC' ) );
 	}
 

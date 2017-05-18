@@ -99,6 +99,31 @@ class WordPoints_Module_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Tests checking if a particular module has an update.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_has_update() {
+
+		$module  = 'test/test.php';
+		$updates = new WordPoints_Module_Updates( array( $module => '1.2.0' ) );
+
+		$this->assertTrue( $updates->has_update( $module ) );
+	}
+
+	/**
+	 * Tests checking if a particular module has an update when it doesn't.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_has_update_not() {
+
+		$updates = new WordPoints_Module_Updates();
+
+		$this->assertFalse( $updates->has_update( 'test/test.php' ) );
+	}
+
+	/**
 	 * Tests getting the new version of a particular module.
 	 *
 	 * @since 2.4.0

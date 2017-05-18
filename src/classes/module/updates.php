@@ -111,6 +111,13 @@ class WordPoints_Module_Updates implements WordPoints_Module_UpdatesI {
 	/**
 	 * @since 2.4.0
 	 */
+	public function has_update( $module ) {
+		return isset( $this->new_versions[ $module ] );
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
 	public function get_new_version( $module ) {
 
 		if ( ! isset( $this->new_versions[ $module ] ) ) {

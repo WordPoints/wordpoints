@@ -71,6 +71,17 @@ interface WordPoints_Module_UpdatesI {
 	public function set_new_versions( array $versions );
 
 	/**
+	 * Checks whether a module has an update.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $module The module basename.
+	 *
+	 * @return bool Whether the module has an update.
+	 */
+	public function has_update( $module );
+
+	/**
 	 * Gets the new version of a module that has an update.
 	 *
 	 * @since 2.4.0

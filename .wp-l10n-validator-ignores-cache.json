@@ -12,11 +12,20 @@
     },
     "\/admin\/includes\/class-wordpoints-module-installer.php": {
         "<?php \/\/ Gold is silent.": {
-            "90": {
+            "81": {
                 "name": "$wp_filesystem->put_contents",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "install": {
+            "156": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
                 "parentheses": 1
             }
         }
@@ -24,7 +33,7 @@
     "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
         "all": {
             "57": false,
-            "298": false
+            "295": false
         },
         "active": {
             "60": {
@@ -34,7 +43,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "611": false
+            "608": false
         },
         "inactive": {
             "61": {
@@ -44,7 +53,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "611": false
+            "608": false
         },
         "search": {
             "63": {
@@ -54,7 +63,7 @@
                 "arg_count": 3,
                 "parentheses": 1
             },
-            "268": false
+            "265": false
         },
         "upgrade": {
             "64": {
@@ -76,26 +85,26 @@
         },
         "name": {
             "105": false,
-            "311": false
+            "308": false
         },
         "update": {
-            "616": false
+            "611": false
         },
         "hidden": {
-            "762": false,
-            "786": false,
-            "861": false
+            "757": false,
+            "781": false,
+            "856": false
         },
         "has-row-actions column-primary": {
-            "762": false,
-            "786": false,
-            "861": false
+            "757": false,
+            "781": false,
+            "856": false
         },
         "second module-version-author-uri\">": {
-            "796": false
+            "791": false
         },
         "column-": {
-            "861": false
+            "856": false
         }
     },
     "\/admin\/includes\/functions.php": {
@@ -121,13 +130,6 @@
             "249": false
         },
         "wordpoints-admin-modules-list-table": {
-            "275": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "279": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -137,13 +139,6 @@
             }
         },
         "rtl": {
-            "275": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "276": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -153,13 +148,6 @@
             }
         },
         "replace": {
-            "275": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "276": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -169,13 +157,6 @@
             }
         },
         "wordpoints-hooks-admin": {
-            "276": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "280": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -185,13 +166,6 @@
             }
         },
         "suffix": {
-            "279": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "280": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -315,7 +289,6 @@
             }
         },
         "active": {
-            "1472": false,
             "1474": false
         },
         "-update": {
@@ -565,15 +538,9 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
         "network": {
-            "391": false,
-            "463": false,
-            "510": false,
             "542": false
         },
         "standard": {
-            "393": false,
-            "465": false,
-            "512": false,
             "544": false
         }
     },
@@ -1298,7 +1265,7 @@
             "825": false
         },
         "points": {
-            "998": {
+            "1010": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1307,7 +1274,7 @@
             }
         },
         "ranks": {
-            "1022": {
+            "1034": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2099,13 +2066,6 @@
             }
         },
         "post\\\\": {
-            "264": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "292": {
                 "name": "array",
                 "type": "unknown",
@@ -2185,8 +2145,6 @@
             "143": false
         },
         "1": {
-            "173": false,
-            "180": false,
             "186": false
         },
         "\"\n\t\t\t\t\tvalue=\"1\"": {
@@ -2336,32 +2294,16 @@
     },
     "\/classes\/un\/installer\/base.php": {
         "install": {
-            "317": false,
             "397": false
         },
         "network": {
             "338": false,
-            "469": false,
             "563": false,
-            "1342": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1376": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
-                "parentheses": 1
-            },
-            "1377": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
                 "parentheses": 1
             },
             "1382": {
@@ -2373,31 +2315,8 @@
             }
         },
         "site": {
-            "343": false,
-            "415": false,
             "448": false,
             "568": false,
-            "1342": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1375": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1377": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2410,34 +2329,6 @@
             "380": false,
             "486": false,
             "604": false,
-            "1342": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1375": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1376": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1377": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2469,13 +2360,6 @@
             }
         },
         "local": {
-            "1342": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2485,13 +2369,6 @@
             }
         },
         "global": {
-            "1342": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 4,
-                "parentheses": 1
-            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2501,13 +2378,6 @@
             }
         },
         "universal": {
-            "1342": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 5,
-                "parentheses": 1
-            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2517,13 +2387,6 @@
             }
         },
         "wordpoints": {
-            "1613": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1672": {
                 "name": "array",
                 "type": "unknown",
@@ -2563,7 +2426,6 @@
             "1684": false
         },
         "manage": {
-            "1690": false,
             "1693": false
         },
         "columnshidden": {
@@ -2661,7 +2523,7 @@
             "185": false
         },
         "UTC": {
-            "199": {
+            "202": {
                 "name": "timezone_open",
                 "type": "unknown",
                 "args_started": true,
@@ -2670,11 +2532,22 @@
             }
         },
         "homepage": {
-            "213": {
+            "216": {
                 "name": "WordPoints_Module_Server_API_Module_License_EDD_SL::api->get_module_info",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/module\/upgrader.php": {
+        "update": {
+            "283": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
                 "parentheses": 1
             }
         }

@@ -1,32 +1,29 @@
 <?php
 
 /**
- * WordPoints module upgrader class.
+ * Module installer class.
  *
  * @package WordPoints\Modules
  * @since 1.1.0
  */
 
 /**
- * The WordPres upgraders.
+ * The WordPress upgraders.
+ *
+ * @since 1.1.0
  */
 require_once ABSPATH . '/wp-admin/includes/class-wp-upgrader.php';
 
 /**
- * WordPoints module upgrader class.
+ * Installs modules.
  *
- * This class is based on the WordPress Plugin_Upgrader class, and is designed to
- * install modules from an uploaded zip file.
+ * This class is based on the WordPress Plugin_Upgrader class.
  *
  * @see WP_Upgrader The WP Upgrader class.
  *
  * @since 1.1.0
  */
 class WordPoints_Module_Installer extends WP_Upgrader {
-
-	//
-	// Public Vars.
-	//
 
 	/**
 	 * The result of the install.
@@ -37,19 +34,17 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 	 */
 	public $result;
 
-	//
-	// Private Methods.
-	//
-
 	/**
-	 * Set up the strings for a module install.
+	 * Sets up the strings for a module install.
 	 *
 	 * @since 1.1.0
 	 */
-	private function install_strings() {
+	protected function install_strings() {
 
 		$install_strings = array(
 			'no_package'           => esc_html__( 'Install package not available.', 'wordpoints' ),
+			// translators: Module package URL.
+			'downloading_package'  => sprintf( esc_html__( 'Downloading install package from %s&#8230;', 'wordpoints' ), '<span class="code">%s</span>' ),
 			'unpack_package'       => esc_html__( 'Unpacking the package&#8230;', 'wordpoints' ),
 			'installing_package'   => esc_html__( 'Installing the module&#8230;', 'wordpoints' ),
 			'no_files'             => esc_html__( 'The module contains no files.', 'wordpoints' ),
@@ -60,10 +55,6 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 
 		$this->strings = array_merge( $this->strings, $install_strings );
 	}
-
-	//
-	// Public Methods.
-	//
 
 	/**
 	 * Install a module from a package.
@@ -108,15 +99,25 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 	}
 
 	/**
-	 * Install a module.
+	 * Installs a module.
 	 *
 	 * @since 1.1.0
+	 * @since 2.4.0 The $args parameter was added with the $clear_update_cache arg.
 	 *
-	 * @param string $package The path to the install package file.
+	 * @param string $package URL or full local path of the zip package of the module
+	 *                        source.
+	 * @param array  $args    {
+	 *        Optional arguments.
+	 *
+	 *        @type bool $clear_update_cache Whether the to clear the update cache.
+	 *                                       The default is true.
+	 * }
 	 *
 	 * @return bool|WP_Error True on success, false or a WP_Error on failure.
 	 */
-	public function install( $package ) {
+	public function install( $package, $args = array() ) {
+
+		$args = wp_parse_args( $args, array( 'clear_update_cache' => true ) );
 
 		$this->init();
 		$this->install_strings();
@@ -143,24 +144,32 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 			return $this->result;
 		}
 
-		// Force refresh of plugin update information.
-		wp_cache_delete( 'wordpoints_modules', 'wordpoints_modules' );
+		// Force refresh of modules cache.
+		wordpoints_clean_modules_cache( $args['clear_update_cache'] );
+
+		/**
+		 * This action is documented in /wp-admin/includes/class-wp-upgrader.php.
+		 */
+		do_action(
+			'upgrader_process_complete'
+			, $this
+			, array( 'action' => 'install', 'type' => 'wordpoints_module' )
+			, $package
+		);
 
 		return true;
 	}
 
 	/**
-	 * Check the package.
+	 * Checks if the source package actually contains a module.
 	 *
 	 * @since 1.1.0
 	 *
-	 * @filter upgrader_source_selection Added by the install() method.
+	 * @WordPress\filter upgrader_source_selection Added by self::install().
 	 *
-	 * @uses $wp_filesystem
+	 * @param string|WP_Error $source The path to the source package.
 	 *
-	 * @param string $source The path to the source package.
-	 *
-	 * @return string|WP_Error The path to the source package or a WP_Error.
+	 * @return string|WP_Error The path to the source package, or a WP_Error.
 	 */
 	public function check_package( $source ) {
 
@@ -170,7 +179,11 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 			return $source;
 		}
 
-		$working_directory = str_replace( $wp_filesystem->wp_content_dir(), trailingslashit( WP_CONTENT_DIR ), $source );
+		$working_directory = str_replace(
+			$wp_filesystem->wp_content_dir()
+			, trailingslashit( WP_CONTENT_DIR )
+			, $source
+		);
 
 		if ( ! is_dir( $working_directory ) ) {
 			return $source;
@@ -195,20 +208,25 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		}
 
 		if ( ! $modules_found ) {
-			return new WP_Error( 'incompatible_archive_no_modules', $this->strings['incompatible_archive'], esc_html__( 'No valid modules were found.', 'wordpoints' ) );
+
+			return new WP_Error(
+				'incompatible_archive_no_modules'
+				, $this->strings['incompatible_archive']
+				, esc_html__( 'No valid modules were found.', 'wordpoints' )
+			);
 		}
 
 		return $source;
 	}
 
 	/**
-	 * Get the file which contains the module info.
+	 * Gets the file which contains the module info.
 	 *
-	 * Not used within the class, but is called by the installer skin.
+	 * Not used within the class, but may be called by the skins.
 	 *
 	 * @since 1.1.0
 	 *
-	 * @return string|false The module path or false on failure.
+	 * @return string|false The module path, or false on failure.
 	 */
 	public function module_info() {
 
@@ -228,6 +246,6 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		return $this->result['destination_name'] . '/' . $module_files[0];
 	}
 
-} // class WordPoints_Module_Installer
+} // End class WordPoints_Module_Installer.
 
 // EOF

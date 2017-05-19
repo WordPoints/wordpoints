@@ -1260,4 +1260,22 @@ function wordpoints_reschedule_module_updates_check() {
 	);
 }
 
+/**
+ * Clean the modules cache.
+ *
+ * @since 2.4.0
+ *
+ * @param bool $clear_update_cache Whether to clear the updates cache.
+ */
+function wordpoints_clean_modules_cache( $clear_update_cache = true ) {
+
+	if ( $clear_update_cache ) {
+		$updates = new WordPoints_Module_Updates();
+		$updates->set_time_checked( 0 );
+		$updates->save();
+	}
+
+	wp_cache_delete( 'wordpoints_modules', 'wordpoints_modules' );
+}
+
 // EOF

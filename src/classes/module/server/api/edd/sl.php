@@ -28,9 +28,10 @@ class WordPoints_Module_Server_API_EDD_SL
 	/**
 	 * @since 2.4.0
 	 *
+	 * @param string                    $slug   The API's slug.
 	 * @param WordPoints_Module_ServerI $server The server to use the API with.
 	 */
-	public function __construct( WordPoints_Module_ServerI $server ) {
+	public function __construct( $slug, WordPoints_Module_ServerI $server ) {
 
 		$this->server = $server;
 	}

@@ -76,7 +76,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 			$server = new WordPoints_Module_Server( 'example.com' );
 		}
 
-		return new $this->server_api_class( $server );
+		return new $this->server_api_class( 'test', $server );
 	}
 
 	/**

@@ -19,15 +19,6 @@
 class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_TestCase {
 
 	/**
-	 * Module server API class being tested.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @var string
-	 */
-	protected $server_api_class = 'WordPoints_Module_Server_API_Module_License_EDD_SL';
-
-	/**
 	 * The tests simulator to use to simulate the remote server response.
 	 *
 	 * @since 2.4.0
@@ -79,7 +70,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -203,7 +195,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -233,7 +225,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_active'
 		);
@@ -269,7 +261,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data->set( 'license_status', 'inactive' );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -305,7 +297,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data->set( 'license_status', 'inactive' );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -332,7 +324,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL( $server );
+		$api = new WordPoints_Module_Server_API_EDD_SL( 'test', $server );
 
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 		$data->set( 'license_status', 'inactive' );
@@ -386,7 +378,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_active'
 		);
@@ -416,7 +408,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -452,7 +444,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data->set( 'license_status', 'valid' );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_inactive'
 		);
@@ -488,7 +480,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$data->set( 'license_status', 'valid' );
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( $server ),
+			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_inactive'
 		);
@@ -515,7 +507,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL( $server );
+		$api = new WordPoints_Module_Server_API_EDD_SL( 'test', $server );
 
 		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
 		$data->set( 'license_status', 'valid' );
@@ -545,7 +537,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -566,7 +559,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -607,7 +601,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -631,7 +626,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -652,7 +648,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -693,7 +690,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -717,7 +715,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 			, array( 'request_info' )
 			, array(
 				new WordPoints_Module_Server_API_EDD_SL(
-					new WordPoints_Module_Server( 'example.com' )
+					'test'
+					, new WordPoints_Module_Server( 'example.com' )
 				),
 				$data,
 				'test_license_key',
@@ -748,7 +747,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_key'
@@ -776,7 +776,8 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
 			new WordPoints_Module_Server_API_EDD_SL(
-				new WordPoints_Module_Server( 'example.com' )
+				'test'
+				, new WordPoints_Module_Server( 'example.com' )
 			)
 			, $data
 			, 'test_key'

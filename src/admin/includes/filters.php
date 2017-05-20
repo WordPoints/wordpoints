@@ -12,6 +12,10 @@ add_action( 'wordpoints_init_app-apps', 'wordpoints_hooks_register_admin_apps' )
 add_action( 'admin_init', 'wordpoints_hooks_admin_ajax' );
 add_action( 'admin_init', 'wordpoints_register_admin_scripts' );
 
+if ( ! is_multisite() || is_network_admin() ) {
+	add_action( 'admin_init', 'wordpoints_module_update_rows' );
+}
+
 add_filter( 'script_loader_tag', 'wordpoints_script_templates_filter', 10, 2 );
 
 add_action( 'admin_menu', 'wordpoints_admin_menu' );
@@ -27,6 +31,8 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activat
 add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upload' );
 
 add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
+add_action( 'update-custom_wordpoints-upgrade-module', 'wordpoints_admin_screen_upgrade_module' );
+add_action( 'update-custom_wordpoints-iframe-module-changelog', 'wordpoints_iframe_module_changelog' );
 
 add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 5 );
 add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 20 );

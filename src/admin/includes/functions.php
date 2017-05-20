@@ -1032,6 +1032,229 @@ function wordpoints_upload_module_zip() {
 }
 
 /**
+ * Handles a request to upgrade a module, displaying the module upgrade admin screen.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action update-custom_wordpoints-upgrade-module
+ */
+function wordpoints_admin_screen_upgrade_module() {
+
+	global $title, $parent_file;
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		wp_die( esc_html__( 'Sorry, you are not allowed to update WordPoints modules for this site.', 'wordpoints' ), 403 );
+	}
+
+	$module = ( isset( $_REQUEST['module'] ) )
+		? sanitize_text_field( wp_unslash( $_REQUEST['module'] ) ) // WPCS: CSRF OK.
+		: '';
+
+	check_admin_referer( 'upgrade-module_' . $module );
+
+	$title = __( 'Update WordPoints Module', 'wordpoints' );
+	$parent_file = 'admin.php';
+
+	require_once( ABSPATH . 'wp-admin/admin-header.php' );
+
+	$upgrader = new WordPoints_Module_Upgrader(
+		new WordPoints_Module_Upgrader_Skin(
+			array(
+				'title'  => $title,
+				'nonce'  => 'upgrade-module_' . $module,
+				'url'    => 'update.php?action=wordpoints-upgrade-module&module=' . rawurlencode( $module ),
+				'module' => $module,
+			)
+		)
+	);
+
+	$upgrader->upgrade( $module );
+
+	include( ABSPATH . 'wp-admin/admin-footer.php' );
+}
+
+/**
+ * Sets up the action hooks to display the module update rows.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_module_update_rows() {
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		return;
+	}
+
+	$updates = wordpoints_get_module_updates();
+
+	foreach ( $updates->get_new_versions() as $module_file => $version ) {
+		add_action( "wordpoints_after_module_row_{$module_file}", 'wordpoints_module_update_row', 10, 2 );
+	}
+}
+
+/**
+ * Displays the update message for a module in the modules list table.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_after_module_row_{$module_file} Added by
+ *                   wordpoints_module_update_rows().
+ */
+function wordpoints_module_update_row( $file, $module_data ) {
+
+	$updates = wordpoints_get_module_updates();
+
+	if ( ! $updates->has_update( $file ) ) {
+		return;
+	}
+
+	$server = wordpoints_get_server_for_module( $module_data );
+
+	if ( ! $server ) {
+		return;
+	}
+
+	$api = $server->get_api();
+
+	if ( ! $api instanceof WordPoints_Module_Server_API_UpdatesI ) {
+		return;
+	}
+
+	wp_enqueue_script( 'thickbox' );
+	wp_enqueue_style( 'thickbox' );
+
+	$new_version = $updates->get_new_version( $file );
+
+	$modules_allowed_tags = array(
+		'a' => array( 'href' => array(), 'title' => array() ),
+		'abbr' => array( 'title' => array() ),
+		'acronym' => array( 'title' => array() ),
+		'code' => array(),
+		'em' => array(),
+		'strong' => array(),
+	);
+
+	$details_url = admin_url(
+		'update.php?action=wordpoints-iframe-module-changelog&module=' . rawurlencode( $file )
+	);
+
+	?>
+
+	<tr class="plugin-update-tr wordpoints-module-update-tr <?php echo ( is_wordpoints_module_active( $file ) ) ? 'active' : 'inactive'; ?>">
+		<td colspan="<?php echo (int) WordPoints_Modules_List_Table::instance()->get_column_count(); ?>" class="plugin-update wordpoints-module-update colspanchange">
+			<div class="update-message notice inline notice-warning notice-alt">
+				<p>
+
+					<?php
+
+					if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+						printf(
+							wp_kses(
+								// translators: 1. Module name; 2. Details URL; 3. Module name; 4. New version number.
+								__( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" title="%3$s">View version %4$s details</a>.', 'wordpoints' )
+								, array( 'a' => array( 'href' => array(), 'class' => array(), 'title' => array() ) )
+							)
+							, wp_kses( $module_data['name'], $modules_allowed_tags )
+							, esc_url( $details_url )
+							, esc_attr( wp_kses( $module_data['name'], $modules_allowed_tags ) )
+							, esc_html( $new_version )
+						);
+					} else {
+						printf(
+							wp_kses(
+								// translators: 1. Module name; 2. Details URL; 3. Module name; 4. New version number; 5. Update URL.
+								__( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" title="%3$s">View version %4$s details</a> or <a href="%5$s">update now</a>.', 'wordpoints' )
+								, array( 'a' => array( 'href' => array(), 'class' => array(), 'title' => array() ) )
+							)
+							, wp_kses( $module_data['name'], $modules_allowed_tags )
+							, esc_url( $details_url )
+							, esc_attr( wp_kses( $module_data['name'], $modules_allowed_tags ) )
+							, esc_html( $new_version )
+							, esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) )
+						);
+					}
+
+					/**
+					 * Fires at the end of the update message container in each row
+					 * of the modules list table.
+					 *
+					 * The dynamic portion of the hook name, `$file`, refers to the
+					 * path of the module's primary file relative to the modules
+					 * directory.
+					 *
+					 * @since 2.4.0
+					 *
+					 * @param array  $module_data The module's data.
+					 * @param string $new_version The new version of the module.
+					 */
+					do_action( "wordpoints_in_module_update_message-{$file}", $module_data, $new_version );
+
+					?>
+
+				</p>
+			</div>
+		</td>
+	</tr>
+
+	<?php
+}
+
+/**
+ * Displays the changelog for a module.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_iframe_module_changelog() {
+
+	if ( ! defined( 'IFRAME_REQUEST' ) ) {
+		define( 'IFRAME_REQUEST', true );
+	}
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		wp_die( esc_html__( 'Sorry, you are not allowed to update WordPoints modules for this site.', 'wordpoints' ), 403 );
+	}
+
+	if ( empty( $_GET['module'] ) ) { // WPCS: CSRF OK.
+		wp_die( esc_html__( 'No module supplied.', 'wordpoints' ), 200 );
+	}
+
+	$module_file = sanitize_text_field( rawurldecode( wp_unslash( $_GET['module'] ) ) ); // WPCS: CSRF, sanitization OK.
+
+	$modules = wordpoints_get_modules();
+
+	if ( ! isset( $modules[ $module_file ] ) ) {
+		wp_die( esc_html__( 'That module does not exist.', 'wordpoints' ), 200 );
+	}
+
+	$server = wordpoints_get_server_for_module( $modules[ $module_file ] );
+
+	if ( ! $server ) {
+		wp_die( esc_html__( 'There is no server specified for this module.', 'wordpoints' ), 200 );
+	}
+
+	$api = $server->get_api();
+
+	if ( ! $api instanceof WordPoints_Module_Server_API_UpdatesI ) {
+		wp_die( esc_html__( 'The server for this module uses an unsupported API.', 'wordpoints' ), 200 );
+	}
+
+	$module_data = new WordPoints_Module_Server_API_Module_Data(
+		$modules[ $module_file ]['ID']
+		, $server
+	);
+
+	iframe_header();
+
+	echo '<div style="margin-left: 10px;">';
+	echo wp_kses(
+		$api->get_module_changelog( $module_data )
+		, 'wordpoints_module_changelog'
+	);
+	echo '</div>';
+
+	iframe_footer();
+}
+
+/**
  * Notify the user when they try to install a module on the plugins screen.
  *
  * The function is hooked to the upgrader_source_selection action twice. The first

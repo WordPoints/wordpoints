@@ -130,6 +130,13 @@
             "249": false
         },
         "wordpoints-admin-modules-list-table": {
+            "275": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "279": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -139,6 +146,13 @@
             }
         },
         "rtl": {
+            "275": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "276": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -148,6 +162,13 @@
             }
         },
         "replace": {
+            "275": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "276": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -157,6 +178,13 @@
             }
         },
         "wordpoints-hooks-admin": {
+            "276": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "280": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -166,6 +194,13 @@
             }
         },
         "suffix": {
+            "279": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "280": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -261,8 +296,25 @@
                 "parentheses": 1
             }
         },
+        "update.php?action=wordpoints-upgrade-module&module=": {
+            "1065": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "active": {
+            "1142": false,
+            "1695": false,
+            "1697": false
+        },
+        "inactive": {
+            "1142": false
+        },
         "wordpoints": {
-            "1352": {
+            "1575": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -271,7 +323,7 @@
             }
         },
         "en_US": {
-            "1355": {
+            "1578": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -280,7 +332,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "1364": {
+            "1587": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -288,11 +340,8 @@
                 "parentheses": 1
             }
         },
-        "active": {
-            "1474": false
-        },
         "-update": {
-            "1481": {
+            "1704": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -301,13 +350,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "1486": false
+            "1709": false
         },
         "document.getElementById(": {
-            "1516": false
+            "1739": false
         },
         ").disabled = true;": {
-            "1520": false
+            "1743": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -2475,7 +2524,7 @@
     },
     "\/classes\/module\/server\/api\/edd\/sl.php": {
         "package": {
-            "148": {
+            "167": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -2484,7 +2533,7 @@
             }
         },
         "homepage": {
-            "152": {
+            "171": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -2493,7 +2542,7 @@
             }
         },
         "changelog": {
-            "156": {
+            "175": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -2544,6 +2593,26 @@
     "\/classes\/module\/upgrader.php": {
         "update": {
             "283": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/module\/installer.php": {
+        "<?php \/\/ Gold is silent.": {
+            "81": {
+                "name": "$wp_filesystem->put_contents",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "install": {
+            "156": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

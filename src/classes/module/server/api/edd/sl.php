@@ -13,8 +13,18 @@
  * @since 2.4.0
  */
 class WordPoints_Module_Server_API_EDD_SL
-	implements WordPoints_Module_Server_API_UpdatesI,
+	implements WordPoints_Module_Server_APII,
+		WordPoints_Module_Server_API_UpdatesI,
 		WordPoints_Module_Server_API_LicensesI {
+
+	/**
+	 * The slug of the API.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $slug;
 
 	/**
 	 * The remote server that is being interacted with.
@@ -33,7 +43,15 @@ class WordPoints_Module_Server_API_EDD_SL
 	 */
 	public function __construct( $slug, WordPoints_Module_ServerI $server ) {
 
+		$this->slug   = $slug;
 		$this->server = $server;
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_slug() {
+		return $this->slug;
 	}
 
 	/**

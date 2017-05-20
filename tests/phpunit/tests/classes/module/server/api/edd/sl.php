@@ -80,6 +80,18 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	}
 
 	/**
+	 * Tests getting the slug.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_slug() {
+
+		$api = $this->get_server_api();
+
+		$this->assertSame( 'test', $api->get_slug() );
+	}
+
+	/**
 	 * Tests that modules require a license.
 	 *
 	 * @since 2.4.0

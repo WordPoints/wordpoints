@@ -56,11 +56,7 @@ class WordPoints_Module_Server implements WordPoints_Module_ServerI {
 	}
 
 	/**
-	 * Get the full server URL, including the HTTP scheme.
-	 *
 	 * @since 2.4.0
-	 *
-	 * @return string The server's full URL.
 	 */
 	public function get_url() {
 
@@ -113,11 +109,7 @@ class WordPoints_Module_Server implements WordPoints_Module_ServerI {
 	}
 
 	/**
-	 * Get the API used by this server.
-	 *
 	 * @since 2.4.0
-	 *
-	 * @return object|false The server API handler, or false if none available.
 	 */
 	public function get_api() {
 

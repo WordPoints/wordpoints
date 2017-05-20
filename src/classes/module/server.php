@@ -168,7 +168,7 @@ class WordPoints_Module_Server implements WordPoints_Module_ServerI {
 			$headers = wp_get_http_headers( $this->get_url() );
 
 			if ( isset( $headers['x-wordpoints-module-api'] ) ) {
-				$api = sanitize_key( $headers['x-wordpoints-module-api'] );
+				$api = str_replace( '-', '_', sanitize_key( $headers['x-wordpoints-module-api'] ) );
 			}
 
 			// Save it as a string, so we can tell when it has expired.

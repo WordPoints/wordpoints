@@ -145,6 +145,7 @@ return array(
 	'wordpoints_hook_validator_exception' => 'hook/validator/exception.php',
 	'wordpoints_hooks' => 'hooks.php',
 	'wordpoints_installables' => 'installables.php',
+	'wordpoints_module_installer' => 'module/installer.php',
 	'wordpoints_module_paths' => 'module/paths.php',
 	'wordpoints_module_server' => 'module/server.php',
 	'wordpoints_module_server_api_edd_sl' => 'module/server/api/edd/sl.php',

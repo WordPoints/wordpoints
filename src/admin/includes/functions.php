@@ -1074,6 +1074,89 @@ function wordpoints_admin_screen_upgrade_module() {
 }
 
 /**
+ * Handle updating multiple modules on the modules administration screen.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_admin_screen_update_selected_modules() {
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		wp_die( esc_html__( 'Sorry, you are not allowed to update WordPoints modules for this site.', 'wordpoints' ), 403 );
+	}
+
+	global $parent_file;
+
+	check_admin_referer( 'bulk-modules' );
+
+	if ( isset( $_GET['modules'] ) ) {
+		$modules = explode( ',', sanitize_text_field( wp_unslash( $_GET['modules'] ) ) );
+	} elseif ( isset( $_POST['checked'] ) ) {
+		$modules = array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['checked'] ) );
+	} else {
+		$modules = array();
+	}
+
+	$url = self_admin_url( 'update.php?action=update-selected-wordpoints-modules&amp;modules=' . rawurlencode( implode( ',', $modules ) ) );
+	$url = wp_nonce_url( $url, 'bulk-update-modules' );
+
+	$parent_file = 'admin.php';
+
+	require_once( ABSPATH . 'wp-admin/admin-header.php' );
+
+	?>
+
+	<div class="wrap">
+		<h1><?php esc_html_e( 'Update WordPoints Modules', 'wordpoints' ); ?></h1>
+
+		<iframe name="wordpoints_module_updates" src="<?php echo esc_url( $url ); ?>" style="width: 100%; height:100%; min-height:850px;"></iframe>
+	</div>
+
+	<?php
+
+	require_once( ABSPATH . 'wp-admin/admin-footer.php' );
+
+	exit;
+}
+
+/**
+ * Handle bulk module update requests from within an iframe.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_iframe_update_modules() {
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		wp_die( esc_html__( 'Sorry, you are not allowed to update WordPoints modules for this site.', 'wordpoints' ), 403 );
+	}
+
+	check_admin_referer( 'bulk-update-modules' );
+
+	$modules = array();
+
+	if ( isset( $_GET['modules'] ) ) {
+		$modules = explode( ',', sanitize_text_field( wp_unslash( $_GET['modules'] ) ) );
+	}
+
+	$modules = array_map( 'rawurldecode', $modules );
+
+	wp_enqueue_script( 'jquery' );
+	iframe_header();
+
+	$upgrader = new WordPoints_Module_Upgrader(
+		new WordPoints_Module_Upgrader_Skin_Bulk(
+			array(
+				'nonce' => 'bulk-update-modules',
+				'url'   => 'update.php?action=update-selected-wordpoints-modules&amp;modules=' . rawurlencode( implode( ',', $modules ) ),
+			)
+		)
+	);
+
+	$upgrader->bulk_upgrade( $modules );
+
+	iframe_footer();
+}
+
+/**
  * Sets up the action hooks to display the module update rows.
  *
  * @since 2.4.0

@@ -33,6 +33,9 @@ add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upl
 add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
 add_action( 'update-custom_wordpoints-upgrade-module', 'wordpoints_admin_screen_upgrade_module' );
 add_action( 'update-custom_wordpoints-iframe-module-changelog', 'wordpoints_iframe_module_changelog' );
+add_action( 'update-custom_update-selected-wordpoints-modules', 'wordpoints_iframe_update_modules' );
+
+add_action( 'wordpoints_modules_screen-update-selected', 'wordpoints_admin_screen_update_selected_modules' );
 
 add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 5 );
 add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 20 );

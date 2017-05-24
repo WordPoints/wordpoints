@@ -305,16 +305,34 @@
                 "parentheses": 1
             }
         },
+        "bulk-update-modules": {
+            "1148": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "update.php?action=update-selected-wordpoints-modules&amp;modules=": {
+            "1149": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
         "active": {
-            "1142": false,
-            "1695": false,
-            "1697": false
+            "1225": false,
+            "1778": false,
+            "1780": false
         },
         "inactive": {
-            "1142": false
+            "1225": false
         },
         "wordpoints": {
-            "1575": {
+            "1658": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -323,7 +341,7 @@
             }
         },
         "en_US": {
-            "1578": {
+            "1661": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -332,7 +350,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "1587": {
+            "1670": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -341,7 +359,7 @@
             }
         },
         "-update": {
-            "1704": {
+            "1787": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -350,13 +368,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "1709": false
+            "1792": false
         },
         "document.getElementById(": {
-            "1739": false
+            "1822": false
         },
         ").disabled = true;": {
-            "1743": false
+            "1826": false
         }
     },
     "\/admin\/screens\/configure-components.php": {

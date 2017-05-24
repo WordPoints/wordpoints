@@ -1278,4 +1278,49 @@ function wordpoints_clean_modules_cache( $clear_update_cache = true ) {
 	wp_cache_delete( 'wordpoints_modules', 'wordpoints_modules' );
 }
 
+/**
+ * Add the module update counts to the other update counts.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\filter wp_get_update_data
+ *
+ * @param array $update_data The update data.
+ *
+ * @return array The updated update counts.
+ */
+function wordpoints_module_update_counts( $update_data ) {
+
+	$update_data['counts']['wordpoints_modules'] = 0;
+
+	if ( current_user_can( 'update_wordpoints_modules' ) ) {
+		$module_updates = wordpoints_get_module_updates()->get_new_versions();
+
+		if ( ! empty( $module_updates ) ) {
+			$update_data['counts']['wordpoints_modules'] = count( $module_updates );
+
+			$title = sprintf(
+				// translators: Number of updates.
+				_n(
+					'%d WordPoints Module Update'
+					, '%d WordPoints Module Updates'
+					, $update_data['counts']['wordpoints_modules']
+					, 'wordpoints'
+				)
+				, $update_data['counts']['wordpoints_modules']
+			);
+
+			if ( ! empty( $update_data['title'] ) ) {
+				$update_data['title'] .= ', ';
+			}
+
+			$update_data['title'] .= esc_attr( $title );
+		}
+	}
+
+	$update_data['counts']['total'] += $update_data['counts']['wordpoints_modules'];
+
+	return $update_data;
+}
+
 // EOF

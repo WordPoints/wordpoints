@@ -72,4 +72,6 @@ add_action( 'wordpoints_init_app_registry-hooks-conditions', 'wordpoints_hook_co
 
 add_action( 'wordpoints_modules_loaded', 'wordpoints_init_hooks' );
 
+add_filter( 'wp_get_update_data', 'wordpoints_module_update_counts' );
+
 // EOF

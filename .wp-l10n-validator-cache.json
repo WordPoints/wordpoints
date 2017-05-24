@@ -41,13 +41,13 @@
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
-            "size": 2749,
-            "hash": "c435d9eb617be4732e5afb5be738a357",
+            "size": 2839,
+            "hash": "93f01dc0b5ee7e71d911cc8a0b36fa2a",
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 58232,
-            "hash": "f02d880156b63998b3812210feb738a4",
+            "size": 59142,
+            "hash": "f9f76126cb84dfd2a3b871fcc04c12ed",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -1356,8 +1356,8 @@
             "errors": false
         },
         "\/includes\/filters.php": {
-            "size": 3311,
-            "hash": "b8668e8d699cf63e8936dbac4b07b31d",
+            "size": 3383,
+            "hash": "fc329852b51d3eaf3182af331fa26a96",
             "errors": false
         },
         "\/includes\/functions.php": {
@@ -1376,8 +1376,8 @@
             "errors": false
         },
         "\/includes\/modules.php": {
-            "size": 35771,
-            "hash": "efab1826a2575cb05e8d9d5b5710728d",
+            "size": 36881,
+            "hash": "fdcb54f8700087e4671cf22c0e5aea73",
             "errors": false
         },
         "\/uninstall.php": {

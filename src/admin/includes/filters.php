@@ -35,7 +35,10 @@ add_action( 'update-custom_wordpoints-upgrade-module', 'wordpoints_admin_screen_
 add_action( 'update-custom_wordpoints-iframe-module-changelog', 'wordpoints_iframe_module_changelog' );
 add_action( 'update-custom_update-selected-wordpoints-modules', 'wordpoints_iframe_update_modules' );
 
+add_action( 'update-core-custom_do-wordpoints-module-upgrade', 'wordpoints_admin_screen_update_selected_modules' );
 add_action( 'wordpoints_modules_screen-update-selected', 'wordpoints_admin_screen_update_selected_modules' );
+
+add_action( 'core_upgrade_preamble', 'wordpoints_list_module_updates' );
 
 add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 5 );
 add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter', 20 );

@@ -325,14 +325,14 @@
         },
         "active": {
             "1225": false,
-            "1778": false,
-            "1780": false
+            "1890": false,
+            "1892": false
         },
         "inactive": {
             "1225": false
         },
         "wordpoints": {
-            "1658": {
+            "1770": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -341,7 +341,7 @@
             }
         },
         "en_US": {
-            "1661": {
+            "1773": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -350,7 +350,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "1670": {
+            "1782": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -359,7 +359,7 @@
             }
         },
         "-update": {
-            "1787": {
+            "1899": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -368,13 +368,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "1792": false
+            "1904": false
         },
         "document.getElementById(": {
-            "1822": false
+            "1934": false
         },
         ").disabled = true;": {
-            "1826": false
+            "1938": false
         }
     },
     "\/admin\/screens\/configure-components.php": {

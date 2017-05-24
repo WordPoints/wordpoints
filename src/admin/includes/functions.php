@@ -1338,6 +1338,118 @@ function wordpoints_iframe_module_changelog() {
 }
 
 /**
+ * List the available module updates on the Updates screen.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_list_module_updates() {
+
+	wp_enqueue_style( 'wordpoints-admin-module-updates-table' );
+
+	$updates = wordpoints_get_module_updates();
+	$new_versions = $updates->get_new_versions();
+
+	?>
+
+	<h2><?php esc_html_e( 'WordPoints Modules', 'wordpoints' ); ?></h2>
+
+	<?php if ( empty( $new_versions ) ) : ?>
+		<p><?php esc_html_e( 'Your modules are all up to date.', 'wordpoints' ); ?></p>
+		<?php return; // @codingStandardsIgnoreLine ?>
+	<?php endif; ?>
+
+	<p><?php esc_html_e( 'The following modules have new versions available. Check the ones you want to update and then click &#8220;Update Modules&#8221;.', 'wordpoints' ); ?></p>
+
+	<form method="post" action="update-core.php?action=do-wordpoints-module-upgrade" name="upgrade-wordpoints-modules" class="upgrade">
+		<?php wp_nonce_field( 'bulk-modules' ); ?>
+
+		<p><input id="upgrade-wordpoints-modules" class="button" type="submit" value="<?php esc_attr_e( 'Update Modules', 'wordpoints' ); ?>" name="upgrade" /></p>
+
+		<table class="widefat" id="update-wordpoints-modules-table">
+			<thead>
+			<tr>
+				<td scope="col" class="manage-column check-column">
+					<input type="checkbox" id="wordpoints-modules-select-all" />
+				</td>
+				<th scope="col" class="manage-column">
+					<label for="wordpoints-modules-select-all"><?php esc_html_e( 'Select All', 'wordpoints' ); ?></label>
+				</th>
+			</tr>
+			</thead>
+
+			<tbody class="wordpoints-modules">
+			<?php foreach ( $new_versions as $module_file => $new_version ) : ?>
+				<?php $module_data = wordpoints_get_module_data( wordpoints_modules_dir() . $module_file ); ?>
+				<tr>
+					<th scope="row" class="check-column">
+						<input id="checkbox_<?php echo esc_attr( sanitize_key( $module_file ) ); ?>" type="checkbox" name="checked[]" value="<?php echo esc_attr( $module_file ); ?>" />
+						<label for="checkbox_<?php echo esc_attr( sanitize_key( $module_file ) ); ?>" class="screen-reader-text">
+							<?php
+
+							echo esc_html(
+								sprintf(
+									// translators: Module name.
+									__( 'Select %s', 'wordpoints' )
+									, $module_data['name']
+								)
+							);
+
+							?>
+						</label>
+					</th>
+					<td>
+						<p>
+							<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
+							<br />
+							<?php
+
+							echo esc_html(
+								sprintf(
+									// translators: 1. Installed version number; 2. Update version number.
+									__( 'You have version %1$s installed. Update to %2$s.', 'wordpoints' )
+									, $module_data['version']
+									, $new_version
+								)
+							);
+
+							?>
+							<a href="<?php echo esc_url( self_admin_url( 'update.php?action=wordpoints-iframe-module-changelog&module=' . rawurlencode( $module_file ) . '&TB_iframe=true&width=640&height=662' ) ); ?>" class="thickbox" title="<?php echo esc_attr( $module_data['name'] ); ?>">
+								<?php
+
+								echo esc_html(
+									sprintf(
+										// translators: Version number.
+										__( 'View version %1$s details.', 'wordpoints' )
+										, $new_version
+									)
+								);
+
+								?>
+							</a>
+						</p>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+
+			<tfoot>
+			<tr>
+				<td scope="col" class="manage-column check-column">
+					<input type="checkbox" id="wordpoints-modules-select-all-2" />
+				</td>
+				<th scope="col" class="manage-column">
+					<label for="wordpoints-modules-select-all-2"><?php esc_html_e( 'Select All', 'wordpoints' ); ?></label>
+				</th>
+			</tr>
+			</tfoot>
+		</table>
+		<p><input id="upgrade-wordpoints-modules-2" class="button" type="submit" value="<?php esc_attr_e( 'Update Modules', 'wordpoints' ); ?>" name="upgrade" /></p>
+	</form>
+
+	<?php
+}
+
+/**
  * Notify the user when they try to install a module on the plugins screen.
  *
  * The function is hooked to the upgrader_source_selection action twice. The first

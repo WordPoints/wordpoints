@@ -56,4 +56,6 @@ add_action( 'load-plugins.php', 'wordpoints_admin_maybe_disable_update_row_for_p
 add_action( 'load-update-core.php', 'wordpoints_admin_maybe_remove_from_updates_screen' );
 add_action( 'install_plugins_pre_plugin-information', 'wordpoints_admin_maybe_remove_from_updates_screen', 9 );
 
+add_filter( 'wp_kses_allowed_html', 'wordpoints_module_changelog_allowed_html', 10, 2 );
+
 // EOF

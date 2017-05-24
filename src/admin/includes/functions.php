@@ -1338,6 +1338,43 @@ function wordpoints_iframe_module_changelog() {
 }
 
 /**
+ * Supply the list of HTML tags allowed in a module changelog.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\filter wp_kses_allowed_html
+ */
+function wordpoints_module_changelog_allowed_html( $allowed_tags, $context ) {
+
+	if ( 'wordpoints_module_changelog' !== $context ) {
+		return $allowed_tags;
+	}
+
+	return array(
+		'a' => array( 'href' => array(), 'title' => array(), 'target' => array() ),
+		'abbr' => array( 'title' => array() ),
+		'acronym' => array( 'title' => array() ),
+		'code' => array(),
+		'pre' => array(),
+		'em' => array(),
+		'strong' => array(),
+		'div' => array( 'class' => array() ),
+		'span' => array( 'class' => array() ),
+		'p' => array(),
+		'ul' => array(),
+		'ol' => array(),
+		'li' => array(),
+		'h1' => array(),
+		'h2' => array(),
+		'h3' => array(),
+		'h4' => array(),
+		'h5' => array(),
+		'h6' => array(),
+		'img' => array( 'src' => array(), 'class' => array(), 'alt' => array() ),
+	);
+}
+
+/**
  * List the available module updates on the Updates screen.
  *
  * @since 2.4.0

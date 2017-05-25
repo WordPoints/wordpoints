@@ -7,7 +7,7 @@
  * @since 1.1.0
  */
 
-global $status, $wp_version;
+global $status, $wp_version, $parent_file;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';

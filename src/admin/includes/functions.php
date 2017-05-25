@@ -1918,6 +1918,65 @@ function wordpoints_admin_notices() {
 		} // End if ( is_network_admin() ) else.
 
 	} // End if ( user can activate modules ).
+
+	if (
+		current_user_can( 'delete_wordpoints_modules' )
+		&& (
+			! isset( $_REQUEST['action'] ) // WPCS: CSRF OK.
+			|| 'delete-selected' !== $_REQUEST['action'] // WPCS: CSRF OK.
+		)
+	) {
+
+		$merged_modules = get_site_option( 'wordpoints_merged_modules' );
+
+		if ( is_array( $merged_modules ) && ! empty( $merged_modules ) ) {
+
+			foreach ( $merged_modules as $i => $module ) {
+				if ( true !== wordpoints_validate_module( $module ) ) {
+					unset( $merged_modules[ $i ] );
+				}
+			}
+
+			update_site_option( 'wordpoints_merged_modules', $merged_modules );
+
+			if ( ! empty( $merged_modules ) ) {
+
+				$message = sprintf(
+					// translators: 1. Plugin version; 2. List of modules.
+					__( 'WordPoints has deactivated the following modules because their features have now been merged into WordPoints %1$s: %2$s.', 'wordpoints' )
+					, WORDPOINTS_VERSION
+					, implode( ', ', $merged_modules )
+				);
+
+				$message .= ' ';
+				$message .= __( 'You can now safely delete these modules.', 'wordpoints' );
+				$message .= ' ';
+
+				$url = admin_url(
+					'admin.php?page=wordpoints_modules&action=delete-selected'
+				);
+
+				foreach ( $merged_modules as $module ) {
+					$url .= '&checked[]=' . rawurlencode( $module );
+				}
+
+				$url = wp_nonce_url( $url, 'bulk-modules' );
+
+				$message .= '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Delete Unneeded Modules', 'wordpoints' ) . '</a>';
+
+				wordpoints_show_admin_message(
+					$message
+					, 'warning'
+					, array(
+						'dismissible' => true,
+						'option' => 'wordpoints_merged_modules',
+					)
+				);
+			}
+
+		} // End if ( merged modules ).
+
+	} // End if ( user can delete and aren't deleting ).
 }
 
 /**

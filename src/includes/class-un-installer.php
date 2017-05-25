@@ -29,7 +29,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),
-		'2.4.0-alpha-2'  => array( 'single' => true, 'site' => true, /*      -      */ ),
+		'2.4.0-alpha-2'  => array( 'single' => true, 'site' => true, 'network' => true ),
 	);
 
 	/**
@@ -76,8 +76,8 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 			'options' => array(
 				'wordpoints_sitewide_active_modules',
 				'wordpoints_network_install_skipped',
-		        'wordpoints_network_installed',
-		        'wordpoints_network_update_skipped',
+				'wordpoints_network_installed',
+				'wordpoints_network_update_skipped',
 				'wordpoints_breaking_deactivated_modules',
 			),
 		),
@@ -383,12 +383,34 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Update a multisite network to 2.4.0.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_network_to_2_4_0_alpha_2() {
+
+		$module = 'wordpointsorg/wordpointsorg.php';
+
+		if ( true === wordpoints_validate_module( $module ) ) {
+			update_site_option( 'wordpoints_merged_modules', array( $module ) );
+			wordpoints_deactivate_modules( array( $module ), false, true );
+		}
+	}
+
+	/**
 	 * Update a single site on a multisite network to 2.4.0.
 	 *
 	 * @since 2.4.0
 	 */
 	protected function update_site_to_2_4_0_alpha_2() {
+
 		$this->update_2_4_0_add_new_custom_caps();
+
+		$module = 'wordpointsorg/wordpointsorg.php';
+
+		if ( is_wordpoints_module_active( $module ) ) {
+			wordpoints_deactivate_modules( array( $module ) );
+		}
 	}
 
 	/**
@@ -397,7 +419,15 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.4.0
 	 */
 	protected function update_single_to_2_4_0_alpha_2() {
+
 		$this->update_2_4_0_add_new_custom_caps();
+
+		$module = 'wordpointsorg/wordpointsorg.php';
+
+		if ( true === wordpoints_validate_module( $module ) ) {
+			update_option( 'wordpoints_merged_modules', array( $module ) );
+			wordpoints_deactivate_modules( array( $module ) );
+		}
 	}
 
 	/**

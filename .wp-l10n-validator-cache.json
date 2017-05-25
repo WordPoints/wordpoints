@@ -46,8 +46,8 @@
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 67158,
-            "hash": "4dad61eb99d901a60d500319e972ae08",
+            "size": 68806,
+            "hash": "519a8af6f0f49ab17b645dd52862c5cf",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -791,8 +791,8 @@
             "errors": false
         },
         "\/classes\/module\/server\/api\/updatesi.php": {
-            "size": 1534,
-            "hash": "330767bb3f53c1cfbca78aba63929c8d",
+            "size": 1493,
+            "hash": "64a00cc6e56b3bc4d81674bfca314890",
             "errors": false
         },
         "\/classes\/module\/server.php": {
@@ -1331,8 +1331,8 @@
             "errors": false
         },
         "\/includes\/class-un-installer.php": {
-            "size": 9509,
-            "hash": "eda68f2ddb403049acafb7006beb8849",
+            "size": 10270,
+            "hash": "93f9b51fd452ef385448588db083592a",
             "errors": false
         },
         "\/includes\/class-widget.php": {

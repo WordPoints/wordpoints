@@ -326,8 +326,8 @@
         "active": {
             "1225": false,
             "1511": false,
-            "2186": false,
-            "2188": false
+            "2245": false,
+            "2247": false
         },
         "inactive": {
             "1225": false,
@@ -351,8 +351,11 @@
         "wordpoints-module-license-expired": {
             "1464": false
         },
+        "&checked[]=": {
+            "1960": false
+        },
         "wordpoints": {
-            "2066": {
+            "2125": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -361,7 +364,7 @@
             }
         },
         "en_US": {
-            "2069": {
+            "2128": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -370,7 +373,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2078": {
+            "2137": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -379,7 +382,7 @@
             }
         },
         "-update": {
-            "2195": {
+            "2254": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -388,13 +391,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2200": false
+            "2259": false
         },
         "document.getElementById(": {
-            "2230": false
+            "2289": false
         },
         ").disabled = true;": {
-            "2234": false
+            "2293": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -1333,7 +1336,7 @@
             }
         },
         "WordPoints_Un_Installer": {
-            "418": false
+            "448": false
         }
     },
     "\/includes\/class-widget.php": {

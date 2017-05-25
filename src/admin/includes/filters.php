@@ -62,4 +62,14 @@ add_action( 'wordpoints_modules_list_table_items', 'wordpoints_admin_save_module
 add_filter( 'wordpoints_module_list_row_class', 'wordpoints_module_list_row_license_classes', 10, 3 );
 add_action( 'wordpoints_after_module_row', 'wordpoints_module_license_row', 10, 2 );
 
+if ( ! wp_doing_ajax() && ( is_main_site() || is_network_admin() ) ) {
+
+	add_action( 'load-wordpoints_page_wordpoints_modules', 'wordpoints_check_for_module_updates_hourly' );
+	add_action( 'load-toplevel_page_wordpoints_modules', 'wordpoints_check_for_module_updates_hourly' );
+	add_action( 'load-update.php', 'wordpoints_check_for_module_updates_hourly' );
+	add_action( 'load-update-core.php', 'wordpoints_check_for_module_updates_now' );
+	add_action( 'upgrader_process_complete', 'wordpoints_recheck_for_module_updates_after_upgrade' );
+	add_action( 'admin_init', 'wordpoints_check_for_module_updates' );
+}
+
 // EOF

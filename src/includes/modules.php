@@ -1261,6 +1261,43 @@ function wordpoints_reschedule_module_updates_check() {
 }
 
 /**
+ * Checks for module updates after an upgrade.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action upgrader_process_complete
+ *
+ * @param object $upgrader The upgrader.
+ * @param array  $data     Info about the upgrade.
+ */
+function wordpoints_recheck_for_module_updates_after_upgrade( $upgrader, $data ) {
+
+	if ( isset( $data['type'] ) && 'translation' === $data['type'] ) {
+		return;
+	}
+
+	wordpoints_check_for_module_updates_now();
+}
+
+/**
+ * Checks for module updates with a cache timeout of one hour.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_check_for_module_updates_hourly() {
+	wordpoints_check_for_module_updates( HOUR_IN_SECONDS );
+}
+
+/**
+ * Checks for module updates with a cache timeout of zero.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_check_for_module_updates_now() {
+	wordpoints_check_for_module_updates( 0 );
+}
+
+/**
  * Clean the modules cache.
  *
  * @since 2.4.0

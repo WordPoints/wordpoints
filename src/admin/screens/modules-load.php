@@ -510,4 +510,6 @@ $screen->set_screen_reader_content(
 	)
 );
 
+wp_enqueue_style( 'wordpoints-admin-modules-list-table' );
+
 // EOF

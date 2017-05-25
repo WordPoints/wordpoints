@@ -130,6 +130,13 @@
             "249": false
         },
         "wordpoints-admin-modules-list-table": {
+            "275": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "279": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -139,6 +146,13 @@
             }
         },
         "rtl": {
+            "275": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "276": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -148,6 +162,13 @@
             }
         },
         "replace": {
+            "275": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "276": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -157,6 +178,13 @@
             }
         },
         "wordpoints-hooks-admin": {
+            "276": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "280": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -166,6 +194,13 @@
             }
         },
         "suffix": {
+            "279": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "280": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -290,14 +325,34 @@
         },
         "active": {
             "1225": false,
-            "1927": false,
-            "1929": false
+            "1511": false,
+            "2186": false,
+            "2188": false
         },
         "inactive": {
-            "1225": false
+            "1225": false,
+            "1511": false
+        },
+        "wordpoints-module-has-license": {
+            "1439": false
+        },
+        "wordpoints-module-license-valid": {
+            "1447": false
+        },
+        "wordpoints-module-license-invalid": {
+            "1449": false
+        },
+        "wordpoints-module-license-active": {
+            "1454": false
+        },
+        "wordpoints-module-license-inactive": {
+            "1456": false
+        },
+        "wordpoints-module-license-expired": {
+            "1464": false
         },
         "wordpoints": {
-            "1807": {
+            "2066": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -306,7 +361,7 @@
             }
         },
         "en_US": {
-            "1810": {
+            "2069": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -315,7 +370,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "1819": {
+            "2078": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -324,7 +379,7 @@
             }
         },
         "-update": {
-            "1936": {
+            "2195": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -333,13 +388,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "1941": false
+            "2200": false
         },
         "document.getElementById(": {
-            "1971": false
+            "2230": false
         },
         ").disabled = true;": {
-            "1975": false
+            "2234": false
         }
     },
     "\/admin\/screens\/configure-components.php": {

@@ -1282,6 +1282,265 @@ function wordpoints_module_update_row( $file, $module_data ) {
 }
 
 /**
+ * Save module license forms on submit.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_modules_list_table_items
+ */
+function wordpoints_admin_save_module_licenses( $modules ) {
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		return $modules;
+	}
+
+	foreach ( $modules['all'] as $module ) {
+
+		if ( empty( $module['ID'] ) ) {
+			continue;
+		}
+
+		$server = wordpoints_get_server_for_module( $module );
+
+		if ( ! $server ) {
+			continue;
+		}
+
+		$api = $server->get_api();
+
+		if ( ! $api instanceof WordPoints_Module_Server_API_LicensesI ) {
+			continue;
+		}
+
+		$module_data = new WordPoints_Module_Server_API_Module_Data(
+			$module['ID']
+			, $server
+		);
+
+		$url = sanitize_title_with_dashes( $server->get_slug() );
+
+		if ( ! isset( $_POST[ "license_key-{$url}-{$module['ID']}" ] ) ) {
+			continue;
+		}
+
+		$license_key = sanitize_key(
+			$_POST[ "license_key-{$url}-{$module['ID']}" ]
+		);
+
+		$license = $api->get_module_license_object( $module_data, $license_key );
+
+		if (
+			isset(
+				$_POST[ "activate-license-{$module['ID']}" ]
+				, $_POST[ "wordpoints_activate_license_key-{$module['ID']}" ]
+			)
+			&& wordpoints_verify_nonce(
+				"wordpoints_activate_license_key-{$module['ID']}"
+				, "wordpoints_activate_license_key-{$module['ID']}"
+				, null
+				, 'post'
+			)
+		) {
+
+			if ( ! $license instanceof WordPoints_Module_Server_API_Module_License_ActivatableI ) {
+				continue;
+			}
+
+			$result = $license->activate();
+
+			if ( true === $result ) {
+				wordpoints_show_admin_message( esc_html__( 'License activated.', 'wordpoints' ) );
+				$module_data->set( 'license_key', $license_key );
+			} elseif ( is_wp_error( $result ) ) {
+				// translators: Error message.
+				wordpoints_show_admin_error( sprintf( esc_html__( 'Sorry, there was an error while trying to activate the license: %s', 'wordpoints' ), $result->get_error_message() ) );
+			} elseif ( ! $license->is_valid() ) {
+				wordpoints_show_admin_error( esc_html__( 'That license key is invalid.', 'wordpoints' ) );
+			} else {
+				wordpoints_show_admin_error( esc_html__( 'Sorry, that license key cannot be activated.', 'wordpoints' ) );
+			}
+
+		} elseif (
+			isset(
+				$_POST[ "deactivate-license-{$module['ID']}" ]
+				, $_POST[ "wordpoints_deactivate_license_key-{$module['ID']}" ]
+			)
+			&& wordpoints_verify_nonce(
+				"wordpoints_deactivate_license_key-{$module['ID']}"
+				, "wordpoints_deactivate_license_key-{$module['ID']}"
+				, null
+				, 'post'
+			)
+		) {
+
+			if ( ! $license instanceof WordPoints_Module_Server_API_Module_License_DeactivatableI ) {
+				continue;
+			}
+
+			$result = $license->deactivate();
+
+			if ( true === $result ) {
+				wordpoints_show_admin_message( esc_html__( 'License deactivated.', 'wordpoints' ) );
+			} elseif ( is_wp_error( $result ) ) {
+				// translators: Error message.
+				wordpoints_show_admin_error( sprintf( esc_html__( 'Sorry, there was an error while trying to deactivate the license: %s', 'wordpoints' ), $result->get_error_message() ) );
+			} else {
+				wordpoints_show_admin_error( esc_html__( 'Sorry, there was an unknown error while trying to deactivate that license key.', 'wordpoints' ) );
+			}
+
+		} // End if ( activating license ) elseif ( deactivating license ).
+
+	} // End foreach ( module ).
+
+	return $modules;
+}
+
+/**
+ * Filter the classes for a row in the WordPoints modules list table.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\filter wordpoints_module_list_row_class
+ *
+ * @param string $classes     The HTML classes for this module row.
+ * @param string $module_file The module file.
+ * @param array  $module_data The module data.
+ *
+ * @return string The filtered classes.
+ */
+function wordpoints_module_list_row_license_classes( $classes, $module_file, $module_data ) {
+
+	// Add license information if this user is allowed to see it.
+	if ( empty( $module_data['ID'] ) || ! current_user_can( 'update_wordpoints_modules' ) ) {
+		return $classes;
+	}
+
+	$server = wordpoints_get_server_for_module( $module_data );
+
+	if ( ! $server ) {
+		return $classes;
+	}
+
+	$api = $server->get_api();
+
+	if ( ! $api instanceof WordPoints_Module_Server_API_LicensesI ) {
+		return $classes;
+	}
+
+	$module_data = new WordPoints_Module_Server_API_Module_Data(
+		$module_data['ID'],
+		$server
+	);
+
+	if ( ! $api->module_requires_license( $module_data ) ) {
+		return $classes;
+	}
+
+	$classes .= ' wordpoints-module-has-license';
+
+	$license = $api->get_module_license_object(
+		$module_data,
+		$module_data->get( 'license_key' )
+	);
+
+	if ( $license->is_valid() ) {
+		$classes .= ' wordpoints-module-license-valid';
+	} else {
+		$classes .= ' wordpoints-module-license-invalid';
+	}
+
+	if ( $license instanceof WordPoints_Module_Server_API_Module_License_ActivatableI ) {
+		if ( $license->is_active() ) {
+			$classes .= ' wordpoints-module-license-active';
+		} else {
+			$classes .= ' wordpoints-module-license-inactive';
+		}
+	}
+
+	if (
+		$license instanceof WordPoints_Module_Server_API_Module_License_ExpirableI
+		&& $license->is_expired()
+	) {
+		$classes .= ' wordpoints-module-license-expired';
+	}
+
+	return $classes;
+}
+
+/**
+ * Add the license key rows to the modules list table.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_after_module_row
+ */
+function wordpoints_module_license_row( $module_file, $module_data ) {
+
+	if ( empty( $module_data['ID'] ) || ! current_user_can( 'update_wordpoints_modules' ) ) {
+		return;
+	}
+
+	$server = wordpoints_get_server_for_module( $module_data );
+
+	if ( ! $server ) {
+		return;
+	}
+
+	$api = $server->get_api();
+
+	if ( ! $api instanceof WordPoints_Module_Server_API_LicensesI ) {
+		return;
+	}
+
+	$module_id = $module_data['ID'];
+
+	$module_data = new WordPoints_Module_Server_API_Module_Data(
+		$module_id
+		, $server
+	);
+
+	if ( ! $api->module_requires_license( $module_data ) ) {
+		return;
+	}
+
+	$license_key = $module_data->get( 'license_key' );
+	$license     = $api->get_module_license_object( $module_data, $license_key );
+	$server_url  = sanitize_title_with_dashes( $server->get_slug() );
+
+	?>
+	<tr class="wordpoints-module-license-tr plugin-update-tr <?php echo ( is_wordpoints_module_active( $module_file ) ) ? 'active' : 'inactive'; ?>">
+		<td colspan="<?php echo (int) WordPoints_Modules_List_Table::instance()->get_column_count(); ?>" class="colspanchange">
+			<div class="wordpoints-license-box">
+				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $module_id ); ?>">
+					<?php esc_html_e( 'License key:', 'wordpoints' ); ?>
+				</label>
+				<input
+					id="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $module_id ); ?>"
+					name="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $module_id ); ?>"
+					type="password"
+					class="regular-text"
+					autocomplete="off"
+					value="<?php echo esc_attr( $license_key ); ?>"
+				/>
+				<?php if ( $license instanceof WordPoints_Module_Server_API_Module_License_ActivatableI ) : ?>
+					<?php if ( ! empty( $license_key ) && $license->is_active() ) : ?>
+						<span style="color:green;"><?php esc_html_e( 'active', 'wordpoints' ); ?></span>
+						<?php if ( $license instanceof WordPoints_Module_Server_API_Module_License_DeactivatableI && $license->is_deactivatable() ) : ?>
+							<?php wp_nonce_field( "wordpoints_deactivate_license_key-{$module_id}", "wordpoints_deactivate_license_key-{$module_id}" ); ?>
+							<input type="submit" name="deactivate-license-<?php echo esc_attr( $module_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" />
+						<?php endif; ?>
+					<?php elseif ( empty( $license_key ) || $license->is_activatable() ) : ?>
+						<?php wp_nonce_field( "wordpoints_activate_license_key-{$module_id}", "wordpoints_activate_license_key-{$module_id}" ); ?>
+						<input type="submit" name="activate-license-<?php echo esc_attr( $module_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" />
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+		</td>
+	</tr>
+	<?php
+}
+
+/**
  * Displays the changelog for a module.
  *
  * @since 2.4.0

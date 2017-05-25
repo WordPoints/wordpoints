@@ -4,13 +4,13 @@
  * @since 2.4.0
  */
 
-.plugins tr.active.plugin-update-tr + tr.inactive.wordpoints-has-edd-license th,
-.plugins tr.active.plugin-update-tr + tr.inactive.wordpoints-has-edd-license td,
-.plugins tr.active + tr.inactive.wordpoints-has-edd-license th,
-.plugins tr.active + tr.inactive.wordpoints-has-edd-license td,
+.plugins tr.active.plugin-update-tr + tr.inactive.wordpoints-module-has-license th,
+.plugins tr.active.plugin-update-tr + tr.inactive.wordpoints-module-has-license td,
+.plugins tr.active + tr.inactive.wordpoints-module-has-license th,
+.plugins tr.active + tr.inactive.wordpoints-module-has-license td,
 .plugins tr.update + .wordpoints-module-license-tr td,
-.modules .wordpoints-has-edd-license th,
-.modules .wordpoints-has-edd-license td {
+.plugins.modules .wordpoints-module-has-license th,
+.plugins.modules .wordpoints-module-has-license td {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
@@ -20,7 +20,11 @@
 }
 
 .wordpoints-license-box {
-	margin: 5px 20px 15px 45px;
+	margin: -10px 0 5px 37px;
+}
+
+.active .wordpoints-license-box {
+	margin-left: 33px;
 }
 
 /* EOF */

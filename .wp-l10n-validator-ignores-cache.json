@@ -324,38 +324,45 @@
             }
         },
         "active": {
-            "1225": false,
-            "1511": false,
-            "2245": false,
-            "2247": false
+            "1224": false,
+            "1527": false,
+            "2261": false,
+            "2263": false
         },
         "inactive": {
-            "1225": false,
-            "1511": false
+            "1224": false,
+            "1527": false
+        },
+        "\"\n\t\t\t\t\t\t\tclass=\"thickbox wordpoints-open-module-details-modal\"": {
+            "1240": false
+        },
+        "aria-label=\"": {
+            "1243": false,
+            "1263": false
         },
         "wordpoints-module-has-license": {
-            "1439": false
+            "1455": false
         },
         "wordpoints-module-license-valid": {
-            "1447": false
+            "1463": false
         },
         "wordpoints-module-license-invalid": {
-            "1449": false
+            "1465": false
         },
         "wordpoints-module-license-active": {
-            "1454": false
+            "1470": false
         },
         "wordpoints-module-license-inactive": {
-            "1456": false
+            "1472": false
         },
         "wordpoints-module-license-expired": {
-            "1464": false
+            "1480": false
         },
         "&checked[]=": {
-            "1960": false
+            "1976": false
         },
         "wordpoints": {
-            "2125": {
+            "2141": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -364,7 +371,7 @@
             }
         },
         "en_US": {
-            "2128": {
+            "2144": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -373,7 +380,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2137": {
+            "2153": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -382,7 +389,7 @@
             }
         },
         "-update": {
-            "2254": {
+            "2270": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -391,13 +398,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2259": false
+            "2275": false
         },
         "document.getElementById(": {
-            "2289": false
+            "2305": false
         },
         ").disabled = true;": {
-            "2293": false
+            "2309": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -1504,7 +1511,7 @@
             "277": false
         },
         ",": {
-            "1314": false
+            "1351": false
         }
     },
     "\/admin\/classes\/screen.php": {
@@ -2568,7 +2575,7 @@
     },
     "\/classes\/module\/server\/api\/edd\/sl.php": {
         "package": {
-            "167": {
+            "168": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -2577,7 +2584,7 @@
             }
         },
         "homepage": {
-            "171": {
+            "172": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -2586,7 +2593,7 @@
             }
         },
         "changelog": {
-            "175": {
+            "176": {
                 "name": "$module_data->set",
                 "type": "unknown",
                 "args_started": true,

@@ -1207,13 +1207,16 @@ function wordpoints_module_update_row( $file, $module_data ) {
 
 	$new_version = $updates->get_new_version( $file );
 
-	$modules_allowed_tags = array(
-		'a' => array( 'href' => array(), 'title' => array() ),
-		'abbr' => array( 'title' => array() ),
-		'acronym' => array( 'title' => array() ),
-		'code' => array(),
-		'em' => array(),
-		'strong' => array(),
+	$module_name = wp_kses(
+		$module_data['name']
+		, array(
+			'a' => array( 'href' => array(), 'title' => array() ),
+			'abbr' => array( 'title' => array() ),
+			'acronym' => array( 'title' => array() ),
+			'code' => array(),
+			'em' => array(),
+			'strong' => array(),
+		)
 	);
 
 	?>
@@ -1224,16 +1227,21 @@ function wordpoints_module_update_row( $file, $module_data ) {
 				<p>
 					<?php
 
-					printf(
+					printf( // WPCS: XSS OK.
 						// translators: Module name.
 						esc_html__( 'There is a new version of %1$s available.', 'wordpoints' )
-						, wp_kses( $module_data['name'], $modules_allowed_tags )
+						, $module_name
 					);
 
 					?>
 
 					<?php if ( $api instanceof WordPoints_Module_Server_API_Updates_ChangelogI ) : ?>
-						<a href="<?php echo esc_url( admin_url( 'update.php?action=wordpoints-iframe-module-changelog&module=' . rawurlencode( $file ) ) ); ?>" class="thickbox" title="<?php echo esc_attr( wp_kses( $module_data['name'], $modules_allowed_tags ) ); ?>">
+						<a
+							href="<?php echo esc_url( admin_url( 'update.php?action=wordpoints-iframe-module-changelog&module=' . rawurlencode( $file ) ) ); ?>"
+							class="thickbox wordpoints-open-module-details-modal"
+							<?php // translators: 1. Module name; 2. Version. ?>
+							aria-label="<?php echo esc_attr( sprintf( __( 'View %1$s version %2$s details', 'wordpoints' ), $module_name, $new_version ) ); ?>"
+						>
 							<?php
 
 							printf(
@@ -1249,7 +1257,11 @@ function wordpoints_module_update_row( $file, $module_data ) {
 					<?php if ( current_user_can( 'update_wordpoints_modules' ) ) : ?>
 						<span class="wordpoints-update-action-separator">|</span>
 						<?php if ( $api instanceof WordPoints_Module_Server_API_Updates_InstallableI ) : ?>
-							<a href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) ); ?>">
+							<a
+								href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) ); ?>"
+								<?php // translators: Module name. ?>
+								aria-label="<?php echo esc_attr( sprintf( __( 'Update %s now', 'wordpoints' ), $module_name ) ); ?>"
+							>
 								<?php esc_html_e( 'Update now', 'wordpoints' ); ?>
 							</a>
 						<?php else : ?>

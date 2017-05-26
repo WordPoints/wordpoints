@@ -41,13 +41,13 @@
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
-            "size": 3122,
-            "hash": "41ef0aceb9a4bd5d304d3a3baf6fa79e",
+            "size": 3739,
+            "hash": "4e835cdadbc41af4e8055cb914fcff6d",
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 68806,
-            "hash": "519a8af6f0f49ab17b645dd52862c5cf",
+            "size": 69031,
+            "hash": "f7d0d601b822a5be0da3ee4f6e018f19",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -86,8 +86,8 @@
             "errors": false
         },
         "\/admin\/screens\/modules-load.php": {
-            "size": 17534,
-            "hash": "99447beb8030ea7b9462a389e31dff06",
+            "size": 17548,
+            "hash": "56608765b9be66e79dc8f5a7980be69b",
             "errors": false
         },
         "\/admin\/screens\/modules.php": {
@@ -716,8 +716,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 10604,
-            "hash": "2a556f629e19ec47a7c9e93e019e179e",
+            "size": 10804,
+            "hash": "274a51b0a4a7d28f030c3cfb5e427562",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -736,8 +736,8 @@
             "errors": false
         },
         "\/classes\/module\/server\/api\/edd\/sl.php": {
-            "size": 5357,
-            "hash": "8f5af48f6e4315f914217dacad761602",
+            "size": 5420,
+            "hash": "67c1acf840513eb3711cf48cec5540b6",
             "errors": false
         },
         "\/classes\/module\/server\/api\/licensesi.php": {
@@ -791,8 +791,8 @@
             "errors": false
         },
         "\/classes\/module\/server\/api\/updatesi.php": {
-            "size": 1493,
-            "hash": "64a00cc6e56b3bc4d81674bfca314890",
+            "size": 838,
+            "hash": "a782d77dcf6b131c1d8ee826227db6a6",
             "errors": false
         },
         "\/classes\/module\/server.php": {
@@ -831,8 +831,8 @@
             "errors": false
         },
         "\/classes\/module\/upgrader.php": {
-            "size": 13641,
-            "hash": "02dea7c747425d9c04dfe0dcc1ba40a0",
+            "size": 13653,
+            "hash": "9ef32a6abb093c2683f7a31c865144eb",
             "errors": false
         },
         "\/classes\/modules.php": {
@@ -1376,8 +1376,8 @@
             "errors": false
         },
         "\/includes\/modules.php": {
-            "size": 36883,
-            "hash": "8d3d9f63ac38509951bda2dc22209807",
+            "size": 37706,
+            "hash": "e6a935ba355aabb633d9094d46f19731",
             "errors": false
         },
         "\/uninstall.php": {
@@ -1398,6 +1398,16 @@
         "\/classes\/module\/server\/apii.php": {
             "size": 479,
             "hash": "3c0a39599aa92eb707447e891b2dbeae",
+            "errors": false
+        },
+        "\/classes\/module\/server\/api\/updates\/changelogi.php": {
+            "size": 634,
+            "hash": "a3fdf5782a6d7d0f4bcaf80f79b1cefd",
+            "errors": false
+        },
+        "\/classes\/module\/server\/api\/updates\/installablei.php": {
+            "size": 673,
+            "hash": "59bee2444115d07c6a5fa693bde0e969",
             "errors": false
         }
     },

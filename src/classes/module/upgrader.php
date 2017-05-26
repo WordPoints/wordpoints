@@ -228,7 +228,7 @@ class WordPoints_Module_Upgrader extends WordPoints_Module_Installer {
 			return false;
 		}
 
-		if ( ! $api instanceof WordPoints_Module_Server_API_UpdatesI ) {
+		if ( ! $api instanceof WordPoints_Module_Server_API_Updates_InstallableI ) {
 			$this->bail_early( 'api_updates_not_supported' );
 			return false;
 		}

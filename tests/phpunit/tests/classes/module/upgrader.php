@@ -84,7 +84,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 			return $server;
 		}
 
-		$api = $this->getMock( 'WordPoints_Module_Server_API_UpdatesI' );
+		$api = $this->getMock( 'WordPoints_Module_Server_API_Updates_InstallableI' );
 
 		$server = $this->getMock(
 			'WordPoints_Module_ServerI'

@@ -1248,9 +1248,15 @@ function wordpoints_module_update_row( $file, $module_data ) {
 
 					<?php if ( current_user_can( 'update_wordpoints_modules' ) ) : ?>
 						<span class="wordpoints-update-action-separator">|</span>
-						<a href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) ); ?>">
-							<?php esc_html_e( 'Update now', 'wordpoints' ); ?>
-						</a>
+						<?php if ( $api instanceof WordPoints_Module_Server_API_Updates_InstallableI ) : ?>
+							<a href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) ); ?>">
+								<?php esc_html_e( 'Update now', 'wordpoints' ); ?>
+							</a>
+						<?php else : ?>
+							<em>
+								<?php esc_html_e( 'Automatic update is unavailable for this module.', 'wordpoints' ); ?>
+							</em>
+						<?php endif; ?>
 					<?php endif; ?>
 
 					<?php

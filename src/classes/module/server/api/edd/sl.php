@@ -14,6 +14,7 @@
  */
 class WordPoints_Module_Server_API_EDD_SL
 	implements WordPoints_Module_Server_APII,
+		WordPoints_Module_Server_API_Updates_InstallableI,
 		WordPoints_Module_Server_API_Updates_ChangelogI,
 		WordPoints_Module_Server_API_LicensesI {
 

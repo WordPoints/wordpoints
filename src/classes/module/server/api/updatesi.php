@@ -19,7 +19,6 @@
  */
 interface WordPoints_Module_Server_API_UpdatesI {
 
-	// TODO move this to another interface?
 	/**
 	 * Gets the latest version of the module available from the server.
 	 *
@@ -43,19 +42,6 @@ interface WordPoints_Module_Server_API_UpdatesI {
 	 * @return string The package URL.
 	 */
 	public function get_module_package_url(
-		WordPoints_Module_Server_API_Module_DataI $module_data
-	);
-
-	/**
-	 * Gets the changelog for the latest version of a module.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @param WordPoints_Module_Server_API_Module_DataI $module_data The module data.
-	 *
-	 * @return string The changelog text.
-	 */
-	public function get_module_changelog(
 		WordPoints_Module_Server_API_Module_DataI $module_data
 	);
 }

@@ -1216,45 +1216,44 @@ function wordpoints_module_update_row( $file, $module_data ) {
 		'strong' => array(),
 	);
 
-	$details_url = admin_url(
-		'update.php?action=wordpoints-iframe-module-changelog&module=' . rawurlencode( $file )
-	);
-
 	?>
 
 	<tr class="plugin-update-tr wordpoints-module-update-tr <?php echo ( is_wordpoints_module_active( $file ) ) ? 'active' : 'inactive'; ?>">
 		<td colspan="<?php echo (int) WordPoints_Modules_List_Table::instance()->get_column_count(); ?>" class="plugin-update wordpoints-module-update colspanchange">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
-
 					<?php
 
-					if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
-						printf(
-							wp_kses(
-								// translators: 1. Module name; 2. Details URL; 3. Module name; 4. New version number.
-								__( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" title="%3$s">View version %4$s details</a>.', 'wordpoints' )
-								, array( 'a' => array( 'href' => array(), 'class' => array(), 'title' => array() ) )
-							)
-							, wp_kses( $module_data['name'], $modules_allowed_tags )
-							, esc_url( $details_url )
-							, esc_attr( wp_kses( $module_data['name'], $modules_allowed_tags ) )
-							, esc_html( $new_version )
-						);
-					} else {
-						printf(
-							wp_kses(
-								// translators: 1. Module name; 2. Details URL; 3. Module name; 4. New version number; 5. Update URL.
-								__( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" title="%3$s">View version %4$s details</a> or <a href="%5$s">update now</a>.', 'wordpoints' )
-								, array( 'a' => array( 'href' => array(), 'class' => array(), 'title' => array() ) )
-							)
-							, wp_kses( $module_data['name'], $modules_allowed_tags )
-							, esc_url( $details_url )
-							, esc_attr( wp_kses( $module_data['name'], $modules_allowed_tags ) )
-							, esc_html( $new_version )
-							, esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) )
-						);
-					}
+					printf(
+						// translators: Module name.
+						esc_html__( 'There is a new version of %1$s available.', 'wordpoints' )
+						, wp_kses( $module_data['name'], $modules_allowed_tags )
+					);
+
+					?>
+
+					<?php if ( $api instanceof WordPoints_Module_Server_API_Updates_ChangelogI ) : ?>
+						<a href="<?php echo esc_url( admin_url( 'update.php?action=wordpoints-iframe-module-changelog&module=' . rawurlencode( $file ) ) ); ?>" class="thickbox" title="<?php echo esc_attr( wp_kses( $module_data['name'], $modules_allowed_tags ) ); ?>">
+							<?php
+
+							printf(
+								// translators: Version number.
+								esc_html__( 'View version %1$s details', 'wordpoints' )
+								, esc_html( $new_version )
+							);
+
+							?>
+						</a>
+					<?php endif; ?>
+
+					<?php if ( current_user_can( 'update_wordpoints_modules' ) ) : ?>
+						<span class="wordpoints-update-action-separator">|</span>
+						<a href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-module&module=' ) . $file, 'upgrade-module_' . $file ) ); ?>">
+							<?php esc_html_e( 'Update now', 'wordpoints' ); ?>
+						</a>
+					<?php endif; ?>
+
+					<?php
 
 					/**
 					 * Fires at the end of the update message container in each row
@@ -1272,7 +1271,6 @@ function wordpoints_module_update_row( $file, $module_data ) {
 					do_action( "wordpoints_in_module_update_message-{$file}", $module_data, $new_version );
 
 					?>
-
 				</p>
 			</div>
 		</td>
@@ -1575,7 +1573,7 @@ function wordpoints_iframe_module_changelog() {
 
 	$api = $server->get_api();
 
-	if ( ! $api instanceof WordPoints_Module_Server_API_UpdatesI ) {
+	if ( ! $api instanceof WordPoints_Module_Server_API_Updates_ChangelogI ) {
 		wp_die( esc_html__( 'The server for this module uses an unsupported API.', 'wordpoints' ), 200 );
 	}
 

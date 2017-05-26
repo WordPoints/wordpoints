@@ -13,6 +13,7 @@ return array(
 	'wordpoints_module_serveri' => 'module/serveri.php',
 	'wordpoints_module_server_apii' => 'module/server/apii.php',
 	'wordpoints_module_server_api_updatesi' => 'module/server/api/updatesi.php',
+	'wordpoints_module_server_api_updates_changelogi' => 'module/server/api/updates/changelogi.php',
 	'wordpoints_module_server_api_module_licensei' => 'module/server/api/module/licensei.php',
 	'wordpoints_module_server_api_module_license_renewablei' => 'module/server/api/module/license/renewablei.php',
 	'wordpoints_module_server_api_module_license_renewable_urli' => 'module/server/api/module/license/renewable/urli.php',

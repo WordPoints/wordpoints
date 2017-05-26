@@ -56,6 +56,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		remove_action( 'upgrader_process_complete', 'wp_version_check' );
 		remove_action( 'upgrader_process_complete', 'wp_update_plugins' );
 		remove_action( 'upgrader_process_complete', 'wp_update_themes' );
+		remove_action( 'upgrader_process_complete', 'wordpoints_recheck_for_module_updates_after_upgrade' );
 	}
 
 	/**

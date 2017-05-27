@@ -25,6 +25,25 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test wordpoints_deactivate().
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_deactivate
+	 * @covers ::wordpoints_schedule_module_update_checks
+	 */
+	public function test_wordpoints_deactivate() {
+
+		wordpoints_schedule_module_updates_check();
+
+		$this->assertNotFalse( wp_next_scheduled( 'wordpoints_check_for_module_updates' ) );
+
+		wordpoints_deactivate();
+
+		$this->assertFalse( wp_next_scheduled( 'wordpoints_check_for_module_updates' ) );
+	}
+
+	/**
 	 * Test is_wordpoints_network_active().
 	 *
 	 * @since 1.2.0

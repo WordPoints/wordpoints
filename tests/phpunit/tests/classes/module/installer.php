@@ -45,6 +45,10 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		add_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
 		add_filter( 'upgrader_pre_download', array( $this, 'module_package' ) );
 
+		$updates = new WordPoints_Module_Updates();
+		$updates->set_new_versions( array( 'test' => '1.2.0' ) );
+		$updates->save();
+
 		wp_cache_set( 'wordpoints_modules', array( 'test' ), 'wordpoints_modules' );
 
 		// Remove unnecessary actions that will result in requests to WordPress.org.
@@ -52,6 +56,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		remove_action( 'upgrader_process_complete', 'wp_version_check' );
 		remove_action( 'upgrader_process_complete', 'wp_update_plugins' );
 		remove_action( 'upgrader_process_complete', 'wp_update_themes' );
+		remove_action( 'upgrader_process_complete', 'wordpoints_recheck_for_module_updates_after_upgrade' );
 	}
 
 	/**
@@ -87,10 +92,37 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		// Check that the module cache is cleared.
 		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
+		$this->assertSame( array(), wordpoints_get_module_updates()->get_new_versions() );
 
 		$this->assertCount( 0, $this->skin->errors );
 		$this->assertSame( 1, $this->skin->header_shown );
 		$this->assertSame( 1, $this->skin->footer_shown );
+	}
+
+	/**
+	 * Test the clear_update_cache argument.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_clear_update_cache() {
+
+		$result = $this->install_test_package(
+			'module-6'
+			, array( 'clear_update_cache' => false )
+		);
+
+		$this->assertTrue( $result );
+
+		$this->assertFileExists( wordpoints_modules_dir() . '/module-6/module-6.php' );
+
+		// Check that the module updates cache is not cleared.
+		$this->assertSame(
+			array( 'test' => '1.2.0' )
+			, wordpoints_get_module_updates()->get_new_versions()
+		);
+
+		// The modules cache is still cleared though.
+		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
 	}
 
 	/**
@@ -164,12 +196,14 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 	 * Run the installer with one of the test packages.
 	 *
 	 * @since 2.0.0
+	 * @since 2.4.0 Added the $args parameter.
 	 *
 	 * @param string $package_name The name of the package file, without extension.
+	 * @param array  $args         Optional arguments to pass to install().
 	 *
 	 * @return mixed The result from the upgrader.
 	 */
-	protected function install_test_package( $package_name ) {
+	protected function install_test_package( $package_name, $args = array() ) {
 
 		$this->package_name = $package_name;
 
@@ -193,6 +227,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		return $upgrader->install(
 			WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $package_name . '.zip'
+			, $args
 		);
 	}
 }

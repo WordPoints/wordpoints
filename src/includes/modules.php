@@ -213,6 +213,7 @@ function wordpoints_module_basename( $file ) {
  * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
  * @since 1.10.0 The 'update_api' header is deprecated in favor of 'channel'.
  * @since 2.2.0 The 'namespace' header is now supported.
+ * @since 2.4.0 The 'channel' header is deprecated in favor of 'server'.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -232,7 +233,7 @@ function wordpoints_module_basename( $file ) {
  *         @type string $text_domain The module's text domain.
  *         @type string $domain_path The folder containing the module's *.mo translation files.
  *         @type bool   $network     Whether the module should only be network activated.
- *         @type string $channel     The URL of the update service to be used for this module.
+ *         @type string $server      The slug of the remote server for this module (like for updates, etc.).
  *         @type mixed  $ID          A unique identifier for this module, used by the update service.
  *         @type string $namespace   The namespace for this module. Should be Title_Case, and omit "WordPoints" prefix.
  * }
@@ -251,6 +252,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		'network'     => 'Network',
 		'update_api'  => 'Update API',
 		'channel'     => 'Channel',
+		'server'      => 'Server',
 		'ID'          => 'ID',
 		'namespace'   => 'Namespace',
 	);
@@ -264,7 +266,12 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 	}
 
 	if ( ! empty( $module_data['update_api'] ) ) {
-		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Channel".' );
+		_deprecated_argument( __FUNCTION__, '1.10.0', 'The "Update API" module header has been deprecated in favor of "Server".' );
+	}
+
+	if ( ! empty( $module_data['channel'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.4.0', 'The "Channel" module header has been deprecated in favor of "Server".' );
+		$module_data['server'] = $module_data['channel'];
 	}
 
 	$module_data['network'] = ( 'true' === strtolower( $module_data['network'] ) );
@@ -355,6 +362,57 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 	} // End if ( $markup || $translate ) else.
 
 	return $module_data;
+}
+
+/**
+ * Get the server for a module.
+ *
+ * @since 2.4.0
+ *
+ * @param array $module The module to get the server for.
+ *
+ * @return WordPoints_Module_ServerI|false The object for the server to use for this
+ *                                         module, or false.
+ */
+function wordpoints_get_server_for_module( $module ) {
+
+	$server = false;
+
+	if ( isset( $module['server'] ) ) {
+		$server = $module['server'];
+	}
+
+	/**
+	 * Filter the server to use for a module.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|false $server The slug of the server to use, or false for none.
+	 * @param array        $module The module's header data.
+	 */
+	$server = apply_filters( 'wordpoints_server_for_module', $server, $module );
+
+	if ( ! $server ) {
+		return false;
+	}
+
+	$server = new WordPoints_Module_Server( $server );
+
+	/**
+	 * Filter the server object to use for a module.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WordPoints_Module_ServerI $server The server object to use.
+	 * @param array                     $module The module's header data.
+	 */
+	$server = apply_filters( 'wordpoints_server_object_for_module', $server, $module );
+
+	if ( ! $server instanceof WordPoints_Module_ServerI ) {
+		return false;
+	}
+
+	return $server;
 }
 
 /**
@@ -1131,6 +1189,175 @@ function wordpoints_register_module_deactivation_hook( $file, $function ) {
 	$module_file = wordpoints_module_basename( $file );
 
 	add_action( "wordpoints_deactivate_module-{$module_file}", $function );
+}
+
+/**
+ * Gets the available module updates.
+ *
+ * @since 2.4.0
+ *
+ * @return WordPoints_Module_UpdatesI The available module updates.
+ */
+function wordpoints_get_module_updates() {
+
+	$updates = new WordPoints_Module_Updates();
+	$updates->fill();
+
+	return $updates;
+}
+
+/**
+ * Checks for module updates.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_check_for_module_updates Cron event registered by
+ *                   wordpoints_schedule_module_update_checks().
+ *
+ * @param int $cache_timeout Maximum acceptable age for the cache. If the cache is
+ *                           older than this, it will be updated. The default is 12
+ *                           hours.
+ *
+ * @return WordPoints_Module_UpdatesI|false The updates, or false if the check was
+ *                                          not run (due to the cache being fresh
+ *                                          enough, or some other reason).
+ */
+function wordpoints_check_for_module_updates( $cache_timeout = null ) {
+
+	$check = new WordPoints_Module_Updates_Check( $cache_timeout );
+	return $check->run();
+}
+
+/**
+ * Schedules the module updates check.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action init
+ */
+function wordpoints_schedule_module_updates_check() {
+
+	$event = 'wordpoints_check_for_module_updates';
+
+	if ( ! wp_next_scheduled( $event ) ) {
+		wp_schedule_event( time(), 'twicedaily', $event );
+	}
+}
+
+/**
+ * Reschedules the module updates check from the current time.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_module_update_check_completed
+ */
+function wordpoints_reschedule_module_updates_check() {
+
+	wp_reschedule_event(
+		time()
+		, 'twicedaily'
+		, 'wordpoints_check_for_module_updates'
+	);
+}
+
+/**
+ * Checks for module updates after an upgrade.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action upgrader_process_complete
+ *
+ * @param object $upgrader The upgrader.
+ * @param array  $data     Info about the upgrade.
+ */
+function wordpoints_recheck_for_module_updates_after_upgrade( $upgrader, $data ) {
+
+	if ( isset( $data['type'] ) && 'translation' === $data['type'] ) {
+		return;
+	}
+
+	wordpoints_check_for_module_updates_now();
+}
+
+/**
+ * Checks for module updates with a cache timeout of one hour.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_check_for_module_updates_hourly() {
+	wordpoints_check_for_module_updates( HOUR_IN_SECONDS );
+}
+
+/**
+ * Checks for module updates with a cache timeout of zero.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_check_for_module_updates_now() {
+	wordpoints_check_for_module_updates( 0 );
+}
+
+/**
+ * Clean the modules cache.
+ *
+ * @since 2.4.0
+ *
+ * @param bool $clear_update_cache Whether to clear the updates cache.
+ */
+function wordpoints_clean_modules_cache( $clear_update_cache = true ) {
+
+	if ( $clear_update_cache ) {
+		$updates = new WordPoints_Module_Updates();
+		$updates->set_time_checked( 0 );
+		$updates->save();
+	}
+
+	wp_cache_delete( 'wordpoints_modules', 'wordpoints_modules' );
+}
+
+/**
+ * Add the module update counts to the other update counts.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\filter wp_get_update_data
+ *
+ * @param array $update_data The update data.
+ *
+ * @return array The updated update counts.
+ */
+function wordpoints_module_update_counts( $update_data ) {
+
+	$update_data['counts']['wordpoints_modules'] = 0;
+
+	if ( current_user_can( 'update_wordpoints_modules' ) ) {
+		$module_updates = wordpoints_get_module_updates()->get_new_versions();
+
+		if ( ! empty( $module_updates ) ) {
+			$update_data['counts']['wordpoints_modules'] = count( $module_updates );
+
+			$title = sprintf(
+				// translators: Number of updates.
+				_n(
+					'%d WordPoints Module Update'
+					, '%d WordPoints Module Updates'
+					, $update_data['counts']['wordpoints_modules']
+					, 'wordpoints'
+				)
+				, $update_data['counts']['wordpoints_modules']
+			);
+
+			if ( ! empty( $update_data['title'] ) ) {
+				$update_data['title'] .= ', ';
+			}
+
+			$update_data['title'] .= esc_attr( $title );
+		}
+	}
+
+	$update_data['counts']['total'] += $update_data['counts']['wordpoints_modules'];
+
+	return $update_data;
 }
 
 // EOF

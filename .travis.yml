@@ -16,7 +16,6 @@ env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=4.7
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.6
 
 sudo: false
 
@@ -42,8 +41,6 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 7.1
       env: TRAVISCI_RUN=codesniff
-    - php: 7.1
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.6
   allow_failures:
     - php: hhvm
     - php: nightly

@@ -284,28 +284,34 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			?>
 
 			<p>
-				<label
-					for="points-name-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html_x( 'Name:', 'points type', 'wordpoints' ); ?></label>
-				<input class="widefat" type="text"
-				       id="points-name-<?php echo esc_attr( $slug ); ?>"
-				       name="points-name"
-				       value="<?php echo esc_attr( $points_type['name'] ); ?>"/>
+				<label for="points-name-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html_x( 'Name:', 'points type', 'wordpoints' ); ?></label>
+				<input
+					class="widefat"
+					type="text"
+					id="points-name-<?php echo esc_attr( $slug ); ?>"
+					name="points-name"
+					value="<?php echo esc_attr( $points_type['name'] ); ?>"
+				/>
 			</p>
 			<p>
-				<label
-					for="points-prefix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $prefix ); ?></label>
-				<input class="widefat" type="text"
-				       id="points-prefix-<?php echo esc_attr( $slug ); ?>"
-				       name="points-prefix"
-				       value="<?php echo esc_attr( $points_type['prefix'] ); ?>"/>
+				<label for="points-prefix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $prefix ); ?></label>
+				<input
+					class="widefat"
+					type="text"
+					id="points-prefix-<?php echo esc_attr( $slug ); ?>"
+					name="points-prefix"
+					value="<?php echo esc_attr( $points_type['prefix'] ); ?>"
+				/>
 			</p>
 			<p>
-				<label
-					for="points-suffix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $suffix ); ?></label>
-				<input class="widefat" type="text"
-				       id="points-suffix-<?php echo esc_attr( $slug ); ?>"
-				       name="points-suffix"
-				       value="<?php echo esc_attr( $points_type['suffix'] ); ?>"/>
+				<label for="points-suffix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $suffix ); ?></label>
+				<input
+					class="widefat"
+					type="text"
+					id="points-suffix-<?php echo esc_attr( $slug ); ?>"
+					name="points-suffix"
+					value="<?php echo esc_attr( $points_type['suffix'] ); ?>"
+				/>
 			</p>
 
 			<?php
@@ -323,10 +329,8 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 			?>
 
-			<input type="hidden" name="points-slug"
-			       value="<?php echo esc_attr( $slug ); ?>"/>
-			<input type="hidden" name="add_new" class="add_new"
-			       value="<?php echo esc_attr( $add_new ); ?>"/>
+			<input type="hidden" name="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
+			<input type="hidden" name="add_new" class="add_new" value="<?php echo esc_attr( $add_new ); ?>" />
 
 			<div class="hook-control-actions">
 				<div class="alignleft">

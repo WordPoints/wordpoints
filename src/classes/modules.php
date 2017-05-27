@@ -47,6 +47,7 @@ final class WordPoints_Modules {
 		'Network'     => 'network',
 		'Update API'  => 'update_api',
 		'Channel'     => 'channel',
+		'Server'      => 'server',
 		'ID'          => 'ID',
 		'Namespace'   => 'namespace',
 	);

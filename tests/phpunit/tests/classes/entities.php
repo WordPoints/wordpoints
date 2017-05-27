@@ -122,7 +122,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'type' => 'db',
 								'info' => array(
 									'type'  => 'field',
-							        'field' => 'post_author',
+									'field' => 'post_author',
 								),
 							),
 						),
@@ -133,7 +133,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'type' => 'db',
 								'info' => array(
 									'type'  => 'field',
-							        'field' => 'comment_count',
+									'field' => 'comment_count',
 								),
 							),
 						),
@@ -144,7 +144,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'type' => 'db',
 								'info' => array(
 									'type'  => 'field',
-							        'field' => 'post_content',
+									'field' => 'post_content',
 								),
 							),
 						),
@@ -155,7 +155,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'type' => 'db',
 								'info' => array(
 									'type'  => 'field',
-							        'field' => 'post_modified',
+									'field' => 'post_modified',
 								),
 							),
 						),
@@ -166,7 +166,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'type' => 'db',
 								'info' => array(
 									'type'  => 'field',
-							        'field' => 'post_date',
+									'field' => 'post_date',
 								),
 							),
 						),
@@ -200,7 +200,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'type' => 'db',
 								'info' => array(
 									'type'  => 'field',
-							        'field' => 'post_title',
+									'field' => 'post_title',
 								),
 							),
 						),

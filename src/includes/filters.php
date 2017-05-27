@@ -8,6 +8,7 @@
  */
 
 register_activation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_activate' );
+register_deactivation_hook( WORDPOINTS_DIR . 'wordpoints.php', 'wordpoints_deactivate' );
 
 add_action( 'plugins_loaded', 'wordpoints_register_installer' );
 add_action( 'plugins_loaded', 'wordpoints_breaking_update' );
@@ -20,6 +21,17 @@ add_action( 'wordpoints_components_register', 'wordpoints_points_component_regis
 add_action( 'wordpoints_components_register', 'wordpoints_ranks_component_register' );
 
 add_action( 'init', 'wordpoints_init_cache_groups', 5 );
+
+if (
+	! wp_doing_ajax()
+	&& ( is_main_site() || is_network_admin() || ! is_wordpoints_network_active() )
+) {
+
+	add_action( 'init', 'wordpoints_schedule_module_updates_check' );
+	add_action( 'wordpoints_module_update_check_completed', 'wordpoints_reschedule_module_updates_check' );
+
+	add_action( 'wordpoints_check_for_module_updates', 'wordpoints_check_for_module_updates' );
+}
 
 add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
@@ -51,6 +63,7 @@ add_action( 'wordpoints_init_app_registry-entities-restrictions-know', 'wordpoin
 add_action( 'wordpoints_init_app_registry-entities-restrictions-view', 'wordpoints_entity_restrictions_view_init' );
 
 add_action( 'wordpoints_init_app_registry-apps-data_types', 'wordpoints_data_types_init' );
+add_action( 'wordpoints_init_app_registry-apps-module_server_apis', 'wordpoints_module_server_apis_init' );
 
 add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_hook_extensions_init' );
 add_action( 'wordpoints_init_app_registry-hooks-events', 'wordpoints_hook_events_init' );
@@ -58,5 +71,7 @@ add_action( 'wordpoints_init_app_registry-hooks-actions', 'wordpoints_hook_actio
 add_action( 'wordpoints_init_app_registry-hooks-conditions', 'wordpoints_hook_conditions_init' );
 
 add_action( 'wordpoints_modules_loaded', 'wordpoints_init_hooks' );
+
+add_filter( 'wp_get_update_data', 'wordpoints_module_update_counts' );
 
 // EOF

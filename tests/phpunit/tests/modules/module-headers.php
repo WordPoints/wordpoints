@@ -39,9 +39,20 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 		'author_name' => 'WordPoints Tester',
 		'update_api'  => '',
 		'channel'     => '',
+		'server'      => '',
 		'ID'          => '',
 		'namespace'   => '',
 	);
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function setUp() {
+
+		parent::setUp();
+
+		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+	}
 
 	/**
 	 * Test basic module header retrieval.
@@ -114,6 +125,78 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSameSetsWithIndex( $this->expected_headers, $found_headers );
 
 		$this->assertSame( 1, $mock_filter->call_count );
+	}
+
+	/**
+	 * Test that it gives a deprecated error if using the Update API header.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @expectedDeprecated wordpoints_get_module_data
+	 */
+	public function test_update_api_header_deprecated() {
+
+		WordPoints_Modules::register(
+			'
+				Module Name: Test 3
+				Version:     1.0.0-beta
+				Author:      WordPoints Tester
+				Author URI:  https://www.example.com/
+				Module URI:  https://www.example.com/test-3/
+				Description: A test module.
+				Text Domain: test-3
+				Update API:  test
+			'
+			, WORDPOINTS_TESTS_DIR . '/data/modules/imaginary-1.php'
+		);
+
+		$found_headers = wordpoints_get_module_data(
+			WORDPOINTS_TESTS_DIR . '/data/modules/imaginary-1.php'
+			, false
+			, false
+		);
+
+		$this->assertArrayHasKey( 'update_api', $found_headers );
+		$this->assertSame( 'test', $found_headers['update_api'] );
+
+		$this->assertArrayHasKey( 'server', $found_headers );
+		$this->assertSame( '', $found_headers['server'] );
+	}
+
+	/**
+	 * Test that it gives a deprecated error if using the Channel header.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @expectedDeprecated wordpoints_get_module_data
+	 */
+	public function test_channel_header_deprecated() {
+
+		WordPoints_Modules::register(
+			'
+				Module Name: Test 3
+				Version:     1.0.0-beta
+				Author:      WordPoints Tester
+				Author URI:  https://www.example.com/
+				Module URI:  https://www.example.com/test-3/
+				Description: A test module.
+				Text Domain: test-3
+				Channel:     wordpoints.org
+			'
+			, WORDPOINTS_TESTS_DIR . '/data/modules/imaginary-2.php'
+		);
+
+		$found_headers = wordpoints_get_module_data(
+			WORDPOINTS_TESTS_DIR . '/data/modules/imaginary-2.php'
+			, false
+			, false
+		);
+
+		$this->assertArrayHasKey( 'channel', $found_headers );
+		$this->assertSame( 'wordpoints.org', $found_headers['channel'] );
+
+		$this->assertArrayHasKey( 'server', $found_headers );
+		$this->assertSame( 'wordpoints.org', $found_headers['server'] );
 	}
 }
 

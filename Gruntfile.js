@@ -112,6 +112,15 @@ module.exports = function( grunt ) {
 				)[0]
 			);
 
+			class_files.splice(
+				class_files.indexOf( 'module/server/api/module/license/renewablei.php' ) + 1
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'module/server/api/module/license/renewable/urli.php' )
+					, 1
+				)[0]
+			);
+
 			return class_files;
 		}
 	);

@@ -7,7 +7,7 @@
  * @since 1.1.0
  */
 
-global $status, $wp_version;
+global $status, $wp_version, $parent_file;
 
 if ( isset( $_POST['clear-recent-list'] ) ) {
 	$action = 'clear-recent-list';
@@ -467,9 +467,9 @@ $screen = get_current_screen();
 
 $screen->add_help_tab(
 	array(
-		'id'		=> 'overview',
-		'title'		=> __( 'Overview', 'wordpoints' ),
-		'content'	=>
+		'id'      => 'overview',
+		'title'   => __( 'Overview', 'wordpoints' ),
+		'content' =>
 			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
 			// translators: 1. URL of module directory on WordPoints.org; 2. URL of Install Module admin screen; 3. Directory name.
 			'<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
@@ -478,9 +478,9 @@ $screen->add_help_tab(
 
 $screen->add_help_tab(
 	array(
-		'id'		=> 'compatibility-problems',
-		'title'		=> __( 'Troubleshooting', 'wordpoints' ),
-		'content'	=>
+		'id'      => 'compatibility-problems',
+		'title'   => __( 'Troubleshooting', 'wordpoints' ),
+		'content' =>
 			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
 			// translators: Directory name.
 			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
@@ -509,5 +509,7 @@ $screen->set_screen_reader_content(
 		'heading_list'       => __( 'Modules list', 'wordpoints' ),
 	)
 );
+
+wp_enqueue_style( 'wordpoints-admin-modules-list-table' );
 
 // EOF

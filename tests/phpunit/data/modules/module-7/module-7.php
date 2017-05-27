@@ -8,7 +8,7 @@
  * Version:     1.0.0
  * License:     GPLv2+
  * Description: Description.
- * Channel:     wordpoints.org
+ * Server:      wordpoints.org
  * ID:          7
  *
  * @package Module7

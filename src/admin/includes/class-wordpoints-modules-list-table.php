@@ -56,7 +56,13 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$status = 'all';
 
-		$module_statuses = array( 'active', 'inactive', 'recently_activated', 'search' );
+		$module_statuses = array(
+			'active',
+			'inactive',
+			'recently_activated',
+			'search',
+			'upgrade',
+		);
 
 		/**
 		 * Filter the module statuses on the modules administration panel.
@@ -64,7 +70,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		 * @since 1.1.0
 		 *
 		 * @param array $statuses The module statuses. The defaults are 'active',
-		 *                        'inactive', 'recently_activated', and 'search'.
+		 *                        'inactive', 'recently_activated', 'upgrade', and
+		 *                        'search'.
 		 */
 		$module_statuses = apply_filters( 'wordpoints_module_statuses', $module_statuses );
 
@@ -134,6 +141,20 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'active'             => array(),
 			'inactive'           => array(),
 			'recently_activated' => array(),
+			'upgrade'            => array(),
+		);
+
+		$updates = wordpoints_get_module_updates();
+
+		$user_can_update = (
+			current_user_can( 'update_wordpoints_modules' )
+			&& (
+				! is_multisite()
+				|| (
+					is_network_admin()
+					&& current_user_can( 'manage_network_wordpoints_modules' )
+				)
+			)
 		);
 
 		$show_network_active = false;
@@ -229,6 +250,14 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 			} // End if ().
 
+			/*
+			 * If the user can update modules, add an 'update' key to the module data
+			 * for modules that have an available update.
+			 */
+			if ( $user_can_update && $updates->has_update( $module_file ) ) {
+				$modules['upgrade'][ $module_file ] = $modules['all'][ $module_file ];
+			}
+
 		} // End foreach ( modules ).
 
 		if ( $s ) {
@@ -250,6 +279,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		 *        @type array $active             The active modules.
 		 *        @type array $inactive           The modules that aren't active.
 		 *        @type array $recently_activated Modules that were recently active.
+		 *        @type array $upgrade            Modules that have an update available.
 		 * }
 		 */
 		$modules = apply_filters( 'wordpoints_modules_list_table_items', $modules );
@@ -428,6 +458,11 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					$text = _n( 'Inactive <span class="count">(%s)</span>', 'Inactive <span class="count">(%s)</span>', $count, 'wordpoints' );
 				break;
 
+				case 'upgrade':
+					// translators: Count.
+					$text = _n( 'Update Available <span class="count">(%s)</span>', 'Update Available <span class="count">(%s)</span>', $count, 'wordpoints' );
+				break;
+
 				default:
 					$text = $type;
 			}
@@ -491,6 +526,13 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			&& 'active' !== $status
 		) {
 			$actions['delete-selected'] = esc_html__( 'Delete', 'wordpoints' );
+		}
+
+		if (
+			( ! is_multisite() || is_network_admin() )
+			&& current_user_can( 'update_wordpoints_modules' )
+		) {
+			$actions['update-selected'] = esc_html__( 'Update', 'wordpoints' );
 		}
 
 		/**
@@ -564,6 +606,10 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		}
 
 		$class = ( $is_active ) ? 'active' : 'inactive';
+
+		if ( wordpoints_get_module_updates()->has_update( $module_file ) ) {
+			$class .= ' update';
+		}
 
 		/**
 		 * Filter the class of a row of the module's list table.

@@ -13,8 +13,8 @@ function wordpoints-dev-lib-config() {
 		export WPCS_GIT_TREE=develop
 	fi
 
-	# Use PHPCS 2.7.0, since WPCS 0.11.0 requires it.
-	export PHPCS_GIT_TREE=master
+	# Use PHPCS 2.9, since WPCS doesn't support 3.0 yet.
+	export PHPCS_GIT_TREE=2.9
 
 	# Ignore some strings that are expected.
 	CODESNIFF_IGNORED_STRINGS=(\
@@ -24,6 +24,17 @@ function wordpoints-dev-lib-config() {
 		# Ticket related to removing blank target links, mentioned in the changelog.
 		-e '#558' \
 	)
+
+	CODESNIFF_PATH_STRINGS=(\
+		"${CODESNIFF_PATH_STRINGS[@]}" \
+		# Needs to use non-HTTPS since it may not be supported.
+		'!' -path './src/classes/module/server.php' \
+		# Tests for the above class.
+		'!' -path './tests/phpunit/tests/classes/module/server.php' \
+	)
+
+	# Has to be set to something or else the WP HTTP Testcase will not use the cache.
+	export WP_HTTP_TC_HOST=example.com
 }
 
 # EOF

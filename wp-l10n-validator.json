@@ -6,6 +6,7 @@
 	"ignores-cache": "./.wp-l10n-validator-ignores-cache.json",
 	"ignores-tolerance": 100,
     "ignored-functions": {
+		"WordPoints_Module_Server_API_EDD_SL::get_module_info": true,
 		"WordPoints_Points_Un_Installer::_1_9_0_combine_hooks": true,
 		"WordPoints_Widget::get_field_name": true
 	},

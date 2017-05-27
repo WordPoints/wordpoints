@@ -100,8 +100,8 @@ class WordPoints_Admin_Ajax_Hooks {
 	) {
 
 		return 'wordpoints_create_hook_reaction|' . $reaction_store->get_slug()
-		       . '|' . wordpoints_hooks()->get_current_mode()
-		       . '|' . wp_json_encode( $reaction_store->get_context_id() );
+			. '|' . wordpoints_hooks()->get_current_mode()
+			. '|' . wp_json_encode( $reaction_store->get_context_id() );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		WordPoints_Hook_ReactionI $reaction
 	) {
 		return 'wordpoints_update_hook_reaction|'
-		       . wp_json_encode( $reaction->get_guid() );
+			. wp_json_encode( $reaction->get_guid() );
 	}
 
 	/**
@@ -161,7 +161,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		WordPoints_Hook_ReactionI $reaction
 	) {
 		return 'wordpoints_delete_hook_reaction|'
-		       . wp_json_encode( $reaction->get_guid() );
+			. wp_json_encode( $reaction->get_guid() );
 	}
 
 	//

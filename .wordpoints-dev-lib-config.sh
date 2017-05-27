@@ -34,7 +34,7 @@ function wordpoints-dev-lib-config() {
 	)
 
 	# Has to be set to something or else the WP HTTP Testcase will not use the cache.
-	WP_HTTP_TC_HOST=example.com
+	export WP_HTTP_TC_HOST=example.com
 }
 
 # EOF

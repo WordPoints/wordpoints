@@ -19,7 +19,7 @@ WordPoints_Modules::register(
 		Description: Update modules from WordPoints.org through your admin panel.
 		Text Domain: wordpointsorg
 		Domain Path: /languages
-		Channel:     wordpoints.org
+		Server:      wordpoints.org
 		ID:          389
 	'
 	, __FILE__

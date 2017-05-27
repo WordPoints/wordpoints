@@ -437,11 +437,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_2_4_0_add_new_custom_caps() {
 
-		$this->custom_caps = array(
-			'update_wordpoints_modules' => 'update_plugins',
+		wordpoints_add_custom_caps(
+			array( 'update_wordpoints_modules' => 'update_plugins' )
 		);
-
-		$this->install_custom_caps();
 	}
 }
 

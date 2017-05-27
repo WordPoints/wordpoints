@@ -150,13 +150,36 @@ class WordPoints_Module_Server_API_EDD_SL
 		WordPoints_Module_Server_API_Module_DataI $module_data
 	) {
 
+		$license_key = $module_data->get( 'license_key' );
+
 		$response = $this->request(
 			'get_version'
 			, $module_data->get_id()
-			, $module_data->get( 'license_key' )
+			, $license_key
 		);
 
 		if ( ! is_array( $response ) ) {
+			return $response;
+		}
+
+		// If the license key wasn't valid, update its status.
+		if (
+			isset( $response['msg'] )
+			&& empty( $response['new_version'] )
+			&& $module_data->get( 'license_status' )
+		) {
+
+			$module_data->delete( 'license_status' );
+
+			if ( $license_key ) {
+				$license = $this->get_module_license_object(
+					$module_data
+					, $license_key
+				);
+
+				$license->is_valid();
+			}
+
 			return $response;
 		}
 

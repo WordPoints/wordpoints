@@ -32,6 +32,9 @@ function wordpoints-dev-lib-config() {
 		# Tests for the above class.
 		'!' -path './tests/phpunit/tests/classes/module/server.php' \
 	)
+
+	# Has to be set to something or else the WP HTTP Testcase will not use the cache.
+	WP_HTTP_TC_HOST=example.com
 }
 
 # EOF

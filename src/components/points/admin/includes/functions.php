@@ -78,7 +78,7 @@ function wordpoints_points_admin_register_scripts() {
  * @since 1.0.0
  *
  * @WordPress\action admin_menu
- * @WordPress\action network_admin_menu Only when the module is network-active.
+ * @WordPress\action network_admin_menu Only when the component is network-active.
  */
 function wordpoints_points_admin_menu() {
 
@@ -246,10 +246,10 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 			}
 
 			$screen_options = '<p><a id="access-on" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=on">'
-			                  . esc_html__( 'Enable accessibility mode', 'wordpoints' )
-			                  . '</a><a id="access-off" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=off">'
-			                  . esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
-			break;
+				. esc_html__( 'Enable accessibility mode', 'wordpoints' )
+				. '</a><a id="access-off" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=off">'
+				. esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
+		break;
 	}
 
 	return $screen_options;

@@ -81,6 +81,15 @@ class WordPoints_Module_Updates_Check {
 			$cache->save();
 		}
 
+		/**
+		 * Fires before a check for any module updates.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param WordPoints_Module_UpdatesI $updates The updates being checked for.
+		 */
+		do_action( 'wordpoints_before_module_update_check', $updates );
+
 		foreach ( $modules as $file => $module ) {
 
 			$server = wordpoints_get_server_for_module( $module );

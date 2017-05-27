@@ -115,6 +115,31 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_Test
 		$this->setExpectedException( 'WPAjaxDieStopException', '' );
 		$this->_handleAjax( 'nopriv_wordpoints_breaking_module_check' );
 	}
+
+	/**
+	 * PHPUnit 6+ compatibility shim.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/39822#comment:26
+	 *
+	 * @param mixed      $exception Exception.
+	 * @param string     $message   Message.
+	 * @param int|string $code      Code.
+	 */
+	public function setExpectedException( $exception, $message = '', $code = null ) {
+		if ( method_exists( 'PHPUnit_Framework_TestCase', 'setExpectedException' ) ) {
+			PHPUnit_Framework_TestCase::setExpectedException( $exception, $message, $code );
+		} else {
+			$this->expectException( $exception );
+			if ( '' !== $message ) {
+				$this->expectExceptionMessage( $message );
+			}
+			if ( null !== $code ) {
+				$this->expectExceptionCode( $code );
+			}
+		}
+	}
 }
 
 // EOF

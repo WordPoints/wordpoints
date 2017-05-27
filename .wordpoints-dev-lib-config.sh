@@ -13,8 +13,8 @@ function wordpoints-dev-lib-config() {
 		export WPCS_GIT_TREE=develop
 	fi
 
-	# Use PHPCS 2.7.0, since WPCS 0.11.0 requires it.
-	export PHPCS_GIT_TREE=master
+	# Use PHPCS 2.9, since WPCS doesn't support 3.0 yet.
+	export PHPCS_GIT_TREE=2.9
 
 	# Ignore some strings that are expected.
 	CODESNIFF_IGNORED_STRINGS=(\

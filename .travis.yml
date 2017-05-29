@@ -21,9 +21,6 @@ sudo: false
 
 matrix:
   include:
-    # Only run HHVM against trunk for now.
-    - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=develop
     # Only run nightly against trunk.
     - php: nightly
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop
@@ -42,7 +39,6 @@ matrix:
     - php: 7.1
       env: TRAVISCI_RUN=codesniff
   allow_failures:
-    - php: hhvm
     - php: nightly
   fast_finish: true
 

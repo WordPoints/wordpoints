@@ -784,7 +784,7 @@ class WordPoints_DB_Query {
 
 		if ( ! in_array( $order, array( 'DESC', 'ASC' ), true ) ) {
 
-			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'order' \"{$order}\", possible values are DESC and ASC" ), '1.0.0' );
+			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'order' \"{$order}\", possible values are DESC and ASC" ), '2.1.0' );
 			$order = 'DESC';
 		}
 
@@ -812,7 +812,7 @@ class WordPoints_DB_Query {
 
 		} else {
 
-			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'order_by' \"{$order_by}\", possible values are " . implode( ', ', array_keys( $this->columns ) ) ), '1.0.0' );
+			_doing_it_wrong( __METHOD__, esc_html( "WordPoints Debug Error: invalid 'order_by' \"{$order_by}\", possible values are " . implode( ', ', array_keys( $this->columns ) ) ), '2.1.0' );
 			return;
 		}
 

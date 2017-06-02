@@ -51,7 +51,7 @@ class WordPoints_Module_Updates_Check {
 	 */
 	public function run() {
 
-		if ( defined( 'WP_INSTALLING' ) ) {
+		if ( wp_installing() ) {
 			return false;
 		}
 

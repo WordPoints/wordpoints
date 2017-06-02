@@ -69,7 +69,7 @@ if ( ! wp_doing_ajax() && ( is_main_site() || is_network_admin() ) ) {
 	add_action( 'load-update.php', 'wordpoints_check_for_module_updates_hourly' );
 	add_action( 'load-update-core.php', 'wordpoints_check_for_module_updates_now' );
 	add_action( 'upgrader_process_complete', 'wordpoints_recheck_for_module_updates_after_upgrade', 10, 2 );
-	add_action( 'admin_init', 'wordpoints_check_for_module_updates' );
+	add_action( 'admin_init', 'wordpoints_check_for_module_updates', 10, 0 );
 }
 
 // EOF

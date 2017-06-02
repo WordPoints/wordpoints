@@ -13,7 +13,7 @@ $I->haveTestModuleInstalledNeedingUpdate();
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_modules' );
 $I->see( 'WordPoints Modules', '.wrap h1' );
 $I->see( 'There is a new version of Module 7 available.' );
-$I->click( 'update now', '.wordpoints-module-update-tr' );
+$I->click( 'Update now', '.wordpoints-module-update-tr' );
 $I->see( 'Update WordPoints Module', '.wrap h1' );
 $I->see( 'Module updated successfully.' );
 $I->see( 'Return to Modules page' );

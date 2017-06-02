@@ -32,6 +32,7 @@ add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upl
 
 add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
 add_action( 'update-custom_wordpoints-upgrade-module', 'wordpoints_admin_screen_upgrade_module' );
+add_action( 'update-custom_wordpoints-reactivate-module', 'wordpoints_admin_iframe_reactivate_module' );
 add_action( 'update-custom_wordpoints-iframe-module-changelog', 'wordpoints_iframe_module_changelog' );
 add_action( 'update-custom_update-selected-wordpoints-modules', 'wordpoints_iframe_update_modules' );
 

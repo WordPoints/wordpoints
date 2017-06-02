@@ -93,11 +93,11 @@ class WordPoints_Module_Upgrader_Skin extends WP_Upgrader_Skin {
 
 		if ( ! empty( $this->module ) && ! is_wp_error( $this->result ) && $this->module_active ) {
 
-			$url = wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_configure&tab=modules&action=activate-module&networkwide=' . $this->module_network_active . '&module=' . rawurlencode( $this->module ) ), "activate-module_{$this->module}" );
+			$url = wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-reactivate-module&network_wide=' . $this->module_network_active . '&module=' . rawurlencode( $this->module ) ), "reactivate-module_{$this->module}" );
 
 			?>
 
-			<iframe style="border: 0; overflow: hidden;" width="100%" height="170px" src="<?php echo esc_url( $url ); ?>"></iframe>
+			<iframe name="wordpoints_module_reactivation" style="border: 0; overflow: hidden;" width="100%" height="170px" src="<?php echo esc_url( $url ); ?>"></iframe>
 
 			<?php
 		}

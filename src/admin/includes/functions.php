@@ -1074,6 +1074,63 @@ function wordpoints_admin_screen_upgrade_module() {
 }
 
 /**
+ * Reactivates a module in an iframe after it was updated.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action update-custom_wordpoints-reactivate-module
+ */
+function wordpoints_admin_iframe_reactivate_module() {
+
+	if ( ! current_user_can( 'update_wordpoints_modules' ) ) {
+		wp_die( esc_html__( 'Sorry, you are not allowed to update WordPoints modules for this site.', 'wordpoints' ), 403 );
+	}
+
+	$module = ( isset( $_REQUEST['module'] ) )
+		? sanitize_text_field( wp_unslash( $_REQUEST['module'] ) ) // WPCS: CSRF OK.
+		: '';
+
+	check_admin_referer( 'reactivate-module_' . $module );
+
+	// First, activate the module.
+	if ( ! isset( $_GET['failure'] ) && ! isset( $_GET['success'] ) ) {
+
+		$nonce = sanitize_key( $_GET['_wpnonce'] ); // @codingStandardsIgnoreLine
+		$url   = admin_url( 'update.php?action=wordpoints-reactivate-module&module=' . rawurlencode( $module ) . '&_wpnonce=' . $nonce );
+
+		wp_safe_redirect( $url . '&failure=true' );
+		wordpoints_activate_module( $module, '', ! empty( $_GET['network_wide'] ), true );
+		wp_safe_redirect( $url . '&success=true' );
+
+		die();
+	}
+
+	// Then we redirect back here to display the success or error mesage.
+	iframe_header( __( 'WordPoints Module Reactivation', 'wordpoints' ) );
+
+	if ( isset( $_GET['success'] ) ) {
+
+		echo '<p>' . esc_html__( 'Module reactivated successfully.', 'wordpoints' ) . '</p>';
+
+	} elseif ( isset( $_GET['failure'] ) ) {
+
+		echo '<p>' . esc_html__( 'Module failed to reactivate due to a fatal error.', 'wordpoints' ) . '</p>';
+
+		// Ensure that Fatal errors are displayed.
+		// @codingStandardsIgnoreStart
+		error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
+		@ini_set( 'display_errors', true );
+		// @codingStandardsIgnoreEnd
+
+		$file = wordpoints_modules_dir() . '/' . $module;
+		WordPoints_Module_Paths::register( $file );
+		include( $file );
+	}
+
+	iframe_footer();
+}
+
+/**
  * Handle updating multiple modules on the modules administration screen.
  *
  * @since 2.4.0

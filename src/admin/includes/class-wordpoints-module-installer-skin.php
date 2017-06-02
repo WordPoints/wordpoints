@@ -89,12 +89,12 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 
 			} elseif ( current_user_can( 'activate_wordpoints_modules' ) ) {
 
-				$install_actions['activate_module'] = '<a class="button button-primary" href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . rawurlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Activate Module', 'wordpoints' ) . '</a>';
+				$install_actions['activate_module'] = '<a class="button button-primary" href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . rawurlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Activate Extension', 'wordpoints' ) . '</a>';
 			}
 		}
 
-		$install_actions['modules_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Modules page', 'wordpoints' ) . '</a>';
-		$install_actions['install_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Module Installer', 'wordpoints' ) . '</a>';
+		$install_actions['modules_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Extensions page', 'wordpoints' ) . '</a>';
+		$install_actions['install_page'] = '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Extension Installer', 'wordpoints' ) . '</a>';
 
 		/**
 		 * The install module action links.

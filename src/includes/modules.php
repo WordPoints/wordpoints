@@ -565,17 +565,17 @@ function wordpoints_get_modules( $module_folder = '', $markup = false, $translat
 function wordpoints_validate_module( $module ) {
 
 	if ( validate_file( $module ) ) {
-		return new WP_Error( 'module_invalid', __( 'Invalid module path.', 'wordpoints' ) );
+		return new WP_Error( 'module_invalid', __( 'Invalid extension path.', 'wordpoints' ) );
 	}
 
 	if ( ! file_exists( wordpoints_modules_dir() . '/' . $module ) ) {
-		return new WP_Error( 'module_not_found', __( 'Module file does not exist.', 'wordpoints' ) );
+		return new WP_Error( 'module_not_found', __( 'Extension file does not exist.', 'wordpoints' ) );
 	}
 
 	$installed_modules = wordpoints_get_modules();
 
 	if ( ! isset( $installed_modules[ $module ] ) ) {
-		return new WP_Error( 'no_module_header', __( 'The module does not have a valid header.', 'wordpoints' ) );
+		return new WP_Error( 'no_module_header', __( 'The extension does not have a valid header.', 'wordpoints' ) );
 	}
 
 	return true;
@@ -772,7 +772,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 		return new WP_Error(
 			'unexpected_output'
-			, __( 'The module generated unexpected output.', 'wordpoints' )
+			, __( 'The extension generated unexpected output.', 'wordpoints' )
 			, ob_get_contents()
 		);
 	}
@@ -969,7 +969,7 @@ function wordpoints_delete_modules( $modules ) {
 	$modules_dir = $wp_filesystem->find_folder( wordpoints_modules_dir() );
 
 	if ( empty( $modules_dir ) ) {
-		return new WP_Error( 'fs_no_modules_dir', __( 'Unable to locate WordPoints Module directory.', 'wordpoints' ) );
+		return new WP_Error( 'fs_no_modules_dir', __( 'Unable to locate WordPoints Extension directory.', 'wordpoints' ) );
 	}
 
 	$modules_dir = trailingslashit( $modules_dir );
@@ -1021,10 +1021,10 @@ function wordpoints_delete_modules( $modules ) {
 		return new WP_Error(
 			'could_not_remove_module'
 			, sprintf(
-				// translators: Module or list of modules.
+				// translators: Extension or list of extensions.
 				_n(
-					'Could not fully remove the module %s.'
-					, 'Could not fully remove the modules %s.'
+					'Could not fully remove the extension %s.'
+					, 'Could not fully remove the extensions %s.'
 					, count( $errors )
 					, 'wordpoints'
 				)
@@ -1339,8 +1339,8 @@ function wordpoints_module_update_counts( $update_data ) {
 			$title = sprintf(
 				// translators: Number of updates.
 				_n(
-					'%d WordPoints Module Update'
-					, '%d WordPoints Module Updates'
+					'%d WordPoints Extension Update'
+					, '%d WordPoints Extension Updates'
 					, $update_data['counts']['wordpoints_modules']
 					, 'wordpoints'
 				)

@@ -8,7 +8,7 @@ Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Gamify your site, track user rep, or run a rewards program. WordPoints has a powerful core, infinitely extendable via add-on modules.
+Gamify your site, track user rep, or run a rewards program. WordPoints has a powerful core, infinitely extendable via add-ons.
 
 == Description ==
 
@@ -54,8 +54,8 @@ The plugin also provides [several widgets](https://wordpoints.org/user-guide/wid
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](https://wordpoints.org/roadmap/).
 
-Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/modules/),
-called "modules". There's [a module that imports from CubePoints to WordPoints](https://wordpoints.org/modules/importer/),
+Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/modules/).
+There's [an extension that imports from CubePoints to WordPoints](https://wordpoints.org/modules/importer/),
 one that [integrates with WooCommerce](https://wordpoints.org/modules/woocommerce/),
 one that [integrates with BuddyPress](https://wordpoints.org/modules/buddypress/),
 and another that let's you [reset your users' points](https://wordpoints.org/modules/reset-points/).
@@ -76,10 +76,10 @@ If you are a security researcher you can report vulnerabilities through our
 = Privacy Policy =
 
 WordPoints does not communicate with any remote services by default. However, when
-you install modules from WordPoints.org or other servers, WordPoints may communicate
-with those services in order to provide you updates for the module. Check the privacy
-policy of the module server in question to learn more about what information is
-shared with it, though generally only the ID and version of the module will be sent
+you install extensions from WordPoints.org or other servers, WordPoints may communicate
+with those services in order to provide you updates for the extension. Check the privacy
+policy of the extension server in question to learn more about what information is
+shared with it, though generally only the ID and version of the extension will be sent
 to the update service.
 
 == Installation ==

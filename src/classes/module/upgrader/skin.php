@@ -67,7 +67,7 @@ class WordPoints_Module_Upgrader_Skin extends WP_Upgrader_Skin {
 			'url'    => '',
 			'module' => '',
 			'nonce'  => '',
-			'title'  => __( 'Update Module', 'wordpoints' ),
+			'title'  => __( 'Update Extension', 'wordpoints' ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -119,8 +119,8 @@ class WordPoints_Module_Upgrader_Skin extends WP_Upgrader_Skin {
 	public function get_module_update_actions() {
 
 		$update_actions = array(
-			'activate_module' => '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . rawurlencode( $this->module ) ), "activate-module_{$this->module}" ) ) . '" target="_parent">' . esc_html__( 'Activate Module', 'wordpoints' ) . '</a>',
-			'modules_page'    => '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Modules page', 'wordpoints' ) . '</a>',
+			'activate_module' => '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . rawurlencode( $this->module ) ), "activate-module_{$this->module}" ) ) . '" target="_parent">' . esc_html__( 'Activate Extension', 'wordpoints' ) . '</a>',
+			'modules_page'    => '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Extensions page', 'wordpoints' ) . '</a>',
 		);
 
 		if (

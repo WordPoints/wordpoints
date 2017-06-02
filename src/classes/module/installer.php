@@ -43,14 +43,14 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 
 		$install_strings = array(
 			'no_package'           => esc_html__( 'Install package not available.', 'wordpoints' ),
-			// translators: Module package URL.
+			// translators: Extension package URL.
 			'downloading_package'  => sprintf( esc_html__( 'Downloading install package from %s&#8230;', 'wordpoints' ), '<span class="code">%s</span>' ),
 			'unpack_package'       => esc_html__( 'Unpacking the package&#8230;', 'wordpoints' ),
-			'installing_package'   => esc_html__( 'Installing the module&#8230;', 'wordpoints' ),
-			'no_files'             => esc_html__( 'The module contains no files.', 'wordpoints' ),
-			'process_failed'       => esc_html__( 'Module install failed.', 'wordpoints' ),
-			'process_success'      => esc_html__( 'Module installed successfully.', 'wordpoints' ),
-			'mkdir_failed_modules' => esc_html__( 'Could not create the modules directory.', 'wordpoints' ),
+			'installing_package'   => esc_html__( 'Installing the extension&#8230;', 'wordpoints' ),
+			'no_files'             => esc_html__( 'The extension contains no files.', 'wordpoints' ),
+			'process_failed'       => esc_html__( 'Extension install failed.', 'wordpoints' ),
+			'process_success'      => esc_html__( 'Extension installed successfully.', 'wordpoints' ),
+			'mkdir_failed_modules' => esc_html__( 'Could not create the extensions directory.', 'wordpoints' ),
 		);
 
 		$this->strings = array_merge( $this->strings, $install_strings );
@@ -212,7 +212,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 			return new WP_Error(
 				'incompatible_archive_no_modules'
 				, $this->strings['incompatible_archive']
-				, esc_html__( 'No valid modules were found.', 'wordpoints' )
+				, esc_html__( 'No valid extensions were found.', 'wordpoints' )
 			);
 		}
 

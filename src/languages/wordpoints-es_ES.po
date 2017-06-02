@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-03-14 13:39:56+00:00\n"
+"POT-Creation-Date: 2017-06-02 18:45:06+00:00\n"
 "PO-Revision-Date: 2015-02-24 19:20+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wordpoints/"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "There was an error deleting the reaction. Please try again."
 msgstr "Se ha producido un error. Por favor, inténtelo de nuevo."
 
-#: admin/classes/ajax/hooks.php:286 admin/includes/functions.php:294
+#: admin/classes/ajax/hooks.php:286 admin/includes/functions.php:310
 #: components/ranks/admin/includes/ajax.php:257
 #: components/ranks/admin/includes/functions.php:51
 msgid "There was an unexpected error. Try reloading the page."
@@ -58,122 +58,108 @@ msgid "There was an error updating the reaction. Please try again."
 msgstr "Se ha producido un error. Por favor, inténtelo de nuevo."
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:88
-#: admin/includes/class-wordpoints-modules-list-table.php:481
-#: admin/includes/class-wordpoints-modules-list-table.php:875
+#: admin/includes/class-wordpoints-modules-list-table.php:516
+#: admin/includes/class-wordpoints-modules-list-table.php:921
 msgid "Network Activate"
 msgstr "Activar Red"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:92
-msgid "Activate Module"
-msgstr "Activar Módulo"
+#: classes/module/upgrader/skin.php:122
+#, fuzzy
+msgid "Activate Extension"
+msgstr "Activar"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:96
-msgid "Return to Modules page"
+#: classes/module/upgrader/skin/bulk.php:88
+#: classes/module/upgrader/skin.php:123
+#, fuzzy
+msgid "Return to Extensions page"
 msgstr "Volver a página de Módulos"
 
 #: admin/includes/class-wordpoints-module-installer-skin.php:97
-msgid "Return to Module Installer"
-msgstr "Volver al Instalador de Módulos"
+#, fuzzy
+msgid "Return to Extension Installer"
+msgstr "Volver a página de Módulos"
 
-#: admin/includes/class-wordpoints-module-installer.php:52
-msgid "Install package not available."
-msgstr "El paquete de instalación no está disponible."
+#: admin/includes/class-wordpoints-modules-list-table.php:398
+#, fuzzy
+msgid "No extensions found."
+msgstr "No se encontrarn registros coincidentes"
 
-#: admin/includes/class-wordpoints-module-installer.php:53
-msgid "Unpacking the package&#8230;"
-msgstr "Desembalaje del paquete&#8230;"
-
-#: admin/includes/class-wordpoints-module-installer.php:54
-msgid "Installing the module&#8230;"
-msgstr "Instalación del módulo&#8230;"
-
-#: admin/includes/class-wordpoints-module-installer.php:55
-msgid "The module contains no files."
-msgstr "El módulo no contiene archivos."
-
-#: admin/includes/class-wordpoints-module-installer.php:56
-msgid "Module install failed."
-msgstr "Error al instalar el módulo."
-
-#: admin/includes/class-wordpoints-module-installer.php:57
-msgid "Module installed successfully."
-msgstr "Módulo instalado correctamente."
-
-#: admin/includes/class-wordpoints-module-installer.php:58
-msgid "Could not create the modules directory."
-msgstr "No se pudo crear el directorio de módulos."
-
-#: admin/includes/class-wordpoints-module-installer.php:198
-msgid "No valid modules were found."
-msgstr "No se encontraron módulos válidos."
-
-#: admin/includes/class-wordpoints-modules-list-table.php:368
-msgid "No modules found."
-msgstr "No se encontraron módulos."
-
-#: admin/includes/class-wordpoints-modules-list-table.php:370
-msgid "There are not any modules installed."
+#: admin/includes/class-wordpoints-modules-list-table.php:400
+#, fuzzy
+msgid "There are not any extensions installed."
 msgstr "No hay módulos instalados."
 
-#: admin/includes/class-wordpoints-modules-list-table.php:385
-msgid "Module"
-msgstr "Módulo"
+#: admin/includes/class-wordpoints-modules-list-table.php:415
+#, fuzzy
+msgid "Extension"
+msgstr "Versión"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:386
+#: admin/includes/class-wordpoints-modules-list-table.php:416
 #: components/points/classes/widget/logs.php:267
 msgid "Description"
 msgstr "Descripción"
 
 #. translators: Count.
-#: admin/includes/class-wordpoints-modules-list-table.php:413
-msgctxt "modules"
+#: admin/includes/class-wordpoints-modules-list-table.php:443
+#, fuzzy
+msgctxt "extensions"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] "Todos <span class=\"count\">(%s)</span>"
 msgstr[1] "Todos <span class=\"count\">(%s)</span>"
 
 #. translators: Count.
-#: admin/includes/class-wordpoints-modules-list-table.php:418
+#: admin/includes/class-wordpoints-modules-list-table.php:448
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
 msgstr[0] "Activo <span class=\"count\">(%s)</span>"
 msgstr[1] "Activos <span class=\"count\">(%s)</span>"
 
 #. translators: Count.
-#: admin/includes/class-wordpoints-modules-list-table.php:423
+#: admin/includes/class-wordpoints-modules-list-table.php:453
 msgid "Recently Active <span class=\"count\">(%s)</span>"
 msgid_plural "Recently Active <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: Count.
-#: admin/includes/class-wordpoints-modules-list-table.php:428
+#: admin/includes/class-wordpoints-modules-list-table.php:458
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/class-wordpoints-modules-list-table.php:481
-#: admin/includes/class-wordpoints-modules-list-table.php:902
+#. translators: Count.
+#: admin/includes/class-wordpoints-modules-list-table.php:463
+#, fuzzy
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] "Todos <span class=\"count\">(%s)</span>"
+msgstr[1] "Todos <span class=\"count\">(%s)</span>"
+
+#: admin/includes/class-wordpoints-modules-list-table.php:516
+#: admin/includes/class-wordpoints-modules-list-table.php:948
 #: admin/screens/configure-components.php:120
 msgid "Activate"
 msgstr "Activar"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:485
-#: admin/includes/class-wordpoints-modules-list-table.php:868
+#: admin/includes/class-wordpoints-modules-list-table.php:520
+#: admin/includes/class-wordpoints-modules-list-table.php:914
 msgid "Network Deactivate"
 msgstr "Desactivar Red"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:485
-#: admin/includes/class-wordpoints-modules-list-table.php:897
+#: admin/includes/class-wordpoints-modules-list-table.php:520
+#: admin/includes/class-wordpoints-modules-list-table.php:943
 #: admin/screens/configure-components.php:115
 msgid "Deactivate"
 msgstr "Desactivar"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:493
-#: admin/includes/class-wordpoints-modules-list-table.php:880
-#: admin/includes/class-wordpoints-modules-list-table.php:906
-#: admin/includes/functions.php:300 admin/includes/functions.php:355
+#: admin/includes/class-wordpoints-modules-list-table.php:528
+#: admin/includes/class-wordpoints-modules-list-table.php:926
+#: admin/includes/class-wordpoints-modules-list-table.php:952
+#: admin/includes/functions.php:316 admin/includes/functions.php:371
 #: components/points/admin/includes/functions.php:55
 #: components/points/includes/class-wordpoints-points-hooks.php:750
 #: components/ranks/admin/includes/functions.php:56
@@ -181,72 +167,78 @@ msgstr "Desactivar"
 msgid "Delete"
 msgstr "Borrar"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:527
+#: admin/includes/class-wordpoints-modules-list-table.php:535
+msgid "Update"
+msgstr ""
+
+#: admin/includes/class-wordpoints-modules-list-table.php:569
 msgid "Clear List"
 msgstr "Borrar lista"
 
-#. translators: Module name.
-#: admin/includes/class-wordpoints-modules-list-table.php:686
+#. translators: Extension name.
+#: admin/includes/class-wordpoints-modules-list-table.php:732
+#: admin/includes/functions.php:1761
 msgid "Select %s"
 msgstr "Seleccionar %s"
 
-#. translators: Module version.
-#: admin/includes/class-wordpoints-modules-list-table.php:752
+#. translators: Extension version.
+#: admin/includes/class-wordpoints-modules-list-table.php:798
 msgid "Version %s"
 msgstr "Versión %s"
 
 #. translators: Author name.
-#: admin/includes/class-wordpoints-modules-list-table.php:764
+#: admin/includes/class-wordpoints-modules-list-table.php:810
 #: admin/screens/configure-components.php:141
 msgid "By %s"
 msgstr "Por %s"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:768
-msgid "Visit module site"
+#: admin/includes/class-wordpoints-modules-list-table.php:814
+#, fuzzy
+msgid "Visit extension site"
 msgstr "Visitar sitio módulo"
 
-#. translators: Module name.
-#: admin/includes/class-wordpoints-modules-list-table.php:868
+#. translators: Extension name.
+#: admin/includes/class-wordpoints-modules-list-table.php:914
 #, fuzzy
 msgid "Network deactivate %s"
 msgstr "Desactivar Red"
 
-#. translators: Module name.
-#: admin/includes/class-wordpoints-modules-list-table.php:875
+#. translators: Extension name.
+#: admin/includes/class-wordpoints-modules-list-table.php:921
 #, fuzzy
 msgid "Network activate %s"
 msgstr "Desactivar Red"
 
-#. translators: Module name.
-#: admin/includes/class-wordpoints-modules-list-table.php:880
-#: admin/includes/class-wordpoints-modules-list-table.php:906
+#. translators: Extension name.
+#: admin/includes/class-wordpoints-modules-list-table.php:926
+#: admin/includes/class-wordpoints-modules-list-table.php:952
 #, fuzzy
 msgid "Delete %s"
 msgstr "Borrar"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:888
+#: admin/includes/class-wordpoints-modules-list-table.php:934
 #, fuzzy
 msgid "Network Active"
 msgstr "Activar Red"
 
-#: admin/includes/class-wordpoints-modules-list-table.php:892
+#: admin/includes/class-wordpoints-modules-list-table.php:938
 #, fuzzy
 msgid "Network Only"
 msgstr "Activar Red"
 
-#. translators: Module name.
-#: admin/includes/class-wordpoints-modules-list-table.php:897
+#. translators: Extension name.
+#: admin/includes/class-wordpoints-modules-list-table.php:943
 #, fuzzy
 msgid "Deactivate %s"
 msgstr "Desactivar"
 
-#. translators: Module name.
-#: admin/includes/class-wordpoints-modules-list-table.php:902
+#. translators: Extension name.
+#: admin/includes/class-wordpoints-modules-list-table.php:948
 #, fuzzy
 msgid "Activate %s"
 msgstr "Activar"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.3.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.0-alpha-2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:337
@@ -267,34 +259,36 @@ msgstr "Ajustes"
 
 #: admin/includes/functions.php:117
 #, fuzzy
-msgid "WordPoints — Modules"
-msgstr "WordPoints -Módulos"
+msgid "WordPoints — Extensions"
+msgstr "WordPoints - %s"
 
 #: admin/includes/functions.php:118
-msgid "Modules"
-msgstr "Módulos"
+#, fuzzy
+msgid "Extensions"
+msgstr "Versión %s"
 
 #: admin/includes/functions.php:127
 #, fuzzy
-msgid "WordPoints — Install Modules"
+msgid "WordPoints — Install Extensions"
 msgstr "WordPoints - Instalar módulos"
 
 #: admin/includes/functions.php:128 admin/screens/module-install.php:31
-msgid "Install Modules"
-msgstr "Instalar módulos"
+#, fuzzy
+msgid "Install Extensions"
+msgstr "Instalar Ahora"
 
-#: admin/includes/functions.php:295
+#: admin/includes/functions.php:311
 #: components/ranks/admin/includes/functions.php:52
 #, fuzzy
 msgid "Your changes have been saved."
 msgstr "Cambios guardados."
 
 #. translators: Form field name.
-#: admin/includes/functions.php:297
+#: admin/includes/functions.php:313
 msgid "%s cannot be empty."
 msgstr ""
 
-#: admin/includes/functions.php:298
+#: admin/includes/functions.php:314
 #, fuzzy
 msgid ""
 "Are you sure that you want to delete this reaction? This action cannot be "
@@ -303,13 +297,13 @@ msgstr ""
 "¿Está seguro de que quiere eliminar este tipo de puntos? Esto eliminará "
 "todos los registros y ganchos relacionados."
 
-#: admin/includes/functions.php:299
+#: admin/includes/functions.php:315
 #: components/points/admin/includes/functions.php:54
 #: components/ranks/admin/includes/functions.php:55
 msgid "Are you sure?"
 msgstr "¿Está seguro?"
 
-#: admin/includes/functions.php:301 admin/includes/functions.php:349
+#: admin/includes/functions.php:317 admin/includes/functions.php:365
 #: components/points/admin/includes/functions.php:56
 #: components/points/admin/screens/hooks-no-js.php:128
 #: components/points/admin/screens/hooks.php:265
@@ -318,16 +312,16 @@ msgstr "¿Está seguro?"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: admin/includes/functions.php:303
+#: admin/includes/functions.php:319
 msgid "Target"
 msgstr ""
 
 #. translators: Form field.
-#: admin/includes/functions.php:305
+#: admin/includes/functions.php:321
 msgid "(cannot be changed)"
 msgstr ""
 
-#: admin/includes/functions.php:306
+#: admin/includes/functions.php:322
 #, fuzzy
 msgid ""
 "Error: the values of some fields are invalid. Please correct these and then "
@@ -335,39 +329,39 @@ msgid ""
 msgstr ""
 "Se ha producido un error. Por favor, recargue la página e inténtelo de nuevo."
 
-#: admin/includes/functions.php:307
+#: admin/includes/functions.php:323
 msgid "Discarded reaction."
 msgstr ""
 
-#: admin/includes/functions.php:308
+#: admin/includes/functions.php:324
 msgid "Discarded changes."
 msgstr ""
 
-#: admin/includes/functions.php:309
+#: admin/includes/functions.php:325
 msgid "Saving&hellp;"
 msgstr ""
 
-#: admin/includes/functions.php:310
+#: admin/includes/functions.php:326
 #, fuzzy
 msgid "Deleting&hellp;"
 msgstr "Borrar"
 
-#: admin/includes/functions.php:311
+#: admin/includes/functions.php:327
 #, fuzzy
 msgid "Reaction deleted successfully."
 msgstr "Módulo instalado correctamente."
 
-#: admin/includes/functions.php:312
+#: admin/includes/functions.php:328
 #, fuzzy
 msgid "Reaction saved successfully."
 msgstr "Módulo instalado correctamente."
 
-#: admin/includes/functions.php:324
+#: admin/includes/functions.php:340
 #, fuzzy
 msgid "Edit"
 msgstr "Editar"
 
-#: admin/includes/functions.php:327 admin/includes/functions.php:352
+#: admin/includes/functions.php:343 admin/includes/functions.php:368
 #: components/points/includes/class-wordpoints-points-hooks.php:641
 #: components/points/includes/class-wordpoints-points-hooks.php:751
 #: components/ranks/admin/screens/ranks.php:114
@@ -375,128 +369,303 @@ msgstr "Editar"
 msgid "Close"
 msgstr "Cerrar"
 
-#: admin/includes/functions.php:346
+#: admin/includes/functions.php:362
 #: components/points/includes/class-wordpoints-points-hooks.php:754
 #: components/ranks/admin/screens/ranks.php:138
 msgid "Save"
 msgstr "Guardar"
 
-#: admin/includes/functions.php:414
+#: admin/includes/functions.php:430
 #, fuzzy
 msgid "Conditions"
 msgstr "Descripción"
 
-#: admin/includes/functions.php:416
+#: admin/includes/functions.php:432
 #, fuzzy
 msgid "Add New Condition"
 msgstr "Agregar nuevos Tipos de Puntos"
 
-#: admin/includes/functions.php:422
+#: admin/includes/functions.php:438
 msgid "No conditions available."
 msgstr ""
 
-#: admin/includes/functions.php:428
+#: admin/includes/functions.php:444
 msgid "Add Condition"
 msgstr ""
 
-#: admin/includes/functions.php:429
+#: admin/includes/functions.php:445
 #, fuzzy
 msgctxt "reaction condition"
 msgid "Add"
 msgstr "Añadir"
 
-#: admin/includes/functions.php:431
+#: admin/includes/functions.php:447
 msgid "Cancel Adding New Condition"
 msgstr ""
 
-#: admin/includes/functions.php:432
+#: admin/includes/functions.php:448
 #, fuzzy
 msgctxt "reaction condition"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: admin/includes/functions.php:446
+#: admin/includes/functions.php:462
 msgid "Remove Condition"
 msgstr ""
 
-#: admin/includes/functions.php:476
+#: admin/includes/functions.php:492
 msgid "Rate Limit"
 msgstr ""
 
-#: admin/includes/functions.php:489
+#: admin/includes/functions.php:505
 msgid "Time Units:"
 msgstr ""
 
-#: admin/includes/functions.php:493
+#: admin/includes/functions.php:509
 msgid "Number:"
 msgstr ""
 
-#: admin/includes/functions.php:517
+#: admin/includes/functions.php:533
 msgid "Disable"
 msgstr ""
 
-#: admin/includes/functions.php:523
+#: admin/includes/functions.php:539
 msgid "Disable (make this reaction inactive without deleting it)"
 msgstr ""
 
-#: admin/includes/functions.php:531
+#: admin/includes/functions.php:547
 msgid "(Disabled)"
 msgstr ""
 
-#: admin/includes/functions.php:867
+#: admin/includes/functions.php:883
 msgid "Hide This Notice"
 msgstr "Ocultar Este Aviso"
 
 #. translators: Current tab name.
-#: admin/includes/functions.php:921
+#: admin/includes/functions.php:937
 #, fuzzy
 msgid "WordPoints — %s"
 msgstr "WordPoints - %s"
 
-#: admin/includes/functions.php:960
+#: admin/includes/functions.php:976
+#, fuzzy
 msgid ""
-"If you have a module in a .zip format, you may install it by uploading it "
-"here."
+"If you have an extension in a .zip format, you may install it by uploading "
+"it here."
 msgstr "Si tiene un módulo en formato zip, podrá instalarlo, subiéndolo aquí."
 
-#: admin/includes/functions.php:963
-msgid "Module zip file"
-msgstr "Archivo zip de Módulo"
+#: admin/includes/functions.php:979
+#, fuzzy
+msgid "Extension zip file"
+msgstr "Error al instalar el módulo."
 
-#: admin/includes/functions.php:965
+#: admin/includes/functions.php:981
 msgid "Install Now"
 msgstr "Instalar Ahora"
 
-#: admin/includes/functions.php:984
+#: admin/includes/functions.php:1000
 #, fuzzy
-msgid "Sorry, you are not allowed to install WordPoints modules on this site."
+msgid ""
+"Sorry, you are not allowed to install WordPoints extensions on this site."
 msgstr ""
 "Usted no tiene permisos suficientes para instalar módulos WordPoints en este "
 "sitio."
 
-#: admin/includes/functions.php:991
-msgid "Upload WordPoints Module"
+#: admin/includes/functions.php:1007
+#, fuzzy
+msgid "Upload WordPoints Extension"
 msgstr "Subir Módulo WordPoints"
 
 #. translators: File name.
-#: admin/includes/functions.php:1001
-msgid "Installing Module from uploaded file: %s"
+#: admin/includes/functions.php:1017
+#, fuzzy
+msgid "Installing extension from uploaded file: %s"
 msgstr "Instalar Módulo desde archivo cargado: %s"
 
-#: admin/includes/functions.php:1074
+#: admin/includes/functions.php:1046 admin/includes/functions.php:1086
+#: admin/includes/functions.php:1141 admin/includes/functions.php:1186
+#: admin/includes/functions.php:1628
+#, fuzzy
 msgid ""
-"This appears to be a WordPoints module archive. Try installing it on the "
-"WordPoints module install screen instead."
+"Sorry, you are not allowed to update WordPoints extensions for this site."
+msgstr ""
+"Usted no tiene permisos suficientes para instalar módulos WordPoints en este "
+"sitio."
+
+#: admin/includes/functions.php:1055
+#, fuzzy
+msgid "Update WordPoints Extension"
+msgstr "Subir Módulo WordPoints"
+
+#: admin/includes/functions.php:1109
+#, fuzzy
+msgid "WordPoints Extension Reactivation"
+msgstr "WordPoints - %s"
+
+#: admin/includes/functions.php:1113
+#, fuzzy
+msgid "Extension reactivated successfully."
+msgstr "Módulo instalado correctamente."
+
+#: admin/includes/functions.php:1117
+msgid "Extension failed to reactivate due to a fatal error."
+msgstr ""
+
+#: admin/includes/functions.php:1166
+#, fuzzy
+msgid "Update WordPoints Extensions"
+msgstr "Subir Módulo WordPoints"
+
+#. translators: Extension name.
+#: admin/includes/functions.php:1289
+msgid "There is a new version of %1$s available."
+msgstr ""
+
+#. translators: 1. Extension name; 2. Version.
+#: admin/includes/functions.php:1300
+msgid "View %1$s version %2$s details"
+msgstr ""
+
+#. translators: Version number.
+#: admin/includes/functions.php:1306
+msgid "View version %1$s details"
+msgstr ""
+
+#. translators: Extension name.
+#: admin/includes/functions.php:1320
+msgid "Update %s now"
+msgstr ""
+
+#: admin/includes/functions.php:1322
+msgid "Update now"
+msgstr ""
+
+#: admin/includes/functions.php:1326
+msgid "Automatic update is unavailable for this extension."
+msgstr ""
+
+#: admin/includes/functions.php:1425
+#, fuzzy
+msgid "License activated."
+msgstr "Desactivar"
+
+#. translators: Error message.
+#: admin/includes/functions.php:1429
+#, fuzzy
+msgid "Sorry, there was an error while trying to activate the license: %s"
+msgstr "Se ha producido un error. Por favor, inténtelo de nuevo."
+
+#: admin/includes/functions.php:1431
+msgid "That license key is invalid."
+msgstr ""
+
+#: admin/includes/functions.php:1433
+msgid "Sorry, that license key cannot be activated."
+msgstr ""
+
+#: admin/includes/functions.php:1456
+#, fuzzy
+msgid "License deactivated."
+msgstr "Desactivar"
+
+#. translators: Error message.
+#: admin/includes/functions.php:1459
+#, fuzzy
+msgid "Sorry, there was an error while trying to deactivate the license: %s"
+msgstr "Se ha producido un error. Por favor, inténtelo de nuevo."
+
+#: admin/includes/functions.php:1461
+msgid ""
+"Sorry, there was an unknown error while trying to deactivate that license "
+"key."
+msgstr ""
+
+#: admin/includes/functions.php:1588
+msgid "License key:"
+msgstr ""
+
+#: admin/includes/functions.php:1600
+#, fuzzy
+msgid "active"
+msgstr "Desactivar"
+
+#: admin/includes/functions.php:1603
+#, fuzzy
+msgid "Deactivate License"
+msgstr "Desactivar"
+
+#: admin/includes/functions.php:1607
+#, fuzzy
+msgid "Activate License"
+msgstr "Activar"
+
+#: admin/includes/functions.php:1632
+msgid "No extension supplied."
+msgstr ""
+
+#: admin/includes/functions.php:1640
+#, fuzzy
+msgid "That extension does not exist."
+msgstr "Archivo de módulo no existe."
+
+#: admin/includes/functions.php:1646
+msgid "There is no server specified for this extension."
+msgstr ""
+
+#: admin/includes/functions.php:1652
+msgid "The server for this extension uses an unsupported API."
+msgstr ""
+
+#: admin/includes/functions.php:1723 admin/screens/modules.php:159
+#, fuzzy
+msgid "WordPoints Extensions"
+msgstr "WordPoints - %s"
+
+#: admin/includes/functions.php:1726
+msgid "Your extensions are all up to date."
+msgstr ""
+
+#: admin/includes/functions.php:1730
+msgid ""
+"The following extensions have new versions available. Check the ones you "
+"want to update and then click &#8220;Update Extensions&#8221;."
+msgstr ""
+
+#: admin/includes/functions.php:1735 admin/includes/functions.php:1815
+#, fuzzy
+msgid "Update Extensions"
+msgstr "Subir Módulo WordPoints"
+
+#: admin/includes/functions.php:1744 admin/includes/functions.php:1810
+#, fuzzy
+msgid "Select All"
+msgstr "Seleccionar %s"
+
+#. translators: 1. Installed version number; 2. Update version number.
+#: admin/includes/functions.php:1778
+msgid "You have version %1$s installed. Update to %2$s."
+msgstr ""
+
+#. translators: Version number.
+#: admin/includes/functions.php:1791
+msgid "View version %1$s details."
+msgstr ""
+
+#: admin/includes/functions.php:1877
+#, fuzzy
+msgid ""
+"This appears to be a WordPoints extension archive. Try installing it on the "
+"WordPoints extension install screen instead."
 msgstr ""
 "Este parece ser un archivo de módulo de WordPoints. En su lugar, pruebe a "
 "instalarlo desde la pantalla de módulos de WordPoints."
 
-#: admin/includes/functions.php:1104
+#: admin/includes/functions.php:1907
 msgid "Like this plugin?"
 msgstr "¿Le gusta este plugin?"
 
 #. translators: URL for leaving a review of WordPoints on WordPress.org.
-#: admin/includes/functions.php:1106
+#: admin/includes/functions.php:1909
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
@@ -504,7 +673,7 @@ msgstr ""
 "Si piensa que WordPoints es maravilloso, permita que todos lo sepan dándole "
 "una <a href=\"%s\">5  estrellas calificación </a>."
 
-#: admin/includes/functions.php:1107
+#: admin/includes/functions.php:1910
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
@@ -512,12 +681,12 @@ msgstr ""
 "Si usted no cree que este plugin se merece 5 estrellas, por favor háganos "
 "saber cómo podemos mejorarlo."
 
-#: admin/includes/functions.php:1110
+#: admin/includes/functions.php:1913
 msgid "Need help?"
 msgstr "¿Necesita ayuda?"
 
 #. translators: URL of WordPoints plugin support forums WordPress.org.
-#: admin/includes/functions.php:1112
+#: admin/includes/functions.php:1915
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
@@ -525,39 +694,54 @@ msgstr ""
 "Publique una solicitud de función o soporte pregunta en el <a href=\"%s\"> "
 "foros de soporte </a>"
 
-#: admin/includes/functions.php:1113
+#: admin/includes/functions.php:1916
 msgid "Thank you for using WordPoints!"
 msgstr "¡Gracias por utilizar WordPoints!"
 
-#. translators: 1. Plugin version; 2. List of modules.
-#: admin/includes/functions.php:1141
+#. translators: 1. Plugin version; 2. List of extensions.
+#: admin/includes/functions.php:1944
 msgid ""
-"WordPoints has deactivated the following modules because of "
+"WordPoints has deactivated the following extensions because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
-#. translators: 1. Plugin version; 2. List of modules.
-#: admin/includes/functions.php:1158
+#. translators: 1. Plugin version; 2. List of extensions.
+#: admin/includes/functions.php:1961
 msgid ""
-"WordPoints has deactivated the following network-active modules because of "
+"WordPoints has deactivated the following network-active extensions because "
+"of incompatibilities with WordPoints %1$s: %2$s"
+msgstr ""
+
+#. translators: 1. Plugin version; 2. List of extensions.
+#: admin/includes/functions.php:1980
+msgid ""
+"WordPoints has deactivated the following extensions on this site because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
-#. translators: 1. Plugin version; 2. List of modules.
-#: admin/includes/functions.php:1177
+#. translators: 1. Plugin version; 2. List of extensions.
+#: admin/includes/functions.php:2019
 msgid ""
-"WordPoints has deactivated the following modules on this site because of "
-"incompatibilities with WordPoints %1$s: %2$s"
+"WordPoints has deactivated the following extensions because their features "
+"have now been merged into WordPoints %1$s: %2$s."
 msgstr ""
 
-#: admin/includes/functions.php:1475
+#: admin/includes/functions.php:2025
+msgid "You can now safely delete these extensions."
+msgstr ""
+
+#: admin/includes/functions.php:2038
+msgid "Delete Unneeded Extensions"
+msgstr ""
+
+#: admin/includes/functions.php:2337
 msgid ""
 "A WordPoints update is available, but your system is not compatible because "
 "it is running an outdated version of PHP."
 msgstr ""
 
 #. translators: URL of WordPoints PHP Compatibility docs.
-#: admin/includes/functions.php:1481
+#: admin/includes/functions.php:2343
 msgid "See <a href=\"%s\">the WordPoints user guide</a> for more information."
 msgstr ""
 
@@ -697,28 +881,28 @@ msgstr "Componentes"
 #: admin/screens/modules-load.php:38 admin/screens/modules-load.php:88
 #: admin/screens/modules-load.php:144
 #, fuzzy
-msgid "Sorry, you are not allowed to activate modules for this site."
+msgid "Sorry, you are not allowed to activate extensions for this site."
 msgstr ""
 "Usted no tiene los permisos necesarios para activar los módulos de este "
 "sitio."
 
 #: admin/screens/modules-load.php:188 admin/screens/modules-load.php:216
 #, fuzzy
-msgid "Sorry, you are not allowed to deactivate modules for this site."
+msgid "Sorry, you are not allowed to deactivate extensions for this site."
 msgstr ""
 "Usted no tiene los permisos suficientes para desactivar los módulos de este "
 "sitio."
 
 #: admin/screens/modules-load.php:258
 #, fuzzy
-msgid "Sorry, you are not allowed to delete modules for this site."
+msgid "Sorry, you are not allowed to delete extensions for this site."
 msgstr ""
 "Usted no tiene permisos suficientes para eliminar los módulos de este sitio."
 
 #: admin/screens/modules-load.php:354
 #, fuzzy
-msgid "Delete module"
-msgid_plural "Delete modules"
+msgid "Delete extension"
+msgid_plural "Delete extensions"
 msgstr[0] "Borrar"
 msgstr[1] "Borrar"
 
@@ -727,18 +911,18 @@ msgid "Caution:"
 msgstr "Precaución:"
 
 #: admin/screens/modules-load.php:360
-msgid "This module may be active on other sites in the network."
-msgid_plural "These modules may be active on other sites in the network."
+msgid "This extension may be active on other sites in the network."
+msgid_plural "These extensions may be active on other sites in the network."
 msgstr[0] ""
 msgstr[1] ""
 
 #: admin/screens/modules-load.php:373
-msgid "You are about to remove the following module:"
-msgid_plural "You are about to remove the following modules:"
+msgid "You are about to remove the following extension:"
+msgid_plural "You are about to remove the following extensions:"
 msgstr[0] ""
 msgstr[1] ""
 
-#. translators: 1. Module name; 2. Module author.
+#. translators: 1. Extension name; 2. Extension author.
 #: admin/screens/modules-load.php:385
 msgid ""
 "<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</"
@@ -747,7 +931,7 @@ msgstr ""
 "<strong>%1$s</strong> por <em>%2$s</em> (también <strong> borrará sus datos "
 "</strong>)"
 
-#. translators: 1. Module name; 2. Module author.
+#. translators: 1. Extension name; 2. Extension author.
 #: admin/screens/modules-load.php:391
 msgid "<strong>%1$s</strong> by <em>%2$s</em>"
 msgstr "<strong>%1$s</strong> por <em>%2$s</em>"
@@ -769,7 +953,8 @@ msgid "Yes, Delete these files"
 msgstr "Sí, eliminar estos archivos"
 
 #: admin/screens/modules-load.php:420
-msgid "No, Return me to the module list"
+#, fuzzy
+msgid "No, Return me to the extension list"
 msgstr "No, regréseme a la lista de módulos"
 
 #: admin/screens/modules-load.php:423
@@ -777,22 +962,24 @@ msgid "Click to view entire list of files which will be deleted"
 msgstr "Pulse aquí para ver toda la lista de archivos que se eliminarán"
 
 #: admin/screens/modules-load.php:473
+#, fuzzy
 msgid ""
-"Modules extend and expand the functionality of WordPoints. Once a module is "
-"installed, you may activate it or deactivate it here."
+"Extensions extend and expand the functionality of WordPoints. Once an "
+"extension is installed, you may activate it or deactivate it here."
 msgstr ""
 "Los módulos extienden y amplian la funcionalidad de WordPoints. Una vez que "
 "se instala un módulo, puede activarlo o desactivarlo aquí."
 
-#. translators: 1. URL of module directory on WordPoints.org; 2. URL of Install
-#. Module admin screen; 3. Directory name.
+#. translators: 1. URL of extension directory on WordPoints.org; 2. URL of
+#. Install Extension admin screen; 3. Directory name.
 #: admin/screens/modules-load.php:475
 #, fuzzy
 msgid ""
-"You can find modules for your site by by browsing the <a href=\"%1$s"
-"\">WordPoints Module Directory</a>. To install a module you generally just "
-"need to <a href=\"%2$s\">upload the module file</a> into your %3$s "
-"directory. Once a module has been installed, you can activate it here."
+"You can find extensions for your site by by browsing the <a href=\"%1$s"
+"\">WordPoints Extensions Directory</a>. To install an extension you "
+"generally just need to <a href=\"%2$s\">upload the extension file</a> into "
+"your %3$s directory. Once an extension has been installed, you can activate "
+"it here."
 msgstr ""
 "Puede encontrar módulos para su sitio navegando por el <a href=\"%1$s\" "
 "target=\"_blank\"> Directorio de Módulos WordPoints < /a>. Para instalar un "
@@ -805,13 +992,14 @@ msgid "Troubleshooting"
 msgstr "Solución de problemas"
 
 #: admin/screens/modules-load.php:484
+#, fuzzy
 msgid ""
-"Most of the time, modules play nicely with the core of WordPoints and with "
-"other modules. Sometimes, though, a module&#8217;s code will get in the way "
-"of another module, causing compatibility issues. If your site starts doing "
-"strange things, this may be the problem. Try deactivating all your modules "
-"and re-activating them in various combinations until you isolate which "
-"one(s) caused the issue."
+"Most of the time, extensions play nicely with the core of WordPoints and "
+"with other extensions. Sometimes, though, an extension&#8217;s code will get "
+"in the way of another extension, causing compatibility issues. If your site "
+"starts doing strange things, this may be the problem. Try deactivating all "
+"your extension and re-activating them in various combinations until you "
+"isolate which one(s) caused the issue."
 msgstr ""
 "La mayoría de las veces, los módulos juegan muy bien con el núcleo de "
 "WordPoints y con otros módulos. A veces, sin embargo, el código de un módulo "
@@ -824,9 +1012,9 @@ msgstr ""
 #: admin/screens/modules-load.php:486
 #, fuzzy
 msgid ""
-"If something goes wrong with a module and you can&#8217;t use WordPoints, "
-"delete or rename that file in the %s directory and it will be automatically "
-"deactivated."
+"If something goes wrong with an extension and you can&#8217;t use "
+"WordPoints, delete or rename that file in the %s directory and it will be "
+"automatically deactivated."
 msgstr ""
 "Si algo va mal con un módulo y no se puede utilizar WordPoints, borre o "
 "cambie el nombre de ese archivo en el < code>%s </code> y se desactivará "
@@ -837,50 +1025,54 @@ msgid "Developer Documentation"
 msgstr "Documentación de desarrolladores"
 
 #: admin/screens/modules-load.php:500
-msgctxt "modules table heading"
-msgid "Module"
-msgstr "Módulo"
+#, fuzzy
+msgctxt "extensions table heading"
+msgid "Extension"
+msgstr "Versión"
 
 #: admin/screens/modules-load.php:501
-msgctxt "modules table heading"
+#, fuzzy
+msgctxt "extensions table heading"
 msgid "Description"
 msgstr "Descripción"
 
 #: admin/screens/modules-load.php:507
 #, fuzzy
-msgid "Filter modules list"
+msgid "Filter extensions list"
 msgstr "Visitar sitio módulo"
 
 #: admin/screens/modules-load.php:508
-msgid "Modules list navigation"
+msgid "Extensions list navigation"
 msgstr ""
 
 #: admin/screens/modules-load.php:509
-#, fuzzy
-msgid "Modules list"
-msgstr "Módulos"
+msgid "Extensions list"
+msgstr ""
 
-#. translators: 1. Module name; 2. Error message.
+#. translators: 1. Extension name; 2. Error message.
 #: admin/screens/modules.php:19
 #, fuzzy
 msgid ""
-"The module %1$s has been <strong>deactivated</strong> due to an error: %2$s"
+"The extension %1$s has been <strong>deactivated</strong> due to an error: "
+"%2$s"
 msgstr ""
 "El módulo <code>%s</code> se ha <strong> desactivado </strong>, debido a un  "
 "error %s"
 
 #: admin/screens/modules.php:33
-msgid "You cannot delete a module while it is active on the main site."
+#, fuzzy
+msgid "You cannot delete an extension while it is active on the main site."
 msgstr ""
 "No se puede eliminar un módulo mientras está activo en el sitio principal."
 
 #. translators: Number of characters.
 #: admin/screens/modules.php:42
+#, fuzzy
 msgid ""
-"The module generated %d characters of <strong>unexpected output</strong> "
+"The extension generated %d characters of <strong>unexpected output</strong> "
 "during activation. If you notice &#8220;headers already sent&#8221; "
 "messages, problems with syndication feeds or other issues, try deactivating "
-"or removing this module."
+"or removing this extension."
 msgstr ""
 "El módulo generó %d caracteres de <strong> salida inesperada</strong> "
 "durante la activación. Si usted nota  mensajes&#8220; encabezados ya "
@@ -888,8 +1080,9 @@ msgstr ""
 "problemas, intente desactivar o eliminar este módulo."
 
 #: admin/screens/modules.php:51
+#, fuzzy
 msgid ""
-"Module could not be activated because it triggered a <strong>fatal error</"
+"Extension could not be activated because it triggered a <strong>fatal error</"
 "strong>."
 msgstr ""
 "El Módulo no se pudo activar debido a que provocó un <strong>error grave</"
@@ -897,39 +1090,43 @@ msgstr ""
 
 #. translators: Error message.
 #: admin/screens/modules.php:98
-msgid "Module could not be deleted due to an error: %s"
+#, fuzzy
+msgid "Extension could not be deleted due to an error: %s"
 msgstr "Módulo no pudo ser eliminado debido a un  error %s"
 
 #: admin/screens/modules.php:107
-msgid "The selected modules have been <strong>deleted</strong>."
+#, fuzzy
+msgid "The selected extensions have been <strong>deleted</strong>."
 msgstr "Los módulos seleccionados han sido <strong>borrados </strong>."
 
 #: admin/screens/modules.php:116
-msgid "Module <strong>activated</strong>."
+#, fuzzy
+msgid "Extension <strong>activated</strong>."
 msgstr "Módulo <strong> activado </strong>."
 
 #: admin/screens/modules.php:124
-msgid "Selected modules <strong>activated</strong>."
+#, fuzzy
+msgid "Selected extensions <strong>activated</strong>."
 msgstr "Módulos seleccionados <strong> activados </strong>."
 
 #: admin/screens/modules.php:132
-msgid "Module <strong>deactivated</strong>."
+#, fuzzy
+msgid "Extension <strong>deactivated</strong>."
 msgstr "Módulo <strong> desactivado</strong>."
 
 #: admin/screens/modules.php:140
-msgid "Selected modules <strong>deactivated</strong>."
+#, fuzzy
+msgid "Selected extensions <strong>deactivated</strong>."
 msgstr "Módulos seleccionados <strong> desactivados</strong>."
 
 #: admin/screens/modules.php:148
-msgid "No out of date modules were selected."
+#, fuzzy
+msgid "No out of date extensions were selected."
 msgstr "No fueron seleccionados módulos no actualizados."
 
-#: admin/screens/modules.php:159
-msgid "WordPoints Modules"
-msgstr "Módulos WordPoints"
-
 #: admin/screens/modules.php:162
-msgctxt "module"
+#, fuzzy
+msgctxt "extension"
 msgid "Add New"
 msgstr "Añadir Nuevos"
 
@@ -939,7 +1136,8 @@ msgid "Search results for &#8220;%s&#8221;"
 msgstr "Resultados de búsqueda para&#8220;%s&#8221;"
 
 #: admin/screens/modules.php:193
-msgid "Search Installed Modules"
+#, fuzzy
+msgid "Search Installed Extensions"
 msgstr "Buscar Módulos instalados"
 
 #. translators: Form field name.
@@ -1368,7 +1566,8 @@ msgstr ""
 msgid "Invalid target."
 msgstr "Ruta del módulo no válida."
 
-#. translators: 1. Module/plugin name; 2. "module", "plugin", or "component".
+#. translators: 1. Extension/plugin name; 2. "extension", "plugin", or
+#. "component".
 #: classes/installables.php:276
 #, fuzzy
 msgid ""
@@ -1378,8 +1577,8 @@ msgstr ""
 "WordPoints a detectado una red amplia y a saltado parte del proceso de "
 "instalación."
 
-#. translators: 1. Module/plugin name; 2. "module", "plugin", or "component";
-#. 3. Version number.
+#. translators: 1. Extension/plugin name; 2. "extension", "plugin", or
+#. "component"; 3. Version number.
 #: classes/installables.php:279
 #, fuzzy
 msgid ""
@@ -1392,8 +1591,8 @@ msgstr ""
 
 #: classes/installables.php:291
 #, fuzzy
-msgid "module"
-msgstr "Módulo"
+msgid "extension"
+msgstr "Versión"
 
 #: classes/installables.php:295
 #, fuzzy
@@ -1413,6 +1612,124 @@ msgstr ""
 #: classes/installables.php:328
 msgid "Learn more."
 msgstr "Aprenda mas."
+
+#: classes/module/installer.php:45
+msgid "Install package not available."
+msgstr "El paquete de instalación no está disponible."
+
+#. translators: Extension package URL.
+#: classes/module/installer.php:47
+#, fuzzy
+msgid "Downloading install package from %s&#8230;"
+msgstr "Desembalaje del paquete&#8230;"
+
+#: classes/module/installer.php:48
+msgid "Unpacking the package&#8230;"
+msgstr "Desembalaje del paquete&#8230;"
+
+#: classes/module/installer.php:49
+#, fuzzy
+msgid "Installing the extension&#8230;"
+msgstr "Instalación del módulo&#8230;"
+
+#: classes/module/installer.php:50
+#, fuzzy
+msgid "The extension contains no files."
+msgstr "El módulo no contiene archivos."
+
+#: classes/module/installer.php:51
+#, fuzzy
+msgid "Extension install failed."
+msgstr "Error al instalar el módulo."
+
+#: classes/module/installer.php:52
+#, fuzzy
+msgid "Extension installed successfully."
+msgstr "Módulo instalado correctamente."
+
+#: classes/module/installer.php:53
+#, fuzzy
+msgid "Could not create the extensions directory."
+msgstr "No se pudo crear el directorio de módulos."
+
+#: classes/module/installer.php:215
+#, fuzzy
+msgid "No valid extensions were found."
+msgstr "No se encontraron módulos válidos."
+
+#. translators: 1. Extension Name; 2. Count of update; 3. Total number of
+#. updates being installed.
+#: classes/module/upgrader/skin/bulk.php:45
+msgid "Updating Extension %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: classes/module/upgrader/skin/bulk.php:89
+#, fuzzy
+msgid "Return to WordPress Updates"
+msgstr "Volver a página de Módulos"
+
+#: classes/module/upgrader/skin.php:70
+msgid "Update Extension"
+msgstr ""
+
+#: classes/module/upgrader.php:48
+msgid "The extension is at the latest version."
+msgstr ""
+
+#: classes/module/upgrader.php:49
+#, fuzzy
+msgid "Update package not available."
+msgstr "El paquete de instalación no está disponible."
+
+#: classes/module/upgrader.php:50
+msgid ""
+"That extension cannot be updated, because there is no server specified to "
+"receive updates through."
+msgstr ""
+
+#: classes/module/upgrader.php:51
+msgid ""
+"That extension cannot be updated, because there is no API installed that can "
+"communicate with that server."
+msgstr ""
+
+#: classes/module/upgrader.php:52
+msgid ""
+"That extension cannot be updated, because the API used to communicate with "
+"that server does not support updates."
+msgstr ""
+
+#. translators: Update package URL.
+#: classes/module/upgrader.php:54
+msgid "Downloading update from %s&#8230;"
+msgstr ""
+
+#: classes/module/upgrader.php:55
+#, fuzzy
+msgid "Unpacking the update&#8230;"
+msgstr "Desembalaje del paquete&#8230;"
+
+#: classes/module/upgrader.php:56
+msgid "Removing the old version of the extension&#8230;"
+msgstr ""
+
+#: classes/module/upgrader.php:57
+#, fuzzy
+msgid "Could not remove the old extension."
+msgstr "No es posible eliminar completamente el módulo (s) %s."
+
+#: classes/module/upgrader.php:58
+msgid "Extension update failed."
+msgstr ""
+
+#: classes/module/upgrader.php:59
+#, fuzzy
+msgid "Extension updated successfully."
+msgstr "Módulo instalado correctamente."
+
+#: classes/module/upgrader.php:60
+msgid "That extension cannot be updated, because it is not installed."
+msgstr ""
 
 #. translators: 1. Attribute name; 2. Shortcode name.
 #: classes/shortcode.php:183
@@ -1507,117 +1824,117 @@ msgctxt "points type"
 msgid "Suffix:"
 msgstr "Sufijo:"
 
-#: components/points/admin/classes/screen/points/types.php:288
+#: components/points/admin/classes/screen/points/types.php:287
 #: components/points/includes/class-wordpoints-points-hooks.php:598
 msgctxt "points type"
 msgid "Name:"
 msgstr "Nombre:"
 
-#: components/points/admin/classes/screen/points/types.php:337
+#: components/points/admin/classes/screen/points/types.php:341
 #: components/points/includes/class-wordpoints-points-hooks.php:637
 msgctxt "points type"
 msgid "Delete"
 msgstr "Borrar"
 
-#: components/points/admin/classes/screen/points/types.php:343
+#: components/points/admin/classes/screen/points/types.php:347
 #: components/points/includes/class-wordpoints-points-hooks.php:644
 msgctxt "points type"
 msgid "Save"
 msgstr "Guardar"
 
-#: components/points/admin/classes/screen/points/types.php:363
+#: components/points/admin/classes/screen/points/types.php:367
 #, fuzzy
 msgid "Go to the logs for this points type."
 msgstr "Elija un nombre único para este tipo de puntos."
 
-#: components/points/admin/classes/screen/points/types.php:379
+#: components/points/admin/classes/screen/points/types.php:383
 #, fuzzy
 msgid "Display the user&#8217;s points:"
 msgstr "Mostrar la última actividad de puntos."
 
-#: components/points/admin/classes/screen/points/types.php:391
+#: components/points/admin/classes/screen/points/types.php:395
 #, fuzzy
 msgid "Display a table of the top 5 users:"
 msgstr "Visualice los puntos del actual usuario conectado."
 
-#: components/points/admin/classes/screen/points/types.php:403
+#: components/points/admin/classes/screen/points/types.php:407
 #, fuzzy
 msgid "Display the points logs:"
 msgstr "Mostrar la última actividad de puntos."
 
-#: components/points/admin/classes/screen/points/types.php:415
+#: components/points/admin/classes/screen/points/types.php:419
 msgid "Display a list of ways to earn points:"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:428
+#: components/points/admin/classes/screen/points/types.php:432
 msgid "Shortcode docs on WordPoints.org."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:587
+#: components/points/admin/classes/screen/points/types.php:591
 #, fuzzy
 msgid "Add New Reaction"
 msgstr "Añadir Nuevos"
 
-#: components/points/admin/classes/screen/points/types.php:611
+#: components/points/admin/classes/screen/points/types.php:615
 #, fuzzy
 msgid "Add New"
 msgstr "Añadir Nuevos"
 
-#: components/points/admin/classes/screen/points/types.php:707
+#: components/points/admin/classes/screen/points/types.php:711
 msgid "Error: points type name cannot be empty."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:722
-#: components/points/admin/classes/screen/points/types.php:737
+#: components/points/admin/classes/screen/points/types.php:726
+#: components/points/admin/classes/screen/points/types.php:741
 msgid "Error: failed updating points type."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:745
+#: components/points/admin/classes/screen/points/types.php:749
 #, fuzzy
 msgid "Points type updated."
 msgstr "Tipo de Puntos eliminado."
 
-#: components/points/admin/classes/screen/points/types.php:778
+#: components/points/admin/classes/screen/points/types.php:782
 msgid "Please choose a unique name for this points type."
 msgstr "Elija un nombre único para este tipo de puntos."
 
-#: components/points/admin/classes/screen/points/types.php:788
+#: components/points/admin/classes/screen/points/types.php:792
 #, fuzzy
 msgid "Points type created."
 msgstr "Tipo de Puntos eliminado."
 
-#: components/points/admin/classes/screen/points/types.php:820
+#: components/points/admin/classes/screen/points/types.php:824
 msgid "Points type deleted."
 msgstr "Tipo de Puntos eliminado."
 
-#: components/points/admin/classes/screen/points/types.php:829
+#: components/points/admin/classes/screen/points/types.php:833
 #: components/points/admin/screens/hooks.php:22
 msgid "Error while deleting."
 msgstr "Error al borrar."
 
-#: components/points/admin/classes/screen/points/types.php:848
+#: components/points/admin/classes/screen/points/types.php:852
 #, fuzzy
 msgid "Network Events"
 msgstr "Activar Red"
 
-#: components/points/admin/classes/screen/points/types.php:849
+#: components/points/admin/classes/screen/points/types.php:853
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this network."
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:851
+#: components/points/admin/classes/screen/points/types.php:855
 msgid "Events"
 msgstr ""
 
-#: components/points/admin/classes/screen/points/types.php:852
+#: components/points/admin/classes/screen/points/types.php:856
 msgid ""
 "Add reactions to these events to award points whenever they take place on "
 "this site."
 msgstr ""
 
 #. translators: URL of points reactions user docs on WordPoints.org.
-#: components/points/admin/classes/screen/points/types.php:889
+#: components/points/admin/classes/screen/points/types.php:893
 msgid ""
 "You can learn more about how they work from <a href=\"%s\">the user guide on "
 "WordPoints.org</a>."
@@ -2887,78 +3204,91 @@ msgstr ""
 msgid "The number of points must be more than the minimum (%s)."
 msgstr ""
 
-#: includes/functions.php:754
+#: includes/functions.php:766
 msgctxt "post type"
 msgid "Any"
 msgstr "Cualquiera"
 
-#: includes/functions.php:856
+#: includes/functions.php:868
 msgid "Shortcode error:"
 msgstr "Error de código corto:"
 
-#: includes/functions.php:997
+#: includes/functions.php:1011
 msgctxt "component name"
 msgid "Points"
 msgstr "Puntos"
 
-#: includes/functions.php:999 includes/functions.php:1023
+#: includes/functions.php:1013 includes/functions.php:1037
 msgctxt "component author"
 msgid "WordPoints"
 msgstr "WordPoints"
 
-#: includes/functions.php:1002
+#: includes/functions.php:1016
 msgid "Enables a points system for your site."
 msgstr "Permite un sistema de puntos para su sitio."
 
-#: includes/functions.php:1021
+#: includes/functions.php:1035
 msgctxt "component name"
 msgid "Ranks"
 msgstr ""
 
-#: includes/functions.php:1026
+#: includes/functions.php:1040
 msgid "Assign users ranks based on their points levels."
 msgstr ""
 
 #. translators: Author name.
-#: includes/modules.php:345
+#: includes/modules.php:352
 msgid "By %s."
 msgstr "Por %s."
 
-#: includes/modules.php:510
-msgid "Invalid module path."
+#: includes/modules.php:568
+#, fuzzy
+msgid "Invalid extension path."
 msgstr "Ruta del módulo no válida."
 
-#: includes/modules.php:514
-msgid "Module file does not exist."
+#: includes/modules.php:572
+#, fuzzy
+msgid "Extension file does not exist."
 msgstr "Archivo de módulo no existe."
 
-#: includes/modules.php:520
-msgid "The module does not have a valid header."
+#: includes/modules.php:578
+#, fuzzy
+msgid "The extension does not have a valid header."
 msgstr "El módulo no tiene una cabecera válida."
 
-#: includes/modules.php:717
-msgid "The module generated unexpected output."
+#: includes/modules.php:775
+#, fuzzy
+msgid "The extension generated unexpected output."
 msgstr "El módulo generó una salida inesperada."
 
-#: includes/modules.php:903
+#: includes/modules.php:961
 msgid "Could not access filesystem."
 msgstr "No  se pudo acceder al sistema de archivos."
 
-#: includes/modules.php:907
+#: includes/modules.php:965
 msgid "Filesystem error."
 msgstr "Error del sistema de archivos."
 
-#: includes/modules.php:914
-msgid "Unable to locate WordPoints Module directory."
+#: includes/modules.php:972
+#, fuzzy
+msgid "Unable to locate WordPoints Extension directory."
 msgstr "No se puede localizar el directorio de Módulos WordPoints."
 
-#. translators: Module or list of modules.
-#: includes/modules.php:967
+#. translators: Extension or list of extensions.
+#: includes/modules.php:1025
 #, fuzzy
-msgid "Could not fully remove the module %s."
-msgid_plural "Could not fully remove the modules %s."
+msgid "Could not fully remove the extension %s."
+msgid_plural "Could not fully remove the extension %s."
 msgstr[0] "No es posible eliminar completamente el módulo (s) %s."
 msgstr[1] "No es posible eliminar completamente el módulo (s) %s."
+
+#. translators: Number of updates.
+#: includes/modules.php:1341
+#, fuzzy
+msgid "%d WordPoints Extension Update"
+msgid_plural "%d WordPoints Extension Updates"
+msgstr[0] "Tipo de Puntos eliminado."
+msgstr[1] "Tipo de Puntos eliminado."
 
 #. Plugin URI of the plugin/theme
 #, fuzzy
@@ -2980,6 +3310,70 @@ msgstr "JD Grimes"
 #, fuzzy
 msgid "https://codesymphony.co/"
 msgstr "https://codesymphony.co/"
+
+#~ msgid "Activate Module"
+#~ msgstr "Activar Módulo"
+
+#~ msgid "Return to Modules page"
+#~ msgstr "Volver a página de Módulos"
+
+#~ msgid "Return to Module Installer"
+#~ msgstr "Volver al Instalador de Módulos"
+
+#~ msgid "Visit module site"
+#~ msgstr "Visitar sitio módulo"
+
+#~ msgid "Module zip file"
+#~ msgstr "Archivo zip de Módulo"
+
+#, fuzzy
+#~ msgid "Update Modules"
+#~ msgstr "Activar Módulo"
+
+#~ msgid "No modules found."
+#~ msgstr "No se encontraron módulos."
+
+#~ msgid "Module"
+#~ msgstr "Módulo"
+
+#, fuzzy
+#~ msgid "WordPoints — Modules"
+#~ msgstr "WordPoints -Módulos"
+
+#~ msgid "Modules"
+#~ msgstr "Módulos"
+
+#~ msgid "Install Modules"
+#~ msgstr "Instalar módulos"
+
+#, fuzzy
+#~ msgid "Delete module"
+#~ msgid_plural "Delete modules"
+#~ msgstr[0] "Borrar"
+#~ msgstr[1] "Borrar"
+
+#~ msgctxt "modules table heading"
+#~ msgid "Module"
+#~ msgstr "Módulo"
+
+#~ msgctxt "modules table heading"
+#~ msgid "Description"
+#~ msgstr "Descripción"
+
+#, fuzzy
+#~ msgid "Modules list"
+#~ msgstr "Módulos"
+
+#~ msgid "WordPoints Modules"
+#~ msgstr "Módulos WordPoints"
+
+#~ msgctxt "module"
+#~ msgid "Add New"
+#~ msgstr "Añadir Nuevos"
+
+#, fuzzy
+#~ msgid "module"
+#~ msgstr "Módulo"
 
 #, fuzzy
 #~ msgid "WordPoints — Configure"

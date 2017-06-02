@@ -45,19 +45,19 @@ class WordPoints_Module_Upgrader extends WordPoints_Module_Installer {
 	protected function upgrade_strings() {
 
 		$upgrade_strings = array(
-			'up_to_date'                => esc_html__( 'The module is at the latest version.', 'wordpoints' ),
+			'up_to_date'                => esc_html__( 'The extension is at the latest version.', 'wordpoints' ),
 			'no_package'                => esc_html__( 'Update package not available.', 'wordpoints' ),
-			'no_server'                 => esc_html__( 'That module cannot be updated, because there is no server specified to receive updates through.', 'wordpoints' ),
-			'api_not_found'             => esc_html__( 'That module cannot be updated, because there is no API installed that can communicate with that server.', 'wordpoints' ),
-			'api_updates_not_supported' => esc_html__( 'That module cannot be updated, because the API used to communicate with that server does not support updates.', 'wordpoints' ),
+			'no_server'                 => esc_html__( 'That extension cannot be updated, because there is no server specified to receive updates through.', 'wordpoints' ),
+			'api_not_found'             => esc_html__( 'That extension cannot be updated, because there is no API installed that can communicate with that server.', 'wordpoints' ),
+			'api_updates_not_supported' => esc_html__( 'That extension cannot be updated, because the API used to communicate with that server does not support updates.', 'wordpoints' ),
 			// translators: Update package URL.
 			'downloading_package'       => sprintf( esc_html__( 'Downloading update from %s&#8230;', 'wordpoints' ), '<span class="code">%s</span>' ),
 			'unpack_package'            => esc_html__( 'Unpacking the update&#8230;', 'wordpoints' ),
-			'remove_old'                => esc_html__( 'Removing the old version of the module&#8230;', 'wordpoints' ),
-			'remove_old_failed'         => esc_html__( 'Could not remove the old module.', 'wordpoints' ),
-			'process_failed'            => esc_html__( 'Module update failed.', 'wordpoints' ),
-			'process_success'           => esc_html__( 'Module updated successfully.', 'wordpoints' ),
-			'not_installed'             => esc_html__( 'That module cannot be updated, because it is not installed.', 'wordpoints' ),
+			'remove_old'                => esc_html__( 'Removing the old version of the extension&#8230;', 'wordpoints' ),
+			'remove_old_failed'         => esc_html__( 'Could not remove the old extension.', 'wordpoints' ),
+			'process_failed'            => esc_html__( 'Extension update failed.', 'wordpoints' ),
+			'process_success'           => esc_html__( 'Extension updated successfully.', 'wordpoints' ),
+			'not_installed'             => esc_html__( 'That extension cannot be updated, because it is not installed.', 'wordpoints' ),
 		);
 
 		$this->strings = array_merge( $this->strings, $upgrade_strings );

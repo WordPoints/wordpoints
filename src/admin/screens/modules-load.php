@@ -35,7 +35,7 @@ switch ( $action ) {
 	// Activate a single module.
 	case 'activate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to activate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		if ( is_multisite() && ! is_network_admin() && is_network_only_wordpoints_module( $module ) ) {
@@ -85,7 +85,7 @@ switch ( $action ) {
 	// Activate multiple modules.
 	case 'activate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to activate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -141,7 +141,7 @@ switch ( $action ) {
 	// Get the fatal error from a module.
 	case 'error_scrape':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to activate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to activate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'module-activation-error_' . $module );
@@ -185,7 +185,7 @@ switch ( $action ) {
 	// Deactivate a module.
 	case 'deactivate':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'deactivate-module_' . $module );
@@ -213,7 +213,7 @@ switch ( $action ) {
 	// Deactivate multiple modules.
 	case 'deactivate-selected':
 		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -255,7 +255,7 @@ switch ( $action ) {
 	// Delete multiple modules.
 	case 'delete-selected':
 		if ( ! current_user_can( 'delete_wordpoints_modules' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to delete modules for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to delete extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( 'bulk-modules' );
@@ -351,15 +351,15 @@ switch ( $action ) {
 
 				$modules_to_delete = count( $module_info );
 
-				echo '<h1>' . esc_html( _n( 'Delete module', 'Delete modules', $modules_to_delete, 'wordpoints' ) ) . '</h1>';
+				echo '<h1>' . esc_html( _n( 'Delete extension', 'Delete extensions', $modules_to_delete, 'wordpoints' ) ) . '</h1>';
 
 				if ( $have_non_network_modules && is_network_admin() ) {
 					wordpoints_show_admin_message(
 						'<strong>' . esc_html__( 'Caution:', 'wordpoints' ) . '</strong>'
 							. esc_html(
 								_n(
-									'This module may be active on other sites in the network.'
-									, 'These modules may be active on other sites in the network.'
+									'This extension may be active on other sites in the network.'
+									, 'These extensions may be active on other sites in the network.'
 									, $modules_to_delete
 									, 'wordpoints'
 								)
@@ -370,7 +370,7 @@ switch ( $action ) {
 
 				?>
 
-				<p><?php echo esc_html( _n( 'You are about to remove the following module:', 'You are about to remove the following modules:', $modules_to_delete, 'wordpoints' ) ); ?></p>
+				<p><?php echo esc_html( _n( 'You are about to remove the following extension:', 'You are about to remove the following extensions:', $modules_to_delete, 'wordpoints' ) ); ?></p>
 					<ul class="ul-disc">
 
 						<?php
@@ -381,13 +381,13 @@ switch ( $action ) {
 
 							if ( $module['is_uninstallable'] ) {
 
-								// translators: 1. Module name; 2. Module author.
+								// translators: 1. Extension name; 2. Extension author.
 								echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em> (will also <strong>delete its data</strong>)', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
 								$data_to_delete = true;
 
 							} else {
 
-								// translators: 1. Module name; 2. Module author.
+								// translators: 1. Extension name; 2. Extension author.
 								echo '<li>', wp_kses( sprintf( __( '<strong>%1$s</strong> by <em>%2$s</em>', 'wordpoints' ), esc_html( $module['name'] ), esc_html( $module['author_name'] ) ), array( 'strong' => array(), 'em' => array() ) ), '</li>';
 							}
 						}
@@ -417,7 +417,7 @@ switch ( $action ) {
 					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
 				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" style="display:inline;">
-					<?php submit_button( __( 'No, Return me to the module list', 'wordpoints' ), 'button', 'submit', false ); ?>
+					<?php submit_button( __( 'No, Return me to the extension list', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
 
 				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
@@ -470,9 +470,9 @@ $screen->add_help_tab(
 		'id'      => 'overview',
 		'title'   => __( 'Overview', 'wordpoints' ),
 		'content' =>
-			'<p>' . esc_html__( 'Modules extend and expand the functionality of WordPoints. Once a module is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
-			// translators: 1. URL of module directory on WordPoints.org; 2. URL of Install Module admin screen; 3. Directory name.
-			'<p>' . wp_kses( sprintf( __( 'You can find modules for your site by by browsing the <a href="%1$s">WordPoints Module Directory</a>. To install a module you generally just need to <a href="%2$s">upload the module file</a> into your %3$s directory. Once a module has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
+			'<p>' . esc_html__( 'Extensions extend and expand the functionality of WordPoints. Once an extension is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
+			// translators: 1. URL of extension directory on WordPoints.org; 2. URL of Install Extension admin screen; 3. Directory name.
+			'<p>' . wp_kses( sprintf( __( 'You can find extensions for your site by by browsing the <a href="%1$s">WordPoints Extensions Directory</a>. To install an extension you generally just need to <a href="%2$s">upload the extension file</a> into your %3$s directory. Once an extension has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ), '<code>/wp-content/wordpoints-modules</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 
@@ -481,9 +481,9 @@ $screen->add_help_tab(
 		'id'      => 'compatibility-problems',
 		'title'   => __( 'Troubleshooting', 'wordpoints' ),
 		'content' =>
-			'<p>' . esc_html__( 'Most of the time, modules play nicely with the core of WordPoints and with other modules. Sometimes, though, a module&#8217;s code will get in the way of another module, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your modules and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
+			'<p>' . esc_html__( 'Most of the time, extensions play nicely with the core of WordPoints and with other extensions. Sometimes, though, an extension&#8217;s code will get in the way of another extension, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your extension and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
 			// translators: Directory name.
-			'<p>' . sprintf( esc_html__( 'If something goes wrong with a module and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
+			'<p>' . sprintf( esc_html__( 'If something goes wrong with an extension and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
 	)
 );
 
@@ -497,16 +497,16 @@ register_column_headers(
 	$screen
 	, array(
 		'cb'          => '<input type="checkbox" />',
-		'name'        => _x( 'Module', 'modules table heading', 'wordpoints' ),
-		'description' => _x( 'Description', 'modules table heading', 'wordpoints' ),
+		'name'        => _x( 'Extension', 'extensions table heading', 'wordpoints' ),
+		'description' => _x( 'Description', 'extensions table heading', 'wordpoints' ),
 	)
 );
 
 $screen->set_screen_reader_content(
 	array(
-		'heading_views'      => __( 'Filter modules list', 'wordpoints' ),
-		'heading_pagination' => __( 'Modules list navigation', 'wordpoints' ),
-		'heading_list'       => __( 'Modules list', 'wordpoints' ),
+		'heading_views'      => __( 'Filter extensions list', 'wordpoints' ),
+		'heading_pagination' => __( 'Extensions list navigation', 'wordpoints' ),
+		'heading_list'       => __( 'Extensions list', 'wordpoints' ),
 	)
 );
 

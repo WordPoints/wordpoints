@@ -30,7 +30,7 @@ function wordpoints-dev-lib-config() {
 		# Needs to use non-HTTPS since it may not be supported.
 		'!' -path './src/classes/extension/server.php' \
 		# Tests for the above class.
-		'!' -path './tests/phpunit/tests/classes/module/server.php' \
+		'!' -path './tests/phpunit/tests/classes/extension/server.php' \
 	)
 
 	# Has to be set to something or else the WP HTTP Testcase will not use the cache.

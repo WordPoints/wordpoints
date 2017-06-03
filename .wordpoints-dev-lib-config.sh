@@ -28,7 +28,7 @@ function wordpoints-dev-lib-config() {
 	CODESNIFF_PATH_STRINGS=(\
 		"${CODESNIFF_PATH_STRINGS[@]}" \
 		# Needs to use non-HTTPS since it may not be supported.
-		'!' -path './src/classes/module/server.php' \
+		'!' -path './src/classes/extension/server.php' \
 		# Tests for the above class.
 		'!' -path './tests/phpunit/tests/classes/module/server.php' \
 	)

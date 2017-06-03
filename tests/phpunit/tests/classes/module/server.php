@@ -294,7 +294,7 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$slug = 'example.com';
 
 		$filter = new WordPoints_PHPUnit_Mock_Filter(
-			array( 'headers' => array( 'x-wordpoints-module-api' => $api_header ) )
+			array( 'headers' => array( 'x-wordpoints-extension-api' => $api_header ) )
 		);
 
 		$filter->add_filter( 'pre_http_request' );

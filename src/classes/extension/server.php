@@ -139,7 +139,7 @@ class WordPoints_Extension_Server implements WordPoints_Extension_ServerI {
 	 * Retrieve and parse the extension API header from the remote server.
 	 *
 	 * The remote server can specify the supported API by sending the
-	 * x-wordpoints-module-api header. This allows the API to be looked up with
+	 * x-wordpoints-extension-api header. This allows the API to be looked up with
 	 * a single HEAD request.
 	 *
 	 * @since 2.4.0
@@ -159,8 +159,8 @@ class WordPoints_Extension_Server implements WordPoints_Extension_ServerI {
 
 			$headers = wp_get_http_headers( $this->get_url() );
 
-			if ( isset( $headers['x-wordpoints-module-api'] ) ) {
-				$api = str_replace( '-', '_', sanitize_key( $headers['x-wordpoints-module-api'] ) );
+			if ( isset( $headers['x-wordpoints-extension-api'] ) ) {
+				$api = str_replace( '-', '_', sanitize_key( $headers['x-wordpoints-extension-api'] ) );
 			}
 
 			// Save it as a string, so we can tell when it has expired.

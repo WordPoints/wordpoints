@@ -104,7 +104,7 @@ class WordPoints_Extension_Server_API_EDD_SL_Free_Test
 		);
 
 		$this->assertStringMatchesFormat(
-			'%s://example.org/edd-sl/package_download/%s'
+			'%s://%s/edd-sl/package_download/%s'
 			, $api->get_extension_info( $data, 'package' )
 		);
 

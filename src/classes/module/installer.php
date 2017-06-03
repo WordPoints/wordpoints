@@ -153,7 +153,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		do_action(
 			'upgrader_process_complete'
 			, $this
-			, array( 'action' => 'install', 'type' => 'wordpoints_module' )
+			, array( 'action' => 'install', 'type' => 'wordpoints_extension' )
 			, $package
 		);
 

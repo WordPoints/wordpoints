@@ -246,7 +246,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 				'clear_working'     => true,
 				'is_multi'          => $this->bulk,
 				'hook_extra'        => array(
-					'wordpoints_module' => $extension_file,
+					'wordpoints_extension' => $extension_file,
 				),
 			)
 		);
@@ -281,7 +281,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 
 		$details = array(
 			'action' => 'update',
-			'type'   => 'wordpoints_module',
+			'type'   => 'wordpoints_extension',
 			'bulk'   => $this->bulk,
 		);
 
@@ -369,14 +369,14 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			return $return;
 		}
 
-		if ( empty( $data['wordpoints_module'] ) ) {
+		if ( empty( $data['wordpoints_extension'] ) ) {
 			return new WP_Error( 'bad_request', $this->strings['bad_request'] );
 		}
 
-		if ( is_wordpoints_module_active( $data['wordpoints_module'] ) ) {
+		if ( is_wordpoints_module_active( $data['wordpoints_extension'] ) ) {
 
 			// Deactivate the extension silently (the actions won't be fired).
-			wordpoints_deactivate_modules( array( $data['wordpoints_module'] ), true );
+			wordpoints_deactivate_modules( array( $data['wordpoints_extension'] ), true );
 		}
 
 		return $return;
@@ -404,12 +404,12 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			return $source;
 		}
 
-		if ( $upgrader !== $this || ! isset( $data['wordpoints_module'] ) ) {
+		if ( $upgrader !== $this || ! isset( $data['wordpoints_extension'] ) ) {
 			return $source;
 		}
 
 		$source_name = basename( $source );
-		$extension_name = dirname( $data['wordpoints_module'] );
+		$extension_name = dirname( $data['wordpoints_extension'] );
 
 		if ( '.' === $extension_name || $source_name === $extension_name ) {
 			return $source;
@@ -449,12 +449,12 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			return $removed;
 		}
 
-		if ( empty( $data['wordpoints_module'] ) ) {
+		if ( empty( $data['wordpoints_extension'] ) ) {
 			return new WP_Error( 'bad_request', $this->strings['bad_request'] );
 		}
 
 		$extensions_dir = $wp_filesystem->find_folder( wordpoints_modules_dir() );
-		$this_extension_dir = trailingslashit( dirname( $extensions_dir . $data['wordpoints_module'] ) );
+		$this_extension_dir = trailingslashit( dirname( $extensions_dir . $data['wordpoints_extension'] ) );
 
 		// Make sure it hasn't already been removed somehow.
 		if ( ! $wp_filesystem->exists( $this_extension_dir ) ) {
@@ -466,10 +466,10 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		 * Do a base check on if the extension includes the directory separator AND that
 		 * it's not the root extensions folder. If not, just delete the single file.
 		 */
-		if ( strpos( $data['wordpoints_module'], '/' ) && $this_extension_dir !== $extensions_dir ) {
+		if ( strpos( $data['wordpoints_extension'], '/' ) && $this_extension_dir !== $extensions_dir ) {
 			$deleted = $wp_filesystem->delete( $this_extension_dir, true );
 		} else {
-			$deleted = $wp_filesystem->delete( $extensions_dir . $data['wordpoints_module'] );
+			$deleted = $wp_filesystem->delete( $extensions_dir . $data['wordpoints_extension'] );
 		}
 
 		if ( ! $deleted ) {

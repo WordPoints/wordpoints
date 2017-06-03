@@ -36,8 +36,8 @@ function wordpoints-dev-lib-config() {
 	# Has to be set to something or else the WP HTTP Testcase will not use the cache.
 	export WP_HTTP_TC_HOST=example.com
 
-	# Try running code coverage on PHP 7.1.
-	export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == '7.1' && $WP_VERSION == develop ]]; then echo 1; else echo 0; fi)
+	# Disable code coverage for now, it takes to long to run.
+	export DO_CODE_COVERAGE=0
 }
 
 # EOF

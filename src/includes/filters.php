@@ -27,10 +27,10 @@ if (
 	&& ( is_main_site() || is_network_admin() || ! is_wordpoints_network_active() )
 ) {
 
-	add_action( 'init', 'wordpoints_schedule_module_updates_check' );
-	add_action( 'wordpoints_module_update_check_completed', 'wordpoints_reschedule_module_updates_check' );
+	add_action( 'init', 'wordpoints_schedule_extension_updates_check' );
+	add_action( 'wordpoints_extension_update_check_completed', 'wordpoints_reschedule_extension_updates_check' );
 
-	add_action( 'wordpoints_check_for_module_updates', 'wordpoints_check_for_module_updates' );
+	add_action( 'wordpoints_check_for_extension_updates', 'wordpoints_check_for_extension_updates' );
 }
 
 add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
@@ -63,7 +63,7 @@ add_action( 'wordpoints_init_app_registry-entities-restrictions-know', 'wordpoin
 add_action( 'wordpoints_init_app_registry-entities-restrictions-view', 'wordpoints_entity_restrictions_view_init' );
 
 add_action( 'wordpoints_init_app_registry-apps-data_types', 'wordpoints_data_types_init' );
-add_action( 'wordpoints_init_app_registry-apps-module_server_apis', 'wordpoints_module_server_apis_init' );
+add_action( 'wordpoints_init_app_registry-apps-extension_server_apis', 'wordpoints_extension_server_apis_init' );
 
 add_action( 'wordpoints_init_app_registry-hooks-extensions', 'wordpoints_hook_extensions_init' );
 add_action( 'wordpoints_init_app_registry-hooks-events', 'wordpoints_hook_events_init' );
@@ -72,6 +72,6 @@ add_action( 'wordpoints_init_app_registry-hooks-conditions', 'wordpoints_hook_co
 
 add_action( 'wordpoints_modules_loaded', 'wordpoints_init_hooks' );
 
-add_filter( 'wp_get_update_data', 'wordpoints_module_update_counts' );
+add_filter( 'wp_get_update_data', 'wordpoints_extension_update_counts' );
 
 // EOF

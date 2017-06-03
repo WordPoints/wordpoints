@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Testcase for WordPoints_Module_Server.
+ * Testcase for WordPoints_Extension_Server.
  *
  * @package WordPoints\PHPUnit\Tests
  * @since 2.4.0
  */
 
 /**
- * Test WordPoints_Module_Server.
+ * Test WordPoints_Extension_Server.
  *
  * @since 2.4.0
  *
- * @group modules
+ * @group extensions
  *
- * @covers WordPoints_Module_Server
+ * @covers WordPoints_Extension_Server
  */
-class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
+class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test the constructor.
@@ -27,7 +27,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 		$slug = 'example.com';
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		$this->assertSame( $slug, $server->get_slug() );
 	}
@@ -42,7 +42,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$slug = 'example.com';
 
 		$mock = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( $slug )
 		);
@@ -62,7 +62,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$slug = 'example.com';
 
 		$mock = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( $slug )
 		);
@@ -83,7 +83,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_filter( 'http_api_transports', '__return_empty_array' );
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		$this->assertSame( 'http://example.com', $server->get_url() );
 	}
@@ -100,7 +100,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( array() );
 		$filter->add_filter( 'http_api_transports' );
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		$this->assertSame( 'http://example.com', $server->get_url() );
 
@@ -123,7 +123,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		$this->assertSame( 'http://example.com', $server->get_url() );
 	}
@@ -140,7 +140,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		$this->assertSame( 'http://example.com', $server->get_url() );
 
@@ -174,7 +174,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		if ( $expect_ssl ) {
 			$url = 'https://example.com';
@@ -217,13 +217,13 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$this->mock_apps();
 
 		wordpoints_apps()
-			->get_sub_app( 'module_server_apis' )
+			->get_sub_app( 'extension_server_apis' )
 			->register( 'test', 'stdClass' );
 
 		$slug = 'example.com';
 
 		$mock = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'get_api_slug' )
 			, array( $slug )
 		);
@@ -243,7 +243,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$slug = 'example.com';
 
 		$mock = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'get_api_slug' )
 			, array( $slug )
 		);
@@ -263,7 +263,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$slug = 'example.com';
 
 		$mock = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'get_api_slug' )
 			, array( $slug )
 		);
@@ -288,7 +288,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 		$this->mock_apps();
 
 		wordpoints_apps()
-			->get_sub_app( 'module_server_apis' )
+			->get_sub_app( 'extension_server_apis' )
 			->register( 'test', 'stdClass' );
 
 		$slug = 'example.com';
@@ -299,7 +299,7 @@ class WordPoints_Module_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = new WordPoints_Module_Server( $slug );
+		$server = new WordPoints_Extension_Server( $slug );
 
 		if ( $expect_api ) {
 			$this->assertInternalType( 'object', $server->get_api() );

@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Testcase for WordPoints_Module_Server_API_Module_License_EDD_SL.
+ * Testcase for WordPoints_Extension_Server_API_Extension_License_EDD_SL.
  *
  * @package WordPoints\PHPUnit\Tests
  * @since 2.4.0
  */
 
 /**
- * Tests WordPoints_Module_Server_API_Module_License_EDD_SL.
+ * Tests WordPoints_Extension_Server_API_Extension_License_EDD_SL.
  *
  * @since 2.4.0
  *
- * @group modules
+ * @group extensions
  *
- * @covers WordPoints_Module_Server_API_Module_License_EDD_SL
+ * @covers WordPoints_Extension_Server_API_Extension_License_EDD_SL
  */
-class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_TestCase {
+class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_HTTP_TestCase {
 
 	/**
 	 * The tests simulator to use to simulate the remote server response.
@@ -25,7 +25,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	 *
 	 * @var string
 	 */
-	protected $tests_simulator = 'Module_Server_API_EDD_SL';
+	protected $tests_simulator = 'Extension_Server_API_EDD_SL';
 
 	/**
 	 * @since 2.4.0
@@ -36,18 +36,18 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		self::$use_caching = true;
 
-		add_filter( 'http_request_args', array( $this, 'add_module_api_header' ) );
+		add_filter( 'http_request_args', array( $this, 'add_extension_api_header' ) );
 		add_filter( 'http_request_host_is_external', '__return_true' );
 	}
 
 	/**
-	 * Add a request header for the module API.
+	 * Add a request header for the extension API.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @WordPress\filter http_request_args Added by self::setUp().
 	 */
-	public function add_module_api_header( $request ) {
+	public function add_extension_api_header( $request ) {
 
 		$request['headers']['x-wordpoints-tests-simulator'] = $this->tests_simulator;
 
@@ -55,23 +55,23 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Constructs a module license object to test.
+	 * Constructs an extension license object to test.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @param string $status The status to give the license.
 	 *
-	 * @return WordPoints_Module_Server_API_Module_License_EDD_SL The license.
+	 * @return WordPoints_Extension_Server_API_Extension_License_EDD_SL The license.
 	 */
 	protected function get_license( $status ) {
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'license_status', $status );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -81,7 +81,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license is valid.
+	 * Tests checking if an extension license is valid.
 	 *
 	 * @since 2.4.0
 	 *
@@ -142,7 +142,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license is activatable.
+	 * Tests checking if an extension license is activatable.
 	 *
 	 * @since 2.4.0
 	 *
@@ -160,7 +160,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license is active.
+	 * Tests checking if an extension license is active.
 	 *
 	 * @since 2.4.0
 	 *
@@ -185,17 +185,17 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_activate() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -215,17 +215,17 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_activate_already_active() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_active'
 		);
@@ -250,18 +250,18 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$filter->add_filter( 'pre_http_request' );
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'inactive' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -286,18 +286,18 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$filter->add_filter( 'pre_http_request' );
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'inactive' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -317,19 +317,19 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_activate_other_status_returned() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL( 'test', $server );
+		$api = new WordPoints_Extension_Server_API_EDD_SL( 'test', $server );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'inactive' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
 			$api,
 			$data,
 			'test_key_expired'
@@ -343,7 +343,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license is deactivatable.
+	 * Tests checking if an extension license is deactivatable.
 	 *
 	 * @since 2.4.0
 	 *
@@ -368,17 +368,17 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_deactivate() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_active'
 		);
@@ -398,17 +398,17 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_deactivate_already_inactive() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key'
 		);
@@ -433,18 +433,18 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$filter->add_filter( 'pre_http_request' );
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'valid' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_inactive'
 		);
@@ -469,18 +469,18 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$filter->add_filter( 'pre_http_request' );
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'valid' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL( 'test', $server ),
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL( 'test', $server ),
 			$data,
 			'test_key_inactive'
 		);
@@ -500,19 +500,19 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_deactivate_other_status_returned() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$api = new WordPoints_Module_Server_API_EDD_SL( 'test', $server );
+		$api = new WordPoints_Extension_Server_API_EDD_SL( 'test', $server );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'valid' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
 			$api,
 			$data,
 			'test_key_expired'
@@ -526,19 +526,19 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license expires.
+	 * Tests checking if an extension license expires.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_expires() {
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'license_expiration', date( 'Y-m-d 23:59:59' ) );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -548,19 +548,19 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a lifetime module license expires.
+	 * Tests checking if a lifetime extension license expires.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_expires_lifetime() {
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'license_expiration', 'lifetime' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -570,7 +570,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license is expired.
+	 * Tests checking if an extension license is expired.
 	 *
 	 * @since 2.4.0
 	 *
@@ -596,13 +596,13 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 
 		$date = date( 'Y-m-d 23:59:59' );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'license_expiration', $date );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -621,13 +621,13 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	 */
 	public function test_get_expiration_date_lifetime() {
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'license_expiration', 'lifetime' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -643,13 +643,13 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	 */
 	public function test_get_expiration_date_invalid() {
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'license_expiration', 'invalid' );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -659,7 +659,7 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	}
 
 	/**
-	 * Tests checking if a module license is renewable.
+	 * Tests checking if an extension license is renewable.
 	 *
 	 * @since 2.4.0
 	 *
@@ -683,15 +683,15 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	 */
 	public function test_get_renewal_url() {
 
-		$url = 'https://example.com/module/renew/';
+		$url = 'https://example.com/extension/renew/';
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'homepage', $url );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_license_key'
@@ -707,16 +707,16 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	 */
 	public function test_get_info_returns_cached_if_available() {
 
-		$data = $this->getMock( 'WordPoints_Module_Server_API_Module_DataI' );
+		$data = $this->getMock( 'WordPoints_Extension_Server_API_Extension_DataI' );
 		$data->expects( $this->once() )->method( 'get' )->willReturn( 'test_value' );
 
 		$license = $this->getMock(
-			'WordPoints_Module_Server_API_Module_License_EDD_SL'
+			'WordPoints_Extension_Server_API_Extension_License_EDD_SL'
 			, array( 'request_info' )
 			, array(
-				new WordPoints_Module_Server_API_EDD_SL(
+				new WordPoints_Extension_Server_API_EDD_SL(
 					'test'
-					, new WordPoints_Module_Server( 'example.com' )
+					, new WordPoints_Extension_Server( 'example.com' )
 				),
 				$data,
 				'test_license_key',
@@ -736,19 +736,19 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 	public function test_get_info_requests_from_remote_if_needed() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_key'
@@ -772,12 +772,12 @@ class WordPoints_Module_Server_API_Module_License_EDD_SL_Test extends WP_HTTP_Te
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$license = new WordPoints_Module_Server_API_Module_License_EDD_SL(
-			new WordPoints_Module_Server_API_EDD_SL(
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			new WordPoints_Extension_Server_API_EDD_SL(
 				'test'
-				, new WordPoints_Module_Server( 'example.com' )
+				, new WordPoints_Extension_Server( 'example.com' )
 			)
 			, $data
 			, 'test_key'

@@ -56,7 +56,7 @@ function wordpoints_activate( $network_active ) {
  */
 function wordpoints_deactivate() {
 
-	wp_clear_scheduled_hook( 'wordpoints_check_for_module_updates' );
+	wp_clear_scheduled_hook( 'wordpoints_check_for_extension_updates' );
 }
 
 /**
@@ -882,7 +882,7 @@ function wordpoints_get_custom_caps() {
 
 	return array(
 		'install_wordpoints_modules'        => 'install_plugins',
-		'update_wordpoints_modules'         => 'update_plugins',
+		'update_wordpoints_extensions'      => 'update_plugins',
 		'manage_network_wordpoints_modules' => 'manage_network_plugins',
 		'activate_wordpoints_modules'       => 'activate_plugins',
 		'delete_wordpoints_modules'         => 'delete_plugins',
@@ -948,7 +948,7 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
 	switch ( $cap ) {
 		case 'install_wordpoints_modules':
-		case 'update_wordpoints_modules':
+		case 'update_wordpoints_extensions':
 			if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
 				$caps[] = 'do_not_allow';
 			} elseif ( is_multisite() && ! is_super_admin( $user_id ) ) {

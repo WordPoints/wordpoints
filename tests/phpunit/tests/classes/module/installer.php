@@ -45,7 +45,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		add_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
 		add_filter( 'upgrader_pre_download', array( $this, 'module_package' ) );
 
-		$updates = new WordPoints_Module_Updates();
+		$updates = new WordPoints_Extension_Updates();
 		$updates->set_new_versions( array( 'test' => '1.2.0' ) );
 		$updates->save();
 
@@ -56,7 +56,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		remove_action( 'upgrader_process_complete', 'wp_version_check' );
 		remove_action( 'upgrader_process_complete', 'wp_update_plugins' );
 		remove_action( 'upgrader_process_complete', 'wp_update_themes' );
-		remove_action( 'upgrader_process_complete', 'wordpoints_recheck_for_module_updates_after_upgrade' );
+		remove_action( 'upgrader_process_complete', 'wordpoints_recheck_for_extension_updates_after_upgrade' );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		// Check that the module cache is cleared.
 		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
-		$this->assertSame( array(), wordpoints_get_module_updates()->get_new_versions() );
+		$this->assertSame( array(), wordpoints_get_extension_updates()->get_new_versions() );
 
 		$this->assertCount( 0, $this->skin->errors );
 		$this->assertSame( 1, $this->skin->header_shown );
@@ -118,7 +118,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		// Check that the module updates cache is not cleared.
 		$this->assertSame(
 			array( 'test' => '1.2.0' )
-			, wordpoints_get_module_updates()->get_new_versions()
+			, wordpoints_get_extension_updates()->get_new_versions()
 		);
 
 		// The modules cache is still cleared though.

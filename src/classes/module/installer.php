@@ -145,7 +145,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		}
 
 		// Force refresh of modules cache.
-		wordpoints_clean_modules_cache( $args['clear_update_cache'] );
+		wordpoints_clean_extensions_cache( $args['clear_update_cache'] );
 
 		/**
 		 * This action is documented in /wp-admin/includes/class-wp-upgrader.php.

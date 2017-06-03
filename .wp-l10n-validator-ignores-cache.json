@@ -91,13 +91,9 @@
             "611": false
         },
         "hidden": {
-            "757": false,
-            "781": false,
             "856": false
         },
         "has-row-actions column-primary": {
-            "757": false,
-            "781": false,
             "856": false
         },
         "second module-version-author-uri\">": {
@@ -117,19 +113,10 @@
                 "parentheses": 1
             }
         },
-        "WordPoints_Admin_Screens": {
-            "28": {
-                "name": "(unknown)->register",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            }
-        },
         ".manifested": {
             "249": false
         },
-        "wordpoints-admin-modules-list-table": {
+        "wordpoints-admin-extensions-list-table": {
             "275": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -296,7 +283,7 @@
                 "parentheses": 1
             }
         },
-        "update.php?action=wordpoints-upgrade-module&module=": {
+        "update.php?action=wordpoints-upgrade-extension&extension=": {
             "1065": {
                 "name": "array",
                 "type": "unknown",
@@ -305,8 +292,8 @@
                 "parentheses": 1
             }
         },
-        "bulk-update-modules": {
-            "1148": {
+        "bulk-update-extensions": {
+            "1205": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -314,8 +301,8 @@
                 "parentheses": 1
             }
         },
-        "update.php?action=update-selected-wordpoints-modules&amp;modules=": {
-            "1149": {
+        "update.php?action=update-selected-wordpoints-extensions&amp;extensions=": {
+            "1206": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -324,45 +311,45 @@
             }
         },
         "active": {
-            "1224": false,
-            "1527": false,
-            "2261": false,
-            "2263": false
+            "1281": false,
+            "1584": false,
+            "2318": false,
+            "2320": false
         },
         "inactive": {
-            "1224": false,
-            "1527": false
+            "1281": false,
+            "1584": false
         },
-        "\"\n\t\t\t\t\t\t\tclass=\"thickbox wordpoints-open-module-details-modal\"": {
-            "1240": false
+        "\"\n\t\t\t\t\t\t\tclass=\"thickbox wordpoints-open-extension-details-modal\"": {
+            "1297": false
         },
         "aria-label=\"": {
-            "1243": false,
-            "1263": false
+            "1300": false,
+            "1320": false
         },
-        "wordpoints-module-has-license": {
-            "1455": false
+        "wordpoints-extension-has-license": {
+            "1512": false
         },
-        "wordpoints-module-license-valid": {
-            "1463": false
+        "wordpoints-extension-license-valid": {
+            "1520": false
         },
-        "wordpoints-module-license-invalid": {
-            "1465": false
+        "wordpoints-extension-license-invalid": {
+            "1522": false
         },
-        "wordpoints-module-license-active": {
-            "1470": false
+        "wordpoints-extension-license-active": {
+            "1527": false
         },
-        "wordpoints-module-license-inactive": {
-            "1472": false
+        "wordpoints-extension-license-inactive": {
+            "1529": false
         },
-        "wordpoints-module-license-expired": {
-            "1480": false
+        "wordpoints-extension-license-expired": {
+            "1537": false
         },
         "&checked[]=": {
-            "1976": false
+            "2033": false
         },
         "wordpoints": {
-            "2141": {
+            "2198": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -370,17 +357,8 @@
                 "parentheses": 1
             }
         },
-        "en_US": {
-            "2144": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            }
-        },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2153": {
+            "2210": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -389,7 +367,7 @@
             }
         },
         "-update": {
-            "2270": {
+            "2327": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -398,13 +376,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2275": false
+            "2332": false
         },
         "document.getElementById(": {
-            "2305": false
+            "2362": false
         },
         ").disabled = true;": {
-            "2309": false
+            "2366": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -635,9 +613,15 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
         "network": {
+            "391": false,
+            "463": false,
+            "510": false,
             "542": false
         },
         "standard": {
+            "393": false,
+            "465": false,
+            "512": false,
             "544": false
         }
     },
@@ -1527,7 +1511,7 @@
             "126": false
         },
         "points-": {
-            "343": {
+            "347": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1536,7 +1520,7 @@
             }
         },
         "-save": {
-            "343": {
+            "347": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1545,13 +1529,13 @@
             }
         },
         "this.select()": {
-            "416": false
+            "420": false
         },
         "&quot;]\"\n\t\t\t\t\/>": {
-            "421": false
+            "425": false
         },
         "points": {
-            "468": {
+            "472": {
                 "name": "(unknown)->get",
                 "type": "unknown",
                 "args_started": true,
@@ -1560,19 +1544,19 @@
             }
         },
         "WordPointsHooksAdminData.events[": {
-            "558": false
+            "562": false
         },
         "] =": {
-            "561": false
+            "565": false
         },
         ";\n\t\t\tWordPointsHooksAdminData.reactions[": {
-            "560": false
+            "564": false
         },
         "1": {
-            "873": false
+            "877": false
         },
         "2": {
-            "873": false
+            "877": false
         }
     },
     "\/components\/points\/classes\/hook\/reactor.php": {
@@ -2394,16 +2378,32 @@
     },
     "\/classes\/un\/installer\/base.php": {
         "install": {
+            "317": false,
             "397": false
         },
         "network": {
             "338": false,
+            "469": false,
             "563": false,
+            "1342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "1376": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
+                "parentheses": 1
+            },
+            "1377": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
                 "parentheses": 1
             },
             "1382": {
@@ -2415,8 +2415,31 @@
             }
         },
         "site": {
+            "343": false,
+            "415": false,
             "448": false,
             "568": false,
+            "1342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1377": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2429,6 +2452,34 @@
             "380": false,
             "486": false,
             "604": false,
+            "1342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1376": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1377": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2460,6 +2511,13 @@
             }
         },
         "local": {
+            "1342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2469,6 +2527,13 @@
             }
         },
         "global": {
+            "1342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2478,6 +2543,13 @@
             }
         },
         "universal": {
+            "1342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            },
             "1382": {
                 "name": "array",
                 "type": "unknown",
@@ -2487,6 +2559,13 @@
             }
         },
         "wordpoints": {
+            "1613": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "1672": {
                 "name": "array",
                 "type": "unknown",
@@ -2526,6 +2605,7 @@
             "1684": false
         },
         "manage": {
+            "1690": false,
             "1693": false
         },
         "columnshidden": {
@@ -2664,6 +2744,99 @@
         },
         "install": {
             "156": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/extension\/server\/api\/edd\/sl.php": {
+        "package": {
+            "97": {
+                "name": "WordPoints_Extension_Server_API_EDD_SL::get_extension_info",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "191": {
+                "name": "$extension_data->set",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "changelog": {
+            "106": {
+                "name": "WordPoints_Extension_Server_API_EDD_SL::get_extension_info",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "199": {
+                "name": "$extension_data->set",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "homepage": {
+            "195": {
+                "name": "$extension_data->set",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/extension\/server\/api\/extension\/license\/edd\/sl.php": {
+        "valid": {
+            "103": false
+        },
+        "inactive": {
+            "166": false,
+            "169": {
+                "name": "WordPoints_Extension_Server_API_Extension_License_EDD_SL::extension_data->set",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "lifetime": {
+            "178": false
+        },
+        "expired": {
+            "185": false
+        },
+        "UTC": {
+            "202": {
+                "name": "timezone_open",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "homepage": {
+            "216": {
+                "name": "WordPoints_Extension_Server_API_Extension_License_EDD_SL::api->get_extension_info",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/extension\/upgrader.php": {
+        "update": {
+            "283": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

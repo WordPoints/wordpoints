@@ -93,7 +93,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_edd_sl_module_info',
 			),
 			'transients' => array(
-				'wordpoints_module_updates',
+				'wordpoints_extension_updates',
 			),
 		),
 		'universal' => array(
@@ -389,11 +389,11 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function update_network_to_2_4_0_alpha_2() {
 
-		$module = 'wordpointsorg/wordpointsorg.php';
+		$extension = 'wordpointsorg/wordpointsorg.php';
 
-		if ( true === wordpoints_validate_module( $module ) ) {
-			update_site_option( 'wordpoints_merged_modules', array( $module ) );
-			wordpoints_deactivate_modules( array( $module ), false, true );
+		if ( true === wordpoints_validate_module( $extension ) ) {
+			update_site_option( 'wordpoints_merged_extensions', array( $extension ) );
+			wordpoints_deactivate_modules( array( $extension ), false, true );
 		}
 	}
 
@@ -406,10 +406,10 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		$this->update_2_4_0_add_new_custom_caps();
 
-		$module = 'wordpointsorg/wordpointsorg.php';
+		$extension = 'wordpointsorg/wordpointsorg.php';
 
-		if ( is_wordpoints_module_active( $module ) ) {
-			wordpoints_deactivate_modules( array( $module ) );
+		if ( is_wordpoints_module_active( $extension ) ) {
+			wordpoints_deactivate_modules( array( $extension ) );
 		}
 	}
 
@@ -422,11 +422,11 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		$this->update_2_4_0_add_new_custom_caps();
 
-		$module = 'wordpointsorg/wordpointsorg.php';
+		$extension = 'wordpointsorg/wordpointsorg.php';
 
-		if ( true === wordpoints_validate_module( $module ) ) {
-			update_option( 'wordpoints_merged_modules', array( $module ) );
-			wordpoints_deactivate_modules( array( $module ) );
+		if ( true === wordpoints_validate_module( $extension ) ) {
+			update_option( 'wordpoints_merged_extensions', array( $extension ) );
+			wordpoints_deactivate_modules( array( $extension ) );
 		}
 	}
 
@@ -438,7 +438,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function update_2_4_0_add_new_custom_caps() {
 
 		wordpoints_add_custom_caps(
-			array( 'update_wordpoints_modules' => 'update_plugins' )
+			array( 'update_wordpoints_extensions' => 'update_plugins' )
 		);
 	}
 }

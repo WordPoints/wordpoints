@@ -33,41 +33,41 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_adds_new_custom_caps() {
 
-		wordpoints_remove_custom_caps( array( 'update_wordpoints_modules' ) );
+		wordpoints_remove_custom_caps( array( 'update_wordpoints_extensions' ) );
 
 		$administrator = get_role( 'administrator' );
-		$this->assertFalse( $administrator->has_cap( 'update_wordpoints_modules' ) );
+		$this->assertFalse( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 
 		// Simulate the update.
 		$this->update_wordpoints();
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
-		$this->assertTrue( $administrator->has_cap( 'update_wordpoints_modules' ) );
+		$this->assertTrue( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 	}
 
 	/**
-	 * Test that the WordPoints.org module is deactivated.
+	 * Test that the WordPoints.org extension is deactivated.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_deactivates_wordpoints_org_module() {
+	public function test_deactivates_wordpoints_org_extension() {
 
 		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
 
-		$module = 'wordpointsorg/wordpointsorg.php';
+		$extension = 'wordpointsorg/wordpointsorg.php';
 
-		wordpoints_activate_module( $module );
+		wordpoints_activate_module( $extension );
 
-		$this->assertTrue( is_wordpoints_module_active( $module ) );
+		$this->assertTrue( is_wordpoints_module_active( $extension ) );
 
 		// Simulate the update.
 		$this->update_wordpoints();
 
-		$this->assertFalse( is_wordpoints_module_active( $module ) );
+		$this->assertFalse( is_wordpoints_module_active( $extension ) );
 		$this->assertSame(
-			array( $module )
-			, get_site_option( 'wordpoints_merged_modules' )
+			array( $extension )
+			, get_site_option( 'wordpoints_merged_extensions' )
 		);
 	}
 }

@@ -144,10 +144,10 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			'upgrade'            => array(),
 		);
 
-		$updates = wordpoints_get_module_updates();
+		$updates = wordpoints_get_extension_updates();
 
 		$user_can_update = (
-			current_user_can( 'update_wordpoints_modules' )
+			current_user_can( 'update_wordpoints_extensions' )
 			&& (
 				! is_multisite()
 				|| (
@@ -530,7 +530,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		if (
 			( ! is_multisite() || is_network_admin() )
-			&& current_user_can( 'update_wordpoints_modules' )
+			&& current_user_can( 'update_wordpoints_extensions' )
 		) {
 			$actions['update-selected'] = esc_html__( 'Update', 'wordpoints' );
 		}
@@ -607,7 +607,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		$class = ( $is_active ) ? 'active' : 'inactive';
 
-		if ( wordpoints_get_module_updates()->has_update( $module_file ) ) {
+		if ( wordpoints_get_extension_updates()->has_update( $module_file ) ) {
 			$class .= ' update';
 		}
 

@@ -365,50 +365,50 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 }
 
 /**
- * Get the server for a module.
+ * Get the server for an extension.
  *
  * @since 2.4.0
  *
- * @param array $module The module to get the server for.
+ * @param array $extension The extension to get the server for.
  *
- * @return WordPoints_Module_ServerI|false The object for the server to use for this
- *                                         module, or false.
+ * @return WordPoints_Extension_ServerI|false The object for the server to use for
+ *                                            this extension, or false.
  */
-function wordpoints_get_server_for_module( $module ) {
+function wordpoints_get_server_for_extension( $extension ) {
 
 	$server = false;
 
-	if ( isset( $module['server'] ) ) {
-		$server = $module['server'];
+	if ( isset( $extension['server'] ) ) {
+		$server = $extension['server'];
 	}
 
 	/**
-	 * Filter the server to use for a module.
+	 * Filter the server to use for an extension.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string|false $server The slug of the server to use, or false for none.
-	 * @param array        $module The module's header data.
+	 * @param string|false $server    The slug of the server to use, or false for none.
+	 * @param array        $extension The extension's header data.
 	 */
-	$server = apply_filters( 'wordpoints_server_for_module', $server, $module );
+	$server = apply_filters( 'wordpoints_server_for_extension', $server, $extension );
 
 	if ( ! $server ) {
 		return false;
 	}
 
-	$server = new WordPoints_Module_Server( $server );
+	$server = new WordPoints_Extension_Server( $server );
 
 	/**
-	 * Filter the server object to use for a module.
+	 * Filter the server object to use for an extension.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param WordPoints_Module_ServerI $server The server object to use.
-	 * @param array                     $module The module's header data.
+	 * @param WordPoints_Extension_ServerI $server    The server object to use.
+	 * @param array                        $extension The extension's header data.
 	 */
-	$server = apply_filters( 'wordpoints_server_object_for_module', $server, $module );
+	$server = apply_filters( 'wordpoints_server_object_for_extension', $server, $extension );
 
-	if ( ! $server instanceof WordPoints_Module_ServerI ) {
+	if ( ! $server instanceof WordPoints_Extension_ServerI ) {
 		return false;
 	}
 
@@ -1192,52 +1192,52 @@ function wordpoints_register_module_deactivation_hook( $file, $function ) {
 }
 
 /**
- * Gets the available module updates.
+ * Gets the available extension updates.
  *
  * @since 2.4.0
  *
- * @return WordPoints_Module_UpdatesI The available module updates.
+ * @return WordPoints_Extension_UpdatesI The available extension updates.
  */
-function wordpoints_get_module_updates() {
+function wordpoints_get_extension_updates() {
 
-	$updates = new WordPoints_Module_Updates();
+	$updates = new WordPoints_Extension_Updates();
 	$updates->fill();
 
 	return $updates;
 }
 
 /**
- * Checks for module updates.
+ * Checks for extension updates.
  *
  * @since 2.4.0
  *
- * @WordPress\action wordpoints_check_for_module_updates Cron event registered by
- *                   wordpoints_schedule_module_update_checks().
+ * @WordPress\action wordpoints_check_for_extension_updates Cron event registered by
+ *                   wordpoints_schedule_extension_update_checks().
  *
  * @param int $cache_timeout Maximum acceptable age for the cache. If the cache is
  *                           older than this, it will be updated. The default is 12
  *                           hours.
  *
- * @return WordPoints_Module_UpdatesI|false The updates, or false if the check was
- *                                          not run (due to the cache being fresh
- *                                          enough, or some other reason).
+ * @return WordPoints_Extension_UpdatesI|false The updates, or false if the check was
+ *                                             not run (due to the cache being fresh
+ *                                             enough, or some other reason).
  */
-function wordpoints_check_for_module_updates( $cache_timeout = null ) {
+function wordpoints_check_for_extension_updates( $cache_timeout = null ) {
 
-	$check = new WordPoints_Module_Updates_Check( $cache_timeout );
+	$check = new WordPoints_Extension_Updates_Check( $cache_timeout );
 	return $check->run();
 }
 
 /**
- * Schedules the module updates check.
+ * Schedules the extension updates check.
  *
  * @since 2.4.0
  *
  * @WordPress\action init
  */
-function wordpoints_schedule_module_updates_check() {
+function wordpoints_schedule_extension_updates_check() {
 
-	$event = 'wordpoints_check_for_module_updates';
+	$event = 'wordpoints_check_for_extension_updates';
 
 	if ( ! wp_next_scheduled( $event ) ) {
 		wp_schedule_event( time(), 'twicedaily', $event );
@@ -1245,23 +1245,23 @@ function wordpoints_schedule_module_updates_check() {
 }
 
 /**
- * Reschedules the module updates check from the current time.
+ * Reschedules the extension updates check from the current time.
  *
  * @since 2.4.0
  *
- * @WordPress\action wordpoints_module_update_check_completed
+ * @WordPress\action wordpoints_extension_update_check_completed
  */
-function wordpoints_reschedule_module_updates_check() {
+function wordpoints_reschedule_extension_updates_check() {
 
 	wp_reschedule_event(
 		time()
 		, 'twicedaily'
-		, 'wordpoints_check_for_module_updates'
+		, 'wordpoints_check_for_extension_updates'
 	);
 }
 
 /**
- * Checks for module updates after an upgrade.
+ * Checks for extension updates after an upgrade.
  *
  * @since 2.4.0
  *
@@ -1270,44 +1270,44 @@ function wordpoints_reschedule_module_updates_check() {
  * @param object $upgrader The upgrader.
  * @param array  $data     Info about the upgrade.
  */
-function wordpoints_recheck_for_module_updates_after_upgrade( $upgrader, $data ) {
+function wordpoints_recheck_for_extension_updates_after_upgrade( $upgrader, $data ) {
 
 	if ( isset( $data['type'] ) && 'translation' === $data['type'] ) {
 		return;
 	}
 
-	wordpoints_check_for_module_updates_now();
+	wordpoints_check_for_extension_updates_now();
 }
 
 /**
- * Checks for module updates with a cache timeout of one hour.
+ * Checks for extension updates with a cache timeout of one hour.
  *
  * @since 2.4.0
  */
-function wordpoints_check_for_module_updates_hourly() {
-	wordpoints_check_for_module_updates( HOUR_IN_SECONDS );
+function wordpoints_check_for_extension_updates_hourly() {
+	wordpoints_check_for_extension_updates( HOUR_IN_SECONDS );
 }
 
 /**
- * Checks for module updates with a cache timeout of zero.
+ * Checks for extension updates with a cache timeout of zero.
  *
  * @since 2.4.0
  */
-function wordpoints_check_for_module_updates_now() {
-	wordpoints_check_for_module_updates( 0 );
+function wordpoints_check_for_extension_updates_now() {
+	wordpoints_check_for_extension_updates( 0 );
 }
 
 /**
- * Clean the modules cache.
+ * Clean the extensions cache.
  *
  * @since 2.4.0
  *
  * @param bool $clear_update_cache Whether to clear the updates cache.
  */
-function wordpoints_clean_modules_cache( $clear_update_cache = true ) {
+function wordpoints_clean_extensions_cache( $clear_update_cache = true ) {
 
 	if ( $clear_update_cache ) {
-		$updates = new WordPoints_Module_Updates();
+		$updates = new WordPoints_Extension_Updates();
 		$updates->set_time_checked( 0 );
 		$updates->save();
 	}
@@ -1316,7 +1316,7 @@ function wordpoints_clean_modules_cache( $clear_update_cache = true ) {
 }
 
 /**
- * Add the module update counts to the other update counts.
+ * Add the extension update counts to the other update counts.
  *
  * @since 2.4.0
  *
@@ -1326,25 +1326,25 @@ function wordpoints_clean_modules_cache( $clear_update_cache = true ) {
  *
  * @return array The updated update counts.
  */
-function wordpoints_module_update_counts( $update_data ) {
+function wordpoints_extension_update_counts( $update_data ) {
 
-	$update_data['counts']['wordpoints_modules'] = 0;
+	$update_data['counts']['wordpoints_extensions'] = 0;
 
-	if ( current_user_can( 'update_wordpoints_modules' ) ) {
-		$module_updates = wordpoints_get_module_updates()->get_new_versions();
+	if ( current_user_can( 'update_wordpoints_extensions' ) ) {
+		$extension_updates = wordpoints_get_extension_updates()->get_new_versions();
 
-		if ( ! empty( $module_updates ) ) {
-			$update_data['counts']['wordpoints_modules'] = count( $module_updates );
+		if ( ! empty( $extension_updates ) ) {
+			$update_data['counts']['wordpoints_extensions'] = count( $extension_updates );
 
 			$title = sprintf(
 				// translators: Number of updates.
 				_n(
 					'%d WordPoints Extension Update'
 					, '%d WordPoints Extension Updates'
-					, $update_data['counts']['wordpoints_modules']
+					, $update_data['counts']['wordpoints_extensions']
 					, 'wordpoints'
 				)
-				, $update_data['counts']['wordpoints_modules']
+				, $update_data['counts']['wordpoints_extensions']
 			);
 
 			if ( ! empty( $update_data['title'] ) ) {
@@ -1355,7 +1355,7 @@ function wordpoints_module_update_counts( $update_data ) {
 		}
 	}
 
-	$update_data['counts']['total'] += $update_data['counts']['wordpoints_modules'];
+	$update_data['counts']['total'] += $update_data['counts']['wordpoints_extensions'];
 
 	return $update_data;
 }

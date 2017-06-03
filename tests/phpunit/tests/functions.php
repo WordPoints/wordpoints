@@ -30,17 +30,17 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.4.0
 	 *
 	 * @covers ::wordpoints_deactivate
-	 * @covers ::wordpoints_schedule_module_update_checks
+	 * @covers ::wordpoints_schedule_extension_update_checks
 	 */
 	public function test_wordpoints_deactivate() {
 
-		wordpoints_schedule_module_updates_check();
+		wordpoints_schedule_extension_updates_check();
 
-		$this->assertNotFalse( wp_next_scheduled( 'wordpoints_check_for_module_updates' ) );
+		$this->assertNotFalse( wp_next_scheduled( 'wordpoints_check_for_extension_updates' ) );
 
 		wordpoints_deactivate();
 
-		$this->assertFalse( wp_next_scheduled( 'wordpoints_check_for_module_updates' ) );
+		$this->assertFalse( wp_next_scheduled( 'wordpoints_check_for_extension_updates' ) );
 	}
 
 	/**

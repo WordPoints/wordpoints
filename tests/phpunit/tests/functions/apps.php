@@ -34,7 +34,7 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertTrue( $sub_apps->is_registered( 'data_types' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'components' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'modules' ) );
-		$this->assertTrue( $sub_apps->is_registered( 'module_server_apis' ) );
+		$this->assertTrue( $sub_apps->is_registered( 'extension_server_apis' ) );
 	}
 
 	/**
@@ -143,19 +143,19 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
-	 * Test initializing the Module Server APIs app.
+	 * Test initializing the Extension Server APIs app.
 	 *
 	 * @since 2.4.0
 	 *
-	 * @covers ::wordpoints_module_server_apis_init
+	 * @covers ::wordpoints_extension_server_apis_init
 	 */
-	public function test_module_server_apis_init() {
+	public function test_extension_server_apis_init() {
 
 		$this->mock_apps();
 
 		$server_apis = new WordPoints_Class_Registry();
 
-		wordpoints_module_server_apis_init( $server_apis );
+		wordpoints_extension_server_apis_init( $server_apis );
 
 		$this->assertTrue( $server_apis->is_registered( 'edd_software_licensing' ) );
 		$this->assertTrue( $server_apis->is_registered( 'edd_software_licensing_free' ) );

@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Test case for WordPoints_Module_Upgrader.
+ * Test case for WordPoints_Extension_Upgrader.
  *
  * @package WordPoints\Tests
  * @since 2.4.0
  */
 
 /**
- * Tests the WordPoints_Module_Upgrader class.
+ * Tests the WordPoints_Extension_Upgrader class.
  *
  * @since 2.4.0
  *
- * @covers WordPoints_Module_Upgrader
+ * @covers WordPoints_Extension_Upgrader
  */
-class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
+class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 	/**
 	 * Whether a bulk update is being performed.
@@ -35,13 +35,13 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 		parent::setUp();
 
 		add_filter(
-			'wordpoints_server_object_for_module'
-			, array( $this, 'filter_server_for_module' )
+			'wordpoints_server_object_for_extension'
+			, array( $this, 'filter_server_for_extension' )
 			, 10
 			, 2
 		);
 
-		$updates = new WordPoints_Module_Updates();
+		$updates = new WordPoints_Extension_Updates();
 		$updates->set_new_versions( array( 'module-7/module-7.php' => '1.0.1' ) );
 		$updates->save();
 
@@ -59,11 +59,11 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		if ( substr( $this->package_name, -7, 7 ) === '-update' && $wp_filesystem ) {
 
-			$module_name = substr( $this->package_name, 0, -7 );
+			$extension_name = substr( $this->package_name, 0, -7 );
 
 			$wp_filesystem->copy(
-				WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $module_name . '/' . $module_name . '.php'
-				, wordpoints_modules_dir() . $module_name . '/' . $module_name . '.php'
+				WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $extension_name . '/' . $extension_name . '.php'
+				, wordpoints_modules_dir() . $extension_name . '/' . $extension_name . '.php'
 				, true
 			);
 		}
@@ -72,22 +72,24 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Filters the server used for the module in the tests.
+	 * Filters the server used for the extension in the tests.
 	 *
 	 * @since 2.4.0
 	 *
-	 * @return WordPoints_Module_ServerI
+	 * @return WordPoints_Extension_ServerI
 	 */
-	public function filter_server_for_module( $server, $module ) {
+	public function filter_server_for_extension( $server, $extension ) {
 
-		if ( '7' !== $module['ID'] ) {
+		if ( '7' !== $extension['ID'] ) {
 			return $server;
 		}
 
-		$api = $this->getMock( 'WordPoints_Module_Server_API_Updates_InstallableI' );
+		$api = $this->getMock(
+			'WordPoints_Extension_Server_API_Updates_InstallableI'
+		);
 
 		$server = $this->getMock(
-			'WordPoints_Module_ServerI'
+			'WordPoints_Extension_ServerI'
 			, array()
 			, array( 'test' )
 		);
@@ -104,7 +106,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	 */
 	public function test_upgrade() {
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 		);
@@ -117,13 +119,13 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a package that doesn't contain a module.
+	 * Test with a package that doesn't contain an extension.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_package_with_no_module() {
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'no-module'
 		);
@@ -141,7 +143,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	 */
 	public function test_clear_update_cache() {
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 			, array()
@@ -150,24 +152,24 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		$this->assertTrue( $result );
 
-		// Check that the module updates cache is not cleared.
+		// Check that the extension updates cache is not cleared.
 		$this->assertSame(
 			array( 'module-7/module-7.php' => '1.0.1' )
-			, wordpoints_get_module_updates()->get_new_versions()
+			, wordpoints_get_extension_updates()->get_new_versions()
 		);
 
-		// The modules cache is still cleared though.
+		// The extensions cache is still cleared though.
 		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
 	}
 
 	/**
-	 * Test with a module that isn't installed.
+	 * Test with an extension that isn't installed.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_not_installed() {
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-6/module-6.php'
 			, 'module-6'
 			, array( 'ID' => 6 )
@@ -179,13 +181,13 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a module that is already up to date.
+	 * Test with an extension that is already up to date.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_up_to_date() {
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-8/module-8.php'
 			, 'module-8-not-really'
 			, array( 'ID' => 8 )
@@ -198,15 +200,15 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a module that doesn't have a server specified.
+	 * Test with an extension that doesn't have a server specified.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_no_server() {
 
-		add_filter( 'wordpoints_server_for_module', '__return_false' );
+		add_filter( 'wordpoints_server_for_extension', '__return_false' );
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 		);
@@ -218,14 +220,14 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a module whose server doesn't have a supported API.
+	 * Test with an extension whose server doesn't have a supported API.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_api_not_found() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_ServerI'
+			'WordPoints_Extension_ServerI'
 			, array()
 			, array( 'test' )
 		);
@@ -233,9 +235,9 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 		$server->method( 'get_api' )->willReturn( false );
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );
-		$mock->add_filter( 'wordpoints_server_object_for_module' );
+		$mock->add_filter( 'wordpoints_server_object_for_extension' );
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 		);
@@ -247,14 +249,14 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a module whose server uses an API that doesn't support updates.
+	 * Test with an extension whose server uses an API that doesn't support updates.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_api_updates_not_supported() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_ServerI'
+			'WordPoints_Extension_ServerI'
 			, array()
 			, array( 'test' )
 		);
@@ -262,9 +264,9 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 		$server->method( 'get_api' )->willReturn( new stdClass() );
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );
-		$mock->add_filter( 'wordpoints_server_object_for_module' );
+		$mock->add_filter( 'wordpoints_server_object_for_extension' );
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 		);
@@ -284,7 +286,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		$this->bulk = true;
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 		);
@@ -301,15 +303,15 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a package that doesn't contain a module.
+	 * Test with a package that doesn't contain an extension.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_bulk_package_with_no_module() {
+	public function test_bulk_package_with_no_extension() {
 
 		$this->bulk = true;
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'no-module'
 		);
@@ -331,7 +333,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		$this->bulk = true;
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-7/module-7.php'
 			, 'module-7-update'
 			, array()
@@ -342,18 +344,18 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 		$this->assertArrayHasKey( 'module-7/module-7.php', $result );
 		$this->assertInternalType( 'array', $result['module-7/module-7.php'] );
 
-		// Check that the module updates cache is not cleared.
+		// Check that the extension updates cache is not cleared.
 		$this->assertSame(
 			array( 'module-7/module-7.php' => '1.0.1' )
-			, wordpoints_get_module_updates()->get_new_versions()
+			, wordpoints_get_extension_updates()->get_new_versions()
 		);
 
-		// The modules cache is still cleared though.
+		// The extensions cache is still cleared though.
 		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
 	}
 
 	/**
-	 * Test with a module that isn't installed.
+	 * Test with an extension that isn't installed.
 	 *
 	 * @since 2.4.0
 	 */
@@ -361,7 +363,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		$this->bulk = true;
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-6/module-6.php'
 			, 'module-6'
 			, array( 'ID' => 6 )
@@ -373,7 +375,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	}
 
 	/**
-	 * Test with a module that is already up to date.
+	 * Test with an extension that is already up to date.
 	 *
 	 * @since 2.4.0
 	 */
@@ -381,7 +383,7 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		$this->bulk = true;
 
-		$result = $this->upgrade_test_module(
+		$result = $this->upgrade_test_extension(
 			'module-8/module-8.php'
 			, 'module-8-not-really'
 			, array( 'ID' => 8 )
@@ -401,18 +403,18 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 	//
 
 	/**
-	 * Upgrade a test module.
+	 * Upgrade a test extension.
 	 *
 	 * @since 2.4.0
 	 *
-	 * @param string $module       The basename module path.
+	 * @param string $extension    The basename extension path.
 	 * @param string $package_name The filename of the package to use.
 	 * @param array  $api          Optionally override the default API array used.
 	 * @param array  $args         Optional arguments passed to upgrade().
 	 *
 	 * @return mixed The result from the upgrader.
 	 */
-	public function upgrade_test_module( $module, $package_name, $api = array(), $args = array() ) {
+	public function upgrade_test_extension( $extension, $package_name, $api = array(), $args = array() ) {
 
 		$this->package_name = $package_name;
 
@@ -426,21 +428,21 @@ class WordPoints_Module_Upgrader_Test extends WordPoints_Module_Installer_Test {
 
 		$this->skin = new WordPoints_PHPUnit_Mock_Module_Installer_Skin(
 			array(
-				'title'  => 'Updating module',
+				'title'  => 'Updating extension',
 				'url'    => '',
 				'nonce'  => 'install-module_' . $api['ID'],
-				'module' => $module,
+				'module' => $extension,
 				'type'   => 'web',
 				'api'    => $api,
 			)
 		);
 
-		$upgrader = new WordPoints_Module_Upgrader( $this->skin );
+		$upgrader = new WordPoints_Extension_Upgrader( $this->skin );
 
 		if ( $this->bulk ) {
-			return $upgrader->bulk_upgrade( array( $module ), $args );
+			return $upgrader->bulk_upgrade( array( $extension ), $args );
 		} else {
-			return $upgrader->upgrade( $module, $args );
+			return $upgrader->upgrade( $extension, $args );
 		}
 	}
 }

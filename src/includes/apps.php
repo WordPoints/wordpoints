@@ -45,7 +45,7 @@ function wordpoints_apps_init( $app ) {
 	$apps->register( 'data_types', 'WordPoints_Class_Registry' );
 	$apps->register( 'components', 'WordPoints_App' );
 	$apps->register( 'modules', 'WordPoints_App' );
-	$apps->register( 'module_server_apis', 'WordPoints_Class_Registry' );
+	$apps->register( 'extension_server_apis', 'WordPoints_Class_Registry' );
 }
 
 /**
@@ -144,22 +144,22 @@ function wordpoints_module( $slug ) {
 }
 
 //
-// Module Server APIs API
+// Extension Server APIs API
 //
 
 /**
- * Register module server APIs when the Module Server APIs app is initialized.
+ * Register extension server APIs when the Extension Server APIs app is initialized.
  *
  * @since 2.4.0
  *
- * @WordPress\action wordpoints_init_app_registry-apps-module_server_apis
+ * @WordPress\action wordpoints_init_app_registry-apps-extension_server_apis
  *
- * @param WordPoints_Class_RegistryI $server_apis The module server APIs app.
+ * @param WordPoints_Class_RegistryI $server_apis The extension server APIs app.
  */
-function wordpoints_module_server_apis_init( $server_apis ) {
+function wordpoints_extension_server_apis_init( $server_apis ) {
 
-	$server_apis->register( 'edd_software_licensing', 'WordPoints_Module_Server_API_EDD_SL' );
-	$server_apis->register( 'edd_software_licensing_free', 'WordPoints_Module_Server_API_EDD_SL_Free' );
+	$server_apis->register( 'edd_software_licensing', 'WordPoints_Extension_Server_API_EDD_SL' );
+	$server_apis->register( 'edd_software_licensing_free', 'WordPoints_Extension_Server_API_EDD_SL_Free' );
 }
 
 //

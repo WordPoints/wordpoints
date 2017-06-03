@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Testcase for WordPoints_Module_Server_API_EDD_SL.
+ * Testcase for WordPoints_Extension_Server_API_EDD_SL.
  *
  * @package WordPoints\PHPUnit\Tests
  * @since 2.4.0
  */
 
 /**
- * Tests WordPoints_Module_Server_API_EDD_SL.
+ * Tests WordPoints_Extension_Server_API_EDD_SL.
  *
  * @since 2.4.0
  *
- * @group modules
+ * @group extensions
  *
- * @covers WordPoints_Module_Server_API_EDD_SL
+ * @covers WordPoints_Extension_Server_API_EDD_SL
  */
-class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
+class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 	/**
-	 * Module server API class being tested.
+	 * Extension server API class being tested.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @var string
 	 */
-	protected $server_api_class = 'WordPoints_Module_Server_API_EDD_SL';
+	protected $server_api_class = 'WordPoints_Extension_Server_API_EDD_SL';
 
 	/**
 	 * The tests simulator to use to simulate the remote server response.
@@ -34,7 +34,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 *
 	 * @var string
 	 */
-	protected $tests_simulator = 'Module_Server_API_EDD_SL';
+	protected $tests_simulator = 'Extension_Server_API_EDD_SL';
 
 	/**
 	 * @since 2.4.0
@@ -43,18 +43,18 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'http_request_args', array( $this, 'add_module_api_header' ) );
+		add_filter( 'http_request_args', array( $this, 'add_extension_api_header' ) );
 		add_filter( 'http_request_host_is_external', '__return_true' );
 	}
 
 	/**
-	 * Add a request header for the module API.
+	 * Add a request header for the extension API.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @WordPress\filter http_request_args Added by self::setUp().
 	 */
-	public function add_module_api_header( $request ) {
+	public function add_extension_api_header( $request ) {
 
 		$request['headers']['x-wordpoints-tests-simulator'] = $this->tests_simulator;
 
@@ -66,14 +66,14 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	 *
 	 * @since 2.4.0
 	 *
-	 * @param WordPoints_Module_Server $server The server object.
+	 * @param WordPoints_Extension_Server $server The server object.
 	 *
-	 * @return WordPoints_Module_Server_API_EDD_SL The server API object.
+	 * @return WordPoints_Extension_Server_API_EDD_SL The server API object.
 	 */
-	protected function get_server_api( WordPoints_Module_Server $server = null ) {
+	protected function get_server_api( WordPoints_Extension_Server $server = null ) {
 
 		if ( ! isset( $server ) ) {
-			$server = new WordPoints_Module_Server( 'example.com' );
+			$server = new WordPoints_Extension_Server( 'example.com' );
 		}
 
 		return new $this->server_api_class( 'test', $server );
@@ -92,111 +92,111 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	}
 
 	/**
-	 * Tests that modules require a license.
+	 * Tests that extensions require a license.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_module_requires_license() {
+	public function test_extension_requires_license() {
 
 		$api = $this->get_server_api();
 
-		$mock = $this->getMock( 'WordPoints_Module_Server_API_Module_DataI' );
+		$mock = $this->getMock( 'WordPoints_Extension_Server_API_Extension_DataI' );
 
-		$this->assertTrue( $api->module_requires_license( $mock ) );
+		$this->assertTrue( $api->extension_requires_license( $mock ) );
 	}
 
 	/**
-	 * Tests getting a license object for a module.
+	 * Tests getting a license object for an extension.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_module_license_object() {
+	public function test_get_extension_license_object() {
 
 		$api = $this->get_server_api();
 
-		$mock = $this->getMock( 'WordPoints_Module_Server_API_Module_DataI' );
+		$mock = $this->getMock( 'WordPoints_Extension_Server_API_Extension_DataI' );
 
 		$this->assertInstanceOf(
-			'WordPoints_Module_Server_API_Module_LicenseI'
-			, $api->get_module_license_object( $mock, 'test_license_key' )
+			'WordPoints_Extension_Server_API_Extension_LicenseI'
+			, $api->get_extension_license_object( $mock, 'test_license_key' )
 		);
 	}
 
 	/**
-	 * Tests getting the latest version of a module.
+	 * Tests getting the latest version of an extension.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_module_latest_version() {
+	public function test_get_extension_latest_version() {
 
 		$api = $this->get_server_api();
 
 		$version = '2.3.1';
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'latest_version', $version );
 
-		$this->assertSame( $version, $api->get_module_latest_version( $data ) );
+		$this->assertSame( $version, $api->get_extension_latest_version( $data ) );
 	}
 
 	/**
-	 * Tests getting the latest version of a module.
+	 * Tests getting the latest version of an extension.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_module_package_url() {
+	public function test_get_extension_package_url() {
 
 		$api = $this->get_server_api();
 
-		$url = 'https://example.com/module/?download=1';
+		$url = 'https://example.com/extension/?download=1';
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'package', $url );
 
-		$this->assertSame( $url, $api->get_module_package_url( $data ) );
+		$this->assertSame( $url, $api->get_extension_package_url( $data ) );
 	}
 
 	/**
-	 * Tests getting the changelog for a module.
+	 * Tests getting the changelog for an extension.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_module_changelog() {
+	public function test_get_extension_changelog() {
 
 		$api = $this->get_server_api();
 
 		$changelog = 'A list of changes...';
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'changelog', $changelog );
 
-		$this->assertSame( $changelog, $api->get_module_changelog( $data ) );
+		$this->assertSame( $changelog, $api->get_extension_changelog( $data ) );
 	}
 
 	/**
-	 * Tests getting a piece of info about a module will return the cached value.
+	 * Tests getting a piece of info about an extension will return the cached value.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_module_info_returns_cached_if_available() {
+	public function test_get_extension_info_returns_cached_if_available() {
 
 		$api = $this->get_server_api();
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
 		$data->set( 'test', 'test_value' );
 
-		$this->assertSame( 'test_value', $api->get_module_info( $data, 'test' ) );
+		$this->assertSame( 'test_value', $api->get_extension_info( $data, 'test' ) );
 	}
 
 	/**
-	 * Tests getting a piece of info about a module will request the value.
+	 * Tests getting a piece of info about an extension will request the value.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_module_info_requests_from_remote_if_needed() {
+	public function test_get_extension_info_requests_from_remote_if_needed() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);
@@ -205,42 +205,42 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$api = $this->get_server_api( $server );
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_key', 'test_key' );
 
-		$this->assertSame( null, $api->get_module_info( $data, 'test' ) );
-		$this->assertSame( '1.2.3', $api->get_module_info( $data, 'latest_version' ) );
+		$this->assertSame( null, $api->get_extension_info( $data, 'test' ) );
+		$this->assertSame( '1.2.3', $api->get_extension_info( $data, 'latest_version' ) );
 		$this->assertStringMatchesFormat(
 			'%aA test changelog.%a'
-			, $api->get_module_info( $data, 'changelog' )
+			, $api->get_extension_info( $data, 'changelog' )
 		);
 
 		$this->assertStringMatchesFormat(
 			'%s://example.org/edd-sl/package_download/%s'
-			, $api->get_module_info( $data, 'package' )
+			, $api->get_extension_info( $data, 'package' )
 		);
 
 		$this->assertStringMatchesFormat(
 			'%s://example.org/?download=test-download'
-			, $api->get_module_info( $data, 'homepage' )
+			, $api->get_extension_info( $data, 'homepage' )
 		);
 	}
 
 	/**
-	 * Tests getting a piece of info about a module when the request gives an error.
+	 * Tests getting a piece of info about an extension when the request gives an error.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_request_module_info_when_there_is_an_error() {
+	public function test_request_extension_info_when_there_is_an_error() {
 
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
 		$api = $this->get_server_api();
 
-		$data = new WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data( 123 );
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 
-		$this->assertSame( null, $api->get_module_info( $data, 'latest_version' ) );
+		$this->assertSame( null, $api->get_extension_info( $data, 'latest_version' ) );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class WordPoints_Module_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	public function test_request_unserializes_sections() {
 
 		$server = $this->getMock(
-			'WordPoints_Module_Server'
+			'WordPoints_Extension_Server'
 			, array( 'is_ssl_accessible' )
 			, array( 'example.com' )
 		);

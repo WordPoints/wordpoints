@@ -113,10 +113,20 @@ module.exports = function( grunt ) {
 			);
 
 			class_files.splice(
-				class_files.indexOf( 'module/server/api/module/license/renewablei.php' ) + 1
+				class_files.indexOf( 'extension/server/api/extension/license/renewablei.php' ) + 1
 				, 0
 				, class_files.splice(
-					class_files.indexOf( 'module/server/api/module/license/renewable/urli.php' )
+					class_files.indexOf( 'extension/server/api/extension/license/renewable/urli.php' )
+					, 1
+				)[0]
+			);
+
+			// Move the module installer before the upgrader (which extends it).
+			class_files.splice(
+				class_files.indexOf( 'extension/upgrader.php' )
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'module/installer.php' )
 					, 1
 				)[0]
 			);

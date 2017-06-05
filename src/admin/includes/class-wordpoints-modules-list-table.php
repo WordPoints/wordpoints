@@ -810,8 +810,8 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 					$module_meta[] = sprintf( __( 'By %s', 'wordpoints' ), $author );
 				}
 
-				if ( ! empty( $module_data['module_uri'] ) ) {
-					$module_meta[] = '<a href="' . esc_url( $module_data['module_uri'] ) . '">' . esc_html__( 'Visit extension site', 'wordpoints' ) . '</a>';
+				if ( ! empty( $module_data['uri'] ) ) {
+					$module_meta[] = '<a href="' . esc_url( $module_data['uri'] ) . '">' . esc_html__( 'Visit extension site', 'wordpoints' ) . '</a>';
 				}
 
 				/**

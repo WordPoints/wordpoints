@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Module Name: Sub module
- * Author:      J.D. Grimes
- * Author URI:  https://codesymphony.co/
- * Module URI:  https://codesymphony.co/
- * Version:     1.0.0
- * License:     GPLv2+
- * Description: Description.
+ * Extension Name: Sub module
+ * Author:         J.D. Grimes
+ * Author URI:     https://codesymphony.co/
+ * Extension URI:  https://codesymphony.co/
+ * Version:        1.0.0
+ * License:        GPLv2+
+ * Description:    Description.
  *
  * ---------------------------------------------------------------------------------|
  * Copyright 2014  J.D. Grimes  (email : jdg@codesymphony.co)

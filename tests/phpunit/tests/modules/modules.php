@@ -29,6 +29,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		'version'     => '1.0.0-beta',
 		'author'      => 'WordPoints Tester',
 		'author_uri'  => 'https://www.example.com/',
+		'uri'         => 'https://www.example.com/test-3/',
 		'module_uri'  => 'https://www.example.com/test-3/',
 		'description' => 'A test module.',
 		'text_domain' => 'test-3',
@@ -89,6 +90,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'name'        => 'Test 4',
+				'uri'         => 'https://www.example.com/test-4/',
 				'module_uri'  => 'https://www.example.com/test-4/',
 				'version'     => '1.0.0',
 				'description' => 'Another test module.',
@@ -110,12 +112,13 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 		// Test getting a module that uses the 2.0 API.
 		$this->assertArrayHasKey( 'test-6/main-file.php', $modules );
-		$this->assertSame(
+		$this->assertSameSetsWithIndex(
 			array(
 				'name'        => 'Test 6',
 				'version'     => '1.0.0',
 				'author'      => 'WordPoints Tester',
 				'author_uri'  => 'https://www.example.com/',
+				'uri'         => 'https://www.example.com/test-6/',
 				'module_uri'  => 'https://www.example.com/test-6/',
 				'description' => 'Another test module.',
 				'text_domain' => 'test-6',
@@ -145,6 +148,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 			array(
 				'test-4.php' => array(
 					'name'        => 'Test 4',
+					'uri'         => 'https://www.example.com/test-4/',
 					'module_uri'  => 'https://www.example.com/test-4/',
 					'version'     => '1.0.0',
 					'description' => 'Another test module.',

@@ -36,20 +36,22 @@ final class WordPoints_Modules {
 	 * @var string[]
 	 */
 	private static $default_headers = array(
-		'Module Name' => 'name',
-		'Module URI'  => 'module_uri',
-		'Version'     => 'version',
-		'Description' => 'description',
-		'Author'      => 'author',
-		'Author URI'  => 'author_uri',
-		'Text Domain' => 'text_domain',
-		'Domain Path' => 'domain_path',
-		'Network'     => 'network',
-		'Update API'  => 'update_api',
-		'Channel'     => 'channel',
-		'Server'      => 'server',
-		'ID'          => 'ID',
-		'Namespace'   => 'namespace',
+		'Extension Name' => 'name',
+		'Extension URI'  => 'uri',
+		'Module Name'    => 'module_name',
+		'Module URI'     => 'module_uri',
+		'Version'        => 'version',
+		'Description'    => 'description',
+		'Author'         => 'author',
+		'Author URI'     => 'author_uri',
+		'Text Domain'    => 'text_domain',
+		'Domain Path'    => 'domain_path',
+		'Network'        => 'network',
+		'Update API'     => 'update_api',
+		'Channel'        => 'channel',
+		'Server'         => 'server',
+		'ID'             => 'ID',
+		'Namespace'      => 'namespace',
 	);
 
 	/**

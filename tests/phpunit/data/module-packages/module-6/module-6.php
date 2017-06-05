@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Module Name: Test 6
- * Author:      J.D. Grimes
- * Author URI:  https://codesymphony.co/
- * Plugin URI:  https://codesymphony.co/
- * Version:     1.0.0
- * License:     GPLv2+
- * Description: Description.
- * ID:          6
+ * Extension Name: Test 6
+ * Author:         J.D. Grimes
+ * Author URI:     https://codesymphony.co/
+ * Plugin URI:     https://codesymphony.co/
+ * Version:        1.0.0
+ * License:        GPLv2+
+ * Description:    Description.
+ * ID:             6
  *
  * ---------------------------------------------------------------------------------|
  * Copyright 2014  J.D. Grimes  (email : jdg@codesymphony.co)

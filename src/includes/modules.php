@@ -206,14 +206,15 @@ function wordpoints_module_basename( $file ) {
  * Parse the module contents to retrieve module's metadata.
  *
  * Module metadata headers are essentially the same as WordPress plugin headers. The
- * main difference is that the module name is "Module Name:" instead of "Plugin
+ * main difference is that the module name is "Extension Name:" instead of "Plugin
  * Name:".
  *
  * @since 1.1.0
  * @since 1.6.0 The 'update_api' and 'ID' headers are now supported.
  * @since 1.10.0 The 'update_api' header is deprecated in favor of 'channel'.
  * @since 2.2.0 The 'namespace' header is now supported.
- * @since 2.4.0 The 'channel' header is deprecated in favor of 'server'.
+ * @since 2.4.0 - The 'channel' header is deprecated in favor of 'server'.
+ *              - The 'module_uri' header is deprecated in favor of 'uri'.
  *
  * @param string $module_file The file to parse for the headers.
  * @param bool   $markup      Whether to mark up the module data for display (default).
@@ -222,9 +223,9 @@ function wordpoints_module_basename( $file ) {
  * @return array {
  *         The module header data.
  *
- *         @type string $name        The Module Name.
+ *         @type string $name        The Extension Name.
  *         @type string $title       The module's title. May be a link if $markup is true.
- *         @type string $module_uri  The URI of the module's home page.
+ *         @type string $uri         The URI of the extension's home page.
  *         @type string $version     The module's version number.
  *         @type string $description A description of the module.
  *         @type string $author      The module's author. May be a link if $markup is true.
@@ -241,7 +242,9 @@ function wordpoints_module_basename( $file ) {
 function wordpoints_get_module_data( $module_file, $markup = true, $translate = true ) {
 
 	$default_headers = array(
-		'name'        => 'Module Name',
+		'name'        => 'Extension Name',
+		'uri'         => 'Extension URI',
+		'module_name' => 'Module Name',
 		'module_uri'  => 'Module URI',
 		'version'     => 'Version',
 		'description' => 'Description',
@@ -270,8 +273,22 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 	}
 
 	if ( ! empty( $module_data['channel'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.4.0', 'The "Channel" module header has been deprecated in favor of "Server".' );
+		_deprecated_argument( __FUNCTION__, '2.4.0', 'The "Channel" extension header has been deprecated in favor of "Server".' );
 		$module_data['server'] = $module_data['channel'];
+	}
+
+	if ( ! empty( $module_data['module_name'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.4.0', 'The "Module Name" extension header has been deprecated in favor of "Extension Name".' );
+		$module_data['name'] = $module_data['module_name'];
+	}
+
+	unset( $module_data['module_name'] );
+
+	if ( ! empty( $module_data['module_uri'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.4.0', 'The "Module URI" extension header has been deprecated in favor of "Extension URI".' );
+		$module_data['uri'] = $module_data['module_uri'];
+	} else {
+		$module_data['module_uri'] = $module_data['uri'];
 	}
 
 	$module_data['network'] = ( 'true' === strtolower( $module_data['network'] ) );
@@ -299,7 +316,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 					wordpoints_load_module_textdomain( $textdomain, $domain_path );
 				}
 
-				foreach ( array( 'name', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {
+				foreach ( array( 'name', 'uri', 'module_uri', 'description', 'author', 'author_uri', 'version' ) as $field ) {
 
 					$module_data[ $field ] = translate( $module_data[ $field ], $textdomain ); // @codingStandardsIgnoreLine
 				}
@@ -325,6 +342,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		$module_data['description'] = wp_kses( $module_data['description'], $allowed_tags );
 		$module_data['version']     = wp_kses( $module_data['version'],     $allowed_tags );
 
+		$module_data['uri']        = esc_url( $module_data['uri'] );
 		$module_data['module_uri'] = esc_url( $module_data['module_uri'] );
 		$module_data['author_uri'] = esc_url( $module_data['author_uri'] );
 
@@ -334,8 +352,8 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		// Apply markup.
 		if ( $markup ) {
 
-			if ( $module_data['module_uri'] && $module_data['name'] ) {
-				$module_data['title'] = '<a href="' . $module_data['module_uri']
+			if ( $module_data['uri'] && $module_data['name'] ) {
+				$module_data['title'] = '<a href="' . $module_data['uri']
 					. '">' . $module_data['name'] . '</a>';
 			}
 

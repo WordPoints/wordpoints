@@ -27,14 +27,14 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 
 		WordPoints_Modules::register(
 			'
-		        Module Name: Demo Module
-		        Version:     1.0.0
-				Author:      WordPoints Tester
-				Author URI:  https://www.example.com/
-				Module URI:  https://www.example.com/demo/
-				Description: A demo module.
-				Text Domain: demo
-				Namespace:   Demo
+				Extension Name: Demo Module
+				Version:        1.0.0
+				Author:         WordPoints Tester
+				Author URI:     https://www.example.com/
+				Extension URI:  https://www.example.com/demo/
+				Description:    A demo module.
+				Text Domain:    demo
+				Namespace:      Demo
 		    '
 			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
 		);
@@ -42,10 +42,12 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSameSetsWithIndex(
 			array(
 				'name'        => 'Demo Module',
+				'module_name' => '',
 				'version'     => '1.0.0',
 				'author'      => 'WordPoints Tester',
 				'author_uri'  => 'https://www.example.com/',
-				'module_uri'  => 'https://www.example.com/demo/',
+				'uri'         => 'https://www.example.com/demo/',
+				'module_uri'  => '',
 				'description' => 'A demo module.',
 				'text_domain' => 'demo',
 				'domain_path' => '',
@@ -57,14 +59,14 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 				'namespace'   => 'Demo',
 				'raw_file'    => wordpoints_modules_dir() . 'demo-module/demo-module.php',
 				'raw'         => '
-		        Module Name: Demo Module
-		        Version:     1.0.0
-				Author:      WordPoints Tester
-				Author URI:  https://www.example.com/
-				Module URI:  https://www.example.com/demo/
-				Description: A demo module.
-				Text Domain: demo
-				Namespace:   Demo
+				Extension Name: Demo Module
+				Version:        1.0.0
+				Author:         WordPoints Tester
+				Author URI:     https://www.example.com/
+				Extension URI:  https://www.example.com/demo/
+				Description:    A demo module.
+				Text Domain:    demo
+				Namespace:      Demo
 		    ',
 			)
 			, WordPoints_Modules::get_data( 'demo-module' )
@@ -80,14 +82,14 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 
 		WordPoints_Modules::register(
 			'
-		        Module Name: Demo Module
-		        Version:     1.0.0
-				Author:      WordPoints Tester
-				Author URI:  https://www.example.com/
-				Module URI:  https://www.example.com/demo/
-				Description: A demo module.
-				Text Domain: demo
-				Namespace:   Demo
+				Extension Name: Demo Module
+				Version:        1.0.0
+				Author:         WordPoints Tester
+				Author URI:     https://www.example.com/
+				Extension URI:  https://www.example.com/demo/
+				Description:    A demo module.
+				Text Domain:    demo
+				Namespace:      Demo
 		    '
 			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
 		);

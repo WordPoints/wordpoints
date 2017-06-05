@@ -1365,8 +1365,8 @@
         }
     },
     "\/includes\/modules.php": {
-        "Module Name": {
-            "244": {
+        "Extension Name": {
+            "245": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1374,8 +1374,8 @@
                 "parentheses": 1
             }
         },
-        "Module URI": {
-            "245": {
+        "Extension URI": {
+            "246": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1383,8 +1383,8 @@
                 "parentheses": 1
             }
         },
-        "Version": {
-            "246": {
+        "Module Name": {
+            "247": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1392,8 +1392,8 @@
                 "parentheses": 1
             }
         },
-        "Description": {
-            "247": {
+        "Module URI": {
+            "248": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1401,8 +1401,8 @@
                 "parentheses": 1
             }
         },
-        "Author": {
-            "248": {
+        "Version": {
+            "249": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1410,8 +1410,8 @@
                 "parentheses": 1
             }
         },
-        "Author URI": {
-            "249": {
+        "Description": {
+            "250": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1419,8 +1419,8 @@
                 "parentheses": 1
             }
         },
-        "Text Domain": {
-            "250": {
+        "Author": {
+            "251": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1428,8 +1428,8 @@
                 "parentheses": 1
             }
         },
-        "Domain Path": {
-            "251": {
+        "Author URI": {
+            "252": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1437,8 +1437,8 @@
                 "parentheses": 1
             }
         },
-        "Network": {
-            "252": {
+        "Text Domain": {
+            "253": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1446,8 +1446,8 @@
                 "parentheses": 1
             }
         },
-        "Update API": {
-            "253": {
+        "Domain Path": {
+            "254": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1455,8 +1455,8 @@
                 "parentheses": 1
             }
         },
-        "Channel": {
-            "254": {
+        "Network": {
+            "255": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1464,8 +1464,8 @@
                 "parentheses": 1
             }
         },
-        "Server": {
-            "255": {
+        "Update API": {
+            "256": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1473,8 +1473,8 @@
                 "parentheses": 1
             }
         },
-        "ID": {
-            "256": {
+        "Channel": {
+            "257": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1482,8 +1482,8 @@
                 "parentheses": 1
             }
         },
-        "Namespace": {
-            "257": {
+        "Server": {
+            "258": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1491,11 +1491,29 @@
                 "parentheses": 1
             }
         },
+        "ID": {
+            "259": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 14,
+                "parentheses": 1
+            }
+        },
+        "Namespace": {
+            "260": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 15,
+                "parentheses": 1
+            }
+        },
         "true": {
-            "277": false
+            "294": false
         },
         ",": {
-            "1351": false
+            "1369": false
         }
     },
     "\/admin\/classes\/screen.php": {
@@ -2303,25 +2321,16 @@
                 "parentheses": 1
             }
         },
+        "uri": {
+            "40": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
         "version": {
-            "41": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            }
-        },
-        "description": {
-            "42": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            }
-        },
-        "author": {
             "43": {
                 "name": "array",
                 "type": "unknown",
@@ -2330,16 +2339,25 @@
                 "parentheses": 1
             }
         },
-        "network": {
-            "47": {
+        "description": {
+            "44": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 8,
+                "arg_count": 5,
                 "parentheses": 1
             }
         },
-        "channel": {
+        "author": {
+            "45": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 6,
+                "parentheses": 1
+            }
+        },
+        "network": {
             "49": {
                 "name": "array",
                 "type": "unknown",
@@ -2348,16 +2366,7 @@
                 "parentheses": 1
             }
         },
-        "server": {
-            "50": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 11,
-                "parentheses": 1
-            }
-        },
-        "ID": {
+        "channel": {
             "51": {
                 "name": "array",
                 "type": "unknown",
@@ -2366,12 +2375,30 @@
                 "parentheses": 1
             }
         },
-        "namespace": {
+        "server": {
             "52": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 13,
+                "parentheses": 1
+            }
+        },
+        "ID": {
+            "53": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 14,
+                "parentheses": 1
+            }
+        },
+        "namespace": {
+            "54": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 15,
                 "parentheses": 1
             }
         }

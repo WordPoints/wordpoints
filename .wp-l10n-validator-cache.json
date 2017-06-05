@@ -36,8 +36,8 @@
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
-            "size": 29598,
-            "hash": "eaf7a8710f96aef840d2a61898f64409",
+            "size": 29584,
+            "hash": "bb0ec7eb03f2c8576fb07950479da595",
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
@@ -526,8 +526,8 @@
             "errors": false
         },
         "\/classes\/extension\/server.php": {
-            "size": 3912,
-            "hash": "de94583f7e54e6d308029963611c0065",
+            "size": 3921,
+            "hash": "2c75a711805bcd1658ce9f35c4512d5f",
             "errors": false
         },
         "\/classes\/extension\/serveri.php": {
@@ -561,8 +561,8 @@
             "errors": false
         },
         "\/classes\/extension\/upgrader.php": {
-            "size": 13995,
-            "hash": "344e6a9d6796fc3c27a6aefe9353895d",
+            "size": 14028,
+            "hash": "20b4efa92fb561bc4b5a271d102d1a18",
             "errors": false
         },
         "\/classes\/hook\/action\/comment\/new.php": {
@@ -846,8 +846,8 @@
             "errors": false
         },
         "\/classes\/module\/installer.php": {
-            "size": 6388,
-            "hash": "6c270cb9b0fd64442f747e096102ec80",
+            "size": 6391,
+            "hash": "90724e5e9b330dd9e1ab6db0080a595f",
             "errors": false
         },
         "\/classes\/module\/paths.php": {
@@ -856,8 +856,8 @@
             "errors": false
         },
         "\/classes\/modules.php": {
-            "size": 5142,
-            "hash": "900065697541ce8bf27d262320b6bca9",
+            "size": 5250,
+            "hash": "c8add48f7bdee4f9688e01833b5114d4",
             "errors": false
         },
         "\/classes\/multisite\/switched\/state.php": {
@@ -1396,8 +1396,8 @@
             "errors": false
         },
         "\/includes\/modules.php": {
-            "size": 37950,
-            "hash": "564c16dfd0d27260d3e4ec14a2ca00fc",
+            "size": 38753,
+            "hash": "20f751d07302c1e6d38229c3e3dfae78",
             "errors": false
         },
         "\/uninstall.php": {

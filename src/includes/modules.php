@@ -203,6 +203,20 @@ function wordpoints_module_basename( $file ) {
 }
 
 /**
+ * Registers an extension.
+ *
+ * @since 2.4.0
+ *
+ * @param string $data The header data for the extension.
+ * @param string $file The full path to the main file of the extension.
+ *
+ * @return bool True, or false if the extension has already been registered.
+ */
+function wordpoints_register_extension( $data, $file ) {
+	return WordPoints_Modules::register( $data, $file );
+}
+
+/**
  * Parse the module contents to retrieve module's metadata.
  *
  * Module metadata headers are essentially the same as WordPress plugin headers. The

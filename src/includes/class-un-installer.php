@@ -250,7 +250,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		global $wp_filesystem;
 
 		if ( $wp_filesystem instanceof WP_Filesystem_Base ) {
-			$wp_filesystem->delete( wordpoints_modules_dir(), true );
+			$wp_filesystem->delete( wordpoints_extensions_dir(), true );
 		}
 	}
 
@@ -317,7 +317,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 		global $wp_filesystem;
 
-		$modules_dir = wordpoints_modules_dir();
+		$modules_dir = wordpoints_extensions_dir();
 
 		if ( ! WP_Filesystem( false, $modules_dir ) ) {
 			return;

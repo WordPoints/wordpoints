@@ -115,7 +115,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		$this->skin->header();
 
 		// Connect to the Filesystem first.
-		if ( ! $this->fs_connect( array( WP_CONTENT_DIR, wordpoints_modules_dir() ) ) ) {
+		if ( ! $this->fs_connect( array( WP_CONTENT_DIR, wordpoints_extensions_dir() ) ) ) {
 
 			$this->skin->footer();
 			return false;
@@ -241,7 +241,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		return $this->run(
 			array(
 				'package'           => $api->get_extension_package_url( $extension_data ),
-				'destination'       => wordpoints_modules_dir(),
+				'destination'       => wordpoints_extensions_dir(),
 				'clear_destination' => true,
 				'clear_working'     => true,
 				'is_multi'          => $this->bulk,
@@ -453,7 +453,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			return new WP_Error( 'bad_request', $this->strings['bad_request'] );
 		}
 
-		$extensions_dir = $wp_filesystem->find_folder( wordpoints_modules_dir() );
+		$extensions_dir = $wp_filesystem->find_folder( wordpoints_extensions_dir() );
 		$this_extension_dir = trailingslashit( dirname( $extensions_dir . $data['wordpoints_extension'] ) );
 
 		// Make sure it hasn't already been removed somehow.

@@ -72,7 +72,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 
 		global $wp_filesystem, $wp_theme_directories;
 
-		$modules_dir = wordpoints_modules_dir();
+		$modules_dir = wordpoints_extensions_dir();
 
 		// Attempt to create the /wp-content/wordpoints-modules directory if needed.
 		if ( ! $wp_filesystem->exists( $modules_dir ) ) {
@@ -84,7 +84,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 			}
 		}
 
-		$module_dir = wordpoints_modules_dir();
+		$module_dir = wordpoints_extensions_dir();
 		$wp_theme_directories[] = $module_dir;
 
 		$result = parent::install_package( $args );
@@ -127,7 +127,7 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 		$result = $this->run(
 			array(
 				'package'           => $package,
-				'destination'       => wordpoints_modules_dir(),
+				'destination'       => wordpoints_extensions_dir(),
 				'clear_destination' => false, // Do not overwrite files.
 				'clear_working'     => true,
 				'hook_extra'        => array(),

@@ -169,7 +169,7 @@ switch ( $action ) {
 		 */
 		function wordpoints_module_sandbox_scrape( $module ) {
 
-			$modules_dir = wordpoints_modules_dir();
+			$modules_dir = wordpoints_extensions_dir();
 			WordPoints_Module_Paths::register( $modules_dir . '/' . $module );
 			include( $modules_dir . '/' . $module );
 		}
@@ -301,7 +301,7 @@ switch ( $action ) {
 
 				<?php
 
-				$module_dir = wordpoints_modules_dir();
+				$module_dir = wordpoints_extensions_dir();
 				$module_info = array();
 				$files_to_delete = array();
 				$have_non_network_modules = false;
@@ -483,7 +483,7 @@ $screen->add_help_tab(
 		'content' =>
 			'<p>' . esc_html__( 'Most of the time, extensions play nicely with the core of WordPoints and with other extensions. Sometimes, though, an extension&#8217;s code will get in the way of another extension, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your extension and re-activating them in various combinations until you isolate which one(s) caused the issue.', 'wordpoints' ) . '</p>' .
 			// translators: Directory name.
-			'<p>' . sprintf( esc_html__( 'If something goes wrong with an extension and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_modules_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
+			'<p>' . sprintf( esc_html__( 'If something goes wrong with an extension and you can&#8217;t use WordPoints, delete or rename that file in the %s directory and it will be automatically deactivated.', 'wordpoints' ), '<code>' . esc_html( wordpoints_extensions_dir() ) . '</code>' ) . '</p>', // XSS OK WPCS
 	)
 );
 

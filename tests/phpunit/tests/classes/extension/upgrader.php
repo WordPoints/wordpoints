@@ -63,7 +63,7 @@ class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Tes
 
 			$wp_filesystem->copy(
 				WORDPOINTS_TESTS_DIR . '/data/module-packages/' . $extension_name . '/' . $extension_name . '.php'
-				, wordpoints_modules_dir() . $extension_name . '/' . $extension_name . '.php'
+				, wordpoints_extensions_dir() . $extension_name . '/' . $extension_name . '.php'
 				, true
 			);
 		}

@@ -299,7 +299,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		foreach ( $modules[ $status ] as $module_file => $module_data ) {
 
-			$this->items[ $module_file ] = wordpoints_get_module_data( wordpoints_modules_dir() . '/' . $module_file, false );
+			$this->items[ $module_file ] = wordpoints_get_module_data( wordpoints_extensions_dir() . '/' . $module_file, false );
 		}
 
 		$total_this_page = $totals[ $status ];

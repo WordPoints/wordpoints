@@ -23,7 +23,7 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpointstests_modules_dir' );
 	}
 
 	/**

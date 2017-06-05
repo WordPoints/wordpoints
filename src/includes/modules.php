@@ -67,7 +67,7 @@ function is_wordpoints_module_active_for_network( $module ) {
  */
 function is_network_only_wordpoints_module( $module ) {
 
-	$module_data = wordpoints_get_module_data( wordpoints_modules_dir() . '/' . $module );
+	$module_data = wordpoints_get_module_data( wordpoints_extensions_dir() . '/' . $module );
 
 	return $module_data['network'];
 }
@@ -83,51 +83,87 @@ function is_network_only_wordpoints_module( $module ) {
  */
 function is_uninstallable_wordpoints_module( $module ) {
 
-	return ( file_exists( wordpoints_modules_dir() . '/' . dirname( wordpoints_module_basename( $module ) ) . '/uninstall.php' ) );
+	return ( file_exists( wordpoints_extensions_dir() . '/' . dirname( wordpoints_module_basename( $module ) ) . '/uninstall.php' ) );
 }
 
 /**
- * Get the path to the modules directory.
- *
- * The default is /wp-content/wordpoints-modules/. To override this, define the
- * WORDPOINTS_MODULES_DIR constant in wp-config.php like this:
- *
- * define( 'WORDPOINTS_MODULES_DIR', '/my/custom/path/' );
- *
- * The value may also be filtered with the 'wordpoints_modules_dir' filter.
- *
- * Note that the value is stored in a static variable, and so is only calculated
- * once, meaning that it will not change within a single page load.
+ * Get the path to the extensions directory.
  *
  * @since 1.1.0
+ * @deprecated 2.4.0 Use wordpoints_extensions_dir() instead.
  *
- * @return string The full module folder path.
+ * @return string The full extension folder path.
  */
 function wordpoints_modules_dir() {
 
-	static $modules_dir;
+	_deprecated_function( __FUNCTION__, '2.4.0', 'wordpoints_extensions_dir' );
 
-	if ( ! $modules_dir ) {
+	return wordpoints_extensions_dir();
+}
 
-		if ( defined( 'WORDPOINTS_MODULES_DIR' ) ) {
+/**
+ * Get the path to the extensions directory.
+ *
+ * The default is /wp-content/wordpoints-modules/. To override this, define the
+ * WORDPOINTS_EXTENSIONS_DIR constant in wp-config.php like this:
+ *
+ * define( 'WORDPOINTS_EXTENSIONS_DIR', '/my/custom/path/' );
+ *
+ * The value may also be filtered with the 'wordpoints_extensions_dir' filter.
+ *
+ * @since 2.4.0
+ *
+ * @return string The full module folder path.
+ */
+function wordpoints_extensions_dir() {
 
-			$modules_dir = trailingslashit( WORDPOINTS_MODULES_DIR );
+	static $extensions_dir;
+
+	if ( ! $extensions_dir ) {
+
+		if ( defined( 'WORDPOINTS_EXTENSIONS_DIR' ) ) {
+
+			$extensions_dir = trailingslashit( WORDPOINTS_EXTENSIONS_DIR );
+
+		} elseif ( defined( 'WORDPOINTS_MODULES_DIR' ) ) {
+
+			_deprecated_argument(
+				__FUNCTION__
+				, '2.4.0'
+				, 'The WORDPOINTS_MODULES_DIR constant is deprecated in favor of WORDPOINTS_EXTENSIONS_DIR.'
+			);
+
+			$extensions_dir = trailingslashit( WORDPOINTS_MODULES_DIR );
 
 		} else {
 
-			$modules_dir = WP_CONTENT_DIR . '/wordpoints-modules/';
+			$extensions_dir = WP_CONTENT_DIR . '/wordpoints-modules/';
 		}
 	}
 
 	/**
-	 * Filter the path to the modules directory.
+	 * Filter the path to the extensions directory.
 	 *
 	 * @since 1.1.0
 	 * @since 2.2.0 The filter is no longer called only once per page load.
 	 *
-	 * @param string $module_dir The full path to the modules folder.
+	 * @param string $extensions_dir The full path to the extensions folder.
 	 */
-	return apply_filters( 'wordpoints_modules_dir', $modules_dir );
+	$dir = apply_filters_deprecated(
+		'wordpoints_modules_dir'
+		, array( $extensions_dir )
+		, '2.4.0'
+		, 'wordpoints_extensions_dir'
+	);
+
+	/**
+	 * Filter the path to the extensions directory.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $extensions_dir The full path to the extensions folder.
+	 */
+	return apply_filters( 'wordpoints_extensions_dir', $dir );
 }
 
 /**
@@ -193,7 +229,7 @@ function wordpoints_module_basename( $file ) {
 	$file = WordPoints_Module_Paths::resolve( $file );
 
 	// Sanitize for Win32 installs and remove any duplicate slashes.
-	$modules_dir = wp_normalize_path( wordpoints_modules_dir() );
+	$modules_dir = wp_normalize_path( wordpoints_extensions_dir() );
 
 	// Get the relative path from the modules directory, and trim off the slashes.
 	$file = preg_replace( '#^' . preg_quote( $modules_dir, '#' ) . '#', '', $file );
@@ -474,11 +510,11 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 
 	if ( false !== $module_rel_path ) {
 
-		$path = wordpoints_modules_dir() . '/' . trim( $module_rel_path, '/' );
+		$path = wordpoints_extensions_dir() . '/' . trim( $module_rel_path, '/' );
 
 	} else {
 
-		$path = wordpoints_modules_dir();
+		$path = wordpoints_extensions_dir();
 	}
 
 	// Load the textdomain according to the module first.
@@ -524,7 +560,7 @@ function wordpoints_get_modules( $module_folder = '', $markup = false, $translat
 	}
 
 	$modules     = array();
-	$module_root = wordpoints_modules_dir();
+	$module_root = wordpoints_extensions_dir();
 
 	if ( ! empty( $module_folder ) ) {
 		$module_root .= $module_folder;
@@ -600,7 +636,7 @@ function wordpoints_validate_module( $module ) {
 		return new WP_Error( 'module_invalid', __( 'Invalid extension path.', 'wordpoints' ) );
 	}
 
-	if ( ! file_exists( wordpoints_modules_dir() . '/' . $module ) ) {
+	if ( ! file_exists( wordpoints_extensions_dir() . '/' . $module ) ) {
 		return new WP_Error( 'module_not_found', __( 'Extension file does not exist.', 'wordpoints' ) );
 	}
 
@@ -737,7 +773,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 
 	ob_start();
 
-	$module_file = wordpoints_modules_dir() . '/' . $module;
+	$module_file = wordpoints_extensions_dir() . '/' . $module;
 	WordPoints_Module_Paths::register( $module_file );
 
 	include_once $module_file;
@@ -998,7 +1034,7 @@ function wordpoints_delete_modules( $modules ) {
 	}
 
 	// Get the base module folder.
-	$modules_dir = $wp_filesystem->find_folder( wordpoints_modules_dir() );
+	$modules_dir = $wp_filesystem->find_folder( wordpoints_extensions_dir() );
 
 	if ( empty( $modules_dir ) ) {
 		return new WP_Error( 'fs_no_modules_dir', __( 'Unable to locate WordPoints Extension directory.', 'wordpoints' ) );
@@ -1082,7 +1118,7 @@ function wordpoints_delete_modules( $modules ) {
 function wordpoints_uninstall_module( $module ) {
 
 	$file              = wordpoints_module_basename( $module );
-	$module_dir        = wordpoints_modules_dir() . '/' . dirname( $file );
+	$module_dir        = wordpoints_extensions_dir() . '/' . dirname( $file );
 	$uninstall_file    = $module_dir . '/uninstall.php';
 	$un_installer_file = $module_dir . '/includes/class-un-installer.php';
 
@@ -1168,7 +1204,7 @@ function wordpoints_load_modules() {
 
 	if ( ! empty( $active_modules ) ) {
 
-		$modules_dir = wordpoints_modules_dir();
+		$modules_dir = wordpoints_extensions_dir();
 
 		foreach ( $active_modules as $module ) {
 

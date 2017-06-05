@@ -55,7 +55,7 @@ class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 	public function set_extension( $extension_file ) {
 
 		$this->extension_info = wordpoints_get_module_data(
-			wordpoints_modules_dir() . $extension_file
+			wordpoints_extensions_dir() . $extension_file
 		);
 	}
 

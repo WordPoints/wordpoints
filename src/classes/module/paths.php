@@ -70,7 +70,7 @@ final class WordPoints_Module_Paths {
 
 		// We store this so that we don't have to keep normalizing a constant value.
 		if ( ! isset( self::$modules_dir ) ) {
-			self::$modules_dir = wp_normalize_path( wordpoints_modules_dir() );
+			self::$modules_dir = wp_normalize_path( wordpoints_extensions_dir() );
 		}
 
 		$module_path = wp_normalize_path( dirname( $file ) );

@@ -51,7 +51,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpointstests_modules_dir' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_module_basename() {
 
-		$this->assertSame( 'module/module.php', wordpoints_module_basename( wordpoints_modules_dir() . '/module/module.php' ) );
+		$this->assertSame( 'module/module.php', wordpoints_module_basename( wordpoints_extensions_dir() . '/module/module.php' ) );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 		// This module uses the 2.0 API, and for a more realistic test, it helps if
 		// it is pre-loaded (which the modules aren't during the tests).
-		include_once( wordpoints_modules_dir() . '/test-6/main-file.php' );
+		include_once( wordpoints_extensions_dir() . '/test-6/main-file.php' );
 
 		$modules = wordpoints_get_modules();
 

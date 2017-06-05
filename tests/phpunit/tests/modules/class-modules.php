@@ -36,7 +36,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 				Text Domain:    demo
 				Namespace:      Demo
 		    '
-			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
+			, wordpoints_extensions_dir() . '/demo-module/demo-module.php'
 		);
 
 		$this->assertSameSetsWithIndex(
@@ -57,7 +57,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 				'server'      => '',
 				'ID'          => '',
 				'namespace'   => 'Demo',
-				'raw_file'    => wordpoints_modules_dir() . 'demo-module/demo-module.php',
+				'raw_file'    => wordpoints_extensions_dir() . 'demo-module/demo-module.php',
 				'raw'         => '
 				Extension Name: Demo Module
 				Version:        1.0.0
@@ -91,7 +91,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 				Text Domain:    demo
 				Namespace:      Demo
 		    '
-			, wordpoints_modules_dir() . '/demo-module/demo-module.php'
+			, wordpoints_extensions_dir() . '/demo-module/demo-module.php'
 		);
 
 		$this->assertSame(
@@ -125,7 +125,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			'demo-module'
 			, WordPoints_Modules::get_slug(
-				wordpoints_modules_dir() . '/demo-module/demo-module.php'
+				wordpoints_extensions_dir() . '/demo-module/demo-module.php'
 			)
 		);
 	}
@@ -155,7 +155,7 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			'demo-module'
 			, WordPoints_Modules::get_slug(
-				wordpoints_modules_dir() . '/demo-module/another/file.php'
+				wordpoints_extensions_dir() . '/demo-module/another/file.php'
 			)
 		);
 	}

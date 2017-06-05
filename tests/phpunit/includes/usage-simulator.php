@@ -143,7 +143,7 @@ if ( is_multisite() && is_wordpoints_network_active() ) {
 }
 
 // Simulate installing a module.
-$module_path     = wordpoints_modules_dir() . '/test-6';
+$module_path     = wordpoints_extensions_dir() . '/test-6';
 $module_realpath = realpath(
 	WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
 );

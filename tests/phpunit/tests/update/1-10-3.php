@@ -29,7 +29,7 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {
 		parent::setUp();
 
 		$this->mock_filesystem();
-		$this->mock_fs->mkdir_p( wordpoints_modules_dir() );
+		$this->mock_fs->mkdir_p( wordpoints_extensions_dir() );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->update_wordpoints();
 
-		$modules_dir = wordpoints_modules_dir();
+		$modules_dir = wordpoints_extensions_dir();
 
 		$this->assertTrue( $this->mock_fs->exists( $modules_dir . '/index.php' ) );
 		$this->assertSame(
@@ -57,7 +57,7 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_index_file_not_overwritten() {
 
-		$modules_dir = wordpoints_modules_dir();
+		$modules_dir = wordpoints_extensions_dir();
 
 		$this->assertTrue(
 			$this->mock_fs->add_file(
@@ -82,7 +82,7 @@ class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_does_nothing_if_no_modules_dir() {
 
-		$modules_dir = wordpoints_modules_dir();
+		$modules_dir = wordpoints_extensions_dir();
 
 		$this->assertTrue( $this->mock_fs->delete( $modules_dir ) );
 		$this->assertFalse( $this->mock_fs->exists( $modules_dir ) );

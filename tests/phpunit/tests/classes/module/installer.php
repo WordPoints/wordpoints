@@ -41,7 +41,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpointstests_modules_dir' );
 		add_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
 		add_filter( 'upgrader_pre_download', array( $this, 'module_package' ) );
 
@@ -67,8 +67,8 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		/** @var WP_FileSystem_Base $wp_filesystem */
 		global $wp_filesystem;
 
-		if ( $wp_filesystem && $wp_filesystem->exists( wordpoints_modules_dir() . '/' . $this->package_name ) ) {
-			$wp_filesystem->delete( wordpoints_modules_dir() . '/' . $this->package_name, true );
+		if ( $wp_filesystem && $wp_filesystem->exists( wordpoints_extensions_dir() . '/' . $this->package_name ) ) {
+			$wp_filesystem->delete( wordpoints_extensions_dir() . '/' . $this->package_name, true );
 		}
 
 		remove_filter( 'filesystem_method', array( $this, 'use_direct_filesystem_method' ) );
@@ -88,7 +88,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		$this->assertTrue( $result );
 
-		$this->assertFileExists( wordpoints_modules_dir() . '/module-6/module-6.php' );
+		$this->assertFileExists( wordpoints_extensions_dir() . '/module-6/module-6.php' );
 
 		// Check that the module cache is cleared.
 		$this->assertFalse( wp_cache_get( 'wordpoints_modules', 'wordpoints_modules' ) );
@@ -113,7 +113,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 
 		$this->assertTrue( $result );
 
-		$this->assertFileExists( wordpoints_modules_dir() . '/module-6/module-6.php' );
+		$this->assertFileExists( wordpoints_extensions_dir() . '/module-6/module-6.php' );
 
 		// Check that the module updates cache is not cleared.
 		$this->assertSame(
@@ -137,7 +137,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		$this->assertInstanceOf( 'WP_Error', $result );
 		$this->assertSame( 'incompatible_archive_no_modules', $result->get_error_code() );
 
-		$this->assertFileNotExists( wordpoints_modules_dir() . '/on-module/plugin.php' );
+		$this->assertFileNotExists( wordpoints_extensions_dir() . '/on-module/plugin.php' );
 	}
 
 	/**
@@ -155,7 +155,7 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		$this->assertInstanceOf( 'WP_Error', $result );
 		$this->assertSame( 'folder_exists', $result->get_error_code() );
 
-		$this->assertFileExists( wordpoints_modules_dir() . '/module-7/module-7.php' );
+		$this->assertFileExists( wordpoints_extensions_dir() . '/module-7/module-7.php' );
 	}
 
 	//

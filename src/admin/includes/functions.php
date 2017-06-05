@@ -1122,7 +1122,7 @@ function wordpoints_admin_iframe_reactivate_extension() {
 		@ini_set( 'display_errors', true );
 		// @codingStandardsIgnoreEnd
 
-		$file = wordpoints_modules_dir() . '/' . $extension;
+		$file = wordpoints_extensions_dir() . '/' . $extension;
 		WordPoints_Module_Paths::register( $file );
 		include( $file );
 	}
@@ -1748,7 +1748,7 @@ function wordpoints_list_extension_updates() {
 
 			<tbody class="wordpoints-extensions">
 			<?php foreach ( $new_versions as $extension_file => $new_version ) : ?>
-				<?php $extension_data = wordpoints_get_module_data( wordpoints_modules_dir() . $extension_file ); ?>
+				<?php $extension_data = wordpoints_get_module_data( wordpoints_extensions_dir() . $extension_file ); ?>
 				<tr>
 					<th scope="row" class="check-column">
 						<input id="checkbox_<?php echo esc_attr( sanitize_key( $extension_file ) ); ?>" type="checkbox" name="checked[]" value="<?php echo esc_attr( $extension_file ); ?>" />

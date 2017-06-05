@@ -53,7 +53,7 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_deactivates_wordpoints_org_extension() {
 
-		add_filter( 'wordpoints_extensions_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 
 		$extension = 'wordpointsorg/wordpointsorg.php';
 

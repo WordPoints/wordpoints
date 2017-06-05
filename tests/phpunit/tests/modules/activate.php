@@ -23,7 +23,7 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_extensions_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 	}
 
 	/**
@@ -87,9 +87,9 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_valid_modules() {
 		return array(
-			'full_path' => array( wordpointstests_modules_dir() . '/module-7/module-7.php' ),
+			'full_path' => array( wordpoints_phpunit_extensions_dir() . '/module-7/module-7.php' ),
 			'basename_path' => array( 'module-7/module-7.php' ),
-			'full_path_single_file' => array( wordpointstests_modules_dir() . '/test-3.php' ),
+			'full_path_single_file' => array( wordpoints_phpunit_extensions_dir() . '/test-3.php' ),
 			'basename_path_single_file' => array( 'test-3.php' ),
 		);
 	}

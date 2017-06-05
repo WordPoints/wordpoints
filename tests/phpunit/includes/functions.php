@@ -112,10 +112,29 @@ function wordpointstests_manually_load_plugin() {
  * Get the modules directory for the test modules.
  *
  * @since 1.1.0
+ * @deprecated 2.4.0 Use wordpoints_phpunit_extensions_dir() instead.
  *
  * @return string The path to the test modules directory.
  */
 function wordpointstests_modules_dir() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '2.4.0'
+		, 'wordpoints_phpunit_extensions_dir()'
+	);
+
+	return wordpoints_phpunit_extensions_dir();
+}
+
+/**
+ * Get the extensions directory for the test extensions.
+ *
+ * @since 2.4.0
+ *
+ * @return string The path to the test extensions directory.
+ */
+function wordpoints_phpunit_extensions_dir() {
 
 	return WORDPOINTS_TESTS_DIR . '/data/modules/';
 }

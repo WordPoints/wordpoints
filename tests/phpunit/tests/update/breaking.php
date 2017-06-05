@@ -63,7 +63,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_filter( 'pre_http_request', array( $this, 'http_request_listner' ), 10, 3 );
 
-		add_filter( 'wordpoints_extensions_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 	}
 
 	/**

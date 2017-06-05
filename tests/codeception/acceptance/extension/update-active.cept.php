@@ -9,8 +9,8 @@
 
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Update an active extension' );
-$I->haveTestModuleInstalled( 'module-7' );
-$I->hadActivatedModule( 'module-7/module-7.php' );
+$I->haveTestExtensionInstalled( 'module-7' );
+$I->hadActivatedExtension( 'module-7/module-7.php' );
 $I->haveTestExtensionInstalledNeedingUpdate();
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_modules' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );

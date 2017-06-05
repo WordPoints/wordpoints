@@ -13,9 +13,9 @@ if ( ! is_wordpoints_network_active() ) {
 
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Network-activate an extension' );
-$I->haveTestModuleInstalled( 'module-7' );
-$I->haveTestModuleInstalled( 'test-6' );
-$I->hadActivatedModule( 'test-6/main-file.php', true );
+$I->haveTestExtensionInstalled( 'module-7' );
+$I->haveTestExtensionInstalled( 'test-6' );
+$I->hadActivatedExtension( 'test-6/main-file.php', true );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/network/admin.php?page=wordpoints_modules' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );
 $I->see( 'Network Deactivate', 'tr#test-6' );

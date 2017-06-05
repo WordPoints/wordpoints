@@ -9,8 +9,8 @@
 
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Activate an extension license' );
-$I->haveTestModuleInstalled( 'extension-9' );
-$I->hadActivatedModule( 'extension-9/extension-9.php' );
+$I->haveTestExtensionInstalled( 'extension-9' );
+$I->hadActivatedExtension( 'extension-9/extension-9.php' );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_modules' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );
 $I->fillField( 'license_key-test-9', 'test' );

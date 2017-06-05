@@ -118,7 +118,7 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @action wordpoints_modules_loaded Added by the init() method.
+	 * @action wordpoints_extensions_loaded Added by the init() method.
 	 */
 	public static function initialize_hooks() {
 

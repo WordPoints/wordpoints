@@ -1184,13 +1184,23 @@ function wordpoints_load_modules() {
 	}
 
 	/**
-	 * Fires after all active modules are loaded.
+	 * Fires after all active extensions are loaded.
 	 *
-	 * It will always be fired even when no modules are active.
+	 * It will always be fired even when no extensions are active.
+	 *
+	 * @since 2.4.0
+	 */
+	do_action( 'wordpoints_extensions_loaded' );
+
+	/**
+	 * Fires after all active extensions are loaded.
+	 *
+	 * It will always be fired even when no extensions are active.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.4.0 Use wordpoints_extensions_loaded instead.
 	 */
-	do_action( 'wordpoints_modules_loaded' );
+	do_action_deprecated( 'wordpoints_modules_loaded', array(), '2.4.0', 'wordpoints_extensions_loaded' );
 }
 
 /**

@@ -162,7 +162,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 
 			// If we're updating to 1.4.0, we initialize the hooks early, because
 			// we use them during the update.
-			remove_action( 'wordpoints_modules_loaded', array( 'WordPoints_Points_Hooks', 'initialize_hooks' ) );
+			remove_action( 'wordpoints_extensions_loaded', array( 'WordPoints_Points_Hooks', 'initialize_hooks' ) );
 
 			WordPoints_Points_Hooks::register(
 				'WordPoints_Comment_Removed_Points_Hook'

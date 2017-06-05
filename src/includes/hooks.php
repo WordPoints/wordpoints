@@ -28,7 +28,7 @@ function wordpoints_hooks() {
  *
  * @since 2.1.0
  *
- * @WordPress\action wordpoints_modules_loaded
+ * @WordPress\action wordpoints_extensions_loaded
  */
 function wordpoints_init_hooks() {
 

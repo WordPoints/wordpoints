@@ -155,7 +155,7 @@ final class WordPoints_Installables {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @WordPress\action wordpoints_modules_loaded 5 Before most module code runs.
+	 * @WordPress\action wordpoints_extensions_loaded 5 Before most extension code runs.
 	 */
 	public static function maybe_do_updates() {
 

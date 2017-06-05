@@ -49,7 +49,7 @@ add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cach
 
 add_action( 'user_register', 'wordpoints_clean_points_top_users_cache_user_register' );
 
-add_action( 'wordpoints_modules_loaded', 'WordPoints_Points_Hooks::initialize_hooks' );
+add_action( 'wordpoints_extensions_loaded', 'WordPoints_Points_Hooks::initialize_hooks' );
 
 add_action( 'widgets_init', 'wordpoints_register_points_widgets' );
 

@@ -142,7 +142,7 @@ final class WordPoints_Rank_Types {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @WordPress\action wordpoints_modules_loaded
+	 * @WordPress\action wordpoints_extensions_loaded
 	 */
 	public static function init() {
 

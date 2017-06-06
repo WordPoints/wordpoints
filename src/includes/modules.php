@@ -167,31 +167,62 @@ function wordpoints_extensions_dir() {
 }
 
 /**
- * Get the URL for the modules directory or to a specific file in that directory.
+ * Get the URL for the extensions directory or to a specific file in that directory.
  *
  * @since 1.4.0
+ * @deprecated 2.4.0 Use wordpoints_extensions_url() instead.
  *
  * @param string $path   A relative path to a file or folder.
- * @param string $module A module file that the $path should be relative to.
+ * @param string $module An extension file that the $path should be relative to.
  *
  * @return string The URL for the path passed.
  */
 function wordpoints_modules_url( $path = '', $module = '' ) {
 
-	$path   = wp_normalize_path( $path );
-	$module = wp_normalize_path( $module );
+	_deprecated_function( __FUNCTION__, '2.4.0', 'wordpoints_extensions_url' );
 
-	if ( defined( 'WORDPOINTS_MODULES_URL' ) ) {
+	return wordpoints_extensions_url( $path, $module );
+}
+
+/**
+ * Get the URL for the extensions directory or to a specific file in that directory.
+ *
+ * @since 2.4.0
+ *
+ * @param string $path      A relative path to a file or folder.
+ * @param string $extension An extension file that the $path should be relative to.
+ *
+ * @return string The URL for the path passed.
+ */
+function wordpoints_extensions_url( $path = '', $extension = '' ) {
+
+	$path      = wp_normalize_path( $path );
+	$extension = wp_normalize_path( $extension );
+
+	if ( defined( 'WORDPOINTS_EXTENSIONS_URL' ) ) {
+
+		$url = WORDPOINTS_EXTENSIONS_URL;
+
+	} elseif ( defined( 'WORDPOINTS_MODULES_URL' ) ) {
+
 		$url = WORDPOINTS_MODULES_URL;
+
+		_deprecated_argument(
+			__FUNCTION__
+			, '2.4.0'
+			, 'The WORDPOINTS_MODULES_URL constant is deprecated in favor of WORDPOINTS_EXTENSIONS_URL.'
+		);
+
 	} else {
+
 		$url = WP_CONTENT_URL . '/wordpoints-modules';
 	}
 
 	$url = set_url_scheme( $url );
 
-	if ( ! empty( $module ) && is_string( $module ) ) {
+	if ( ! empty( $extension ) && is_string( $extension ) ) {
 
-		$folder = dirname( wordpoints_module_basename( $module ) );
+		$folder = dirname( wordpoints_module_basename( $extension ) );
 
 		if ( '.' !== $folder ) {
 			$url .= '/' . ltrim( $folder, '/' );
@@ -203,15 +234,32 @@ function wordpoints_modules_url( $path = '', $module = '' ) {
 	}
 
 	/**
-	 * Filter the URL of the modules directory.
+	 * Filters the URL of a file or folder in the extensions directory.
 	 *
 	 * @since 1.4.0
+	 * @deprecated 2.4.0 Use 'wordpoints_extensions_url' instead.
 	 *
-	 * @param string $url The URL of the modules folder.
-	 * @param string $path   A relative path to a file or folder.
-	 * @param string $module A module file that the $path should be relative to.
+	 * @param string $url       The URL of the file or folder.
+	 * @param string $path      A relative path to a file or folder.
+	 * @param string $extension An extension that the $path should be relative to.
 	 */
-	return apply_filters( 'wordpoints_modules_url', $url, $path, $module );
+	$url = apply_filters_deprecated(
+		'wordpoints_modules_url'
+		, array( $url, $path, $extension )
+		, '2.4.0'
+		, 'wordpoints_extensions_url'
+	);
+
+	/**
+	 * Filters the URL of a file or folder in the extensions directory.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $url       The URL of the file or folder.
+	 * @param string $path      A relative path to a file or folder.
+	 * @param string $extension An extension that the $path should be relative to.
+	 */
+	return apply_filters( 'wordpoints_extensions_url', $url, $path, $extension );
 }
 
 /**

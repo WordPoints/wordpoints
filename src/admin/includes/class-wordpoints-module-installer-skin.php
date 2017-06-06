@@ -83,11 +83,11 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 
 		if ( $this->result && ! is_wp_error( $this->result ) ) {
 
-			if ( is_multisite() && current_user_can( 'manage_network_wordpoints_modules' ) ) {
+			if ( is_multisite() && current_user_can( 'manage_network_wordpoints_extensions' ) ) {
 
 				$install_actions['network_activate'] = '<a class="button button-primary" href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;networkwide=1&amp;module=' . rawurlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Network Activate', 'wordpoints' ) . '</a>';
 
-			} elseif ( current_user_can( 'activate_wordpoints_modules' ) ) {
+			} elseif ( current_user_can( 'activate_wordpoints_extensions' ) ) {
 
 				$install_actions['activate_module'] = '<a class="button button-primary" href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&amp;module=' . rawurlencode( $module_file ) ), "activate-module_{$module_file}" ) . '" target="_parent">' . esc_html__( 'Activate Extension', 'wordpoints' ) . '</a>';
 			}

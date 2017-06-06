@@ -127,7 +127,7 @@ class WordPoints_Extension_Upgrader_Skin extends WP_Upgrader_Skin {
 			$this->extension_active
 			|| ! $this->result
 			|| is_wp_error( $this->result )
-			|| ! current_user_can( 'activate_wordpoints_modules' )
+			|| ! current_user_can( 'activate_wordpoints_extensions' )
 		) {
 			unset( $update_actions['activate_extension'] );
 		}

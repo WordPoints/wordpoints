@@ -39,7 +39,7 @@ class WordPoints_1_5_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 		// Check that the caps don't exist.
 		switch_to_blog( $blog_id );
-		$this->assertFalse( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
+		$this->assertFalse( get_role( 'administrator' )->has_cap( 'install_wordpoints_extensions' ) );
 		restore_current_blog();
 
 		// Simulate the update.
@@ -47,7 +47,7 @@ class WordPoints_1_5_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 		// Check that the custom caps were added to the new site.
 		switch_to_blog( $blog_id );
-		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
+		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_extensions' ) );
 		restore_current_blog();
 	}
 }

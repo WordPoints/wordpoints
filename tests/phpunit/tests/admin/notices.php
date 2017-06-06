@@ -455,7 +455,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 
@@ -501,7 +501,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$this->assertNoAdminNoticesDisplayed();
 	}
@@ -522,7 +522,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 
@@ -568,7 +568,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$this->assertNoAdminNoticesDisplayed();
 	}
@@ -587,7 +587,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$this->assertAdminNoticeDisplayedForOption(
 			'wordpoints_incompatible_modules'
@@ -629,7 +629,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 

@@ -89,7 +89,7 @@ class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 			'updates_page'    => '<a href="' . esc_url( self_admin_url( 'update-core.php' ) ) . '" target="_parent">' . esc_html__( 'Return to WordPress Updates', 'wordpoints' ) . '</a>',
 		);
 
-		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'activate_wordpoints_extensions' ) ) {
 			unset( $update_actions['extensions_page'] );
 		}
 
@@ -103,7 +103,7 @@ class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 		 *
 		 *        @type string $extensions_page Go to the extensions page. Not available if
 		 *                                      the user doesn't have the
-		 *                                      'activate_wordpoints_modules' capability.
+		 *                                      'activate_wordpoints_extensions' capability.
 		 *        @type string $updates_page    Go to the WordPress updates page.
 		 * }
 		 * @param array $extension_info The extension's data.

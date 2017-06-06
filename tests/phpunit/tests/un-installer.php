@@ -169,9 +169,10 @@ class WordPoints_Un_Installer_Test extends WordPoints_PHPUnit_TestCase {
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
-		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 	}
 }
 

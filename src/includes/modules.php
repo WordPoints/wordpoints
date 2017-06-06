@@ -723,7 +723,7 @@ function wordpoints_validate_active_modules() {
 
 	$modules = wordpoints_get_array_option( 'wordpoints_active_modules' );
 
-	if ( is_multisite() && current_user_can( 'manage_network_wordpoints_modules' ) ) {
+	if ( is_multisite() && current_user_can( 'manage_network_wordpoints_extensions' ) ) {
 
 		$network_modules = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
 		$modules = array_merge( $modules, array_keys( $network_modules ) );

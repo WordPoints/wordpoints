@@ -104,7 +104,7 @@ function wordpoints_admin_menu() {
 		add_menu_page(
 			$wordpoints
 			,esc_html( $wordpoints )
-			,'activate_wordpoints_modules'
+			,'activate_wordpoints_extensions'
 			,'wordpoints_modules'
 			,'wordpoints_admin_screen_modules'
 		);
@@ -116,7 +116,7 @@ function wordpoints_admin_menu() {
 		$main_menu
 		,__( 'WordPoints — Extensions', 'wordpoints' )
 		,esc_html__( 'Extensions', 'wordpoints' )
-		,'activate_wordpoints_modules'
+		,'activate_wordpoints_extensions'
 		,'wordpoints_modules'
 		,'wordpoints_admin_screen_modules'
 	);
@@ -126,7 +126,7 @@ function wordpoints_admin_menu() {
 		'_wordpoints_modules' // Fake menu.
 		,__( 'WordPoints — Install Extensions', 'wordpoints' )
 		,esc_html__( 'Install Extensions', 'wordpoints' )
-		,'install_wordpoints_modules'
+		,'install_wordpoints_extensions'
 		,'wordpoints_install_modules'
 		,'wordpoints_admin_screen_install_modules'
 	);
@@ -996,7 +996,7 @@ function wordpoints_upload_module_zip() {
 
 	global $title, $parent_file, $submenu_file;
 
-	if ( ! current_user_can( 'install_wordpoints_modules' ) ) {
+	if ( ! current_user_can( 'install_wordpoints_extensions' ) ) {
 		wp_die( esc_html__( 'Sorry, you are not allowed to install WordPoints extensions on this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 	}
 
@@ -1931,7 +1931,7 @@ function wordpoints_admin_notices() {
 
 	wordpoints_delete_admin_notice_option();
 
-	if ( current_user_can( 'activate_wordpoints_modules' ) ) {
+	if ( current_user_can( 'activate_wordpoints_extensions' ) ) {
 
 		if ( is_network_admin() ) {
 
@@ -1993,7 +1993,7 @@ function wordpoints_admin_notices() {
 	} // End if ( user can activate modules ).
 
 	if (
-		current_user_can( 'delete_wordpoints_modules' )
+		current_user_can( 'delete_wordpoints_extensions' )
 		&& (
 			! isset( $_REQUEST['action'] ) // WPCS: CSRF OK.
 			|| 'delete-selected' !== $_REQUEST['action'] // WPCS: CSRF OK.

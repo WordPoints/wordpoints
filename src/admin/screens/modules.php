@@ -158,7 +158,7 @@ if ( isset( $_GET['error'] ) ) {
 	<h1>
 		<?php esc_html_e( 'WordPoints Extensions', 'wordpoints' ); ?>
 
-		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) : ?>
+		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_extensions' ) ) : ?>
 			<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'extension', 'wordpoints' ); ?></a>
 		<?php endif; ?>
 

@@ -64,9 +64,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
-		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 
 		if ( $this->network_wide ) {
 			$active_components = get_site_option( 'wordpoints_active_components' );
@@ -150,9 +151,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 				$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
 
 				$administrator = get_role( 'administrator' );
-				$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
-				$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-				$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+				$this->assertFalse( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+				$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+				$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+				$this->assertFalse( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 			}
 
 			switch_to_blog( $original_blog_id );
@@ -168,9 +170,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 			$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
 
 			$administrator = get_role( 'administrator' );
-			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
-			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+			$this->assertFalse( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 
 		} // End if ( is_multisite() ) else.
 

@@ -114,7 +114,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 */
 	public function ajax_user_can() {
 
-		return current_user_can( 'activate_wordpoints_modules' );
+		return current_user_can( 'activate_wordpoints_extensions' );
 	}
 
 	/**
@@ -152,7 +152,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				! is_multisite()
 				|| (
 					is_network_admin()
-					&& current_user_can( 'manage_network_wordpoints_modules' )
+					&& current_user_can( 'manage_network_wordpoints_extensions' )
 				)
 			)
 		);
@@ -522,7 +522,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		if (
 			( ! is_multisite() || $this->screen->in_admin( 'network' ) )
-			&& current_user_can( 'delete_wordpoints_modules' )
+			&& current_user_can( 'delete_wordpoints_extensions' )
 			&& 'active' !== $status
 		) {
 			$actions['delete-selected'] = esc_html__( 'Delete', 'wordpoints' );
@@ -909,19 +909,19 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 			if ( $args['is_active'] ) {
 
-				if ( current_user_can( 'manage_network_wordpoints_modules' ) ) {
+				if ( current_user_can( 'manage_network_wordpoints_extensions' ) ) {
 					// translators: Extension name.
 					$actions['deactivate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'deactivate', $url ), "deactivate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Network deactivate %s', 'wordpoints' ), $module_data['name'] ) ) . '">' . esc_html__( 'Network Deactivate', 'wordpoints' ) . '</a>';
 				}
 
 			} else {
 
-				if ( current_user_can( 'manage_network_wordpoints_modules' ) ) {
+				if ( current_user_can( 'manage_network_wordpoints_extensions' ) ) {
 					// translators: Extension name.
 					$actions['activate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'activate', $url ), "activate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Network activate %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="edit">' . esc_html__( 'Network Activate', 'wordpoints' ) . '</a>';
 				}
 
-				if ( current_user_can( 'delete_wordpoints_modules' ) && ! is_wordpoints_module_active( $module_file ) ) {
+				if ( current_user_can( 'delete_wordpoints_extensions' ) && ! is_wordpoints_module_active( $module_file ) ) {
 					// translators: Extension name.
 					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" aria-label="' . esc_attr( sprintf( __( 'Delete %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}
@@ -947,7 +947,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				// translators: Extension name.
 				$actions['activate'] = '<a href="' . wp_nonce_url( add_query_arg( 'action', 'activate', $url ), "activate-module_{$module_file}" ) . '" aria-label="' . esc_attr( sprintf( __( 'Activate %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="edit">' . esc_html__( 'Activate', 'wordpoints' ) . '</a>';
 
-				if ( ! is_multisite() && current_user_can( 'delete_wordpoints_modules' ) ) {
+				if ( ! is_multisite() && current_user_can( 'delete_wordpoints_extensions' ) ) {
 					// translators: Extension name.
 					$actions['delete'] = '<a href="' . wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&amp;checked[]=' . $module_file . '&amp;module_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s ), 'bulk-modules' ) . '" aria-label="' . esc_attr( sprintf( __( 'Delete %s', 'wordpoints' ), $module_data['name'] ) ) . '" class="delete">' . esc_html__( 'Delete', 'wordpoints' ) . '</a>';
 				}

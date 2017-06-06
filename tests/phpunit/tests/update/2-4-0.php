@@ -33,9 +33,12 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_adds_new_custom_caps() {
 
-		wordpoints_remove_custom_caps( array( 'update_wordpoints_extensions' ) );
+		wordpoints_remove_custom_caps( array_keys( wordpoints_get_custom_caps() ) );
 
 		$administrator = get_role( 'administrator' );
+		$this->assertFalse( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
 		$this->assertFalse( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 
 		// Simulate the update.
@@ -43,6 +46,9 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
+		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
 		$this->assertTrue( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 	}
 

@@ -881,11 +881,11 @@ function wordpoints_shortcode_error( $message ) {
 function wordpoints_get_custom_caps() {
 
 	return array(
-		'install_wordpoints_modules'        => 'install_plugins',
-		'update_wordpoints_extensions'      => 'update_plugins',
-		'manage_network_wordpoints_modules' => 'manage_network_plugins',
-		'activate_wordpoints_modules'       => 'activate_plugins',
-		'delete_wordpoints_modules'         => 'delete_plugins',
+		'install_wordpoints_extensions'        => 'install_plugins',
+		'update_wordpoints_extensions'         => 'update_plugins',
+		'manage_network_wordpoints_extensions' => 'manage_network_plugins',
+		'activate_wordpoints_extensions'       => 'activate_plugins',
+		'delete_wordpoints_extensions'         => 'delete_plugins',
 	);
 }
 
@@ -946,8 +946,26 @@ function wordpoints_remove_custom_caps( $capabilities ) {
  */
 function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
+	$deprecated = array(
+		'install_wordpoints_modules' => 'install_wordpoints_extensions',
+		'manage_network_wordpoints_modules' => 'manage_network_wordpoints_extensions',
+		'activate_wordpoints_modules' => 'activate_wordpoints_extensions',
+		'delete_wordpoints_modules' => 'delete_wordpoints_extensions',
+	);
+
+	if ( isset( $deprecated[ $cap ] ) ) {
+
+		_deprecated_argument(
+			'current_user_can'
+			, '2.4.0'
+			, esc_html( "{$cap} is deprecated, use {$deprecated[ $cap ]} instead." )
+		);
+
+		$caps[] = $deprecated[ $cap ];
+	}
+
 	switch ( $cap ) {
-		case 'install_wordpoints_modules':
+		case 'install_wordpoints_extensions':
 		case 'update_wordpoints_extensions':
 			if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
 				$caps[] = 'do_not_allow';

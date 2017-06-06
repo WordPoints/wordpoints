@@ -34,7 +34,7 @@ switch ( $action ) {
 
 	// Activate a single module.
 	case 'activate':
-		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'activate_wordpoints_extensions' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to activate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
@@ -84,7 +84,7 @@ switch ( $action ) {
 
 	// Activate multiple modules.
 	case 'activate-selected':
-		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'activate_wordpoints_extensions' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to activate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
@@ -140,7 +140,7 @@ switch ( $action ) {
 
 	// Get the fatal error from a module.
 	case 'error_scrape':
-		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'activate_wordpoints_extensions' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to activate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
@@ -184,7 +184,7 @@ switch ( $action ) {
 
 	// Deactivate a module.
 	case 'deactivate':
-		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'activate_wordpoints_extensions' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
@@ -212,7 +212,7 @@ switch ( $action ) {
 
 	// Deactivate multiple modules.
 	case 'deactivate-selected':
-		if ( ! current_user_can( 'activate_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'activate_wordpoints_extensions' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 
@@ -254,7 +254,7 @@ switch ( $action ) {
 
 	// Delete multiple modules.
 	case 'delete-selected':
-		if ( ! current_user_can( 'delete_wordpoints_modules' ) ) {
+		if ( ! current_user_can( 'delete_wordpoints_extensions' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to delete extensions for this site.', 'wordpoints' ), '', array( 'response' => 403 ) );
 		}
 

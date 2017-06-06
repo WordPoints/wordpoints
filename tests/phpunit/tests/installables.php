@@ -457,7 +457,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase {
 		$blog_id = $this->factory->blog->create();
 
 		switch_to_blog( $blog_id );
-		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_modules' ) );
+		$this->assertTrue( get_role( 'administrator' )->has_cap( 'install_wordpoints_extensions' ) );
 		restore_current_blog();
 	}
 }

@@ -301,6 +301,19 @@ function wordpoints_register_extension( $data, $file ) {
 }
 
 /**
+ * Gets the installed version of an extension.
+ *
+ * @since 2.4.0
+ *
+ * @param string $extension The full path to one of the extension's files.
+ *
+ * @return string|false The extension version, or false on failure.
+ */
+function wordpoints_get_extension_version( $extension ) {
+	return WordPoints_Modules::get_data( $extension, 'version' );
+}
+
+/**
  * Parse the module contents to retrieve module's metadata.
  *
  * Module metadata headers are essentially the same as WordPress plugin headers. The

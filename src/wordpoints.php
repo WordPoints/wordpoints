@@ -55,7 +55,7 @@ include_once dirname( __FILE__ ) . '/includes/constants.php';
 /**
  * Core functions.
  *
- * Contains general functions that can be used by components and modules.
+ * Contains general functions that can be used by components and extensions.
  *
  * @since 1.0.0
  */
@@ -82,9 +82,9 @@ include_once WORDPOINTS_DIR . 'includes/apps.php';
 include_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
- * Module functions.
+ * Extension functions.
  *
- * Loads modules, etc.
+ * Loads extensions, etc.
  *
  * @since 1.0.0
  */

@@ -47,7 +47,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		parent::__construct(
 			array(
-				'plural' => 'modules',
+				'plural' => 'wordpoints-extensions',
 				'screen' => ( isset( $args['screen'] ) ) ? $args['screen'] : null,
 			)
 		);
@@ -95,7 +95,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 */
 	public function get_table_classes() {
 
-		return array( 'widefat', $this->_args['plural'], 'plugins' );
+		return array( 'widefat', $this->_args['plural'], 'modules', 'plugins' );
 	}
 
 	/**
@@ -553,11 +553,16 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param string $which Not used.
+	 * @param string $which Which table navigation is being displayed, top or bottom.
 	 */
 	public function extra_tablenav( $which ) {
 
 		global $status;
+
+		// Back-compat.
+		if ( 'top' === $which ) {
+			wp_nonce_field( 'bulk-modules' );
+		}
 
 		if ( 'recently_activated' !== $status ) {
 			return;

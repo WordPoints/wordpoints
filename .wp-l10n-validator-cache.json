@@ -26,8 +26,8 @@
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-module-installer-skin.php": {
-            "size": 3883,
-            "hash": "157edf202cc10d1b2502b07f6833315c",
+            "size": 3886,
+            "hash": "10a24821184f1e94a3ac68a4d1872c99",
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-module-installer.php": {
@@ -36,18 +36,18 @@
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
-            "size": 29620,
-            "hash": "038e6c9112d4e27a8836316080b7226f",
+            "size": 29781,
+            "hash": "c4a60c20e61bf4117ce130c91936e95a",
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
-            "size": 4125,
-            "hash": "770f4784bd8fb251c75d6d88a48251d6",
+            "size": 4131,
+            "hash": "33969b0b6e9d0358d3b839b4130fbd37",
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 72350,
-            "hash": "fcefc099a8bdf145dc43fd6086e7fd8b",
+            "size": 72790,
+            "hash": "de612578a7afc0df9202a9d8546ea34d",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -81,18 +81,18 @@
             "errors": false
         },
         "\/admin\/screens\/module-install.php": {
-            "size": 1217,
-            "hash": "498e4bec5e9ce656d972657b10301008",
+            "size": 2023,
+            "hash": "c160433ea3ae53653d714f1218b1bcbe",
             "errors": false
         },
         "\/admin\/screens\/modules-load.php": {
-            "size": 18005,
-            "hash": "25e34da44f5b5f12f361257c15dbec02",
+            "size": 18008,
+            "hash": "b177395c1637ea85f7ca31968bc5202b",
             "errors": false
         },
         "\/admin\/screens\/modules.php": {
-            "size": 5860,
-            "hash": "6165877312c542337f49124275d45d91",
+            "size": 5863,
+            "hash": "983eaa1b5a4b92c5f9897af0909ab21e",
             "errors": false
         },
         "\/classes\/app\/registry.php": {
@@ -1406,8 +1406,8 @@
             "errors": false
         },
         "\/wordpoints.php": {
-            "size": 3616,
-            "hash": "d3d6c6ebbe91467fd60fb47b4b215b97",
+            "size": 3625,
+            "hash": "a9401790c6615af73a61a7ea3c26f95a",
             "errors": false
         }
     },

@@ -4,18 +4,18 @@
  * @since 2.4.0
  */
 
-.plugins tr.active.plugin-update-tr + tr.inactive.wordpoints-extension-has-license th,
-.plugins tr.active.plugin-update-tr + tr.inactive.wordpoints-extension-has-license td,
-.plugins tr.active + tr.inactive.wordpoints-extension-has-license th,
-.plugins tr.active + tr.inactive.wordpoints-extension-has-license td,
-.plugins tr.update + .wordpoints-extension-license-tr td,
-.plugins.modules .wordpoints-extension-has-license th,
-.plugins.modules .wordpoints-extension-has-license td {
+.wordpoints-extensions tr.active.plugin-update-tr + tr.inactive.wordpoints-extension-has-license th,
+.wordpoints-extensions tr.active.plugin-update-tr + tr.inactive.wordpoints-extension-has-license td,
+.wordpoints-extensions tr.active + tr.inactive.wordpoints-extension-has-license th,
+.wordpoints-extensions tr.active + tr.inactive.wordpoints-extension-has-license td,
+.wordpoints-extensions tr.update + .wordpoints-extension-license-tr td,
+.plugins.wordpoints-extensions .wordpoints-extension-has-license th,
+.plugins.wordpoints-extensions .wordpoints-extension-has-license td {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
 
-.plugins .wordpoints-extension-license-tr td {
+.wordpoints-extensions .wordpoints-extension-license-tr td {
 	padding: 0;
 }
 

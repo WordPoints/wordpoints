@@ -43,7 +43,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "608": false
+            "613": false
         },
         "inactive": {
             "61": {
@@ -53,7 +53,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "608": false
+            "613": false
         },
         "search": {
             "63": {
@@ -74,7 +74,7 @@
                 "parentheses": 1
             }
         },
-        "plugins": {
+        "modules": {
             "98": {
                 "name": "array",
                 "type": "unknown",
@@ -83,24 +83,37 @@
                 "parentheses": 1
             }
         },
+        "plugins": {
+            "98": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
         "name": {
             "105": false,
             "308": false
         },
         "update": {
-            "611": false
+            "616": false
         },
         "hidden": {
-            "856": false
+            "762": false,
+            "786": false,
+            "861": false
         },
         "has-row-actions column-primary": {
-            "856": false
+            "762": false,
+            "786": false,
+            "861": false
         },
         "second module-version-author-uri\">": {
-            "791": false
+            "796": false
         },
         "column-": {
-            "856": false
+            "861": false
         }
     },
     "\/admin\/includes\/functions.php": {
@@ -114,10 +127,10 @@
             }
         },
         ".manifested": {
-            "259": false
+            "271": false
         },
         "wordpoints-admin-extensions-list-table": {
-            "289": {
+            "301": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -126,7 +139,7 @@
             }
         },
         "rtl": {
-            "286": {
+            "298": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -135,7 +148,7 @@
             }
         },
         "replace": {
-            "286": {
+            "298": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -144,7 +157,7 @@
             }
         },
         "wordpoints-hooks-admin": {
-            "290": {
+            "302": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -153,7 +166,7 @@
             }
         },
         "suffix": {
-            "290": {
+            "302": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -162,7 +175,7 @@
             }
         },
         "\u00ab": {
-            "328": {
+            "340": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -171,7 +184,7 @@
             }
         },
         "\u00bb": {
-            "328": {
+            "340": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -180,7 +193,7 @@
             }
         },
         "{{ data.length }}": {
-            "502": {
+            "514": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -189,7 +202,7 @@
             }
         },
         "{{ data.length_in_units_label }}": {
-            "502": {
+            "514": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -198,7 +211,7 @@
             }
         },
         "{{ data.length_in_units }}": {
-            "519": {
+            "531": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -207,7 +220,7 @@
             }
         },
         "1": {
-            "543": {
+            "555": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -216,13 +229,13 @@
             }
         },
         "attr": {
-            "673": false
+            "685": false
         },
         "relationship": {
-            "678": false
+            "690": false
         },
         "entity": {
-            "703": {
+            "715": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -231,16 +244,16 @@
             }
         },
         "success": {
-            "864": false
+            "876": false
         },
         "is-dismissible": {
-            "880": false
+            "892": false
         },
         "data-nonce=\"": {
-            "882": false
+            "894": false
         },
         "upload": {
-            "1030": {
+            "1042": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -249,7 +262,7 @@
             }
         },
         "update.php?action=wordpoints-upgrade-extension&extension=": {
-            "1075": {
+            "1087": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -258,7 +271,7 @@
             }
         },
         "bulk-update-extensions": {
-            "1215": {
+            "1227": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -267,7 +280,7 @@
             }
         },
         "update.php?action=update-selected-wordpoints-extensions&amp;extensions=": {
-            "1216": {
+            "1228": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -276,43 +289,43 @@
             }
         },
         "active": {
-            "1291": false,
-            "1594": false,
-            "2330": false
+            "1303": false,
+            "1606": false,
+            "2342": false
         },
         "inactive": {
-            "1291": false,
-            "1594": false
+            "1303": false,
+            "1606": false
         },
         "\"\n\t\t\t\t\t\t\tclass=\"thickbox wordpoints-open-extension-details-modal\"": {
-            "1307": false
+            "1319": false
         },
         "aria-label=\"": {
-            "1330": false
+            "1342": false
         },
         "wordpoints-extension-has-license": {
-            "1522": false
+            "1534": false
         },
         "wordpoints-extension-license-valid": {
-            "1530": false
+            "1542": false
         },
         "wordpoints-extension-license-invalid": {
-            "1532": false
+            "1544": false
         },
         "wordpoints-extension-license-active": {
-            "1537": false
+            "1549": false
         },
         "wordpoints-extension-license-inactive": {
-            "1539": false
+            "1551": false
         },
         "wordpoints-extension-license-expired": {
-            "1547": false
+            "1559": false
         },
         "&checked[]=": {
-            "2043": false
+            "2055": false
         },
         "wordpoints": {
-            "2208": {
+            "2220": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -321,7 +334,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2220": {
+            "2232": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -330,7 +343,7 @@
             }
         },
         "-update": {
-            "2337": {
+            "2349": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -339,13 +352,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2342": false
+            "2354": false
         },
         "document.getElementById(": {
-            "2372": false
+            "2384": false
         },
         ").disabled = true;": {
-            "2376": false
+            "2388": false
         }
     },
     "\/admin\/screens\/configure-components.php": {

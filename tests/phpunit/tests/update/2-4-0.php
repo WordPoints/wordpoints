@@ -76,6 +76,29 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 			, get_site_option( 'wordpoints_merged_extensions' )
 		);
 	}
+
+	/**
+	 * Tests that it moves the extensions directory.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_moves_extensions_directory() {
+
+		$legacy = WP_CONTENT_DIR . '/wordpoints-modules';
+		$new = WP_CONTENT_DIR . '/wordpoints-extensions';
+
+		if ( ! is_dir( $legacy ) ) {
+			rename( $new, $legacy );
+		}
+
+		$this->assertFileExists( $legacy );
+
+		// Simulate the update.
+		$this->update_wordpoints();
+
+		$this->assertFileExists( $new );
+		$this->assertFileNotExists( $legacy );
+	}
 }
 
 // EOF

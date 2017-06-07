@@ -104,7 +104,7 @@ function wordpoints_modules_dir() {
 /**
  * Get the path to the extensions directory.
  *
- * The default is /wp-content/wordpoints-modules/. To override this, define the
+ * The default is /wp-content/wordpoints-extensions/. To override this, define the
  * WORDPOINTS_EXTENSIONS_DIR constant in wp-config.php like this:
  *
  * define( 'WORDPOINTS_EXTENSIONS_DIR', '/my/custom/path/' );
@@ -137,7 +137,7 @@ function wordpoints_extensions_dir() {
 
 		} else {
 
-			$extensions_dir = WP_CONTENT_DIR . '/wordpoints-modules/';
+			$extensions_dir = WP_CONTENT_DIR . '/wordpoints-extensions/';
 		}
 	}
 
@@ -164,6 +164,41 @@ function wordpoints_extensions_dir() {
 	 * @param string $extensions_dir The full path to the extensions folder.
 	 */
 	return apply_filters( 'wordpoints_extensions_dir', $dir );
+}
+
+/**
+ * Replaces the new extensions directory path with the legacy path as needed.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\filter wordpoints_extensions_dir
+ * @WordPress\filter wordpoints_extensions_url
+ *
+ * @param string $path The path.
+ *
+ * @return string The filtered path.
+ */
+function wordpoints_legacy_modules_path( $path ) {
+
+	if ( is_wordpoints_network_active() ) {
+		$wordpoints_data = get_site_option( 'wordpoints_data' );
+	} else {
+		$wordpoints_data = get_option( 'wordpoints_data' );
+	}
+
+	// If the legacy directory could not be moved, or we haven't done the update yet.
+	if (
+		get_site_option( 'wordpoints_legacy_extensions_dir' )
+		|| version_compare( $wordpoints_data['version'], '2.4.0-alpha-3', '<' )
+	) {
+		$path = str_replace(
+			'/wordpoints-extensions'
+			, '/wordpoints-modules'
+			, $path
+		);
+	}
+
+	return $path;
 }
 
 /**
@@ -215,7 +250,7 @@ function wordpoints_extensions_url( $path = '', $extension = '' ) {
 
 	} else {
 
-		$url = WP_CONTENT_URL . '/wordpoints-modules';
+		$url = WP_CONTENT_URL . '/wordpoints-extensions';
 	}
 
 	$url = set_url_scheme( $url );
@@ -586,7 +621,7 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 	}
 
 	// Otherwise, load from the languages directory.
-	$mofile = WP_LANG_DIR . '/wordpoints-modules/' . $mofile;
+	$mofile = WP_LANG_DIR . '/wordpoints-extensions/' . $mofile;
 
 	return load_textdomain( $domain, $mofile );
 }
@@ -594,7 +629,7 @@ function wordpoints_load_module_textdomain( $domain, $module_rel_path = false ) 
 /**
  * Get a list of all main module files.
  *
- * The default usage retrieves a list of all module files in the /wp-content/wordpoints-modules
+ * The default usage retrieves a list of all module files in the /wp-content/wordpoints-extensions
  * directory. To get only the modules in a specific subfolder of that directory, pass
  * the folder name as the first parameter.
  *

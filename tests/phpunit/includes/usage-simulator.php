@@ -150,8 +150,8 @@ $module_realpath = realpath(
 
 if ( ! is_link( $module_path ) ) {
 
-	if ( ! is_dir( WP_CONTENT_DIR . '/wordpoints-modules' ) ) {
-		mkdir( WP_CONTENT_DIR . '/wordpoints-modules' );
+	if ( ! is_dir( WP_CONTENT_DIR . '/wordpoints-extensions' ) ) {
+		mkdir( WP_CONTENT_DIR . '/wordpoints-extensions' );
 	}
 
 	symlink( $module_realpath, $module_path );

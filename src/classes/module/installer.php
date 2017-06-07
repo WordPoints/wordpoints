@@ -72,24 +72,23 @@ class WordPoints_Module_Installer extends WP_Upgrader {
 
 		global $wp_filesystem, $wp_theme_directories;
 
-		$modules_dir = wordpoints_extensions_dir();
+		$extensions_dir = wordpoints_extensions_dir();
 
-		// Attempt to create the /wp-content/wordpoints-modules directory if needed.
-		if ( ! $wp_filesystem->exists( $modules_dir ) ) {
+		// Attempt to create the /wp-content/wordpoints-extensions directory if needed.
+		if ( ! $wp_filesystem->exists( $extensions_dir ) ) {
 
-			if ( $wp_filesystem->mkdir( $modules_dir, FS_CHMOD_DIR ) ) {
-				$wp_filesystem->put_contents( $modules_dir . '/index.php', '<?php // Gold is silent.' );
+			if ( $wp_filesystem->mkdir( $extensions_dir, FS_CHMOD_DIR ) ) {
+				$wp_filesystem->put_contents( $extensions_dir . '/index.php', '<?php // Gold is silent.' );
 			} else {
-				return new WP_Error( 'mkdir_failed_modules', $this->strings['mkdir_failed_modules'], $modules_dir );
+				return new WP_Error( 'mkdir_failed_modules', $this->strings['mkdir_failed_modules'], $extensions_dir );
 			}
 		}
 
-		$module_dir = wordpoints_extensions_dir();
-		$wp_theme_directories[] = $module_dir;
+		$wp_theme_directories[] = $extensions_dir;
 
 		$result = parent::install_package( $args );
 
-		$key = array_search( $module_dir, $wp_theme_directories, true );
+		$key = array_search( $extensions_dir, $wp_theme_directories, true );
 
 		if ( false !== $key ) {
 			unset( $wp_theme_directories[ $key ] );

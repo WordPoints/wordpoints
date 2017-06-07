@@ -30,7 +30,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.4.0-alpha-2'  => array( 'single' => true, 'site' => true, 'network' => true ),
-		'2.4.0-alpha-3'  => array( 'single' => true, 'site' => true, /*      -      */ ),
+		'2.4.0-alpha-3'  => array( 'single' => true, 'site' => true, 'network' => true ),
 	);
 
 	/**
@@ -432,6 +432,16 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Update a multisite network to 2.4.0.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_network_to_2_4_0_alpha_3() {
+
+		$this->update_2_4_0_rename_extensions_directory();
+	}
+
+	/**
 	 * Update a single site on a multisite network to 2.4.0.
 	 *
 	 * @since 2.4.0
@@ -449,6 +459,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function update_single_to_2_4_0_alpha_3() {
 
 		$this->update_2_4_0_add_new_custom_caps();
+		$this->update_2_4_0_rename_extensions_directory();
 	}
 
 	/**
@@ -459,6 +470,32 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected function update_2_4_0_add_new_custom_caps() {
 
 		wordpoints_add_custom_caps( wordpoints_get_custom_caps() );
+	}
+
+	/**
+	 * Renames the extensions directory.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_2_4_0_rename_extensions_directory() {
+
+		global $wp_filesystem;
+
+		if ( ! $wp_filesystem && ! WP_Filesystem() ) {
+			update_site_option( 'wordpoints_legacy_extensions_dir', true );
+			return;
+		}
+
+		$legacy = WP_CONTENT_DIR . '/wordpoints-modules';
+
+		if ( $wp_filesystem->is_dir( $legacy ) ) {
+
+			$moved = $wp_filesystem->move( $legacy, WP_CONTENT_DIR . '/wordpoints-extensions' );
+
+			if ( ! $moved ) {
+				update_site_option( 'wordpoints_legacy_extensions_dir', true );
+			}
+		}
 	}
 }
 

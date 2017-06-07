@@ -122,14 +122,16 @@ function wordpoints_admin_menu() {
 	);
 
 	// Back-compat for extensions page when the slug was "modules".
-	add_submenu_page(
-		'_wordpoints_extensions'
-		,__( 'WordPoints — Extensions', 'wordpoints' )
+	add_menu_page(
+		__( 'WordPoints — Extensions', 'wordpoints' )
 		,esc_html__( 'Extensions', 'wordpoints' )
 		,'activate_wordpoints_extensions'
 		,'wordpoints_modules'
 		,'wordpoints_admin_screen_modules'
 	);
+
+	// Hack so that this page isn't displayed in the menu.
+	remove_menu_page( 'wordpoints_modules' );
 
 	// Extensions install page.
 	add_submenu_page(

@@ -1,11 +1,17 @@
 <?php
 
 /**
- * Modules related functions.
+ * Extensions related functions.
  *
- * This class loads, registers, activates and deactivates modules.
+ * This class loads, registers, activates and deactivates extensions.
  *
- * @package WordPoints\Modules
+ * The name of this file and many of the functions reflects the fact that extensions
+ * used to be called "modules". Over time the term "module" will be completely
+ * dropped from all APIs in favor of "extension", but it was decided that this would
+ * be done partly as the APIs organically evolve, rather than renaming them all at
+ * once.
+ *
+ * @package WordPoints\Extensions
  * @since 1.0.0
  */
 

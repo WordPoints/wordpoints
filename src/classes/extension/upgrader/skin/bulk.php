@@ -85,7 +85,7 @@ class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 		parent::bulk_footer();
 
 		$update_actions = array(
-			'extensions_page' => '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Extensions page', 'wordpoints' ) . '</a>',
+			'extensions_page' => '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ) . '" target="_parent">' . esc_html__( 'Return to Extensions page', 'wordpoints' ) . '</a>',
 			'updates_page'    => '<a href="' . esc_url( self_admin_url( 'update-core.php' ) ) . '" target="_parent">' . esc_html__( 'Return to WordPress Updates', 'wordpoints' ) . '</a>',
 		);
 

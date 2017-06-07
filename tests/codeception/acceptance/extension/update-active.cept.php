@@ -12,7 +12,7 @@ $I->wantTo( 'Update an active extension' );
 $I->haveTestExtensionInstalled( 'module-7' );
 $I->hadActivatedExtension( 'module-7/module-7.php' );
 $I->haveTestExtensionInstalledNeedingUpdate();
-$I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_modules' );
+$I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_extensions' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );
 $I->see( 'Deactivate', 'tr#module-7' );
 $I->see( 'There is a new version of Module 7 available.' );

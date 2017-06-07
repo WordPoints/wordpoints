@@ -10,7 +10,7 @@
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Activate an extension' );
 $I->haveTestExtensionInstalled( 'module-7' );
-$I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_modules' );
+$I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_extensions' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );
 $I->click( 'Activate', 'tr#module-7' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );

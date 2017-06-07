@@ -1679,8 +1679,14 @@ abstract class WordPoints_Un_Installer_Base {
 		$parent = $network_parent;
 
 		// The parent page is usually the same on a multisite site, but we need to
-		// handle the special case of the modules screen.
-		if ( 'wordpoints_modules' === $screen_id && is_multisite() ) {
+		// handle the special case of the extensions screen.
+		if (
+			(
+				'wordpoints_extensions' === $screen_id
+				|| 'wordpoints_modules' === $screen_id
+			)
+			&& is_multisite()
+		) {
 			$parent = 'toplevel';
 		}
 

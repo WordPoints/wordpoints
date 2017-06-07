@@ -26,7 +26,7 @@ $s      = ( isset( $_REQUEST['s'] ) ) ? sanitize_text_field( wp_unslash( $_REQUE
 // Clean up request URI from temporary args for screen options/paging URI's to work as expected.
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'error', 'deleted', 'activate', 'activate-multi', 'deactivate', 'deactivate-multi', '_error_nonce' ) );
 
-$redirect_url = self_admin_url( "admin.php?page=wordpoints_modules&module_status={$status}&paged={$page}&s={$s}" );
+$redirect_url = self_admin_url( "admin.php?page=wordpoints_extensions&module_status={$status}&paged={$page}&s={$s}" );
 
 switch ( $action ) {
 
@@ -46,7 +46,7 @@ switch ( $action ) {
 
 		check_admin_referer( 'activate-module_' . $module );
 
-		$result = wordpoints_activate_module( $module, self_admin_url( 'admin.php?page=wordpoints_modules&error=true&module=' . $module ), is_network_admin() );
+		$result = wordpoints_activate_module( $module, self_admin_url( 'admin.php?page=wordpoints_extensions&error=true&module=' . $module ), is_network_admin() );
 
 		if ( is_wp_error( $result ) ) {
 
@@ -117,7 +117,7 @@ switch ( $action ) {
 			exit;
 		}
 
-		$redirect = self_admin_url( 'admin.php?page=wordpoints_modules&error=true' );
+		$redirect = self_admin_url( 'admin.php?page=wordpoints_extensions&error=true' );
 
 		foreach ( $modules as $module ) {
 
@@ -453,11 +453,19 @@ switch ( $action ) {
 
 	default:
 		/**
+		 * Custom action on the extensions screen.
+		 *
+		 * @since 2.4.0
+		 */
+		do_action( "wordpoints_extensions_screen-{$action}" );
+
+		/**
 		 * Custom action on the modules screen.
 		 *
 		 * @since 1.1.0
+		 * @deprecated 2.4.0 Use 'wordpoints_extensions_screen-{$action}' instead.
 		 */
-		do_action( "wordpoints_modules_screen-{$action}" );
+		do_action_deprecated( "wordpoints_modules_screen-{$action}", array(), '2.4.0', "wordpoints_extensions_screen-{$action}" );
 
 } // End switch ( $action ).
 

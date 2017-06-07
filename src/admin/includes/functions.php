@@ -33,7 +33,7 @@ function wordpoints_hooks_register_admin_apps( $app ) {
  *
  * The main item changes in multisite when the plugin is network activated. In the
  * network admin it is the usual 'wordpoints_configure', while everywhere else it is
- * 'wordpoints_modules' instead.
+ * 'wordpoints_extensions' instead.
  *
  * @since 1.2.0
  *
@@ -49,7 +49,7 @@ function wordpoints_get_main_admin_menu() {
 	 * network admin when network active).
 	 */
 	if ( is_wordpoints_network_active() && 'admin_menu' === current_filter() ) {
-		$slug = 'wordpoints_modules';
+		$slug = 'wordpoints_extensions';
 	}
 
 	return $slug;
@@ -105,15 +105,25 @@ function wordpoints_admin_menu() {
 			$wordpoints
 			,esc_html( $wordpoints )
 			,'activate_wordpoints_extensions'
-			,'wordpoints_modules'
+			,'wordpoints_extensions'
 			,'wordpoints_admin_screen_modules'
 		);
 
 	} // End if ( configure is main menu ) else.
 
-	// Modules page.
+	// Extensions page.
 	add_submenu_page(
 		$main_menu
+		,__( 'WordPoints — Extensions', 'wordpoints' )
+		,esc_html__( 'Extensions', 'wordpoints' )
+		,'activate_wordpoints_extensions'
+		,'wordpoints_extensions'
+		,'wordpoints_admin_screen_modules'
+	);
+
+	// Back-compat for extensions page when the slug was "modules".
+	add_submenu_page(
+		'_wordpoints_extensions'
 		,__( 'WordPoints — Extensions', 'wordpoints' )
 		,esc_html__( 'Extensions', 'wordpoints' )
 		,'activate_wordpoints_extensions'
@@ -123,7 +133,7 @@ function wordpoints_admin_menu() {
 
 	// Module install page.
 	add_submenu_page(
-		'_wordpoints_modules' // Fake menu.
+		'_wordpoints_extensions' // Fake menu.
 		,__( 'WordPoints — Install Extensions', 'wordpoints' )
 		,esc_html__( 'Install Extensions', 'wordpoints' )
 		,'install_wordpoints_extensions'
@@ -152,8 +162,8 @@ function wordpoints_admin_screen_modules() {
  *
  * @since 1.1.0
  *
- * @WordPress\action load-wordpoints_page_wordpoints_modules
- * @WordPress\action load-toplevel_page_wordpoints_modules
+ * @WordPress\action load-wordpoints_page_wordpoints_extensions
+ * @WordPress\action load-toplevel_page_wordpoints_extensions
  */
 function wordpoints_admin_screen_modules_load() {
 
@@ -2026,7 +2036,7 @@ function wordpoints_admin_notices() {
 				$message .= ' ';
 
 				$url = admin_url(
-					'admin.php?page=wordpoints_modules&action=delete-selected'
+					'admin.php?page=wordpoints_extensions&action=delete-selected'
 				);
 
 				foreach ( $merged_extensions as $extension ) {
@@ -2102,9 +2112,9 @@ function wordpoints_admin_set_screen_option( $sanitized, $option, $value ) {
 
 	switch ( $option ) {
 
-		case 'wordpoints_page_wordpoints_modules_per_page':
-		case 'wordpoints_page_wordpoints_modules_network_per_page':
-		case 'toplevel_page_wordpoints_modules_per_page':
+		case 'wordpoints_page_wordpoints_extensions_per_page':
+		case 'wordpoints_page_wordpoints_extensions_network_per_page':
+		case 'toplevel_page_wordpoints_extensions_per_page':
 			$sanitized = wordpoints_posint( $value );
 			break;
 	}

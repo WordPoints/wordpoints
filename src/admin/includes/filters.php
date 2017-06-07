@@ -21,6 +21,9 @@ add_filter( 'script_loader_tag', 'wordpoints_script_templates_filter', 10, 2 );
 add_action( 'admin_menu', 'wordpoints_admin_menu' );
 add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
 
+add_action( 'load-wordpoints_page_wordpoints_extensions', 'wordpoints_admin_screen_modules_load' );
+add_action( 'load-toplevel_page_wordpoints_extensions', 'wordpoints_admin_screen_modules_load' );
+
 add_action( 'load-wordpoints_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
 add_action( 'load-toplevel_page_wordpoints_modules', 'wordpoints_admin_screen_modules_load' );
 
@@ -37,7 +40,7 @@ add_action( 'update-custom_wordpoints-iframe-extension-changelog', 'wordpoints_i
 add_action( 'update-custom_update-selected-wordpoints-extensions', 'wordpoints_iframe_update_extensions' );
 
 add_action( 'update-core-custom_do-wordpoints-extension-upgrade', 'wordpoints_admin_screen_update_selected_extensions' );
-add_action( 'wordpoints_modules_screen-update-selected', 'wordpoints_admin_screen_update_selected_extensions' );
+add_action( 'wordpoints_extensions_screen-update-selected', 'wordpoints_admin_screen_update_selected_extensions' );
 
 add_action( 'core_upgrade_preamble', 'wordpoints_list_extension_updates' );
 
@@ -65,8 +68,8 @@ add_action( 'wordpoints_after_module_row', 'wordpoints_extension_license_row', 1
 
 if ( ! wp_doing_ajax() && ( is_main_site() || is_network_admin() ) ) {
 
-	add_action( 'load-wordpoints_page_wordpoints_modules', 'wordpoints_check_for_extension_updates_hourly' );
-	add_action( 'load-toplevel_page_wordpoints_modules', 'wordpoints_check_for_extension_updates_hourly' );
+	add_action( 'load-wordpoints_page_wordpoints_extensions', 'wordpoints_check_for_extension_updates_hourly' );
+	add_action( 'load-toplevel_page_wordpoints_extensions', 'wordpoints_check_for_extension_updates_hourly' );
 	add_action( 'load-update.php', 'wordpoints_check_for_extension_updates_hourly' );
 	add_action( 'load-update-core.php', 'wordpoints_check_for_extension_updates_now' );
 	add_action( 'upgrader_process_complete', 'wordpoints_recheck_for_extension_updates_after_upgrade', 10, 2 );

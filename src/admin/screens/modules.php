@@ -56,7 +56,7 @@ if ( isset( $_GET['error'] ) ) {
 		) {
 
 			$url = self_admin_url(
-				'admin.php?page=wordpoints_modules&action=error_scrape&amp;module='
+				'admin.php?page=wordpoints_extensions&action=error_scrape&amp;module='
 					. sanitize_text_field( wp_unslash( $_GET['module'] ) )
 					. '&amp;_wpnonce=' . sanitize_key( $_GET['_error_nonce'] )
 			);
@@ -189,11 +189,11 @@ if ( isset( $_GET['error'] ) ) {
 	<?php $wp_list_table->views(); ?>
 
 	<form method="get" action="<?php echo esc_url( self_admin_url( 'admin.php' ) ); ?>">
-		<input type="hidden" name="page" value="wordpoints_modules" />
+		<input type="hidden" name="page" value="wordpoints_extensions" />
 		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Extensions', 'wordpoints' ), 'module' ); ?>
 	</form>
 
-	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ); ?>">
+	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ); ?>">
 		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ) ?>" />
 		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ) ?>" />
 		<?php $wp_list_table->display(); ?>

@@ -110,6 +110,7 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 				'wordpoints_hook_reaction_last_id-%',
 			),
 			'list_tables' => array(
+				'wordpoints_extensions' => array(),
 				'wordpoints_modules' => array(),
 			),
 		),

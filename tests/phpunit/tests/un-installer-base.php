@@ -2799,6 +2799,77 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that the wordpoints_extensions screen receives special handling.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_extensions() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'wordpoints_extensions';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_extensions screen receives special handling.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_extensions_multisite() {
+
+		$parent = 'wordpoints';
+		$screen_id = 'wordpoints_extensions';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page", 'test' );
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+		);
+	}
+
+	/**
 	 * Test uninstalling list tables with custom options.
 	 *
 	 * @since 2.1.0

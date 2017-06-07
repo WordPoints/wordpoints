@@ -16,7 +16,7 @@ $I->wantTo( 'Network-activate an extension' );
 $I->haveTestExtensionInstalled( 'module-7' );
 $I->haveTestExtensionInstalled( 'test-6' );
 $I->hadActivatedExtension( 'test-6/main-file.php', true );
-$I->amLoggedInAsAdminOnPage( 'wp-admin/network/admin.php?page=wordpoints_modules' );
+$I->amLoggedInAsAdminOnPage( 'wp-admin/network/admin.php?page=wordpoints_extensions' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );
 $I->see( 'Network Deactivate', 'tr#test-6' );
 $I->click( 'Network Activate', 'tr#module-7' );

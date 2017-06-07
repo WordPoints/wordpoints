@@ -10,7 +10,7 @@
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Update an extension' );
 $I->haveTestExtensionInstalledNeedingUpdate();
-$I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_modules' );
+$I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_extensions' );
 $I->see( 'WordPoints Extensions', '.wrap h1' );
 $I->see( 'There is a new version of Module 7 available.' );
 $I->click( 'Update now', '.wordpoints-extension-update-tr' );

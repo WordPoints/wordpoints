@@ -1090,7 +1090,7 @@ function wordpoints_delete_modules( $modules ) {
 
 	ob_start();
 
-	$url = wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=delete-selected&verify-delete=1&' . implode( '&', $checked ) ), 'bulk-modules' );
+	$url = wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_extensions&action=delete-selected&verify-delete=1&' . implode( '&', $checked ) ), 'bulk-modules' );
 
 	$credentials = request_filesystem_credentials( $url );
 

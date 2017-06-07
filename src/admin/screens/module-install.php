@@ -21,7 +21,7 @@ jQuery( document ).ready( function() {
 		.addClass( 'wp-has-current-submenu wp-menu-open' );
 
 	jQuery( '#toplevel_page_wordpoints_configure' )
-		.find( 'a[href="admin.php?page=wordpoints_modules"]' )
+		.find( 'a[href="admin.php?page=wordpoints_extensions"]' )
 			.parent()
 			.addBack()
 			.addClass( 'current' );

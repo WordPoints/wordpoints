@@ -119,8 +119,8 @@ class WordPoints_Extension_Upgrader_Skin extends WP_Upgrader_Skin {
 	public function get_extension_update_actions() {
 
 		$update_actions = array(
-			'activate_extension' => '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_modules&action=activate&module=' . rawurlencode( $this->extension ) ), "activate-module_{$this->extension}" ) ) . '" target="_parent">' . esc_html__( 'Activate Extension', 'wordpoints' ) . '</a>',
-			'extensions_page'    => '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ) . '" target="_parent">' . esc_html__( 'Return to Extensions page', 'wordpoints' ) . '</a>',
+			'activate_extension' => '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'admin.php?page=wordpoints_extensions&action=activate&module=' . rawurlencode( $this->extension ) ), "activate-module_{$this->extension}" ) ) . '" target="_parent">' . esc_html__( 'Activate Extension', 'wordpoints' ) . '</a>',
+			'extensions_page'    => '<a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ) . '" target="_parent">' . esc_html__( 'Return to Extensions page', 'wordpoints' ) . '</a>',
 		);
 
 		if (

@@ -31,7 +31,7 @@ add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_screen_
 
 add_action( 'load-toplevel_page_wordpoints_configure', 'wordpoints_admin_activate_components' );
 
-add_action( 'wordpoints_install_modules-upload', 'wordpoints_install_modules_upload' );
+add_action( 'wordpoints_install_extensions-upload', 'wordpoints_install_modules_upload' );
 
 add_action( 'update-custom_upload-wordpoints-module', 'wordpoints_upload_module_zip' );
 add_action( 'update-custom_wordpoints-upgrade-extension', 'wordpoints_admin_screen_upgrade_extension' );

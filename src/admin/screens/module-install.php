@@ -32,27 +32,48 @@ jQuery( document ).ready( function() {
 	<?php
 
 	/**
-	 * At the top of the module install screen.
+	 * At the top of the extension install screen.
 	 *
-	 * This allows more tabs to be added to the module install screen.
+	 * This allows more tabs to be added to the extension install screen.
+	 *
+	 * @since 2.4.0
+	 */
+	do_action( 'wordpoints_install_extensions_screen' );
+
+	/**
+	 * At the top of the extension install screen.
+	 *
+	 * This allows more tabs to be added to the extension install screen.
 	 *
 	 * @since 1.1.0
+	 * @deprecated 2.4.0 Use 'wordpoints_install_extensions_screen' instead.
 	 */
-	do_action( 'wordpoints_install_modules_screen' );
+	do_action_deprecated( 'wordpoints_install_modules_screen', array(), '2.4.0', 'wordpoints_install_extensions_screen' );
 
 	?>
 	<br class="clear" />
 	<?php
 
 	/**
-	 * Fires after the main content of the Install Modules screen.
+	 * Fires after the main content of the Install Extensions screen.
+	 *
+	 * The dynamic portion of the action hook, $tab, allows for targeting
+	 * individual tabs, for instance 'wordpoints_install_extensions-upload'.
+	 *
+	 * @since 2.4.0
+	 */
+	do_action( "wordpoints_install_extensions-{$tab}" );
+
+	/**
+	 * Fires after the main content of the Install Extensions screen.
 	 *
 	 * The dynamic portion of the action hook, $tab, allows for targeting
 	 * individual tabs, for instance 'wordpoints_install_modules-module-upload'.
 	 *
 	 * @since 1.1.0
+	 * @deprecated 2.4.0 Use "wordpoints_install_extensions-{$tab}" instead.
 	 */
-	do_action( "wordpoints_install_modules-{$tab}" );
+	do_action_deprecated( "wordpoints_install_modules-{$tab}", array(), '2.4.0', "wordpoints_install_extensions-{$tab}" );
 
 	?>
 </div>

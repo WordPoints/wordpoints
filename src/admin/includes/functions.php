@@ -131,7 +131,17 @@ function wordpoints_admin_menu() {
 		,'wordpoints_admin_screen_modules'
 	);
 
-	// Module install page.
+	// Extensions install page.
+	add_submenu_page(
+		'_wordpoints_extensions' // Fake menu.
+		,__( 'WordPoints — Install Extensions', 'wordpoints' )
+		,esc_html__( 'Install Extensions', 'wordpoints' )
+		,'install_wordpoints_extensions'
+		,'wordpoints_install_extensions'
+		,'wordpoints_admin_screen_install_modules'
+	);
+
+	// Back-compat for extensions install page when the slug was "modules".
 	add_submenu_page(
 		'_wordpoints_extensions' // Fake menu.
 		,__( 'WordPoints — Install Extensions', 'wordpoints' )
@@ -970,7 +980,7 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
  *
  * @since 1.1.0
  *
- * @WordPress\action wordpoints_install_modules-upload
+ * @WordPress\action wordpoints_install_extensions-upload
  */
 function wordpoints_install_modules_upload() {
 

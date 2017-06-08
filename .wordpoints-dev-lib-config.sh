@@ -33,6 +33,14 @@ function wordpoints-dev-lib-config() {
 		'!' -path './tests/phpunit/tests/classes/extension/server.php' \
 	)
 
+	# This file requires PHP 7.
+	if [[ ${TRAVIS_PHP_VERSION:0:2} != "7." && $TRAVIS_PHP_VERSION != nightly ]]; then
+		CODESNIFF_PATH_PHP_SYNTAX=(\
+			"${CODESNIFF_PATH_PHP_SYNTAX[@]}" \
+			'!' -path "./tests/phpunit/data/modules/extension-9/extension-9.php" \
+		)
+	fi
+
 	# Has to be set to something or else the WP HTTP Testcase will not use the cache.
 	export WP_HTTP_TC_HOST=example.com
 

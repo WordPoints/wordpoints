@@ -19,7 +19,7 @@ $reaction->edit();
 $condition = $reaction->addCondition( array( 'User » Roles', 'Contains' ) );
 $reaction->save();
 $I->canSeePointsReactionConditionInDB( $the_reaction );
-$I->fillField( 'points', '100' );
+$I->fillField( "{$reaction} [name=points]", '100' );
 $reaction->cancel();
 $I->canSeeElement( (string) $condition );
 

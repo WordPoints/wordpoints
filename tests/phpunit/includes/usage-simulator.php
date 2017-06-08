@@ -148,7 +148,7 @@ $module_realpath = realpath(
 	WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
 );
 
-if ( ! is_link( $module_path ) ) {
+if ( ! file_exists( $module_path ) ) {
 
 	if ( ! is_dir( WP_CONTENT_DIR . '/wordpoints-extensions' ) ) {
 		mkdir( WP_CONTENT_DIR . '/wordpoints-extensions' );

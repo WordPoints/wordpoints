@@ -2,15 +2,14 @@
 
 language: php
 
-# 5.3 runs first so that we can fail fast on the codesniff pass (see below).
 php:
+    - 7.1
+    - 7.0
+    - 5.6
+    - 5.5
+    - 5.4
     - 5.3
     - 5.2
-    - 5.4
-    - 5.5
-    - 5.6
-    - 7.0
-    - 7.1
 
 env:
     - TRAVISCI_RUN=codesniff
@@ -25,20 +24,20 @@ matrix:
     - php: nightly
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop
   exclude:
-    # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
-    - php: 5.2
-      env: TRAVISCI_RUN=codesniff
-    - php: 5.4
-      env: TRAVISCI_RUN=codesniff
-    - php: 5.5
+    # The codesniff pass only needs to be run once.
+    - php: 7.0
       env: TRAVISCI_RUN=codesniff
     - php: 5.6
       env: TRAVISCI_RUN=codesniff
-    - php: 7.0
+    - php: 5.5
       env: TRAVISCI_RUN=codesniff
-    - php: 7.1
+    - php: 5.4
       env: TRAVISCI_RUN=codesniff
-  allow_failures:
+    - php: 5.3
+      env: TRAVISCI_RUN=codesniff
+    - php: 5.2
+      env: TRAVISCI_RUN=codesniff
+ allow_failures:
     - php: nightly
   fast_finish: true
 

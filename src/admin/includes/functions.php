@@ -1165,7 +1165,7 @@ function wordpoints_admin_screen_update_selected_extensions() {
 
 	global $parent_file;
 
-	check_admin_referer( 'bulk-wordpoints-extensions' );
+	check_admin_referer( 'bulk-wordpoints-extensions', 'nonce' );
 
 	if ( isset( $_GET['extensions'] ) ) {
 		$extensions = explode( ',', sanitize_text_field( wp_unslash( $_GET['extensions'] ) ) );
@@ -1752,7 +1752,7 @@ function wordpoints_list_extension_updates() {
 	<p><?php esc_html_e( 'The following extensions have new versions available. Check the ones you want to update and then click &#8220;Update Extensions&#8221;.', 'wordpoints' ); ?></p>
 
 	<form method="post" action="update-core.php?action=do-wordpoints-extension-upgrade" name="upgrade-wordpoints-extensions" class="upgrade">
-		<?php wp_nonce_field( 'bulk-wordpoints-extensions' ); ?>
+		<?php wp_nonce_field( 'bulk-wordpoints-extensions', 'nonce' ); ?>
 
 		<p><input id="upgrade-wordpoints-extensions" class="button" type="submit" value="<?php esc_attr_e( 'Update Extensions', 'wordpoints' ); ?>" name="upgrade" /></p>
 

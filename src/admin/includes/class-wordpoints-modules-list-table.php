@@ -549,6 +549,19 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * @since 2.4.0
+	 */
+	protected function display_tablenav( $which ) {
+
+		// Back-compat for the old nonce name.
+		$this->_args['plural'] = 'modules';
+
+		parent::display_tablenav( $which );
+
+		$this->_args['plural'] = 'wordpoints-extensions';
+	}
+
+	/**
 	 * Display extra table navigation links.
 	 *
 	 * @since 1.1.0
@@ -559,9 +572,9 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 
 		global $status;
 
-		// Back-compat.
+		// Forward-compat.
 		if ( 'top' === $which ) {
-			wp_nonce_field( 'bulk-modules' );
+			wp_nonce_field( 'bulk-wordpoints-extensions', 'nonce' );
 		}
 
 		if ( 'recently_activated' !== $status ) {

@@ -43,7 +43,7 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "613": false
+            "626": false
         },
         "inactive": {
             "61": {
@@ -53,7 +53,7 @@
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "613": false
+            "626": false
         },
         "search": {
             "63": {
@@ -81,7 +81,8 @@
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
-            }
+            },
+            "557": false
         },
         "plugins": {
             "98": {
@@ -96,24 +97,27 @@
             "105": false,
             "308": false
         },
+        "wordpoints-extensions": {
+            "561": false
+        },
         "update": {
-            "616": false
+            "629": false
         },
         "hidden": {
-            "762": false,
-            "786": false,
-            "861": false
+            "775": false,
+            "799": false,
+            "874": false
         },
         "has-row-actions column-primary": {
-            "762": false,
-            "786": false,
-            "861": false
+            "775": false,
+            "799": false,
+            "874": false
         },
         "second module-version-author-uri\">": {
-            "796": false
+            "809": false
         },
         "column-": {
-            "861": false
+            "874": false
         }
     },
     "\/admin\/includes\/functions.php": {
@@ -1336,7 +1340,7 @@
     },
     "\/includes\/modules.php": {
         "Extension Name": {
-            "397": {
+            "400": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1345,7 +1349,7 @@
             }
         },
         "Extension URI": {
-            "398": {
+            "401": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1354,7 +1358,7 @@
             }
         },
         "Module Name": {
-            "399": {
+            "402": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1363,7 +1367,7 @@
             }
         },
         "Module URI": {
-            "400": {
+            "403": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1372,7 +1376,7 @@
             }
         },
         "Version": {
-            "401": {
+            "404": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1381,7 +1385,7 @@
             }
         },
         "Description": {
-            "402": {
+            "405": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1390,7 +1394,7 @@
             }
         },
         "Author": {
-            "403": {
+            "406": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1399,7 +1403,7 @@
             }
         },
         "Author URI": {
-            "404": {
+            "407": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1408,7 +1412,7 @@
             }
         },
         "Text Domain": {
-            "405": {
+            "408": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1417,7 +1421,7 @@
             }
         },
         "Domain Path": {
-            "406": {
+            "409": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1426,7 +1430,7 @@
             }
         },
         "Network": {
-            "407": {
+            "410": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1435,7 +1439,7 @@
             }
         },
         "Update API": {
-            "408": {
+            "411": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1444,7 +1448,7 @@
             }
         },
         "Channel": {
-            "409": {
+            "412": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1453,7 +1457,7 @@
             }
         },
         "Server": {
-            "410": {
+            "413": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1462,7 +1466,7 @@
             }
         },
         "ID": {
-            "411": {
+            "414": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1471,7 +1475,7 @@
             }
         },
         "Namespace": {
-            "412": {
+            "415": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1480,10 +1484,10 @@
             }
         },
         "true": {
-            "446": false
+            "449": false
         },
         ",": {
-            "1531": false
+            "1534": false
         }
     },
     "\/admin\/classes\/screen.php": {

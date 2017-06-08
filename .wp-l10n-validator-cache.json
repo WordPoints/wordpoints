@@ -36,8 +36,8 @@
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-modules-list-table.php": {
-            "size": 29781,
-            "hash": "c4a60c20e61bf4117ce130c91936e95a",
+            "size": 30059,
+            "hash": "cbb0c834d0bf84c5dda132a99e5bb63c",
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
@@ -46,8 +46,8 @@
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 72790,
-            "hash": "de612578a7afc0df9202a9d8546ea34d",
+            "size": 72836,
+            "hash": "ffd4edaff274959dcc9ccf774761882a",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -1396,8 +1396,8 @@
             "errors": false
         },
         "\/includes\/modules.php": {
-            "size": 43273,
-            "hash": "8dbdeb135a2d1a99e4946b8872b6c43c",
+            "size": 43331,
+            "hash": "ac497332317f5ebcc6df3894d8047ff0",
             "errors": false
         },
         "\/uninstall.php": {

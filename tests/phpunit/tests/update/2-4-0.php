@@ -87,17 +87,16 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		$legacy = WP_CONTENT_DIR . '/wordpoints-modules';
 		$new = WP_CONTENT_DIR . '/wordpoints-extensions';
 
-		if ( ! is_dir( $legacy ) ) {
-			rename( $new, $legacy );
-		}
+		$this->mock_filesystem();
+		$this->mock_fs->mkdir_p( $legacy );
 
-		$this->assertFileExists( $legacy );
+		$this->assertTrue( $this->mock_fs->exists( $legacy ) );
 
 		// Simulate the update.
 		$this->update_wordpoints();
 
-		$this->assertFileExists( $new );
-		$this->assertFileNotExists( $legacy );
+		$this->assertTrue( $this->mock_fs->exists( $new ) );
+		$this->assertFalse( $this->mock_fs->exists( $legacy ) );
 	}
 }
 

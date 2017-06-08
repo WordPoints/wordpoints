@@ -195,7 +195,10 @@ function wordpoints_legacy_modules_path( $path ) {
 	// If the legacy directory could not be moved, or we haven't done the update yet.
 	if (
 		get_site_option( 'wordpoints_legacy_extensions_dir' )
-		|| version_compare( $wordpoints_data['version'], '2.4.0-alpha-3', '<' )
+		|| (
+			isset( $wordpoints_data['version'] )
+			&& version_compare( $wordpoints_data['version'], '2.4.0-alpha-3', '<' )
+		)
 	) {
 		$path = str_replace(
 			'/wordpoints-extensions'

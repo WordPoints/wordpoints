@@ -12,7 +12,9 @@
  *
  * @since 1.7.0
  */
-class WordPoints_Base_Rank_Type extends WordPoints_Rank_Type {
+class WordPoints_Base_Rank_Type
+	extends WordPoints_Rank_Type
+	implements WordPoints_Rank_Type_Bulk_CheckI {
 
 	//
 	// Public Methods.
@@ -34,6 +36,13 @@ class WordPoints_Base_Rank_Type extends WordPoints_Rank_Type {
 	 */
 	public function validate_rank_meta( array $meta ) {
 		return $meta;
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function can_transition_user_ranks( array $user_ids, WordPoints_Rank $rank, array $args ) {
+		return $user_ids;
 	}
 
 	//

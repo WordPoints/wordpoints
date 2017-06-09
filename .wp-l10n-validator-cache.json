@@ -1211,8 +1211,8 @@
             "errors": false
         },
         "\/components\/ranks\/classes\/index.php": {
-            "size": 314,
-            "hash": "7557570eeb3b78deb8b43fbd6e5d12f3",
+            "size": 382,
+            "hash": "db33e44fccd5b029cd01bd1f0510ec1e",
             "errors": false
         },
         "\/components\/ranks\/classes\/rank\/shortcode\/user\/rank.php": {
@@ -1231,8 +1231,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
-            "size": 11314,
-            "hash": "d453cd433cc3c95a8bd77f404662896d",
+            "size": 11244,
+            "hash": "726f7862537bd4da234edfa1b3f9f2ef",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-groups.php": {
@@ -1241,8 +1241,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
-            "size": 9027,
-            "hash": "e3751fa193c451f1354c2a2b2e383c43",
+            "size": 10470,
+            "hash": "53a21df7b3fbaf7de4e441ce3f566028",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-types.php": {
@@ -1291,13 +1291,13 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/rank-types\/base.php": {
-            "size": 1174,
-            "hash": "7ff791323247502894cb0296bf162565",
+            "size": 1371,
+            "hash": "f6f2abfc91d8c7cf4f3091a1d7685578",
             "errors": false
         },
         "\/components\/ranks\/includes\/rank-types\/points.php": {
-            "size": 3612,
-            "hash": "11e828bd81ad84547196a4cf0002b736",
+            "size": 4196,
+            "hash": "5473e16e8f7c030a774507e699146410",
             "errors": false
         },
         "\/components\/ranks\/includes\/rank-types.php": {
@@ -1408,6 +1408,11 @@
         "\/wordpoints.php": {
             "size": 3625,
             "hash": "a9401790c6615af73a61a7ea3c26f95a",
+            "errors": false
+        },
+        "\/components\/ranks\/classes\/rank\/type\/bulk\/checki.php": {
+            "size": 820,
+            "hash": "111ef3ae11bd118c575ab14d559e3790",
             "errors": false
         }
     },

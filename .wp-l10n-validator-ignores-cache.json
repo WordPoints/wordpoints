@@ -935,7 +935,7 @@
     },
     "\/components\/ranks\/includes\/rank-types\/points.php": {
         "number": {
-            "23": {
+            "25": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -944,7 +944,7 @@
             }
         },
         "hidden": {
-            "28": {
+            "30": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -953,11 +953,36 @@
             }
         },
         "points": {
-            "121": {
+            "101": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
+                "parentheses": 1
+            },
+            "123": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "ids": {
+            "141": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "SIGNED": {
+            "146": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
                 "parentheses": 1
             }
         }

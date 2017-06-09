@@ -517,18 +517,10 @@ final class WordPoints_Rank_Group {
 
 		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
 
-		foreach ( $users as $user_id ) {
+		$new_ranks = $rank_type->maybe_increase_user_ranks( $users, $previous_rank );
 
-			$new_rank = $rank_type->maybe_increase_user_rank(
-				$user_id
-				, $previous_rank
-			);
-
-			if ( $new_rank->ID === $previous_rank->ID ) {
-				continue;
-			}
-
-			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		foreach ( $new_ranks as $user_id => $new_rank ) {
+			wordpoints_update_user_rank( $user_id, $new_rank );
 		}
 	}
 }

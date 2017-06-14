@@ -1210,6 +1210,95 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test the behaviour of update() when no from version is specified.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_from() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( null, '1.0.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when no from version is specified but the DB version is set.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_from_db_version_set() {
+
+		$this->un_installer->set_db_version( '0.9.0' );
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( null, '1.0.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertSame( '0.9.0', $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when no from version is set but the DB version is up to date.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_from_db_version_same() {
+
+		$this->un_installer->set_db_version( '1.0.0' );
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( null, '1.0.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertNull( $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertSame( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
 	 * Test the basic behaviour of install_on_site().
 	 *
 	 * @since 2.0.0

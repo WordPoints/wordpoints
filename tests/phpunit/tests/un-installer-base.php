@@ -1299,6 +1299,68 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test the behaviour of update() when no to version is specified.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_to() {
+
+		$this->un_installer->updates = array( '1.0.0' => array( 'single' => true ) );
+
+		$this->un_installer->update( '0.9.0', null, false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when the to version is different than the version property.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_to_different_than_version() {
+
+		$this->un_installer->updates = array(
+			'0.9.0' => array( 'single' => true ),
+			'1.0.0' => array( 'single' => true ),
+		);
+
+		$this->un_installer->update( '0.8.0', '0.9.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_0_9_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
 	 * Test the basic behaviour of install_on_site().
 	 *
 	 * @since 2.0.0

@@ -517,7 +517,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $this->updates as $version => $types ) {
 
-			if ( version_compare( $this->updating_from, $version, '<' ) ) {
+			if (
+				version_compare( $this->updating_from, $version, '<' )
+				&& version_compare( $this->updating_to, $version, '>=' )
+			) {
 				$updates[ str_replace( array( '.', '-' ), '_', $version ) ] = $types;
 			}
 		}

@@ -555,59 +555,24 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 		return true;
 	}
 
-	$old_rank = wordpoints_get_rank( $old_rank_id );
-
-	switch ( $old_rank->type ) {
-
-		case 'base':
-			// If this is a base rank, it's possible that the user will not have
-			// the rank ID assigned in the database, it is just assumed by default.
-			$has_rank = $wpdb->get_var(
-				$wpdb->prepare(
-					"
-						SELECT COUNT(`id`)
-						FROM `{$wpdb->wordpoints_user_ranks}`
-						WHERE `rank_id` = %d
-							AND `user_id` = %d
-					"
-					, $old_rank_id
-					, $user_id
-				)
-			); // WPCS: cache pass.
-
-			// If the user rank isn't in the database, we can't run an update query,
-			// and need to do this insert instead.
-			if ( ! $has_rank ) {
-
-				// This user doesn't yet have a rank in this group.
-				$result = $wpdb->insert(
-					$wpdb->wordpoints_user_ranks
-					, array(
-						'user_id' => $user_id,
-						'rank_id' => $rank_id,
-					)
-					, '%d'
-				);
-
-				break;
-			}
-
-			// If the rank was in the database, we can use the regular update method.
-			// Fall through.
-
-		default:
-			$result = $wpdb->update(
-				$wpdb->wordpoints_user_ranks
-				, array( 'rank_id' => $rank_id )
-				, array(
-					'user_id' => $user_id,
-					'rank_id' => $old_rank_id,
-				)
-				, '%d'
-				, '%d'
-			);
-
-	} // End switch ( $old_rank->type ).
+	$result = $wpdb->query(
+		$wpdb->prepare(
+			"
+				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
+					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
+				VALUES 
+					(%d, %d, %s, %d, %d)
+				ON DUPLICATE KEY
+					UPDATE `rank_id` = %d
+			"
+			, $user_id
+			, $rank_id
+			, $rank->rank_group
+			, $wpdb->blogid
+			, $wpdb->siteid
+			, $rank_id
+		)
+	);
 
 	if ( false === $result ) {
 		return false;

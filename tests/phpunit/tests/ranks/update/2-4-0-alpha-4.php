@@ -35,24 +35,6 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 
 		parent::setUp();
 
-		global $wpdb;
-
-		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
-		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
-		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
-
-		$wpdb->query( "DROP TABLE {$wpdb->wordpoints_user_ranks}" );
-		$wpdb->query(
-			"
-			CREATE TABLE {$wpdb->wordpoints_user_ranks} (
-				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-				user_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-				rank_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-				PRIMARY KEY  (id)
-			)
-			"
-		);
-
 		$this->create_points_type();
 
 		WordPoints_Rank_Groups::register_group(
@@ -84,6 +66,32 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 	}
 
 	/**
+	 * Reverts the table to the previous state, so that we can update it.
+	 *
+	 * @since 2.4.0
+	 */
+	public function revert_table() {
+
+		global $wpdb;
+
+		remove_filter( 'query', array( $this, '_create_temporary_tables' ) );
+		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
+		remove_filter( 'query', array( $this, 'do_not_alter_tables' ) );
+
+		$wpdb->query( "DROP TABLE {$wpdb->wordpoints_user_ranks}" );
+		$wpdb->query(
+			"
+			CREATE TABLE {$wpdb->wordpoints_user_ranks} (
+				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				user_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+				rank_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+				PRIMARY KEY  (id)
+			)
+			"
+		);
+	}
+
+	/**
 	 * Test that the user ranks database table is updated.
 	 *
 	 * @since 2.4.0
@@ -91,6 +99,8 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 	public function test_update_user_ranks_table() {
 
 		global $wpdb;
+
+		$this->revert_table();
 
 		// Simulate the update.
 		$this->update_component();
@@ -144,6 +154,8 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 		$user_id = $this->factory->user->create();
 
 		update_user_meta( $user_id, wordpoints_get_points_user_meta_key( 'points' ), 70 );
+
+		$this->revert_table();
 
 		$wpdb->insert(
 			$wpdb->wordpoints_user_ranks

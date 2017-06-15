@@ -647,9 +647,7 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 						WHERE users.`ID` NOT IN (
 							SELECT user_ranks.`user_id`
 							FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
-							INNER JOIN `{$wpdb->wordpoints_ranks}` AS ranks
-								ON ranks.`id` = user_ranks.`rank_id`
-							WHERE ranks.`rank_group` = %s
+							WHERE user_ranks.`rank_group` = %s
 						)
 					"
 					, $rank->rank_group

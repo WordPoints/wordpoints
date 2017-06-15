@@ -519,8 +519,14 @@ final class WordPoints_Rank_Group {
 
 		$new_ranks = $rank_type->maybe_increase_user_ranks( $users, $previous_rank );
 
+		$new_rank_users = array();
+
 		foreach ( $new_ranks as $user_id => $new_rank ) {
-			wordpoints_update_user_rank( $user_id, $new_rank );
+			$new_rank_users[ $new_rank ][] = $user_id;
+		}
+
+		foreach ( $new_rank_users as $new_rank => $user_ids ) {
+			wordpoints_update_users_to_rank( $user_ids, $new_rank, $previous_rank->ID );
 		}
 	}
 }

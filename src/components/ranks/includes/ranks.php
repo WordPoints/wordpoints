@@ -604,6 +604,95 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 }
 
 /**
+ * Updates a set of users to a new rank.
+ *
+ * All of the users must have previously had the same rank. This is mainly necessary
+ * so that we can pass the old rank ID to the 'wordpoints_update_user_rank' action,
+ * and for purposes of clearing the cache.
+ *
+ * @since 2.4.0
+ *
+ * @param int[] $user_ids     The IDs of the users to update.
+ * @param int   $to_rank_id   The ID of the rank to give the users.
+ * @param int   $from_rank_id The ID of the rank the users previously had.
+ *
+ * @return bool True if the update was successful. False otherwise.
+ */
+function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_rank_id ) {
+
+	global $wpdb;
+
+	if ( ! wordpoints_posint( $to_rank_id ) || ! wordpoints_posint( $to_rank_id ) ) {
+		return false;
+	}
+
+	$rank = wordpoints_get_rank( $to_rank_id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+	if ( $to_rank_id === $from_rank_id ) {
+		return true;
+	}
+
+	$result = $wpdb->query( // WPCS: unprepared SQL OK.
+		$wpdb->prepare( // WPCS: unprepared SQL OK.
+			"
+				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
+					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
+				VALUES 
+					(" . implode( array_map( 'absint', $user_ids ), $wpdb->prepare( ", %d, %s, %d, %d),\n\t\t\t\t\t(", $to_rank_id, $rank->rank_group, $wpdb->blogid, $wpdb->siteid ) ) . ', %d, %s, %d, %d)
+				ON DUPLICATE KEY
+					UPDATE `rank_id` = %d
+			'
+			, $to_rank_id
+			, $rank->rank_group
+			, $wpdb->blogid
+			, $wpdb->siteid
+			, $to_rank_id
+		)
+	);
+
+	if ( false === $result ) {
+		return false;
+	}
+
+	$group_ranks = wp_cache_get( $rank->rank_group, 'wordpoints_user_ranks' );
+
+	unset( $group_ranks[ $from_rank_id ], $group_ranks[ $to_rank_id ] );
+
+	wp_cache_set( $rank->rank_group, $group_ranks, 'wordpoints_user_ranks' );
+
+	unset( $group_ranks );
+
+	wp_cache_delete( $to_rank_id, 'wordpoints_users_with_rank' );
+	wp_cache_delete( $from_rank_id, 'wordpoints_users_with_rank' );
+
+	if ( has_action( 'wordpoints_update_user_rank' ) ) {
+		foreach ( $user_ids as $user_id ) {
+			/**
+			 * Perform actions when a user rank is updated.
+			 *
+			 * @since 1.7.0
+			 *
+			 * @param int $user_id The ID of the user.
+			 * @param int $new_rank_id The ID of the new rank the user has.
+			 * @param int $old_rank_id The ID of the old rank the user used to have.
+			 */
+			do_action(
+				'wordpoints_update_user_rank'
+				, $user_id
+				, $to_rank_id
+				, $from_rank_id
+			);
+		}
+	}
+
+	return true;
+}
+
+/**
  * Get an array of all the users who have a given rank.
  *
  * @since 1.7.0

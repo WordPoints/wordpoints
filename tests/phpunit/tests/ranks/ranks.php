@@ -569,10 +569,6 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		WordPoints_Rank_Groups::get_group( $this->rank_group )
 			->move_rank( $rank_id_2, 3 );
 
-		// The database should have been queried again when checking if the user's
-		// rank should possibly be increased.
-		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
-
 		// Get the rank again.
 		$rank__id = wordpoints_get_user_rank( $this->user_id, $this->rank_group );
 
@@ -583,7 +579,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		// The database should have been queried again, since the cache is empty
 		// from updating the users rank back to $rank_id_2.
-		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
 
 		// Delete the rank.
 		wordpoints_delete_rank( $rank_id_2 );
@@ -594,7 +590,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertSame( $rank_id_3, $rank__id );
 
 		// The database should have been queried again.
-		$this->assertSame( 5, $this->filter_was_called( 'query' ) );
+		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
 	}
 
 	/**

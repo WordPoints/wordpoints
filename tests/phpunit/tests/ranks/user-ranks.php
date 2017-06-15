@@ -119,7 +119,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	}
 
 	/**
-	 * Test update with a non-existant rank.
+	 * Test update with a non-existent rank.
 	 *
 	 * @since 1.7.0
 	 *
@@ -159,6 +159,151 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		);
 
 		$this->assertTrue( $result );
+	}
+
+	/**
+	 * Test updating user ranks in bulk.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_update_users_to_rank
+	 */
+	public function test_update_users_to_rank() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+		$user_ids = $this->factory->user->create_many( 2 );
+
+		$old_rank_id = wordpoints_get_user_rank( $user_ids[0], $this->rank_group );
+
+		wp_cache_set(
+			$this->rank_group
+			, array( $rank_id => '', $old_rank_id => '', 'other' => '' )
+			, 'wordpoints_user_ranks'
+		);
+
+		wp_cache_set( $rank_id, array(), 'wordpoints_users_with_rank' );
+		wp_cache_set( $old_rank_id, $user_ids, 'wordpoints_users_with_rank' );
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
+		$mock->add_action( 'wordpoints_update_user_rank', 10, 6 );
+
+		$result = wordpoints_update_users_to_rank( $user_ids, $rank_id, $old_rank_id );
+
+		$this->assertTrue( $result );
+
+		$this->assertSame( 2, $mock->call_count );
+		$this->assertSame( array( $user_ids[0], $rank_id, $old_rank_id ), $mock->calls[0] );
+		$this->assertSame( array( $user_ids[1], $rank_id, $old_rank_id ), $mock->calls[1] );
+
+		$this->assertSame(
+			array( 'other' => '' )
+			, wp_cache_get( $this->rank_group, 'wordpoints_user_ranks' )
+		);
+
+		$this->assertFalse( wp_cache_get( $rank_id, 'wordpoints_users_with_rank' ) );
+		$this->assertFalse( wp_cache_get( $old_rank_id, 'wordpoints_users_with_rank' ) );
+
+		$this->assertSame(
+			$rank_id
+			, wordpoints_get_user_rank( $user_ids[0], $this->rank_group )
+		);
+
+		$this->assertSame(
+			$rank_id
+			, wordpoints_get_user_rank( $user_ids[1], $this->rank_group )
+		);
+	}
+
+	/**
+	 * Test updating user ranks in bulk.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_update_users_to_rank
+	 */
+	public function test_update_users_rank_invalid() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+		$user_ids = $this->factory->user->create_many( 2 );
+
+		wordpoints_delete_rank( $rank_id );
+
+		$old_rank_id = wordpoints_get_user_rank( $user_ids[0], $this->rank_group );
+
+		$result = wordpoints_update_users_to_rank( $user_ids, $rank_id, $old_rank_id );
+
+		$this->assertFalse( $result );
+
+		$this->assertSame(
+			$old_rank_id
+			, wordpoints_get_user_rank( $user_ids[0], $this->rank_group )
+		);
+
+		$this->assertSame(
+			$old_rank_id
+			, wordpoints_get_user_rank( $user_ids[1], $this->rank_group )
+		);
+	}
+
+	/**
+	 * Test updating user ranks in bulk.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_update_users_to_rank
+	 */
+	public function test_update_users_ranks_same() {
+
+		$user_ids = $this->factory->user->create_many( 2 );
+
+		$old_rank_id = wordpoints_get_user_rank( $user_ids[0], $this->rank_group );
+
+		$result = wordpoints_update_users_to_rank( $user_ids, $old_rank_id, $old_rank_id );
+
+		$this->assertTrue( $result );
+
+		$this->assertSame(
+			$old_rank_id
+			, wordpoints_get_user_rank( $user_ids[0], $this->rank_group )
+		);
+
+		$this->assertSame(
+			$old_rank_id
+			, wordpoints_get_user_rank( $user_ids[1], $this->rank_group )
+		);
+	}
+
+	/**
+	 * Test updating user ranks in bulk.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_update_users_to_rank
+	 */
+	public function test_update_users_ranks_set() {
+
+		$rank_id = $this->factory->wordpoints_rank->create();
+		$user_ids = $this->factory->user->create_many( 2 );
+
+		$old_rank_id = wordpoints_get_user_rank( $user_ids[0], $this->rank_group );
+
+		$result = wordpoints_update_users_to_rank( $user_ids, $rank_id, $old_rank_id );
+
+		$this->assertTrue( $result );
+
+		$result = wordpoints_update_users_to_rank( $user_ids, $old_rank_id, $rank_id );
+
+		$this->assertTrue( $result );
+
+		$this->assertSame(
+			$old_rank_id
+			, wordpoints_get_user_rank( $user_ids[0], $this->rank_group )
+		);
+
+		$this->assertSame(
+			$old_rank_id
+			, wordpoints_get_user_rank( $user_ids[1], $this->rank_group )
+		);
 	}
 
 	/**

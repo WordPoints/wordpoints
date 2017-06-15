@@ -605,12 +605,10 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		global $wpdb;
 
 		return false !== strpos( $sql, "
-					SELECT user_ranks.rank_id
-					FROM {$wpdb->wordpoints_user_ranks} user_ranks
-					LEFT JOIN {$wpdb->wordpoints_ranks} AS ranks
-						ON ranks.id = user_ranks.rank_id
-							AND ranks.rank_group = '{$this->rank_group}'
-					WHERE user_ranks.user_id = {$this->user_id}"
+					SELECT `rank_id`
+					FROM `{$wpdb->wordpoints_user_ranks}`
+					WHERE `user_id` = {$this->user_id}
+						AND `rank_group` = '{$this->rank_group}'"
 		);
 	}
 

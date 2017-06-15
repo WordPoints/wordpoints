@@ -472,17 +472,15 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 		$rank_id = $wpdb->get_var(
 			$wpdb->prepare(
 				"
-					SELECT user_ranks.rank_id
-					FROM {$wpdb->wordpoints_user_ranks} user_ranks
-					LEFT JOIN {$wpdb->wordpoints_ranks} AS ranks
-						ON ranks.id = user_ranks.rank_id
-							AND ranks.rank_group = %s
-					WHERE user_ranks.user_id = %d
-						AND ranks.blog_id = %d
-						AND ranks.site_id = %d
+					SELECT `rank_id`
+					FROM `{$wpdb->wordpoints_user_ranks}`
+					WHERE `user_id` = %d
+						AND `rank_group` = %s
+						AND `blog_id` = %d
+						AND `site_id` = %d
 				"
-				, $group
 				, $user_id
+				, $group
 				, $wpdb->blogid
 				, $wpdb->siteid
 			)

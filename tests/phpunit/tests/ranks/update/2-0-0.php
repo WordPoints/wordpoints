@@ -44,7 +44,8 @@ class WordPoints_Ranks_2_0_0_Update_Test extends WordPoints_PHPUnit_TestCase_Ran
 		$this->create_tables_with_charset( 'utf8' );
 
 		// Simulate the update.
-		$this->update_component();
+		$installer = WordPoints_Installables::get_installer( 'component', 'ranks' );
+		$installer->update( $this->previous_version, '2.0.0', is_wordpoints_network_active() );
 
 		$this->assertTablesHaveCharset( 'utf8mb4' );
 	}

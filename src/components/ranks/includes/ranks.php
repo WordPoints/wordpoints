@@ -728,16 +728,21 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 
 		if ( 'base' === $rank->type ) {
 
-			$other_user_ids = $wpdb->get_col(
-				$wpdb->prepare(
+			$query = new WP_User_Query(
+				array( 'fields' => 'ID', 'count_total' => false )
+			);
+
+			$other_user_ids = $wpdb->get_col( // WPCS: unprepared SQL OK.
+				$wpdb->prepare( // WPCS: unprepared SQL OK.
 					"
-						SELECT users.`ID`
-						FROM `{$wpdb->users}` AS users
-						WHERE users.`ID` NOT IN (
-							SELECT user_ranks.`user_id`
-							FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
-							WHERE user_ranks.`rank_group` = %s
-						)
+						SELECT {$query->query_fields}
+						{$query->query_from}
+						{$query->query_where}
+							AND `{$wpdb->users}`.`ID` NOT IN (
+								SELECT user_ranks.`user_id`
+								FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
+								WHERE user_ranks.`rank_group` = %s
+							)
 					"
 					, $rank->rank_group
 				)

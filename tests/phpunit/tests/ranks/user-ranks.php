@@ -343,6 +343,32 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertNotContains( $user_ids[0], $base_rank_users );
 		$this->assertNotContains( $user_ids[1], $base_rank_users );
 	}
+
+	/**
+	 * Tests that only users for the current site are returned for base ranks.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 *
+	 * @covers ::wordpoints_get_users_with_rank
+	 */
+	public function test_getting_all_users_with_rank_multisite() {
+
+		$base_rank = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_rank( 0 );
+
+		$user_id = $this->factory->user->create();
+
+		switch_to_blog( $this->factory->blog->create() );
+		$other_user_id = $this->factory->user->create();
+		restore_current_blog();
+
+		$base_rank_users = wordpoints_get_users_with_rank( $base_rank );
+
+		$this->assertContainsSame( $user_id, $base_rank_users );
+		$this->assertNotContains( $other_user_id, $base_rank_users );
+	}
 }
 
 // EOF

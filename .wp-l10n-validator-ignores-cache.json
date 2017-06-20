@@ -2877,5 +2877,16 @@
                 "parentheses": 1
             }
         }
+    },
+    "\/components\/ranks\/classes\/user\/ranks\/query.php": {
+        "ID": {
+            "191": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

@@ -703,8 +703,6 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
  */
 function wordpoints_get_users_with_rank( $rank_id ) {
 
-	global $wpdb;
-
 	$rank = wordpoints_get_rank( $rank_id );
 
 	if ( ! $rank ) {
@@ -715,47 +713,20 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 
 	if ( false === $user_ids ) {
 
-		$user_ids = $wpdb->get_col(
-			$wpdb->prepare(
-				"
-					SELECT `user_id`
-					FROM `{$wpdb->wordpoints_user_ranks}`
-					WHERE `rank_id` = %d
-				"
-				, $rank_id
-			)
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
 		);
 
-		if ( 'base' === $rank->type ) {
+		$user_ids = $query->get( 'col' );
 
-			$query = new WP_User_Query(
-				array( 'fields' => 'ID', 'count_total' => false )
-			);
-
-			$other_user_ids = $wpdb->get_col( // WPCS: unprepared SQL OK.
-				$wpdb->prepare( // WPCS: unprepared SQL OK.
-					"
-						SELECT {$query->query_fields}
-						{$query->query_from}
-						{$query->query_where}
-							AND `{$wpdb->users}`.`ID` NOT IN (
-								SELECT user_ranks.`user_id`
-								FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
-								WHERE user_ranks.`rank_group` = %s
-							)
-					"
-					, $rank->rank_group
-				)
-			);
-
-			$user_ids = array_merge( $user_ids, $other_user_ids );
+		if ( false === $user_ids ) {
+			return false;
 		}
 
 		$user_ids = array_map( 'intval', $user_ids );
 
 		wp_cache_set( $rank_id, $user_ids, 'wordpoints_users_with_rank' );
-
-	} // End if ( not cached ).
+	}
 
 	return $user_ids;
 }

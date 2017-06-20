@@ -409,6 +409,84 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 			, wordpoints_get_users_with_rank( $rank_1 )
 		);
 	}
+
+	/**
+	 * Tests that a user's ranks are deleted when the user is deleted.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_delete_user_ranks
+	 */
+	public function test_delete_user_ranks() {
+
+		$rank_1 = $this->factory->wordpoints->rank->create();
+
+		// Create a user.
+		$user_id = $this->factory->user->create();
+
+		$this->assertContainsSame(
+			$user_id
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
+
+		wp_cache_set(
+			$this->rank_group
+			, array( $rank_1 => array( $user_id => true ) )
+			, 'wordpoints_user_ranks'
+		);
+
+		self::delete_user( $user_id );
+
+		$this->assertNotContains(
+			$user_id
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
+
+		$this->assertSame(
+			array( $rank_1 => array() )
+			, wp_cache_get( $this->rank_group, 'wordpoints_user_ranks' )
+		);
+	}
+
+	/**
+	 * Tests that a user's ranks are deleted when the user is removed from a blog.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 *
+	 * @covers ::wordpoints_delete_user_ranks
+	 */
+	public function test_delete_user_ranks_remove_from_blog() {
+
+		$rank_1 = $this->factory->wordpoints->rank->create();
+
+		// Create a user.
+		$user_id = $this->factory->user->create();
+
+		$this->assertContainsSame(
+			$user_id
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
+
+		wp_cache_set(
+			$this->rank_group
+			, array( $rank_1 => array( $user_id => true ) )
+			, 'wordpoints_user_ranks'
+		);
+
+		remove_user_from_blog( $user_id );
+
+		$this->assertNotContains(
+			$user_id
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
+
+		$this->assertSame(
+			array( $rank_1 => array() )
+			, wp_cache_get( $this->rank_group, 'wordpoints_user_ranks' )
+		);
+	}
 }
 
 // EOF

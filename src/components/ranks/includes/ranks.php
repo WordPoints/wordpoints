@@ -849,6 +849,46 @@ function wordpoints_set_new_user_ranks( $user_id ) {
 }
 
 /**
+ * Deletes all ranks for a user on this site.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action user_deleted          On single-site installs.
+ * @WordPress\action remove_user_from_blog On multisite.
+ *
+ * @param int $user_id The ID of the user whose ranks to delete.
+ */
+function wordpoints_delete_user_ranks( $user_id ) {
+
+	global $wpdb;
+
+	$wpdb->delete(
+		$wpdb->wordpoints_user_ranks
+		, array(
+			'user_id' => $user_id,
+			'blog_id' => $wpdb->blogid,
+			'site_id' => $wpdb->siteid,
+		)
+		, '%d'
+	);
+
+	foreach ( WordPoints_Rank_Groups::get() as $rank_group ) {
+
+		$group_ranks = wp_cache_get( $rank_group->slug, 'wordpoints_user_ranks' );
+
+		if ( ! is_array( $group_ranks ) ) {
+			continue;
+		}
+
+		foreach ( $group_ranks as $rank_id => $user_ids ) {
+			unset( $group_ranks[ $rank_id ][ $user_id ] );
+		}
+
+		wp_cache_set( $rank_group->slug, $group_ranks, 'wordpoints_user_ranks' );
+	}
+}
+
+/**
  * Register the included rank types.
  *
  * @since 1.7.0

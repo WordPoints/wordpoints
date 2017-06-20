@@ -70,7 +70,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 	}
 
 	/**
-	 * Test the it defaults to the current user if the user_id attribute is ommitted.
+	 * Test the it defaults to the current user if the user_id attribute is omitted.
 	 *
 	 * @since 1.8.0
 	 */
@@ -78,7 +78,6 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 
 		$user_id = $this->factory->user->create();
 
-		$old_current_user = wp_get_current_user();
 		wp_set_current_user( $user_id );
 
 		$rank_id = $this->factory->wordpoints->rank->create();

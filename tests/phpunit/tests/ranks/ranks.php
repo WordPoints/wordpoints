@@ -473,7 +473,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank_id = $this->factory->wordpoints->rank->create();
 
 		// Get the rank.
-		$rank = wordpoints_get_rank( $rank_id );
+		wordpoints_get_rank( $rank_id );
 
 		// The database should have been queried once.
 		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
@@ -495,7 +495,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		);
 
 		// Get the rank again.
-		$rank = wordpoints_get_rank( $rank_id );
+		wordpoints_get_rank( $rank_id );
 
 		// The database should have been queried again.
 		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
@@ -504,7 +504,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		wordpoints_delete_rank( $rank_id );
 
 		// Get the rank again.
-		$rank = wordpoints_get_rank( $rank_id );
+		wordpoints_get_rank( $rank_id );
 
 		// The database should have been queried again.
 		$this->assertSame( 3, $this->filter_was_called( 'query' ) );

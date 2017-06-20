@@ -114,10 +114,6 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 
 		$user_id = $this->factory->user->create();
 
-		$rank = wordpoints_get_rank(
-			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
-		);
-
 		$result = $this->do_shortcode(
 			'wordpoints_user_rank'
 			, array( 'user_id' => $user_id, 'points_type' => 'points' )

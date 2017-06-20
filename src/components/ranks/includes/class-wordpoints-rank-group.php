@@ -320,8 +320,6 @@ final class WordPoints_Rank_Group {
 			wp_cache_set( $this->slug, $group_ranks, 'wordpoints_user_ranks' );
 
 			unset( $group_ranks );
-
-			wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
 		}
 
 		return true;
@@ -480,9 +478,6 @@ final class WordPoints_Rank_Group {
 		wp_cache_set( $this->slug, $group_ranks, 'wordpoints_user_ranks' );
 
 		unset( $group_ranks );
-
-		wp_cache_delete( $rank_from_id, 'wordpoints_users_with_rank' );
-		wp_cache_delete( $rank_to_id, 'wordpoints_users_with_rank' );
 
 		$wpdb->update(
 			$wpdb->wordpoints_user_ranks

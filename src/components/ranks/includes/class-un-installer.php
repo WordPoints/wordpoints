@@ -260,7 +260,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 			DELETE FROM `{$wpdb->wordpoints_user_ranks}`
 			WHERE `id` IN (" . wordpoints_prepare__in( array_keys( $duplicates ), '%d' ) . ')
 			'
-		);
+		); // WPCS: cache OK.
 
 		// Regenerate the ranks of the affected users.
 		$rank_groups = array();
@@ -268,10 +268,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 		if ( ! is_multisite() ) {
 
 			foreach ( $duplicates as $duplicate ) {
-
 				$rank_groups[ $duplicate->rank_group ][ $duplicate->user_id ] = $duplicate->user_id;
-
-				wp_cache_delete( $duplicate->rank_id, 'wordpoints_users_with_rank' );
 			}
 
 			$this->regenerate_user_ranks_2_4_0( $rank_groups );
@@ -283,13 +280,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 				$rank_groups
 					[ $duplicate->site_id ]
 					[ $duplicate->blog_id ]
-					['rank_ids']
-					[ $duplicate->rank_id ] = $duplicate->rank_id;
-
-				$rank_groups
-					[ $duplicate->site_id ]
-					[ $duplicate->blog_id ]
-					['rank_groups']
 					[ $duplicate->rank_group ]
 					[ $duplicate->user_id ] = $duplicate->user_id;
 			}
@@ -303,18 +293,11 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 				$switcher->switch_to( array( 'network' => $site_id ) );
 				$state->backup();
 
-				foreach ( $blogs as $blog_id => $data ) {
+				foreach ( $blogs as $blog_id => $groups ) {
 
-					foreach ( $data['rank_ids'] as $rank_id ) {
-						wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
-					}
+					switch_to_blog( $blog_id );
 
-					foreach ( $data['rank_groups'] as $groups ) {
-
-						switch_to_blog( $blog_id );
-
-						$this->regenerate_user_ranks_2_4_0( $groups );
-					}
+					$this->regenerate_user_ranks_2_4_0( $groups );
 				}
 
 				$state->restore();

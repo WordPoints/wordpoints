@@ -586,9 +586,6 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 
 	unset( $group_ranks );
 
-	wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
-	wp_cache_delete( $old_rank_id, 'wordpoints_users_with_rank' );
-
 	/**
 	 * Perform actions when a user rank is updated.
 	 *
@@ -666,9 +663,6 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
 
 	unset( $group_ranks );
 
-	wp_cache_delete( $to_rank_id, 'wordpoints_users_with_rank' );
-	wp_cache_delete( $from_rank_id, 'wordpoints_users_with_rank' );
-
 	if ( has_action( 'wordpoints_update_user_rank' ) ) {
 		foreach ( $user_ids as $user_id ) {
 			/**
@@ -709,24 +703,17 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 		return false;
 	}
 
-	$user_ids = wp_cache_get( $rank_id, 'wordpoints_users_with_rank' );
+	$query = new WordPoints_User_Ranks_Query(
+		array( 'fields' => 'user_id', 'rank_id' => $rank_id )
+	);
+
+	$user_ids = $query->get( 'col' );
 
 	if ( false === $user_ids ) {
-
-		$query = new WordPoints_User_Ranks_Query(
-			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
-		);
-
-		$user_ids = $query->get( 'col' );
-
-		if ( false === $user_ids ) {
-			return false;
-		}
-
-		$user_ids = array_map( 'intval', $user_ids );
-
-		wp_cache_set( $rank_id, $user_ids, 'wordpoints_users_with_rank' );
+		return false;
 	}
+
+	$user_ids = array_map( 'intval', $user_ids );
 
 	return $user_ids;
 }

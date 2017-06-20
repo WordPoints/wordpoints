@@ -609,134 +609,13 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	}
 
 	/**
-	 * Test users with rank caching.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @covers ::wordpoints_update_user_rank
-	 * @covers ::wordpoints_get_users_with_rank
-	 * @covers ::wordpoints_delete_rank
-	 * @covers WordPoints_Rank_Group::move_rank
-	 */
-	public function test_users_with_rank_caching() {
-
-		$user_id = $this->factory->user->create();
-		$user_id_2 = $this->factory->user->create();
-		$rank_id = $this->factory->wordpoints_rank->create();
-		$rank_id_2 = $this->factory->wordpoints_rank->create(
-			array( 'position' => 2 )
-		);
-
-		wordpoints_update_user_rank( $user_id, $rank_id );
-		wordpoints_update_user_rank( $user_id_2, $rank_id_2 );
-
-		// Listen for get user rank database queries.
-		$this->listen_for_filter(
-			'query'
-			, array( $this, 'is_wordpoints_users_with_rank_query' )
-		);
-
-		// Get the users with this rank.
-		$users = wordpoints_get_users_with_rank( $rank_id );
-
-		$this->assertSame( array( $user_id ), $users );
-
-		// The database should have been queried once.
-		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
-
-		// Get the users with this rank again.
-		$users = wordpoints_get_users_with_rank( $rank_id );
-
-		$this->assertSame( array( $user_id ), $users );
-
-		// The database should still have been queried just once.
-		$this->assertSame( 1, $this->filter_was_called( 'query' ) );
-
-		// Get the users with the second rank.
-		$users = wordpoints_get_users_with_rank( $rank_id_2 );
-
-		$this->assertContainsSame( $user_id_2, $users );
-
-		// The database should have been queried a second time.
-		$this->assertSame( 2, $this->filter_was_called( 'query' ) );
-
-		// Update the rank of the first user.
-		wordpoints_update_user_rank( $user_id, $rank_id_2 );
-
-		// Get the users with the first rank.
-		$users = wordpoints_get_users_with_rank( $rank_id );
-
-		$this->assertSame( array(), $users );
-
-		// The database should have been queried again since the cache for this rank
-		// should have been cleared.
-		$this->assertSame( 3, $this->filter_was_called( 'query' ) );
-
-		// Get the users with the second rank.
-		$users = wordpoints_get_users_with_rank( $rank_id_2 );
-
-		$this->assertContainsSame( $user_id, $users );
-		$this->assertContainsSame( $user_id_2, $users );
-
-		// The database should have been queried again for this rank as well.
-		$this->assertSame( 4, $this->filter_was_called( 'query' ) );
-
-		// Now let's try deleting the rank.
-		wordpoints_delete_rank( $rank_id_2 );
-
-		// Get the cache for the deleted rank.
-		$users = wp_cache_get( $rank_id_2, 'wordpoints_users_with_rank' );
-
-		$this->assertSame( false, $users );
-
-		// Get the users for the other rank.
-		$users = wordpoints_get_users_with_rank( $rank_id );
-
-		$this->assertContainsSame( $user_id, $users );
-		$this->assertContainsSame( $user_id_2, $users );
-
-		// The database should be queried again since the users were moved to this
-		// rank and therefore the cache should be cleared.
-		$this->assertSame( 5, $this->filter_was_called( 'query' ) );
-
-		// Move the rank.
-		$rank_id_3 = $this->factory->wordpoints_rank->create(
-			array( 'position' => 2 )
-		);
-
-		WordPoints_Rank_Groups::get_group( $this->rank_group )
-			->move_rank( $rank_id, 2 );
-
-		// The database should be queried again, since the cache is invalidated and
-		// then we get the users of the rank to check if there are any that need to
-		// be moved up, and then the cache is invalidated again by updating the
-		// user's ranks.
-		$this->assertSame( 6, $this->filter_was_called( 'query' ) );
-
-		// Get the users for the rank.
-		$users = wordpoints_get_users_with_rank( $rank_id );
-
-		// The users will end up here again because the maybe increase rank will
-		// always return true, and this is the highest rank once it is moved.
-		$this->assertContainsSame( $user_id, $users );
-		$this->assertContainsSame( $user_id_2, $users );
-
-		// The database should be queried again.
-		$this->assertSame( 7, $this->filter_was_called( 'query' ) );
-	}
-
-	/**
 	 * @since 1.9.0
 	 */
 	public function is_wordpoints_users_with_rank_query( $sql ) {
 
 		global $wpdb;
 
-		return false !== strpos( $sql, "
-					SELECT `user_id`
-					FROM `{$wpdb->wordpoints_user_ranks}`
-					WHERE `rank_id` = "
-		);
+		return 0 === strpos( $sql, "SELECT `user_id`\nFROM `{$wpdb->wordpoints_user_ranks}`" );
 	}
 }
 

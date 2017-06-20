@@ -51,7 +51,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 	public function test_it_works() {
 
 		$user_id = $this->factory->user->create();
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_update_user_rank( $user_id, $rank_id );
 
@@ -81,7 +81,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 		$old_current_user = wp_get_current_user();
 		wp_set_current_user( $user_id );
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_update_user_rank( $user_id, $rank_id );
 
@@ -111,7 +111,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 		$old_current_user = wp_get_current_user();
 		wp_set_current_user( $user_id );
 
-		$rank = $this->factory->wordpoints_rank->create_and_get();
+		$rank = $this->factory->wordpoints->rank->create_and_get();
 
 		wordpoints_update_user_rank( $user_id, $rank->ID );
 
@@ -137,7 +137,7 @@ class WordPoints_User_Rank_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Ra
 		$old_current_user = wp_get_current_user();
 		wp_set_current_user( $user->ID );
 
-		$rank = $this->factory->wordpoints_rank->create_and_get();
+		$rank = $this->factory->wordpoints->rank->create_and_get();
 
 		wordpoints_update_user_rank( $user->ID, $rank->ID );
 

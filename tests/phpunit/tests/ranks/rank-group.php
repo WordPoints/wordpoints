@@ -106,7 +106,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$this->assertSame( $rank_id, $group->get_rank( 1 ) );
 		$this->assertSame( 1, $group->get_rank_position( $rank_id ) );
@@ -121,7 +121,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_no_duplicate_ranks() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		$group->add_rank( $rank_id, 1 );
@@ -140,9 +140,9 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
-		$rank_1 = $this->factory->wordpoints_rank->create( array( 'position' => 1 ) );
-		$rank_2 = $this->factory->wordpoints_rank->create( array( 'position' => 2 ) );
-		$rank_3 = $this->factory->wordpoints_rank->create( array( 'position' => 2 ) );
+		$rank_1 = $this->factory->wordpoints->rank->create( array( 'position' => 1 ) );
+		$rank_2 = $this->factory->wordpoints->rank->create( array( 'position' => 2 ) );
+		$rank_3 = $this->factory->wordpoints->rank->create( array( 'position' => 2 ) );
 
 		$this->assertSame( $rank_1, $group->get_rank( 1 ) );
 		$this->assertSame( $rank_2, $group->get_rank( 3 ) );
@@ -160,7 +160,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
-		$rank_id = $this->factory->wordpoints_rank->create(
+		$rank_id = $this->factory->wordpoints->rank->create(
 			array( 'position' => 5 )
 		);
 
@@ -179,8 +179,8 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
-		$rank_1 = $this->factory->wordpoints_rank->create( array( 'position' => 1 ) );
-		$rank_2 = $this->factory->wordpoints_rank->create( array( 'position' => 2 ) );
+		$rank_1 = $this->factory->wordpoints->rank->create( array( 'position' => 1 ) );
+		$rank_2 = $this->factory->wordpoints->rank->create( array( 'position' => 2 ) );
 
 		$result = $group->move_rank( $rank_1, 2 );
 
@@ -200,7 +200,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_removing_rank() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
@@ -227,7 +227,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		);
 		WordPoints_Rank_Groups::register_type_for_group( 'test_type', __CLASS__ );
 
-		$rank_id = $this->factory->wordpoints_rank->create(
+		$rank_id = $this->factory->wordpoints->rank->create(
 			array( 'group' => __CLASS__ )
 		);
 
@@ -246,7 +246,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_save_ranks() {
 
-		$rank_ids = $this->factory->wordpoints_rank->create_many( 3 );
+		$rank_ids = $this->factory->wordpoints->rank->create_many( 3 );
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		$result = $group->save_ranks( $rank_ids );
@@ -264,7 +264,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_save_ranks_with_missing_ranks() {
 
-		$rank_ids = $this->factory->wordpoints_rank->create_many( 3 );
+		$rank_ids = $this->factory->wordpoints->rank->create_many( 3 );
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		unset( $rank_ids[1] );
@@ -284,7 +284,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_save_ranks_with_duplicates() {
 
-		$rank_ids = $this->factory->wordpoints_rank->create_many( 2 );
+		$rank_ids = $this->factory->wordpoints->rank->create_many( 2 );
 		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		$rank_ids[] = $rank_ids[0];

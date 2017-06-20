@@ -27,7 +27,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_add_rank_meta() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_add_rank_meta( $rank_id, 'test', 'value' );
 
@@ -48,7 +48,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_meta() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank_meta( $rank_id, 'test_meta', __METHOD__ );
 
@@ -69,7 +69,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_delete_rank_meta() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_add_rank_meta( $rank_id, 'test', 'value' );
 
@@ -95,7 +95,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_get_multiple_rank_metadata() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_add_rank_meta( $rank_id, 'test', 'value' );
 		wordpoints_add_rank_meta( $rank_id, 'test_meta', 'test' );
@@ -122,7 +122,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_add_rank_meta_slashing() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'slashed\value' );
 
@@ -141,7 +141,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_meta_slashing() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'value' );
 
@@ -162,7 +162,7 @@ class WordPoints_Rank_Meta_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_delete_rank_meta_slashing() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_add_rank_meta( $rank_id, 'test\slashing', 'value' );
 

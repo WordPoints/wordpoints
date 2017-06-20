@@ -28,7 +28,7 @@ class WordPoints_Rank_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_properties_are_read_only() {
 
-		$rank = $this->factory->wordpoints_rank->create_and_get();
+		$rank = $this->factory->wordpoints->rank->create_and_get();
 
 		$this->assertTrue( isset( $rank->name ) );
 

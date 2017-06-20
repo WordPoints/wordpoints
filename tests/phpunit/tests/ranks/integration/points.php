@@ -71,7 +71,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 	public function test_my_points_widget_ranks_placeholder() {
 
 		$user_id = $this->factory->user->create();
-		$rank_id = $this->factory->wordpoints_rank->create(
+		$rank_id = $this->factory->wordpoints->rank->create(
 			array(
 				'rank_group' => 'points_type-points',
 				'type'       => 'points-points',

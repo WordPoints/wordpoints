@@ -213,7 +213,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_requires_valid_id() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank(
 			$rank_id + 5
@@ -236,7 +236,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_requires_valid_type() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank(
 			$rank_id
@@ -259,7 +259,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_requires_valid_group() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank(
 			$rank_id
@@ -282,7 +282,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank_requires_valid_meta() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank(
 			$rank_id
@@ -306,12 +306,12 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_rank() {
 
-		$this->factory->wordpoints_rank->create_many(
+		$this->factory->wordpoints->rank->create_many(
 			2
 			, array( 'group' => __CLASS__, 'type' => __CLASS__ )
 		);
 
-		$rank_id = $this->factory->wordpoints_rank->create(
+		$rank_id = $this->factory->wordpoints->rank->create(
 			array( 'group' => __CLASS__, 'type' => __CLASS__ )
 		);
 
@@ -354,7 +354,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$name = "\xf0\x9f\x98\x8e Smiler";
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank(
 			$rank_id
@@ -384,7 +384,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$filter = new WordPoints_PHPUnit_Mock_Filter( 'utf8' );
 		add_filter( 'pre_get_col_charset', array( $filter, 'filter' ) );
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_update_rank(
 			$rank_id
@@ -411,7 +411,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_delete_rank() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		$result = wordpoints_delete_rank( $rank_id );
 
@@ -428,7 +428,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_format_rank() {
 
-		$rank = $this->factory->wordpoints_rank->create_and_get();
+		$rank = $this->factory->wordpoints->rank->create_and_get();
 
 		$this->listen_for_filter( 'wordpoints_format_rank' );
 
@@ -449,7 +449,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_format_invalid_rank() {
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		wordpoints_delete_rank( $rank_id );
 
@@ -470,7 +470,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		// Listen for get-rank database queries.
 		$this->listen_for_filter( 'query', array( $this, 'is_wordpoints_get_rank_query' ) );
 
-		$rank_id = $this->factory->wordpoints_rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		// Get the rank.
 		$rank = wordpoints_get_rank( $rank_id );
@@ -523,8 +523,8 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_user_ranks_cached() {
 
 		$this->user_id = $this->factory->user->create();
-		$rank_id = $this->factory->wordpoints_rank->create();
-		$rank_id_2 = $this->factory->wordpoints_rank->create(
+		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_id_2 = $this->factory->wordpoints->rank->create(
 			array( 'position' => 2 )
 		);
 
@@ -562,7 +562,7 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$this->assertSame( $rank_id_2, $rank__id );
 
 		// Move the rank.
-		$rank_id_3 = $this->factory->wordpoints_rank->create(
+		$rank_id_3 = $this->factory->wordpoints->rank->create(
 			array( 'position' => 3 )
 		);
 

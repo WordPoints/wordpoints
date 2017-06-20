@@ -170,27 +170,32 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_users_to_rank() {
 
+		$base_rank_id = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_base_rank();
+
 		$rank_id = $this->factory->wordpoints->rank->create();
 		$user_ids = $this->factory->user->create_many( 2 );
 
-		$old_rank_id = wordpoints_get_user_rank( $user_ids[0], $this->rank_group );
+		// Set the user ranks to the base rank, since they will have automatically been updated to the higher rank.
+		wordpoints_update_user_rank( $user_ids[0], $base_rank_id );
+		wordpoints_update_user_rank( $user_ids[1], $base_rank_id );
 
 		wp_cache_set(
 			$this->rank_group
-			, array( $rank_id => '', $old_rank_id => '', 'other' => '' )
+			, array( $rank_id => '', $base_rank_id => '', 'other' => '' )
 			, 'wordpoints_user_ranks'
 		);
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter();
 		$mock->add_action( 'wordpoints_update_user_rank', 10, 6 );
 
-		$result = wordpoints_update_users_to_rank( $user_ids, $rank_id, $old_rank_id );
+		$result = wordpoints_update_users_to_rank( $user_ids, $rank_id, $base_rank_id );
 
 		$this->assertTrue( $result );
 
 		$this->assertSame( 2, $mock->call_count );
-		$this->assertSame( array( $user_ids[0], $rank_id, $old_rank_id ), $mock->calls[0] );
-		$this->assertSame( array( $user_ids[1], $rank_id, $old_rank_id ), $mock->calls[1] );
+		$this->assertSame( array( $user_ids[0], $rank_id, $base_rank_id ), $mock->calls[0] );
+		$this->assertSame( array( $user_ids[1], $rank_id, $base_rank_id ), $mock->calls[1] );
 
 		$this->assertSame(
 			array( 'other' => '' )
@@ -350,6 +355,59 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertContainsSame( $user_id, $base_rank_users );
 		$this->assertNotContains( $other_user_id, $base_rank_users );
+	}
+
+	/**
+	 * Tests that new users have their rank set.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_set_new_user_ranks
+	 */
+	public function test_set_new_user_ranks() {
+
+		$rank_1 = $this->factory->wordpoints->rank->create();
+
+		// Create a user.
+		$user_id = $this->factory->user->create();
+
+		$this->assertContainsSame(
+			$user_id
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
+	}
+
+	/**
+	 * Tests that users have their rank set when added to a blog on multisite.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 *
+	 * @covers ::wordpoints_set_new_user_ranks
+	 */
+	public function test_set_new_user_ranks_multisite() {
+
+		$user_id = $this->factory->user->create();
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+
+		$rank_1 = $this->factory->wordpoints->rank->create();
+
+		add_user_to_blog( $site_id, $user_id, 'subscriber' );
+
+		$this->assertContainsSame(
+			$user_id
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
+
+		restore_current_blog();
+
+		$this->assertSame(
+			array()
+			, wordpoints_get_users_with_rank( $rank_1 )
+		);
 	}
 }
 

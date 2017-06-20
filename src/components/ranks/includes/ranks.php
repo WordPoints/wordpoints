@@ -785,6 +785,70 @@ function wordpoints_refresh_rank_users( $rank_id ) {
 }
 
 /**
+ * Sets the rank of a new user when they become a member of the site.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action user_register
+ * @WordPress\action add_user_to_blog
+ *
+ * @param int $user_id The ID of the user.
+ */
+function wordpoints_set_new_user_ranks( $user_id ) {
+
+	foreach ( WordPoints_Rank_Groups::get() as $rank_group ) {
+
+		$base_rank = wordpoints_get_rank( $rank_group->get_base_rank() );
+
+		if ( ! $base_rank ) {
+			continue;
+		}
+
+		$rank_type = WordPoints_Rank_Types::get_type( $base_rank->type );
+
+		if ( ! $rank_type ) {
+			continue;
+		}
+
+		$new_rank = $rank_type->maybe_increase_user_rank(
+			$user_id
+			, $base_rank
+		);
+
+		// If the user should have the base rank we can't use the update function
+		// because it will check the user's current rank, which will be inferred as
+		// the base rank even if it isn't set in the database.
+		if ( $base_rank->ID !== $new_rank->ID ) {
+
+			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+
+		} else {
+
+			global $wpdb;
+
+			$wpdb->query(
+				$wpdb->prepare(
+					"
+						INSERT INTO `{$wpdb->wordpoints_user_ranks}`
+							(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
+						VALUES 
+							(%d, %d, %s, %d, %d)
+						ON DUPLICATE KEY
+							UPDATE `rank_id` = %d
+					"
+					, $user_id
+					, $base_rank->ID
+					, $base_rank->rank_group
+					, $wpdb->blogid
+					, $wpdb->siteid
+					, $base_rank->ID
+				)
+			); // WPCS: cache OK.
+		}
+	}
+}
+
+/**
  * Register the included rank types.
  *
  * @since 1.7.0

@@ -187,15 +187,17 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 	 */
 	public function test_maybe_fills_if_needed() {
 
-		$rank_id  = $this->factory->wordpoints->rank->create();
+		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
+
+		$base_rank_id = $group->get_base_rank();
+
+		$group->remove_rank( $base_rank_id );
+
+		// Create the users while the rank isn't registered so it won't be assigned
+		// to them automatically when they are created.
 		$user_ids = $this->factory->user->create_many( 2 );
 
-		delete_option( 'wordpoints_filled_base_ranks' );
-
-		wordpoints_update_user_rank( $user_ids[0], $rank_id );
-
-		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
-		$base_rank_id = $group->get_base_rank();
+		$group->add_rank( $base_rank_id, 0 );
 
 		$query = new WordPoints_User_Ranks_Query(
 			array( 'user_id__in' => $user_ids )
@@ -203,18 +205,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		$results = $query->get();
 
-		$this->assertCount( 1, $results );
-		$this->assertSameProperties(
-			(object) array(
-				'id'         => $results[0]->id,
-				'user_id'    => (string) $user_ids[0],
-				'rank_id'    => (string) $rank_id,
-				'rank_group' => 'test_group',
-				'blog_id'    => is_multisite() ? '1' : '0',
-				'site_id'    => is_multisite() ? '1' : '0',
-			)
-			, $results[0]
-		);
+		$this->assertCount( 0, $results );
 
 		$query->maybe_fill_in_base_rank_for_users( $base_rank_id );
 
@@ -225,7 +216,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 			(object) array(
 				'id'         => $results[0]->id,
 				'user_id'    => (string) $user_ids[0],
-				'rank_id'    => (string) $rank_id,
+				'rank_id'    => (string) $base_rank_id,
 				'rank_group' => 'test_group',
 				'blog_id'    => is_multisite() ? '1' : '0',
 				'site_id'    => is_multisite() ? '1' : '0',
@@ -252,15 +243,17 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 	 */
 	public function test_maybe_fill_uses_rank_id_arg() {
 
-		$rank_id  = $this->factory->wordpoints->rank->create();
+		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
+
+		$base_rank_id = $group->get_base_rank();
+
+		$group->remove_rank( $base_rank_id );
+
+		// Create the users while the rank isn't registered so it won't be assigned
+		// to them automatically when they are created.
 		$user_ids = $this->factory->user->create_many( 2 );
 
-		delete_option( 'wordpoints_filled_base_ranks' );
-
-		wordpoints_update_user_rank( $user_ids[0], $rank_id );
-
-		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
-		$base_rank_id = $group->get_base_rank();
+		$group->add_rank( $base_rank_id, 0 );
 
 		$query = new WordPoints_User_Ranks_Query(
 			array( 'user_id__in' => $user_ids )
@@ -268,23 +261,34 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		$results = $query->get();
 
-		$this->assertCount( 1, $results );
+		$this->assertCount( 0, $results );
 
 		$query->set_args( array( 'rank_id' => $base_rank_id ) );
 
 		$results = $query->get();
 
-		$this->assertCount( 1, $results );
+		$this->assertCount( 2, $results );
 		$this->assertSameProperties(
 			(object) array(
 				'id'         => $results[0]->id,
-				'user_id'    => (string) $user_ids[1],
+				'user_id'    => (string) $user_ids[0],
 				'rank_id'    => (string) $base_rank_id,
 				'rank_group' => 'test_group',
 				'blog_id'    => is_multisite() ? '1' : '0',
 				'site_id'    => is_multisite() ? '1' : '0',
 			)
 			, $results[0]
+		);
+		$this->assertSameProperties(
+			(object) array(
+				'id'         => $results[1]->id,
+				'user_id'    => (string) $user_ids[1],
+				'rank_id'    => (string) $base_rank_id,
+				'rank_group' => 'test_group',
+				'blog_id'    => is_multisite() ? '1' : '0',
+				'site_id'    => is_multisite() ? '1' : '0',
+			)
+			, $results[1]
 		);
 	}
 

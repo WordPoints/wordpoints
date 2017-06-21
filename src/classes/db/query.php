@@ -93,7 +93,7 @@ class WordPoints_DB_Query {
 	 * @var array
 	 */
 	protected $defaults = array(
-		'start'  => 0,
+		'offset' => 0,
 		'order'  => 'DESC',
 	);
 
@@ -213,6 +213,7 @@ class WordPoints_DB_Query {
 	 * All of the arguments are expected *not* to be SQL escaped.
 	 *
 	 * @since 2.1.0
+	 * @since 2.4.0 The 'start' query arg was deprecated in favor of 'offset'.
 	 *
 	 * @see WP_Meta_Query for the proper arguments for 'meta_query', 'meta_key', 'meta_value', 'meta_compare', and 'meta_type'.
 	 *
@@ -221,7 +222,7 @@ class WordPoints_DB_Query {
 	 *
 	 *        @type string|array $fields              Fields to include in the results. Default is all fields.
 	 *        @type int          $limit               The maximum number of results to return. Default is null (no limit).
-	 *        @type int          $start               The start for the LIMIT clause. Default: 0.
+	 *        @type int          $offset              The offset for the LIMIT clause. Default: 0.
 	 *        @type string       $order_by            The field to use to order the results.
 	 *        @type string       $order               The order for the query: ASC or DESC (default).
 	 *        @type string       $meta_key            See WP_Meta_Query.
@@ -232,6 +233,14 @@ class WordPoints_DB_Query {
 	 * }
 	 */
 	public function __construct( $args = array() ) {
+
+		if ( ! isset( $this->deprecated_args['start'] ) ) {
+			$this->deprecated_args['start'] = array(
+				'class'       => __CLASS__,
+				'version'     => '2.4.0',
+				'replacement' => 'offset',
+			);
+		}
 
 		foreach ( $this->deprecated_args as $arg => $data ) {
 			if ( isset( $args[ $arg ] ) ) {
@@ -737,12 +746,12 @@ class WordPoints_DB_Query {
 	protected function prepare_limit() {
 
 		// MySQL doesn't allow for the offset without a limit, so if no limit is set
-		// we can ignore the start arg. See https://stackoverflow.com/a/271650/1924128
+		// we can ignore the offset arg. See https://stackoverflow.com/a/271650/1924128
 		if ( ! isset( $this->args['limit'] ) ) {
 			return;
 		}
 
-		foreach ( array( 'limit', 'start' ) as $key ) {
+		foreach ( array( 'limit', 'offset' ) as $key ) {
 
 			// Save a backup of the arg value since wordpoints_int() is by reference.
 			$arg = $this->args[ $key ];
@@ -763,8 +772,8 @@ class WordPoints_DB_Query {
 			}
 		}
 
-		if ( $this->args['limit'] > 0 && $this->args['start'] >= 0 ) {
-			$this->limit = "LIMIT {$this->args['start']}, {$this->args['limit']}";
+		if ( $this->args['limit'] > 0 && $this->args['offset'] >= 0 ) {
+			$this->limit = "LIMIT {$this->args['offset']}, {$this->args['limit']}";
 		}
 	}
 

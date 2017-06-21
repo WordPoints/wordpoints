@@ -186,8 +186,8 @@
             "errors": false
         },
         "\/classes\/db\/query.php": {
-            "size": 21393,
-            "hash": "c84997985a1cfa1dca6f3e8308547bf7",
+            "size": 21676,
+            "hash": "992897f4dfbc91cd5a45eb130787cebd",
             "errors": false
         },
         "\/classes\/dropdown\/builder.php": {
@@ -1096,8 +1096,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
-            "size": 20043,
-            "hash": "6e5bfa0a5380ea71a3f02b2baa7d155b",
+            "size": 20222,
+            "hash": "7196643fb0185943dea7b591cd259ffc",
             "errors": false
         },
         "\/components\/points\/includes\/constants.php": {
@@ -1231,8 +1231,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
-            "size": 11214,
-            "hash": "d076842263f7eb210f592f605d914568",
+            "size": 11630,
+            "hash": "2d5c496f968c51f2dd84a0bb429efc86",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-groups.php": {

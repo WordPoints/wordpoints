@@ -666,7 +666,7 @@
             }
         },
         "date": {
-            "190": false
+            "192": false
         }
     },
     "\/components\/points\/includes\/deprecated.php": {
@@ -1654,8 +1654,26 @@
         }
     },
     "\/classes\/db\/query.php": {
+        "2.4.0": {
+            "240": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "offset": {
+            "241": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
         "results": {
-            "354": {
+            "363": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1664,7 +1682,7 @@
             }
         },
         "row": {
-            "354": {
+            "363": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1673,7 +1691,7 @@
             }
         },
         "col": {
-            "354": {
+            "363": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1682,7 +1700,7 @@
             }
         },
         "var": {
-            "354": {
+            "363": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1691,7 +1709,7 @@
             }
         },
         "WordPoints Debug Error: invalid get method %s, possible values are %s": {
-            "358": {
+            "367": {
                 "name": "sprintf",
                 "type": "unknown",
                 "args_started": true,
@@ -1700,10 +1718,10 @@
             }
         },
         "`\\n": {
-            "392": false
+            "401": false
         },
         "<": {
-            "644": {
+            "653": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1712,10 +1730,10 @@
             }
         },
         ",": {
-            "767": false
+            "776": false
         },
         ".meta_value AS": {
-            "802": false
+            "811": false
         }
     },
     "\/classes\/entity\/attr\/field.php": {

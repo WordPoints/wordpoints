@@ -47,6 +47,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 * @since 2.3.0
 	 */
 	protected $deprecated_args = array(
+		'start'        => array( 'replacement' => 'offset', 'version' => '2.4.0', 'class' => __CLASS__ ),
 		'orderby'      => array( 'replacement' => 'order_by', 'version' => '2.3.0', 'class' => __CLASS__ ),
 		'user__in'     => array( 'replacement' => 'user_id__in', 'version' => '2.3.0', 'class' => __CLASS__ ),
 		'user__not_in' => array( 'replacement' => 'user_id__not_in', 'version' => '2.3.0', 'class' => __CLASS__ ),
@@ -123,6 +124,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *                'text__in', 'text__not_in', 'blog_id__compare',
 	 *                'site_id__compare', 'site_id__in', and 'site_id__not_in' args
 	 *                were added.
+	 * @since 2.4.0 The 'start' arg was deprecated in favor of 'offset'.
 	 *
 	 * @see WP_Date_Query for the proper arguments for $args['date_query'].
 	 * @see WP_Meta_Query for the proper arguments for 'meta_query', 'meta_key', 'meta_value', 'meta_compare', and 'meta_type'.
@@ -132,7 +134,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *
 	 *        @type string|array $fields              Fields to include in the results. Defaults to all fields.
 	 *        @type int          $limit               The maximum number of results to return. Default is no limit.
-	 *        @type int          $start               The start for the LIMIT clause. Default: 0.
+	 *        @type int          $offset              The offset for the LIMIT clause. Default: 0.
 	 *        @type string       $order_by            The field to use to order the results. Default: 'date'.
 	 *        @type string       $order               The order for the query: ASC or DESC (default).
 	 *        @type int          $id                  The ID of the log to retrieve.
@@ -337,7 +339,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 * Useful for displaying paginated results, this function lets you get a slice
 	 * of the results.
 	 *
-	 * If your query is already using the 'start' argument, the results are
+	 * If your query is already using the 'offset' argument, the results are
 	 * calculated relative to that. If your query has a 'limit' set, results will not
 	 * be returned beyond the limit.
 	 *
@@ -357,7 +359,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			return false;
 		}
 
-		$start = ( $page - 1 ) * $per_page;
+		$offset = ( $page - 1 ) * $per_page;
 
 		// First try the main cache.
 		if ( $this->_is_cached_query ) {
@@ -367,7 +369,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			if ( false !== $cache ) {
 				return array_slice(
 					$cache
-					, $start - $this->args['start']
+					, $offset - $this->args['offset']
 					, $per_page
 				);
 			}
@@ -376,17 +378,17 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		// Stash the args so we can restore them later.
 		$args = $this->args;
 
-		$this->args['start'] += $start;
+		$this->args['offset'] += $offset;
 
 		if ( ! empty( $this->args['limit'] ) ) {
-			$this->args['limit'] -= $start;
+			$this->args['limit'] -= $offset;
 		}
 
 		if ( empty( $this->args['limit'] ) || $this->args['limit'] > $per_page ) {
 			$this->args['limit'] = $per_page;
 		}
 
-		// Regenerate the query limit after changing the start and limit args.
+		// Regenerate the query limit after changing the offset and limit args.
 		$this->prepare_limit();
 
 		unset( $this->_cache_query_hash );

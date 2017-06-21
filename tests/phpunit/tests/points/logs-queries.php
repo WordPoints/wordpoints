@@ -72,7 +72,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query();
 
-		$this->assertSame( 0,      $query->get_arg( 'start' ) );
+		$this->assertSame( 0,      $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 		$this->assertSame( 'date', $query->get_arg( 'order_by' ) );
 		$this->assertSame( 'LIKE', $query->get_arg( 'text__compare' ) );
@@ -101,6 +101,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
+				'start'        => 5,
 				'orderby'      => 'test',
 				'user__in'     => 'test_user_in',
 				'user__not_in' => 'test_user_not_in',
@@ -109,6 +110,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
+		$this->assertSame( 5, $query->get_arg( 'offset' ) );
 		$this->assertSame( 'test', $query->get_arg( 'order_by' ) );
 		$this->assertSame( 'test_user_in', $query->get_arg( 'user_id__in' ) );
 		$this->assertSame( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
@@ -127,6 +129,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
+				'offset'          => 5,
 				'order_by'        => 'test',
 				'user_id__in'     => 'test_user_in',
 				'user_id__not_in' => 'test_user_not_in',
@@ -135,6 +138,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
+		$this->assertSame( 5, $query->get_arg( 'start' ) );
 		$this->assertSame( 'test', $query->get_arg( 'orderby' ) );
 		$this->assertSame( 'test_user_in', $query->get_arg( 'user__in' ) );
 		$this->assertSame( 'test_user_not_in', $query->get_arg( 'user__not_in' ) );
@@ -154,6 +158,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$query = new WordPoints_Points_Logs_Query();
 		$query->set_args(
 			array(
+				'start'        => 5,
 				'orderby'      => 'test',
 				'user__in'     => 'test_user_in',
 				'user__not_in' => 'test_user_not_in',
@@ -162,6 +167,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 			)
 		);
 
+		$this->assertSame( 5, $query->get_arg( 'offset' ) );
 		$this->assertSame( 'test', $query->get_arg( 'order_by' ) );
 		$this->assertSame( 'test_user_in', $query->get_arg( 'user_id__in' ) );
 		$this->assertSame( 'test_user_not_in', $query->get_arg( 'user_id__not_in' ) );
@@ -262,11 +268,11 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	}
 
 	/**
-	 * Test the 'start' query arg.
+	 * Test the 'offset' query arg.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
-	public function test_start_query_arg() {
+	public function test_offset_query_arg() {
 
 		$user_id = $this->factory->user->create();
 
@@ -275,7 +281,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'start'    => 1,
+				'offset'   => 1,
 				'limit'    => 2,
 				'order_by' => 'id',
 			)
@@ -1042,16 +1048,16 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	}
 
 	/**
-	 * Test get_page() calculates pages relative to the 'start' argument.
+	 * Test get_page() calculates pages relative to the 'offset' argument.
 	 *
 	 * @since 1.6.0
 	 */
-	public function test_get_page_with_start() {
+	public function test_get_page_with_offset() {
 
 		$ids = $this->factory->wordpoints->points_log->create_many( 5 );
 
 		$query = new WordPoints_Points_Logs_Query(
-			array( 'start' => 2, 'order_by' => 'id', 'order' => 'ASC' )
+			array( 'offset' => 2, 'order_by' => 'id', 'order' => 'ASC' )
 		);
 
 		$page_1 = $query->get_page( 1, 2 );

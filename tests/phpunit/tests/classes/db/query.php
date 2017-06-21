@@ -72,7 +72,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query();
 
-		$this->assertSame( 0,      $query->get_arg( 'start' ) );
+		$this->assertSame( 0,      $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 	}
 
@@ -83,9 +83,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_construct_with_args() {
 
-		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
+		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
-		$this->assertSame( 10,     $query->get_arg( 'start' ) );
+		$this->assertSame( 10,     $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
 	}
@@ -141,15 +141,15 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_set_args() {
 
-		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
+		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
-		$this->assertSame( 10,     $query->get_arg( 'start' ) );
+		$this->assertSame( 10,     $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
 
 		$query->set_args( array( 'order' => 'ASC', 'custom' => 'b' ) );
 
-		$this->assertSame( 10,    $query->get_arg( 'start' ) );
+		$this->assertSame( 10,    $query->get_arg( 'offset' ) );
 		$this->assertSame( 'ASC', $query->get_arg( 'order' ) );
 		$this->assertSame( 'b',   $query->get_arg( 'custom' ) );
 	}
@@ -192,7 +192,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_set_args_returns_query() {
 
-		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
+		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
 		$return = $query->set_args( array( 'order' => 'ASC', 'custom' => 'b' ) );
 
@@ -648,18 +648,32 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the 'start' query arg.
+	 * Tests that the 'start' query arg is deprecated.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
+	 *
+	 * @expectedDeprecated WordPoints_DB_Query::__construct
 	 */
-	public function test_start_query_arg() {
+	public function test_start_query_arg_deprecated() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query( array( 'start' => 1 ) );
+
+		$this->assertSame( 1, $query->get_arg( 'offset' ) );
+	}
+
+	/**
+	 * Test the 'offset' query arg.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_offset_query_arg() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => 1,
+				'offset'   => 1,
 				'limit'    => 2,
 				'order_by' => 'int_col',
 			)
@@ -674,20 +688,20 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the 'start' query arg when it is invalid.
+	 * Test the 'offset' query arg when it is invalid.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 *
 	 * @expectedIncorrectUsage WordPoints_DB_Query::prepare_limit
 	 */
-	public function test_start_query_arg_invalid() {
+	public function test_offset_query_arg_invalid() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => 'invalid',
+				'offset'   => 'invalid',
 				'limit'    => 2,
 				'order_by' => 'int_col',
 			)
@@ -699,18 +713,18 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the 'start' query arg when it is negative.
+	 * Test the 'offset' query arg when it is negative.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 */
-	public function test_start_query_arg_negative() {
+	public function test_offset_query_arg_negative() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => -3,
+				'offset'   => -3,
 				'limit'    => 2,
 				'order_by' => 'int_col',
 			)
@@ -722,18 +736,18 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test that the 'start' query arg is ignored when the limit isn't set.
+	 * Test that the 'offset' query arg is ignored when the limit isn't set.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 */
-	public function test_start_query_arg_limit_not_set() {
+	public function test_offset_query_arg_limit_not_set() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => 1,
+				'offset'   => 1,
 				'order_by' => 'int_col',
 			)
 		);

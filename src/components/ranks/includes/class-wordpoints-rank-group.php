@@ -504,24 +504,60 @@ final class WordPoints_Rank_Group {
 			return;
 		}
 
-		$users = wordpoints_get_users_with_rank( $previous_rank->ID );
-
-		if ( empty( $users ) ) {
-			return;
-		}
-
 		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
 
-		$new_ranks = $rank_type->maybe_increase_user_ranks( $users, $previous_rank );
+		wordpoints_prevent_interruptions();
 
-		$new_rank_users = array();
+		$batch_size = 1000;
+		$offset = 0;
 
-		foreach ( $new_ranks as $user_id => $new_rank ) {
-			$new_rank_users[ $new_rank ][] = $user_id;
-		}
+		$query = new WordPoints_User_Ranks_Query(
+			array(
+				'fields'   => 'user_id',
+				'rank_id'  => $previous_rank->ID,
+				'offset'   => $offset,
+				'limit'    => $batch_size,
+				'order_by' => 'id',
+			)
+		);
 
-		foreach ( $new_rank_users as $new_rank => $user_ids ) {
-			wordpoints_update_users_to_rank( $user_ids, $new_rank, $previous_rank->ID );
+		while ( $user_ids = $query->get( 'col' ) ) {
+
+			$new_ranks = $rank_type->maybe_increase_user_ranks(
+				$user_ids
+				, $previous_rank
+			);
+
+			$count = count( $user_ids );
+
+			unset( $user_ids );
+
+			$new_rank_users = array();
+
+			foreach ( $new_ranks as $user_id => $new_rank ) {
+				$new_rank_users[ $new_rank ][] = $user_id;
+			}
+
+			unset( $new_ranks );
+
+			foreach ( $new_rank_users as $new_rank => $user_ids ) {
+				wordpoints_update_users_to_rank(
+					$user_ids
+					, $new_rank
+					, $previous_rank->ID
+				);
+			}
+
+			unset( $new_rank_users );
+
+			// No need to keep going if the last query returned less than the limit.
+			if ( $count < $batch_size ) {
+				break;
+			}
+
+			$offset += $batch_size;
+
+			$query->set_args( array( 'offset' => $offset ) );
 		}
 	}
 }

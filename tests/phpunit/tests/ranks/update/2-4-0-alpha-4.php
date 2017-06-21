@@ -17,6 +17,7 @@
  *
  * @covers WordPoints_Ranks_Un_Installer::update_network_to_2_4_0_alpha_4
  * @covers WordPoints_Ranks_Un_Installer::update_single_to_2_4_0_alpha_4
+ * @covers WordPoints_Ranks_Un_Installer::delete_ranks_for_deleted_users
  * @covers WordPoints_Ranks_Un_Installer::update_user_ranks_table_to_2_4_0
  * @covers WordPoints_Ranks_Un_Installer::update_user_ranks_remove_duplicates_2_4_0
  * @covers WordPoints_Ranks_Un_Installer::regenerate_user_ranks_2_4_0
@@ -206,6 +207,112 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 			$rank_id
 			, wordpoints_get_user_rank( $user_id, 'points_type-points' )
 		);
+	}
+
+	/**
+	 * Tests that ranks for deleted users are deleted.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_delete_ranks_for_deleted_users() {
+
+		global $wpdb;
+
+		$rank_id = WordPoints_Rank_Groups::get_group( 'points_type-points' )
+			->get_base_rank();
+
+		$user_id = $this->factory->user->create();
+
+		self::delete_user( $user_id );
+
+		// Revert the table for create realism.
+		$this->revert_table();
+
+		// Give a rank to a nonexistent user.
+		$wpdb->insert(
+			$wpdb->wordpoints_user_ranks
+			, array( 'user_id' => $user_id, 'rank_id' => $rank_id )
+		);
+
+		// Don't use blog and site ID fields, since they aren't in the table yet.
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'user_id' => $user_id, 'blog_id' => null, 'site_id' => null )
+		);
+
+		$this->assertSame( 1, $query->count() );
+
+		wp_cache_set(
+			'points_type-points'
+			, array( $rank_id => array( $user_id => true ) )
+			, 'wordpoints_user_ranks'
+		);
+
+		// Simulate the update.
+		$this->update_component();
+
+		$this->assertSame( 0, $query->count() );
+
+		$this->assertFalse(
+			wp_cache_get( 'points_type-points', 'wordpoints_user_ranks' )
+		);
+	}
+
+	/**
+	 * Tests that ranks for users who have been removed from the blog are deleted.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_delete_ranks_for_deleted_users_multisite() {
+
+		global $wpdb;
+
+		$rank_id = WordPoints_Rank_Groups::get_group( 'points_type-points' )
+			->get_base_rank();
+
+		$user_id = $this->factory->user->create();
+
+		remove_user_from_blog( $user_id );
+
+		$blog_id = $this->factory->blog->create();
+		switch_to_blog( $blog_id );
+		$other_rank_id = $this->factory->wordpoints->rank->create();
+		$other_user_id = $this->factory->user->create();
+		restore_current_blog();
+
+		// Revert the table for create realism.
+		$this->revert_table();
+
+		// Give a rank to a user who is no longer a member of this site.
+		$wpdb->insert(
+			$wpdb->wordpoints_user_ranks
+			, array( 'user_id' => $user_id, 'rank_id' => $rank_id )
+		);
+
+		// And a rank to a user who is not a member of this site, but who has a
+		// rank on another site.
+		$wpdb->insert(
+			$wpdb->wordpoints_user_ranks
+			, array( 'user_id' => $other_user_id, 'rank_id' => $other_rank_id )
+		);
+
+		$query = new WordPoints_User_Ranks_Query(
+			array(
+				'fields'      => 'user_id',
+				'user_id__in' => array( $user_id, $other_user_id ),
+				'blog_id'     => null,
+				'site_id'     => null,
+			)
+		);
+
+		$this->assertSame( 2, $query->count() );
+
+		// Simulate the update.
+		$this->update_component();
+
+		$this->assertSame( 1, $query->count() );
+		$this->assertSame( (string) $other_user_id, $query->get( 'var' ) );
 	}
 }
 

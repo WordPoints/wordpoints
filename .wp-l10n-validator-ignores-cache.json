@@ -901,8 +901,14 @@
         }
     },
     "\/components\/ranks\/includes\/class-un-installer.php": {
-        "component": {
-            "24": false
+        "ID": {
+            "185": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
         }
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {

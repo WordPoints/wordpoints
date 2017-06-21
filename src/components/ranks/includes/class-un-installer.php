@@ -29,7 +29,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected $updates = array(
 		'1.8.0' => array( /*      -      */ 'site' => true, /*      -      */ ),
 		'2.0.0' => array( 'single' => true, /*     -     */ 'network' => true ),
-		'2.4.0-alpha-4' => array( 'single' => true, /*     -     */ 'network' => true ),
+		'2.4.0-alpha-4' => array( 'single' => true, 'site' => true, 'network' => true ),
 	);
 
 	/**
@@ -154,12 +154,55 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
+	 * Update a site on the network to 2.4.0.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function update_site_to_2_4_0_alpha_4() {
+		$this->delete_ranks_for_deleted_users();
+	}
+
+	/**
 	 * Update a single site to 2.4.0.
 	 *
 	 * @since 2.4.0
 	 */
 	protected function update_single_to_2_4_0_alpha_4() {
 		$this->update_user_ranks_table_to_2_4_0();
+		$this->delete_ranks_for_deleted_users();
+	}
+
+	/**
+	 * Deletes ranks for users who are no longer members of this site.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function delete_ranks_for_deleted_users() {
+
+		global $wpdb;
+
+		$query = new WP_User_Query(
+			array( 'fields' => 'ID', 'count_total' => false, 'orderby' => 'ID' )
+		);
+
+		$wpdb->query( // WPCS: unprepared SQL OK.
+			$wpdb->prepare( // WPCS: unprepared SQL OK.
+				"
+					DELETE FROM `{$wpdb->wordpoints_user_ranks}`
+					WHERE `user_id` NOT IN (
+						{$query->request}
+					)
+						AND `blog_id` = %d
+						AND `site_id` = %d
+				"
+				, $wpdb->blogid
+				, $wpdb->siteid
+			)
+		);
+
+		foreach ( WordPoints_Rank_Groups::get() as $rank_group ) {
+			wp_cache_delete( $rank_group->slug, 'wordpoints_user_ranks' );
+		}
 	}
 
 	/**

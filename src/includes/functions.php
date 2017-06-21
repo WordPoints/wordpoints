@@ -1178,4 +1178,27 @@ function wordpoints_is_function_disabled( $function ) {
 	return in_array( $function, explode( ',', ini_get( 'disable_functions' ) ), true );
 }
 
+/**
+ * Prevents any interruptions from occurring during a lengthy operation.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_prevent_interruptions() {
+
+	// Don't stop script execution if the client disconnects.
+	ignore_user_abort( true );
+
+	// Don't let the script time-out.
+	if ( ! wordpoints_is_function_disabled( 'set_time_limit' ) ) {
+		set_time_limit( 0 );
+	}
+
+	/**
+	 * Fires when preventing interruptions to a lengthy operation.
+	 *
+	 * @since 2.4.0
+	 */
+	do_action( 'wordpoints_prevent_interruptions' );
+}
+
 // EOF

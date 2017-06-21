@@ -876,8 +876,8 @@
             "errors": false
         },
         "\/classes\/un\/installer\/base.php": {
-            "size": 50813,
-            "hash": "c73cd177fdc8e4f55df6e8c9dc2e60f3",
+            "size": 50727,
+            "hash": "2818b283703b8a88dca3a14dce2f86a1",
             "errors": false
         },
         "\/classes\/widget.php": {
@@ -1381,8 +1381,8 @@
             "errors": false
         },
         "\/includes\/functions.php": {
-            "size": 32926,
-            "hash": "b683f8c2d17369d5bb0ae5ffb22528bd",
+            "size": 33435,
+            "hash": "26d63b17c8703dd88a8c33939d21c414",
             "errors": false
         },
         "\/includes\/hooks.php": {

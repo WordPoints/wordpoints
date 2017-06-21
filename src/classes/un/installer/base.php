@@ -624,12 +624,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.2.0
 	 */
 	protected function no_interruptions() {
-
-		ignore_user_abort( true );
-
-		if ( ! wordpoints_is_function_disabled( 'set_time_limit' ) ) {
-			set_time_limit( 0 );
-		}
+		wordpoints_prevent_interruptions();
 	}
 
 	/**

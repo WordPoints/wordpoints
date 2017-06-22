@@ -107,7 +107,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 
 				?>
 				<?php if ( $field ) : ?>
-					<span><% if ( typeof <?php echo preg_replace( '/[^a-z0-9_]/i', '', $field ); // WPCS: XSS OK ?> !== "undefined" ) { print( <?php echo preg_replace( '/[^a-z0-9_]/i', '', $field ); // WPCS: XSS OK ?> ); } %></span>
+					<span><% if ( typeof <?php echo preg_replace( '/[^a-z0-9_]/i', '', $field ); /* WPCS XSS OK. */ ?> !== "undefined" ) { print( <?php echo preg_replace( '/[^a-z0-9_]/i', '', $field ); /* WPCS XSS OK. */ ?> ); } %></span>
 				<?php endif; ?>
 			</div>
 			<a class="edit"><?php echo esc_html_x( 'Edit', 'rank', 'wordpoints' ); ?></a>

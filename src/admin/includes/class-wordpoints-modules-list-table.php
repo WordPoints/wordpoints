@@ -775,7 +775,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 		<td class="module-title<?php echo ( $is_hidden ) ? ' hidden' : ''; ?><?php echo ( $is_primary ) ? ' has-row-actions column-primary' : ''; ?>">
 			<strong><?php echo esc_html( $module_data['name'] ); ?></strong>
 			<?php if ( $is_primary ) : ?>
-				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); // WPCS XSS OK. ?>
+				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); /* WPCS XSS OK. */ ?>
 			<?php endif; ?>
 		</td>
 		<?php
@@ -852,7 +852,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 				?>
 			</div>
 			<?php if ( $is_primary ) : ?>
-				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); // WPCS XSS OK. ?>
+				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); /* WPCS XSS OK. */ ?>
 			<?php endif; ?>
 		</td>
 		<?php
@@ -885,7 +885,7 @@ final class WordPoints_Modules_List_Table extends WP_List_Table {
 			do_action( 'wordpoints_manage_modules_custom_column', $column_name, $module_data['module_file'], $module_data );
 			?>
 			<?php if ( $is_primary ) : ?>
-				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); // WPCS XSS OK. ?>
+				<?php echo $this->row_actions( $this->get_module_row_actions( $module_data ), true ); /* WPCS XSS OK. */ ?>
 			<?php endif; ?>
 		</td>
 		<?php

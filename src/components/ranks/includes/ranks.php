@@ -744,9 +744,6 @@ function wordpoints_refresh_rank_users( $rank_id ) {
 	// Get a list of users who have this rank.
 	$users = wordpoints_get_users_with_rank( $rank->ID );
 
-	// Also get users who have the previous rank.
-	$prev_rank_users = wordpoints_get_users_with_rank( $prev_rank->ID );
-
 	// If there are some users who have this rank, check if any of them need to
 	// decrease to that rank.
 	if ( ! empty( $users ) ) {
@@ -764,6 +761,11 @@ function wordpoints_refresh_rank_users( $rank_id ) {
 			wordpoints_update_user_rank( $user_id, $new_rank->ID );
 		}
 	}
+
+	unset( $users );
+
+	// Also get users who have the previous rank.
+	$prev_rank_users = wordpoints_get_users_with_rank( $prev_rank->ID );
 
 	// If there were some users with the previous rank, check if any of them can now
 	// increase to this rank.

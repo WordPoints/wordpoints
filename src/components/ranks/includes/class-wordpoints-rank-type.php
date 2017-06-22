@@ -276,7 +276,7 @@ abstract class WordPoints_Rank_Type {
 	}
 
 	/**
-	 * Checks if a group users' ranks can be increased.
+	 * Checks if a group of users' ranks can be increased.
 	 *
 	 * @since 2.4.0
 	 *
@@ -361,6 +361,71 @@ abstract class WordPoints_Rank_Type {
 		}
 
 		return $this->maybe_decrease_user_rank( $user_id, $previous_rank, $args );
+	}
+
+	/**
+	 * Checks if a group of users' ranks should be decreased.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param int[]           $user_ids The IDs of the users.
+	 * @param WordPoints_Rank $rank     The starting rank.
+	 * @param array           $args     Other arguments.
+	 *
+	 * @return int[] The lowest rank that each of the users should be decreased to.
+	 */
+	public function maybe_decrease_user_ranks( array $user_ids, WordPoints_Rank $rank, array $args = array() ) {
+
+		$previous_rank = $rank->get_adjacent( -1 );
+
+		if ( ! $previous_rank ) {
+			return array();
+		}
+
+		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		// If the rank type supports bulk checks, use that.
+		if ( $rank_type instanceof WordPoints_Rank_Type_Bulk_CheckI ) {
+
+			// Get the users that can't have their current rank.
+			$user_ids = array_diff(
+				$user_ids
+				, $rank_type->can_transition_user_ranks( $user_ids, $rank, $args )
+			);
+
+			if ( ! $user_ids ) {
+				return array();
+			}
+
+			$user_ranks = array_fill_keys( $user_ids, $previous_rank->ID );
+
+			$user_ranks = (
+				$this->maybe_decrease_user_ranks( $user_ids, $previous_rank, $args )
+				+ $user_ranks
+			);
+
+		} else {
+
+			// Otherwise we have to check one-by-one (this is mainly for back-compat).
+			$user_ranks = array();
+
+			foreach ( $user_ids as $user_id ) {
+
+				$new_rank = $this->maybe_decrease_user_rank(
+					$user_id
+					, $rank
+					, $args
+				);
+
+				if ( $new_rank->ID === $rank->ID ) {
+					continue;
+				}
+
+				$user_ranks[ $user_id ] = $new_rank->ID;
+			}
+		}
+
+		return $user_ranks;
 	}
 
 	//

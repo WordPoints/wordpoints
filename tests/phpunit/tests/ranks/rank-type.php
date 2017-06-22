@@ -285,6 +285,192 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		);
 	}
 
+	/**
+	 * Tests the maybe decrease user ranks method with a base rank.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_maybe_decrease_user_ranks_no_previous_rank() {
+
+		$user_id = $this->factory->user->create();
+
+		$base_rank = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_rank( 0 );
+
+		$this->assertSame(
+			array()
+			, $this->mock_rank_type->maybe_decrease_user_ranks(
+				array( $user_id ),
+				wordpoints_get_rank( $base_rank )
+			)
+		);
+	}
+
+	/**
+	 * Tests maybe_decrease_user_ranks() with a rank type that supports bulk checks.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_maybe_decrease_user_ranks_supports_bulk() {
+
+		$user_ids = $this->factory->user->create_many( 2 );
+		$rank = $this->factory->wordpoints->rank->create_and_get();
+
+		$mock = $this->getMock(
+			'WordPoints_Rank_Type_Bulk_CheckI'
+			, array( 'destruct', 'can_transition_user_ranks' )
+		);
+
+		WordPoints_Rank_Types::deregister_type( $this->rank_type );
+		WordPoints_Rank_Types::register_type( $this->rank_type, $mock );
+
+		/** @var PHPUnit_Framework_MockObject_MockObject $rank_type */
+		$rank_type = WordPoints_Rank_Types::get_type( $this->rank_type );
+
+		$rank_type->method( 'can_transition_user_ranks' )
+			->willReturn( array( $user_ids[0] ) );
+
+		$base_rank_id = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_rank( 0 );
+
+		// The other user can still have their rank, so it is this user that will
+		// need to be decreased.
+		$this->assertSame(
+			array( $user_ids[1] => $base_rank_id )
+			, $this->mock_rank_type->maybe_decrease_user_ranks( $user_ids, $rank )
+		);
+	}
+
+	/**
+	 * Tests maybe_decrease_user_ranks() with a rank type that supports bulk checks.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_maybe_decrease_user_ranks_supports_bulk_multiple() {
+
+		$user_ids = $this->factory->user->create_many( 3 );
+		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_2 = $this->factory->wordpoints->rank->create_and_get(
+			array( 'position' => 2 )
+		);
+
+		$mock = $this->getMock(
+			'WordPoints_Rank_Type_Bulk_CheckI'
+			, array( 'destruct', 'can_transition_user_ranks' )
+		);
+
+		WordPoints_Rank_Types::deregister_type( $this->rank_type );
+		WordPoints_Rank_Types::register_type( $this->rank_type, $mock );
+
+		/** @var PHPUnit_Framework_MockObject_MockObject $rank_type */
+		$rank_type = WordPoints_Rank_Types::get_type( $this->rank_type );
+
+		$rank_type->method( 'can_transition_user_ranks' )
+			->will(
+				$this->onConsecutiveCalls(
+					array( $user_ids[0] )
+					, array( $user_ids[1] )
+				)
+			);
+
+		$base_rank_id = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_rank( 0 );
+
+		// The other user can still have their rank, so it is these users that will
+		// need to be decreased.
+		$this->assertSame(
+			array( $user_ids[2] => $base_rank_id, $user_ids[1] => $rank_id )
+			, $this->mock_rank_type->maybe_decrease_user_ranks( $user_ids, $rank_2 )
+		);
+	}
+
+	/**
+	 * Tests maybe_decrease_user_ranks() with a rank type that can't do bulk checks.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_maybe_decrease_user_ranks_not_bulk() {
+
+		$user_ids = $this->factory->user->create_many( 2 );
+		$rank = $this->factory->wordpoints->rank->create_and_get();
+
+		$mock = $this->getMock(
+			'WordPoints_Rank_Type'
+			, array(
+				'destruct',
+				'validate_rank_meta',
+				'can_transition_user_rank',
+			)
+			, array( array( 'slug' => 'test' ) )
+		);
+
+		WordPoints_Rank_Types::deregister_type( $this->rank_type );
+		WordPoints_Rank_Types::register_type( $this->rank_type, $mock );
+
+		/** @var PHPUnit_Framework_MockObject_MockObject $rank_type */
+		$rank_type = WordPoints_Rank_Types::get_type( $this->rank_type );
+
+		$rank_type->method( 'can_transition_user_rank' )
+			->will(
+				$this->onConsecutiveCalls( true, false )
+			);
+
+		$base_rank_id = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_rank( 0 );
+
+		// The other user can still have their rank, so it is this user that will
+		// need to be decreased.
+		$this->assertSame(
+			array( $user_ids[1] => $base_rank_id )
+			, $this->mock_rank_type->maybe_decrease_user_ranks( $user_ids, $rank )
+		);
+	}
+
+	/**
+	 * Tests maybe_decrease_user_ranks() with a rank type that can't do bulk checks.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_maybe_decrease_user_ranks_not_bulk_multiple() {
+
+		$user_ids = $this->factory->user->create_many( 3 );
+		$rank = $this->factory->wordpoints->rank->create_and_get();
+		$rank_2 = $this->factory->wordpoints->rank->create_and_get(
+			array( 'position' => 2 )
+		);
+
+		$mock = $this->getMock(
+			'WordPoints_Rank_Type'
+			, array(
+				'destruct',
+				'validate_rank_meta',
+				'can_transition_user_rank',
+			)
+			, array( array( 'slug' => 'test' ) )
+		);
+
+		WordPoints_Rank_Types::deregister_type( $this->rank_type );
+		WordPoints_Rank_Types::register_type( $this->rank_type, $mock );
+
+		/** @var PHPUnit_Framework_MockObject_MockObject $rank_type */
+		$rank_type = WordPoints_Rank_Types::get_type( $this->rank_type );
+
+		$rank_type->method( 'can_transition_user_rank' )
+			->will(
+				$this->onConsecutiveCalls( true, false, true, false, false, true )
+			);
+
+		$base_rank_id = WordPoints_Rank_Groups::get_group( $this->rank_group )
+			->get_rank( 0 );
+
+		// The other user can still have their rank, so it is these users that will
+		// need to be decreased.
+		$this->assertSame(
+			array( $user_ids[1] => $rank->ID, $user_ids[2] => $base_rank_id )
+			, $this->mock_rank_type->maybe_decrease_user_ranks( $user_ids, $rank_2 )
+		);
+	}
+
 	//
 	// Helpers.
 	//

@@ -741,49 +741,13 @@ function wordpoints_refresh_rank_users( $rank_id ) {
 		return;
 	}
 
-	// Get a list of users who have this rank.
-	$users = wordpoints_get_users_with_rank( $rank->ID );
+	// Maybe decrease users who have this rank.
+	$maybe_decrease = new WordPoints_User_Ranks_Maybe_Decrease( $rank );
+	$maybe_decrease->run();
 
-	// If there are some users who have this rank, check if any of them need to
-	// decrease to that rank.
-	if ( ! empty( $users ) ) {
-
-		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
-
-		foreach ( $users as $user_id ) {
-
-			$new_rank = $rank_type->maybe_decrease_user_rank( $user_id, $rank );
-
-			if ( $new_rank->ID === $rank->ID ) {
-				continue;
-			}
-
-			wordpoints_update_user_rank( $user_id, $new_rank->ID );
-		}
-	}
-
-	unset( $users );
-
-	// Also get users who have the previous rank.
-	$prev_rank_users = wordpoints_get_users_with_rank( $prev_rank->ID );
-
-	// If there were some users with the previous rank, check if any of them can now
-	// increase to this rank.
-	if ( ! empty( $prev_rank_users ) ) {
-
-		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
-
-		foreach ( $prev_rank_users as $user_id ) {
-
-			$new_rank = $rank_type->maybe_increase_user_rank( $user_id, $prev_rank );
-
-			if ( $new_rank->ID === $prev_rank->ID ) {
-				continue;
-			}
-
-			wordpoints_update_user_rank( $user_id, $new_rank->ID );
-		}
-	}
+	// Also maybe increase users who have the previous rank.
+	$maybe_increase = new WordPoints_User_Ranks_Maybe_Increase( $prev_rank );
+	$maybe_increase->run();
 }
 
 /**

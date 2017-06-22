@@ -690,12 +690,15 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
  * Get an array of all the users who have a given rank.
  *
  * @since 1.7.0
+ * @deprecated 2.4.0 Use the WordPoints_User_Ranks_Query class instead.
  *
  * @param int $rank_id The ID of the rank.
  *
  * @return int[]|false Array of user IDs or false if the $rank_id is invalid.
  */
 function wordpoints_get_users_with_rank( $rank_id ) {
+
+	_deprecated_function( __FUNCTION__, '2.4.0', 'WordPoints_User_Ranks_Query class' );
 
 	$rank = wordpoints_get_rank( $rank_id );
 

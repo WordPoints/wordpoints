@@ -311,6 +311,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * @since 1.7.0
 	 *
 	 * @covers ::wordpoints_get_users_with_rank
+	 *
+	 * @expectedDeprecated wordpoints_get_users_with_rank
 	 */
 	public function test_getting_all_users_with_rank() {
 
@@ -339,6 +341,8 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * @requires WordPress multisite
 	 *
 	 * @covers ::wordpoints_get_users_with_rank
+	 *
+	 * @expectedDeprecated wordpoints_get_users_with_rank
 	 */
 	public function test_getting_all_users_with_rank_multisite() {
 
@@ -366,15 +370,16 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_set_new_user_ranks() {
 
-		$rank_1 = $this->factory->wordpoints->rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		// Create a user.
 		$user_id = $this->factory->user->create();
 
-		$this->assertContainsSame(
-			$user_id
-			, wordpoints_get_users_with_rank( $rank_1 )
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
 		);
+
+		$this->assertContainsSame( (string) $user_id, $query->get( 'col' ) );
 	}
 
 	/**
@@ -393,21 +398,24 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		switch_to_blog( $site_id );
 
-		$rank_1 = $this->factory->wordpoints->rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		add_user_to_blog( $site_id, $user_id, 'subscriber' );
 
-		$this->assertContainsSame(
-			$user_id
-			, wordpoints_get_users_with_rank( $rank_1 )
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
 		);
+
+		$this->assertContainsSame( (string) $user_id, $query->get( 'col' ) );
 
 		restore_current_blog();
 
-		$this->assertSame(
-			array()
-			, wordpoints_get_users_with_rank( $rank_1 )
+		// Create the query again so it will be set up for this site.
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
 		);
+
+		$this->assertSame( array(), $query->get( 'col' ) );
 	}
 
 	/**
@@ -419,31 +427,29 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_delete_user_ranks() {
 
-		$rank_1 = $this->factory->wordpoints->rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		// Create a user.
 		$user_id = $this->factory->user->create();
 
-		$this->assertContainsSame(
-			$user_id
-			, wordpoints_get_users_with_rank( $rank_1 )
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
 		);
+
+		$this->assertContainsSame( (string) $user_id, $query->get( 'col' ) );
 
 		wp_cache_set(
 			$this->rank_group
-			, array( $rank_1 => array( $user_id => true ) )
+			, array( $rank_id => array( $user_id => true ) )
 			, 'wordpoints_user_ranks'
 		);
 
 		self::delete_user( $user_id );
 
-		$this->assertNotContains(
-			$user_id
-			, wordpoints_get_users_with_rank( $rank_1 )
-		);
+		$this->assertNotContains( (string) $user_id, $query->get( 'col' ) );
 
 		$this->assertSame(
-			array( $rank_1 => array() )
+			array( $rank_id => array() )
 			, wp_cache_get( $this->rank_group, 'wordpoints_user_ranks' )
 		);
 	}
@@ -459,31 +465,29 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_delete_user_ranks_remove_from_blog() {
 
-		$rank_1 = $this->factory->wordpoints->rank->create();
+		$rank_id = $this->factory->wordpoints->rank->create();
 
 		// Create a user.
 		$user_id = $this->factory->user->create();
 
-		$this->assertContainsSame(
-			$user_id
-			, wordpoints_get_users_with_rank( $rank_1 )
+		$query = new WordPoints_User_Ranks_Query(
+			array( 'fields' => 'user_id', 'rank_id' => $rank_id )
 		);
+
+		$this->assertContainsSame( (string) $user_id, $query->get( 'col' ) );
 
 		wp_cache_set(
 			$this->rank_group
-			, array( $rank_1 => array( $user_id => true ) )
+			, array( $rank_id => array( $user_id => true ) )
 			, 'wordpoints_user_ranks'
 		);
 
 		remove_user_from_blog( $user_id );
 
-		$this->assertNotContains(
-			$user_id
-			, wordpoints_get_users_with_rank( $rank_1 )
-		);
+		$this->assertNotContains( (string) $user_id, $query->get( 'col' ) );
 
 		$this->assertSame(
-			array( $rank_1 => array() )
+			array( $rank_id => array() )
 			, wp_cache_get( $this->rank_group, 'wordpoints_user_ranks' )
 		);
 	}

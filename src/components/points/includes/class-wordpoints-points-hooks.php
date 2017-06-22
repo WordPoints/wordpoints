@@ -654,7 +654,9 @@ final class WordPoints_Points_Hooks {
 			</div>
 
 			<hr class="points-hooks-settings-separator" />
-		<?php endif;
+		<?php endif; ?>
+
+		<?php
 	}
 
 	/**

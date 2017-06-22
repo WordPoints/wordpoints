@@ -210,7 +210,9 @@ abstract class WordPoints_Rank_Type {
 				case 'number':
 				case 'text':
 					if ( isset( $field['label'] ) ) {
-						?><p class="description description-thin"><label><?php
+						?>
+						<p class="description description-thin"><label>
+						<?php
 						echo esc_html( $field['label'] );
 					}
 
@@ -228,7 +230,9 @@ abstract class WordPoints_Rank_Type {
 					<?php
 
 					if ( isset( $field['label'] ) ) {
-						?></label></p><?php
+						?>
+						</label></p>
+						<?php
 					}
 				break;
 

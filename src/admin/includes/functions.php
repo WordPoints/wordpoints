@@ -1315,11 +1315,16 @@ function wordpoints_extension_update_row( $file, $extension_data ) {
 					?>
 
 					<?php if ( $api instanceof WordPoints_Extension_Server_API_Updates_ChangelogI ) : ?>
+						<?php
+
+						// translators: 1. Extension name; 2. Version.
+						$message = __( 'View %1$s version %2$s details', 'wordpoints' );
+
+						?>
 						<a
 							href="<?php echo esc_url( admin_url( 'update.php?action=wordpoints-iframe-extension-changelog&extension=' . rawurlencode( $file ) ) ); ?>"
 							class="thickbox wordpoints-open-extension-details-modal"
-							<?php // translators: 1. Extension name; 2. Version. ?>
-							aria-label="<?php echo esc_attr( sprintf( __( 'View %1$s version %2$s details', 'wordpoints' ), $extension_name, $new_version ) ); ?>"
+							aria-label="<?php echo esc_attr( sprintf( $message, $extension_name, $new_version ) ); ?>"
 						>
 							<?php
 
@@ -1336,10 +1341,15 @@ function wordpoints_extension_update_row( $file, $extension_data ) {
 					<?php if ( current_user_can( 'update_wordpoints_extensions' ) ) : ?>
 						<span class="wordpoints-update-action-separator">|</span>
 						<?php if ( $api instanceof WordPoints_Extension_Server_API_Updates_InstallableI ) : ?>
+							<?php
+
+							// translators: Extension name.
+							$message = sprintf( __( 'Update %s now', 'wordpoints' ), $extension_name );
+
+							?>
 							<a
 								href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-upgrade-extension&extension=' ) . $file, 'upgrade-extension_' . $file ) ); ?>"
-								<?php // translators: Extension name. ?>
-								aria-label="<?php echo esc_attr( sprintf( __( 'Update %s now', 'wordpoints' ), $extension_name ) ); ?>"
+								aria-label="<?php echo esc_attr( $message ); ?>"
 							>
 								<?php esc_html_e( 'Update now', 'wordpoints' ); ?>
 							</a>
@@ -1927,14 +1937,38 @@ function wordpoints_admin_settings_screen_sidebar() {
 	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);margin-top: 50px;">
 		<div style="width:48%;float:left;">
 			<h3><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h3>
-			<?php // translators: URL for leaving a review of WordPoints on WordPress.org. ?>
-			<p><?php echo wp_kses( sprintf( __( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' ), 'https://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
+			<p>
+				<?php
+
+				echo wp_kses(
+					sprintf(
+						// translators: URL for leaving a review of WordPoints on WordPress.org.
+						__( 'If you think WordPoints is great, let everyone know by giving it a <a href="%s">5 star rating</a>.', 'wordpoints' )
+						, 'https://wordpress.org/support/view/plugin-reviews/wordpoints?rate=5#postform'
+					)
+					, array( 'a' => array( 'href' => true ) )
+				);
+
+				?>
+			</p>
 			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
 		<div style="width:48%;float:left;">
 			<h3><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h3>
-			<?php // translators: URL of WordPoints plugin support forums WordPress.org. ?>
-			<p><?php echo wp_kses( sprintf( __( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' ), 'https://wordpress.org/support/plugin/wordpoints' ), array( 'a' => array( 'href' => true ) ) ); ?></p>
+			<p>
+				<?php
+
+				echo wp_kses(
+					sprintf(
+						// translators: URL of WordPoints plugin support forums WordPress.org.
+						__( 'Post your feature request or support question in the <a href="%s">support forums</a>', 'wordpoints' )
+						, 'https://wordpress.org/support/plugin/wordpoints'
+					)
+					, array( 'a' => array( 'href' => true ) )
+				);
+
+				?>
+			</p>
 			<p><em><?php esc_html_e( 'Thank you for using WordPoints!', 'wordpoints' ); ?></em></p>
 		</div>
 	</div>

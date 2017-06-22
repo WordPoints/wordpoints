@@ -42,8 +42,16 @@ function wordpoints_ranks_my_points_widget_below_text_field() {
 
 	?>
 	<br />
-	<?php // translators: Placeholder name. ?>
-	<small><i><?php echo esc_html( sprintf( __( '%s will be replaced with the rank of the logged in user', 'wordpoints' ), '%rank%' ) ); ?></i></small>
+	<small>
+		<i>
+			<?php
+
+			// translators: Placeholder name.
+			echo esc_html( sprintf( __( '%s will be replaced with the rank of the logged in user', 'wordpoints' ), '%rank%' ) );
+
+			?>
+		</i>
+	</small>
 	<?php
 }
 

@@ -355,8 +355,14 @@ function wordpoints_points_profile_options( $user ) {
 					<input type="hidden" name="<?php echo esc_attr( "wordpoints_points_old-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" />
 					<input type="number" name="<?php echo esc_attr( "wordpoints_points-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" autocomplete="off" />
 					<input type="checkbox" value="1" name="<?php echo esc_attr( "wordpoints_points_set-{$slug}" ); ?>" />
-					<?php // translators: Number of points. ?>
-					<span><?php echo esc_html( sprintf( __( '(current: %s)', 'wordpoints' ), $points ) ); ?></span>
+					<span>
+						<?php
+
+						// translators: Number of points.
+						echo esc_html( sprintf( __( '(current: %s)', 'wordpoints' ), $points ) );
+
+						?>
+					</span>
 				</td>
 			</tr>
 

@@ -175,8 +175,16 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget_Logs
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Widget text', 'wordpoints' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>" value="<?php echo esc_attr( $this->instance['text'] ); ?>" />
-			<?php // translators: Placeholder name. ?>
-			<small><i><?php echo esc_html( sprintf( __( '%s will be replaced with the points of the logged in user', 'wordpoints' ), '%points%' ) ); ?></i></small>
+			<small>
+				<i>
+					<?php
+
+					// translators: Placeholder name.
+					echo esc_html( sprintf( __( '%s will be replaced with the points of the logged in user', 'wordpoints' ), '%points%' ) );
+
+					?>
+				</i>
+			</small>
 			<?php
 
 			/**

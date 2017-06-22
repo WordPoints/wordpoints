@@ -724,7 +724,7 @@ final class WordPoints_Points_Hooks {
 					<span class="screen-reader-text"><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?></span>
 				</a>
 			</div>
-			<div class="hook-title"><h3><?php echo esc_html( strip_tags( $hook->get_name() ) ) ?><span class="in-hook-title"></span></h3></div>
+			<div class="hook-title"><h3><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?><span class="in-hook-title"></span></h3></div>
 		</div>
 
 		<div class="hook-inside">

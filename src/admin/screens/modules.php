@@ -194,8 +194,8 @@ if ( isset( $_GET['error'] ) ) {
 	</form>
 
 	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ); ?>">
-		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ) ?>" />
-		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ) ?>" />
+		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ); ?>" />
+		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ); ?>" />
 		<?php $wp_list_table->display(); ?>
 	</form>
 

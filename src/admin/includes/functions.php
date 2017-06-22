@@ -2384,7 +2384,7 @@ function wordpoints_admin_not_running_php_version_required_for_update_plugin_row
 
 	<script type="text/javascript">
 		document.getElementById(
-			<?php echo wp_json_encode( $checkbox_id ) ?>
+			<?php echo wp_json_encode( $checkbox_id ); ?>
 		).disabled = true;
 	</script>
 

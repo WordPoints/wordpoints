@@ -413,7 +413,7 @@ switch ( $action ) {
 					<?php foreach ( (array) $modules as $module ) : ?>
 						<input type="hidden" name="checked[]" value="<?php echo esc_attr( $module ); ?>" />
 					<?php endforeach; ?>
-					<?php wp_nonce_field( 'bulk-modules' ) ?>
+					<?php wp_nonce_field( 'bulk-modules' ); ?>
 					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), 'button', 'submit', false ); ?>
 				</form>
 				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" style="display:inline;">

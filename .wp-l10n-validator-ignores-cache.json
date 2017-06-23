@@ -2922,5 +2922,16 @@
                 "parentheses": 1
             }
         }
+    },
+    "\/classes\/module\/installer\/skin.php": {
+        "upload": {
+            "58": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

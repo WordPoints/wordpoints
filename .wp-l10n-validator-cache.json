@@ -26,8 +26,8 @@
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-module-installer-skin.php": {
-            "size": 3886,
-            "hash": "10a24821184f1e94a3ac68a4d1872c99",
+            "size": 337,
+            "hash": "10984b7568280a09522295409327fb58",
             "errors": false
         },
         "\/admin\/includes\/class-wordpoints-module-installer.php": {
@@ -51,8 +51,8 @@
             "errors": false
         },
         "\/admin\/includes\/index.php": {
-            "size": 317,
-            "hash": "2c8aabeb673987f564c2a223647643fc",
+            "size": 232,
+            "hash": "019d4a84345c3edad2c13bde7842a0a8",
             "errors": false
         },
         "\/admin\/screens\/configure-components-load.php": {
@@ -836,8 +836,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 11002,
-            "hash": "5ab65d9b625d20a5e0d0deda80b223bd",
+            "size": 11070,
+            "hash": "13baf9ffc1de4f28f1345e12147c9ba4",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -1433,6 +1433,11 @@
         "\/components\/ranks\/classes\/user\/ranks\/maybe\/increase.php": {
             "size": 820,
             "hash": "c4c9d5ec73610da8ea1bae5990e4fb9c",
+            "errors": false
+        },
+        "\/classes\/module\/installer\/skin.php": {
+            "size": 3900,
+            "hash": "a48d5e1b3e2039f3aacb2498f2bbd0eb",
             "errors": false
         }
     },

@@ -41,11 +41,10 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 		$slug = 'example.com';
 
-		$mock = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( $slug )
-		);
+		$mock = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( $slug ) )
+			->getMock();
 
 		$mock->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -61,11 +60,10 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 
 		$slug = 'example.com';
 
-		$mock = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( $slug )
-		);
+		$mock = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( $slug ) )
+			->getMock();
 
 		$mock->method( 'is_ssl_accessible' )->willReturn( true );
 
@@ -220,12 +218,9 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 			->get_sub_app( 'extension_server_apis' )
 			->register( 'test', 'stdClass' );
 
-		$slug = 'example.com';
-
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Extension_Server'
 			, array( 'get_api_slug' )
-			, array( $slug )
 		);
 
 		$mock->method( 'get_api_slug' )->willReturn( 'test' );
@@ -240,12 +235,9 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_api_unregistered() {
 
-		$slug = 'example.com';
-
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Extension_Server'
 			, array( 'get_api_slug' )
-			, array( $slug )
 		);
 
 		$mock->method( 'get_api_slug' )->willReturn( 'unregistered_api' );
@@ -260,12 +252,9 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_api_unknown() {
 
-		$slug = 'example.com';
-
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Extension_Server'
 			, array( 'get_api_slug' )
-			, array( $slug )
 		);
 
 		$mock->method( 'get_api_slug' )->willReturn( false );

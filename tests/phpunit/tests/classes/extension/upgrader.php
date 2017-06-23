@@ -84,16 +84,11 @@ class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Tes
 			return $server;
 		}
 
-		$api = $this->getMock(
+		$api = $this->createMock(
 			'WordPoints_Extension_Server_API_Updates_InstallableI'
 		);
 
-		$server = $this->getMock(
-			'WordPoints_Extension_ServerI'
-			, array()
-			, array( 'test' )
-		);
-
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_api' )->willReturn( $api );
 
 		return $server;
@@ -226,12 +221,7 @@ class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Tes
 	 */
 	public function test_api_not_found() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_ServerI'
-			, array()
-			, array( 'test' )
-		);
-
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_api' )->willReturn( false );
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );
@@ -255,12 +245,7 @@ class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Tes
 	 */
 	public function test_api_updates_not_supported() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_ServerI'
-			, array()
-			, array( 'test' )
-		);
-
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_api' )->willReturn( new stdClass() );
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );

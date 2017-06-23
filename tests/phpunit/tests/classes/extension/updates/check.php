@@ -57,15 +57,10 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 	 */
 	public function filter_server_for_extension() {
 
-		$api = $this->getMock( 'WordPoints_Extension_Server_API_UpdatesI' );
+		$api = $this->createMock( 'WordPoints_Extension_Server_API_UpdatesI' );
 		$api->method( 'get_extension_latest_version' )->willReturn( '1.1.0' );
 
-		$server = $this->getMock(
-			'WordPoints_Extension_ServerI'
-			, array()
-			, array( 'test' )
-		);
-
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_api' )->willReturn( $api );
 
 		return $server;

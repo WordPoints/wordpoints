@@ -83,11 +83,10 @@ class WordPoints_Extension_Server_API_EDD_SL_Free_Test
 	 */
 	public function test_get_extension_info_requests_from_remote_if_needed() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -118,11 +117,10 @@ class WordPoints_Extension_Server_API_EDD_SL_Free_Test
 	 */
 	public function test_get_extension_info_requests_from_remote_if_needed_free() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 

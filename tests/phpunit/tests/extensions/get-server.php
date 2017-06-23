@@ -110,11 +110,10 @@ class WordPoints_Get_Server_For_Extension_Test extends WordPoints_PHPUnit_TestCa
 		$this->assertInstanceOf( 'WordPoints_Extension_ServerI', $server );
 		$this->assertSame( array( 'server' => 'wordpoints.org' ), $extension );
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'get_api' )
-			, array( __CLASS__ )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'get_api' ) )
+			->setConstructorArgs( array( __CLASS__ ) )
+			->getMock();
 
 		return $server;
 	}

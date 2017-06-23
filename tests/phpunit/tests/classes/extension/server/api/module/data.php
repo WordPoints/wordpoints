@@ -27,7 +27,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 
 		$id = '45';
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
 
@@ -49,7 +49,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 			, array( 'test' => 'a' )
 		);
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
@@ -72,7 +72,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 			, array( 'other' => 'a' )
 		);
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
@@ -91,7 +91,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 		$server_slug = 'example.com';
 		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
@@ -116,7 +116,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 
 		update_site_option( $option, array( 'test' => 'a' ) );
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
@@ -141,7 +141,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 
 		update_site_option( $option, array( 'test' => 'a' ) );
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
@@ -166,7 +166,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 
 		update_site_option( $option, array( 'test' => 'a' ) );
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );
@@ -189,7 +189,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 		$server_slug = 'example.com';
 		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
 
-		$server = $this->getMock( 'WordPoints_Extension_ServerI' );
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
 
 		$data = new WordPoints_Extension_Server_API_Extension_Data( $id, $server );

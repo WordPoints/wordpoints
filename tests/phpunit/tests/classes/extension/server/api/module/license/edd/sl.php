@@ -184,11 +184,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_activate() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -214,11 +213,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_activate_already_active() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -249,11 +247,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -285,11 +282,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 		$filter = new WordPoints_PHPUnit_Mock_Filter( array() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -316,11 +312,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_activate_other_status_returned() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -367,11 +362,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_deactivate() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -397,11 +391,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_deactivate_already_inactive() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -432,11 +425,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -468,11 +460,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 		$filter = new WordPoints_PHPUnit_Mock_Filter( array() );
 		$filter->add_filter( 'pre_http_request' );
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -499,11 +490,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_deactivate_other_status_returned() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 
@@ -707,21 +697,23 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_get_info_returns_cached_if_available() {
 
-		$data = $this->getMock( 'WordPoints_Extension_Server_API_Extension_DataI' );
+		$data = $this->getMockBuilder( 'WordPoints_Extension_Server_API_Extension_DataI' )
+			->getMock();
 		$data->expects( $this->once() )->method( 'get' )->willReturn( 'test_value' );
 
-		$license = $this->getMock(
-			'WordPoints_Extension_Server_API_Extension_License_EDD_SL'
-			, array( 'request_info' )
-			, array(
-				new WordPoints_Extension_Server_API_EDD_SL(
-					'test'
-					, new WordPoints_Extension_Server( 'example.com' )
-				),
-				$data,
-				'test_license_key',
+		$license = $this->getMockBuilder( 'WordPoints_Extension_Server_API_Extension_License_EDD_SL' )
+			->setMethods( array( 'request_info' ) )
+			->setConstructorArgs(
+				array(
+					new WordPoints_Extension_Server_API_EDD_SL(
+						'test'
+						, new WordPoints_Extension_Server( 'example.com' )
+					),
+					$data,
+					'test_license_key',
+				)
 			)
-		);
+			->getMock();
 
 		$license->expects( $this->never() )->method( 'request_info' );
 
@@ -735,11 +727,10 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_get_info_requests_from_remote_if_needed() {
 
-		$server = $this->getMock(
-			'WordPoints_Extension_Server'
-			, array( 'is_ssl_accessible' )
-			, array( 'example.com' )
-		);
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
 
 		$server->method( 'is_ssl_accessible' )->willReturn( false );
 

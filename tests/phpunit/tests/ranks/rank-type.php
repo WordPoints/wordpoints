@@ -311,7 +311,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$user_ids = $this->factory->user->create_many( 2 );
 		$rank_id = $this->factory->wordpoints->rank->create();
 
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Rank_Type_Bulk_CheckI'
 			, array( 'destruct', 'can_transition_user_ranks' )
 		);
@@ -349,7 +349,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 			array( 'position' => 2 )
 		);
 
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Rank_Type_Bulk_CheckI'
 			, array( 'destruct', 'can_transition_user_ranks' )
 		);
@@ -487,7 +487,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$user_ids = $this->factory->user->create_many( 2 );
 		$rank = $this->factory->wordpoints->rank->create_and_get();
 
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Rank_Type_Bulk_CheckI'
 			, array( 'destruct', 'can_transition_user_ranks' )
 		);
@@ -525,7 +525,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 			array( 'position' => 2 )
 		);
 
-		$mock = $this->getMock(
+		$mock = $this->createPartialMock(
 			'WordPoints_Rank_Type_Bulk_CheckI'
 			, array( 'destruct', 'can_transition_user_ranks' )
 		);

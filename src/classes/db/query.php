@@ -393,15 +393,19 @@ class WordPoints_DB_Query {
 
 		$this->prepare_query();
 
-		$select = ( 'SELECT COUNT' === $select_type )
-			? $this->select_count
-			: $this->select;
+		if ( 'SELECT COUNT' === $select_type ) {
+			$select = $this->select_count;
+			$order  = '';
+		} else {
+			$select = $this->select;
+			$order  = $this->order;
+		}
 
 		return $select
 			. "\nFROM `{$this->table_name}`\n"
 			. $this->meta_join
 			. $this->where
-			. $this->order
+			. $order
 			. $this->limit;
 	}
 

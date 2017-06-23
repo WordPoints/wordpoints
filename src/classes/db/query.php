@@ -785,6 +785,7 @@ class WordPoints_DB_Query {
 	protected function prepare_order_by() {
 
 		if ( empty( $this->args['order_by'] ) ) {
+			$this->order = '';
 			return;
 		}
 

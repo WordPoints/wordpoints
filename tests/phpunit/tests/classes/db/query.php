@@ -155,6 +155,26 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that set_args() modifies the query when setting order_by to null.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @link https://github.com/WordPoints/wordpoints/issues/646
+	 */
+	public function test_set_args_order_by_null() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query( array( 'order_by' => 'id' ) );
+
+		$this->assertSame( 'id', $query->get_arg( 'order_by' ) );
+
+		$this->assertStringContains( 'ORDER BY', $query->get_sql() );
+
+		$query->set_args( array( 'order_by' => null ) );
+
+		$this->assertNotContains( 'ORDER BY', $query->get_sql() );
+	}
+
+	/**
 	 * Test setting the deprecated args.
 	 *
 	 * @since 2.3.0

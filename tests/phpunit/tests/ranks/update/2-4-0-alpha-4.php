@@ -320,6 +320,9 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 
 		$this->assertSame( 1, $query->count() );
 		$this->assertSame( (string) $other_user_id, $query->get( 'var' ) );
+
+		// Clean up.
+		wpmu_delete_blog( $blog_id, true );
 	}
 }
 

@@ -1211,8 +1211,8 @@
             "errors": false
         },
         "\/components\/ranks\/classes\/index.php": {
-            "size": 664,
-            "hash": "c825730eec592220f537837e503ac05b",
+            "size": 744,
+            "hash": "5cd0b5d162a674fa67babe4cfdef04c5",
             "errors": false
         },
         "\/components\/ranks\/classes\/rank\/shortcode\/user\/rank.php": {
@@ -1231,8 +1231,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
-            "size": 10791,
-            "hash": "c04bbb40627af4041c3c584b6352b50b",
+            "size": 338,
+            "hash": "ed3a80cfff305b6ceae783ad2910174e",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-groups.php": {
@@ -1251,8 +1251,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank.php": {
-            "size": 5346,
-            "hash": "bc17f8037f8b301fba9b82e6c89abede",
+            "size": 314,
+            "hash": "6e3626c479e55d4c88e56b3fef8cdb54",
             "errors": false
         },
         "\/components\/ranks\/includes\/constants.php": {
@@ -1271,8 +1271,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/index.php": {
-            "size": 625,
-            "hash": "0088dee0c373c864cef893462a4a7c84",
+            "size": 511,
+            "hash": "bcbb7c565f4d89f9ed97f9b9cc252fd8",
             "errors": false
         },
         "\/components\/ranks\/includes\/integration\/points\/filters.php": {
@@ -1443,6 +1443,16 @@
         "\/admin\/classes\/list\/table\/extensions.php": {
             "size": 30160,
             "hash": "2abe8452e17019655898609046a7ce61",
+            "errors": false
+        },
+        "\/components\/ranks\/classes\/rank\/group.php": {
+            "size": 10776,
+            "hash": "957c8e87075a638311e7ae85849b460a",
+            "errors": false
+        },
+        "\/components\/ranks\/classes\/rank.php": {
+            "size": 5331,
+            "hash": "3cc7f6cfee792476e88e4228378056b2",
             "errors": false
         }
     },

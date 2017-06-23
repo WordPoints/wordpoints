@@ -3023,5 +3023,16 @@
         "column-": {
             "875": false
         }
+    },
+    "\/components\/ranks\/classes\/rank\/group.php": {
+        "base": {
+            "55": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

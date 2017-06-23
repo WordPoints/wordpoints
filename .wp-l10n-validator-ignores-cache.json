@@ -104,13 +104,9 @@
             "629": false
         },
         "hidden": {
-            "775": false,
-            "799": false,
             "874": false
         },
         "has-row-actions column-primary": {
-            "775": false,
-            "799": false,
             "874": false
         },
         "second module-version-author-uri\">": {
@@ -294,12 +290,12 @@
         },
         "active": {
             "1303": false,
-            "1606": false,
-            "2342": false
+            "1616": false,
+            "2376": false
         },
         "inactive": {
             "1303": false,
-            "1606": false
+            "1616": false
         },
         "\"\n\t\t\t\t\t\t\tclass=\"thickbox wordpoints-open-extension-details-modal\"": {
             "1319": false
@@ -308,28 +304,28 @@
             "1342": false
         },
         "wordpoints-extension-has-license": {
-            "1534": false
-        },
-        "wordpoints-extension-license-valid": {
-            "1542": false
-        },
-        "wordpoints-extension-license-invalid": {
             "1544": false
         },
+        "wordpoints-extension-license-valid": {
+            "1552": false
+        },
+        "wordpoints-extension-license-invalid": {
+            "1554": false
+        },
         "wordpoints-extension-license-active": {
-            "1549": false
-        },
-        "wordpoints-extension-license-inactive": {
-            "1551": false
-        },
-        "wordpoints-extension-license-expired": {
             "1559": false
         },
+        "wordpoints-extension-license-inactive": {
+            "1561": false
+        },
+        "wordpoints-extension-license-expired": {
+            "1569": false
+        },
         "&checked[]=": {
-            "2055": false
+            "2089": false
         },
         "wordpoints": {
-            "2220": {
+            "2254": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -338,7 +334,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2232": {
+            "2266": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -347,7 +343,7 @@
             }
         },
         "-update": {
-            "2349": {
+            "2383": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -356,13 +352,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2354": false
+            "2388": false
         },
         "document.getElementById(": {
-            "2384": false
+            "2418": false
         },
         ").disabled = true;": {
-            "2388": false
+            "2422": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -643,10 +639,10 @@
             }
         },
         "\" class=\"hook": {
-            "717": false
+            "719": false
         },
         "-savehook": {
-            "754": {
+            "756": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -902,7 +898,7 @@
     },
     "\/components\/ranks\/includes\/class-un-installer.php": {
         "ID": {
-            "185": {
+            "186": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -924,19 +920,19 @@
     },
     "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
         "value=\"<% if ( typeof": {
-            "222": false
-        },
-        "!== \"undefined\" ) { print(": {
-            "222": false
-        },
-        "); } %>\"": {
-            "222": false
-        },
-        "value=\"": {
             "224": false
         },
-        "class=\"widefat\"\n\t\t\t\t\t\/>": {
+        "!== \"undefined\" ) { print(": {
+            "224": false
+        },
+        "); } %>\"": {
+            "224": false
+        },
+        "value=\"": {
             "226": false
+        },
+        "class=\"widefat\"\n\t\t\t\t\t\/>": {
+            "228": false
         }
     },
     "\/components\/ranks\/includes\/rank-types\/points.php": {

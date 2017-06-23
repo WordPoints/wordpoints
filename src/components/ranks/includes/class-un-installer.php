@@ -74,6 +74,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	protected $uninstall = array(
 		'local' => array(
 			'options' => array(
+				'wordpoints_filled_base_ranks',
 				'wordpoints_rank_group-%',
 			),
 		),

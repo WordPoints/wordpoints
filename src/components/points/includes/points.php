@@ -702,8 +702,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			/**
 			 * User points transaction logged.
 			 *
-			 * @since 1.0.0
-			 * @since 1.7.0 The $log_id is now passed.
+			 * @since 2.4.0
 			 *
 			 * @param int    $user_id     The ID of the user.
 			 * @param int    $points      The number of points.
@@ -712,7 +711,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			 * @param array  $meta        Metadata for the transaction.
 			 * @param int    $log_id      The ID of the transaction log entry.
 			 */
-			do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta, $log_id );
+			do_action( 'wordpoints_points_logged', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 		}
 
 	}  // End if ( $log_transaction ).

@@ -8,7 +8,6 @@
  */
 
 return array(
-	'wordpoints_rank_type' => 'class-wordpoints-rank-type.php',
 	'wordpoints_rank_types' => 'class-wordpoints-rank-types.php',
 	'wordpoints_user_rank_shortcode' => 'shortcodes.php',
 	'wordpoints_base_rank_type' => 'rank-types/base.php',

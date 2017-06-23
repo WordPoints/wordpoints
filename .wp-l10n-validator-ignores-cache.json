@@ -3034,5 +3034,22 @@
                 "parentheses": 1
             }
         }
+    },
+    "\/components\/ranks\/classes\/rank\/type.php": {
+        "value=\"<% if ( typeof": {
+            "224": false
+        },
+        "!== \"undefined\" ) { print(": {
+            "224": false
+        },
+        "); } %>\"": {
+            "224": false
+        },
+        "value=\"": {
+            "226": false
+        },
+        "class=\"widefat\"\n\t\t\t\t\t\/>": {
+            "228": false
+        }
     }
 }

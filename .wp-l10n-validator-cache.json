@@ -1211,8 +1211,8 @@
             "errors": false
         },
         "\/components\/ranks\/classes\/index.php": {
-            "size": 744,
-            "hash": "5cd0b5d162a674fa67babe4cfdef04c5",
+            "size": 836,
+            "hash": "a94ef8da8c4d701a018816d9156a84ff",
             "errors": false
         },
         "\/components\/ranks\/classes\/rank\/shortcode\/user\/rank.php": {
@@ -1236,13 +1236,13 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-groups.php": {
-            "size": 4303,
-            "hash": "3452aa6966eaf58477b7dbc57810b761",
+            "size": 344,
+            "hash": "58ea757d63287643f0a4b9f22208c3de",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-type.php": {
-            "size": 12058,
-            "hash": "01d8257e3503afed7c477634fb7883d4",
+            "size": 347,
+            "hash": "05bc9c4ff2cb933151e6f8ea91953269",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-types.php": {
@@ -1271,8 +1271,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/index.php": {
-            "size": 511,
-            "hash": "bcbb7c565f4d89f9ed97f9b9cc252fd8",
+            "size": 385,
+            "hash": "8fb2b9a62c6628c2cbe3cff8736c486b",
             "errors": false
         },
         "\/components\/ranks\/includes\/integration\/points\/filters.php": {
@@ -1453,6 +1453,16 @@
         "\/components\/ranks\/classes\/rank.php": {
             "size": 5331,
             "hash": "3cc7f6cfee792476e88e4228378056b2",
+            "errors": false
+        },
+        "\/components\/ranks\/classes\/rank\/groups.php": {
+            "size": 4287,
+            "hash": "c598be7062d207aa63b00ae7318440b6",
+            "errors": false
+        },
+        "\/components\/ranks\/classes\/rank\/type.php": {
+            "size": 12030,
+            "hash": "6c823dafd569d83773daebe77bf6db17",
             "errors": false
         }
     },

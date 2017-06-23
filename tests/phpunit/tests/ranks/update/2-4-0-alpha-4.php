@@ -63,6 +63,13 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 		WordPoints_Rank_Types::deregister_type( 'points-points' );
 		WordPoints_Rank_Groups::deregister_group( 'points_type-points' );
 
+		// Restore the DB version since we end up committing the changes.
+		$this->set_component_db_version( 'ranks', WORDPOINTS_VERSION );
+
+		global $wpdb;
+
+		$wpdb->query( 'COMMIT' );
+
 		parent::tearDown();
 	}
 

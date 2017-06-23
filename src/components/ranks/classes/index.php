@@ -16,6 +16,7 @@ return array(
 	'wordpoints_rank_shortcode' => 'rank/shortcode.php',
 	'wordpoints_rank_shortcode_user_rank' => 'rank/shortcode/user/rank.php',
 	'wordpoints_rank_type' => 'rank/type.php',
+	'wordpoints_rank_types' => 'rank/types.php',
 	'wordpoints_user_ranks_maybe_change' => 'user/ranks/maybe/change.php',
 	'wordpoints_user_ranks_maybe_decrease' => 'user/ranks/maybe/decrease.php',
 	'wordpoints_user_ranks_maybe_increase' => 'user/ranks/maybe/increase.php',

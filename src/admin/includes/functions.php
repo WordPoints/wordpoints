@@ -1301,7 +1301,7 @@ function wordpoints_extension_update_row( $file, $extension_data ) {
 	?>
 
 	<tr class="plugin-update-tr wordpoints-extension-update-tr <?php echo ( is_wordpoints_module_active( $file ) ) ? 'active' : 'inactive'; ?>">
-		<td colspan="<?php echo (int) WordPoints_Modules_List_Table::instance()->get_column_count(); ?>" class="plugin-update wordpoints-extension-update colspanchange">
+		<td colspan="<?php echo (int) WordPoints_Admin_List_Table_Extensions::instance()->get_column_count(); ?>" class="plugin-update wordpoints-extension-update colspanchange">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
 					<?php
@@ -1614,7 +1614,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 
 	?>
 	<tr class="wordpoints-extension-license-tr plugin-update-tr <?php echo ( is_wordpoints_module_active( $extension_file ) ) ? 'active' : 'inactive'; ?>">
-		<td colspan="<?php echo (int) WordPoints_Modules_List_Table::instance()->get_column_count(); ?>" class="colspanchange">
+		<td colspan="<?php echo (int) WordPoints_Admin_List_Table_Extensions::instance()->get_column_count(); ?>" class="colspanchange">
 			<div class="wordpoints-license-box">
 				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>">
 					<?php esc_html_e( 'License key:', 'wordpoints' ); ?>

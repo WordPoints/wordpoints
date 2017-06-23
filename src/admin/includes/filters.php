@@ -62,7 +62,7 @@ add_action( 'install_plugins_pre_plugin-information', 'wordpoints_admin_maybe_re
 
 add_filter( 'wp_kses_allowed_html', 'wordpoints_extension_changelog_allowed_html', 10, 2 );
 
-add_action( 'wordpoints_modules_list_table_items', 'wordpoints_admin_save_extension_licenses' );
+add_filter( 'wordpoints_modules_list_table_items', 'wordpoints_admin_save_extension_licenses' );
 add_filter( 'wordpoints_module_list_row_class', 'wordpoints_extension_list_row_license_classes', 10, 3 );
 add_action( 'wordpoints_after_module_row', 'wordpoints_extension_license_row', 10, 2 );
 

@@ -181,7 +181,7 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php
 
-	$wp_list_table = new WordPoints_Modules_List_Table();
+	$wp_list_table = new WordPoints_Admin_List_Table_Extensions();
 	$wp_list_table->prepare_items();
 
 	?>

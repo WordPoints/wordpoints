@@ -2933,5 +2933,95 @@
                 "parentheses": 1
             }
         }
+    },
+    "\/admin\/classes\/list\/table\/extensions.php": {
+        "all": {
+            "58": false,
+            "296": false
+        },
+        "active": {
+            "61": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "627": false
+        },
+        "inactive": {
+            "62": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "627": false
+        },
+        "search": {
+            "64": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
+            "266": false
+        },
+        "upgrade": {
+            "65": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            }
+        },
+        "modules": {
+            "99": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
+            "558": false
+        },
+        "plugins": {
+            "99": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "name": {
+            "106": false,
+            "309": false
+        },
+        "wordpoints-extensions": {
+            "562": false
+        },
+        "update": {
+            "630": false
+        },
+        "hidden": {
+            "776": false,
+            "800": false,
+            "875": false
+        },
+        "has-row-actions column-primary": {
+            "776": false,
+            "800": false,
+            "875": false
+        },
+        "second module-version-author-uri\">": {
+            "810": false
+        },
+        "column-": {
+            "875": false
+        }
     }
 }

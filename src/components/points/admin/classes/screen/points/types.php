@@ -291,6 +291,9 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 					id="points-name-<?php echo esc_attr( $slug ); ?>"
 					name="points-name"
 					value="<?php echo esc_attr( $points_type['name'] ); ?>"
+					<?php if ( ! $slug ) : ?>
+					autofocus
+					<?php endif; ?>
 				/>
 			</p>
 			<p>

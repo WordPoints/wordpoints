@@ -186,8 +186,8 @@
             "errors": false
         },
         "\/classes\/db\/query.php": {
-            "size": 21676,
-            "hash": "992897f4dfbc91cd5a45eb130787cebd",
+            "size": 21763,
+            "hash": "9023f606a7dad59694a862a36a3c2275",
             "errors": false
         },
         "\/classes\/dropdown\/builder.php": {
@@ -896,8 +896,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/classes\/screen\/points\/types.php": {
-            "size": 21415,
-            "hash": "22abeebf2b77d5adb639b515e927907b",
+            "size": 21482,
+            "hash": "f6dad8f64f49efb851f5a056728462cc",
             "errors": false
         },
         "\/components\/points\/admin\/deprecated.php": {
@@ -916,8 +916,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/includes\/functions.php": {
-            "size": 15097,
-            "hash": "11004867bef76e2b83323738f11f3cad",
+            "size": 15105,
+            "hash": "0eaf0338ebab322f9f3618c2d5852187",
             "errors": false
         },
         "\/components\/points\/admin\/screens\/hooks-load.php": {
@@ -1166,8 +1166,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/points.php": {
-            "size": 41641,
-            "hash": "410f391a22b586ffb784a5a5e5494df3",
+            "size": 41598,
+            "hash": "b75cec73d112dc01073c5c054b9edc31",
             "errors": false
         },
         "\/components\/points\/includes\/shortcodes.php": {

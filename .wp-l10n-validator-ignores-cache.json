@@ -768,10 +768,10 @@
             }
         },
         "utf8": {
-            "1082": false
+            "1081": false
         },
         "capabilities'": {
-            "1158": false
+            "1157": false
         }
     },
     "\/components\/points\/includes\/shortcodes.php": {
@@ -1529,8 +1529,11 @@
         ");\n\t\t\t} );": {
             "126": false
         },
+        "autofocus": {
+            "295": false
+        },
         "points-": {
-            "347": {
+            "350": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1539,7 +1542,7 @@
             }
         },
         "-save": {
-            "347": {
+            "350": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1548,13 +1551,19 @@
             }
         },
         "this.select()": {
-            "420": false
+            "387": false,
+            "399": false,
+            "411": false,
+            "423": false
         },
         "&quot;]\"\n\t\t\t\t\/>": {
-            "425": false
+            "392": false,
+            "404": false,
+            "416": false,
+            "428": false
         },
         "points": {
-            "472": {
+            "475": {
                 "name": "(unknown)->get",
                 "type": "unknown",
                 "args_started": true,
@@ -1563,19 +1572,20 @@
             }
         },
         "WordPointsHooksAdminData.events[": {
-            "562": false
-        },
-        "] =": {
             "565": false
         },
+        "] =": {
+            "567": false,
+            "568": false
+        },
         ";\n\t\t\tWordPointsHooksAdminData.reactions[": {
-            "564": false
+            "567": false
         },
         "1": {
-            "877": false
+            "880": false
         },
         "2": {
-            "877": false
+            "880": false
         }
     },
     "\/components\/points\/classes\/hook\/reactor.php": {
@@ -1714,10 +1724,10 @@
             }
         },
         "`\\n": {
-            "401": false
+            "405": false
         },
         "<": {
-            "653": {
+            "657": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1726,10 +1736,10 @@
             }
         },
         ",": {
-            "776": false
+            "780": false
         },
         ".meta_value AS": {
-            "811": false
+            "816": false
         }
     },
     "\/classes\/entity\/attr\/field.php": {

@@ -1263,6 +1263,15 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 		<tbody>
 			<?php
 
+			/**
+			 * Filters the size of the user avatars in the top users table.
+			 *
+			 * @since 2.4.0
+			 *
+			 * @param int $avatar_size The size of the user avatars, in pixels.
+			 */
+			$avatar_size = apply_filters( 'wordpoints_points_top_users_table_avatar_size', 32 );
+
 			$position = 1;
 
 			foreach ( $top_users as $user_id ) {
@@ -1274,7 +1283,7 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 				<tr class="top-<?php echo (int) $position; ?>">
 					<td><?php echo esc_html( number_format_i18n( $position ) ); ?></td>
 					<td>
-						<?php echo get_avatar( $user_id, 32 ); ?>
+						<?php echo get_avatar( $user_id, $avatar_size ); ?>
 						<?php
 
 						$name = sanitize_user_field(

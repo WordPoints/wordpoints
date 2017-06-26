@@ -480,7 +480,7 @@ $screen->add_help_tab(
 		'content' =>
 			'<p>' . esc_html__( 'Extensions extend and expand the functionality of WordPoints. Once an extension is installed, you may activate it or deactivate it here.', 'wordpoints' ) . '</p>' .
 			// translators: 1. URL of extension directory on WordPoints.org; 2. URL of Install Extension admin screen; 3. Directory name.
-			'<p>' . wp_kses( sprintf( __( 'You can find extensions for your site by by browsing the <a href="%1$s">WordPoints Extensions Directory</a>. To install an extension you generally just need to <a href="%2$s">upload the extension file</a> into your %3$s directory. Once an extension has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/modules/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_extensions' ) ), '<code>/wp-content/wordpoints-extensions</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
+			'<p>' . wp_kses( sprintf( __( 'You can find extensions for your site by by browsing the <a href="%1$s">WordPoints Extensions Directory</a>. To install an extension you generally just need to <a href="%2$s">upload the extension file</a> into your %3$s directory. Once an extension has been installed, you can activate it here.', 'wordpoints' ), 'https://wordpoints.org/extensions/', esc_url( self_admin_url( 'admin.php?page=wordpoints_install_extensions' ) ), '<code>/wp-content/wordpoints-extensions</code>' ), array( 'a' => array( 'href' => true, 'target' => true ), 'code' => array() ) ) . '</p>',
 	)
 );
 
@@ -497,7 +497,7 @@ $screen->add_help_tab(
 
 $screen->set_help_sidebar(
 	'<p><strong>' . esc_html__( 'For more information:', 'wordpoints' ) . '</strong></p>
-	<p><a href="https://wordpoints.org/developer-guide/modules/">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
+	<p><a href="https://wordpoints.org/developer-guide/extensions/">' . esc_html__( 'Developer Documentation', 'wordpoints' ) . '</a></p>
 	<p><a href="https://wordpress.org/support/plugin/wordpoints">' . esc_html__( 'Support Forums', 'wordpoints' ) . '</a></p>'
 );
 

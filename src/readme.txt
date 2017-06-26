@@ -54,11 +54,11 @@ The plugin also provides [several widgets](https://wordpoints.org/user-guide/wid
 More features are always being planned, and you can check out the roadmap on the
 plugin website, [WordPoints.org](https://wordpoints.org/roadmap/).
 
-Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/modules/).
-There's [an extension that imports from CubePoints to WordPoints](https://wordpoints.org/modules/importer/),
-one that [integrates with WooCommerce](https://wordpoints.org/modules/woocommerce/),
-one that [integrates with BuddyPress](https://wordpoints.org/modules/buddypress/),
-and another that let's you [reset your users' points](https://wordpoints.org/modules/reset-points/).
+Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/extensions/).
+There's [an extension that imports from CubePoints to WordPoints](https://wordpoints.org/extensions/importer/),
+one that [integrates with WooCommerce](https://wordpoints.org/extensions/woocommerce/),
+one that [integrates with BuddyPress](https://wordpoints.org/extensions/buddypress/),
+and another that let's you [reset your users' points](https://wordpoints.org/extensions/reset-points/).
 More are being added regularly, so take a look to see what is new.
 
 = Developers =

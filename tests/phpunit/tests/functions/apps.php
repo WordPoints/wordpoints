@@ -103,11 +103,33 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test getting the app for an extension.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_extension
+	 */
+	public function test_get_extension_app() {
+
+		$this->mock_apps()
+			->get_sub_app( 'extensions' )
+			->sub_apps()
+			->register( 'test', 'WordPoints_App' );
+
+		$this->assertInstanceOf(
+			'WordPoints_App'
+			, wordpoints_extension( 'test' )
+		);
+	}
+
+	/**
 	 * Test getting the app for a module.
 	 *
 	 * @since 2.2.0
 	 *
 	 * @covers ::wordpoints_module
+	 *
+	 * @expectedDeprecated wordpoints_module
 	 */
 	public function test_get_module_app() {
 

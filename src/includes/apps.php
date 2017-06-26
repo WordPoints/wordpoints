@@ -44,7 +44,8 @@ function wordpoints_apps_init( $app ) {
 	$apps->register( 'entities', 'WordPoints_App_Registry' );
 	$apps->register( 'data_types', 'WordPoints_Class_Registry' );
 	$apps->register( 'components', 'WordPoints_App' );
-	$apps->register( 'modules', 'WordPoints_App' );
+	$apps->register( 'extensions', 'WordPoints_App' );
+	$apps->register( 'modules', 'WordPoints_App' ); // Deprecated.
 	$apps->register( 'extension_server_apis', 'WordPoints_Class_Registry' );
 }
 
@@ -122,19 +123,40 @@ function wordpoints_component( $slug ) {
 }
 
 //
-// Modules API
+// Extensions API
 //
+
+/**
+ * Gets the app for an extension.
+ *
+ * @since 2.4.0
+ *
+ * @param string $slug The slug of the extension.
+ *
+ * @return false|WordPoints_App The extension's app.
+ */
+function wordpoints_extension( $slug ) {
+
+	if ( ! isset( WordPoints_App::$main ) ) {
+		wordpoints_apps();
+	}
+
+	return WordPoints_App::$main->get_sub_app( 'extensions' )->get_sub_app( $slug );
+}
 
 /**
  * Gets the app for a module.
  *
  * @since 2.2.0
+ * @deprecated 2.4.0 Use wordpoints_extensions() instead.
  *
  * @param string $slug The slug of the module.
  *
  * @return false|WordPoints_App The module's app.
  */
 function wordpoints_module( $slug ) {
+
+	_deprecated_function( __FUNCTION__, '2.4.0', 'wordpoints_extension' );
 
 	if ( ! isset( WordPoints_App::$main ) ) {
 		wordpoints_apps();

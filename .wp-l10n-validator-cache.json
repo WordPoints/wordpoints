@@ -991,8 +991,8 @@
             "errors": false
         },
         "\/components\/points\/classes\/logs\/view\/table.php": {
-            "size": 8378,
-            "hash": "5698b4bf68eca272b948be45f3ccdd29",
+            "size": 8824,
+            "hash": "07f2e6e01669b0fda662778eac3d2fa1",
             "errors": false
         },
         "\/components\/points\/classes\/logs\/view.php": {
@@ -1166,8 +1166,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/points.php": {
-            "size": 41598,
-            "hash": "b75cec73d112dc01073c5c054b9edc31",
+            "size": 41880,
+            "hash": "bf76e6aebfcfd47847e7e4797debad17",
             "errors": false
         },
         "\/components\/points\/includes\/shortcodes.php": {
@@ -1211,8 +1211,8 @@
             "errors": false
         },
         "\/components\/ranks\/classes\/index.php": {
-            "size": 836,
-            "hash": "a94ef8da8c4d701a018816d9156a84ff",
+            "size": 882,
+            "hash": "d00729276c2040a16549e0a5bf48e9c8",
             "errors": false
         },
         "\/components\/ranks\/classes\/rank\/shortcode\/user\/rank.php": {
@@ -1226,8 +1226,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-un-installer.php": {
-            "size": 9117,
-            "hash": "770670ff9d375df3392603abf2f8591f",
+            "size": 9187,
+            "hash": "03d6e3b5e244baf11df6613fdcb19026",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
@@ -1246,8 +1246,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-types.php": {
-            "size": 3366,
-            "hash": "45694fe0a8714483932f5347efeee82f",
+            "size": 323,
+            "hash": "6c5b0231b33f588b0b33b124db952f9c",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank.php": {
@@ -1271,8 +1271,8 @@
             "errors": false
         },
         "\/components\/ranks\/includes\/index.php": {
-            "size": 385,
-            "hash": "8fb2b9a62c6628c2cbe3cff8736c486b",
+            "size": 322,
+            "hash": "51326e9617d3d1ea371305d5d130d2d0",
             "errors": false
         },
         "\/components\/ranks\/includes\/integration\/points\/filters.php": {
@@ -1463,6 +1463,11 @@
         "\/components\/ranks\/classes\/rank\/type.php": {
             "size": 12030,
             "hash": "6c823dafd569d83773daebe77bf6db17",
+            "errors": false
+        },
+        "\/components\/ranks\/classes\/rank\/types.php": {
+            "size": 3366,
+            "hash": "7b3d06d63981e871a79422b8c049697f",
             "errors": false
         }
     },

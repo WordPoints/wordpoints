@@ -151,6 +151,9 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.4.0
 	 */
 	protected function update_network_to_2_4_0_alpha_4() {
+
+		WordPoints_Rank_Types::init();
+
 		$this->update_user_ranks_table_to_2_4_0();
 	}
 
@@ -169,6 +172,9 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 2.4.0
 	 */
 	protected function update_single_to_2_4_0_alpha_4() {
+
+		WordPoints_Rank_Types::init();
+
 		$this->update_user_ranks_table_to_2_4_0();
 		$this->delete_ranks_for_deleted_users();
 	}

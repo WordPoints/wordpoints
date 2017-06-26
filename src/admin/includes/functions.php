@@ -450,7 +450,7 @@ function wordpoints_register_admin_scripts() {
 			<script type="text/template" id="tmpl-wordpoints-hook-condition-groups">
 				<div class="conditions-title section-title">
 					<h4>' . esc_html__( 'Conditions', 'wordpoints' ) . '</h4>
-					<button type="button" class="add-new button-secondary button-link">
+					<button type="button" class="add-new button-secondary wordpoints-hooks-icon-button">
 						<span class="screen-reader-text">' . esc_html__( 'Add New Condition', 'wordpoints' ) . '</span>
 						<span class="dashicons dashicons-plus"></span>
 					</button>
@@ -480,7 +480,7 @@ function wordpoints_register_admin_scripts() {
 			<script type="text/template" id="tmpl-wordpoints-hook-reaction-condition">
 				<div class="condition-controls">
 					<div class="condition-title"></div>
-					<button type="button" class="delete button-secondary button-link">
+					<button type="button" class="delete button-secondary wordpoints-hooks-icon-button">
 						<span class="screen-reader-text">' . esc_html__( 'Remove Condition', 'wordpoints' ) . '</span>
 						<span class="dashicons dashicons-no"></span>
 					</button>

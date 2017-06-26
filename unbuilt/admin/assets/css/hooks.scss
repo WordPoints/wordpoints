@@ -12,6 +12,8 @@
  * -- Form
  * -- Editing
  * -- Changed
+ * - Icon Buttons
+ * - Sections
  * - Conditions
  * -- Buttons
  * -- Title
@@ -308,6 +310,31 @@ $lighter_border_color: #ddd;
 	}
 
 	/*
+	 * Icon Buttons.
+	 */
+
+	.wordpoints-hooks-icon-button {
+		margin: 0;
+		padding: 0;
+		box-shadow: none;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		outline: none;
+		cursor: pointer;
+		text-align: left;
+		transition-property: border, background, color;
+		transition-duration: .05s;
+		transition-timing-function: ease-in-out;
+	}
+
+	.wordpoints-hooks-icon-button:focus {
+		box-shadow:
+				0 0 0 1px #5b9dd9,
+				0 0 2px 1px rgba(30, 140, 190, .8);
+	}
+
+	/*
 	 * Sections.
 	 *
 	 * - Title
@@ -352,7 +379,7 @@ $lighter_border_color: #ddd;
 		margin-top: -28px;
 	}
 
-	.conditions .button-link .dashicons {
+	.conditions .wordpoints-hooks-icon-button .dashicons {
 		vertical-align: middle;
 	}
 

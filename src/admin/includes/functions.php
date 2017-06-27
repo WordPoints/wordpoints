@@ -1461,6 +1461,21 @@ function wordpoints_admin_save_extension_licenses( $extensions ) {
 				wordpoints_show_admin_error( sprintf( esc_html__( 'Sorry, there was an error while trying to activate the license: %s', 'wordpoints' ), $result->get_error_message() ) );
 			} elseif ( ! $license->is_valid() ) {
 				wordpoints_show_admin_error( esc_html__( 'That license key is invalid.', 'wordpoints' ) );
+			} elseif ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI && $license->is_expired() ) {
+				if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_RenewableI && $license->is_renewable() ) {
+					if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_Renewable_URLI ) {
+						wordpoints_show_admin_error(
+							esc_html__( 'Sorry, that license key is expired, and must be renewed.', 'wordpoints' )
+							. ' <a href="' . esc_url( $license->get_renewal_url() ) . '">' . esc_html__( 'Renew License', 'wordpoints' ) . '</a>'
+						);
+					} else {
+						wordpoints_show_admin_error( esc_html__( 'Sorry, that license key is expired, and must be renewed.', 'wordpoints' ) );
+					}
+				} else {
+					wordpoints_show_admin_error( esc_html__( 'Sorry, that license key is expired.', 'wordpoints' ) );
+				}
+
+				$extension_data->set( 'license_key', $license_key );
 			} else {
 				wordpoints_show_admin_error( esc_html__( 'Sorry, that license key cannot be activated.', 'wordpoints' ) );
 			}
@@ -1659,6 +1674,18 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" />
 					<?php endif; ?>
 				<?php endif; ?>
+					<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI ) : ?>
+						<?php if ( ! empty( $license_key ) && $license->is_expired() ) : ?>
+							<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_RenewableI && $license->is_renewable() ) : ?>
+								<?php esc_html_e( 'This license key is expired and must be renewed.', 'wordpoints' ); ?>
+								<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_Renewable_URLI ) : ?>
+									<a href="<?php echo esc_url( $license->get_renewal_url() ); ?>"><?php esc_html_e( 'Renew License', 'wordpoints' ); ?></a>
+								<?php endif; ?>
+							<?php else : ?>
+								<?php esc_html_e( 'This license key is expired.', 'wordpoints' ); ?>
+							<?php endif; ?>
+						<?php endif; ?>
+					<?php endif; ?>
 				</p>
 			</div>
 		</td>

@@ -118,8 +118,14 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL
 			return false;
 		}
 
-		// This 'license' key actually holds the license's status.
-		$this->extension_data->set( 'license_status', $response['license'] );
+		// The 'license' key actually holds the license's status.
+		$status = $response['license'];
+
+		if ( isset( $response['error'] ) && 'expired' === $response['error'] ) {
+			$status = 'expired';
+		}
+
+		$this->extension_data->set( 'license_status', $status );
 
 		if ( 'valid' !== $response['license'] ) {
 			return false;

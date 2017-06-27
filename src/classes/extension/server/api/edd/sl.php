@@ -181,6 +181,23 @@ class WordPoints_Extension_Server_API_EDD_SL
 			}
 
 			return $response;
+
+		} elseif (
+			$license_key
+			&& isset( $response['new_version'] )
+			&& 'valid' !== $extension_data->get( 'license_status' )
+		) {
+
+			// Or, if this was a success but the license was marked as invalid,
+			// update its status.
+			$extension_data->delete( 'license_status' );
+
+			$license = $this->get_extension_license_object(
+				$extension_data
+				, $license_key
+			);
+
+			$license->is_valid();
 		}
 
 		if ( isset( $response['new_version'] ) ) {

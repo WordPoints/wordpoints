@@ -1612,10 +1612,31 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 	$license     = $api->get_extension_license_object( $extension_data, $license_key );
 	$server_url  = sanitize_title_with_dashes( $server->get_slug() );
 
+	$notice_type = 'error';
+
+	if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ActivatableI ) {
+		if ( ! empty( $license_key ) && $license->is_active() ) {
+			$notice_type = 'success';
+		} elseif ( empty( $license_key ) || $license->is_activatable() ) {
+			$notice_type = 'error';
+		}
+	}
+
+	if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI ) {
+		if ( ! empty( $license_key ) && $license->is_expired() ) {
+			if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_RenewableI ) {
+				if ( $license->is_renewable() ) {
+					$notice_type = 'warning';
+				}
+			}
+		}
+	}
+
 	?>
 	<tr class="wordpoints-extension-license-tr plugin-update-tr <?php echo ( is_wordpoints_module_active( $extension_file ) ) ? 'active' : 'inactive'; ?>">
 		<td colspan="<?php echo (int) WordPoints_Admin_List_Table_Extensions::instance()->get_column_count(); ?>" class="colspanchange">
-			<div class="wordpoints-license-box">
+			<div class="wordpoints-license-box notice inline notice-alt notice-<?php echo esc_attr( $notice_type ); ?>">
+				<p>
 				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>">
 					<?php esc_html_e( 'License key:', 'wordpoints' ); ?>
 				</label>
@@ -1629,7 +1650,6 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 				/>
 				<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ActivatableI ) : ?>
 					<?php if ( ! empty( $license_key ) && $license->is_active() ) : ?>
-						<span style="color:green;"><?php esc_html_e( 'active', 'wordpoints' ); ?></span>
 						<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_DeactivatableI && $license->is_deactivatable() ) : ?>
 							<?php wp_nonce_field( "wordpoints_deactivate_license_key-{$extension_id}", "wordpoints_deactivate_license_key-{$extension_id}" ); ?>
 							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" />
@@ -1639,6 +1659,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" />
 					<?php endif; ?>
 				<?php endif; ?>
+				</p>
 			</div>
 		</td>
 	</tr>

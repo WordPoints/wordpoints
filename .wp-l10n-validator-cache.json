@@ -46,8 +46,8 @@
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 73030,
-            "hash": "bb97b67bb79eea66626640b8398b2140",
+            "size": 73711,
+            "hash": "12169be66c522555c31c54e785530300",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -86,8 +86,8 @@
             "errors": false
         },
         "\/admin\/screens\/modules-load.php": {
-            "size": 18009,
-            "hash": "f3971f22409592923a3266e2af5567bf",
+            "size": 18015,
+            "hash": "e6bfe1e0d9eb891e5295ec7d35609a23",
             "errors": false
         },
         "\/admin\/screens\/modules.php": {
@@ -1321,8 +1321,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 15157,
-            "hash": "c5b7eb1a07a31599b1591ceed7fbe8bf",
+            "size": 15723,
+            "hash": "a38780a4b5c13f15c7ef2dc7aed70017",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {

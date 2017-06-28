@@ -1298,9 +1298,15 @@ function wordpoints_extension_update_row( $file, $extension_data ) {
 		)
 	);
 
+	if ( is_network_admin() ) {
+		$is_active = is_wordpoints_module_active_for_network( $file );
+	} else {
+		$is_active = is_wordpoints_module_active( $file );
+	}
+
 	?>
 
-	<tr class="plugin-update-tr wordpoints-extension-update-tr <?php echo ( is_wordpoints_module_active( $file ) ) ? 'active' : 'inactive'; ?>">
+	<tr class="plugin-update-tr wordpoints-extension-update-tr <?php echo ( $is_active ) ? 'active' : 'inactive'; ?>">
 		<td colspan="<?php echo (int) WordPoints_Admin_List_Table_Extensions::instance()->get_column_count(); ?>" class="plugin-update wordpoints-extension-update colspanchange">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>

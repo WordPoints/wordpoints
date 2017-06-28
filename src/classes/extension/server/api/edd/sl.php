@@ -186,6 +186,7 @@ class WordPoints_Extension_Server_API_EDD_SL
 			$license_key
 			&& isset( $response['new_version'] )
 			&& 'valid' !== $extension_data->get( 'license_status' )
+			&& false === $extension_data->get( 'is_free' )
 		) {
 
 			// Or, if this was a success but the license was marked as invalid,

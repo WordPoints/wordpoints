@@ -1600,13 +1600,13 @@ function wordpoints_extension_list_row_license_classes( $classes, $extension_fil
  *
  * @WordPress\action wordpoints_after_module_row
  */
-function wordpoints_extension_license_row( $extension_file, $extension_data ) {
+function wordpoints_extension_license_row( $extension_file, $extension ) {
 
-	if ( empty( $extension_data['ID'] ) || ! current_user_can( 'update_wordpoints_extensions' ) ) {
+	if ( empty( $extension['ID'] ) || ! current_user_can( 'update_wordpoints_extensions' ) ) {
 		return;
 	}
 
-	$server = wordpoints_get_server_for_extension( $extension_data );
+	$server = wordpoints_get_server_for_extension( $extension );
 
 	if ( ! $server ) {
 		return;
@@ -1618,7 +1618,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 		return;
 	}
 
-	$extension_id = $extension_data['ID'];
+	$extension_id = $extension['ID'];
 
 	$extension_data = new WordPoints_Extension_Server_API_Extension_Data(
 		$extension_id
@@ -1661,7 +1661,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 		<td colspan="<?php echo (int) WordPoints_Admin_List_Table_Extensions::instance()->get_column_count(); ?>" class="colspanchange">
 			<div class="wordpoints-license-box notice inline notice-alt notice-<?php echo esc_attr( $notice_type ); ?>">
 				<p>
-				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>">
+				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>">
 					<?php esc_html_e( 'License key:', 'wordpoints' ); ?>
 				</label>
 				<input
@@ -1683,7 +1683,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 							$aria_label = __( 'Deactivate License for %s', 'wordpoints' );
 
 							?>
-							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>" />
+							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>" />
 						<?php endif; ?>
 					<?php elseif ( empty( $license_key ) || $license->is_activatable() ) : ?>
 						<?php
@@ -1694,7 +1694,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 						$aria_label = __( 'Activate License for %s', 'wordpoints' );
 
 						?>
-						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>" />
+						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>" />
 					<?php endif; ?>
 				<?php endif; ?>
 					<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI ) : ?>
@@ -1708,7 +1708,7 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 									$aria_label = __( 'Renew License for %s', 'wordpoints' );
 
 									?>
-									<a href="<?php echo esc_url( $license->get_renewal_url() ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>"><?php esc_html_e( 'Renew License', 'wordpoints' ); ?></a>
+									<a href="<?php echo esc_url( $license->get_renewal_url() ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>"><?php esc_html_e( 'Renew License', 'wordpoints' ); ?></a>
 								<?php endif; ?>
 							<?php else : ?>
 								<?php esc_html_e( 'This license key is expired.', 'wordpoints' ); ?>

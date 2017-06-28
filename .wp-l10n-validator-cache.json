@@ -41,13 +41,13 @@
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
-            "size": 4131,
-            "hash": "f4de2b44b33aad15a735ffab6b8f67fd",
+            "size": 4213,
+            "hash": "51e1c79601b9410985942bab4c2b71f9",
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 73711,
-            "hash": "12169be66c522555c31c54e785530300",
+            "size": 82081,
+            "hash": "b2b6c04e804edd36962617de3eaacee8",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -451,8 +451,8 @@
             "errors": false
         },
         "\/classes\/extension\/server\/api\/edd\/sl.php": {
-            "size": 6129,
-            "hash": "88888f2fa565347a8893bc4129e0c525",
+            "size": 6532,
+            "hash": "15a0c8d302335f7ce092d5a7012b566c",
             "errors": false
         },
         "\/classes\/extension\/server\/api\/extension\/data.php": {
@@ -476,8 +476,8 @@
             "errors": false
         },
         "\/classes\/extension\/server\/api\/extension\/license\/edd\/sl.php": {
-            "size": 6168,
-            "hash": "d422e4262af9bea5dcfdf438320497dc",
+            "size": 6293,
+            "hash": "52486c881160edec9e59dea4faec4d7f",
             "errors": false
         },
         "\/classes\/extension\/server\/api\/extension\/license\/expirablei.php": {
@@ -877,7 +877,7 @@
         },
         "\/classes\/un\/installer\/base.php": {
             "size": 50727,
-            "hash": "2818b283703b8a88dca3a14dce2f86a1",
+            "hash": "52614c5388d425bf737c8b7cae83c5ad",
             "errors": false
         },
         "\/classes\/widget.php": {
@@ -1082,7 +1082,7 @@
         },
         "\/components\/points\/includes\/class-un-installer.php": {
             "size": 34832,
-            "hash": "be147ea8bad5038882120d003ad70549",
+            "hash": "c35c593b7eed72dcf285306afb23fb8a",
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
@@ -1227,7 +1227,7 @@
         },
         "\/components\/ranks\/includes\/class-un-installer.php": {
             "size": 9187,
-            "hash": "03d6e3b5e244baf11df6613fdcb19026",
+            "hash": "553d0c82ff5d123abc8ba8bb53c88e0d",
             "errors": false
         },
         "\/components\/ranks\/includes\/class-wordpoints-rank-group.php": {
@@ -1352,7 +1352,7 @@
         },
         "\/includes\/class-un-installer.php": {
             "size": 11579,
-            "hash": "af8d56ed43d33665cf46ece575dab184",
+            "hash": "632b30c7cbd369820261cbf34135537b",
             "errors": false
         },
         "\/includes\/class-widget.php": {

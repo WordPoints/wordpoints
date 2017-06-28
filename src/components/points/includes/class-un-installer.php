@@ -36,7 +36,7 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.10.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.0.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
-		'2.1.4'  => array( 'single' => true, 'site' => true, /*      -      */ ),
+		'2.1.4'  => array( 'single' => true, 'site' => true  /*      -      */ ),
 	);
 
 	/**

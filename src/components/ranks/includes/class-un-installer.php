@@ -27,7 +27,7 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.8.0' => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'1.8.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'2.0.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.4.0-alpha-4' => array( 'single' => true, 'site' => true, 'network' => true ),
 	);

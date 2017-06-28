@@ -1370,7 +1370,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		// shortcut => canonicals
 		$map = array(
-			'local'     => array( 'single', 'site', /*  -  */ ),
+			'local'     => array( 'single', 'site'  /*  -  */ ),
 			'global'    => array( 'single', /* - */ 'network' ),
 			'universal' => array( 'single', 'site', 'network' ),
 		);

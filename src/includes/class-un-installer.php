@@ -23,9 +23,9 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * @since 1.8.0
 	 */
 	protected $updates = array(
-		'1.3.0'  => array( 'single' => true, /*     -     */ /*      -      */ ),
-		'1.5.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
-		'1.8.0'  => array( /*      -      */ 'site' => true, /*      -      */ ),
+		'1.3.0'  => array( 'single' => true  /*     -     */ /*      -      */ ),
+		'1.5.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
+		'1.8.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),

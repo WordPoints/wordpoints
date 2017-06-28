@@ -21,5 +21,6 @@ if ( is_multisite() ) {
 }
 
 WordPoints_Shortcodes::register( 'wordpoints_user_rank', 'WordPoints_Rank_Shortcode_User_Rank' );
+WordPoints_Shortcodes::register( 'wordpoints_rank_list', 'WordPoints_Rank_Shortcode_Rank_List' );
 
 // EOF

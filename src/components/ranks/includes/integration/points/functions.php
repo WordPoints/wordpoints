@@ -85,6 +85,7 @@ function wordpoints_ranks_points_top_users_username_filter( $name, $user_id, $po
  * @since 1.8.0
  *
  * @WordPress\filter shortcode_atts_wordpoints_user_rank
+ * @WordPress\filter shortcode_atts_wordpoints_rank_list
  */
 function wordpoints_user_rank_shortcode_points_type_attr( $out, $pairs, $atts ) {
 

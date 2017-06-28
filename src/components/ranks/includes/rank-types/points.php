@@ -14,7 +14,8 @@
  */
 class WordPoints_Points_Rank_Type
 	extends WordPoints_Rank_Type
-	implements WordPoints_Rank_Type_Bulk_CheckI {
+	implements WordPoints_Rank_Type_Bulk_CheckI,
+		WordPoints_Rank_Type_Rank_DescribingI {
 
 	/**
 	 * @since 1.7.0
@@ -148,6 +149,22 @@ class WordPoints_Points_Rank_Type
 		);
 
 		return $query->get_results();
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_rank_description( WordPoints_Rank $rank ) {
+
+		return sprintf(
+			// translators: Number of points.
+			__( 'Must have at least %s.', 'wordpoints' )
+			, wordpoints_format_points(
+				$rank->points
+				, $rank->points_type
+				, 'rank_description'
+			)
+		);
 	}
 
 	//

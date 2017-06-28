@@ -14,7 +14,8 @@
  */
 class WordPoints_Base_Rank_Type
 	extends WordPoints_Rank_Type
-	implements WordPoints_Rank_Type_Bulk_CheckI {
+	implements WordPoints_Rank_Type_Bulk_CheckI,
+		WordPoints_Rank_Type_Rank_DescribingI {
 
 	//
 	// Public Methods.
@@ -43,6 +44,13 @@ class WordPoints_Base_Rank_Type
 	 */
 	public function can_transition_user_ranks( array $user_ids, WordPoints_Rank $rank, array $args ) {
 		return $user_ids;
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_rank_description( WordPoints_Rank $rank ) {
+		return __( 'Base rank.', 'wordpoints' );
 	}
 
 	//

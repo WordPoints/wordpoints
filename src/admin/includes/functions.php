@@ -1647,12 +1647,15 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 		}
 	}
 
+	// translators: Extension name.
+	$aria_label = __( 'License key for %s', 'wordpoints' );
+
 	?>
 	<tr class="wordpoints-extension-license-tr plugin-update-tr <?php echo ( is_wordpoints_module_active( $extension_file ) ) ? 'active' : 'inactive'; ?>">
 		<td colspan="<?php echo (int) WordPoints_Admin_List_Table_Extensions::instance()->get_column_count(); ?>" class="colspanchange">
 			<div class="wordpoints-license-box notice inline notice-alt notice-<?php echo esc_attr( $notice_type ); ?>">
 				<p>
-				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>">
+				<label class="description" for="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>">
 					<?php esc_html_e( 'License key:', 'wordpoints' ); ?>
 				</label>
 				<input
@@ -1666,12 +1669,26 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 				<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ActivatableI ) : ?>
 					<?php if ( ! empty( $license_key ) && $license->is_active() ) : ?>
 						<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_DeactivatableI && $license->is_deactivatable() ) : ?>
-							<?php wp_nonce_field( "wordpoints_deactivate_license_key-{$extension_id}", "wordpoints_deactivate_license_key-{$extension_id}" ); ?>
-							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" />
+							<?php
+
+							wp_nonce_field( "wordpoints_deactivate_license_key-{$extension_id}", "wordpoints_deactivate_license_key-{$extension_id}" );
+
+							// translators: Extension name.
+							$aria_label = __( 'Deactivate License for %s', 'wordpoints' );
+
+							?>
+							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>" />
 						<?php endif; ?>
 					<?php elseif ( empty( $license_key ) || $license->is_activatable() ) : ?>
-						<?php wp_nonce_field( "wordpoints_activate_license_key-{$extension_id}", "wordpoints_activate_license_key-{$extension_id}" ); ?>
-						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" />
+						<?php
+
+						wp_nonce_field( "wordpoints_activate_license_key-{$extension_id}", "wordpoints_activate_license_key-{$extension_id}" );
+
+						// translators: Extension name.
+						$aria_label = __( 'Activate License for %s', 'wordpoints' );
+
+						?>
+						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>" />
 					<?php endif; ?>
 				<?php endif; ?>
 					<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI ) : ?>
@@ -1679,7 +1696,13 @@ function wordpoints_extension_license_row( $extension_file, $extension_data ) {
 							<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_RenewableI && $license->is_renewable() ) : ?>
 								<?php esc_html_e( 'This license key is expired and must be renewed.', 'wordpoints' ); ?>
 								<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_Renewable_URLI ) : ?>
-									<a href="<?php echo esc_url( $license->get_renewal_url() ); ?>"><?php esc_html_e( 'Renew License', 'wordpoints' ); ?></a>
+									<?php
+
+									// translators: Extension name.
+									$aria_label = __( 'Renew License for %s', 'wordpoints' );
+
+									?>
+									<a href="<?php echo esc_url( $license->get_renewal_url() ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>"><?php esc_html_e( 'Renew License', 'wordpoints' ); ?></a>
 								<?php endif; ?>
 							<?php else : ?>
 								<?php esc_html_e( 'This license key is expired.', 'wordpoints' ); ?>
@@ -2577,7 +2600,7 @@ function wordpoints_admin_show_extension_license_notices() {
 
 			wordpoints_show_admin_error(
 				sprintf(
-					// translators: Module name.
+					// translators: Extension name.
 					esc_html__( 'Please fill in your license key for the %s extension for WordPoints, so that you can receive updates.', 'wordpoints' )
 					, $extension['name']
 				)
@@ -2593,7 +2616,7 @@ function wordpoints_admin_show_extension_license_notices() {
 
 			wordpoints_show_admin_error(
 				sprintf(
-					// translators: Module name.
+					// translators: Extension name.
 					esc_html__( 'Your license key for the %s extension for WordPoints appears to be invalid. Please enter a valid license key so that you can receive updates.', 'wordpoints' )
 					, $extension['name']
 				)
@@ -2608,7 +2631,7 @@ function wordpoints_admin_show_extension_license_notices() {
 
 					wordpoints_show_admin_error(
 						sprintf(
-							// translators: Module name.
+							// translators: Extension name.
 							esc_html__( 'Your license key for the %s extension for WordPoints is expired. Please renew your license key so that you can receive updates.', 'wordpoints' )
 							, $extension['name']
 						)
@@ -2619,7 +2642,7 @@ function wordpoints_admin_show_extension_license_notices() {
 
 					wordpoints_show_admin_error(
 						sprintf(
-							// translators: Module name.
+							// translators: Extension name.
 							esc_html__( 'Your license key for the %s extension for WordPoints is expired. Please renew your license key so that you can receive updates.', 'wordpoints' )
 							, $extension['name']
 						)
@@ -2631,7 +2654,7 @@ function wordpoints_admin_show_extension_license_notices() {
 
 				wordpoints_show_admin_error(
 					sprintf(
-						// translators: Module name.
+						// translators: Extension name.
 						esc_html__( 'Your license key for the %s extension for WordPoints is expired. Please enter a valid license key so that you can receive updates.', 'wordpoints' )
 						, $extension['name']
 					)
@@ -2644,6 +2667,9 @@ function wordpoints_admin_show_extension_license_notices() {
 			$extension_id = $extension['ID'];
 			$server_url   = sanitize_title_with_dashes( $server->get_slug() );
 
+			// translators: Extension name.
+			$aria_label = __( 'Activate License for %s WordPoints Extension', 'wordpoints' );
+
 			?>
 			<div class="notice notice-error">
 				<p>
@@ -2651,7 +2677,7 @@ function wordpoints_admin_show_extension_license_notices() {
 
 					echo esc_html(
 						sprintf(
-							// translators: Module name.
+							// translators: Extension name.
 							__( 'Your license key for the %s extension for WordPoints is not active. Please activate it so that you can receive updates.', 'wordpoints' )
 							, $extension['name']
 						)
@@ -2670,7 +2696,13 @@ function wordpoints_admin_show_extension_license_notices() {
 					/>
 					<?php wp_nonce_field( "wordpoints_activate_license_key-{$extension_id}", "wordpoints_activate_license_key-{$extension_id}" ); ?>
 					<p>
-						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" />
+						<input
+							type="submit"
+							name="activate-license-<?php echo esc_attr( $extension_id ); ?>"
+							class="button-secondary"
+							value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>"
+							aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>"
+						/>
 					</p>
 				</form>
 			</div>

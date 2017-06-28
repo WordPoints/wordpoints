@@ -2525,4 +2525,158 @@ function wordpoints_admin_remove_wordpoints_from_update_plugins_transient( $data
 	return $data;
 }
 
+/**
+ * Displays notices to admins when extension licenses are invalid, expired, etc.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action admin_notices
+ */
+function wordpoints_admin_show_extension_license_notices() {
+
+	// Don't show them on the extensions screen, because they would be shown before
+	// license activation notices, etc.
+	if ( isset( $_GET['page'] ) && 'wordpoints_extensions' === $_GET['page'] ) { // WPCS: CSRF OK.
+		return;
+	}
+
+	if ( ! current_user_can( 'update_wordpoints_extensions' ) ) {
+		return;
+	}
+
+	foreach ( wordpoints_get_modules() as $extension ) {
+
+		if ( empty( $extension['ID'] ) ) {
+			continue;
+		}
+
+		$server = wordpoints_get_server_for_extension( $extension );
+
+		if ( ! $server ) {
+			continue;
+		}
+
+		$api = $server->get_api();
+
+		if ( ! $api instanceof WordPoints_Extension_Server_API_LicensesI ) {
+			continue;
+		}
+
+		$extension_data = new WordPoints_Extension_Server_API_Extension_Data(
+			$extension['ID']
+			, $server
+		);
+
+		if ( ! $api->extension_requires_license( $extension_data ) ) {
+			continue;
+		}
+
+		$license_key = $extension_data->get( 'license_key' );
+
+		if ( empty( $license_key ) ) {
+
+			wordpoints_show_admin_error(
+				sprintf(
+					// translators: Module name.
+					esc_html__( 'Please fill in your license key for the %s extension for WordPoints, so that you can receive updates.', 'wordpoints' )
+					, $extension['name']
+				)
+				. ' <a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ) . '">' . esc_html__( 'WordPoints Extensions screen &raquo;', 'wordpoints' ) . '</a>'
+			);
+
+			continue;
+		}
+
+		$license = $api->get_extension_license_object( $extension_data, $license_key );
+
+		if ( ! $license->is_valid() ) {
+
+			wordpoints_show_admin_error(
+				sprintf(
+					// translators: Module name.
+					esc_html__( 'Your license key for the %s extension for WordPoints appears to be invalid. Please enter a valid license key so that you can receive updates.', 'wordpoints' )
+					, $extension['name']
+				)
+				. ' <a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ) . '">' . esc_html__( 'WordPoints Extensions screen &raquo;', 'wordpoints' ) . '</a>'
+			);
+
+		} elseif ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI && $license->is_expired() ) {
+
+			if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_RenewableI && $license->is_renewable() ) {
+
+				if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_Renewable_URLI ) {
+
+					wordpoints_show_admin_error(
+						sprintf(
+							// translators: Module name.
+							esc_html__( 'Your license key for the %s extension for WordPoints is expired. Please renew your license key so that you can receive updates.', 'wordpoints' )
+							, $extension['name']
+						)
+						. ' <a href="' . esc_url( $license->get_renewal_url() ) . '">' . esc_html__( 'Renew License', 'wordpoints' ) . '</a>'
+					);
+
+				} else {
+
+					wordpoints_show_admin_error(
+						sprintf(
+							// translators: Module name.
+							esc_html__( 'Your license key for the %s extension for WordPoints is expired. Please renew your license key so that you can receive updates.', 'wordpoints' )
+							, $extension['name']
+						)
+						. ' <a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ) . '">' . esc_html__( 'WordPoints Extensions screen &raquo;', 'wordpoints' ) . '</a>'
+					);
+				}
+
+			} else {
+
+				wordpoints_show_admin_error(
+					sprintf(
+						// translators: Module name.
+						esc_html__( 'Your license key for the %s extension for WordPoints is expired. Please enter a valid license key so that you can receive updates.', 'wordpoints' )
+						, $extension['name']
+					)
+					. ' <a href="' . esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ) . '">' . esc_html__( 'WordPoints Extensions screen &raquo;', 'wordpoints' ) . '</a>'
+				);
+			}
+
+		} elseif ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ActivatableI && $license->is_activatable() && ! $license->is_active() ) {
+
+			$extension_id = $extension['ID'];
+			$server_url   = sanitize_title_with_dashes( $server->get_slug() );
+
+			?>
+			<div class="notice notice-error">
+				<p>
+					<?php
+
+					echo esc_html(
+						sprintf(
+							// translators: Module name.
+							__( 'Your license key for the %s extension for WordPoints is not active. Please activate it so that you can receive updates.', 'wordpoints' )
+							, $extension['name']
+						)
+					);
+
+					?>
+				</p>
+				<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ); ?>">
+					<input
+						id="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>"
+						name="license_key-<?php echo esc_attr( $server_url ); ?>-<?php echo esc_attr( $extension_id ); ?>"
+						type="hidden"
+						class="regular-text"
+						autocomplete="off"
+						value="<?php echo esc_attr( $license_key ); ?>"
+					/>
+					<?php wp_nonce_field( "wordpoints_activate_license_key-{$extension_id}", "wordpoints_activate_license_key-{$extension_id}" ); ?>
+					<p>
+						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" />
+					</p>
+				</form>
+			</div>
+			<?php
+		}
+	}
+}
+
 // EOF

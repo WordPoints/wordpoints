@@ -50,6 +50,7 @@ add_action( 'upgrader_source_selection', 'wordpoints_plugin_upload_error_filter'
 add_action( 'wordpoints_admin_configure_foot', 'wordpoints_admin_settings_screen_sidebar', 5 );
 
 add_action( 'admin_notices', 'wordpoints_admin_notices' );
+add_action( 'admin_notices', 'wordpoints_admin_show_extension_license_notices' );
 
 add_action( 'set-screen-option', 'wordpoints_admin_set_screen_option', 10, 3 );
 

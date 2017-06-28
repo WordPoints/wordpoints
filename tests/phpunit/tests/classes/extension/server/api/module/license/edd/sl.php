@@ -321,6 +321,39 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 
 		$api = new WordPoints_Extension_Server_API_EDD_SL( 'test', $server );
 
+		// Wrong extension ID, so the license will be considered invalid.
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 555 );
+		$data->set( 'license_status', 'inactive' );
+
+		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
+			$api,
+			$data,
+			'test_key'
+		);
+
+		$this->assertFalse( $license->activate() );
+
+		$this->assertSame( 'invalid', $data->get( 'license_status' ) );
+
+		$this->assertFalse( $license->is_active() );
+	}
+
+	/**
+	 * Tests activating a license when it has expired.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_activate_expired() {
+
+		$server = $this->getMockBuilder( 'WordPoints_Extension_Server' )
+			->setMethods( array( 'is_ssl_accessible' ) )
+			->setConstructorArgs( array( 'example.com' ) )
+			->getMock();
+
+		$server->method( 'is_ssl_accessible' )->willReturn( false );
+
+		$api = new WordPoints_Extension_Server_API_EDD_SL( 'test', $server );
+
 		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data( 123 );
 		$data->set( 'license_status', 'inactive' );
 
@@ -332,7 +365,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 
 		$this->assertFalse( $license->activate() );
 
-		$this->assertSame( 'invalid', $data->get( 'license_status' ) );
+		$this->assertSame( 'expired', $data->get( 'license_status' ) );
 
 		$this->assertFalse( $license->is_active() );
 	}

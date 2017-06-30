@@ -100,6 +100,27 @@ function wordpoints_get_post_types_for_auto_integration() {
 	return apply_filters( 'wordpoints_post_types_for_auto_integration', $post_types );
 }
 
+/**
+ * Get the slugs of the taxonomies to automatically integrate with.
+ *
+ * @since 2.4.0
+ *
+ * @return string[] The slugs of the taxonomies to automatically integrate with.
+ */
+function wordpoints_get_taxonomies_for_auto_integration() {
+
+	$taxonomies = get_taxonomies( array( 'public' => true ) );
+
+	/**
+	 * Filter which taxonomies to automatically integrate with.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string[] $taxonomies The taxonomy slugs.
+	 */
+	return apply_filters( 'wordpoints_taxonomies_for_auto_integration', $taxonomies );
+}
+
 //
 // Components API
 //
@@ -341,6 +362,13 @@ function wordpoints_entities_init( $entities ) {
 
 	// Also register entities for any post types that are late to the party.
 	add_action( 'registered_post_type', 'wordpoints_register_post_type_entities' );
+
+	foreach ( wordpoints_get_taxonomies_for_entities() as $slug ) {
+		wordpoints_register_taxonomy_entities( $slug );
+	}
+
+	// Also register entities for any taxonomies that are late to the party.
+	add_action( 'registered_taxonomy', 'wordpoints_register_taxonomy_entities' );
 }
 
 /**
@@ -421,6 +449,76 @@ function wordpoints_register_post_type_entities( $slug ) {
 	 * @param string $slug The slug ("name") of the post type.
 	 */
 	do_action( 'wordpoints_register_post_type_entities', $slug );
+}
+
+/**
+ * Get the slugs of the taxonomies to register entities for.
+ *
+ * @since 2.4.0
+ *
+ * @return string[] The slugs of the taxonomies to register entities for.
+ */
+function wordpoints_get_taxonomies_for_entities() {
+
+	$taxonomies = wordpoints_get_taxonomies_for_auto_integration();
+
+	/**
+	 * Filter which taxonomies to register entities for.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string[] $taxonomies The taxonomy slugs ("names").
+	 */
+	return apply_filters( 'wordpoints_register_entities_for_taxonomies', $taxonomies );
+}
+
+/**
+ * Register the entities for a taxonomy.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action registered_taxonomy By {@see wordpoints_entities_init()}.
+ *
+ * @param string $slug The slug of the taxonomy.
+ */
+function wordpoints_register_taxonomy_entities( $slug ) {
+
+	$entities = wordpoints_entities();
+
+	$entities->register( "term\\{$slug}", 'WordPoints_Entity_Term' );
+
+	/**
+	 * Fires when registering the entities for a taxonomy.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $slug The slug of the taxonomy.
+	 */
+	do_action( 'wordpoints_register_taxonomy_entities', $slug );
+}
+
+/**
+ * Register the taxonomy entities for a post type.
+ *
+ * @since 2.4.0
+ *
+ * @WordPoints\action wordpoints_register_post_type_entities
+ *
+ * @param string $slug The slug of the post type.
+ */
+function wordpoints_register_post_type_taxonomy_entities( $slug ) {
+
+	$children = wordpoints_entities()->get_sub_app( 'children' );
+
+	$object_taxonomies = get_object_taxonomies( $slug );
+	$object_taxonomies = array_intersect(
+		$object_taxonomies
+		, wordpoints_get_taxonomies_for_entities()
+	);
+
+	foreach ( $object_taxonomies as $taxonomy_slug ) {
+		$children->register( "post\\{$slug}", "terms\\{$taxonomy_slug}", 'WordPoints_Entity_Post_Terms' );
+	}
 }
 
 /**

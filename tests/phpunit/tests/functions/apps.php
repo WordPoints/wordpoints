@@ -88,6 +88,26 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test the get taxonomies for auto-integration function.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_get_taxonomies_for_auto_integration
+	 */
+	public function test_get_taxonomies_for_auto_integration() {
+
+		$filter = 'wordpoints_taxonomies_for_auto_integration';
+		$this->listen_for_filter( $filter );
+
+		$this->assertSame(
+			get_taxonomies( array( 'public' => true ) )
+			, wordpoints_get_taxonomies_for_auto_integration()
+		);
+
+		$this->assertSame( 1, $this->filter_was_called( $filter ) );
+	}
+
+	/**
 	 * Test getting the app for a component.
 	 *
 	 * @since 2.2.0

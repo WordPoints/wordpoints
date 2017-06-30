@@ -70,6 +70,8 @@ add_action( 'wordpoints_init_app_registry-hooks-events', 'wordpoints_hook_events
 add_action( 'wordpoints_init_app_registry-hooks-actions', 'wordpoints_hook_actions_init' );
 add_action( 'wordpoints_init_app_registry-hooks-conditions', 'wordpoints_hook_conditions_init' );
 
+add_action( 'wordpoints_register_post_type_entities', 'wordpoints_register_post_type_taxonomy_entities' );
+
 add_action( 'wordpoints_extensions_loaded', 'wordpoints_init_hooks' );
 
 add_filter( 'wp_get_update_data', 'wordpoints_extension_update_counts' );

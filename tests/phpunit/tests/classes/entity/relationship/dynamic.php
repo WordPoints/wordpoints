@@ -57,17 +57,35 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 	}
 
 	/**
+	 * Provides a list of sets of relationship slugs.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return array[]
+	 */
+	public function data_provider_relationships() {
+
+		return array(
+			'entity' => array( 'test_entity', 'relationship', 'primary_entity' ),
+			'dynamic' => array( 'test_entity\a', 'relationship\a', 'primary_entity\a' ),
+			'array' => array( 'test_entity{}', 'relationship', 'primary_entity' ),
+			'array_dynamic' => array( 'test_entity\a{}', 'relationship\a', 'primary_entity\a' ),
+			'double_dynamic' => array( 'test_entity\a\b', 'relationship\a\b', 'primary_entity\a\b' ),
+			'array_double_dynamic' => array( 'test_entity\a\b{}', 'relationship\a\b', 'primary_entity\a\b' ),
+		);
+	}
+
+	/**
 	 * Test getting the arg value with the new behavior based on the parent slug.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @dataProvider data_provider_relationships
+	 * @dataProvider data_provider_relationships_parent
 	 *
 	 * @param string $related_slug The slug of the related entity.
 	 * @param string $parent_slug  The slug of the parent entity.
-	 * @param array  $primary_slug The slug of the primary entity.
 	 */
-	public function test_get_value_parent( $related_slug, $parent_slug, $primary_slug ) {
+	public function test_get_value_parent( $related_slug, $parent_slug ) {
 
 		if ( '{}' === substr( $related_slug, -2 ) ) {
 
@@ -94,26 +112,26 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 
 		$this->assertSame( 'relationship', $relationship->get_slug() );
 		$this->assertSame( $related_slug, $relationship->get_related_entity_slug() );
-		$this->assertSame( $primary_slug, $relationship->get_primary_entity_slug() );
+		$this->assertSame( $parent_slug, $relationship->get_primary_entity_slug() );
 		$this->assertSame( $entity->get_title(), $relationship->get_title() );
 	}
 
 	/**
-	 * Provides a list of sets hook arg configurations.
+	 * Provides a list of sets of relationship slugs.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 *
 	 * @return array[]
 	 */
-	public function data_provider_relationships() {
+	public function data_provider_relationships_parent() {
 
 		return array(
-			'entity' => array( 'test_entity', 'relationship', 'primary_entity' ),
-			'dynamic' => array( 'test_entity\a', 'relationship\a', 'primary_entity\a' ),
-			'array' => array( 'test_entity{}', 'relationship', 'primary_entity' ),
-			'array_dynamic' => array( 'test_entity\a{}', 'relationship\a', 'primary_entity\a' ),
-			'double_dynamic' => array( 'test_entity\a\b', 'relationship\a\b', 'primary_entity\a\b' ),
-			'array_double_dynamic' => array( 'test_entity\a\b{}', 'relationship\a\b', 'primary_entity\a\b' ),
+			'entity' => array( 'test_entity', 'primary_entity' ),
+			'dynamic' => array( 'test_entity\a', 'primary_entity\a' ),
+			'array' => array( 'test_entity{}', 'primary_entity' ),
+			'array_dynamic' => array( 'test_entity\a{}', 'primary_entity\a' ),
+			'double_dynamic' => array( 'test_entity\a\b', 'primary_entity\a\b' ),
+			'array_double_dynamic' => array( 'test_entity\a\b{}', 'primary_entity\a\b' ),
 		);
 	}
 

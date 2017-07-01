@@ -19,11 +19,6 @@ class WordPoints_Entity_Post_Terms
 	/**
 	 * @since 2.4.0
 	 */
-	protected $primary_entity_slug = 'post';
-
-	/**
-	 * @since 2.4.0
-	 */
 	protected $related_entity_slug = 'term{}';
 
 	/**

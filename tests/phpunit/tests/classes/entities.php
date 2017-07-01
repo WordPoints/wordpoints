@@ -116,7 +116,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					'children'       => array(
 						'author' => array(
 							'class'   => 'WordPoints_Entity_Post_Author',
-							'primary' => 'post',
+							'primary' => 'post\post',
 							'related' => 'user',
 							'storage_info' => array(
 								'type' => 'db',
@@ -183,8 +183,8 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						),
 						'parent' => array(
 							'class'   => 'WordPoints_Entity_Post_Parent',
-							'primary' => 'post',
-							'related' => 'post',
+							'primary' => 'post\post',
+							'related' => 'post\post',
 							'storage_info' => array(
 								'type' => 'db',
 								'info' => array(
@@ -239,7 +239,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					'children'       => array(
 						'author' => array(
 							'class'   => 'WordPoints_Entity_Comment_Author',
-							'primary' => 'comment',
+							'primary' => 'comment\post',
 							'related' => 'user',
 							'storage_info' => array(
 								'type' => 'db',
@@ -273,8 +273,8 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						),
 						'parent' => array(
 							'class'   => 'WordPoints_Entity_Comment_Parent',
-							'primary' => 'comment',
-							'related' => 'comment',
+							'primary' => 'comment\post',
+							'related' => 'comment\post',
 							'storage_info' => array(
 								'type' => 'db',
 								'info' => array(
@@ -285,8 +285,8 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						),
 						'post' => array(
 							'class'   => 'WordPoints_Entity_Comment_Post',
-							'primary' => 'comment',
-							'related' => 'post',
+							'primary' => 'comment\post',
+							'related' => 'post\post',
 							'storage_info' => array(
 								'type' => 'db',
 								'info' => array(

@@ -29,9 +29,13 @@ abstract class WordPoints_Entity_Relationship
 	/**
 	 * The slug of the primary entity type.
 	 *
-	 * You must either define this or override get_primary_entity_slug().
+	 * There is no need to define this in your child class, it will automatically be
+	 * set to the parent entity slug that is passed in when the object is
+	 * constructed.
 	 *
 	 * @since 2.1.0
+	 * @since 2.4.0 Now automatically set to the parent entity slug passed to the
+	 *              constructor.
 	 *
 	 * @var string
 	 */
@@ -100,6 +104,19 @@ abstract class WordPoints_Entity_Relationship
 	//
 	// Public.
 	//
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function __construct( $slug, $parent_slug = null ) {
+
+		// Back-compat for pre-2.3.0, just in case someone is manually constructing.
+		if ( isset( $parent_slug ) ) {
+			$this->primary_entity_slug = $parent_slug;
+		}
+
+		parent::__construct( $slug );
+	}
 
 	/**
 	 * Get the slug of the primary entity.

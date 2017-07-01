@@ -26,6 +26,7 @@
  * @covers WordPoints_Entity_Post_Date_Published
  * @covers WordPoints_Entity_Post_Excerpt
  * @covers WordPoints_Entity_Post_Parent
+ * @covers WordPoints_Entity_Post_Terms
  * @covers WordPoints_Entity_Post_Title
  * @covers WordPoints_Entity_User
  * @covers WordPoints_Entity_User_Role
@@ -190,6 +191,26 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'info' => array(
 									'type'  => 'field',
 									'field' => 'post_parent',
+								),
+							),
+						),
+						'terms\post_tag' => array(
+							'class'   => 'WordPoints_Entity_Post_Terms',
+							'primary' => 'post\post',
+							'related' => 'term\post_tag{}',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'             => 'table',
+									'table_name'       => $wpdb->term_relationships,
+									'primary_id_field' => 'object_id',
+									'related_id_field' => array(
+										'table_name' => $wpdb->term_taxonomy,
+										'on'         => array(
+											'primary_field' => 'term_taxonomy_id',
+											'join_field'    => 'term_taxonomy_id',
+										),
+									),
 								),
 							),
 						),

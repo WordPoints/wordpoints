@@ -82,15 +82,16 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 	 *
 	 * @dataProvider data_provider_relationships_parent
 	 *
-	 * @param string $related_slug The slug of the related entity.
-	 * @param string $parent_slug  The slug of the parent entity.
+	 * @param string $related_slug      The slug of the related entity.
+	 * @param string $parent_slug       The slug of the parent entity.
+	 * @param string $relationship_slug The slug of the relationship.
 	 */
-	public function test_get_value_parent( $related_slug, $parent_slug ) {
+	public function test_get_value_parent( $related_slug, $parent_slug, $relationship_slug = 'relationship' ) {
 
 		if ( '{}' === substr( $related_slug, -2 ) ) {
 
 			$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship_Dynamic_Array(
-				'relationship'
+				$relationship_slug
 				, $parent_slug
 			);
 
@@ -99,7 +100,7 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 		} else {
 
 			$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship_Dynamic(
-				'relationship'
+				$relationship_slug
 				, $parent_slug
 			);
 
@@ -110,7 +111,7 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 			array( 'slug' => $entity_slug )
 		);
 
-		$this->assertSame( 'relationship', $relationship->get_slug() );
+		$this->assertSame( $relationship_slug, $relationship->get_slug() );
 		$this->assertSame( $related_slug, $relationship->get_related_entity_slug() );
 		$this->assertSame( $parent_slug, $relationship->get_primary_entity_slug() );
 		$this->assertSame( $entity->get_title(), $relationship->get_title() );
@@ -128,6 +129,8 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 		return array(
 			'entity' => array( 'test_entity', 'primary_entity' ),
 			'dynamic' => array( 'test_entity\a', 'primary_entity\a' ),
+			'dynamic_different' => array( 'test_entity\b', 'primary_entity\a', 'relationship\b' ),
+			'dynamic_only_primary' => array( 'test_entity\a', 'primary_entity\a', 'relationship' ),
 			'array' => array( 'test_entity{}', 'primary_entity' ),
 			'array_dynamic' => array( 'test_entity\a{}', 'primary_entity\a' ),
 			'double_dynamic' => array( 'test_entity\a\b', 'primary_entity\a\b' ),

@@ -29,11 +29,13 @@
  * @covers WordPoints_Entity_Post_Terms
  * @covers WordPoints_Entity_Post_Title
  * @covers WordPoints_Entity_Term
+ * @covers WordPoints_Entity_Term_Description
  * @covers WordPoints_Entity_Term_Name
  * @covers WordPoints_Entity_User
  * @covers WordPoints_Entity_User_Role
  * @covers WordPoints_Entity_User_Roles
  *
+ * @covers WordPoints_Entity_Attr_Stored_DB_Table
  * @covers WordPoints_Entity_Relationship_Dynamic_Stored_Field
  * @covers WordPoints_Entity_Relationship_Stored_Field
  */
@@ -345,6 +347,19 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								'info' => array(
 									'type'  => 'field',
 									'field' => 'name',
+								),
+							),
+						),
+						'description' => array(
+							'class'     => 'WordPoints_Entity_Term_Description',
+							'data_type' => 'text',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'            => 'table',
+									'table_name'      => $wpdb->term_taxonomy,
+									'attr_field'      => 'description',
+									'entity_id_field' => 'term_id',
 								),
 							),
 						),

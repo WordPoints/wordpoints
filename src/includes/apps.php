@@ -484,8 +484,11 @@ function wordpoints_get_taxonomies_for_entities() {
 function wordpoints_register_taxonomy_entities( $slug ) {
 
 	$entities = wordpoints_entities();
+	$children = $entities->get_sub_app( 'children' );
 
 	$entities->register( "term\\{$slug}", 'WordPoints_Entity_Term' );
+	$children->register( "term\\{$slug}", 'description', 'WordPoints_Entity_Term_Description' );
+	$children->register( "term\\{$slug}", 'name', 'WordPoints_Entity_Term_Name' );
 
 	/**
 	 * Fires when registering the entities for a taxonomy.

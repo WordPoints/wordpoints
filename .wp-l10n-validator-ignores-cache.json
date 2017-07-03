@@ -590,9 +590,15 @@
     },
     "\/components\/points\/includes\/class-wordpoints-points-hook.php": {
         "network": {
+            "391": false,
+            "463": false,
+            "510": false,
             "542": false
         },
         "standard": {
+            "393": false,
+            "465": false,
+            "512": false,
             "544": false
         }
     },
@@ -956,13 +962,6 @@
             }
         },
         "points": {
-            "102": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "124": {
                 "name": "array",
                 "type": "unknown",
@@ -1552,15 +1551,9 @@
             }
         },
         "this.select()": {
-            "387": false,
-            "399": false,
-            "411": false,
             "423": false
         },
         "&quot;]\"\n\t\t\t\t\/>": {
-            "392": false,
-            "404": false,
-            "416": false,
             "428": false
         },
         "points": {
@@ -1576,7 +1569,6 @@
             "565": false
         },
         "] =": {
-            "567": false,
             "568": false
         },
         ";\n\t\t\tWordPointsHooksAdminData.reactions[": {
@@ -1776,10 +1768,10 @@
     },
     "\/classes\/entity\/relationship\/dynamic.php": {
         "\\\\": {
-            "38": false
+            "43": false
         },
         "{}": {
-            "41": false
+            "46": false
         }
     },
     "\/classes\/entity\/relationship\/stored\/field.php": {
@@ -2435,16 +2427,32 @@
     },
     "\/classes\/un\/installer\/base.php": {
         "install": {
+            "317": false,
             "397": false
         },
         "network": {
             "338": false,
+            "469": false,
             "566": false,
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "1374": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
                 "parentheses": 1
             },
             "1380": {
@@ -2456,8 +2464,31 @@
             }
         },
         "site": {
+            "343": false,
+            "415": false,
             "448": false,
             "571": false,
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1373": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2470,6 +2501,34 @@
             "380": false,
             "486": false,
             "607": false,
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1373": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1374": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1375": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2501,6 +2560,13 @@
             }
         },
         "local": {
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2510,6 +2576,13 @@
             }
         },
         "global": {
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2519,6 +2592,13 @@
             }
         },
         "universal": {
+            "1340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 5,
+                "parentheses": 1
+            },
             "1380": {
                 "name": "array",
                 "type": "unknown",
@@ -2528,6 +2608,13 @@
             }
         },
         "wordpoints": {
+            "1611": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "1670": {
                 "name": "array",
                 "type": "unknown",
@@ -2567,6 +2654,7 @@
             "1688": false
         },
         "manage": {
+            "1694": false,
             "1697": false
         },
         "columnshidden": {
@@ -2913,13 +3001,9 @@
             "630": false
         },
         "hidden": {
-            "776": false,
-            "800": false,
             "875": false
         },
         "has-row-actions column-primary": {
-            "776": false,
-            "800": false,
             "875": false
         },
         "second module-version-author-uri\">": {
@@ -2959,8 +3043,19 @@
     },
     "\/classes\/entity\/post\/terms.php": {
         "ids": {
-            "52": {
+            "47": {
                 "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/entity\/term\/description.php": {
+        "description": {
+            "49": {
+                "name": "$entity->get_the_attr_value",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,

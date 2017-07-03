@@ -104,6 +104,7 @@ return array(
 	'wordpoints_entity_restriction_wrapper' => 'entity/restriction/wrapper.php',
 	'wordpoints_entity_restrictions' => 'entity/restrictions.php',
 	'wordpoints_entity_term' => 'entity/term.php',
+	'wordpoints_entity_term_name' => 'entity/term/name.php',
 	'wordpoints_entity_user' => 'entity/user.php',
 	'wordpoints_entity_user_role' => 'entity/user/role.php',
 	'wordpoints_entity_user_roles' => 'entity/user/roles.php',

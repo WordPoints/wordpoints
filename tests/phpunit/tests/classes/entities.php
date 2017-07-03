@@ -29,6 +29,7 @@
  * @covers WordPoints_Entity_Post_Terms
  * @covers WordPoints_Entity_Post_Title
  * @covers WordPoints_Entity_Term
+ * @covers WordPoints_Entity_Term_Name
  * @covers WordPoints_Entity_User
  * @covers WordPoints_Entity_User_Role
  * @covers WordPoints_Entity_User_Roles
@@ -335,6 +336,19 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					),
 					'create_func'    => array( $this->factory->term, 'create_and_get' ),
 					'delete_func'    => array( $this, 'delete_tag' ),
+					'children'       => array(
+						'name' => array(
+							'class'     => 'WordPoints_Entity_Term_Name',
+							'data_type' => 'text',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'  => 'field',
+									'field' => 'name',
+								),
+							),
+						),
+					),
 				),
 			),
 			'user_role' => array(

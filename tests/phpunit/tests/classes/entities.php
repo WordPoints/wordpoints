@@ -28,6 +28,7 @@
  * @covers WordPoints_Entity_Post_Parent
  * @covers WordPoints_Entity_Post_Terms
  * @covers WordPoints_Entity_Post_Title
+ * @covers WordPoints_Entity_Term
  * @covers WordPoints_Entity_User
  * @covers WordPoints_Entity_User_Role
  * @covers WordPoints_Entity_User_Roles
@@ -319,6 +320,23 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 					),
 				),
 			),
+			'term' => array(
+				array(
+					'class'          => 'WordPoints_Entity_Term',
+					'slug'           => 'term\post_tag',
+					'id_field'       => 'term_id',
+					'human_id_field' => 'name',
+					'storage_info'   => array(
+						'type' => 'db',
+						'info' => array(
+							'type' => 'table',
+							'table_name' => $wpdb->terms,
+						),
+					),
+					'create_func'    => array( $this->factory->term, 'create_and_get' ),
+					'delete_func'    => array( $this, 'delete_tag' ),
+				),
+			),
 			'user_role' => array(
 				array(
 					'class'          => 'WordPoints_Entity_User_Role',
@@ -338,6 +356,16 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 		return $entities;
 	}
 
+	/**
+	 * Deletes a tag.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param int $tag_id The tag ID.
+	 */
+	public function delete_tag( $tag_id ) {
+		wp_delete_term( $tag_id, 'post_tag' );
+	}
 }
 
 // EOF

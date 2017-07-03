@@ -491,6 +491,10 @@ function wordpoints_register_taxonomy_entities( $slug ) {
 	$children->register( "term\\{$slug}", 'description', 'WordPoints_Entity_Term_Description' );
 	$children->register( "term\\{$slug}", 'name', 'WordPoints_Entity_Term_Name' );
 
+	if ( is_taxonomy_hierarchical( $slug ) ) {
+		$children->register( "term\\{$slug}", 'parent', 'WordPoints_Entity_Term_Parent' );
+	}
+
 	/**
 	 * Fires when registering the entities for a taxonomy.
 	 *

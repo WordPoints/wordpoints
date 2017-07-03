@@ -866,8 +866,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 11448,
-            "hash": "8ee72b417f48396c205ef25c59f9a7c5",
+            "size": 11510,
+            "hash": "513c6b8d617e52087cc391443d8acabb",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -1416,8 +1416,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 18585,
-            "hash": "c97c1886f8d46f0c40189859e5e06e8b",
+            "size": 18718,
+            "hash": "f90ba7db430d74ff7f39b86b1ead89af",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
@@ -1508,6 +1508,16 @@
         "\/classes\/entity\/term\/count.php": {
             "size": 809,
             "hash": "f7881ca0d000f81a3a653f66eb7a38d6",
+            "errors": false
+        },
+        "\/classes\/entity\/relationship\/dynamic\/stored\/table.php": {
+            "size": 713,
+            "hash": "9a777ba08ed65e1ecdd9a574451a0c19",
+            "errors": true
+        },
+        "\/classes\/entity\/term\/parent.php": {
+            "size": 1233,
+            "hash": "7289b90771c39ccc162315ed5fb81e14",
             "errors": false
         }
     },

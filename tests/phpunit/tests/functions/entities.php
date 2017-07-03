@@ -142,14 +142,15 @@ class WordPoints_Entities_Functions_Test extends WordPoints_PHPUnit_TestCase_Hoo
 		$this->assertTrue( $children->is_registered( 'term\post_tag', 'name' ) );
 
 		$this->assertTrue( $entities->is_registered( 'term\category' ) );
-		$this->assertTrue( $children->is_registered( 'term\post_tag', 'count' ) );
-		$this->assertTrue( $children->is_registered( 'term\post_tag', 'description' ) );
-		$this->assertTrue( $children->is_registered( 'term\post_tag', 'name' ) );
+		$this->assertTrue( $children->is_registered( 'term\category', 'count' ) );
+		$this->assertTrue( $children->is_registered( 'term\category', 'description' ) );
+		$this->assertTrue( $children->is_registered( 'term\category', 'name' ) );
+		$this->assertTrue( $children->is_registered( 'term\category', 'parent' ) );
 
 		$this->assertTrue( $entities->is_registered( 'term\post_format' ) );
-		$this->assertTrue( $children->is_registered( 'term\post_tag', 'count' ) );
-		$this->assertTrue( $children->is_registered( 'term\post_tag', 'description' ) );
-		$this->assertTrue( $children->is_registered( 'term\post_tag', 'name' ) );
+		$this->assertTrue( $children->is_registered( 'term\post_format', 'count' ) );
+		$this->assertTrue( $children->is_registered( 'term\post_format', 'description' ) );
+		$this->assertTrue( $children->is_registered( 'term\post_format', 'name' ) );
 
 		$this->assertTrue( $entities->is_registered( 'user' ) );
 		$this->assertTrue( $children->is_registered( 'user', 'roles' ) );

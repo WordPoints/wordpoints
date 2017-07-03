@@ -108,6 +108,7 @@ return array(
 	'wordpoints_entity_term_count' => 'entity/term/count.php',
 	'wordpoints_entity_term_description' => 'entity/term/description.php',
 	'wordpoints_entity_term_name' => 'entity/term/name.php',
+	'wordpoints_entity_term_parent' => 'entity/term/parent.php',
 	'wordpoints_entity_user' => 'entity/user.php',
 	'wordpoints_entity_user_role' => 'entity/user/role.php',
 	'wordpoints_entity_user_roles' => 'entity/user/roles.php',

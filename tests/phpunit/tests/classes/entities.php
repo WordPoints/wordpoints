@@ -32,6 +32,7 @@
  * @covers WordPoints_Entity_Term_Count
  * @covers WordPoints_Entity_Term_Description
  * @covers WordPoints_Entity_Term_Name
+ * @covers WordPoints_Entity_Term_Parent
  * @covers WordPoints_Entity_User
  * @covers WordPoints_Entity_User_Role
  * @covers WordPoints_Entity_User_Roles
@@ -327,7 +328,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 			'term' => array(
 				array(
 					'class'          => 'WordPoints_Entity_Term',
-					'slug'           => 'term\post_tag',
+					'slug'           => 'term\category',
 					'id_field'       => 'term_id',
 					'human_id_field' => 'name',
 					'storage_info'   => array(
@@ -337,8 +338,8 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 							'table_name' => $wpdb->terms,
 						),
 					),
-					'create_func'    => array( $this->factory->term, 'create_and_get' ),
-					'delete_func'    => array( $this, 'delete_tag' ),
+					'create_func'    => array( $this, 'create_category' ),
+					'delete_func'    => array( $this, 'delete_category' ),
 					'children'       => array(
 						'count' => array(
 							'class'     => 'WordPoints_Entity_Term_Count',
@@ -377,6 +378,20 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 								),
 							),
 						),
+						'parent' => array(
+							'class'   => 'WordPoints_Entity_Term_Parent',
+							'primary' => 'term\category',
+							'related' => 'term\category',
+							'storage_info' => array(
+								'type' => 'db',
+								'info' => array(
+									'type'             => 'table',
+									'table_name'       => $wpdb->term_taxonomy,
+									'primary_id_field' => 'term_id',
+									'related_id_field' => 'parent',
+								),
+							),
+						),
 					),
 				),
 			),
@@ -400,14 +415,27 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 	}
 
 	/**
-	 * Deletes a tag.
+	 * Creates a category.
 	 *
 	 * @since 2.4.0
 	 *
-	 * @param int $tag_id The tag ID.
+	 * @return WP_Term $category The category.
 	 */
-	public function delete_tag( $tag_id ) {
-		wp_delete_term( $tag_id, 'post_tag' );
+	public function create_category() {
+		return $this->factory->category->create_and_get(
+			array( 'parent' => $this->factory->category->create() )
+		);
+	}
+
+	/**
+	 * Deletes a category.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param int $category_id The category ID.
+	 */
+	public function delete_category( $category_id ) {
+		wp_delete_term( $category_id, 'category' );
 	}
 }
 

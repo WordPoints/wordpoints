@@ -3062,5 +3062,16 @@
                 "parentheses": 1
             }
         }
+    },
+    "\/classes\/entity\/term\/count.php": {
+        "count": {
+            "49": {
+                "name": "$entity->get_the_attr_value",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
     }
 }

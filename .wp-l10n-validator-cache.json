@@ -866,8 +866,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 11388,
-            "hash": "9504f036bd106376bcdc9fdef93cc0ef",
+            "size": 11448,
+            "hash": "8ee72b417f48396c205ef25c59f9a7c5",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -1416,8 +1416,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 18503,
-            "hash": "d74c4dd9059140f78ae5d2ef3cd1599f",
+            "size": 18585,
+            "hash": "c97c1886f8d46f0c40189859e5e06e8b",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
@@ -1503,6 +1503,11 @@
         "\/wordpoints.php": {
             "size": 3625,
             "hash": "9e141e33e4f939460e79bb802cda755f",
+            "errors": false
+        },
+        "\/classes\/entity\/term\/count.php": {
+            "size": 809,
+            "hash": "f7881ca0d000f81a3a653f66eb7a38d6",
             "errors": false
         }
     },

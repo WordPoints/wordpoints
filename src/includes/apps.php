@@ -487,6 +487,7 @@ function wordpoints_register_taxonomy_entities( $slug ) {
 	$children = $entities->get_sub_app( 'children' );
 
 	$entities->register( "term\\{$slug}", 'WordPoints_Entity_Term' );
+	$children->register( "term\\{$slug}", 'count', 'WordPoints_Entity_Term_Count' );
 	$children->register( "term\\{$slug}", 'description', 'WordPoints_Entity_Term_Description' );
 	$children->register( "term\\{$slug}", 'name', 'WordPoints_Entity_Term_Name' );
 

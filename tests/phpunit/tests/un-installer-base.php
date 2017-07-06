@@ -58,7 +58,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		parent::setUp();
 
 		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer( 'test', '1.0.0' );
-		$this->un_installer->type = 'module';
 
 		delete_site_transient( 'wordpoints_all_site_ids' );
 	}
@@ -3341,6 +3340,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_uninstall_single_unset_db_version() {
 
 		$this->un_installer->context = 'single';
+		$this->un_installer->network_wide = false;
 
 		$this->un_installer->set_db_version();
 
@@ -3360,7 +3360,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
@@ -3375,6 +3376,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_uninstall_site_unset_db_version() {
 
 		$this->un_installer->context = 'site';
+		$this->un_installer->network_wide = false;
 
 		$this->un_installer->set_db_version();
 
@@ -3394,7 +3396,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
@@ -3432,7 +3435,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_site_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
@@ -3778,15 +3782,24 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_filter( 'wp_is_large_network', '__return_true' );
 
-		// We don't actually create 10000 sites in the database.
-		$mock_filter = new WordPoints_PHPUnit_Mock_Filter( array_fill( 0, 10001, 1 ) );
-
-		add_filter(
-			'pre_site_option_wordpoints_module_test_installed_sites'
-			, array( $mock_filter, 'filter' )
+		$un_installer = $this->createPartialMock(
+			'WordPoints_PHPUnit_Mock_Un_Installer'
+			, array( 'get_installed_site_ids' )
 		);
 
-		$this->assertFalse( $this->un_installer->do_per_site_uninstall() );
+		$un_installer->slug = 'test';
+		$un_installer->type = 'module';
+		$un_installer->installable = new WordPoints_Installable(
+			'module'
+			, 'test'
+			, '1.0.0'
+		);
+
+		$un_installer->method( 'get_installed_site_ids' )->willReturn(
+			array_fill( 0, 10001, 1 )
+		);
+
+		$this->assertFalse( $un_installer->do_per_site_uninstall() );
 	}
 
 	/**
@@ -3963,6 +3976,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
+
+		$this->un_installer->installable->unset_network_installed();
 
 		$site_ids = array( $this->factory->blog->create() );
 
@@ -3989,6 +4009,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_network_wide_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
+
 		$this->un_installer->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -4016,6 +4042,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_component() {
 
 		$this->un_installer->type = 'component';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
 
 		$site_ids = array( $this->factory->blog->create() );
 
@@ -4042,6 +4073,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_network_wide_component() {
 
 		$this->un_installer->type = 'component';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
+
 		$this->un_installer->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -4147,6 +4184,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_add_installed_site_id_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
 
 		$site_id = $this->factory->blog->create();
 
@@ -4175,6 +4217,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_add_installed_site_id_component() {
 
 		$this->un_installer->type = 'component';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
 
 		$site_id = $this->factory->blog->create();
 
@@ -4252,6 +4299,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_delete_installed_site_ids_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
+
+		$this->un_installer->installable->unset_network_installed();
 
 		update_site_option(
 			'wordpoints_installed_sites'
@@ -4275,6 +4329,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_delete_installed_site_ids_component() {
 
 		$this->un_installer->type = 'component';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
 
 		update_site_option(
 			'wordpoints_test_installed_sites'
@@ -4361,6 +4420,9 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version() {
 
+		$this->un_installer->network_wide = false;
+		$this->un_installer->context = is_multisite() ? 'site' : 'single';
+
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version( '0.9.0' );
@@ -4381,7 +4443,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
@@ -4433,7 +4496,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_site_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
@@ -4464,6 +4528,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_db_version_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
 
 		$this->assertSame( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 
@@ -4503,6 +4572,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->slug = 'wordpoints';
 		$this->un_installer->context = 'network';
 		$this->un_installer->network_wide = true;
+		$this->un_installer->installable = new WordPoints_Installable(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
 
 		$this->assertSame( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 

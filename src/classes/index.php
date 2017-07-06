@@ -9,6 +9,7 @@
 
 return array(
 	// auto-generated {
+	'wordpoints_installablei' => 'installablei.php',
 	'wordpoints_hook_ui_script_data_provideri' => 'hook/ui/script/data/provideri.php',
 	'wordpoints_hook_settingsi' => 'hook/settingsi.php',
 	'wordpoints_hook_reactori' => 'hook/reactori.php',
@@ -164,6 +165,7 @@ return array(
 	'wordpoints_hook_router' => 'hook/router.php',
 	'wordpoints_hook_validator_exception' => 'hook/validator/exception.php',
 	'wordpoints_hooks' => 'hooks.php',
+	'wordpoints_installable' => 'installable.php',
 	'wordpoints_installables' => 'installables.php',
 	'wordpoints_module_installer_skin' => 'module/installer/skin.php',
 	'wordpoints_module_paths' => 'module/paths.php',

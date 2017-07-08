@@ -131,6 +131,16 @@ module.exports = function( grunt ) {
 				)[0]
 			);
 
+			// Move the routine class before the classes that extend it.
+			class_files.splice(
+				class_files.indexOf( 'routinei.php' ) + 1
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'routine.php' )
+					, 1
+				)[0]
+			);
+
 			return class_files;
 		}
 	);

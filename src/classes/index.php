@@ -9,6 +9,8 @@
 
 return array(
 	// auto-generated {
+	'wordpoints_routinei' => 'routinei.php',
+	'wordpoints_routine' => 'routine.php',
 	'wordpoints_installablei' => 'installablei.php',
 	'wordpoints_hook_ui_script_data_provideri' => 'hook/ui/script/data/provideri.php',
 	'wordpoints_hook_settingsi' => 'hook/settingsi.php',

@@ -170,6 +170,7 @@ return array(
 	'wordpoints_installable' => 'installable.php',
 	'wordpoints_installables' => 'installables.php',
 	'wordpoints_installer' => 'installer.php',
+	'wordpoints_installer_site' => 'installer/site.php',
 	'wordpoints_module_installer_skin' => 'module/installer/skin.php',
 	'wordpoints_module_paths' => 'module/paths.php',
 	'wordpoints_modules' => 'modules.php',

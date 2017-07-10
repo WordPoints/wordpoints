@@ -58,9 +58,9 @@ class WordPoints_Installer extends WordPoints_Routine {
 		$this->install_routines = $this->installable->get_install_routines();
 
 		/**
-		 * Include the upgrade script so that we can use dbDelta() to create DBs.
+		 * Upgrade functions, including `dbDelta()`, for table creation/updates.
 		 *
-		 * @since 1.8.0
+		 * @since 2.4.0
 		 */
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 

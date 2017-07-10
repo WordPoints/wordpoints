@@ -153,6 +153,18 @@ interface WordPoints_InstallableI {
 	 * @since 2.4.0
 	 */
 	public function delete_installed_site_ids();
+
+	/**
+	 * Gets the install routines for this entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_RoutineI[][] Routines for the installation of this
+	 *                                 installable, indexed by the context that they
+	 *                                 should run in: 'site', 'network', or 'single'
+	 *                                 for non-multisite.
+	 */
+	public function get_install_routines();
 }
 
 // EOF

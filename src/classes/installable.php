@@ -50,6 +50,41 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	protected $version;
 
 	/**
+	 * Database tables for this entity.
+	 *
+	 * An array of arrays, where each sub-array holds the tables for a particular
+	 * context. Within each sub-array, the value of each element is the DB field
+	 * schema for a table (i.e., the part of the CREATE TABLE query within the main
+	 * parentheses), and the keys are the table names. The base DB prefix will be
+	 * prepended to table names for $single and $network, while $site tables will be
+	 * prepended with blog prefix instead.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string[][] $db_tables {
+	 *      @type string[] $single    Tables for a single site (non-multisite) install.
+	 *      @type string[] $site      Tables for each site in a multisite network.
+	 *      @type string[] $network   Tables for a multisite network.
+	 *      @type string[] $local     Tables for $single and $site.
+	 *      @type string[] $global    Tables for $single and $network.
+	 *      @type string[] $universal Tables for $single, $site, and $network.
+	 * }
+	 */
+	protected $db_tables = array();
+
+	/**
+	 * The function to use to get the user capabilities used by this entity.
+	 *
+	 * The function should return an array of capabilities of the format processed
+	 * by {@see wordpoints_add_custom_caps()}.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var callable
+	 */
+	protected $custom_caps_getter;
+
+	/**
 	 * Constructs the installable.
 	 *
 	 * @since 2.4.0
@@ -369,6 +404,125 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	 */
 	public function delete_installed_site_ids() {
 		delete_site_option( $this->get_installed_site_ids_option_name() );
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_install_routines() {
+
+		return array_merge_recursive(
+			$this->get_db_tables_install_routines()
+			, $this->get_custom_caps_install_routines()
+		);
+	}
+
+	/**
+	 * Maps context shortcuts to their canonical elements.
+	 *
+	 * For arrays of elements for particular contexts, some shortcuts are provided.
+	 * These reduce duplication across the contexts, 'single', 'site', and 'network'.
+	 * These shortcuts make it possible to define, e.g., an option to be uninstalled
+	 * on a single site and as a network option on multisite installs, in just a
+	 * single location, using the 'global' shortcut, rather than having to add it to
+	 * both the 'single' and 'network' arrays.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param array $array The array to map the shortcuts for.
+	 *
+	 * @return array The mapped array.
+	 */
+	protected function map_context_shortcuts( array $array ) {
+
+		// shortcut => canonicals
+		$map = array(
+			'local'     => array( 'single', 'site'  /*  -  */ ),
+			'global'    => array( 'single', /* - */ 'network' ),
+			'universal' => array( 'single', 'site', 'network' ),
+		);
+
+		foreach ( $map as $shortcut => $canonicals ) {
+
+			if ( ! isset( $array[ $shortcut ] ) ) {
+				continue;
+			}
+
+			foreach ( $canonicals as $canonical ) {
+
+				if ( ! isset( $array[ $canonical ] ) ) {
+
+					$array[ $canonical ] = $array[ $shortcut ];
+
+				} else {
+
+					$array[ $canonical ] = array_merge(
+						$array[ $canonical ]
+						, $array[ $shortcut ]
+					);
+				}
+			}
+
+			unset( $array[ $shortcut ] );
+		}
+
+		return $array;
+	}
+
+	/**
+	 * Gets the install routines for database tables for this entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_Installer_DB_Tables[] Routines for installing DB tables.
+	 */
+	protected function get_db_tables_install_routines() {
+
+		$routines = array();
+
+		$db_tables = $this->map_context_shortcuts( $this->db_tables );
+
+		if ( isset( $db_tables['single'] ) ) {
+			$routines['single'][] = new WordPoints_Installer_DB_Tables(
+				$db_tables['single']
+			);
+		}
+
+		if ( isset( $db_tables['site'] ) ) {
+			$routines['site'][] = new WordPoints_Installer_DB_Tables(
+				$db_tables['site']
+				, $GLOBALS['wpdb']->prefix
+			);
+		}
+
+		if ( isset( $db_tables['network'] ) ) {
+			$routines['network'][] = new WordPoints_Installer_DB_Tables(
+				$db_tables['network']
+			);
+		}
+
+		return $routines;
+	}
+
+	/**
+	 * Gets install routines for custom capabilities for this entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_Installer_Caps[] Custom caps installers.
+	 */
+	protected function get_custom_caps_install_routines() {
+
+		if ( empty( $this->custom_caps_getter ) ) {
+			return array();
+		}
+
+		$caps = call_user_func( $this->custom_caps_getter );
+
+		return array(
+			'site'   => array( new WordPoints_Installer_Caps( $caps ) ),
+			'single' => array( new WordPoints_Installer_Caps( $caps ) ),
+		);
 	}
 }
 

@@ -685,6 +685,192 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame( array(), $installable->get_installed_site_ids() );
 	}
+
+	/**
+	 * Tests getting the install routines.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_install_routines() {
+
+		$db_tables_routine = $this->createMock( 'WordPoints_RoutineI' );
+		$caps_routine = $this->createMock( 'WordPoints_RoutineI' );
+
+		$installable = $this->createPartialMock(
+			'WordPoints_Installable'
+			, array(
+				'get_db_tables_install_routines',
+				'get_custom_caps_install_routines',
+			)
+		);
+
+		$installable->method( 'get_db_tables_install_routines' )
+			->willReturn( array( 'single' => array( $db_tables_routine ) ) );
+
+		$installable->method( 'get_custom_caps_install_routines' )
+			->willReturn( array( 'single' => array( $caps_routine ) ) );
+
+		$this->assertSame(
+			array( 'single' => array( $db_tables_routine, $caps_routine ) )
+			, $installable->get_install_routines()
+		);
+	}
+
+	/**
+	 * Tests getting the install routines when there are none.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_install_routines_none() {
+
+		$installable = new WordPoints_Installable( 'component', 'test', '1.0.0' );
+
+		$this->assertSame( array(), $installable->get_install_routines() );
+	}
+
+	/**
+	 * Tests getting the install routines for database tables.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @dataProvider data_provider_context_shortcuts
+	 *
+	 * @param string   $shortcut A context shortcut.
+	 * @param string[] $contexts The contexts that the shortcut maps to.
+	 */
+	public function test_get_db_tables_install_routines( $shortcut, $contexts = null ) {
+
+		if ( ! isset( $contexts ) ) {
+			$contexts = array( $shortcut );
+		}
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$tables = array();
+		$tables[ $shortcut ] = array( 'test' => '' );
+
+		$this->set_protected_property( $installable, 'db_tables', $tables );
+
+		$routines = $installable->get_install_routines();
+
+		foreach ( $contexts as $context ) {
+
+			$this->assertArrayHasKey( $context, $routines );
+			$this->assertCount( 1, $routines[ $context ] );
+			$this->assertInstanceOf(
+				'WordPoints_Installer_DB_Tables'
+				, $routines[ $context ][0]
+			);
+
+			$prefix = null;
+
+			if ( 'site' === $context ) {
+				$prefix = $GLOBALS['wpdb']->prefix;
+			}
+
+			$this->assertSame(
+				$prefix
+				, $this->get_protected_property( $routines[ $context ][0], 'prefix' )
+			);
+		}
+	}
+
+	/**
+	 * Provides a list of shortcuts and the contexts that they map to.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return array[] Shortcuts and the contexts that they are for.
+	 */
+	public function data_provider_context_shortcuts() {
+		return array(
+			'single' => array( 'single' ),
+			'site' => array( 'site' ),
+			'network' => array( 'network' ),
+			'local' => array( 'local', array( 'single', 'site' ) ),
+			'global' => array( 'global', array( 'single', 'network' ) ),
+			'universal' => array( 'universal', array( 'single', 'site', 'network' ) ),
+		);
+	}
+
+	/**
+	 * Tests that context shortcuts don't overwrite the contexts but are merged.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_map_context_shortcuts_merged() {
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$tables           = array();
+		$tables['single'] = array( 'test' => '' );
+		$tables['local']  = array( 'another' => '' );
+
+		$this->set_protected_property( $installable, 'db_tables', $tables );
+
+		$routines = $installable->get_install_routines();
+
+		$this->assertArrayHasKey( 'single', $routines );
+		$this->assertCount( 1, $routines['single'] );
+		$this->assertCount(
+			2
+			, $this->get_protected_property( $routines['single'][0], 'tables' )
+		);
+
+		$this->assertArrayHasKey( 'site', $routines );
+		$this->assertCount( 1, $routines['site'] );
+		$this->assertCount(
+			1
+			, $this->get_protected_property( $routines['site'][0], 'tables' )
+		);
+	}
+
+	/**
+	 * Tests getting the install routines for custom caps.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_custom_caps_install_routines() {
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$custom_caps = array( 'some_cap' => 'manage_options' );
+		$callback    = new WordPoints_PHPUnit_Mock_Filter(
+			$custom_caps
+		);
+
+		$this->set_protected_property(
+			$installable
+			, 'custom_caps_getter'
+			, array( $callback, 'filter' )
+		);
+
+		$routines = $installable->get_install_routines();
+
+		$this->assertArrayHasKey( 'single', $routines );
+		$this->assertCount( 1, $routines['single'] );
+		$this->assertInstanceOf(
+			'WordPoints_Installer_Caps'
+			, $routines['single'][0]
+		);
+
+		$this->assertSame(
+			$custom_caps
+			, $this->get_protected_property( $routines['single'][0], 'caps' )
+		);
+
+		$this->assertArrayHasKey( 'site', $routines );
+		$this->assertCount( 1, $routines['site'] );
+		$this->assertInstanceOf(
+			'WordPoints_Installer_Caps'
+			, $routines['site'][0]
+		);
+
+		$this->assertSame(
+			$custom_caps
+			, $this->get_protected_property( $routines['site'][0], 'caps' )
+		);
+	}
 }
 
 // EOF

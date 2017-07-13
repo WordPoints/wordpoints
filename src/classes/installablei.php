@@ -165,6 +165,18 @@ interface WordPoints_InstallableI {
 	 *                                 for non-multisite.
 	 */
 	public function get_install_routines();
+
+	/**
+	 * Gets the update routines for this entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_RoutineI[][] Routines for updating this installable,
+	 *                                 indexed by the context that they should run
+	 *                                 in: 'site', 'network', or 'single' for non-
+	 *                                 multisite.
+	 */
+	public function get_update_routines();
 }
 
 // EOF

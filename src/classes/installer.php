@@ -136,20 +136,6 @@ class WordPoints_Installer extends WordPoints_Routine {
 
 		$this->installable->set_db_version();
 	}
-
-	/**
-	 * Runs the routines that perform the installation of this entity.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @param WordPoints_RoutineI[] $routines The routines to run.
-	 */
-	protected function run_routines( $routines ) {
-
-		foreach ( $routines as $routine ) {
-			$routine->run();
-		}
-	}
 }
 
 // EOF

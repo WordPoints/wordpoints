@@ -119,6 +119,22 @@ abstract class WordPoints_Routine implements WordPoints_RoutineI {
 	}
 
 	/**
+	 * Runs (sub-)routines as part of this routine.
+	 *
+	 * Not used in the bootstrap, but made available as a helper to child classes.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param WordPoints_RoutineI[] $routines The routines to run.
+	 */
+	protected function run_routines( $routines ) {
+
+		foreach ( $routines as $routine ) {
+			$routine->run();
+		}
+	}
+
+	/**
 	 * Runs for the network.
 	 *
 	 * This is called on multisite to run only the things that are common to the

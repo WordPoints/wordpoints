@@ -181,6 +181,7 @@ return array(
 	'wordpoints_shortcodes' => 'shortcodes.php',
 	'wordpoints_un_installer_base' => 'un/installer/base.php',
 	'wordpoints_breaking_updater' => 'breaking/updater.php',
+	'wordpoints_updater' => 'updater.php',
 	'wordpoints_widget' => 'widget.php',
 	// }
 );

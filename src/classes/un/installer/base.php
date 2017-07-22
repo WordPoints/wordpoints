@@ -1212,20 +1212,30 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function prepare_uninstall_non_per_site_items( $items_key ) {
 
-		if ( isset( $this->uninstall['universal'][ $items_key ] ) ) {
+		$map = array(
+			'universal' => array( 'global' ),
+			'site'      => array( 'network' ),
+			'local'     => array( 'network', 'single' ),
+		);
 
-			$this->uninstall['global'][ $items_key ]
-				= $this->uninstall['universal'][ $items_key ];
+		foreach ( $map as $from => $to ) {
 
-			unset( $this->uninstall['universal'][ $items_key ] );
-		}
+			if ( isset( $this->uninstall[ $from ][ $items_key ] ) ) {
 
-		if ( isset( $this->uninstall['site'][ $items_key ] ) ) {
+				foreach ( $to as $context ) {
 
-			$this->uninstall['network'][ $items_key ]
-				= $this->uninstall['site'][ $items_key ];
+					if ( ! isset( $this->uninstall[ $context ][ $items_key ] ) ) {
+						$this->uninstall[ $context ][ $items_key ] = array();
+					}
 
-			unset( $this->uninstall['site'][ $items_key ] );
+					$this->uninstall[ $context ][ $items_key ] = array_merge(
+						$this->uninstall[ $context ][ $items_key ]
+						, $this->uninstall[ $from ][ $items_key ]
+					);
+				}
+
+				unset( $this->uninstall[ $from ][ $items_key ] );
+			}
 		}
 	}
 

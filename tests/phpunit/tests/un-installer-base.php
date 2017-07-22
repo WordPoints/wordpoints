@@ -2063,17 +2063,27 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_prepare_uninstall_non_per_site_items() {
 
-		$this->un_installer->uninstall['universal']['key'] = 'data';
-		$this->un_installer->uninstall['site']['key'] = 'other';
+		$this->un_installer->uninstall['universal']['key'] = array( 'a' => 'data' );
+		$this->un_installer->uninstall['site']['key']      = array( 'b' => 'other' );
+		$this->un_installer->uninstall['local']['key']     = array( 'c' => 'another' );
+		$this->un_installer->uninstall['network']['key']   = array( 'd' => 'stuff' );
 
 		$this->un_installer->prepare_uninstall_non_per_site_items( 'key' );
 
-		$this->assertSame(
+		$this->assertSameSetsWithIndex(
 			array(
 				'universal' => array(),
 				'site'      => array(),
-				'global'    => array( 'key' => 'data' ),
-				'network'   => array( 'key' => 'other' ),
+				'local'     => array(),
+				'single'    => array( 'key' => array( 'c' => 'another' ) ),
+				'global'    => array( 'key' => array( 'a' => 'data' ) ),
+				'network'   => array(
+					'key' => array(
+						'd' => 'stuff',
+						'b' => 'other',
+						'c' => 'another',
+					),
+				),
 			)
 			, $this->un_installer->uninstall
 		);
@@ -2100,6 +2110,60 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 				'network' => array( 'meta_boxes' => $meta_box ),
 				'local' => array(),
 				'global' => array( 'meta_boxes' => $meta_box ),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test that meta boxes are prepared before uninstall.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 */
+	public function test_prepare_meta_boxes_before_uninstall_site() {
+
+		$meta_box = array( 'screen_id' => array() );
+
+		$this->un_installer->uninstall['site']['meta_boxes'] = $meta_box;
+		$this->un_installer->before_uninstall();
+
+		$this->assertSame(
+			array(
+				'single' => array(),
+				'site' => array(),
+				'network' => array( 'meta_boxes' => $meta_box ),
+				'local' => array(),
+				'global' => array(),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test that meta boxes are prepared before uninstall.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 */
+	public function test_prepare_meta_boxes_before_uninstall_local() {
+
+		$meta_box = array( 'screen_id' => array() );
+
+		$this->un_installer->uninstall['local']['meta_boxes'] = $meta_box;
+		$this->un_installer->before_uninstall();
+
+		$this->assertSame(
+			array(
+				'single' => array( 'meta_boxes' => $meta_box ),
+				'site' => array(),
+				'network' => array( 'meta_boxes' => $meta_box ),
+				'local' => array(),
+				'global' => array(),
 				'universal' => array(),
 			)
 			, $this->un_installer->uninstall

@@ -24,7 +24,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	protected $un_installer;
 
 	/**
-	 * Fake custom capabilities used in the tets.
+	 * Fake custom capabilities used in the tests.
 	 *
 	 * @since 2.0.0
 	 *

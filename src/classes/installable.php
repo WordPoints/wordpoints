@@ -472,6 +472,13 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 			'single' => array( new WordPoints_Installer_Caps( $caps ) ),
 		);
 	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_update_routines() {
+		return array();
+	}
 }
 
 // EOF

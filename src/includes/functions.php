@@ -1201,4 +1201,56 @@ function wordpoints_prevent_interruptions() {
 	do_action( 'wordpoints_prevent_interruptions' );
 }
 
+/**
+ * Maps context shortcuts to their canonical elements.
+ *
+ * For arrays of elements for particular contexts, some shortcuts are provided.
+ * These reduce duplication across the contexts, 'single', 'site', and 'network'.
+ * These shortcuts make it possible to define, e.g., an option to be uninstalled
+ * on a single site and as a network option on multisite installs, in just a
+ * single location, using the 'global' shortcut, rather than having to add it to
+ * both the 'single' and 'network' arrays.
+ *
+ * @since 2.4.0
+ *
+ * @param array $array The array to map the shortcuts for.
+ *
+ * @return array The mapped array.
+ */
+function wordpoints_map_context_shortcuts( array $array ) {
+
+	// shortcut => canonicals
+	$map = array(
+		'local'     => array( 'single', 'site'  /*  -  */ ),
+		'global'    => array( 'single', /* - */ 'network' ),
+		'universal' => array( 'single', 'site', 'network' ),
+	);
+
+	foreach ( $map as $shortcut => $canonicals ) {
+
+		if ( ! isset( $array[ $shortcut ] ) ) {
+			continue;
+		}
+
+		foreach ( $canonicals as $canonical ) {
+
+			if ( ! isset( $array[ $canonical ] ) ) {
+
+				$array[ $canonical ] = $array[ $shortcut ];
+
+			} else {
+
+				$array[ $canonical ] = array_merge(
+					$array[ $canonical ]
+					, $array[ $shortcut ]
+				);
+			}
+		}
+
+		unset( $array[ $shortcut ] );
+	}
+
+	return $array;
+}
+
 // EOF

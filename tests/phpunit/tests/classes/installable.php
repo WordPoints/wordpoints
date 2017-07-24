@@ -794,38 +794,6 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Tests that context shortcuts don't overwrite the contexts but are merged.
-	 *
-	 * @since 2.4.0
-	 */
-	public function test_map_context_shortcuts_merged() {
-
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
-
-		$tables           = array();
-		$tables['single'] = array( 'test' => '' );
-		$tables['local']  = array( 'another' => '' );
-
-		$this->set_protected_property( $installable, 'db_tables', $tables );
-
-		$routines = $installable->get_install_routines();
-
-		$this->assertArrayHasKey( 'single', $routines );
-		$this->assertCount( 1, $routines['single'] );
-		$this->assertCount(
-			2
-			, $this->get_protected_property( $routines['single'][0], 'tables' )
-		);
-
-		$this->assertArrayHasKey( 'site', $routines );
-		$this->assertCount( 1, $routines['site'] );
-		$this->assertCount(
-			1
-			, $this->get_protected_property( $routines['site'][0], 'tables' )
-		);
-	}
-
-	/**
 	 * Tests getting the install routines for custom caps.
 	 *
 	 * @since 2.4.0

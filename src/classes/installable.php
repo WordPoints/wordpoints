@@ -433,19 +433,20 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 		if ( isset( $db_tables['single'] ) ) {
 			$routines['single'][] = new WordPoints_Installer_DB_Tables(
 				$db_tables['single']
+				, 'base'
 			);
 		}
 
 		if ( isset( $db_tables['site'] ) ) {
 			$routines['site'][] = new WordPoints_Installer_DB_Tables(
 				$db_tables['site']
-				, $GLOBALS['wpdb']->prefix
 			);
 		}
 
 		if ( isset( $db_tables['network'] ) ) {
 			$routines['network'][] = new WordPoints_Installer_DB_Tables(
 				$db_tables['network']
+				, 'base'
 			);
 		}
 

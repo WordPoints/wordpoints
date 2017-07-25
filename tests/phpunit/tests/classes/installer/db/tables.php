@@ -55,7 +55,7 @@ class WordPoints_Installer_DB_Tables_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installer->run();
 
-		$table_name = $wpdb->base_prefix . 'test';
+		$table_name = $wpdb->prefix . 'test';
 
 		$this->assertDBTableExists( $table_name );
 
@@ -78,12 +78,12 @@ class WordPoints_Installer_DB_Tables_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installer = new WordPoints_Installer_DB_Tables(
 			array( 'test' => 'id BIGINT(20) NOT NULL' )
-			, 'prefix_'
+			, 'base'
 		);
 
 		$installer->run();
 
-		$table_name = 'prefix_test';
+		$table_name = $wpdb->base_prefix . 'test';
 
 		$this->assertDBTableExists( $table_name );
 

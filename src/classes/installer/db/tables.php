@@ -24,7 +24,7 @@ class WordPoints_Installer_DB_Tables implements WordPoints_RoutineI {
 	protected $tables;
 
 	/**
-	 * Prefix to use for the tables.
+	 * Prefix to use for the tables, 'site' or 'base'.
 	 *
 	 * @since 2.4.0
 	 *
@@ -38,10 +38,10 @@ class WordPoints_Installer_DB_Tables implements WordPoints_RoutineI {
 	 * @param string[] $tables The DB field schema for a table (i.e., the part of the
 	 *                         `CREATE TABLE` query within the main parentheses)
 	 *                         indexed by table name.
-	 * @param string   $prefix Prefix to use for the tables. Defaults to the base
-	 *                         prefix.
+	 * @param string   $prefix Prefix to use for the tables, 'site' (default) or
+	 *                         'base'.
 	 */
-	public function __construct( $tables, $prefix = null ) {
+	public function __construct( $tables, $prefix = 'site' ) {
 
 		$this->tables = $tables;
 		$this->prefix = $prefix;
@@ -74,8 +74,8 @@ class WordPoints_Installer_DB_Tables implements WordPoints_RoutineI {
 
 		$charset_collate = $wpdb->get_charset_collate();
 
-		if ( isset( $this->prefix ) ) {
-			$prefix = $this->prefix;
+		if ( 'site' === $this->prefix ) {
+			$prefix = $wpdb->prefix;
 		} else {
 			$prefix = $wpdb->base_prefix;
 		}

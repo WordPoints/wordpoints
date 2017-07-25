@@ -183,6 +183,7 @@ return array(
 	'wordpoints_breaking_updater' => 'breaking/updater.php',
 	'wordpoints_uninstaller_caps' => 'uninstaller/caps.php',
 	'wordpoints_uninstaller_db_tables' => 'uninstaller/db/tables.php',
+	'wordpoints_uninstaller_metadata' => 'uninstaller/metadata.php',
 	'wordpoints_updater' => 'updater.php',
 	'wordpoints_widget' => 'widget.php',
 	// }

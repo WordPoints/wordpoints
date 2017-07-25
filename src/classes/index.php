@@ -186,6 +186,7 @@ return array(
 	'wordpoints_uninstaller_db_tables' => 'uninstaller/db/tables.php',
 	'wordpoints_uninstaller_metadata' => 'uninstaller/metadata.php',
 	'wordpoints_uninstaller_metadata_wildcards' => 'uninstaller/metadata/wildcards.php',
+	'wordpoints_uninstaller_options_wildcards' => 'uninstaller/options/wildcards.php',
 	'wordpoints_updater' => 'updater.php',
 	'wordpoints_widget' => 'widget.php',
 	// }

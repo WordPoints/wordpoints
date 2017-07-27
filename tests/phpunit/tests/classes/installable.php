@@ -762,10 +762,10 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 				, $routines[ $context ][0]
 			);
 
-			$prefix = null;
+			$prefix = 'base';
 
 			if ( 'site' === $context ) {
-				$prefix = $GLOBALS['wpdb']->prefix;
+				$prefix = 'site';
 			}
 
 			$this->assertSame(
@@ -837,6 +837,228 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			$custom_caps
 			, $this->get_protected_property( $routines['site'][0], 'caps' )
+		);
+	}
+
+	/**
+	 * Tests getting the update routines.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_update_routines() {
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$this->assertSame( array(), $installable->get_update_routines() );
+	}
+
+	/**
+	 * Tests getting the uninstall routines.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_uninstall_routines() {
+
+		$single = $this->createMock( 'WordPoints_RoutineI' );
+		$network = $this->createMock( 'WordPoints_RoutineI' );
+		$site = $this->createMock( 'WordPoints_RoutineI' );
+
+		$single_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
+		$single_factory->expects( $this->once() )
+			->method( 'get_for_single' )
+			->willReturn( array( $single ) );
+
+		$network_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_NetworkI' );
+		$network_factory->expects( $this->never() )
+			->method( 'get_for_network' )
+			->willReturn( array( $network ) );
+
+		$site_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SiteI' );
+		$site_factory->expects( $this->never() )
+			->method( 'get_for_site' )
+			->willReturn( array( $site ) );
+
+		$installable = $this->createPartialMock(
+			'WordPoints_Installable'
+			, array( 'get_uninstall_routine_factories' )
+		);
+
+		$installable->method( 'get_uninstall_routine_factories' )
+			->willReturn( array( $single_factory, $network_factory, $site_factory ) );
+
+		$this->assertSame(
+			array(
+				'single' => array( $single ),
+				'site' => array(),
+				'network' => array(),
+			)
+			, $installable->get_uninstall_routines()
+		);
+	}
+
+	/**
+	 * Tests getting the uninstall routines when there are none.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_uninstall_routines_none() {
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$this->assertSame(
+			array(
+				'single' => array(),
+				'site' => array(),
+				'network' => array(),
+			)
+			, $installable->get_uninstall_routines()
+		);
+	}
+
+	/**
+	 * Tests getting the uninstall routines.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_uninstall_routines_multiple() {
+
+		$routine = $this->createMock( 'WordPoints_RoutineI' );
+		$routine_2 = $this->createMock( 'WordPoints_RoutineI' );
+
+		$factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
+		$factory->method( 'get_for_single' )->willReturn( array( $routine ) );
+
+		$factory_2 = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
+		$factory_2->method( 'get_for_single' )->willReturn( array( $routine_2 ) );
+
+		$installable = $this->createPartialMock(
+			'WordPoints_Installable'
+			, array( 'get_uninstall_routine_factories' )
+		);
+
+		$installable->method( 'get_uninstall_routine_factories' )
+			->willReturn( array( $factory, $factory_2 ) );
+
+		$this->assertSame(
+			array(
+				'single' => array( $routine, $routine_2 ),
+				'site' => array(),
+				'network' => array(),
+			)
+			, $installable->get_uninstall_routines()
+		);
+	}
+
+	/**
+	 * Tests getting the uninstall routines on multisite.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_get_uninstall_routines_multisite() {
+
+		$single = $this->createMock( 'WordPoints_RoutineI' );
+		$network = $this->createMock( 'WordPoints_RoutineI' );
+		$site = $this->createMock( 'WordPoints_RoutineI' );
+
+		$single_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
+		$single_factory->expects( $this->never() )
+			->method( 'get_for_single' )
+			->willReturn( array( $single ) );
+
+		$network_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_NetworkI' );
+		$network_factory->expects( $this->once() )
+			->method( 'get_for_network' )
+			->willReturn( array( $network ) );
+
+		$site_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SiteI' );
+		$site_factory->expects( $this->once() )
+			->method( 'get_for_site' )
+			->willReturn( array( $site ) );
+
+		$installable = $this->createPartialMock(
+			'WordPoints_Installable'
+			, array( 'get_uninstall_routine_factories' )
+		);
+
+		$installable->method( 'get_uninstall_routine_factories' )
+			->willReturn( array( $single_factory, $network_factory, $site_factory ) );
+
+		$this->assertSame(
+			array(
+				'single' => array(),
+				'site' => array( $site ),
+				'network' => array( $network ),
+			)
+			, $installable->get_uninstall_routines()
+		);
+	}
+
+	/**
+	 * Tests getting the uninstall routines for database tables.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_uninstall_routines_db_tables() {
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$tables = array( 'local' => array( 'test' => '' ) );
+
+		$this->set_protected_property( $installable, 'db_tables', $tables );
+
+		$uninstall_routines = $installable->get_uninstall_routines();
+
+		$this->assertCount( 1, $uninstall_routines['single'] );
+
+		$this->assertSame(
+			array( 'test' )
+			, $this->get_protected_property( $uninstall_routines['single'][0], 'tables' )
+		);
+
+		$this->assertSame(
+			'base'
+			, $this->get_protected_property( $uninstall_routines['single'][0], 'prefix' )
+		);
+	}
+
+	/**
+	 * Tests getting the uninstall routines for custom caps.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_uninstall_routines_caps() {
+
+		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+
+		$callback    = new WordPoints_PHPUnit_Mock_Filter(
+			array( 'some_cap' => 'manage_options' )
+		);
+
+		$this->set_protected_property(
+			$installable
+			, 'custom_caps_getter'
+			, array( $callback, 'filter' )
+		);
+
+		$uninstall_routines = $installable->get_uninstall_routines();
+
+		$this->assertCount( 1, $uninstall_routines['single'] );
+
+		$this->assertSame(
+			array( 'some_cap' )
+			, $this->get_protected_property( $uninstall_routines['single'][0], 'caps' )
 		);
 	}
 }

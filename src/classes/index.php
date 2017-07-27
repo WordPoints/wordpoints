@@ -9,6 +9,9 @@
 
 return array(
 	// auto-generated {
+	'wordpoints_uninstaller_factory_sitei' => 'uninstaller/factory/sitei.php',
+	'wordpoints_uninstaller_factory_singlei' => 'uninstaller/factory/singlei.php',
+	'wordpoints_uninstaller_factory_networki' => 'uninstaller/factory/networki.php',
 	'wordpoints_routinei' => 'routinei.php',
 	'wordpoints_routine' => 'routine.php',
 	'wordpoints_installablei' => 'installablei.php',
@@ -185,6 +188,8 @@ return array(
 	'wordpoints_uninstaller_callback' => 'uninstaller/callback.php',
 	'wordpoints_uninstaller_caps' => 'uninstaller/caps.php',
 	'wordpoints_uninstaller_db_tables' => 'uninstaller/db/tables.php',
+	'wordpoints_uninstaller_factory_caps' => 'uninstaller/factory/caps.php',
+	'wordpoints_uninstaller_factory_db_tables' => 'uninstaller/factory/db/tables.php',
 	'wordpoints_uninstaller_metadata' => 'uninstaller/metadata.php',
 	'wordpoints_uninstaller_metadata_wildcards' => 'uninstaller/metadata/wildcards.php',
 	'wordpoints_uninstaller_options_wildcards' => 'uninstaller/options/wildcards.php',

@@ -485,7 +485,64 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	 * @since 2.4.0
 	 */
 	public function get_uninstall_routines() {
-		return array();
+
+		$routines = array(
+			'single'  => array(),
+			'site'    => array(),
+			'network' => array(),
+		);
+
+		$factories = $this->get_uninstall_routine_factories();
+
+		if ( is_multisite() ) {
+
+			foreach ( $factories as $factory ) {
+
+				if ( $factory instanceof WordPoints_Uninstaller_Factory_SiteI ) {
+					$routines['site'] = array_merge( $routines['site'], $factory->get_for_site() );
+				}
+
+				if ( $factory instanceof WordPoints_Uninstaller_Factory_NetworkI ) {
+					$routines['network'] = array_merge( $routines['network'], $factory->get_for_network() );
+				}
+			}
+
+		} else {
+
+			foreach ( $factories as $factory ) {
+				if ( $factory instanceof WordPoints_Uninstaller_Factory_SingleI ) {
+					$routines['single'] = array_merge( $routines['single'], $factory->get_for_single() );
+				}
+			}
+		}
+
+		return $routines;
+	}
+
+	/**
+	 * Gets a list of factories to create the uninstall routines for this entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return object[] Uninstall routine factories.
+	 */
+	protected function get_uninstall_routine_factories() {
+
+		$factories = array();
+
+		if ( ! empty( $this->db_tables ) ) {
+			$factories[] = new WordPoints_Uninstaller_Factory_DB_Tables(
+				array_map( 'array_keys', $this->db_tables )
+			);
+		}
+
+		if ( ! empty( $this->custom_caps_getter ) ) {
+			$factories[] = new WordPoints_Uninstaller_Factory_Caps(
+				array_keys( call_user_func( $this->custom_caps_getter ) )
+			);
+		}
+
+		return $factories;
 	}
 }
 

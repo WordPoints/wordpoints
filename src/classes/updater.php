@@ -15,18 +15,6 @@
 class WordPoints_Updater extends WordPoints_Routine {
 
 	/**
-	 * The update routines for the entity.
-	 *
-	 * The routines are ndexed by the context that they should run in: 'site',
-	 * 'network', or 'single' for non-multisite.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @var WordPoints_RoutineI[][]
-	 */
-	protected $updates = array();
-
-	/**
 	 * The entity being updated.
 	 *
 	 * @since 2.4.0
@@ -34,6 +22,18 @@ class WordPoints_Updater extends WordPoints_Routine {
 	 * @var WordPoints_InstallableI
 	 */
 	protected $installable;
+
+	/**
+	 * The update routines for the entity.
+	 *
+	 * The routines are indexed by the context that they should run in: 'site',
+	 * 'network', or 'single' for non-multisite.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var WordPoints_RoutineI[][]
+	 */
+	protected $updates = array();
 
 	/**
 	 * @since 2.4.0

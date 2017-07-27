@@ -241,6 +241,7 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
  * Based on wp_ajax_save_widget().
  *
  * @since 1.0.1
+ * @deprecated 2.4.0 Use WordPoints_PHPUnit_Factory_For_Widget instead.
  *
  * @param string $id_base    The base ID for instances of this widget.
  * @param array  $settings   The settings for this widget instance. Optional.

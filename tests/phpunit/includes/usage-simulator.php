@@ -24,9 +24,9 @@ function wordpointstests_simulate_usage() {
 	global $wp_test_factory;
 
 	// Add each of our widgets.
-	wordpointstests_add_widget( 'wordpoints_points_widget' );
-	wordpointstests_add_widget( 'wordpoints_top_users_widget' );
-	wordpointstests_add_widget( 'wordpoints_points_logs_widget' );
+	$wp_test_factory->wordpoints->widget->create( array( 'id_base' => 'wordpoints_points_widget' ) );
+	$wp_test_factory->wordpoints->widget->create( array( 'id_base' => 'wordpoints_top_users_widget' ) );
+	$wp_test_factory->wordpoints->widget->create( array( 'id_base' => 'wordpoints_points_logs_widget' ) );
 
 	// Create a points type.
 	wordpoints_add_points_type(
@@ -102,6 +102,21 @@ function wordpointstests_simulate_points_hooks_usage() {
 		)
 	);
 }
+
+/**
+ * Class autoloader for PHPUnit tests and helpers from the dev lib.
+ *
+ * @since 2.7.0
+ */
+require_once( dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/class/autoloader.php' );
+
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
+	dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/'
+	, 'WordPoints_PHPUnit_'
+);
+
+global $wp_test_factory;
+$wp_test_factory->wordpoints = WordPoints_PHPUnit_Factory::init();
 
 // Include the test functions so we can simulate adding points hooks and widgets.
 require_once dirname( __FILE__ ) . '/functions.php';

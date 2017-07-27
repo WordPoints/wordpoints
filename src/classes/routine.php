@@ -30,6 +30,15 @@ abstract class WordPoints_Routine implements WordPoints_RoutineI {
 	protected $network_wide;
 
 	/**
+	 * Whether to call run_for_network() before run_for_site(s)(), or after.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $run_network_first = true;
+
+	/**
 	 * @since 2.4.0
 	 */
 	public function run() {
@@ -42,9 +51,11 @@ abstract class WordPoints_Routine implements WordPoints_RoutineI {
 
 		if ( is_multisite() ) {
 
-			$hooks->set_current_mode( 'network' );
+			if ( $this->run_network_first ) {
+				$hooks->set_current_mode( 'network' );
 
-			$this->run_for_network();
+				$this->run_for_network();
+			}
 
 			$hooks->set_current_mode( 'standard' );
 
@@ -52,6 +63,12 @@ abstract class WordPoints_Routine implements WordPoints_RoutineI {
 				$this->run_for_sites();
 			} else {
 				$this->run_for_site();
+			}
+
+			if ( ! $this->run_network_first ) {
+				$hooks->set_current_mode( 'network' );
+
+				$this->run_for_network();
 			}
 
 		} else {

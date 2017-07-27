@@ -177,6 +177,18 @@ interface WordPoints_InstallableI {
 	 *                                 multisite.
 	 */
 	public function get_update_routines();
+
+	/**
+	 * Gets the uninstall routines for this entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_RoutineI[][] Routines for uninstalling this installable,
+	 *                                 indexed by the context that they should run
+	 *                                 in: 'site', 'network', or 'single' for non-
+	 *                                 multisite.
+	 */
+	public function get_uninstall_routines();
 }
 
 // EOF

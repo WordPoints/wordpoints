@@ -480,6 +480,13 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	public function get_update_routines() {
 		return array();
 	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_uninstall_routines() {
+		return array();
+	}
 }
 
 // EOF

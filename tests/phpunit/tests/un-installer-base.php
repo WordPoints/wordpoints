@@ -2867,7 +2867,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -2898,7 +2898,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 		$this->assertSame(
 			array()
@@ -2906,7 +2906,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page" )
 		);
 	}
 
@@ -2937,7 +2937,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -2967,7 +2967,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -3000,7 +3000,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page" )
 		);
 		$this->assertSame(
 			array()
@@ -3008,7 +3008,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page" )
 		);
 	}
 
@@ -3038,7 +3038,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -3071,7 +3071,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page" )
 		);
 		$this->assertSame(
 			array()
@@ -3079,7 +3079,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page" )
 		);
 	}
 
@@ -3142,7 +3142,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 

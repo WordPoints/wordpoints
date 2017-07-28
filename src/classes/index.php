@@ -191,6 +191,7 @@ return array(
 	'wordpoints_uninstaller_factory_caps' => 'uninstaller/factory/caps.php',
 	'wordpoints_uninstaller_factory_db_tables' => 'uninstaller/factory/db/tables.php',
 	'wordpoints_uninstaller_factory_metadata' => 'uninstaller/factory/metadata.php',
+	'wordpoints_uninstaller_factory_options' => 'uninstaller/factory/options.php',
 	'wordpoints_uninstaller_factory_widgets' => 'uninstaller/factory/widgets.php',
 	'wordpoints_uninstaller_metadata' => 'uninstaller/metadata.php',
 	'wordpoints_uninstaller_metadata_wildcards' => 'uninstaller/metadata/wildcards.php',

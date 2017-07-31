@@ -50,29 +50,6 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	protected $version;
 
 	/**
-	 * Database tables for this entity.
-	 *
-	 * An array of arrays, where each sub-array holds the tables for a particular
-	 * context. Within each sub-array, the value of each element is the DB field
-	 * schema for a table (i.e., the part of the CREATE TABLE query within the main
-	 * parentheses), and the keys are the table names. The base DB prefix will be
-	 * prepended to table names for $single and $network, while $site tables will be
-	 * prepended with blog prefix instead.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @var string[][] $db_tables {
-	 *      @type string[] $single    Tables for a single site (non-multisite) install.
-	 *      @type string[] $site      Tables for each site in a multisite network.
-	 *      @type string[] $network   Tables for a multisite network.
-	 *      @type string[] $local     Tables for $single and $site.
-	 *      @type string[] $global    Tables for $single and $network.
-	 *      @type string[] $universal Tables for $single, $site, and $network.
-	 * }
-	 */
-	protected $db_tables = array();
-
-	/**
 	 * The function to use to get the user capabilities used by this entity.
 	 *
 	 * The function should return an array of capabilities of the format processed
@@ -428,7 +405,7 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 
 		$routines = array();
 
-		$db_tables = wordpoints_map_context_shortcuts( $this->db_tables );
+		$db_tables = wordpoints_map_context_shortcuts( $this->get_db_tables() );
 
 		if ( isset( $db_tables['single'] ) ) {
 			$routines['single'][] = new WordPoints_Installer_DB_Tables(
@@ -451,6 +428,31 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 		}
 
 		return $routines;
+	}
+
+	/**
+	 * Gets database tables for this entity.
+	 *
+	 * An array of arrays, where each sub-array holds the tables for a particular
+	 * context. Within each sub-array, the value of each element is the DB field
+	 * schema for a table (i.e., the part of the CREATE TABLE query within the main
+	 * parentheses), and the keys are the table names. The base DB prefix will be
+	 * prepended to table names for $single and $network, while $site tables will be
+	 * prepended with blog prefix instead.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return  string[][] $db_tables {
+	 *      @type string[] $single    Tables for a single site (non-multisite) install.
+	 *      @type string[] $site      Tables for each site in a multisite network.
+	 *      @type string[] $network   Tables for a multisite network.
+	 *      @type string[] $local     Tables for $single and $site.
+	 *      @type string[] $global    Tables for $single and $network.
+	 *      @type string[] $universal Tables for $single, $site, and $network.
+	 * }
+	 */
+	protected function get_db_tables() {
+		return array();
 	}
 
 	/**
@@ -530,9 +532,11 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 
 		$factories = array();
 
-		if ( ! empty( $this->db_tables ) ) {
+		$db_tables = $this->get_db_tables();
+
+		if ( ! empty( $db_tables ) ) {
 			$factories[] = new WordPoints_Uninstaller_Factory_DB_Tables(
-				array_map( 'array_keys', $this->db_tables )
+				array_map( 'array_keys', $db_tables )
 			);
 		}
 

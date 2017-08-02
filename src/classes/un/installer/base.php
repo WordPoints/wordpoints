@@ -308,7 +308,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->slug = $slug;
 		$this->version = $version;
-		$this->installable = new WordPoints_Installable(
+		$this->installable = new WordPoints_Installable_Basic(
 			$this->type
 			, $this->slug
 			, $this->version

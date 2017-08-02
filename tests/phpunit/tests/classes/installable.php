@@ -17,26 +17,13 @@
 class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
-	 * Tests that the slug and version are set on construction.
-	 *
-	 * @since 2.4.0
-	 */
-	public function test_construct_slug_version_set() {
-
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
-
-		$this->assertSame( 'test', $installable->get_slug() );
-		$this->assertSame( '1.0.0', $installable->get_version() );
-	}
-
-	/**
 	 * Tests getting the database version of an entity.
 	 *
 	 * @since 2.4.0
 	 */
 	public function test_get_db_version() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertFalse( $installable->get_db_version() );
 
@@ -84,7 +71,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version_network() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertFalse( $installable->get_db_version( true ) );
 
@@ -134,7 +121,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version_wordpoints() {
 
-		$installable = new WordPoints_Installable( 'plugin', 'wordpoints', '1.0.0' );
+		$installable = $this->get_installable( 'plugin', 'wordpoints' );
 
 		$this->assertSame( WORDPOINTS_VERSION, $installable->get_db_version() );
 
@@ -168,7 +155,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version_wordpoints_network() {
 
-		$installable = new WordPoints_Installable( 'plugin', 'wordpoints', '1.0.0' );
+		$installable = $this->get_installable( 'plugin', 'wordpoints' );
 
 		$this->assertSame( WORDPOINTS_VERSION, $installable->get_db_version( true ) );
 
@@ -202,7 +189,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_is_network_installed() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$installable->set_network_installed();
 
@@ -235,7 +222,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_network_install_skipped() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$installable->set_network_install_skipped();
 
@@ -264,7 +251,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_network_update_skipped() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 		$installable->set_db_version( '0.9.0', true );
 
 		$installable->set_network_update_skipped();
@@ -300,7 +287,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		// Create another blog on a different site.
 		$this->factory->blog->create( array( 'site_id' => 45 ) );
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 		$installable->set_network_installed();
 
 		$this->assertSame( $ids, $installable->get_installed_site_ids() );
@@ -322,7 +309,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			, $site_ids
 		);
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertSame(
 			$site_ids
@@ -339,7 +326,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_network_wide() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 		$installable->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -364,7 +351,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_wordpoints() {
 
-		$installable = new WordPoints_Installable( 'plugin', 'wordpoints', '1.0.0' );
+		$installable = $this->get_installable( 'plugin', 'wordpoints' );
 		$installable->unset_network_installed();
 
 		$site_ids = array( $this->factory->blog->create() );
@@ -389,7 +376,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_network_wide_wordpoints() {
 
-		$installable = new WordPoints_Installable( 'plugin', 'wordpoints', '1.0.0' );
+		$installable = $this->get_installable( 'plugin', 'wordpoints' );
 		$installable->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -414,7 +401,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_component() {
 
-		$installable = new WordPoints_Installable( 'component', 'test', '1.0.0' );
+		$installable = $this->get_installable( 'component', 'test' );
 
 		$site_ids = array( $this->factory->blog->create() );
 
@@ -438,7 +425,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_network_wide_component() {
 
-		$installable = new WordPoints_Installable( 'component', 'test', '1.0.0' );
+		$installable = $this->get_installable( 'component', 'test' );
 		$installable->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -482,7 +469,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		// Create a site not on the list.
 		$this->factory->blog->create();
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertSame(
 			array( get_current_blog_id(), $site_id )
@@ -499,7 +486,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_site_option( 'wordpoints_module_test_installed_sites', array() );
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertSame(
 			array()
@@ -516,7 +503,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_site_option( 'wordpoints_module_test_installed_sites', 'invalid' );
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertSame(
 			array()
@@ -540,7 +527,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			, array( get_current_blog_id() )
 		);
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$installable->add_installed_site_id( $site_id );
 
@@ -559,7 +546,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_add_installed_site_id_default() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$installable->add_installed_site_id();
 
@@ -578,7 +565,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_add_installed_site_id_wordpoints() {
 
-		$installable = new WordPoints_Installable( 'plugin', 'wordpoints', '1.0.0' );
+		$installable = $this->get_installable( 'plugin', 'wordpoints' );
 		$installable->unset_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -605,7 +592,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_add_installed_site_id_component() {
 
-		$installable = new WordPoints_Installable( 'component', 'test', '1.0.0' );
+		$installable = $this->get_installable( 'component', 'test' );
 
 		$site_id = $this->factory->blog->create();
 
@@ -636,7 +623,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			, array( get_current_blog_id() )
 		);
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$installable->delete_installed_site_ids();
 
@@ -652,7 +639,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_delete_installed_site_ids_wordpoints() {
 
-		$installable = new WordPoints_Installable( 'plugin', 'wordpoints', '1.0.0' );
+		$installable = $this->get_installable( 'plugin', 'wordpoints' );
 		$installable->unset_network_installed();
 
 		update_site_option(
@@ -674,7 +661,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_delete_installed_site_ids_component() {
 
-		$installable = new WordPoints_Installable( 'component', 'test', '1.0.0' );
+		$installable = $this->get_installable( 'component', 'test' );
 
 		update_site_option(
 			'wordpoints_test_installed_sites'
@@ -696,7 +683,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		$db_tables_routine = $this->createMock( 'WordPoints_RoutineI' );
 		$caps_routine = $this->createMock( 'WordPoints_RoutineI' );
 
-		$installable = $this->createPartialMock(
+		$installable = $this->getPartialMockForAbstactClass(
 			'WordPoints_Installable'
 			, array(
 				'get_db_tables_install_routines',
@@ -723,7 +710,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_install_routines_none() {
 
-		$installable = new WordPoints_Installable( 'component', 'test', '1.0.0' );
+		$installable = $this->get_installable( 'component', 'test' );
 
 		$this->assertSame( array(), $installable->get_install_routines() );
 	}
@@ -744,12 +731,15 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			$contexts = array( $shortcut );
 		}
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->getPartialMockForAbstactClass(
+			'WordPoints_Installable'
+			, array( 'get_db_tables' )
+		);
 
 		$tables = array();
 		$tables[ $shortcut ] = array( 'test' => '' );
 
-		$this->set_protected_property( $installable, 'db_tables', $tables );
+		$installable->method( 'get_db_tables' )->willReturn( $tables );
 
 		$routines = $installable->get_install_routines();
 
@@ -800,7 +790,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_custom_caps_install_routines() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$custom_caps = array( 'some_cap' => 'manage_options' );
 		$callback    = new WordPoints_PHPUnit_Mock_Filter(
@@ -847,7 +837,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_update_routines() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertSame( array(), $installable->get_update_routines() );
 	}
@@ -880,7 +870,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			->method( 'get_for_site' )
 			->willReturn( array( $site ) );
 
-		$installable = $this->createPartialMock(
+		$installable = $this->getPartialMockForAbstactClass(
 			'WordPoints_Installable'
 			, array( 'get_uninstall_routine_factories' )
 		);
@@ -907,7 +897,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_none() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$this->assertSame(
 			array(
@@ -937,7 +927,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		$factory_2 = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
 		$factory_2->method( 'get_for_single' )->willReturn( array( $routine_2 ) );
 
-		$installable = $this->createPartialMock(
+		$installable = $this->getPartialMockForAbstactClass(
 			'WordPoints_Installable'
 			, array( 'get_uninstall_routine_factories' )
 		);
@@ -983,7 +973,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			->method( 'get_for_site' )
 			->willReturn( array( $site ) );
 
-		$installable = $this->createPartialMock(
+		$installable = $this->getPartialMockForAbstactClass(
 			'WordPoints_Installable'
 			, array( 'get_uninstall_routine_factories' )
 		);
@@ -1010,11 +1000,14 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_db_tables() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
-
 		$tables = array( 'local' => array( 'test' => '' ) );
 
-		$this->set_protected_property( $installable, 'db_tables', $tables );
+		$installable = $this->getPartialMockForAbstactClass(
+			'WordPoints_Installable'
+			, array( 'get_db_tables' )
+		);
+
+		$installable->method( 'get_db_tables' )->willReturn( $tables );
 
 		$uninstall_routines = $installable->get_uninstall_routines();
 
@@ -1040,7 +1033,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_caps() {
 
-		$installable = new WordPoints_Installable( 'module', 'test', '1.0.0' );
+		$installable = $this->get_installable();
 
 		$callback    = new WordPoints_PHPUnit_Mock_Filter(
 			array( 'some_cap' => 'manage_options' )
@@ -1060,6 +1053,27 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			array( 'some_cap' )
 			, $this->get_protected_property( $uninstall_routines['single'][0], 'caps' )
 		);
+	}
+
+	/**
+	 * Gets the installable object to test.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $type The type of installable.
+	 * @param string $slug The slug of the installable.
+	 *
+	 * @return WordPoints_Installable The installable object.
+	 */
+	protected function get_installable( $type = 'module', $slug = 'test' ) {
+
+		$installable = $this->getMockForAbstractClass( 'WordPoints_Installable' );
+		$installable->method( 'get_version' )->willReturn( '1.0.0' );
+
+		$this->set_protected_property( $installable, 'type', $type );
+		$this->set_protected_property( $installable, 'slug', $slug );
+
+		return $installable;
 	}
 }
 

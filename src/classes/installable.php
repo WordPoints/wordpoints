@@ -15,7 +15,7 @@
  *
  * @since 2.4.0
  */
-class WordPoints_Installable implements WordPoints_InstallableI {
+abstract class WordPoints_Installable implements WordPoints_InstallableI {
 
 	/**
 	 * The type of entity.
@@ -41,15 +41,6 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	protected $slug;
 
 	/**
-	 * The code version of this installable.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @var string
-	 */
-	protected $version;
-
-	/**
 	 * The function to use to get the user capabilities used by this entity.
 	 *
 	 * The function should return an array of capabilities of the format processed
@@ -62,33 +53,10 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	protected $custom_caps_getter;
 
 	/**
-	 * Constructs the installable.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @param string $type    The type of entity.
-	 * @param string $slug    The slug of the entity.
-	 * @param string $version The current code version of the entity.
-	 */
-	public function __construct( $type, $slug, $version ) {
-
-		$this->type = $type;
-		$this->slug = $slug;
-		$this->version = $version;
-	}
-
-	/**
 	 * @since 2.4.0
 	 */
 	public function get_slug() {
 		return $this->slug;
-	}
-
-	/**
-	 * @since 2.4.0
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 
 	/**
@@ -120,7 +88,7 @@ class WordPoints_Installable implements WordPoints_InstallableI {
 	public function set_db_version( $version = null, $network = false ) {
 
 		if ( null === $version ) {
-			$version = $this->version;
+			$version = $this->get_version();
 		}
 
 		$wordpoints_data = wordpoints_get_maybe_network_array_option(

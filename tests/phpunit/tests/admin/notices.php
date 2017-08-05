@@ -636,6 +636,91 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertNoAdminNoticesDisplayed();
 	}
 
+	/**
+	 * Test that no admin notices are shown by default.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_none() {
+
+		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
+
+		$this->assertNoAdminNoticesDisplayed();
+	}
+
+	/**
+	 * Test that a notice is displayed when a module's install has been skipped.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_module_install_skipped() {
+
+		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
+
+		update_site_option(
+			'wordpoints_network_install_skipped'
+			, array( 'module' => array( 'network_test' => true ) )
+		);
+
+		$this->assertAdminNoticeDisplayedForOption(
+			'wordpoints_network_install_skipped'
+		);
+	}
+
+	/**
+	 * Test that a notice is displayed when a module's update has been skipped.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_module_update_skipped() {
+
+		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
+
+		update_site_option(
+			'wordpoints_network_update_skipped'
+			, array( 'module' => array( 'network_test' => '3.0.0' ) )
+		);
+
+		$this->assertAdminNoticeDisplayedForOption(
+			'wordpoints_network_update_skipped'
+		);
+	}
+
+	/**
+	 * Test that no notice is displayed when the current user has insufficient caps.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_insufficient_caps() {
+
+		update_site_option(
+			'wordpoints_network_install_skipped'
+			, array( 'module' => array( 'network_test' => true ) )
+		);
+
+		$this->assertNoAdminNoticesDisplayed();
+	}
+
 	//
 	// Helpers.
 	//

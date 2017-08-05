@@ -17,30 +17,6 @@
 class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
-	 * Set up for the tests.
-	 *
-	 * @since 1.0.1
-	 */
-	public function setUp() {
-
-		parent::setUp();
-
-		remove_filter( 'wordpoints_component_active', '__return_true', 100 );
-	}
-
-	/**
-	 * Clean up after the tests.
-	 *
-	 * @since 1.0.1
-	 */
-	public function tearDown() {
-
-		add_filter( 'wordpoints_component_active', '__return_true', 100 );
-
-		parent::tearDown();
-	}
-
-	/**
 	 * Test that the instance() method returns an instance of the class.
 	 *
 	 * @since 1.0.1
@@ -111,6 +87,35 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 				)
 			)
 		);
+	}
+
+	/**
+	 * Test that register() registers an installable if passed.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Components::register
+	 */
+	public function test_register_registers_installable() {
+
+		$this->mock_apps();
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
+
+		WordPoints_Components::instance()->register(
+			array(
+				'slug' => 'test',
+				'name' => 'Test',
+				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'installable' => array( $mock, 'filter' ),
+			)
+		);
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->maybe_update();
+
+		$this->assertSame( 1, $mock->call_count );
 	}
 
 	/**

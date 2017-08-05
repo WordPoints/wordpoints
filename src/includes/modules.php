@@ -908,9 +908,8 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		 */
 		do_action( "wordpoints_module_activate-{$module}", $network_wide );
 
-		WordPoints_Installables::install(
-			'module'
-			, WordPoints_Modules::get_slug( $module )
+		WordPoints_Modules::install(
+			WordPoints_Modules::get_slug( $module )
 			, $network_wide
 		);
 	}
@@ -1226,8 +1225,23 @@ function wordpoints_uninstall_module( $module ) {
 	$module_dir        = wordpoints_extensions_dir() . '/' . dirname( $file );
 	$uninstall_file    = $module_dir . '/uninstall.php';
 	$un_installer_file = $module_dir . '/includes/class-un-installer.php';
+	$installable_file  = $module_dir . '/classes/installable.php';
 
-	if ( file_exists( $uninstall_file ) ) {
+	if ( file_exists( $installable_file ) ) {
+
+		require $installable_file;
+
+		$slug = WordPoints_Modules::get_slug( $module );
+		$data = wordpoints_get_module_data( $module, false, false );
+
+		$class = "WordPoints_{$data['namespace']}_Installable";
+
+		$uninstaller = new WordPoints_Uninstaller( new $class( 'module', $slug ) );
+		$uninstaller->run();
+
+		return true;
+
+	} elseif ( file_exists( $uninstall_file ) ) {
 
 		if ( ! defined( 'WORDPOINTS_UNINSTALL_MODULE' ) ) {
 			/**
@@ -1255,17 +1269,16 @@ function wordpoints_uninstall_module( $module ) {
 
 		$slug = WordPoints_Modules::get_slug( $module );
 
-		WordPoints_Installables::register(
+		$uninstaller = WordPoints_Installables::get_installer(
 			'module'
 			, $slug
-			, array(
-				'version'      => 'uninstall', // Required but not really used.
-				'network_wide' => false, // ditto
-				'un_installer' => $un_installer_file,
-			)
+			, 'uninstall' // Required, but not really used.
+			, $un_installer_file
 		);
 
-		return WordPoints_Installables::uninstall( 'module', $slug );
+		$uninstaller->uninstall();
+
+		return true;
 
 	} else {
 

@@ -43,6 +43,7 @@ function wordpoints_apps_init( $app ) {
 	$apps->register( 'hooks', 'WordPoints_Hooks' );
 	$apps->register( 'entities', 'WordPoints_App_Registry' );
 	$apps->register( 'data_types', 'WordPoints_Class_Registry' );
+	$apps->register( 'installables', 'WordPoints_Installables_App' );
 	$apps->register( 'components', 'WordPoints_App' );
 	$apps->register( 'extensions', 'WordPoints_App' );
 	$apps->register( 'modules', 'WordPoints_App' ); // Deprecated.
@@ -671,6 +672,40 @@ function wordpoints_data_types_init( $data_types ) {
 	$data_types->register( 'decimal_number', 'WordPoints_Data_Type_Decimal_Number' );
 	$data_types->register( 'integer', 'WordPoints_Data_Type_Integer' );
 	$data_types->register( 'text', 'WordPoints_Data_Type_Text' );
+}
+
+//
+// Installables API.
+//
+
+/**
+ * Runs any update routines for installables that may need to be run.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_extensions_loaded 5 Before most extension code runs.
+ */
+function wordpoints_installables_maybe_update() {
+
+	/** @var WordPoints_Installables_App $installables */
+	$installables = wordpoints_apps()->get_sub_app( 'installables' );
+	$installables->maybe_update();
+}
+
+/**
+ * Runs the install routines for any network-active installables for a new site.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wpmu_new_blog
+ *
+ * @param int $site_id The ID of the new site.
+ */
+function wordpoints_installables_install_on_new_site( $site_id ) {
+
+	/** @var WordPoints_Installables_App $installables */
+	$installables = wordpoints_apps()->get_sub_app( 'installables' );
+	$installables->install_on_new_site( $site_id );
 }
 
 // EOF

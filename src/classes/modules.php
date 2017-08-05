@@ -206,14 +206,12 @@ final class WordPoints_Modules {
 	 */
 	private static function register_installable( $slug, $file ) {
 
-		WordPoints_Installables::register(
-			'module'
+		wordpoints_apps()->get_sub_app( 'installables' )->register(
+			'extension'
 			, $slug
-			, array(
-				'version'      => self::$registered[ $slug ]['version'],
-				'un_installer' => dirname( $file ) . '/includes/class-un-installer.php',
-				'network_wide' => is_wordpoints_module_active_for_network( $file ),
-			)
+			, 'WordPoints_Modules::get_installable'
+			, self::$registered[ $slug ]['version']
+			, is_wordpoints_module_active_for_network( $file )
 		);
 	}
 
@@ -241,6 +239,83 @@ final class WordPoints_Modules {
 			self::$registered[ $slug ]['text_domain']
 			, $path
 		);
+	}
+
+	/**
+	 * Runs the install routine for a module.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @internal Not intended to be used except internally by core.
+	 *
+	 * @param string $slug         The slug of the module.
+	 * @param bool   $network_wide Whether to install it network wide.
+	 */
+	public static function install( $slug, $network_wide ) {
+
+		$installable = self::get_installable( 'extension', $slug );
+
+		if ( ! $installable ) {
+			return;
+		}
+
+		if ( $installable instanceof WordPoints_Installable_Legacy ) {
+
+			WordPoints_Installables::get_installer(
+				'module'
+				, $slug
+				, self::$registered[ $slug ]['version']
+				, dirname( self::$registered[ $slug ]['raw_file'] ) . '/includes/class-un-installer.php'
+			)
+				->install( $network_wide );
+
+		} else {
+
+			$installer = new WordPoints_Installer( $installable, $network_wide );
+			$installer->run();
+		}
+	}
+
+	/**
+	 * Gets the installable object for a module.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $type The installable type.
+	 * @param string $slug The installable slug.
+	 *
+	 * @return WordPoints_InstallableI|false The installable object, or false.
+	 */
+	public static function get_installable( $type, $slug ) {
+
+		$installable = false;
+
+		if ( ! isset( self::$registered[ $slug ] ) ) {
+			return $installable;
+		}
+
+		$module = self::$registered[ $slug ];
+
+		$uninstaller = dirname( $module['raw_file'] ) . '/includes/class-un-installer.php';
+
+		if (
+			$module['namespace']
+			&& class_exists( "WordPoints_{$module['namespace']}_Installable" )
+		) {
+
+			$class = "WordPoints_{$module['namespace']}_Installable";
+			$installable = new $class();
+
+		} elseif ( file_exists( $uninstaller ) ) {
+
+			$installable = new WordPoints_Installable_Legacy(
+				'module'
+				, $slug
+				, $module['version']
+			);
+		}
+
+		return $installable;
 	}
 }
 

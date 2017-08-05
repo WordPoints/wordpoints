@@ -2183,6 +2183,11 @@ function wordpoints_admin_notices() {
 		} // End if ( merged extensions ).
 
 	} // End if ( user can delete and aren't deleting ).
+
+	if ( is_wordpoints_network_active() ) {
+		wordpoints_admin_show_update_skipped_notices( 'install' );
+		wordpoints_admin_show_update_skipped_notices( 'update' );
+	}
 }
 
 /**
@@ -2714,6 +2719,96 @@ function wordpoints_admin_show_extension_license_notices() {
 			</div>
 			<?php
 		}
+	}
+}
+
+/**
+ * Shows the admin a notice if the update/install for an installable was skipped.
+ *
+ * @since 2.4.0
+ *
+ * @param string $notice_type The type of notices to display, 'update', or 'install'.
+ */
+function wordpoints_admin_show_update_skipped_notices( $notice_type = 'update' ) {
+
+	$all_skipped = array_filter(
+		wordpoints_get_array_option( "wordpoints_network_{$notice_type}_skipped", 'site' )
+	);
+
+	if ( empty( $all_skipped ) ) {
+		return;
+	}
+
+	$messages = array();
+
+	if ( 'install' === $notice_type ) {
+		// translators: 1. Extension/plugin name; 2. "extension", "plugin", or "component".
+		$message_template = __( 'WordPoints detected a large network and has skipped part of the installation process for &#8220;%1$s&#8221; %2$s.', 'wordpoints' );
+	} else {
+		// translators: 1. Extension/plugin name; 2. "extension", "plugin", or "component"; 3. Version number.
+		$message_template = __( 'WordPoints detected a large network and has skipped part of the update process for &#8220;%1$s&#8221; %2$s for version %3$s (and possibly later versions).', 'wordpoints' );
+	}
+
+	foreach ( $all_skipped as $type => $skipped ) {
+
+		switch ( $type ) {
+
+			case 'module':
+				$capability = 'wordpoints_manage_network_modules';
+			break;
+
+			default:
+				$capability = 'manage_network_plugins';
+		}
+
+		if ( ! current_user_can( $capability ) ) {
+			continue;
+		}
+
+		switch ( $type ) {
+
+			case 'module':
+				$type_name = __( '(extension)', 'wordpoints' );
+			break;
+
+			case 'component':
+				$type_name = __( '(component)', 'wordpoints' );
+			break;
+
+			default:
+				$type_name = __( '(plugin)', 'wordpoints' );
+		}
+
+		foreach ( $skipped as $slug => $version ) {
+
+			// Normally we might have used the installable's fancy name instead
+			// of the slug, but this is such an edge case to start with that I
+			// decided not to. Also of note: the version is only used in the
+			// update message.
+			$messages[] = esc_html(
+				sprintf(
+					$message_template
+					, $slug
+					, $type_name
+					, $version
+				)
+			);
+		}
+
+	} // End foreach ( $all_skipped ).
+
+	if ( ! empty( $messages ) ) {
+
+		$message = '<p>' . implode( '</p><p>', $messages ) . '</p>';
+		$message .= '<p>' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some features may not function properly.', 'wordpoints' );
+		$message .= ' <a href="https://wordpoints.org/user-guide/multisite/">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
+
+		$args = array(
+			'dismissible' => true,
+			'option' => "wordpoints_network_{$notice_type}_skipped",
+		);
+
+		wordpoints_show_admin_error( $message, $args );
 	}
 }
 

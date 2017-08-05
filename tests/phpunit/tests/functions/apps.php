@@ -32,7 +32,9 @@ class WordPoints_Apps_Functions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertTrue( $sub_apps->is_registered( 'hooks' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'entities' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'data_types' ) );
+		$this->assertTrue( $sub_apps->is_registered( 'installables' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'components' ) );
+		$this->assertTrue( $sub_apps->is_registered( 'extensions' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'modules' ) );
 		$this->assertTrue( $sub_apps->is_registered( 'extension_server_apis' ) );
 	}

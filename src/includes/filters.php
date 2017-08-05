@@ -36,9 +36,8 @@ if (
 add_action( 'wp_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 add_action( 'admin_enqueue_scripts', 'wordpoints_register_scripts', 5 );
 
-add_action( 'wordpoints_extensions_loaded', 'WordPoints_Installables::maybe_do_updates', 5 );
-add_action( 'admin_notices', 'WordPoints_Installables::admin_notices' );
-add_action( 'wpmu_new_blog', 'WordPoints_Installables::wpmu_new_blog' );
+add_action( 'wordpoints_extensions_loaded', 'wordpoints_installables_maybe_update', 5 );
+add_action( 'wpmu_new_blog', 'wordpoints_installables_install_on_new_site' );
 
 if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) { // WPCS: CSRF OK.
 

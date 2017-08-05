@@ -19,14 +19,12 @@
  */
 function wordpoints_register_installer() {
 
-	WordPoints_Installables::register(
+	wordpoints_apps()->get_sub_app( 'installables' )->register(
 		'plugin'
 		, 'wordpoints'
-		, array(
-			'version'      => WORDPOINTS_VERSION,
-			'un_installer' => WORDPOINTS_DIR . '/includes/class-un-installer.php',
-			'network_wide' => is_wordpoints_network_active(),
-		)
+		, 'WordPoints_Installable_Core'
+		, WORDPOINTS_VERSION
+		, is_wordpoints_network_active()
 	);
 }
 
@@ -41,10 +39,27 @@ function wordpoints_register_installer() {
  */
 function wordpoints_activate( $network_active ) {
 
-	// The installer won't be registered yet.
-	wordpoints_register_installer();
+	$filter_func = ( $network_active ) ? '__return_true' : '__return_false';
+	add_filter( 'is_wordpoints_network_active', $filter_func );
 
-	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
+	// Check if the plugin has been activated/installed before.
+	$installed = (bool) wordpoints_get_maybe_network_option( 'wordpoints_data' );
+
+	$installer = new WordPoints_Installer(
+		new WordPoints_Installable_Core()
+		, $network_active
+	);
+
+	$installer->run();
+
+	// Activate the Points component, if this is the first activation.
+	if ( false === $installed ) {
+		$wordpoints_components = WordPoints_Components::instance();
+		$wordpoints_components->load();
+		$wordpoints_components->activate( 'points' );
+	}
+
+	remove_filter( 'is_wordpoints_network_active', $filter_func );
 }
 
 /**

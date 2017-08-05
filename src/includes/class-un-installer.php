@@ -5,19 +5,18 @@
  *
  * @package WordPoints
  * @since 1.8.0
+ * @deprecated 2.4.0
  */
+
+_deprecated_file( __FILE__, '2.4.0' );
 
 /**
  * Un/install the plugin.
  *
  * @since 1.8.0
+ * @deprecated 2.4.0 Use WordPoints_Installable_Core instead.
  */
 class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected $type = 'plugin';
 
 	/**
 	 * @since 1.8.0
@@ -31,42 +30,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.4.0-alpha-2'  => array( 'single' => true, 'site' => true, 'network' => true ),
 		'2.4.0-alpha-3'  => array( 'single' => true, 'site' => true, 'network' => true ),
-	);
-
-	/**
-	 * @since 2.1.0
-	 */
-	protected $schema = array(
-		'global' => array(
-			'tables' => array(
-				'wordpoints_hook_periods' => '
-					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					hit_id BIGINT(20) UNSIGNED NOT NULL,
-					signature CHAR(64) NOT NULL,
-					PRIMARY KEY  (id),
-					KEY period_signature (hit_id,signature(8))',
-				'wordpoints_hook_hits' => '
-					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					action_type VARCHAR(255) NOT NULL,
-					signature_arg_guids TEXT NOT NULL,
-					event VARCHAR(255) NOT NULL,
-					reactor VARCHAR(255) NOT NULL,
-					reaction_mode VARCHAR(255) NOT NULL,
-					reaction_store VARCHAR(255) NOT NULL,
-					reaction_context_id TEXT NOT NULL,
-					reaction_id BIGINT(20) UNSIGNED NOT NULL,
-					date DATETIME NOT NULL,
-					PRIMARY KEY  (id)',
-				'wordpoints_hook_hitmeta' => '
-					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					wordpoints_hook_hit_id BIGINT(20) UNSIGNED NOT NULL,
-					meta_key VARCHAR(255) NOT NULL,
-					meta_value LONGTEXT,
-					PRIMARY KEY  (meta_id),
-					KEY hit_id (wordpoints_hook_hit_id),
-					KEY meta_key (meta_key(191))',
-			),
-		),
 	);
 
 	/**
@@ -117,34 +80,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
-	 * @since 2.0.0
-	 */
-	protected $custom_caps_getter = 'wordpoints_get_custom_caps';
-
-	/**
-	 * @since 1.8.0
-	 */
-	public function install( $network ) {
-
-		$filter_func = ( $network ) ? '__return_true' : '__return_false';
-		add_filter( 'is_wordpoints_network_active', $filter_func );
-
-		// Check if the plugin has been activated/installed before.
-		$installed = (bool) wordpoints_get_maybe_network_option( 'wordpoints_data' );
-
-		parent::install( $network );
-
-		// Activate the Points component, if this is the first activation.
-		if ( false === $installed ) {
-			$wordpoints_components = WordPoints_Components::instance();
-			$wordpoints_components->load();
-			$wordpoints_components->activate( 'points' );
-		}
-
-		remove_filter( 'is_wordpoints_network_active', $filter_func );
-	}
-
-	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
@@ -154,47 +89,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 		if ( $this->network_wide ) {
 			unset( $this->updates['1_8_0'] );
 		}
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function install_network() {
-
-		$data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
-
-		// Add plugin data.
-		if ( ! is_array( $data ) ) {
-
-			wordpoints_update_maybe_network_option(
-				'wordpoints_data',
-				array(
-					'version'    => WORDPOINTS_VERSION,
-					'components' => array(), // Components use this to store data.
-					'modules'    => array(), // Modules can use this to store data.
-				)
-			);
-
-		} else {
-
-			// Make sure the version is set properly even if the data is already
-			// there, in case the plugin is being reactivated and things had been
-			// corrupted somehow.
-			$data['version'] = WORDPOINTS_VERSION;
-
-			wordpoints_update_maybe_network_option( 'wordpoints_data', $data );
-		}
-
-		$this->install_db_schema();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function install_single() {
-
-		$this->install_custom_caps();
-		$this->install_network();
 	}
 
 	/**

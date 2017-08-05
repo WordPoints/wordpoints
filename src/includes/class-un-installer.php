@@ -33,53 +33,6 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
-	 * @since 2.0.0
-	 */
-	protected $uninstall = array(
-		'network' => array(
-			'options' => array(
-				'wordpoints_sitewide_active_modules',
-				'wordpoints_network_install_skipped',
-				'wordpoints_network_installed',
-				'wordpoints_network_update_skipped',
-				'wordpoints_breaking_deactivated_modules',
-			),
-		),
-		'local'   => array(
-			'options' => array(
-				'wordpoints_active_modules',
-				'wordpoints_recently_activated_modules',
-			),
-		),
-		'global' => array(
-			'options' => array(
-				'wordpoints_edd_sl_module_licenses',
-				'wordpoints_edd_sl_module_info',
-			),
-			'transients' => array(
-				'wordpoints_extension_updates',
-			),
-		),
-		'universal' => array(
-			'options' => array(
-				'wordpoints_data',
-				'wordpoints_active_components',
-				'wordpoints_excluded_users',
-				'wordpoints_incompatible_modules',
-				'wordpoints_module_check_rand_str',
-				'wordpoints_module_check_nonce',
-				'wordpoints_hook_reaction-%',
-				'wordpoints_hook_reaction_index-%',
-				'wordpoints_hook_reaction_last_id-%',
-			),
-			'list_tables' => array(
-				'wordpoints_extensions' => array(),
-				'wordpoints_modules' => array(),
-			),
-		),
-	);
-
-	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
@@ -92,80 +45,36 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 1.8.0
-	 */
-	protected function load_dependencies() {
-
-		// Note that some things are loaded by
-		// WordPoints_Un_Installer_Base::load_base_dependencies().
-		require_once WORDPOINTS_DIR . '/includes/modules.php';
-	}
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected function before_uninstall() {
-
-		// Set up the components class.
-		WordPoints_Components::set_up();
-
-		$this->uninstall_modules();
-		$this->uninstall_components();
-
-		parent::before_uninstall();
-	}
-
-	/**
 	 * Uninstall modules.
 	 *
 	 * Note that modules aren't active when they are uninstalled, so they need to
 	 * include any dependencies in their uninstall.php files.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.4.0
 	 */
 	protected function uninstall_modules() {
-
-		wordpoints_deactivate_modules(
-			wordpoints_get_array_option( 'wordpoints_active_modules', 'site' )
-		);
-
-		foreach ( array_keys( wordpoints_get_modules() ) as $module ) {
-			wordpoints_uninstall_module( $module );
-		}
-
-		$this->delete_modules_dir();
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Attempt to delete the modules directory.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.4.0
 	 */
 	protected function delete_modules_dir() {
-
-		global $wp_filesystem;
-
-		if ( $wp_filesystem instanceof WP_Filesystem_Base ) {
-			$wp_filesystem->delete( wordpoints_extensions_dir(), true );
-		}
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Uninstall the components.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.4.0
 	 */
 	protected function uninstall_components() {
-
-		/** This filter is documented in classes/components.php */
-		do_action( 'wordpoints_components_register' );
-
-		$components = WordPoints_Components::instance();
-
-		// Uninstall the components.
-		foreach ( $components->get() as $component => $data ) {
-			WordPoints_Installables::uninstall( 'component', $component );
-		}
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**

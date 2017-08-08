@@ -14,10 +14,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Un_Installer::update_single_to_2_4_0_alpha_2
- * @covers WordPoints_Un_Installer::update_network_to_2_4_0_alpha_2()
- * @covers WordPoints_Un_Installer::update_site_to_2_4_0_alpha_2
- * @covers WordPoints_Un_Installer::update_2_4_0_add_new_custom_caps
+ * @covers WordPoints_Updater_Core_2_4_0_Extensions_Directory_Rename
  */
 class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 

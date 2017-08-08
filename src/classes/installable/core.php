@@ -90,6 +90,82 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 	/**
 	 * @since 2.4.0
 	 */
+	public function get_update_routines() {
+
+		$updates = parent::get_update_routines();
+
+		$db_version = $this->get_db_version( is_wordpoints_network_active() );
+
+		// v1.8.0.
+		if ( version_compare( '1.8.0', $db_version, '>' ) ) {
+			if ( ! is_wordpoints_network_active() ) {
+				$updates['site'][] = new WordPoints_Updater_Installed_Site_ID_Add( $this );
+			}
+		}
+
+		// v1.10.3.
+		if ( version_compare( '1.10.3', $db_version, '>' ) ) {
+			$routine = new WordPoints_Updater_Core_1_10_3_Extensions_Index_Create();
+			$updates['single'][]  = $routine;
+			$updates['network'][] = $routine;
+		}
+
+		// 2.1.0-alpha-3.
+		if ( version_compare( '2.1.0-alpha-3', $db_version, '>' ) ) {
+
+			$routines             = $this->get_db_tables_install_routines();
+			$updates['single'][]  = $routines['single'][0];
+			$updates['network'][] = $routines['network'][0];
+
+		} elseif ( version_compare( '2.3.0-alpha-2', $db_version, '>' ) ) {
+
+			// 2.3.0-alpha-2.
+			// We don't need to update the table if the new schema has just been used to
+			// install it.
+			$routine = new WordPoints_Updater_DB_Table_Column_Rename(
+				'wordpoints_hook_hits'
+				, 'primary_arg_guid'
+				, 'signature_arg_guids'
+				, 'TEXT NOT NULL'
+				, 'base'
+			);
+			$updates['single'][]  = $routine;
+			$updates['network'][] = $routine;
+		}
+
+		// 2.4.0-alpha-2.
+		if ( version_compare( '2.4.0-alpha-2', $db_version, '>' ) ) {
+
+			$routine = new WordPoints_Updater_Core_Extension_Merge(
+				'wordpointsorg/wordpointsorg.php'
+			);
+
+			$updates['single'][]  = $routine;
+			$updates['network'][] = $routine;
+			$updates['site'][]    = new WordPoints_Uninstaller_Callback(
+				'wordpoints_deactivate_modules'
+				, array( 'wordpointsorg/wordpointsorg.php' )
+			);
+		}
+
+		// 2.4.0-alpha-3.
+		if ( version_compare( '2.4.0-alpha-3', $db_version, '>' ) ) {
+
+			$routine = new WordPoints_Installer_Caps( wordpoints_get_custom_caps() );
+			$updates['single'][] = $routine;
+			$updates['site'][]   = $routine;
+
+			$routine = new WordPoints_Updater_Core_2_4_0_Extensions_Directory_Rename();
+			$updates['single'][]  = $routine;
+			$updates['network'][] = $routine;
+		}
+
+		return $updates;
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
 	public function get_uninstall_routines() {
 
 		// We'd do this in the components uninstaller, but we do it here for legacy

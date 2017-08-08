@@ -19,32 +19,6 @@ _deprecated_file( __FILE__, '2.4.0' );
 class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 
 	/**
-	 * @since 1.8.0
-	 */
-	protected $updates = array(
-		'1.3.0'  => array( 'single' => true  /*     -     */ /*      -      */ ),
-		'1.5.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
-		'1.8.0'  => array( /*      -      */ 'site' => true  /*      -      */ ),
-		'1.10.3' => array( 'single' => true, /*     -     */ 'network' => true ),
-		'2.1.0-alpha-3'  => array( 'single' => true, /*     -     */ 'network' => true ),
-		'2.3.0-alpha-2'  => array( 'single' => true, /*     -     */ 'network' => true ),
-		'2.4.0-alpha-2'  => array( 'single' => true, 'site' => true, 'network' => true ),
-		'2.4.0-alpha-3'  => array( 'single' => true, 'site' => true, 'network' => true ),
-	);
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function before_update() {
-
-		parent::before_update();
-
-		if ( $this->network_wide ) {
-			unset( $this->updates['1_8_0'] );
-		}
-	}
-
-	/**
 	 * Uninstall modules.
 	 *
 	 * Note that modules aren't active when they are uninstalled, so they need to
@@ -81,225 +55,90 @@ class WordPoints_Un_Installer extends WordPoints_Un_Installer_Base {
 	 * Update the site to 1.3.0.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_single_to_1_3_0() {
-		wordpoints_add_custom_caps( $this->custom_caps );
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a site to 1.5.0.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_site_to_1_5_0() {
-		wordpoints_add_custom_caps( $this->custom_caps );
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a site to 1.8.0.
 	 *
 	 * @since 1.8.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_site_to_1_8_0() {
-		$this->add_installed_site_id();
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a multisite network to 1.10.3.
 	 *
 	 * @since 1.10.3
+	 * @deprecated 2.4.0
 	 */
 	protected function update_network_to_1_10_3() {
-		$this->update_single_to_1_10_3();
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a non-multisite install to 1.10.3
 	 *
 	 * @since 1.10.3
+	 * @deprecated 2.4.0
 	 */
 	protected function update_single_to_1_10_3() {
-
-		global $wp_filesystem;
-
-		$modules_dir = wordpoints_extensions_dir();
-
-		if ( ! WP_Filesystem( false, $modules_dir ) ) {
-			return;
-		}
-
-		$index_file = $modules_dir . '/index.php';
-
-		if ( ! $wp_filesystem->exists( $index_file ) ) {
-			$wp_filesystem->put_contents( $index_file, '<?php // Gold is silent.' );
-		}
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a multisite network to 2.1.0.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_network_to_2_1_0_alpha_3() {
-		$this->map_shortcuts( 'schema' );
-		$this->install_db_schema();
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a non-multisite install to 2.1.0.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_single_to_2_1_0_alpha_3() {
-		$this->map_shortcuts( 'schema' );
-		$this->install_db_schema();
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a multisite network to 2.3.0.
 	 *
 	 * @since 2.3.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_network_to_2_3_0_alpha_2() {
-
-		// We don't need to update the table if the new schema has just been used to
-		// install it.
-		if ( version_compare( $this->get_db_version(), '2.1.0-alpha-3', '<' ) ) {
-			return;
-		}
-
-		global $wpdb;
-
-		$wpdb->query(
-			"
-				ALTER TABLE `{$wpdb->wordpoints_hook_hits}`
-				CHANGE `primary_arg_guid` `signature_arg_guids` TEXT NOT NULL
-			"
-		); // WPCS: cache OK.
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**
 	 * Update a non-multisite install to 2.3.0.
 	 *
 	 * @since 2.3.0
+	 * @deprecated 2.4.0
 	 */
 	protected function update_single_to_2_3_0_alpha_2() {
-		$this->update_network_to_2_3_0_alpha_2();
-	}
-
-	/**
-	 * Update a multisite network to 2.4.0.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_network_to_2_4_0_alpha_2() {
-
-		$extension = 'wordpointsorg/wordpointsorg.php';
-
-		if ( true === wordpoints_validate_module( $extension ) ) {
-			update_site_option( 'wordpoints_merged_extensions', array( $extension ) );
-			wordpoints_deactivate_modules( array( $extension ), false, true );
-		}
-	}
-
-	/**
-	 * Update a single site on a multisite network to 2.4.0.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_site_to_2_4_0_alpha_2() {
-
-		$this->update_2_4_0_add_new_custom_caps();
-
-		$extension = 'wordpointsorg/wordpointsorg.php';
-
-		if ( is_wordpoints_module_active( $extension ) ) {
-			wordpoints_deactivate_modules( array( $extension ) );
-		}
-	}
-
-	/**
-	 * Update a non-multisite install to 2.4.0.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_single_to_2_4_0_alpha_2() {
-
-		$this->update_2_4_0_add_new_custom_caps();
-
-		$extension = 'wordpointsorg/wordpointsorg.php';
-
-		if ( true === wordpoints_validate_module( $extension ) ) {
-			update_option( 'wordpoints_merged_extensions', array( $extension ) );
-			wordpoints_deactivate_modules( array( $extension ) );
-		}
-	}
-
-	/**
-	 * Update a multisite network to 2.4.0.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_network_to_2_4_0_alpha_3() {
-
-		$this->update_2_4_0_rename_extensions_directory();
-	}
-
-	/**
-	 * Update a single site on a multisite network to 2.4.0.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_site_to_2_4_0_alpha_3() {
-
-		$this->update_2_4_0_add_new_custom_caps();
-	}
-
-	/**
-	 * Update a non-multisite install to 2.4.0.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_single_to_2_4_0_alpha_3() {
-
-		$this->update_2_4_0_add_new_custom_caps();
-		$this->update_2_4_0_rename_extensions_directory();
-	}
-
-	/**
-	 * Adds the new custom caps.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_2_4_0_add_new_custom_caps() {
-
-		wordpoints_add_custom_caps( wordpoints_get_custom_caps() );
-	}
-
-	/**
-	 * Renames the extensions directory.
-	 *
-	 * @since 2.4.0
-	 */
-	protected function update_2_4_0_rename_extensions_directory() {
-
-		global $wp_filesystem;
-
-		if ( ! $wp_filesystem && ! WP_Filesystem() ) {
-			update_site_option( 'wordpoints_legacy_extensions_dir', true );
-			return;
-		}
-
-		$legacy = WP_CONTENT_DIR . '/wordpoints-modules';
-
-		if ( $wp_filesystem->is_dir( $legacy ) ) {
-
-			$moved = $wp_filesystem->move( $legacy, WP_CONTENT_DIR . '/wordpoints-extensions' );
-
-			if ( ! $moved ) {
-				update_site_option( 'wordpoints_legacy_extensions_dir', true );
-			}
-		}
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 }
 

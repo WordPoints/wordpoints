@@ -428,7 +428,7 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 	 *
 	 * @since 2.4.0
 	 *
-	 * @return WordPoints_Installer_Caps[] Custom caps installers.
+	 * @return WordPoints_Installer_Caps[][] Custom caps installers.
 	 */
 	protected function get_custom_caps_install_routines() {
 

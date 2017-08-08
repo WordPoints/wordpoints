@@ -1048,7 +1048,7 @@ function wordpoints_points_component_register() {
 			'component_uri' => 'https://wordpoints.org/',
 			'description'   => __( 'Enables a points system for your site.', 'wordpoints' ),
 			'file'          => WORDPOINTS_DIR . 'components/points/points.php',
-			'un_installer'  => WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php',
+			'installable'   => 'WordPoints_Points_Installable',
 		)
 	);
 }

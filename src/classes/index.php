@@ -182,6 +182,7 @@ return array(
 	'wordpoints_installer_caps' => 'installer/caps.php',
 	'wordpoints_installer_core' => 'installer/core.php',
 	'wordpoints_installer_db_tables' => 'installer/db/tables.php',
+	'wordpoints_installer_option' => 'installer/option.php',
 	'wordpoints_installer_site' => 'installer/site.php',
 	'wordpoints_installer_site_legacy' => 'installer/site/legacy.php',
 	'wordpoints_module_installer_skin' => 'module/installer/skin.php',

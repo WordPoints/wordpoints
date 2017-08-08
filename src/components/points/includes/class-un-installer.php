@@ -5,23 +5,18 @@
  *
  * @package WordPoints
  * @since 1.8.0
+ * @deprecated 2.4.0
  */
+
+_deprecated_file( __FILE__, '2.4.0' );
 
 /**
  * Un/installs the points component.
  *
  * @since 1.8.0
+ * @deprecated 2.4.0 Use WordPoints_Points_Installable instead.
  */
 class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
-
-	//
-	// Protected Vars.
-	//
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected $type = 'component';
 
 	/**
 	 * @since 1.8.0
@@ -37,38 +32,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 		'2.0.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.0'  => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.1.4'  => array( 'single' => true, 'site' => true  /*      -      */ ),
-	);
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected $schema = array(
-		'global' => array(
-			'tables' => array(
-				'wordpoints_points_logs' => "
-					id BIGINT(20) NOT NULL AUTO_INCREMENT,
-					user_id BIGINT(20) NOT NULL,
-					log_type VARCHAR(255) NOT NULL,
-					points BIGINT(20) NOT NULL,
-					points_type VARCHAR(255) NOT NULL,
-					text LONGTEXT,
-					blog_id SMALLINT(5) UNSIGNED NOT NULL,
-					site_id SMALLINT(5) UNSIGNED NOT NULL,
-					date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-					PRIMARY KEY  (id),
-					KEY user_id (user_id),
-					KEY points_type (points_type(191)),
-					KEY log_type (log_type(191))",
-				'wordpoints_points_log_meta' => '
-					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					log_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-					meta_key VARCHAR(255) DEFAULT NULL,
-					meta_value LONGTEXT,
-					PRIMARY KEY  (meta_id),
-					KEY log_id (log_id),
-					KEY meta_key (meta_key(191))',
-			),
-		),
 	);
 
 	/**
@@ -119,11 +82,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 			),
 		),
 	);
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected $custom_caps_getter = 'wordpoints_points_get_custom_caps';
 
 	/**
 	 * The network mode of the points hooks before the updates began.
@@ -195,71 +153,13 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * @since 2.0.0
-	 */
-	protected function install_custom_caps() {
-
-		/*
-		 * Regenerate the custom caps every time on multisite, because they depend on
-		 * network activation status.
-		 */
-		if ( 'site' === $this->context ) {
-			wordpoints_remove_custom_caps( $this->custom_caps_keys );
-		}
-
-		wordpoints_add_custom_caps( $this->custom_caps );
-	}
-
-	/**
-	 * @since 2.1.0
-	 */
-	protected function install_network() {
-
-		parent::install_network();
-
-		$this->disable_legacy_hooks();
-	}
-
-	/**
-	 * @since 2.1.0
-	 */
-	protected function install_site() {
-
-		parent::install_site();
-
-		$this->disable_legacy_hooks();
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function install_single() {
-
-		parent::install_single();
-
-		add_option( 'wordpoints_default_points_type', '' );
-
-		$this->disable_legacy_hooks();
-	}
-
-	/**
 	 * Disable the legacy points hooks.
 	 *
 	 * @since 2.1.0
+	 * @deprecated 2.4.0
 	 */
 	protected function disable_legacy_hooks() {
-
-		wordpoints_add_maybe_network_option(
-			'wordpoints_legacy_points_hooks_disabled'
-			, array(
-				'wordpoints_post_points_hook' => true,
-				'wordpoints_comment_points_hook' => true,
-				'wordpoints_comment_received_points_hook' => true,
-				'wordpoints_periodic_points_hook' => true,
-				'wordpoints_registration_points_hook' => true,
-			)
-			, 'network' === $this->context
-		);
+		_deprecated_function( __METHOD__, '2.4.0' );
 	}
 
 	/**

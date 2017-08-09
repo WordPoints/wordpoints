@@ -105,6 +105,97 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 
 		return $install_routines;
 	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_uninstall_routines() {
+
+		// The functions.php is needed for the custom caps getter function. The
+		// others are loaded for legacy reasons and for the sake of extensions.
+		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
+		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
+		require_once WORDPOINTS_DIR . '/components/points/includes/points.php';
+
+		return parent::get_uninstall_routines();
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	protected function get_uninstall_routine_factories() {
+
+		$factories = parent::get_uninstall_routine_factories();
+
+		$factories[] = new WordPoints_Uninstaller_Factory_Options(
+			array(
+				'local' => array(
+					'wordpoints_%_hook_legacy',
+				),
+				'global' => array(
+					'wordpoints_disabled_points_hooks_edit_points_types',
+				),
+				'universal' => array(
+					'wordpoints_points_types',
+					'wordpoints_default_points_type',
+					'wordpoints_points_types_hooks',
+					'wordpoints_legacy_points_hooks_disabled',
+					'wordpoints_imported_points_hooks',
+				),
+			)
+		);
+
+		$factories[] = new WordPoints_Points_Uninstaller_Factory_Points_Hooks(
+			array(
+				'universal' => array(
+					'wordpoints_registration_points_hook',
+					'wordpoints_post_points_hook',
+					'wordpoints_post_delete_points_hook',
+					'wordpoints_comment_points_hook',
+					'wordpoints_comment_removed_points_hook',
+					'wordpoints_periodic_points_hook',
+					'wordpoints_comment_received_points_hook',
+				),
+			)
+		);
+
+		$factories[] = new WordPoints_Uninstaller_Factory_Widgets(
+			array(
+				'wordpoints_points_logs_widget',
+				'wordpoints_top_users_widget',
+				'wordpoints_points_widget',
+			)
+		);
+
+		$factories[] = new WordPoints_Uninstaller_Factory_Metadata(
+			'user'
+			, array(
+				'universal' => array(
+					'wordpoints_points_period_start',
+					'wordpoints_points-%',
+				),
+			)
+		);
+
+		$factories[] = new WordPoints_Uninstaller_Factory_Metadata(
+			'comment'
+			, array(
+				'universal' => array(
+					'wordpoints_last_status-%',
+				),
+			)
+		);
+
+		$factories[] = new WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes(
+			array(
+				'universal' => array(
+					'wordpoints_points_types' => array(),
+				),
+			)
+		);
+
+		return $factories;
+	}
 }
 
 // EOF

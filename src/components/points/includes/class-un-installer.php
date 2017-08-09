@@ -35,55 +35,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
-	 * @since 2.0.0
-	 */
-	protected $uninstall = array(
-		'local' => array(
-			'widgets' => array(
-				'wordpoints_points_logs_widget',
-				'wordpoints_top_users_widget',
-				'wordpoints_points_widget',
-			),
-			'options' => array(
-				'wordpoints_%_hook_legacy',
-			),
-		),
-		'global' => array(
-			'options' => array(
-				'wordpoints_disabled_points_hooks_edit_points_types',
-			),
-		),
-		'universal' => array(
-			'options' => array(
-				'wordpoints_points_types',
-				'wordpoints_default_points_type',
-				'wordpoints_points_types_hooks',
-				'wordpoints_legacy_points_hooks_disabled',
-				'wordpoints_imported_points_hooks',
-			),
-			'points_hooks' => array(
-				'wordpoints_registration_points_hook',
-				'wordpoints_post_points_hook',
-				'wordpoints_post_delete_points_hook',
-				'wordpoints_comment_points_hook',
-				'wordpoints_comment_removed_points_hook',
-				'wordpoints_periodic_points_hook',
-				'wordpoints_comment_received_points_hook',
-			),
-			'user_meta' => array(
-				'wordpoints_points_period_start',
-				'wordpoints_points-%',
-			),
-			'comment_meta' => array(
-				'wordpoints_last_status-%',
-			),
-			'meta_boxes' => array(
-				'wordpoints_points_types' => array(),
-			),
-		),
-	);
-
-	/**
 	 * The network mode of the points hooks before the updates began.
 	 *
 	 * Only set if updating from pre-1.4.0.
@@ -160,21 +111,6 @@ class WordPoints_Points_Un_Installer extends WordPoints_Un_Installer_Base {
 	 */
 	protected function disable_legacy_hooks() {
 		_deprecated_function( __METHOD__, '2.4.0' );
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function load_dependencies() {
-
-		// For the sake of modules.
-		WordPoints_Class_Autoloader::register_dir(
-			WORDPOINTS_DIR . 'components/points/classes'
-		);
-
-		require_once WORDPOINTS_DIR . '/components/points/includes/constants.php';
-		require_once WORDPOINTS_DIR . '/components/points/includes/functions.php';
-		require_once WORDPOINTS_DIR . '/components/points/includes/points.php';
 	}
 
 	/**

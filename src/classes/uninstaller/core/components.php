@@ -29,6 +29,10 @@ class WordPoints_Uninstaller_Core_Components implements WordPoints_RoutineI {
 
 			if ( isset( $data['installable'] ) ) {
 
+				WordPoints_Class_Autoloader::register_dir(
+					WORDPOINTS_DIR . "components/{$component}/classes"
+				);
+
 				$installable = $data['installable'];
 
 				$installer = new WordPoints_Uninstaller( new $installable() );

@@ -5,23 +5,18 @@
  *
  * @package WordPoints
  * @since 1.8.0
+ * @deprecated 2.4.0
  */
+
+_deprecated_file( __FILE__, '2.4.0' );
 
 /**
  * Un/installs the ranks component.
  *
  * @since 1.8.0
+ * @deprecated 2.4.0 Use WordPoints_Points_Installable instead.
  */
 class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
-
-	//
-	// Protected Vars.
-	//
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected $type = 'component';
 
 	/**
 	 * @since 1.8.0
@@ -30,42 +25,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 		'1.8.0' => array( /*      -      */ 'site' => true  /*      -      */ ),
 		'2.0.0' => array( 'single' => true, /*     -     */ 'network' => true ),
 		'2.4.0-alpha-4' => array( 'single' => true, 'site' => true, 'network' => true ),
-	);
-
-	/**
-	 * @since 2.0.0
-	 */
-	protected $schema = array(
-		'global' => array(
-			'tables' => array(
-				'wordpoints_ranks' => '
-					id BIGINT(20) NOT NULL AUTO_INCREMENT,
-					name VARCHAR(255) NOT NULL,
-					type VARCHAR(255) NOT NULL,
-					rank_group VARCHAR(255) NOT NULL,
-					blog_id SMALLINT(5) UNSIGNED NOT NULL,
-					site_id SMALLINT(5) UNSIGNED NOT NULL,
-					PRIMARY KEY  (id),
-					KEY type (type(191)),
-					KEY site (blog_id,site_id)',
-				'wordpoints_rankmeta' => '
-					meta_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					wordpoints_rank_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-					meta_key VARCHAR(255) DEFAULT NULL,
-					meta_value LONGTEXT,
-					PRIMARY KEY  (meta_id),
-					KEY wordpoints_rank_id (wordpoints_rank_id)',
-				'wordpoints_user_ranks' => '
-					id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					user_id BIGINT(20) UNSIGNED NOT NULL,
-					rank_id BIGINT(20) UNSIGNED NOT NULL,
-					rank_group VARCHAR(255) NOT NULL,
-					blog_id BIGINT(20) UNSIGNED NOT NULL,
-					site_id BIGINT(20) UNSIGNED NOT NULL,
-					PRIMARY KEY  (id),
-					UNIQUE KEY (user_id,blog_id,site_id,rank_group(185))',
-			),
-		),
 	);
 
 	/**
@@ -88,13 +47,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 		if ( $this->network_wide ) {
 			unset( $this->updates['1_8_0'] );
 		}
-	}
-
-	/**
-	 * @since 2.1.0
-	 */
-	protected function skip_per_site_install() {
-		return self::SKIP_INSTALL;
 	}
 
 	/**

@@ -58,6 +58,53 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 	/**
 	 * @since 2.4.0
 	 */
+	public function get_update_routines() {
+
+		$updates = parent::get_update_routines();
+
+		$db_version = $this->get_db_version( is_wordpoints_network_active() );
+
+		// v1.8.0.
+		if ( version_compare( '1.8.0', $db_version, '>' ) ) {
+			if ( ! is_wordpoints_network_active() ) {
+				$updates['site'][] = new WordPoints_Updater_Installed_Site_ID_Add( $this );
+			}
+		}
+
+		// v2.0.0.
+		if ( version_compare( '2.0.0', $db_version, '>' ) ) {
+
+			$routine = new WordPoints_Ranks_Updater_2_0_0_Tables(
+				array(
+					'wordpoints_ranks',
+					'wordpoints_rankmeta',
+					'wordpoints_user_ranks',
+				)
+				, 'base'
+			);
+
+			$updates['single'][]  = $routine;
+			$updates['network'][] = $routine;
+		}
+
+		// v2.4.0-alpha-4.
+		if ( version_compare( '2.4.0-alpha-4', $db_version, '>' ) ) {
+
+			$routine = new WordPoints_Ranks_Updater_2_4_0_Tables();
+			$updates['single'][]  = $routine;
+			$updates['network'][] = $routine;
+
+			$routine = new WordPoints_Ranks_Updater_2_4_0_User_Ranks();
+			$updates['single'][] = $routine;
+			$updates['site'][]   = $routine;
+		}
+
+		return $updates;
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
 	protected function get_uninstall_routine_factories() {
 
 		include_once( WORDPOINTS_DIR . 'components/ranks/includes/constants.php' );

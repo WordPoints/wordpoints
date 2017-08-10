@@ -15,12 +15,9 @@
  * @group ranks
  * @group update
  *
- * @covers WordPoints_Ranks_Un_Installer::update_network_to_2_4_0_alpha_4
- * @covers WordPoints_Ranks_Un_Installer::update_single_to_2_4_0_alpha_4
- * @covers WordPoints_Ranks_Un_Installer::delete_ranks_for_deleted_users
- * @covers WordPoints_Ranks_Un_Installer::update_user_ranks_table_to_2_4_0
- * @covers WordPoints_Ranks_Un_Installer::update_user_ranks_remove_duplicates_2_4_0
- * @covers WordPoints_Ranks_Un_Installer::regenerate_user_ranks_2_4_0
+ * @covers WordPoints_Ranks_Installable::get_update_routines
+ * @covers WordPoints_Ranks_Updater_2_4_0_Tables
+ * @covers WordPoints_Ranks_Updater_2_4_0_User_Ranks
  */
 class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 

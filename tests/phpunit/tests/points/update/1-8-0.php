@@ -14,7 +14,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Points_Un_Installer::update_site_to_1_8_0
+ * @covers WordPoints_Points_Installable::get_update_routines
  *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct

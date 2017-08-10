@@ -15,8 +15,8 @@
  * @group points
  * @group update
  *
- * @covers WordPoints_Points_Un_Installer::update_network_to_2_0_0
- * @covers WordPoints_Points_Un_Installer::update_single_to_2_0_0
+ * @covers WordPoints_Points_Installable::get_update_routines
+ * @covers WordPoints_Points_Updater_2_0_0_Tables
  */
 class WordPoints_Points_2_0_0_Update_Test extends WordPoints_PHPUnit_TestCase_Points {
 
@@ -29,9 +29,6 @@ class WordPoints_Points_2_0_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that database table character sets are updated.
 	 *
 	 * @since 2.0.0
-	 *
-	 * @covers WordPoints_Points_Un_Installer::update_network_to_2_0_0
-	 * @covers WordPoints_Points_Un_Installer::update_single_to_2_0_0
 	 */
 	public function test_db_table_charsets_updated() {
 

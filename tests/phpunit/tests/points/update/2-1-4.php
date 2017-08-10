@@ -15,8 +15,8 @@
  * @group points
  * @group update
  *
- * @covers WordPoints_Points_Un_Installer::update_site_to_2_1_4
- * @covers WordPoints_Points_Un_Installer::update_single_to_2_1_4
+ * @covers WordPoints_Points_Installable::get_update_routines
+ * @covers WordPoints_Points_Updater_2_1_4_Logs
  */
 class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Points {
 
@@ -56,15 +56,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it corrects the logs and restores the user's points.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_hits_with_multiple_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_original_log_ids
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_delete_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_delete_hits
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_revert_log
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_mark_unreversed
 	 */
 	public function test_corrects_logs() {
 
@@ -172,17 +163,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it corrects the logs and restores the user's points.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_hits_with_multiple_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_original_log_ids
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_delete_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_delete_hits
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_revert_log
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_mark_unreversed
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_legacy_reactor_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_legacy_points_hook_post_ids
 	 */
 	public function test_corrects_logs_legacy_reactor() {
 
@@ -346,17 +326,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it corrects the logs and restores the user's points.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_hits_with_multiple_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_original_log_ids
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_delete_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_delete_hits
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_revert_log
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_mark_unreversed
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_legacy_reactor_logs
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_legacy_points_hook_post_ids
 	 */
 	public function test_corrects_logs_legacy_reactor_legacy_logs() {
 
@@ -520,8 +489,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it there must be duplicate hit IDs.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_hits_with_multiple_logs
 	 */
 	public function test_requires_duplicate_hit_ids() {
 
@@ -548,8 +515,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the duplicate logs must be of the correct log types.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
 	 */
 	public function test_requires_correct_log_types() {
 
@@ -589,8 +554,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it there must be only two logs sharing the same hit ID.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
 	 */
 	public function test_requires_only_two_logs_per_hit() {
 
@@ -635,8 +598,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the post IDs for the logs must match.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_original_log_ids
 	 */
 	public function test_requires_matching_post_ids() {
 
@@ -663,9 +624,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the extra logs must be of the correct log types.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
 	 */
 	public function test_extra_requires_correct_log_types() {
 
@@ -705,9 +663,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the extra logs must be of the correct log types.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
 	 */
 	public function test_extra_requires_correct_log_types_reverse() {
 
@@ -747,9 +702,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the post IDs for the logs must match.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_get_reversal_log_types
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
 	 */
 	public function test_extra_requires_matching_post_id() {
 
@@ -776,8 +728,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the log must have been reversed.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
 	 */
 	public function test_extra_requires_reversal() {
 
@@ -804,8 +754,6 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 	 * Test that it the extra logs must be of the correct log types.
 	 *
 	 * @since 2.1.4
-	 *
-	 * @covers WordPoints_Points_Un_Installer::_2_1_4_clean_other_logs
 	 */
 	public function test_extra_requires_simultaneous_dates() {
 

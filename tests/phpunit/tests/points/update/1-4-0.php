@@ -15,14 +15,9 @@
  * @group points
  * @group update
  *
- * @covers WordPoints_Points_Un_Installer::update_network_to_1_4_0
- * @covers WordPoints_Points_Un_Installer::update_site_to_1_4_0
- * @covers WordPoints_Points_Un_Installer::update_single_to_1_4_0
- * @covers WordPoints_Points_Un_Installer::_1_4_0_split_post_hooks
- * @covers WordPoints_Points_Un_Installer::_1_4_0_split_comment_hooks
- * @covers WordPoints_Points_Un_Installer::_1_4_0_split_points_hooks
- * @covers WordPoints_Points_Un_Installer::_1_4_0_clean_hook_settings
- * @covers WordPoints_Points_Un_Installer::_1_4_0_clean_points_logs
+ * @covers WordPoints_Points_Installable::get_update_routines
+ * @covers WordPoints_Points_Updater_1_4_0_Logs
+ * @covers WordPoints_Points_Updater_1_4_0_Hooks
  *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct

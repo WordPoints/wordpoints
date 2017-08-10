@@ -18,11 +18,8 @@
  * @group points
  * @group update
  *
- * @covers WordPoints_Points_Un_Installer::update_network_to_1_2_0
- * @covers WordPoints_Points_Un_Installer::update_single_to_1_2_0
- * @covers WordPoints_Points_Un_Installer::_1_2_0_remove_points_logs_for_deleted_users
- * @covers WordPoints_Points_Un_Installer::_1_2_0_regenerate_points_logs_for_deleted_posts
- * @covers WordPoints_Points_Un_Installer::_1_2_0_regenerate_points_logs_for_deleted_comments
+ * @covers WordPoints_Points_Installable::get_update_routines
+ * @covers WordPoints_Points_Updater_1_2_0_Logs
  *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct

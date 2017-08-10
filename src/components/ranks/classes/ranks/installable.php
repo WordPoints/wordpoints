@@ -54,6 +54,27 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 			),
 		);
 	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	protected function get_uninstall_routine_factories() {
+
+		include_once( WORDPOINTS_DIR . 'components/ranks/includes/constants.php' );
+
+		$factories = parent::get_uninstall_routine_factories();
+
+		$factories[] = new WordPoints_Uninstaller_Factory_Options(
+			array(
+				'local' => array(
+					'wordpoints_filled_base_ranks',
+					'wordpoints_rank_group-%',
+				),
+			)
+		);
+
+		return $factories;
+	}
 }
 
 // EOF

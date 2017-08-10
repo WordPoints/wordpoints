@@ -28,18 +28,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 	);
 
 	/**
-	 * @since 2.0.0
-	 */
-	protected $uninstall = array(
-		'local' => array(
-			'options' => array(
-				'wordpoints_filled_base_ranks',
-				'wordpoints_rank_group-%',
-			),
-		),
-	);
-
-	/**
 	 * @since 1.8.0
 	 */
 	protected function before_update() {
@@ -47,14 +35,6 @@ class WordPoints_Ranks_Un_Installer extends WordPoints_Un_Installer_Base {
 		if ( $this->network_wide ) {
 			unset( $this->updates['1_8_0'] );
 		}
-	}
-
-	/**
-	 * @since 1.8.0
-	 */
-	protected function load_dependencies() {
-
-		include_once( WORDPOINTS_DIR . 'components/ranks/includes/constants.php' );
 	}
 
 	/**

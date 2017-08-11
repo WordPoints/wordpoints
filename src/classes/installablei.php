@@ -132,6 +132,13 @@ interface WordPoints_InstallableI {
 	/**
 	 * Gets the IDs of all sites on which this installable is installed.
 	 *
+	 * It's important to note that this isn't just sites where the code is active,
+	 * but is those sites that something has actually been installed for, like in
+	 * the database. Some of these sites may no longer have the code active. In
+	 * other cases, the code may be active but not actually install anything in the
+	 * DB, and therefore the sites don't need to be added to this list. It is
+	 * basically just for keeping track of where things would need to be uninstalled.
+	 *
 	 * @since 2.4.0
 	 *
 	 * @return int[] The IDs of the sites where this entity is installed.
@@ -140,6 +147,9 @@ interface WordPoints_InstallableI {
 
 	/**
 	 * Add a site's ID to the list of the sites where this entity is installed.
+	 *
+	 * This indicates that there will be things relating to that site that need to be
+	 * uninstalled. See {@see self::get_installed_site_ids()} for more info.
 	 *
 	 * @since 2.4.0
 	 *

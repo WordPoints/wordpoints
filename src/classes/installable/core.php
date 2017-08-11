@@ -39,6 +39,15 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 	/**
 	 * @since 2.4.0
 	 */
+	public function unset_db_version( $network = false ) {
+
+		// No need to do anything, running this would actually set the DB version
+		// again after it's already been deleted by the uninstall routine.
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
 	protected function get_db_tables() {
 		return array(
 			'global' => array(
@@ -174,15 +183,14 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 
 		$uninstall_routines = array();
 
+		// Normally we wouldn't run code here directly, but in this case we need to
+		// for legacy reasons. In the future we'd be able to avoid this by bundling
+		// the extension and component routines with our own.
 		$extensions = new WordPoints_Uninstaller_Core_Extensions();
-
-		$uninstall_routines['single'][] = $extensions;
-		$uninstall_routines['network'][] = $extensions;
+		$extensions->run();
 
 		$components = new WordPoints_Uninstaller_Core_Components();
-
-		$uninstall_routines['single'][] = $components;
-		$uninstall_routines['network'][] = $components;
+		$components->run();
 
 		return array_merge_recursive(
 			$uninstall_routines
@@ -224,6 +232,7 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 					'wordpoints_hook_reaction-%',
 					'wordpoints_hook_reaction_index-%',
 					'wordpoints_hook_reaction_last_id-%',
+					'wordpoints_installable_versions',
 				),
 			)
 		);

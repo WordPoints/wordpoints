@@ -118,9 +118,8 @@ class WordPoints_Installer extends WordPoints_Routine {
 			$this->run_routines( $this->install_routines['site'] );
 		}
 
-		$this->installable->add_installed_site_id();
-
 		if ( ! $this->network_wide ) {
+			$this->installable->add_installed_site_id();
 			$this->installable->set_db_version();
 		}
 	}

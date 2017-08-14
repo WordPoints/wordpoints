@@ -91,7 +91,7 @@ class WordPoints_Installer_Test extends WordPoints_PHPUnit_TestCase {
 				array( 'site' => array( $site ), 'network' => array( $network ) )
 			);
 
-		$installable->expects( $this->once() )->method( 'add_installed_site_id' );
+		$installable->expects( $this->never() )->method( 'add_installed_site_id' );
 		$installable->expects( $this->once() )->method( 'set_network_installed' );
 		$installable->expects( $this->once() )
 			->method( 'set_db_version' )

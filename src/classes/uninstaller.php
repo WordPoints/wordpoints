@@ -82,7 +82,10 @@ class WordPoints_Uninstaller extends WordPoints_Routine {
 
 		if (
 			wp_is_large_network()
-			&& count( $this->installable->get_installed_site_ids() ) > 10000
+			&& (
+				$this->installable->is_network_installed()
+				|| count( $this->installable->get_installed_site_ids() ) > 10000
+			)
 		) {
 			return true;
 		}

@@ -191,6 +191,40 @@ class WordPoints_Uninstaller_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Tests uninstalling on a large network when network installed.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_run_large_network_network_installed() {
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+
+		$site = $this->createMock( 'WordPoints_RoutineI' );
+		$site->expects( $this->never() )->method( 'run' );
+
+		$network = $this->createMock( 'WordPoints_RoutineI' );
+		$network->expects( $this->once() )->method( 'run' );
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->method( 'is_network_installed' )
+			->willReturn( true );
+
+		$installable->method( 'get_uninstall_routines' )
+			->willReturn(
+				array( 'site' => array( $site ), 'network' => array( $network ) )
+			);
+
+		$installable->expects( $this->once() )
+			->method( 'unset_db_version' )
+			->with( true );
+
+		$installer = new WordPoints_Uninstaller( $installable );
+		$installer->run();
+	}
+
+	/**
 	 * Tests uninstalling on a large network when installed on many sites.
 	 *
 	 * @since 2.4.0

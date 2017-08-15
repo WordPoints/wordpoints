@@ -25,8 +25,19 @@ class WordPoints_Installable_Legacy extends WordPoints_Installable_Basic {
 		$db_version = $this->get_db_version();
 
 		if ( $db_version && version_compare( $this->version, $db_version, '>' ) ) {
+
+			$network = null;
+
+			if ( 'module' === $this->type && is_multisite() ) {
+				$network = is_wordpoints_module_active_for_network(
+					wordpoints_module_basename(
+						WordPoints_Modules::get_data( $this->slug, 'raw_file' )
+					)
+				);
+			}
+
 			$installer = WordPoints_Installables::get_installer( $this->type, $this->slug );
-			$installer->update( $db_version, $this->version );
+			$installer->update( $db_version, $this->version, $network );
 		}
 
 		return parent::get_update_routines();

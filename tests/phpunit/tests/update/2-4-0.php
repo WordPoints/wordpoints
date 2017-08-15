@@ -14,6 +14,7 @@
  *
  * @group update
  *
+ * @covers WordPoints_Installable_Core::get_update_routines
  * @covers WordPoints_Updater_Core_2_4_0_Extensions_Directory_Rename
  */
 class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {

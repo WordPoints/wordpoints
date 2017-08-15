@@ -14,7 +14,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Un_Installer::update_site_to_1_5_0
+ * @covers WordPoints_Installable_Core::get_update_routines
  */
 class WordPoints_1_5_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 

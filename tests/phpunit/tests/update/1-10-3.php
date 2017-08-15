@@ -14,6 +14,7 @@
  *
  * @group update
  *
+ * @covers WordPoints_Installable_Core::get_update_routines
  * @covers WordPoints_Updater_Core_1_10_3_Extensions_Index_Create
  */
 class WordPoints_1_10_3_Update_Test extends WordPoints_PHPUnit_TestCase {

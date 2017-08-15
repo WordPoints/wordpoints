@@ -105,13 +105,6 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 
 		$db_version = $this->get_db_version( is_wordpoints_network_active() );
 
-		// v1.8.0.
-		if ( version_compare( '1.8.0', $db_version, '>' ) ) {
-			if ( ! is_wordpoints_network_active() ) {
-				$updates['site'][] = new WordPoints_Updater_Installed_Site_ID_Add( $this );
-			}
-		}
-
 		// v1.10.3.
 		if ( version_compare( '1.10.3', $db_version, '>' ) ) {
 			$routine = new WordPoints_Updater_Core_1_10_3_Extensions_Index_Create();

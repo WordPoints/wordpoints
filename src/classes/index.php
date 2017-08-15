@@ -217,7 +217,6 @@ return array(
 	'wordpoints_updater_core_extension_merge' => 'updater/core/extension/merge.php',
 	'wordpoints_updater_db_table_column_rename' => 'updater/db/table/column/rename.php',
 	'wordpoints_updater_db_tables_utf8mb4' => 'updater/db/tables/utf8mb4.php',
-	'wordpoints_updater_installed_site_id_add' => 'updater/installed/site/id/add.php',
 	'wordpoints_widget' => 'widget.php',
 	// }
 );

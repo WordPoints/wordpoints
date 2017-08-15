@@ -119,6 +119,7 @@ class WordPoints_Updater extends WordPoints_Routine {
 
 		if ( ! $this->network_wide ) {
 			$this->installable->set_db_version();
+			$this->installable->add_installed_site_id();
 		}
 	}
 

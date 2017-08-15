@@ -64,13 +64,6 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 
 		$db_version = $this->get_db_version( is_wordpoints_network_active() );
 
-		// v1.8.0.
-		if ( version_compare( '1.8.0', $db_version, '>' ) ) {
-			if ( ! is_wordpoints_network_active() ) {
-				$updates['site'][] = new WordPoints_Updater_Installed_Site_ID_Add( $this );
-			}
-		}
-
 		// v2.0.0.
 		if ( version_compare( '2.0.0', $db_version, '>' ) ) {
 

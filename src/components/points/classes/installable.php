@@ -166,13 +166,6 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			}
 		}
 
-		// v1.8.0.
-		if ( version_compare( '1.8.0', $db_version, '>' ) ) {
-			if ( ! is_wordpoints_network_active() ) {
-				$updates['site'][] = new WordPoints_Updater_Installed_Site_ID_Add( $this );
-			}
-		}
-
 		// v1.9.0.
 		if ( version_compare( '1.9.0', $db_version, '>' ) ) {
 

@@ -14,7 +14,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Ranks_Installable::get_update_routines
+ * @coversNothing
  */
 class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 

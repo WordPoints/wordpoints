@@ -339,9 +339,13 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 		$option_name = $this->get_installed_site_ids_option_name();
 
 		$sites = wordpoints_get_array_option( $option_name, 'site' );
-		$sites[] = $id;
 
-		update_site_option( $option_name, $sites );
+		if ( ! in_array( $id, $sites, true ) ) {
+
+			$sites[] = $id;
+
+			update_site_option( $option_name, $sites );
+		}
 	}
 
 	/**

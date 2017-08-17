@@ -32,7 +32,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->method( 'get_db_version' )->willReturn( '0.9.0' );
 		$installable->expects( $this->once() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
@@ -61,7 +61,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$version = '1.0.0';
 
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->expects( $this->never() )->method( 'get_update_routines' );
+		$installable->expects( $this->never() )->method( 'get_update_routine_factories' );
 		$installable->expects( $this->once() )
 			->method( 'get_install_routines' )
 			->willReturn( array() );
@@ -97,7 +97,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->method( 'get_db_version' )->willReturn( '0.9.0' );
 		$installable->expects( $this->once() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
@@ -131,7 +131,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->method( 'get_db_version' )->willReturn( '0.9.0' );
 		$installable->expects( $this->never() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
@@ -165,7 +165,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->method( 'get_db_version' )->willReturn( '1.1.0' );
 		$installable->expects( $this->never() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
@@ -199,7 +199,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->method( 'get_db_version' )->willReturn( '0.9.0' );
 		$installable->expects( $this->once() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = new WordPoints_PHPUnit_Mock_Filter( $installable );
@@ -239,7 +239,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->method( 'get_db_version' )->willReturn( '0.9.0' );
 		$installable->expects( $this->once() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = new WordPoints_PHPUnit_Mock_Filter( $installable );
@@ -278,7 +278,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->expects( $this->never() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = new WordPoints_PHPUnit_Mock_Filter( $installable );
@@ -314,13 +314,13 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$version = '1.0.0';
 
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->expects( $this->once() )
+		$installable->expects( $this->atLeastOnce() )
 			->method( 'get_db_version' )
 			->with( true )
 			->willReturn( '0.9.0' );
 
 		$installable->expects( $this->once() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
@@ -354,13 +354,13 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		);
 
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->expects( $this->once() )
+		$installable->expects( $this->atLeastOnce() )
 			->method( 'get_db_version' )
 			->with( true )
 			->willReturn( '0.9.0' );
 
 		$installable->expects( $this->once() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
@@ -392,7 +392,7 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
 		$installable->expects( $this->never() )
-			->method( 'get_update_routines' )
+			->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );

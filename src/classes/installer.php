@@ -72,7 +72,6 @@ class WordPoints_Installer extends WordPoints_Routine {
 	 */
 	protected function run_for_sites() {
 
-		$this->installable->set_db_version( null, true );
 		$this->installable->set_network_installed();
 
 		if ( ! isset( $this->install_routines['site'] ) ) {
@@ -107,6 +106,8 @@ class WordPoints_Installer extends WordPoints_Routine {
 		if ( ! empty( $this->install_routines['network'] ) ) {
 			$this->run_routines( $this->install_routines['network'] );
 		}
+
+		$this->installable->set_db_version( null, true );
 	}
 
 	/**

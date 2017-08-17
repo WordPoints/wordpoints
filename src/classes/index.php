@@ -9,6 +9,7 @@
 
 return array(
 	// auto-generated {
+	'wordpoints_updater_factoryi' => 'updater/factoryi.php',
 	'wordpoints_uninstaller_factory_sitei' => 'uninstaller/factory/sitei.php',
 	'wordpoints_uninstaller_factory_singlei' => 'uninstaller/factory/singlei.php',
 	'wordpoints_uninstaller_factory_networki' => 'uninstaller/factory/networki.php',
@@ -217,6 +218,7 @@ return array(
 	'wordpoints_updater_core_extension_merge' => 'updater/core/extension/merge.php',
 	'wordpoints_updater_db_table_column_rename' => 'updater/db/table/column/rename.php',
 	'wordpoints_updater_db_tables_utf8mb4' => 'updater/db/tables/utf8mb4.php',
+	'wordpoints_updater_factory' => 'updater/factory.php',
 	'wordpoints_widget' => 'widget.php',
 	// }
 );

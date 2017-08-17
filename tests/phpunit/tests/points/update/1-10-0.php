@@ -12,7 +12,7 @@
  *
  * @since 1.10.0
  *
- * @covers WordPoints_Points_Installable::get_update_routines
+ * @covers WordPoints_Points_Installable::get_update_routine_factories
  * @covers WordPoints_Points_Updater_1_10_0_Logs
  *
  * @group points

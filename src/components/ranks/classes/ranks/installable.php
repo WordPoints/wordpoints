@@ -58,41 +58,44 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 	/**
 	 * @since 2.4.0
 	 */
-	public function get_update_routines() {
+	public function get_update_routine_factories() {
 
-		$updates = parent::get_update_routines();
-
-		$db_version = $this->get_db_version( is_wordpoints_network_active() );
+		$factories = parent::get_update_routine_factories();
 
 		// v2.0.0.
-		if ( version_compare( '2.0.0', $db_version, '>' ) ) {
-
-			$routine = new WordPoints_Ranks_Updater_2_0_0_Tables(
-				array(
-					'wordpoints_ranks',
-					'wordpoints_rankmeta',
-					'wordpoints_user_ranks',
-				)
-				, 'base'
-			);
-
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.0.0'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Ranks_Updater_2_0_0_Tables',
+						'args'  => array(
+							array(
+								'wordpoints_ranks',
+								'wordpoints_rankmeta',
+								'wordpoints_user_ranks',
+							),
+							'base',
+						),
+					),
+				),
+			)
+		);
 
 		// v2.4.0-alpha-4.
-		if ( version_compare( '2.4.0-alpha-4', $db_version, '>' ) ) {
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.4.0-alpha-4'
+			, array( 'global' => array( 'WordPoints_Ranks_Updater_2_4_0_Tables' ) )
+		);
 
-			$routine = new WordPoints_Ranks_Updater_2_4_0_Tables();
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.4.0-alpha-4'
+			, array(
+				'local' => array( 'WordPoints_Ranks_Updater_2_4_0_User_Ranks' ),
+			)
+		);
 
-			$routine = new WordPoints_Ranks_Updater_2_4_0_User_Ranks();
-			$updates['single'][] = $routine;
-			$updates['site'][]   = $routine;
-		}
-
-		return $updates;
+		return $factories;
 	}
 
 	/**

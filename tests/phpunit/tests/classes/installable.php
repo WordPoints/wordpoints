@@ -831,15 +831,15 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Tests getting the update routines.
+	 * Tests getting the update routine factories.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_get_update_routines() {
+	public function test_get_update_routine_factories() {
 
 		$installable = $this->get_installable();
 
-		$this->assertSame( array(), $installable->get_update_routines() );
+		$this->assertSame( array(), $installable->get_update_routine_factories() );
 	}
 
 	/**

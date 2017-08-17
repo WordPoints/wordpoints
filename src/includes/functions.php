@@ -1151,9 +1151,10 @@ function wordpoints_hash( $data ) {
  * Construct a class with a variable number of args.
  *
  * @since 2.1.0
+ * @since 2.4.0 Up to 5 args are now accepted, instead of just 4.
  *
  * @param string $class_name The name of the class to construct.
- * @param array  $args       Up to 4 args to pass to the constructor.
+ * @param array  $args       Up to 5 args to pass to the constructor.
  *
  * @return object|false The constructed object, or false if to many args were passed.
  */
@@ -1170,6 +1171,8 @@ function wordpoints_construct_class_with_args( $class_name, array $args ) {
 			return new $class_name( $args[0], $args[1], $args[2] );
 		case 4:
 			return new $class_name( $args[0], $args[1], $args[2], $args[3] );
+		case 5:
+			return new $class_name( $args[0], $args[1], $args[2], $args[3], $args[4] );
 		default:
 			return false;
 	}

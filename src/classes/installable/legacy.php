@@ -20,7 +20,7 @@ class WordPoints_Installable_Legacy extends WordPoints_Installable_Basic {
 	/**
 	 * @since 2.4.0
 	 */
-	public function get_update_routines() {
+	public function get_update_routine_factories() {
 
 		$db_version = $this->get_db_version();
 
@@ -40,7 +40,7 @@ class WordPoints_Installable_Legacy extends WordPoints_Installable_Basic {
 			$installer->update( $db_version, $this->version, $network );
 		}
 
-		return parent::get_update_routines();
+		return parent::get_update_routine_factories();
 	}
 
 	/**

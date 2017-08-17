@@ -28,16 +28,79 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$routine = $this->createMock( 'WordPoints_RoutineI' );
 		$routine->expects( $this->once() )->method( 'run' );
 
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_single' )->willReturn( array( $routine ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->method( 'get_update_routines' )
-			->willReturn( array( 'single' => array( $routine ) ) );
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
 
 		$installable->expects( $this->once() )
 			->method( 'set_db_version' )
 			->with( null, false );
 
-		$installer = new WordPoints_Updater( $installable, false );
-		$installer->run();
+		$updater = new WordPoints_Updater( $installable, false );
+		$updater->run();
+	}
+
+	/**
+	 * Test getting the routines when the factory version is the same as the DB.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_update_routines_factory_version_less() {
+
+		$routine = $this->createMock( 'WordPoints_RoutineI' );
+		$routine->expects( $this->never() )->method( 'run' );
+
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_single' )->willReturn( array( $routine ) );
+		$factory->method( 'get_version' )->willReturn( '0.9.0' );
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
+
+		$installable->expects( $this->once() )
+			->method( 'set_db_version' )
+			->with( null, false );
+
+		$updater = new WordPoints_Updater( $installable, false );
+		$updater->run();
+	}
+
+	/**
+	 * Test getting the routines when the factory version is the same as the DB.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_get_update_routines_factory_version_same() {
+
+		$routine = $this->createMock( 'WordPoints_RoutineI' );
+		$routine->expects( $this->never() )->method( 'run' );
+
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_single' )->willReturn( array( $routine ) );
+		$factory->method( 'get_version' )->willReturn( '1.0.0' );
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
+
+		$installable->expects( $this->once() )
+			->method( 'set_db_version' )
+			->with( null, false );
+
+		$updater = new WordPoints_Updater( $installable, false );
+		$updater->run();
 	}
 
 	/**
@@ -55,19 +118,60 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$network = $this->createMock( 'WordPoints_RoutineI' );
 		$network->expects( $this->once() )->method( 'run' );
 
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array( $site ) );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->method( 'get_update_routines' )
-			->willReturn(
-				array( 'site' => array( $site ), 'network' => array( $network ) )
-			);
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
 
 		$installable->expects( $this->once() )->method( 'add_installed_site_id' );
-		$installable->expects( $this->once() )
+		$installable->expects( $this->exactly( 2 ) )
 			->method( 'set_db_version' )
-			->with( null, false );
+			->withConsecutive( array( null, true ), array( null, false ) );
 
-		$installer = new WordPoints_Updater( $installable, false );
-		$installer->run();
+		$updater = new WordPoints_Updater( $installable, false );
+		$updater->run();
+	}
+
+	/**
+	 * Test that the network version is used for the network routines.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_run_multisite_network_independent() {
+
+		$site = $this->createMock( 'WordPoints_RoutineI' );
+		$site->expects( $this->once() )->method( 'run' );
+
+		$network = $this->createMock( 'WordPoints_RoutineI' );
+		$network->expects( $this->never() )->method( 'run' );
+
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array( $site ) );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
+
+		$installable->method( 'get_db_version' )->willReturnMap(
+			array( array( false, '1.0.0' ), array( true, '1.1.0' ) )
+		);
+
+		$installable->expects( $this->once() )->method( 'add_installed_site_id' );
+		$installable->expects( $this->exactly( 2 ) )
+			->method( 'set_db_version' )
+			->withConsecutive( array( null, true ), array( null, false ) );
+
+		$updater = new WordPoints_Updater( $installable, false );
+		$updater->run();
 	}
 
 	/**
@@ -85,19 +189,60 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$network = $this->createMock( 'WordPoints_RoutineI' );
 		$network->expects( $this->once() )->method( 'run' );
 
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array( $site ) );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->method( 'get_update_routines' )
-			->willReturn(
-				array( 'site' => array( $site ), 'network' => array( $network ) )
-			);
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
 
 		$installable->expects( $this->never() )->method( 'add_installed_site_id' );
 		$installable->expects( $this->once() )
 			->method( 'set_db_version' )
 			->with( null, true );
 
-		$installer = new WordPoints_Updater( $installable, true );
-		$installer->run();
+		$updater = new WordPoints_Updater( $installable, true );
+		$updater->run();
+	}
+
+	/**
+	 * Test that the network version is used for the network and site routines.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_run_network_wide_network_same() {
+
+		$site = $this->createMock( 'WordPoints_RoutineI' );
+		$site->expects( $this->once() )->method( 'run' );
+
+		$network = $this->createMock( 'WordPoints_RoutineI' );
+		$network->expects( $this->once() )->method( 'run' );
+
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array( $site ) );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
+
+		$installable->method( 'get_db_version' )->willReturnMap(
+			array( array( false, '1.1.0' ), array( true, '1.0.0' ) )
+		);
+
+		$installable->expects( $this->never() )->method( 'add_installed_site_id' );
+		$installable->expects( $this->once() )
+			->method( 'set_db_version' )
+			->with( null, true );
+
+		$updater = new WordPoints_Updater( $installable, true );
+		$updater->run();
 	}
 
 	/**
@@ -114,16 +259,22 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$network = $this->createMock( 'WordPoints_RoutineI' );
 		$network->expects( $this->once() )->method( 'run' );
 
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array() );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->method( 'get_update_routines' )
-			->willReturn( array( 'network' => array( $network ) ) );
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
 
 		$installable->expects( $this->once() )
 			->method( 'set_db_version' )
 			->with( null, true );
 
-		$installer = new WordPoints_Updater( $installable, true );
-		$installer->run();
+		$updater = new WordPoints_Updater( $installable, true );
+		$updater->run();
 
 		$this->assertSame( 0, $this->filter_was_called( 'switch_blog' ) );
 	}
@@ -145,19 +296,23 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$network = $this->createMock( 'WordPoints_RoutineI' );
 		$network->expects( $this->once() )->method( 'run' );
 
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array( $site ) );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->method( 'get_update_routines' )
-			->willReturn(
-				array( 'site' => array( $site ), 'network' => array( $network ) )
-			);
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
 
 		$installable->expects( $this->once() )->method( 'set_network_update_skipped' );
 		$installable->expects( $this->once() )
 			->method( 'set_db_version' )
 			->with( null, true );
 
-		$installer = new WordPoints_Updater( $installable, true );
-		$installer->run();
+		$updater = new WordPoints_Updater( $installable, true );
+		$updater->run();
 	}
 
 	/**
@@ -174,17 +329,23 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 		$network = $this->createMock( 'WordPoints_RoutineI' );
 		$network->expects( $this->once() )->method( 'run' );
 
+		$factory = $this->createMock( 'WordPoints_Updater_FactoryI' );
+		$factory->method( 'get_for_site' )->willReturn( array() );
+		$factory->method( 'get_for_network' )->willReturn( array( $network ) );
+		$factory->method( 'get_version' )->willReturn( '1.1.0' );
+
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->method( 'get_update_routines' )
-			->willReturn( array( 'network' => array( $network ) ) );
+		$installable->method( 'get_db_version' )->willReturn( '1.0.0' );
+		$installable->method( 'get_update_routine_factories' )
+			->willReturn( array( $factory ) );
 
 		$installable->expects( $this->never() )->method( 'set_network_update_skipped' );
 		$installable->expects( $this->once() )
 			->method( 'set_db_version' )
 			->with( null, true );
 
-		$installer = new WordPoints_Updater( $installable, true );
-		$installer->run();
+		$updater = new WordPoints_Updater( $installable, true );
+		$updater->run();
 	}
 }
 

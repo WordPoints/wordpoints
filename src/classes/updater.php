@@ -36,6 +36,17 @@ class WordPoints_Updater extends WordPoints_Routine {
 	protected $updates = array();
 
 	/**
+	 * The update routine factories for the entity.
+	 *
+	 * Only used while getting the update routines.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var WordPoints_Updater_FactoryI[]
+	 */
+	protected $update_factories;
+
+	/**
 	 * @since 2.4.0
 	 *
 	 * @param WordPoints_InstallableI $installable The entity to update.
@@ -45,7 +56,71 @@ class WordPoints_Updater extends WordPoints_Routine {
 
 		$this->installable  = $installable;
 		$this->network_wide = $network;
-		$this->updates      = $this->installable->get_update_routines();
+		$this->updates      = $this->get_update_routines();
+	}
+
+	/**
+	 * Gets the update routines for the installable.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_RoutineI[][] The update routines, grouped by context.
+	 */
+	protected function get_update_routines() {
+
+		$routines = array();
+
+		$this->update_factories = $this->installable->get_update_routine_factories();
+
+		$db_version = $this->installable->get_db_version( $this->network_wide );
+
+		if ( is_multisite() ) {
+
+			// The site version is always based on network-activation status, but for
+			// per-site active installables, we still use the network version when
+			// getting the network routines, since they don't need to run every time
+			// as each site is updated, only once for the network, and thus are
+			// versioned independently.
+			if ( $this->network_wide ) {
+				$network_db_version = $db_version;
+			} else {
+				$network_db_version = $this->installable->get_db_version( true );
+			}
+
+			$routines['network'] = $this->get_routines( 'network', $network_db_version );
+			$routines['site'] = $this->get_routines( 'site', $db_version );
+
+		} else {
+			$routines['single'] = $this->get_routines( 'single', $this->installable->get_db_version() );
+		}
+
+		unset( $this->update_factories );
+
+		return $routines;
+	}
+
+	/**
+	 * Gets the update routines for a given context.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $context    The context to get the routines for.
+	 * @param string $db_version The database version of the installable.
+	 *
+	 * @return WordPoints_RoutineI[] The update routines for this context.
+	 */
+	protected function get_routines( $context, $db_version ) {
+
+		$routines = array();
+
+		foreach ( $this->update_factories as $factory ) {
+
+			if ( version_compare( $factory->get_version(), $db_version, '>' ) ) {
+				$routines = array_merge( $routines, $factory->{"get_for_{$context}"}() );
+			}
+		}
+
+		return $routines;
 	}
 
 	/**
@@ -103,9 +178,7 @@ class WordPoints_Updater extends WordPoints_Routine {
 			$this->run_routines( $this->updates['network'] );
 		}
 
-		if ( $this->network_wide ) {
-			$this->installable->set_db_version( null, true );
-		}
+		$this->installable->set_db_version( null, true );
 	}
 
 	/**

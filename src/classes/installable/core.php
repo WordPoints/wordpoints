@@ -99,70 +99,94 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 	/**
 	 * @since 2.4.0
 	 */
-	public function get_update_routines() {
+	public function get_update_routine_factories() {
 
-		$updates = parent::get_update_routines();
-
-		$db_version = $this->get_db_version( is_wordpoints_network_active() );
+		$factories = parent::get_update_routine_factories();
 
 		// v1.10.3.
-		if ( version_compare( '1.10.3', $db_version, '>' ) ) {
-			$routine = new WordPoints_Updater_Core_1_10_3_Extensions_Index_Create();
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'1.10.3'
+			, array( 'global' => array( 'WordPoints_Updater_Core_1_10_3_Extensions_Index_Create' ) )
+		);
 
 		// 2.1.0-alpha-3.
-		if ( version_compare( '2.1.0-alpha-3', $db_version, '>' ) ) {
+		$db_tables = $this->get_db_tables();
 
-			$routines             = $this->get_db_tables_install_routines();
-			$updates['single'][]  = $routines['single'][0];
-			$updates['network'][] = $routines['network'][0];
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.1.0-alpha-3'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Installer_DB_Tables',
+						'args'  => array( $db_tables['global'], 'base' ),
+					),
+				),
+			)
+		);
 
-		} elseif ( version_compare( '2.3.0-alpha-2', $db_version, '>' ) ) {
+		// 2.3.0-alpha-2.
+		if ( ! version_compare( '2.1.0-alpha-3', $this->get_db_version( is_wordpoints_network_active() ), '>' ) ) {
 
-			// 2.3.0-alpha-2.
 			// We don't need to update the table if the new schema has just been used to
 			// install it.
-			$routine = new WordPoints_Updater_DB_Table_Column_Rename(
-				'wordpoints_hook_hits'
-				, 'primary_arg_guid'
-				, 'signature_arg_guids'
-				, 'TEXT NOT NULL'
-				, 'base'
+			$factories[] = new WordPoints_Updater_Factory(
+				'2.3.0-alpha-2'
+				, array(
+					'global' => array(
+						array(
+							'class' => 'WordPoints_Updater_DB_Table_Column_Rename',
+							'args'  => array(
+								'wordpoints_hook_hits',
+								'primary_arg_guid',
+								'signature_arg_guids',
+								'TEXT NOT NULL',
+								'base',
+							),
+						),
+					),
+				)
 			);
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
 		}
 
 		// 2.4.0-alpha-2.
-		if ( version_compare( '2.4.0-alpha-2', $db_version, '>' ) ) {
-
-			$routine = new WordPoints_Updater_Core_Extension_Merge(
-				'wordpointsorg/wordpointsorg.php'
-			);
-
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-			$updates['site'][]    = new WordPoints_Uninstaller_Callback(
-				'wordpoints_deactivate_modules'
-				, array( 'wordpointsorg/wordpointsorg.php' )
-			);
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.4.0-alpha-2'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Updater_Core_Extension_Merge',
+						'args'  => array( 'wordpointsorg/wordpointsorg.php' ),
+					),
+				),
+				'site' => array(
+					array(
+						'class' => 'WordPoints_Uninstaller_Callback',
+						'args'  => array(
+							'wordpoints_deactivate_modules',
+							array( 'wordpointsorg/wordpointsorg.php' ),
+						),
+					),
+				),
+			)
+		);
 
 		// 2.4.0-alpha-3.
-		if ( version_compare( '2.4.0-alpha-3', $db_version, '>' ) ) {
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.4.0-alpha-3'
+			, array(
+				'global' => array(
+					'WordPoints_Updater_Core_2_4_0_Extensions_Directory_Rename',
+				),
+				'local' => array(
+					array(
+						'class' => 'WordPoints_Installer_Caps',
+						'args'  => array( wordpoints_get_custom_caps() ),
+					),
+				),
+			)
+		);
 
-			$routine = new WordPoints_Installer_Caps( wordpoints_get_custom_caps() );
-			$updates['single'][] = $routine;
-			$updates['site'][]   = $routine;
-
-			$routine = new WordPoints_Updater_Core_2_4_0_Extensions_Directory_Rename();
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
-
-		return $updates;
+		return $factories;
 	}
 
 	/**

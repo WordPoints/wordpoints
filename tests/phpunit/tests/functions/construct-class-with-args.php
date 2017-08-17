@@ -54,17 +54,18 @@ class WordPoints_Construct_Class_With_Args_Test extends PHPUnit_Framework_TestCa
 			'2 args' => array( array( 'arg 1', 2 ) ),
 			'3 args' => array( array( 'arg 1', 2, 3.0 ) ),
 			'4 args' => array( array( 'arg 1', 2, 3.0, '4' ) ),
+			'5 args' => array( array( 'arg 1', 2, 3.0, '4', 'five' ) ),
 		);
 	}
 
 	/**
-	 * Test constructing a class with 5 args.
+	 * Test constructing a class with 6 args.
 	 *
 	 * @since 2.1.0
 	 */
-	public function test_5_args() {
+	public function test_6_args() {
 
-		$args = array( 'arg 1', 2, 3.0, '4', 'five' );
+		$args = array( 'arg 1', 2, 3.0, '4', 'five', '0600' );
 
 		$result = wordpoints_construct_class_with_args(
 			'WordPoints_PHPUnit_Mock_Object'

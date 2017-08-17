@@ -451,7 +451,7 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 	/**
 	 * @since 2.4.0
 	 */
-	public function get_update_routines() {
+	public function get_update_routine_factories() {
 		return array();
 	}
 

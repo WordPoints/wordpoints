@@ -109,65 +109,76 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 	/**
 	 * @since 2.4.0
 	 */
-	public function get_update_routines() {
+	public function get_update_routine_factories() {
 
-		$updates = parent::get_update_routines();
-
-		$db_version = $this->get_db_version( is_wordpoints_network_active() );
+		$factories = parent::get_update_routine_factories();
 
 		// v1.2.0.
-		if ( version_compare( '1.2.0', $db_version, '>' ) ) {
-			$routine              = new WordPoints_Points_Updater_1_2_0_Logs();
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'1.2.0'
+			, array( 'global' => array( 'WordPoints_Points_Updater_1_2_0_Logs' ) )
+		);
 
 		// v1.4.0.
-		if ( version_compare( '1.4.0', $db_version, '>' ) ) {
+		$hooks = array(
+			array(
+				'hook'      => 'wordpoints_post_points_hook',
+				'new_hook'  => 'wordpoints_post_delete_points_hook',
+				'key'       => 'publish',
+				'split_key' => 'trash',
+			),
+			array(
+				'hook'      => 'wordpoints_comment_points_hook',
+				'new_hook'  => 'wordpoints_comment_removed_points_hook',
+				'key'       => 'approve',
+				'split_key' => 'disapprove',
+			),
+		);
 
-			$hooks = array(
-				array(
-					'hook'      => 'wordpoints_post_points_hook',
-					'new_hook'  => 'wordpoints_post_delete_points_hook',
-					'key'       => 'publish',
-					'split_key' => 'trash',
+		$factories[] = new WordPoints_Updater_Factory(
+			'1.4.0'
+			, array(
+				'local' => array(
+					array(
+						'class' => 'WordPoints_Points_Updater_1_4_0_Hooks',
+						'args'  => array( $hooks ),
+					),
+					'WordPoints_Points_Updater_1_4_0_Logs',
 				),
-				array(
-					'hook'      => 'wordpoints_comment_points_hook',
-					'new_hook'  => 'wordpoints_comment_removed_points_hook',
-					'key'       => 'approve',
-					'split_key' => 'disapprove',
-				),
+			)
+		);
+
+		if ( is_wordpoints_network_active() ) {
+			$factories[] = new WordPoints_Updater_Factory(
+				'1.4.0'
+				, array(
+					'network' => array(
+						array(
+							'class' => 'WordPoints_Points_Updater_1_4_0_Hooks',
+							'args'  => array( $hooks, true ),
+						),
+					),
+				)
 			);
-
-			$routine = new WordPoints_Points_Updater_1_4_0_Hooks( $hooks );
-
-			$updates['single'][] = $routine;
-			$updates['site'][]   = $routine;
-
-			if ( is_wordpoints_network_active() ) {
-				$updates['network'][] = new WordPoints_Points_Updater_1_4_0_Hooks(
-					$hooks
-					, true
-				);
-			}
-
-			$routine = new WordPoints_Points_Updater_1_4_0_Logs();
-			$updates['single'][] = $routine;
-			$updates['site'][]   = $routine;
 		}
 
 		// v1.5.0.
-		if ( version_compare( '1.5.0', $db_version, '>' ) ) {
-			if ( ! is_wordpoints_network_active() ) {
-				$updates['site'][] = new WordPoints_Installer_Caps(
-					wordpoints_points_get_custom_caps()
-				);
-			}
+		if ( is_wordpoints_network_active() ) {
+			$factories[] = new WordPoints_Updater_Factory(
+				'1.5.0'
+				, array(
+					'site' => array(
+						array(
+							'class' => 'WordPoints_Installer_Caps',
+							'args'  => array( wordpoints_points_get_custom_caps() ),
+						),
+					),
+				)
+			);
 		}
 
 		// v1.9.0.
-		if ( version_compare( '1.9.0', $db_version, '>' ) ) {
+		if ( version_compare( '1.9.0', $this->get_db_version( is_wordpoints_network_active() ), '>' ) ) {
 
 			// We initialize the hooks early, because we use them during the update.
 			// This is also need for the 1.4.0 update, but if that update is running,
@@ -183,66 +194,95 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			);
 
 			WordPoints_Points_Hooks::initialize_hooks();
+		}
 
-			$hooks = array(
-				'comment' => 'comment_removed',
-				'post' => 'post_delete',
+		$hooks = array(
+			'comment' => 'comment_removed',
+			'post'    => 'post_delete',
+		);
+
+		$factories[] = new WordPoints_Updater_Factory(
+			'1.9.0'
+			, array(
+				'local' => array(
+					array(
+						'class' => 'WordPoints_Points_Updater_1_9_0_Hooks',
+						'args'  => array( $hooks ),
+					),
+				),
+			)
+		);
+
+		if ( is_wordpoints_network_active() ) {
+			$factories[] = new WordPoints_Updater_Factory(
+				'1.9.0'
+				, array(
+					'network' => array(
+						array(
+							'class' => 'WordPoints_Points_Updater_1_9_0_Hooks',
+							'args'  => array( $hooks, true ),
+						),
+					),
+				)
 			);
-
-			$routine = new WordPoints_Points_Updater_1_9_0_Hooks( $hooks );
-
-			$updates['single'][] = $routine;
-			$updates['site'][]   = $routine;
-
-			if ( is_wordpoints_network_active() ) {
-				$updates['network'][] = new WordPoints_Points_Updater_1_9_0_Hooks(
-					$hooks
-					, true
-				);
-			}
 		}
 
 		// v1.10.0.
-		if ( version_compare( '1.10.0', $db_version, '>' ) ) {
-
-			$updates['single'][]  = new WordPoints_Points_Updater_1_10_0_Logs();
-			$updates['network'][] = new WordPoints_Points_Updater_1_10_0_Logs( true );
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'1.10.0'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Points_Updater_1_10_0_Logs',
+						'args'  => array( is_multisite() ),
+					),
+				),
+			)
+		);
 
 		// v2.0.0.
-		if ( version_compare( '2.0.0', $db_version, '>' ) ) {
-
-			$routine = new WordPoints_Points_Updater_2_0_0_Tables(
-				array( 'wordpoints_points_logs', 'wordpoints_points_log_meta' )
-				, 'base'
-			);
-
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.0.0'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Points_Updater_2_0_0_Tables',
+						'args'  => array(
+							array(
+								'wordpoints_points_logs',
+								'wordpoints_points_log_meta',
+							),
+							'base',
+						),
+					),
+				),
+			)
+		);
 
 		// v2.1.0.
-		if ( version_compare( '2.1.0', $db_version, '>' ) ) {
-
-			$routine = new WordPoints_Installer_Option(
-				'wordpoints_disabled_points_hooks_edit_points_types'
-				, true
-				, null
-			);
-
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.1.0'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Installer_Option',
+						'args'  => array(
+							'wordpoints_disabled_points_hooks_edit_points_types',
+							true,
+							null,
+						),
+					),
+				),
+			)
+		);
 
 		// v2.1.4.
-		if ( version_compare( '2.1.4', $db_version, '>' ) ) {
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.1.4'
+			, array( 'global' => array( 'WordPoints_Points_Updater_2_1_4_Logs' ) )
+		);
 
-			$routine              = new WordPoints_Points_Updater_2_1_4_Logs();
-			$updates['single'][]  = $routine;
-			$updates['network'][] = $routine;
-		}
-
-		return $updates;
+		return $factories;
 	}
 
 	/**

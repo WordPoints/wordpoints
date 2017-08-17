@@ -15,7 +15,7 @@
  * @group points
  * @group update
  *
- * @covers WordPoints_Points_Installable::get_update_routines
+ * @covers WordPoints_Points_Installable::get_update_routine_factories
  *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct

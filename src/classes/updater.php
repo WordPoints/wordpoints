@@ -76,27 +76,94 @@ class WordPoints_Updater extends WordPoints_Routine {
 
 		if ( is_multisite() ) {
 
-			// The site version is always based on network-activation status, but for
-			// per-site active installables, we still use the network version when
-			// getting the network routines, since they don't need to run every time
-			// as each site is updated, only once for the network, and thus are
-			// versioned independently.
-			if ( $this->network_wide ) {
-				$network_db_version = $db_version;
-			} else {
-				$network_db_version = $this->installable->get_db_version( true );
-			}
+			$routines['network'] = $this->get_routines(
+				'network'
+				, $this->get_network_db_version_installable()
+			);
 
-			$routines['network'] = $this->get_routines( 'network', $network_db_version );
 			$routines['site'] = $this->get_routines( 'site', $db_version );
 
 		} else {
-			$routines['single'] = $this->get_routines( 'single', $this->installable->get_db_version() );
+			$routines['single'] = $this->get_routines( 'single', $db_version );
 		}
 
 		unset( $this->update_factories );
 
 		return $routines;
+	}
+
+	/**
+	 * Gets the network DB version for the installable.
+	 *
+	 * The site version is always based on network-activation status, but for per-
+	 * site active installables, we still use the network version when getting the
+	 * network routines, since they don't need to run every time as each site is
+	 * updated, only once for the network, and thus are versioned independently.
+	 *
+	 * For legacy installables that do not have the network version set yet, we
+	 * determine the most recent version that the network has been updated to by
+	 * checking the versions of each of the sites; the latest version found is the
+	 * version that the network has been updated to (since previously the network
+	 * updates would be run along with the per-site updates). If there wasn't any
+	 * version set, that just means that the installable has been newly added to the
+	 * code and so was not installed previously; in that case, all of the per-site
+	 * updates should (and will) be run (since no version is considered lower than
+	 * any version).
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return string THe network DB version, or false if none could be determined.
+	 */
+	protected function get_network_db_version_installable() {
+
+		$db_version = $this->installable->get_db_version( true );
+
+		// Network active always uses the network version.
+		if ( $this->network_wide ) {
+			return $db_version;
+		}
+
+		// For per-site active, we can use the version if it is set.
+		if ( $db_version ) {
+			return $db_version;
+		}
+
+		// For legacy installables, however, it may not be yet.
+		$versions = array();
+
+		$ms_switched_state = new WordPoints_Multisite_Switched_State();
+		$ms_switched_state->backup();
+
+		// So we get all of the per-site versions.
+		foreach ( $this->installable->get_installed_site_ids() as $site_id ) {
+			switch_to_blog( $site_id );
+			$versions[ $site_id ] = $this->installable->get_db_version();
+		}
+
+		$ms_switched_state->restore();
+
+		// The latest per-site version is the one the network has been updated to.
+		foreach ( array_unique( $versions ) as $version ) {
+			if ( version_compare( $version, $db_version, '>' ) ) {
+				$db_version = $version;
+			}
+		}
+
+		$ms_switched_state->backup();
+
+		// All of the sites will have been updated to this version.
+		foreach ( $versions as $site_id => $version ) {
+
+			// So make sure they have this version set as their DB version.
+			if ( $version !== $db_version ) {
+				switch_to_blog( $site_id );
+				$this->installable->set_db_version( $db_version );
+			}
+		}
+
+		$ms_switched_state->restore();
+
+		return $db_version;
 	}
 
 	/**

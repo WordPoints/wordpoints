@@ -48,11 +48,42 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Tests that the maybe_update() method runs install if needed.
+	 * Tests that the maybe_update() method runs install of WordPoints if needed.
 	 *
 	 * @since 2.4.0
 	 */
-	public function test_maybe_update_runs_install_if_db_version_not_set() {
+	public function test_maybe_update_runs_install_if_db_version_not_set_wordpoints() {
+
+		delete_option( 'wordpoints_installable_versions' );
+
+		$type    = 'plugin';
+		$slug    = 'wordpoints';
+		$version = '1.0.0';
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->expects( $this->never() )->method( 'get_update_routine_factories' );
+		$installable->expects( $this->once() )
+			->method( 'get_install_routines' )
+			->willReturn( array() );
+
+		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );
+
+		$installables = new WordPoints_Installables_App();
+		$installables->register( $type, $slug, $loader, $version );
+
+		$installables->maybe_update();
+
+		$data = get_option( 'wordpoints_installable_versions' );
+
+		$this->assertSame( array( $type => array( $slug => $version ) ), $data );
+	}
+
+	/**
+	 * Tests that the maybe_update() method doesn't runs install for other entities.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_maybe_update_not_runs_install_if_db_version_not_set() {
 
 		delete_option( 'wordpoints_installable_versions' );
 
@@ -61,9 +92,9 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 		$version = '1.0.0';
 
 		$installable = $this->createMock( 'WordPoints_InstallableI' );
-		$installable->expects( $this->never() )->method( 'get_update_routine_factories' );
-		$installable->expects( $this->once() )
-			->method( 'get_install_routines' )
+		$installable->method( 'get_installed_site_ids' )->willReturn( array() );
+		$installable->expects( $this->never() )->method( 'get_install_routines' );
+		$installable->expects( $this->once() )->method( 'get_update_routine_factories' )
 			->willReturn( array() );
 
 		$loader = array( new WordPoints_PHPUnit_Mock_Filter( $installable ), 'filter' );

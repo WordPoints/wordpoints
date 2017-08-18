@@ -149,9 +149,9 @@ class WordPoints_Installables_App {
 
 		$db_version = $installable->get_db_version( $network );
 
-		if ( ! $db_version ) {
+		if ( ! $db_version && 'plugin' === $type && 'wordpoints' === $slug ) {
 
-			// This entity hasn't been installed yet.
+			// WordPoints had a bug in 2.0.0 causing it not to be installed, see #349.
 			$installer = new WordPoints_Installer( $installable, $network );
 			$installer->run();
 

@@ -292,7 +292,7 @@
         "active": {
             "1309": false,
             "1660": false,
-            "2453": false
+            "2458": false
         },
         "inactive": {
             "1309": false,
@@ -326,7 +326,7 @@
             "2166": false
         },
         "wordpoints": {
-            "2331": {
+            "2336": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -335,7 +335,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2343": {
+            "2348": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -344,7 +344,7 @@
             }
         },
         "-update": {
-            "2460": {
+            "2465": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -353,13 +353,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2465": false
+            "2470": false
         },
         "document.getElementById(": {
-            "2495": false
+            "2500": false
         },
         ").disabled = true;": {
-            "2499": false
+            "2504": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -1343,11 +1343,26 @@
         }
     },
     "\/includes\/functions.php": {
-        "-1": {
-            "825": false
+        "plugin": {
+            "23": {
+                "name": "(unknown)->register",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "wordpoints": {
+            "24": {
+                "name": "(unknown)->register",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
         },
         "points": {
-            "1028": {
+            "1043": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1356,11 +1371,66 @@
             }
         },
         "ranks": {
-            "1052": {
+            "1067": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "single": {
+            "1242": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1243": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1244": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "1242": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1244": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "1243": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1244": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
                 "parentheses": 1
             }
         }
@@ -1513,8 +1583,17 @@
         "true": {
             "449": false
         },
+        "module": {
+            "1239": {
+                "name": "WordPoints_Uninstaller::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 2
+            }
+        },
         ",": {
-            "1534": false
+            "1547": false
         }
     },
     "\/admin\/classes\/screen.php": {
@@ -1941,7 +2020,7 @@
     },
     "\/classes\/hook\/extension\/conditions.php": {
         "entity": {
-            "300": false
+            "304": false
         }
     },
     "\/classes\/hook\/hit\/query.php": {
@@ -2190,7 +2269,7 @@
             }
         },
         "post\\\\": {
-            "335": {
+            "336": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2199,7 +2278,7 @@
             }
         },
         "comment\\\\": {
-            "313": {
+            "314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2208,7 +2287,7 @@
             }
         },
         "content": {
-            "335": {
+            "336": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2315,7 +2394,7 @@
     },
     "\/classes\/installables.php": {
         "install": {
-            "251": {
+            "284": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -2324,7 +2403,7 @@
             }
         },
         "update": {
-            "252": {
+            "285": {
                 "name": "WordPoints_Installables::show_admin_notices",
                 "type": "unknown",
                 "args_started": true,
@@ -2423,39 +2502,85 @@
                 "arg_count": 15,
                 "parentheses": 1
             }
+        },
+        "extension": {
+            "210": {
+                "name": "(unknown)->register",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "256": {
+                "name": "WordPoints_Modules::get_installable",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "module": {
+            "312": {
+                "name": "WordPoints_Installable_Legacy::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         }
     },
     "\/classes\/un\/installer\/base.php": {
         "install": {
-            "317": false,
-            "397": false
+            "331": false,
+            "411": false
         },
         "network": {
-            "338": false,
-            "469": false,
-            "566": false,
-            "1340": {
+            "352": false,
+            "479": false,
+            "576": false,
+            "984": {
+                "name": "WordPoints_Un_Installer_Base::installable->unset_db_version",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1217": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1218": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1279": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1374": {
+            "1313": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1375": {
+            "1314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
                 "parentheses": 1
             },
-            "1380": {
+            "1319": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2464,32 +2589,32 @@
             }
         },
         "site": {
-            "343": false,
-            "415": false,
-            "448": false,
-            "571": false,
-            "1340": {
+            "357": false,
+            "429": false,
+            "462": false,
+            "581": false,
+            "1279": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1373": {
+            "1312": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1375": {
+            "1314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1380": {
+            "1319": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2498,38 +2623,45 @@
             }
         },
         "single": {
-            "380": false,
-            "486": false,
-            "607": false,
-            "1340": {
+            "394": false,
+            "496": false,
+            "617": false,
+            "1218": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "1279": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1373": {
+            "1312": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1374": {
+            "1313": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1375": {
+            "1314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1380": {
+            "1319": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2538,52 +2670,43 @@
             }
         },
         "uninstall": {
-            "431": false
+            "445": false
         },
         "update": {
-            "506": false
+            "516": false
         },
         "ids": {
-            "682": {
+            "692": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "956": {
+            "938": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
-                "parentheses": 1
-            }
-        },
-        "local": {
-            "1340": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            },
-            "1380": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
                 "parentheses": 1
             }
         },
         "global": {
-            "1340": {
+            "1216": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "1279": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 4,
                 "parentheses": 1
             },
-            "1380": {
+            "1319": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2591,15 +2714,31 @@
                 "parentheses": 1
             }
         },
+        "local": {
+            "1279": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            },
+            "1319": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
         "universal": {
-            "1340": {
+            "1279": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 5,
                 "parentheses": 1
             },
-            "1380": {
+            "1319": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2608,14 +2747,14 @@
             }
         },
         "wordpoints": {
-            "1611": {
+            "1550": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1670": {
+            "1609": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2624,7 +2763,7 @@
             }
         },
         "closedpostboxes": {
-            "1612": {
+            "1551": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2633,7 +2772,7 @@
             }
         },
         "metaboxhidden": {
-            "1612": {
+            "1551": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2642,7 +2781,7 @@
             }
         },
         "meta-box-order": {
-            "1612": {
+            "1551": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -2651,17 +2790,17 @@
             }
         },
         "toplevel": {
-            "1688": false
+            "1627": false
         },
         "manage": {
-            "1694": false,
-            "1697": false
+            "1633": false,
+            "1636": false
         },
         "columnshidden": {
-            "1694": false
+            "1633": false
         },
         "-networkcolumnshidden": {
-            "1697": false
+            "1636": false
         }
     },
     "\/classes\/entity\/relationship\/dynamic\/stored\/field.php": {
@@ -3081,6 +3220,601 @@
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 3,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/installable.php": {
+        "wordpoints": {
+            "266": false
+        },
+        "ids": {
+            "320": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "base": {
+            "398": {
+                "name": "WordPoints_Installer_DB_Tables::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/installer\/db\/tables.php": {
+        "site": {
+            "44": {
+                "name": "WordPoints_Installer_DB_Tables::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/routine.php": {
+        "ids": {
+            "126": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/db\/tables.php": {
+        "site": {
+            "41": {
+                "name": "WordPoints_Uninstaller_DB_Tables::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/factory\/admin\/screens\/with\/list\/tables.php": {
+        "single": {
+            "69": {
+                "name": "WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "79": {
+                "name": "WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "80": {
+                "name": "WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "wordpoints": {
+            "103": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "toplevel": {
+            "122": false
+        },
+        "manage": {
+            "129": false
+        },
+        "columnshidden": {
+            "129": false
+        },
+        "-networkcolumnshidden": {
+            "127": false
+        },
+        "user": {
+            "144": {
+                "name": "WordPoints_Uninstaller_Metadata::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/factory\/admin\/screens\/with\/meta\/boxes.php": {
+        "single": {
+            "71": {
+                "name": "WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "81": {
+                "name": "WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "82": {
+                "name": "WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "closedpostboxes": {
+            "104": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "metaboxhidden": {
+            "104": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "meta-box-order": {
+            "104": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "wordpoints": {
+            "106": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "-network": {
+            "121": false
+        },
+        "user": {
+            "128": {
+                "name": "WordPoints_Uninstaller_Metadata::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/factory\/db\/tables.php": {
+        "single": {
+            "43": {
+                "name": "WordPoints_Uninstaller_Factory_DB_Tables::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "50": {
+                "name": "WordPoints_Uninstaller_Factory_DB_Tables::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "76": {
+                "name": "WordPoints_Uninstaller_DB_Tables::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "57": {
+                "name": "WordPoints_Uninstaller_Factory_DB_Tables::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "base": {
+            "76": {
+                "name": "WordPoints_Uninstaller_DB_Tables::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/factory\/metadata.php": {
+        "user": {
+            "64": false
+        },
+        "single": {
+            "74": {
+                "name": "WordPoints_Uninstaller_Factory_Metadata::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "81": {
+                "name": "WordPoints_Uninstaller_Factory_Metadata::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "119": {
+                "name": "WordPoints_Uninstaller_Metadata_Wildcards::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
+            "129": {
+                "name": "WordPoints_Uninstaller_Metadata::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "88": {
+                "name": "WordPoints_Uninstaller_Factory_Metadata::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/factory\/options.php": {
+        "single": {
+            "44": {
+                "name": "WordPoints_Uninstaller_Factory_Options::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "51": {
+                "name": "WordPoints_Uninstaller_Factory_Options::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "58": {
+                "name": "WordPoints_Uninstaller_Factory_Options::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "97": {
+                "name": "WordPoints_Uninstaller_Callback::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/uninstaller\/factory\/transients.php": {
+        "single": {
+            "43": {
+                "name": "WordPoints_Uninstaller_Factory_Transients::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "50": {
+                "name": "WordPoints_Uninstaller_Factory_Transients::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "57": {
+                "name": "WordPoints_Uninstaller_Factory_Transients::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
+            "75": {
+                "name": "WordPoints_Uninstaller_Callback::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/updater\/db\/tables\/utf8mb4.php": {
+        "site": {
+            "43": {
+                "name": "WordPoints_Updater_DB_Tables_UTF8MB4::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "60": false
+        }
+    },
+    "\/classes\/components.php": {
+        "component": {
+            "280": {
+                "name": "$installables->register",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/installable\/core.php": {
+        "base": {
+            "121": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
+            "143": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/updater\/core\/1\/10\/3\/extensions\/index\/create.php": {
+        "<?php \/\/ Gold is silent.": {
+            "34": {
+                "name": "$wp_filesystem->put_contents",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/updater\/db\/table\/column\/rename.php": {
+        "site": {
+            "71": {
+                "name": "WordPoints_Updater_DB_Table_Column_Rename::__construct",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 4,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/updater\/factory.php": {
+        "single": {
+            "63": {
+                "name": "WordPoints_Updater_Factory::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "70": {
+                "name": "WordPoints_Updater_Factory::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "77": {
+                "name": "WordPoints_Updater_Factory::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/updater.php": {
+        "network": {
+            "80": {
+                "name": "WordPoints_Updater::get_routines",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "84": {
+                "name": "WordPoints_Updater::get_routines",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "single": {
+            "87": {
+                "name": "WordPoints_Updater::get_routines",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/classes\/installable.php": {
+        "publish": {
+            "127": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "trash": {
+            "128": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "approve": {
+            "133": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
+        "disapprove": {
+            "134": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 3,
+                "parentheses": 1
+            }
+        },
+        "base": {
+            "255": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/classes\/updater\/1\/10\/0\/logs.php": {
+        "EXISTS": {
+            "44": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/points\/classes\/updater\/1\/4\/0\/hooks.php": {
+        "network": {
+            "89": false
+        },
+        "standard": {
+            "92": false
+        }
+    },
+    "\/components\/points\/classes\/updater\/1\/9\/0\/hooks.php": {
+        "network": {
+            "81": false
+        },
+        "standard": {
+            "84": false
+        },
+        "post": {
+            "91": false
+        }
+    },
+    "\/components\/points\/classes\/updater\/2\/1\/4\/logs.php": {
+        "post\\\\": {
+            "342": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "IN": {
+            "359": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/ranks\/classes\/ranks\/installable.php": {
+        "base": {
+            "78": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/components\/ranks\/classes\/ranks\/updater\/2\/4\/0\/user\/ranks.php": {
+        "ID": {
+            "27": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
                 "parentheses": 1
             }
         }

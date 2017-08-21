@@ -2296,7 +2296,7 @@ function wordpoints_admin_ajax_breaking_module_check() {
 function wordpoints_hooks_admin_ajax() {
 
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-		new WordPoints_Admin_Ajax_Hooks;
+		new WordPoints_Admin_Ajax_Hooks();
 	}
 }
 

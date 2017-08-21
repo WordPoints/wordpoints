@@ -267,7 +267,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		// Check that the log was updated.
-		$log = new WordPoints_Points_Logs_Query;
+		$log = new WordPoints_Points_Logs_Query();
 		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
@@ -298,7 +298,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		// Check that the log was updated.
-		$log = new WordPoints_Points_Logs_Query;
+		$log = new WordPoints_Points_Logs_Query();
 		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );

@@ -494,7 +494,7 @@ abstract class WordPoints_Points_Hook {
 			$all_instances[ $this->number ] = $instance;
 		}
 
-		$this->_save_instances( $all_instances );
+		$this->save_instances( $all_instances );
 	}
 
 	/**
@@ -521,7 +521,7 @@ abstract class WordPoints_Points_Hook {
 
 			unset( $all_instances[ $number ] );
 
-			$this->_save_instances( $all_instances );
+			$this->save_instances( $all_instances );
 		}
 	}
 
@@ -789,7 +789,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @param array $instances All settings, indexed by instance number.
 	 */
-	final private function _save_instances( $instances ) {
+	final private function save_instances( $instances ) {
 
 		// This needs to start at 1.
 		unset( $instances[0] );

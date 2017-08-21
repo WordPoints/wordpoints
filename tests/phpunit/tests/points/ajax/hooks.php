@@ -123,7 +123,7 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 			unset( $e );
 		}
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame( 1, $xpath->query( '//p/input[@value = "15"]' )->length );

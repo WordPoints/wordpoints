@@ -135,7 +135,7 @@ class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$version = '2.3.1';
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'latest_version', $version );
 
 		$this->assertSame( $version, $api->get_extension_latest_version( $data ) );
@@ -152,7 +152,7 @@ class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$url = 'https://example.com/extension/?download=1';
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'package', $url );
 
 		$this->assertSame( $url, $api->get_extension_package_url( $data ) );
@@ -169,7 +169,7 @@ class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$changelog = 'A list of changes...';
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'changelog', $changelog );
 
 		$this->assertSame( $changelog, $api->get_extension_changelog( $data ) );
@@ -184,7 +184,7 @@ class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$api = $this->get_server_api();
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'test', 'test_value' );
 
 		$this->assertSame( 'test_value', $api->get_extension_info( $data, 'test' ) );

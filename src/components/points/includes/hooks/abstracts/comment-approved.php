@@ -152,7 +152,8 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 		switch ( $comment->comment_approved ) {
 
 			// Comment hasn't been approved yet.
-			case 0: return;
+			case 0:
+				return;
 
 			// Comment is approved.
 			case 1:

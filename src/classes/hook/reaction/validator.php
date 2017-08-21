@@ -235,7 +235,7 @@ final class WordPoints_Hook_Reaction_Validator {
 		$this->errors[] = array( 'message' => $message, 'field' => $field_stack );
 
 		if ( $this->fail_fast ) {
-			throw new WordPoints_Hook_Validator_Exception;
+			throw new WordPoints_Hook_Validator_Exception();
 		}
 	}
 

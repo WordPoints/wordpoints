@@ -73,7 +73,7 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget_Logs
 	protected function verify_settings( $instance ) {
 
 		if ( ! is_user_logged_in() && empty( $instance['alt_text'] ) ) {
-			return new WP_Error;
+			return new WP_Error();
 		}
 
 		if (

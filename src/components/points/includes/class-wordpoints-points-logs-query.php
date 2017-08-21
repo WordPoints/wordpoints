@@ -282,7 +282,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	public function count() {
 
 		if ( $this->_is_cached_query ) {
-			$cache = $this->_cache_get( 'count' );
+			$cache = $this->cache_get( 'count' );
 
 			if ( false !== $cache ) {
 				return $cache;
@@ -292,7 +292,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		$count = parent::count();
 
 		if ( $this->_is_cached_query ) {
-			$this->_cache_set( $count, 'count' );
+			$this->cache_set( $count, 'count' );
 		}
 
 		return $count;
@@ -313,7 +313,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	public function get( $method = 'results' ) {
 
 		if ( $this->_is_cached_query ) {
-			$cache = $this->_cache_get( "get_{$method}" );
+			$cache = $this->cache_get( "get_{$method}" );
 
 			if ( false !== $cache ) {
 				return $cache;
@@ -323,10 +323,10 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		$result = parent::get( $method );
 
 		if ( $this->_is_cached_query ) {
-			$this->_cache_set( $result, "get_{$method}" );
+			$this->cache_set( $result, "get_{$method}" );
 
 			if ( 'results' === $method || 'col' === $method ) {
-				$this->_cache_set( count( $result ), 'count' );
+				$this->cache_set( count( $result ), 'count' );
 			}
 		}
 
@@ -364,7 +364,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		// First try the main cache.
 		if ( $this->_is_cached_query ) {
 
-			$cache = $this->_cache_get( 'get_results' );
+			$cache = $this->cache_get( 'get_results' );
 
 			if ( false !== $cache ) {
 				return array_slice(
@@ -527,7 +527,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *
 	 * @return mixed Cached value, or false if none.
 	 */
-	private function _cache_get( $type = null ) {
+	private function cache_get( $type = null ) {
 
 		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
 
@@ -535,7 +535,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			return false;
 		}
 
-		$this->_calc_cache_query_hash();
+		$this->calc_cache_query_hash();
 
 		if ( ! isset( $cache[ $this->_cache_query_hash ] ) ) {
 			return false;
@@ -561,11 +561,11 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 * @param string $type  Optionally specify a results type to cache. Default is
 	 *                      null, or all types.
 	 */
-	private function _cache_set( $value, $type = null ) {
+	private function cache_set( $value, $type = null ) {
 
 		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
 
-		$this->_calc_cache_query_hash();
+		$this->calc_cache_query_hash();
 
 		if (
 			! isset( $cache[ $this->_cache_query_hash ] )
@@ -588,7 +588,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *
 	 * @since 1.6.0
 	 */
-	private function _calc_cache_query_hash() {
+	private function calc_cache_query_hash() {
 
 		if ( ! isset( $this->_cache_query_hash ) ) {
 			$this->_cache_query_hash = wordpoints_hash( $this->get_sql() );

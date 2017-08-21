@@ -119,7 +119,7 @@ class WordPoints_Int_Test extends WordPoints_PHPUnit_TestCase {
 		wordpoints_int( $maybe_int );
 		$this->assertFalse( $maybe_int );
 
-		$maybe_int = new stdClass;
+		$maybe_int = new stdClass();
 		wordpoints_int( $maybe_int );
 		$this->assertFalse( $maybe_int );
 

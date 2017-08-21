@@ -208,7 +208,8 @@ function wordpoints_int( &$maybe_int ) {
 
 	switch ( $type ) {
 
-		case 'integer': break;
+		case 'integer':
+			break;
 
 		case 'string':
 			if ( (string) (int) $maybe_int === $maybe_int ) {

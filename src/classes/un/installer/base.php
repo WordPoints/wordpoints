@@ -709,7 +709,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @param string $option The name of the option to set.
 	 * @param mixed  $value  The value of the option.
 	 */
-	private function _set_option( $option, $value = true ) {
+	private function set_option( $option, $value = true ) {
 
 		if ( isset( $this->option_prefix ) ) {
 			update_site_option( "{$this->option_prefix}{$option}", $value );
@@ -725,7 +725,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @param string $option The name of the option to delete.
 	 */
-	private function _unset_option( $option ) {
+	private function unset_option( $option ) {
 
 		if ( isset( $this->option_prefix ) ) {
 			delete_site_option( "{$this->option_prefix}{$option}" );
@@ -756,7 +756,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function set_network_installed() {
-		$this->_set_option( 'network_installed' );
+		$this->set_option( 'network_installed' );
 	}
 
 	/**
@@ -765,7 +765,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function unset_network_installed() {
-		$this->_unset_option( 'network_installed' );
+		$this->unset_option( 'network_installed' );
 	}
 
 	/**
@@ -774,7 +774,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function set_network_install_skipped() {
-		$this->_set_option( 'network_install_skipped' );
+		$this->set_option( 'network_install_skipped' );
 	}
 
 	/**
@@ -783,7 +783,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function unset_network_install_skipped() {
-		$this->_unset_option( 'network_install_skipped' );
+		$this->unset_option( 'network_install_skipped' );
 	}
 
 	/**
@@ -792,7 +792,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function set_network_update_skipped() {
-		$this->_set_option( 'network_update_skipped', $this->updating_from );
+		$this->set_option( 'network_update_skipped', $this->updating_from );
 	}
 
 	/**
@@ -801,7 +801,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function unset_network_update_skipped() {
-		$this->_unset_option( 'network_update_skipped' );
+		$this->unset_option( 'network_update_skipped' );
 	}
 
 	/**

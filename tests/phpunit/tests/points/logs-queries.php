@@ -345,7 +345,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		wordpoints_alter_points( $user_id, 20, 'points', 'test' );
 
 		// Make sure that the two logs were added.
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 
 		$logs = $query->get();
 
@@ -936,7 +936,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_get_page_invalid_args() {
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 
 		$this->assertFalse( $query->get_page( 0 ) );
 		$this->assertFalse( $query->get_page( 5, 0 ) );
@@ -1096,7 +1096,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create_many( 2 );
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 
 		$this->assertCount( 2, $query->get() );
 
@@ -1114,7 +1114,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create_many( 2 );
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$query->prime_cache( __METHOD__ );
 
 		$this->assertCount( 2, $query->get() );

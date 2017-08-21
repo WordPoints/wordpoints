@@ -23,7 +23,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_does_action_on_construct() {
 
-		$mock = new WordPoints_PHPUnit_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 
 		add_action( 'wordpoints_init_app-hooks', array( $mock, 'action' ) );
 

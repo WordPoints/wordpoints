@@ -141,6 +141,8 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 * Test getting all modules in a subdirectory of the modules dir.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_get_modules
 	 */
 	public function test_get_module_subdir() {
 

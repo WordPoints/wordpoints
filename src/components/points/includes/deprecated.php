@@ -233,10 +233,12 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 		switch ( $comment->comment_approved ) {
 
 			// Comment hasn't been approved yet.
-			case 0: return;
+			case 0:
+				return;
 
 			// Comment is approved.
-			case 1: return;
+			case 1:
+				return;
 
 			// Comment is 'spam' (or 'trash').
 			default:

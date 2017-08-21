@@ -23,7 +23,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_register() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -54,7 +54,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_register_overwrite() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -86,7 +86,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_is_registered_not_registered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertFalse( $registry->is_registered( 'parent', 'test' ) );
 	}
@@ -98,7 +98,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_is_registered_any() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertFalse( $registry->is_registered( 'parent' ) );
 
@@ -116,7 +116,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_all_children() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -170,7 +170,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -205,7 +205,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_all() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -280,7 +280,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_with_args() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -310,7 +310,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_all_children_with_args() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -348,7 +348,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_all_with_args() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -410,7 +410,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertFalse( $registry->get( 'parent', 'test' ) );
 	}
@@ -422,7 +422,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_children_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertSame( array(), $registry->get_children( 'parent' ) );
 	}
@@ -434,7 +434,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_all_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertSame( array(), $registry->get_all() );
 	}
@@ -447,7 +447,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_children_slugs_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertSame( array(), $registry->get_children_slugs( 'parent' ) );
 	}
@@ -459,7 +459,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_all_slugs_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertSame( array(), $registry->get_all_slugs() );
 	}
@@ -471,7 +471,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_get_twice() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -501,7 +501,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_deregister() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -528,7 +528,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_deregister_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertNull( $registry->deregister( 'parent', 'test' ) );
 
@@ -544,7 +544,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 	 */
 	public function test_deregister_all() {
 
-		$registry = new WordPoints_Class_Registry_Children;
+		$registry = new WordPoints_Class_Registry_Children();
 
 		$this->assertTrue(
 			$registry->register( 'parent', 'test', 'WordPoints_PHPUnit_Mock_Object' )

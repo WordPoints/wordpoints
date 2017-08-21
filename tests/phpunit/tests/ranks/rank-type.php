@@ -289,6 +289,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests the maybe increase user ranks method with a top rank.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_increase_user_ranks
 	 */
 	public function test_maybe_increase_user_ranks_no_next_rank() {
 
@@ -305,6 +307,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_increase_user_ranks() with a rank type that supports bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_increase_user_ranks
 	 */
 	public function test_maybe_increase_user_ranks_supports_bulk() {
 
@@ -340,6 +344,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_increase_user_ranks() with a rank type that supports bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_increase_user_ranks()
 	 */
 	public function test_maybe_increase_user_ranks_supports_bulk_multiple() {
 
@@ -383,6 +389,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_increase_user_ranks() with a rank type that can't do bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_increase_user_ranks()
 	 */
 	public function test_maybe_increase_user_ranks_not_bulk() {
 
@@ -420,6 +428,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_increase_user_ranks() with a rank type that can't do bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_increase_user_ranks()
 	 */
 	public function test_maybe_increase_user_ranks_not_bulk_multiple() {
 
@@ -460,6 +470,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests the maybe decrease user ranks method with a base rank.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_decrease_user_ranks
 	 */
 	public function test_maybe_decrease_user_ranks_no_previous_rank() {
 
@@ -481,6 +493,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_decrease_user_ranks() with a rank type that supports bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_decrease_user_ranks
 	 */
 	public function test_maybe_decrease_user_ranks_supports_bulk() {
 
@@ -516,6 +530,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_decrease_user_ranks() with a rank type that supports bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_decrease_user_ranks
 	 */
 	public function test_maybe_decrease_user_ranks_supports_bulk_multiple() {
 
@@ -559,6 +575,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_decrease_user_ranks() with a rank type that can't do bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_decrease_user_ranks
 	 */
 	public function test_maybe_decrease_user_ranks_not_bulk() {
 
@@ -596,6 +614,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 * Tests maybe_decrease_user_ranks() with a rank type that can't do bulk checks.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Rank_Type::maybe_decrease_user_ranks
 	 */
 	public function test_maybe_decrease_user_ranks_not_bulk_multiple() {
 
@@ -665,7 +685,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$rank_type->display_rank_meta_form_fields( $meta, $args );
 		$form = ob_get_clean();
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $form );
 		$xpath    = new DOMXPath( $document );
 

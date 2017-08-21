@@ -880,7 +880,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		switch ( $legacy_slug ) {
 
-			case 'registration': break;
+			case 'registration':
+				break;
 
 			case 'post':
 				$post_id = $this->factory->post->create(
@@ -941,7 +942,6 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 			case 'post':
 				wp_delete_post( $post_id, true );
-
 			break;
 
 			case 'comment':
@@ -949,7 +949,8 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 				wp_trash_comment( $comment_id );
 			break;
 
-			case 'periodic': return;
+			case 'periodic':
+				return;
 
 			default:
 				$this->fail( 'Missing hook works assertion for legacy slug ' . $legacy_slug );

@@ -95,7 +95,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 				continue;
 			}
 
-			$ranks[] = self::_prepare_rank( $rank );
+			$ranks[] = self::prepare_rank( $rank );
 		}
 
 		return $ranks;
@@ -141,11 +141,11 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	public function get_ranks() {
 
-		$this->_verify_user_can();
+		$this->verify_user_can();
 
-		$group = $this->_get_group();
+		$group = $this->get_group();
 
-		$this->_verify_request( "wordpoints_get_ranks-{$group->slug}" );
+		$this->verify_request( "wordpoints_get_ranks-{$group->slug}" );
 
 		wp_send_json_success( self::prepare_group_ranks( $group ) );
 	}
@@ -157,23 +157,23 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	public function create_rank() {
 
-		$this->_verify_user_can();
+		$this->verify_user_can();
 
-		$group = $this->_get_group();
-		$type = $this->_get_rank_type()->get_slug();
+		$group = $this->get_group();
+		$type = $this->get_rank_type()->get_slug();
 
-		$this->_verify_request( "wordpoints_create_rank|{$group->slug}|{$type}" );
+		$this->verify_request( "wordpoints_create_rank|{$group->slug}|{$type}" );
 
 		// Attempt to save the rank.
 		$result = wordpoints_add_rank(
-			$this->_get_rank_name()
+			$this->get_rank_name()
 			, $type
 			, $group->slug
-			, $this->_get_rank_position()
-			, $this->_get_rank_meta()
+			, $this->get_rank_position()
+			, $this->get_rank_meta()
 		);
 
-		$this->_send_json_result( $result, 'create' );
+		$this->send_json_result( $result, 'create' );
 	}
 
 	/**
@@ -183,16 +183,16 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	public function update_rank() {
 
-		$this->_verify_user_can();
+		$this->verify_user_can();
 
-		$group = $this->_get_group();
-		$rank  = $this->_get_rank();
+		$group = $this->get_group();
+		$rank  = $this->get_rank();
 
-		$this->_verify_request(
+		$this->verify_request(
 			"wordpoints_update_rank|{$group->slug}|{$rank->ID}"
 		);
 
-		$type = $this->_get_rank_type()->get_slug();
+		$type = $this->get_rank_type()->get_slug();
 
 		if ( $type !== $rank->type ) {
 			wp_send_json_error( array( 'message' => __( 'This rank does not match any rank in the database, perhaps it was deleted. Refresh the page to update the list of ranks.', 'wordpoints' ) ) );
@@ -200,14 +200,14 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 
 		$result = wordpoints_update_rank(
 			$rank->ID
-			, $this->_get_rank_name()
+			, $this->get_rank_name()
 			, $type
 			, $group->slug
-			, $this->_get_rank_position()
-			, $this->_get_rank_meta()
+			, $this->get_rank_position()
+			, $this->get_rank_meta()
 		);
 
-		$this->_send_json_result( $result, 'update' );
+		$this->send_json_result( $result, 'update' );
 	}
 
 	/**
@@ -217,12 +217,12 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 */
 	public function delete_rank() {
 
-		$this->_verify_user_can();
+		$this->verify_user_can();
 
-		$group = $this->_get_group();
-		$rank  = $this->_get_rank();
+		$group = $this->get_group();
+		$rank  = $this->get_rank();
 
-		$this->_verify_request(
+		$this->verify_request(
 			"wordpoints_delete_rank|{$group->slug}|{$rank->ID}"
 		);
 
@@ -250,7 +250,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @param string $debug_context Context sent with the message (for debugging).
 	 */
-	private function _unexpected_error( $debug_context ) {
+	private function unexpected_error( $debug_context ) {
 
 		wp_send_json_error(
 			array(
@@ -268,7 +268,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @since 1.7.0
 	 */
-	private function _verify_user_can() {
+	private function verify_user_can() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Sorry, you are not allowed to perform this action. Maybe you have been logged out?', 'wordpoints' ) ) );
@@ -284,7 +284,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @param string $action The action the nonce should be for.
 	 */
-	private function _verify_request( $action ) {
+	private function verify_request( $action ) {
 
 		if (
 			empty( $_POST['nonce'] )
@@ -303,10 +303,10 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return WordPoints_Rank_Group The object of the rank group being modified/retrieved.
 	 */
-	private function _get_group() {
+	private function get_group() {
 
 		if ( ! isset( $_POST['group'] ) ) { // WPCS: CSRF OK.
-			$this->_unexpected_error( 'group' );
+			$this->unexpected_error( 'group' );
 		}
 
 		$group = WordPoints_Rank_Groups::get_group( sanitize_key( $_POST['group'] ) ); // WPCS: CSRF OK.
@@ -325,10 +325,10 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return WordPoints_Rank The rank that this request relates to.
 	 */
-	private function _get_rank() {
+	private function get_rank() {
 
 		if ( ! isset( $_POST['id'] ) ) { // WPCS: CSRF OK.
-			$this->_unexpected_error( 'id' );
+			$this->unexpected_error( 'id' );
 		}
 
 		$rank = wordpoints_get_rank( wordpoints_int( $_POST['id'] ) ); // WPCS: CSRF OK.
@@ -347,7 +347,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return string The new name for this rank.
 	 */
-	private function _get_rank_name() {
+	private function get_rank_name() {
 
 		$name = '';
 
@@ -374,10 +374,10 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return WordPoints_Rank_Type The rank type specified in the request.
 	 */
-	private function _get_rank_type() {
+	private function get_rank_type() {
 
 		if ( empty( $_POST['type'] ) ) { // WPCS: CSRF OK.
-			$this->_unexpected_error( 'type' );
+			$this->unexpected_error( 'type' );
 		}
 
 		$type = sanitize_text_field( wp_unslash( $_POST['type'] ) ); // WPCS: CSRF OK.
@@ -398,13 +398,13 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return int The position of the rank in the group.
 	 */
-	private function _get_rank_position() {
+	private function get_rank_position() {
 
 		if (
 			! isset( $_POST['order'] ) // WPCS: CSRF OK.
 			|| false === wordpoints_int( $_POST['order'] ) // WPCS: CSRF OK.
 		) {
-			$this->_unexpected_error( 'order' );
+			$this->unexpected_error( 'order' );
 		}
 
 		return (int) $_POST['order'];
@@ -417,7 +417,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return array The metadata for the rank.
 	 */
-	private function _get_rank_meta() {
+	private function get_rank_meta() {
 
 		return array_intersect_key(
 			wp_unslash( $_POST ) // WPCS: CSRF OK.
@@ -433,7 +433,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 * @param mixed  $result The result of the action.
 	 * @param string $action The action being performed: 'create' or 'update'.
 	 */
-	private function _send_json_result( $result, $action ) {
+	private function send_json_result( $result, $action ) {
 
 		if ( ! $result ) {
 
@@ -458,7 +458,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$data = null;
 
 		if ( 'create' === $action ) {
-			$data = self::_prepare_rank( wordpoints_get_rank( $result ) );
+			$data = self::prepare_rank( wordpoints_get_rank( $result ) );
 		}
 
 		wp_send_json_success( $data );
@@ -477,7 +477,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	 *
 	 * @return array The rank data extracted into an array.
 	 */
-	private static function _prepare_rank( $rank ) {
+	private static function prepare_rank( $rank ) {
 
 		$name = $rank->name;
 		if ( empty( $name ) ) {
@@ -509,6 +509,6 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		return $prepared_rank;
 	}
 }
-new WordPoints_Ranks_Admin_Screen_Ajax;
+new WordPoints_Ranks_Admin_Screen_Ajax();
 
 // EOF

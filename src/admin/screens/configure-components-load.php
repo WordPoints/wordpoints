@@ -49,7 +49,8 @@ switch ( $action ) {
 		}
 	break;
 
-	default: return;
+	default:
+		return;
 }
 
 wp_safe_redirect(

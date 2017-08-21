@@ -308,7 +308,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		wp_set_current_user( $this->factory->user->create() );
 
 		// The log shouldn't be displayed.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			WordPoints_Shortcodes::do_shortcode(

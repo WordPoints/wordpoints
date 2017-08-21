@@ -21,7 +21,7 @@ class WordPoints_Class_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_R
 	 */
 	protected function create_registry() {
 
-		return new WordPoints_Class_Registry;
+		return new WordPoints_Class_Registry();
 	}
 
 	/**

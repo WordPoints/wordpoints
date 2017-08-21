@@ -59,7 +59,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		$this->factory->wordpoints->points_log->create_many( 4 );
 
 		// Check output with valid parameters.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML(
 			$this->do_shortcode(
 				'wordpoints_points_top'
@@ -151,7 +151,7 @@ class WordPoints_Points_Top_Shortcode_Test extends WordPoints_PHPUnit_TestCase_P
 		wordpoints_set_points( $user_ids[0], 10, 'points', 'test' );
 
 		// Check output with valid parameters.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML(
 			$this->do_shortcode(
 				'wordpoints_points_top'

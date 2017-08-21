@@ -167,7 +167,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 	public function test_update_method() {
 
 		/** @var WP_Widget $widget */
-		$widget = new $this->widget_class;
+		$widget = new $this->widget_class();
 
 		$sanitized = $widget->update(
 			array(

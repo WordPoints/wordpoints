@@ -30,7 +30,8 @@ $redirect_url = self_admin_url( "admin.php?page=wordpoints_extensions&module_sta
 
 switch ( $action ) {
 
-	case '': break;
+	case '':
+		break;
 
 	// Activate a single module.
 	case 'activate':

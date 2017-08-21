@@ -31,7 +31,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 	public function test_points_removed() {
 
 		$hook = wordpointstests_add_points_hook(
-			new WordPoints_Comment_Removed_Points_Hook
+			new WordPoints_Comment_Removed_Points_Hook()
 			, array( 'points' => 10 )
 		);
 		$this->assertInstanceOf( 'WordPoints_Comment_Removed_Points_Hook', $hook );
@@ -69,7 +69,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 	public function test_points_only_removed_for_specified_post_type() {
 
 		wordpointstests_add_points_hook(
-			new WordPoints_Comment_Removed_Points_Hook
+			new WordPoints_Comment_Removed_Points_Hook()
 			, array( 'points' => 20, 'post_type' => 'post' )
 		);
 
@@ -128,7 +128,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 		$hook->set_option( 'disable_auto_reverse_label', true );
 
 		$hook = wordpointstests_add_points_hook(
-			new WordPoints_Comment_Removed_Points_Hook
+			new WordPoints_Comment_Removed_Points_Hook()
 			, array( 'points' => 10 )
 		);
 		$this->assertInstanceOf( 'WordPoints_Comment_Removed_Points_Hook', $hook );

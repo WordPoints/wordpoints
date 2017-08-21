@@ -20,13 +20,13 @@ add_filter( 'wordpoints_server_object_for_extension', function ( $server, $exten
 		return $server;
 	}
 
-	return new class ( 'test' ) extends WordPoints_Extension_Server {
+	return new class( 'test' ) extends WordPoints_Extension_Server {
 
 		/**
 		 * @since 2.4.0
 		 */
 		public function get_api() {
-			return new class implements
+			return new class() implements
 				WordPoints_Extension_Server_APII,
 				WordPoints_Extension_Server_API_LicensesI {
 
@@ -54,7 +54,7 @@ add_filter( 'wordpoints_server_object_for_extension', function ( $server, $exten
 					$license_key
 				) {
 
-					return new class implements WordPoints_Extension_Server_API_Extension_LicenseI,
+					return new class() implements WordPoints_Extension_Server_API_Extension_LicenseI,
 						WordPoints_Extension_Server_API_Extension_License_ActivatableI,
 						WordPoints_Extension_Server_API_Extension_License_DeactivatableI {
 

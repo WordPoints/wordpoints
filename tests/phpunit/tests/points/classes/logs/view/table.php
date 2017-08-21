@@ -378,7 +378,7 @@ class WordPoints_Points_Logs_View_Table_Test
 		$view->display();
 		$html = ob_get_clean();
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $html );
 
 		return new DOMXPath( $document );

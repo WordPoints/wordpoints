@@ -65,7 +65,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	protected function get_license( $status ) {
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'license_status', $status );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
@@ -555,7 +555,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_expires() {
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'license_expiration', date( 'Y-m-d 23:59:59' ) );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
@@ -577,7 +577,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_expires_lifetime() {
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'license_expiration', 'lifetime' );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
@@ -619,7 +619,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 
 		$date = date( 'Y-m-d 23:59:59' );
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'license_expiration', $date );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
@@ -644,7 +644,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_get_expiration_date_lifetime() {
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'license_expiration', 'lifetime' );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
@@ -666,7 +666,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function test_get_expiration_date_invalid() {
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'license_expiration', 'invalid' );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(
@@ -708,7 +708,7 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 
 		$url = 'https://example.com/extension/renew/';
 
-		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data;
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
 		$data->set( 'homepage', $url );
 
 		$license = new WordPoints_Extension_Server_API_Extension_License_EDD_SL(

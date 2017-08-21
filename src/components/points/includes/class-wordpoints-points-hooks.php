@@ -259,14 +259,14 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @uses WordPoints_Points_Hooks::_sort_name_callback()
-	 * @uses WordPoints_Points_Hooks::_list_hook()
+	 * @uses WordPoints_Points_Hooks::sort_name_callback()
+	 * @uses WordPoints_Points_Hooks::list_hook()
 	 */
 	public static function list_hooks() {
 
 		// Sort the hooks by name.
 		$hook_types = self::$hook_types;
-		uasort( $hook_types, array( __CLASS__, '_sort_name_callback' ) );
+		uasort( $hook_types, array( __CLASS__, 'sort_name_callback' ) );
 
 		$disabled_hooks = wordpoints_get_maybe_network_array_option(
 			'wordpoints_legacy_points_hooks_disabled'
@@ -293,7 +293,7 @@ final class WordPoints_Points_Hooks {
 
 			$hook_type->set_options( $args );
 
-			self::_list_hook( $hook_type->get_id( 0 ), $hook_type );
+			self::list_hook( $hook_type->get_id( 0 ), $hook_type );
 		}
 
 		// If there were none, give the user a message.
@@ -346,7 +346,7 @@ final class WordPoints_Points_Hooks {
 
 			$hook_type->set_options( $options );
 
-			self::_list_hook( $hook_id, $hook_type, $slug );
+			self::list_hook( $hook_id, $hook_type, $slug );
 		}
 	}
 
@@ -671,7 +671,7 @@ final class WordPoints_Points_Hooks {
 	 * @param WordPoints_Points_Hook $hook        A points hook object.
 	 * @param string                 $points_type The slug for a points type.
 	 */
-	private static function _list_hook( $hook_id, $hook, $points_type = null ) {
+	private static function list_hook( $hook_id, $hook, $points_type = null ) {
 
 		$number  = $hook->get_number_by_id( $hook_id );
 		$id_base = $hook->get_id_base();
@@ -783,7 +783,7 @@ final class WordPoints_Points_Hooks {
 	 *
 	 * @return int
 	 */
-	private static function _sort_name_callback( $a, $b ) {
+	private static function sort_name_callback( $a, $b ) {
 
 		return strnatcasecmp( $a->get_name(), $b->get_name() );
 	}

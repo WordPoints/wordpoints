@@ -23,7 +23,7 @@ class WordPoints_Hook_Actions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_register() {
 
-		$actions = new WordPoints_Hook_Actions;
+		$actions = new WordPoints_Hook_Actions();
 
 		$actions->register(
 			'test'
@@ -47,7 +47,7 @@ class WordPoints_Hook_Actions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_deregister() {
 
-		$actions = new WordPoints_Hook_Actions;
+		$actions = new WordPoints_Hook_Actions();
 
 		$actions->register(
 			'test'
@@ -78,7 +78,7 @@ class WordPoints_Hook_Actions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->mock_apps();
 
-		$actions = new WordPoints_Hook_Actions;
+		$actions = new WordPoints_Hook_Actions();
 
 		$actions->register(
 			'test'
@@ -105,7 +105,7 @@ class WordPoints_Hook_Actions_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_get_unregistered() {
 
-		$actions = new WordPoints_Hook_Actions;
+		$actions = new WordPoints_Hook_Actions();
 
 		$action = $actions->get(
 			'test'

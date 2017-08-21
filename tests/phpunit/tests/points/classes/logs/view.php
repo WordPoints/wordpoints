@@ -27,7 +27,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create_many( 2 );
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$logs = $query->get();
 
 		$view = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
@@ -61,7 +61,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 	 */
 	public function test_display_no_logs() {
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 
 		$view->display();
@@ -91,7 +91,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'text' => 'Test searching.' )
 		);
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 
 		$view->search_term = 'search';
@@ -131,7 +131,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 			array( 'text' => 'Test searching.' )
 		);
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View(
 			'test'
 			, $query
@@ -174,7 +174,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create_many( 4 );
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 
 		$view->page_number = 2;
@@ -209,7 +209,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create_many( 4 );
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View(
 			'test'
 			, $query
@@ -323,7 +323,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$this->factory->wordpoints->points_log->create();
 
-		$query = new WordPoints_Points_Logs_Query;
+		$query = new WordPoints_Points_Logs_Query();
 		$view  = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 		$view->display();
 

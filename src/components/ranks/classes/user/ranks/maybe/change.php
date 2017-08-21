@@ -55,7 +55,9 @@ abstract class WordPoints_User_Ranks_Maybe_Change {
 			)
 		);
 
-		while ( $user_ids = $query->get( 'col' ) ) {
+		$user_ids = $query->get( 'col' );
+
+		while ( $user_ids ) {
 
 			$new_ranks = $this->get_new_ranks_for_users( $user_ids );
 
@@ -89,6 +91,7 @@ abstract class WordPoints_User_Ranks_Maybe_Change {
 			$offset += $batch_size;
 
 			$query->set_args( array( 'offset' => $offset ) );
+			$user_ids = $query->get( 'col' );
 		}
 	}
 

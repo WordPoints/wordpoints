@@ -11,6 +11,8 @@
  * Tests the maintenance file.
  *
  * @since 2.0.0
+ *
+ * @coversNothing
  */
 class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 

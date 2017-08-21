@@ -70,7 +70,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_get_context() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor;
+		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 
 		$this->assertSame( 'site', $reactor->get_context() );
 	}
@@ -84,7 +84,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_get_context_network_active() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor;
+		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 
 		$this->assertSame( 'network', $reactor->get_context() );
 	}

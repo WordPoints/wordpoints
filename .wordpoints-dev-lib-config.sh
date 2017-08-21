@@ -8,13 +8,15 @@ function wordpoints-dev-lib-config() {
 
 	# Use the develop branch for WPCS.
 	if [[ $TRAVIS_BRANCH == master || $TRAVIS_BRANCH =~ release || $TRAVIS_TAG ]]; then
+
 		export WPCS_GIT_TREE=607db751e90e6d32f96fcb15c4aec8609d059d57
+
+		# Use PHPCS 2.9, since WPCS doesn't support 3.0 yet.
+		export PHPCS_GIT_TREE=2.9
+
 	else
 		export WPCS_GIT_TREE=develop
 	fi
-
-	# Use PHPCS 2.9, since WPCS doesn't support 3.0 yet.
-	export PHPCS_GIT_TREE=2.9
 
 	# Ignore some strings that are expected.
 	CODESNIFF_IGNORED_STRINGS=(\

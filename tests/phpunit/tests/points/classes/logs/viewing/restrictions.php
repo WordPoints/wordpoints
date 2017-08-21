@@ -633,7 +633,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 	public function test_can_view_by_default() {
 
 		$log = $this->fixtures['points_log'][0];
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertTrue(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
@@ -654,7 +654,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 		$filter = new WordPoints_PHPUnit_Mock_Filter();
 		$filter->add_filter( 'wordpoints_user_can_view_points_log', 10, 6 );
 
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertTrue(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
@@ -684,7 +684,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			, 6
 		);
 
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertTrue(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
@@ -716,7 +716,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			"wordpoints_user_can_view_points_log-{$log->log_type}"
 		);
 
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertFalse(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
@@ -753,7 +753,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 		$current_user = $this->factory->user->create();
 		wp_set_current_user( $current_user );
 
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertTrue(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
@@ -778,7 +778,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 		$filter = new WordPoints_PHPUnit_Mock_Filter( false );
 		$filter->add_filter( 'wordpoints_user_can_view_points_log' );
 
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertFalse(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )
@@ -801,7 +801,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 			"wordpoints_user_can_view_points_log-{$log->log_type}"
 		);
 
-		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions;
+		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertFalse(
 			$restrictions->apply_legacy_filters( $this->fixture_ids['user'][0], $log )

@@ -211,6 +211,8 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * Test that the user can't when some of the restrictions apply to them.
 	 *
 	 * @since 2.2.0
+	 *
+	 * @covers ::wordpoints_user_can_view_points_log
 	 */
 	public function test_returns_false_if_some_restricted() {
 

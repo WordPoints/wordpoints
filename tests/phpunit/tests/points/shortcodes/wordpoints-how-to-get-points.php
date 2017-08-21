@@ -64,7 +64,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		);
 
 		// Test that the hooks are displayed in the table.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			$this->do_shortcode(
@@ -99,7 +99,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		WordPoints_Points_Hooks::set_network_mode( false );
 
 		// Test that both hooks are displayed in the table.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			$this->do_shortcode(
@@ -192,7 +192,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$mock->add_filter( 'wordpoints_htgp_shortcode_reaction_points', 10, 6 );
 
 		// Test that the hooks are displayed in the table.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			$this->do_shortcode(
@@ -282,7 +282,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$hooks->set_current_mode( 'standard' );
 
 		// Test that the hooks are displayed in the table.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			$this->do_shortcode(
@@ -357,7 +357,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 		$this->assertIsReaction( $reaction_2 );
 
 		// Test that the reactions are displayed in the table.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			$this->do_shortcode(

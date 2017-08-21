@@ -264,7 +264,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		if ( $s ) {
 
 			$status = 'search';
-			$modules['search'] = array_filter( $modules['all'], array( $this, '_search_callback' ) );
+			$modules['search'] = array_filter( $modules['all'], array( $this, 'search_callback' ) );
 		}
 
 		/**
@@ -311,7 +311,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 
 		$order = strtoupper( $order );
 
-		uasort( $this->items, array( $this, '_order_callback' ) );
+		uasort( $this->items, array( $this, 'order_callback' ) );
 
 		$modules_per_page = $this->get_items_per_page( str_replace( '-', '_', $this->screen->id . '_per_page' ), 999 );
 
@@ -338,7 +338,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 	 *
 	 * @return bool Whether any of the module's data matches the search.
 	 */
-	private function _search_callback( $module_data ) {
+	private function search_callback( $module_data ) {
 
 		static $term;
 
@@ -368,7 +368,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 	 *
 	 * @return int How the modules compare.
 	 */
-	private function _order_callback( $module_a, $module_b ) {
+	private function order_callback( $module_a, $module_b ) {
 
 		global $orderby, $order;
 

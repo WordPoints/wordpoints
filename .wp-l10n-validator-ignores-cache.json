@@ -2446,21 +2446,21 @@
         }
     },
     "\/classes\/installables.php": {
-        "install": {
-            "284": {
-                "name": "WordPoints_Installables::show_admin_notices",
+        "module": {
+            "103": {
+                "name": "$installables->register",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 0,
+                "arg_count": 1,
                 "parentheses": 1
             }
         },
-        "update": {
-            "285": {
-                "name": "WordPoints_Installables::show_admin_notices",
+        "extension": {
+            "103": {
+                "name": "$installables->register",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 0,
+                "arg_count": 1,
                 "parentheses": 1
             }
         }

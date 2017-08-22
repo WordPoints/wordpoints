@@ -39,7 +39,7 @@ class WordPoints_Installer_Site_Test extends WordPoints_PHPUnit_TestCase {
 				array( 'site' => array( $site ), 'network' => array( $network ) )
 			);
 
-		$installable->expects( $this->once() )->method( 'add_installed_site_id' );
+		$installable->expects( $this->never() )->method( 'add_installed_site_id' );
 		$installable->expects( $this->never() )->method( 'set_db_version' );
 
 		$installer = new WordPoints_Installer_Site( $installable, $site_id );

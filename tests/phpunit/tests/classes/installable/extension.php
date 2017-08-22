@@ -23,6 +23,8 @@ class WordPoints_Installable_Extension_Test extends WordPoints_PHPUnit_TestCase 
 	 */
 	public function test_get_version() {
 
+		$this->mock_apps();
+
 		WordPoints_Modules::register(
 			'
 				Extension Name: Demo Module

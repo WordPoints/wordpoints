@@ -94,17 +94,13 @@ final class WordPoints_Installables {
 			, 'WordPoints_Installables_App::register'
 		);
 
-		if ( isset( self::$registered[ $type ][ $slug ] ) ) {
-			return false;
-		}
-
 		self::$registered[ $type ][ $slug ] = $data;
 
 		/** @var WordPoints_Installables_App $installables */
 		$installables = wordpoints_apps()->get_sub_app( 'installables' );
 		$installables->register(
 			$type
-			, $slug
+			, 'module' === $slug ? 'extension' : $slug
 			, 'WordPoints_Installables::installer_loader'
 			, $data['version']
 			, ! empty( $data['network_wide'] )

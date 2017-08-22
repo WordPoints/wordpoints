@@ -25,6 +25,8 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_parsing_header() {
 
+		$this->mock_apps();
+
 		WordPoints_Modules::register(
 			'
 				Extension Name: Demo Module
@@ -79,6 +81,8 @@ class WordPoints_Modules_Class_Test extends WordPoints_PHPUnit_TestCase {
 	 * @since 2.0.0
 	 */
 	public function test_get_data() {
+
+		$this->mock_apps();
 
 		WordPoints_Modules::register(
 			'

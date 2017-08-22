@@ -90,6 +90,8 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uses_wordpoints_modules_data_if_available() {
 
+		$this->mock_apps();
+
 		$mock_filter = new WordPoints_PHPUnit_Mock_Filter();
 
 		add_filter( 'extra_wordpoints_module_headers', array( $mock_filter, 'filter' ) );
@@ -137,6 +139,8 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_update_api_header_deprecated() {
 
+		$this->mock_apps();
+
 		WordPoints_Modules::register(
 			'
 				Extension Name: Test 3
@@ -172,6 +176,8 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 * @expectedDeprecated wordpoints_get_module_data
 	 */
 	public function test_channel_header_deprecated() {
+
+		$this->mock_apps();
 
 		WordPoints_Modules::register(
 			'
@@ -209,6 +215,8 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_module_name_header_deprecated() {
 
+		$this->mock_apps();
+
 		WordPoints_Modules::register(
 			'
 				Module Name:   Test 3
@@ -241,7 +249,9 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @expectedDeprecated wordpoints_get_module_data
 	 */
-	public function test_module_uir_header_deprecated() {
+	public function test_module_uri_header_deprecated() {
+
+		$this->mock_apps();
 
 		WordPoints_Modules::register(
 			'

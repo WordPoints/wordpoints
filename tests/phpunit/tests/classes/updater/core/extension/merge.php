@@ -25,6 +25,8 @@ class WordPoints_Updater_Core_Extension_Merge_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function test_deactivates_extension() {
 
+		$this->mock_apps();
+
 		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 
 		$extension = 'wordpointsorg/wordpointsorg.php';

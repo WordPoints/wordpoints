@@ -125,8 +125,12 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @covers WordPoints_Components::activate
 	 * @covers WordPoints_Components::is_active
+	 *
+	 * @expectedDeprecated WordPoints_Installables::register
 	 */
 	public function test_activation() {
+
+		$this->mock_apps();
 
 		$components = WordPoints_Components::instance();
 		$components->register(

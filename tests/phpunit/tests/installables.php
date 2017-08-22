@@ -26,6 +26,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function register_installables() {
 
+		$this->mock_apps();
+
 		WordPoints_Installables::register(
 			'module'
 			, 'test'
@@ -83,6 +85,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function test_install_network_wide() {
 
+		$this->mock_apps();
+
 		$installer = WordPoints_Installables::install( 'module', 'network_test', true );
 
 		/** @var WordPoints_Un_Installer_Module_Mock $installer */
@@ -117,6 +121,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 * @expectedDeprecated WordPoints_Installables::install
 	 */
 	public function test_install_no_un_installer() {
+
+		$this->mock_apps();
 
 		WordPoints_Installables::register(
 			'module'
@@ -180,6 +186,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function test_uninstall_no_un_installer() {
 
+		$this->mock_apps();
+
 		WordPoints_Installables::register(
 			'module'
 			, __METHOD__
@@ -200,16 +208,19 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 *
 	 * @since 2.0.0
 	 *
+	 * @expectedDeprecated WordPoints_Installables::register
 	 * @expectedDeprecated WordPoints_Installables::maybe_do_updates
 	 */
 	public function test_maybe_do_updates() {
 
-		$this->set_module_db_version( 'test', '0.9.2' );
-		$this->assertSame( '0.9.2', $this->get_module_db_version( 'test' ) );
+		$this->register_installables();
+
+		$this->set_extension_db_version( 'test', '0.9.2' );
+		$this->assertSame( '0.9.2', $this->get_extension_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.0.0', $this->get_extension_db_version( 'test' ) );
 	}
 
 	/**
@@ -219,16 +230,19 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 *
 	 * @requires WordPoints network-active
 	 *
+	 * @expectedDeprecated WordPoints_Installables::register
 	 * @expectedDeprecated WordPoints_Installables::maybe_do_updates
 	 */
 	public function test_maybe_do_updates_network() {
 
-		$this->set_module_db_version( 'network_test', '0.9.2', true );
-		$this->assertSame( '0.9.2', $this->get_module_db_version( 'network_test', true ) );
+		$this->register_installables();
+
+		$this->set_extension_db_version( 'network_test', '0.9.2', true );
+		$this->assertSame( '0.9.2', $this->get_extension_db_version( 'network_test', true ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertSame( '1.0.0', $this->get_module_db_version( 'network_test', true ) );
+		$this->assertSame( '1.0.0', $this->get_extension_db_version( 'network_test', true ) );
 	}
 
 	/**
@@ -240,11 +254,11 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function test_maybe_do_updates_not_installed() {
 
-		$this->assertSame( '', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '', $this->get_extension_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '', $this->get_extension_db_version( 'test' ) );
 	}
 
 	/**
@@ -256,6 +270,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function test_maybe_do_updates_wordpoints_not_installed() {
 
+		$this->mock_apps();
+
 		wordpoints_delete_maybe_network_option( 'wordpoints_installable_versions' );
 
 		wordpoints_update_maybe_network_option(
@@ -263,11 +279,33 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 			, array( 'a' => 'b' )
 		);
 
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->register(
+			'plugin'
+			, 'wordpoints'
+			, array( $this, 'wordpoints_installable_loader' )
+			, WORDPOINTS_VERSION
+		);
+
 		$this->assertSame( '', $this->wordpoints_get_db_version() );
 
 		WordPoints_Installables::maybe_do_updates();
 
 		$this->assertSame( WORDPOINTS_VERSION, $this->wordpoints_get_db_version() );
+	}
+
+	/**
+	 * Returns a mock installable for WordPoints.
+	 *
+	 * This avoids using the core installable itself, which lead to issues.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return WordPoints_Installable_Basic The installable object.
+	 */
+	public function wordpoints_installable_loader() {
+		return new WordPoints_Installable_Basic( 'plugin', 'wordpoints', WORDPOINTS_VERSION );
 	}
 
 	/**
@@ -279,12 +317,12 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function test_maybe_do_updates_up_to_date() {
 
-		$this->set_module_db_version( 'test', '1.0.0' );
-		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->set_extension_db_version( 'test', '1.0.0' );
+		$this->assertSame( '1.0.0', $this->get_extension_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertSame( '1.0.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.0.0', $this->get_extension_db_version( 'test' ) );
 	}
 
 	/**
@@ -296,12 +334,12 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 */
 	public function test_maybe_do_updates_newer_db_version() {
 
-		$this->set_module_db_version( 'test', '1.1.0' );
-		$this->assertSame( '1.1.0', $this->get_module_db_version( 'test' ) );
+		$this->set_extension_db_version( 'test', '1.1.0' );
+		$this->assertSame( '1.1.0', $this->get_extension_db_version( 'test' ) );
 
 		WordPoints_Installables::maybe_do_updates();
 
-		$this->assertSame( '1.1.0', $this->get_module_db_version( 'test' ) );
+		$this->assertSame( '1.1.0', $this->get_extension_db_version( 'test' ) );
 	}
 
 	/**
@@ -447,6 +485,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 * @expectedDeprecated WordPoints_Installables::register
 	 */
 	public function test_get_installer_nonexistent_file() {
+
+		$this->mock_apps();
 
 		WordPoints_Installables::register(
 			'module'

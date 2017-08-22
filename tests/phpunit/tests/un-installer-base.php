@@ -3853,7 +3853,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$un_installer->slug = 'test';
 		$un_installer->type = 'module';
-		$un_installer->installable = new WordPoints_Installable(
+		$un_installer->installable = new WordPoints_Installable_Basic(
 			'module'
 			, 'test'
 			, '1.0.0'
@@ -4040,7 +4040,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'plugin'
 			, 'wordpoints'
 			, '1.0.0'
@@ -4073,7 +4073,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_network_wide_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'plugin'
 			, 'wordpoints'
 			, '1.0.0'
@@ -4106,7 +4106,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_component() {
 
 		$this->un_installer->type = 'component';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'component'
 			, 'test'
 			, '1.0.0'
@@ -4137,7 +4137,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_installed_site_ids_network_wide_component() {
 
 		$this->un_installer->type = 'component';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'component'
 			, 'test'
 			, '1.0.0'
@@ -4248,7 +4248,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_add_installed_site_id_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'plugin'
 			, 'wordpoints'
 			, '1.0.0'
@@ -4281,7 +4281,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_add_installed_site_id_component() {
 
 		$this->un_installer->type = 'component';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'component'
 			, 'test'
 			, '1.0.0'
@@ -4363,7 +4363,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_delete_installed_site_ids_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'plugin'
 			, 'wordpoints'
 			, '1.0.0'
@@ -4393,7 +4393,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_delete_installed_site_ids_component() {
 
 		$this->un_installer->type = 'component';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'component'
 			, 'test'
 			, '1.0.0'
@@ -4592,7 +4592,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_db_version_wordpoints() {
 
 		$this->un_installer->slug = 'wordpoints';
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'plugin'
 			, 'wordpoints'
 			, '1.0.0'
@@ -4636,7 +4636,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->slug = 'wordpoints';
 		$this->un_installer->context = 'network';
 		$this->un_installer->network_wide = true;
-		$this->un_installer->installable = new WordPoints_Installable(
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
 			'plugin'
 			, 'wordpoints'
 			, '1.0.0'

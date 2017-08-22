@@ -28,6 +28,18 @@ class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_installed_site_ids_added() {
 
+		$this->mock_apps();
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->register(
+			'component'
+			, 'rank'
+			, 'WordPoints_Ranks_Installable'
+			, WORDPOINTS_VERSION
+			, is_wordpoints_network_active()
+		);
+
 		// Create a second site on the network.
 		$blog_id = $this->factory->blog->create();
 

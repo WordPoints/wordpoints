@@ -33,6 +33,10 @@ class WordPoints_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_installed_site_ids_added() {
 
+		$this->mock_apps();
+
+		wordpoints_register_installer();
+
 		// Create a second site on the network.
 		$blog_id = $this->factory->blog->create();
 

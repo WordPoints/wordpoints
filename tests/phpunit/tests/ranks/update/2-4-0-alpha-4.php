@@ -118,7 +118,7 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 
 		$this->assertNotContains( 'DEFAULT 0', $schema );
 		$this->assertStringContains(
-			'UNIQUE KEY `user_id` (`user_id`,`blog_id`,`site_id`,`rank_group`(185))'
+			'UNIQUE KEY `user_rank` (`user_id`,`blog_id`,`site_id`,`rank_group`(185))'
 			, $schema
 		);
 	}

@@ -50,7 +50,7 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 					blog_id BIGINT(20) UNSIGNED NOT NULL,
 					site_id BIGINT(20) UNSIGNED NOT NULL,
 					PRIMARY KEY  (id),
-					UNIQUE KEY (user_id,blog_id,site_id,rank_group(185))',
+					UNIQUE KEY user_rank (user_id,blog_id,site_id,rank_group(185))',
 			),
 		);
 	}

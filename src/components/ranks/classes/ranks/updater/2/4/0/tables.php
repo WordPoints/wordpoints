@@ -86,7 +86,7 @@ class WordPoints_Ranks_Updater_2_4_0_Tables implements WordPoints_RoutineI {
 		$wpdb->query(
 			"
 			ALTER TABLE {$wpdb->wordpoints_user_ranks}
-				ADD CONSTRAINT UNIQUE (user_id,blog_id,site_id,rank_group(185))
+				ADD CONSTRAINT UNIQUE user_rank (user_id,blog_id,site_id,rank_group(185))
 			"
 		); // WPCS: cache pass.
 	}

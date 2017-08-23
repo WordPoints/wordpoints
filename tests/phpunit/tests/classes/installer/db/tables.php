@@ -62,7 +62,7 @@ class WordPoints_Installer_DB_Tables_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertStringMatchesFormat(
 			"CREATE TABLE `{$table_name}` ("
 				. "\n  `id` bigint(20) NOT NULL"
-				. "\n) %a{$wpdb->charset} %a{$wpdb->collate}"
+				. "\n) %a{$wpdb->charset}%A"
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$table_name}`", 1 )
 		);
 	}
@@ -90,7 +90,7 @@ class WordPoints_Installer_DB_Tables_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertStringMatchesFormat(
 			"CREATE TABLE `{$table_name}` ("
 				. "\n  `id` bigint(20) NOT NULL"
-				. "\n) %a{$wpdb->charset} %a{$wpdb->collate}"
+				. "\n) %a{$wpdb->charset}%A"
 			, $wpdb->get_var( "SHOW CREATE TABLE `{$table_name}`", 1 )
 		);
 	}

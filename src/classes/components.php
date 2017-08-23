@@ -272,7 +272,10 @@ final class WordPoints_Components {
 
 		$this->registered[ $component['slug'] ] = array_intersect_key( $component, $defaults );
 
-		if ( isset( $component['installable'] ) ) {
+		if (
+			isset( $component['installable'] )
+			&& $this->is_active( $component['slug'] )
+		) {
 
 			/** @var WordPoints_Installables_App $installables */
 			$installables = wordpoints_apps()->get_sub_app( 'installables' );

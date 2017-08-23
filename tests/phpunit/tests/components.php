@@ -17,6 +17,18 @@
 class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
+	 * @since 2.4.0
+	 */
+	public function tearDown() {
+
+		$components = WordPoints_Components::instance();
+		$components->deregister( 'test' );
+		$components->deregister( 'test_2' );
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Test that the instance() method returns an instance of the class.
 	 *
 	 * @since 1.0.1
@@ -90,13 +102,44 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test that register() registers an installable if passed.
+	 * Test that register() registers an installable if active.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @covers WordPoints_Components::register
 	 */
-	public function test_register_registers_installable() {
+	public function test_register_registers_installable_if_active() {
+
+		$this->mock_apps();
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
+
+		add_filter( 'wordpoints_component_active', '__return_true' );
+
+		WordPoints_Components::instance()->register(
+			array(
+				'slug' => 'test',
+				'name' => 'Test',
+				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'installable' => array( $mock, 'filter' ),
+			)
+		);
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->maybe_update();
+
+		$this->assertSame( 1, $mock->call_count );
+	}
+
+	/**
+	 * Test that register() doesn't register an installable if inactive.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Components::register
+	 */
+	public function test_register_not_registers_installable_inactive() {
 
 		$this->mock_apps();
 
@@ -115,7 +158,7 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 		$installables = wordpoints_apps()->get_sub_app( 'installables' );
 		$installables->maybe_update();
 
-		$this->assertSame( 1, $mock->call_count );
+		$this->assertSame( 0, $mock->call_count );
 	}
 
 	/**

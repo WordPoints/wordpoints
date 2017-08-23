@@ -207,7 +207,7 @@ class WordPoints_Installables_App {
 
 		// May be a loader function or the class name itself.
 		if ( is_callable( $loader ) ) {
-			$installable = $loader( $type, $slug );
+			$installable = call_user_func( $loader, $type, $slug );
 		} else {
 			$installable = new $loader();
 		}

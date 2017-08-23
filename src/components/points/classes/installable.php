@@ -22,11 +22,6 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 	/**
 	 * @since 2.4.0
 	 */
-	protected $custom_caps_getter = 'wordpoints_points_get_custom_caps';
-
-	/**
-	 * @since 2.4.0
-	 */
 	public function get_db_tables() {
 		return array(
 			'global' => array(
@@ -54,6 +49,13 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 					KEY meta_key (meta_key(191))',
 			),
 		);
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_custom_caps() {
+		return wordpoints_points_get_custom_caps();
 	}
 
 	/**

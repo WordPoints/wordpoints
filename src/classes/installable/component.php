@@ -25,7 +25,7 @@ abstract class WordPoints_Installable_Component extends WordPoints_Installable {
 	public function get_version() {
 
 		$component = WordPoints_Components::instance()->get_component(
-			$this->slug
+			$this->get_slug()
 		);
 
 		return $component['version'];

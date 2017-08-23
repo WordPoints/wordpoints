@@ -23,7 +23,7 @@ abstract class WordPoints_Installable_Extension extends WordPoints_Installable {
 	 * @since 2.4.0
 	 */
 	public function get_version() {
-		return WordPoints_Modules::get_data( $this->slug, 'version' );
+		return WordPoints_Modules::get_data( $this->get_slug(), 'version' );
 	}
 }
 

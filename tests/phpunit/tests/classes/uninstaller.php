@@ -85,6 +85,43 @@ class WordPoints_Uninstaller_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Tests that the network routines are run after the site routines.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_run_multisite_run_network_after_site() {
+
+		$counter = new WordPoints_PHPUnit_Mock_Object();
+
+		$site = $this->createMock( 'WordPoints_RoutineI' );
+		$site->expects( $this->once() )->method( 'run' )->will(
+			$this->returnCallback( array( $counter, 'site' ) )
+		);
+
+		$network = $this->createMock( 'WordPoints_RoutineI' );
+		$network->expects( $this->once() )->method( 'run' )->will(
+			$this->returnCallback( array( $counter, 'network' ) )
+		);
+
+		$installable = $this->createMock( 'WordPoints_InstallableI' );
+		$installable->method( 'get_installed_site_ids' )
+			->willReturn( array( get_current_blog_id() ) );
+
+		$installable->method( 'get_uninstall_routines' )
+			->willReturn(
+				array( 'site' => array( $site ), 'network' => array( $network ) )
+			);
+
+		$uninstaller = new WordPoints_Uninstaller( $installable );
+		$uninstaller->run();
+
+		$this->assertSame( 'site', $counter->calls[1]['name'] );
+		$this->assertSame( 'network', $counter->calls[2]['name'] );
+	}
+
+	/**
 	 * Test the basic behaviour when uninstalling WordPoints itself.
 	 *
 	 * @since 2.4.0

@@ -61,30 +61,6 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the basic behaviour of run() when run network first is true.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @requires WordPress multisite
-	 */
-	public function test_run_multisite_network_first() {
-
-		$routine = $this->getPartialMockForAbstactClass(
-			'WordPoints_Routine'
-			, array( 'run_for_sites' )
-		);
-
-		$this->set_protected_property( $routine, 'run_network_first', false );
-
-		$routine->expects( $this->never() )->method( 'run_for_single' );
-		$routine->expects( $this->never() )->method( 'run_for_sites' );
-		$routine->expects( $this->at( 0 ) )->method( 'run_for_site' )->with();
-		$routine->expects( $this->at( 1 ) )->method( 'run_for_network' )->with();
-
-		$routine->run();
-	}
-
-	/**
 	 * Test the basic behaviour of run() when network wide is true.
 	 *
 	 * @since 2.4.0

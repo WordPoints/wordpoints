@@ -751,17 +751,6 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 				'WordPoints_Installer_DB_Tables'
 				, $routines[ $context ][0]
 			);
-
-			$prefix = 'base';
-
-			if ( 'site' === $context ) {
-				$prefix = 'site';
-			}
-
-			$this->assertSame(
-				$prefix
-				, $this->get_protected_property( $routines[ $context ][0], 'prefix' )
-			);
 		}
 	}
 
@@ -790,18 +779,14 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_custom_caps_install_routines() {
 
-		$installable = $this->get_installable();
+		$installable = $this->getPartialMockForAbstactClass(
+			'WordPoints_Installable'
+			, array( 'get_custom_caps' )
+		);
 
 		$custom_caps = array( 'some_cap' => 'manage_options' );
-		$callback    = new WordPoints_PHPUnit_Mock_Filter(
-			$custom_caps
-		);
 
-		$this->set_protected_property(
-			$installable
-			, 'custom_caps_getter'
-			, array( $callback, 'filter' )
-		);
+		$installable->method( 'get_custom_caps' )->willReturn( $custom_caps );
 
 		$routines = $installable->get_install_routines();
 
@@ -812,21 +797,11 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			, $routines['single'][0]
 		);
 
-		$this->assertSame(
-			$custom_caps
-			, $this->get_protected_property( $routines['single'][0], 'caps' )
-		);
-
 		$this->assertArrayHasKey( 'site', $routines );
 		$this->assertCount( 1, $routines['site'] );
 		$this->assertInstanceOf(
 			'WordPoints_Installer_Caps'
 			, $routines['site'][0]
-		);
-
-		$this->assertSame(
-			$custom_caps
-			, $this->get_protected_property( $routines['site'][0], 'caps' )
 		);
 	}
 
@@ -1012,16 +987,6 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		$uninstall_routines = $installable->get_uninstall_routines();
 
 		$this->assertCount( 1, $uninstall_routines['single'] );
-
-		$this->assertSame(
-			array( 'test' )
-			, $this->get_protected_property( $uninstall_routines['single'][0], 'tables' )
-		);
-
-		$this->assertSame(
-			'base'
-			, $this->get_protected_property( $uninstall_routines['single'][0], 'prefix' )
-		);
 	}
 
 	/**
@@ -1033,26 +998,18 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_caps() {
 
-		$installable = $this->get_installable();
-
-		$callback    = new WordPoints_PHPUnit_Mock_Filter(
-			array( 'some_cap' => 'manage_options' )
+		$installable = $this->getPartialMockForAbstactClass(
+			'WordPoints_Installable'
+			, array( 'get_custom_caps' )
 		);
 
-		$this->set_protected_property(
-			$installable
-			, 'custom_caps_getter'
-			, array( $callback, 'filter' )
-		);
+		$custom_caps = array( 'some_cap' => 'manage_options' );
+
+		$installable->method( 'get_custom_caps' )->willReturn( $custom_caps );
 
 		$uninstall_routines = $installable->get_uninstall_routines();
 
 		$this->assertCount( 1, $uninstall_routines['single'] );
-
-		$this->assertSame(
-			array( 'some_cap' )
-			, $this->get_protected_property( $uninstall_routines['single'][0], 'caps' )
-		);
 	}
 
 	/**
@@ -1067,11 +1024,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	protected function get_installable( $type = 'module', $slug = 'test' ) {
 
-		$installable = $this->getMockForAbstractClass( 'WordPoints_Installable' );
-		$installable->method( 'get_version' )->willReturn( '1.0.0' );
-
-		$this->set_protected_property( $installable, 'type', $type );
-		$this->set_protected_property( $installable, 'slug', $slug );
+		$installable = new WordPoints_Installable_Basic( $type, $slug, '1.0.0' );
 
 		return $installable;
 	}

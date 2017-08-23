@@ -41,18 +41,6 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 	protected $slug;
 
 	/**
-	 * The function to use to get the user capabilities used by this entity.
-	 *
-	 * The function should return an array of capabilities of the format processed
-	 * by {@see wordpoints_add_custom_caps()}.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @var callable
-	 */
-	protected $custom_caps_getter;
-
-	/**
 	 * @since 2.4.0
 	 */
 	public function get_slug() {
@@ -436,16 +424,31 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 	 */
 	protected function get_custom_caps_install_routines() {
 
-		if ( empty( $this->custom_caps_getter ) ) {
+		$caps = $this->get_custom_caps();
+
+		if ( empty( $caps ) ) {
 			return array();
 		}
-
-		$caps = call_user_func( $this->custom_caps_getter );
 
 		return array(
 			'site'   => array( new WordPoints_Installer_Caps( $caps ) ),
 			'single' => array( new WordPoints_Installer_Caps( $caps ) ),
 		);
+	}
+
+	/**
+	 * Gets the custom capabilities used by this entity.
+	 *
+	 * The function should return an array of capabilities of the format processed
+	 * by {@see wordpoints_add_custom_caps()}.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return string[] The custom caps (keys) and their corresponding core caps
+	 *                  (values).
+	 */
+	protected function get_custom_caps() {
+		return array();
 	}
 
 	/**
@@ -512,9 +515,11 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 			);
 		}
 
-		if ( ! empty( $this->custom_caps_getter ) ) {
+		$custom_caps = $this->get_custom_caps();
+
+		if ( ! empty( $custom_caps ) ) {
 			$factories[] = new WordPoints_Uninstaller_Factory_Caps(
-				array_keys( call_user_func( $this->custom_caps_getter ) )
+				array_keys( $custom_caps )
 			);
 		}
 

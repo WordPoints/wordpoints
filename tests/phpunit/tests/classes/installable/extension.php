@@ -39,7 +39,7 @@ class WordPoints_Installable_Extension_Test extends WordPoints_PHPUnit_TestCase 
 			, wordpoints_extensions_dir() . '/demo/demo.php'
 		);
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable_Extension'
 			, array( 'get_slug' )
 		);

@@ -683,7 +683,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		$db_tables_routine = $this->createMock( 'WordPoints_RoutineI' );
 		$caps_routine = $this->createMock( 'WordPoints_RoutineI' );
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array(
 				'get_db_tables_install_routines',
@@ -731,7 +731,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			$contexts = array( $shortcut );
 		}
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_db_tables' )
 		);
@@ -779,7 +779,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_custom_caps_install_routines() {
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_custom_caps' )
 		);
@@ -845,7 +845,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			->method( 'get_for_site' )
 			->willReturn( array( $site ) );
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_uninstall_routine_factories' )
 		);
@@ -902,7 +902,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 		$factory_2 = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
 		$factory_2->method( 'get_for_single' )->willReturn( array( $routine_2 ) );
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_uninstall_routine_factories' )
 		);
@@ -948,7 +948,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			->method( 'get_for_site' )
 			->willReturn( array( $site ) );
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_uninstall_routine_factories' )
 		);
@@ -977,7 +977,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		$tables = array( 'local' => array( 'test' => '' ) );
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_db_tables' )
 		);
@@ -998,7 +998,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_caps() {
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
 			, array( 'get_custom_caps' )
 		);

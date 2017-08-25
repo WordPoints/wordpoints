@@ -23,7 +23,7 @@ class WordPoints_Installable_Component_Test extends WordPoints_PHPUnit_TestCase 
 	 */
 	public function test_get_version() {
 
-		$installable = $this->getPartialMockForAbstactClass(
+		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable_Component'
 			, array( 'get_slug' )
 		);

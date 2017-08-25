@@ -47,7 +47,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_run_multisite() {
 
-		$routine = $this->getPartialMockForAbstactClass(
+		$routine = $this->getPartialMockForAbstractClass(
 			'WordPoints_Routine'
 			, array( 'run_for_sites' )
 		);
@@ -69,7 +69,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_run_network_wide() {
 
-		$routine = $this->getPartialMockForAbstactClass(
+		$routine = $this->getPartialMockForAbstractClass(
 			'WordPoints_PHPUnit_Mock_Routine'
 			, array( 'run_for_sites' )
 		);

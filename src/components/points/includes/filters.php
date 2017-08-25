@@ -40,9 +40,9 @@ add_action( 'init', 'wordpoints_points_add_global_cache_groups', 5 );
 
 add_action( 'wordpoints_register_points_logs_queries', 'wordpoints_register_default_points_logs_queries' );
 
-add_action( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
-add_action( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
-add_action( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
+add_filter( 'wordpoints_points_log-profile_edit', 'wordpoints_points_logs_profile_edit', 10, 6 );
+add_filter( 'wordpoints_points_log-comment_disapprove', 'wordpoints_points_logs_comment_disapprove', 10, 6 );
+add_filter( 'wordpoints_points_log-post_delete', 'wordpoints_points_logs_post_delete', 10, 6 );
 
 add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_logs_cache', 10, 3 );
 add_action( 'wordpoints_points_altered', 'wordpoints_clean_points_top_users_cache', 10, 3 );

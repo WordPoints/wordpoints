@@ -70,7 +70,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_run_network_wide() {
 
 		$routine = $this->getPartialMockForAbstactClass(
-			'WordPoints_Routine'
+			'WordPoints_PHPUnit_Mock_Routine'
 			, array( 'run_for_sites' )
 		);
 
@@ -78,8 +78,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 		$routine->expects( $this->once() )->method( 'run_for_sites' );
 		$routine->expects( $this->once() )->method( 'run_for_network' );
 
-		$this->make_network_wide( $routine );
-
+		$routine->network_wide = true;
 		$routine->run();
 	}
 
@@ -98,12 +97,11 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 		$site = new WordPoints_PHPUnit_Mock_Filter();
 		$site->callback = 'get_current_blog_id';
 
-		$routine = $this->getMockForAbstractClass( 'WordPoints_Routine' );
+		$routine = $this->getMockForAbstractClass( 'WordPoints_PHPUnit_Mock_Routine' );
 		$routine->method( 'run_for_site' )
 			->willReturnCallback( array( $site, 'filter' ) );
 
-		$this->make_network_wide( $routine );
-
+		$routine->network_wide = true;
 		$routine->run();
 
 		$this->assertSame(
@@ -250,14 +248,13 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 
 		$network = clone $site;
 
-		$routine = $this->getMockForAbstractClass( 'WordPoints_Routine' );
+		$routine = $this->getMockForAbstractClass( 'WordPoints_PHPUnit_Mock_Routine' );
 		$routine->method( 'run_for_site' )
 			->willReturnCallback( array( $site, 'filter' ) );
 		$routine->method( 'run_for_network' )
 			->willReturnCallback( array( $network, 'filter' ) );
 
-		$this->make_network_wide( $routine );
-
+		$routine->network_wide = true;
 		$routine->run();
 
 		// An extra site is created for these tests.
@@ -265,21 +262,6 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame( array( 'network' ), $network->callback_results );
 
 		$this->assertSame( 'test', $hooks->get_current_mode() );
-	}
-
-	/**
-	 * Makes the routine network wide.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @param WordPoints_Routine $routine The routine.
-	 */
-	protected function make_network_wide( $routine ) {
-
-		$reflection          = new ReflectionClass( $routine );
-		$reflection_property = $reflection->getProperty( 'network_wide' );
-		$reflection_property->setAccessible( true );
-		$reflection_property->setValue( $routine, true );
 	}
 }
 

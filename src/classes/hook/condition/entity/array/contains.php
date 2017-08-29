@@ -106,14 +106,26 @@ class WordPoints_Hook_Condition_Entity_Array_Contains
 	 */
 	protected function validate_count() {
 
-		if (
-			! empty( $this->settings['max'] )
-			&& ! wordpoints_posint( $this->settings['max'] )
-		) {
-			$this->validator->add_error(
-				__( 'The maximum must be a positive integer.', 'wordpoints' )
-				, 'max'
-			);
+		if ( isset( $this->settings['max'] ) ) {
+
+			if (
+				'0' === $this->settings['max']
+				|| 0 === $this->settings['max']
+			) {
+
+				$this->settings['max'] = 0;
+
+			} elseif ( empty( $this->settings['max'] ) ) {
+
+				unset( $this->settings['max'] );
+
+			} elseif ( ! wordpoints_posint( $this->settings['max'] ) ) {
+
+				$this->validator->add_error(
+					__( 'The maximum must be a non-negative integer.', 'wordpoints' )
+					, 'max'
+				);
+			}
 		}
 
 		if ( ! empty( $this->settings['min'] ) ) {
@@ -126,7 +138,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains
 				);
 
 			} elseif (
-				! empty( $this->settings['max'] )
+				isset( $this->settings['max'] )
 				&& $this->settings['max'] < $this->settings['min']
 			) {
 

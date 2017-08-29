@@ -284,6 +284,16 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			, array( 'global' => array( 'WordPoints_Points_Updater_2_1_4_Logs' ) )
 		);
 
+		// 2.4.0-alpha-5.
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.4.0-alpha-5'
+			, array(
+				'universal' => array(
+					'WordPoints_Points_Updater_2_4_0_Condition_Contains',
+				),
+			)
+		);
+
 		return $factories;
 	}
 

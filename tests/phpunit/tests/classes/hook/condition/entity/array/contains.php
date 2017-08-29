@@ -22,11 +22,16 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	 *
 	 * @since 2.1.0
 	 *
-	 * @dataProvider data_provider_valid_settings
+	 * @dataProvider data_provider_unvalidated_valid_settings
 	 *
-	 * @param array $settings The valid settings.
+	 * @param array $settings  The valid settings.
+	 * @param array $validated The validated settings.
 	 */
-	public function test_validate_settings( $settings ) {
+	public function test_validate_settings( $settings, $validated = null ) {
+
+		if ( ! isset( $validated ) ) {
+			$validated = $settings;
+		}
 
 		$this->factory->wordpoints->entity->create();
 
@@ -64,7 +69,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			, $validator
 		);
 
-		$this->assertSame( $settings, $validated_settings );
+		$this->assertSame( $validated, $validated_settings );
 
 		$this->assertFalse( $validator->had_errors() );
 		$this->assertSame( array(), $validator->get_field_stack() );
@@ -76,9 +81,11 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	 *
 	 * @since 2.1.0
 	 *
+	 * @param bool $validated Whether to only return validated settings.
+	 *
 	 * @return array Possible settings.
 	 */
-	public function data_provider_valid_settings() {
+	public function data_provider_valid_settings( $validated = true ) {
 
 		$return = array(
 			'empty' => array( array() ),
@@ -88,7 +95,19 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			'min_zero' => array( array( 'min' => 0 ) ),
 			'max_and_min' => array( array( 'min' => 1, 'max' => 4 ) ),
 			'max_equals_min' => array( array( 'min' => 2, 'max' => 2 ) ),
+			'max_and_min_zero' => array( array( 'min' => 0, 'max' => 0 ) ),
 		);
+
+		if ( ! $validated ) {
+			$return = array_merge(
+				array(
+					'max_zero_string' => array( array( 'max' => '0' ), array( 'max' => 0 ) ),
+					'max_empty' => array( array( 'max' => '' ), array() ),
+					'max_false' => array( array( 'max' => false ), array() ),
+				)
+				, $return
+			);
+		}
 
 		$conditions = parent::data_provider_valid_condition_settings();
 
@@ -101,6 +120,17 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Provides different sets of unvalidated valid settings.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return array Possible settings.
+	 */
+	public function data_provider_unvalidated_valid_settings() {
+		return $this->data_provider_valid_settings( false );
 	}
 
 	/**
@@ -184,6 +214,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			'invalid_max' => array( array( 'max' => -3 ), array( 'max' ), true ),
 			'invalid_min' => array( array( 'min' => -1 ), array( 'min' ), true ),
 			'max_less_than_min' => array( array( 'min' => 3, 'max' => 1 ), array( 'min' ) ),
+			'max_less_than_min_0' => array( array( 'min' => 3, 'max' => 0 ), array( 'min' ) ),
 		);
 
 		$conditions = parent::data_provider_invalid_condition_settings();
@@ -252,7 +283,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 
 		$current = $event_args->get_current();
 
-		if ( array( 'max' => 0 ) === $settings ) {
+		if ( isset( $settings['max'] ) && 0 === $settings['max'] ) {
 			$current->set_the_value( array() );
 		} else {
 			$current->set_the_value( array( 2, 445 ) );

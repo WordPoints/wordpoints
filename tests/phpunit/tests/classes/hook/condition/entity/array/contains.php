@@ -104,6 +104,9 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 					'max_zero_string' => array( array( 'max' => '0' ), array( 'max' => 0 ) ),
 					'max_empty' => array( array( 'max' => '' ), array() ),
 					'max_false' => array( array( 'max' => false ), array() ),
+					'min_zero_string' => array( array( 'min' => '0' ), array( 'min' => 0 ) ),
+					'min_empty' => array( array( 'min' => '' ), array() ),
+					'min_false' => array( array( 'min' => false ), array() ),
 				)
 				, $return
 			);

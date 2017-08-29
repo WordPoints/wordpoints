@@ -269,7 +269,11 @@ class WordPoints_Hook_Extension_Conditions
 				unset( $sub_args['_conditions'] );
 			}
 
-			$are_met = $this->conditions_are_met( $sub_args, $event_args );
+			$are_met = true;
+
+			if ( ! empty( $sub_args ) ) {
+				$are_met = $this->conditions_are_met( $sub_args, $event_args );
+			}
 
 			$event_args->ascend();
 

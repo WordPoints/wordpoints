@@ -215,7 +215,7 @@ function wordpoints_extension_server_apis_init( $server_apis ) {
  *
  * @since 2.1.0
  *
- * @return WordPoints_App_Registry The hooks app.
+ * @return WordPoints_App_Registry The entities app.
  */
 function wordpoints_entities() {
 

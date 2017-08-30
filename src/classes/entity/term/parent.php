@@ -36,7 +36,7 @@ class WordPoints_Entity_Term_Parent
 	 */
 	public function get_title() {
 
-		$taxonomy = get_taxonomy( substr( $this->slug, 5 /* term\ */ ) );
+		$taxonomy = get_taxonomy( substr( $this->related_entity_slug, 5 /* term\ */ ) );
 
 		if ( $taxonomy ) {
 

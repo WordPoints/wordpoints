@@ -27,6 +27,11 @@ class WordPoints_Entity_Term extends WordPoints_Entity_Stored_DB_Table {
 	/**
 	 * @since 2.4.0
 	 */
+	protected $getter = 'get_term';
+
+	/**
+	 * @since 2.4.0
+	 */
 	protected $human_id_field = 'name';
 
 	/**
@@ -46,8 +51,27 @@ class WordPoints_Entity_Term extends WordPoints_Entity_Stored_DB_Table {
 	/**
 	 * @since 2.4.0
 	 */
-	public function get_entity( $id ) {
-		return get_term( $id );
+	public function get_storage_info() {
+		return array(
+			'type' => 'db',
+			'info' => array(
+				'type'       => 'table',
+				'table_name' => $GLOBALS['wpdb']->{$this->wpdb_table_name},
+				'conditions' => array(
+					array(
+						'field' => array(
+							'table_name' => $GLOBALS['wpdb']->term_taxonomy,
+							'on' => array(
+								'primary_field' => 'term_id',
+								'join_field' => 'term_id',
+								'condition_field' => 'taxonomy',
+							),
+						),
+						'value' => substr( $this->slug, 5 /* term\ */ ),
+					),
+				),
+			),
+		);
 	}
 }
 

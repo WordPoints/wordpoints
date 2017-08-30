@@ -113,6 +113,12 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						'info' => array(
 							'type'       => 'table',
 							'table_name' => $wpdb->posts,
+							'conditions' => array(
+								array(
+									'field' => 'post_type',
+									'value' => 'post',
+								),
+							),
 						),
 					),
 					'create_func'    => array( $this, 'create_post' ),
@@ -245,6 +251,19 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						'info' => array(
 							'type'       => 'table',
 							'table_name' => $wpdb->comments,
+							'conditions' => array(
+								array(
+									'field' => array(
+										'table_name' => $wpdb->posts,
+										'on' => array(
+											'primary_field' => 'comment_post_ID',
+											'join_field' => 'ID',
+											'condition_field' => 'post_type',
+										),
+									),
+									'value' => 'post',
+								),
+							),
 						),
 					),
 					'create_func'    => array( $this, 'create_comment' ),
@@ -336,6 +355,19 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 						'info' => array(
 							'type' => 'table',
 							'table_name' => $wpdb->terms,
+							'conditions' => array(
+								array(
+									'field' => array(
+										'table_name' => $wpdb->term_taxonomy,
+										'on' => array(
+											'primary_field' => 'term_id',
+											'join_field' => 'term_id',
+											'condition_field' => 'taxonomy',
+										),
+									),
+									'value' => 'category',
+								),
+							),
 						),
 					),
 					'create_func'    => array( $this, 'create_category' ),

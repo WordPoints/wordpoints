@@ -161,8 +161,8 @@
             "errors": false
         },
         "\/classes\/components.php": {
-            "size": 11957,
-            "hash": "36f8a4c532edaa1ba3541a311546d002",
+            "size": 12007,
+            "hash": "b7386fbb09f3830e9aa2ec84d27757d8",
             "errors": false
         },
         "\/classes\/data\/type\/decimal\/number.php": {
@@ -256,8 +256,8 @@
             "errors": false
         },
         "\/classes\/entity\/comment.php": {
-            "size": 1376,
-            "hash": "8eda6ef0ac684c973c54b15c9ee4166b",
+            "size": 1947,
+            "hash": "81a3c5ad25ee2128f6f917f1de6d8651",
             "errors": false
         },
         "\/classes\/entity\/context\/network.php": {
@@ -346,8 +346,8 @@
             "errors": false
         },
         "\/classes\/entity\/post.php": {
-            "size": 1240,
-            "hash": "2e3869a5ac39b2078b28e1395072ad43",
+            "size": 1607,
+            "hash": "67d5f89e1fa4b3acfe7004e093497168",
             "errors": false
         },
         "\/classes\/entity\/relationship\/dynamic\/stored\/field.php": {
@@ -446,8 +446,8 @@
             "errors": false
         },
         "\/classes\/entity\/term.php": {
-            "size": 744,
-            "hash": "12b123b5d7ee0ae84b1e3383b96ead15",
+            "size": 1283,
+            "hash": "956395e68d8950582965dcf3ce39f139",
             "errors": false
         },
         "\/classes\/entity\/user\/role.php": {
@@ -656,8 +656,8 @@
             "errors": false
         },
         "\/classes\/hook\/condition\/entity\/array\/contains.php": {
-            "size": 5158,
-            "hash": "89c11410f1b0a765a2640c97bcb68cca",
+            "size": 5373,
+            "hash": "31c911dccb333faba0f461a9ba52c498",
             "errors": false
         },
         "\/classes\/hook\/condition\/equals.php": {
@@ -886,18 +886,18 @@
             "errors": false
         },
         "\/classes\/installable\/component.php": {
-            "size": 500,
-            "hash": "01d1a3bc6188bc09c60400f2a89afad9",
+            "size": 506,
+            "hash": "9b14cdfc9cc84dc343e383ef7da20367",
             "errors": false
         },
         "\/classes\/installable\/core.php": {
-            "size": 6596,
-            "hash": "454135a35dc9f72b96db7ee5178f6a61",
+            "size": 6612,
+            "hash": "6ecb86aea8b44bbd96da3f2fcb8677e1",
             "errors": false
         },
         "\/classes\/installable\/extension.php": {
-            "size": 444,
-            "hash": "2c942e929e192028683534da9934603f",
+            "size": 450,
+            "hash": "58430921ee27360a5bf75190d7f4550a",
             "errors": false
         },
         "\/classes\/installable\/legacy.php": {
@@ -906,8 +906,8 @@
             "errors": false
         },
         "\/classes\/installable.php": {
-            "size": 11255,
-            "hash": "f6ad2bca5babe289f72538efd2076b3b",
+            "size": 11316,
+            "hash": "2bc9c9fa38769393bf597e2db121a3de",
             "errors": false
         },
         "\/classes\/installablei.php": {
@@ -916,8 +916,8 @@
             "errors": false
         },
         "\/classes\/installables\/app.php": {
-            "size": 5384,
-            "hash": "65d95d36dff6524bef2ac5199205933a",
+            "size": 5400,
+            "hash": "ffe62a30f42915e98332431dd906bfcb",
             "errors": false
         },
         "\/classes\/installables.php": {
@@ -1251,13 +1251,13 @@
             "errors": false
         },
         "\/components\/points\/classes\/index.php": {
-            "size": 2730,
-            "hash": "856aeb9093abfc3b8a791466163468bb",
+            "size": 2827,
+            "hash": "04b4b086f0e55725395e6eec8adaead5",
             "errors": false
         },
         "\/components\/points\/classes\/installable.php": {
-            "size": 8755,
-            "hash": "f279802b24314ca866f38d1b6157801d",
+            "size": 8974,
+            "hash": "876b24a153c2ef0339cf194c6ed83f49",
             "errors": false
         },
         "\/components\/points\/classes\/legacy\/hook\/to\/reaction\/importer.php": {
@@ -1373,6 +1373,11 @@
         "\/components\/points\/classes\/updater\/2\/1\/4\/logs.php": {
             "size": 11156,
             "hash": "8eb09ee9acccf82feb46c9219a5bbe46",
+            "errors": false
+        },
+        "\/components\/points\/classes\/updater\/2\/4\/0\/condition\/contains.php": {
+            "size": 3257,
+            "hash": "ae5fcc6c74ba837e1ead6ab421c01905",
             "errors": false
         },
         "\/components\/points\/classes\/widget\/logs.php": {
@@ -1586,8 +1591,8 @@
             "errors": false
         },
         "\/components\/ranks\/classes\/ranks\/installable.php": {
-            "size": 2769,
-            "hash": "62711589cc9518d648df646b8642335c",
+            "size": 2779,
+            "hash": "ced3ed53be6f4358d40753cb995d9483",
             "errors": false
         },
         "\/components\/ranks\/classes\/ranks\/updater\/2\/0\/0\/tables.php": {
@@ -1596,8 +1601,8 @@
             "errors": false
         },
         "\/components\/ranks\/classes\/ranks\/updater\/2\/4\/0\/tables.php": {
-            "size": 4849,
-            "hash": "d427871b084fcb74de9e7708b9cdc748",
+            "size": 4859,
+            "hash": "54cde46117eb78166823fbc932ee9ab5",
             "errors": false
         },
         "\/components\/ranks\/classes\/ranks\/updater\/2\/4\/0\/user\/ranks.php": {
@@ -1721,8 +1726,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 19644,
-            "hash": "b6303530b6cfd49aa31bf33c92c9d347",
+            "size": 19647,
+            "hash": "094e61a7e9259308bfcf74fdaa80e568",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
@@ -1811,5 +1816,5 @@
             "errors": false
         }
     },
-    "config_signature": "bb486eac19f39ae9fdcba36cb8ff0673"
+    "config_signature": "455d9e9fd0c778315cb3b99f3dbfabb9"
 }

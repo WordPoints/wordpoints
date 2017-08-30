@@ -56,6 +56,32 @@ class WordPoints_Entity_Comment
 	}
 
 	/**
+	 * @since 2.4.0
+	 */
+	public function get_storage_info() {
+		return array(
+			'type' => 'db',
+			'info' => array(
+				'type'       => 'table',
+				'table_name' => $GLOBALS['wpdb']->{$this->wpdb_table_name},
+				'conditions' => array(
+					array(
+						'field' => array(
+							'table_name' => $GLOBALS['wpdb']->posts,
+							'on' => array(
+								'primary_field' => 'comment_post_ID',
+								'join_field' => 'ID',
+								'condition_field' => 'post_type',
+							),
+						),
+						'value' => substr( $this->slug, 8 /* comment\ */ ),
+					),
+				),
+			),
+		);
+	}
+
+	/**
 	 * @since 2.1.0
 	 * @deprecated 2.2.0 Use entity restrictions API instead.
 	 */

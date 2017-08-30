@@ -51,6 +51,25 @@ class WordPoints_Entity_Post
 	}
 
 	/**
+	 * @since 2.4.0
+	 */
+	public function get_storage_info() {
+		return array(
+			'type' => 'db',
+			'info' => array(
+				'type'       => 'table',
+				'table_name' => $GLOBALS['wpdb']->{$this->wpdb_table_name},
+				'conditions' => array(
+					array(
+						'field' => 'post_type',
+						'value' => substr( $this->slug, 5 /* post\ */ ),
+					),
+				),
+			),
+		);
+	}
+
+	/**
 	 * @since 2.1.0
 	 * @deprecated 2.2.0 Use entity restrictions API instead.
 	 */

@@ -22,6 +22,7 @@ Conditions = Extension.extend({
 
 	initialize: function () {
 
+		this.argFilters = [ this.noTopLevelEntities ];
 		this.dataType = Backbone.Model.extend( { idAttribute: 'slug' } );
 		this.controllers = new Backbone.Collection(
 			[]
@@ -240,6 +241,15 @@ Conditions = Extension.extend({
 		}
 
 		dataType.get( 'controllers' )[ slug ] = controller;
+	},
+
+	noTopLevelEntities: function ( arg, dataType, isEntityArray ) {
+		// We don't allow identity conditions on top-level entities.
+		return ! (
+			! isEntityArray
+			&& dataType === 'entity'
+			&& _.isEmpty( arg.hierarchy )
+		);
 	}
 
 } );

@@ -27,6 +27,11 @@ class WordPoints_Entity_Term extends WordPoints_Entity_Stored_DB_Table {
 	/**
 	 * @since 2.4.0
 	 */
+	protected $id_is_int = true;
+
+	/**
+	 * @since 2.4.0
+	 */
 	protected $getter = 'get_term';
 
 	/**

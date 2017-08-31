@@ -17,6 +17,7 @@
  *
  * @covers WordPoints_Points_Installable::get_update_routine_factories
  * @covers WordPoints_Points_Updater_2_4_0_Condition_Contains
+ * @covers WordPoints_Points_Updater_Log_Meta_Entity_GUIDs_Int
  */
 class WordPoints_Points_2_4_0_Update_Test
 	extends WordPoints_PHPUnit_TestCase_Points {
@@ -189,6 +190,49 @@ class WordPoints_Points_2_4_0_Update_Test
 		$this->assertSame(
 			''
 			, $meta['fire']['post\\post']['title']['_conditions'][0]['settings']['max']
+		);
+	}
+
+	/**
+	 * Tests that it corrects signature arg GUIDs to integers in the hook hits table.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @dataProvider data_provider_entity_slugs
+	 *
+	 * @param string $slug The entity slug.
+	 */
+	public function test_corrects_points_log_meta_entity_guids( $slug ) {
+
+		$log_id = $this->factory->wordpoints->points_log->create(
+			array(
+				'meta' => array(
+					"{$slug}_guid" => wp_json_encode( array( $slug => '1' ) ),
+				),
+			)
+		);
+
+		// Simulate the update.
+		$this->update_component();
+
+		$guids = wordpoints_get_points_log_meta( $log_id, "{$slug}_guid", true );
+		$guids = json_decode( $guids, true );
+
+		$this->assertSame( 1, $guids[ $slug ] );
+	}
+
+	/**
+	 * Provides a list of entity slugs to use with the GUID int update test.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return array The entity slugs.
+	 */
+	public function data_provider_entity_slugs() {
+		return array(
+			'user' => array( 'user' ),
+			'post\\page' => array( 'post\\page' ),
+			'comment\\post' => array( 'comment\\post' ),
 		);
 	}
 }

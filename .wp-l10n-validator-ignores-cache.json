@@ -3649,6 +3649,21 @@
                 "arg_count": 4,
                 "parentheses": 1
             }
+        },
+        "user": {
+            "192": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "post\\\\": {
+            "195": false
+        },
+        "comment\\\\": {
+            "196": false
         }
     },
     "\/classes\/updater\/core\/1\/10\/3\/extensions\/index\/create.php": {
@@ -3776,6 +3791,21 @@
                 "arg_count": 1,
                 "parentheses": 1
             }
+        },
+        "user": {
+            "288": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "post\\\\": {
+            "291": false
+        },
+        "comment\\\\": {
+            "292": false
         }
     },
     "\/components\/points\/classes\/updater\/1\/10\/0\/logs.php": {
@@ -3852,7 +3882,7 @@
     },
     "\/classes\/entity\/comment.php": {
         "ID": {
-            "73": {
+            "78": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -3863,11 +3893,31 @@
     },
     "\/classes\/entity\/term.php": {
         "taxonomy": {
-            "67": {
+            "72": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 2,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/classes\/updater\/hook\/hits\/signature\/arg\/guids\/int.php": {
+        "%{": {
+            "49": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        ":\"%": {
+            "49": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
                 "parentheses": 1
             }
         }

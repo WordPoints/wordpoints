@@ -418,6 +418,35 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test get_entity_id() with an ID that is a string.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_entity_id_string() {
+
+		$array = array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+
+		$this->assertSame( '1', $entity->call( 'get_entity_id', array( $array ) ) );
+	}
+
+	/**
+	 * Test get_entity_id() with an ID that is a string when $id_is_int is true.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_get_entity_id_is_int() {
+
+		$array = array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertSame( 1, $entity->call( 'get_entity_id', array( $array ) ) );
+	}
+
+	/**
 	 * Test get_id_field().
 	 *
 	 * @since 2.1.0
@@ -772,6 +801,75 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertNull( $entity->get_the_attr_value( 'type' ) );
 		$this->assertNull( $entity->get_the_context() );
 		$this->assertNull( $entity->get_the_guid() );
+	}
+
+	/**
+	 * Test get_the_id() when the ID is a string.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_id_string() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+
+		$this->assertSame( '1', $entity->get_the_id() );
+	}
+
+	/**
+	 * Test get_the_id() when the ID is a string and $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_id_is_int() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertSame( 1, $entity->get_the_id() );
+	}
+
+
+	/**
+	 * Test get_the_guid() when the ID is a string.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_guid_string() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+
+		$this->assertSame(
+			array( 'test' => '1', 'site' => 1, 'network' => 1 )
+			, $entity->get_the_guid()
+		);
+	}
+
+	/**
+	 * Test get_the_guid() when the ID is a string and $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_guid_is_int() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertSame(
+			array( 'test' => 1, 'site' => 1, 'network' => 1 )
+			, $entity->get_the_guid()
+		);
 	}
 
 	/**

@@ -40,6 +40,7 @@ return array(
 	'wordpoints_points_updater_2_0_0_tables' => 'updater/2/0/0/tables.php',
 	'wordpoints_points_updater_2_1_4_logs' => 'updater/2/1/4/logs.php',
 	'wordpoints_points_updater_2_4_0_condition_contains' => 'updater/2/4/0/condition/contains.php',
+	'wordpoints_points_updater_log_meta_entity_guids_int' => 'updater/log/meta/entity/guids/int.php',
 	'wordpoints_points_widget' => 'widget.php',
 	'wordpoints_points_widget_logs' => 'widget/logs.php',
 	'wordpoints_points_widget_top_users' => 'widget/top/users.php',

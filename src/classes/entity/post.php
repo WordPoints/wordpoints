@@ -27,6 +27,11 @@ class WordPoints_Entity_Post
 	protected $id_field = 'ID';
 
 	/**
+	 * @since 2.4.0
+	 */
+	protected $id_is_int = true;
+
+	/**
 	 * @since 2.1.0
 	 */
 	protected $getter = 'get_post';

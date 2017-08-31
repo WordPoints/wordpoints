@@ -27,6 +27,11 @@ class WordPoints_Entity_Comment
 	protected $id_field = 'comment_ID';
 
 	/**
+	 * @since 2.4.0
+	 */
+	protected $id_is_int = true;
+
+	/**
 	 * @since 2.1.0
 	 */
 	protected function get_entity( $id ) {

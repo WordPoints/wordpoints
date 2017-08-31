@@ -219,6 +219,7 @@ return array(
 	'wordpoints_updater_db_table_column_rename' => 'updater/db/table/column/rename.php',
 	'wordpoints_updater_db_tables_utf8mb4' => 'updater/db/tables/utf8mb4.php',
 	'wordpoints_updater_factory' => 'updater/factory.php',
+	'wordpoints_updater_hook_hits_signature_arg_guids_int' => 'updater/hook/hits/signature/arg/guids/int.php',
 	'wordpoints_widget' => 'widget.php',
 	// }
 );

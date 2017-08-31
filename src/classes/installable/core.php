@@ -188,6 +188,26 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 			)
 		);
 
+		// 2.4.0-alpha-5.
+		$entity_slugs = array( 'user' );
+
+		foreach ( wordpoints_get_post_types_for_auto_integration() as $post_type ) {
+			$entity_slugs[] = "post\\{$post_type}";
+			$entity_slugs[] = "comment\\{$post_type}";
+		}
+
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.4.0-alpha-5'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Updater_Hook_Hits_Signature_Arg_GUIDs_Int',
+						'args'  => array( $entity_slugs ),
+					),
+				),
+			)
+		);
+
 		return $factories;
 	}
 

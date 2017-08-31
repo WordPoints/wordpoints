@@ -16,6 +16,7 @@
  *
  * @covers WordPoints_Installable_Core::get_update_routine_factories
  * @covers WordPoints_Updater_Core_2_4_0_Extensions_Directory_Rename
+ * @covers WordPoints_Updater_Hook_Hits_Signature_Arg_GUIDs_Int
  */
 class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
@@ -95,6 +96,107 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertTrue( $this->mock_fs->exists( $new ) );
 		$this->assertFalse( $this->mock_fs->exists( $legacy ) );
+	}
+
+	/**
+	 * Tests that it corrects signature arg GUIDs to integers in the hook hits table.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @dataProvider data_provider_entity_slugs
+	 *
+	 * @param string $slug The entity slug.
+	 */
+	public function test_corrects_hook_hit_signature_arg_guids( $slug ) {
+
+		global $wpdb;
+
+		$wpdb->insert(
+			$wpdb->wordpoints_hook_hits
+			, array(
+				'action_type' => 'test_fire',
+				'signature_arg_guids' => wp_json_encode( array( $slug => '1' ) ),
+				'event' => 'test',
+				'reactor' => 'test',
+				'reaction_mode' => 'test',
+				'reaction_store' => 'test',
+				'reaction_context_id' => '{}',
+				'reaction_id' => 5,
+				'date' => current_time( 'mysql', true ),
+			)
+		);
+
+		$id = $wpdb->insert_id;
+
+		// Simulate the update.
+		$this->update_wordpoints();
+
+		$query = new WordPoints_Hook_Hit_Query(
+			array( 'id' => $id, 'fields' => 'signature_arg_guids' )
+		);
+
+		$guids = json_decode( $query->get( 'var' ), true );
+
+		$this->assertSame( 1, $guids[ $slug ] );
+	}
+
+	/**
+	 * Provides a list of entity slugs to use with the GUID int update test.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return array The entity slugs.
+	 */
+	public function data_provider_entity_slugs() {
+		return array(
+			'user' => array( 'user' ),
+			'post\\page' => array( 'post\\page' ),
+			'comment\\post' => array( 'comment\\post' ),
+		);
+	}
+
+	/**
+	 * Tests that it corrects signature arg GUIDs to integers in the hook hits table.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_corrects_hook_hit_signature_arg_guids_multiple() {
+
+		global $wpdb;
+
+		$wpdb->insert(
+			$wpdb->wordpoints_hook_hits
+			, array(
+				'action_type' => 'test_fire',
+				'signature_arg_guids' => wp_json_encode(
+					array(
+						'user'       => array( 'user' => '1' ),
+						'post\\post' => array( 'post\\post' => '5' ),
+					)
+				),
+				'event' => 'test',
+				'reactor' => 'test',
+				'reaction_mode' => 'test',
+				'reaction_store' => 'test',
+				'reaction_context_id' => '{}',
+				'reaction_id' => 5,
+				'date' => current_time( 'mysql', true ),
+			)
+		);
+
+		$id = $wpdb->insert_id;
+
+		// Simulate the update.
+		$this->update_wordpoints();
+
+		$query = new WordPoints_Hook_Hit_Query(
+			array( 'id' => $id, 'fields' => 'signature_arg_guids' )
+		);
+
+		$guids = json_decode( $query->get( 'var' ), true );
+
+		$this->assertSame( 1, $guids['user']['user'] );
+		$this->assertSame( 5, $guids['post\\post']['post\\post'] );
 	}
 }
 

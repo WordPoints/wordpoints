@@ -285,9 +285,22 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 		);
 
 		// 2.4.0-alpha-5.
+		$entity_slugs = array( 'user' );
+
+		foreach ( wordpoints_get_post_types_for_auto_integration() as $post_type ) {
+			$entity_slugs[] = "post\\{$post_type}";
+			$entity_slugs[] = "comment\\{$post_type}";
+		}
+
 		$factories[] = new WordPoints_Updater_Factory(
 			'2.4.0-alpha-5'
 			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Points_Updater_Log_Meta_Entity_GUIDs_Int',
+						'args'  => array( $entity_slugs ),
+					),
+				),
 				'universal' => array(
 					'WordPoints_Points_Updater_2_4_0_Condition_Contains',
 				),

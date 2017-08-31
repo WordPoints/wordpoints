@@ -256,8 +256,8 @@
             "errors": false
         },
         "\/classes\/entity\/comment.php": {
-            "size": 1947,
-            "hash": "81a3c5ad25ee2128f6f917f1de6d8651",
+            "size": 2005,
+            "hash": "1e27bf650f9b0ffe33ac8ba2819505c0",
             "errors": false
         },
         "\/classes\/entity\/context\/network.php": {
@@ -346,8 +346,8 @@
             "errors": false
         },
         "\/classes\/entity\/post.php": {
-            "size": 1607,
-            "hash": "67d5f89e1fa4b3acfe7004e093497168",
+            "size": 1665,
+            "hash": "07bd27f98ed5508cb58d8ac91535cc0d",
             "errors": false
         },
         "\/classes\/entity\/relationship\/dynamic\/stored\/field.php": {
@@ -441,13 +441,13 @@
             "errors": false
         },
         "\/classes\/entity\/term\/parent.php": {
-            "size": 1233,
-            "hash": "7289b90771c39ccc162315ed5fb81e14",
+            "size": 1248,
+            "hash": "7c022cbbb6e973adb9615cdf0c1fbb01",
             "errors": false
         },
         "\/classes\/entity\/term.php": {
-            "size": 1283,
-            "hash": "956395e68d8950582965dcf3ce39f139",
+            "size": 1341,
+            "hash": "c720f616fc0e2459164d27fbd7aa2f6a",
             "errors": false
         },
         "\/classes\/entity\/user\/role.php": {
@@ -461,13 +461,13 @@
             "errors": false
         },
         "\/classes\/entity\/user.php": {
-            "size": 636,
-            "hash": "d169a355e216394fa2610ce94208a8af",
+            "size": 694,
+            "hash": "cfd0112205325fd50be82570521dc027",
             "errors": false
         },
         "\/classes\/entity.php": {
-            "size": 10868,
-            "hash": "a6334672d015e584942056208b17c554",
+            "size": 11234,
+            "hash": "6c5d3e6472838d96c1b372d821fc3f38",
             "errors": false
         },
         "\/classes\/entityish\/storedi.php": {
@@ -876,8 +876,8 @@
             "errors": false
         },
         "\/classes\/index.php": {
-            "size": 14798,
-            "hash": "e1203dd0b4e4fa15ad65a8e0e4021f1a",
+            "size": 14906,
+            "hash": "da74746c4f1b3ffa2c98d6c6bf5effe9",
             "errors": false
         },
         "\/classes\/installable\/basic.php": {
@@ -891,8 +891,8 @@
             "errors": false
         },
         "\/classes\/installable\/core.php": {
-            "size": 6612,
-            "hash": "6ecb86aea8b44bbd96da3f2fcb8677e1",
+            "size": 7096,
+            "hash": "9d1e20b4b0241d457505365b31602bc6",
             "errors": false
         },
         "\/classes\/installable\/extension.php": {
@@ -1251,13 +1251,13 @@
             "errors": false
         },
         "\/components\/points\/classes\/index.php": {
-            "size": 2827,
-            "hash": "04b4b086f0e55725395e6eec8adaead5",
+            "size": 2926,
+            "hash": "12f9ba3a05449638c5ce921af8875612",
             "errors": false
         },
         "\/components\/points\/classes\/installable.php": {
-            "size": 8974,
-            "hash": "876b24a153c2ef0339cf194c6ed83f49",
+            "size": 9346,
+            "hash": "1272ee7a150029ffff9716a81cc2e818",
             "errors": false
         },
         "\/components\/points\/classes\/legacy\/hook\/to\/reaction\/importer.php": {
@@ -1772,7 +1772,7 @@
         },
         "\/includes\/constants.php": {
             "size": 914,
-            "hash": "a04f54d8b690439c1078610cd68d30ea",
+            "hash": "238a2aff7e8a7dc4b916e67f70854ac6",
             "errors": false
         },
         "\/includes\/deprecated.php": {
@@ -1812,7 +1812,17 @@
         },
         "\/wordpoints.php": {
             "size": 3625,
-            "hash": "9e141e33e4f939460e79bb802cda755f",
+            "hash": "f7d1cb2a9b826ffc915cd80e9d0e2154",
+            "errors": false
+        },
+        "\/classes\/updater\/hook\/hits\/signature\/arg\/guids\/int.php": {
+            "size": 1949,
+            "hash": "4fd81bf15223880420b3fa125eab7581",
+            "errors": false
+        },
+        "\/components\/points\/classes\/updater\/log\/meta\/entity\/guids\/int.php": {
+            "size": 1007,
+            "hash": "725b04e73485721e91f2ffe6e4b2bb96",
             "errors": false
         }
     },

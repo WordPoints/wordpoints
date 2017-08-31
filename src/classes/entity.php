@@ -56,6 +56,17 @@ abstract class WordPoints_Entity
 	protected $id_field;
 
 	/**
+	 * Whether the IDs of the entities are integers.
+	 *
+	 * If true, the ID will always be casted to an integer before it is returned.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $id_is_int = false;
+
+	/**
 	 * The field the entity can be identified by humans by.
 	 *
 	 * You must either define this or override get_entity_human_id().
@@ -243,7 +254,14 @@ abstract class WordPoints_Entity
 	 * @return mixed The ID of the entity.
 	 */
 	protected function get_entity_id( $entity ) {
-		return $this->get_attr_value( $entity, $this->get_id_field() );
+
+		$id = $this->get_attr_value( $entity, $this->get_id_field() );
+
+		if ( $this->id_is_int ) {
+			$id = (int) $id;
+		}
+
+		return $id;
 	}
 
 	/**
@@ -433,7 +451,14 @@ abstract class WordPoints_Entity
 	 * @return mixed The ID of the entity.
 	 */
 	public function get_the_id() {
-		return $this->get_the_value();
+
+		$the_id = $this->get_the_value();
+
+		if ( $this->id_is_int ) {
+			$the_id = (int) $the_id;
+		}
+
+		return $the_id;
 	}
 
 	/**

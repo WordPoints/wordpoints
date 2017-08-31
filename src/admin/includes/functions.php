@@ -2011,7 +2011,7 @@ function wordpoints_admin_settings_screen_sidebar() {
 
 	?>
 
-	<div style="height: 120px;border: none;padding: 1px 12px;background-color: #fff;border-left: 4px solid rgb(122, 208, 58);box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);margin-top: 50px;">
+	<div class="notice notice-info inline" style="height: 120px; margin-top: 50px;">
 		<div style="width:48%;float:left;">
 			<h3><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h3>
 			<p>

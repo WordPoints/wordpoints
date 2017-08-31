@@ -24,6 +24,7 @@ $I->canSeeInFormFields(
 );
 $I->click( 'Delete' );
 $I->seeJQueryDialog( 'Are you sure?' );
+$I->fillField( '.wordpoints-points-delete-confirm-input', 'Points' );
 $I->click( 'Delete', '.wordpoints-delete-type-dialog' );
 $I->seeSuccessMessage();
 $I->see( 'Points Types' );

@@ -49,11 +49,14 @@ function wordpoints_points_admin_register_scripts() {
 		'wordpoints-admin-points-types'
 		, 'WordPointsPointsTypesL10n'
 		, array(
-			'confirmDelete' => esc_html__( 'Are you sure that you want to delete this points type? This will delete all logs, event reactions, and other data associated with this points type.', 'wordpoints' )
+			'confirmAboutTo' => esc_html__( 'You are about to delete the following points type:', 'wordpoints' ),
+			'confirmDelete'  => esc_html__( 'Are you sure that you want to delete this points type? This will delete all logs, event reactions, and other data associated with this points type.', 'wordpoints' )
 				. ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
-			'confirmTitle'  => esc_html__( 'Are you sure?', 'wordpoints' ),
-			'deleteText'    => esc_html__( 'Delete', 'wordpoints' ),
-			'cancelText'    => esc_html__( 'Cancel', 'wordpoints' ),
+			'confirmType'    => esc_html__( 'If you are sure you want to delete this points type, confirm by typing its name below:', 'wordpoints' ),
+			'confirmLabel'   => esc_html_x( 'Name:', 'points type', 'wordpoints' ),
+			'confirmTitle'   => esc_html__( 'Are you sure?', 'wordpoints' ),
+			'deleteText'     => esc_html__( 'Delete', 'wordpoints' ),
+			'cancelText'     => esc_html__( 'Cancel', 'wordpoints' ),
 		)
 	);
 

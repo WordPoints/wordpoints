@@ -10,6 +10,7 @@
 jQuery( document ).ready( function ( $ ) {
 
 	var $currentDelete;
+	var $pointsTypeName = $( '#settings [name=points-name]' );
 
 	// Require confirmation for points type delete.
 	$( '#settings .delete' ).click( function( event ) {
@@ -22,12 +23,24 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( '<div></div>' )
 				.attr( 'title', WordPointsPointsTypesL10n.confirmTitle )
-				.html( $( '<p></p>' ).text( WordPointsPointsTypesL10n.confirmDelete ) )
+				.append( $( '<p></p>' ).text( WordPointsPointsTypesL10n.confirmAboutTo ) )
+				.append( $( '<p></p>' ).append( $( '<b></b>' ).text( $pointsTypeName.val() ) ) )
+				.append( $( '<p></p>' ).text( WordPointsPointsTypesL10n.confirmDelete ) )
+				.append( $( '<p></p>' ).text( WordPointsPointsTypesL10n.confirmType ) )
+				.append(
+					$( '<label></label>' )
+						.text( WordPointsPointsTypesL10n.confirmLabel + ' ' )
+						.append(
+							$( '<input />' )
+								.addClass( 'wordpoints-points-delete-confirm-input' )
+								.attr( 'type', 'text' )
+						)
+				)
 				.dialog({
 					dialogClass: 'wp-dialog wordpoints-delete-type-dialog',
 					resizable: false,
 					draggable: false,
-					height: 250,
+					height: 'auto',
 					modal: true,
 					buttons: [
 						{
@@ -42,8 +55,18 @@ jQuery( document ).ready( function ( $ ) {
 							text: WordPointsPointsTypesL10n.deleteText,
 							'class': 'button-primary',
 							click: function() {
-								$( this ).dialog( 'destroy' );
-								$currentDelete.click();
+
+								var $this = $( this );
+								var typedName = $this
+									.find( '.wordpoints-points-delete-confirm-input' )
+									.val();
+
+								$this.dialog( 'destroy' );
+
+								if ( typedName === $pointsTypeName.val() ) {
+									$currentDelete.click();
+								}
+
 								$currentDelete = false;
 							}
 						}

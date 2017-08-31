@@ -51,6 +51,7 @@ function wordpoints_ranks_admin_register_scripts() {
 			'unexpectedError' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
 			'changesSaved'    => __( 'Your changes have been saved.', 'wordpoints' ),
 			'emptyName'       => __( 'A rank title cannot be empty.', 'wordpoints' ),
+			'confirmAboutTo'  => __( 'You are about to delete the following rank:', 'wordpoints' ),
 			'confirmDelete'   => __( 'Are you sure that you want to delete this rank? This action cannot be undone.', 'wordpoints' ),
 			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
 			'deleteText'      => __( 'Delete', 'wordpoints' ),

@@ -50,7 +50,6 @@ if (
 
 ?>
 
-<p><?php esc_html_e( 'Configure WordPoints to your liking.', 'wordpoints' ); ?></p>
 <form id="wordpoints-settings" method="post">
 
 	<?php

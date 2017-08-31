@@ -333,6 +333,7 @@ function wordpoints_register_admin_scripts() {
 			'changesSaved'    => __( 'Your changes have been saved.', 'wordpoints' ),
 			// translators: Form field name.
 			'emptyField'      => sprintf( __( '%s cannot be empty.', 'wordpoints' ), '{{ data.label }}' ),
+			'confirmAboutTo'  => __( 'You are about to delete the following reaction:', 'wordpoints' ),
 			'confirmDelete'   => __( 'Are you sure that you want to delete this reaction? This action cannot be undone.', 'wordpoints' ),
 			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
 			'deleteText'      => __( 'Delete', 'wordpoints' ),

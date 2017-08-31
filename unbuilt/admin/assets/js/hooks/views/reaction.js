@@ -290,21 +290,24 @@ Reaction = Base.extend({
 	// Confirm that a reaction is intended to be deleted before deleting it.
 	confirmDelete: function () {
 
-		var $dialog = $( '<div><p></p></div>' ),
+		var $dialog = $( '<div></div>' ),
 			view = this;
 
 		this.$( '.messages div' ).slideUp();
 
 		$dialog
 			.attr( 'title', l10n.confirmTitle )
-			.find( 'p' )
-				.text( l10n.confirmDelete )
-			.end()
+			.append( $( '<p></p>' ).text( l10n.confirmAboutTo ) )
+			.append(
+				$( '<p></p>' )
+					.append( $( '<b></b>' ).text( this.model.get( 'description' ) ) )
+			)
+			.append( $( '<p></p>' ).text( l10n.confirmDelete ) )
 			.dialog({
 				dialogClass: 'wp-dialog wordpoints-delete-hook-reaction-dialog',
 				resizable: false,
 				draggable: false,
-				height: 250,
+				height: 'auto',
 				modal: true,
 				buttons: [
 					{

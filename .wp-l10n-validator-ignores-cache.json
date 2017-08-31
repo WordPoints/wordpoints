@@ -130,6 +130,13 @@
             "271": false
         },
         "wordpoints-admin-extensions-list-table": {
+            "297": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "301": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -139,6 +146,13 @@
             }
         },
         "rtl": {
+            "297": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "298": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -148,6 +162,13 @@
             }
         },
         "replace": {
+            "297": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            },
             "298": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -157,6 +178,13 @@
             }
         },
         "wordpoints-hooks-admin": {
+            "298": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            },
             "302": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -166,6 +194,13 @@
             }
         },
         "suffix": {
+            "301": {
+                "name": "$styles->add_data",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            },
             "302": {
                 "name": "$styles->add_data",
                 "type": "unknown",
@@ -175,25 +210,25 @@
             }
         },
         "\u00ab": {
-            "340": {
+            "341": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 7,
+                "arg_count": 8,
                 "parentheses": 1
             }
         },
         "\u00bb": {
-            "340": {
+            "341": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
-                "arg_count": 7,
+                "arg_count": 8,
                 "parentheses": 1
             }
         },
         "{{ data.length }}": {
-            "514": {
+            "515": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -202,7 +237,7 @@
             }
         },
         "{{ data.length_in_units_label }}": {
-            "514": {
+            "515": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -211,7 +246,7 @@
             }
         },
         "{{ data.length_in_units }}": {
-            "531": {
+            "532": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -220,7 +255,7 @@
             }
         },
         "1": {
-            "555": {
+            "556": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -229,13 +264,13 @@
             }
         },
         "attr": {
-            "685": false
+            "686": false
         },
         "relationship": {
-            "690": false
+            "691": false
         },
         "entity": {
-            "715": {
+            "716": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -244,17 +279,17 @@
             }
         },
         "success": {
-            "876": false,
-            "1640": false
+            "877": false,
+            "1641": false
         },
         "is-dismissible": {
-            "892": false
+            "893": false
         },
         "data-nonce=\"": {
-            "894": false
+            "895": false
         },
         "upload": {
-            "1042": {
+            "1043": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -263,7 +298,7 @@
             }
         },
         "update.php?action=wordpoints-upgrade-extension&extension=": {
-            "1087": {
+            "1088": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -272,7 +307,7 @@
             }
         },
         "bulk-update-extensions": {
-            "1227": {
+            "1228": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -281,7 +316,7 @@
             }
         },
         "update.php?action=update-selected-wordpoints-extensions&amp;extensions=": {
-            "1228": {
+            "1229": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -290,43 +325,45 @@
             }
         },
         "active": {
-            "1309": false,
-            "1660": false,
-            "2458": false
+            "1310": false,
+            "1661": false,
+            "2457": false,
+            "2459": false
         },
         "inactive": {
-            "1309": false,
-            "1660": false
+            "1310": false,
+            "1661": false
         },
         "wordpoints-extension-has-license": {
-            "1565": false
+            "1566": false
         },
         "wordpoints-extension-license-valid": {
-            "1573": false
+            "1574": false
         },
         "wordpoints-extension-license-invalid": {
-            "1575": false
+            "1576": false
         },
         "wordpoints-extension-license-active": {
-            "1580": false
+            "1581": false
         },
         "wordpoints-extension-license-inactive": {
-            "1582": false
+            "1583": false
         },
         "wordpoints-extension-license-expired": {
-            "1590": false
+            "1591": false
         },
         "error": {
-            "1642": false
+            "1637": false,
+            "1643": false
         },
         "warning": {
-            "1650": false
+            "1651": false
         },
         "&checked[]=": {
-            "2166": false
+            "2167": false
         },
         "wordpoints": {
-            "2336": {
+            "2337": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -335,7 +372,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2348": {
+            "2349": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -344,7 +381,7 @@
             }
         },
         "-update": {
-            "2465": {
+            "2466": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -353,13 +390,13 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2470": false
+            "2471": false
         },
         "document.getElementById(": {
-            "2500": false
+            "2501": false
         },
         ").disabled = true;": {
-            "2504": false
+            "2505": false
         }
     },
     "\/admin\/screens\/configure-components.php": {

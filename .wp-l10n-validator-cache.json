@@ -51,8 +51,8 @@
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 84833,
-            "hash": "89d7e7ebbf6182191a3bd4ac9536af1b",
+            "size": 84825,
+            "hash": "2d8e260ead2da7575edb92e1a95e8fb7",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -76,8 +76,8 @@
             "errors": false
         },
         "\/admin\/screens\/configure-settings.php": {
-            "size": 2305,
-            "hash": "5e99c034dde6271c9d3747413de3b0bc",
+            "size": 2221,
+            "hash": "62ad584536dcb27b6050ded45a879160",
             "errors": false
         },
         "\/admin\/screens\/configure.php": {
@@ -1816,8 +1816,8 @@
             "errors": false
         },
         "\/classes\/updater\/hook\/hits\/signature\/arg\/guids\/int.php": {
-            "size": 1949,
-            "hash": "4fd81bf15223880420b3fa125eab7581",
+            "size": 1947,
+            "hash": "07b8743000b965d74dfab582142ebea1",
             "errors": false
         },
         "\/components\/points\/classes\/updater\/log\/meta\/entity\/guids\/int.php": {

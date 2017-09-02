@@ -1171,8 +1171,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/classes\/screen\/points\/types.php": {
-            "size": 21482,
-            "hash": "f6dad8f64f49efb851f5a056728462cc",
+            "size": 23404,
+            "hash": "a2aac03909994bc1e3babc93cf69f2a4",
             "errors": false
         },
         "\/components\/points\/admin\/deprecated.php": {
@@ -1191,8 +1191,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/includes\/functions.php": {
-            "size": 15105,
-            "hash": "0eaf0338ebab322f9f3618c2d5852187",
+            "size": 15430,
+            "hash": "b84c40401ddcfaae727d5036cf46b26d",
             "errors": false
         },
         "\/components\/points\/admin\/screens\/hooks-load.php": {
@@ -1441,8 +1441,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/functions.php": {
-            "size": 10426,
-            "hash": "34163ad15639f36f8d30aeb0000bc926",
+            "size": 15606,
+            "hash": "c7a9f6c717fe2997f8b1b56574c157ba",
             "errors": false
         },
         "\/components\/points\/includes\/hooks\/abstracts\/comment-approved.php": {
@@ -1526,8 +1526,8 @@
             "errors": false
         },
         "\/components\/ranks\/admin\/includes\/functions.php": {
-            "size": 5603,
-            "hash": "7feda09281bd5084b3fd3dd627360ff5",
+            "size": 5694,
+            "hash": "41d85c0870d9340282b03508da48db5b",
             "errors": false
         },
         "\/components\/ranks\/admin\/screens\/ranks.php": {

@@ -64,6 +64,15 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	protected $event_args;
 
 	/**
+	 * Whether there were any reactions for this points type.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $had_reactions = false;
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function __construct() {
@@ -92,6 +101,9 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		add_action( 'add_meta_boxes', array( $this, 'add_points_logs_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_shortcodes_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_event_meta_boxes' ) );
+
+		add_action( 'wordpoints_admin_points_events_head', array( $this, 'create_demo_reactions' ) );
+		add_action( 'wordpoints_admin_points_events_foot', array( $this, 'show_demo_reactions_message' ) );
 	}
 
 	/**
@@ -547,6 +559,10 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			}
 		}
 
+		if ( ! empty( $data ) ) {
+			$this->had_reactions = true;
+		}
+
 		$event_data = array( 'args' => array() );
 
 		foreach ( $this->event_args->get_children( $event_slug ) as $slug => $arg ) {
@@ -836,6 +852,55 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 					, __( 'Error while deleting.', 'wordpoints' )
 				);
 			}
+		}
+	}
+
+	/**
+	 * Shows a message to create demo reactions.
+	 *
+	 * @since 2.4.0
+	 */
+	public function show_demo_reactions_message() {
+
+		if ( $this->had_reactions || ! $this->current_points_type ) {
+			return;
+		}
+
+		?>
+
+		<div class="notice notice-info is-dismissible">
+			<p>
+				<?php esc_html_e( 'Let us help you get started by creating some example reactions. (Don&#8217;t worry, each reaction will only award points once it has been enabled.)', 'wordpoints' ); ?>
+			</p>
+			<form method="post" action="<?php echo esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_types&tab=' . $this->current_points_type ) ); ?>">
+				<p>
+					<button class="button-primary">
+						<?php esc_html_e( 'Create Reactions', 'wordpoints' ); ?>
+					</button>
+				</p>
+				<?php wp_nonce_field( 'create_demo_reactions', 'create_demo_reactions' ); ?>
+			</form>
+		</div>
+
+		<?php
+	}
+
+	/**
+	 * Creates demo reactions for this points type.
+	 *
+	 * @since 2.4.0
+	 */
+	public function create_demo_reactions() {
+
+		if ( wordpoints_verify_nonce( 'create_demo_reactions', 'create_demo_reactions', null, 'post' ) ) {
+
+			wordpoints_points_create_demo_reactions( $this->current_points_type );
+
+			wordpoints_show_admin_message(
+				__( 'Example reactions created successfully! You can now edit them to your liking, and then enable them to start awarding points. Feel free to delete any that you don&#8217;t want, and to create additional ones as needed.', 'wordpoints' )
+				, 'success'
+				, array( 'dismissible' => true )
+			);
 		}
 	}
 

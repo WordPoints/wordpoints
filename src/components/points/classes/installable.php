@@ -307,6 +307,17 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			)
 		);
 
+		if ( is_wordpoints_network_active() ) {
+			$factories[] = new WordPoints_Updater_Factory(
+				'2.4.0-alpha-5'
+				, array(
+					'site' => array(
+						'WordPoints_Points_Updater_2_4_0_Reactions_Orphaned',
+					),
+				)
+			);
+		}
+
 		return $factories;
 	}
 

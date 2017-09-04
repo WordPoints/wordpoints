@@ -17,6 +17,7 @@
  *
  * @covers WordPoints_Points_Installable::get_update_routine_factories
  * @covers WordPoints_Points_Updater_2_4_0_Condition_Contains
+ * @covers WordPoints_Points_Updater_2_4_0_Reactions_Orphaned
  * @covers WordPoints_Points_Updater_Log_Meta_Entity_GUIDs_Int
  */
 class WordPoints_Points_2_4_0_Update_Test
@@ -234,6 +235,58 @@ class WordPoints_Points_2_4_0_Update_Test
 			'post\\page' => array( 'post\\page' ),
 			'comment\\post' => array( 'comment\\post' ),
 		);
+	}
+
+	/**
+	 * Tests that reactions for which the points type has been deleted are deleted.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_reactions_with_nonexistent_points_type_deleted() {
+
+		$reaction_valid    = $this->create_points_reaction();
+		$reaction_orphaned = $this->create_points_reaction();
+		$reaction_orphaned->update_meta( 'points_type', 'nonexistent' );
+
+		$this->update_component();
+
+		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+		$this->assertTrue(
+			$reaction_store->reaction_exists( $reaction_valid->get_id() )
+		);
+
+		$this->assertFalse(
+			$reaction_store->reaction_exists( $reaction_orphaned->get_id() )
+		);
+	}
+
+	/**
+	 * Tests that hooks for which the points type has been deleted are deleted.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_points_hooks_with_nonexistent_points_type_deleted() {
+
+		$hook_valid    = wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
+		$hook_valid_id = $hook_valid->get_number();
+
+		$hook_orphaned = wordpointstests_add_points_hook(
+			'wordpoints_registration_points_hook'
+			, array()
+			, 'nonexistent'
+		);
+
+		$hook_orphaned_id = $hook_orphaned->get_number();
+
+		$this->update_component();
+
+		$this->assertSame( 'points', $hook_valid->points_type( $hook_valid_id ) );
+		$this->assertFalse( $hook_orphaned->points_type( $hook_orphaned_id ) );
 	}
 }
 

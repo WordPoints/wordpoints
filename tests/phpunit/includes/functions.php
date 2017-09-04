@@ -196,13 +196,15 @@ function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $conten
  * @since 1.0.1
  * @since 1.4.0 Allows more than one hook to be created per test.
  * @since 1.9.0 $hook_type can now be a hook type handler.
+ * @since 2.4.0 The $points_type arg was added.
  *
- * @param string|WordPoints_Points_Hook $hook_type The type of hook to create.
- * @param array                         $instance  The arguments for the instance.
+ * @param string|WordPoints_Points_Hook $hook_type   The type of hook to create.
+ * @param array                         $instance    The arguments for the instance.
+ * @param string                        $points_type The points type the hook is for.
  *
  * @return bool|WordPoints_Points_Hook The points hook object, or false on failure.
  */
-function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
+function wordpointstests_add_points_hook( $hook_type, $instance = array(), $points_type = 'points' ) {
 
 	if ( is_string( $hook_type ) ) {
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
@@ -220,13 +222,13 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
 	if ( WordPoints_Points_Hooks::get_network_mode() ) {
 
 		$points_types_hooks = wordpoints_get_array_option( 'wordpoints_points_types_hooks', 'site' );
-		$points_types_hooks['points'][] = $hook_type . '-' . $number;
+		$points_types_hooks[ $points_type ][] = $hook_type . '-' . $number;
 		update_site_option( 'wordpoints_points_types_hooks', $points_types_hooks );
 
 	} else {
 
 		$points_types_hooks = wordpoints_get_array_option( 'wordpoints_points_types_hooks' );
-		$points_types_hooks['points'][] = $hook_type . '-' . $number;
+		$points_types_hooks[ $points_type ][] = $hook_type . '-' . $number;
 		update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
 	}
 

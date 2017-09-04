@@ -191,69 +191,8 @@ function wordpoints_update_points_type( $slug, $settings ) {
  */
 function wordpoints_delete_points_type( $slug ) {
 
-	$points_types = wordpoints_get_points_types();
-
-	if ( ! isset( $points_types[ $slug ] ) ) {
-		return false;
-	}
-
-	/**
-	 * Fires when a points type is being deleted.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $slug      The slug of the points type being deleted.
-	 * @param array  $settings The settings of the points type being deleted.
-	 */
-	do_action( 'wordpoints_delete_points_type', $slug, $points_types[ $slug ] );
-
-	$meta_key = wordpoints_get_points_user_meta_key( $slug );
-
-	global $wpdb;
-
-	// Delete log meta for this points type.
-	$query = new WordPoints_Points_Logs_Query(
-		array( 'field' => 'id', 'points_type' => $slug )
-	);
-
-	$log_ids = $query->get( 'col' );
-
-	foreach ( $log_ids as $log_id ) {
-		wordpoints_points_log_delete_all_metadata( $log_id );
-	}
-
-	// Delete logs for this points type.
-	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
-
-	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
-
-	// Delete all user points of this type.
-	delete_metadata( 'user', 0, wp_slash( $meta_key ), '', true );
-
-	// Delete hooks associated with this points type.
-	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
-
-	unset( $points_types_hooks[ $slug ] );
-
-	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
-
-	// Delete reactions associated with this points type.
-	foreach ( wordpoints_hooks()->get_reaction_stores( 'points' ) as $reaction_store ) {
-		foreach ( $reaction_store->get_reactions() as $reaction ) {
-			if ( $slug === $reaction->get_meta( 'points_type' ) ) {
-				$reaction_store->delete_reaction( $reaction->get_id() );
-			}
-		}
-	}
-
-	unset( $points_types[ $slug ] );
-
-	wordpoints_update_maybe_network_option(
-		'wordpoints_points_types'
-		, $points_types
-	);
-
-	return true;
+	$delete = new WordPoints_Points_Type_Delete( $slug );
+	return $delete->run();
 }
 
 /**

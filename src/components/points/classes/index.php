@@ -31,6 +31,7 @@ return array(
 	'wordpoints_points_shortcode_logs' => 'shortcode/logs.php',
 	'wordpoints_points_shortcode_top_users' => 'shortcode/top/users.php',
 	'wordpoints_points_shortcode_user_points' => 'shortcode/user/points.php',
+	'wordpoints_points_type_delete' => 'type/delete.php',
 	'wordpoints_points_uninstaller_factory_points_hooks' => 'uninstaller/factory/points/hooks.php',
 	'wordpoints_points_updater_1_10_0_logs' => 'updater/1/10/0/logs.php',
 	'wordpoints_points_updater_1_2_0_logs' => 'updater/1/2/0/logs.php',

@@ -462,8 +462,8 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 
 	foreach ( (array) $group_ranks as $_rank_id => $user_ids ) {
 		if ( isset( $user_ids[ $user_id ] ) ) {
-			  $rank_id = $_rank_id;
-			  break;
+			$rank_id = $_rank_id;
+			break;
 		}
 	}
 

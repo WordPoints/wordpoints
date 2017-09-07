@@ -174,9 +174,9 @@ class WordPoints_App {
 	 */
 	protected function should_do_registry_init( $registry ) {
 		return (
-		   $registry instanceof WordPoints_Class_RegistryI
-		   || $registry instanceof WordPoints_Class_Registry_ChildrenI
-		   || $registry instanceof WordPoints_Class_Registry_DeepI
+			$registry instanceof WordPoints_Class_RegistryI
+				|| $registry instanceof WordPoints_Class_Registry_ChildrenI
+				|| $registry instanceof WordPoints_Class_Registry_DeepI
 		);
 	}
 

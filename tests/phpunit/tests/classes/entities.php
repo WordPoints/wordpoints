@@ -244,7 +244,7 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 				array(
 					'class'          => 'WordPoints_Entity_Comment',
 					'slug'           => 'comment\post',
-					'id_field'       => 'comment_ID',
+					'get_id'         => array( $this, 'get_comment_id' ),
 					'human_id_field' => 'comment_content',
 					'storage_info'   => array(
 						'type' => 'db',
@@ -444,6 +444,22 @@ class WordPoints_All_Entities_Test extends WordPoints_PHPUnit_TestCase_Entities 
 		);
 
 		return $entities;
+	}
+
+	/**
+	 * Gets the ID for a comment.
+	 *
+	 * Needed because we compare the value strictly, and it is just a string instead
+	 * of an int.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param WP_Comment $comment The comment.
+	 *
+	 * @return int The comment ID.
+	 */
+	public function get_comment_id( $comment ) {
+		return (int) $comment->comment_ID;
 	}
 
 	/**

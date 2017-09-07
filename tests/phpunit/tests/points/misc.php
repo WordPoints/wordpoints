@@ -377,6 +377,34 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->assertSame( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
 	}
+
+	/**
+	 * Tests points log regeneration of a log that has no generator registered.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_regenerate_points_logs
+	 */
+	public function test_wordpoints_regenerate_points_logs_no_generator() {
+
+		$this->factory->wordpoints->points_log->create( array( 'text' => 'Test' ) );
+
+		// Get the log from the database.
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		// Check that all is as expected.
+		$this->assertInternalType( 'object', $log );
+		$this->assertSame( 'Test', $log->text );
+
+		// Now, regenerate it.
+		wordpoints_regenerate_points_logs( array( $log ) );
+
+		// Check that the log was regenerated.
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		$this->assertInternalType( 'object', $log );
+		$this->assertSame( 'Test', $log->text );
+	}
 }
 
 // EOF

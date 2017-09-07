@@ -999,6 +999,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	global $wpdb;
 
+	$default_text = '_regenerator_default_text_';
+
 	$flushed = array( 'points_types' => array(), 'user_ids' => array() );
 
 	foreach ( $logs as $log ) {
@@ -1012,9 +1014,10 @@ function wordpoints_regenerate_points_logs( $logs ) {
 			, $log->points_type
 			, $log->log_type
 			, $meta
+			, $default_text
 		);
 
-		if ( $new_log_text !== $log->text ) {
+		if ( $new_log_text !== $log->text && $new_log_text !== $default_text ) {
 
 			if ( ! isset( $is_utf8 ) ) {
 				$is_utf8 = 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' );

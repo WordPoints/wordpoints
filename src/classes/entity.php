@@ -193,7 +193,12 @@ abstract class WordPoints_Entity
 			return false;
 		}
 
-		return isset( $guid[ $this->get_slug() ], $guid[ $this->get_context() ] );
+		$context = $this->get_context();
+
+		return (
+			isset( $guid[ $this->get_slug() ] )
+			&& ( '' === $context || isset( $guid[ $context ] ) )
+		);
 	}
 
 	/**

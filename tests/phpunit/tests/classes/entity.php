@@ -308,6 +308,21 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test is_guid() with an entity from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_is_guid_global_context() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'context', '' );
+
+		$this->assertTrue(
+			$entity->call( 'is_guid', array( array( 'test' => 1 ) ) )
+		);
+	}
+
+	/**
 	 * Test split_guid().
 	 *
 	 * @since 2.2.0
@@ -322,6 +337,21 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 				'split_guid'
 				, array( array( 'test' => 5, 'child' => 1, 'parent' => 2 ) )
 			)
+		);
+	}
+
+	/**
+	 * Test split_guid() with global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_split_guid_global_context() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+
+		$this->assertSame(
+			array( 'id' => 5, 'context' => array() )
+			, $entity->call( 'split_guid', array( array( 'test' => 5 ) ) )
 		);
 	}
 
@@ -648,6 +678,25 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test set_the_value() for an entity from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_id_global_context() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'context', '' );
+
+		$this->assertTrue( $entity->set_the_value( 1 ) );
+
+		$this->assertSame( 1, $entity->get_the_value() );
+		$this->assertSame( 1, $entity->get_the_id() );
+		$this->assertSame( 'test', $entity->get_the_attr_value( 'type' ) );
+		$this->assertSame( array(), $entity->get_the_context() );
+		$this->assertSame( array( 'test' => 1 ), $entity->get_the_guid() );
+	}
+
+	/**
 	 * Test set_the_value() with an entity.
 	 *
 	 * @since 2.1.0
@@ -833,7 +882,6 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->assertSame( 1, $entity->get_the_id() );
 	}
-
 
 	/**
 	 * Test get_the_guid() when the ID is a string.

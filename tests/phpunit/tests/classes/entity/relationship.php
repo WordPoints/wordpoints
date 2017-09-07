@@ -75,6 +75,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
 		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', 'user' );
 
 		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
 
@@ -92,6 +93,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
 		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', 'user' );
 
 		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
 
@@ -110,6 +112,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
 		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', 'user' );
 
 		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
 
@@ -128,6 +131,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
 		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', 'user' );
 
 		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
 
@@ -138,6 +142,298 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
 
 		$this->assertNull( $relationship->get_the_value() );
+	}
+
+	/**
+	 * Test setting the value from a different context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_different_context() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( $context->get_slug() => 2 ) );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertSame( 2, $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value from the same context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_same_context() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( $context->get_slug() => 1 ) );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertSame( 1, $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value from an entity with no context set.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_context_not_set() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertNull( $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value from an entity with a nonexistent context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_context_nonexistent() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( 'nonexistent_context' => 5 ) );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertNull( $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value from an entity with a unset value.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_value_not_set() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( 'test_context' => 2 ) );
+
+		$entity->method( 'get_the_attr_value' )->willReturn( null );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertNull( $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value from a different context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_related_entity_slug_invalid() {
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( $context->get_slug() => 2 ) );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', 'invalid' );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertFalse( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertNull( $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value from an entity from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_global_context() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array() );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertSame( 1, $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test setting the value for a related entity from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_entity_related_global_context() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create(
+			array( 'class' => 'WordPoints_PHPUnit_Mock_Entity_Contexted_Global' )
+		);
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array() );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
+		$this->assertSame( 1, $relationship->get_the_value() );
+
+		$this->assertSame( 1, $context->get_current_id() );
 	}
 
 	/**
@@ -201,6 +497,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->factory->wordpoints->entity->create();
 
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'primary_entity_slug', 'test_entity' );
 		$relationship->set( 'related_entity_slug', 'test_entity' );
 		$relationship->set_the_value( 1 );
 
@@ -219,6 +516,7 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 		$this->factory->wordpoints->entity->create();
 
 		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'primary_entity_slug', 'test_entity' );
 		$relationship->set( 'related_entity_slug', 'test_entity{}' );
 		$relationship->set_the_value( array( 1, 2 ) );
 
@@ -231,6 +529,120 @@ class WordPoints_Entity_Relationship_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$this->assertSame( 1, $entities[0]->get_the_id() );
 		$this->assertSame( 2, $entities[1]->get_the_id() );
+	}
+
+	/**
+	 * Test getting the child from a different context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_child_value_set_different_context() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( $context->get_slug() => 2 ) );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
+
+		$child = $relationship->get_child( 'test_entity' );
+
+		$this->assertSame( 2, $child->get_the_value() );
+		$this->assertSame(
+			array( $context->get_slug() => 2 )
+			, $child->get_the_context()
+		);
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Test getting the child from a different context and with the context switched.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_child_value_set_switched_context() {
+
+		$entity_slug = $this->factory->wordpoints->entity->create();
+
+		$context = $this->factory->wordpoints->entity_context->create_and_get(
+			array( 'slug' => 'test_context' )
+		);
+
+		$entity = $this->getPartialMockForAbstractClass(
+			'WordPoints_Entity'
+			, array( 'get_the_attr_value', 'get_the_context' )
+			, array( 'test' )
+		);
+
+		$entity->method( 'get_the_context' )
+			->willReturn( array( $context->get_slug() => 2 ) );
+
+		$entity->method( 'get_the_attr_value' )
+			->willReturnCallback( array( $context, 'get_current_id' ) );
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'related_ids_field', 'test_attr' );
+		$relationship->set( 'related_entity_slug', $entity_slug );
+
+		$this->assertSame( 1, $context->get_current_id() );
+
+		$this->assertTrue( $relationship->set_the_value_from_entity( $entity ) );
+
+		$context->switch_to( 3 );
+
+		$child = $relationship->get_child( 'test_entity' );
+
+		$context->switch_back();
+
+		$this->assertSame( 2, $child->get_the_value() );
+		$this->assertSame(
+			array( $context->get_slug() => 2 )
+			, $child->get_the_context()
+		);
+
+		$this->assertSame( 1, $context->get_current_id() );
+	}
+
+	/**
+	 * Tests getting the child when the entities come from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_child_value_set_global_context() {
+
+		$this->factory->wordpoints->entity->create(
+			array( 'class' => 'WordPoints_PHPUnit_Mock_Entity_Contexted_Global' )
+		);
+
+		$relationship = new WordPoints_PHPUnit_Mock_Entity_Relationship( 'test' );
+		$relationship->set( 'primary_entity_slug', 'test_entity' );
+		$relationship->set( 'related_entity_slug', 'test_entity' );
+		$relationship->set_the_value( 1 );
+
+		$child = $relationship->get_child( 'test_entity' );
+
+		$this->assertSame( 1, $child->get_the_value() );
+		$this->assertSame( array( 'test_entity' => 1 ), $child->get_the_guid() );
 	}
 }
 

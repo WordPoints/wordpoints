@@ -80,7 +80,7 @@ class WordPoints_Points_Updater_2_4_0_Condition_Contains
 				continue;
 			}
 
-			if ( isset( $sub_args['_conditions'] ) && '}' === $arg_slug[-1] ) {
+			if ( isset( $sub_args['_conditions'] ) && '}' === substr( $arg_slug, -1 ) ) {
 				$sub_args['_conditions'] = $this->process_conditions(
 					$sub_args['_conditions']
 				);

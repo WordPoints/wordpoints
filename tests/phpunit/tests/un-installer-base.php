@@ -58,8 +58,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		parent::setUp();
 
 		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer( 'test', '1.0.0' );
-
-		delete_site_transient( 'wordpoints_all_site_ids' );
 	}
 
 	/**

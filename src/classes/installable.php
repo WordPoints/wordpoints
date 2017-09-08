@@ -270,22 +270,13 @@ abstract class WordPoints_Installable implements WordPoints_InstallableI {
 	 */
 	protected function get_all_site_ids() {
 
-		$site_ids = get_site_transient( 'wordpoints_all_site_ids' );
-
-		if ( ! $site_ids ) {
-
-			$site_ids = get_sites(
-				array(
-					'fields'     => 'ids',
-					'network_id' => get_current_network_id(),
-					'number'     => 0,
-				)
-			);
-
-			set_site_transient( 'wordpoints_all_site_ids', $site_ids, 2 * MINUTE_IN_SECONDS );
-		}
-
-		return $site_ids;
+		return get_sites(
+			array(
+				'fields'     => 'ids',
+				'network_id' => get_current_network_id(),
+				'number'     => 0,
+			)
+		);
 	}
 
 	/**

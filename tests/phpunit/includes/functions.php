@@ -104,8 +104,6 @@ function wordpointstests_manually_load_plugin() {
 	}
 
 	wordpoints_activate( $network_active );
-
-	delete_site_transient( 'wordpoints_all_site_ids' );
 }
 
 /**

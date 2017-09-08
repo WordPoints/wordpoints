@@ -196,6 +196,22 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true ) );
 		$this->assertTrue( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
 	}
+
+	/**
+	 * Tests activating an extension network wide when WordPoints isn't network wide.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_activate_module
+	 *
+	 * @requires WordPoints !network-active
+	 */
+	public function test_activate_network_wide_not_network_wide() {
+
+		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true ) );
+		$this->assertFalse( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
+		$this->assertTrue( is_wordpoints_module_active( 'test-5/test-5.php' ) );
+	}
 }
 
 // EOF

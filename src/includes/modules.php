@@ -845,9 +845,16 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 		return $valid;
 	}
 
-	if ( is_multisite() && ( $network_wide || is_network_only_wordpoints_module( $module ) ) ) {
-
+	if ( is_network_only_wordpoints_module( $module ) ) {
 		$network_wide = true;
+	}
+
+	if ( $network_wide && ! is_wordpoints_network_active() ) {
+		$network_wide = false;
+	}
+
+	if ( $network_wide ) {
+
 		$network_current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
 		$current = array_keys( $network_current );
 

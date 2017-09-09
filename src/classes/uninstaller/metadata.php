@@ -15,7 +15,7 @@
 class WordPoints_Uninstaller_Metadata implements WordPoints_RoutineI {
 
 	/**
-	 * The type of metadata being being uninstalled.
+	 * The type of metadata being uninstalled.
 	 *
 	 * @since 2.4.0
 	 *

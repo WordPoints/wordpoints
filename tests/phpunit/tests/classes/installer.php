@@ -102,7 +102,7 @@ class WordPoints_Installer_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test installing network-wide when when there are no per-site install routines.
+	 * Test installing network-wide when there are no per-site install routines.
 	 *
 	 * @since 2.4.0
 	 *

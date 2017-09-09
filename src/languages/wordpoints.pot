@@ -868,7 +868,7 @@ msgstr ""
 #. Install Extension admin screen; 3. Directory name.
 #: admin/screens/modules-load.php:475
 msgid ""
-"You can find extensions for your site by by browsing the <a href=\"%1$s"
+"You can find extensions for your site by browsing the <a href=\"%1$s"
 "\">WordPoints Extensions Directory</a>. To install an extension you "
 "generally just need to <a href=\"%2$s\">upload the extension file</a> into "
 "your %3$s directory. Once an extension has been installed, you can activate "

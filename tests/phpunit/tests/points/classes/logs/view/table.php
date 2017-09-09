@@ -285,7 +285,7 @@ class WordPoints_Points_Logs_View_Table_Test
 	}
 
 	/**
-	 * Test that the the user's name is passed through a filter.
+	 * Test that the user's name is passed through a filter.
 	 *
 	 * @since 2.2.0
 	 */

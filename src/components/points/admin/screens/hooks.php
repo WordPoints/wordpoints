@@ -74,14 +74,14 @@ if ( is_network_admin() ) {
 
 	?>
 
-	<div class="hook-liquid-left hook-liquid-left">
+	<div class="hook-liquid-left">
 		<div id="hooks-left">
-			<div id="available-hooks" class="hooks-holder-wrap hooks-holder-wrap">
+			<div id="available-hooks" class="hooks-holder-wrap">
 				<div class="points-type-name">
 					<div class="points-type-name-arrow"><br /></div>
 					<h2><?php esc_html_e( 'Available Hooks', 'wordpoints' ); ?> <span id="removing-hook"><?php echo esc_html_x( 'Deactivate', 'removing-hook', 'wordpoints' ); ?> <span></span></span></h2>
 				</div>
-				<div class="hook-holder hook-holder">
+				<div class="hook-holder">
 					<p class="description"><?php esc_html_e( 'Drag hooks from here to a points type on the right to activate them. Drag hooks back here to deactivate them and delete their settings.', 'wordpoints' ); ?></p>
 					<div id="hook-list">
 						<?php WordPoints_Points_Hooks::list_hooks(); ?>

@@ -167,7 +167,7 @@ class WordPoints_Uninstaller_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Tests uninstalling on multisite when when there are no per-site routines.
+	 * Tests uninstalling on multisite when there are no per-site routines.
 	 *
 	 * @since 2.4.0
 	 *

@@ -158,7 +158,7 @@ abstract class WordPoints_Entity
 	 * @since 2.2.0
 	 *
 	 * @param int|string $id      The unique ID of the entity.
-	 * @param array      $context The context to get the the entity from.
+	 * @param array      $context The context to get the entity from.
 	 *
 	 * @return mixed The entity, or false if not found.
 	 */

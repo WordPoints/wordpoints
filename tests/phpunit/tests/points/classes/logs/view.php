@@ -120,7 +120,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 	}
 
 	/**
-	 * Test that that searching can be disabled.
+	 * Test that searching can be disabled.
 	 *
 	 * @since 2.2.0
 	 */
@@ -247,7 +247,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 	}
 
 	/**
-	 * Test that that it skips restricted logs.
+	 * Test that it skips restricted logs.
 	 *
 	 * @since 2.2.0
 	 */

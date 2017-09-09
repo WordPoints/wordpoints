@@ -371,7 +371,7 @@ class WordPoints_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test updating network-wide when when there are no per-site update routines.
+	 * Test updating network-wide when there are no per-site update routines.
 	 *
 	 * @since 2.4.0
 	 *

@@ -217,7 +217,7 @@ function wordpoints_ajax_save_points_hook() {
 
 		} elseif ( $settings && false === $hook ) {
 
-			// - We are creating a new a new instance of a hook.
+			// - We are creating a new instance of a hook.
 
 			/*
 			 * Get a hook object for this type of hook. We have to do this because

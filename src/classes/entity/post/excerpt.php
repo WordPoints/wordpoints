@@ -11,7 +11,7 @@
  * Represents a Post's excerpt attribute.
  *
  * This will only be set when the user has entered a hand-crafted excerpt in the meta
- * box on the post edit screen, even though the them may auto-generate excerpts for
+ * box on the post edit screen, even though the theme may auto-generate excerpts for
  * all posts.
  *
  * @since 2.3.0

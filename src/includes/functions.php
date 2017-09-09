@@ -181,6 +181,27 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 	return $modules;
 }
 
+/**
+ * Whether WordPoints is uninstalling something.
+ *
+ * @since 2.4.0
+ *
+ * @return bool Whether an uninstall routine is being run.
+ */
+function wordpoints_is_uninstalling() {
+
+	$uninstalling = class_exists( 'WordPoints_Uninstaller', false );
+
+	/**
+	 * Filters whether WordPoints is running an uninstall routine.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param bool $uninstalling Whether or not we are uninstalling something.
+	 */
+	return (bool) apply_filters( 'wordpoints_is_uninstalling', $uninstalling );
+}
+
 //
 // Sanitizing Functions.
 //
@@ -805,6 +826,14 @@ function wordpoints_list_post_types( $options, $args = array() ) {
  * @return bool True if WordPoints is network activated, false otherwise.
  */
 function is_wordpoints_network_active() {
+
+	if ( wordpoints_is_uninstalling() ) {
+		_doing_it_wrong(
+			__FUNCTION__
+			, 'You can\'t check activation status during uninstall.'
+			, '2.4.0'
+		);
+	}
 
 	require_once ABSPATH . '/wp-admin/includes/plugin.php';
 

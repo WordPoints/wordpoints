@@ -26,10 +26,23 @@
  */
 function is_wordpoints_module_active( $module ) {
 
-	return (
-		in_array( $module, wordpoints_get_array_option( 'wordpoints_active_modules' ), true )
+	$is_active = (
+		in_array(
+			$module
+			, wordpoints_get_array_option( 'wordpoints_active_modules' )
+			, true
+		)
 		|| is_wordpoints_module_active_for_network( $module )
 	);
+
+	/**
+	 * Filters whether a WordPoints extension is active.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param bool $is_active Whether the extension is active.
+	 */
+	return (bool) apply_filters( 'is_wordpoints_extension_active', $is_active );
 }
 
 /**

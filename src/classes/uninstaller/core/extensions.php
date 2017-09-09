@@ -21,9 +21,7 @@ class WordPoints_Uninstaller_Core_Extensions implements WordPoints_RoutineI {
 
 		require_once WORDPOINTS_DIR . '/includes/modules.php';
 
-		wordpoints_deactivate_modules(
-			wordpoints_get_array_option( 'wordpoints_active_modules', 'site' )
-		);
+		add_filter( 'is_wordpoints_extension_active', '__return_false' );
 
 		foreach ( array_keys( wordpoints_get_modules() ) as $module ) {
 			wordpoints_uninstall_module( $module );

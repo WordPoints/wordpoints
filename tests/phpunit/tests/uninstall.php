@@ -123,7 +123,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		// The module should have been uninstalled.
 		$this->assertFalse(
-			wordpoints_get_maybe_network_option( 'wordpoints_tests_module_6' )
+			wordpoints_get_maybe_network_option(
+				'wordpoints_tests_module_6'
+				, $this->network_wide
+			)
 		);
 
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );

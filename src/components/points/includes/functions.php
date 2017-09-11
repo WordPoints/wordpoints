@@ -185,10 +185,20 @@ function wordpoints_points_register_scripts() {
  */
 function wordpoints_points_get_custom_caps() {
 
+	$manage_points_types_cap = 'manage_options';
+
+	/*
+	 * If we're uninstalling we can't call the network active function, but we don't
+	 * actually need the value anyway, just the key, so that is OK.
+	 */
+	if ( ! wordpoints_is_uninstalling() && is_wordpoints_network_active() ) {
+		$manage_points_types_cap = 'manage_network_options';
+	}
+
 	return array(
 		'set_wordpoints_points'                  => 'manage_options',
 		'manage_network_wordpoints_points_hooks' => 'manage_network_options',
-		'manage_wordpoints_points_types'         => ( is_wordpoints_network_active() ) ? 'manage_network_options' : 'manage_options',
+		'manage_wordpoints_points_types'         => $manage_points_types_cap,
 	);
 }
 

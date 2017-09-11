@@ -133,10 +133,24 @@ final class WordPoints_Components {
 		 */
 		do_action( 'wordpoints_components_register' );
 
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+
 		foreach ( $this->get() as $component ) {
 
 			if ( ! $this->is_active( $component['slug'] ) ) {
 				continue;
+			}
+
+			if ( isset( $component['installable'] ) ) {
+
+				$installables->register(
+					'component'
+					, $component['slug']
+					, $component['installable']
+					, $component['version']
+					, is_wordpoints_network_active()
+				);
 			}
 
 			include_once( $component['file'] );
@@ -273,21 +287,9 @@ final class WordPoints_Components {
 		$this->registered[ $component['slug'] ] = array_intersect_key( $component, $defaults );
 
 		if (
-			isset( $component['installable'] )
-			&& $this->is_active( $component['slug'] )
+			! isset( $component['installable'] )
+			&& isset( $component['un_installer'] )
 		) {
-
-			/** @var WordPoints_Installables_App $installables */
-			$installables = wordpoints_apps()->get_sub_app( 'installables' );
-			$installables->register(
-				'component'
-				, $component['slug']
-				, $component['installable']
-				, $component['version']
-				, is_wordpoints_network_active()
-			);
-
-		} elseif ( isset( $component['un_installer'] ) ) {
 
 			WordPoints_Installables::register(
 				'component'

@@ -102,13 +102,14 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test that register() registers an installable if active.
+	 * Test that load() registers an installable if active.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @covers WordPoints_Components::register
+	 * @covers WordPoints_Components::load
 	 */
-	public function test_register_registers_installable_if_active() {
+	public function test_load_registers_installable_if_active() {
 
 		$this->mock_apps();
 
@@ -116,7 +117,8 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_filter( 'wordpoints_component_active', '__return_true' );
 
-		WordPoints_Components::instance()->register(
+		$components = WordPoints_Components::instance();
+		$components->register(
 			array(
 				'slug' => 'test',
 				'name' => 'Test',
@@ -124,6 +126,8 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 				'installable' => array( $mock, 'filter' ),
 			)
 		);
+
+		$components->load();
 
 		/** @var WordPoints_Installables_App $installables */
 		$installables = wordpoints_apps()->get_sub_app( 'installables' );
@@ -133,11 +137,12 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test that register() doesn't register an installable if inactive.
+	 * Test that load() doesn't register an installable if inactive.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @covers WordPoints_Components::register
+	 * @covers WordPoints_Components::load
 	 */
 	public function test_register_not_registers_installable_inactive() {
 
@@ -145,7 +150,8 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter();
 
-		WordPoints_Components::instance()->register(
+		$components = WordPoints_Components::instance();
+		$components->register(
 			array(
 				'slug' => 'test',
 				'name' => 'Test',
@@ -153,6 +159,8 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 				'installable' => array( $mock, 'filter' ),
 			)
 		);
+
+		$components->load();
 
 		/** @var WordPoints_Installables_App $installables */
 		$installables = wordpoints_apps()->get_sub_app( 'installables' );

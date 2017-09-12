@@ -22,15 +22,40 @@ require_once( ABSPATH . '/wp-admin/includes/class-wp-upgrader.php' );
 class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 
 	/**
-	 * The extension data.
+	 * Basename of the current extension.
 	 *
-	 * This is filled in by WordPoints_Extension_Upgrader::bulk_upgrade().
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $extension;
+
+	/**
+	 * The extension data.
 	 *
 	 * @since 2.4.0
 	 *
 	 * @type array $extension_info
 	 */
 	protected $extension_info = array();
+
+	/**
+	 * Whether the extension was active.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $extension_active;
+
+	/**
+	 * Whether the extension was network active.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $extension_network_active;
 
 	/**
 	 * Add the string's skins.
@@ -54,8 +79,14 @@ class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 	 */
 	public function set_extension( $extension_file ) {
 
+		$this->extension      = $extension_file;
 		$this->extension_info = wordpoints_get_module_data(
 			wordpoints_extensions_dir() . $extension_file
+		);
+
+		$this->extension_active         = is_wordpoints_module_active( $this->extension );
+		$this->extension_network_active = is_wordpoints_module_active_for_network(
+			$this->extension
 		);
 	}
 
@@ -73,6 +104,24 @@ class WordPoints_Extension_Upgrader_Skin_Bulk extends Bulk_Upgrader_Skin {
 	public function after( $title = '' ) {
 
 		parent::after( $this->extension_info['name'] );
+
+		if ( ! empty( $this->extension ) && ! is_wp_error( $this->result ) && $this->extension_active ) {
+
+			$url = wp_nonce_url(
+				self_admin_url( 'update.php?action=wordpoints-reactivate-extension&network_wide=' . $this->extension_network_active . '&extension=' . rawurlencode( $this->extension ) )
+				, "reactivate-extension_{$this->extension}"
+			);
+
+			?>
+
+			<p><?php esc_html_e( 'Reactivating extension&hellip;', 'wordpoints' ); ?></p>
+
+			<div style="background: url(<?php echo esc_url( self_admin_url( '/images/spinner.gif' ) ); ?>) left center no-repeat;">
+				<iframe name="wordpoints_extension_reactivation" style="border: 0; overflow: hidden;" width="100%" src="<?php echo esc_url( $url ); ?>"></iframe>
+			</div>
+
+			<?php
+		}
 	}
 
 	/**

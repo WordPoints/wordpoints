@@ -1128,7 +1128,7 @@ function wordpoints_admin_iframe_reactivate_extension() {
 		die();
 	}
 
-	// Then we redirect back here to display the success or error mesage.
+	// Then we redirect back here to display the success or error message.
 	iframe_header( __( 'WordPoints Extension Reactivation', 'wordpoints' ) );
 
 	if ( isset( $_GET['success'] ) ) {

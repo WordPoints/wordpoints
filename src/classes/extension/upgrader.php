@@ -172,10 +172,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		add_filter( 'upgrader_clear_destination', array( $this, 'delete_old_extension' ), 10, 4 );
 		add_filter( 'upgrader_source_selection', array( $this, 'check_package' ) );
 		add_filter( 'upgrader_source_selection', array( $this, 'correct_extension_dir_name' ), 10, 4 );
-
-		if ( ! $this->bulk ) {
-			add_filter( 'upgrader_pre_install', array( $this, 'deactivate_extension_before_upgrade' ), 10, 2 );
-		}
+		add_filter( 'upgrader_pre_install', array( $this, 'deactivate_extension_before_upgrade' ), 10, 2 );
 
 		return $args;
 	}
@@ -266,11 +263,9 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		remove_filter( 'upgrader_source_selection', array( $this, 'check_package' ) );
 		remove_filter( 'upgrader_source_selection', array( $this, 'correct_extension_dir_name' ) );
 		remove_filter( 'upgrader_clear_destination', array( $this, 'delete_old_extension' ) );
+		remove_filter( 'upgrader_pre_install', array( $this, 'deactivate_extension_before_upgrade' ) );
 
 		if ( ! $this->bulk ) {
-
-			remove_filter( 'upgrader_pre_install', array( $this, 'deactivate_extension_before_upgrade' ) );
-
 			if ( ! $this->skin->result || is_wp_error( $this->skin->result ) ) {
 				return;
 			}

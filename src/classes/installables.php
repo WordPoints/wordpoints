@@ -99,8 +99,8 @@ final class WordPoints_Installables {
 		/** @var WordPoints_Installables_App $installables */
 		$installables = wordpoints_apps()->get_sub_app( 'installables' );
 		$installables->register(
-			$type
-			, 'module' === $slug ? 'extension' : $slug
+			'module' === $type ? 'extension' : $type
+			, $slug
 			, 'WordPoints_Installables::installer_loader'
 			, $data['version']
 			, ! empty( $data['network_wide'] )
@@ -263,6 +263,11 @@ final class WordPoints_Installables {
 	 * @return WordPoints_InstallableI The installable object.
 	 */
 	public static function installer_loader( $type, $slug ) {
+
+		if ( 'extension' === $type ) {
+			$type = 'module';
+		}
+
 		return new WordPoints_Installable_Legacy(
 			$type
 			, $slug

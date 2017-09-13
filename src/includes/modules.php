@@ -1242,7 +1242,8 @@ function wordpoints_delete_modules( $modules ) {
 function wordpoints_uninstall_module( $module ) {
 
 	$file              = wordpoints_module_basename( $module );
-	$module_dir        = wordpoints_extensions_dir() . '/' . dirname( $file );
+	$module_file       = wordpoints_extensions_dir() . '/' . $file;
+	$module_dir        = dirname( $module_file );
 	$uninstall_file    = $module_dir . '/uninstall.php';
 	$un_installer_file = $module_dir . '/includes/class-un-installer.php';
 	$installable_file  = $module_dir . '/classes/installable.php';
@@ -1252,7 +1253,7 @@ function wordpoints_uninstall_module( $module ) {
 		require $installable_file;
 
 		$slug = WordPoints_Modules::get_slug( $module );
-		$data = wordpoints_get_module_data( $module, false, false );
+		$data = wordpoints_get_module_data( $module_file, false, false );
 
 		$class = "WordPoints_{$data['namespace']}_Installable";
 

@@ -15,8 +15,11 @@ WordPoints_Modules::register(
 		Extension URI:  https://www.example.com/test-6/
 		Description:    Another test module.
 		Text Domain:    test-6
+		Namespace:      Test_6
 	'
 	, __FILE__
 );
+
+require_once dirname( __FILE__ ) . '/classes/installable.php';
 
 // EOF

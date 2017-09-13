@@ -58,6 +58,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 *
 	 * @expectedDeprecated WordPoints_Installables::install
 	 * @expectedDeprecated WordPoints_Installables::register
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_install() {
 
@@ -82,6 +83,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 * @requires WordPoints network-active
 	 *
 	 * @expectedDeprecated WordPoints_Installables::install
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_install_network_wide() {
 
@@ -146,6 +148,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 *
 	 * @expectedDeprecated WordPoints_Installables::install
 	 * @expectedDeprecated WordPoints_Installables::uninstall
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_uninstall() {
 
@@ -210,6 +213,7 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 *
 	 * @expectedDeprecated WordPoints_Installables::register
 	 * @expectedDeprecated WordPoints_Installables::maybe_do_updates
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_maybe_do_updates() {
 
@@ -453,6 +457,8 @@ class WordPoints_Installables_Test extends WordPoints_PHPUnit_TestCase_Admin {
 	 * Test getting the installer for a module.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_get_installer() {
 

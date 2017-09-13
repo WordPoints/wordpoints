@@ -11,6 +11,8 @@
  * Tests for the base un/installer class.
  *
  * @since 2.0.0
+ *
+ * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
  */
 class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 

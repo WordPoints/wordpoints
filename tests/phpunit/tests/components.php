@@ -178,6 +178,7 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 	 * @covers WordPoints_Components::is_active
 	 *
 	 * @expectedDeprecated WordPoints_Installables::register
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_activation() {
 

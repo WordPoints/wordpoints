@@ -11,6 +11,7 @@
  * Base class to be extended for un/installing a plugin/component/module.
  *
  * @since 1.8.0
+ * @deprecated 2.4.0 Use the new installables API instead.
  */
 abstract class WordPoints_Un_Installer_Base {
 
@@ -297,6 +298,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @param string $version The current code version of the entity.
 	 */
 	public function __construct( $slug = null, $version = null ) {
+
+		_deprecated_function( __METHOD__, '2.4.0' );
 
 		if ( ! isset( $slug ) ) {
 			_doing_it_wrong( __METHOD__, 'The $slug parameter is required.', '2.0.0' );

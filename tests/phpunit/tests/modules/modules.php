@@ -130,7 +130,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 				'channel'     => '',
 				'server'      => '',
 				'ID'          => '',
-				'namespace'   => '',
+				'namespace'   => 'Test_6',
 				'title'       => 'Test 6',
 				'author_name' => 'WordPoints Tester',
 			)

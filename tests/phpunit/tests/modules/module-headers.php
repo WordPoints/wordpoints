@@ -278,6 +278,57 @@ class WordPoints_Module_Header_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertArrayHasKey( 'module_uri', $found_headers );
 		$this->assertSame( 'https://www.example.com/test-3/', $found_headers['module_uri'] );
 	}
+
+	/**
+	 * Tests that it calls a filter.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_filter() {
+
+		$headers = $this->expected_headers;
+		$headers['name'] = 'Test Three';
+
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $headers );
+		$filter->add_filter( 'wordpoints_extension_data' );
+
+		$data = wordpoints_get_module_data(
+			WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php'
+			, false
+			, false
+		);
+
+		$this->assertSame( 1, $filter->call_count );
+
+		$this->assertSame( $headers['name'], $data['name'] );
+	}
+
+	/**
+	 * Tests it applies the filter before adding markup.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_filter_markup() {
+
+		$headers = $this->expected_headers;
+		$headers['name'] = 'Test Three';
+
+		$filter = new WordPoints_PHPUnit_Mock_Filter( $headers );
+		$filter->add_filter( 'wordpoints_extension_data' );
+
+		$data = wordpoints_get_module_data(
+			WORDPOINTS_TESTS_DIR . '/data/modules/test-3.php'
+			, true
+		);
+
+		$this->assertSame( 1, $filter->call_count );
+
+		$this->assertSame( $headers['name'], $data['name'] );
+		$this->assertSame(
+			'<a href="https://www.example.com/test-3/">Test Three</a>'
+			, $data['title']
+		);
+	}
 }
 
 // EOF

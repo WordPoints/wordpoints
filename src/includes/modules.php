@@ -461,6 +461,16 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 
 	$module_data['network'] = ( 'true' === strtolower( $module_data['network'] ) );
 
+	/**
+	 * Filters the header data for an extension.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param array  $extension_data The extension header data.
+	 * @param string $extension_file The full path of the main extension file.
+	 */
+	$module_data = apply_filters( 'wordpoints_extension_data', $module_data, $module_file );
+
 	if ( $markup || $translate ) {
 
 		// Sanitize the plugin filename to a WP_module_DIR relative path
@@ -1575,6 +1585,44 @@ function wordpoints_extension_update_counts( $update_data ) {
 	$update_data['counts']['total'] += $update_data['counts']['wordpoints_extensions'];
 
 	return $update_data;
+}
+
+/**
+ * Filters the extension data to add missing server headers for specific extensions.
+ *
+ * A few extensions were released without the `ID` header set, either because it
+ * hadn't been invented yet or because we just forgot. Because of this, they are
+ * unable to receive updates from WordPoints.org. This function filters the headers
+ * for these extensions, and adds in the `ID` and `server` header values as needed.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\filter wordpoints_extension_data
+ *
+ * @param array $data Extension header data.
+ *
+ * @return array The filtered extension header data.
+ */
+function wordpoints_extension_data_missing_server_headers_filter( $data ) {
+
+	$missing_headers = array(
+		'Beta Tester'             => '316',
+		'Importer'                => '430',
+		'WooCommerce'             => '445',
+		'Points Logs Regenerator' => '530',
+		'Reset Points'            => '540',
+	);
+
+	if (
+		empty( $data['ID'] )
+		&& ( 'J.D. Grimes' === $data['author'] || 'WordPoints' === $data['author'] )
+		&& isset( $missing_headers[ $data['name'] ] )
+	) {
+		$data['server'] = 'wordpoints.org';
+		$data['ID']     = $missing_headers[ $data['name'] ];
+	}
+
+	return $data;
 }
 
 // EOF

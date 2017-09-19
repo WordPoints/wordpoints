@@ -78,4 +78,6 @@ add_filter( 'wp_get_update_data', 'wordpoints_extension_update_counts' );
 add_filter( 'wordpoints_extensions_dir', 'wordpoints_legacy_modules_path', 5 );
 add_filter( 'wordpoints_extensions_url', 'wordpoints_legacy_modules_path', 5 );
 
+add_filter( 'wordpoints_extension_data', 'wordpoints_extension_data_missing_server_headers_filter' );
+
 // EOF

@@ -21,8 +21,6 @@ function wordpoints-dev-lib-config() {
 	# Ignore some strings that are expected.
 	CODESNIFF_IGNORED_STRINGS=(\
 		"${CODESNIFF_IGNORED_STRINGS[@]}" \
-		# Doesn't support HTTPS.
-		-e sodipodi.sourceforge.net \
 		# Ticket related to removing blank target links, mentioned in the changelog.
 		-e '#558' \
 	)
@@ -33,6 +31,8 @@ function wordpoints-dev-lib-config() {
 		'!' -path './src/classes/extension/server.php' \
 		# Tests for the above class.
 		'!' -path './tests/phpunit/tests/classes/extension/server.php' \
+		# Needs to use non-HTTPS for XML URIs.
+		'!' -path './assets/icon.svg' \
 	)
 
 	# This file requires PHP 7.

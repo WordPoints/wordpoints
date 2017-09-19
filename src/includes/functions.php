@@ -101,8 +101,8 @@ function wordpoints_breaking_update() {
 		return;
 	}
 
-	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
-	$updater->update();
+	$updater = new WordPoints_Updater_Core_Breaking();
+	$updater->run();
 }
 
 /**

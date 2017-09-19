@@ -11,6 +11,7 @@
  * Does special checks before a breaking update of WordPoints.
  *
  * @since 2.0.0
+ * @deprecated 2.4.0 Use WordPoints_Updater_Core_Breaking instead.
  */
 class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 

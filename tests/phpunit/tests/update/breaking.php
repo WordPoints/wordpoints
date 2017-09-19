@@ -11,6 +11,8 @@
  * Tests the WordPoints_Breaking_Updater class.
  *
  * @since 2.0.0
+ *
+ * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
  */
 class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 

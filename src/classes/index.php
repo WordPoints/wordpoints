@@ -215,6 +215,7 @@ return array(
 	'wordpoints_updater' => 'updater.php',
 	'wordpoints_updater_core_1_10_3_extensions_index_create' => 'updater/core/1/10/3/extensions/index/create.php',
 	'wordpoints_updater_core_2_4_0_extensions_directory_rename' => 'updater/core/2/4/0/extensions/directory/rename.php',
+	'wordpoints_updater_core_breaking' => 'updater/core/breaking.php',
 	'wordpoints_updater_core_extension_merge' => 'updater/core/extension/merge.php',
 	'wordpoints_updater_db_table_column_rename' => 'updater/db/table/column/rename.php',
 	'wordpoints_updater_db_tables_utf8mb4' => 'updater/db/tables/utf8mb4.php',

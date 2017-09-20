@@ -152,7 +152,7 @@ function wordpoints_ranks_admin_screen() {
 	 *
 	 * @since 1.7.0
 	 */
-	include WORDPOINTS_DIR . 'components/ranks/admin/screens/ranks.php';
+	require WORDPOINTS_DIR . 'components/ranks/admin/screens/ranks.php';
 }
 
 // EOF

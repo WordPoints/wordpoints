@@ -37,7 +37,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			 *
 			 * @since 2.0.0
 			 */
-			require_once( WORDPOINTS_DIR . '/admin/admin.php' );
+			require_once WORDPOINTS_DIR . '/admin/admin.php';
 
 			self::$included_functions = true;
 		}

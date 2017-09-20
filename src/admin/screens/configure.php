@@ -45,14 +45,14 @@ function wordpoints_admin_screen_configure() {
 			 *
 			 * @since 1.0.0
 			 */
-			include WORDPOINTS_DIR . 'admin/screens/configure-components.php';
+			require WORDPOINTS_DIR . 'admin/screens/configure-components.php';
 		} else {
 			/**
 			 * The Settings screen.
 			 *
 			 * @since 1.0.0
 			 */
-			include WORDPOINTS_DIR . 'admin/screens/configure-settings.php';
+			require WORDPOINTS_DIR . 'admin/screens/configure-settings.php';
 		}
 
 		/**

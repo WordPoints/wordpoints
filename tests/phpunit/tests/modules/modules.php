@@ -79,7 +79,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 		// This module uses the 2.0 API, and for a more realistic test, it helps if
 		// it is pre-loaded (which the modules aren't during the tests).
-		include_once( wordpoints_extensions_dir() . '/test-6/main-file.php' );
+		require_once wordpoints_extensions_dir() . '/test-6/main-file.php';
 
 		$modules = wordpoints_get_modules();
 

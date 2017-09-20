@@ -35,7 +35,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 		/**
 		 * @since 1.9.2
 		 */
-		require_once( WORDPOINTS_DIR . '/components/points/admin/admin.php' );
+		require_once WORDPOINTS_DIR . '/components/points/admin/admin.php';
 	}
 
 	/**

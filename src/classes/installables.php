@@ -231,7 +231,7 @@ final class WordPoints_Installables {
 				return false;
 			}
 
-			self::$installers[ $type ][ $slug ] = require( $un_installer );
+			self::$installers[ $type ][ $slug ] = require $un_installer;
 		}
 
 		return new self::$installers[ $type ][ $slug ]( $slug, $version );

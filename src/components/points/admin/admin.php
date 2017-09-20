@@ -15,21 +15,21 @@
  *
  * @since 1.2.0
  */
-include_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
+require_once WORDPOINTS_DIR . 'components/points/admin/includes/ajax.php';
 
 /**
  * Admin-side functions.
  *
  * @since 2.1.0
  */
-require_once( WORDPOINTS_DIR . '/components/points/admin/includes/functions.php' );
+require_once WORDPOINTS_DIR . '/components/points/admin/includes/functions.php';
 
 /**
  * Admin-side hooks.
  *
  * @since 2.1.0
  */
-require_once( WORDPOINTS_DIR . '/components/points/admin/includes/filters.php' );
+require_once WORDPOINTS_DIR . '/components/points/admin/includes/filters.php';
 
 WordPoints_Class_Autoloader::register_dir(
 	WORDPOINTS_DIR . '/components/points/admin/classes'

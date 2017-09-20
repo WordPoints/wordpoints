@@ -63,7 +63,7 @@ class WordPoints_Updater_Core_Breaking extends WordPoints_Routine {
 		 *
 		 * @since 2.4.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 
 		if ( ! WP_Filesystem( false, ABSPATH ) ) {
 			return;

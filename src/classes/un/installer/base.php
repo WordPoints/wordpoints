@@ -348,7 +348,7 @@ abstract class WordPoints_Un_Installer_Base {
 		 *
 		 * @since 1.8.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		if ( is_multisite() ) {
 
@@ -427,7 +427,7 @@ abstract class WordPoints_Un_Installer_Base {
 		 *
 		 * @since 1.8.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$this->context = 'site';
 
@@ -572,7 +572,7 @@ abstract class WordPoints_Un_Installer_Base {
 		 *
 		 * @since 1.8.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		if ( is_multisite() ) {
 

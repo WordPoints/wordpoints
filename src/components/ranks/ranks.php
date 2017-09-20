@@ -20,28 +20,28 @@ WordPoints_Class_Autoloader::register_dir(
  *
  * @since 1.7.0
  */
-include_once WORDPOINTS_DIR . 'components/ranks/includes/constants.php';
+require_once WORDPOINTS_DIR . 'components/ranks/includes/constants.php';
 
 /**
  * Ranks API functions.
  *
  * @since 1.7.0
  */
-include_once WORDPOINTS_DIR . 'components/ranks/includes/ranks.php';
+require_once WORDPOINTS_DIR . 'components/ranks/includes/ranks.php';
 
 /**
  * Action and filter hooks.
  *
  * @since 1.7.0
  */
-include_once WORDPOINTS_DIR . 'components/ranks/includes/filters.php';
+require_once WORDPOINTS_DIR . 'components/ranks/includes/filters.php';
 
 /**
  * Deprecated code.
  *
  * @since 1.8.0
  */
-include_once WORDPOINTS_DIR . 'components/ranks/includes/deprecated.php';
+require_once WORDPOINTS_DIR . 'components/ranks/includes/deprecated.php';
 
 if ( wordpoints_component_is_active( 'points' ) ) {
 
@@ -50,7 +50,7 @@ if ( wordpoints_component_is_active( 'points' ) ) {
 	 *
 	 * @since 1.7.0
 	 */
-	include_once WORDPOINTS_DIR . 'components/ranks/includes/integration/points.php';
+	require_once WORDPOINTS_DIR . 'components/ranks/includes/integration/points.php';
 }
 
 if ( is_admin() ) {
@@ -60,7 +60,7 @@ if ( is_admin() ) {
 	 *
 	 * @since 1.7.0
 	 */
-	include_once WORDPOINTS_DIR . 'components/ranks/admin/admin.php';
+	require_once WORDPOINTS_DIR . 'components/ranks/admin/admin.php';
 }
 
 // EOF

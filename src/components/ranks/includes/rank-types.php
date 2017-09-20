@@ -15,6 +15,6 @@ _deprecated_file( __FILE__, '2.2.0' );
  *
  * @since 1.7.0
  */
-include_once( WORDPOINTS_DIR . '/components/ranks/includes/rank-types/base.php' );
+require_once WORDPOINTS_DIR . '/components/ranks/includes/rank-types/base.php';
 
 // EOF

@@ -46,7 +46,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 		 *
 		 * @since 2.0.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 
 		if ( ! WP_Filesystem( false, ABSPATH ) ) {
 			return;

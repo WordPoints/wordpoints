@@ -200,7 +200,7 @@ class WordPoints_Updater extends WordPoints_Routine {
 		 *
 		 * @since 2.4.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		// We need to run even if there are no updates, or else the DB version of the
 		// entity won't be updated.

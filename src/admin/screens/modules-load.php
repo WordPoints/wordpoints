@@ -172,7 +172,7 @@ switch ( $action ) {
 
 			$modules_dir = wordpoints_extensions_dir();
 			WordPoints_Module_Paths::register( $modules_dir . '/' . $module );
-			include( $modules_dir . '/' . $module );
+			include $modules_dir . '/' . $module;
 		}
 
 		wordpoints_module_sandbox_scrape( $module );
@@ -287,7 +287,7 @@ switch ( $action ) {
 			exit;
 		}
 
-		include ABSPATH . 'wp-admin/update.php';
+		require_once ABSPATH . 'wp-admin/update.php';
 
 		$parent_file = 'admin.php';
 

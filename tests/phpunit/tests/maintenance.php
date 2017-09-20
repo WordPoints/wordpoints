@@ -42,7 +42,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 		$_GET['wordpoints_module_check'] = 'something';
 		$_GET['check_module'] = 'something';
 
-		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
+		require WORDPOINTS_DIR . '/includes/maintenance.php';
 
 		/** @var int $time */
 		$this->assertSame( $time - 10 * MINUTE_IN_SECONDS, $upgrading );
@@ -66,7 +66,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 		$_GET['wordpoints_module_check'] = 'something';
 		$_GET['check_module'] = 'something';
 
-		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
+		require WORDPOINTS_DIR . '/includes/maintenance.php';
 
 		$this->assertSame( $raw, $upgrading );
 	}
@@ -82,7 +82,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertNull( $upgrading );
 
-		require( WORDPOINTS_DIR . '/includes/maintenance.php' );
+		require WORDPOINTS_DIR . '/includes/maintenance.php';
 
 		$this->assertNull( $upgrading );
 	}

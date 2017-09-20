@@ -108,7 +108,7 @@ function wordpointstests_simulate_points_hooks_usage() {
  *
  * @since 2.7.0
  */
-require_once( dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/class/autoloader.php' );
+require_once dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/class/autoloader.php';
 
 WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/'

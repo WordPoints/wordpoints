@@ -50,7 +50,7 @@
  *
  * @since 1.2.0
  */
-include_once dirname( __FILE__ ) . '/includes/constants.php';
+require_once dirname( __FILE__ ) . '/includes/constants.php';
 
 /**
  * Core functions.
@@ -59,7 +59,7 @@ include_once dirname( __FILE__ ) . '/includes/constants.php';
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'includes/functions.php';
+require_once WORDPOINTS_DIR . 'includes/functions.php';
 
 /**
  * Apps functions.
@@ -69,7 +69,7 @@ include_once WORDPOINTS_DIR . 'includes/functions.php';
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/apps.php';
+require_once WORDPOINTS_DIR . 'includes/apps.php';
 
 /**
  * Hooks functions.
@@ -79,7 +79,7 @@ include_once WORDPOINTS_DIR . 'includes/apps.php';
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/hooks.php';
+require_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
  * Extension functions.
@@ -88,7 +88,7 @@ include_once WORDPOINTS_DIR . 'includes/hooks.php';
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'includes/modules.php';
+require_once WORDPOINTS_DIR . 'includes/modules.php';
 
 /**
  * Class autoloader.
@@ -97,7 +97,7 @@ include_once WORDPOINTS_DIR . 'includes/modules.php';
  *
  * @since 2.1.0
  */
-require_once( WORDPOINTS_DIR . 'classes/class/autoloader.php' );
+require_once WORDPOINTS_DIR . 'classes/class/autoloader.php';
 
 // Register the classes to autoload.
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
@@ -110,14 +110,14 @@ WordPoints_Components::set_up();
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/filters.php';
+require_once WORDPOINTS_DIR . 'includes/filters.php';
 
 /**
  * Deprecated functions.
  *
  * @since 1.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/deprecated.php';
+require_once WORDPOINTS_DIR . 'includes/deprecated.php';
 
 if ( is_admin() ) {
 
@@ -130,7 +130,7 @@ if ( is_admin() ) {
 	 *
 	 * @since 1.0.0
 	 */
-	include_once WORDPOINTS_DIR . 'admin/admin.php';
+	require_once WORDPOINTS_DIR . 'admin/admin.php';
 }
 
 // EOF

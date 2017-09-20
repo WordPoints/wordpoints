@@ -911,7 +911,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	$module_file = wordpoints_extensions_dir() . '/' . $module;
 	WordPoints_Module_Paths::register( $module_file );
 
-	include_once $module_file;
+	require_once $module_file;
 
 	if ( ! $silent ) {
 
@@ -1132,9 +1132,9 @@ function wordpoints_delete_modules( $modules ) {
 
 		if ( ! empty( $data ) ) {
 
-			include_once ABSPATH . 'wp-admin/admin-header.php';
+			require_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data; // XSS OK here, WPCS.
-			include ABSPATH . 'wp-admin/admin-footer.php';
+			require ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 		}
 
@@ -1150,9 +1150,9 @@ function wordpoints_delete_modules( $modules ) {
 
 		if ( ! empty( $data ) ) {
 
-			include_once ABSPATH . 'wp-admin/admin-header.php';
+			require_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data; // XSS OK here too, WPCS.
-			include ABSPATH . 'wp-admin/admin-footer.php';
+			require ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 		}
 

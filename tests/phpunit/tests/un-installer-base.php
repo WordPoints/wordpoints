@@ -49,7 +49,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		 *
 		 * @since 2.0.0
 		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer-option-prefix.php' );
+		require_once WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer-option-prefix.php';
 	}
 
 	/**

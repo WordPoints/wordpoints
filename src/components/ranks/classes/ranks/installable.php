@@ -103,7 +103,7 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 	 */
 	protected function get_uninstall_routine_factories() {
 
-		include_once( WORDPOINTS_DIR . 'components/ranks/includes/constants.php' );
+		require_once WORDPOINTS_DIR . 'components/ranks/includes/constants.php';
 
 		$factories = parent::get_uninstall_routine_factories();
 

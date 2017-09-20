@@ -39,7 +39,7 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 			return;
 		}
 
-		require( $file_name );
+		require $file_name;
 	}
 
 	// Autoloading for helpers (test cases, factories, mocks, etc.).
@@ -54,7 +54,7 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 		return;
 	}
 
-	require( $file_name );
+	require $file_name;
 }
 
 /**

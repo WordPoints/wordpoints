@@ -62,7 +62,7 @@ class WordPoints_Installer extends WordPoints_Routine {
 		 *
 		 * @since 2.4.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		parent::run();
 	}

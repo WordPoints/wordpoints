@@ -155,7 +155,7 @@ function wordpoints_points_admin_screen_hooks() {
 		 *
 		 * @since 1.0.0
 		 */
-		include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js.php';
+		require WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js.php';
 
 	} else {
 
@@ -164,7 +164,7 @@ function wordpoints_points_admin_screen_hooks() {
 		 *
 		 * @since 1.0.0
 		 */
-		include WORDPOINTS_DIR . 'components/points/admin/screens/hooks.php';
+		require WORDPOINTS_DIR . 'components/points/admin/screens/hooks.php';
 	}
 }
 
@@ -180,7 +180,7 @@ function wordpoints_points_admin_screen_logs() {
 	 *
 	 * @since 1.0.0
 	 */
-	include WORDPOINTS_DIR . 'components/points/admin/screens/logs.php';
+	require WORDPOINTS_DIR . 'components/points/admin/screens/logs.php';
 }
 
 /**
@@ -197,7 +197,7 @@ function wordpoints_admin_points_hooks_help() {
 	 *
 	 * @since 1.2.0
 	 */
-	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-load.php';
+	require WORDPOINTS_DIR . 'components/points/admin/screens/hooks-load.php';
 }
 
 /**
@@ -218,7 +218,7 @@ function wordpoints_no_js_points_hooks_save() {
 	 *
 	 * @since 1.2.0
 	 */
-	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js-load.php';
+	require WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js-load.php';
 }
 
 /**

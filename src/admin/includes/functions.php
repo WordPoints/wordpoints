@@ -1051,7 +1051,7 @@ function wordpoints_upload_module_zip() {
 		$file_upload->cleanup();
 	}
 
-	include ABSPATH . 'wp-admin/admin-footer.php';
+	require ABSPATH . 'wp-admin/admin-footer.php';
 }
 
 /**
@@ -1078,7 +1078,7 @@ function wordpoints_admin_screen_upgrade_extension() {
 	$title = __( 'Update WordPoints Extension', 'wordpoints' );
 	$parent_file = 'admin.php';
 
-	require_once( ABSPATH . 'wp-admin/admin-header.php' );
+	require_once ABSPATH . 'wp-admin/admin-header.php';
 
 	$upgrader = new WordPoints_Extension_Upgrader(
 		new WordPoints_Extension_Upgrader_Skin(
@@ -1093,7 +1093,7 @@ function wordpoints_admin_screen_upgrade_extension() {
 
 	$upgrader->upgrade( $extension );
 
-	include( ABSPATH . 'wp-admin/admin-footer.php' );
+	require ABSPATH . 'wp-admin/admin-footer.php';
 }
 
 /**
@@ -1147,7 +1147,7 @@ function wordpoints_admin_iframe_reactivate_extension() {
 
 		$file = wordpoints_extensions_dir() . '/' . $extension;
 		WordPoints_Module_Paths::register( $file );
-		include( $file );
+		include $file;
 	}
 
 	iframe_footer();
@@ -1181,7 +1181,7 @@ function wordpoints_admin_screen_update_selected_extensions() {
 
 	$parent_file = 'admin.php';
 
-	require_once( ABSPATH . 'wp-admin/admin-header.php' );
+	require_once ABSPATH . 'wp-admin/admin-header.php';
 
 	?>
 
@@ -1193,7 +1193,7 @@ function wordpoints_admin_screen_update_selected_extensions() {
 
 	<?php
 
-	require_once( ABSPATH . 'wp-admin/admin-footer.php' );
+	require_once ABSPATH . 'wp-admin/admin-footer.php';
 
 	exit;
 }

@@ -153,7 +153,7 @@ final class WordPoints_Components {
 				);
 			}
 
-			include_once( $component['file'] );
+			include_once $component['file'];
 		}
 
 		/**
@@ -362,7 +362,7 @@ final class WordPoints_Components {
 				return false;
 			}
 
-			include_once( $this->registered[ $slug ]['file'] );
+			require_once $this->registered[ $slug ]['file'];
 
 			if ( isset( $this->registered[ $slug ]['installable'] ) ) {
 

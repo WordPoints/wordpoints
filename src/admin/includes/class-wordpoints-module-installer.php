@@ -15,6 +15,6 @@ _deprecated_file( __FILE__, '2.4.0', 'classes/module/installer.php' );
  *
  * @since 2.4.0
  */
-require_once( WORDPOINTS_DIR . '/classes/module/installer.php' );
+require_once WORDPOINTS_DIR . '/classes/module/installer.php';
 
 // EOF

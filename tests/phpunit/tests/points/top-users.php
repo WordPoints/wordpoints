@@ -323,6 +323,21 @@ class WordPoints_Points_Get_Top_Users_Test extends WordPoints_PHPUnit_TestCase_P
 		);
 	}
 
+	/**
+	 * Tests that when they have the same number of points they are ordered by ID.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_same_points() {
+
+		wordpoints_set_points( $this->user_ids[1], 40, 'points', 'test' );
+
+		$this->assertSame(
+			array( $this->user_ids[0], $this->user_ids[1], $this->user_ids[2], 1 )
+			, wordpoints_points_get_top_users( 10, 'points' )
+		);
+	}
+
 	//
 	// Helpers
 	//

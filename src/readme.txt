@@ -14,78 +14,44 @@ Gamify your site, track user rep, or run a rewards program. WordPoints has a pow
 
 = Features =
 
-This plugin lets you create one or multiple types of points which you can use to
-reward your users when certain events occur on your site. It also includes
-a Ranks component, which lets you create ranks for your users based on how many
-points they have.
+This plugin lets you create one or multiple types of points which you can use to reward your users when certain events occur on your site. It also includes a Ranks component, which lets you create ranks for your users based on how many points they have.
 
 You can currently award points to users for:
 
 * **Registration**
-* **Posts** - You can be selective in which post types get awarded points, and award
- different amounts for different types. Points will automatically be removed when a
- post is removed.
-* **Comments** - You can award points to a user when they leave a comment, and also
- to post authors when they receive a comment. As with posts, you can award different
- amounts for comments on different post types, and points will automatically be
- removed if you delete a user's comment or mark it as spam.
-* **Visiting your site** - You can award points to a user when they visit your site
- at least once in a time period; once per day, for example.
+* **Posts** - You can be selective in which post types get awarded points, and award different amounts for different types. Points will automatically be removed when a post is removed.
+* **Comments** - You can award points to a user when they leave a comment, and also to post authors when they receive a comment. As with posts, you can award different amounts for comments on different post types, and points will automatically be removed if you delete a user's comment or mark it as spam.
+* **Visiting your site** - You can award points to a user when they visit your site at least once in a time period; once per day, for example.
 
-You can also conditionally award points based on a post's contents, a user's role,
-and more!
+You can also conditionally award points based on a post's tags, a comment's text, a user's role, and more!
 
-All points transactions are logged and can be reviewed by administrators from the
-*WordPoints » Points Logs* admin screen. The logs can be displayed on the front end
-of your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points_logs/)
-shortcode.
+All points transactions are logged and can be reviewed by administrators from the *WordPoints » Points Logs* admin screen. The logs can be displayed on the front end of your site using the [`[wordpoints_points_logs]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points_logs/) shortcode.
 
-You can display how many points a user has using the [`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/)
-shortcode, and you can also display a list of the top users with the most points using the
-[`[wordpoints_points_top]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points_top/)
-shortcode.
+You can show how many points a user has using the [`[wordpoints_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points/) shortcode. You can also display a list of the top users with the most points using the [`[wordpoints_points_top]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_points_top/) shortcode.
 
-You can display a list of ways that your users can earn points using the
-[`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/)
-shortcode.
+You can display a list of ways that your users can earn points using the [`[wordpoints_how_to_get_points]`](https://wordpoints.org/user-guide/shortcodes/wordpoints_how_to_get_points/) shortcode.
 
-The plugin also provides [several widgets](https://wordpoints.org/user-guide/widgets/).
+The plugin also provides [several widgets](https://wordpoints.org/user-guide/widgets/) you can use for the same things as the shortcodes.
 
-More features are always being planned, and you can check out the roadmap on the
-plugin website, [WordPoints.org](https://wordpoints.org/roadmap/).
+More features are always being planned, and you can check out the roadmap on the plugin website, [WordPoints.org](https://wordpoints.org/roadmap/).
 
-Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/extensions/).
-There's [an extension that imports from CubePoints to WordPoints](https://wordpoints.org/extensions/importer/),
-one that [integrates with WooCommerce](https://wordpoints.org/extensions/woocommerce/),
-one that [integrates with BuddyPress](https://wordpoints.org/extensions/buddypress/),
-and another that let's you [reset your users' points](https://wordpoints.org/extensions/reset-points/).
-More are being added regularly, so take a look to see what is new.
+Also on the plugin's website, you can [browse the available extensions](https://wordpoints.org/extensions/). There's [an extension that imports from CubePoints to WordPoints](https://wordpoints.org/extensions/importer/), one that [integrates with WooCommerce](https://wordpoints.org/extensions/woocommerce/), one that [integrates with BuddyPress](https://wordpoints.org/extensions/buddypress/), and another that let's you [reset your users' points](https://wordpoints.org/extensions/reset-points/). More are being added regularly, so take a look to see what is new.
 
 = Developers =
 
-If you are a developer, designer, or accessibility expert, and you'd like to give
-back to this plugin, you should visit the [plugin's repo on GitHub](https://github.com/WordPoints/wordpoints/),
-where active development takes place.
+If you are a developer, designer, or accessibility expert, and you'd like to give back to this plugin, you should visit the [plugin's repo on GitHub](https://github.com/WordPoints/wordpoints/), where active development takes place.
 
-If you are interested in integrating or extending the plugin, you'll want to read the
-[developer docs](https://wordpoints.org/developer-guide/).
+If you are interested in integrating or extending the plugin, you'll want to read the [developer docs](https://wordpoints.org/developer-guide/).
 
-If you are a security researcher you can report vulnerabilities through our
-[bug bounty program on HackerOne](https://hackerone.com/wordpoints).
+If you are a security researcher you can report vulnerabilities through our [bug bounty program on HackerOne](https://hackerone.com/wordpoints).
 
 = Privacy Policy =
 
-WordPoints does not communicate with any remote services by default. However, when
-you install extensions from WordPoints.org or other servers, WordPoints may communicate
-with those services in order to provide you updates for the extension. Check the privacy
-policy of the extension server in question to learn more about what information is
-shared with it, though generally only the ID and version of the extension will be sent
-to the update service.
+WordPoints does not communicate with any remote services by default. However, when you install extensions from WordPoints.org or other servers, WordPoints may communicate with those services in order to provide you updates for the extensions. Check the privacy policy of the extension server in question to learn more about what information is shared with it, though generally only the ID and version of the extension will be sent to the update service.
 
 == Installation ==
 
-Before installing on multisite, it is recommended that you read this
-[explanation of how WordPoints works on multisite](https://wordpoints.org/user-guide/multisite/).
+Before installing on multisite, it is recommended that you read this [explanation of how WordPoints works on multisite](https://wordpoints.org/user-guide/multisite/).
 
 1. Download and unzip the plugin file
 1. Upload the resulting `/wordpoints/` folder to the `/wp-content/plugins/` directory
@@ -101,14 +67,11 @@ You can [manually adjust a user's points](https://wordpoints.org/user-guide/manu
 
 = Does WordPoints support Multisite? =
 
-Yes, WordPoints fully supports multisite. It is recommended that you read this
-[explanation of how WordPoints works on multisite](https://wordpoints.org/user-guide/multisite/)
-before you install it.
+Yes, WordPoints fully supports multisite. It is recommended that you read this [explanation of how WordPoints works on multisite](https://wordpoints.org/user-guide/multisite/) before you install it.
 
 = When will WordPoints have (some feature)? =
 
-You can see what we're currently planning on our [roadmap]((https://wordpoints.org/roadmap/),
-and find out how to request new features.
+You can see what we're currently planning on our [roadmap](https://wordpoints.org/roadmap/), and find out how to request new features.
 
 == Screenshots ==
 
@@ -223,9 +186,7 @@ will not change the slugs of existing points types.
 
 = Older Versions =
 
-If you'd like to view the changelog for older versions, see the
-[changelog.txt](https://plugins.svn.wordpress.org/wordpoints/trunk/changelog.txt)
-file included with the plugin.
+If you'd like to view the changelog for older versions, see the [changelog.txt](https://plugins.svn.wordpress.org/wordpoints/trunk/changelog.txt) file included with the plugin.
 
 == Upgrade Notice ==
 

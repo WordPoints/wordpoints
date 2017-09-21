@@ -36,13 +36,13 @@ Extension = Backbone.Model.extend({
 
 	/**
 	 * @summary Initializes a reaction.
-	 * 
+	 *
 	 * This is called when a reaction view is initialized.
-	 * 
+	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @abstract
-	 * 
+	 *
 	 * @param {wp.wordpoints.hooks.view.Reaction} reaction The reaction being
 	 *                                                     initialized.
 	 */
@@ -50,18 +50,18 @@ Extension = Backbone.Model.extend({
 
 	/**
 	 * @summary Validates a reaction's settings.
-	 * 
+	 *
 	 * This is called before a reaction model is saved.
-	 * 
+	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @abstract
-	 * 
+	 *
 	 * @param {Reaction} model      The reaction model.
 	 * @param {array}    attributes The model's attributes (the settings being
 	 *                              validated).
 	 * @param {array}    errors     Any errors that were encountered.
-	 * @param {array}    options    Options.
+	 * @param {array}    options    The options.
 	 */
 	validateReaction: emptyFunction( 'validateReaction' )
 

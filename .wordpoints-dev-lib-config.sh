@@ -35,6 +35,13 @@ function wordpoints-dev-lib-config() {
 		'!' -path './assets/icon.svg' \
 	)
 
+	# Ignore some dittography that is expected.
+	CODESNIFF_IGNORED_DITTOGRAPHY=(\
+		"${CODESNIFF_IGNORED_DITTOGRAPHY[@]}" \
+		# From a line in CHANGELOG.md.
+		-e 'Entity Relationships, Dynamic' \
+	)
+
 	# This file requires PHP 7.
 	if [[ ${TRAVIS_PHP_VERSION:0:2} != "7." && $TRAVIS_PHP_VERSION != nightly ]]; then
 		CODESNIFF_PATH_PHP_SYNTAX=(\

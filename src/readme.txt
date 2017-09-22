@@ -3,7 +3,7 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, credits, gamify, ranks, games
 Requires at least: 4.7
-Tested up to: 4.8-alpha-39357
+Tested up to: 4.9-alpha-40870
 Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -94,6 +94,46 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
+= 2.4.0 — 2017-??-?? =
+
+**Requires: WordPress 4.7+**
+
+##### Added
+
+- Extensions can now be updated from within the admin screens, just like plugins can.
+  If you have installed any extensions from WordPoints.org, you may be prompted to
+  enter your license key after updating. You can get your license key for an
+  extension from the [My Account](https://wordpoints.org/my-account/) page.
+- New `[wordpoints_rank_list]` shortcode to display a list of the ranks that users
+  can have on the site.
+- Reaction settings can now include conditions on a post's terms. This means that
+  points can now be awarded for posts based on tags, categories, or custom
+  taxonomies.
+- When no Reactions have been created for a points type yet, WordPoints will offer to
+  create some demo reactions to help you get started.
+
+##### Changed
+
+- "Modules" are now called "extensions". The term "extension" is more familiar and
+  obvious in its meaning than "module".
+- When deleting a points type, you are now required to type the name of the points
+  type in the confirmation dialog. This helps to ensure that points types aren't
+  deleted accidentally. In addition, the confirmation dialogs for when a Reaction or
+  Rank is being deleted have been updated to so the reaction description or rank
+  name, respectively, so that it is clear which rank or reaction is being deleted.
+
+##### Fixed
+
+- The Top Users points table will always order results for users with same number of
+  points consistently, rather than it being more-or-less random. If two users have
+  the same number of points, the one with the lowest ID will come before the one with
+  the higher ID number. Thanks to Gspin96 for the patch!
+- Improved performance of the Ranks component. Creating ranks should be much quicker
+  on sites with large numbers of users now.
+- The Max setting of the Contains condition for Reactions now interprets an empty max
+  to mean no maximum, rather than a maximum of 0.
+- Corrected the invalid HTML that was breaking the user profile admin screen.
+
 = 2.3.0 — 2017-03-14 =
 
 ##### Security
@@ -140,55 +180,16 @@ This plugin adheres to [Semantic Versioning](http://semver.org/).
 - Error messages being displayed when first adding a widget to the site via the
  Customizer.
 
-= 2.2.2 — 2017-01-14 =
-
-##### Fixed
-
-- Event reactions for custom post types not awarding points. Plugins like bbPress
-were effected by this, because they register their post types later in the code
-than WordPoints expected. This is now fixed so that WordPoints will work correctly
-for post types no matter how late they are registered.
-
-= 2.2.1 — 2017-01-03 =
-
-##### Fixed
-
-- The Points Types screen locking up when creating a new reaction for some events.
-This only affected events where conditions could be created for items that could
-relate to another item of the same type (like how a comment could have a parent
-comment), causing an infinite loop.
-- Points values not being formatted with the prefix if the suffix wasn't set, and
-vice versa. This would only happen when the value wasn't set at all, not just when it
-was empty, and so only applies to points types that were created programmatically.
-Points types created through the UI were still formatted as expected.
-
-= 2.2.0 — 2016-12-08 =
-
-**Requires: WordPress 4.6+**
-
-##### Changed
-
-- Rate Limits for event reactions to now support setting the number of
-minutes/hours/etc. Previously it was only possible to have rate limits of "once per
-minute" or "once per day", now a rate limit can be "once every 5 minutes" or "once
-every 2 days" or any other amount that you want.
-- Points log entries that are hidden from some users to now be marked as such when a
-user who is allowed to see them is viewing them. For example, if a post is not
-public, only users who can view that post can view any points logs that relate to it.
-Such log entries will now be displayed with a note below them explaining to the
-current user that not all other users will be able to view them.
-- Points types slugs to be generated from the name of the points type with any
-spaces replaced with dashes. Previously when a points type was created, the slug
-would be generated from the name, but any spaces would be removed, so if there were
-multiple words they would be run together in the slug. Now if you create a points
-type named "An Example", its slug would be "an-example", instead of "anexample". This
-will not change the slugs of existing points types.
-
 = Older Versions =
 
 If you'd like to view the changelog for older versions, see the [changelog.txt](https://plugins.svn.wordpress.org/wordpoints/trunk/changelog.txt) file included with the plugin.
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+Adds support for extension updates, a shortcode to display available ranks, the
+ability to award points based on post terms, and also improves performance when
+creating ranks.
 
 = 2.3.0 =
 **Includes minor security hardening.** Adds the ability to disable reactions,

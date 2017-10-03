@@ -66,7 +66,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 
 		?>
 
-		<div class="wordpoints-widget-error" style="background-color: #fe7777; color: #fff; padding: 5px; border: 2px solid #f00;">
+		<div class="wordpoints-widget-error" style="background-color: #fe7777; color: #fff; padding: 5px; border: 2px solid #dc3232;">
 			<p>
 				<?php
 

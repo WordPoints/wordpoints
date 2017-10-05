@@ -1,12 +1,12 @@
 <?php
 
 /**
- * A test module.
+ * A test extension.
  *
  * @package Test6
  */
 
-WordPoints_Modules::register(
+wordpoints_register_extension(
 	'
 		Extension Name: Test 6
 		Version:        1.0.0
@@ -20,6 +20,6 @@ WordPoints_Modules::register(
 	, __FILE__
 );
 
-require_once dirname( __FILE__ ) . '/classes/installable.php';
+WordPoints_Class_Autoloader::register_dir( dirname( __FILE__ ) . '/classes' );
 
 // EOF

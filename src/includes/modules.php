@@ -1260,7 +1260,7 @@ function wordpoints_uninstall_module( $module ) {
 
 	if ( file_exists( $installable_file ) ) {
 
-		require $installable_file;
+		WordPoints_Class_Autoloader::register_dir( dirname( $installable_file ) );
 
 		$slug = WordPoints_Modules::get_slug( $module );
 		$data = wordpoints_get_module_data( $module_file, false, false );

@@ -2804,22 +2804,13 @@
     },
     "\/classes\/un\/installer\/base.php": {
         "install": {
-            "334": false,
             "414": false
         },
         "network": {
             "355": false,
-            "482": false,
             "579": false,
             "978": {
                 "name": "WordPoints_Un_Installer_Base::installable->unset_db_version",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1211": {
-                "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
@@ -2832,25 +2823,11 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1273": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
-                "parentheses": 1
-            },
             "1307": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
-                "parentheses": 1
-            },
-            "1308": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 2,
                 "parentheses": 1
             },
             "1313": {
@@ -2862,31 +2839,8 @@
             }
         },
         "site": {
-            "360": false,
-            "432": false,
             "465": false,
             "584": false,
-            "1273": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1306": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
-            "1308": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 1,
-                "parentheses": 1
-            },
             "1313": {
                 "name": "array",
                 "type": "unknown",
@@ -2904,34 +2858,6 @@
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
-                "parentheses": 1
-            },
-            "1273": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1306": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1307": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
-            "1308": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
                 "parentheses": 1
             },
             "1313": {
@@ -2972,13 +2898,6 @@
                 "arg_count": 0,
                 "parentheses": 1
             },
-            "1273": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 4,
-                "parentheses": 1
-            },
             "1313": {
                 "name": "array",
                 "type": "unknown",
@@ -2988,13 +2907,6 @@
             }
         },
         "local": {
-            "1273": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 3,
-                "parentheses": 1
-            },
             "1313": {
                 "name": "array",
                 "type": "unknown",
@@ -3004,13 +2916,6 @@
             }
         },
         "universal": {
-            "1273": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 5,
-                "parentheses": 1
-            },
             "1313": {
                 "name": "array",
                 "type": "unknown",
@@ -3020,13 +2925,6 @@
             }
         },
         "wordpoints": {
-            "1544": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            },
             "1603": {
                 "name": "array",
                 "type": "unknown",
@@ -3066,7 +2964,6 @@
             "1621": false
         },
         "manage": {
-            "1627": false,
             "1630": false
         },
         "columnshidden": {
@@ -4181,6 +4078,35 @@
         },
         "\/includes\/maintenance.php\" ); ?>": {
             "118": false
+        }
+    },
+    "\/classes\/uninstaller\/factory.php": {
+        "single": {
+            "49": {
+                "name": "WordPoints_Uninstaller_Factory::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "site": {
+            "56": {
+                "name": "WordPoints_Uninstaller_Factory::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
+        },
+        "network": {
+            "63": {
+                "name": "WordPoints_Uninstaller_Factory::get_for_context",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 0,
+                "parentheses": 1
+            }
         }
     }
 }

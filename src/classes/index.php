@@ -200,6 +200,7 @@ return array(
 	'wordpoints_uninstaller_core_components' => 'uninstaller/core/components.php',
 	'wordpoints_uninstaller_core_extensions' => 'uninstaller/core/extensions.php',
 	'wordpoints_uninstaller_db_tables' => 'uninstaller/db/tables.php',
+	'wordpoints_uninstaller_factory' => 'uninstaller/factory.php',
 	'wordpoints_uninstaller_factory_admin_screens_with_list_tables' => 'uninstaller/factory/admin/screens/with/list/tables.php',
 	'wordpoints_uninstaller_factory_admin_screens_with_meta_boxes' => 'uninstaller/factory/admin/screens/with/meta/boxes.php',
 	'wordpoints_uninstaller_factory_caps' => 'uninstaller/factory/caps.php',

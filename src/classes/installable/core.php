@@ -280,7 +280,13 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 		);
 
 		$factories[] = new WordPoints_Uninstaller_Factory_Transients(
-			array( 'global' => array( 'wordpoints_extension_updates' ) )
+			array(
+				'global' => array(
+					'wordpoints_extension_updates',
+					'wordpoints_extension_server_api-wordpoints.org',
+					'wordpoints_extension_server_supports_ssl-wordpoints.org',
+				),
+			)
 		);
 
 		$factories[] = new WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables(

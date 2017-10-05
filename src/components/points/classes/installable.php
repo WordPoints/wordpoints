@@ -396,6 +396,7 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			'comment'
 			, array(
 				'universal' => array(
+					'wordpoints_last_status',
 					'wordpoints_last_status-%',
 				),
 			)

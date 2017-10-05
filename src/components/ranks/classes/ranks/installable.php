@@ -112,6 +112,7 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 				'local' => array(
 					'wordpoints_filled_base_ranks',
 					'wordpoints_rank_group-%',
+					'wordpoints_ranks_2_4_0_update_duplicates',
 				),
 			)
 		);

@@ -260,6 +260,9 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 				'global' => array(
 					'wordpoints_edd_sl_module_licenses',
 					'wordpoints_edd_sl_module_info',
+					'wordpoints_extension_data-%',
+					'wordpoints_legacy_extensions_dir',
+					'wordpoints_merged_extensions',
 				),
 				'universal' => array(
 					'wordpoints_data',

@@ -78,7 +78,7 @@ class WordPoints_Extension_Server implements WordPoints_Extension_ServerI {
 	 */
 	protected function is_ssl_accessible() {
 
-		$transient = 'wrdpnts_' . md5( "extension_server_supports_ssl-{$this->url}" );
+		$transient = 'wordpoints_extension_server_supports_ssl-' . $this->url;
 
 		$supports_ssl = get_site_transient( $transient );
 
@@ -150,7 +150,7 @@ class WordPoints_Extension_Server implements WordPoints_Extension_ServerI {
 	protected function get_api_header() {
 
 		// Check if there is a cached value available.
-		$transient = 'wrdpnts_' . md5( "extension_server_api-{$this->url}" );
+		$transient = 'wordpoints_extension_server_api-' . $this->url;
 
 		$api = get_site_transient( $transient );
 

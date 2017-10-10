@@ -32,6 +32,27 @@ class WordPoints_Entity_Comment
 	protected $id_is_int = true;
 
 	/**
+	 * The slug of the post type this entity object is for.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $post_type;
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function __construct( $slug ) {
+
+		parent::__construct( $slug );
+
+		if ( ! isset( $this->post_type ) ) {
+			$this->post_type = substr( $this->slug, 8 /* comment\ */ );
+		}
+	}
+
+	/**
 	 * @since 2.1.0
 	 */
 	protected function get_entity( $id ) {
@@ -79,7 +100,7 @@ class WordPoints_Entity_Comment
 								'condition_field' => 'post_type',
 							),
 						),
-						'value' => substr( $this->slug, 8 /* comment\ */ ),
+						'value' => $this->post_type,
 					),
 				),
 			),

@@ -40,11 +40,32 @@ class WordPoints_Entity_Term extends WordPoints_Entity_Stored_DB_Table {
 	protected $human_id_field = 'name';
 
 	/**
+	 * The slug of the taxonomy this entity object is for.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $taxonomy;
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function __construct( $slug ) {
+
+		parent::__construct( $slug );
+
+		if ( ! isset( $this->taxonomy ) ) {
+			$this->taxonomy = substr( $this->slug, 5 /* term\ */ );
+		}
+	}
+
+	/**
 	 * @since 2.4.0
 	 */
 	public function get_title() {
 
-		$taxonomy = get_taxonomy( substr( $this->slug, 5 /* term\ */ ) );
+		$taxonomy = get_taxonomy( $this->taxonomy );
 
 		if ( $taxonomy ) {
 			return $taxonomy->labels->singular_name;
@@ -72,7 +93,7 @@ class WordPoints_Entity_Term extends WordPoints_Entity_Stored_DB_Table {
 								'condition_field' => 'taxonomy',
 							),
 						),
-						'value' => substr( $this->slug, 5 /* term\ */ ),
+						'value' => $this->taxonomy,
 					),
 				),
 			),

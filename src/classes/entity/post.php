@@ -42,11 +42,32 @@ class WordPoints_Entity_Post
 	protected $human_id_field = 'post_title';
 
 	/**
+	 * The slug of the post type this entity object is for.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var string
+	 */
+	protected $post_type;
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function __construct( $slug ) {
+
+		parent::__construct( $slug );
+
+		if ( ! isset( $this->post_type ) ) {
+			$this->post_type = substr( $this->slug, 5 /* post\ */ );
+		}
+	}
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function get_title() {
 
-		$post_type = get_post_type_object( substr( $this->slug, 5 /* post\ */ ) );
+		$post_type = get_post_type_object( $this->post_type );
 
 		if ( $post_type ) {
 			return $post_type->labels->singular_name;
@@ -67,7 +88,7 @@ class WordPoints_Entity_Post
 				'conditions' => array(
 					array(
 						'field' => 'post_type',
-						'value' => substr( $this->slug, 5 /* post\ */ ),
+						'value' => $this->post_type,
 					),
 				),
 			),

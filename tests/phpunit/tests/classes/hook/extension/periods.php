@@ -54,8 +54,8 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		);
 
 		/** @var WordPoints_Hook_Extension $extension */
-		$extension = new $this->extension_class();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$extension  = new $this->extension_class();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -87,11 +87,11 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 	public function data_provider_valid_period_settings() {
 
 		return array(
-			'none' => array( array( 'test_fire' => array() ) ),
-			'empty' => array(
+			'none'     => array( array( 'test_fire' => array() ) ),
+			'empty'    => array(
 				array( $this->extension_slug => array( 'test_fire' => array() ) ),
 			),
-			'no_args' => array(
+			'no_args'  => array(
 				array(
 					$this->extension_slug => array(
 						'test_fire' => array( array( 'length' => DAY_IN_SECONDS ) ),
@@ -104,7 +104,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 					$this->extension_slug => array(
 						'test_fire' => array(
 							array(
-								'length' => MINUTE_IN_SECONDS,
+								'length'   => MINUTE_IN_SECONDS,
 								'relative' => true,
 							),
 						),
@@ -112,39 +112,39 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 				),
 				array( array( 'signature' => '7228811153da11efc20245206d55935d4face04940fa8c80c0ad1b1f0cb52932' ) ),
 			),
-			'entity' => array(
+			'entity'   => array(
 				array(
 					$this->extension_slug => array(
 						'test_fire' => array(
 							array(
 								'length' => DAY_IN_SECONDS,
-								'args' => array( array( 'test_entity' ) ),
+								'args'   => array( array( 'test_entity' ) ),
 							),
 						),
 					),
 				),
 				array( array( 'signature' => '7228811153da11efc20245206d55935d4face04940fa8c80c0ad1b1f0cb52932' ) ),
 			),
-			'child' => array(
+			'child'    => array(
 				array(
 					$this->extension_slug => array(
 						'test_fire' => array(
 							array(
 								'length' => DAY_IN_SECONDS,
-								'args' => array( array( 'test_entity', 'child' ) ),
+								'args'   => array( array( 'test_entity', 'child' ) ),
 							),
 						),
 					),
 				),
 				array( array( 'signature' => '8fd6eba3474b89832e4f275bba0345d8943ac8ef71ce54863a0f675738834828' ) ),
 			),
-			'both' => array(
+			'both'     => array(
 				array(
 					$this->extension_slug => array(
 						'test_fire' => array(
 							array(
 								'length' => DAY_IN_SECONDS,
-								'args' => array(
+								'args'   => array(
 									array( 'test_entity' ),
 									array( 'test_entity', 'child' ),
 								),
@@ -160,7 +160,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 						'test_fire' => array(
 							array(
 								'length' => MINUTE_IN_SECONDS,
-								'args' => array( array( 'test_entity', 'child' ) ),
+								'args'   => array( array( 'test_entity', 'child' ) ),
 							),
 							array(
 								'length' => HOUR_IN_SECONDS,
@@ -198,8 +198,8 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		);
 
 		/** @var WordPoints_Hook_Extension $extension */
-		$extension = new $this->extension_class();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$extension  = new $this->extension_class();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -765,7 +765,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create(
 			array(
-				'target' => array( 'test_entity' ),
+				'target'              => array( 'test_entity' ),
 				$this->extension_slug => array(
 					'test_fire' => array( array( 'length' => DAY_IN_SECONDS ) ),
 				),
@@ -982,9 +982,9 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$this->assertCount( 1, $test_reactor->hits );
 
 		// Create another reaction for another reactor.
-		$settings['reactor'] = 'another_reactor';
+		$settings['reactor']        = 'another_reactor';
 		$settings['reaction_store'] = 'another_store';
-		$other_reaction = $this->factory->wordpoints->hook_reaction->create( $settings );
+		$other_reaction             = $this->factory->wordpoints->hook_reaction->create( $settings );
 
 		$this->assertIsReaction( $other_reaction );
 
@@ -1262,7 +1262,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 		$settings = array(
 			$this->extension_slug => array(
 				'test_fire' => array( array( 'length' => DAY_IN_SECONDS ) ),
-				'fire' => array( array( 'length' => DAY_IN_SECONDS ) ),
+				'fire'      => array( array( 'length' => DAY_IN_SECONDS ) ),
 			),
 			'target'              => array( 'test_entity' ),
 		);
@@ -1326,7 +1326,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$this->assertIsReaction( $reaction );
 
-		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
+		$entity     = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->add_entity( $entity );
 
@@ -1405,7 +1405,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		$this->assertIsReaction( $reaction );
 
-		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
+		$entity     = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->add_entity( $entity );
 
@@ -1615,7 +1615,9 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		global $wpdb;
 
-		return false !== strpos( $sql, "SELECT *, `period`.`id` AS `id`
+		return false !== strpos(
+			$sql
+			, "SELECT *, `period`.`id` AS `id`
 						FROM `{$wpdb->wordpoints_hook_periods}` AS `period`
 						INNER JOIN `{$wpdb->wordpoints_hook_hits}` AS `hit`
 							ON `hit`.`id` = `period`.`hit_id`
@@ -1636,7 +1638,9 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		global $wpdb;
 
-		return false !== strpos( $sql, "SELECT *, `period`.`id` AS `id`
+		return false !== strpos(
+			$sql
+			, "SELECT *, `period`.`id` AS `id`
 					FROM `{$wpdb->wordpoints_hook_periods}` AS `period`
 					INNER JOIN `{$wpdb->wordpoints_hook_hits}` AS `hit`
 						ON `hit`.`id` = period.`hit_id`

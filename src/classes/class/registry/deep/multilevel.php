@@ -217,7 +217,7 @@ class WordPoints_Class_Registry_Deep_Multilevel
 	protected function &get_deep( array &$array, array $indexes ) {
 
 		// Only variable references can be returned by reference.
-		$false = false;
+		$false           = false;
 		$false_reference = &$false;
 
 		foreach ( $indexes as $index ) {

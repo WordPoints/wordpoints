@@ -92,12 +92,12 @@ function wordpointstests_simulate_points_hooks_usage() {
 
 	wordpoints_hooks()->get_reaction_store( 'points' )->create_reaction(
 		array(
-			'reactor' => 'points',
-			'event' => 'user_register',
-			'target' => array( 'user' ),
-			'points' => 10,
+			'reactor'     => 'points',
+			'event'       => 'user_register',
+			'target'      => array( 'user' ),
+			'points'      => 10,
 			'points_type' => 'points',
-			'log_text' => 'Registered.',
+			'log_text'    => 'Registered.',
 			'description' => 'Registration.',
 		)
 	);

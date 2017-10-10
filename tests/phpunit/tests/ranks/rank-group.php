@@ -122,7 +122,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_no_duplicate_ranks() {
 
 		$rank_id = $this->factory->wordpoints->rank->create();
-		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
+		$group   = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		$group->add_rank( $rank_id, 1 );
 
@@ -247,7 +247,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_save_ranks() {
 
 		$rank_ids = $this->factory->wordpoints->rank->create_many( 3 );
-		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
+		$group    = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		$result = $group->save_ranks( $rank_ids );
 
@@ -265,7 +265,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_save_ranks_with_missing_ranks() {
 
 		$rank_ids = $this->factory->wordpoints->rank->create_many( 3 );
-		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
+		$group    = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		unset( $rank_ids[1] );
 
@@ -285,7 +285,7 @@ class WordPoints_Rank_Group_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_save_ranks_with_duplicates() {
 
 		$rank_ids = $this->factory->wordpoints->rank->create_many( 2 );
-		$group = WordPoints_Rank_Groups::get_group( 'test_group' );
+		$group    = WordPoints_Rank_Groups::get_group( 'test_group' );
 
 		$rank_ids[] = $rank_ids[0];
 

@@ -80,7 +80,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 	 */
 	public function upgrade( $extension_file, $args = array() ) {
 
-		$args = $this->before_upgrades( $args );
+		$args   = $this->before_upgrades( $args );
 		$result = $this->do_upgrade( $extension_file );
 		$this->after_upgrades( $extension_file, $args );
 
@@ -127,7 +127,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 
 		$results = array();
 
-		$this->update_count = count( $extensions );
+		$this->update_count   = count( $extensions );
 		$this->update_current = 0;
 
 		foreach ( $extensions as $extension ) {
@@ -403,7 +403,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			return $source;
 		}
 
-		$source_name = basename( $source );
+		$source_name    = basename( $source );
 		$extension_name = dirname( $data['wordpoints_extension'] );
 
 		if ( '.' === $extension_name || $source_name === $extension_name ) {
@@ -448,7 +448,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			return new WP_Error( 'bad_request', $this->strings['bad_request'] );
 		}
 
-		$extensions_dir = $wp_filesystem->find_folder( wordpoints_extensions_dir() );
+		$extensions_dir     = $wp_filesystem->find_folder( wordpoints_extensions_dir() );
 		$this_extension_dir = trailingslashit( dirname( $extensions_dir . $data['wordpoints_extension'] ) );
 
 		// Make sure it hasn't already been removed somehow.

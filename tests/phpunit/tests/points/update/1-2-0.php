@@ -187,7 +187,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		);
 
 		// Create two comments, we'll delete one and use the other as a control.
-		$user_id = $this->factory->user->create();
+		$user_id     = $this->factory->user->create();
 		$comment_ids = $this->factory->comment->create_many(
 			2
 			, array(

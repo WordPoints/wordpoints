@@ -96,7 +96,7 @@ class WordPoints_App {
 	 */
 	public function __construct( $slug, $parent = null ) {
 
-		$this->slug = $slug;
+		$this->slug      = $slug;
 		$this->full_slug = $slug;
 
 		if ( $parent instanceof WordPoints_App ) {

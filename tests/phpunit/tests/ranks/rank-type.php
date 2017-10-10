@@ -189,7 +189,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank_type = new WordPoints_PHPUnit_Mock_Rank_Type(
 			array(
-				'slug' => 'test',
+				'slug'        => 'test',
 				'meta_fields' => array(
 					'bad' => array( 'type' => 'invalid', 'default' => '' ),
 				),
@@ -215,9 +215,9 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$xpath = $this->get_rank_meta_form_xpath(
 			array(
 				'test_field' => array(
-					'type' => 'text',
+					'type'    => 'text',
 					'default' => 'default',
-					'label' => 'Field label',
+					'label'   => 'Field label',
 				),
 			)
 		);
@@ -240,7 +240,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$rank_type = new WordPoints_PHPUnit_Mock_Rank_Type(
 			array(
-				'slug' => 'test',
+				'slug'        => 'test',
 				'meta_fields' => array(
 					'test_field' => array( 'type' => 'text', 'default' => '' ),
 				),
@@ -313,7 +313,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_maybe_increase_user_ranks_supports_bulk() {
 
 		$user_ids = $this->factory->user->create_many( 2 );
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_id  = $this->factory->wordpoints->rank->create();
 
 		$mock = $this->createPartialMock(
 			'WordPoints_Rank_Type_Bulk_CheckI'
@@ -349,8 +349,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_maybe_increase_user_ranks_supports_bulk_multiple() {
 
-		$user_ids = $this->factory->user->create_many( 3 );
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$user_ids  = $this->factory->user->create_many( 3 );
+		$rank_id   = $this->factory->wordpoints->rank->create();
 		$rank_id_2 = $this->factory->wordpoints->rank->create(
 			array( 'position' => 2 )
 		);
@@ -395,7 +395,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_maybe_increase_user_ranks_not_bulk() {
 
 		$user_ids = $this->factory->user->create_many( 2 );
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_id  = $this->factory->wordpoints->rank->create();
 
 		$mock = $this->getMockForAbstractClass(
 			'WordPoints_Rank_Type'
@@ -433,8 +433,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_maybe_increase_user_ranks_not_bulk_multiple() {
 
-		$user_ids = $this->factory->user->create_many( 3 );
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$user_ids  = $this->factory->user->create_many( 3 );
+		$rank_id   = $this->factory->wordpoints->rank->create();
 		$rank_id_2 = $this->factory->wordpoints->rank->create(
 			array( 'position' => 2 )
 		);
@@ -499,7 +499,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_maybe_decrease_user_ranks_supports_bulk() {
 
 		$user_ids = $this->factory->user->create_many( 2 );
-		$rank = $this->factory->wordpoints->rank->create_and_get();
+		$rank     = $this->factory->wordpoints->rank->create_and_get();
 
 		$mock = $this->createPartialMock(
 			'WordPoints_Rank_Type_Bulk_CheckI'
@@ -536,8 +536,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_maybe_decrease_user_ranks_supports_bulk_multiple() {
 
 		$user_ids = $this->factory->user->create_many( 3 );
-		$rank_id = $this->factory->wordpoints->rank->create();
-		$rank_2 = $this->factory->wordpoints->rank->create_and_get(
+		$rank_id  = $this->factory->wordpoints->rank->create();
+		$rank_2   = $this->factory->wordpoints->rank->create_and_get(
 			array( 'position' => 2 )
 		);
 
@@ -581,7 +581,7 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_maybe_decrease_user_ranks_not_bulk() {
 
 		$user_ids = $this->factory->user->create_many( 2 );
-		$rank = $this->factory->wordpoints->rank->create_and_get();
+		$rank     = $this->factory->wordpoints->rank->create_and_get();
 
 		$mock = $this->getMockForAbstractClass(
 			'WordPoints_Rank_Type'
@@ -620,8 +620,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_maybe_decrease_user_ranks_not_bulk_multiple() {
 
 		$user_ids = $this->factory->user->create_many( 3 );
-		$rank = $this->factory->wordpoints->rank->create_and_get();
-		$rank_2 = $this->factory->wordpoints->rank->create_and_get(
+		$rank     = $this->factory->wordpoints->rank->create_and_get();
+		$rank_2   = $this->factory->wordpoints->rank->create_and_get(
 			array( 'position' => 2 )
 		);
 
@@ -687,9 +687,8 @@ class WordPoints_Rank_Type_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$document = new DOMDocument();
 		$document->loadHTML( $form );
-		$xpath    = new DOMXPath( $document );
 
-		return $xpath;
+		return new DOMXPath( $document );
 	}
 }
 

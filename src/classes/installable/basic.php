@@ -37,8 +37,8 @@ class WordPoints_Installable_Basic extends WordPoints_Installable {
 	 */
 	public function __construct( $type, $slug, $version ) {
 
-		$this->type = $type;
-		$this->slug = $slug;
+		$this->type    = $type;
+		$this->slug    = $slug;
 		$this->version = $version;
 	}
 

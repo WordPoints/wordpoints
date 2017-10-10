@@ -19,9 +19,9 @@ class WordPoints_Points_Updater_2_1_4_Logs implements WordPoints_RoutineI {
 	 */
 	public function run() {
 
-		$post_types = $this->get_post_types();
+		$post_types         = $this->get_post_types();
 		$reversal_log_types = $this->get_reversal_log_types( $post_types );
-		$hits = $this->get_hits_with_multiple_logs();
+		$hits               = $this->get_hits_with_multiple_logs();
 
 		$logs_to_delete = array();
 
@@ -48,10 +48,10 @@ class WordPoints_Points_Updater_2_1_4_Logs implements WordPoints_RoutineI {
 
 			$original_log_ids = $this->get_original_log_ids( $log_ids );
 
-			$post_publish_log_id = min( array_keys( $original_log_ids ) );
-			$post_update_log_id = max( array_keys( $original_log_ids ) );
+			$post_publish_log_id         = min( array_keys( $original_log_ids ) );
+			$post_update_log_id          = max( array_keys( $original_log_ids ) );
 			$post_publish_reverse_log_id = $original_log_ids[ $post_publish_log_id ];
-			$post_update_reverse_log_id = $original_log_ids[ $post_update_log_id ];
+			$post_update_reverse_log_id  = $original_log_ids[ $post_update_log_id ];
 
 			$query = new WordPoints_Points_Logs_Query(
 				array( 'id__in' => array( $post_publish_reverse_log_id ) )
@@ -101,7 +101,7 @@ class WordPoints_Points_Updater_2_1_4_Logs implements WordPoints_RoutineI {
 
 		// Now the legacy logs.
 		$legacy_logs = $this->get_legacy_reactor_logs( $post_types );
-		$post_ids = $this->get_legacy_points_hook_post_ids();
+		$post_ids    = $this->get_legacy_points_hook_post_ids();
 
 		foreach ( $post_ids as $post_id ) {
 
@@ -334,7 +334,7 @@ class WordPoints_Points_Updater_2_1_4_Logs implements WordPoints_RoutineI {
 		$query = new WordPoints_Points_Logs_Query(
 			array(
 				'order'        => 'ASC',
-				'order_by'      => 'id',
+				'order_by'     => 'id',
 				'id__not_in'   => $logs_to_delete,
 				'log_type__in' => array( 'post_publish\\' . $post_type ),
 				'meta_query'   => array(

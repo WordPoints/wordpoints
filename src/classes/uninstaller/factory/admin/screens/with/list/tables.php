@@ -100,7 +100,7 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables
 
 		$meta_keys = array();
 		$defaults  = array(
-			'parent' => 'wordpoints',
+			'parent'  => 'wordpoints',
 			'options' => array( 'per_page' ),
 		);
 

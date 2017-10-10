@@ -57,11 +57,11 @@ class WordPoints_Admin_Ajax_Hooks {
 		return array_merge(
 			$reaction->get_all_meta()
 			, array(
-				'id' => $reaction->get_id(),
-				'event' => $reaction->get_event_slug(),
+				'id'             => $reaction->get_id(),
+				'event'          => $reaction->get_event_slug(),
 				'reaction_store' => $reaction->get_store_slug(),
-				'nonce' => self::get_update_nonce( $reaction ),
-				'delete_nonce' => self::get_delete_nonce( $reaction ),
+				'nonce'          => self::get_update_nonce( $reaction ),
+				'delete_nonce'   => self::get_delete_nonce( $reaction ),
 			)
 		);
 	}
@@ -229,7 +229,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		$this->verify_user_can();
 
 		$reaction_store = $this->get_reaction_store();
-		$reaction = $this->get_reaction();
+		$reaction       = $this->get_reaction();
 
 		$this->verify_request( $this->get_update_nonce_action( $reaction ) );
 
@@ -251,7 +251,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		$this->verify_user_can();
 
 		$reaction_store = $this->get_reaction_store();
-		$reaction = $this->get_reaction();
+		$reaction       = $this->get_reaction();
 
 		$this->verify_request( $this->get_delete_nonce_action( $reaction ) );
 
@@ -347,7 +347,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		}
 
 		$this->reaction_store_slug = $reactor_slug;
-		$this->reaction_store = $reaction_store;
+		$this->reaction_store      = $reaction_store;
 
 		return $reaction_store;
 	}

@@ -147,7 +147,7 @@ function wordpoints_points_htgp_shortcode_hide_disabled_reactions(
 function wordpoints_points_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/points/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$suffix     = SCRIPT_DEBUG ? '' : '.min';
 
 	wp_register_style(
 		'wordpoints-top-users'
@@ -163,7 +163,7 @@ function wordpoints_points_register_scripts() {
 		, WORDPOINTS_VERSION
 	);
 
-	$styles = wp_styles();
+	$styles     = wp_styles();
 	$rtl_styles = array( 'wordpoints-top-users', 'wordpoints-points-logs' );
 
 	foreach ( $rtl_styles as $rtl_style ) {
@@ -224,7 +224,7 @@ function wordpoints_format_points_filter( $formatted, $points, $type ) {
 
 		if ( $points < 0 ) {
 
-			$points = abs( $points );
+			$points                = abs( $points );
 			$points_type['prefix'] = '-' . $points_type['prefix'];
 		}
 
@@ -497,9 +497,9 @@ function wordpoints_points_create_demo_reactions( $points_type ) {
 							'term\\post_tag{}' => array(
 								'_conditions' => array(
 									array(
-										'type' => 'contains',
+										'type'     => 'contains',
 										'settings' => array(
-											'min' => 1,
+											'min'        => 1,
 											'conditions' => array(
 												'term\\post_tag' => array(
 													'name' => array(
@@ -544,7 +544,7 @@ function wordpoints_points_create_demo_reactions( $points_type ) {
 						'content' => array(
 							'_conditions' => array(
 								array(
-									'type' => 'contains',
+									'type'     => 'contains',
 									'settings' => array( 'value' => 'WordPoints' ),
 								),
 							),

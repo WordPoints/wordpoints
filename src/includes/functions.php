@@ -992,10 +992,10 @@ function wordpoints_remove_custom_caps( $capabilities ) {
 function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
 	$deprecated = array(
-		'install_wordpoints_modules' => 'install_wordpoints_extensions',
+		'install_wordpoints_modules'        => 'install_wordpoints_extensions',
 		'manage_network_wordpoints_modules' => 'manage_network_wordpoints_extensions',
-		'activate_wordpoints_modules' => 'activate_wordpoints_extensions',
-		'delete_wordpoints_modules' => 'delete_wordpoints_extensions',
+		'activate_wordpoints_modules'       => 'activate_wordpoints_extensions',
+		'delete_wordpoints_modules'         => 'delete_wordpoints_extensions',
 	);
 
 	if ( isset( $deprecated[ $cap ] ) ) {
@@ -1094,14 +1094,14 @@ function wordpoints_ranks_component_register() {
 
 	wordpoints_component_register(
 		array(
-			'slug'           => 'ranks',
-			'name'           => _x( 'Ranks', 'component name', 'wordpoints' ),
-			'version'        => WORDPOINTS_VERSION,
-			'author'         => _x( 'WordPoints', 'component author', 'wordpoints' ),
-			'author_uri'     => 'https://wordpoints.org/',
-			'component_uri'  => 'https://wordpoints.org/',
-			'description'    => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
-			'file'           => WORDPOINTS_DIR . 'components/ranks/ranks.php',
+			'slug'          => 'ranks',
+			'name'          => _x( 'Ranks', 'component name', 'wordpoints' ),
+			'version'       => WORDPOINTS_VERSION,
+			'author'        => _x( 'WordPoints', 'component author', 'wordpoints' ),
+			'author_uri'    => 'https://wordpoints.org/',
+			'component_uri' => 'https://wordpoints.org/',
+			'description'   => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
+			'file'          => WORDPOINTS_DIR . 'components/ranks/ranks.php',
 			'installable'   => 'WordPoints_Ranks_Installable',
 		)
 	);

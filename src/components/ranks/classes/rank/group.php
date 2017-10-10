@@ -69,8 +69,8 @@ final class WordPoints_Rank_Group {
 	 */
 	public function __construct( $slug, $data ) {
 
-		$this->slug = $slug;
-		$this->data = $data;
+		$this->slug        = $slug;
+		$this->data        = $data;
 		$this->option_name = "wordpoints_rank_group-{$this->slug}";
 	}
 
@@ -497,7 +497,7 @@ final class WordPoints_Rank_Group {
 	 */
 	private function maybe_increase_users_with_previous_rank( $rank_id ) {
 
-		$rank = wordpoints_get_rank( $rank_id );
+		$rank          = wordpoints_get_rank( $rank_id );
 		$previous_rank = $rank->get_adjacent( -1 );
 
 		if ( ! $previous_rank ) {

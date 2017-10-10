@@ -109,7 +109,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 		$xpath = $this->get_widget_xpath(
 			array(
 				'points_type' => 'points',
-				'columns' => array( 'points' => 1, 'description' => 1 ),
+				'columns'     => array( 'points' => 1, 'description' => 1 ),
 			)
 		);
 
@@ -128,7 +128,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 
 		$xpath = $this->get_widget_xpath(
 			array(
-				'points_type' => 'points',
+				'points_type'     => 'points',
 				'hide_user_names' => 1,
 			)
 		);
@@ -148,7 +148,7 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 
 		$xpath = $this->get_widget_xpath(
 			array(
-				'points_type' => 'points',
+				'points_type'          => 'points',
 				'horizontal_scrolling' => 1,
 			)
 		);
@@ -171,16 +171,16 @@ class WordPoints_Points_Logs_Widget_Test extends WordPoints_PHPUnit_TestCase_Poi
 
 		$sanitized = $widget->update(
 			array(
-				'title'       => '<p>Title</p>',
-				'number_logs' => '5dd',
-				'points_type' => 'invalid',
-				'columns'     => array(
+				'title'                => '<p>Title</p>',
+				'number_logs'          => '5dd',
+				'points_type'          => 'invalid',
+				'columns'              => array(
 					'invalid' => '1',
 					'user'    => '0',
 					'time'    => '1',
 					'points'  => 'yes',
 				),
-				'hide_user_names' => 'yes',
+				'hide_user_names'      => 'yes',
 				'horizontal_scrolling' => 'yes',
 			)
 			, array()

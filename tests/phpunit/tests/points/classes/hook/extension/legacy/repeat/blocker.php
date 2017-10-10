@@ -134,7 +134,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'post_publish\post',
+				'event'  => 'post_publish\post',
 				'target' => array( 'post\post', 'author', 'user' ),
 			)
 		);
@@ -148,7 +148,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 			, array( 'test_fire' => true )
 		);
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'post\post' );
+		$arg        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'post\post' );
 		$arg->value = $post_id;
 
 		$fire = new WordPoints_Hook_Fire(
@@ -195,7 +195,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 		$this->mock_apps();
 
 		$this->hooks = wordpoints_hooks();
-		$extensions = $this->hooks->get_sub_app( 'extensions' );
+		$extensions  = $this->hooks->get_sub_app( 'extensions' );
 		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
 			'test_extension'
@@ -208,7 +208,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Repeat_Blocker_Test
 			, 'WordPoints_PHPUnit_Mock_Hook_Arg'
 		);
 
-		$this->reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
+		$this->reactor  = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$this->reaction = $this->factory->wordpoints->hook_reaction->create(
 			array(
 				'target'              => array( 'target:test_entity' ),

@@ -11,12 +11,12 @@ $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Use rate limits with a legacy points reaction' );
 $I->hadCreatedAPointsReaction(
 	array(
-		'event' => 'user_visit',
-		'target' => array( 'current:user' ),
+		'event'                 => 'user_visit',
+		'target'                => array( 'current:user' ),
 		'points_legacy_periods' => array(
 			'fire' => array(
 				array(
-					'arg' => array( 'current:user' ),
+					'arg'    => array( 'current:user' ),
 					'length' => 2 * HOUR_IN_SECONDS,
 				),
 			),

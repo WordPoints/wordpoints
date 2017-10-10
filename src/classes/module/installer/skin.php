@@ -55,10 +55,10 @@ class WordPoints_Module_Installer_Skin extends WP_Upgrader_Skin {
 	public function __construct( $args = array() ) {
 
 		$defaults = array(
-			'type'   => 'upload',
-			'url'    => '',
-			'nonce'  => '',
-			'title'  => '',
+			'type'  => 'upload',
+			'url'   => '',
+			'nonce' => '',
+			'title' => '',
 		);
 
 		$args = array_merge( $defaults, $args );

@@ -119,7 +119,7 @@ class WordPoints_Dropdown_Builder {
 
 			if ( isset( $this->args['values_key'], $this->args['options_key'] ) ) {
 				$option = (array) $option;
-				$value = $option[ $this->args['values_key'] ];
+				$value  = $option[ $this->args['values_key'] ];
 				$option = $option[ $this->args['options_key'] ];
 			}
 

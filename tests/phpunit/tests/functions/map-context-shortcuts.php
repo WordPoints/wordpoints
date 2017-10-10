@@ -33,7 +33,7 @@ class WordPoints_Map_Context_Shortcuts_Functions_Test
 			$contexts = array( $shortcut );
 		}
 
-		$array = array();
+		$array              = array();
 		$array[ $shortcut ] = 'value';
 
 		$results = wordpoints_map_context_shortcuts( $array );
@@ -50,11 +50,11 @@ class WordPoints_Map_Context_Shortcuts_Functions_Test
 	 */
 	public function data_provider_context_shortcuts() {
 		return array(
-			'single' => array( 'single' ),
-			'site' => array( 'site' ),
-			'network' => array( 'network' ),
-			'local' => array( 'local', array( 'single', 'site' ) ),
-			'global' => array( 'global', array( 'single', 'network' ) ),
+			'single'    => array( 'single' ),
+			'site'      => array( 'site' ),
+			'network'   => array( 'network' ),
+			'local'     => array( 'local', array( 'single', 'site' ) ),
+			'global'    => array( 'global', array( 'single', 'network' ) ),
 			'universal' => array( 'universal', array( 'single', 'site', 'network' ) ),
 		);
 	}

@@ -317,9 +317,9 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_api_headers() {
 		return array(
-			'registered' => array( 'test' ),
+			'registered'   => array( 'test' ),
 			'unregistered' => array( 'other', false ),
-			'unset' => array( null, false ),
+			'unset'        => array( null, false ),
 		);
 	}
 }

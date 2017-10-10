@@ -95,7 +95,7 @@ class WordPoints_Post_Delete_Points_Hook_Test extends WordPoints_PHPUnit_TestCas
 		$post_id = $this->factory->post->create(
 			array(
 				'post_author' => $user_id,
-				'post_title' => __( 'Auto Draft', 'default' ),
+				'post_title'  => __( 'Auto Draft', 'default' ),
 			)
 		);
 

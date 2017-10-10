@@ -16,8 +16,8 @@
  */
 function wordpoints_points_admin_register_scripts() {
 
-	$assets_url = WORDPOINTS_URL . '/components/points/admin/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$assets_url        = WORDPOINTS_URL . '/components/points/admin/assets';
+	$suffix            = SCRIPT_DEBUG ? '' : '.min';
 	$manifested_suffix = SCRIPT_DEBUG ? '.manifested' : '.min';
 
 	// CSS
@@ -453,7 +453,7 @@ function wordpoints_points_profile_options_update( $user_id ) {
 				, 'profile_edit'
 				, array(
 					'user_id' => get_current_user_id(),
-					'reason' => sanitize_text_field( wp_unslash( $_POST['wordpoints_set_reason'] ) ),
+					'reason'  => sanitize_text_field( wp_unslash( $_POST['wordpoints_set_reason'] ) ),
 				)
 			);
 		}

@@ -58,8 +58,8 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	public function data_provider_valid_parents() {
 		return array(
 			'none' => array( array() ),
-			'one' => array( array( 'parent' ) ),
-			'two' => array( array( 'parent', 'child' ) ),
+			'one'  => array( array( 'parent' ) ),
+			'two'  => array( array( 'parent', 'child' ) ),
 			'deep' => array(
 				array( 'parent', 'child', 'grandchild', 'great', 'great-2' ),
 			),

@@ -42,7 +42,7 @@ class WordPoints_Uninstaller extends WordPoints_Routine {
 	 */
 	public function __construct( WordPoints_InstallableI $installable ) {
 
-		$this->installable  = $installable;
+		$this->installable = $installable;
 
 		// We're being uninstalled from the whole network, so we need to uninstall
 		// from all of the sites in the network that we've been installed on, not

@@ -55,10 +55,10 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->factory->wordpoints->entity->create( array( 'slug' => 'test' ) );
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
+		$arg   = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
 		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test' );
 
-		$arg->is_stateful = true;
+		$arg->is_stateful   = true;
 		$arg_2->is_stateful = true;
 
 		$args = new WordPoints_Hook_Event_Args( array( $arg, $arg_2 ) );
@@ -93,7 +93,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->factory->wordpoints->entity->create( array( 'slug' => 'test' ) );
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
+		$arg   = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
 		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test' );
 
 		$arg_2->is_stateful = true;
@@ -132,7 +132,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->factory->wordpoints->entity->create( array( 'slug' => 'test' ) );
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
+		$arg   = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
 		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test' );
 		$arg_3 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'third:test' );
 		$arg_4 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'fourth:test' );
@@ -197,7 +197,7 @@ class WordPoints_Hook_Event_Args_Test extends WordPoints_PHPUnit_TestCase_Hooks 
 
 		$this->factory->wordpoints->entity->create( array( 'slug' => 'test' ) );
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
+		$arg   = new WordPoints_PHPUnit_Mock_Hook_Arg( 'test' );
 		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:test' );
 
 		$args = new WordPoints_Hook_Event_Args( array( $arg, $arg_2 ) );

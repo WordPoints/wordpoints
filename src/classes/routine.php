@@ -45,7 +45,7 @@ abstract class WordPoints_Routine implements WordPoints_RoutineI {
 
 		wordpoints_prevent_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 

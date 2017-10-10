@@ -17,8 +17,8 @@ $I->canSeeInFormFields(
 	'#points-user_register .wordpoints-hook-reaction form'
 	, array(
 		'description' => 'Test description.',
-		'log_text' => 'Test log text.',
-		'points' => '10',
+		'log_text'    => 'Test log text.',
+		'points'      => '10',
 	)
 );
 $I->click( 'Delete', '#points-user_register .wordpoints-hook-reaction' );

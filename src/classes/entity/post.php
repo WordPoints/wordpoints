@@ -105,7 +105,7 @@ class WordPoints_Entity_Post
 
 		/** @var WordPoints_Entity_Restrictions $restrictions */
 		$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
-		$restriction = $restrictions->get( $id, $this->get_slug(), 'view' );
+		$restriction  = $restrictions->get( $id, $this->get_slug(), 'view' );
 
 		return $restriction->user_can( $user_id );
 	}

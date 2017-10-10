@@ -32,7 +32,7 @@ class WordPoints_Rank_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertTrue( isset( $rank->name ) );
 
-		$name = $rank->name;
+		$name       = $rank->name;
 		$rank->name = 'test';
 		$this->assertSame( $name, $rank->name );
 	}

@@ -56,7 +56,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			array( 'slug' => 'test', 'data_type' => 'text' )
 		);
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
 		$event_args->add_entity( $entities->get( 'test_entity' ) );
@@ -88,13 +88,13 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	public function data_provider_valid_settings( $validated = true ) {
 
 		$return = array(
-			'empty' => array( array() ),
-			'max_only' => array( array( 'max' => 4 ) ),
-			'min_only' => array( array( 'min' => 1 ) ),
-			'max_zero' => array( array( 'max' => 0 ) ),
-			'min_zero' => array( array( 'min' => 0 ) ),
-			'max_and_min' => array( array( 'min' => 1, 'max' => 4 ) ),
-			'max_equals_min' => array( array( 'min' => 2, 'max' => 2 ) ),
+			'empty'            => array( array() ),
+			'max_only'         => array( array( 'max' => 4 ) ),
+			'min_only'         => array( array( 'min' => 1 ) ),
+			'max_zero'         => array( array( 'max' => 0 ) ),
+			'min_zero'         => array( array( 'min' => 0 ) ),
+			'max_and_min'      => array( array( 'min' => 1, 'max' => 4 ) ),
+			'max_equals_min'   => array( array( 'min' => 2, 'max' => 2 ) ),
 			'max_and_min_zero' => array( array( 'min' => 0, 'max' => 0 ) ),
 		);
 
@@ -102,11 +102,11 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			$return = array_merge(
 				array(
 					'max_zero_string' => array( array( 'max' => '0' ), array( 'max' => 0 ) ),
-					'max_empty' => array( array( 'max' => '' ), array() ),
-					'max_false' => array( array( 'max' => false ), array() ),
+					'max_empty'       => array( array( 'max' => '' ), array() ),
+					'max_false'       => array( array( 'max' => false ), array() ),
 					'min_zero_string' => array( array( 'min' => '0' ), array( 'min' => 0 ) ),
-					'min_empty' => array( array( 'min' => '' ), array() ),
-					'min_false' => array( array( 'min' => false ), array() ),
+					'min_empty'       => array( array( 'min' => '' ), array() ),
+					'min_false'       => array( array( 'min' => false ), array() ),
 				)
 				, $return
 			);
@@ -172,7 +172,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			array( 'data_type' => 'text' )
 		);
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
 		$event_args->add_entity( $entities->get( 'test_entity' ) );
@@ -214,9 +214,9 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	public function data_provider_invalid_settings() {
 
 		$return = array(
-			'invalid_max' => array( array( 'max' => -3 ), array( 'max' ), true ),
-			'invalid_min' => array( array( 'min' => -1 ), array( 'min' ), true ),
-			'max_less_than_min' => array( array( 'min' => 3, 'max' => 1 ), array( 'min' ) ),
+			'invalid_max'         => array( array( 'max' => -3 ), array( 'max' ), true ),
+			'invalid_min'         => array( array( 'min' => -1 ), array( 'min' ), true ),
+			'max_less_than_min'   => array( array( 'min' => 3, 'max' => 1 ), array( 'min' ) ),
 			'max_less_than_min_0' => array( array( 'min' => 3, 'max' => 0 ), array( 'min' ) ),
 		);
 
@@ -276,7 +276,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			array( 'slug' => 'test', 'data_type' => 'text' )
 		);
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
 		$event_args->add_entity( $entities->get( 'test_entity' ) );
@@ -353,7 +353,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 			array( 'slug' => 'test', 'data_type' => 'text' )
 		);
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
 		$event_args->add_entity( $entities->get( 'test_entity' ) );
@@ -386,7 +386,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains_Test
 	public function data_provider_unmet_settings() {
 
 		$return = array(
-			'max_to_low' => array( array( 'max' => 1 ) ),
+			'max_to_low'  => array( array( 'max' => 1 ) ),
 			'min_to_high' => array( array( 'min' => 3 ) ),
 		);
 

@@ -266,7 +266,7 @@ class WordPoints_Class_Registry_Children_Test extends PHPUnit_Framework_TestCase
 
 		$this->assertSame(
 			array(
-				'parent' => array( 'test', 'test_2' ),
+				'parent'   => array( 'test', 'test_2' ),
 				'parent_2' => array( 'test' ),
 			)
 			, $registry->get_all_slugs()

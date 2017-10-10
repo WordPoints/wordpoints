@@ -79,7 +79,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 		parent::__construct();
 
-		$this->hooks = wordpoints_hooks();
+		$this->hooks    = wordpoints_hooks();
 		$this->entities = wordpoints_entities();
 	}
 
@@ -484,7 +484,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		}
 
 		/** @var WordPoints_Hook_ReactorI $reactor */
-		$reactor = $this->hooks->get_sub_app( 'reactors' )->get( 'points' );
+		$reactor              = $this->hooks->get_sub_app( 'reactors' )->get( 'points' );
 		$reactor_action_types = array_fill_keys( $reactor->get_action_types(), true );
 
 		$event_action_types = wordpoints_hooks_ui_get_script_data_event_action_types();
@@ -572,7 +572,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			);
 
 			if ( $arg instanceof WordPoints_Hook_ArgI ) {
-				$event_data['args'][ $slug ]['title'] = $arg->get_title();
+				$event_data['args'][ $slug ]['title']       = $arg->get_title();
 				$event_data['args'][ $slug ]['is_stateful'] = $arg->is_stateful();
 			}
 		}
@@ -917,15 +917,15 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		do_action( 'wordpoints_admin_points_events_head' );
 
 		if ( is_network_admin() ) {
-			$title = __( 'Network Events', 'wordpoints' );
+			$title       = __( 'Network Events', 'wordpoints' );
 			$description = __( 'Add reactions to these events to award points whenever they take place on this network.', 'wordpoints' );
 		} else {
-			$title = __( 'Events', 'wordpoints' );
+			$title       = __( 'Events', 'wordpoints' );
 			$description = __( 'Add reactions to these events to award points whenever they take place on this site.', 'wordpoints' );
 		}
 
 		if ( isset( $this->current_points_type ) ) {
-			$points_type = wordpoints_get_points_type( $this->current_points_type );
+			$points_type         = wordpoints_get_points_type( $this->current_points_type );
 			$points_type['slug'] = $this->current_points_type;
 		} else {
 			$points_type = false;

@@ -188,7 +188,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_module_check_rand_str', __METHOD__ );
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		ob_start();
@@ -208,7 +208,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_module_check_rand_str', __METHOD__ );
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = 'invalid';
 
 		ob_start();
@@ -230,7 +230,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		ob_start();
@@ -249,7 +249,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
@@ -304,7 +304,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test1,test2';
+		$_GET['check_module']            = 'test1,test2';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
@@ -323,12 +323,12 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_site_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
+		$GLOBALS['current_screen']    = WP_Screen::get( 'test-network' );
 		$GLOBALS['wp_current_filter'] = array(
 			'pre_site_option_wordpoints_sitewide_active_modules',
 		);
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );

@@ -309,8 +309,8 @@ abstract class WordPoints_Un_Installer_Base {
 			_doing_it_wrong( __METHOD__, 'The $version parameter is required.', '2.0.0' );
 		}
 
-		$this->slug = $slug;
-		$this->version = $version;
+		$this->slug        = $slug;
+		$this->version     = $version;
 		$this->installable = new WordPoints_Installable_Basic(
 			$this->type
 			, $this->slug
@@ -337,7 +337,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -411,12 +411,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	public function install_on_site( $site_id ) {
 
-		$this->action = 'install';
+		$this->action       = 'install';
 		$this->network_wide = true;
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -452,7 +452,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -522,7 +522,7 @@ abstract class WordPoints_Un_Installer_Base {
 			$network = is_wordpoints_network_active();
 		}
 
-		$this->network_wide = $network;
+		$this->network_wide  = $network;
 		$this->updating_from = ( null === $from ) ? $this->get_db_version() : $from;
 		$this->updating_to   = ( null === $to ) ? $this->version : $to;
 
@@ -561,7 +561,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -892,7 +892,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$option_name = "{$this->option_prefix}installed_sites";
 
-		$sites = wordpoints_get_array_option( $option_name, 'site' );
+		$sites   = wordpoints_get_array_option( $option_name, 'site' );
 		$sites[] = $id;
 
 		update_site_option( $option_name, $sites );
@@ -1015,7 +1015,7 @@ abstract class WordPoints_Un_Installer_Base {
 			return;
 		}
 
-		$this->custom_caps = call_user_func( $this->custom_caps_getter );
+		$this->custom_caps      = call_user_func( $this->custom_caps_getter );
 		$this->custom_caps_keys = array_keys( $this->custom_caps );
 
 		if ( 'uninstall' === $this->action ) {
@@ -1541,11 +1541,11 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_meta_boxes( $screen_id, $args ) {
 
 		$defaults = array(
-			'parent' => 'wordpoints',
+			'parent'  => 'wordpoints',
 			'options' => array( 'closedpostboxes', 'metaboxhidden', 'meta-box-order' ),
 		);
 
-		$args = array_merge( $defaults, $args );
+		$args            = array_merge( $defaults, $args );
 		$args['options'] = array_merge( $defaults['options'], $args['options'] );
 
 		// Each user gets to set the options to their liking.
@@ -1600,14 +1600,14 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_list_table( $screen_id, $args ) {
 
 		$defaults = array(
-			'parent' => 'wordpoints',
+			'parent'  => 'wordpoints',
 			'options' => array( 'per_page' ),
 		);
 
 		$args = array_merge( $defaults, $args );
 
 		$network_parent = $args['parent'];
-		$parent = $network_parent;
+		$parent         = $network_parent;
 
 		// The parent page is usually the same on a multisite site, but we need to
 		// handle the special case of the extensions screen.
@@ -1634,7 +1634,7 @@ abstract class WordPoints_Un_Installer_Base {
 		foreach ( $args['options'] as $option ) {
 
 			// Each user gets to set the options to their liking.
-			$meta_keys[]  = "{$parent}_page_{$screen_id}_{$option}";
+			$meta_keys[] = "{$parent}_page_{$screen_id}_{$option}";
 
 			if ( 'network' === $this->context ) {
 				$meta_keys[] = "{$network_parent}_page_{$screen_id}_network_{$option}";

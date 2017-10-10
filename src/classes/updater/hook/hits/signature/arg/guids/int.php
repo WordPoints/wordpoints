@@ -45,8 +45,8 @@ class WordPoints_Updater_Hook_Hits_Signature_Arg_GUIDs_Int
 
 			$query = new WordPoints_Hook_Hit_Query(
 				array(
-					'fields' => array( 'id', 'signature_arg_guids' ),
-					'signature_arg_guids' => '%{' . $wpdb->esc_like( wp_json_encode( $slug ) ) . ':"%',
+					'fields'                       => array( 'id', 'signature_arg_guids' ),
+					'signature_arg_guids'          => '%{' . $wpdb->esc_like( wp_json_encode( $slug ) ) . ':"%',
 					'signature_arg_guids__compare' => 'LIKE',
 				)
 			);

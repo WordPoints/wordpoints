@@ -66,11 +66,11 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 	public function data_provider_relationships() {
 
 		return array(
-			'entity' => array( 'test_entity', 'relationship', 'primary_entity' ),
-			'dynamic' => array( 'test_entity\a', 'relationship\a', 'primary_entity\a' ),
-			'array' => array( 'test_entity{}', 'relationship', 'primary_entity' ),
-			'array_dynamic' => array( 'test_entity\a{}', 'relationship\a', 'primary_entity\a' ),
-			'double_dynamic' => array( 'test_entity\a\b', 'relationship\a\b', 'primary_entity\a\b' ),
+			'entity'               => array( 'test_entity', 'relationship', 'primary_entity' ),
+			'dynamic'              => array( 'test_entity\a', 'relationship\a', 'primary_entity\a' ),
+			'array'                => array( 'test_entity{}', 'relationship', 'primary_entity' ),
+			'array_dynamic'        => array( 'test_entity\a{}', 'relationship\a', 'primary_entity\a' ),
+			'double_dynamic'       => array( 'test_entity\a\b', 'relationship\a\b', 'primary_entity\a\b' ),
 			'array_double_dynamic' => array( 'test_entity\a\b{}', 'relationship\a\b', 'primary_entity\a\b' ),
 		);
 	}
@@ -127,13 +127,13 @@ class WordPoints_Entity_Relationship_Dynamic_Test extends WordPoints_PHPUnit_Tes
 	public function data_provider_relationships_parent() {
 
 		return array(
-			'entity' => array( 'test_entity', 'primary_entity' ),
-			'dynamic' => array( 'test_entity\a', 'primary_entity\a' ),
-			'dynamic_different' => array( 'test_entity\b', 'primary_entity\a', 'relationship\b' ),
+			'entity'               => array( 'test_entity', 'primary_entity' ),
+			'dynamic'              => array( 'test_entity\a', 'primary_entity\a' ),
+			'dynamic_different'    => array( 'test_entity\b', 'primary_entity\a', 'relationship\b' ),
 			'dynamic_only_primary' => array( 'test_entity\a', 'primary_entity\a', 'relationship' ),
-			'array' => array( 'test_entity{}', 'primary_entity' ),
-			'array_dynamic' => array( 'test_entity\a{}', 'primary_entity\a' ),
-			'double_dynamic' => array( 'test_entity\a\b', 'primary_entity\a\b' ),
+			'array'                => array( 'test_entity{}', 'primary_entity' ),
+			'array_dynamic'        => array( 'test_entity\a{}', 'primary_entity\a' ),
+			'double_dynamic'       => array( 'test_entity\a\b', 'primary_entity\a\b' ),
 			'array_double_dynamic' => array( 'test_entity\a\b{}', 'primary_entity\a\b' ),
 		);
 	}

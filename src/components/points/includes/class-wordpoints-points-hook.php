@@ -712,7 +712,7 @@ abstract class WordPoints_Points_Hook {
 		} elseif ( is_string( $number ) && 'network_' === substr( $number, 0, 8 ) ) {
 
 			$network_mode = true;
-			$number = (int) substr( $number, 8 );
+			$number       = (int) substr( $number, 8 );
 		}
 
 		$current_mode = WordPoints_Points_Hooks::get_network_mode();
@@ -775,7 +775,7 @@ abstract class WordPoints_Points_Hook {
 			, $options
 		);
 
-		$this->options['_classname']   = $this->option_name;
+		$this->options['_classname'] = $this->option_name;
 	}
 
 	//

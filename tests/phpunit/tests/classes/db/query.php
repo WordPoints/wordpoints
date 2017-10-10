@@ -443,9 +443,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_get_sql() {
 		return array(
-			'empty' => array( array() ),
-			'SELECT' => array( array( 'SELECT' ) ),
-			'invalid' => array( array( 'invalid' ) ),
+			'empty'        => array( array() ),
+			'SELECT'       => array( array( 'SELECT' ) ),
+			'invalid'      => array( array( 'invalid' ) ),
 			'SELECT COUNT' => array(
 				array( 'SELECT COUNT' ),
 				"SELECT COUNT(*)\nFROM `%swordpoints_db_query_test`\n%A",
@@ -466,7 +466,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query();
 
-		$date_columns = $columns;
+		$date_columns   = $columns;
 		$date_columns[] = 'date_col';
 
 		$this->assertSame(
@@ -484,8 +484,8 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_date_query_valid_columns_filter() {
 		return array(
-			'empty' => array( array() ),
-			'one' => array( array( 'another_col' ) ),
+			'empty'   => array( array() ),
+			'one'     => array( array( 'another_col' ) ),
 			'several' => array( array( 'one_col', 'another_col' ) ),
 		);
 	}
@@ -1011,10 +1011,10 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_values() {
 		return array(
-			'valid' => array( 1, 1 ),
+			'valid'    => array( 1, 1 ),
 			'negative' => array( -4, 1 ),
-			'zero' => array( 0, 1 ),
-			'invalid' => array( 'a', 3 ),
+			'zero'     => array( 0, 1 ),
+			'invalid'  => array( 'a', 3 ),
 		);
 	}
 
@@ -1051,7 +1051,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_values_predefined() {
 		return array(
-			'valid' => array( 1, 1 ),
+			'valid'   => array( 1, 1 ),
 			'invalid' => array( 5, 2 ),
 		);
 	}
@@ -1086,7 +1086,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_column_values_unsigned() {
 		return array(
 			'positive' => array( 1, 1 ),
-			'zero' => array( 0, 0 ),
+			'zero'     => array( 0, 0 ),
 			'negative' => array( -4, 2 ),
 		);
 	}
@@ -1128,16 +1128,16 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_integer_column_compare() {
 		return array(
-			'=' => array( '=', 1 ),
-			'!=' => array( '!=', 2 ),
-			'<>' => array( '<>', 2 ),
-			'>' => array( '>', 2 ),
-			'<' => array( '<', 0 ),
-			'>=' => array( '>=', 2, 5 ),
-			'<=' => array( '<=', 1 ),
-			'LIKE' => array( 'LIKE', 3, '1%' ),
+			'='        => array( '=', 1 ),
+			'!='       => array( '!=', 2 ),
+			'<>'       => array( '<>', 2 ),
+			'>'        => array( '>', 2 ),
+			'<'        => array( '<', 0 ),
+			'>='       => array( '>=', 2, 5 ),
+			'<='       => array( '<=', 1 ),
+			'LIKE'     => array( 'LIKE', 3, '1%' ),
 			'NOT LIKE' => array( 'NOT LIKE', 3, '1%' ),
-			'invalid' => array( 'invalid', 1 ),
+			'invalid'  => array( 'invalid', 1 ),
 		);
 	}
 
@@ -1178,16 +1178,16 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_text_column_compare() {
 		return array(
-			'=' => array( '=', 1 ),
-			'!=' => array( '!=', 2 ),
-			'<>' => array( '<>', 2 ),
-			'>' => array( '>', 1 ),
-			'<' => array( '<', 1 ),
-			'>=' => array( '>=', 2 ),
-			'<=' => array( '<=', 2 ),
-			'LIKE' => array( 'LIKE', 2, 'Test%' ),
+			'='        => array( '=', 1 ),
+			'!='       => array( '!=', 2 ),
+			'<>'       => array( '<>', 2 ),
+			'>'        => array( '>', 1 ),
+			'<'        => array( '<', 1 ),
+			'>='       => array( '>=', 2 ),
+			'<='       => array( '<=', 2 ),
+			'LIKE'     => array( 'LIKE', 2, 'Test%' ),
 			'NOT LIKE' => array( 'NOT LIKE', 1, 'Test%' ),
-			'invalid' => array( 'invalid', 1 ),
+			'invalid'  => array( 'invalid', 1 ),
 		);
 	}
 
@@ -1224,14 +1224,14 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_in_values() {
 		return array(
-			'empty' => array( array(), 4 ),
-			'one' => array( array( 1 ), 1 ),
-			'multiple' => array( array( 5, 1 ), 2 ),
-			'negative' => array( array( -4 ), 1 ),
-			'zero' => array( array( 0 ), 1 ),
-			'invalid' => array( array( 'a' ), 4 ),
+			'empty'            => array( array(), 4 ),
+			'one'              => array( array( 1 ), 1 ),
+			'multiple'         => array( array( 5, 1 ), 2 ),
+			'negative'         => array( array( -4 ), 1 ),
+			'zero'             => array( array( 0 ), 1 ),
+			'invalid'          => array( array( 'a' ), 4 ),
 			'multiple_invalid' => array( array( 'a', 'b' ), 4 ),
-			'mixed' => array( array( 1, 'a', 5, 'b' ), 2 ),
+			'mixed'            => array( array( 1, 'a', 5, 'b' ), 2 ),
 		);
 	}
 
@@ -1269,11 +1269,11 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_in_predefined_values() {
 		return array(
-			'one_valid' => array( array( 1 ), 1 ),
-			'multiple_valid' => array( array( 3, 1 ), 2 ),
-			'one_invalid' => array( array( 10 ), 3 ),
+			'one_valid'        => array( array( 1 ), 1 ),
+			'multiple_valid'   => array( array( 3, 1 ), 2 ),
+			'one_invalid'      => array( array( 10 ), 3 ),
 			'multiple_invalid' => array( array( 5, 10 ), 3 ),
-			'mixed' => array( array( 3, 5, 1, 10 ), 2 ),
+			'mixed'            => array( array( 3, 5, 1, 10 ), 2 ),
 		);
 	}
 
@@ -1309,7 +1309,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_column_in_unsigned() {
 		return array(
 			'positive' => array( array( 1 ), 1 ),
-			'zero' => array( array( 0 ), 0 ),
+			'zero'     => array( array( 0 ), 0 ),
 			'negative' => array( array( -4 ), 2 ),
 		);
 	}
@@ -1365,14 +1365,14 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_not_in_values() {
 		return array(
-			'empty' => array( array(), 4 ),
-			'one' => array( array( 1 ), 3 ),
-			'multiple' => array( array( 5, 1 ), 2 ),
-			'negative' => array( array( -4 ), 3 ),
-			'zero' => array( array( 0 ), 3 ),
-			'invalid' => array( array( 'a' ), 4 ),
+			'empty'            => array( array(), 4 ),
+			'one'              => array( array( 1 ), 3 ),
+			'multiple'         => array( array( 5, 1 ), 2 ),
+			'negative'         => array( array( -4 ), 3 ),
+			'zero'             => array( array( 0 ), 3 ),
+			'invalid'          => array( array( 'a' ), 4 ),
 			'multiple_invalid' => array( array( 'a', 'b' ), 4 ),
-			'mixed' => array( array( 1, 'a', 5, 'b' ), 2 ),
+			'mixed'            => array( array( 1, 'a', 5, 'b' ), 2 ),
 		);
 	}
 
@@ -1410,11 +1410,11 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_not_in_predefined_values() {
 		return array(
-			'one_valid' => array( array( 1 ), 2 ),
-			'multiple_valid' => array( array( 3, 1 ), 1 ),
-			'one_invalid' => array( array( 10 ), 3 ),
+			'one_valid'        => array( array( 1 ), 2 ),
+			'multiple_valid'   => array( array( 3, 1 ), 1 ),
+			'one_invalid'      => array( array( 10 ), 3 ),
 			'multiple_invalid' => array( array( 5, 10 ), 3 ),
-			'mixed' => array( array( 3, 5, 1, 10 ), 1 ),
+			'mixed'            => array( array( 3, 5, 1, 10 ), 1 ),
 		);
 	}
 
@@ -1450,7 +1450,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_column_not_in_unsigned() {
 		return array(
 			'positive' => array( array( 1 ), 1 ),
-			'zero' => array( array( 0 ), 2 ),
+			'zero'     => array( array( 0 ), 2 ),
 			'negative' => array( array( -4 ), 2 ),
 		);
 	}
@@ -1486,7 +1486,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'int_col__in' => array( 1, 2 ),
+				'int_col__in'     => array( 1, 2 ),
 				'int_col__not_in' => array( 1, 2, 3 ),
 			)
 		);

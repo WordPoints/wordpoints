@@ -91,10 +91,10 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_run_network_wide_switches_to_each_site() {
 
-		$site_id = $this->fixture_ids['site'][0];
+		$site_id         = $this->fixture_ids['site'][0];
 		$current_site_id = get_current_blog_id();
 
-		$site = new WordPoints_PHPUnit_Mock_Filter();
+		$site           = new WordPoints_PHPUnit_Mock_Filter();
 		$site->callback = 'get_current_blog_id';
 
 		$routine = $this->getMockForAbstractClass( 'WordPoints_PHPUnit_Mock_Routine' );
@@ -182,7 +182,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 		$hooks = wordpoints_hooks();
 		$hooks->set_current_mode( 'test' );
 
-		$single = new WordPoints_PHPUnit_Mock_Filter();
+		$single           = new WordPoints_PHPUnit_Mock_Filter();
 		$single->callback = array( $hooks, 'get_current_mode' );
 
 		$routine = $this->getMockForAbstractClass( 'WordPoints_Routine' );
@@ -210,7 +210,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 		$hooks = wordpoints_hooks();
 		$hooks->set_current_mode( 'test' );
 
-		$site = new WordPoints_PHPUnit_Mock_Filter();
+		$site           = new WordPoints_PHPUnit_Mock_Filter();
 		$site->callback = array( $hooks, 'get_current_mode' );
 
 		$network = clone $site;
@@ -243,7 +243,7 @@ class WordPoints_Routine_Test extends WordPoints_PHPUnit_TestCase {
 		$hooks = wordpoints_hooks();
 		$hooks->set_current_mode( 'test' );
 
-		$site = new WordPoints_PHPUnit_Mock_Filter();
+		$site           = new WordPoints_PHPUnit_Mock_Filter();
 		$site->callback = array( $hooks, 'get_current_mode' );
 
 		$network = clone $site;

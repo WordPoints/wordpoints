@@ -41,7 +41,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->assertSame(
 			array(
 				'user_id__not_in' => array(),
-				'points_type'  => 'points',
+				'points_type'     => 'points',
 			) + $query_args
 			, wordpoints_get_points_logs_query_args( 'points', $query )
 		);
@@ -457,7 +457,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query_2 = new WordPoints_Points_Logs_Query(
 			array(
-				'points' => 10,
+				'points'          => 10,
 				'points__compare' => '!=',
 			)
 		);
@@ -465,7 +465,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query_3 = new WordPoints_Points_Logs_Query(
 			array(
-				'points' => 10,
+				'points'          => 10,
 				'points__compare' => '>',
 			)
 		);
@@ -473,7 +473,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query_4 = new WordPoints_Points_Logs_Query(
 			array(
-				'points' => 10,
+				'points'          => 10,
 				'points__compare' => '<',
 			)
 		);
@@ -481,7 +481,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query_5 = new WordPoints_Points_Logs_Query(
 			array(
-				'points' => 10,
+				'points'          => 10,
 				'points__compare' => '<=',
 			)
 		);
@@ -489,7 +489,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query_6 = new WordPoints_Points_Logs_Query(
 			array(
-				'points' => 10,
+				'points'          => 10,
 				'points__compare' => '>=',
 			)
 		);
@@ -631,7 +631,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'text' => 'A test.',
+				'text'          => 'A test.',
 				'text__compare' => '!=',
 			)
 		);
@@ -639,7 +639,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'text' => 'A test%',
+				'text'          => 'A test%',
 				'text__compare' => 'LIKE',
 			)
 		);
@@ -647,7 +647,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'text' => 'A test%',
+				'text'          => 'A test%',
 				'text__compare' => 'NOT LIKE',
 			)
 		);

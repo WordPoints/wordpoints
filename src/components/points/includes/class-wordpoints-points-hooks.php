@@ -530,17 +530,17 @@ final class WordPoints_Points_Hooks {
 		switch ( $wrap ) {
 
 			case 'hook':
-				$hook_wrap = true;
+				$hook_wrap         = true;
 				$hook_content_wrap = true;
 			break;
 
 			case 'hook-content':
-				$hook_wrap = false;
+				$hook_wrap         = false;
 				$hook_content_wrap = true;
 			break;
 
 			default:
-				$hook_wrap = false;
+				$hook_wrap         = false;
 				$hook_content_wrap = false;
 		}
 

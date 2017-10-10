@@ -266,8 +266,8 @@ function wordpoints_admin_activate_components() {
  */
 function wordpoints_register_admin_scripts() {
 
-	$assets_url = WORDPOINTS_URL . '/admin/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$assets_url        = WORDPOINTS_URL . '/admin/assets';
+	$suffix            = SCRIPT_DEBUG ? '' : '.min';
 	$manifested_suffix = SCRIPT_DEBUG ? '.manifested' : '.min';
 
 	// CSS
@@ -329,20 +329,20 @@ function wordpoints_register_admin_scripts() {
 		'wordpoints-hooks-views'
 		, 'WordPointsHooksAdminL10n'
 		, array(
-			'unexpectedError' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
-			'changesSaved'    => __( 'Your changes have been saved.', 'wordpoints' ),
+			'unexpectedError'   => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
+			'changesSaved'      => __( 'Your changes have been saved.', 'wordpoints' ),
 			// translators: Form field name.
-			'emptyField'      => sprintf( __( '%s cannot be empty.', 'wordpoints' ), '{{ data.label }}' ),
-			'confirmAboutTo'  => __( 'You are about to delete the following reaction:', 'wordpoints' ),
-			'confirmDelete'   => __( 'Are you sure that you want to delete this reaction? This action cannot be undone.', 'wordpoints' ),
-			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
-			'deleteText'      => __( 'Delete', 'wordpoints' ),
-			'cancelText'      => __( 'Cancel', 'wordpoints' ),
-			'separator'       => is_rtl() ? ' « ' : ' » ',
-			'target_label'    => __( 'Target', 'wordpoints' ),
+			'emptyField'        => sprintf( __( '%s cannot be empty.', 'wordpoints' ), '{{ data.label }}' ),
+			'confirmAboutTo'    => __( 'You are about to delete the following reaction:', 'wordpoints' ),
+			'confirmDelete'     => __( 'Are you sure that you want to delete this reaction? This action cannot be undone.', 'wordpoints' ),
+			'confirmTitle'      => __( 'Are you sure?', 'wordpoints' ),
+			'deleteText'        => __( 'Delete', 'wordpoints' ),
+			'cancelText'        => __( 'Cancel', 'wordpoints' ),
+			'separator'         => is_rtl() ? ' « ' : ' » ',
+			'target_label'      => __( 'Target', 'wordpoints' ),
 			// translators: Form field.
-			'cannotBeChanged' => __( '(cannot be changed)', 'wordpoints' ),
-			'fieldsInvalid'   => __( 'Error: the values of some fields are invalid. Please correct these and then try again.', 'wordpoints' ),
+			'cannotBeChanged'   => __( '(cannot be changed)', 'wordpoints' ),
+			'fieldsInvalid'     => __( 'Error: the values of some fields are invalid. Please correct these and then try again.', 'wordpoints' ),
 			'discardedReaction' => __( 'Discarded reaction.', 'wordpoints' ),
 			'discardedChanges'  => __( 'Discarded changes.', 'wordpoints' ),
 			'saving'            => __( 'Saving&hellp;', 'wordpoints' ),
@@ -593,15 +593,15 @@ function wordpoints_hooks_ui_setup_script_data() {
 	);
 
 	$event_action_types = wordpoints_hooks_ui_get_script_data_event_action_types();
-	$entities_data = wordpoints_hooks_ui_get_script_data_entities();
+	$entities_data      = wordpoints_hooks_ui_get_script_data_entities();
 
 	$data = array(
-		'fields'     => (object) array(),
-		'reactions'  => (object) array(),
-		'events'     => (object) array(),
-		'extensions' => $extensions_data,
-		'entities'   => $entities_data,
-		'reactors'   => $reactor_data,
+		'fields'             => (object) array(),
+		'reactions'          => (object) array(),
+		'events'             => (object) array(),
+		'extensions'         => $extensions_data,
+		'entities'           => $entities_data,
+		'reactors'           => $reactor_data,
 		'event_action_types' => $event_action_types,
 	);
 
@@ -1027,7 +1027,7 @@ function wordpoints_upload_module_zip() {
 
 	$file_upload = new File_Upload_Upgrader( 'modulezip', 'package' );
 
-	$title = esc_html__( 'Upload WordPoints Extension', 'wordpoints' );
+	$title        = esc_html__( 'Upload WordPoints Extension', 'wordpoints' );
 	$parent_file  = 'admin.php';
 	$submenu_file = 'admin.php';
 
@@ -1075,7 +1075,7 @@ function wordpoints_admin_screen_upgrade_extension() {
 
 	check_admin_referer( 'upgrade-extension_' . $extension );
 
-	$title = __( 'Update WordPoints Extension', 'wordpoints' );
+	$title       = __( 'Update WordPoints Extension', 'wordpoints' );
 	$parent_file = 'admin.php';
 
 	require_once ABSPATH . 'wp-admin/admin-header.php';
@@ -1290,12 +1290,12 @@ function wordpoints_extension_update_row( $file, $extension_data ) {
 	$extension_name = wp_kses(
 		$extension_data['name']
 		, array(
-			'a' => array( 'href' => array(), 'title' => array() ),
-			'abbr' => array( 'title' => array() ),
+			'a'       => array( 'href' => array(), 'title' => array() ),
+			'abbr'    => array( 'title' => array() ),
 			'acronym' => array( 'title' => array() ),
-			'code' => array(),
-			'em' => array(),
-			'strong' => array(),
+			'code'    => array(),
+			'em'      => array(),
+			'strong'  => array(),
 		)
 	);
 
@@ -1793,26 +1793,26 @@ function wordpoints_extension_changelog_allowed_html( $allowed_tags, $context ) 
 	}
 
 	return array(
-		'a' => array( 'href' => array(), 'title' => array(), 'target' => array() ),
-		'abbr' => array( 'title' => array() ),
+		'a'       => array( 'href' => array(), 'title' => array(), 'target' => array() ),
+		'abbr'    => array( 'title' => array() ),
 		'acronym' => array( 'title' => array() ),
-		'code' => array(),
-		'pre' => array(),
-		'em' => array(),
-		'strong' => array(),
-		'div' => array( 'class' => array() ),
-		'span' => array( 'class' => array() ),
-		'p' => array(),
-		'ul' => array(),
-		'ol' => array(),
-		'li' => array(),
-		'h1' => array(),
-		'h2' => array(),
-		'h3' => array(),
-		'h4' => array(),
-		'h5' => array(),
-		'h6' => array(),
-		'img' => array( 'src' => array(), 'class' => array(), 'alt' => array() ),
+		'code'    => array(),
+		'pre'     => array(),
+		'em'      => array(),
+		'strong'  => array(),
+		'div'     => array( 'class' => array() ),
+		'span'    => array( 'class' => array() ),
+		'p'       => array(),
+		'ul'      => array(),
+		'ol'      => array(),
+		'li'      => array(),
+		'h1'      => array(),
+		'h2'      => array(),
+		'h3'      => array(),
+		'h4'      => array(),
+		'h5'      => array(),
+		'h6'      => array(),
+		'img'     => array( 'src' => array(), 'class' => array(), 'alt' => array() ),
 	);
 }
 
@@ -1825,7 +1825,7 @@ function wordpoints_list_extension_updates() {
 
 	wp_enqueue_style( 'wordpoints-admin-extension-updates-table' );
 
-	$updates = wordpoints_get_extension_updates();
+	$updates      = wordpoints_get_extension_updates();
 	$new_versions = $updates->get_new_versions();
 
 	?>
@@ -2081,7 +2081,7 @@ function wordpoints_admin_notices() {
 					)
 					, array(
 						'dismissible' => true,
-						'option' => 'wordpoints_breaking_deactivated_modules',
+						'option'      => 'wordpoints_breaking_deactivated_modules',
 					)
 				);
 			}
@@ -2098,7 +2098,7 @@ function wordpoints_admin_notices() {
 					)
 					, array(
 						'dismissible' => true,
-						'option' => 'wordpoints_incompatible_modules',
+						'option'      => 'wordpoints_incompatible_modules',
 					)
 				);
 			}
@@ -2117,7 +2117,7 @@ function wordpoints_admin_notices() {
 					)
 					, array(
 						'dismissible' => true,
-						'option' => 'wordpoints_incompatible_modules',
+						'option'      => 'wordpoints_incompatible_modules',
 					)
 				);
 			}
@@ -2176,7 +2176,7 @@ function wordpoints_admin_notices() {
 					, 'warning'
 					, array(
 						'dismissible' => true,
-						'option' => 'wordpoints_merged_extensions',
+						'option'      => 'wordpoints_merged_extensions',
 					)
 				);
 			}
@@ -2800,13 +2800,13 @@ function wordpoints_admin_show_update_skipped_notices( $notice_type = 'update' )
 
 	if ( ! empty( $messages ) ) {
 
-		$message = '<p>' . implode( '</p><p>', $messages ) . '</p>';
+		$message  = '<p>' . implode( '</p><p>', $messages ) . '</p>';
 		$message .= '<p>' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some features may not function properly.', 'wordpoints' );
 		$message .= ' <a href="https://wordpoints.org/user-guide/multisite/">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
 
 		$args = array(
 			'dismissible' => true,
-			'option' => "wordpoints_network_{$notice_type}_skipped",
+			'option'      => "wordpoints_network_{$notice_type}_skipped",
 		);
 
 		wordpoints_show_admin_error( $message, $args );

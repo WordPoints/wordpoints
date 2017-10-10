@@ -41,7 +41,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_get() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
 
 		update_site_option(
@@ -64,7 +64,7 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_get_not_set() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
 
 		update_site_option(
@@ -87,9 +87,9 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_set() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
-		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
+		$option      = "wordpoints_extension_data-{$server_slug}-{$id}";
 
 		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );
@@ -110,9 +110,9 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_set_already_set() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
-		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
+		$option      = "wordpoints_extension_data-{$server_slug}-{$id}";
 
 		update_site_option( $option, array( 'test' => 'a' ) );
 
@@ -135,9 +135,9 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_set_already_set_same() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
-		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
+		$option      = "wordpoints_extension_data-{$server_slug}-{$id}";
 
 		update_site_option( $option, array( 'test' => 'a' ) );
 
@@ -160,9 +160,9 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_delete() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
-		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
+		$option      = "wordpoints_extension_data-{$server_slug}-{$id}";
 
 		update_site_option( $option, array( 'test' => 'a' ) );
 
@@ -185,9 +185,9 @@ class WordPoints_Extension_Server_API_Extension_Data_Test extends WordPoints_PHP
 	 */
 	public function test_delete_not_exists() {
 
-		$id = '45';
+		$id          = '45';
 		$server_slug = 'example.com';
-		$option = "wordpoints_extension_data-{$server_slug}-{$id}";
+		$option      = "wordpoints_extension_data-{$server_slug}-{$id}";
 
 		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
 		$server->method( 'get_slug' )->willReturn( $server_slug );

@@ -40,7 +40,7 @@ class WordPoints_Functions_Register_Post_Type_Entities_Test extends WordPoints_P
 		);
 
 		$filter = 'wordpoints_register_post_type_entities';
-		$mock = $this->listen_for_filter( $filter );
+		$mock   = $this->listen_for_filter( $filter );
 
 		wordpoints_register_post_type_entities( 'test' );
 

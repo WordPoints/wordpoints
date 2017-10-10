@@ -57,9 +57,9 @@ switch ( $action ) {
 					add_query_arg(
 						array(
 							'_error_nonce' => wp_create_nonce( 'module-activation-error_' . $module ),
-							'module' => $module,
-							'error' => true,
-							'charsout' => strlen( $result->get_error_data() ),
+							'module'       => $module,
+							'error'        => true,
+							'charsout'     => strlen( $result->get_error_data() ),
 						)
 						, $redirect_url
 					)
@@ -302,9 +302,9 @@ switch ( $action ) {
 
 				<?php
 
-				$module_dir = wordpoints_extensions_dir();
-				$module_info = array();
-				$files_to_delete = array();
+				$module_dir               = wordpoints_extensions_dir();
+				$module_info              = array();
+				$files_to_delete          = array();
 				$have_non_network_modules = false;
 
 				foreach ( $modules as $module ) {
@@ -312,7 +312,7 @@ switch ( $action ) {
 					if ( '.' === dirname( $module ) ) {
 
 						$files_to_delete[] = $module_dir . '/' . $module;
-						$data = wordpoints_get_module_data( $module_dir . '/' . $module );
+						$data              = wordpoints_get_module_data( $module_dir . '/' . $module );
 
 						if ( ! empty( $data ) ) {
 

@@ -275,7 +275,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -298,7 +298,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_site_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -341,7 +341,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_incompatible_modules', 'test' );
 
 		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -364,7 +364,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -387,7 +387,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_site_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -430,7 +430,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_incompatible_modules', 'test' );
 
 		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -755,9 +755,9 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertWordPointsAdminNotice(
 			$notice
 			, array(
-				'type' => 'error',
+				'type'        => 'error',
 				'dismissible' => true,
-				'option' => $option,
+				'option'      => $option,
 			)
 		);
 	}

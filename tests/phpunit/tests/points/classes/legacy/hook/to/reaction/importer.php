@@ -117,186 +117,186 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 	public function data_provider_legacy_hooks() {
 		return array(
 			'registration' => array(
-				'legacy_slug' => 'registration',
-				'settings'    => array( 'points' => 100 ),
+				'legacy_slug'     => 'registration',
+				'settings'        => array( 'points' => 100 ),
 				'import_settings' => array(
-					'target'          => array( 'user' ),
-					'event'           => 'user_register',
-					'description'     => 'Registering with the site.',
-					'log_text'        => 'Registration.',
-					'legacy_log_type' => 'register',
+					'target'                  => array( 'user' ),
+					'event'                   => 'user_register',
+					'description'             => 'Registering with the site.',
+					'log_text'                => 'Registration.',
+					'legacy_log_type'         => 'register',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'post' => array(
-				'legacy_slug' => 'post',
-				'settings'    => array(
+				'legacy_slug'     => 'post',
+				'settings'        => array(
 					'points'       => 20,
 					'post_type'    => 'post',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'post\post', 'author', 'user' ),
-					'event'           => 'points_legacy_post_publish\post',
-					'description'     => 'New Post published.',
-					'log_text'        => 'Post published.',
-					'legacy_log_type' => 'post_publish',
-					'legacy_meta_key' => 'post_id',
-					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+					'target'                       => array( 'post\post', 'author', 'user' ),
+					'event'                        => 'points_legacy_post_publish\post',
+					'description'                  => 'New Post published.',
+					'log_text'                     => 'Post published.',
+					'legacy_log_type'              => 'post_publish',
+					'legacy_meta_key'              => 'post_id',
+					'points_legacy_reversals'      => array( 'toggle_off' => 'toggle_on' ),
 					'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 				),
 			),
 			'page' => array(
-				'legacy_slug' => 'post',
-				'settings'    => array(
+				'legacy_slug'     => 'post',
+				'settings'        => array(
 					'points'       => 20,
 					'post_type'    => 'page',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'post\page', 'author', 'user' ),
-					'event'           => 'points_legacy_post_publish\page',
-					'description'     => 'New Page published.',
-					'log_text'        => 'Page published.',
-					'legacy_log_type' => 'post_publish',
-					'legacy_meta_key' => 'post_id',
-					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+					'target'                       => array( 'post\page', 'author', 'user' ),
+					'event'                        => 'points_legacy_post_publish\page',
+					'description'                  => 'New Page published.',
+					'log_text'                     => 'Page published.',
+					'legacy_log_type'              => 'post_publish',
+					'legacy_meta_key'              => 'post_id',
+					'points_legacy_reversals'      => array( 'toggle_off' => 'toggle_on' ),
 					'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 				),
 			),
 			'attachment' => array(
-				'legacy_slug' => 'post',
-				'settings'    => array(
+				'legacy_slug'     => 'post',
+				'settings'        => array(
 					'points'       => 20,
 					'post_type'    => 'attachment',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'post\attachment', 'author', 'user' ),
-					'event'           => 'media_upload',
-					'description'     => 'New Media published.',
-					'log_text'        => 'Media published.',
-					'legacy_log_type' => 'post_publish',
-					'legacy_meta_key' => 'post_id',
+					'target'                  => array( 'post\attachment', 'author', 'user' ),
+					'event'                   => 'media_upload',
+					'description'             => 'New Media published.',
+					'log_text'                => 'Media published.',
+					'legacy_log_type'         => 'post_publish',
+					'legacy_meta_key'         => 'post_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'comment' => array(
-				'legacy_slug' => 'comment',
-				'settings'    => array(
+				'legacy_slug'     => 'comment',
+				'settings'        => array(
 					'points'       => 10,
 					'post_type'    => 'post',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'comment\post', 'author', 'user' ),
-					'event'           => 'comment_leave\post',
-					'description'     => 'Leaving a new comment on a Post.',
-					'log_text'        => 'Comment on a Post.',
-					'legacy_log_type' => 'comment_approve',
-					'legacy_meta_key' => 'comment_id',
+					'target'                  => array( 'comment\post', 'author', 'user' ),
+					'event'                   => 'comment_leave\post',
+					'description'             => 'Leaving a new comment on a Post.',
+					'log_text'                => 'Comment on a Post.',
+					'legacy_log_type'         => 'comment_approve',
+					'legacy_meta_key'         => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'comment_on_page' => array(
-				'legacy_slug' => 'comment',
-				'settings'    => array(
+				'legacy_slug'     => 'comment',
+				'settings'        => array(
 					'points'       => 10,
 					'post_type'    => 'page',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'comment\page', 'author', 'user' ),
-					'event'           => 'comment_leave\page',
-					'description'     => 'Leaving a new comment on a Page.',
-					'log_text'        => 'Comment on a Page.',
-					'legacy_log_type' => 'comment_approve',
-					'legacy_meta_key' => 'comment_id',
+					'target'                  => array( 'comment\page', 'author', 'user' ),
+					'event'                   => 'comment_leave\page',
+					'description'             => 'Leaving a new comment on a Page.',
+					'log_text'                => 'Comment on a Page.',
+					'legacy_log_type'         => 'comment_approve',
+					'legacy_meta_key'         => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'comment_on_attachment' => array(
-				'legacy_slug' => 'comment',
-				'settings'    => array(
+				'legacy_slug'     => 'comment',
+				'settings'        => array(
 					'points'       => 10,
 					'post_type'    => 'attachment',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'comment\attachment', 'author', 'user' ),
-					'event'           => 'comment_leave\attachment',
-					'description'     => 'Leaving a new comment on a Media.',
-					'log_text'        => 'Comment on a Media.',
-					'legacy_log_type' => 'comment_approve',
-					'legacy_meta_key' => 'comment_id',
+					'target'                  => array( 'comment\attachment', 'author', 'user' ),
+					'event'                   => 'comment_leave\attachment',
+					'description'             => 'Leaving a new comment on a Media.',
+					'log_text'                => 'Comment on a Media.',
+					'legacy_log_type'         => 'comment_approve',
+					'legacy_meta_key'         => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'comment_received' => array(
-				'legacy_slug' => 'comment_received',
-				'settings'    => array(
+				'legacy_slug'     => 'comment_received',
+				'settings'        => array(
 					'points'       => 10,
 					'post_type'    => 'post',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'comment\post', 'post\post', 'post\post', 'author', 'user' ),
-					'event'           => 'comment_leave\post',
-					'description'     => 'Receiving a comment on a Post.',
-					'log_text'        => 'Received a comment on a Post.',
-					'legacy_log_type' => 'comment_received',
-					'legacy_meta_key' => 'comment_id',
+					'target'                  => array( 'comment\post', 'post\post', 'post\post', 'author', 'user' ),
+					'event'                   => 'comment_leave\post',
+					'description'             => 'Receiving a comment on a Post.',
+					'log_text'                => 'Received a comment on a Post.',
+					'legacy_log_type'         => 'comment_received',
+					'legacy_meta_key'         => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'comment_received_on_page' => array(
-				'legacy_slug' => 'comment_received',
-				'settings'    => array(
+				'legacy_slug'     => 'comment_received',
+				'settings'        => array(
 					'points'       => 10,
 					'post_type'    => 'page',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'comment\page', 'post\page', 'post\page', 'author', 'user' ),
-					'event'           => 'comment_leave\page',
-					'description'     => 'Receiving a comment on a Page.',
-					'log_text'        => 'Received a comment on a Page.',
-					'legacy_log_type' => 'comment_received',
-					'legacy_meta_key' => 'comment_id',
+					'target'                  => array( 'comment\page', 'post\page', 'post\page', 'author', 'user' ),
+					'event'                   => 'comment_leave\page',
+					'description'             => 'Receiving a comment on a Page.',
+					'log_text'                => 'Received a comment on a Page.',
+					'legacy_log_type'         => 'comment_received',
+					'legacy_meta_key'         => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'comment_received_on_attachment' => array(
-				'legacy_slug' => 'comment_received',
-				'settings'    => array(
+				'legacy_slug'     => 'comment_received',
+				'settings'        => array(
 					'points'       => 10,
 					'post_type'    => 'attachment',
 					'auto_reverse' => 1,
 				),
 				'import_settings' => array(
-					'target'          => array( 'comment\attachment', 'post\attachment', 'post\attachment', 'author', 'user' ),
-					'event'           => 'comment_leave\attachment',
-					'description'     => 'Receiving a comment on a Media.',
-					'log_text'        => 'Received a comment on a Media.',
-					'legacy_log_type' => 'comment_received',
-					'legacy_meta_key' => 'comment_id',
+					'target'                  => array( 'comment\attachment', 'post\attachment', 'post\attachment', 'author', 'user' ),
+					'event'                   => 'comment_leave\attachment',
+					'description'             => 'Receiving a comment on a Media.',
+					'log_text'                => 'Received a comment on a Media.',
+					'legacy_log_type'         => 'comment_received',
+					'legacy_meta_key'         => 'comment_id',
 					'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 				),
 			),
 			'periodic' => array(
-				'legacy_slug' => 'periodic',
-				'settings'    => array( 'period' => DAY_IN_SECONDS, 'points' => 10 ),
+				'legacy_slug'     => 'periodic',
+				'settings'        => array( 'period' => DAY_IN_SECONDS, 'points' => 10 ),
 				'import_settings' => array(
-					'target'          => array( 'current:user' ),
-					'event'           => 'user_visit',
-					'description'     => 'Visiting the site at least once in a day.',
-					'log_text'        => 'Daily points.',
-					'legacy_log_type' => 'periodic',
+					'target'                => array( 'current:user' ),
+					'event'                 => 'user_visit',
+					'description'           => 'Visiting the site at least once in a day.',
+					'log_text'              => 'Daily points.',
+					'legacy_log_type'       => 'periodic',
 					'points_legacy_periods' => array(
 						'fire' => array(
 							array(
 								'length' => DAY_IN_SECONDS,
-								'args' => array( array( 'current:user' ) ),
+								'args'   => array( array( 'current:user' ) ),
 							),
 						),
 					),
@@ -317,7 +317,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 		delete_option( 'wordpoints_legacy_points_hooks_disabled' );
 
 		$hook_type = "wordpoints_{$legacy_slug}_points_hook";
-		$handler = wordpointstests_add_points_hook( $hook_type, $settings );
+		$handler   = wordpointstests_add_points_hook( $hook_type, $settings );
 
 		$this->assertSame(
 			array( 'points' => array( "{$hook_type}-1" ) )
@@ -423,14 +423,14 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$this->assertSameSetsWithIndex(
 			array(
-				'target'          => array( 'user' ),
-				'points_type'     => 'points',
-				'points'          => 100,
-				'reactor'         => 'points_legacy',
-				'event'           => 'user_register',
-				'description'     => $description,
-				'log_text'        => 'Registration.',
-				'legacy_log_type' => 'register',
+				'target'                  => array( 'user' ),
+				'points_type'             => 'points',
+				'points'                  => 100,
+				'reactor'                 => 'points_legacy',
+				'event'                   => 'user_register',
+				'description'             => $description,
+				'log_text'                => 'Registration.',
+				'legacy_log_type'         => 'register',
 				'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
 			)
 			, $reactions[0]->get_all_meta()
@@ -467,20 +467,20 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 		$legacy_slug = 'post';
 
-		$settings    = array(
+		$settings = array(
 			'points'       => 20,
 			'post_type'    => 'ALL',
 			'auto_reverse' => 1,
 		);
 
 		$imported_settings = array(
-			'target'          => array( 'post\post', 'author', 'user' ),
-			'event'           => 'points_legacy_post_publish\post',
-			'description'     => 'New post published.',
-			'log_text'        => 'Post published.',
-			'legacy_log_type' => 'post_publish',
-			'legacy_meta_key' => 'post_id',
-			'points_legacy_reversals' => array( 'toggle_off' => 'toggle_on' ),
+			'target'                       => array( 'post\post', 'author', 'user' ),
+			'event'                        => 'points_legacy_post_publish\post',
+			'description'                  => 'New post published.',
+			'log_text'                     => 'Post published.',
+			'legacy_log_type'              => 'post_publish',
+			'legacy_meta_key'              => 'post_id',
+			'points_legacy_reversals'      => array( 'toggle_off' => 'toggle_on' ),
 			'points_legacy_repeat_blocker' => array( 'toggle_on' => true ),
 		);
 
@@ -529,7 +529,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 
 			$labels = get_post_type_labels( $post_type );
 
-			$post_type_settings = $imported_settings;
+			$post_type_settings             = $imported_settings;
 			$post_type_settings['log_text'] = str_replace(
 				'Post'
 				, $labels->singular_name
@@ -595,9 +595,9 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 	public function test_imported_post_points_hook_does_not_refire() {
 
 		$legacy_slug = 'post';
-		$settings = array(
-			'points' => 10,
-			'post_type' => 'post',
+		$settings    = array(
+			'points'       => 10,
+			'post_type'    => 'post',
 			'auto_reverse' => 1,
 		);
 
@@ -656,7 +656,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 	public function test_imported_periodic_points_hook_does_not_refire() {
 
 		$legacy_slug = 'periodic';
-		$settings = array( 'points' => 10, 'period' => DAY_IN_SECONDS );
+		$settings    = array( 'points' => 10, 'period' => DAY_IN_SECONDS );
 
 		$this->create_points_type();
 
@@ -895,7 +895,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer_Test extends WordPoints
 			case 'comment':
 				$comment_id = $this->factory->comment->create(
 					array(
-						'user_id' => $user_id,
+						'user_id'         => $user_id,
 						'comment_post_ID' => $this->factory->post->create(
 							array(
 								'post_type' => $settings['post_type'],

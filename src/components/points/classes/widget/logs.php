@@ -54,7 +54,7 @@ class WordPoints_Points_Widget_Logs extends WordPoints_Points_Widget {
 			'WordPoints_Points_Logs_Widget'
 			, _x( 'Points Logs', 'widget name', 'wordpoints' )
 			, array(
-				'description' => __( 'Display the latest points activity.', 'wordpoints' ),
+				'description'          => __( 'Display the latest points activity.', 'wordpoints' ),
 				'wordpoints_hook_slug' => 'points_logs',
 			)
 		);

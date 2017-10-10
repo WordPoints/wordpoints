@@ -19,7 +19,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 	 * @since 2.2.0
 	 */
 	protected $shared_fixtures = array(
-		'user' => 1,
+		'user'       => 1,
 		'points_log' => array( 'get' => true ),
 	);
 
@@ -353,7 +353,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$this->factory->wordpoints->entity->create(
 			array(
-				'slug' => 'test_entity',
+				'slug'  => 'test_entity',
 				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility',
 			)
 		);
@@ -425,7 +425,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$this->factory->wordpoints->entity->create(
 			array(
-				'slug' => 'test_entity',
+				'slug'  => 'test_entity',
 				'class' => 'WordPoints_PHPUnit_Mock_Entity_Restricted_Visibility',
 			)
 		);
@@ -466,7 +466,7 @@ class WordPoints_Points_User_Can_View_Points_Log_Functions_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'post_publish\post',
+				'event'  => 'post_publish\post',
 				'target' => array( 'post\post', 'author', 'user' ),
 			)
 		);

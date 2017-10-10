@@ -15,7 +15,7 @@ $I->hadCreatedAPointsType();
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' );
 
 $reactions = new ReactionGroup( $I, 'points', 'user_register' );
-$reaction = $reactions->addNew();
+$reaction  = $reactions->addNew();
 
 $I->seeElement( "{$reactions} .add-reaction[disabled]" );
 $I->fillField( "{$reaction} [name=description]", 'Registering.' );

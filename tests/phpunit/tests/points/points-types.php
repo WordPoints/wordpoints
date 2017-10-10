@@ -272,7 +272,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		wordpoints_add_points_type( array( 'name' => 'Other' ) );
 
-		$reaction = $this->create_points_reaction();
+		$reaction       = $this->create_points_reaction();
 		$other_reaction = $this->create_points_reaction(
 			array( 'points_type' => 'other' )
 		);
@@ -282,7 +282,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
 
-		$reaction_id = $reaction->get_id();
+		$reaction_id       = $reaction->get_id();
 		$other_reaction_id = $other_reaction->get_id();
 
 		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );
@@ -353,7 +353,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		wordpoints_hooks()->set_current_mode( 'network' );
 
-		$reaction = $this->create_points_reaction();
+		$reaction       = $this->create_points_reaction();
 		$other_reaction = $this->create_points_reaction(
 			array( 'points_type' => 'other' )
 		);
@@ -363,7 +363,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
 
-		$reaction_id = $reaction->get_id();
+		$reaction_id       = $reaction->get_id();
 		$other_reaction_id = $other_reaction->get_id();
 
 		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );

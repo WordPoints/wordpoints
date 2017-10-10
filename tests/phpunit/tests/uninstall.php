@@ -194,11 +194,11 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 	protected function assertLegacyPointsHooksDisabled() {
 
 		$array = array(
-			'wordpoints_post_points_hook' => true,
-			'wordpoints_comment_points_hook' => true,
+			'wordpoints_post_points_hook'             => true,
+			'wordpoints_comment_points_hook'          => true,
 			'wordpoints_comment_received_points_hook' => true,
-			'wordpoints_periodic_points_hook' => true,
-			'wordpoints_registration_points_hook' => true,
+			'wordpoints_periodic_points_hook'         => true,
+			'wordpoints_registration_points_hook'     => true,
 		);
 
 		$option = 'wordpoints_legacy_points_hooks_disabled';

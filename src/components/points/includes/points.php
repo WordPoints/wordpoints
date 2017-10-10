@@ -555,7 +555,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	// Get the current points so we can check this won't go below the minimum.
 	$current_points = wordpoints_get_points( $user_id, $points_type );
-	$minimum = wordpoints_get_points_minimum( $points_type );
+	$minimum        = wordpoints_get_points_minimum( $points_type );
 
 	if ( ( $current_points + $points ) < $minimum ) {
 
@@ -1041,7 +1041,7 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				);
 
 				$flushed['points_types'][ $log->points_type ] = true;
-				$flushed['user_ids'][ $log->user_id ] = true;
+				$flushed['user_ids'][ $log->user_id ]         = true;
 			}
 		}
 

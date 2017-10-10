@@ -72,8 +72,8 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables_Test
 	 */
 	public function data_provider_parents() {
 		return array(
-			'default' => array(),
-			'custom' => array( 'parent_screen' ),
+			'default'   => array(),
+			'custom'    => array( 'parent_screen' ),
 			'no_parent' => array( 'toplevel' ),
 		);
 	}
@@ -126,7 +126,7 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables_Test
 	public function data_provider_extensions_screen_id() {
 		return array(
 			'extensions' => array( 'wordpoints_extensions' ),
-			'modules' => array( 'wordpoints_modules' ),
+			'modules'    => array( 'wordpoints_modules' ),
 		);
 	}
 
@@ -137,7 +137,7 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables_Test
 	 */
 	public function test_get_for_network_site() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'screen_id';
 
 		$factory = new WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables(
@@ -314,7 +314,7 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables_Test
 	 */
 	public function test_custom_options() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'screen_id';
 
 		$factory = new WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables(
@@ -386,7 +386,7 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables_Test
 
 		$factory = new WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables(
 			array(
-				'site' => array( 'test' => array() ),
+				'site'    => array( 'test' => array() ),
 				'network' => array( 'other' => array() ),
 			)
 		);

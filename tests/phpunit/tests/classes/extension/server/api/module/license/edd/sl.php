@@ -107,37 +107,37 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL_Test extends WP_H
 	 */
 	public function data_provider_license_statuses() {
 		return array(
-			'valid' => array(
+			'valid'         => array(
 				'valid',
 				array(
-					'valid' => true,
-					'activatable' => true,
+					'valid'         => true,
+					'activatable'   => true,
 					'deactivatable' => true,
-					'active' => true,
+					'active'        => true,
 				),
 			),
-			'inactive' => array(
+			'inactive'      => array(
 				'inactive',
 				array(
-					'valid' => true,
-					'activatable' => true,
+					'valid'         => true,
+					'activatable'   => true,
 					'deactivatable' => true,
 				),
 			),
 			'site_inactive' => array(
 				'site_inactive',
 				array(
-					'valid' => true,
-					'activatable' => true,
+					'valid'         => true,
+					'activatable'   => true,
 					'deactivatable' => true,
 				),
 			),
-			'expired' => array(
+			'expired'       => array(
 				'expired',
 				array( 'valid' => true, 'expired' => true ),
 			),
-			'invalid' => array( 'invalid' ),
-			'unknown' => array( 'unknown' ),
+			'invalid'       => array( 'invalid' ),
+			'unknown'       => array( 'unknown' ),
 		);
 	}
 

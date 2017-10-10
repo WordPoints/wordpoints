@@ -45,7 +45,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		wordpoints_update_user_rank( $user_id, $rank_id );
 
-		$query = new WordPoints_User_Ranks_Query( array( 'user_id' => $user_id ) );
+		$query   = new WordPoints_User_Ranks_Query( array( 'user_id' => $user_id ) );
 		$results = $query->get();
 
 		$this->assertCount( 1, $results );
@@ -125,7 +125,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 	 */
 	public function test_maybe_fill_already_filled() {
 
-		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
+		$group   = WordPoints_Rank_Groups::get_group( $this->rank_group );
 		$rank_id = $group->get_base_rank();
 
 		update_option( 'wordpoints_filled_base_ranks', array( $rank_id => true ) );
@@ -142,7 +142,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 	 */
 	public function test_maybe_fill_fails() {
 
-		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
+		$group   = WordPoints_Rank_Groups::get_group( $this->rank_group );
 		$rank_id = $group->get_base_rank();
 
 		$mock = $this->createPartialMock(
@@ -162,7 +162,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 	 */
 	public function test_maybe_fill_succeeds() {
 
-		$group = WordPoints_Rank_Groups::get_group( $this->rank_group );
+		$group   = WordPoints_Rank_Groups::get_group( $this->rank_group );
 		$rank_id = $group->get_base_rank();
 
 		$mock = $this->createPartialMock(

@@ -150,7 +150,7 @@ final class WordPoints_Modules {
 
 		self::$registered[ $slug ] = self::parse_headers( $data );
 
-		self::$registered[ $slug ]['raw'] = $data;
+		self::$registered[ $slug ]['raw']      = $data;
 		self::$registered[ $slug ]['raw_file'] = wp_normalize_path( $file );
 
 		self::register_installable( $slug, $file );
@@ -303,7 +303,7 @@ final class WordPoints_Modules {
 			&& class_exists( "WordPoints_{$module['namespace']}_Installable" )
 		) {
 
-			$class = "WordPoints_{$module['namespace']}_Installable";
+			$class       = "WordPoints_{$module['namespace']}_Installable";
 			$installable = new $class();
 
 		} elseif ( file_exists( $uninstaller ) ) {

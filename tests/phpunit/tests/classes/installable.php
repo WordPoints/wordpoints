@@ -281,7 +281,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_all_site_ids() {
 
-		$ids = array( get_current_blog_id() );
+		$ids   = array( get_current_blog_id() );
 		$ids[] = $this->factory->blog->create();
 
 		// Create another blog on a different site.
@@ -681,7 +681,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_install_routines() {
 
 		$db_tables_routine = $this->createMock( 'WordPoints_RoutineI' );
-		$caps_routine = $this->createMock( 'WordPoints_RoutineI' );
+		$caps_routine      = $this->createMock( 'WordPoints_RoutineI' );
 
 		$installable = $this->getPartialMockForAbstractClass(
 			'WordPoints_Installable'
@@ -736,7 +736,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'get_db_tables' )
 		);
 
-		$tables = array();
+		$tables              = array();
 		$tables[ $shortcut ] = array( 'test' => '' );
 
 		$installable->method( 'get_db_tables' )->willReturn( $tables );
@@ -763,11 +763,11 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_context_shortcuts() {
 		return array(
-			'single' => array( 'single' ),
-			'site' => array( 'site' ),
-			'network' => array( 'network' ),
-			'local' => array( 'local', array( 'single', 'site' ) ),
-			'global' => array( 'global', array( 'single', 'network' ) ),
+			'single'    => array( 'single' ),
+			'site'      => array( 'site' ),
+			'network'   => array( 'network' ),
+			'local'     => array( 'local', array( 'single', 'site' ) ),
+			'global'    => array( 'global', array( 'single', 'network' ) ),
 			'universal' => array( 'universal', array( 'single', 'site', 'network' ) ),
 		);
 	}
@@ -826,9 +826,9 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines() {
 
-		$single = $this->createMock( 'WordPoints_RoutineI' );
+		$single  = $this->createMock( 'WordPoints_RoutineI' );
 		$network = $this->createMock( 'WordPoints_RoutineI' );
-		$site = $this->createMock( 'WordPoints_RoutineI' );
+		$site    = $this->createMock( 'WordPoints_RoutineI' );
 
 		$single_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
 		$single_factory->expects( $this->once() )
@@ -855,8 +855,8 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame(
 			array(
-				'single' => array( $single ),
-				'site' => array(),
+				'single'  => array( $single ),
+				'site'    => array(),
 				'network' => array(),
 			)
 			, $installable->get_uninstall_routines()
@@ -876,8 +876,8 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame(
 			array(
-				'single' => array(),
-				'site' => array(),
+				'single'  => array(),
+				'site'    => array(),
 				'network' => array(),
 			)
 			, $installable->get_uninstall_routines()
@@ -893,7 +893,7 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_multiple() {
 
-		$routine = $this->createMock( 'WordPoints_RoutineI' );
+		$routine   = $this->createMock( 'WordPoints_RoutineI' );
 		$routine_2 = $this->createMock( 'WordPoints_RoutineI' );
 
 		$factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
@@ -912,8 +912,8 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame(
 			array(
-				'single' => array( $routine, $routine_2 ),
-				'site' => array(),
+				'single'  => array( $routine, $routine_2 ),
+				'site'    => array(),
 				'network' => array(),
 			)
 			, $installable->get_uninstall_routines()
@@ -929,9 +929,9 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_uninstall_routines_multisite() {
 
-		$single = $this->createMock( 'WordPoints_RoutineI' );
+		$single  = $this->createMock( 'WordPoints_RoutineI' );
 		$network = $this->createMock( 'WordPoints_RoutineI' );
-		$site = $this->createMock( 'WordPoints_RoutineI' );
+		$site    = $this->createMock( 'WordPoints_RoutineI' );
 
 		$single_factory = $this->createMock( 'WordPoints_Uninstaller_Factory_SingleI' );
 		$single_factory->expects( $this->never() )
@@ -958,8 +958,8 @@ class WordPoints_Installable_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame(
 			array(
-				'single' => array(),
-				'site' => array( $site ),
+				'single'  => array(),
+				'site'    => array( $site ),
 				'network' => array( $network ),
 			)
 			, $installable->get_uninstall_routines()

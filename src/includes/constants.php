@@ -9,7 +9,7 @@
 
 global $wpdb;
 
-$wpdb->wordpoints_hook_hits = $wpdb->base_prefix . 'wordpoints_hook_hits';
+$wpdb->wordpoints_hook_hits    = $wpdb->base_prefix . 'wordpoints_hook_hits';
 $wpdb->wordpoints_hook_hitmeta = $wpdb->base_prefix . 'wordpoints_hook_hitmeta';
 $wpdb->wordpoints_hook_periods = $wpdb->base_prefix . 'wordpoints_hook_periods';
 

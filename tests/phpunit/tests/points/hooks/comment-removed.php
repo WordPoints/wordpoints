@@ -79,7 +79,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 		// Create a comment on a post.
 		$comment_id = $this->factory->comment->create(
 			array(
-				'user_id' => $user_id,
+				'user_id'         => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
 					array( 'post_type' => 'post' )
 				),
@@ -94,7 +94,7 @@ class WordPoints_Comment_Removed_Points_Hook_Test extends WordPoints_PHPUnit_Tes
 		// Now create a comment on a page.
 		$this->factory->comment->create(
 			array(
-				'user_id' => $user_id,
+				'user_id'         => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
 					array( 'post_type' => 'page' )
 				),

@@ -19,7 +19,7 @@ $I->see( 'Settings' );
 $I->canSeeInFormFields(
 	'#settings form'
 	, array(
-		'points-name' => '',
+		'points-name'   => '',
 		'points-prefix' => '',
 		'points-suffix' => '',
 	)

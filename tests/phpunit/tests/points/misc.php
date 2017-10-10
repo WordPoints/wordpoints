@@ -110,7 +110,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$this->assertSame( 3, $query->count() );
 
 		// Get the ID of the log on this site.
-		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
+		$query  = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$log_id = $query->get( 'row' )->id;
 
 		// Now we'll delete the user, but just from this blog.
@@ -222,7 +222,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		}
 
 		// Test that the meta_key points type setting takes precendence when set.
-		$settings = wordpoints_get_points_type( 'points' );
+		$settings             = wordpoints_get_points_type( 'points' );
 		$settings['meta_key'] = 'credits';
 		wordpoints_update_points_type( 'points', $settings );
 

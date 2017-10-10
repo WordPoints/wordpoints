@@ -43,7 +43,7 @@ class WordPoints_Ranks_Screen_Delete_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 		);
 
 		$_POST = array(
-			'id' => $this->rank_id,
+			'id'    => $this->rank_id,
 			'nonce' => wp_create_nonce(
 				"wordpoints_delete_rank|{$this->rank_group}|{$this->rank_id}"
 			),

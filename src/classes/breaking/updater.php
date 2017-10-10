@@ -24,7 +24,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected $updates = array(
-		'breaking'  => array( 'single' => true, 'site' => true, 'network' => true ),
+		'breaking' => array( 'single' => true, 'site' => true, 'network' => true ),
 	);
 
 	/**
@@ -180,7 +180,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 
 		foreach ( $modules as $module ) {
 			if ( ! $this->check_module( $module ) ) {
-				$incompatible_modules[] = $module;
+				$incompatible_modules[]           = $module;
 				$this->checked_modules[ $module ] = false;
 			}
 		}
@@ -245,7 +245,7 @@ class WordPoints_Breaking_Updater extends WordPoints_Un_Installer_Base {
 	protected function check_module( $module ) {
 
 		$rand_str = wp_generate_password( 256, true, true );
-		$nonce = wordpoints_hash( $rand_str . 'wordpoints_check_modules-' . $module );
+		$nonce    = wordpoints_hash( $rand_str . 'wordpoints_check_modules-' . $module );
 
 		if ( 'network' === $this->context ) {
 			update_site_option( 'wordpoints_module_check_rand_str', $rand_str );

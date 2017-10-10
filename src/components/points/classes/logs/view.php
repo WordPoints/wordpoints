@@ -163,7 +163,7 @@ abstract class WordPoints_Points_Logs_View {
 
 		if ( $this->args['paginate'] ) {
 
-			$page = $this->get_page_number();
+			$page     = $this->get_page_number();
 			$per_page = $this->get_per_page();
 
 			$logs = $this->logs_query->get_page( $page, $per_page );

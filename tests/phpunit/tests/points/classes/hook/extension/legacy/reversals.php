@@ -92,7 +92,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'post_publish\post',
+				'event'  => 'post_publish\post',
 				'target' => array( 'post\post', 'author', 'user' ),
 			)
 		);
@@ -106,7 +106,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			, array( 'test_reverse' => 'test_fire' )
 		);
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'post\post' );
+		$arg        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'post\post' );
 		$arg->value = $post_id;
 
 		$fire = new WordPoints_Hook_Fire(
@@ -235,7 +235,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Reversals_Test
 			, array( 'test_reverse' => 'test_fire' )
 		);
 
-		$another_arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another' );
+		$another_arg              = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another' );
 		$another_arg->is_stateful = true;
 
 		$fire = new WordPoints_Hook_Fire(

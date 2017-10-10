@@ -122,7 +122,7 @@ function wordpoints_register_points_ranks() {
 		WordPoints_Rank_Groups::register_group(
 			"points_type-{$slug}"
 			, array(
-				'name' => $points_type['name'],
+				'name'        => $points_type['name'],
 				'description' => sprintf(
 					// translators: Points type name.
 					__( 'This rank group is associated with the &#8220;%s&#8221; points type.', 'wordpoints' )

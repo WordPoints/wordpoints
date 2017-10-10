@@ -21,17 +21,17 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 	 * @since 2.2.0
 	 */
 	protected $shared_fixtures = array(
-		'user' => 1,
+		'user'       => 1,
 		'points_log' => array(
 			array(
-				'get' => true,
+				'get'  => true,
 				'args' => array(
 					'log_type' => 'test_event',
 					'log_meta' => array( 'test_entity' => 1 ),
 				),
 			),
 			array(
-				'get' => true,
+				'get'  => true,
 				'args' => array(
 					'log_type' => 'test_event',
 					'log_meta' => array(
@@ -43,7 +43,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 				),
 			),
 			array(
-				'get' => true,
+				'get'  => true,
 				'args' => array( 'log_type' => 'reverse-test_event' ),
 			),
 		),
@@ -67,7 +67,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 
 		$this->mock_apps();
 
-		$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
+		$restrictions            = wordpoints_entities()->get_sub_app( 'restrictions' );
 		$this->view_restrictions = $restrictions->get_sub_app( 'view' );
 
 		wordpoints_entity_restrictions_know_init(
@@ -121,7 +121,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create(
 			array(
 				'args' => array(
-					'test_entity' => 'WordPoints_PHPUnit_Mock_Hook_Arg',
+					'test_entity'  => 'WordPoints_PHPUnit_Mock_Hook_Arg',
 					'other_entity' => 'WordPoints_PHPUnit_Mock_Hook_Arg',
 				),
 			)
@@ -169,7 +169,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks_Test
 		$event_slug = $this->factory->wordpoints->hook_event->create(
 			array(
 				'args' => array(
-					'test_entity' => 'WordPoints_PHPUnit_Mock_Hook_Arg',
+					'test_entity'  => 'WordPoints_PHPUnit_Mock_Hook_Arg',
 					'other_entity' => 'WordPoints_PHPUnit_Mock_Hook_Arg',
 				),
 			)

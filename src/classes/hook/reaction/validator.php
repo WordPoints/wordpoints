@@ -106,7 +106,7 @@ final class WordPoints_Hook_Reaction_Validator {
 	public function __construct( $settings, $fail_fast = false ) {
 
 		$this->fail_fast = $fail_fast;
-		$this->hooks = wordpoints_hooks();
+		$this->hooks     = wordpoints_hooks();
 
 		if ( $settings instanceof WordPoints_Hook_ReactionI ) {
 
@@ -139,12 +139,12 @@ final class WordPoints_Hook_Reaction_Validator {
 	public function validate() {
 
 		$this->field_stack = array();
-		$this->errors = array();
+		$this->errors      = array();
 
 		try {
 
 			// We have to bail early if we don't have a valid event.
-			$fail_fast = $this->fail_fast;
+			$fail_fast       = $this->fail_fast;
 			$this->fail_fast = true;
 
 			$events = $this->hooks->get_sub_app( 'events' );

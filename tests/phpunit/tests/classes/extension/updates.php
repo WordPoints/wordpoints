@@ -26,8 +26,8 @@ class WordPoints_Extension_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_construct() {
 
 		$versions = array( 'test/test.php' => '1.2.0' );
-		$checked = array( 'test/test.php' => '1.1.3' );
-		$time = time() - WEEK_IN_SECONDS;
+		$checked  = array( 'test/test.php' => '1.1.3' );
+		$time     = time() - WEEK_IN_SECONDS;
 
 		$updates = new WordPoints_Extension_Updates( $versions, $checked, $time );
 
@@ -106,7 +106,7 @@ class WordPoints_Extension_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_has_update() {
 
 		$extension = 'test/test.php';
-		$updates = new WordPoints_Extension_Updates( array( $extension => '1.2.0' ) );
+		$updates   = new WordPoints_Extension_Updates( array( $extension => '1.2.0' ) );
 
 		$this->assertTrue( $updates->has_update( $extension ) );
 	}
@@ -175,15 +175,15 @@ class WordPoints_Extension_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_fill() {
 
 		$versions = array( 'test/test.php' => '1.2.0' );
-		$checked = array( 'test/test.php' => '1.1.3' );
-		$time = time() - WEEK_IN_SECONDS;
+		$checked  = array( 'test/test.php' => '1.1.3' );
+		$time     = time() - WEEK_IN_SECONDS;
 
 		set_site_transient(
 			'wordpoints_extension_updates'
 			, array(
-				'new_versions' => $versions,
+				'new_versions'     => $versions,
 				'checked_versions' => $checked,
-				'time_checked' => $time,
+				'time_checked'     => $time,
 			)
 		);
 
@@ -235,8 +235,8 @@ class WordPoints_Extension_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_fill_empty_already_set() {
 
 		$versions = array( 'test/test.php' => '1.2.0' );
-		$checked = array( 'test/test.php' => '1.1.3' );
-		$time = time() - WEEK_IN_SECONDS;
+		$checked  = array( 'test/test.php' => '1.1.3' );
+		$time     = time() - WEEK_IN_SECONDS;
 
 		$updates = new WordPoints_Extension_Updates( $versions, $checked, $time );
 		$updates->fill();
@@ -254,17 +254,17 @@ class WordPoints_Extension_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_save() {
 
 		$versions = array( 'test/test.php' => '1.2.0' );
-		$checked = array( 'test/test.php' => '1.1.3' );
-		$time = time() - WEEK_IN_SECONDS;
+		$checked  = array( 'test/test.php' => '1.1.3' );
+		$time     = time() - WEEK_IN_SECONDS;
 
 		$updates = new WordPoints_Extension_Updates( $versions, $checked, $time );
 		$updates->save();
 
 		$this->assertSame(
 			array(
-				'time_checked' => $time,
+				'time_checked'     => $time,
 				'checked_versions' => $checked,
-				'new_versions' => $versions,
+				'new_versions'     => $versions,
 			)
 			, get_site_transient( 'wordpoints_extension_updates' )
 		);
@@ -280,15 +280,15 @@ class WordPoints_Extension_Updates_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_extension_updates() {
 
 		$versions = array( 'test/test.php' => '1.2.0' );
-		$checked = array( 'test/test.php' => '1.1.3' );
-		$time = time() - WEEK_IN_SECONDS;
+		$checked  = array( 'test/test.php' => '1.1.3' );
+		$time     = time() - WEEK_IN_SECONDS;
 
 		set_site_transient(
 			'wordpoints_extension_updates'
 			, array(
-				'new_versions' => $versions,
+				'new_versions'     => $versions,
 				'checked_versions' => $checked,
-				'time_checked' => $time,
+				'time_checked'     => $time,
 			)
 		);
 

@@ -35,19 +35,19 @@ class WordPoints_Comment_Received_Points_Hook extends WordPoints_Comment_Approve
 		parent::__construct(
 			_x( 'Comment Received', 'points hook name', 'wordpoints' )
 			, array(
-				'description' => __( 'Receiving a comment.', 'wordpoints' ),
+				'description'                    => __( 'Receiving a comment.', 'wordpoints' ),
 				// translators: Singular post type name.
-				'post_type_description' => __( 'Receiving a comment on a %s.', 'wordpoints' ),
+				'post_type_description'          => __( 'Receiving a comment on a %s.', 'wordpoints' ),
 				// translators: Post title.
-				'log_text_post_title' => _x( 'Received a comment on %s.', 'points log description', 'wordpoints' ),
-				'log_text_no_post_title' => _x( 'Received a comment.', 'points log description', 'wordpoints' ),
+				'log_text_post_title'            => _x( 'Received a comment on %s.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title'         => _x( 'Received a comment.', 'points log description', 'wordpoints' ),
 				// translators: Post title.
-				'log_text_post_title_reverse' => _x( 'Comment received on %s removed.', 'points log description', 'wordpoints' ),
+				'log_text_post_title_reverse'    => _x( 'Comment received on %s removed.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title_reverse' => _x( 'Comment received removed.', 'points log description', 'wordpoints' ),
 				// translators: Singular post type name.
-				'log_text_post_type' => _x( 'Received a comment on a %s.', 'points log description', 'wordpoints' ),
+				'log_text_post_type'             => _x( 'Received a comment on a %s.', 'points log description', 'wordpoints' ),
 				// translators: Singular post type name.
-				'log_text_post_type_reverse' => _x( 'Comment received on a %s removed.', 'points log description', 'wordpoints' ),
+				'log_text_post_type_reverse'     => _x( 'Comment received on a %s removed.', 'points log description', 'wordpoints' ),
 			)
 		);
 	}

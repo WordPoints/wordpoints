@@ -44,8 +44,8 @@ class WordPoints_Entity_Restrictions extends WordPoints_App {
 	 */
 	public function get( $entity_id, $hierarchy, $type = 'know' ) {
 
-		$hierarchy = (array) $hierarchy;
-		$restrictions = array();
+		$hierarchy         = (array) $hierarchy;
+		$restrictions      = array();
 		$class_hierarchies = array( $hierarchy );
 
 		$depth = count( $hierarchy );

@@ -158,17 +158,17 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 	 */
 	public function test_displays_reactions() {
 
-		$hooks = wordpoints_hooks();
+		$hooks          = wordpoints_hooks();
 		$reaction_store = $hooks->get_reaction_store( 'points' );
-		$reaction_1 = $reaction_store->create_reaction(
+		$reaction_1     = $reaction_store->create_reaction(
 			array(
-				'event' => 'user_register',
-				'target' => array( 'user' ),
-				'reactor' => 'points',
-				'points' => 100,
+				'event'       => 'user_register',
+				'target'      => array( 'user' ),
+				'reactor'     => 'points',
+				'points'      => 100,
 				'points_type' => 'points',
 				'description' => 'Registration.',
-				'log_text' => 'Registration.',
+				'log_text'    => 'Registration.',
 			)
 		);
 
@@ -176,13 +176,13 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction_2 = $reaction_store->create_reaction(
 			array(
-				'event' => 'comment_leave\post',
-				'target' => array( 'comment\post', 'author', 'user' ),
-				'reactor' => 'points',
-				'points' => 20,
+				'event'       => 'comment_leave\post',
+				'target'      => array( 'comment\post', 'author', 'user' ),
+				'reactor'     => 'points',
+				'points'      => 20,
 				'points_type' => 'points',
 				'description' => 'Leaving a comment.',
-				'log_text' => 'Left a comment on a post.',
+				'log_text'    => 'Left a comment on a post.',
 			)
 		);
 
@@ -214,7 +214,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 			, $mock->calls[1][1]
 		);
 
-		$xpath = new DOMXPath( $document );
+		$xpath      = new DOMXPath( $document );
 		$table_rows = $xpath->query( '//tbody/tr' );
 		$this->assertSame( 2, $table_rows->length );
 
@@ -248,17 +248,17 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 	 */
 	public function test_displays_network_reactions() {
 
-		$hooks = wordpoints_hooks();
+		$hooks          = wordpoints_hooks();
 		$reaction_store = $hooks->get_reaction_store( 'points' );
-		$reaction_1 = $reaction_store->create_reaction(
+		$reaction_1     = $reaction_store->create_reaction(
 			array(
-				'event' => 'user_register',
-				'target' => array( 'user' ),
-				'reactor' => 'points',
-				'points' => 100,
+				'event'       => 'user_register',
+				'target'      => array( 'user' ),
+				'reactor'     => 'points',
+				'points'      => 100,
 				'points_type' => 'points',
 				'description' => 'Registration.',
-				'log_text' => 'Registration.',
+				'log_text'    => 'Registration.',
 			)
 		);
 
@@ -266,15 +266,15 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		$hooks->set_current_mode( 'network' );
 		$reaction_store = $hooks->get_reaction_store( 'points' );
-		$reaction_2 = $reaction_store->create_reaction(
+		$reaction_2     = $reaction_store->create_reaction(
 			array(
-				'event' => 'comment_leave\post',
-				'target' => array( 'comment\post', 'author', 'user' ),
-				'reactor' => 'points',
-				'points' => 20,
+				'event'       => 'comment_leave\post',
+				'target'      => array( 'comment\post', 'author', 'user' ),
+				'reactor'     => 'points',
+				'points'      => 20,
 				'points_type' => 'points',
 				'description' => 'Leaving a comment.',
-				'log_text' => 'Left a comment on a post.',
+				'log_text'    => 'Left a comment on a post.',
 			)
 		);
 
@@ -291,7 +291,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 			)
 		);
 
-		$xpath = new DOMXPath( $document );
+		$xpath      = new DOMXPath( $document );
 		$table_rows = $xpath->query( '//tbody/tr' );
 		$this->assertSame( 2, $table_rows->length );
 
@@ -325,17 +325,17 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 	 */
 	public function test_does_not_display_disabled_reactions() {
 
-		$hooks = wordpoints_hooks();
+		$hooks          = wordpoints_hooks();
 		$reaction_store = $hooks->get_reaction_store( 'points' );
-		$reaction_1 = $reaction_store->create_reaction(
+		$reaction_1     = $reaction_store->create_reaction(
 			array(
-				'event' => 'user_register',
-				'target' => array( 'user' ),
-				'reactor' => 'points',
-				'points' => 100,
+				'event'       => 'user_register',
+				'target'      => array( 'user' ),
+				'reactor'     => 'points',
+				'points'      => 100,
 				'points_type' => 'points',
 				'description' => 'Registration.',
-				'log_text' => 'Registration.',
+				'log_text'    => 'Registration.',
 			)
 		);
 
@@ -343,14 +343,14 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 
 		$reaction_2 = $reaction_store->create_reaction(
 			array(
-				'event' => 'comment_leave\post',
-				'target' => array( 'comment\post', 'author', 'user' ),
-				'reactor' => 'points',
-				'points' => 20,
+				'event'       => 'comment_leave\post',
+				'target'      => array( 'comment\post', 'author', 'user' ),
+				'reactor'     => 'points',
+				'points'      => 20,
 				'points_type' => 'points',
 				'description' => 'Leaving a comment.',
-				'log_text' => 'Left a comment on a post.',
-				'disable' => true,
+				'log_text'    => 'Left a comment on a post.',
+				'disable'     => true,
 			)
 		);
 
@@ -366,7 +366,7 @@ class WordPoints_How_To_Get_Points_Shortcode_Test extends WordPoints_PHPUnit_Tes
 			)
 		);
 
-		$xpath = new DOMXPath( $document );
+		$xpath      = new DOMXPath( $document );
 		$table_rows = $xpath->query( '//tbody/tr' );
 		$this->assertSame( 1, $table_rows->length );
 

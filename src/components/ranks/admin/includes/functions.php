@@ -17,7 +17,7 @@
 function wordpoints_ranks_admin_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/ranks/admin/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$suffix     = SCRIPT_DEBUG ? '' : '.min';
 
 	// CSS
 

@@ -31,7 +31,7 @@ class WordPoints_Hook_Condition_String_Contains_Test extends WordPoints_PHPUnit_
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
 		$entity->set_the_value( $value );
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$reactor   = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -63,10 +63,10 @@ class WordPoints_Hook_Condition_String_Contains_Test extends WordPoints_PHPUnit_
 	public function data_provider_values_is_met() {
 
 		return array(
-			'same' => array( 'Test', 'Test' ),
-			'start' => array( 'Test', 'Testing' ),
+			'same'   => array( 'Test', 'Test' ),
+			'start'  => array( 'Test', 'Testing' ),
 			'middle' => array( 'Test', 'A Test.' ),
-			'end' => array( 'test', 'attest' ),
+			'end'    => array( 'test', 'attest' ),
 		);
 	}
 
@@ -85,7 +85,7 @@ class WordPoints_Hook_Condition_String_Contains_Test extends WordPoints_PHPUnit_
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test_entity' );
 		$entity->set_the_value( $value );
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$reactor   = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -118,7 +118,7 @@ class WordPoints_Hook_Condition_String_Contains_Test extends WordPoints_PHPUnit_
 
 		return array(
 			'case_sensitive' => array( 'Test', 'test' ),
-			'similar' => array( 'Test', 'T esting' ),
+			'similar'        => array( 'Test', 'T esting' ),
 		);
 	}
 }

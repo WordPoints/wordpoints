@@ -523,8 +523,8 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	public function test_user_ranks_cached() {
 
 		$this->user_id = $this->factory->user->create();
-		$rank_id = $this->factory->wordpoints->rank->create();
-		$rank_id_2 = $this->factory->wordpoints->rank->create(
+		$rank_id       = $this->factory->wordpoints->rank->create();
+		$rank_id_2     = $this->factory->wordpoints->rank->create(
 			array( 'position' => 2 )
 		);
 
@@ -600,7 +600,9 @@ class WordPoints_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		global $wpdb;
 
-		return false !== strpos( $sql, "
+		return false !== strpos(
+			$sql
+			, "
 					SELECT `rank_id`
 					FROM `{$wpdb->wordpoints_user_ranks}`
 					WHERE `user_id` = {$this->user_id}

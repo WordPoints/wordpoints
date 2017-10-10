@@ -44,7 +44,7 @@ class WordPoints_Installer extends WordPoints_Routine {
 		$network_wide
 	) {
 
-		$this->installable = $installable;
+		$this->installable  = $installable;
 		$this->network_wide = $network_wide;
 	}
 

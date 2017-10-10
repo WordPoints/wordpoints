@@ -87,7 +87,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains
 		WordPoints_Hook_Reaction_Validator $validator
 	) {
 
-		$this->settings = $settings;
+		$this->settings  = $settings;
 		$this->validator = $validator;
 
 		$this->validate_count();

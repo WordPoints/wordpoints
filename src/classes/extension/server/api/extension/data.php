@@ -54,7 +54,7 @@ class WordPoints_Extension_Server_API_Extension_Data
 
 		$this->option_name = "wordpoints_extension_data-{$server->get_slug()}-{$this->id}";
 
-		$this->data  = wordpoints_get_array_option( $this->option_name, 'site' );
+		$this->data = wordpoints_get_array_option( $this->option_name, 'site' );
 	}
 
 	/**

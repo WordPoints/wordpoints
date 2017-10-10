@@ -439,7 +439,7 @@ class WordPoints_Updater_Core_Breaking_Test extends WordPoints_PHPUnit_TestCase 
 	 */
 	public function test_check_extension_request_failure() {
 
-		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
+		$filter               = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$this->http_responder = array( $filter, 'filter' );
 
 		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );

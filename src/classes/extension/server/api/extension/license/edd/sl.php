@@ -58,9 +58,9 @@ class WordPoints_Extension_Server_API_Extension_License_EDD_SL
 		$license_key
 	) {
 
-		$this->api = $api;
+		$this->api            = $api;
 		$this->extension_data = $extension_data;
-		$this->license_key = $license_key;
+		$this->license_key    = $license_key;
 	}
 
 	/**

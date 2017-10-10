@@ -82,8 +82,8 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	public function test_validate_settings( array $settings ) {
 
 		/** @var WordPoints_Hook_Extension $extension */
-		$extension = new $this->extension_class();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$extension  = new $this->extension_class();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
 
@@ -106,9 +106,9 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 	public function data_provider_valid_settings() {
 		return array(
 			'empty' => array( array() ),
-			'one' => array( array( 'test_fire' => '1' ) ),
-			'zero' => array( array( 'test_fire' => '0' ) ),
-			'true' => array( array( 'test_fire' => true ) ),
+			'one'   => array( array( 'test_fire' => '1' ) ),
+			'zero'  => array( array( 'test_fire' => '0' ) ),
+			'true'  => array( array( 'test_fire' => true ) ),
 			'false' => array( array( 'test_fire' => false ) ),
 		);
 	}
@@ -203,7 +203,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 
 		$this->mock_apps();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$extensions = $hooks->get_sub_app( 'extensions' );
 		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
@@ -282,7 +282,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 		$this->mock_apps();
 
 		$this->hooks = wordpoints_hooks();
-		$extensions = $this->hooks->get_sub_app( 'extensions' );
+		$extensions  = $this->hooks->get_sub_app( 'extensions' );
 		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
 			'test_extension'
@@ -446,7 +446,7 @@ class WordPoints_Hook_Extension_Repeat_Blocker_Test extends WordPoints_PHPUnit_T
 		$this->mock_apps();
 
 		$this->hooks = wordpoints_hooks();
-		$extensions = $this->hooks->get_sub_app( 'extensions' );
+		$extensions  = $this->hooks->get_sub_app( 'extensions' );
 		$extensions->register( $this->extension_slug, $this->extension_class );
 		$extensions->register(
 			'test_extension'

@@ -173,7 +173,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 		$base_rank_id = WordPoints_Rank_Groups::get_group( $this->rank_group )
 			->get_base_rank();
 
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_id  = $this->factory->wordpoints->rank->create();
 		$user_ids = $this->factory->user->create_many( 2 );
 
 		// Set the user ranks to the base rank, since they will have automatically been updated to the higher rank.
@@ -222,7 +222,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_users_rank_invalid() {
 
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_id  = $this->factory->wordpoints->rank->create();
 		$user_ids = $this->factory->user->create_many( 2 );
 
 		wordpoints_delete_rank( $rank_id );
@@ -281,7 +281,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 	 */
 	public function test_update_users_ranks_set() {
 
-		$rank_id = $this->factory->wordpoints->rank->create();
+		$rank_id  = $this->factory->wordpoints->rank->create();
 		$user_ids = $this->factory->user->create_many( 2 );
 
 		$old_rank_id = wordpoints_get_user_rank( $user_ids[0], $this->rank_group );

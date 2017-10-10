@@ -84,7 +84,7 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_moves_extensions_directory() {
 
 		$legacy = WP_CONTENT_DIR . '/wordpoints-modules';
-		$new = WP_CONTENT_DIR . '/wordpoints-extensions';
+		$new    = WP_CONTENT_DIR . '/wordpoints-extensions';
 
 		$this->mock_filesystem();
 		$this->mock_fs->mkdir_p( $legacy );
@@ -114,15 +114,15 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		$wpdb->insert(
 			$wpdb->wordpoints_hook_hits
 			, array(
-				'action_type' => 'test_fire',
+				'action_type'         => 'test_fire',
 				'signature_arg_guids' => wp_json_encode( array( $slug => '1' ) ),
-				'event' => 'test',
-				'reactor' => 'test',
-				'reaction_mode' => 'test',
-				'reaction_store' => 'test',
+				'event'               => 'test',
+				'reactor'             => 'test',
+				'reaction_mode'       => 'test',
+				'reaction_store'      => 'test',
 				'reaction_context_id' => '{}',
-				'reaction_id' => 5,
-				'date' => current_time( 'mysql', true ),
+				'reaction_id'         => 5,
+				'date'                => current_time( 'mysql', true ),
 			)
 		);
 
@@ -149,8 +149,8 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_entity_slugs() {
 		return array(
-			'user' => array( 'user' ),
-			'post\\page' => array( 'post\\page' ),
+			'user'          => array( 'user' ),
+			'post\\page'    => array( 'post\\page' ),
 			'comment\\post' => array( 'comment\\post' ),
 		);
 	}
@@ -167,20 +167,20 @@ class WordPoints_2_4_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		$wpdb->insert(
 			$wpdb->wordpoints_hook_hits
 			, array(
-				'action_type' => 'test_fire',
+				'action_type'         => 'test_fire',
 				'signature_arg_guids' => wp_json_encode(
 					array(
 						'user'       => array( 'user' => '1' ),
 						'post\\post' => array( 'post\\post' => '5' ),
 					)
 				),
-				'event' => 'test',
-				'reactor' => 'test',
-				'reaction_mode' => 'test',
-				'reaction_store' => 'test',
+				'event'               => 'test',
+				'reactor'             => 'test',
+				'reaction_mode'       => 'test',
+				'reaction_store'      => 'test',
 				'reaction_context_id' => '{}',
-				'reaction_id' => 5,
-				'date' => current_time( 'mysql', true ),
+				'reaction_id'         => 5,
+				'date'                => current_time( 'mysql', true ),
 			)
 		);
 

@@ -41,7 +41,7 @@ class WordPoints_Points_Updater_1_9_0_Hooks implements WordPoints_RoutineI {
 	 */
 	public function __construct( $hooks, $network = false ) {
 
-		$this->hooks = $hooks;
+		$this->hooks   = $hooks;
 		$this->network = $network;
 	}
 
@@ -70,7 +70,7 @@ class WordPoints_Points_Updater_1_9_0_Hooks implements WordPoints_RoutineI {
 	 */
 	protected function combine_hooks( $type, $reverse_type ) {
 
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base(
+		$hook         = WordPoints_Points_Hooks::get_handler_by_id_base(
 			"wordpoints_{$type}_points_hook"
 		);
 		$reverse_hook = WordPoints_Points_Hooks::get_handler_by_id_base(
@@ -79,17 +79,17 @@ class WordPoints_Points_Updater_1_9_0_Hooks implements WordPoints_RoutineI {
 
 		if ( WordPoints_Points_Hooks::get_network_mode() ) {
 			$hook_type = 'network';
-			$network_ = 'network_';
+			$network_  = 'network_';
 		} else {
 			$hook_type = 'standard';
-			$network_ = '';
+			$network_  = '';
 		}
 
-		$hook_instances = $hook->get_instances( $hook_type );
+		$hook_instances         = $hook->get_instances( $hook_type );
 		$hook_reverse_instances = $reverse_hook->get_instances( $hook_type );
 
 		$default_points = ( 'post' === $hook_type ) ? 20 : 10;
-		$defaults = array( 'points' => $default_points, 'post_type' => 'ALL' );
+		$defaults       = array( 'points' => $default_points, 'post_type' => 'ALL' );
 
 		// Get the hooks into an array that is indexed by post type and the
 		// number of points. This allows us to easily check for any counterparts when

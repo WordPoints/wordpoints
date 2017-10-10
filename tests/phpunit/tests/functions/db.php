@@ -40,9 +40,9 @@ class WordPoints_DB_Function_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_wordpoints_escape_mysql_identifier() {
 		return array(
-			'plain' => array( 'column', '`column`' ),
-			'space' => array( 'column 1', '`column 1`' ),
-			'backtick' => array( 'back`tick', '`back``tick`' ),
+			'plain'           => array( 'column', '`column`' ),
+			'space'           => array( 'column 1', '`column 1`' ),
+			'backtick'        => array( 'back`tick', '`back``tick`' ),
 			'double_backtick' => array( 'back``tick', '`back````tick`' ),
 		);
 	}

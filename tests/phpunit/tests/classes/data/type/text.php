@@ -40,10 +40,10 @@ class WordPoints_Data_Type_Text_Test extends WP_UnitTestCase {
 	public function provider_valid_values() {
 		return array(
 			'empty' => array( '' ),
-			'text' => array( 'Hello World!' ),
-			'slug' => array( 'test_it' ),
-			'int' => array( '15' ),
-			'zero' => array( '0' ),
+			'text'  => array( 'Hello World!' ),
+			'slug'  => array( 'test_it' ),
+			'int'   => array( '15' ),
+			'zero'  => array( '0' ),
 		);
 	}
 

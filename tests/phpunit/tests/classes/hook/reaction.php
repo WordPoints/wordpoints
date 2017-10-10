@@ -40,9 +40,9 @@ class WordPoints_Hook_Reaction_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$this->assertSame(
 			array(
-				'id' => 1,
-				'mode' => 'standard',
-				'store' => 'test_store',
+				'id'         => 1,
+				'mode'       => 'standard',
+				'store'      => 'test_store',
 				'context_id' => array( 'site' => 1, 'network' => 1 ),
 			)
 			, $reaction->get_guid()

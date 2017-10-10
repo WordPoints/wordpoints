@@ -94,9 +94,9 @@ class WordPoints_Entity_Comment
 					array(
 						'field' => array(
 							'table_name' => $GLOBALS['wpdb']->posts,
-							'on' => array(
-								'primary_field' => 'comment_post_ID',
-								'join_field' => 'ID',
+							'on'         => array(
+								'primary_field'   => 'comment_post_ID',
+								'join_field'      => 'ID',
 								'condition_field' => 'post_type',
 							),
 						),
@@ -117,7 +117,7 @@ class WordPoints_Entity_Comment
 
 		/** @var WordPoints_Entity_Restrictions $restrictions */
 		$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
-		$restriction = $restrictions->get( $id, $this->get_slug(), 'view' );
+		$restriction  = $restrictions->get( $id, $this->get_slug(), 'view' );
 
 		return $restriction->user_can( $user_id );
 	}

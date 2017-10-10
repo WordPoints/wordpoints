@@ -58,8 +58,8 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 	 */
 	public function get_settings_fields() {
 
-		$this->settings_fields['points']['label'] = _x( 'Points', 'form label', 'wordpoints' );
-		$this->settings_fields['log_text']['label'] = _x( 'Log Text', 'form label', 'wordpoints' );
+		$this->settings_fields['points']['label']      = _x( 'Points', 'form label', 'wordpoints' );
+		$this->settings_fields['log_text']['label']    = _x( 'Log Text', 'form label', 'wordpoints' );
 		$this->settings_fields['description']['label'] = _x( 'Description', 'form label', 'wordpoints' );
 
 		return parent::get_settings_fields();
@@ -72,7 +72,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 
 		$data = parent::get_ui_script_data();
 
-		$data['target_label'] = __( 'Award To', 'wordpoints' );
+		$data['target_label']  = __( 'Award To', 'wordpoints' );
 		$data['periods_label'] = __( 'Award each user no more than once in:', 'wordpoints' );
 
 		return $data;
@@ -145,7 +145,7 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 		$meta = array( 'hook_hit_id' => $fire->hit_id );
 
 		foreach ( $fire->event_args->get_entities() as $entity ) {
-			$meta[ $entity->get_slug() ] = $entity->get_the_id();
+			$meta[ $entity->get_slug() ]           = $entity->get_the_id();
 			$meta[ $entity->get_slug() . '_guid' ] = $entity->get_the_guid();
 		}
 

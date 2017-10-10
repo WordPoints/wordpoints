@@ -207,7 +207,7 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array(), $poin
 	if ( is_string( $hook_type ) ) {
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
 	} else {
-		$hook = $hook_type;
+		$hook      = $hook_type;
 		$hook_type = $hook->get_id_base();
 	}
 
@@ -269,9 +269,9 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
 
 	$sidebar[] = $id_base . '-' . $multi_number;
 
-	$_POST['sidebar'] = $sidebar_id;
+	$_POST['sidebar']             = $sidebar_id;
 	$_POST[ "widget-{$id_base}" ] = array( $multi_number => $settings );
-	$_POST['widget-id'] = $sidebar;
+	$_POST['widget-id']           = $sidebar;
 
 	if (
 		! isset( $wp_registered_widget_updates[ $id_base ] )
@@ -299,7 +299,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
 function wordpointstests_selenium_is_running() {
 
 	$selenium_running = false;
-	$fp = fsockopen( 'localhost', 4444 );
+	$fp               = fsockopen( 'localhost', 4444 );
 
 	if ( false !== $fp ) {
 
@@ -408,22 +408,22 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir ) {
 function wordpoints_phpunit_deprecated_class_autoloader( $class_name ) {
 
 	$map = array(
-		'WordPoints_UnitTest_Factory_For_Points_Log' => 'factories/points-log.php',
-		'WordPoints_UnitTest_Factory_For_Rank' => 'factories/rank.php',
-		'WordPoints_Breaking_Updater_Mock' => 'mocks/breaking-updater.php',
-		'WordPoints_Mock_Filter' => 'mocks/filter.php',
+		'WordPoints_UnitTest_Factory_For_Points_Log'  => 'factories/points-log.php',
+		'WordPoints_UnitTest_Factory_For_Rank'        => 'factories/rank.php',
+		'WordPoints_Breaking_Updater_Mock'            => 'mocks/breaking-updater.php',
+		'WordPoints_Mock_Filter'                      => 'mocks/filter.php',
 		'WordPoints_Module_Installer_Skin_TestDouble' => 'mocks/module-installer-skin.php',
-		'WordPoints_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
+		'WordPoints_Points_Hook_TestDouble'           => 'mocks/points-hooks.php',
 		'WordPoints_Post_Type_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
-		'WordPoints_Test_Rank_Type' => 'mocks/rank-type.php',
-		'WordPoints_Un_Installer_Mock' => 'mocks/un-installer.php',
-		'WordPoints_Ajax_UnitTestCase' => 'testcases/ajax.php',
-		'WordPoints_Points_UnitTestCase' => 'testcases/points.php',
-		'WordPoints_Points_AJAX_UnitTestCase' => 'testcases/points-ajax.php',
-		'WordPoints_Ranks_UnitTestCase' => 'testcases/ranks.php',
-		'WordPoints_Ranks_Ajax_UnitTestCase' => 'testcases/ranks-ajax.php',
-		'WordPoints_UnitTestCase' => 'testcases/wordpoints.php',
-		'WordPoints_PHPUnit_Util_Getopt' => 'class-wordpoints-phpunit-util-getopt.php',
+		'WordPoints_Test_Rank_Type'                   => 'mocks/rank-type.php',
+		'WordPoints_Un_Installer_Mock'                => 'mocks/un-installer.php',
+		'WordPoints_Ajax_UnitTestCase'                => 'testcases/ajax.php',
+		'WordPoints_Points_UnitTestCase'              => 'testcases/points.php',
+		'WordPoints_Points_AJAX_UnitTestCase'         => 'testcases/points-ajax.php',
+		'WordPoints_Ranks_UnitTestCase'               => 'testcases/ranks.php',
+		'WordPoints_Ranks_Ajax_UnitTestCase'          => 'testcases/ranks-ajax.php',
+		'WordPoints_UnitTestCase'                     => 'testcases/wordpoints.php',
+		'WordPoints_PHPUnit_Util_Getopt'              => 'class-wordpoints-phpunit-util-getopt.php',
 	);
 
 	if ( isset( $map[ $class_name ] ) ) {

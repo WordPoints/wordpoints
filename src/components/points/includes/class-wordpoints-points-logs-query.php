@@ -189,7 +189,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			wordpoints_get_points_types()
 		);
 
-		$this->defaults['order_by'] = 'date';
+		$this->defaults['order_by']      = 'date';
 		$this->defaults['text__compare'] = 'LIKE';
 
 		// Back-compat for pre-2.3.0, in case an object or string is passed.

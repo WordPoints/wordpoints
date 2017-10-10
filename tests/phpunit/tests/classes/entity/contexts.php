@@ -109,7 +109,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_switch_to_current_sub_context() {
 
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context     = $this->factory->wordpoints->entity_context->create_and_get();
 		$parent_slug = $context->get_slug();
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $subcontext */
@@ -167,7 +167,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_switch_to_sub_context() {
 
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context     = $this->factory->wordpoints->entity_context->create_and_get();
 		$parent_slug = $context->get_slug();
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $subcontext */
@@ -202,7 +202,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_to_context_failed() {
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $context */
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context      = $this->factory->wordpoints->entity_context->create_and_get();
 		$context_slug = $context->get_slug();
 
 		WordPoints_PHPUnit_Mock_Entity_Context::$fail_switching[ $context_slug ] = true;
@@ -228,7 +228,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_to_sub_context_failed() {
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $context */
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context     = $this->factory->wordpoints->entity_context->create_and_get();
 		$parent_slug = $context->get_slug();
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $subcontext */
@@ -263,7 +263,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_to_sub_context_parent_failed() {
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $context */
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context     = $this->factory->wordpoints->entity_context->create_and_get();
 		$parent_slug = $context->get_slug();
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $subcontext */
@@ -310,7 +310,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_back_context_not_switched() {
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $context */
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context     = $this->factory->wordpoints->entity_context->create_and_get();
 		$parent_slug = $context->get_slug();
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $subcontext */
@@ -352,7 +352,7 @@ class WordPoints_Entity_Contexts_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_switch_back_parent_context_not_switched() {
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $context */
-		$context = $this->factory->wordpoints->entity_context->create_and_get();
+		$context     = $this->factory->wordpoints->entity_context->create_and_get();
 		$parent_slug = $context->get_slug();
 
 		/** @var WordPoints_PHPUnit_Mock_Entity_Context $subcontext */

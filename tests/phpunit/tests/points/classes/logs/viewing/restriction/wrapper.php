@@ -22,7 +22,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Wrapper_Test
 	 */
 	public $shared_fixtures = array(
 		'points_log' => array( 'get' => true ),
-		'site' => 1,
+		'site'       => 1,
 	);
 
 	/**

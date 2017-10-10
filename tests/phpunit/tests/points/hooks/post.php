@@ -58,7 +58,7 @@ class WordPoints_Post_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->assertSame( 20, wordpoints_get_points( $user_id, 'points' ) );
 
 		// Now convert the post back to a draft.
-		$post = get_post( $post_id );
+		$post              = get_post( $post_id );
 		$post->post_status = 'draft';
 		wp_update_post( $post );
 

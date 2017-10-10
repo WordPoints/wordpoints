@@ -98,7 +98,7 @@ class WordPoints_My_Points_Widget_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$xpath = $this->get_widget_xpath(
 			array(
-				'alt_text' => 'Alt text',
+				'alt_text'    => 'Alt text',
 				'points_type' => 'points',
 				'number_logs' => 3,
 			)

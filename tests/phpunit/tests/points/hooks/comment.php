@@ -327,7 +327,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Create a comment on a post.
 		$this->factory->comment->create(
 			array(
-				'user_id' => $user_id,
+				'user_id'         => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
 					array( 'post_type' => 'post' )
 				),
@@ -340,7 +340,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Po
 		// Now create a comment on a page.
 		$this->factory->comment->create(
 			array(
-				'user_id' => $user_id,
+				'user_id'         => $user_id,
 				'comment_post_ID' => $this->factory->post->create(
 					array( 'post_type' => 'page' )
 				),
@@ -364,8 +364,8 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'points' => 10 )
 		);
 
-		$user_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$user_id    = $this->factory->user->create();
+		$post_id    = $this->factory->post->create( array( 'post_author' => $user_id ) );
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,
@@ -422,8 +422,8 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Po
 			, array( 'points' => 10 )
 		);
 
-		$user_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$user_id    = $this->factory->user->create();
+		$post_id    = $this->factory->post->create( array( 'post_author' => $user_id ) );
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,
@@ -447,6 +447,7 @@ class WordPoints_Comment_Points_Hook_Test extends WordPoints_PHPUnit_TestCase_Po
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'comment_approve' )
 		);
+
 		$log = $query->get( 'row' );
 
 		$this->assertSame(

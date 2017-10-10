@@ -29,7 +29,7 @@ class WordPoints_Hook_Condition_Number_Greater_Than
 
 		return array(
 			'value' => array(
-				'type' => 'number',
+				'type'  => 'number',
 				'label' => _x( 'Number', 'greater than hook condition label', 'wordpoints' ),
 			),
 		);

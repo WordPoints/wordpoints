@@ -87,9 +87,9 @@ class WordPoints_Entity_Term extends WordPoints_Entity_Stored_DB_Table {
 					array(
 						'field' => array(
 							'table_name' => $GLOBALS['wpdb']->term_taxonomy,
-							'on' => array(
-								'primary_field' => 'term_id',
-								'join_field' => 'term_id',
+							'on'         => array(
+								'primary_field'   => 'term_id',
+								'join_field'      => 'term_id',
 								'condition_field' => 'taxonomy',
 							),
 						),

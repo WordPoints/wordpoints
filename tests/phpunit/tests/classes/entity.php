@@ -297,12 +297,12 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	public function data_provider_guids() {
 
 		return array(
-			'id' => array( 1, false ),
-			'entity' => array( array( 'id' => 1, 'attr' => 'value' ), false ),
-			'entity_obj' => array( (object) array( 'id' => 1, 'attr' => 'value' ), false ),
-			'guid' => array( array( 'test' => 1, 'test_context' => 2 ), true ),
-			'with_parent' => array( array( 'test' => 1, 'test_context' => 2, 'parent_context' => 5 ), true ),
-			'id_only' => array( array( 'test' => 1 ), false ),
+			'id'           => array( 1, false ),
+			'entity'       => array( array( 'id' => 1, 'attr' => 'value' ), false ),
+			'entity_obj'   => array( (object) array( 'id' => 1, 'attr' => 'value' ), false ),
+			'guid'         => array( array( 'test' => 1, 'test_context' => 2 ), true ),
+			'with_parent'  => array( array( 'test' => 1, 'test_context' => 2, 'parent_context' => 5 ), true ),
+			'id_only'      => array( array( 'test' => 1 ), false ),
 			'context_only' => array( array( 'test_context' => 2 ), false ),
 		);
 	}

@@ -87,9 +87,9 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_valid_modules() {
 		return array(
-			'full_path' => array( wordpoints_phpunit_extensions_dir() . '/module-7/module-7.php' ),
-			'basename_path' => array( 'module-7/module-7.php' ),
-			'full_path_single_file' => array( wordpoints_phpunit_extensions_dir() . '/test-3.php' ),
+			'full_path'                 => array( wordpoints_phpunit_extensions_dir() . '/module-7/module-7.php' ),
+			'basename_path'             => array( 'module-7/module-7.php' ),
+			'full_path_single_file'     => array( wordpoints_phpunit_extensions_dir() . '/test-3.php' ),
 			'basename_path_single_file' => array( 'test-3.php' ),
 		);
 	}
@@ -158,8 +158,8 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_invalid_modules() {
 		return array(
 			'unresolved_path' => array( 'module-7/../../../wp-config.php' ),
-			'nonexistent' => array( 'module-4/module-4.php' ),
-			'not_a_module' => array( 'test-6/index.php' ),
+			'nonexistent'     => array( 'module-4/module-4.php' ),
+			'not_a_module'    => array( 'test-6/index.php' ),
 		);
 	}
 

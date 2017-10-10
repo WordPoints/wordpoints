@@ -120,9 +120,9 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 		$components = WordPoints_Components::instance();
 		$components->register(
 			array(
-				'slug' => 'test',
-				'name' => 'Test',
-				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'slug'        => 'test',
+				'name'        => 'Test',
+				'file'        => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
 				'installable' => array( $mock, 'filter' ),
 			)
 		);
@@ -153,9 +153,9 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 		$components = WordPoints_Components::instance();
 		$components->register(
 			array(
-				'slug' => 'test',
-				'name' => 'Test',
-				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'slug'        => 'test',
+				'name'        => 'Test',
+				'file'        => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
 				'installable' => array( $mock, 'filter' ),
 			)
 		);
@@ -187,9 +187,9 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 		$components = WordPoints_Components::instance();
 		$components->register(
 			array(
-				'slug' => 'test_2',
-				'name' => 'Test 2',
-				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'slug'         => 'test_2',
+				'name'         => 'Test 2',
+				'file'         => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
 				'un_installer' => WORDPOINTS_TESTS_DIR . '/data/components/test/un-installer.php',
 			)
 		);

@@ -28,7 +28,7 @@ class WordPoints_Hook_Condition_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings( $value, $arg ) {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$reactor   = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
 		$condition = new WordPoints_PHPUnit_Mock_Hook_Condition();
@@ -60,9 +60,9 @@ class WordPoints_Hook_Condition_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$attr_unknown_data_type->set( 'data_type', 'unknown' );
 
 		return array(
-			'attr' => array( 'Test', new WordPoints_PHPUnit_Mock_Entity_Attr( 'test' ) ),
+			'attr'                   => array( 'Test', new WordPoints_PHPUnit_Mock_Entity_Attr( 'test' ) ),
 			'attr_unknown_data_type' => array( 'Test', $attr_unknown_data_type ),
-			'entity' => array( 'test', new WordPoints_PHPUnit_Mock_Entity( 'test' ) ),
+			'entity'                 => array( 'test', new WordPoints_PHPUnit_Mock_Entity( 'test' ) ),
 		);
 	}
 
@@ -78,7 +78,7 @@ class WordPoints_Hook_Condition_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings_invalid( $settings, $arg ) {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$reactor   = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 		$validator = new WordPoints_Hook_Reaction_Validator( array() );
 
 		$condition = new WordPoints_PHPUnit_Mock_Hook_Condition();
@@ -114,10 +114,10 @@ class WordPoints_Hook_Condition_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$entity_not_exists->set( 'getter', '__return_false' );
 
 		return array(
-			'no_value' => array( array(), $attr ),
-			'empty_string_value' => array( array( 'value' => '' ), $attr ),
+			'no_value'             => array( array(), $attr ),
+			'empty_string_value'   => array( array( 'value' => '' ), $attr ),
 			'attr_wrong_data_type' => array( array( 'value' => array() ), $attr ),
-			'entity_not_exists' => array( array( 'value' => 'test' ), $entity_not_exists ),
+			'entity_not_exists'    => array( array( 'value' => 'test' ), $entity_not_exists ),
 		);
 	}
 }

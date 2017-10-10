@@ -43,7 +43,7 @@ class WordPoints_Points_Widget_User_Points extends WordPoints_Points_Widget_Logs
 			'WordPoints_Points_Widget'
 			, __( 'WordPoints', 'wordpoints' )
 			, array(
-				'description' => __( 'Display the points of the current logged in user.', 'wordpoints' ),
+				'description'          => __( 'Display the points of the current logged in user.', 'wordpoints' ),
 				'wordpoints_hook_slug' => 'points',
 			)
 		);

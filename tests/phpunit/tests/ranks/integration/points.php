@@ -87,9 +87,9 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 		the_widget(
 			'WordPoints_Points_Widget_User_Points'
 			, array(
-				'text' => 'Rank: %rank%',
+				'text'        => 'Rank: %rank%',
 				'points_type' => 'points',
-				'title' => 'My Points',
+				'title'       => 'My Points',
 			)
 		);
 		$widget = ob_get_clean();

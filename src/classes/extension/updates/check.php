@@ -56,9 +56,9 @@ class WordPoints_Extension_Updates_Check {
 			return false;
 		}
 
-		$updates = new WordPoints_Extension_Updates();
+		$updates    = new WordPoints_Extension_Updates();
 		$extensions = wordpoints_get_modules();
-		$cache   = wordpoints_get_extension_updates();
+		$cache      = wordpoints_get_extension_updates();
 
 		$updates->set_versions_checked( wp_list_pluck( $extensions, 'version' ) );
 

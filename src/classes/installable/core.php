@@ -92,7 +92,7 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 
 		$core = new WordPoints_Installer_Core();
 
-		$install_routines['single'][] = $core;
+		$install_routines['single'][]  = $core;
 		$install_routines['network'][] = $core;
 
 		return $install_routines;
@@ -253,7 +253,7 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 					'wordpoints_network_update_skipped',
 					'wordpoints_breaking_deactivated_modules',
 				),
-				'local'   => array(
+				'local' => array(
 					'wordpoints_active_modules',
 					'wordpoints_recently_activated_modules',
 				),
@@ -293,7 +293,7 @@ class WordPoints_Installable_Core extends WordPoints_Installable {
 			array(
 				'universal' => array(
 					'wordpoints_extensions' => array(),
-					'wordpoints_modules' => array(),
+					'wordpoints_modules'    => array(),
 				),
 			)
 		);

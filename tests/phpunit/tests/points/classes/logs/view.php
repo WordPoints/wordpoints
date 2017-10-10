@@ -28,7 +28,7 @@ class WordPoints_Points_Logs_View_Test extends WordPoints_PHPUnit_TestCase_Point
 		$this->factory->wordpoints->points_log->create_many( 2 );
 
 		$query = new WordPoints_Points_Logs_Query();
-		$logs = $query->get();
+		$logs  = $query->get();
 
 		$view = new WordPoints_PHPUnit_Mock_Points_Logs_View( 'test', $query );
 

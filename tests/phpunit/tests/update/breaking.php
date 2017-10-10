@@ -176,7 +176,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_after_update_saves_breaking_modules() {
 
-		$this->updater->network_wide = true;
+		$this->updater->network_wide    = true;
 		$this->updater->checked_modules = array( 'test-1' => true, 'test-2' => false );
 
 		$this->updater->after_update();
@@ -472,7 +472,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_check_module_request_failure() {
 
-		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
+		$filter               = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$this->http_responder = array( $filter, 'filter' );
 
 		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );

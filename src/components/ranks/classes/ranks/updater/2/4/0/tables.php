@@ -140,7 +140,7 @@ class WordPoints_Ranks_Updater_2_4_0_Tables implements WordPoints_RoutineI {
 
 			/** @var WordPoints_Entity_Contexts $switcher */
 			$switcher = wordpoints_entities()->get_sub_app( 'contexts' );
-			$state = new WordPoints_Multisite_Switched_State();
+			$state    = new WordPoints_Multisite_Switched_State();
 
 			foreach ( $rank_groups as $site_id => $blogs ) {
 

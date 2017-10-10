@@ -20,8 +20,8 @@ $I->canSeeInFormFields(
 	"{$reaction} form"
 	, array(
 		'description' => 'Test description.',
-		'log_text' => 'Test log text.',
-		'points' => '10',
+		'log_text'    => 'Test log text.',
+		'points'      => '10',
 	)
 );
 $I->cantSee( 'Edit', "{$reaction} .view" );
@@ -41,8 +41,8 @@ $I->canSeeInFormFields(
 	"{$reaction} form"
 	, array(
 		'description' => 'Test description.',
-		'log_text' => 'Test log text.',
-		'points' => '10',
+		'log_text'    => 'Test log text.',
+		'points'      => '10',
 	)
 );
 $I->canSee( 'Close', "{$reaction} .view" );

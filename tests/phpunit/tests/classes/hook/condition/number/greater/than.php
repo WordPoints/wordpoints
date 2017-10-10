@@ -64,9 +64,9 @@ class WordPoints_Hook_Condition_Number_Greater_Than_Test
 
 		// Setting, arg value.
 		return array(
-			'int' => array( 13, 54 ),
-			'float' => array( 13.7, 13.8 ),
-			'string_int' => array( 13, '54' ),
+			'int'          => array( 13, 54 ),
+			'float'        => array( 13.7, 13.8 ),
+			'string_int'   => array( 13, '54' ),
 			'string_float' => array( 13.7, '13.8' ),
 		);
 	}
@@ -118,12 +118,12 @@ class WordPoints_Hook_Condition_Number_Greater_Than_Test
 
 		// Setting, arg value.
 		return array(
-			'equal' => array( 13, 13 ),
-			'less' => array( 13, 12 ),
+			'equal'  => array( 13, 13 ),
+			'less'   => array( 13, 12 ),
 			'string' => array( 13, 'testing' ),
-			'true' => array( 13, true ),
-			'false' => array( 13, false ),
-			'array' => array( 13, array( 3, 2 ) ),
+			'true'   => array( 13, true ),
+			'false'  => array( 13, false ),
+			'array'  => array( 13, array( 3, 2 ) ),
 		);
 	}
 }

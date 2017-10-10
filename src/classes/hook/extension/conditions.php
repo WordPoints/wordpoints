@@ -93,7 +93,7 @@ class WordPoints_Hook_Extension_Conditions
 
 		if ( $event_args ) {
 			$this->event_args = $event_args;
-			$this->validator = $event_args->get_validator();
+			$this->validator  = $event_args->get_validator();
 		}
 
 		if ( ! is_array( $conditions ) ) {

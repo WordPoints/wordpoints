@@ -101,7 +101,7 @@ final class WordPoints_Points_Log_Queries {
 			'network_wide'  => false,
 		);
 
-		self::$queries[ $slug ] = array_merge( $defaults, $data );
+		self::$queries[ $slug ]         = array_merge( $defaults, $data );
 		self::$queries[ $slug ]['args'] = $args;
 
 		return true;

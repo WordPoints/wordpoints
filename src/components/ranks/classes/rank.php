@@ -152,7 +152,7 @@ final class WordPoints_Rank {
 		}
 
 		$this->data = $data;
-		$this->ID = $data->id;
+		$this->ID   = $data->id;
 	}
 
 	/**

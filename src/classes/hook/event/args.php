@@ -80,7 +80,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 		foreach ( $args as $arg ) {
 
 			$entity = $arg->get_entity();
-			$slug = $arg->get_slug();
+			$slug   = $arg->get_slug();
 
 			if ( ! $entity instanceof WordPoints_Entity ) {
 				continue;
@@ -278,7 +278,7 @@ class WordPoints_Hook_Event_Args extends WordPoints_Entity_Hierarchy {
 	public function get_from_hierarchy( array $hierarchy ) {
 
 		$this->push_on_descend = false;
-		$entityish = parent::get_from_hierarchy( $hierarchy );
+		$entityish             = parent::get_from_hierarchy( $hierarchy );
 		$this->push_on_descend = true;
 
 		return $entityish;

@@ -43,10 +43,10 @@ class WordPoints_Caps_Functions_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_deprecated_caps() {
 		return array(
-			'install_wordpoints_modules' => array( 'install_wordpoints_modules' ),
+			'install_wordpoints_modules'        => array( 'install_wordpoints_modules' ),
 			'manage_network_wordpoints_modules' => array( 'manage_network_wordpoints_modules' ),
-			'activate_wordpoints_modules' => array( 'activate_wordpoints_modules' ),
-			'delete_wordpoints_modules' => array( 'install_wordpoints_modules' ),
+			'activate_wordpoints_modules'       => array( 'activate_wordpoints_modules' ),
+			'delete_wordpoints_modules'         => array( 'install_wordpoints_modules' ),
 		);
 	}
 }

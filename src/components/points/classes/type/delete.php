@@ -30,7 +30,7 @@ class WordPoints_Points_Type_Delete extends WordPoints_Routine {
 	 */
 	public function __construct( $slug ) {
 
-		$this->slug = $slug;
+		$this->slug         = $slug;
 		$this->network_wide = is_wordpoints_network_active();
 	}
 

@@ -510,7 +510,7 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 			'strong'  => true,
 		);
 
-		$allowed_tags = $allowed_tags_in_links;
+		$allowed_tags      = $allowed_tags_in_links;
 		$allowed_tags['a'] = array( 'href' => true, 'title' => true );
 
 		// Name and author ar marked up inside <a> tags. Don't allow these.
@@ -793,7 +793,7 @@ function wordpoints_validate_active_modules() {
 	if ( is_multisite() && current_user_can( 'manage_network_wordpoints_extensions' ) ) {
 
 		$network_modules = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
-		$modules = array_merge( $modules, array_keys( $network_modules ) );
+		$modules         = array_merge( $modules, array_keys( $network_modules ) );
 	}
 
 	if ( empty( $modules ) ) {
@@ -879,7 +879,7 @@ function wordpoints_activate_module( $module, $redirect = '', $network_wide = fa
 	if ( $network_wide ) {
 
 		$network_current = wordpoints_get_array_option( 'wordpoints_sitewide_active_modules', 'site' );
-		$current = array_keys( $network_current );
+		$current         = array_keys( $network_current );
 
 	} else {
 
@@ -1004,7 +1004,7 @@ function wordpoints_deactivate_modules( $modules, $silent = false, $network_wide
 	$current = wordpoints_get_array_option( 'wordpoints_active_modules' );
 
 	$do_network = false;
-	$do_blog = false;
+	$do_blog    = false;
 
 	foreach ( (array) $modules as $module ) {
 
@@ -1175,7 +1175,7 @@ function wordpoints_delete_modules( $modules ) {
 	}
 
 	$modules_dir = trailingslashit( $modules_dir );
-	$errors = array();
+	$errors      = array();
 
 	foreach ( $modules as $module_file ) {
 

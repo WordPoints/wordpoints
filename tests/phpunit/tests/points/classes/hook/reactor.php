@@ -86,7 +86,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_validate_settings( array $settings ) {
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -127,7 +127,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			'log_text'    => 'Testing.',
 		);
 
-		$alt = $settings;
+		$alt           = $settings;
 		$alt['points'] = -20;
 
 		return array(
@@ -148,7 +148,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_validate_settings_invalid( array $settings, $invalid ) {
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -209,7 +209,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			unset( $invalid_settings[ "no_{$slug}" ][0][ $slug ] );
 
 			if ( isset( $invalid_setting_fields[ $slug ] ) ) {
-				$invalid_settings[ "invalid_{$slug}" ] = array( $all_settings, $slug );
+				$invalid_settings[ "invalid_{$slug}" ]             = array( $all_settings, $slug );
 				$invalid_settings[ "invalid_{$slug}" ][0][ $slug ] = $invalid_setting_fields[ $slug ];
 			}
 		}
@@ -258,7 +258,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_hit( array $settings ) {
 
-		$settings['event'] = 'user_register';
+		$settings['event']   = 'user_register';
 		$settings['reactor'] = 'points';
 
 		$event_args = new WordPoints_Hook_Event_Args( array() );
@@ -339,13 +339,13 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 	 */
 	public function test_reverse_hits( array $settings ) {
 
-		$settings['event']                          = 'user_register';
-		$settings['reactor']                        = 'points';
+		$settings['event']   = 'user_register';
+		$settings['reactor'] = 'points';
 		$settings[ $this->reversal_extension_slug ] = array( 'toggle_off' => 'toggle_on' );
 
 		$user_id = $this->factory->user->create();
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
+		$arg        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
 		$arg->value = $user_id;
 
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg ) );
@@ -459,7 +459,7 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 
 		$post_id = $this->factory->post->create(
 			array(
-				'post_type' => 'post',
+				'post_type'   => 'post',
 				'post_author' => $user_id,
 			)
 		);

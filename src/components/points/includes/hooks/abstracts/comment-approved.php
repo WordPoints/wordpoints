@@ -22,8 +22,8 @@ abstract class WordPoints_Comment_Approved_Points_Hook_Base extends WordPoints_P
 	 * @type array $defaults
 	 */
 	protected $defaults = array(
-		'points' => 10,
-		'post_type' => 'ALL',
+		'points'       => 10,
+		'post_type'    => 'ALL',
 		'auto_reverse' => 1,
 	);
 

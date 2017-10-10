@@ -76,7 +76,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 			'log_text'    => 'Testing.',
 		);
 
-		$settings['event'] = 'user_register';
+		$settings['event']   = 'user_register';
 		$settings['reactor'] = 'points_legacy';
 		$settings['points_legacy_reversals'] = array( 'toggle_off' => 'toggle_on' );
 
@@ -84,7 +84,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		$user_id = $this->factory->user->create();
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
+		$arg        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
 		$arg->value = $user_id;
 
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg ) );
@@ -155,13 +155,13 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 			->get_reaction_store( 'points' )
 			->create_reaction(
 				array(
-					'event'       => 'user_register',
-					'reactor'     => 'points_legacy',
-					'target'      => array( 'user' ),
-					'points'      => $points,
-					'points_type' => 'points',
-					'description' => 'Testing.',
-					'log_text'    => 'Testing.',
+					'event'                   => 'user_register',
+					'reactor'                 => 'points_legacy',
+					'target'                  => array( 'user' ),
+					'points'                  => $points,
+					'points_type'             => 'points',
+					'description'             => 'Testing.',
+					'log_text'                => 'Testing.',
 					'points_legacy_reversals' => array(
 						'toggle_off' => 'toggle_on',
 					),
@@ -181,8 +181,8 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 
 		$query = new WordPoints_Points_Logs_Query(
 			array(
-				'log_type' => 'user_register',
-				'meta_key' => 'auto_reversed',
+				'log_type'     => 'user_register',
+				'meta_key'     => 'auto_reversed',
 				'meta_compare' => 'NOT EXISTS',
 			)
 		);
@@ -190,7 +190,7 @@ class WordPoints_Points_Hook_Reactor_Legacy_Test
 		$this->assertSame( 1, $query->count() );
 
 		// Reverse fire once.
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
+		$arg        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'user' );
 		$arg->value = $user_id;
 
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg ) );

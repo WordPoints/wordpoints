@@ -115,7 +115,7 @@ class WordPoints_Hook_Action implements WordPoints_Hook_ActionI {
 
 			if ( is_array( $value ) && isset( $value['comparator'], $value['value'] ) ) {
 				$comparator = $value['comparator'];
-				$value = $value['value'];
+				$value      = $value['value'];
 			}
 
 			switch ( $comparator ) {

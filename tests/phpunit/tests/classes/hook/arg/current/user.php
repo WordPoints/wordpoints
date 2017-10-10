@@ -35,7 +35,7 @@ class WordPoints_Hook_Arg_Current_User_Test extends WordPoints_PHPUnit_TestCase_
 		wp_set_current_user( $user_id );
 
 		$action = new WordPoints_PHPUnit_Mock_Hook_Action( 'test_action', array() );
-		$arg = new WordPoints_Hook_Arg_Current_User( 'test_entity', $action );
+		$arg    = new WordPoints_Hook_Arg_Current_User( 'test_entity', $action );
 
 		$this->assertSame( $user_id, $arg->get_value()->ID );
 

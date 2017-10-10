@@ -192,7 +192,7 @@ class WordPoints_Updater_Core_Breaking extends WordPoints_Routine {
 
 		foreach ( $extensions as $extension ) {
 			if ( ! $this->check_extension( $extension ) ) {
-				$incompatible_extensions[] = $extension;
+				$incompatible_extensions[]              = $extension;
 				$this->checked_extensions[ $extension ] = false;
 			}
 		}
@@ -257,7 +257,7 @@ class WordPoints_Updater_Core_Breaking extends WordPoints_Routine {
 	protected function check_extension( $extension ) {
 
 		$rand_str = wp_generate_password( 256, true, true );
-		$nonce = wordpoints_hash( $rand_str . 'wordpoints_check_modules-' . $extension );
+		$nonce    = wordpoints_hash( $rand_str . 'wordpoints_check_modules-' . $extension );
 
 		if ( $this->doing_network ) {
 			update_site_option( 'wordpoints_module_check_rand_str', $rand_str );

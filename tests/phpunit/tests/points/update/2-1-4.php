@@ -885,8 +885,8 @@ class WordPoints_Points_2_1_4_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event'   => 'post_publish\\post',
-				'target'  => array( 'post\post', 'author', 'user' ),
+				'event'  => 'post_publish\\post',
+				'target' => array( 'post\post', 'author', 'user' ),
 			)
 		);
 

@@ -67,11 +67,11 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 
 		$option = 'wordpoints_legacy_points_hooks_disabled';
 		$value  = array(
-			'wordpoints_post_points_hook' => true,
-			'wordpoints_comment_points_hook' => true,
+			'wordpoints_post_points_hook'             => true,
+			'wordpoints_comment_points_hook'          => true,
 			'wordpoints_comment_received_points_hook' => true,
-			'wordpoints_periodic_points_hook' => true,
-			'wordpoints_registration_points_hook' => true,
+			'wordpoints_periodic_points_hook'         => true,
+			'wordpoints_registration_points_hook'     => true,
 		);
 
 		$routine = new WordPoints_Installer_Option( $option, $value );

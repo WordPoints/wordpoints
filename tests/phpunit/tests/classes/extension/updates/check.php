@@ -36,8 +36,8 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 				'' => array(
 					'test-7/test-7.php' => array(
 						'version' => '1.0.0',
-						'server' => 'wordpoints.org',
-						'ID' => '7',
+						'server'  => 'wordpoints.org',
+						'ID'      => '7',
 					),
 					'test-8/test-8.php' => array(
 						'version' => '2.5.0',
@@ -75,7 +75,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check();
+		$check   = new WordPoints_Extension_Updates_Check();
 		$updates = $check->run();
 
 		$this->assertGreaterThanOrEqual( $time, $updates->get_time_checked() );
@@ -116,7 +116,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check();
+		$check   = new WordPoints_Extension_Updates_Check();
 		$updates = $check->run();
 
 		$this->assertInstanceOf( 'WordPoints_Extension_UpdatesI', $updates );
@@ -162,7 +162,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check();
+		$check   = new WordPoints_Extension_Updates_Check();
 		$updates = $check->run();
 
 		$this->assertGreaterThanOrEqual( $time, $updates->get_time_checked() );
@@ -183,8 +183,8 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 		$updates = new WordPoints_Extension_Updates();
 		$updates->set_versions_checked(
 			array(
-				'test-7/test-7.php' => '1.0.0',
-				'test-8/test-8.php' => '2.5.0',
+				'test-7/test-7.php'       => '1.0.0',
+				'test-8/test-8.php'       => '2.5.0',
 				'module-34/module-34.php' => '0.5.5',
 			)
 		);
@@ -192,7 +192,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check();
+		$check   = new WordPoints_Extension_Updates_Check();
 		$updates = $check->run();
 
 		$this->assertGreaterThanOrEqual( $time, $updates->get_time_checked() );
@@ -216,7 +216,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check();
+		$check   = new WordPoints_Extension_Updates_Check();
 		$updates = $check->run();
 
 		$this->assertGreaterThanOrEqual( $time, $updates->get_time_checked() );
@@ -243,7 +243,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check();
+		$check   = new WordPoints_Extension_Updates_Check();
 		$updates = $check->run();
 
 		$this->assertGreaterThanOrEqual( $time, $updates->get_time_checked() );
@@ -288,7 +288,7 @@ class WordPoints_Extension_Updates_Check_Test extends WordPoints_PHPUnit_TestCas
 
 		$time = time();
 
-		$check = new WordPoints_Extension_Updates_Check( MINUTE_IN_SECONDS );
+		$check   = new WordPoints_Extension_Updates_Check( MINUTE_IN_SECONDS );
 		$updates = $check->run();
 
 		$this->assertGreaterThanOrEqual( $time, $updates->get_time_checked() );

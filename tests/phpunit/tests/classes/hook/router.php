@@ -320,7 +320,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_arg_number() {
 
-		$apps = $this->mock_apps();
+		$apps     = $this->mock_apps();
 		$entities = wordpoints_entities();
 
 		$apps->sub_apps()->register( 'hooks', 'WordPoints_PHPUnit_Mock_Hooks' );
@@ -329,7 +329,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array(
 				'action'     => __CLASS__,
 				'arg_number' => 2,
-				'data'   => array(
+				'data'       => array(
 					'arg_index' => array(
 						'1:test_entity' => 0,
 						'2:test_entity' => 1,
@@ -378,7 +378,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_arg_number_from_index() {
 
-		$apps = $this->mock_apps();
+		$apps     = $this->mock_apps();
 		$entities = wordpoints_entities();
 
 		$apps->sub_apps()->register( 'hooks', 'WordPoints_PHPUnit_Mock_Hooks' );
@@ -435,7 +435,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_arg_number_from_requirements() {
 
-		$apps = $this->mock_apps();
+		$apps     = $this->mock_apps();
 		$entities = wordpoints_entities();
 
 		$apps->sub_apps()->register( 'hooks', 'WordPoints_PHPUnit_Mock_Hooks' );

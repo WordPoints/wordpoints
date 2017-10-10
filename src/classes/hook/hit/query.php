@@ -18,16 +18,16 @@ class WordPoints_Hook_Hit_Query extends WordPoints_DB_Query {
 	 * @since 2.1.0
 	 */
 	protected $columns = array(
-		'id' => array( 'format' => '%d', 'unsigned' => true ),
-		'action_type' => array( 'format' => '%s' ),
+		'id'                  => array( 'format' => '%d', 'unsigned' => true ),
+		'action_type'         => array( 'format' => '%s' ),
 		'signature_arg_guids' => array( 'format' => '%s' ),
-		'event' => array( 'format' => '%s' ),
-		'reactor' => array( 'format' => '%s' ),
-		'reaction_mode' => array( 'format' => '%s' ),
-		'reaction_store' => array( 'format' => '%s' ),
+		'event'               => array( 'format' => '%s' ),
+		'reactor'             => array( 'format' => '%s' ),
+		'reaction_mode'       => array( 'format' => '%s' ),
+		'reaction_store'      => array( 'format' => '%s' ),
 		'reaction_context_id' => array( 'format' => '%s' ),
-		'reaction_id' => array( 'format' => '%d', 'unsigned' => true ),
-		'date' => array( 'format' => '%s', 'is_date' => true ),
+		'reaction_id'         => array( 'format' => '%d', 'unsigned' => true ),
+		'date'                => array( 'format' => '%s', 'is_date' => true ),
 	);
 
 	/**

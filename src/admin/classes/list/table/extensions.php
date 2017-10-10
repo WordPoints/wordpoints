@@ -263,7 +263,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 
 		if ( $s ) {
 
-			$status = 'search';
+			$status            = 'search';
 			$modules['search'] = array_filter( $modules['all'], array( $this, 'search_callback' ) );
 		}
 
@@ -688,23 +688,23 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		if ( $this->screen->in_admin( 'network' ) ) {
 
 			$restricted_network_active = false;
-			$restricted_network_only = false;
+			$restricted_network_only   = false;
 
 		} else {
 
 			$restricted_network_active = ( is_multisite() && is_wordpoints_module_active_for_network( $module_file ) );
-			$restricted_network_only = ( is_multisite() && is_network_only_wordpoints_module( $module_file ) && ! $is_active );
+			$restricted_network_only   = ( is_multisite() && is_network_only_wordpoints_module( $module_file ) && ! $is_active );
 		}
 
 		$module_data['extra']['is_active'] = $is_active;
 		$module_data['extra']['restricted_network_active'] = $restricted_network_active;
-		$module_data['extra']['restricted_network_only'] = $restricted_network_only;
+		$module_data['extra']['restricted_network_only']   = $restricted_network_only;
 
 		list( $columns, $hidden, , $primary ) = $this->get_column_info();
 
 		foreach ( $columns as $column_name => $column_display_name ) {
 
-			$is_hidden = in_array( $column_name, $hidden, true );
+			$is_hidden  = in_array( $column_name, $hidden, true );
 			$is_primary = $primary === $column_name;
 
 			switch ( $column_name ) {

@@ -70,10 +70,10 @@ class WordPoints_Updater_DB_Table_Column_Rename implements WordPoints_RoutineI {
 	 */
 	public function __construct( $table, $from, $to, $definition, $table_prefix = 'site' ) {
 
-		$this->table = $table;
-		$this->from = $from;
-		$this->to = $to;
-		$this->definition = $definition;
+		$this->table        = $table;
+		$this->from         = $from;
+		$this->to           = $to;
+		$this->definition   = $definition;
 		$this->table_prefix = $table_prefix;
 	}
 
@@ -91,8 +91,8 @@ class WordPoints_Updater_DB_Table_Column_Rename implements WordPoints_RoutineI {
 		}
 
 		$table = wordpoints_escape_mysql_identifier( $table );
-		$from = wordpoints_escape_mysql_identifier( $this->from );
-		$to = wordpoints_escape_mysql_identifier( $this->to );
+		$from  = wordpoints_escape_mysql_identifier( $this->from );
+		$to    = wordpoints_escape_mysql_identifier( $this->to );
 
 		$wpdb->query( // WPCS: unprepared SQL OK.
 			"

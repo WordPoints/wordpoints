@@ -80,9 +80,9 @@ if ( isset( $_GET['addnew'] ) ) { // WPCS: CSRF OK.
 		return;
 	}
 
-	$id_base = $hook->get_id_base();
+	$id_base      = $hook->get_id_base();
 	$multi_number = 0;
-	$number = $hook->get_number_by_id( $hook_id );
+	$number       = $hook->get_number_by_id( $hook_id );
 
 } // End if ( adding hook ) else { updating hook }.
 

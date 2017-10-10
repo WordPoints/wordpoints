@@ -23,8 +23,8 @@ class WordPoints_Hook_Fire_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_construct() {
 
-		$reaction = $this->factory->wordpoints->hook_reaction->create();
-		$event_args = new WordPoints_Hook_Event_Args( array() );
+		$reaction    = $this->factory->wordpoints->hook_reaction->create();
+		$event_args  = new WordPoints_Hook_Event_Args( array() );
 		$action_type = 'test_fire';
 
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, $action_type );
@@ -41,8 +41,8 @@ class WordPoints_Hook_Fire_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_hit() {
 
-		$reaction = $this->factory->wordpoints->hook_reaction->create();
-		$event_args = new WordPoints_Hook_Event_Args( array() );
+		$reaction    = $this->factory->wordpoints->hook_reaction->create();
+		$event_args  = new WordPoints_Hook_Event_Args( array() );
 		$action_type = 'test_fire';
 
 		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, $action_type );
@@ -63,8 +63,8 @@ class WordPoints_Hook_Fire_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	public function test_get_matching_hit_logs_query() {
 
 		$action_type = 'test_fire';
-		$reaction = $this->factory->wordpoints->hook_reaction->create();
-		$event_args = new WordPoints_Hook_Event_Args(
+		$reaction    = $this->factory->wordpoints->hook_reaction->create();
+		$event_args  = new WordPoints_Hook_Event_Args(
 			array( new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity' ) )
 		);
 

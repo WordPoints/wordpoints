@@ -28,7 +28,7 @@ class WordPoints_Hook_Condition_Equals extends WordPoints_Hook_Condition {
 
 		return array(
 			'value' => array(
-				'type' => 'text',
+				'type'  => 'text',
 				'label' => _x( 'Value', 'equals hook condition label', 'wordpoints' ),
 			),
 		);
@@ -39,7 +39,7 @@ class WordPoints_Hook_Condition_Equals extends WordPoints_Hook_Condition {
 	 */
 	public function is_met( array $settings, WordPoints_Hook_Event_Args $args ) {
 
-		$arg = $args->get_current();
+		$arg   = $args->get_current();
 		$value = $arg->get_the_value();
 
 		// Validate attribute data types, to ensure that they are converted to the

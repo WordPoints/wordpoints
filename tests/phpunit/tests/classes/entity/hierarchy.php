@@ -23,7 +23,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 	 */
 	public function test_get_entities() {
 
-		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity    = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$hierarchy = new WordPoints_Entity_Hierarchy( $entity );
 
 		$this->assertSame(
@@ -77,7 +77,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 	 */
 	public function test_remove_entity() {
 
-		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity   = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity_2 = new WordPoints_PHPUnit_Mock_Entity( 'test_2' );
 
 		$hierarchy = new WordPoints_Entity_Hierarchy();
@@ -140,7 +140,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 			, 'WordPoints_PHPUnit_Mock_Entity_Child'
 		);
 
-		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity   = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity_2 = new WordPoints_PHPUnit_Mock_Entity( 'test_2' );
 
 		$hierarchy = new WordPoints_Entity_Hierarchy();
@@ -181,7 +181,7 @@ class WordPoints_Entity_Hierarchy_Test extends WordPoints_PHPUnit_TestCase_Hooks
 			, 'WordPoints_PHPUnit_Mock_Entity_Child'
 		);
 
-		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity   = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 		$entity_2 = new WordPoints_PHPUnit_Mock_Entity( 'test_2' );
 
 		$hierarchy = new WordPoints_Entity_Hierarchy();

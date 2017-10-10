@@ -74,8 +74,8 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes_Test extends 
 	 */
 	public function data_provider_parents() {
 		return array(
-			'default' => array(),
-			'custom' => array( 'parent_screen' ),
+			'default'   => array(),
+			'custom'    => array( 'parent_screen' ),
 			'no_parent' => array( 'toplevel' ),
 		);
 	}
@@ -286,7 +286,7 @@ class WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes_Test extends 
 
 		$factory = new WordPoints_Uninstaller_Factory_Admin_Screens_With_Meta_Boxes(
 			array(
-				'site' => array( 'test' => array() ),
+				'site'    => array( 'test' => array() ),
 				'network' => array( 'other' => array() ),
 			)
 		);

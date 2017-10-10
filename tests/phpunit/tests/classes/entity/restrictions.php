@@ -57,10 +57,10 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_entity_hierarchies() {
 		return array(
-			'string' => array( 'test_entity' ),
-			'single' => array( array( 'test_entity' ) ),
-			'child' => array( array( 'test_entity', 'child' ) ),
-			'grandchild' => array( array( 'other_entity', 'child', 'test_entity' ) ),
+			'string'           => array( 'test_entity' ),
+			'single'           => array( array( 'test_entity' ) ),
+			'child'            => array( array( 'test_entity', 'child' ) ),
+			'grandchild'       => array( array( 'other_entity', 'child', 'test_entity' ) ),
 			'great_grandchild' => array(
 				array( 'other_entity', 'other_child', 'test_entity', 'child' ),
 			),
@@ -596,7 +596,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$restrictions = new WordPoints_Entity_Restrictions( 'test' );
 
-		$guid = array( $context_slug => 5, 'test_entity' => 0 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 0 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
 		$this->assertTrue( $restriction->user_can( 0 ) );
@@ -639,7 +639,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Not_Applicable'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -700,7 +700,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -761,7 +761,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -822,7 +822,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -887,7 +887,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -956,7 +956,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -1016,7 +1016,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -1076,7 +1076,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction_Applicable'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
 		$this->assertSame( 1, $context->get_current_id() );
@@ -1140,7 +1140,7 @@ class WordPoints_Entity_Restrictions_Test extends WordPoints_PHPUnit_TestCase {
 			, 'WordPoints_PHPUnit_Mock_Entity_Restriction'
 		);
 
-		$guid = array( $context_slug => 5, 'test_entity' => 1 );
+		$guid        = array( $context_slug => 5, 'test_entity' => 1 );
 		$restriction = $restrictions->get( $guid, $hierarchy, 'view' );
 
 		$this->assertSame( 1, $context->get_current_id() );

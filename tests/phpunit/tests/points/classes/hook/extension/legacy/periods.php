@@ -61,14 +61,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'user_visit',
-				'target' => array( 'current:user' ),
-				'points' => $settings['points'],
+				'event'               => 'user_visit',
+				'target'              => array( 'current:user' ),
+				'points'              => $settings['points'],
 				$this->extension_slug => array(
 					'fire' => array(
 						array(
-							'length' => $settings['period'],
-							'args' => array( array( 'current:user' ) ),
+							'length'   => $settings['period'],
+							'args'     => array( array( 'current:user' ) ),
 							'relative' => $relative,
 						),
 					),
@@ -164,14 +164,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'user_visit',
-				'target' => array( 'current:user' ),
-				'points' => $settings['points'],
+				'event'               => 'user_visit',
+				'target'              => array( 'current:user' ),
+				'points'              => $settings['points'],
 				$this->extension_slug => array(
 					'fire' => array(
 						array(
-							'length' => $settings['period'],
-							'args' => array( array( 'current:user' ) ),
+							'length'   => $settings['period'],
+							'args'     => array( array( 'current:user' ) ),
 							'relative' => $relative,
 						),
 					),
@@ -282,14 +282,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'user_visit',
-				'target' => array( 'current:user' ),
-				'points' => $settings['points'],
+				'event'               => 'user_visit',
+				'target'              => array( 'current:user' ),
+				'points'              => $settings['points'],
 				$this->extension_slug => array(
 					'fire' => array(
 						array(
 							'length' => $settings['period'],
-							'args' => array( array( 'current:user' ) ),
+							'args'   => array( array( 'current:user' ) ),
 						),
 					),
 				),
@@ -358,14 +358,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'user_visit',
-				'target' => array( 'current:user' ),
-				'points' => $settings['points'],
+				'event'               => 'user_visit',
+				'target'              => array( 'current:user' ),
+				'points'              => $settings['points'],
 				$this->extension_slug => array(
 					'fire' => array(
 						array(
 							'length' => $settings['period'],
-							'args' => array( array( 'current:user' ) ),
+							'args'   => array( array( 'current:user' ) ),
 						),
 					),
 				),
@@ -434,14 +434,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'user_visit',
-				'target' => array( 'current:user' ),
-				'points' => $settings['points'],
+				'event'               => 'user_visit',
+				'target'              => array( 'current:user' ),
+				'points'              => $settings['points'],
 				$this->extension_slug => array(
 					'fire' => array(
 						array(
 							'length' => $settings['period'],
-							'args' => array( array( 'current:user' ) ),
+							'args'   => array( array( 'current:user' ) ),
 						),
 					),
 				),
@@ -504,14 +504,14 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'user_visit',
-				'target' => array( 'current:user' ),
-				'points' => $settings['points'],
+				'event'               => 'user_visit',
+				'target'              => array( 'current:user' ),
+				'points'              => $settings['points'],
 				$this->extension_slug => array(
 					'fire' => array(
 						array(
 							'length' => $settings['period'],
-							'args' => array( array( 'current:user' ) ),
+							'args'   => array( array( 'current:user' ) ),
 						),
 					),
 				),

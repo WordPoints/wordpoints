@@ -64,7 +64,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	public static function prepare_all_ranks() {
 
 		$rank_groups = WordPoints_Rank_Groups::get();
-		$ranks = array();
+		$ranks       = array();
 
 		foreach ( $rank_groups as $group ) {
 			$ranks[ $group->slug ] = self::prepare_group_ranks( $group );
@@ -85,7 +85,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	public static function prepare_group_ranks( $group ) {
 
 		$rank_ids = $group->get_ranks();
-		$ranks = array();
+		$ranks    = array();
 
 		foreach ( $rank_ids as $order => $rank_id ) {
 
@@ -160,7 +160,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$this->verify_user_can();
 
 		$group = $this->get_group();
-		$type = $this->get_rank_type()->get_slug();
+		$type  = $this->get_rank_type()->get_slug();
 
 		$this->verify_request( "wordpoints_create_rank|{$group->slug}|{$type}" );
 
@@ -488,11 +488,11 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 			->get_rank_position( $rank->ID );
 
 		$prepared_rank = array(
-			'id'    => $rank->ID,
-			'order' => $order,
-			'name'  => $name,
-			'type'  => $rank->type,
-			'nonce' => wp_create_nonce(
+			'id'           => $rank->ID,
+			'order'        => $order,
+			'name'         => $name,
+			'type'         => $rank->type,
+			'nonce'        => wp_create_nonce(
 				"wordpoints_update_rank|{$rank->rank_group}|{$rank->ID}"
 			),
 			'delete_nonce' => wp_create_nonce(

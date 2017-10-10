@@ -38,9 +38,9 @@ class WordPoints_Entities_Get_Current_Context_ID_Functions_Test extends WordPoin
 	 */
 	public function data_provider_contexts() {
 		return array(
-			'empty' => array( '', array() ),
-			'single' => array( 'network', array( 'network' => 1 ) ),
-			'multiple' => array( 'site', array( 'site' => 1, 'network' => 1 ) ),
+			'empty'        => array( '', array() ),
+			'single'       => array( 'network', array( 'network' => 1 ) ),
+			'multiple'     => array( 'site', array( 'site' => 1, 'network' => 1 ) ),
 			'unregistered' => array( 'unregistered', false ),
 		);
 	}

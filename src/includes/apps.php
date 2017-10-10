@@ -546,7 +546,7 @@ function wordpoints_entity_user_can_view( $user_id, $entity_slug, $entity_id ) {
 
 	/** @var WordPoints_Entity_Restrictions $restrictions */
 	$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
-	$restriction = $restrictions->get( $entity_id, $entity_slug, 'view' );
+	$restriction  = $restrictions->get( $entity_id, $entity_slug, 'view' );
 	return $restriction->user_can( $user_id );
 }
 

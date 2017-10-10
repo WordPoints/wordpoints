@@ -131,7 +131,7 @@ class WordPoints_Multisite_Switched_State_Test extends WordPoints_PHPUnit_TestCa
 
 		$previous_site_id = get_current_blog_id();
 
-		$site_id = $this->fixture_ids['site'][0];
+		$site_id         = $this->fixture_ids['site'][0];
 		$another_site_id = $this->fixture_ids['site'][1];
 
 		switch_to_blog( $site_id );

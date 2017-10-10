@@ -22,7 +22,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 	public function tearDown() {
 
 		$_POST = array();
-		$_GET = array();
+		$_GET  = array();
 
 		parent::tearDown();
 	}
@@ -68,8 +68,8 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_action_format() {
 
-		$_GET['nonce'] = wp_create_nonce( 'action-1_test' );
-		$_GET['a_number'] = 1;
+		$_GET['nonce']       = wp_create_nonce( 'action-1_test' );
+		$_GET['a_number']    = 1;
 		$_GET['some_string'] = 'test';
 
 		$is_valid = wordpoints_verify_nonce(
@@ -88,7 +88,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_action_format_string_format_value() {
 
-		$_GET['nonce'] = wp_create_nonce( 'action-test' );
+		$_GET['nonce']       = wp_create_nonce( 'action-test' );
 		$_GET['some_string'] = 'test';
 
 		$is_valid = wordpoints_verify_nonce(
@@ -121,7 +121,7 @@ class WordPoints_Verify_Nonce_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_unset_format_value() {
 
-		$_GET['nonce'] = wp_create_nonce( 'action-1_test' );
+		$_GET['nonce']    = wp_create_nonce( 'action-1_test' );
 		$_GET['a_number'] = 1;
 
 		$is_valid = wordpoints_verify_nonce(

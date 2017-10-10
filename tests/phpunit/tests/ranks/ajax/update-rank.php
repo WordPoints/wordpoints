@@ -52,14 +52,14 @@ class WordPoints_Ranks_Screen_Update_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 		);
 
 		$this->rank_data = array(
-			'id'    => $rank_id,
-			'nonce' => wp_create_nonce(
+			'id'        => $rank_id,
+			'nonce'     => wp_create_nonce(
 				"wordpoints_update_rank|{$this->rank_group}|{$rank_id}"
 			),
-			'group' => $this->rank_group,
-			'type'  => $this->rank_type,
-			'name'  => 'Tha Test',
-			'order' => 1,
+			'group'     => $this->rank_group,
+			'type'      => $this->rank_type,
+			'name'      => 'Tha Test',
+			'order'     => 1,
 			'test_meta' => 'test',
 		);
 

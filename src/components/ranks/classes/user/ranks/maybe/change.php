@@ -43,7 +43,7 @@ abstract class WordPoints_User_Ranks_Maybe_Change {
 		wordpoints_prevent_interruptions();
 
 		$batch_size = 1000;
-		$offset = 0;
+		$offset     = 0;
 
 		$query = new WordPoints_User_Ranks_Query(
 			array(

@@ -76,7 +76,7 @@ class WordPoints_Points_2_4_0_Update_Test
 	public function test_network_mode() {
 
 		$hooks = wordpoints_hooks();
-		$mode = $hooks->get_current_mode();
+		$mode  = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'network' );
 
 		$this->test_sets_max_to_0_if_empty();
@@ -93,7 +93,7 @@ class WordPoints_Points_2_4_0_Update_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'post_publish\\post',
+				'event'  => 'post_publish\\post',
 				'target' => array( 'post\\post', 'author', 'user' ),
 			)
 		);
@@ -110,7 +110,7 @@ class WordPoints_Points_2_4_0_Update_Test
 									array(
 										'type'     => 'contains',
 										'settings' => array(
-											'max' => 5,
+											'max'        => 5,
 											'conditions' => array(
 												'author' => array(
 													'user' => array(
@@ -158,7 +158,7 @@ class WordPoints_Points_2_4_0_Update_Test
 
 		$reaction = $this->create_points_reaction(
 			array(
-				'event' => 'post_publish\\post',
+				'event'  => 'post_publish\\post',
 				'target' => array( 'post\\post', 'author', 'user' ),
 			)
 		);
@@ -231,8 +231,8 @@ class WordPoints_Points_2_4_0_Update_Test
 	 */
 	public function data_provider_entity_slugs() {
 		return array(
-			'user' => array( 'user' ),
-			'post\\page' => array( 'post\\page' ),
+			'user'          => array( 'user' ),
+			'post\\page'    => array( 'post\\page' ),
 			'comment\\post' => array( 'comment\\post' ),
 		);
 	}

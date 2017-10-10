@@ -56,7 +56,7 @@ class WordPoints_Points_Rank_Type
 			return;
 		}
 
-		$this->meta_fields['points']['label'] = _x( 'Points', 'form label', 'wordpoints' );
+		$this->meta_fields['points']['label']        = _x( 'Points', 'form label', 'wordpoints' );
 		$this->meta_fields['points_type']['default'] = $args['points_type'];
 
 		add_action( 'wordpoints_points_altered', array( $this, 'hook' ), 10, 3 );
@@ -139,12 +139,12 @@ class WordPoints_Points_Rank_Type
 
 		$query = new WP_User_Query(
 			array(
-				'fields' => 'ids',
-				'include' => $user_ids,
-				'meta_key' => wordpoints_get_points_user_meta_key( $rank->points_type ),
-				'meta_value' => $rank->points,
+				'fields'       => 'ids',
+				'include'      => $user_ids,
+				'meta_key'     => wordpoints_get_points_user_meta_key( $rank->points_type ),
+				'meta_value'   => $rank->points,
 				'meta_compare' => '>=',
-				'meta_type' => 'SIGNED',
+				'meta_type'    => 'SIGNED',
 			)
 		);
 

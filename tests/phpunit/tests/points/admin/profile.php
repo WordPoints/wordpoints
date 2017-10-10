@@ -55,9 +55,9 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 		);
 
 		$_POST['wordpoints_points_set-points'] = '1';
-		$_POST['wordpoints_points-points'] = '5';
+		$_POST['wordpoints_points-points']     = '5';
 		$_POST['wordpoints_points_old-points'] = '0';
-		$_POST['wordpoints_set_reason'] = 'Testing.';
+		$_POST['wordpoints_set_reason']        = 'Testing.';
 	}
 
 	/**
@@ -150,7 +150,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 	 */
 	public function test_points_can_be_0() {
 
-		$_POST['wordpoints_points-points'] = '0';
+		$_POST['wordpoints_points-points']     = '0';
 		$_POST['wordpoints_points_old-points'] = '5';
 
 		wordpoints_set_points( $this->user->ID, 5, 'points', 'test' );
@@ -193,7 +193,7 @@ class WordPoints_Profile_Points_Update_Admin_Test extends WordPoints_PHPUnit_Tes
 	public function test_old_points_can_be_0() {
 
 		$_POST['wordpoints_points_old-points'] = '0';
-		$_POST['wordpoints_points-points'] = '5';
+		$_POST['wordpoints_points-points']     = '5';
 
 		wordpoints_set_points( $this->user->ID, 0, 'points', 'test' );
 

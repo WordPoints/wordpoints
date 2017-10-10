@@ -213,7 +213,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 			$this->hook_mode = 'standard';
 		}
 
-		$imported_option = 'wordpoints_imported_points_hooks';
+		$imported_option      = 'wordpoints_imported_points_hooks';
 		$this->imported_hooks = $this->get_array_option( $imported_option );
 
 		$this->points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
@@ -402,7 +402,7 @@ class WordPoints_Points_Legacy_Hook_To_Reaction_Importer {
 				'fire' => array(
 					array(
 						'length' => $this->legacy_instance['period'],
-						'args' => array( array( 'current:user' ) ),
+						'args'   => array( array( 'current:user' ) ),
 					),
 				),
 			);

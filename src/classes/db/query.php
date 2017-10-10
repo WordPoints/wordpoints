@@ -467,7 +467,7 @@ class WordPoints_DB_Query {
 	protected function prepare_select() {
 
 		$all_fields = array_keys( $this->columns );
-		$fields = array();
+		$fields     = array();
 
 		if ( ! empty( $this->args['fields'] ) ) {
 

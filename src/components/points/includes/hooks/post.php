@@ -36,8 +36,8 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 	 * @type array $defaults
 	 */
 	protected $defaults = array(
-		'points' => 20,
-		'post_type' => 'ALL',
+		'points'       => 20,
+		'post_type'    => 'ALL',
 		'auto_reverse' => 1,
 	);
 
@@ -54,23 +54,23 @@ class WordPoints_Post_Points_Hook extends WordPoints_Post_Type_Points_Hook_Base 
 		parent::__construct(
 			_x( 'Post Publish', 'points hook name', 'wordpoints' )
 			, array(
-				'description' => __( 'New post published.', 'wordpoints' ),
+				'description'                          => __( 'New post published.', 'wordpoints' ),
 				// translators: Singular post type name.
-				'post_type_description' => __( 'New %s published.', 'wordpoints' ),
+				'post_type_description'                => __( 'New %s published.', 'wordpoints' ),
 				// translators: Post title.
-				'log_text_post_title' => _x( 'Post %s published.', 'points log description', 'wordpoints' ),
+				'log_text_post_title'                  => _x( 'Post %s published.', 'points log description', 'wordpoints' ),
 				// translators: 1. Singular post type name; 2. Post title.
-				'log_text_post_title_and_type' => _x( '%2$s %1$s published.', 'points log description', 'wordpoints' ),
+				'log_text_post_title_and_type'         => _x( '%2$s %1$s published.', 'points log description', 'wordpoints' ),
 				// translators: Singular post type name.
-				'log_text_post_type' => _x( '%s published.', 'points log description', 'wordpoints' ),
-				'log_text_no_post_title' => _x( 'Post published.', 'points log description', 'wordpoints' ),
+				'log_text_post_type'                   => _x( '%s published.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title'               => _x( 'Post published.', 'points log description', 'wordpoints' ),
 				// translators: Singular post type name.
-				'log_text_post_type_reverse' => _x( '%s deleted.', 'points log description', 'wordpoints' ),
+				'log_text_post_type_reverse'           => _x( '%s deleted.', 'points log description', 'wordpoints' ),
 				// translators: 1. Singular post type name; 2. Post title.
 				'log_text_post_title_and_type_reverse' => _x( '%1$s &#8220;%2$s&#8221; deleted.', 'points log description', 'wordpoints' ),
 				// translators: Post title.
-				'log_text_post_title_reverse' => _x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' ),
-				'log_text_no_post_title_reverse' => _x( 'Post deleted.', 'points log description', 'wordpoints' ),
+				'log_text_post_title_reverse'          => _x( 'Post &#8220;%s&#8221; deleted.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title_reverse'       => _x( 'Post deleted.', 'points log description', 'wordpoints' ),
 			)
 		);
 

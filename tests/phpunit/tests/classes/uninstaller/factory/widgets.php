@@ -24,7 +24,7 @@ class WordPoints_Uninstaller_Factory_Widgets_Test
 	 */
 	public function test_for_single() {
 
-		$factory = new WordPoints_Uninstaller_Factory_Widgets( array( 'text' ) );
+		$factory      = new WordPoints_Uninstaller_Factory_Widgets( array( 'text' ) );
 		$uninstallers = $factory->get_for_single();
 
 		$widget = $this->factory->wordpoints->widget->create();
@@ -43,7 +43,7 @@ class WordPoints_Uninstaller_Factory_Widgets_Test
 	 */
 	public function test_for_site() {
 
-		$factory = new WordPoints_Uninstaller_Factory_Widgets( array( 'text' ) );
+		$factory      = new WordPoints_Uninstaller_Factory_Widgets( array( 'text' ) );
 		$uninstallers = $factory->get_for_site();
 
 		$widget = $this->factory->wordpoints->widget->create();

@@ -208,8 +208,8 @@ class WordPoints_Module_Installer_Test extends WordPoints_PHPUnit_TestCase_Admin
 		$this->package_name = $package_name;
 
 		$api = array(
-			'ID'        => 15,
-			'version'   => '1.0.0',
+			'ID'      => 15,
+			'version' => '1.0.0',
 		);
 
 		$this->skin = new WordPoints_PHPUnit_Mock_Module_Installer_Skin(

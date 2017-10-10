@@ -95,7 +95,7 @@ abstract class WordPoints_Shortcode {
 	 */
 	public function __construct( $atts, $content, $shortcode = null ) {
 
-		$this->atts = $atts;
+		$this->atts    = $atts;
 		$this->content = $content;
 
 		if ( isset( $shortcode ) ) {

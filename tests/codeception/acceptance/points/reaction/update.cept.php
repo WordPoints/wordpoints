@@ -12,7 +12,7 @@ use WordPoints\Tests\Codeception\Element\Reaction;
 $I = new AcceptanceTester( $scenario );
 $I->wantTo( 'Update a points reaction' );
 $the_reaction = $I->hadCreatedAPointsReaction();
-$reaction  = new Reaction( $I, $the_reaction );
+$reaction     = new Reaction( $I, $the_reaction );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' );
 $I->see( 'Test description.', "{$reaction} .title" );
 $reaction->edit();
@@ -20,8 +20,8 @@ $I->canSeeInFormFields(
 	"{$reaction} form"
 	, array(
 		'description' => 'Test description.',
-		'log_text' => 'Test log text.',
-		'points' => '10',
+		'log_text'    => 'Test log text.',
+		'points'      => '10',
 	)
 );
 $I->fillField( "{$reaction} [name=description]", 'Registering.' );
@@ -32,8 +32,8 @@ $I->canSeeInFormFields(
 	"{$reaction} form"
 	, array(
 		'description' => 'Registering.',
-		'log_text' => 'Registration.',
-		'points' => '50',
+		'log_text'    => 'Registration.',
+		'points'      => '50',
 	)
 );
 $I->see( 'Registering.', "{$reaction} .title" );

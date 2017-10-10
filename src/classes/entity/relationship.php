@@ -91,7 +91,7 @@ abstract class WordPoints_Entity_Relationship
 
 		if ( '{}' === substr( $slug, -2 ) ) {
 			$is_array = true;
-			$slug = substr( $slug, 0, -2 );
+			$slug     = substr( $slug, 0, -2 );
 		}
 
 		return array( 'slug' => $slug, 'is_array' => $is_array );
@@ -283,7 +283,7 @@ abstract class WordPoints_Entity_Relationship
 		) {
 
 			$this->the_guids = $value;
-			$ids = $this->get_ids_from_guids( $value );
+			$ids             = $this->get_ids_from_guids( $value );
 
 		} else {
 

@@ -242,7 +242,7 @@ class WordPoints_Extension_Server_API_EDD_SL
 
 		$args = array(
 			'timeout' => 15,
-			'body' => array(
+			'body'    => array(
 				'edd_action' => $action,
 				'url'        => home_url(),
 				'license'    => $license,

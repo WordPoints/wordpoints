@@ -72,8 +72,8 @@ class WordPoints_Extension_Upgrader_Skin extends WP_Upgrader_Skin {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$this->extension             = $args['extension'];
-		$this->extension_active      = is_wordpoints_module_active( $this->extension );
+		$this->extension                = $args['extension'];
+		$this->extension_active         = is_wordpoints_module_active( $this->extension );
 		$this->extension_network_active = is_wordpoints_module_active_for_network(
 			$this->extension
 		);

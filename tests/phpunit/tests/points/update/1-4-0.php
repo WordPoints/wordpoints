@@ -82,8 +82,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->assertSame(
 			array(
 				$hook->get_number() => array(
-					'points' => 20,
-					'post_type' => 'ALL',
+					'points'       => 20,
+					'post_type'    => 'ALL',
 					'auto_reverse' => 0,
 				),
 			)
@@ -144,7 +144,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			switch_to_blog( $blog_id );
 
 			// Test that the post hook instance was updated.
-			$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
+			$hook        = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 			$hook_number = $hook->get_number();
 
 			$this->assertSame(
@@ -153,7 +153,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			);
 
 			// Check that a post delete points hook was created.
-			$delete_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
+			$delete_hook        = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_delete_points_hook' );
 			$delete_hook_number = $delete_hook->get_number();
 
 			$this->assertSame(
@@ -192,6 +192,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			'wordpoints_post_points_hook'
 			, array( 'publish' => 20, 'trash' => 25, 'post_type' => 'ALL' )
 		);
+
 		$network_hook_id = $hook->get_id();
 		WordPoints_Points_Hooks::set_network_mode( false );
 
@@ -202,7 +203,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		WordPoints_Points_Hooks::set_network_mode( true );
 
 		// Test that the post hook instance was updated.
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
+		$hook        = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_post_points_hook' );
 		$hook_number = $hook->get_number_by_id( $network_hook_id );
 
 		$this->assertSame(
@@ -253,8 +254,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		$this->assertSame(
 			array(
 				$hook->get_number() => array(
-					'points' => 20,
-					'post_type' => 'ALL',
+					'points'       => 20,
+					'post_type'    => 'ALL',
 					'auto_reverse' => 0,
 				),
 			)
@@ -315,14 +316,14 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			switch_to_blog( $blog_id );
 
 			// Test that the post hook instance was updated.
-			$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
+			$hook        = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 			$hook_number = $hook->get_number();
 
 			$this->assertSame(
 				array(
 					$hook_number => array(
-						'points' => 20,
-						'post_type' => 'ALL',
+						'points'       => 20,
+						'post_type'    => 'ALL',
 						'auto_reverse' => 0,
 					),
 				)
@@ -330,7 +331,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			);
 
 			// Check that a comment remove points hook was created.
-			$remove_hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
+			$remove_hook        = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_removed_points_hook' );
 			$remove_hook_number = $remove_hook->get_number();
 
 			$this->assertSame(
@@ -370,6 +371,7 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 			'wordpoints_comment_points_hook'
 			, array( 'approve' => 20, 'disapprove' => 25 )
 		);
+
 		$network_hook_id = $hook->get_id();
 		WordPoints_Points_Hooks::set_network_mode( false );
 
@@ -380,14 +382,14 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		WordPoints_Points_Hooks::set_network_mode( true );
 
 		// Test that the comment hook instance was updated.
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
+		$hook        = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_comment_points_hook' );
 		$hook_number = $hook->get_number_by_id( $network_hook_id );
 
 		$this->assertSame(
 			array(
 				$hook_number => array(
-					'points' => 20,
-					'post_type' => 'ALL',
+					'points'       => 20,
+					'post_type'    => 'ALL',
 					'auto_reverse' => 0,
 				),
 			)
@@ -432,8 +434,8 @@ class WordPoints_Points_1_4_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		remove_action( 'delete_post', array( $hook, 'clean_logs_on_post_deletion' ) );
 
 		// Create a comment, then delete it.
-		$user_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$user_id    = $this->factory->user->create();
+		$post_id    = $this->factory->post->create( array( 'post_author' => $user_id ) );
 		$comment_id = $this->factory->comment->create(
 			array(
 				'user_id'         => $user_id,

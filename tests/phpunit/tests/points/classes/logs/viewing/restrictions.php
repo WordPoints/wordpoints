@@ -22,12 +22,12 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 	 * @since 2.2.0
 	 */
 	public $shared_fixtures = array(
-		'site' => 1,
-		'user' => 1,
+		'site'       => 1,
+		'user'       => 1,
 		'points_log' => array(
 			array( 'get' => true ),
 			array(
-				'get' => true,
+				'get'  => true,
 				'args' => array( 'blog_id' => '$fixture_ids[site][0]' ),
 			),
 		),
@@ -632,7 +632,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions_Test
 	 */
 	public function test_can_view_by_default() {
 
-		$log = $this->fixtures['points_log'][0];
+		$log          = $this->fixtures['points_log'][0];
 		$restrictions = new WordPoints_Points_Logs_Viewing_Restrictions();
 
 		$this->assertTrue(

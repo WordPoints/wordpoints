@@ -304,7 +304,7 @@ final class WordPoints_Modules {
 		) {
 
 			$class       = "WordPoints_{$module['namespace']}_Installable";
-			$installable = new $class();
+			$installable = new $class( $slug );
 
 		} elseif ( file_exists( $uninstaller ) ) {
 

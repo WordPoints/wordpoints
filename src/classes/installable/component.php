@@ -20,6 +20,17 @@ abstract class WordPoints_Installable_Component extends WordPoints_Installable {
 	protected $type = 'component';
 
 	/**
+	 * Constructs the installable.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $slug The slug of the component.
+	 */
+	public function __construct( $slug ) {
+		$this->slug = $slug;
+	}
+
+	/**
 	 * @since 2.4.0
 	 */
 	public function get_version() {

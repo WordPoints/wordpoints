@@ -17,11 +17,6 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 	/**
 	 * @since 2.4.0
 	 */
-	protected $slug = 'points';
-
-	/**
-	 * @since 2.4.0
-	 */
 	public function get_db_tables() {
 		return array(
 			'global' => array(

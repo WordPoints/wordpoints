@@ -35,7 +35,7 @@ class WordPoints_Uninstaller_Core_Components implements WordPoints_RoutineI {
 
 				$installable = $data['installable'];
 
-				$installer = new WordPoints_Uninstaller( new $installable() );
+				$installer = new WordPoints_Uninstaller( new $installable( $component ) );
 				$installer->run();
 
 			} elseif ( isset( $data['un_installer'] ) ) {

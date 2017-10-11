@@ -17,11 +17,6 @@ class WordPoints_Ranks_Installable extends WordPoints_Installable_Component {
 	/**
 	 * @since 2.4.0
 	 */
-	protected $slug = 'ranks';
-
-	/**
-	 * @since 2.4.0
-	 */
 	protected function get_db_tables() {
 		return array(
 			'global' => array(

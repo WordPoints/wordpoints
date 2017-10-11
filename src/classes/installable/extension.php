@@ -20,6 +20,17 @@ abstract class WordPoints_Installable_Extension extends WordPoints_Installable {
 	protected $type = 'module';
 
 	/**
+	 * Constructs the installable.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $slug The slug of the extension.
+	 */
+	public function __construct( $slug ) {
+		$this->slug = $slug;
+	}
+
+	/**
 	 * @since 2.4.0
 	 */
 	public function get_version() {

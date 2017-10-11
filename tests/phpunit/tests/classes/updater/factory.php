@@ -57,8 +57,6 @@ class WordPoints_Updater_Factory_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'single' => array( 'WordPoints_PHPUnit_Mock_Object' ) )
 		);
 
-		new WordPoints_PHPUnit_Mock_Object();
-
 		/** @var WordPoints_PHPUnit_Mock_Object[] $routines */
 		$routines = $updater->get_for_single();
 
@@ -87,8 +85,6 @@ class WordPoints_Updater_Factory_Test extends WordPoints_PHPUnit_TestCase {
 				),
 			)
 		);
-
-		new WordPoints_PHPUnit_Mock_Object();
 
 		/** @var WordPoints_PHPUnit_Mock_Object[] $routines */
 		$routines = $updater->get_for_single();

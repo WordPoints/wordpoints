@@ -367,7 +367,7 @@ final class WordPoints_Components {
 			if ( isset( $this->registered[ $slug ]['installable'] ) ) {
 
 				$installable = $this->registered[ $slug ]['installable'];
-				$installable = new $installable();
+				$installable = new $installable( $slug );
 
 				$installer = new WordPoints_Installer(
 					$installable

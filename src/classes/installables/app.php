@@ -209,7 +209,7 @@ class WordPoints_Installables_App {
 		if ( is_callable( $loader ) ) {
 			$installable = call_user_func( $loader, $type, $slug );
 		} else {
-			$installable = new $loader();
+			$installable = new $loader( $slug );
 		}
 
 		if ( ! $installable instanceof WordPoints_InstallableI ) {

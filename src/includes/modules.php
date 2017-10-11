@@ -1267,7 +1267,7 @@ function wordpoints_uninstall_module( $module ) {
 
 		$class = "WordPoints_{$data['namespace']}_Installable";
 
-		$uninstaller = new WordPoints_Uninstaller( new $class( 'module', $slug ) );
+		$uninstaller = new WordPoints_Uninstaller( new $class( $slug ) );
 		$uninstaller->run();
 
 		return true;

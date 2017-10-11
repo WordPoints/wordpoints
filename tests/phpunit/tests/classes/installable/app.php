@@ -479,6 +479,27 @@ class WordPoints_Installables_App_Test extends WordPoints_PHPUnit_TestCase {
 
 		$installables->install_on_new_site( get_current_blog_id() );
 	}
+
+	/**
+	 * Tests the get_installable() method with a callback.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_installable_callback() {
+
+		$type    = 'type';
+		$slug    = 'slug';
+		$version = '1.0.0';
+
+		$loader = array( new WordPoints_PHPUnit_Mock_Filter(), 'filter' );
+
+		$installables = new WordPoints_Installables_App();
+		$installables->register( $type, $slug, $loader, $version, true );
+
+		$installables->install_on_new_site( 1 );
+
+		$this->assertSame( array( $type, $slug ), $loader[0]->calls[0] );
+	}
 }
 
 // EOF

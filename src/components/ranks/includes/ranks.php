@@ -633,20 +633,24 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
 		return true;
 	}
 
+	$prepared = $wpdb->prepare(
+		', %d, %s, %d, %d'
+		, $to_rank_id
+		, $rank->rank_group
+		, $wpdb->blogid
+		, $wpdb->siteid
+	);
+
 	$result = $wpdb->query( // WPCS: unprepared SQL OK.
 		$wpdb->prepare( // WPCS: unprepared SQL OK.
 			"
 				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
 					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
 				VALUES 
-					(" . implode( array_map( 'absint', $user_ids ), $wpdb->prepare( ", %d, %s, %d, %d),\n\t\t\t\t\t(", $to_rank_id, $rank->rank_group, $wpdb->blogid, $wpdb->siteid ) ) . ', %d, %s, %d, %d)
+					(" . implode( array_map( 'absint', $user_ids ), "{$prepared}),\n\t\t\t\t\t(" ) . "{$prepared})
 				ON DUPLICATE KEY
 					UPDATE `rank_id` = %d
-			'
-			, $to_rank_id
-			, $rank->rank_group
-			, $wpdb->blogid
-			, $wpdb->siteid
+			"
 			, $to_rank_id
 		)
 	);

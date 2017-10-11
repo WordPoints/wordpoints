@@ -3984,7 +3984,7 @@
     },
     "\/components\/points\/classes\/installable.php": {
         "publish": {
-            "129": {
+            "124": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -3993,7 +3993,7 @@
             }
         },
         "trash": {
-            "130": {
+            "125": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -4002,7 +4002,7 @@
             }
         },
         "approve": {
-            "135": {
+            "130": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -4011,7 +4011,7 @@
             }
         },
         "disapprove": {
-            "136": {
+            "131": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -4020,7 +4020,7 @@
             }
         },
         "base": {
-            "257": {
+            "252": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -4029,7 +4029,7 @@
             }
         },
         "user": {
-            "288": {
+            "283": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -4038,10 +4038,10 @@
             }
         },
         "post\\\\": {
-            "291": false
+            "286": false
         },
         "comment\\\\": {
-            "292": false
+            "287": false
         }
     },
     "\/components\/points\/classes\/updater\/1\/10\/0\/logs.php": {
@@ -4096,7 +4096,7 @@
     },
     "\/components\/ranks\/classes\/ranks\/installable.php": {
         "base": {
-            "78": {
+            "73": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

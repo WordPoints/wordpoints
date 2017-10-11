@@ -72,7 +72,7 @@ class WordPoints_Points_Log_Query_Test extends WordPoints_PHPUnit_TestCase_Point
 
 		$query = new WordPoints_Points_Logs_Query();
 
-		$this->assertSame( 0,      $query->get_arg( 'offset' ) );
+		$this->assertSame( 0     , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 		$this->assertSame( 'date', $query->get_arg( 'order_by' ) );
 		$this->assertSame( 'LIKE', $query->get_arg( 'text__compare' ) );

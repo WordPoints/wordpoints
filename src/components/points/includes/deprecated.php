@@ -343,7 +343,7 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 
 		$this->init(
 			_x( 'Post Delete', 'points hook name', 'wordpoints' )
-			,array(
+			, array(
 				'description'           => __( 'A post is permanently deleted.', 'wordpoints' ),
 				'points_label'          => __( 'Points removed when deleted:', 'wordpoints' ),
 				// translators: Singular post type name.

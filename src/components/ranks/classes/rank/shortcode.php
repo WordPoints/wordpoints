@@ -24,7 +24,7 @@ abstract class WordPoints_Rank_Shortcode extends WordPoints_Shortcode {
 			return sprintf(
 				// translators: 1. Attribute name; 2. Shortcode name.
 				__( 'The &#8220;%1$s&#8221; attribute of the %2$s shortcode must be a rank group slug.', 'wordpoints' )
-				,'rank_group'
+				, 'rank_group'
 				, "<code>[{$this->shortcode}]</code>"
 			);
 		}

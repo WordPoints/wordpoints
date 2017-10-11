@@ -120,22 +120,22 @@ function wordpoints_points_admin_menu() {
 		// Legacy hooks page.
 		add_submenu_page(
 			$wordpoints_menu
-			,__( 'WordPoints — Points Hooks', 'wordpoints' )
-			,__( 'Points Hooks', 'wordpoints' )
-			,'manage_options'
-			,'wordpoints_points_hooks'
-			,'wordpoints_points_admin_screen_hooks'
+			, __( 'WordPoints — Points Hooks', 'wordpoints' )
+			, __( 'Points Hooks', 'wordpoints' )
+			, 'manage_options'
+			, 'wordpoints_points_hooks'
+			, 'wordpoints_points_admin_screen_hooks'
 		);
 	}
 
 	// Logs page.
 	add_submenu_page(
 		$wordpoints_menu
-		,__( 'WordPoints — Points Logs', 'wordpoints' )
-		,__( 'Points Logs', 'wordpoints' )
-		,'manage_options'
-		,'wordpoints_points_logs'
-		,'wordpoints_points_admin_screen_logs'
+		, __( 'WordPoints — Points Logs', 'wordpoints' )
+		, __( 'Points Logs', 'wordpoints' )
+		, 'manage_options'
+		, 'wordpoints_points_logs'
+		, 'wordpoints_points_admin_screen_logs'
 	);
 }
 

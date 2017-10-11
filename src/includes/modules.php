@@ -514,11 +514,11 @@ function wordpoints_get_module_data( $module_file, $markup = true, $translate = 
 		$allowed_tags['a'] = array( 'href' => true, 'title' => true );
 
 		// Name and author ar marked up inside <a> tags. Don't allow these.
-		$module_data['name']   = wp_kses( $module_data['name'],   $allowed_tags_in_links );
+		$module_data['name']   = wp_kses( $module_data['name']  , $allowed_tags_in_links );
 		$module_data['author'] = wp_kses( $module_data['author'], $allowed_tags_in_links );
 
 		$module_data['description'] = wp_kses( $module_data['description'], $allowed_tags );
-		$module_data['version']     = wp_kses( $module_data['version'],     $allowed_tags );
+		$module_data['version']     = wp_kses( $module_data['version']    , $allowed_tags );
 
 		$module_data['uri']        = esc_url( $module_data['uri'] );
 		$module_data['module_uri'] = esc_url( $module_data['module_uri'] );

@@ -77,20 +77,20 @@ function wordpoints_admin_menu() {
 		// Main page.
 		add_menu_page(
 			$wordpoints
-			,esc_html( $wordpoints )
-			,'manage_options'
-			,'wordpoints_configure'
-			,'wordpoints_admin_screen_configure'
+			, esc_html( $wordpoints )
+			, 'manage_options'
+			, 'wordpoints_configure'
+			, 'wordpoints_admin_screen_configure'
 		);
 
 		// Settings page.
 		add_submenu_page(
 			'wordpoints_configure'
-			,__( 'WordPoints — Settings', 'wordpoints' )
-			,esc_html__( 'Settings', 'wordpoints' )
-			,'manage_options'
-			,'wordpoints_configure'
-			,'wordpoints_admin_screen_configure'
+			, __( 'WordPoints — Settings', 'wordpoints' )
+			, esc_html__( 'Settings', 'wordpoints' )
+			, 'manage_options'
+			, 'wordpoints_configure'
+			, 'wordpoints_admin_screen_configure'
 		);
 
 	} else {
@@ -103,10 +103,10 @@ function wordpoints_admin_menu() {
 		// Main page.
 		add_menu_page(
 			$wordpoints
-			,esc_html( $wordpoints )
-			,'activate_wordpoints_extensions'
-			,'wordpoints_extensions'
-			,'wordpoints_admin_screen_modules'
+			, esc_html( $wordpoints )
+			, 'activate_wordpoints_extensions'
+			, 'wordpoints_extensions'
+			, 'wordpoints_admin_screen_modules'
 		);
 
 	} // End if ( configure is main menu ) else.
@@ -114,20 +114,20 @@ function wordpoints_admin_menu() {
 	// Extensions page.
 	add_submenu_page(
 		$main_menu
-		,__( 'WordPoints — Extensions', 'wordpoints' )
-		,esc_html__( 'Extensions', 'wordpoints' )
-		,'activate_wordpoints_extensions'
-		,'wordpoints_extensions'
-		,'wordpoints_admin_screen_modules'
+		, __( 'WordPoints — Extensions', 'wordpoints' )
+		, esc_html__( 'Extensions', 'wordpoints' )
+		, 'activate_wordpoints_extensions'
+		, 'wordpoints_extensions'
+		, 'wordpoints_admin_screen_modules'
 	);
 
 	// Back-compat for extensions page when the slug was "modules".
 	add_menu_page(
 		__( 'WordPoints — Extensions', 'wordpoints' )
-		,esc_html__( 'Extensions', 'wordpoints' )
-		,'activate_wordpoints_extensions'
-		,'wordpoints_modules'
-		,'wordpoints_admin_screen_modules'
+		, esc_html__( 'Extensions', 'wordpoints' )
+		, 'activate_wordpoints_extensions'
+		, 'wordpoints_modules'
+		, 'wordpoints_admin_screen_modules'
 	);
 
 	// Hack so that this page isn't displayed in the menu.
@@ -136,21 +136,21 @@ function wordpoints_admin_menu() {
 	// Extensions install page.
 	add_submenu_page(
 		'_wordpoints_extensions' // Fake menu.
-		,__( 'WordPoints — Install Extensions', 'wordpoints' )
-		,esc_html__( 'Install Extensions', 'wordpoints' )
-		,'install_wordpoints_extensions'
-		,'wordpoints_install_extensions'
-		,'wordpoints_admin_screen_install_modules'
+		, __( 'WordPoints — Install Extensions', 'wordpoints' )
+		, esc_html__( 'Install Extensions', 'wordpoints' )
+		, 'install_wordpoints_extensions'
+		, 'wordpoints_install_extensions'
+		, 'wordpoints_admin_screen_install_modules'
 	);
 
 	// Back-compat for extensions install page when the slug was "modules".
 	add_submenu_page(
 		'_wordpoints_extensions' // Fake menu.
-		,__( 'WordPoints — Install Extensions', 'wordpoints' )
-		,esc_html__( 'Install Extensions', 'wordpoints' )
-		,'install_wordpoints_extensions'
-		,'wordpoints_install_modules'
-		,'wordpoints_admin_screen_install_modules'
+		, __( 'WordPoints — Install Extensions', 'wordpoints' )
+		, esc_html__( 'Install Extensions', 'wordpoints' )
+		, 'install_wordpoints_extensions'
+		, 'wordpoints_install_modules'
+		, 'wordpoints_admin_screen_install_modules'
 	);
 }
 

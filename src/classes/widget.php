@@ -75,7 +75,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 						// translators: 1. Widget name; 2. Error message.
 						esc_html__( 'The &#8220;%1$s&#8221; widget could not be displayed because of an error: %2$s', 'wordpoints' )
 						, esc_html( $this->name )
-						,  $message
+						, $message
 					)
 					, 'wordpoints_widget_error'
 				);

@@ -801,7 +801,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 			<div class="module-description">
 				<p>
 					<?php if ( ! empty( $module_data['description'] ) ) : ?>
-						<?php echo wp_kses( $module_data['description'] , 'wordpoints_module_description' ); ?>
+						<?php echo wp_kses( $module_data['description'], 'wordpoints_module_description' ); ?>
 					<?php else : ?>
 						&nbsp;
 					<?php endif; ?>

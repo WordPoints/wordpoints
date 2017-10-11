@@ -92,7 +92,7 @@ class WordPoints_User_Ranks_Test extends WordPoints_PHPUnit_TestCase_Ranks {
 
 		$this->assertSame(
 			'<span class="wordpoints-rank">' . $rank->name . '</span>'
-			,  $formatted
+			, $formatted
 		);
 	}
 

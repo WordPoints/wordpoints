@@ -520,7 +520,7 @@ final class WordPoints_Points_Hooks {
 				'prefix' => '',
 				'suffix' => '',
 			)
-			,$points_type
+			, $points_type
 		);
 
 		if ( ! isset( $slug ) && 'hook' === $wrap ) {

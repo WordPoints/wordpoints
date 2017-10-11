@@ -72,7 +72,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query();
 
-		$this->assertSame( 0,      $query->get_arg( 'offset' ) );
+		$this->assertSame( 0     , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 	}
 
@@ -85,9 +85,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
-		$this->assertSame( 10,     $query->get_arg( 'offset' ) );
+		$this->assertSame( 10    , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
+		$this->assertSame( 'a'   , $query->get_arg( 'custom' ) );
 	}
 
 	/**
@@ -143,15 +143,15 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
-		$this->assertSame( 10,     $query->get_arg( 'offset' ) );
+		$this->assertSame( 10    , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
+		$this->assertSame( 'a'   , $query->get_arg( 'custom' ) );
 
 		$query->set_args( array( 'order' => 'ASC', 'custom' => 'b' ) );
 
-		$this->assertSame( 10,    $query->get_arg( 'offset' ) );
+		$this->assertSame( 10   , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'ASC', $query->get_arg( 'order' ) );
-		$this->assertSame( 'b',   $query->get_arg( 'custom' ) );
+		$this->assertSame( 'b'  , $query->get_arg( 'custom' ) );
 	}
 
 	/**

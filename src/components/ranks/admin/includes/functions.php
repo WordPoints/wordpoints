@@ -80,11 +80,11 @@ function wordpoints_ranks_admin_menu() {
 	// Ranks screen.
 	add_submenu_page(
 		$wordpoints_menu
-		,__( 'WordPoints — Ranks', 'wordpoints' )
-		,esc_html__( 'Ranks', 'wordpoints' )
-		,'manage_options'
-		,'wordpoints_ranks'
-		,'wordpoints_ranks_admin_screen'
+		, __( 'WordPoints — Ranks', 'wordpoints' )
+		, esc_html__( 'Ranks', 'wordpoints' )
+		, 'manage_options'
+		, 'wordpoints_ranks'
+		, 'wordpoints_ranks_admin_screen'
 	);
 }
 

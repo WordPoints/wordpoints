@@ -303,8 +303,8 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 	// Now delete the logs.
 	$wpdb->delete(
 		$wpdb->wordpoints_points_logs
-		,$where
-		,'%d'
+		, $where
+		, '%d'
 	);
 
 	wordpoints_flush_points_logs_caches( array( 'user_id' => $user_id ) );
@@ -333,8 +333,8 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 	// Now delete the logs.
 	$wpdb->delete(
 		$wpdb->wordpoints_points_logs
-		,array( 'blog_id' => $blog_id )
-		,'%d'
+		, array( 'blog_id' => $blog_id )
+		, '%d'
 	);
 
 	wordpoints_flush_points_logs_caches();

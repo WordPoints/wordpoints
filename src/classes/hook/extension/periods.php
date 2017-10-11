@@ -41,10 +41,10 @@ class WordPoints_Hook_Extension_Periods
 		$period_units = array(
 			1                   => __( 'Seconds', 'wordpoints' ),
 			MINUTE_IN_SECONDS   => __( 'Minutes', 'wordpoints' ),
-			HOUR_IN_SECONDS     => __( 'Hours',   'wordpoints' ),
-			DAY_IN_SECONDS      => __( 'Days',    'wordpoints' ),
-			WEEK_IN_SECONDS     => __( 'Weeks',   'wordpoints' ),
-			30 * DAY_IN_SECONDS => __( 'Months',  'wordpoints' ),
+			HOUR_IN_SECONDS     => __( 'Hours'  , 'wordpoints' ),
+			DAY_IN_SECONDS      => __( 'Days'   , 'wordpoints' ),
+			WEEK_IN_SECONDS     => __( 'Weeks'  , 'wordpoints' ),
+			30 * DAY_IN_SECONDS => __( 'Months' , 'wordpoints' ),
 		);
 
 		/**

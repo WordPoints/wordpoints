@@ -34,7 +34,7 @@ class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		$installables = wordpoints_apps()->get_sub_app( 'installables' );
 		$installables->register(
 			'component'
-			, 'rank'
+			, 'ranks'
 			, 'WordPoints_Ranks_Installable'
 			, WORDPOINTS_VERSION
 			, is_wordpoints_network_active()

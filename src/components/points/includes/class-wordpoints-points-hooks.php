@@ -680,7 +680,7 @@ final class WordPoints_Points_Hooks {
 		$id_format = $hook_id;
 
 		$multi_number = ( isset( $options['_multi_num'] ) ) ? $options['_multi_num'] : '';
-		$add_new      = ( isset( $options['_add'] )       ) ? $options['_add'] : '';
+		$add_new      = ( isset( $options['_add'] ) ) ? $options['_add'] : '';
 
 		// Prepare the URL query string.
 		$query_arg = array( 'edithook' => $id_format );

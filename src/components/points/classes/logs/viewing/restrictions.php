@@ -33,7 +33,7 @@ class WordPoints_Points_Logs_Viewing_Restrictions
 	 */
 	public function get_restriction( $log ) {
 
-		if ( $log->blog_id && get_current_blog_id() !== $log->blog_id ) {
+		if ( $log->blog_id && get_current_blog_id() !== (int) $log->blog_id ) {
 			$switched = switch_to_blog( $log->blog_id );
 		}
 

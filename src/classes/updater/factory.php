@@ -96,6 +96,11 @@ class WordPoints_Updater_Factory implements WordPoints_Updater_FactoryI {
 
 		foreach ( $this->updates[ $context ] as $data ) {
 
+			if ( $data instanceof WordPoints_RoutineI ) {
+				$routines[] = $data;
+				continue;
+			}
+
 			if ( is_string( $data ) ) {
 				$class = $data;
 				$args  = array();

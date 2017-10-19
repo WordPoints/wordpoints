@@ -46,6 +46,26 @@ class WordPoints_Updater_Factory_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Tests that it supports passing a routine object in directly.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_object() {
+
+		$routine = $this->createMock( 'WordPoints_RoutineI' );
+
+		$updater = new WordPoints_Updater_Factory(
+			'1.2.0'
+			, array( 'single' => array( $routine ) )
+		);
+
+		/** @var WordPoints_PHPUnit_Mock_Object[] $routines */
+		$routines = $updater->get_for_single();
+
+		$this->assertSame( $routine, $routines[0] );
+	}
+
+	/**
 	 * Tests that it supports passing a class name with no args.
 	 *
 	 * @since 2.4.0

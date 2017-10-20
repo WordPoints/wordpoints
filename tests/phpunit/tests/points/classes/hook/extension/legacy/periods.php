@@ -209,6 +209,11 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods_Test
 			, wordpoints_get_points( $user_id, 'points' )
 		);
 
+		// Calculate the time until the end of the period, using local time.
+		if ( ! $relative ) {
+			$period = current_time( 'timestamp' ) % $settings['period'];
+		}
+
 		// Now fast-forward all the way.
 		$this->fast_forward_points( $period + 2 );
 

@@ -204,7 +204,7 @@ class WordPoints_Points_Updater_2_1_4_Logs implements WordPoints_RoutineI {
 			"
 				SELECT `meta_value` AS `hit_id`, GROUP_CONCAT(`log_id`) AS `log_ids`
 				FROM `{$wpdb->wordpoints_points_log_meta}`
-                WHERE `meta_key` = 'hook_hit_id'
+				WHERE `meta_key` = 'hook_hit_id'
 				GROUP BY `meta_value`
 				HAVING COUNT(*) > 1
 			"
@@ -489,8 +489,8 @@ class WordPoints_Points_Updater_2_1_4_Logs implements WordPoints_RoutineI {
 				FROM `{$wpdb->wordpoints_points_log_meta}` AS `meta`
 				INNER JOIN `{$wpdb->wordpoints_points_logs}` AS `log`
 					ON `log`.`id` = `meta`.`log_id`
-	            WHERE `meta_key` = 'post_id'
-	            	AND `log`.`log_type` = 'post_publish'
+				WHERE `meta_key` = 'post_id'
+					AND `log`.`log_type` = 'post_publish'
 			"
 		); // WPCS: cache OK.
 

@@ -1107,12 +1107,12 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 			$wpdb->prepare( // WPCS: unprepared SQL OK
 				"
 					SELECT `users`.`ID`
-                    FROM `{$wpdb->users}` AS `users`
-                    LEFT JOIN `{$wpdb->usermeta}` AS `meta`
-                    	ON `users`.`ID` = `meta`.`user_ID`
-                        AND `meta`.`meta_key` = %s
+					FROM `{$wpdb->users}` AS `users`
+					LEFT JOIN `{$wpdb->usermeta}` AS `meta`
+						ON `users`.`ID` = `meta`.`user_ID`
+						AND `meta`.`meta_key` = %s
 					{$multisite_join}
-                    {$exclude_users}
+					{$exclude_users}
 					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC, `ID` ASC
 					LIMIT %d,%d
 				",

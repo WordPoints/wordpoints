@@ -45,7 +45,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 					meta_key VARCHAR(255) NOT NULL,
 					meta_value LONGTEXT,
 					PRIMARY KEY (meta_id)
-				  )
+				)
 			"
 		);
 	}

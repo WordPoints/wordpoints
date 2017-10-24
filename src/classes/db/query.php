@@ -636,7 +636,7 @@ class WordPoints_DB_Query {
 
 		$column = wordpoints_escape_mysql_identifier( $column );
 
-		$this->wheres[] = $wpdb->prepare( // WPCS: unprepared SQL OK.
+		$this->wheres[] = $wpdb->prepare( // WPCS: unprepared SQL, PreparedSQLPlaceholders replacement count OK.
 			"{$column} {$compare} {$data['format']}"
 			, $value
 		);

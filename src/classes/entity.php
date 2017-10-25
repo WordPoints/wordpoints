@@ -262,8 +262,8 @@ abstract class WordPoints_Entity
 
 		$id = $this->get_attr_value( $entity, $this->get_id_field() );
 
-		if ( $this->id_is_int ) {
-			$id = (int) $id;
+		if ( $this->id_is_int && null !== $id ) {
+			$id = wordpoints_posint( $id );
 		}
 
 		return $id;
@@ -459,8 +459,8 @@ abstract class WordPoints_Entity
 
 		$the_id = $this->get_the_value();
 
-		if ( $this->id_is_int ) {
-			$the_id = (int) $the_id;
+		if ( $this->id_is_int && null !== $the_id ) {
+			$the_id = wordpoints_posint( $the_id );
 		}
 
 		return $the_id;

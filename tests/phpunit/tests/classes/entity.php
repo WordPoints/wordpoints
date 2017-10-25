@@ -477,6 +477,21 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test get_entity_id() with an entity that isn't valid when $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_entity_id_is_int_invalid() {
+
+		$array = array( 'invalid' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertNull( $entity->call( 'get_entity_id', array( $array ) ) );
+	}
+
+	/**
 	 * Test get_id_field().
 	 *
 	 * @since 2.1.0
@@ -881,6 +896,19 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$entity->set( 'id_is_int', true );
 
 		$this->assertSame( 1, $entity->get_the_id() );
+	}
+
+	/**
+	 * Test get_the_id() when the ID isn't set and $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_id_is_int_not_set() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertNull( $entity->get_the_id() );
 	}
 
 	/**

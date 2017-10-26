@@ -94,7 +94,7 @@ screens.
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
 
-= 2.4.0 — 2017-??-?? =
+= 2.4.0 — 2017-10-26 =
 
 **Requires: WordPress 4.7+**
 

@@ -1,0 +1,56 @@
+/**
+ * Styles for the extensions list table on the Extensions admin screen.
+ *
+ * @since 2.4.0
+ */
+
+.wordpoints-extensions tr.active.plugin-update-tr + tr.inactive.wordpoints-extension-has-license th,
+.wordpoints-extensions tr.active.plugin-update-tr + tr.inactive.wordpoints-extension-has-license td,
+.wordpoints-extensions tr.active + tr.inactive.wordpoints-extension-has-license th,
+.wordpoints-extensions tr.active + tr.inactive.wordpoints-extension-has-license td,
+.wordpoints-extensions tr.update + .wordpoints-extension-license-tr td,
+.plugins.wordpoints-extensions .wordpoints-extension-has-license th,
+.plugins.wordpoints-extensions .wordpoints-extension-has-license td {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.wordpoints-extensions .wordpoints-extension-license-tr td {
+	padding: 0;
+}
+
+.wordpoints-license-box {
+	margin: -10px 37px 5px 0;
+}
+
+.wordpoints-license-box input[type=password] {
+	margin-top: 3px;
+	vertical-align: middle;
+}
+
+.wordpoints-license-box p::before {
+	display: inline-block;
+	font: normal 20px/1 'dashicons';
+	padding-bottom: 3px;
+}
+
+.wordpoints-license-box.notice-success p::before {
+	color: #79ba49;
+	content: '\f147';
+}
+
+.wordpoints-license-box.notice-error p::before {
+	color: #dc3232;
+	content: '\f534';
+}
+
+.wordpoints-license-box.notice-warning p::before {
+	color: #f56e28;
+	content: '\f321';
+}
+
+.wordpoints-update-action-separator {
+	color: #bbb;
+}
+
+/* EOF */

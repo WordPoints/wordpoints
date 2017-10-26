@@ -80,9 +80,9 @@ if ( isset( $_GET['addnew'] ) ) { // WPCS: CSRF OK.
 		return;
 	}
 
-	$id_base = $hook->get_id_base();
+	$id_base      = $hook->get_id_base();
 	$multi_number = 0;
-	$number = $hook->get_number_by_id( $hook_id );
+	$number       = $hook->get_number_by_id( $hook_id );
 
 } // End if ( adding hook ) else { updating hook }.
 
@@ -95,8 +95,14 @@ $name = esc_html( $hook->get_name() );
 <div class="wrap">
 	<h1><?php esc_html_e( 'Points Hooks', 'wordpoints' ); ?></h1>
 	<div class="edithook" style="width:<?php echo absint( $hook->get_option( 'width' ) ); ?>px">
-		<?php // translators: Hook name. ?>
-		<h2><?php echo esc_html( sprintf( __( 'Hook %s', 'wordpoints' ), $name ) ); ?></h2>
+		<h2>
+			<?php
+
+			// translators: Hook name.
+			echo esc_html( sprintf( __( 'Hook %s', 'wordpoints' ), $name ) );
+
+			?>
+		</h2>
 
 		<form action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) ); ?>" method="post">
 			<div class="hook-inside">
@@ -124,14 +130,13 @@ $name = esc_html( $hook->get_name() );
 			</div>
 			<br />
 			<div class="hook-control-actions">
-				<?php if ( isset( $_GET['addnew'] ) ) : // WPCS: CSRF OK. ?>
+				<?php if ( isset( $_GET['addnew'] ) ) : /* WPCS: CSRF OK. */ ?>
 					<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) ); ?>" class="button alignleft"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></a>
-				<?php else :
-						submit_button( _x( 'Delete', 'points hook', 'wordpoints' ), 'button alignleft', 'removehook', false );
-					endif;
+				<?php else : ?>
+					<?php submit_button( _x( 'Delete', 'points hook', 'wordpoints' ), 'button alignleft', 'removehook', false ); ?>
+				<?php endif; ?>
 
-					submit_button( __( 'Save Hook', 'wordpoints' ), 'button-primary alignright', 'savehook', false );
-				?>
+				<?php submit_button( __( 'Save Hook', 'wordpoints' ), 'button-primary alignright', 'savehook', false ); ?>
 
 				<input type="hidden" name="hook-id" class="hook-id" value="<?php echo esc_attr( $hook_id ); ?>" />
 				<input type="hidden" name="id_base" class="id_base" value="<?php echo esc_attr( $id_base ); ?>" />

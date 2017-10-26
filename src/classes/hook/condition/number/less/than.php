@@ -28,7 +28,7 @@ class WordPoints_Hook_Condition_Number_Less_Than extends WordPoints_Hook_Conditi
 
 		return array(
 			'value' => array(
-				'type' => 'number',
+				'type'  => 'number',
 				'label' => _x( 'Number', 'less than hook condition label', 'wordpoints' ),
 			),
 		);

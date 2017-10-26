@@ -136,7 +136,7 @@ abstract class WordPoints_Hook_Reaction_Store implements WordPoints_Hook_Reactio
 		}
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
-		$settings = $validator->validate();
+		$settings  = $validator->validate();
 
 		if ( $validator->had_errors() ) {
 			return $validator;

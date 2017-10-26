@@ -32,7 +32,7 @@ abstract class WordPoints_Entity_Relationship_Stored_Field
 		return array(
 			'type' => $this->storage_type,
 			'info' => array(
-				'type' => 'field',
+				'type'  => 'field',
 				'field' => $this->related_ids_field,
 			),
 		);

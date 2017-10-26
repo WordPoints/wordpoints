@@ -20,49 +20,49 @@ WordPoints_Class_Autoloader::register_dir(
  *
  * @since 1.7.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/constants.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/constants.php';
 
 /**
  * Points component utility functions.
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/functions.php';
 
 /**
  * Points component apps registration functions.
  *
  * @since 2.2.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/apps.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/apps.php';
 
 /**
  * Points component API functions.
  *
  * @since 1.7.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/points.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/points.php';
 
 /**
  * Logs related functions.
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/logs.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/logs.php';
 
 /**
  * Action and filter hooks.
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/filters.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/filters.php';
 
 /**
  * Deprecated functions and classes.
  *
  * @since 1.2.0
  */
-include_once WORDPOINTS_DIR . 'components/points/includes/deprecated.php';
+require_once WORDPOINTS_DIR . 'components/points/includes/deprecated.php';
 
 if ( is_admin() ) {
 
@@ -73,7 +73,7 @@ if ( is_admin() ) {
 	 *
 	 * @since 1.0.0
 	 */
-	include_once WORDPOINTS_DIR . 'components/points/admin/admin.php';
+	require_once WORDPOINTS_DIR . 'components/points/admin/admin.php';
 }
 
 // EOF

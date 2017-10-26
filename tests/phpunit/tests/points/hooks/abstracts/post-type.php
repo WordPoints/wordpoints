@@ -136,7 +136,7 @@ class WordPoints_Post_Type_Points_Hook_Base_Test extends WordPoints_PHPUnit_Test
 		$hook->form_callback( $number );
 		$form = ob_get_clean();
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $form );
 		$xpath = new DOMXPath( $document );
 

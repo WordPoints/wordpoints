@@ -12,20 +12,20 @@
  *
  * @since 1.7.0
  */
-include_once( WORDPOINTS_DIR . 'components/ranks/admin/includes/ajax.php' );
+require_once WORDPOINTS_DIR . 'components/ranks/admin/includes/ajax.php';
 
 /**
  * Admin-side functions of the ranks component.
  *
  * @since 2.1.0
  */
-include_once( WORDPOINTS_DIR . 'components/ranks/admin/includes/functions.php' );
+require_once WORDPOINTS_DIR . 'components/ranks/admin/includes/functions.php';
 
 /**
  * Admin-side action and filter hooks of the ranks component.
  *
  * @since 2.1.0
  */
-include_once( WORDPOINTS_DIR . 'components/ranks/admin/includes/filters.php' );
+require_once WORDPOINTS_DIR . 'components/ranks/admin/includes/filters.php';
 
 // EOF

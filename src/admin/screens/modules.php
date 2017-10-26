@@ -15,8 +15,8 @@ if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $module_file => $error ) {
 		wordpoints_show_admin_error(
 			sprintf(
-				// translators: 1. Module name; 2. Error message.
-				__( 'The module %1$s has been <strong>deactivated</strong> due to an error: %2$s', 'wordpoints' )
+				// translators: 1. Extension name; 2. Error message.
+				__( 'The extension %1$s has been <strong>deactivated</strong> due to an error: %2$s', 'wordpoints' )
 				, esc_html( $module_file )
 				, '<code>' . esc_html( $error->get_error_message() ) . '</code>'
 			)
@@ -30,7 +30,7 @@ if ( isset( $_GET['error'] ) ) {
 	if ( isset( $_GET['main'] ) ) {
 
 		wordpoints_show_admin_error(
-			esc_html__( 'You cannot delete a module while it is active on the main site.', 'wordpoints' )
+			esc_html__( 'You cannot delete an extension while it is active on the main site.', 'wordpoints' )
 			, array( 'dismissible' => true )
 		);
 
@@ -39,7 +39,7 @@ if ( isset( $_GET['error'] ) ) {
 		wordpoints_show_admin_message(
 			sprintf(
 				// translators: Number of characters.
-				__( 'The module generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this module.', 'wordpoints' )
+				__( 'The extension generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this extension.', 'wordpoints' )
 				, (int) $_GET['charsout'] // WPCS: CSRF OK.
 			)
 			, 'warning'
@@ -48,7 +48,7 @@ if ( isset( $_GET['error'] ) ) {
 
 	} else {
 
-		$error_message = __( 'Module could not be activated because it triggered a <strong>fatal error</strong>.', 'wordpoints' );
+		$error_message = __( 'Extension could not be activated because it triggered a <strong>fatal error</strong>.', 'wordpoints' );
 
 		if (
 			isset( $_GET['_error_nonce'], $_GET['module'] )
@@ -56,7 +56,7 @@ if ( isset( $_GET['error'] ) ) {
 		) {
 
 			$url = self_admin_url(
-				'admin.php?page=wordpoints_modules&action=error_scrape&amp;module='
+				'admin.php?page=wordpoints_extensions&action=error_scrape&amp;module='
 					. sanitize_text_field( wp_unslash( $_GET['module'] ) )
 					. '&amp;_wpnonce=' . sanitize_key( $_GET['_error_nonce'] )
 			);
@@ -95,7 +95,7 @@ if ( isset( $_GET['error'] ) ) {
 		wordpoints_show_admin_error(
 			sprintf(
 				// translators: Error message.
-				__( 'Module could not be deleted due to an error: %s', 'wordpoints' )
+				__( 'Extension could not be deleted due to an error: %s', 'wordpoints' )
 				, $delete_result->get_error_message()
 			)
 			, array( 'dismissible' => true )
@@ -104,7 +104,7 @@ if ( isset( $_GET['error'] ) ) {
 	} else {
 
 		wordpoints_show_admin_message(
-			__( 'The selected modules have been <strong>deleted</strong>.', 'wordpoints' )
+			__( 'The selected extensions have been <strong>deleted</strong>.', 'wordpoints' )
 			, 'success'
 			, array( 'dismissible' => true )
 		);
@@ -113,7 +113,7 @@ if ( isset( $_GET['error'] ) ) {
 } elseif ( isset( $_GET['activate'] ) ) {
 
 	wordpoints_show_admin_message(
-		__( 'Module <strong>activated</strong>.', 'wordpoints' )
+		__( 'Extension <strong>activated</strong>.', 'wordpoints' )
 		, 'success'
 		, array( 'dismissible' => true )
 	);
@@ -121,7 +121,7 @@ if ( isset( $_GET['error'] ) ) {
 } elseif ( isset( $_GET['activate-multi'] ) ) {
 
 	wordpoints_show_admin_message(
-		__( 'Selected modules <strong>activated</strong>.', 'wordpoints' )
+		__( 'Selected extensions <strong>activated</strong>.', 'wordpoints' )
 		, 'success'
 		, array( 'dismissible' => true )
 	);
@@ -129,7 +129,7 @@ if ( isset( $_GET['error'] ) ) {
 } elseif ( isset( $_GET['deactivate'] ) ) {
 
 	wordpoints_show_admin_message(
-		__( 'Module <strong>deactivated</strong>.', 'wordpoints' )
+		__( 'Extension <strong>deactivated</strong>.', 'wordpoints' )
 		, 'success'
 		, array( 'dismissible' => true )
 	);
@@ -137,7 +137,7 @@ if ( isset( $_GET['error'] ) ) {
 } elseif ( isset( $_GET['deactivate-multi'] ) ) {
 
 	wordpoints_show_admin_message(
-		__( 'Selected modules <strong>deactivated</strong>.', 'wordpoints' )
+		__( 'Selected extensions <strong>deactivated</strong>.', 'wordpoints' )
 		, 'success'
 		, array( 'dismissible' => true )
 	);
@@ -145,7 +145,7 @@ if ( isset( $_GET['error'] ) ) {
 } elseif ( isset( $_REQUEST['action'] ) && 'update-selected' === sanitize_key( $_REQUEST['action'] ) ) {
 
 	wordpoints_show_admin_message(
-		esc_html__( 'No out of date modules were selected.', 'wordpoints' )
+		esc_html__( 'No out of date extensions were selected.', 'wordpoints' )
 		, 'warning'
 		, array( 'dismissible' => true )
 	);
@@ -156,10 +156,10 @@ if ( isset( $_GET['error'] ) ) {
 
 <div class="wrap">
 	<h1>
-		<?php esc_html_e( 'WordPoints Modules', 'wordpoints' ); ?>
+		<?php esc_html_e( 'WordPoints Extensions', 'wordpoints' ); ?>
 
-		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_modules' ) ) : ?>
-			<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_modules' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'module', 'wordpoints' ); ?></a>
+		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_extensions' ) ) : ?>
+			<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_extensions' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'extension', 'wordpoints' ); ?></a>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
@@ -181,7 +181,7 @@ if ( isset( $_GET['error'] ) ) {
 
 	<?php
 
-	$wp_list_table = new WordPoints_Modules_List_Table();
+	$wp_list_table = new WordPoints_Admin_List_Table_Extensions();
 	$wp_list_table->prepare_items();
 
 	?>
@@ -189,13 +189,13 @@ if ( isset( $_GET['error'] ) ) {
 	<?php $wp_list_table->views(); ?>
 
 	<form method="get" action="<?php echo esc_url( self_admin_url( 'admin.php' ) ); ?>">
-		<input type="hidden" name="page" value="wordpoints_modules" />
-		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Modules', 'wordpoints' ), 'module' ); ?>
+		<input type="hidden" name="page" value="wordpoints_extensions" />
+		<?php $wp_list_table->search_box( esc_html__( 'Search Installed Extensions', 'wordpoints' ), 'module' ); ?>
 	</form>
 
-	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_modules' ) ); ?>">
-		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ) ?>" />
-		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ) ?>" />
+	<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_extensions' ) ); ?>">
+		<input type="hidden" name="module_status" value="<?php echo esc_attr( $status ); ?>" />
+		<input type="hidden" name="paged" value="<?php echo esc_attr( $page ); ?>" />
 		<?php $wp_list_table->display(); ?>
 	</form>
 

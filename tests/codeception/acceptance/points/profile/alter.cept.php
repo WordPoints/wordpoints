@@ -22,7 +22,7 @@ $I->see( 'WordPoints' );
 $I->canSeeInFormFields(
 	'form#your-profile'
 	, array(
-		'wordpoints_points-points' => '0',
+		'wordpoints_points-points'  => '0',
 		'wordpoints_points-credits' => '0',
 	)
 );
@@ -35,7 +35,7 @@ $I->click( 'Update Profile' );
 $I->canSeeInFormFields(
 	'form#your-profile'
 	, array(
-		'wordpoints_points-points' => '5',
+		'wordpoints_points-points'  => '5',
 		'wordpoints_points-credits' => '0',
 	)
 );

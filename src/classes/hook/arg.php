@@ -72,7 +72,7 @@ class WordPoints_Hook_Arg implements WordPoints_Hook_ArgI {
 		WordPoints_Hook_ActionI $action = null
 	) {
 
-		$this->slug = $slug;
+		$this->slug   = $slug;
 		$this->action = $action;
 
 		$parts = explode( ':', $slug, 2 );

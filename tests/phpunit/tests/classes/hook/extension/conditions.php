@@ -43,8 +43,8 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 			array( 'slug' => 'test', 'data_type' => 'text' )
 		);
 
-		$extension = new WordPoints_Hook_Extension_Conditions();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$extension  = new WordPoints_Hook_Extension_Conditions();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -86,9 +86,9 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 							'user_role{}' => array(
 								'_conditions' => array(
 									array(
-										'type' => 'contains',
+										'type'     => 'contains',
 										'settings' => array(
-											'min' => 1,
+											'min'        => 1,
 											'conditions' => array(
 												'user_role' => array(
 													'_conditions' => array(
@@ -113,7 +113,7 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 
 		$extension = wordpoints_hooks()->get_sub_app( 'extensions' )->get( 'conditions' );
 
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->add_entity( wordpoints_entities()->get( 'user' ) );
 		$event_args->set_validator( $validator );
@@ -155,8 +155,8 @@ class WordPoints_Hook_Extension_Conditions_Test extends WordPoints_PHPUnit_TestC
 			array( 'data_type' => 'text' )
 		);
 
-		$extension = new WordPoints_Hook_Extension_Conditions();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$extension  = new WordPoints_Hook_Extension_Conditions();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(

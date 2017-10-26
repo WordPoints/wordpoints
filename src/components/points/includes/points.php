@@ -191,69 +191,8 @@ function wordpoints_update_points_type( $slug, $settings ) {
  */
 function wordpoints_delete_points_type( $slug ) {
 
-	$points_types = wordpoints_get_points_types();
-
-	if ( ! isset( $points_types[ $slug ] ) ) {
-		return false;
-	}
-
-	/**
-	 * Fires when a points type is being deleted.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $slug      The slug of the points type being deleted.
-	 * @param array  $settings The settings of the points type being deleted.
-	 */
-	do_action( 'wordpoints_delete_points_type', $slug, $points_types[ $slug ] );
-
-	$meta_key = wordpoints_get_points_user_meta_key( $slug );
-
-	global $wpdb;
-
-	// Delete log meta for this points type.
-	$query = new WordPoints_Points_Logs_Query(
-		array( 'field' => 'id', 'points_type' => $slug )
-	);
-
-	$log_ids = $query->get( 'col' );
-
-	foreach ( $log_ids as $log_id ) {
-		wordpoints_points_log_delete_all_metadata( $log_id );
-	}
-
-	// Delete logs for this points type.
-	$wpdb->delete( $wpdb->wordpoints_points_logs, array( 'points_type' => $slug ) );
-
-	wordpoints_flush_points_logs_caches( array( 'points_type' => $slug ) );
-
-	// Delete all user points of this type.
-	delete_metadata( 'user', 0, wp_slash( $meta_key ), '', true );
-
-	// Delete hooks associated with this points type.
-	$points_types_hooks = WordPoints_Points_Hooks::get_points_types_hooks();
-
-	unset( $points_types_hooks[ $slug ] );
-
-	WordPoints_Points_Hooks::save_points_types_hooks( $points_types_hooks );
-
-	// Delete reactions associated with this points type.
-	foreach ( wordpoints_hooks()->get_reaction_stores( 'points' ) as $reaction_store ) {
-		foreach ( $reaction_store->get_reactions() as $reaction ) {
-			if ( $slug === $reaction->get_meta( 'points_type' ) ) {
-				$reaction_store->delete_reaction( $reaction->get_id() );
-			}
-		}
-	}
-
-	unset( $points_types[ $slug ] );
-
-	wordpoints_update_maybe_network_option(
-		'wordpoints_points_types'
-		, $points_types
-	);
-
-	return true;
+	$delete = new WordPoints_Points_Type_Delete( $slug );
+	return $delete->run();
 }
 
 /**
@@ -616,7 +555,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	// Get the current points so we can check this won't go below the minimum.
 	$current_points = wordpoints_get_points( $user_id, $points_type );
-	$minimum = wordpoints_get_points_minimum( $points_type );
+	$minimum        = wordpoints_get_points_minimum( $points_type );
 
 	if ( ( $current_points + $points ) < $minimum ) {
 
@@ -702,8 +641,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			/**
 			 * User points transaction logged.
 			 *
-			 * @since 1.0.0
-			 * @since 1.7.0 The $log_id is now passed.
+			 * @since 2.4.0
 			 *
 			 * @param int    $user_id     The ID of the user.
 			 * @param int    $points      The number of points.
@@ -712,7 +650,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 			 * @param array  $meta        Metadata for the transaction.
 			 * @param int    $log_id      The ID of the transaction log entry.
 			 */
-			do_action( 'wordpoints_points_log', $user_id, $points, $points_type, $log_type, $meta, $log_id );
+			do_action( 'wordpoints_points_logged', $user_id, $points, $points_type, $log_type, $meta, $log_id );
 		}
 
 	}  // End if ( $log_transaction ).
@@ -1061,6 +999,8 @@ function wordpoints_regenerate_points_logs( $logs ) {
 
 	global $wpdb;
 
+	$default_text = '_regenerator_default_text_';
+
 	$flushed = array( 'points_types' => array(), 'user_ids' => array() );
 
 	foreach ( $logs as $log ) {
@@ -1074,9 +1014,10 @@ function wordpoints_regenerate_points_logs( $logs ) {
 			, $log->points_type
 			, $log->log_type
 			, $meta
+			, $default_text
 		);
 
-		if ( $new_log_text !== $log->text ) {
+		if ( $new_log_text !== $log->text && $new_log_text !== $default_text ) {
 
 			if ( ! isset( $is_utf8 ) ) {
 				$is_utf8 = 'utf8' === $wpdb->get_col_charset( $wpdb->wordpoints_points_logs, 'text' );
@@ -1100,7 +1041,7 @@ function wordpoints_regenerate_points_logs( $logs ) {
 				);
 
 				$flushed['points_types'][ $log->points_type ] = true;
-				$flushed['user_ids'][ $log->user_id ] = true;
+				$flushed['user_ids'][ $log->user_id ]         = true;
 			}
 		}
 
@@ -1166,13 +1107,13 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 			$wpdb->prepare( // WPCS: unprepared SQL OK
 				"
 					SELECT `users`.`ID`
-                    FROM `{$wpdb->users}` AS `users`
-                    LEFT JOIN `{$wpdb->usermeta}` AS `meta`
-                    	ON `users`.`ID` = `meta`.`user_ID`
-                        AND `meta`.`meta_key` = %s
+					FROM `{$wpdb->users}` AS `users`
+					LEFT JOIN `{$wpdb->usermeta}` AS `meta`
+						ON `users`.`ID` = `meta`.`user_ID`
+						AND `meta`.`meta_key` = %s
 					{$multisite_join}
-                    {$exclude_users}
-					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC
+					{$exclude_users}
+					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC, `ID` ASC
 					LIMIT %d,%d
 				",
 				wordpoints_get_points_user_meta_key( $points_type ),
@@ -1264,6 +1205,15 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 		<tbody>
 			<?php
 
+			/**
+			 * Filters the size of the user avatars in the top users table.
+			 *
+			 * @since 2.4.0
+			 *
+			 * @param int $avatar_size The size of the user avatars, in pixels.
+			 */
+			$avatar_size = apply_filters( 'wordpoints_points_top_users_table_avatar_size', 32 );
+
 			$position = 1;
 
 			foreach ( $top_users as $user_id ) {
@@ -1275,7 +1225,7 @@ function wordpoints_points_show_top_users( $num_users, $points_type, $context = 
 				<tr class="top-<?php echo (int) $position; ?>">
 					<td><?php echo esc_html( number_format_i18n( $position ) ); ?></td>
 					<td>
-						<?php echo get_avatar( $user_id, 32 ); ?>
+						<?php echo get_avatar( $user_id, $avatar_size ); ?>
 						<?php
 
 						$name = sanitize_user_field(

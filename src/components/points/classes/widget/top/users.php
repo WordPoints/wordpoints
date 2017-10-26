@@ -32,7 +32,7 @@ class WordPoints_Points_Widget_Top_Users extends WordPoints_Points_Widget {
 			'WordPoints_Top_Users_Widget'
 			, _x( 'WordPoints Top Users', 'widget name', 'wordpoints' )
 			, array(
-				'description' => __( 'Showcase the users with the most points.', 'wordpoints' ),
+				'description'          => __( 'Showcase the users with the most points.', 'wordpoints' ),
 				'wordpoints_hook_slug' => 'top_users',
 			)
 		);

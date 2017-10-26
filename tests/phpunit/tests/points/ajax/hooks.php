@@ -123,13 +123,13 @@ class WordPoints_Points_Hooks_AJAX_Test extends WordPoints_PHPUnit_TestCase_Ajax
 			unset( $e );
 		}
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame( 1, $xpath->query( '//p/input[@value = "15"]' )->length );
 
 		$hooks = WordPoints_Points_Hooks::get_points_type_hooks( 'points' );
-		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
+		$hook  = WordPoints_Points_Hooks::get_handler_by_id_base( 'wordpoints_registration_points_hook' );
 		$this->assertInstanceOf( 'WordPoints_Registration_Points_Hook', $hook );
 
 		$this->assertCount( 1, $hooks );

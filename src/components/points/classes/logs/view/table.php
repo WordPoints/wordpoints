@@ -36,11 +36,29 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 	protected $current_time;
 
 	/**
+	 * The size of the user avatars used in the table, in pixels.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var int
+	 */
+	protected $avatar_size = 32;
+
+	/**
 	 * @since 2.2.0
 	 */
 	protected function before() {
 
 		wp_enqueue_style( 'wordpoints-points-logs' );
+
+		/**
+		 * Filters the size of the user avatars displayed in the points logs table.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param int $avatar_size The size of the avatars, in pixels.
+		 */
+		$this->avatar_size = apply_filters( 'wordpoints_points_logs_table_avatar_size', $this->avatar_size );
 
 		$this->current_time = current_time( 'timestamp', true );
 
@@ -137,7 +155,7 @@ class WordPoints_Points_Logs_View_Table extends WordPoints_Points_Logs_View {
 		<tr class="wordpoints-log-id-<?php echo (int) $log->id; ?> <?php echo ( $this->i % 2 ) ? 'odd' : 'even'; ?>">
 			<?php if ( $this->args['show_users'] ) : ?>
 				<td>
-					<?php echo get_avatar( $user->ID, 32 ); ?>
+					<?php echo get_avatar( $user->ID, $this->avatar_size ); ?>
 					<span class="wordpoints-points-log-user-name">
 					<?php
 

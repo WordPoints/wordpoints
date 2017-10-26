@@ -64,9 +64,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
-		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 
 		if ( $this->network_wide ) {
 			$active_components = get_site_option( 'wordpoints_active_components' );
@@ -122,7 +123,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 
 		// The module should have been uninstalled.
 		$this->assertFalse(
-			wordpoints_get_maybe_network_option( 'wordpoints_tests_module_6' )
+			wordpoints_get_maybe_network_option(
+				'wordpoints_tests_module_6'
+				, $this->network_wide
+			)
 		);
 
 		$this->assertNoUserMetaWithPrefix( 'wordpoints' );
@@ -150,9 +154,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 				$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
 
 				$administrator = get_role( 'administrator' );
-				$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
-				$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-				$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+				$this->assertFalse( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+				$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+				$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+				$this->assertFalse( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 			}
 
 			switch_to_blog( $original_blog_id );
@@ -168,9 +173,10 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 			$this->assertNoCommentMetaWithPrefix( 'wordpoints' );
 
 			$administrator = get_role( 'administrator' );
-			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
-			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+			$this->assertFalse( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+			$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+			$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
+			$this->assertFalse( $administrator->has_cap( 'update_wordpoints_extensions' ) );
 
 		} // End if ( is_multisite() ) else.
 
@@ -188,11 +194,11 @@ class WordPoints_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 	protected function assertLegacyPointsHooksDisabled() {
 
 		$array = array(
-			'wordpoints_post_points_hook' => true,
-			'wordpoints_comment_points_hook' => true,
+			'wordpoints_post_points_hook'             => true,
+			'wordpoints_comment_points_hook'          => true,
 			'wordpoints_comment_received_points_hook' => true,
-			'wordpoints_periodic_points_hook' => true,
-			'wordpoints_registration_points_hook' => true,
+			'wordpoints_periodic_points_hook'         => true,
+			'wordpoints_registration_points_hook'     => true,
 		);
 
 		$option = 'wordpoints_legacy_points_hooks_disabled';

@@ -28,6 +28,11 @@ class WordPoints_Points_Hook_Event_Post_Publish_Legacy_Test
 	protected $event_slug = 'points_legacy_post_publish\\';
 
 	/**
+	 * @since 2.4.0
+	 */
+	protected $is_legacy_points_event = true;
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function setUp() {

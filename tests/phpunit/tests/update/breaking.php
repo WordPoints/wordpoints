@@ -11,6 +11,8 @@
  * Tests the WordPoints_Breaking_Updater class.
  *
  * @since 2.0.0
+ *
+ * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
  */
 class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
@@ -63,7 +65,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_filter( 'pre_http_request', array( $this, 'http_request_listner' ), 10, 3 );
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 	}
 
 	/**
@@ -174,7 +176,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_after_update_saves_breaking_modules() {
 
-		$this->updater->network_wide = true;
+		$this->updater->network_wide    = true;
 		$this->updater->checked_modules = array( 'test-1' => true, 'test-2' => false );
 
 		$this->updater->after_update();
@@ -470,7 +472,7 @@ class WordPoints_Breaking_Updater_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_check_module_request_failure() {
 
-		$filter = new WordPoints_PHPUnit_Mock_Filter( new WP_Error );
+		$filter               = new WordPoints_PHPUnit_Mock_Filter( new WP_Error() );
 		$this->http_responder = array( $filter, 'filter' );
 
 		$this->assertFalse( get_option( 'wordpoints_module_check_rand_str' ) );

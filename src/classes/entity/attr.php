@@ -68,7 +68,24 @@ abstract class WordPoints_Entity_Attr
 	 */
 	public function set_the_value_from_entity( WordPoints_Entity $entity ) {
 
+		$this->the_value = null;
+
+		/** @var WordPoints_Entity_Contexts $contexts */
+		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );
+
+		$the_context = $entity->get_the_context();
+
+		if ( null === $the_context ) {
+			return false;
+		}
+
+		if ( ! $contexts->switch_to( $the_context ) ) {
+			return false;
+		}
+
 		$this->the_value = $this->get_attr_value_from_entity( $entity );
+
+		$contexts->switch_back();
 
 		return true;
 	}

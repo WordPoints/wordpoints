@@ -8,7 +8,142 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
-Nothing documented at present.
+Nothing documented yet.
+
+## [2.4.0] - 2017-10-26
+
+### Requires
+
+- WordPress: 4.7+
+
+### Added
+
+- Support for extension updates (#645):
+  - `update_wordpoints_extensions` capability.
+  - `upgrade` extension status and bulk action in Installed Extensions list table.
+  - Extension server class and `wordpoints_get_server_for_extensino()` function, with `wordpoints_server_for_extension` and `wordpoints_server_object_for_extension` filters.
+  - Extension server API data interface and implementation using options for data storage.
+  - Extension server APIs app, extension server API interface, and EDD Software Licenses and EDD SL Free extension server API classes.
+  - Extension updates interface, class, and wrapper function.
+  - `WordPoints_Extension_Updates_Check` class to check for extension updates, with `wordpoints_before_extension_update_check` and `wordpoints_extension_update_check_completed` actions, and `wordpoints_check_for_extension_updates()` wrapper function.
+  - `wordpoints_check_for_extension_updates` cron event to check for updates every 12 hours.
+  - Extension upgrader class, and regular and bulk upgrader skins.
+  - Extensions can now be updated via the Extensions and Updates admin screens.
+  - Extension changelogs can be viewed.
+  - The extension update count is shown in the toolbar.
+  - Special handling is added for extensions that were released without the server headers set.
+  - Extension licenses can also be activated and deactivated via the Extensions admin screen.
+  - Errors are shown to admins when extension licenses are not active/expired.
+- Support for uninstalling transients.
+- Privacy policy statement to `readme.txt`.
+- `wordpoints_get_extension_version()` to the installed version of an extension.
+- `WordPoints_Rank_Type_Bulk_CheckI` interface and support for checking if users can be transitioned to a rank in bulk. #642
+- `wordpoints_update_users_to_rank()` function and support for updating user ranks in bulk. 
+- `WordPoints_User_Ranks_Query` class for querying the user ranks table.
+- `wordpoints_delete_user_ranks()` function to delete all of a user's ranks when they are deleted.
+- `wordpoints_prevent_interruptions()` function to prevent any interruptions form occurring during an operation, with the `wordpoints_prevent_interruptions` action. #648
+- `WordPoints_User_Ranks_Maybe_Change` abstract class and `WordPoints_User_Ranks_Maybe_Increase` and `WordPoints_User_Ranks_Maybe_Decrease` subclasses, with improved performance when refreshing users' ranks via the `wordpoints_refresh_rank_users()` function.
+- `wordpoints_points_logs_table_avatar_size` filter for the avatar size in the points logs table. #692
+- `wordpoints_points_top_users_table_avatar_size` filter for the avatar size in the points top users table. #692
+- `.wordpoints-hooks-icon-button` styles for icon buttons in event reactions.
+- `WordPoints_Rank_Type_Rank_DescribingI` interface, and `WordPoints_Rank_Shortcode_Rank_List` class for the `[wordpoints_rank_list]` shortcode.
+- Support for reaction conditions on post terms (#461):
+  - `wordpoints_get_taxonomies_for_auto_integration()` function to get taxonomies to auto-integrate with.
+  - `wordpoints_get_taxonomies_for_entities()` function to get taxonomies to register entities for.
+  - `wordpoints_register_taxonomy_entities()` function to register entities for a taxonomy.
+  - Registers entities for taxonomies when the entities app is initialized and also hooks to the taxonomy registration function to register entities for taxonomies that are registered late.
+  - `wordpoints_register_post_type_taxonomy_entities()` function to register taxonomy entities for a post type.
+  - Registers term entities relationships for post types when the post type entities are registered.
+  - Post Terms entity relationship, Term Count, Term entity, Term Parent entity relationship, Term Name and Term Description attributes.
+- New installables API (#404):
+  - `WordPoints_InstallableI` interface, abstract `WordPoints_Installable` class for representing an installable, and Base, Legacy, Site Legacy, Component, Extension, and Core installable classes.
+  - `WordPoints_Routine` abstract class for running routines.
+  - Installer, one-site-only installer, updater, and uninstaller routines.
+  - Database table, custom caps installer classes.
+  - Database table, custom caps, callback, wildcard options, network wildcard options, and metadata uninstaller classes.
+  - Single, network, and site uninstaller factory interfaces, and generic, caps, metadata, widgets, options, transients, admin screens with meta boxes, admin screens with list tables, points hooks, and DB tables uninstaller factories.
+  - `WordPoints_Updater_FactoryI` interface and implementation. 
+  - `wordpoints_map_context_shortcuts()` function for mapping context shortcuts.
+  - Installables app and class.
+  - Core and points and ranks components updated to use the new API.
+  - `wordpoints_is_uninstalling()` function to determine whether WordPoints is uninstalling something, with `wordpoints_is_uninstalling` filter.
+- Support for specifying entity IDs as being an integer. #556
+- Option to create demo reactions after creating a points type. Introduces the `wordpoints_points_create_demo_reactions()` function and `wordpoints_points_demo_reactions` filter. #599
+- `WordPoints_Points_Type_Delete` routine class for deleting a points type. #363
+
+### Changed
+
+- The top users for the points component are now secondarily sorted by user ID.
+- Use `wp_installing()` instead of checking for `WP_INSTALLING` constant directly. #661
+- Modules to be called extensions. #668
+  - Introduced `wordpoints_register_extension()` to use instead of `WordPoints_Modules::register()`.
+  - Introduced `wordpoints_extensions_loaded` action to be used instead of `wordpoints_modules_loaded`.
+  - Introduced `wordpoints_extensions_dir()` function to be used instead of `wordpoints_modules_dir()`.
+  - Introduced `wordpoints_extensions_url()` function to be used instead of `wordpoints_modules_url()`.
+  - `install_wordpoints_extensions`, `manage_network_wordpoints_extensions`, `activate_wordpoints_extensions`, and `delete_wordpoints_extensions` capabilities in favor of `*_modules` versions.
+  - Renamed extensions directory from `wordpoints-modules` to `wordpoints-extensions`.
+  - Renamed the slug of the Extensions admin screen from `wordpoints_modules` to `wordpoints_extensions`, as well as the actions is fires.
+  - Renamed the slug of the Extensions admin screen from `wordpoints_install_modules` to `wordpoints_install_extensions`, as well as the actions is fires.
+  - Renamed the `modules` app to `extensions`.
+- Schema of the user ranks database table to support more performant queries (#680):
+  - Adds the `rank_group`, `blog_id`, and `site_id` columns.
+  - Adds a unique constraint on `user_id`, `blog_id`, `site_id`,
+   `rank_group`.
+  - Removes `DEFAULT 0` from the `user_id` and `rank_id` columns.
+- Dynamic entity relationships to use the parent slug as the primary entity slug, instead of it having to be hardcoded in the child classes. #698
+- Dynamic entity relationships to use the relationship slug to generate the related entity slug, instead of using the primary entity slug. #699
+- `ConditionGroups` view in the hooks JS to allow whether or not an entity has conditions to be filtered via the `argFilters` array of callbacks on the `Conditions` extension controller. #718
+- Hooks JS condition handling so that entity conditions are allowed on all enumerable entities, and disallowed on non-enumerable entities, instead of just be disallowed for all top-level entities and not for sub-entities. #718
+- Reaction delete dialog to show the description of the reaction being deleted. Ditto for the rank delete dialog and points type delete dialog. For points types, we also require the user to type the name of the points type that they are deleting, to confirm. #607
+- Entities API to retrieve entity children based on the parent entity's context, instead of assuming that the current context is correct. #536
+- `is_wordpoints_network_active()` to give an error when used during uninstallation. #399
+- Extension upgrader to check for errors after bulk upgrading extensions, the same as when upgrading a single extension. #676
+- All uses of `red` and `#f00` in CSS to be WordPress red (`#dc3232`). #728
+- Dynamic entities to set the post type/taxonomy in the constructor, for better extensibility. #719
+
+### Deprecated
+
+- `Channel` extension header in favor of `Server`. #645
+- `Module Name` and `Module URI` extension headers in favor of `Extension Name` and `Extension URI`, respectively. #668
+- `wordpoints_modules_loaded` action in favor of `wordpoints_extensions_loaded`.
+- `wordpoints_modules_dir()` function in favor of `wordpoints_extensions_dir()`, with the accompanying `wordpoints_modules_dir` filter and `WORDPOINTS_MODULES_DIR` constant.
+- `wordpoints_modules_url()` function in favor of `wordpoints_extensions_url()`, with the accompanying `wordpoints_modules_url` filter and `WORDPOINTS_MODULES_URL` constant.
+- `install_wordpoints_modules`, `manage_network_wordpoints_modules`, `activate_wordpoints_modules`, and `delete_wordpoints_modules` capabilities in favor of `*_extensions` versions.
+- `start` query arg in favor of `offset`. #688
+- `wordpoints_get_users_with_rank()` function.
+- `WordPoints_Module_List_Table` class in favor of `WordPoints_Admin_List_Table_Extensions`.
+- `modules` app in favor of `extensions`.
+- `WordPoints_Installables` class in favor of `WordPoints_Installables_App`.
+- `WordPoints_Un_Installer_Base` class and core un/installer classes in favor of new installables API. #404
+- `WordPoints_Breaking_Updater` class in favor of `WordPoints_Updater_Core_Breaking`.
+
+### Removed
+
+- Caching for a list of users with each rank. #685
+- Caching for the list of all site IDs. WordPress now caches this natively. #723
+
+### Fixed
+
+- Extension installer class not calling the `upgrader_process_complete` action. #645
+- Ranks not being assigned to users when they are added to a site on multisite. #686
+- User ranks not being deleted when the user was deleted. #687
+- `wordpoints_points_log` action being unusable because it conflicted with a filter with the same name; the action is now renamed to `wordpoints_points_logged`. #651
+- Misspelled and unclosed `label` element on profile screen. #650
+- `order_by` query arg not being able to be unset. #646
+- `ORDER BY` clause being included in `COUNT()` queries. #647
+- Non-network active extensions being marked as active in the network admin. #695
+- Random failures in periods hook extension tests.
+- Entity array contains condition treating an empty max as a max of 0, instead of as no maximum. #701
+- Conditions hook extension looping over sub-args unnecessarily. #700
+- Dynamic entities not including conditions in the returned storage info to limit only to the dynamically represented sub-set. #719
+- Reactions for all sites not being deleted when network active on multisite when a points type was deleted. #363
+- Entity class not detecting GUIDs of entities with global context. #720
+- `wordpoints_regenerate_points_logs()` "regenerating" points logs that cannot be regenerated, thus changing them to just "(no description)". #697
+- `wordpoints_activate_module()` respecting the `$network_wide` parameter even when WordPoints isn't network active. #711
+- Dittography everywhere.
+- Uninstall routine to not rely on `is_wordpoints_network_active()`. #399
+- Plugin icon to use the correct URIs in the XML. #655
+- Fatal errors when viewing points logs after deactivating the BuddyPress plugin. #735
 
 ## [2.3.0] - 2017-03-14
 
@@ -389,7 +524,8 @@ Nothing documented at present.
 - Symlinked modules using the intallables API not being installed. #429
 - Notices for ophaned comments in comment points hooks. #436
 
-[unreleased]: https://github.com/WordPoints/wordpoints/compare/stable...HEAD
+[unreleased]: https://github.com/WordPoints/wordpoints/compare/master...develop
+[2.4.0]: https://github.com/WordPoints/wordpoints/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/WordPoints/wordpoints/compare/2.2.2...2.3.0
 [2.2.2]: https://github.com/WordPoints/wordpoints/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/WordPoints/wordpoints/compare/2.2.0...2.2.1

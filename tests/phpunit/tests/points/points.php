@@ -406,6 +406,36 @@ class WordPoints_Points_Test extends WordPoints_PHPUnit_TestCase_Points {
 	}
 
 	/**
+	 * Test that the wordpoints_points_logged action is called.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_wordpoints_points_logged_action() {
+
+		$this->listen_for_filter( 'wordpoints_points_logged' );
+		wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
+		$this->assertSame( 1, $this->filter_was_called( 'wordpoints_points_logged' ) );
+	}
+
+	/**
+	 * Test that the wordpoints_points_logged action is not called when not logged.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_alter_points
+	 */
+	public function test_wordpoints_points_logged_action_not_logged() {
+
+		add_filter( 'wordpoints_points_log', '__return_false' );
+
+		$this->listen_for_filter( 'wordpoints_points_logged' );
+		wordpoints_alter_points( $this->user_id, 20, 'points', 'test' );
+		$this->assertSame( 0, $this->filter_was_called( 'wordpoints_points_logged' ) );
+	}
+
+	/**
 	 * Test that emojis work in logs.
 	 *
 	 * @since 2.0.0

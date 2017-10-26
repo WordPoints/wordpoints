@@ -38,20 +38,20 @@ class WordPoints_Comment_Points_Hook extends WordPoints_Comment_Approved_Points_
 		parent::__construct(
 			_x( 'Comment', 'points hook name', 'wordpoints' )
 			, array(
-				'description' => __( 'Leaving a new comment.', 'wordpoints' ),
+				'description'                    => __( 'Leaving a new comment.', 'wordpoints' ),
 				// translators: Singular post type name.
-				'post_type_description' => __( 'Leaving a new comment on a %s.', 'wordpoints' ),
+				'post_type_description'          => __( 'Leaving a new comment on a %s.', 'wordpoints' ),
 				// translators: Post title.
-				'log_text_post_title' => _x( 'Comment on %s.', 'points log description', 'wordpoints' ),
-				'log_text_no_post_title' => _x( 'Comment', 'points log description', 'wordpoints' ),
+				'log_text_post_title'            => _x( 'Comment on %s.', 'points log description', 'wordpoints' ),
+				'log_text_no_post_title'         => _x( 'Comment', 'points log description', 'wordpoints' ),
 				// translators: Singular post type name.
-				'log_text_post_type' => _x( 'Comment on a %s.', 'points log description', 'wordpoints' ),
+				'log_text_post_type'             => _x( 'Comment on a %s.', 'points log description', 'wordpoints' ),
 				// translators: Post title.
-				'log_text_post_title_reverse' => _x( 'Comment on %s removed.', 'points log description', 'wordpoints' ),
+				'log_text_post_title_reverse'    => _x( 'Comment on %s removed.', 'points log description', 'wordpoints' ),
 				'log_text_no_post_title_reverse' => _x( 'Comment removed.', 'points log description', 'wordpoints' ),
 				// translators: Singular post type name.
-				'log_text_post_type_reverse' => _x( 'Comment on a %s removed.', 'points log description', 'wordpoints' ),
-				'last_status_meta_key' => 'wordpoints_last_status',
+				'log_text_post_type_reverse'     => _x( 'Comment on a %s removed.', 'points log description', 'wordpoints' ),
+				'last_status_meta_key'           => 'wordpoints_last_status',
 			)
 		);
 

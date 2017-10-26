@@ -34,6 +34,7 @@ $the_reaction = $I->hadCreatedAPointsReaction(
 		),
 	)
 );
+
 $reaction  = new Reaction( $I, $the_reaction );
 $condition = new ReactionCondition( $I, $reaction );
 $I->amLoggedInAsAdminOnPage( 'wp-admin/admin.php?page=wordpoints_points_types' );

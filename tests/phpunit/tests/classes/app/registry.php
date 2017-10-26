@@ -31,7 +31,7 @@ class WordPoints_App_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_Reg
 	 */
 	public function test_does_action_on_construct() {
 
-		$mock = new WordPoints_PHPUnit_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 
 		add_action( 'wordpoints_init_app-test', array( $mock, 'action' ) );
 

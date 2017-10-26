@@ -59,9 +59,9 @@ abstract class WordPoints_Hook_Reaction implements WordPoints_Hook_ReactionI {
 	public function get_guid() {
 
 		return array(
-			'id' => $this->ID,
-			'mode' => $this->get_mode_slug(),
-			'store' => $this->get_store_slug(),
+			'id'         => $this->ID,
+			'mode'       => $this->get_mode_slug(),
+			'store'      => $this->get_store_slug(),
 			'context_id' => $this->get_context_id(),
 		);
 	}

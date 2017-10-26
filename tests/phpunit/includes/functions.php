@@ -39,7 +39,7 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 			return;
 		}
 
-		require( $file_name );
+		require $file_name;
 	}
 
 	// Autoloading for helpers (test cases, factories, mocks, etc.).
@@ -54,7 +54,7 @@ function wordpoints_phpunit_autoloader( $class_name ) {
 		return;
 	}
 
-	require( $file_name );
+	require $file_name;
 }
 
 /**
@@ -104,18 +104,35 @@ function wordpointstests_manually_load_plugin() {
 	}
 
 	wordpoints_activate( $network_active );
-
-	delete_site_transient( 'wordpoints_all_site_ids' );
 }
 
 /**
  * Get the modules directory for the test modules.
  *
  * @since 1.1.0
+ * @deprecated 2.4.0 Use wordpoints_phpunit_extensions_dir() instead.
  *
  * @return string The path to the test modules directory.
  */
 function wordpointstests_modules_dir() {
+
+	_deprecated_function(
+		__FUNCTION__
+		, '2.4.0'
+		, 'wordpoints_phpunit_extensions_dir()'
+	);
+
+	return wordpoints_phpunit_extensions_dir();
+}
+
+/**
+ * Get the extensions directory for the test extensions.
+ *
+ * @since 2.4.0
+ *
+ * @return string The path to the test extensions directory.
+ */
+function wordpoints_phpunit_extensions_dir() {
 
 	return WORDPOINTS_TESTS_DIR . '/data/modules/';
 }
@@ -177,18 +194,20 @@ function wordpointstests_do_shortcode_func( $tag, array $atts = array(), $conten
  * @since 1.0.1
  * @since 1.4.0 Allows more than one hook to be created per test.
  * @since 1.9.0 $hook_type can now be a hook type handler.
+ * @since 2.4.0 The $points_type arg was added.
  *
- * @param string|WordPoints_Points_Hook $hook_type The type of hook to create.
- * @param array                         $instance  The arguments for the instance.
+ * @param string|WordPoints_Points_Hook $hook_type   The type of hook to create.
+ * @param array                         $instance    The arguments for the instance.
+ * @param string                        $points_type The points type the hook is for.
  *
  * @return bool|WordPoints_Points_Hook The points hook object, or false on failure.
  */
-function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
+function wordpointstests_add_points_hook( $hook_type, $instance = array(), $points_type = 'points' ) {
 
 	if ( is_string( $hook_type ) ) {
 		$hook = WordPoints_Points_Hooks::get_handler_by_id_base( $hook_type );
 	} else {
-		$hook = $hook_type;
+		$hook      = $hook_type;
 		$hook_type = $hook->get_id_base();
 	}
 
@@ -201,13 +220,13 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
 	if ( WordPoints_Points_Hooks::get_network_mode() ) {
 
 		$points_types_hooks = wordpoints_get_array_option( 'wordpoints_points_types_hooks', 'site' );
-		$points_types_hooks['points'][] = $hook_type . '-' . $number;
+		$points_types_hooks[ $points_type ][] = $hook_type . '-' . $number;
 		update_site_option( 'wordpoints_points_types_hooks', $points_types_hooks );
 
 	} else {
 
 		$points_types_hooks = wordpoints_get_array_option( 'wordpoints_points_types_hooks' );
-		$points_types_hooks['points'][] = $hook_type . '-' . $number;
+		$points_types_hooks[ $points_type ][] = $hook_type . '-' . $number;
 		update_option( 'wordpoints_points_types_hooks', $points_types_hooks );
 	}
 
@@ -222,6 +241,7 @@ function wordpointstests_add_points_hook( $hook_type, $instance = array() ) {
  * Based on wp_ajax_save_widget().
  *
  * @since 1.0.1
+ * @deprecated 2.4.0 Use WordPoints_PHPUnit_Factory_For_Widget instead.
  *
  * @param string $id_base    The base ID for instances of this widget.
  * @param array  $settings   The settings for this widget instance. Optional.
@@ -249,9 +269,9 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
 
 	$sidebar[] = $id_base . '-' . $multi_number;
 
-	$_POST['sidebar'] = $sidebar_id;
+	$_POST['sidebar']             = $sidebar_id;
 	$_POST[ "widget-{$id_base}" ] = array( $multi_number => $settings );
-	$_POST['widget-id'] = $sidebar;
+	$_POST['widget-id']           = $sidebar;
 
 	if (
 		! isset( $wp_registered_widget_updates[ $id_base ] )
@@ -279,7 +299,7 @@ function wordpointstests_add_widget( $id_base, array $settings = array(), $sideb
 function wordpointstests_selenium_is_running() {
 
 	$selenium_running = false;
-	$fp = fsockopen( 'localhost', 4444 );
+	$fp               = fsockopen( 'localhost', 4444 );
 
 	if ( false !== $fp ) {
 
@@ -388,22 +408,22 @@ function wordpointstests_symlink_plugin( $plugin, $plugin_dir ) {
 function wordpoints_phpunit_deprecated_class_autoloader( $class_name ) {
 
 	$map = array(
-		'WordPoints_UnitTest_Factory_For_Points_Log' => 'factories/points-log.php',
-		'WordPoints_UnitTest_Factory_For_Rank' => 'factories/rank.php',
-		'WordPoints_Breaking_Updater_Mock' => 'mocks/breaking-updater.php',
-		'WordPoints_Mock_Filter' => 'mocks/filter.php',
+		'WordPoints_UnitTest_Factory_For_Points_Log'  => 'factories/points-log.php',
+		'WordPoints_UnitTest_Factory_For_Rank'        => 'factories/rank.php',
+		'WordPoints_Breaking_Updater_Mock'            => 'mocks/breaking-updater.php',
+		'WordPoints_Mock_Filter'                      => 'mocks/filter.php',
 		'WordPoints_Module_Installer_Skin_TestDouble' => 'mocks/module-installer-skin.php',
-		'WordPoints_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
+		'WordPoints_Points_Hook_TestDouble'           => 'mocks/points-hooks.php',
 		'WordPoints_Post_Type_Points_Hook_TestDouble' => 'mocks/points-hooks.php',
-		'WordPoints_Test_Rank_Type' => 'mocks/rank-type.php',
-		'WordPoints_Un_Installer_Mock' => 'mocks/un-installer.php',
-		'WordPoints_Ajax_UnitTestCase' => 'testcases/ajax.php',
-		'WordPoints_Points_UnitTestCase' => 'testcases/points.php',
-		'WordPoints_Points_AJAX_UnitTestCase' => 'testcases/points-ajax.php',
-		'WordPoints_Ranks_UnitTestCase' => 'testcases/ranks.php',
-		'WordPoints_Ranks_Ajax_UnitTestCase' => 'testcases/ranks-ajax.php',
-		'WordPoints_UnitTestCase' => 'testcases/wordpoints.php',
-		'WordPoints_PHPUnit_Util_Getopt' => 'class-wordpoints-phpunit-util-getopt.php',
+		'WordPoints_Test_Rank_Type'                   => 'mocks/rank-type.php',
+		'WordPoints_Un_Installer_Mock'                => 'mocks/un-installer.php',
+		'WordPoints_Ajax_UnitTestCase'                => 'testcases/ajax.php',
+		'WordPoints_Points_UnitTestCase'              => 'testcases/points.php',
+		'WordPoints_Points_AJAX_UnitTestCase'         => 'testcases/points-ajax.php',
+		'WordPoints_Ranks_UnitTestCase'               => 'testcases/ranks.php',
+		'WordPoints_Ranks_Ajax_UnitTestCase'          => 'testcases/ranks-ajax.php',
+		'WordPoints_UnitTestCase'                     => 'testcases/wordpoints.php',
+		'WordPoints_PHPUnit_Util_Getopt'              => 'class-wordpoints-phpunit-util-getopt.php',
 	);
 
 	if ( isset( $map[ $class_name ] ) ) {

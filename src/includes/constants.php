@@ -9,7 +9,7 @@
 
 global $wpdb;
 
-$wpdb->wordpoints_hook_hits = $wpdb->base_prefix . 'wordpoints_hook_hits';
+$wpdb->wordpoints_hook_hits    = $wpdb->base_prefix . 'wordpoints_hook_hits';
 $wpdb->wordpoints_hook_hitmeta = $wpdb->base_prefix . 'wordpoints_hook_hitmeta';
 $wpdb->wordpoints_hook_periods = $wpdb->base_prefix . 'wordpoints_hook_periods';
 
@@ -22,7 +22,7 @@ $wpdb->wordpoints_hook_periods = $wpdb->base_prefix . 'wordpoints_hook_periods';
  *
  * @const WORDPOINTS_VERSION
  */
-define( 'WORDPOINTS_VERSION', '2.3.0' );
+define( 'WORDPOINTS_VERSION', '2.4.0' );
 
 /**
  * The full path to the plugin's main directory.

@@ -35,7 +35,7 @@ class WordPoints_Entity_Restrictions extends WordPoints_App {
 	 * @param int|string      $entity_id The ID of the entity.
 	 * @param string|string[] $hierarchy The entity slug or hierarchy leading to an
 	 *                                   entity child's slug.
-	 * @param string          $type      The type of restrictions to check. Default is
+	 * @param string          $type      The type of restrictions to check. Default
 	 *                                   is 'know'.
 	 *
 	 * @return WordPoints_Entity_RestrictionI A restriction object wrapping all of
@@ -44,8 +44,8 @@ class WordPoints_Entity_Restrictions extends WordPoints_App {
 	 */
 	public function get( $entity_id, $hierarchy, $type = 'know' ) {
 
-		$hierarchy = (array) $hierarchy;
-		$restrictions = array();
+		$hierarchy         = (array) $hierarchy;
+		$restrictions      = array();
 		$class_hierarchies = array( $hierarchy );
 
 		$depth = count( $hierarchy );

@@ -93,21 +93,18 @@ ConditionGroups = Base.extend({
 
 			var args = this.collection.getArgs();
 			var Conditions = this.Conditions;
+			var argFilters = Conditions.argFilters;
 			var isEntityArray = ( this.collection.hierarchy.slice( -2 ).toString() === 'settings,conditions' );
 			var hasConditions = function ( arg ) {
 
 				var dataType = Conditions.getDataTypeFromArg( arg );
-
-				// We don't allow identity conditions on top-level entities.
-				if (
-					! isEntityArray
-					&& dataType === 'entity'
-					&& _.isEmpty( arg.hierarchy )
-				) {
-					return false;
-				}
-
 				var conditions = Conditions.getByDataType( dataType );
+
+				for ( var i = 0; i < argFilters.length; i++ ) {
+					if ( ! argFilters[ i ]( arg, dataType, isEntityArray, conditions ) ) {
+						return false;
+					}
+				}
 
 				return ! _.isEmpty( conditions );
 			};

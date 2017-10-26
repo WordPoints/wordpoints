@@ -12,6 +12,9 @@
  *
  * @since 1.10.0
  *
+ * @covers WordPoints_Points_Installable::get_update_routine_factories
+ * @covers WordPoints_Points_Updater_1_10_0_Logs
+ *
  * @group points
  * @group update
  */
@@ -26,9 +29,6 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_PHPUnit_TestCase_P
 	 * Test that unused 'post_title' log meta deleted on update.
 	 *
 	 * @since 1.10.0
-	 *
-	 * @covers WordPoints_Points_Un_Installer::update_single_to_1_10_0
-	 * @covers WordPoints_Points_Un_Installer::_1_10_0_delete_post_title_points_log_meta
 	 *
 	 * @requires WordPress !multisite
 	 */
@@ -61,9 +61,6 @@ class WordPoints_Points_1_10_0_Update_Test extends WordPoints_PHPUnit_TestCase_P
 	 * Test that unused 'post_title' log meta deleted on update.
 	 *
 	 * @since 1.10.0
-	 *
-	 * @covers WordPoints_Points_Un_Installer::update_network_to_1_10_0
-	 * @covers WordPoints_Points_Un_Installer::_1_10_0_delete_post_title_points_log_meta
 	 *
 	 * @requires WordPoints network-active
 	 */

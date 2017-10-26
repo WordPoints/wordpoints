@@ -41,10 +41,10 @@ class WordPoints_Hook_Extension_Periods
 		$period_units = array(
 			1                   => __( 'Seconds', 'wordpoints' ),
 			MINUTE_IN_SECONDS   => __( 'Minutes', 'wordpoints' ),
-			HOUR_IN_SECONDS     => __( 'Hours',   'wordpoints' ),
-			DAY_IN_SECONDS      => __( 'Days',    'wordpoints' ),
-			WEEK_IN_SECONDS     => __( 'Weeks',   'wordpoints' ),
-			30 * DAY_IN_SECONDS => __( 'Months',  'wordpoints' ),
+			HOUR_IN_SECONDS     => __( 'Hours'  , 'wordpoints' ),
+			DAY_IN_SECONDS      => __( 'Days'   , 'wordpoints' ),
+			WEEK_IN_SECONDS     => __( 'Weeks'  , 'wordpoints' ),
+			30 * DAY_IN_SECONDS => __( 'Months' , 'wordpoints' ),
 		);
 
 		/**
@@ -61,7 +61,7 @@ class WordPoints_Hook_Extension_Periods
 
 		return array(
 			'period_units' => $period_units,
-			'l10n' => array(
+			'l10n'         => array(
 				'label' => __( 'Trigger reaction no more than once in:', 'wordpoints' ),
 			),
 		);
@@ -200,7 +200,7 @@ class WordPoints_Hook_Extension_Periods
 			return true;
 		}
 
-		$this->event_args = $fire->event_args;
+		$this->event_args  = $fire->event_args;
 		$this->action_type = $fire->action_type;
 
 		foreach ( $periods as $period ) {
@@ -234,7 +234,7 @@ class WordPoints_Hook_Extension_Periods
 			return true;
 		}
 
-		$now = current_time( 'timestamp', true );
+		$now      = current_time( 'timestamp', true );
 		$hit_time = strtotime( $period->date, $now );
 
 		if ( ! empty( $settings['relative'] ) ) {
@@ -338,7 +338,7 @@ class WordPoints_Hook_Extension_Periods
 		WordPoints_Hook_ReactionI $reaction
 	) {
 
-		$signature = $this->get_period_signature( $settings, $reaction );
+		$signature     = $this->get_period_signature( $settings, $reaction );
 		$reaction_guid = $reaction->get_guid();
 
 		$cache_key = wp_json_encode( $reaction_guid ) . "-{$signature}-{$this->action_type}";
@@ -400,7 +400,7 @@ class WordPoints_Hook_Extension_Periods
 			return;
 		}
 
-		$this->event_args = $fire->event_args;
+		$this->event_args  = $fire->event_args;
 		$this->action_type = $fire->action_type;
 
 		foreach ( $periods as $settings ) {
@@ -459,7 +459,7 @@ class WordPoints_Hook_Extension_Periods
 		$inserted = $wpdb->insert(
 			$wpdb->wordpoints_hook_periods
 			, array(
-				'hit_id' => $fire->hit_id,
+				'hit_id'    => $fire->hit_id,
 				'signature' => $signature,
 			)
 			, array( '%d', '%s' )

@@ -37,7 +37,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			 *
 			 * @since 2.0.0
 			 */
-			require_once( WORDPOINTS_DIR . '/admin/admin.php' );
+			require_once WORDPOINTS_DIR . '/admin/admin.php';
 
 			self::$included_functions = true;
 		}
@@ -275,7 +275,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -298,7 +298,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_site_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -341,7 +341,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_incompatible_modules', 'test' );
 
 		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -364,7 +364,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -387,7 +387,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_site_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -430,7 +430,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_incompatible_modules', 'test' );
 
 		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -455,7 +455,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 
@@ -501,7 +501,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$this->assertNoAdminNoticesDisplayed();
 	}
@@ -522,7 +522,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 
@@ -568,7 +568,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$this->assertNoAdminNoticesDisplayed();
 	}
@@ -587,7 +587,7 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$this->assertAdminNoticeDisplayedForOption(
 			'wordpoints_incompatible_modules'
@@ -629,9 +629,94 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 			, array( 'test-1.php', 'test-2/test-2.php' )
 		);
 
-		$this->give_current_user_caps( 'activate_wordpoints_modules' );
+		$this->give_current_user_caps( 'activate_wordpoints_extensions' );
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
+
+		$this->assertNoAdminNoticesDisplayed();
+	}
+
+	/**
+	 * Test that no admin notices are shown by default.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_none() {
+
+		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
+
+		$this->assertNoAdminNoticesDisplayed();
+	}
+
+	/**
+	 * Test that a notice is displayed when a module's install has been skipped.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_module_install_skipped() {
+
+		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
+
+		update_site_option(
+			'wordpoints_network_install_skipped'
+			, array( 'module' => array( 'network_test' => true ) )
+		);
+
+		$this->assertAdminNoticeDisplayedForOption(
+			'wordpoints_network_install_skipped'
+		);
+	}
+
+	/**
+	 * Test that a notice is displayed when a module's update has been skipped.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_module_update_skipped() {
+
+		$this->give_current_user_caps( 'wordpoints_manage_network_modules' );
+
+		update_site_option(
+			'wordpoints_network_update_skipped'
+			, array( 'module' => array( 'network_test' => '3.0.0' ) )
+		);
+
+		$this->assertAdminNoticeDisplayedForOption(
+			'wordpoints_network_update_skipped'
+		);
+	}
+
+	/**
+	 * Test that no notice is displayed when the current user has insufficient caps.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_admin_notices
+	 * @covers ::wordpoints_admin_show_update_skipped_notices
+	 *
+	 * @requires WordPoints network-active
+	 */
+	public function test_update_skipped_insufficient_caps() {
+
+		update_site_option(
+			'wordpoints_network_install_skipped'
+			, array( 'module' => array( 'network_test' => true ) )
+		);
 
 		$this->assertNoAdminNoticesDisplayed();
 	}
@@ -670,9 +755,9 @@ class WordPoints_Admin_Notices_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertWordPointsAdminNotice(
 			$notice
 			, array(
-				'type' => 'error',
+				'type'        => 'error',
 				'dismissible' => true,
-				'option' => $option,
+				'option'      => $option,
 			)
 		);
 	}

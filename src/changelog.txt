@@ -4,7 +4,51 @@
 
 This is the user change log for older versions of WordPoints. The change log for the
 most recent versions are kept in readme.txt. A developer change log is available
-here: https://github.com/WordPoints/wordpoints/blob/master/CHANGELOG.md
+here: https://github.com/WordPoints/wordpoints/blob/develop/CHANGELOG.md
+
+= 2.2.2 — 2017-01-14 =
+
+##### Fixed
+
+- Event reactions for custom post types not awarding points. Plugins like bbPress
+were effected by this, because they register their post types later in the code
+than WordPoints expected. This is now fixed so that WordPoints will work correctly
+for post types no matter how late they are registered.
+
+= 2.2.1 — 2017-01-03 =
+
+##### Fixed
+
+- The Points Types screen locking up when creating a new reaction for some events.
+This only affected events where conditions could be created for items that could
+relate to another item of the same type (like how a comment could have a parent
+comment), causing an infinite loop.
+- Points values not being formatted with the prefix if the suffix wasn't set, and
+vice versa. This would only happen when the value wasn't set at all, not just when it
+was empty, and so only applies to points types that were created programmatically.
+Points types created through the UI were still formatted as expected.
+
+= 2.2.0 — 2016-12-08 =
+
+**Requires: WordPress 4.6+**
+
+##### Changed
+
+- Rate Limits for event reactions to now support setting the number of
+minutes/hours/etc. Previously it was only possible to have rate limits of "once per
+minute" or "once per day", now a rate limit can be "once every 5 minutes" or "once
+every 2 days" or any other amount that you want.
+- Points log entries that are hidden from some users to now be marked as such when a
+user who is allowed to see them is viewing them. For example, if a post is not
+public, only users who can view that post can view any points logs that relate to it.
+Such log entries will now be displayed with a note below them explaining to the
+current user that not all other users will be able to view them.
+- Points types slugs to be generated from the name of the points type with any
+spaces replaced with dashes. Previously when a points type was created, the slug
+would be generated from the name, but any spaces would be removed, so if there were
+multiple words they would be run together in the slug. Now if you create a points
+type named "An Example", its slug would be "an-example", instead of "anexample". This
+will not change the slugs of existing points types.
 
 = 2.1.5 – 2016-11-15 =
 

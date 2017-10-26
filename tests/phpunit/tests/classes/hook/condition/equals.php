@@ -61,11 +61,11 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 	public function data_provider_values() {
 
 		return array(
-			'int' => array( 13 ),
+			'int'    => array( 13 ),
 			'string' => array( 'Testing' ),
-			'true' => array( true ),
-			'false' => array( false ),
-			'array' => array( array( 2, 3 ) ),
+			'true'   => array( true ),
+			'false'  => array( false ),
+			'array'  => array( array( 2, 3 ) ),
 		);
 	}
 
@@ -115,11 +115,11 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 	public function data_provider_values_not_met() {
 
 		return array(
-			'int' => array( 13, '13' ),
+			'int'    => array( 13, '13' ),
 			'string' => array( 'Testing', 'testing' ),
-			'true' => array( true, 1 ),
-			'false' => array( false, '' ),
-			'array' => array( array( 2, 3 ), array( 3, 2 ) ),
+			'true'   => array( true, 1 ),
+			'false'  => array( false, '' ),
+			'array'  => array( array( 2, 3 ), array( 3, 2 ) ),
 		);
 	}
 
@@ -130,7 +130,7 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 	 */
 	public function test_is_met_attr_value_validation() {
 
-		$value = '13';
+		$value   = '13';
 		$compare = 13;
 
 		$entity = $this->factory->wordpoints->entity->create_and_get();
@@ -180,7 +180,7 @@ class WordPoints_Hook_Condition_Equals_Test extends WordPoints_PHPUnit_TestCase_
 	 */
 	public function test_is_met_attr_value_validation_invalid() {
 
-		$value = 'not_a_number';
+		$value   = 'not_a_number';
 		$compare = 13;
 
 		$entity = $this->factory->wordpoints->entity->create_and_get();

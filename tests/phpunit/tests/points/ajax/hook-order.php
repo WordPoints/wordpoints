@@ -31,7 +31,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
 		wordpointstests_add_points_hook( 'wordpoints_comments_points_hook' );
 
-		$_POST['savehooks'] = wp_create_nonce( 'save-wordpoints-points-hooks' );
+		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['points_types'] = array(
 			'points' => 'wordpoints_registration_points_hook-1,wordpoints_comments_points_hook-1',
 		);
@@ -53,7 +53,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
 		wordpointstests_add_points_hook( 'wordpoints_comments_points_hook' );
 
-		$_POST['savehooks'] = wp_create_nonce( 'save-wordpoints-points-hooks' );
+		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['points_types'] = array(
 			'points' => 'wordpoints_registration_points_hook-1,wordpoints_comments_points_hook-1',
 		);
@@ -93,7 +93,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
 		wordpointstests_add_points_hook( 'wordpoints_comments_points_hook' );
 
-		$_POST['savehooks'] = 'invalid';
+		$_POST['savehooks']    = 'invalid';
 		$_POST['points_types'] = array(
 			'points' => 'wordpoints_registration_points_hook-1,wordpoints_comments_points_hook-1',
 		);
@@ -117,7 +117,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
 		wordpointstests_add_points_hook( 'wordpoints_comments_points_hook' );
 
-		$_POST['savehooks'] = 'invalid';
+		$_POST['savehooks']    = 'invalid';
 		$_POST['points_types'] = array(
 			'points' => 'wordpoints_registration_points_hook-1,wordpoints_comments_points_hook-1',
 		);
@@ -142,7 +142,7 @@ class WordPoints_Points_Hooks_Order_AJAX_Test extends WordPoints_PHPUnit_TestCas
 		wordpointstests_add_points_hook( 'wordpoints_registration_points_hook' );
 		wordpointstests_add_points_hook( 'wordpoints_comments_points_hook' );
 
-		$_POST['savehooks'] = wp_create_nonce( 'save-wordpoints-points-hooks' );
+		$_POST['savehooks']    = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['points_types'] = array(
 			'points' => 'wordpoints_registration_points_hook-1,wordpoints_comments_points_hook-1',
 		);

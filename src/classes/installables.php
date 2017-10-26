@@ -17,6 +17,7 @@
  * This class is static, and cannot be constructed.
  *
  * @since 2.0.0
+ * @deprecated 2.4.0 Use the installables app instead.
  */
 final class WordPoints_Installables {
 
@@ -73,6 +74,7 @@ final class WordPoints_Installables {
 	 * Register an installable.
 	 *
 	 * @since 2.0.0
+	 * @deprecated 2.4.0 Use WordPoints_Installables_App::register() instead.
 	 *
 	 * @param string $type The type of installable, 'module', 'component', 'plugin'.
 	 * @param string $slug The installable's unique slug.
@@ -86,11 +88,23 @@ final class WordPoints_Installables {
 	 */
 	public static function register( $type, $slug, $data ) {
 
-		if ( isset( self::$registered[ $type ][ $slug ] ) ) {
-			return false;
-		}
+		_deprecated_function(
+			__METHOD__
+			, '2.4.0'
+			, 'WordPoints_Installables_App::register'
+		);
 
 		self::$registered[ $type ][ $slug ] = $data;
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->register(
+			'module' === $type ? 'extension' : $type
+			, $slug
+			, 'WordPoints_Installables::installer_loader'
+			, $data['version']
+			, ! empty( $data['network_wide'] )
+		);
 
 		return true;
 	}
@@ -99,6 +113,7 @@ final class WordPoints_Installables {
 	 * Install an installable.
 	 *
 	 * @since 2.0.0
+	 * @deprecated 2.4.0 Use WordPoints_Installer instead.
 	 *
 	 * @param string $type The type of installable, 'module', 'component', 'plugin'.
 	 * @param string $slug The installable's slug.
@@ -107,6 +122,8 @@ final class WordPoints_Installables {
 	 * @return WordPoints_Un_Installer_Base|false Whether the module was installed.
 	 */
 	public static function install( $type, $slug, $network_wide = false ) {
+
+		_deprecated_function( __METHOD__, '2.4.0' );
 
 		if ( ! isset( self::$registered[ $type ][ $slug ] ) ) {
 			return false;
@@ -127,6 +144,7 @@ final class WordPoints_Installables {
 	 * Uninstall an installable.
 	 *
 	 * @since 2.0.0
+	 * @deprecated 2.4.0 Use WordPoints_Uninstaller instead.
 	 *
 	 * @param string $type The type of installable: 'module', 'component', 'plugin'.
 	 * @param string $slug The installable's slug.
@@ -134,6 +152,8 @@ final class WordPoints_Installables {
 	 * @return WordPoints_Un_Installer_Base|false Whether the module was uninstalled.
 	 */
 	public static function uninstall( $type, $slug ) {
+
+		_deprecated_function( __METHOD__, '2.4.0' );
 
 		if ( ! isset( self::$registered[ $type ][ $slug ] ) ) {
 			return false;
@@ -154,206 +174,28 @@ final class WordPoints_Installables {
 	 * Check if any of the active installables has an update, and run them if so.
 	 *
 	 * @since 2.0.0
-	 *
-	 * @WordPress\action wordpoints_modules_loaded 5 Before most module code runs.
+	 * @deprecated 2.4.0 Use wordpoints_installables_maybe_update() instead.
 	 */
 	public static function maybe_do_updates() {
 
-		$wordpoints_data = get_option( 'wordpoints_data' );
+		_deprecated_function( __METHOD__, '2.4.0', 'wordpoints_installables_maybe_update' );
 
-		if ( is_wordpoints_network_active() ) {
-			$network_wide_data = get_site_option( 'wordpoints_data' );
-		}
-
-		$updated = false;
-
-		foreach ( self::$registered as $type => $installables ) {
-
-			foreach ( $installables as $slug => $installable ) {
-
-				if ( isset( $network_wide_data ) && $installable['network_wide'] ) {
-					$data =& $network_wide_data;
-				} else {
-					$data =& $wordpoints_data;
-				}
-
-				if ( 'wordpoints' === $slug ) {
-
-					if ( ! isset( $data['version'] ) ) {
-						// WordPoints should always be installed at this point. If it
-						// isn't, the install script didn't run for some reason. See
-						// https://github.com/WordPoints/wordpoints/issues/349
-						self::install( $type, $slug, is_wordpoints_network_active() );
-						continue;
-					}
-
-					$db_version = $data['version'];
-
-				} else {
-
-					// This installable hasn't been installed yet, so we don't update.
-					if ( ! isset( $data[ "{$type}s" ][ $slug ]['version'] ) ) {
-						continue;
-					}
-
-					$db_version = $data[ "{$type}s" ][ $slug ]['version'];
-				}
-
-				$code_version = $installable['version'];
-
-				// If the DB version isn't less than the code version, we don't need to upgrade.
-				if ( version_compare( $db_version, $code_version ) !== -1 ) {
-					continue;
-				}
-
-				$installer = self::get_installer( $type, $slug );
-
-				if ( ! $installer ) {
-					continue;
-				}
-
-				$installer->update( $db_version, $code_version );
-
-				if ( 'wordpoints' === $slug ) {
-					$data['version'] = $code_version;
-				} else {
-					$data[ "{$type}s" ][ $slug ]['version'] = $code_version;
-				}
-
-				$updated = true;
-
-			} // End foreach ( $installables ).
-
-		} // End foreach ( installable types  ).
-
-		if ( $updated ) {
-			update_option( 'wordpoints_data', $wordpoints_data );
-
-			if ( isset( $network_wide_data ) ) {
-				update_site_option( 'wordpoints_data', $network_wide_data );
-			}
-		}
+		wordpoints_installables_maybe_update();
 	}
 
 	/**
 	 * Show the admin a notice if the update/install for an installable was skipped.
 	 *
 	 * @since 2.0.0
-	 *
-	 * @WordPoints\action admin_notices
+	 * @deprecated 2.4.0 Use wordpoints_update_skipped_show_admin_notices() instead.
 	 */
 	public static function admin_notices() {
 
-		if ( ! is_wordpoints_network_active() ) {
-			return;
-		}
+		_deprecated_function( __METHOD__, '2.4.0', 'wordpoints_update_skipped_show_admin_notices' );
 
-		self::show_admin_notices( 'install' );
-		self::show_admin_notices( 'update' );
-	}
-
-	/**
-	 * Show the admin a notice if the update/install for an installable was skipped.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $notice_type The type of notices to display, 'update', or 'install'.
-	 */
-	protected static function show_admin_notices( $notice_type ) {
-
-		$all_skipped = array_filter(
-			wordpoints_get_array_option( "wordpoints_network_{$notice_type}_skipped", 'site' )
-		);
-
-		if ( empty( $all_skipped ) ) {
-			return;
-		}
-
-		$messages = array();
-
-		if ( 'install' === $notice_type ) {
-			// translators: 1. Module/plugin name; 2. "module", "plugin", or "component".
-			$message_template = __( 'WordPoints detected a large network and has skipped part of the installation process for the &#8220;%1$s&#8221; %2$s.', 'wordpoints' );
-		} else {
-			// translators: 1. Module/plugin name; 2. "module", "plugin", or "component"; 3. Version number.
-			$message_template = __( 'WordPoints detected a large network and has skipped part of the update process for the &#8220;%1$s&#8221; %2$s for version %3$s (and possibly later versions).', 'wordpoints' );
-		}
-
-		foreach ( $all_skipped as $type => $skipped ) {
-
-			if ( ! self::can_show_admin_notices( $type ) ) {
-				continue;
-			}
-
-			switch ( $type ) {
-
-				case 'module':
-					$type_name = __( 'module', 'wordpoints' );
-				break;
-
-				case 'component':
-					$type_name = __( 'component', 'wordpoints' );
-				break;
-
-				default:
-					$type_name = __( 'plugin', 'wordpoints' );
-			}
-
-			foreach ( $skipped as $slug => $version ) {
-
-				if ( empty( self::$registered[ $type ][ $slug ]['network_wide'] ) ) {
-					continue;
-				}
-
-				// Normally we might have used the installable's fancy name instead
-				// of the slug, but this is such an edge case to start with that I
-				// decided not to. Also of note: the version is only used in the
-				// update message.
-				$messages[] = esc_html(
-					sprintf(
-						$message_template
-						, $slug
-						, $type_name
-						, $version
-					)
-				);
-			}
-
-		} // End foreach ( $all_skipped ).
-
-		if ( ! empty( $messages ) ) {
-
-			$message = '<p>' . implode( '</p><p>', $messages ) . '</p>';
-			$message .= '<p>' . esc_html__( 'The rest of the process needs to be completed manually. If this has not been done already, some parts of the component may not function properly.', 'wordpoints' );
-			$message .= ' <a href="https://wordpoints.org/user-guide/multisite/">' . esc_html__( 'Learn more.', 'wordpoints' ) . '</a></p>';
-
-			$args = array(
-				'dismissible' => true,
-				'option' => "wordpoints_network_{$notice_type}_skipped",
-			);
-
-			wordpoints_show_admin_error( $message, $args );
-		}
-	}
-
-	/**
-	 * Check whether to display any admin notices regarding updates.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $type The type of installables notices are being displayed for.
-	 *
-	 * @return bool Whether to display the admin notices.
-	 */
-	protected static function can_show_admin_notices( $type ) {
-
-		switch ( $type ) {
-
-			case 'module':
-				return current_user_can( 'wordpoints_manage_network_modules' );
-
-			default:
-				return current_user_can( 'manage_network_plugins' );
+		if ( is_wordpoints_network_active() ) {
+			wordpoints_admin_show_update_skipped_notices( 'install' );
+			wordpoints_admin_show_update_skipped_notices( 'update' );
 		}
 	}
 
@@ -361,68 +203,76 @@ final class WordPoints_Installables {
 	 * Get the installer class for an installable.
 	 *
 	 * @since 2.0.0
+	 * @since 2.4.0 The $version and $un_installer parameters were added so that an
+	 *              un/installer could be retrieved without having to be registered.
 	 *
-	 * @param string $type The type of installable: 'module', 'component', etc.
-	 * @param string $slug The slug of the installable to get the installer for.
+	 * @param string $type         The type of installable: 'module', 'component', etc.
+	 * @param string $slug         The slug of the installable to get the installer for.
+	 * @param string $version      The version of the installable. Only used if $un_installer is passed.
+	 * @param string $un_installer The path to the un/installer file.
 	 *
 	 * @return WordPoints_Un_Installer_Base|false The installer.
 	 */
-	public static function get_installer( $type, $slug ) {
+	public static function get_installer( $type, $slug, $version = null, $un_installer = null ) {
 
-		if ( ! isset( self::$registered[ $type ][ $slug ] ) ) {
-			return false;
+		if ( ! isset( $un_installer ) ) {
+
+			if ( ! isset( self::$registered[ $type ][ $slug ] ) ) {
+				return false;
+			}
+
+			$version      = self::$registered[ $type ][ $slug ]['version'];
+			$un_installer = self::$registered[ $type ][ $slug ]['un_installer'];
 		}
 
 		if ( ! isset( self::$installers[ $type ][ $slug ] ) ) {
 
-			if ( ! file_exists( self::$registered[ $type ][ $slug ]['un_installer'] ) ) {
+			if ( ! file_exists( $un_installer ) ) {
 				return false;
 			}
 
-			self::$installers[ $type ][ $slug ] = require(
-				self::$registered[ $type ][ $slug ]['un_installer']
-			);
+			self::$installers[ $type ][ $slug ] = require $un_installer;
 		}
 
-		return new self::$installers[ $type ][ $slug ](
-			$slug
-			, self::$registered[ $type ][ $slug ]['version']
-		);
+		return new self::$installers[ $type ][ $slug ]( $slug, $version );
 	}
 
 	/**
 	 * Install network-wide installables on a new site when it is created.
 	 *
 	 * @since 2.0.0
-	 *
-	 * @WordPress\action wpmu_new_blog
+	 * @deprecated 2.4.0 Use wordpoints_installables_install_on_new_site() instead.
 	 *
 	 * @param int $blog_id The ID of the new blog.
 	 */
 	public static function wpmu_new_blog( $blog_id ) {
 
-		foreach ( self::$registered as $type => $installables ) {
+		_deprecated_function( __METHOD__, '2.4.0', 'wordpoints_installables_install_on_new_site' );
 
-			$network_installables = wp_list_filter(
-				$installables
-				, array( 'network_wide' => true )
-			);
+		wordpoints_installables_install_on_new_site( $blog_id );
+	}
 
-			if ( empty( $network_installables ) ) {
-				continue;
-			}
+	/**
+	 * Loads the installer for an installable.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $type The type of installable.
+	 * @param string $slug The slug of the installable.
+	 *
+	 * @return WordPoints_InstallableI The installable object.
+	 */
+	public static function installer_loader( $type, $slug ) {
 
-			foreach ( $network_installables as $slug => $installable ) {
-
-				$installer = self::get_installer( $type, $slug );
-
-				if ( ! $installer ) {
-					continue;
-				}
-
-				$installer->install_on_site( $blog_id );
-			}
+		if ( 'extension' === $type ) {
+			$type = 'module';
 		}
+
+		return new WordPoints_Installable_Legacy(
+			$type
+			, $slug
+			, self::$registered[ $type ][ $slug ]['version']
+		);
 	}
 }
 

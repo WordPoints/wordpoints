@@ -42,8 +42,16 @@ function wordpoints_ranks_my_points_widget_below_text_field() {
 
 	?>
 	<br />
-	<?php // translators: Placeholder name. ?>
-	<small><i><?php echo esc_html( sprintf( __( '%s will be replaced with the rank of the logged in user', 'wordpoints' ), '%rank%' ) ); ?></i></small>
+	<small>
+		<i>
+			<?php
+
+			// translators: Placeholder name.
+			echo esc_html( sprintf( __( '%s will be replaced with the rank of the logged in user', 'wordpoints' ), '%rank%' ) );
+
+			?>
+		</i>
+	</small>
 	<?php
 }
 
@@ -77,6 +85,7 @@ function wordpoints_ranks_points_top_users_username_filter( $name, $user_id, $po
  * @since 1.8.0
  *
  * @WordPress\filter shortcode_atts_wordpoints_user_rank
+ * @WordPress\filter shortcode_atts_wordpoints_rank_list
  */
 function wordpoints_user_rank_shortcode_points_type_attr( $out, $pairs, $atts ) {
 
@@ -113,7 +122,7 @@ function wordpoints_register_points_ranks() {
 		WordPoints_Rank_Groups::register_group(
 			"points_type-{$slug}"
 			, array(
-				'name' => $points_type['name'],
+				'name'        => $points_type['name'],
 				'description' => sprintf(
 					// translators: Points type name.
 					__( 'This rank group is associated with the &#8220;%s&#8221; points type.', 'wordpoints' )

@@ -27,7 +27,7 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->_setRole( 'subscriber' );
 
-		$_POST['savehooks'] = wp_create_nonce( 'save-wordpoints-points-hooks' );
+		$_POST['savehooks']   = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['points-slug'] = 'points';
 
 		$this->setExpectedException( 'WPAjaxDieStopException', '-1' );
@@ -91,7 +91,7 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->_setRole( 'administrator' );
 
-		$_POST['savehooks'] = wp_create_nonce( 'save-wordpoints-points-hooks' );
+		$_POST['savehooks']   = wp_create_nonce( 'save-wordpoints-points-hooks' );
 		$_POST['points-slug'] = 'invalid';
 
 		$this->setExpectedException( 'WPAjaxDieStopException', '-1' );
@@ -107,7 +107,7 @@ class WordPoints_Save_Points_Type_AJAX_Test extends WordPoints_PHPUnit_TestCase_
 
 		$this->_setRole( 'administrator' );
 
-		$_POST['savehooks'] = 'invalid';
+		$_POST['savehooks']   = 'invalid';
 		$_POST['points-slug'] = 'points';
 
 		$this->setExpectedException( 'WPAjaxDieStopException', '-1' );

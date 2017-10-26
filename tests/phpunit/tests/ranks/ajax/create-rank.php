@@ -44,13 +44,13 @@ class WordPoints_Ranks_Screen_Create_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 		$this->_setRole( 'administrator' );
 
 		$this->rank_data = array(
-			'nonce' => wp_create_nonce(
+			'nonce'     => wp_create_nonce(
 				"wordpoints_create_rank|{$this->rank_group}|{$this->rank_type}"
 			),
-			'group' => $this->rank_group,
-			'type'  => $this->rank_type,
-			'name'  => 'Tha Test',
-			'order' => 1,
+			'group'     => $this->rank_group,
+			'type'      => $this->rank_type,
+			'name'      => 'Tha Test',
+			'order'     => 1,
 			'test_meta' => 'test',
 		);
 
@@ -71,8 +71,8 @@ class WordPoints_Ranks_Screen_Create_Ajax_Test extends WordPoints_Ranks_Ajax_Uni
 
 		$this->assertObjectHasAttribute( 'id', $response->data );
 
-		$this->rank_data['id'] = $response->data->id;
-		$this->rank_data['nonce'] = wp_create_nonce(
+		$this->rank_data['id']           = $response->data->id;
+		$this->rank_data['nonce']        = wp_create_nonce(
 			"wordpoints_update_rank|{$this->rank_group}|{$response->data->id}"
 		);
 		$this->rank_data['delete_nonce'] = wp_create_nonce(

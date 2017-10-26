@@ -462,8 +462,8 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 
 	foreach ( (array) $group_ranks as $_rank_id => $user_ids ) {
 		if ( isset( $user_ids[ $user_id ] ) ) {
-			  $rank_id = $_rank_id;
-			  break;
+			$rank_id = $_rank_id;
+			break;
 		}
 	}
 
@@ -472,17 +472,15 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 		$rank_id = $wpdb->get_var(
 			$wpdb->prepare(
 				"
-					SELECT user_ranks.rank_id
-					FROM {$wpdb->wordpoints_user_ranks} user_ranks
-					LEFT JOIN {$wpdb->wordpoints_ranks} AS ranks
-						ON ranks.id = user_ranks.rank_id
-							AND ranks.rank_group = %s
-					WHERE user_ranks.user_id = %d
-						AND ranks.blog_id = %d
-						AND ranks.site_id = %d
+					SELECT `rank_id`
+					FROM `{$wpdb->wordpoints_user_ranks}`
+					WHERE `user_id` = %d
+						AND `rank_group` = %s
+						AND `blog_id` = %d
+						AND `site_id` = %d
 				"
-				, $group
 				, $user_id
+				, $group
 				, $wpdb->blogid
 				, $wpdb->siteid
 			)
@@ -555,59 +553,24 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 		return true;
 	}
 
-	$old_rank = wordpoints_get_rank( $old_rank_id );
-
-	switch ( $old_rank->type ) {
-
-		case 'base':
-			// If this is a base rank, it's possible that the user will not have
-			// the rank ID assigned in the database, it is just assumed by default.
-			$has_rank = $wpdb->get_var(
-				$wpdb->prepare(
-					"
-						SELECT COUNT(`id`)
-						FROM `{$wpdb->wordpoints_user_ranks}`
-						WHERE `rank_id` = %d
-							AND `user_id` = %d
-					"
-					, $old_rank_id
-					, $user_id
-				)
-			); // WPCS: cache pass.
-
-			// If the user rank isn't in the database, we can't run an update query,
-			// and need to do this insert instead.
-			if ( ! $has_rank ) {
-
-				// This user doesn't yet have a rank in this group.
-				$result = $wpdb->insert(
-					$wpdb->wordpoints_user_ranks
-					, array(
-						'user_id' => $user_id,
-						'rank_id' => $rank_id,
-					)
-					, '%d'
-				);
-
-				break;
-			}
-
-			// If the rank was in the database, we can use the regular update method.
-			// Fall through.
-
-		default:
-			$result = $wpdb->update(
-				$wpdb->wordpoints_user_ranks
-				, array( 'rank_id' => $rank_id )
-				, array(
-					'user_id' => $user_id,
-					'rank_id' => $old_rank_id,
-				)
-				, '%d'
-				, '%d'
-			);
-
-	} // End switch ( $old_rank->type ).
+	$result = $wpdb->query(
+		$wpdb->prepare(
+			"
+				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
+					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
+				VALUES 
+					(%d, %d, %s, %d, %d)
+				ON DUPLICATE KEY
+					UPDATE `rank_id` = %d
+			"
+			, $user_id
+			, $rank_id
+			, $rank->rank_group
+			, $wpdb->blogid
+			, $wpdb->siteid
+			, $rank_id
+		)
+	);
 
 	if ( false === $result ) {
 		return false;
@@ -622,9 +585,6 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 	wp_cache_set( $rank->rank_group, $group_ranks, 'wordpoints_user_ranks' );
 
 	unset( $group_ranks );
-
-	wp_cache_delete( $rank_id, 'wordpoints_users_with_rank' );
-	wp_cache_delete( $old_rank_id, 'wordpoints_users_with_rank' );
 
 	/**
 	 * Perform actions when a user rank is updated.
@@ -641,9 +601,100 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 }
 
 /**
+ * Updates a set of users to a new rank.
+ *
+ * All of the users must have previously had the same rank. This is mainly necessary
+ * so that we can pass the old rank ID to the 'wordpoints_update_user_rank' action,
+ * and for purposes of clearing the cache.
+ *
+ * @since 2.4.0
+ *
+ * @param int[] $user_ids     The IDs of the users to update.
+ * @param int   $to_rank_id   The ID of the rank to give the users.
+ * @param int   $from_rank_id The ID of the rank the users previously had.
+ *
+ * @return bool True if the update was successful. False otherwise.
+ */
+function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_rank_id ) {
+
+	global $wpdb;
+
+	if ( ! wordpoints_posint( $to_rank_id ) || ! wordpoints_posint( $to_rank_id ) ) {
+		return false;
+	}
+
+	$rank = wordpoints_get_rank( $to_rank_id );
+
+	if ( ! $rank ) {
+		return false;
+	}
+
+	if ( $to_rank_id === $from_rank_id ) {
+		return true;
+	}
+
+	$prepared = $wpdb->prepare(
+		', %d, %s, %d, %d'
+		, $to_rank_id
+		, $rank->rank_group
+		, $wpdb->blogid
+		, $wpdb->siteid
+	);
+
+	$result = $wpdb->query( // WPCS: unprepared SQL OK.
+		$wpdb->prepare( // WPCS: unprepared SQL OK.
+			"
+				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
+					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
+				VALUES 
+					(" . implode( array_map( 'absint', $user_ids ), "{$prepared}),\n\t\t\t\t\t(" ) . "{$prepared})
+				ON DUPLICATE KEY
+					UPDATE `rank_id` = %d
+			"
+			, $to_rank_id
+		)
+	);
+
+	if ( false === $result ) {
+		return false;
+	}
+
+	$group_ranks = wp_cache_get( $rank->rank_group, 'wordpoints_user_ranks' );
+
+	unset( $group_ranks[ $from_rank_id ], $group_ranks[ $to_rank_id ] );
+
+	wp_cache_set( $rank->rank_group, $group_ranks, 'wordpoints_user_ranks' );
+
+	unset( $group_ranks );
+
+	if ( has_action( 'wordpoints_update_user_rank' ) ) {
+		foreach ( $user_ids as $user_id ) {
+			/**
+			 * Perform actions when a user rank is updated.
+			 *
+			 * @since 1.7.0
+			 *
+			 * @param int $user_id The ID of the user.
+			 * @param int $new_rank_id The ID of the new rank the user has.
+			 * @param int $old_rank_id The ID of the old rank the user used to have.
+			 */
+			do_action(
+				'wordpoints_update_user_rank'
+				, $user_id
+				, $to_rank_id
+				, $from_rank_id
+			);
+		}
+	}
+
+	return true;
+}
+
+/**
  * Get an array of all the users who have a given rank.
  *
  * @since 1.7.0
+ * @deprecated 2.4.0 Use the WordPoints_User_Ranks_Query class instead.
  *
  * @param int $rank_id The ID of the rank.
  *
@@ -651,7 +702,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
  */
 function wordpoints_get_users_with_rank( $rank_id ) {
 
-	global $wpdb;
+	_deprecated_function( __FUNCTION__, '2.4.0', 'WordPoints_User_Ranks_Query class' );
 
 	$rank = wordpoints_get_rank( $rank_id );
 
@@ -659,48 +710,17 @@ function wordpoints_get_users_with_rank( $rank_id ) {
 		return false;
 	}
 
-	$user_ids = wp_cache_get( $rank_id, 'wordpoints_users_with_rank' );
+	$query = new WordPoints_User_Ranks_Query(
+		array( 'fields' => 'user_id', 'rank_id' => $rank_id )
+	);
+
+	$user_ids = $query->get( 'col' );
 
 	if ( false === $user_ids ) {
+		return false;
+	}
 
-		$user_ids = $wpdb->get_col(
-			$wpdb->prepare(
-				"
-					SELECT `user_id`
-					FROM `{$wpdb->wordpoints_user_ranks}`
-					WHERE `rank_id` = %d
-				"
-				, $rank_id
-			)
-		);
-
-		if ( 'base' === $rank->type ) {
-
-			$other_user_ids = $wpdb->get_col(
-				$wpdb->prepare(
-					"
-						SELECT users.`ID`
-						FROM `{$wpdb->users}` AS users
-						WHERE users.`ID` NOT IN (
-							SELECT user_ranks.`user_id`
-							FROM `{$wpdb->wordpoints_user_ranks}` AS user_ranks
-							INNER JOIN `{$wpdb->wordpoints_ranks}` AS ranks
-								ON ranks.`id` = user_ranks.`rank_id`
-							WHERE ranks.`rank_group` = %s
-						)
-					"
-					, $rank->rank_group
-				)
-			);
-
-			$user_ids = array_merge( $user_ids, $other_user_ids );
-		}
-
-		$user_ids = array_map( 'intval', $user_ids );
-
-		wp_cache_set( $rank_id, $user_ids, 'wordpoints_users_with_rank' );
-
-	} // End if ( not cached ).
+	$user_ids = array_map( 'intval', $user_ids );
 
 	return $user_ids;
 }
@@ -728,46 +748,116 @@ function wordpoints_refresh_rank_users( $rank_id ) {
 		return;
 	}
 
-	// Get a list of users who have this rank.
-	$users = wordpoints_get_users_with_rank( $rank->ID );
+	// Maybe decrease users who have this rank.
+	$maybe_decrease = new WordPoints_User_Ranks_Maybe_Decrease( $rank );
+	$maybe_decrease->run();
 
-	// Also get users who have the previous rank.
-	$prev_rank_users = wordpoints_get_users_with_rank( $prev_rank->ID );
+	// Also maybe increase users who have the previous rank.
+	$maybe_increase = new WordPoints_User_Ranks_Maybe_Increase( $prev_rank );
+	$maybe_increase->run();
+}
 
-	// If there are some users who have this rank, check if any of them need to
-	// decrease to that rank.
-	if ( ! empty( $users ) ) {
+/**
+ * Sets the rank of a new user when they become a member of the site.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action user_register
+ * @WordPress\action add_user_to_blog
+ *
+ * @param int $user_id The ID of the user.
+ */
+function wordpoints_set_new_user_ranks( $user_id ) {
 
-		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+	foreach ( WordPoints_Rank_Groups::get() as $rank_group ) {
 
-		foreach ( $users as $user_id ) {
+		$base_rank = wordpoints_get_rank( $rank_group->get_base_rank() );
 
-			$new_rank = $rank_type->maybe_decrease_user_rank( $user_id, $rank );
+		if ( ! $base_rank ) {
+			continue;
+		}
 
-			if ( $new_rank->ID === $rank->ID ) {
-				continue;
-			}
+		$rank_type = WordPoints_Rank_Types::get_type( $base_rank->type );
+
+		if ( ! $rank_type ) {
+			continue;
+		}
+
+		$new_rank = $rank_type->maybe_increase_user_rank(
+			$user_id
+			, $base_rank
+		);
+
+		// If the user should have the base rank we can't use the update function
+		// because it will check the user's current rank, which will be inferred as
+		// the base rank even if it isn't set in the database.
+		if ( $base_rank->ID !== $new_rank->ID ) {
 
 			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+
+		} else {
+
+			global $wpdb;
+
+			$wpdb->query(
+				$wpdb->prepare(
+					"
+						INSERT INTO `{$wpdb->wordpoints_user_ranks}`
+							(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
+						VALUES 
+							(%d, %d, %s, %d, %d)
+						ON DUPLICATE KEY
+							UPDATE `rank_id` = %d
+					"
+					, $user_id
+					, $base_rank->ID
+					, $base_rank->rank_group
+					, $wpdb->blogid
+					, $wpdb->siteid
+					, $base_rank->ID
+				)
+			); // WPCS: cache OK.
 		}
 	}
+}
 
-	// If there were some users with the previous rank, check if any of them can now
-	// increase to this rank.
-	if ( ! empty( $prev_rank_users ) ) {
+/**
+ * Deletes all ranks for a user on this site.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action user_deleted          On single-site installs.
+ * @WordPress\action remove_user_from_blog On multisite.
+ *
+ * @param int $user_id The ID of the user whose ranks to delete.
+ */
+function wordpoints_delete_user_ranks( $user_id ) {
 
-		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+	global $wpdb;
 
-		foreach ( $prev_rank_users as $user_id ) {
+	$wpdb->delete(
+		$wpdb->wordpoints_user_ranks
+		, array(
+			'user_id' => $user_id,
+			'blog_id' => $wpdb->blogid,
+			'site_id' => $wpdb->siteid,
+		)
+		, '%d'
+	);
 
-			$new_rank = $rank_type->maybe_increase_user_rank( $user_id, $prev_rank );
+	foreach ( WordPoints_Rank_Groups::get() as $rank_group ) {
 
-			if ( $new_rank->ID === $prev_rank->ID ) {
-				continue;
-			}
+		$group_ranks = wp_cache_get( $rank_group->slug, 'wordpoints_user_ranks' );
 
-			wordpoints_update_user_rank( $user_id, $new_rank->ID );
+		if ( ! is_array( $group_ranks ) ) {
+			continue;
 		}
+
+		foreach ( $group_ranks as $rank_id => $user_ids ) {
+			unset( $group_ranks[ $rank_id ][ $user_id ] );
+		}
+
+		wp_cache_set( $rank_group->slug, $group_ranks, 'wordpoints_user_ranks' );
 	}
 }
 

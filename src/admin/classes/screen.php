@@ -49,7 +49,7 @@ abstract class WordPoints_Admin_Screen {
 	public function __construct() {
 
 		$this->wp_screen = get_current_screen();
-		$this->id = $this->wp_screen->id;
+		$this->id        = $this->wp_screen->id;
 
 		$this->hooks();
 	}

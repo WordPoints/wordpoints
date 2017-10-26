@@ -133,13 +133,27 @@ final class WordPoints_Components {
 		 */
 		do_action( 'wordpoints_components_register' );
 
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+
 		foreach ( $this->get() as $component ) {
 
 			if ( ! $this->is_active( $component['slug'] ) ) {
 				continue;
 			}
 
-			include_once( $component['file'] );
+			if ( isset( $component['installable'] ) ) {
+
+				$installables->register(
+					'component'
+					, $component['slug']
+					, $component['installable']
+					, $component['version']
+					, is_wordpoints_network_active()
+				);
+			}
+
+			include_once $component['file'];
 		}
 
 		/**
@@ -256,6 +270,7 @@ final class WordPoints_Components {
 			'version'       => '',
 			'file'          => null,
 			'un_installer'  => null,
+			'installable'   => null,
 		);
 
 		$component = array_merge( $defaults, $args );
@@ -271,15 +286,20 @@ final class WordPoints_Components {
 
 		$this->registered[ $component['slug'] ] = array_intersect_key( $component, $defaults );
 
-		WordPoints_Installables::register(
-			'component'
-			, $component['slug']
-			, array(
-				'version'      => $this->registered[ $component['slug'] ]['version'],
-				'un_installer' => $this->registered[ $component['slug'] ]['un_installer'],
-				'network_wide' => is_wordpoints_network_active(),
-			)
-		);
+		if (
+			! isset( $component['installable'] )
+			&& isset( $component['un_installer'] )
+		) {
+
+			WordPoints_Installables::register(
+				'component'
+				, $component['slug']
+				, array(
+					'version'      => $component['version'],
+					'un_installer' => $component['un_installer'],
+				)
+			);
+		}
 
 		return true;
 	}
@@ -342,11 +362,30 @@ final class WordPoints_Components {
 				return false;
 			}
 
-			include_once( $this->registered[ $slug ]['file'] );
+			require_once $this->registered[ $slug ]['file'];
 
-			WordPoints_Installables::get_installer( 'component', $slug )->install(
-				is_wordpoints_network_active()
-			);
+			if ( isset( $this->registered[ $slug ]['installable'] ) ) {
+
+				$installable = $this->registered[ $slug ]['installable'];
+				$installable = new $installable( $slug );
+
+				$installer = new WordPoints_Installer(
+					$installable
+					, is_wordpoints_network_active()
+				);
+
+				$installer->run();
+
+			} else {
+
+				WordPoints_Installables::get_installer(
+					'component'
+					, $slug
+					, $this->registered[ $slug ]['version']
+					, $this->registered[ $slug ]['un_installer']
+				)
+					->install( is_wordpoints_network_active() );
+			}
 
 			/**
 			 * Component activated.

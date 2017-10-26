@@ -75,11 +75,11 @@ class WordPoints_Class_Autoloader {
 
 		$dir = trailingslashit( $dir );
 
-		self::$dirs[ $dir ] = require( $dir . '/index.php' );
+		self::$dirs[ $dir ] = require $dir . '/index.php';
 
 		if ( ! self::$spl_enabled ) {
 			foreach ( self::$dirs[ $dir ] as $file ) {
-				require_once( $dir . $file );
+				require_once $dir . $file;
 			}
 		}
 	}
@@ -97,7 +97,7 @@ class WordPoints_Class_Autoloader {
 
 		foreach ( self::$dirs as $dir => $map ) {
 			if ( isset( $map[ $class_name ] ) ) {
-				require_once( $dir . $map[ $class_name ] );
+				require_once $dir . $map[ $class_name ];
 				return;
 			}
 		}

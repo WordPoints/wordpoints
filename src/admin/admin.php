@@ -17,21 +17,21 @@
  *
  * @since 2.1.0
  */
-require_once( WORDPOINTS_DIR . '/admin/includes/functions.php' );
+require_once WORDPOINTS_DIR . '/admin/includes/functions.php';
 
 /**
  * Admin-side hooks.
  *
  * @since 2.1.0
  */
-require_once( WORDPOINTS_DIR . '/admin/includes/filters.php' );
+require_once WORDPOINTS_DIR . '/admin/includes/filters.php';
 
 /**
  * Screen: Configuration.
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'admin/screens/configure.php';
+require_once WORDPOINTS_DIR . 'admin/screens/configure.php';
 
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'admin/includes' );
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'admin/classes' );

@@ -32,6 +32,11 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 	protected $dynamic_slug = 'post';
 
 	/**
+	 * @since 2.4.0
+	 */
+	protected $is_legacy_points_event = true;
+
+	/**
 	 * @since 2.1.0
 	 */
 	protected $expected_targets = array(
@@ -50,7 +55,7 @@ class WordPoints_Hook_Event_Comment_Leave_Test extends WordPoints_PHPUnit_TestCa
 			array(
 				'comment_approved' => 0,
 				'user_id'          => $this->factory->user->create(),
-				'comment_parent'  => $this->factory->comment->create(
+				'comment_parent'   => $this->factory->comment->create(
 					array(
 						'user_id'         => $this->factory->user->create(),
 						'comment_post_ID' => $this->factory->post->create(

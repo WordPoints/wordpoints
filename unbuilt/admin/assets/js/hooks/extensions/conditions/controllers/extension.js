@@ -22,6 +22,7 @@ Conditions = Extension.extend({
 
 	initialize: function () {
 
+		this.argFilters = [ this.onlyEnumerableEntities ];
 		this.dataType = Backbone.Model.extend( { idAttribute: 'slug' } );
 		this.controllers = new Backbone.Collection(
 			[]
@@ -195,13 +196,13 @@ Conditions = Extension.extend({
 			return false;
 		}
 
-		return this.data.conditions[ dataType ][ slug ];
+		return _.clone( this.data.conditions[ dataType ][ slug ] );
 	},
 
 	// Get all conditions for a certain data type.
 	getByDataType: function ( dataType ) {
 
-		return this.data.conditions[ dataType ];
+		return _.clone( this.data.conditions[ dataType ] );
 	},
 
 	getController: function ( dataTypeSlug, slug ) {
@@ -240,6 +241,18 @@ Conditions = Extension.extend({
 		}
 
 		dataType.get( 'controllers' )[ slug ] = controller;
+	},
+
+	/**
+	 * Arg filter to disallow identity conditions on entities that aren't enumerable.
+	 */
+	onlyEnumerableEntities: function ( arg, dataType, isEntityArray, conditions ) {
+
+		if ( dataType === 'entity' && _.isEmpty( arg.get( 'values' ) ) ) {
+			delete conditions.equals;
+		}
+
+		return true;
 	}
 
 } );

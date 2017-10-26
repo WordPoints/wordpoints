@@ -297,13 +297,28 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	public function data_provider_guids() {
 
 		return array(
-			'id' => array( 1, false ),
-			'entity' => array( array( 'id' => 1, 'attr' => 'value' ), false ),
-			'entity_obj' => array( (object) array( 'id' => 1, 'attr' => 'value' ), false ),
-			'guid' => array( array( 'test' => 1, 'test_context' => 2 ), true ),
-			'with_parent' => array( array( 'test' => 1, 'test_context' => 2, 'parent_context' => 5 ), true ),
-			'id_only' => array( array( 'test' => 1 ), false ),
+			'id'           => array( 1, false ),
+			'entity'       => array( array( 'id' => 1, 'attr' => 'value' ), false ),
+			'entity_obj'   => array( (object) array( 'id' => 1, 'attr' => 'value' ), false ),
+			'guid'         => array( array( 'test' => 1, 'test_context' => 2 ), true ),
+			'with_parent'  => array( array( 'test' => 1, 'test_context' => 2, 'parent_context' => 5 ), true ),
+			'id_only'      => array( array( 'test' => 1 ), false ),
 			'context_only' => array( array( 'test_context' => 2 ), false ),
+		);
+	}
+
+	/**
+	 * Test is_guid() with an entity from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_is_guid_global_context() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'context', '' );
+
+		$this->assertTrue(
+			$entity->call( 'is_guid', array( array( 'test' => 1 ) ) )
 		);
 	}
 
@@ -322,6 +337,21 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 				'split_guid'
 				, array( array( 'test' => 5, 'child' => 1, 'parent' => 2 ) )
 			)
+		);
+	}
+
+	/**
+	 * Test split_guid() with global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_split_guid_global_context() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+
+		$this->assertSame(
+			array( 'id' => 5, 'context' => array() )
+			, $entity->call( 'split_guid', array( array( 'test' => 5 ) ) )
 		);
 	}
 
@@ -415,6 +445,50 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
 
 		$this->assertSame( 1, $entity->call( 'get_entity_id', array( $array ) ) );
+	}
+
+	/**
+	 * Test get_entity_id() with an ID that is a string.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_entity_id_string() {
+
+		$array = array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+
+		$this->assertSame( '1', $entity->call( 'get_entity_id', array( $array ) ) );
+	}
+
+	/**
+	 * Test get_entity_id() with an ID that is a string when $id_is_int is true.
+	 *
+	 * @since 2.1.0
+	 */
+	public function test_get_entity_id_is_int() {
+
+		$array = array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertSame( 1, $entity->call( 'get_entity_id', array( $array ) ) );
+	}
+
+	/**
+	 * Test get_entity_id() with an entity that isn't valid when $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_entity_id_is_int_invalid() {
+
+		$array = array( 'invalid' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertNull( $entity->call( 'get_entity_id', array( $array ) ) );
 	}
 
 	/**
@@ -619,6 +693,25 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test set_the_value() for an entity from the global context.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_set_the_value_from_id_global_context() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'context', '' );
+
+		$this->assertTrue( $entity->set_the_value( 1 ) );
+
+		$this->assertSame( 1, $entity->get_the_value() );
+		$this->assertSame( 1, $entity->get_the_id() );
+		$this->assertSame( 'test', $entity->get_the_attr_value( 'type' ) );
+		$this->assertSame( array(), $entity->get_the_context() );
+		$this->assertSame( array( 'test' => 1 ), $entity->get_the_guid() );
+	}
+
+	/**
 	 * Test set_the_value() with an entity.
 	 *
 	 * @since 2.1.0
@@ -772,6 +865,87 @@ class WordPoints_Entity_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		$this->assertNull( $entity->get_the_attr_value( 'type' ) );
 		$this->assertNull( $entity->get_the_context() );
 		$this->assertNull( $entity->get_the_guid() );
+	}
+
+	/**
+	 * Test get_the_id() when the ID is a string.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_id_string() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+
+		$this->assertSame( '1', $entity->get_the_id() );
+	}
+
+	/**
+	 * Test get_the_id() when the ID is a string and $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_id_is_int() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertSame( 1, $entity->get_the_id() );
+	}
+
+	/**
+	 * Test get_the_id() when the ID isn't set and $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_id_is_int_not_set() {
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertNull( $entity->get_the_id() );
+	}
+
+	/**
+	 * Test get_the_guid() when the ID is a string.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_guid_string() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+
+		$this->assertSame(
+			array( 'test' => '1', 'site' => 1, 'network' => 1 )
+			, $entity->get_the_guid()
+		);
+	}
+
+	/**
+	 * Test get_the_guid() when the ID is a string and $id_is_int is true.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_get_the_guid_is_int() {
+
+		$object = (object) array( 'id' => '1' );
+
+		$entity = new WordPoints_PHPUnit_Mock_Entity( 'test' );
+		$entity->set_the_value( $object );
+		$entity->set( 'id_is_int', true );
+
+		$this->assertSame(
+			array( 'test' => 1, 'site' => 1, 'network' => 1 )
+			, $entity->get_the_guid()
+		);
 	}
 
 	/**

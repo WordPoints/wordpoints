@@ -80,7 +80,7 @@ class WordPoints_Entity_Hierarchy implements WordPoints_Entity_HierarchyI {
 			isset( $this->hierarchy[0] )
 			&& $this->hierarchy[0]->get_slug() === $slug
 		) {
-			$this->current = null;
+			$this->current   = null;
 			$this->hierarchy = array();
 		}
 	}
@@ -154,11 +154,11 @@ class WordPoints_Entity_Hierarchy implements WordPoints_Entity_HierarchyI {
 	 */
 	public function get_from_hierarchy( array $hierarchy ) {
 
-		$backup = $this->hierarchy;
+		$backup  = $this->hierarchy;
 		$current = $this->current;
 
 		$this->hierarchy = array();
-		$this->current = null;
+		$this->current   = null;
 
 		$slug = reset( $hierarchy );
 
@@ -175,7 +175,7 @@ class WordPoints_Entity_Hierarchy implements WordPoints_Entity_HierarchyI {
 		$entityish = $this->current;
 
 		$this->hierarchy = $backup;
-		$this->current = $current;
+		$this->current   = $current;
 
 		return $entityish;
 	}

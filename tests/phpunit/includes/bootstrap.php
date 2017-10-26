@@ -64,7 +64,7 @@ if ( ! class_exists( 'WordPoints_Dev_Lib_PHPUnit_Class_Autoloader' ) ) {
 	 *
 	 * @since 2.2.0
 	 */
-	require_once( $dir . '/../../dev-lib/phpunit/classes/class/autoloader.php' );
+	require_once $dir . '/../../dev-lib/phpunit/classes/class/autoloader.php';
 }
 
 WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
@@ -95,7 +95,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 	 *
 	 * @since 2.2.0
 	 */
-	require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/autoload_52.php' );
+	require_once WORDPOINTS_TESTS_DIR . '/../../vendor/autoload_52.php';
 }
 
 // For back-compat with old versions of the module bootstrap, expecting pre-2.2.0

@@ -16,7 +16,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Un_Installer::update_single_to_1_3_0
+ * @covers WordPoints_Installable_Core::get_update_routine_factories
  */
 class WordPoints_1_3_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
@@ -36,18 +36,18 @@ class WordPoints_1_3_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 		wordpoints_remove_custom_caps( array_keys( wordpoints_get_custom_caps() ) );
 
 		$administrator = get_role( 'administrator' );
-		$this->assertFalse( $administrator->has_cap( 'install_wordpoints_modules' ) );
-		$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-		$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+		$this->assertFalse( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertFalse( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertFalse( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
 
 		// Mock an update.
 		$this->update_wordpoints();
 
 		// Check that the capabilities were added.
 		$administrator = get_role( 'administrator' );
-		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_modules' ) );
-		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_modules' ) );
+		$this->assertTrue( $administrator->has_cap( 'install_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'activate_wordpoints_extensions' ) );
+		$this->assertTrue( $administrator->has_cap( 'delete_wordpoints_extensions' ) );
 	}
 }
 

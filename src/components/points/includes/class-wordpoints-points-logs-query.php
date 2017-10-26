@@ -47,6 +47,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 * @since 2.3.0
 	 */
 	protected $deprecated_args = array(
+		'start'        => array( 'replacement' => 'offset', 'version' => '2.4.0', 'class' => __CLASS__ ),
 		'orderby'      => array( 'replacement' => 'order_by', 'version' => '2.3.0', 'class' => __CLASS__ ),
 		'user__in'     => array( 'replacement' => 'user_id__in', 'version' => '2.3.0', 'class' => __CLASS__ ),
 		'user__not_in' => array( 'replacement' => 'user_id__not_in', 'version' => '2.3.0', 'class' => __CLASS__ ),
@@ -123,6 +124,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *                'text__in', 'text__not_in', 'blog_id__compare',
 	 *                'site_id__compare', 'site_id__in', and 'site_id__not_in' args
 	 *                were added.
+	 * @since 2.4.0 The 'start' arg was deprecated in favor of 'offset'.
 	 *
 	 * @see WP_Date_Query for the proper arguments for $args['date_query'].
 	 * @see WP_Meta_Query for the proper arguments for 'meta_query', 'meta_key', 'meta_value', 'meta_compare', and 'meta_type'.
@@ -132,7 +134,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *
 	 *        @type string|array $fields              Fields to include in the results. Defaults to all fields.
 	 *        @type int          $limit               The maximum number of results to return. Default is no limit.
-	 *        @type int          $start               The start for the LIMIT clause. Default: 0.
+	 *        @type int          $offset              The offset for the LIMIT clause. Default: 0.
 	 *        @type string       $order_by            The field to use to order the results. Default: 'date'.
 	 *        @type string       $order               The order for the query: ASC or DESC (default).
 	 *        @type int          $id                  The ID of the log to retrieve.
@@ -187,7 +189,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			wordpoints_get_points_types()
 		);
 
-		$this->defaults['order_by'] = 'date';
+		$this->defaults['order_by']      = 'date';
 		$this->defaults['text__compare'] = 'LIKE';
 
 		// Back-compat for pre-2.3.0, in case an object or string is passed.
@@ -280,7 +282,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	public function count() {
 
 		if ( $this->_is_cached_query ) {
-			$cache = $this->_cache_get( 'count' );
+			$cache = $this->cache_get( 'count' );
 
 			if ( false !== $cache ) {
 				return $cache;
@@ -290,7 +292,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		$count = parent::count();
 
 		if ( $this->_is_cached_query ) {
-			$this->_cache_set( $count, 'count' );
+			$this->cache_set( $count, 'count' );
 		}
 
 		return $count;
@@ -311,7 +313,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	public function get( $method = 'results' ) {
 
 		if ( $this->_is_cached_query ) {
-			$cache = $this->_cache_get( "get_{$method}" );
+			$cache = $this->cache_get( "get_{$method}" );
 
 			if ( false !== $cache ) {
 				return $cache;
@@ -321,10 +323,10 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		$result = parent::get( $method );
 
 		if ( $this->_is_cached_query ) {
-			$this->_cache_set( $result, "get_{$method}" );
+			$this->cache_set( $result, "get_{$method}" );
 
 			if ( 'results' === $method || 'col' === $method ) {
-				$this->_cache_set( count( $result ), 'count' );
+				$this->cache_set( count( $result ), 'count' );
 			}
 		}
 
@@ -337,7 +339,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 * Useful for displaying paginated results, this function lets you get a slice
 	 * of the results.
 	 *
-	 * If your query is already using the 'start' argument, the results are
+	 * If your query is already using the 'offset' argument, the results are
 	 * calculated relative to that. If your query has a 'limit' set, results will not
 	 * be returned beyond the limit.
 	 *
@@ -357,17 +359,17 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			return false;
 		}
 
-		$start = ( $page - 1 ) * $per_page;
+		$offset = ( $page - 1 ) * $per_page;
 
 		// First try the main cache.
 		if ( $this->_is_cached_query ) {
 
-			$cache = $this->_cache_get( 'get_results' );
+			$cache = $this->cache_get( 'get_results' );
 
 			if ( false !== $cache ) {
 				return array_slice(
 					$cache
-					, $start - $this->args['start']
+					, $offset - $this->args['offset']
 					, $per_page
 				);
 			}
@@ -376,17 +378,17 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 		// Stash the args so we can restore them later.
 		$args = $this->args;
 
-		$this->args['start'] += $start;
+		$this->args['offset'] += $offset;
 
 		if ( ! empty( $this->args['limit'] ) ) {
-			$this->args['limit'] -= $start;
+			$this->args['limit'] -= $offset;
 		}
 
 		if ( empty( $this->args['limit'] ) || $this->args['limit'] > $per_page ) {
 			$this->args['limit'] = $per_page;
 		}
 
-		// Regenerate the query limit after changing the start and limit args.
+		// Regenerate the query limit after changing the offset and limit args.
 		$this->prepare_limit();
 
 		unset( $this->_cache_query_hash );
@@ -525,7 +527,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *
 	 * @return mixed Cached value, or false if none.
 	 */
-	private function _cache_get( $type = null ) {
+	private function cache_get( $type = null ) {
 
 		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
 
@@ -533,7 +535,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 			return false;
 		}
 
-		$this->_calc_cache_query_hash();
+		$this->calc_cache_query_hash();
 
 		if ( ! isset( $cache[ $this->_cache_query_hash ] ) ) {
 			return false;
@@ -559,11 +561,11 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 * @param string $type  Optionally specify a results type to cache. Default is
 	 *                      null, or all types.
 	 */
-	private function _cache_set( $value, $type = null ) {
+	private function cache_set( $value, $type = null ) {
 
 		$cache = wp_cache_get( $this->_cache_key, $this->_cache_group );
 
-		$this->_calc_cache_query_hash();
+		$this->calc_cache_query_hash();
 
 		if (
 			! isset( $cache[ $this->_cache_query_hash ] )
@@ -586,7 +588,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *
 	 * @since 1.6.0
 	 */
-	private function _calc_cache_query_hash() {
+	private function calc_cache_query_hash() {
 
 		if ( ! isset( $this->_cache_query_hash ) ) {
 			$this->_cache_query_hash = wordpoints_hash( $this->get_sql() );

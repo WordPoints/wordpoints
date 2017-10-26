@@ -112,6 +112,35 @@ module.exports = function( grunt ) {
 				)[0]
 			);
 
+			class_files.splice(
+				class_files.indexOf( 'extension/server/api/extension/license/renewablei.php' ) + 1
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'extension/server/api/extension/license/renewable/urli.php' )
+					, 1
+				)[0]
+			);
+
+			// Move the module installer before the upgrader (which extends it).
+			class_files.splice(
+				class_files.indexOf( 'extension/upgrader.php' )
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'module/installer.php' )
+					, 1
+				)[0]
+			);
+
+			// Move the routine class before the classes that extend it.
+			class_files.splice(
+				class_files.indexOf( 'routinei.php' ) + 1
+				, 0
+				, class_files.splice(
+					class_files.indexOf( 'routine.php' )
+					, 1
+				)[0]
+			);
+
 			return class_files;
 		}
 	);

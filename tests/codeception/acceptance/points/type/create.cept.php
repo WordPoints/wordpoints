@@ -27,10 +27,15 @@ $I->see( 'Slug: points' );
 $I->canSeeInFormFields(
 	'#settings form'
 	, array(
-		'points-name' => 'Points',
+		'points-name'   => 'Points',
 		'points-prefix' => '$',
 		'points-suffix' => 'pts.',
 	)
 );
+$I->click( 'Create Reactions' );
+$I->see( 'Points Types' );
+$I->see( 'Points', '.nav-tab-active' );
+$I->see( 'Example reactions created successfully!' );
+$I->see( '(Disabled) Registering with the site' );
 
 // EOF

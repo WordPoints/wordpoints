@@ -1,0 +1,30 @@
+/**
+ * Styles for the extensions table on the update-core.php admin screen.
+ *
+ * @since 2.4.0
+ */
+
+#update-wordpoints-extensions-table tbody td p {
+	margin-top: 0;
+}
+
+#update-wordpoints-extensions-table tbody td p strong {
+	font-size: 14px;
+}
+
+#update-wordpoints-extensions-table thead th.check-column,
+#update-wordpoints-extensions-table tfoot th.check-column {
+	padding-top: 11px;
+}
+
+#update-wordpoints-extensions-table td,
+#update-wordpoints-extensions-table tbody th {
+	border-top: 1px solid #ddd;
+}
+
+#update-wordpoints-extensions-table tr:nth-child(1) td,
+#update-wordpoints-extensions-table tbody tr:nth-child(1) th {
+	border-top: none;
+}
+
+/* EOF */

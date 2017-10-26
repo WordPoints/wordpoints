@@ -193,8 +193,8 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			, array( 'points' => 10 )
 		);
 
-		$user_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$user_id    = $this->factory->user->create();
+		$post_id    = $this->factory->post->create( array( 'post_author' => $user_id ) );
 		$comment_id = $this->factory->comment->create(
 			array( 'comment_post_ID' => $post_id )
 		);
@@ -248,8 +248,8 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 			, array( 'points' => 10 )
 		);
 
-		$user_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $user_id ) );
+		$user_id    = $this->factory->user->create();
+		$post_id    = $this->factory->post->create( array( 'post_author' => $user_id ) );
 		$comment_id = $this->factory->comment->create(
 			array( 'comment_post_ID' => $post_id )
 		);
@@ -270,6 +270,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		$query = new WordPoints_Points_Logs_Query(
 			array( 'log_type' => 'comment_received' )
 		);
+
 		$log = $query->get( 'row' );
 
 		$this->assertSame(
@@ -308,7 +309,7 @@ class WordPoints_Comment_Received_Points_Hook_Test extends WordPoints_PHPUnit_Te
 		wp_set_current_user( $this->factory->user->create() );
 
 		// The log shouldn't be displayed.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->preserveWhiteSpace = false;
 		$document->loadHTML(
 			WordPoints_Shortcodes::do_shortcode(

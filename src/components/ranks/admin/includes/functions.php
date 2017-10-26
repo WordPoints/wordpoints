@@ -17,7 +17,7 @@
 function wordpoints_ranks_admin_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/ranks/admin/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$suffix     = SCRIPT_DEBUG ? '' : '.min';
 
 	// CSS
 
@@ -51,6 +51,7 @@ function wordpoints_ranks_admin_register_scripts() {
 			'unexpectedError' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
 			'changesSaved'    => __( 'Your changes have been saved.', 'wordpoints' ),
 			'emptyName'       => __( 'A rank title cannot be empty.', 'wordpoints' ),
+			'confirmAboutTo'  => __( 'You are about to delete the following rank:', 'wordpoints' ),
 			'confirmDelete'   => __( 'Are you sure that you want to delete this rank? This action cannot be undone.', 'wordpoints' ),
 			'confirmTitle'    => __( 'Are you sure?', 'wordpoints' ),
 			'deleteText'      => __( 'Delete', 'wordpoints' ),
@@ -79,11 +80,11 @@ function wordpoints_ranks_admin_menu() {
 	// Ranks screen.
 	add_submenu_page(
 		$wordpoints_menu
-		,__( 'WordPoints — Ranks', 'wordpoints' )
-		,esc_html__( 'Ranks', 'wordpoints' )
-		,'manage_options'
-		,'wordpoints_ranks'
-		,'wordpoints_ranks_admin_screen'
+		, __( 'WordPoints — Ranks', 'wordpoints' )
+		, esc_html__( 'Ranks', 'wordpoints' )
+		, 'manage_options'
+		, 'wordpoints_ranks'
+		, 'wordpoints_ranks_admin_screen'
 	);
 }
 
@@ -151,7 +152,7 @@ function wordpoints_ranks_admin_screen() {
 	 *
 	 * @since 1.7.0
 	 */
-	include WORDPOINTS_DIR . 'components/ranks/admin/screens/ranks.php';
+	require WORDPOINTS_DIR . 'components/ranks/admin/screens/ranks.php';
 }
 
 // EOF

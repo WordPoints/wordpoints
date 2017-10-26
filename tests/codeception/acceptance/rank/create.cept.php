@@ -25,7 +25,7 @@ $I->see( 'Beginner', '.wordpoints-rank.editing .view' );
 $I->canSeeInFormFields(
 	'.wordpoints-rank.editing'
 	, array(
-		'name' => 'Beginner',
+		'name'   => 'Beginner',
 		'points' => '100',
 	)
 );

@@ -285,7 +285,7 @@ class WordPoints_Points_Logs_View_Table_Test
 	}
 
 	/**
-	 * Test that the the user's name is passed through a filter.
+	 * Test that the user's name is passed through a filter.
 	 *
 	 * @since 2.2.0
 	 */
@@ -378,7 +378,7 @@ class WordPoints_Points_Logs_View_Table_Test
 		$view->display();
 		$html = ob_get_clean();
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $html );
 
 		return new DOMXPath( $document );

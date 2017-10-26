@@ -24,9 +24,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 	public function test_construct_with_settings() {
 
 		$settings = array(
-			'key' => 'value',
+			'key'     => 'value',
 			'reactor' => 'test_reactor',
-			'event' => 'test_event',
+			'event'   => 'test_event',
 		);
 
 		$validator = new WordPoints_Hook_Reaction_Validator( $settings );
@@ -50,9 +50,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 	public function test_construct_with_reaction() {
 
 		$settings = array(
-			'event' => 'test_event',
+			'event'   => 'test_event',
 			'reactor' => 'test_reactor',
-			'target' => array( 'test_entity' ),
+			'target'  => array( 'test_entity' ),
 		);
 
 		$reaction = $this->factory->wordpoints->hook_reaction->create_and_get(
@@ -80,9 +80,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 	public function test_validate() {
 
 		$settings = array(
-			'event' => $this->factory->wordpoints->hook_event->create(),
+			'event'   => $this->factory->wordpoints->hook_event->create(),
 			'reactor' => $this->factory->wordpoints->hook_reactor->create(),
-			'target' => array( 'test_entity' ),
+			'target'  => array( 'test_entity' ),
 		);
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter();
@@ -121,7 +121,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$settings = array(
 			'reactor' => $this->factory->wordpoints->hook_reactor->create(),
-			'target' => array( 'test_entity' ),
+			'target'  => array( 'test_entity' ),
 		);
 
 		$this->factory->wordpoints->hook_event->create();
@@ -156,9 +156,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 	public function test_validate_unregistered_event() {
 
 		$settings = array(
-			'event' => 'test_event',
+			'event'   => 'test_event',
 			'reactor' => $this->factory->wordpoints->hook_reactor->create(),
-			'target' => array( 'test_entity' ),
+			'target'  => array( 'test_entity' ),
 		);
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter();
@@ -191,7 +191,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 	public function test_validate_no_reactor() {
 
 		$settings = array(
-			'event' => $this->factory->wordpoints->hook_event->create(),
+			'event'  => $this->factory->wordpoints->hook_event->create(),
 			'target' => array( 'test_entity' ),
 		);
 
@@ -227,9 +227,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 	public function test_validate_unregistered_reactor() {
 
 		$settings = array(
-			'event' => $this->factory->wordpoints->hook_event->create(),
+			'event'   => $this->factory->wordpoints->hook_event->create(),
 			'reactor' => 'test_reactor',
-			'target' => array( 'test_entity' ),
+			'target'  => array( 'test_entity' ),
 		);
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter();
@@ -265,7 +265,7 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$settings = array(
 			'reactor' => $this->factory->wordpoints->hook_reactor->create(),
-			'event' => $this->factory->wordpoints->hook_event->create(),
+			'event'   => $this->factory->wordpoints->hook_event->create(),
 		);
 
 		$mock = new WordPoints_PHPUnit_Mock_Filter();
@@ -308,10 +308,10 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$action_type = 'test_fire';
 
-		$settings   = array(
-			'event' => $this->factory->wordpoints->hook_event->create(),
-			'reactor' => $this->factory->wordpoints->hook_reactor->create(),
-			'target' => array( 'test_entity' ),
+		$settings = array(
+			'event'          => $this->factory->wordpoints->hook_event->create(),
+			'reactor'        => $this->factory->wordpoints->hook_reactor->create(),
+			'target'         => array( 'test_entity' ),
 			'test_extension' => array( $action_type => array( 'key' => 'value' ) ),
 		);
 
@@ -340,9 +340,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$this->assertSame(
 			array(
-				'settings' => $settings['test_extension'][ $action_type ],
-				'validator' => $validator,
-				'event_args' => $event_args,
+				'settings'    => $settings['test_extension'][ $action_type ],
+				'validator'   => $validator,
+				'event_args'  => $event_args,
 				'field_stack' => array( 'test_extension', $action_type ),
 			)
 			, $extension->validations[0]
@@ -373,9 +373,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 		$action_type = 'test_fire';
 
 		$settings = array(
-			'event' => $this->factory->wordpoints->hook_event->create(),
-			'reactor' => $this->factory->wordpoints->hook_reactor->create(),
-			'target' => array( 'test_entity' ),
+			'event'          => $this->factory->wordpoints->hook_event->create(),
+			'reactor'        => $this->factory->wordpoints->hook_reactor->create(),
+			'target'         => array( 'test_entity' ),
 			'test_extension' => array( $action_type => array( 'fail' => 'Testing.' ) ),
 		);
 
@@ -406,9 +406,9 @@ class WordPoints_Hook_Reaction_Validator_Test extends WordPoints_PHPUnit_TestCas
 
 		$this->assertSame(
 			array(
-				'settings' => array( 'fail' => 'Testing.' ),
-				'validator' => $validator,
-				'event_args' => $event_args,
+				'settings'    => array( 'fail' => 'Testing.' ),
+				'validator'   => $validator,
+				'event_args'  => $event_args,
 				'field_stack' => array( 'test_extension', $action_type ),
 			)
 			, $extension->validations[0]

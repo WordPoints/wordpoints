@@ -4,22 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a1c25fff0e12afb98ffe598f984e7ef",
-    "content-hash": "cb48f125294219e3569fdf9a39a4f65a",
+    "content-hash": "4b4df64c5fa45140c069b96dbfca89b9",
     "packages": [],
     "packages-dev": [
         {
             "name": "jdgrimes/wp-filesystem-mock",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JDGrimes/wp-filesystem-mock.git",
-                "reference": "5606c0ab6c6fd52a5d38498a06538682445a4050"
+                "reference": "986df3bfeb1554ae19856537dfeb558037275c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wp-filesystem-mock/zipball/5606c0ab6c6fd52a5d38498a06538682445a4050",
-                "reference": "5606c0ab6c6fd52a5d38498a06538682445a4050",
+                "url": "https://api.github.com/repos/JDGrimes/wp-filesystem-mock/zipball/986df3bfeb1554ae19856537dfeb558037275c25",
+                "reference": "986df3bfeb1554ae19856537dfeb558037275c25",
                 "shasum": ""
             },
             "require": {
@@ -45,20 +44,59 @@
             ],
             "description": "Shim for the WordPress filesystem API to use a mock filesystem in PHPUnit tests",
             "homepage": "https://github.com/JDGrimes/wp-filesystem-mock",
-            "time": "2016-09-09 19:49:03"
+            "time": "2017-09-14T20:28:05+00:00"
         },
         {
-            "name": "jdgrimes/wpppb",
-            "version": "0.2.2",
+            "name": "jdgrimes/wp-http-testcase",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JDGrimes/wpppb.git",
-                "reference": "c7f4c331165cd2460fbdfa70145f396630eddd7f"
+                "url": "https://github.com/JDGrimes/wp-http-testcase.git",
+                "reference": "cbbea5fc813a146ad8fdf19ea564a597e5d0f8bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JDGrimes/wpppb/zipball/c7f4c331165cd2460fbdfa70145f396630eddd7f",
-                "reference": "c7f4c331165cd2460fbdfa70145f396630eddd7f",
+                "url": "https://api.github.com/repos/JDGrimes/wp-http-testcase/zipball/cbbea5fc813a146ad8fdf19ea564a597e5d0f8bb",
+                "reference": "cbbea5fc813a146ad8fdf19ea564a597e5d0f8bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "wp-http-testcase.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "J.D. Grimes",
+                    "email": "jdg@codesymphony.co",
+                    "homepage": "http://codesymphony.co",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHPUnit testcase for WordPress code involving HTTP requests",
+            "homepage": "https://github.com/JDGrimes/wp-http-testcase",
+            "time": "2017-06-03T14:09:57+00:00"
+        },
+        {
+            "name": "jdgrimes/wpppb",
+            "version": "0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JDGrimes/wpppb.git",
+                "reference": "a19834f29aa690653bcdb908a0a9476008021922"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JDGrimes/wpppb/zipball/a19834f29aa690653bcdb908a0a9476008021922",
+                "reference": "a19834f29aa690653bcdb908a0a9476008021922",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +125,7 @@
             ],
             "description": "Bootstrap for integration testing WordPress plugins with PHPUnit",
             "homepage": "https://github.com/JDGrimes/wpppb",
-            "time": "2016-11-04 20:01:10"
+            "time": "2017-10-09T20:56:07+00:00"
         },
         {
             "name": "xrstf/composer-php52",
@@ -118,7 +156,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2016-04-16 21:52:24"
+            "time": "2016-04-16T21:52:24+00:00"
         }
     ],
     "aliases": [],

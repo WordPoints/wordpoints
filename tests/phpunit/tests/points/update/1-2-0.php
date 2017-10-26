@@ -18,11 +18,8 @@
  * @group points
  * @group update
  *
- * @covers WordPoints_Points_Un_Installer::update_network_to_1_2_0
- * @covers WordPoints_Points_Un_Installer::update_single_to_1_2_0
- * @covers WordPoints_Points_Un_Installer::_1_2_0_remove_points_logs_for_deleted_users
- * @covers WordPoints_Points_Un_Installer::_1_2_0_regenerate_points_logs_for_deleted_posts
- * @covers WordPoints_Points_Un_Installer::_1_2_0_regenerate_points_logs_for_deleted_comments
+ * @covers WordPoints_Points_Installable::get_update_routine_factories
+ * @covers WordPoints_Points_Updater_1_2_0_Logs
  *
  * @expectedDeprecated WordPoints_Comment_Removed_Points_Hook::__construct
  * @expectedDeprecated WordPoints_Post_Delete_Points_Hook::__construct
@@ -190,7 +187,7 @@ class WordPoints_Points_1_2_0_Update_Test extends WordPoints_PHPUnit_TestCase_Po
 		);
 
 		// Create two comments, we'll delete one and use the other as a control.
-		$user_id = $this->factory->user->create();
+		$user_id     = $this->factory->user->create();
 		$comment_ids = $this->factory->comment->create_many(
 			2
 			, array(

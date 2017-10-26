@@ -11,6 +11,8 @@
  * Tests for the base un/installer class.
  *
  * @since 2.0.0
+ *
+ * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
  */
 class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
@@ -24,14 +26,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	protected $un_installer;
 
 	/**
-	 * Fake custom capabilities used in the tets.
+	 * Fake custom capabilities used in the tests.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @var array
 	 */
 	protected $custom_caps = array(
-		'some_cap' => 'manage_options',
+		'some_cap'    => 'manage_options',
 		'another_cap' => 'write',
 	);
 
@@ -47,7 +49,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		 *
 		 * @since 2.0.0
 		 */
-		require_once( WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer-option-prefix.php' );
+		require_once WORDPOINTS_TESTS_DIR . '/includes/mocks/un-installer-option-prefix.php';
 	}
 
 	/**
@@ -58,9 +60,6 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		parent::setUp();
 
 		$this->un_installer = new WordPoints_PHPUnit_Mock_Un_Installer( 'test', '1.0.0' );
-		$this->un_installer->type = 'module';
-
-		delete_site_transient( 'wordpoints_all_site_ids' );
 	}
 
 	/**
@@ -775,7 +774,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'update_network_to_1_0_0' => 'network',
-				'update_site_to_1_0_0' => 'standard',
+				'update_site_to_1_0_0'    => 'standard',
 			)
 			, $this->un_installer->mode
 		);
@@ -1015,7 +1014,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'update_network_to_1_0_0' => 'network',
-				'update_site_to_1_0_0' => 'standard',
+				'update_site_to_1_0_0'    => 'standard',
 			)
 			, $this->un_installer->mode
 		);
@@ -1210,6 +1209,157 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test the behaviour of update() when no from version is specified.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_from() {
+
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( null, '1.0.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when no from version is specified but the DB version is set.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_from_db_version_set() {
+
+		$this->un_installer->set_db_version( '0.9.0' );
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( null, '1.0.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertSame( '0.9.0', $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when no from version is set but the DB version is up to date.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_from_db_version_same() {
+
+		$this->un_installer->set_db_version( '1.0.0' );
+		$this->un_installer->updates = array(
+			'1.0.0' => array( 'single' => true, 'site' => true, 'network' => true ),
+		);
+
+		$this->un_installer->update( null, '1.0.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertNull( $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertSame( '1.0.0', $this->un_installer->get_db_version() );
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test the behaviour of update() when no to version is specified.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_to() {
+
+		$this->un_installer->updates = array( '1.0.0' => array( 'single' => true ) );
+
+		$this->un_installer->update( '0.9.0', null, false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
+	 * Test update() when the to version is different than the version property.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::update
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_update_no_to_different_than_version() {
+
+		$this->un_installer->updates = array(
+			'0.9.0' => array( 'single' => true ),
+			'1.0.0' => array( 'single' => true ),
+		);
+
+		$this->un_installer->update( '0.8.0', '0.9.0', false );
+
+		$this->assertSame( 'update', $this->un_installer->action );
+		$this->assertSame( 'single', $this->un_installer->context );
+		$this->assertFalse( $this->un_installer->network_wide );
+
+		$this->assertFalse( $this->un_installer->get_db_version() );
+
+		$this->assertContainsSame(
+			array( 'method' => 'update_single_to_0_9_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+
+		$this->assertNotContains(
+			array( 'method' => 'update_single_to_1_0_0', 'args' => array() )
+			, $this->un_installer->method_calls
+		);
+	}
+
+	/**
 	 * Test the basic behaviour of install_on_site().
 	 *
 	 * @since 2.0.0
@@ -1391,7 +1541,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_maybe_load_custom_caps_action_uninstall() {
 
-		$this->un_installer->action = 'uninstall';
+		$this->un_installer->action             = 'uninstall';
 		$this->un_installer->custom_caps_getter = array( $this, 'custom_caps_getter' );
 		$this->un_installer->maybe_load_custom_caps();
 
@@ -1608,7 +1758,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_install_network_set_db_version_network_wide() {
 
-		$this->un_installer->context = 'network';
+		$this->un_installer->context      = 'network';
 		$this->un_installer->network_wide = true;
 
 		$this->un_installer->install_network();
@@ -1684,7 +1834,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_install_site_set_db_version_network_wide() {
 
-		$this->un_installer->context = 'site';
+		$this->un_installer->context      = 'site';
 		$this->un_installer->network_wide = true;
 
 		$this->un_installer->install_site();
@@ -1835,7 +1985,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$list_table = array(
 			'screen_id' => array(
-				'parent' => 'parent_page',
+				'parent'  => 'parent_page',
 				'options' => array( 'an_option' ),
 			),
 		);
@@ -1846,11 +1996,11 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'list_tables' => $list_table,
-				'universal' => array(),
-				'global' => array(
+				'universal'   => array(),
+				'global'      => array(
 					'list_tables' => array(
 						'screen_id' => array(
-							'parent' => 'parent',
+							'parent'  => 'parent',
 							'options' => array( 'an_option' ),
 						),
 					),
@@ -1873,7 +2023,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$list_table = array(
 			'screen_id' => array(
-				'parent' => 'parent_page',
+				'parent'  => 'parent_page',
 				'options' => array( 'an_option' ),
 			),
 		);
@@ -1892,12 +2042,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame(
 			array(
-				'single' => $array,
-				'site' => array(),
-				'network' => $array,
-				'local' => array(),
-				'global' => $array,
-				'universal' => array(),
+				'single'      => $array,
+				'site'        => array(),
+				'network'     => $array,
+				'local'       => array(),
+				'global'      => $array,
+				'universal'   => array(),
 				'list_tables' => $list_table,
 			)
 			, $this->un_installer->uninstall
@@ -1913,17 +2063,27 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_prepare_uninstall_non_per_site_items() {
 
-		$this->un_installer->uninstall['universal']['key'] = 'data';
-		$this->un_installer->uninstall['site']['key'] = 'other';
+		$this->un_installer->uninstall['universal']['key'] = array( 'a' => 'data' );
+		$this->un_installer->uninstall['site']['key']      = array( 'b' => 'other' );
+		$this->un_installer->uninstall['local']['key']     = array( 'c' => 'another' );
+		$this->un_installer->uninstall['network']['key']   = array( 'd' => 'stuff' );
 
 		$this->un_installer->prepare_uninstall_non_per_site_items( 'key' );
 
-		$this->assertSame(
+		$this->assertSameSetsWithIndex(
 			array(
 				'universal' => array(),
 				'site'      => array(),
-				'global'    => array( 'key' => 'data' ),
-				'network'   => array( 'key' => 'other' ),
+				'local'     => array(),
+				'single'    => array( 'key' => array( 'c' => 'another' ) ),
+				'global'    => array( 'key' => array( 'a' => 'data' ) ),
+				'network'   => array(
+					'key' => array(
+						'd' => 'stuff',
+						'b' => 'other',
+						'c' => 'another',
+					),
+				),
 			)
 			, $this->un_installer->uninstall
 		);
@@ -1945,11 +2105,65 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->assertSame(
 			array(
-				'single' => array( 'meta_boxes' => $meta_box ),
-				'site' => array(),
-				'network' => array( 'meta_boxes' => $meta_box ),
-				'local' => array(),
-				'global' => array( 'meta_boxes' => $meta_box ),
+				'single'    => array( 'meta_boxes' => $meta_box ),
+				'site'      => array(),
+				'network'   => array( 'meta_boxes' => $meta_box ),
+				'local'     => array(),
+				'global'    => array( 'meta_boxes' => $meta_box ),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test that meta boxes are prepared before uninstall.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 */
+	public function test_prepare_meta_boxes_before_uninstall_site() {
+
+		$meta_box = array( 'screen_id' => array() );
+
+		$this->un_installer->uninstall['site']['meta_boxes'] = $meta_box;
+		$this->un_installer->before_uninstall();
+
+		$this->assertSame(
+			array(
+				'single'    => array(),
+				'site'      => array(),
+				'network'   => array( 'meta_boxes' => $meta_box ),
+				'local'     => array(),
+				'global'    => array(),
+				'universal' => array(),
+			)
+			, $this->un_installer->uninstall
+		);
+	}
+
+	/**
+	 * Test that meta boxes are prepared before uninstall.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::before_uninstall
+	 */
+	public function test_prepare_meta_boxes_before_uninstall_local() {
+
+		$meta_box = array( 'screen_id' => array() );
+
+		$this->un_installer->uninstall['local']['meta_boxes'] = $meta_box;
+		$this->un_installer->before_uninstall();
+
+		$this->assertSame(
+			array(
+				'single'    => array( 'meta_boxes' => $meta_box ),
+				'site'      => array(),
+				'network'   => array( 'meta_boxes' => $meta_box ),
+				'local'     => array(),
+				'global'    => array(),
 				'universal' => array(),
 			)
 			, $this->un_installer->uninstall
@@ -2047,14 +2261,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall['local'] = array(
 			'options' => array( 'one', 'two' ),
-			'other' => array( 'something' ),
+			'other'   => array( 'something' ),
 		);
 
 		$this->un_installer->map_shortcuts( 'uninstall' );
 
 		$this->assertSame(
 			array(
-				'other' => array( 'from_single', 'something' ),
+				'other'   => array( 'from_single', 'something' ),
 				'options' => array( 'one', 'two' ),
 			)
 			, $this->un_installer->uninstall['single']
@@ -2064,7 +2278,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'options' => array( 'one', 'two' ),
-				'other' => array( 'something' ),
+				'other'   => array( 'something' ),
 			)
 			, $this->un_installer->uninstall['site']
 		);
@@ -2087,14 +2301,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall['global'] = array(
 			'options' => array( 'one', 'two' ),
-			'other' => array( 'something' ),
+			'other'   => array( 'something' ),
 		);
 
 		$this->un_installer->map_shortcuts( 'uninstall' );
 
 		$this->assertSame(
 			array(
-				'other' => array( 'from_single', 'something' ),
+				'other'   => array( 'from_single', 'something' ),
 				'options' => array( 'one', 'two' ),
 			)
 			, $this->un_installer->uninstall['single']
@@ -2104,7 +2318,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'options' => array( 'one', 'two' ),
-				'other' => array( 'something' ),
+				'other'   => array( 'something' ),
 			)
 			, $this->un_installer->uninstall['network']
 		);
@@ -2131,14 +2345,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall['universal'] = array(
 			'options' => array( 'one', 'two' ),
-			'other' => array( 'something' ),
+			'other'   => array( 'something' ),
 		);
 
 		$this->un_installer->map_shortcuts( 'uninstall' );
 
 		$this->assertSame(
 			array(
-				'other' => array( 'from_single', 'something' ),
+				'other'   => array( 'from_single', 'something' ),
 				'options' => array( 'one', 'two' ),
 			)
 			, $this->un_installer->uninstall['single']
@@ -2148,7 +2362,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			array(
 				'another' => array( 'bob' ),
 				'options' => array( 'one', 'two' ),
-				'other' => array( 'something' ),
+				'other'   => array( 'something' ),
 			)
 			, $this->un_installer->uninstall['site']
 		);
@@ -2157,7 +2371,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'options' => array( 'one', 'two' ),
-				'other' => array( 'something' ),
+				'other'   => array( 'something' ),
 			)
 			, $this->un_installer->uninstall['network']
 		);
@@ -2205,14 +2419,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		$this->un_installer->uninstall['universal'] = array(
 			'options' => array( 'one', 'two' ),
-			'other' => array( 'something' ),
+			'other'   => array( 'something' ),
 		);
 
 		$this->un_installer->before_uninstall();
 
 		$this->assertSame(
 			array(
-				'other' => array( 'from_single', 'something' ),
+				'other'   => array( 'from_single', 'something' ),
 				'options' => array( 'one', 'two' ),
 			)
 			, $this->un_installer->uninstall['single']
@@ -2222,7 +2436,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 			array(
 				'another' => array( 'bob' ),
 				'options' => array( 'one', 'two' ),
-				'other' => array( 'something' ),
+				'other'   => array( 'something' ),
 			)
 			, $this->un_installer->uninstall['site']
 		);
@@ -2231,7 +2445,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'options' => array( 'one', 'two' ),
-				'other' => array( 'something' ),
+				'other'   => array( 'something' ),
 			)
 			, $this->un_installer->uninstall['network']
 		);
@@ -2638,7 +2852,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_list_table() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'screen_id';
 
 		$user_id = $this->factory->user->create();
@@ -2653,7 +2867,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -2666,7 +2880,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_list_table_network_context() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'screen_id';
 
 		$user_id = $this->factory->user->create();
@@ -2684,7 +2898,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 		$this->assertSame(
 			array()
@@ -2692,7 +2906,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page" )
 		);
 	}
 
@@ -2705,7 +2919,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_list_table_custom_parent() {
 
-		$parent = 'parent';
+		$parent    = 'parent';
 		$screen_id = 'screen_id';
 
 		$user_id = $this->factory->user->create();
@@ -2723,7 +2937,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -2738,7 +2952,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_list_table_wordpoints_modules() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'wordpoints_modules';
 
 		$user_id = $this->factory->user->create();
@@ -2753,7 +2967,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -2768,7 +2982,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_list_table_wordpoints_modules_multisite() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'wordpoints_modules';
 
 		$user_id = $this->factory->user->create();
@@ -2786,7 +3000,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page" )
 		);
 		$this->assertSame(
 			array()
@@ -2794,7 +3008,78 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_extensions screen receives special handling.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress !multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_extensions() {
+
+		$parent    = 'wordpoints';
+		$screen_id = 'wordpoints_extensions';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page", 'test' );
+
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}columnshidden" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
+		);
+	}
+
+	/**
+	 * Test that the wordpoints_extensions screen receives special handling.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_list_table
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_list_table_wordpoints_extensions_multisite() {
+
+		$parent    = 'wordpoints';
+		$screen_id = 'wordpoints_extensions';
+
+		$user_id = $this->factory->user->create();
+		add_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden", 'test' );
+		add_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page", 'test' );
+		add_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden", 'test' );
+		add_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page", 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_list_table( $screen_id, array() );
+
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "managetoplevel_page_{$screen_id}columnshidden" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "toplevel_page_{$screen_id}_per_page" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "manage{$parent}_page_{$screen_id}-networkcolumnshidden" )
+		);
+		$this->assertSame(
+			array()
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_network_per_page" )
 		);
 	}
 
@@ -2807,7 +3092,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_list_table_custom_options() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'screen_id';
 
 		$user_id = $this->factory->user->create();
@@ -2838,7 +3123,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall__list_table() {
 
-		$parent = 'wordpoints';
+		$parent    = 'wordpoints';
 		$screen_id = 'screen_id';
 
 		$user_id = $this->factory->user->create();
@@ -2857,7 +3142,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		);
 		$this->assertSame(
 			array()
-			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page}" )
+			, get_user_meta( $user_id, "{$parent}_page_{$screen_id}_per_page" )
 		);
 	}
 
@@ -2952,6 +3237,59 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$this->un_installer->uninstall_( 'single' );
 
 		$this->assertFalse( get_option( __METHOD__ ) );
+	}
+
+	/**
+	 * Test uninstalling transients.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_transient
+	 */
+	public function test_uninstall_transient() {
+
+		set_transient( __METHOD__, 'test' );
+
+		$this->un_installer->uninstall_transient( __METHOD__ );
+
+		$this->assertFalse( get_transient( __METHOD__ ) );
+	}
+
+	/**
+	 * Test that it uninstalls network ("site") transients in network context.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_transient
+	 * @covers WordPoints_Un_Installer_Base::uninstall_network_transient
+	 *
+	 * @requires WordPress multisite
+	 */
+	public function test_uninstall_network_transient() {
+
+		set_site_transient( __METHOD__, 'test' );
+
+		$this->un_installer->context = 'network';
+		$this->un_installer->uninstall_transient( __METHOD__ );
+
+		$this->assertFalse( get_site_transient( __METHOD__ ) );
+	}
+
+	/**
+	 * Test uninstalling transients.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Un_Installer_Base::uninstall_
+	 */
+	public function test_uninstall__transient() {
+
+		set_transient( __METHOD__, 'test' );
+
+		$this->un_installer->uninstall['single']['transients'] = array( __METHOD__ );
+		$this->un_installer->uninstall_( 'single' );
+
+		$this->assertFalse( get_transient( __METHOD__ ) );
 	}
 
 	/**
@@ -3065,7 +3403,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_single_unset_db_version() {
 
-		$this->un_installer->context = 'single';
+		$this->un_installer->context      = 'single';
+		$this->un_installer->network_wide = false;
 
 		$this->un_installer->set_db_version();
 
@@ -3085,7 +3424,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
@@ -3099,7 +3439,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_site_unset_db_version() {
 
-		$this->un_installer->context = 'site';
+		$this->un_installer->context      = 'site';
+		$this->un_installer->network_wide = false;
 
 		$this->un_installer->set_db_version();
 
@@ -3119,7 +3460,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
@@ -3134,7 +3476,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_uninstall_network_unset_db_version() {
 
-		$this->un_installer->context = 'network';
+		$this->un_installer->context      = 'network';
 		$this->un_installer->network_wide = true;
 
 		$this->un_installer->set_db_version();
@@ -3157,7 +3499,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_site_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 	}
@@ -3244,7 +3587,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_all_site_ids() {
 
-		$ids = array( get_current_blog_id() );
+		$ids   = array( get_current_blog_id() );
 		$ids[] = $this->factory->blog->create();
 
 		// Create another blog on a different site.
@@ -3503,15 +3846,24 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 
 		add_filter( 'wp_is_large_network', '__return_true' );
 
-		// We don't actually create 10000 sites in the database.
-		$mock_filter = new WordPoints_PHPUnit_Mock_Filter( array_fill( 0, 10001, 1 ) );
-
-		add_filter(
-			'pre_site_option_wordpoints_module_test_installed_sites'
-			, array( $mock_filter, 'filter' )
+		$un_installer = $this->createPartialMock(
+			'WordPoints_PHPUnit_Mock_Un_Installer'
+			, array( 'get_installed_site_ids' )
 		);
 
-		$this->assertFalse( $this->un_installer->do_per_site_uninstall() );
+		$un_installer->slug        = 'test';
+		$un_installer->type        = 'module';
+		$un_installer->installable = new WordPoints_Installable_Basic(
+			'module'
+			, 'test'
+			, '1.0.0'
+		);
+
+		$un_installer->method( 'get_installed_site_ids' )->willReturn(
+			array_fill( 0, 10001, 1 )
+		);
+
+		$this->assertFalse( $un_installer->do_per_site_uninstall() );
 	}
 
 	/**
@@ -3687,7 +4039,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_wordpoints() {
 
-		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->slug        = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
+
+		$this->un_installer->installable->unset_network_installed();
 
 		$site_ids = array( $this->factory->blog->create() );
 
@@ -3713,7 +4072,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_network_wide_wordpoints() {
 
-		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->slug        = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
+
 		$this->un_installer->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -3740,7 +4105,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_component() {
 
-		$this->un_installer->type = 'component';
+		$this->un_installer->type        = 'component';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
 
 		$site_ids = array( $this->factory->blog->create() );
 
@@ -3766,7 +4136,13 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_installed_site_ids_network_wide_component() {
 
-		$this->un_installer->type = 'component';
+		$this->un_installer->type        = 'component';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
+
 		$this->un_installer->set_network_installed();
 
 		$site_id = $this->factory->blog->create();
@@ -3871,7 +4247,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_add_installed_site_id_wordpoints() {
 
-		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->slug        = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
 
 		$site_id = $this->factory->blog->create();
 
@@ -3899,7 +4280,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_add_installed_site_id_component() {
 
-		$this->un_installer->type = 'component';
+		$this->un_installer->type        = 'component';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
 
 		$site_id = $this->factory->blog->create();
 
@@ -3976,7 +4362,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_delete_installed_site_ids_wordpoints() {
 
-		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->slug        = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
+
+		$this->un_installer->installable->unset_network_installed();
 
 		update_site_option(
 			'wordpoints_installed_sites'
@@ -3999,7 +4392,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_delete_installed_site_ids_component() {
 
-		$this->un_installer->type = 'component';
+		$this->un_installer->type        = 'component';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'component'
+			, 'test'
+			, '1.0.0'
+		);
 
 		update_site_option(
 			'wordpoints_test_installed_sites'
@@ -4086,6 +4484,9 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version() {
 
+		$this->un_installer->network_wide = false;
+		$this->un_installer->context      = is_multisite() ? 'site' : 'single';
+
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
 		$this->un_installer->set_db_version( '0.9.0' );
@@ -4106,7 +4507,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
@@ -4136,7 +4538,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_get_db_version_network_wide() {
 
 		$this->un_installer->network_wide = true;
-		$this->un_installer->context = 'network';
+		$this->un_installer->context      = 'network';
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
@@ -4158,7 +4560,8 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 		$wordpoints_data = get_site_option( 'wordpoints_data' );
 		$this->assertInternalType( 'array', $wordpoints_data );
 		$this->assertArrayHasKey( 'modules', $wordpoints_data );
-		$this->assertArrayNotHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayHasKey( 'test', $wordpoints_data['modules'] );
+		$this->assertArrayNotHasKey( 'version', $wordpoints_data['modules']['test'] );
 
 		$this->assertFalse( $this->un_installer->get_db_version() );
 
@@ -4188,7 +4591,12 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version_wordpoints() {
 
-		$this->un_installer->slug = 'wordpoints';
+		$this->un_installer->slug        = 'wordpoints';
+		$this->un_installer->installable = new WordPoints_Installable_Basic(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
 
 		$this->assertSame( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 
@@ -4225,9 +4633,14 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_db_version_wordpoints_network_wide() {
 
-		$this->un_installer->slug = 'wordpoints';
-		$this->un_installer->context = 'network';
+		$this->un_installer->slug         = 'wordpoints';
+		$this->un_installer->context      = 'network';
 		$this->un_installer->network_wide = true;
+		$this->un_installer->installable  = new WordPoints_Installable_Basic(
+			'plugin'
+			, 'wordpoints'
+			, '1.0.0'
+		);
 
 		$this->assertSame( WORDPOINTS_VERSION, $this->un_installer->get_db_version() );
 
@@ -4365,7 +4778,7 @@ class WordPoints_Un_Installer_Base_Test extends WordPoints_PHPUnit_TestCase {
 	public function assertListTablePrepared( $args ) {
 
 		$screen = key( $args );
-		$args = reset( $args );
+		$args   = reset( $args );
 
 		$this->assertListTableHiddenColumnsPrepared( $screen, $args['parent'] );
 

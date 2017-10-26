@@ -4,7 +4,7 @@
  * Plugin Name: WordPoints
  * Plugin URI: https://wordpoints.org/
  * Description: Create one or more points systems for your site, and reward user activity.
- * Version: 2.3.0
+ * Version: 2.4.0
  * Author: J.D. Grimes
  * Author URI: https://codesymphony.co/
  * License: GPLv2
@@ -40,7 +40,7 @@
  *
  * @package WordPoints
  * @author J.D. Grimes <jdg@codesymphony.co>
- * @version 2.3.0
+ * @version 2.4.0
  * @license https://opensource.org/licenses/gpl-license.php GPL, version 2 or later.
  * @copyright 2013-17 J.D. Grimes
  */
@@ -50,16 +50,16 @@
  *
  * @since 1.2.0
  */
-include_once dirname( __FILE__ ) . '/includes/constants.php';
+require_once dirname( __FILE__ ) . '/includes/constants.php';
 
 /**
  * Core functions.
  *
- * Contains general functions that can be used by components and modules.
+ * Contains general functions that can be used by components and extensions.
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'includes/functions.php';
+require_once WORDPOINTS_DIR . 'includes/functions.php';
 
 /**
  * Apps functions.
@@ -69,7 +69,7 @@ include_once WORDPOINTS_DIR . 'includes/functions.php';
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/apps.php';
+require_once WORDPOINTS_DIR . 'includes/apps.php';
 
 /**
  * Hooks functions.
@@ -79,16 +79,16 @@ include_once WORDPOINTS_DIR . 'includes/apps.php';
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/hooks.php';
+require_once WORDPOINTS_DIR . 'includes/hooks.php';
 
 /**
- * Module functions.
+ * Extension functions.
  *
- * Loads modules, etc.
+ * Loads extensions, etc.
  *
  * @since 1.0.0
  */
-include_once WORDPOINTS_DIR . 'includes/modules.php';
+require_once WORDPOINTS_DIR . 'includes/modules.php';
 
 /**
  * Class autoloader.
@@ -97,7 +97,7 @@ include_once WORDPOINTS_DIR . 'includes/modules.php';
  *
  * @since 2.1.0
  */
-require_once( WORDPOINTS_DIR . 'classes/class/autoloader.php' );
+require_once WORDPOINTS_DIR . 'classes/class/autoloader.php';
 
 // Register the classes to autoload.
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
@@ -110,14 +110,14 @@ WordPoints_Components::set_up();
  *
  * @since 2.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/filters.php';
+require_once WORDPOINTS_DIR . 'includes/filters.php';
 
 /**
  * Deprecated functions.
  *
  * @since 1.1.0
  */
-include_once WORDPOINTS_DIR . 'includes/deprecated.php';
+require_once WORDPOINTS_DIR . 'includes/deprecated.php';
 
 if ( is_admin() ) {
 
@@ -130,7 +130,7 @@ if ( is_admin() ) {
 	 *
 	 * @since 1.0.0
 	 */
-	include_once WORDPOINTS_DIR . 'admin/admin.php';
+	require_once WORDPOINTS_DIR . 'admin/admin.php';
 }
 
 // EOF

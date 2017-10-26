@@ -70,7 +70,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_get_context() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor;
+		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 
 		$this->assertSame( 'site', $reactor->get_context() );
 	}
@@ -84,7 +84,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_get_context_network_active() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor;
+		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
 
 		$this->assertSame( 'network', $reactor->get_context() );
 	}
@@ -113,8 +113,8 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$reactor    = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -125,7 +125,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$settings = array(
 			'target' => array( 'test_entity' ),
-			'key' => 'value',
+			'key'    => 'value',
 		);
 
 		$result = $reactor->validate_settings( $settings, $validator, $event_args );
@@ -144,8 +144,8 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings_target_not_set() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$reactor    = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -180,8 +180,8 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings_target_not_array() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$reactor    = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -192,7 +192,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$settings = array(
 			'target' => 'test_entity',
-			'key' => 'value',
+			'key'    => 'value',
 		);
 
 		$result = $reactor->validate_settings( $settings, $validator, $event_args );
@@ -217,8 +217,8 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings_target_not_valid_hierarchy() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$reactor    = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -229,7 +229,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$settings = array(
 			'target' => array( 'another_entity' ),
-			'key' => 'value',
+			'key'    => 'value',
 		);
 
 		$result = $reactor->validate_settings( $settings, $validator, $event_args );
@@ -255,8 +255,8 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_validate_settings_target_not_correct_type() {
 
-		$reactor = new WordPoints_PHPUnit_Mock_Hook_Reactor();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$reactor    = new WordPoints_PHPUnit_Mock_Hook_Reactor();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 
 		$event_args->add_entity(
@@ -267,7 +267,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$settings = array(
 			'target' => array( 'another_entity' ),
-			'key' => 'value',
+			'key'    => 'value',
 		);
 
 		$result = $reactor->validate_settings( $settings, $validator, $event_args );
@@ -292,7 +292,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_update_settings() {
 
-		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
+		$reactor  = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
 		$this->assertSame(
@@ -302,7 +302,7 @@ class WordPoints_Hook_Reactor_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$settings = array(
 			'target' => array( 'another_entity' ),
-			'key' => 'value',
+			'key'    => 'value',
 		);
 
 		$reactor->update_settings( $reaction, $settings );

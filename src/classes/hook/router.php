@@ -126,9 +126,9 @@ class WordPoints_Hook_Router {
 
 			$hooks = wordpoints_hooks();
 
-			$this->hooks   = $hooks;
-			$this->events  = $hooks->get_sub_app( 'events' );
-			$this->actions = $hooks->get_sub_app( 'actions' );
+			$this->hooks      = $hooks;
+			$this->events     = $hooks->get_sub_app( 'events' );
+			$this->actions    = $hooks->get_sub_app( 'actions' );
 			$this->event_args = $this->events->get_sub_app( 'args' );
 		}
 

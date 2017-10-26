@@ -71,7 +71,7 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 	public function test_my_points_widget_ranks_placeholder() {
 
 		$user_id = $this->factory->user->create();
-		$rank_id = $this->factory->wordpoints_rank->create(
+		$rank_id = $this->factory->wordpoints->rank->create(
 			array(
 				'rank_group' => 'points_type-points',
 				'type'       => 'points-points',
@@ -87,9 +87,9 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 		the_widget(
 			'WordPoints_Points_Widget_User_Points'
 			, array(
-				'text' => 'Rank: %rank%',
+				'text'        => 'Rank: %rank%',
 				'points_type' => 'points',
-				'title' => 'My Points',
+				'title'       => 'My Points',
 			)
 		);
 		$widget = ob_get_clean();
@@ -113,10 +113,6 @@ class WordPoints_Ranks_Points_Integration_Test extends WordPoints_PHPUnit_TestCa
 	public function test_points_type_attr_of_user_ranks_shortcode() {
 
 		$user_id = $this->factory->user->create();
-
-		$rank = wordpoints_get_rank(
-			WordPoints_Rank_Groups::get_group( 'points_type-points' )->get_rank( 0 )
-		);
 
 		$result = $this->do_shortcode(
 			'wordpoints_user_rank'

@@ -29,6 +29,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		'version'     => '1.0.0-beta',
 		'author'      => 'WordPoints Tester',
 		'author_uri'  => 'https://www.example.com/',
+		'uri'         => 'https://www.example.com/test-3/',
 		'module_uri'  => 'https://www.example.com/test-3/',
 		'description' => 'A test module.',
 		'text_domain' => 'test-3',
@@ -38,6 +39,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		'author_name' => 'WordPoints Tester',
 		'update_api'  => '',
 		'channel'     => '',
+		'server'      => '',
 		'ID'          => '',
 		'namespace'   => '',
 	);
@@ -49,7 +51,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 	}
 
 	/**
@@ -61,7 +63,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_module_basename() {
 
-		$this->assertSame( 'module/module.php', wordpoints_module_basename( wordpoints_modules_dir() . '/module/module.php' ) );
+		$this->assertSame( 'module/module.php', wordpoints_module_basename( wordpoints_extensions_dir() . '/module/module.php' ) );
 	}
 
 	/**
@@ -73,9 +75,11 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get_modules() {
 
+		$this->mock_apps();
+
 		// This module uses the 2.0 API, and for a more realistic test, it helps if
 		// it is pre-loaded (which the modules aren't during the tests).
-		include_once( wordpoints_modules_dir() . '/test-6/main-file.php' );
+		require_once wordpoints_extensions_dir() . '/test-6/main-file.php';
 
 		$modules = wordpoints_get_modules();
 
@@ -88,6 +92,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertSame(
 			array(
 				'name'        => 'Test 4',
+				'uri'         => 'https://www.example.com/test-4/',
 				'module_uri'  => 'https://www.example.com/test-4/',
 				'version'     => '1.0.0',
 				'description' => 'Another test module.',
@@ -98,6 +103,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 				'network'     => false,
 				'update_api'  => '',
 				'channel'     => '',
+				'server'      => '',
 				'ID'          => '',
 				'namespace'   => '',
 				'title'       => 'Test 4',
@@ -108,12 +114,13 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 
 		// Test getting a module that uses the 2.0 API.
 		$this->assertArrayHasKey( 'test-6/main-file.php', $modules );
-		$this->assertSame(
+		$this->assertSameSetsWithIndex(
 			array(
 				'name'        => 'Test 6',
 				'version'     => '1.0.0',
 				'author'      => 'WordPoints Tester',
 				'author_uri'  => 'https://www.example.com/',
+				'uri'         => 'https://www.example.com/test-6/',
 				'module_uri'  => 'https://www.example.com/test-6/',
 				'description' => 'Another test module.',
 				'text_domain' => 'test-6',
@@ -121,8 +128,9 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 				'network'     => false,
 				'update_api'  => '',
 				'channel'     => '',
+				'server'      => '',
 				'ID'          => '',
-				'namespace'   => '',
+				'namespace'   => 'Test_6',
 				'title'       => 'Test 6',
 				'author_name' => 'WordPoints Tester',
 			)
@@ -135,6 +143,8 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 	 * Test getting all modules in a subdirectory of the modules dir.
 	 *
 	 * @since 2.0.0
+	 *
+	 * @covers ::wordpoints_get_modules
 	 */
 	public function test_get_module_subdir() {
 
@@ -142,6 +152,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 			array(
 				'test-4.php' => array(
 					'name'        => 'Test 4',
+					'uri'         => 'https://www.example.com/test-4/',
 					'module_uri'  => 'https://www.example.com/test-4/',
 					'version'     => '1.0.0',
 					'description' => 'Another test module.',
@@ -152,6 +163,7 @@ class WordPoints_Modules_Test extends WordPoints_PHPUnit_TestCase {
 					'network'     => false,
 					'update_api'  => '',
 					'channel'     => '',
+					'server'      => '',
 					'ID'          => '',
 					'namespace'   => '',
 					'title'       => 'Test 4',

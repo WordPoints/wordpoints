@@ -51,7 +51,7 @@ abstract class WordPoints_Ranks_Ajax_UnitTestCase extends WordPoints_PHPUnit_Tes
 		 *
 		 * @since 1.7.0
 		 */
-		require_once( WORDPOINTS_DIR . '/components/ranks/admin/includes/ajax.php' );
+		require_once WORDPOINTS_DIR . '/components/ranks/admin/includes/ajax.php';
 	}
 
 	/**

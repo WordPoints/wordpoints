@@ -93,7 +93,7 @@ class WordPoints_Entity_Attr_Stored_DB_Table_Meta_Test
 
 		$this->assertSame( 'a', $attr->get_the_value() );
 
-		$this->assertTrue(
+		$this->assertFalse(
 			$attr->set_the_value_from_entity(
 				new WordPoints_PHPUnit_Mock_Entity( 'test' )
 			)

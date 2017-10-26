@@ -28,8 +28,8 @@ class WordPoints_Hook_Extension_Blocker_Test extends WordPoints_PHPUnit_TestCase
 	 */
 	public function test_validate_settings( $settings, $expected = null ) {
 
-		$extension = new WordPoints_Hook_Extension_Blocker();
-		$validator = new WordPoints_Hook_Reaction_Validator( array() );
+		$extension  = new WordPoints_Hook_Extension_Blocker();
+		$validator  = new WordPoints_Hook_Reaction_Validator( array() );
 		$event_args = new WordPoints_Hook_Event_Args( array() );
 		$event_args->set_validator( $validator );
 
@@ -60,16 +60,16 @@ class WordPoints_Hook_Extension_Blocker_Test extends WordPoints_PHPUnit_TestCase
 	 */
 	public function data_provider_valid_settings() {
 		return array(
-			'empty' => array( array() ),
-			'one' => array( '1', true ),
-			'zero' => array( '0', false ),
-			'true' => array( true ),
-			'false' => array( false ),
-			'string_true' => array( 'true', true ),
-			'string_false' => array( 'false', false ),
-			'action_type_one' => array( array( 'test_fire' => '1' ), array( 'test_fire' => true ) ),
-			'action_type_zero' => array( array( 'test_fire' => '0' ), array( 'test_fire' => false ) ),
-			'action_type_true' => array( array( 'test_fire' => true ) ),
+			'empty'             => array( array() ),
+			'one'               => array( '1', true ),
+			'zero'              => array( '0', false ),
+			'true'              => array( true ),
+			'false'             => array( false ),
+			'string_true'       => array( 'true', true ),
+			'string_false'      => array( 'false', false ),
+			'action_type_one'   => array( array( 'test_fire' => '1' ), array( 'test_fire' => true ) ),
+			'action_type_zero'  => array( array( 'test_fire' => '0' ), array( 'test_fire' => false ) ),
+			'action_type_true'  => array( array( 'test_fire' => true ) ),
 			'action_type_false' => array( array( 'test_fire' => false ) ),
 		);
 	}
@@ -108,8 +108,8 @@ class WordPoints_Hook_Extension_Blocker_Test extends WordPoints_PHPUnit_TestCase
 	 */
 	public function data_provider_valid_settings_should_hit() {
 		return array(
-			'empty' => array( array() ),
-			'false' => array( false ),
+			'empty'             => array( array() ),
+			'false'             => array( false ),
 			'action_type_false' => array( array( 'test_fire' => false ) ),
 			'action_type_other' => array( array( 'other' => true ) ),
 		);
@@ -149,7 +149,7 @@ class WordPoints_Hook_Extension_Blocker_Test extends WordPoints_PHPUnit_TestCase
 	 */
 	public function data_provider_valid_settings_should_not_hit() {
 		return array(
-			'true' => array( true ),
+			'true'             => array( true ),
 			'action_type_true' => array( array( 'test_fire' => true ) ),
 		);
 	}

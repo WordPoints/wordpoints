@@ -188,19 +188,19 @@ class WordPoints_Hook_Hit_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$values = array_merge(
 			array(
-				'action_type' => 'fire',
+				'action_type'         => 'fire',
 				'signature_arg_guids' => wp_json_encode(
 					array( 'test_entity' => 1, 'site' => 1, 'network' => 1 )
 				),
-				'event' => 'test_event',
-				'reactor' => 'test_reactor',
-				'reaction_mode' => 'standard',
-				'reaction_store' => 'test',
+				'event'               => 'test_event',
+				'reactor'             => 'test_reactor',
+				'reaction_mode'       => 'standard',
+				'reaction_store'      => 'test',
 				'reaction_context_id' => wp_json_encode(
 					array( 'site' => 1, 'network' => 1 )
 				),
-				'reaction_id' => 1,
-				'date' => current_time( 'mysql', true ),
+				'reaction_id'         => 1,
+				'date'                => current_time( 'mysql', true ),
 			)
 			, $values
 		);

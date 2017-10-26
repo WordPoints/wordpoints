@@ -54,7 +54,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_Test
 			unset( $e );
 		}
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame(
@@ -81,7 +81,7 @@ class WordPoints_Breaking_Module_Check_Ajax_Test extends WordPoints_PHPUnit_Test
 			unset( $e );
 		}
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $this->_last_response );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame(

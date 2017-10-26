@@ -237,36 +237,39 @@ jQuery( function ( $ ) {
 		// Confirm that a rank is intended to be deleted before deleting it.
 		confirmDelete: function ( event ) {
 
-			var $dialog = $( '<div><p></p></div>' ),
+			var $dialog = $( '<div></div>' ),
 				view = this;
 
 			event.preventDefault();
 
 			$dialog
 				.attr( 'title', ranks.l10n.confirmTitle )
-				.find( 'p' )
-					.text( ranks.l10n.confirmDelete )
-				.end()
+				.append( $( '<p></p>' ).text( ranks.l10n.confirmAboutTo ) )
+				.append(
+					$( '<p></p>' )
+						.append( $( '<b></b>' ).text( this.model.get( 'name' ) ) )
+				)
+				.append( $( '<p></p>' ).text( ranks.l10n.confirmDelete ) )
 				.dialog({
 					dialogClass: 'wp-dialog wordpoints-delete-rank-dialog',
 					resizable: false,
 					draggable: false,
-					height: 250,
+					height: 'auto',
 					modal: true,
 					buttons: [
+						{
+							text: ranks.l10n.cancelText,
+							'class': 'button-secondary',
+							click: function() {
+								$( this ).dialog( 'close' );
+							}
+						},
 						{
 							text: ranks.l10n.deleteText,
 							'class': 'button-primary',
 							click: function() {
 								$( this ).dialog( 'close' );
 								view.destroy();
-							}
-						},
-						{
-							text: ranks.l10n.cancelText,
-							'class': 'button-secondary',
-							click: function() {
-								$( this ).dialog( 'close' );
 							}
 						}
 					]

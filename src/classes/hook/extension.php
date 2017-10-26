@@ -74,7 +74,7 @@ abstract class WordPoints_Hook_Extension implements WordPoints_Hook_ExtensionI {
 			return $settings;
 		}
 
-		$this->validator = $validator;
+		$this->validator  = $validator;
 		$this->event_args = $event_args;
 
 		$this->validator->push_field( $this->slug );

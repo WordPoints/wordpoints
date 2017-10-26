@@ -82,9 +82,9 @@ class WordPoints_Admin_Update_PHP_Version_Requirements_Functions_Test
 	 */
 	public function data_provider_versions() {
 		return array(
-			'x.y' => array( '5.4' ),
+			'x.y'   => array( '5.4' ),
 			'x.y.z' => array( '5.3.9' ),
-			'x' => array( '7', false ),
+			'x'     => array( '7', false ),
 			'empty' => array( '', false ),
 			'xx.yy' => array( '75.88' ),
 		);
@@ -139,18 +139,18 @@ class WordPoints_Admin_Update_PHP_Version_Requirements_Functions_Test
 		return (object) array(
 			'response' => array(
 				'wordpoints/wordpoints.php' => (object) array(
-					'id' => 'w.org/plugins/wordpoints',
-					'slug' => 'wordpoints',
-					'plugin' => 'wordpoints/wordpoints.php',
-					'new_version' => '2.2.2',
-					'url' => 'https://wordpress.org/plugins/wordpoints/',
-					'package' => 'https://downloads.wordpress.org/plugin/wordpoints.2.2.2.zip',
+					'id'             => 'w.org/plugins/wordpoints',
+					'slug'           => 'wordpoints',
+					'plugin'         => 'wordpoints/wordpoints.php',
+					'new_version'    => '2.2.2',
+					'url'            => 'https://wordpress.org/plugins/wordpoints/',
+					'package'        => 'https://downloads.wordpress.org/plugin/wordpoints.2.2.2.zip',
 					'upgrade_notice' => '<ul>
 						<li>Fixes a bug that caused event reactions not to award points for some custom post
 						types, like bbPress forum topics.</li>
 						</ul>',
-					'tested' => '4.8-alpha-39357',
-					'compatibility' => (object) array(),
+					'tested'         => '4.8-alpha-39357',
+					'compatibility'  => (object) array(),
 				),
 			),
 		);
@@ -165,14 +165,14 @@ class WordPoints_Admin_Update_PHP_Version_Requirements_Functions_Test
 	 */
 	public function return_wordpoints_info() {
 		return (object) array(
-			'name' => 'WordPoints',
-			'slug' => 'wordpoints',
-			'version' => '2.2.2',
-			'requires' => '4.6',
-			'tested' => '4.8-alpha-39357',
-			'compatibility' => array(),
-			'homepage' => 'https://wordpoints.org/',
-			'sections' => array(
+			'name'              => 'WordPoints',
+			'slug'              => 'wordpoints',
+			'version'           => '2.2.2',
+			'requires'          => '4.6',
+			'tested'            => '4.8-alpha-39357',
+			'compatibility'     => array(),
+			'homepage'          => 'https://wordpoints.org/',
+			'sections'          => array(
 				'description' => "<h4>Features</h4>
 					<p>This plugin lets you create one or multiple types of points which you can use to
 					reward your users when certain events occur on your site. It also includes
@@ -181,7 +181,7 @@ class WordPoints_Admin_Update_PHP_Version_Requirements_Functions_Test
 					<p><strong>Requires PHP {$this->php_version}+</strong></p>",
 			),
 			'short_description' => 'Gamify your site, track user rep, or run a rewards program. WordPoints has a powerful core, infinitely extendable via add-on modules.',
-			'download_link' => 'https://downloads.wordpress.org/plugin/wordpoints.2.2.2.zip',
+			'download_link'     => 'https://downloads.wordpress.org/plugin/wordpoints.2.2.2.zip',
 		);
 	}
 }

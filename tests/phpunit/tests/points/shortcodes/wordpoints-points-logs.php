@@ -97,7 +97,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			, array( 'points_type' => 'points' )
 		);
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $html );
 		$xpath = new DOMXPath( $document );
 
@@ -119,7 +119,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		);
 
 		// Non-datatable, no pagination.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML(
 			$this->do_shortcode(
 				'wordpoints_points_logs'
@@ -153,7 +153,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			, array( 'points_type' => 'points' )
 		);
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $html );
 		$xpath = new DOMXPath( $document );
 
@@ -175,7 +175,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		);
 
 		// Non-datatable, no pagination.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML(
 			$this->do_shortcode(
 				'wordpoints_points_logs'
@@ -207,7 +207,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		}
 
 		// The user column should be displayed by default.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML(
 			$this->do_shortcode(
 				'wordpoints_points_logs'
@@ -219,7 +219,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 		$this->assertSame( 4, $xpath->query( '//thead/tr/th' )->length );
 
 		// Check that it is hidden.
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML(
 			$this->do_shortcode(
 				'wordpoints_points_logs'
@@ -309,7 +309,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			, array( 'points_type' => 'points' )
 		);
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $html );
 		$xpath = new DOMXPath( $document );
 
@@ -343,7 +343,7 @@ class WordPoints_Points_Logs_Shortcode_Test extends WordPoints_PHPUnit_TestCase_
 			, array( 'points_type' => 'points', 'searchable' => '0' )
 		);
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $html );
 		$xpath = new DOMXPath( $document );
 

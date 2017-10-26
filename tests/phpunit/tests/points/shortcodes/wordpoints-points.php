@@ -170,7 +170,7 @@ class WordPoints_Points_Shortcode_Test extends WordPoints_PHPUnit_TestCase_Point
 		global $post;
 
 		$user_id = $this->factory->user->create();
-		$post = $this->factory->post->create_and_get(
+		$post    = $this->factory->post->create_and_get(
 			array( 'post_author' => $user_id )
 		);
 

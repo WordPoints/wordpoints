@@ -43,8 +43,11 @@ function wordpoints_apps_init( $app ) {
 	$apps->register( 'hooks', 'WordPoints_Hooks' );
 	$apps->register( 'entities', 'WordPoints_App_Registry' );
 	$apps->register( 'data_types', 'WordPoints_Class_Registry' );
+	$apps->register( 'installables', 'WordPoints_Installables_App' );
 	$apps->register( 'components', 'WordPoints_App' );
-	$apps->register( 'modules', 'WordPoints_App' );
+	$apps->register( 'extensions', 'WordPoints_App' );
+	$apps->register( 'modules', 'WordPoints_App' ); // Deprecated.
+	$apps->register( 'extension_server_apis', 'WordPoints_Class_Registry' );
 }
 
 /**
@@ -98,6 +101,27 @@ function wordpoints_get_post_types_for_auto_integration() {
 	return apply_filters( 'wordpoints_post_types_for_auto_integration', $post_types );
 }
 
+/**
+ * Get the slugs of the taxonomies to automatically integrate with.
+ *
+ * @since 2.4.0
+ *
+ * @return string[] The slugs of the taxonomies to automatically integrate with.
+ */
+function wordpoints_get_taxonomies_for_auto_integration() {
+
+	$taxonomies = get_taxonomies( array( 'public' => true ) );
+
+	/**
+	 * Filter which taxonomies to automatically integrate with.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string[] $taxonomies The taxonomy slugs.
+	 */
+	return apply_filters( 'wordpoints_taxonomies_for_auto_integration', $taxonomies );
+}
+
 //
 // Components API
 //
@@ -121,13 +145,32 @@ function wordpoints_component( $slug ) {
 }
 
 //
-// Modules API
+// Extensions API
 //
+
+/**
+ * Gets the app for an extension.
+ *
+ * @since 2.4.0
+ *
+ * @param string $slug The slug of the extension.
+ *
+ * @return false|WordPoints_App The extension's app.
+ */
+function wordpoints_extension( $slug ) {
+
+	if ( ! isset( WordPoints_App::$main ) ) {
+		wordpoints_apps();
+	}
+
+	return WordPoints_App::$main->get_sub_app( 'extensions' )->get_sub_app( $slug );
+}
 
 /**
  * Gets the app for a module.
  *
  * @since 2.2.0
+ * @deprecated 2.4.0 Use wordpoints_extensions() instead.
  *
  * @param string $slug The slug of the module.
  *
@@ -135,11 +178,32 @@ function wordpoints_component( $slug ) {
  */
 function wordpoints_module( $slug ) {
 
+	_deprecated_function( __FUNCTION__, '2.4.0', 'wordpoints_extension' );
+
 	if ( ! isset( WordPoints_App::$main ) ) {
 		wordpoints_apps();
 	}
 
 	return WordPoints_App::$main->get_sub_app( 'modules' )->get_sub_app( $slug );
+}
+
+//
+// Extension Server APIs API
+//
+
+/**
+ * Register extension server APIs when the Extension Server APIs app is initialized.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_init_app_registry-apps-extension_server_apis
+ *
+ * @param WordPoints_Class_RegistryI $server_apis The extension server APIs app.
+ */
+function wordpoints_extension_server_apis_init( $server_apis ) {
+
+	$server_apis->register( 'edd_software_licensing', 'WordPoints_Extension_Server_API_EDD_SL' );
+	$server_apis->register( 'edd_software_licensing_free', 'WordPoints_Extension_Server_API_EDD_SL_Free' );
 }
 
 //
@@ -151,7 +215,7 @@ function wordpoints_module( $slug ) {
  *
  * @since 2.1.0
  *
- * @return WordPoints_App_Registry The hooks app.
+ * @return WordPoints_App_Registry The entities app.
  */
 function wordpoints_entities() {
 
@@ -299,6 +363,13 @@ function wordpoints_entities_init( $entities ) {
 
 	// Also register entities for any post types that are late to the party.
 	add_action( 'registered_post_type', 'wordpoints_register_post_type_entities' );
+
+	foreach ( wordpoints_get_taxonomies_for_entities() as $slug ) {
+		wordpoints_register_taxonomy_entities( $slug );
+	}
+
+	// Also register entities for any taxonomies that are late to the party.
+	add_action( 'registered_taxonomy', 'wordpoints_register_taxonomy_entities' );
 }
 
 /**
@@ -382,6 +453,84 @@ function wordpoints_register_post_type_entities( $slug ) {
 }
 
 /**
+ * Get the slugs of the taxonomies to register entities for.
+ *
+ * @since 2.4.0
+ *
+ * @return string[] The slugs of the taxonomies to register entities for.
+ */
+function wordpoints_get_taxonomies_for_entities() {
+
+	$taxonomies = wordpoints_get_taxonomies_for_auto_integration();
+
+	/**
+	 * Filter which taxonomies to register entities for.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string[] $taxonomies The taxonomy slugs ("names").
+	 */
+	return apply_filters( 'wordpoints_register_entities_for_taxonomies', $taxonomies );
+}
+
+/**
+ * Register the entities for a taxonomy.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action registered_taxonomy By {@see wordpoints_entities_init()}.
+ *
+ * @param string $slug The slug of the taxonomy.
+ */
+function wordpoints_register_taxonomy_entities( $slug ) {
+
+	$entities = wordpoints_entities();
+	$children = $entities->get_sub_app( 'children' );
+
+	$entities->register( "term\\{$slug}", 'WordPoints_Entity_Term' );
+	$children->register( "term\\{$slug}", 'count', 'WordPoints_Entity_Term_Count' );
+	$children->register( "term\\{$slug}", 'description', 'WordPoints_Entity_Term_Description' );
+	$children->register( "term\\{$slug}", 'name', 'WordPoints_Entity_Term_Name' );
+
+	if ( is_taxonomy_hierarchical( $slug ) ) {
+		$children->register( "term\\{$slug}", 'parent', 'WordPoints_Entity_Term_Parent' );
+	}
+
+	/**
+	 * Fires when registering the entities for a taxonomy.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $slug The slug of the taxonomy.
+	 */
+	do_action( 'wordpoints_register_taxonomy_entities', $slug );
+}
+
+/**
+ * Register the taxonomy entities for a post type.
+ *
+ * @since 2.4.0
+ *
+ * @WordPoints\action wordpoints_register_post_type_entities
+ *
+ * @param string $slug The slug of the post type.
+ */
+function wordpoints_register_post_type_taxonomy_entities( $slug ) {
+
+	$children = wordpoints_entities()->get_sub_app( 'children' );
+
+	$object_taxonomies = get_object_taxonomies( $slug );
+	$object_taxonomies = array_intersect(
+		$object_taxonomies
+		, wordpoints_get_taxonomies_for_entities()
+	);
+
+	foreach ( $object_taxonomies as $taxonomy_slug ) {
+		$children->register( "post\\{$slug}", "terms\\{$taxonomy_slug}", 'WordPoints_Entity_Post_Terms' );
+	}
+}
+
+/**
  * Check whether a user can view an entity.
  *
  * @since 2.1.0
@@ -397,7 +546,7 @@ function wordpoints_entity_user_can_view( $user_id, $entity_slug, $entity_id ) {
 
 	/** @var WordPoints_Entity_Restrictions $restrictions */
 	$restrictions = wordpoints_entities()->get_sub_app( 'restrictions' );
-	$restriction = $restrictions->get( $entity_id, $entity_slug, 'view' );
+	$restriction  = $restrictions->get( $entity_id, $entity_slug, 'view' );
 	return $restriction->user_can( $user_id );
 }
 
@@ -523,6 +672,40 @@ function wordpoints_data_types_init( $data_types ) {
 	$data_types->register( 'decimal_number', 'WordPoints_Data_Type_Decimal_Number' );
 	$data_types->register( 'integer', 'WordPoints_Data_Type_Integer' );
 	$data_types->register( 'text', 'WordPoints_Data_Type_Text' );
+}
+
+//
+// Installables API.
+//
+
+/**
+ * Runs any update routines for installables that may need to be run.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wordpoints_extensions_loaded 5 Before most extension code runs.
+ */
+function wordpoints_installables_maybe_update() {
+
+	/** @var WordPoints_Installables_App $installables */
+	$installables = wordpoints_apps()->get_sub_app( 'installables' );
+	$installables->maybe_update();
+}
+
+/**
+ * Runs the install routines for any network-active installables for a new site.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action wpmu_new_blog
+ *
+ * @param int $site_id The ID of the new site.
+ */
+function wordpoints_installables_install_on_new_site( $site_id ) {
+
+	/** @var WordPoints_Installables_App $installables */
+	$installables = wordpoints_apps()->get_sub_app( 'installables' );
+	$installables->install_on_new_site( $site_id );
 }
 
 // EOF

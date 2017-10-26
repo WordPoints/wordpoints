@@ -45,7 +45,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 					meta_key VARCHAR(255) NOT NULL,
 					meta_value LONGTEXT,
 					PRIMARY KEY (meta_id)
-				  )
+				)
 			"
 		);
 	}
@@ -72,7 +72,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_DB_Query();
 
-		$this->assertSame( 0,      $query->get_arg( 'start' ) );
+		$this->assertSame( 0     , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
 	}
 
@@ -83,11 +83,11 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_construct_with_args() {
 
-		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
+		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
-		$this->assertSame( 10,     $query->get_arg( 'start' ) );
+		$this->assertSame( 10    , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
+		$this->assertSame( 'a'   , $query->get_arg( 'custom' ) );
 	}
 
 	/**
@@ -141,17 +141,37 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_set_args() {
 
-		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
+		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
-		$this->assertSame( 10,     $query->get_arg( 'start' ) );
+		$this->assertSame( 10    , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'DESC', $query->get_arg( 'order' ) );
-		$this->assertSame( 'a',    $query->get_arg( 'custom' ) );
+		$this->assertSame( 'a'   , $query->get_arg( 'custom' ) );
 
 		$query->set_args( array( 'order' => 'ASC', 'custom' => 'b' ) );
 
-		$this->assertSame( 10,    $query->get_arg( 'start' ) );
+		$this->assertSame( 10   , $query->get_arg( 'offset' ) );
 		$this->assertSame( 'ASC', $query->get_arg( 'order' ) );
-		$this->assertSame( 'b',   $query->get_arg( 'custom' ) );
+		$this->assertSame( 'b'  , $query->get_arg( 'custom' ) );
+	}
+
+	/**
+	 * Test that set_args() modifies the query when setting order_by to null.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @link https://github.com/WordPoints/wordpoints/issues/646
+	 */
+	public function test_set_args_order_by_null() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query( array( 'order_by' => 'id' ) );
+
+		$this->assertSame( 'id', $query->get_arg( 'order_by' ) );
+
+		$this->assertStringContains( 'ORDER BY', $query->get_sql() );
+
+		$query->set_args( array( 'order_by' => null ) );
+
+		$this->assertNotContains( 'ORDER BY', $query->get_sql() );
 	}
 
 	/**
@@ -192,7 +212,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_set_args_returns_query() {
 
-		$query = new WordPoints_DB_Query( array( 'start' => 10, 'custom' => 'a' ) );
+		$query = new WordPoints_DB_Query( array( 'offset' => 10, 'custom' => 'a' ) );
 
 		$return = $query->set_args( array( 'order' => 'ASC', 'custom' => 'b' ) );
 
@@ -423,9 +443,9 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_get_sql() {
 		return array(
-			'empty' => array( array() ),
-			'SELECT' => array( array( 'SELECT' ) ),
-			'invalid' => array( array( 'invalid' ) ),
+			'empty'        => array( array() ),
+			'SELECT'       => array( array( 'SELECT' ) ),
+			'invalid'      => array( array( 'invalid' ) ),
 			'SELECT COUNT' => array(
 				array( 'SELECT COUNT' ),
 				"SELECT COUNT(*)\nFROM `%swordpoints_db_query_test`\n%A",
@@ -446,7 +466,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query();
 
-		$date_columns = $columns;
+		$date_columns   = $columns;
 		$date_columns[] = 'date_col';
 
 		$this->assertSame(
@@ -464,8 +484,8 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_date_query_valid_columns_filter() {
 		return array(
-			'empty' => array( array() ),
-			'one' => array( array( 'another_col' ) ),
+			'empty'   => array( array() ),
+			'one'     => array( array( 'another_col' ) ),
 			'several' => array( array( 'one_col', 'another_col' ) ),
 		);
 	}
@@ -648,18 +668,32 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the 'start' query arg.
+	 * Tests that the 'start' query arg is deprecated.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
+	 *
+	 * @expectedDeprecated WordPoints_DB_Query::__construct
 	 */
-	public function test_start_query_arg() {
+	public function test_start_query_arg_deprecated() {
+
+		$query = new WordPoints_PHPUnit_Mock_DB_Query( array( 'start' => 1 ) );
+
+		$this->assertSame( 1, $query->get_arg( 'offset' ) );
+	}
+
+	/**
+	 * Test the 'offset' query arg.
+	 *
+	 * @since 2.4.0
+	 */
+	public function test_offset_query_arg() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => 1,
+				'offset'   => 1,
 				'limit'    => 2,
 				'order_by' => 'int_col',
 			)
@@ -674,20 +708,20 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the 'start' query arg when it is invalid.
+	 * Test the 'offset' query arg when it is invalid.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 *
 	 * @expectedIncorrectUsage WordPoints_DB_Query::prepare_limit
 	 */
-	public function test_start_query_arg_invalid() {
+	public function test_offset_query_arg_invalid() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => 'invalid',
+				'offset'   => 'invalid',
 				'limit'    => 2,
 				'order_by' => 'int_col',
 			)
@@ -699,18 +733,18 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test the 'start' query arg when it is negative.
+	 * Test the 'offset' query arg when it is negative.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 */
-	public function test_start_query_arg_negative() {
+	public function test_offset_query_arg_negative() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => -3,
+				'offset'   => -3,
 				'limit'    => 2,
 				'order_by' => 'int_col',
 			)
@@ -722,18 +756,18 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
-	 * Test that the 'start' query arg is ignored when the limit isn't set.
+	 * Test that the 'offset' query arg is ignored when the limit isn't set.
 	 *
-	 * @since 2.1.0
+	 * @since 2.4.0
 	 */
-	public function test_start_query_arg_limit_not_set() {
+	public function test_offset_query_arg_limit_not_set() {
 
 		$this->insert_rows( 1, array( 'int_col' => 1 ) );
 		$this->insert_rows( 1, array( 'int_col' => 2 ) );
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'start'    => 1,
+				'offset'   => 1,
 				'order_by' => 'int_col',
 			)
 		);
@@ -977,10 +1011,10 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_values() {
 		return array(
-			'valid' => array( 1, 1 ),
+			'valid'    => array( 1, 1 ),
 			'negative' => array( -4, 1 ),
-			'zero' => array( 0, 1 ),
-			'invalid' => array( 'a', 3 ),
+			'zero'     => array( 0, 1 ),
+			'invalid'  => array( 'a', 3 ),
 		);
 	}
 
@@ -1017,7 +1051,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_values_predefined() {
 		return array(
-			'valid' => array( 1, 1 ),
+			'valid'   => array( 1, 1 ),
 			'invalid' => array( 5, 2 ),
 		);
 	}
@@ -1052,7 +1086,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_column_values_unsigned() {
 		return array(
 			'positive' => array( 1, 1 ),
-			'zero' => array( 0, 0 ),
+			'zero'     => array( 0, 0 ),
 			'negative' => array( -4, 2 ),
 		);
 	}
@@ -1094,16 +1128,16 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_integer_column_compare() {
 		return array(
-			'=' => array( '=', 1 ),
-			'!=' => array( '!=', 2 ),
-			'<>' => array( '<>', 2 ),
-			'>' => array( '>', 2 ),
-			'<' => array( '<', 0 ),
-			'>=' => array( '>=', 2, 5 ),
-			'<=' => array( '<=', 1 ),
-			'LIKE' => array( 'LIKE', 3, '1%' ),
+			'='        => array( '=', 1 ),
+			'!='       => array( '!=', 2 ),
+			'<>'       => array( '<>', 2 ),
+			'>'        => array( '>', 2 ),
+			'<'        => array( '<', 0 ),
+			'>='       => array( '>=', 2, 5 ),
+			'<='       => array( '<=', 1 ),
+			'LIKE'     => array( 'LIKE', 3, '1%' ),
 			'NOT LIKE' => array( 'NOT LIKE', 3, '1%' ),
-			'invalid' => array( 'invalid', 1 ),
+			'invalid'  => array( 'invalid', 1 ),
 		);
 	}
 
@@ -1144,16 +1178,16 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_text_column_compare() {
 		return array(
-			'=' => array( '=', 1 ),
-			'!=' => array( '!=', 2 ),
-			'<>' => array( '<>', 2 ),
-			'>' => array( '>', 1 ),
-			'<' => array( '<', 1 ),
-			'>=' => array( '>=', 2 ),
-			'<=' => array( '<=', 2 ),
-			'LIKE' => array( 'LIKE', 2, 'Test%' ),
+			'='        => array( '=', 1 ),
+			'!='       => array( '!=', 2 ),
+			'<>'       => array( '<>', 2 ),
+			'>'        => array( '>', 1 ),
+			'<'        => array( '<', 1 ),
+			'>='       => array( '>=', 2 ),
+			'<='       => array( '<=', 2 ),
+			'LIKE'     => array( 'LIKE', 2, 'Test%' ),
 			'NOT LIKE' => array( 'NOT LIKE', 1, 'Test%' ),
-			'invalid' => array( 'invalid', 1 ),
+			'invalid'  => array( 'invalid', 1 ),
 		);
 	}
 
@@ -1190,14 +1224,14 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_in_values() {
 		return array(
-			'empty' => array( array(), 4 ),
-			'one' => array( array( 1 ), 1 ),
-			'multiple' => array( array( 5, 1 ), 2 ),
-			'negative' => array( array( -4 ), 1 ),
-			'zero' => array( array( 0 ), 1 ),
-			'invalid' => array( array( 'a' ), 4 ),
+			'empty'            => array( array(), 4 ),
+			'one'              => array( array( 1 ), 1 ),
+			'multiple'         => array( array( 5, 1 ), 2 ),
+			'negative'         => array( array( -4 ), 1 ),
+			'zero'             => array( array( 0 ), 1 ),
+			'invalid'          => array( array( 'a' ), 4 ),
 			'multiple_invalid' => array( array( 'a', 'b' ), 4 ),
-			'mixed' => array( array( 1, 'a', 5, 'b' ), 2 ),
+			'mixed'            => array( array( 1, 'a', 5, 'b' ), 2 ),
 		);
 	}
 
@@ -1235,11 +1269,11 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_in_predefined_values() {
 		return array(
-			'one_valid' => array( array( 1 ), 1 ),
-			'multiple_valid' => array( array( 3, 1 ), 2 ),
-			'one_invalid' => array( array( 10 ), 3 ),
+			'one_valid'        => array( array( 1 ), 1 ),
+			'multiple_valid'   => array( array( 3, 1 ), 2 ),
+			'one_invalid'      => array( array( 10 ), 3 ),
 			'multiple_invalid' => array( array( 5, 10 ), 3 ),
-			'mixed' => array( array( 3, 5, 1, 10 ), 2 ),
+			'mixed'            => array( array( 3, 5, 1, 10 ), 2 ),
 		);
 	}
 
@@ -1275,7 +1309,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_column_in_unsigned() {
 		return array(
 			'positive' => array( array( 1 ), 1 ),
-			'zero' => array( array( 0 ), 0 ),
+			'zero'     => array( array( 0 ), 0 ),
 			'negative' => array( array( -4 ), 2 ),
 		);
 	}
@@ -1331,14 +1365,14 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_not_in_values() {
 		return array(
-			'empty' => array( array(), 4 ),
-			'one' => array( array( 1 ), 3 ),
-			'multiple' => array( array( 5, 1 ), 2 ),
-			'negative' => array( array( -4 ), 3 ),
-			'zero' => array( array( 0 ), 3 ),
-			'invalid' => array( array( 'a' ), 4 ),
+			'empty'            => array( array(), 4 ),
+			'one'              => array( array( 1 ), 3 ),
+			'multiple'         => array( array( 5, 1 ), 2 ),
+			'negative'         => array( array( -4 ), 3 ),
+			'zero'             => array( array( 0 ), 3 ),
+			'invalid'          => array( array( 'a' ), 4 ),
 			'multiple_invalid' => array( array( 'a', 'b' ), 4 ),
-			'mixed' => array( array( 1, 'a', 5, 'b' ), 2 ),
+			'mixed'            => array( array( 1, 'a', 5, 'b' ), 2 ),
 		);
 	}
 
@@ -1376,11 +1410,11 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_column_not_in_predefined_values() {
 		return array(
-			'one_valid' => array( array( 1 ), 2 ),
-			'multiple_valid' => array( array( 3, 1 ), 1 ),
-			'one_invalid' => array( array( 10 ), 3 ),
+			'one_valid'        => array( array( 1 ), 2 ),
+			'multiple_valid'   => array( array( 3, 1 ), 1 ),
+			'one_invalid'      => array( array( 10 ), 3 ),
 			'multiple_invalid' => array( array( 5, 10 ), 3 ),
-			'mixed' => array( array( 3, 5, 1, 10 ), 1 ),
+			'mixed'            => array( array( 3, 5, 1, 10 ), 1 ),
 		);
 	}
 
@@ -1416,7 +1450,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_column_not_in_unsigned() {
 		return array(
 			'positive' => array( array( 1 ), 1 ),
-			'zero' => array( array( 0 ), 2 ),
+			'zero'     => array( array( 0 ), 2 ),
 			'negative' => array( array( -4 ), 2 ),
 		);
 	}
@@ -1452,7 +1486,7 @@ class WordPoints_DB_Query_Test extends WordPoints_PHPUnit_TestCase {
 
 		$query = new WordPoints_PHPUnit_Mock_DB_Query(
 			array(
-				'int_col__in' => array( 1, 2 ),
+				'int_col__in'     => array( 1, 2 ),
 				'int_col__not_in' => array( 1, 2, 3 ),
 			)
 		);

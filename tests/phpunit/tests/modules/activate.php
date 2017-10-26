@@ -23,7 +23,7 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 	}
 
 	/**
@@ -87,9 +87,9 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function data_provider_valid_modules() {
 		return array(
-			'full_path' => array( wordpointstests_modules_dir() . '/module-7/module-7.php' ),
-			'basename_path' => array( 'module-7/module-7.php' ),
-			'full_path_single_file' => array( wordpointstests_modules_dir() . '/test-3.php' ),
+			'full_path'                 => array( wordpoints_phpunit_extensions_dir() . '/module-7/module-7.php' ),
+			'basename_path'             => array( 'module-7/module-7.php' ),
+			'full_path_single_file'     => array( wordpoints_phpunit_extensions_dir() . '/test-3.php' ),
 			'basename_path_single_file' => array( 'test-3.php' ),
 		);
 	}
@@ -158,8 +158,8 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 	public function data_provider_invalid_modules() {
 		return array(
 			'unresolved_path' => array( 'module-7/../../../wp-config.php' ),
-			'nonexistent' => array( 'module-4/module-4.php' ),
-			'not_a_module' => array( 'test-6/index.php' ),
+			'nonexistent'     => array( 'module-4/module-4.php' ),
+			'not_a_module'    => array( 'test-6/index.php' ),
 		);
 	}
 
@@ -195,6 +195,22 @@ class WordPoints_Module_Activate_Test extends WordPoints_PHPUnit_TestCase {
 		$this->assertTrue( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
 		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true ) );
 		$this->assertTrue( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
+	}
+
+	/**
+	 * Tests activating an extension network wide when WordPoints isn't network wide.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_activate_module
+	 *
+	 * @requires WordPoints !network-active
+	 */
+	public function test_activate_network_wide_not_network_wide() {
+
+		$this->assertNull( wordpoints_activate_module( 'test-5/test-5.php', '', true ) );
+		$this->assertFalse( is_wordpoints_module_active_for_network( 'test-5/test-5.php' ) );
+		$this->assertTrue( is_wordpoints_module_active( 'test-5/test-5.php' ) );
 	}
 }
 

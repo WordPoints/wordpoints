@@ -17,7 +17,7 @@ $I->see( 'Slug: points' );
 $I->canSeeInFormFields(
 	'#settings form'
 	, array(
-		'points-name' => 'Points',
+		'points-name'   => 'Points',
 		'points-prefix' => '',
 		'points-suffix' => '',
 	)
@@ -33,7 +33,7 @@ $I->see( 'Slug: points' );
 $I->canSeeInFormFields(
 	'#settings form'
 	, array(
-		'points-name' => 'Credits',
+		'points-name'   => 'Credits',
 		'points-prefix' => '$',
 		'points-suffix' => 'credits',
 	)

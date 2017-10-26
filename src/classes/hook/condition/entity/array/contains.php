@@ -87,7 +87,7 @@ class WordPoints_Hook_Condition_Entity_Array_Contains
 		WordPoints_Hook_Reaction_Validator $validator
 	) {
 
-		$this->settings = $settings;
+		$this->settings  = $settings;
 		$this->validator = $validator;
 
 		$this->validate_count();
@@ -106,27 +106,50 @@ class WordPoints_Hook_Condition_Entity_Array_Contains
 	 */
 	protected function validate_count() {
 
-		if (
-			! empty( $this->settings['max'] )
-			&& ! wordpoints_posint( $this->settings['max'] )
-		) {
-			$this->validator->add_error(
-				__( 'The maximum must be a positive integer.', 'wordpoints' )
-				, 'max'
-			);
-		}
+		if ( isset( $this->settings['max'] ) ) {
 
-		if ( ! empty( $this->settings['min'] ) ) {
+			if (
+				'0' === $this->settings['max']
+				|| 0 === $this->settings['max']
+			) {
 
-			if ( ! wordpoints_posint( $this->settings['min'] ) ) {
+				$this->settings['max'] = 0;
+
+			} elseif ( empty( $this->settings['max'] ) ) {
+
+				unset( $this->settings['max'] );
+
+			} elseif ( ! wordpoints_posint( $this->settings['max'] ) ) {
 
 				$this->validator->add_error(
-					__( 'The minimum must be a positive integer.', 'wordpoints' )
+					__( 'The maximum must be a non-negative integer.', 'wordpoints' )
+					, 'max'
+				);
+			}
+		}
+
+		if ( isset( $this->settings['min'] ) ) {
+
+			if (
+				'0' === $this->settings['min']
+				|| 0 === $this->settings['min']
+			) {
+
+				$this->settings['min'] = 0;
+
+			} elseif ( empty( $this->settings['min'] ) ) {
+
+				unset( $this->settings['min'] );
+
+			} elseif ( ! wordpoints_posint( $this->settings['min'] ) ) {
+
+				$this->validator->add_error(
+					__( 'The minimum must be a non-negative integer.', 'wordpoints' )
 					, 'min'
 				);
 
 			} elseif (
-				! empty( $this->settings['max'] )
+				isset( $this->settings['max'] )
 				&& $this->settings['max'] < $this->settings['min']
 			) {
 

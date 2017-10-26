@@ -50,7 +50,7 @@ class WordPoints_Points_Hook_Extension_Legacy_Periods
 			return false;
 		}
 
-		$user_id = $user->get_the_id();
+		$user_id       = $user->get_the_id();
 		$reaction_guid = $reaction->get_guid();
 		$points_type   = $reaction->get_meta( 'points_type' );
 		$log_type      = $reaction->get_meta( 'legacy_log_type' );

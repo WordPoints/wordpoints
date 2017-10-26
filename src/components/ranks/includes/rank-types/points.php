@@ -12,7 +12,10 @@
  *
  * @since 1.7.0
  */
-class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
+class WordPoints_Points_Rank_Type
+	extends WordPoints_Rank_Type
+	implements WordPoints_Rank_Type_Bulk_CheckI,
+		WordPoints_Rank_Type_Rank_DescribingI {
 
 	/**
 	 * @since 1.7.0
@@ -53,7 +56,7 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 			return;
 		}
 
-		$this->meta_fields['points']['label'] = _x( 'Points', 'form label', 'wordpoints' );
+		$this->meta_fields['points']['label']        = _x( 'Points', 'form label', 'wordpoints' );
 		$this->meta_fields['points_type']['default'] = $args['points_type'];
 
 		add_action( 'wordpoints_points_altered', array( $this, 'hook' ), 10, 3 );
@@ -123,6 +126,45 @@ class WordPoints_Points_Rank_Type extends WordPoints_Rank_Type {
 		}
 
 		return $meta;
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function can_transition_user_ranks( array $user_ids, WordPoints_Rank $rank, array $args ) {
+
+		if ( $rank->points_type !== $this->meta_fields['points_type']['default'] ) {
+			return array();
+		}
+
+		$query = new WP_User_Query(
+			array(
+				'fields'       => 'ids',
+				'include'      => $user_ids,
+				'meta_key'     => wordpoints_get_points_user_meta_key( $rank->points_type ),
+				'meta_value'   => $rank->points,
+				'meta_compare' => '>=',
+				'meta_type'    => 'SIGNED',
+			)
+		);
+
+		return $query->get_results();
+	}
+
+	/**
+	 * @since 2.4.0
+	 */
+	public function get_rank_description( WordPoints_Rank $rank ) {
+
+		return sprintf(
+			// translators: Number of points.
+			__( 'Must have at least %s.', 'wordpoints' )
+			, wordpoints_format_points(
+				$rank->points
+				, $rank->points_type
+				, 'rank_description'
+			)
+		);
 	}
 
 	//

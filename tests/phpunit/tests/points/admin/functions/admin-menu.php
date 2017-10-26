@@ -38,7 +38,7 @@ class WordPoints_Admin_Menu_Functions_Test extends WordPoints_PHPUnit_TestCase_A
 			 *
 			 * @since 2.1.0
 			 */
-			require_once( WORDPOINTS_DIR . '/components/points/admin/admin.php' );
+			require_once WORDPOINTS_DIR . '/components/points/admin/admin.php';
 		}
 
 		parent::setUpBeforeClass();

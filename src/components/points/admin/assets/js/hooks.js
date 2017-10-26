@@ -627,7 +627,7 @@ WordPointsHooks = {
 
 		WordPointsHooks.save( hook, 0, 0, 1 );
 
-		// No longer "new" hook
+		// No longer "new" hook.
 		hook.find( 'input.add_new' ).val( '' );
 
 		/*

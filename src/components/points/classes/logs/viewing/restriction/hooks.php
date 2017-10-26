@@ -36,8 +36,8 @@ class WordPoints_Points_Logs_Viewing_Restriction_Hooks
 
 		$events = wordpoints_hooks()->get_sub_app( 'events' );
 
-		$log_id = $log->id;
-		$event_slug = $log->log_type;
+		$log_id      = $log->id;
+		$event_slug  = $log->log_type;
 		$is_reversal = ( 'reverse-' === substr( $log->log_type, 0, 8 ) );
 
 		if ( $is_reversal ) {

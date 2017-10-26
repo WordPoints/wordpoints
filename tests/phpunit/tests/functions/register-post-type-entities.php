@@ -40,7 +40,7 @@ class WordPoints_Functions_Register_Post_Type_Entities_Test extends WordPoints_P
 		);
 
 		$filter = 'wordpoints_register_post_type_entities';
-		$mock = $this->listen_for_filter( $filter );
+		$mock   = $this->listen_for_filter( $filter );
 
 		wordpoints_register_post_type_entities( 'test' );
 
@@ -110,6 +110,35 @@ class WordPoints_Functions_Register_Post_Type_Entities_Test extends WordPoints_P
 		$this->assertTrue( $entities->is_registered( 'comment\test' ) );
 		$this->assertTrue( $children->is_registered( 'comment\test', 'post\test' ) );
 		$this->assertTrue( $children->is_registered( 'comment\test', 'author' ) );
+	}
+
+	/**
+	 * Test that it registers the term relationships for supported taxonomies.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @coves ::wordpoints_register_post_type_taxonomy_entities
+	 */
+	public function test_taxonomies() {
+
+		$this->mock_apps();
+
+		$this->factory->wordpoints->post_type->create(
+			array( 'name' => 'test', 'supports' => array() )
+		);
+
+		wordpoints_register_post_type_entities( 'test' );
+
+		$entities = wordpoints_entities();
+		$children = $entities->get_sub_app( 'children' );
+
+		$this->assertFalse( $children->is_registered( 'post\test', 'terms\post_tag' ) );
+
+		register_taxonomy_for_object_type( 'post_tag', 'test' );
+
+		wordpoints_register_post_type_entities( 'test' );
+
+		$this->assertTrue( $children->is_registered( 'post\test', 'terms\post_tag' ) );
 	}
 }
 

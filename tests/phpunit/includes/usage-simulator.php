@@ -24,9 +24,9 @@ function wordpointstests_simulate_usage() {
 	global $wp_test_factory;
 
 	// Add each of our widgets.
-	wordpointstests_add_widget( 'wordpoints_points_widget' );
-	wordpointstests_add_widget( 'wordpoints_top_users_widget' );
-	wordpointstests_add_widget( 'wordpoints_points_logs_widget' );
+	$wp_test_factory->wordpoints->widget->create( array( 'id_base' => 'wordpoints_points_widget' ) );
+	$wp_test_factory->wordpoints->widget->create( array( 'id_base' => 'wordpoints_top_users_widget' ) );
+	$wp_test_factory->wordpoints->widget->create( array( 'id_base' => 'wordpoints_points_logs_widget' ) );
 
 	// Create a points type.
 	wordpoints_add_points_type(
@@ -92,16 +92,31 @@ function wordpointstests_simulate_points_hooks_usage() {
 
 	wordpoints_hooks()->get_reaction_store( 'points' )->create_reaction(
 		array(
-			'reactor' => 'points',
-			'event' => 'user_register',
-			'target' => array( 'user' ),
-			'points' => 10,
+			'reactor'     => 'points',
+			'event'       => 'user_register',
+			'target'      => array( 'user' ),
+			'points'      => 10,
 			'points_type' => 'points',
-			'log_text' => 'Registered.',
+			'log_text'    => 'Registered.',
 			'description' => 'Registration.',
 		)
 	);
 }
+
+/**
+ * Class autoloader for PHPUnit tests and helpers from the dev lib.
+ *
+ * @since 2.7.0
+ */
+require_once dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/class/autoloader.php';
+
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
+	dirname( __FILE__ ) . '/../../../dev-lib/phpunit/classes/'
+	, 'WordPoints_PHPUnit_'
+);
+
+global $wp_test_factory;
+$wp_test_factory->wordpoints = WordPoints_PHPUnit_Factory::init();
 
 // Include the test functions so we can simulate adding points hooks and widgets.
 require_once dirname( __FILE__ ) . '/functions.php';
@@ -143,15 +158,15 @@ if ( is_multisite() && is_wordpoints_network_active() ) {
 }
 
 // Simulate installing a module.
-$module_path     = wordpoints_modules_dir() . '/test-6';
+$module_path     = wordpoints_extensions_dir() . '/test-6';
 $module_realpath = realpath(
 	WORDPOINTS_DIR . '/../tests/phpunit/data/modules/test-6'
 );
 
-if ( ! is_link( $module_path ) ) {
+if ( ! file_exists( $module_path ) ) {
 
-	if ( ! is_dir( WP_CONTENT_DIR . '/wordpoints-modules' ) ) {
-		mkdir( WP_CONTENT_DIR . '/wordpoints-modules' );
+	if ( ! is_dir( WP_CONTENT_DIR . '/wordpoints-extensions' ) ) {
+		mkdir( WP_CONTENT_DIR . '/wordpoints-extensions' );
 	}
 
 	symlink( $module_realpath, $module_path );

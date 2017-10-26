@@ -11,6 +11,7 @@
  * Base class to be extended for un/installing a plugin/component/module.
  *
  * @since 1.8.0
+ * @deprecated 2.4.0 Use the new installables API instead.
  */
 abstract class WordPoints_Un_Installer_Base {
 
@@ -180,6 +181,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 * @since 2.1.0 Added support for uninstalling meta boxes.
 	 * @since 2.1.0 Deprecated $list_tables in favor of $*['list_tables'].
+	 * @since 2.4.0 Added support for uninstalling transients.
 	 *
 	 * @type array[] $uninstall {
 	 *       Different kinds of things to uninstall.
@@ -189,9 +191,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 *       @type array[] $single {
 	 *             Things to be uninstalled on a single site (non-multisite) install.
 	 *
-	 *             @type string[] $user_meta A list of keys for user metadata to delete.
-	 *             @type string[] $options   A list of options to delete.
-	 *             @type string[] $widgets   A list of widget slugs to uninstall.
+	 *             @type string[] $user_meta    A list of keys for user metadata to delete.
+	 *             @type string[] $options      A list of options to delete.
+	 *             @type string[] $transients   A list of transients to delete.
+	 *             @type string[] $widgets      A list of widget slugs to uninstall.
 	 *             @type string[] $points_hooks A list of points hooks to uninstall.
 	 *             @type string[] $tables       A list of tables to uninstall. Base
 	 *                                          DB prefix will be prepended.
@@ -273,6 +276,15 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected $custom_caps_keys;
 
+	/**
+	 * Installable object for the entity.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var WordPoints_Installable
+	 */
+	protected $installable;
+
 	//
 	// Public Methods.
 	//
@@ -287,6 +299,8 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	public function __construct( $slug = null, $version = null ) {
 
+		_deprecated_function( __METHOD__, '2.4.0' );
+
 		if ( ! isset( $slug ) ) {
 			_doing_it_wrong( __METHOD__, 'The $slug parameter is required.', '2.0.0' );
 		}
@@ -295,8 +309,13 @@ abstract class WordPoints_Un_Installer_Base {
 			_doing_it_wrong( __METHOD__, 'The $version parameter is required.', '2.0.0' );
 		}
 
-		$this->slug = $slug;
-		$this->version = $version;
+		$this->slug        = $slug;
+		$this->version     = $version;
+		$this->installable = new WordPoints_Installable_Basic(
+			$this->type
+			, $this->slug
+			, $this->version
+		);
 
 		if ( isset( $this->option_prefix ) ) {
 			_deprecated_argument( __METHOD__, '2.0.0', 'The $option_prefix property is deprecated.' );
@@ -318,7 +337,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -329,7 +348,7 @@ abstract class WordPoints_Un_Installer_Base {
 		 *
 		 * @since 1.8.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		if ( is_multisite() ) {
 
@@ -392,12 +411,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	public function install_on_site( $site_id ) {
 
-		$this->action = 'install';
+		$this->action       = 'install';
 		$this->network_wide = true;
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -408,7 +427,7 @@ abstract class WordPoints_Un_Installer_Base {
 		 *
 		 * @since 1.8.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$this->context = 'site';
 
@@ -433,7 +452,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -449,10 +468,6 @@ abstract class WordPoints_Un_Installer_Base {
 				$ms_switched_state->backup();
 
 				$site_ids = $this->get_installed_site_ids();
-
-				if ( ! $this->is_network_installed() ) {
-					$site_ids = $this->validate_site_ids( $site_ids );
-				}
 
 				foreach ( $site_ids as $blog_id ) {
 					switch_to_blog( $blog_id );
@@ -507,7 +522,7 @@ abstract class WordPoints_Un_Installer_Base {
 			$network = is_wordpoints_network_active();
 		}
 
-		$this->network_wide = $network;
+		$this->network_wide  = $network;
 		$this->updating_from = ( null === $from ) ? $this->get_db_version() : $from;
 		$this->updating_to   = ( null === $to ) ? $this->version : $to;
 
@@ -515,7 +530,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $this->updates as $version => $types ) {
 
-			if ( version_compare( $from, $version, '<' ) ) {
+			if (
+				version_compare( $this->updating_from, $version, '<' )
+				&& version_compare( $this->updating_to, $version, '>=' )
+			) {
 				$updates[ str_replace( array( '.', '-' ), '_', $version ) ] = $types;
 			}
 		}
@@ -543,7 +561,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		$this->no_interruptions();
 
-		$hooks = wordpoints_hooks();
+		$hooks      = wordpoints_hooks();
 		$hooks_mode = $hooks->get_current_mode();
 		$hooks->set_current_mode( 'standard' );
 
@@ -554,7 +572,7 @@ abstract class WordPoints_Un_Installer_Base {
 		 *
 		 * @since 1.8.0
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		if ( is_multisite() ) {
 
@@ -619,12 +637,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.2.0
 	 */
 	protected function no_interruptions() {
-
-		ignore_user_abort( true );
-
-		if ( ! wordpoints_is_function_disabled( 'set_time_limit' ) ) {
-			set_time_limit( 0 );
-		}
+		wordpoints_prevent_interruptions();
 	}
 
 	/**
@@ -673,22 +686,13 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function get_all_site_ids() {
 
-		$site_ids = get_site_transient( 'wordpoints_all_site_ids' );
-
-		if ( ! $site_ids ) {
-
-			$site_ids = get_sites(
-				array(
-					'fields'     => 'ids',
-					'network_id' => get_current_network_id(),
-					'number'     => 0,
-				)
-			);
-
-			set_site_transient( 'wordpoints_all_site_ids', $site_ids, 2 * MINUTE_IN_SECONDS );
-		}
-
-		return $site_ids;
+		return get_sites(
+			array(
+				'fields'     => 'ids',
+				'network_id' => get_current_network_id(),
+				'number'     => 0,
+			)
+		);
 	}
 
 	/**
@@ -699,22 +703,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @param string $option The name of the option to set.
 	 * @param mixed  $value  The value of the option.
 	 */
-	private function _set_option( $option, $value = true ) {
+	private function set_option( $option, $value = true ) {
 
 		if ( isset( $this->option_prefix ) ) {
-
 			update_site_option( "{$this->option_prefix}{$option}", $value );
-
 		} else {
-
-			$data = wordpoints_get_array_option(
-				"wordpoints_{$option}"
-				, 'site'
-			);
-
-			$data[ $this->type ][ $this->slug ] = $value;
-
-			update_site_option( "wordpoints_{$option}", $data );
+			$this->installable->{"set_{$option}"}( $value );
 		}
 	}
 
@@ -725,22 +719,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 *
 	 * @param string $option The name of the option to delete.
 	 */
-	private function _unset_option( $option ) {
+	private function unset_option( $option ) {
 
 		if ( isset( $this->option_prefix ) ) {
-
 			delete_site_option( "{$this->option_prefix}{$option}" );
-
 		} else {
-
-			$data = wordpoints_get_array_option(
-				"wordpoints_{$option}"
-				, 'site'
-			);
-
-			unset( $data[ $this->type ][ $this->slug ] );
-
-			update_site_option( "wordpoints_{$option}", $data );
+			$this->installable->{"unset_{$option}"}();
 		}
 	}
 
@@ -754,17 +738,9 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function is_network_installed() {
 
 		if ( isset( $this->option_prefix ) ) {
-
 			return (bool) get_site_option( "{$this->option_prefix}network_installed" );
-
 		} else {
-
-			$network_installed = wordpoints_get_array_option(
-				'wordpoints_network_installed'
-				, 'site'
-			);
-
-			return isset( $network_installed[ $this->type ][ $this->slug ] );
+			return $this->installable->is_network_installed();
 		}
 	}
 
@@ -774,7 +750,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function set_network_installed() {
-		$this->_set_option( 'network_installed' );
+		$this->set_option( 'network_installed' );
 	}
 
 	/**
@@ -783,7 +759,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function unset_network_installed() {
-		$this->_unset_option( 'network_installed' );
+		$this->unset_option( 'network_installed' );
 	}
 
 	/**
@@ -792,7 +768,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function set_network_install_skipped() {
-		$this->_set_option( 'network_install_skipped' );
+		$this->set_option( 'network_install_skipped' );
 	}
 
 	/**
@@ -801,7 +777,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function unset_network_install_skipped() {
-		$this->_unset_option( 'network_install_skipped' );
+		$this->unset_option( 'network_install_skipped' );
 	}
 
 	/**
@@ -810,7 +786,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function set_network_update_skipped() {
-		$this->_set_option( 'network_update_skipped', $this->updating_from );
+		$this->set_option( 'network_update_skipped', $this->updating_from );
 	}
 
 	/**
@@ -819,7 +795,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function unset_network_update_skipped() {
-		$this->_unset_option( 'network_update_skipped' );
+		$this->unset_option( 'network_update_skipped' );
 	}
 
 	/**
@@ -864,28 +840,6 @@ abstract class WordPoints_Un_Installer_Base {
 	}
 
 	/**
-	 * Get the name of the option where the list of installed sites is stored.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return string The option name.
-	 */
-	private function _get_installed_site_ids_option_name() {
-
-		if ( isset( $this->option_prefix ) ) {
-			$option_prefix = $this->option_prefix;
-		} elseif ( 'wordpoints' === $this->slug ) {
-			$option_prefix = 'wordpoints_';
-		} elseif ( 'component' === $this->type ) {
-			$option_prefix = "wordpoints_{$this->slug}_";
-		} else {
-			$option_prefix = "wordpoints_{$this->type}_{$this->slug}_";
-		}
-
-		return "{$option_prefix}installed_sites";
-	}
-
-	/**
 	 * Get the IDs of all sites on which this is installed.
 	 *
 	 * @since 1.8.0
@@ -895,12 +849,24 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function get_installed_site_ids() {
 
 		if ( $this->is_network_installed() ) {
+
 			$sites = $this->get_all_site_ids();
+
 		} else {
-			$sites = wordpoints_get_array_option(
-				$this->_get_installed_site_ids_option_name()
-				, 'site'
-			);
+
+			if ( isset( $this->option_prefix ) ) {
+
+				$sites = wordpoints_get_array_option(
+					"{$this->option_prefix}installed_sites"
+					, 'site'
+				);
+
+				$sites = $this->validate_site_ids( $sites );
+
+			} else {
+
+				$sites = $this->installable->get_installed_site_ids();
+			}
 		}
 
 		return $sites;
@@ -915,13 +881,18 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function add_installed_site_id( $id = null ) {
 
+		if ( ! isset( $this->option_prefix ) ) {
+			$this->installable->add_installed_site_id( $id );
+			return;
+		}
+
 		if ( empty( $id ) ) {
 			$id = get_current_blog_id();
 		}
 
-		$option_name = $this->_get_installed_site_ids_option_name();
+		$option_name = "{$this->option_prefix}installed_sites";
 
-		$sites = wordpoints_get_array_option( $option_name, 'site' );
+		$sites   = wordpoints_get_array_option( $option_name, 'site' );
 		$sites[] = $id;
 
 		update_site_option( $option_name, $sites );
@@ -933,7 +904,12 @@ abstract class WordPoints_Un_Installer_Base {
 	 * @since 2.0.0
 	 */
 	protected function delete_installed_site_ids() {
-		delete_site_option( $this->_get_installed_site_ids_option_name() );
+
+		if ( ! isset( $this->option_prefix ) ) {
+			$this->installable->delete_installed_site_ids();
+		} else {
+			delete_site_option( "{$this->option_prefix}installed_sites" );
+		}
 	}
 
 	/**
@@ -976,23 +952,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function get_db_version() {
 
-		if ( $this->network_wide ) {
-			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
-		} else {
-			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
-		}
-
-		if ( 'wordpoints' === $this->slug ) {
-
-			if ( isset( $wordpoints_data['version'] ) ) {
-				return $wordpoints_data['version'];
-			}
-
-		} elseif ( isset( $wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'] ) ) {
-			return $wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'];
-		}
-
-		return false;
+		return $this->installable->get_db_version( $this->network_wide );
 	}
 
 	/**
@@ -1005,27 +965,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function set_db_version( $version = null ) {
 
-		if ( null === $version ) {
-			$version = $this->version;
-		}
-
-		if ( $this->network_wide ) {
-			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
-		} else {
-			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
-		}
-
-		if ( 'wordpoints' === $this->slug ) {
-			$wordpoints_data['version'] = $version;
-		} else {
-			$wordpoints_data[ "{$this->type}s" ][ $this->slug ]['version'] = $version;
-		}
-
-		if ( $this->network_wide ) {
-			update_site_option( 'wordpoints_data', $wordpoints_data );
-		} else {
-			update_option( 'wordpoints_data', $wordpoints_data );
-		}
+		$this->installable->set_db_version( $version, $this->network_wide );
 	}
 
 	/**
@@ -1035,24 +975,7 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function unset_db_version() {
 
-		// The whole option will be deleted when WordPoints is uninstalled.
-		if ( 'wordpoints' === $this->slug ) {
-			return;
-		}
-
-		if ( 'network' === $this->context ) {
-			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data', 'site' );
-		} else {
-			$wordpoints_data = wordpoints_get_array_option( 'wordpoints_data' );
-		}
-
-		unset( $wordpoints_data[ "{$this->type}s" ][ $this->slug ] );
-
-		if ( 'network' === $this->context ) {
-			update_site_option( 'wordpoints_data', $wordpoints_data );
-		} else {
-			update_option( 'wordpoints_data', $wordpoints_data );
-		}
+		$this->installable->unset_db_version( 'network' === $this->context );
 	}
 
 	/**
@@ -1092,7 +1015,7 @@ abstract class WordPoints_Un_Installer_Base {
 			return;
 		}
 
-		$this->custom_caps = call_user_func( $this->custom_caps_getter );
+		$this->custom_caps      = call_user_func( $this->custom_caps_getter );
 		$this->custom_caps_keys = array_keys( $this->custom_caps );
 
 		if ( 'uninstall' === $this->action ) {
@@ -1283,20 +1206,30 @@ abstract class WordPoints_Un_Installer_Base {
 	 */
 	protected function prepare_uninstall_non_per_site_items( $items_key ) {
 
-		if ( isset( $this->uninstall['universal'][ $items_key ] ) ) {
+		$map = array(
+			'universal' => array( 'global' ),
+			'site'      => array( 'network' ),
+			'local'     => array( 'network', 'single' ),
+		);
 
-			$this->uninstall['global'][ $items_key ]
-				= $this->uninstall['universal'][ $items_key ];
+		foreach ( $map as $from => $to ) {
 
-			unset( $this->uninstall['universal'][ $items_key ] );
-		}
+			if ( isset( $this->uninstall[ $from ][ $items_key ] ) ) {
 
-		if ( isset( $this->uninstall['site'][ $items_key ] ) ) {
+				foreach ( $to as $context ) {
 
-			$this->uninstall['network'][ $items_key ]
-				= $this->uninstall['site'][ $items_key ];
+					if ( ! isset( $this->uninstall[ $context ][ $items_key ] ) ) {
+						$this->uninstall[ $context ][ $items_key ] = array();
+					}
 
-			unset( $this->uninstall['site'][ $items_key ] );
+					$this->uninstall[ $context ][ $items_key ] = array_merge(
+						$this->uninstall[ $context ][ $items_key ]
+						, $this->uninstall[ $from ][ $items_key ]
+					);
+				}
+
+				unset( $this->uninstall[ $from ][ $items_key ] );
+			}
 		}
 	}
 
@@ -1370,7 +1303,7 @@ abstract class WordPoints_Un_Installer_Base {
 
 		// shortcut => canonicals
 		$map = array(
-			'local'     => array( 'single', 'site', /*  -  */ ),
+			'local'     => array( 'single', 'site'  /*  -  */ ),
 			'global'    => array( 'single', /* - */ 'network' ),
 			'universal' => array( 'single', 'site', 'network' ),
 		);
@@ -1481,6 +1414,7 @@ abstract class WordPoints_Un_Installer_Base {
 			array(
 				'user_meta'    => array(),
 				'options'      => array(),
+				'transients'   => array(),
 				'tables'       => array(),
 				'comment_meta' => array(),
 				'meta_boxes'   => array(),
@@ -1499,6 +1433,10 @@ abstract class WordPoints_Un_Installer_Base {
 
 		foreach ( $uninstall['options'] as $option ) {
 			$this->uninstall_option( $option );
+		}
+
+		foreach ( $uninstall['transients'] as $transient ) {
+			$this->uninstall_transient( $transient );
 		}
 
 		foreach ( $uninstall['tables'] as $table ) {
@@ -1603,11 +1541,11 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_meta_boxes( $screen_id, $args ) {
 
 		$defaults = array(
-			'parent' => 'wordpoints',
+			'parent'  => 'wordpoints',
 			'options' => array( 'closedpostboxes', 'metaboxhidden', 'meta-box-order' ),
 		);
 
-		$args = array_merge( $defaults, $args );
+		$args            = array_merge( $defaults, $args );
 		$args['options'] = array_merge( $defaults['options'], $args['options'] );
 
 		// Each user gets to set the options to their liking.
@@ -1662,18 +1600,24 @@ abstract class WordPoints_Un_Installer_Base {
 	protected function uninstall_list_table( $screen_id, $args ) {
 
 		$defaults = array(
-			'parent' => 'wordpoints',
+			'parent'  => 'wordpoints',
 			'options' => array( 'per_page' ),
 		);
 
 		$args = array_merge( $defaults, $args );
 
 		$network_parent = $args['parent'];
-		$parent = $network_parent;
+		$parent         = $network_parent;
 
 		// The parent page is usually the same on a multisite site, but we need to
-		// handle the special case of the modules screen.
-		if ( 'wordpoints_modules' === $screen_id && is_multisite() ) {
+		// handle the special case of the extensions screen.
+		if (
+			(
+				'wordpoints_extensions' === $screen_id
+				|| 'wordpoints_modules' === $screen_id
+			)
+			&& is_multisite()
+		) {
 			$parent = 'toplevel';
 		}
 
@@ -1690,7 +1634,7 @@ abstract class WordPoints_Un_Installer_Base {
 		foreach ( $args['options'] as $option ) {
 
 			// Each user gets to set the options to their liking.
-			$meta_keys[]  = "{$parent}_page_{$screen_id}_{$option}";
+			$meta_keys[] = "{$parent}_page_{$screen_id}_{$option}";
 
 			if ( 'network' === $this->context ) {
 				$meta_keys[] = "{$network_parent}_page_{$screen_id}_network_{$option}";
@@ -1706,10 +1650,10 @@ abstract class WordPoints_Un_Installer_Base {
 	 * Uninstall an option.
 	 *
 	 * If the $option contains a % wildcard, all matching options will be retrieved
-	 * and deleted. Note that currently this doesn't apply to network options, which
-	 * will ignore wildcards.
+	 * and deleted.
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 Added support for wildcards for network options.
 	 *
 	 * @param string $option The option to uninstall.
 	 */
@@ -1775,6 +1719,22 @@ abstract class WordPoints_Un_Installer_Base {
 		}
 
 		array_map( 'delete_site_option', $options );
+	}
+
+	/**
+	 * Uninstall a transient.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $transient The transient to uninstall.
+	 */
+	protected function uninstall_transient( $transient ) {
+
+		if ( 'network' === $this->context ) {
+			delete_site_transient( $transient );
+		} else {
+			delete_transient( $transient );
+		}
 	}
 
 	/**

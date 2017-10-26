@@ -108,7 +108,7 @@ class WordPoints_Hook_Action_Post_Depublish_Delete_Test
 			'test\\post'
 			, array( $post, 'a' )
 			, array(
-				'arg_index' => array( 'post\\post' => 0 ),
+				'arg_index'    => array( 'post\\post' => 0 ),
 				'requirements' => array( 1 => 'a' ),
 			)
 		);
@@ -131,7 +131,7 @@ class WordPoints_Hook_Action_Post_Depublish_Delete_Test
 			'test\\post'
 			, array( $post, 'b' )
 			, array(
-				'arg_index' => array( 'post\\post' => 0 ),
+				'arg_index'    => array( 'post\\post' => 0 ),
 				'requirements' => array( 1 => 'a' ),
 			)
 		);

@@ -39,9 +39,9 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 *
 	 * @covers ::wordpoints_is_points_type
 	 */
-	public function test_returns_false_if_nonexistant() {
+	public function test_returns_false_if_nonexistent() {
 
-		$this->assertFalse( wordpoints_is_points_type( 'notype' ) );
+		$this->assertFalse( wordpoints_is_points_type( 'nonexistent' ) );
 	}
 
 	//
@@ -156,7 +156,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 */
 	public function test_update_false_if_not_type() {
 
-		$this->assertFalse( wordpoints_update_points_type( 'idontexist', array( 'name' => 'iexist' ) ) );
+		$this->assertFalse( wordpoints_update_points_type( 'nonexistent', array( 'name' => 'existent' ) ) );
 	}
 
 	/**
@@ -181,10 +181,11 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 * @since 1.0.0
 	 *
 	 * @covers ::wordpoints_delete_points_type
+	 * @covers WordPoints_Points_Type_Delete
 	 */
-	public function test_delete_returns_false_if_nonexistant() {
+	public function test_delete_returns_false_if_nonexistent() {
 
-		$this->assertFalse( wordpoints_delete_points_type( 'notatype' ) );
+		$this->assertFalse( wordpoints_delete_points_type( 'nonexistent' ) );
 	}
 
 	/**
@@ -193,10 +194,11 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 * @since 1.0.0
 	 *
 	 * @covers ::wordpoints_delete_points_type
+	 * @covers WordPoints_Points_Type_Delete
 	 */
 	public function test_points_type_deleted() {
 
-		// Get the meta key now, becuase we can't after the points type is deleted.
+		// Get the meta key now, because we can't after the points type is deleted.
 		$meta_key = wordpoints_get_points_user_meta_key( 'points' );
 
 		$user_id = $this->factory->user->create();
@@ -243,6 +245,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_delete_points_type
+	 * @covers WordPoints_Points_Type_Delete
 	 */
 	public function test_delete_calls_action() {
 
@@ -263,12 +266,13 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 * @since 2.1.0
 	 *
 	 * @covers ::wordpoints_delete_points_type
+	 * @covers WordPoints_Points_Type_Delete
 	 */
 	public function test_delete_deletes_reactions() {
 
 		wordpoints_add_points_type( array( 'name' => 'Other' ) );
 
-		$reaction = $this->create_points_reaction();
+		$reaction       = $this->create_points_reaction();
 		$other_reaction = $this->create_points_reaction(
 			array( 'points_type' => 'other' )
 		);
@@ -278,7 +282,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
 
-		$reaction_id = $reaction->get_id();
+		$reaction_id       = $reaction->get_id();
 		$other_reaction_id = $other_reaction->get_id();
 
 		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );
@@ -288,6 +292,93 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 
 		$this->assertFalse( $reaction_store->reaction_exists( $reaction_id ) );
 		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+	}
+
+	/**
+	 * Tests that it deletes reactions for all sites when network-active.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPoints network-active
+	 *
+	 * @covers ::wordpoints_delete_points_type
+	 * @covers WordPoints_Points_Type_Delete
+	 */
+	public function test_delete_deletes_reactions_multisite() {
+
+		$reaction = $this->create_points_reaction();
+
+		$this->assertIsReaction( $reaction );
+
+		$reaction_id = $reaction->get_id();
+
+		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );
+
+		$site_id = $this->factory->blog->create();
+
+		switch_to_blog( $site_id );
+		$other_reaction = $this->create_points_reaction();
+
+		$this->assertIsReaction( $other_reaction );
+
+		$other_reaction_id = $other_reaction->get_id();
+
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+		restore_current_blog();
+
+		wordpoints_delete_points_type( 'points' );
+
+		$this->assertFalse( $reaction_store->reaction_exists( $reaction_id ) );
+
+		switch_to_blog( $site_id );
+		$this->assertFalse( $reaction_store->reaction_exists( $other_reaction_id ) );
+		restore_current_blog();
+	}
+
+	/**
+	 * Tests that it deletes network reactions when network-active.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @requires WordPoints network-active
+	 *
+	 * @covers ::wordpoints_delete_points_type
+	 * @covers WordPoints_Points_Type_Delete
+	 */
+	public function test_delete_deletes_reactions_network() {
+
+		wordpoints_add_points_type( array( 'name' => 'Other' ) );
+
+		wordpoints_hooks()->set_current_mode( 'network' );
+
+		$reaction       = $this->create_points_reaction();
+		$other_reaction = $this->create_points_reaction(
+			array( 'points_type' => 'other' )
+		);
+
+		$this->assertIsReaction( $reaction );
+		$this->assertIsReaction( $other_reaction );
+
+		$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+		$reaction_id       = $reaction->get_id();
+		$other_reaction_id = $other_reaction->get_id();
+
+		$this->assertTrue( $reaction_store->reaction_exists( $reaction_id ) );
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+
+		wordpoints_hooks()->set_current_mode( 'standard' );
+
+		wordpoints_delete_points_type( 'points' );
+
+		wordpoints_hooks()->set_current_mode( 'network' );
+
+		$this->assertFalse( $reaction_store->reaction_exists( $reaction_id ) );
+		$this->assertTrue( $reaction_store->reaction_exists( $other_reaction_id ) );
+
+		wordpoints_hooks()->set_current_mode( 'standard' );
 	}
 
 	//
@@ -301,7 +392,7 @@ class WordPoints_Points_Type_Test extends WordPoints_PHPUnit_TestCase_Points {
 	 *
 	 * @covers ::wordpoints_get_points_type_setting
 	 */
-	public function test_null_returned_if_nonexistant_setting() {
+	public function test_null_returned_if_nonexistent_setting() {
 
 		$this->assertSame( null, wordpoints_get_points_type_setting( 'points', 'image' ) );
 	}

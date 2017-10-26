@@ -16,8 +16,8 @@
  */
 function wordpoints_points_admin_register_scripts() {
 
-	$assets_url = WORDPOINTS_URL . '/components/points/admin/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$assets_url        = WORDPOINTS_URL . '/components/points/admin/assets';
+	$suffix            = SCRIPT_DEBUG ? '' : '.min';
 	$manifested_suffix = SCRIPT_DEBUG ? '.manifested' : '.min';
 
 	// CSS
@@ -49,11 +49,14 @@ function wordpoints_points_admin_register_scripts() {
 		'wordpoints-admin-points-types'
 		, 'WordPointsPointsTypesL10n'
 		, array(
-			'confirmDelete' => esc_html__( 'Are you sure that you want to delete this points type? This will delete all logs, event reactions, and other data associated with this points type.', 'wordpoints' )
+			'confirmAboutTo' => esc_html__( 'You are about to delete the following points type:', 'wordpoints' ),
+			'confirmDelete'  => esc_html__( 'Are you sure that you want to delete this points type? This will delete all logs, event reactions, and other data associated with this points type.', 'wordpoints' )
 				. ' ' . esc_html__( 'Once a points type has been deleted, you cannot bring it back.', 'wordpoints' ),
-			'confirmTitle'  => esc_html__( 'Are you sure?', 'wordpoints' ),
-			'deleteText'    => esc_html__( 'Delete', 'wordpoints' ),
-			'cancelText'    => esc_html__( 'Cancel', 'wordpoints' ),
+			'confirmType'    => esc_html__( 'If you are sure you want to delete this points type, confirm by typing its name below:', 'wordpoints' ),
+			'confirmLabel'   => esc_html_x( 'Name:', 'points type', 'wordpoints' ),
+			'confirmTitle'   => esc_html__( 'Are you sure?', 'wordpoints' ),
+			'deleteText'     => esc_html__( 'Delete', 'wordpoints' ),
+			'cancelText'     => esc_html__( 'Cancel', 'wordpoints' ),
 		)
 	);
 
@@ -78,7 +81,7 @@ function wordpoints_points_admin_register_scripts() {
  * @since 1.0.0
  *
  * @WordPress\action admin_menu
- * @WordPress\action network_admin_menu Only when the module is network-active.
+ * @WordPress\action network_admin_menu Only when the component is network-active.
  */
 function wordpoints_points_admin_menu() {
 
@@ -117,22 +120,22 @@ function wordpoints_points_admin_menu() {
 		// Legacy hooks page.
 		add_submenu_page(
 			$wordpoints_menu
-			,__( 'WordPoints — Points Hooks', 'wordpoints' )
-			,__( 'Points Hooks', 'wordpoints' )
-			,'manage_options'
-			,'wordpoints_points_hooks'
-			,'wordpoints_points_admin_screen_hooks'
+			, __( 'WordPoints — Points Hooks', 'wordpoints' )
+			, __( 'Points Hooks', 'wordpoints' )
+			, 'manage_options'
+			, 'wordpoints_points_hooks'
+			, 'wordpoints_points_admin_screen_hooks'
 		);
 	}
 
 	// Logs page.
 	add_submenu_page(
 		$wordpoints_menu
-		,__( 'WordPoints — Points Logs', 'wordpoints' )
-		,__( 'Points Logs', 'wordpoints' )
-		,'manage_options'
-		,'wordpoints_points_logs'
-		,'wordpoints_points_admin_screen_logs'
+		, __( 'WordPoints — Points Logs', 'wordpoints' )
+		, __( 'Points Logs', 'wordpoints' )
+		, 'manage_options'
+		, 'wordpoints_points_logs'
+		, 'wordpoints_points_admin_screen_logs'
 	);
 }
 
@@ -152,7 +155,7 @@ function wordpoints_points_admin_screen_hooks() {
 		 *
 		 * @since 1.0.0
 		 */
-		include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js.php';
+		require WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js.php';
 
 	} else {
 
@@ -161,7 +164,7 @@ function wordpoints_points_admin_screen_hooks() {
 		 *
 		 * @since 1.0.0
 		 */
-		include WORDPOINTS_DIR . 'components/points/admin/screens/hooks.php';
+		require WORDPOINTS_DIR . 'components/points/admin/screens/hooks.php';
 	}
 }
 
@@ -177,7 +180,7 @@ function wordpoints_points_admin_screen_logs() {
 	 *
 	 * @since 1.0.0
 	 */
-	include WORDPOINTS_DIR . 'components/points/admin/screens/logs.php';
+	require WORDPOINTS_DIR . 'components/points/admin/screens/logs.php';
 }
 
 /**
@@ -194,7 +197,7 @@ function wordpoints_admin_points_hooks_help() {
 	 *
 	 * @since 1.2.0
 	 */
-	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-load.php';
+	require WORDPOINTS_DIR . 'components/points/admin/screens/hooks-load.php';
 }
 
 /**
@@ -215,7 +218,7 @@ function wordpoints_no_js_points_hooks_save() {
 	 *
 	 * @since 1.2.0
 	 */
-	include WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js-load.php';
+	require WORDPOINTS_DIR . 'components/points/admin/screens/hooks-no-js-load.php';
 }
 
 /**
@@ -246,10 +249,10 @@ function wordpoints_admin_points_hooks_screen_options( $screen_options, $screen 
 			}
 
 			$screen_options = '<p><a id="access-on" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=on">'
-			                  . esc_html__( 'Enable accessibility mode', 'wordpoints' )
-			                  . '</a><a id="access-off" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=off">'
-			                  . esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
-			break;
+				. esc_html__( 'Enable accessibility mode', 'wordpoints' )
+				. '</a><a id="access-off" href="' . esc_url( wp_nonce_url( $url, 'wordpoints_points_hooks_accessiblity', 'wordpoints-accessiblity-nonce' ) ) . '&amp;accessibility-mode=off">'
+				. esc_html__( 'Disable accessibility mode', 'wordpoints' ) . "</a></p>\n";
+		break;
 	}
 
 	return $screen_options;
@@ -336,7 +339,7 @@ function wordpoints_points_profile_options( $user ) {
 
 		<h2><?php esc_html_e( 'WordPoints', 'wordpoints' ); ?></h2>
 		<p><?php esc_html_e( "If you would like to change the value for a type of points, enter the desired value in the text field, and check the checkbox beside it. If you don't check the checkbox, the change will not be saved. To provide a reason for the change, fill out the text field below.", 'wordpoints' ); ?></p>
-		<lable><?php esc_html_e( 'Reason', 'wordpoints' ); ?> <input type="text" name="wordpoints_set_reason" />
+		<label><?php esc_html_e( 'Reason', 'wordpoints' ); ?> <input type="text" name="wordpoints_set_reason" /></label>
 		<table class="form-table">
 
 		<?php
@@ -355,8 +358,14 @@ function wordpoints_points_profile_options( $user ) {
 					<input type="hidden" name="<?php echo esc_attr( "wordpoints_points_old-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" />
 					<input type="number" name="<?php echo esc_attr( "wordpoints_points-{$slug}" ); ?>" value="<?php echo esc_attr( $points ); ?>" autocomplete="off" />
 					<input type="checkbox" value="1" name="<?php echo esc_attr( "wordpoints_points_set-{$slug}" ); ?>" />
-					<?php // translators: Number of points. ?>
-					<span><?php echo esc_html( sprintf( __( '(current: %s)', 'wordpoints' ), $points ) ); ?></span>
+					<span>
+						<?php
+
+						// translators: Number of points.
+						echo esc_html( sprintf( __( '(current: %s)', 'wordpoints' ), $points ) );
+
+						?>
+					</span>
 				</td>
 			</tr>
 
@@ -444,7 +453,7 @@ function wordpoints_points_profile_options_update( $user_id ) {
 				, 'profile_edit'
 				, array(
 					'user_id' => get_current_user_id(),
-					'reason' => sanitize_text_field( wp_unslash( $_POST['wordpoints_set_reason'] ) ),
+					'reason'  => sanitize_text_field( wp_unslash( $_POST['wordpoints_set_reason'] ) ),
 				)
 			);
 		}

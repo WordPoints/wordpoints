@@ -25,6 +25,25 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test wordpoints_deactivate().
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_deactivate
+	 * @covers ::wordpoints_schedule_extension_update_checks
+	 */
+	public function test_wordpoints_deactivate() {
+
+		wordpoints_schedule_extension_updates_check();
+
+		$this->assertNotFalse( wp_next_scheduled( 'wordpoints_check_for_extension_updates' ) );
+
+		wordpoints_deactivate();
+
+		$this->assertFalse( wp_next_scheduled( 'wordpoints_check_for_extension_updates' ) );
+	}
+
+	/**
 	 * Test is_wordpoints_network_active().
 	 *
 	 * @since 1.2.0
@@ -169,7 +188,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_module_check_rand_str', __METHOD__ );
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		ob_start();
@@ -189,7 +208,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 		update_option( 'wordpoints_module_check_rand_str', __METHOD__ );
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = 'invalid';
 
 		ob_start();
@@ -211,7 +230,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		ob_start();
@@ -230,7 +249,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
@@ -285,7 +304,7 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$_GET['check_module'] = 'test1,test2';
+		$_GET['check_module']            = 'test1,test2';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );
@@ -304,12 +323,12 @@ class WordPoints_Core_Functions_Test extends WordPoints_PHPUnit_TestCase {
 
 		update_site_option( 'wordpoints_module_check_nonce', __FUNCTION__ );
 
-		$GLOBALS['current_screen'] = WP_Screen::get( 'test-network' );
+		$GLOBALS['current_screen']    = WP_Screen::get( 'test-network' );
 		$GLOBALS['wp_current_filter'] = array(
 			'pre_site_option_wordpoints_sitewide_active_modules',
 		);
 
-		$_GET['check_module'] = 'test';
+		$_GET['check_module']            = 'test';
 		$_GET['wordpoints_module_check'] = __FUNCTION__;
 
 		$modules = wordpoints_maintenance_filter_modules( array( __METHOD__ ) );

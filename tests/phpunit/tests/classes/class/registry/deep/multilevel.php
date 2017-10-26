@@ -29,7 +29,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_register( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -58,8 +58,8 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	public function data_provider_valid_parents() {
 		return array(
 			'none' => array( array() ),
-			'one' => array( array( 'parent' ) ),
-			'two' => array( array( 'parent', 'child' ) ),
+			'one'  => array( array( 'parent' ) ),
+			'two'  => array( array( 'parent', 'child' ) ),
 			'deep' => array(
 				array( 'parent', 'child', 'grandchild', 'great', 'great-2' ),
 			),
@@ -73,7 +73,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_register_no_parent() {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', array(), 'WordPoints_PHPUnit_Mock_Object' )
@@ -99,7 +99,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_register_overwrite() {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register(
@@ -139,7 +139,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_register_multilevel() {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'parent', array(), 'WordPoints_PHPUnit_Mock_Object' )
@@ -175,7 +175,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_is_registered_not_registered() {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertFalse( $registry->is_registered( 'test', array( 'parent' ) ) );
 	}
@@ -187,7 +187,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_is_registered_any() {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertFalse( $registry->is_registered( null, array( 'parent' ) ) );
 
@@ -213,7 +213,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_all_children( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -266,7 +266,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -305,7 +305,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_with_args( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -339,7 +339,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_all_children_with_args( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -381,7 +381,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_with_args_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -413,7 +413,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_all_children_with_args_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -451,7 +451,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -481,7 +481,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_all_children_no_slugs( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel_Slugless();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -517,7 +517,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_unregistered( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertFalse( $registry->get( 'test', $parent ) );
 	}
@@ -533,7 +533,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_children_unregistered( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertSame( array(), $registry->get_children( $parent ) );
 	}
@@ -549,7 +549,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_children_slugs_unregistered( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertSame( array(), $registry->get_children_slugs( $parent ) );
 	}
@@ -561,7 +561,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_get_twice() {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register(
@@ -599,7 +599,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_deregister( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )
@@ -630,7 +630,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_deregister_unregistered( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertNull( $registry->deregister( 'test', $parent ) );
 
@@ -650,7 +650,7 @@ class WordPoints_Class_Registry_Deep_Multilevel_Test
 	 */
 	public function test_deregister_all( $parent ) {
 
-		$registry = new WordPoints_Class_Registry_Deep_Multilevel;
+		$registry = new WordPoints_Class_Registry_Deep_Multilevel();
 
 		$this->assertTrue(
 			$registry->register( 'test', $parent, 'WordPoints_PHPUnit_Mock_Object' )

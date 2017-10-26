@@ -56,6 +56,17 @@ abstract class WordPoints_Entity
 	protected $id_field;
 
 	/**
+	 * Whether the IDs of the entities are integers.
+	 *
+	 * If true, the ID will always be casted to an integer before it is returned.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $id_is_int = false;
+
+	/**
 	 * The field the entity can be identified by humans by.
 	 *
 	 * You must either define this or override get_entity_human_id().
@@ -147,7 +158,7 @@ abstract class WordPoints_Entity
 	 * @since 2.2.0
 	 *
 	 * @param int|string $id      The unique ID of the entity.
-	 * @param array      $context The context to get the the entity from.
+	 * @param array      $context The context to get the entity from.
 	 *
 	 * @return mixed The entity, or false if not found.
 	 */
@@ -182,7 +193,12 @@ abstract class WordPoints_Entity
 			return false;
 		}
 
-		return isset( $guid[ $this->get_slug() ], $guid[ $this->get_context() ] );
+		$context = $this->get_context();
+
+		return (
+			isset( $guid[ $this->get_slug() ] )
+			&& ( '' === $context || isset( $guid[ $context ] ) )
+		);
 	}
 
 	/**
@@ -243,7 +259,14 @@ abstract class WordPoints_Entity
 	 * @return mixed The ID of the entity.
 	 */
 	protected function get_entity_id( $entity ) {
-		return $this->get_attr_value( $entity, $this->get_id_field() );
+
+		$id = $this->get_attr_value( $entity, $this->get_id_field() );
+
+		if ( $this->id_is_int && null !== $id ) {
+			$id = wordpoints_posint( $id );
+		}
+
+		return $id;
 	}
 
 	/**
@@ -373,18 +396,18 @@ abstract class WordPoints_Entity
 	 */
 	public function set_the_value( $value ) {
 
-		$this->the_value = null;
-		$this->the_entity = null;
+		$this->the_value   = null;
+		$this->the_entity  = null;
 		$this->the_context = null;
 
 		if ( $this->is_entity( $value ) ) {
 
 			$entity = $value;
-			$value = $this->get_entity_id( $value );
+			$value  = $this->get_entity_id( $value );
 
 		} elseif ( $this->is_guid( $value ) ) {
 
-			$guid = $this->split_guid( $value );
+			$guid    = $this->split_guid( $value );
 			$context = $guid['context'];
 			$value   = $guid['id'];
 
@@ -433,7 +456,14 @@ abstract class WordPoints_Entity
 	 * @return mixed The ID of the entity.
 	 */
 	public function get_the_id() {
-		return $this->get_the_value();
+
+		$the_id = $this->get_the_value();
+
+		if ( $this->id_is_int && null !== $the_id ) {
+			$the_id = wordpoints_posint( $the_id );
+		}
+
+		return $the_id;
 	}
 
 	/**

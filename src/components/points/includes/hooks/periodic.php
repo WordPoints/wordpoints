@@ -261,9 +261,9 @@ class WordPoints_Periodic_Points_Hook extends WordPoints_Points_Hook {
 	protected function get_periods() {
 
 		$periods = array(
-			HOUR_IN_SECONDS     => __( 'hourly',  'wordpoints' ),
-			DAY_IN_SECONDS      => __( 'daily',   'wordpoints' ),
-			WEEK_IN_SECONDS     => __( 'weekly',  'wordpoints' ),
+			HOUR_IN_SECONDS     => __( 'hourly' , 'wordpoints' ),
+			DAY_IN_SECONDS      => __( 'daily'  , 'wordpoints' ),
+			WEEK_IN_SECONDS     => __( 'weekly' , 'wordpoints' ),
 			30 * DAY_IN_SECONDS => __( 'monthly', 'wordpoints' ),
 		);
 

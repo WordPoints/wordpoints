@@ -14,8 +14,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Un_Installer::update_network_to_2_3_0_alpha_2
- * @covers WordPoints_Un_Installer::update_network_to_2_3_0_alpha_2
+ * @covers WordPoints_Installable_Core::get_update_routine_factories
  */
 class WordPoints_2_3_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 

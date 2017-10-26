@@ -64,13 +64,22 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	protected $event_args;
 
 	/**
+	 * Whether there were any reactions for this points type.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @var bool
+	 */
+	protected $had_reactions = false;
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function __construct() {
 
 		parent::__construct();
 
-		$this->hooks = wordpoints_hooks();
+		$this->hooks    = wordpoints_hooks();
 		$this->entities = wordpoints_entities();
 	}
 
@@ -92,6 +101,9 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		add_action( 'add_meta_boxes', array( $this, 'add_points_logs_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_shortcodes_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_event_meta_boxes' ) );
+
+		add_action( 'wordpoints_admin_points_events_head', array( $this, 'create_demo_reactions' ) );
+		add_action( 'wordpoints_admin_points_events_foot', array( $this, 'show_demo_reactions_message' ) );
 	}
 
 	/**
@@ -232,9 +244,9 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 				<div class="notice notice-info inline">
 					<p>
 						<?php if ( $slug ) : ?>
-							<?php esc_html_e( 'Changes to this points type&#8217;s settings will affect all sites on this network.', 'wordpoints' ) ?>
+							<?php esc_html_e( 'Changes to this points type&#8217;s settings will affect all sites on this network.', 'wordpoints' ); ?>
 						<?php else : ?>
-							<?php esc_html_e( 'The new points type will be global across all sites on this network.', 'wordpoints' ) ?>
+							<?php esc_html_e( 'The new points type will be global across all sites on this network.', 'wordpoints' ); ?>
 						<?php endif; ?>
 					</p>
 				</div>
@@ -284,28 +296,37 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			?>
 
 			<p>
-				<label
-					for="points-name-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html_x( 'Name:', 'points type', 'wordpoints' ); ?></label>
-				<input class="widefat" type="text"
-				       id="points-name-<?php echo esc_attr( $slug ); ?>"
-				       name="points-name"
-				       value="<?php echo esc_attr( $points_type['name'] ); ?>"/>
+				<label for="points-name-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html_x( 'Name:', 'points type', 'wordpoints' ); ?></label>
+				<input
+					class="widefat"
+					type="text"
+					id="points-name-<?php echo esc_attr( $slug ); ?>"
+					name="points-name"
+					value="<?php echo esc_attr( $points_type['name'] ); ?>"
+					<?php if ( ! $slug ) : ?>
+					autofocus
+					<?php endif; ?>
+				/>
 			</p>
 			<p>
-				<label
-					for="points-prefix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $prefix ); ?></label>
-				<input class="widefat" type="text"
-				       id="points-prefix-<?php echo esc_attr( $slug ); ?>"
-				       name="points-prefix"
-				       value="<?php echo esc_attr( $points_type['prefix'] ); ?>"/>
+				<label for="points-prefix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $prefix ); ?></label>
+				<input
+					class="widefat"
+					type="text"
+					id="points-prefix-<?php echo esc_attr( $slug ); ?>"
+					name="points-prefix"
+					value="<?php echo esc_attr( $points_type['prefix'] ); ?>"
+				/>
 			</p>
 			<p>
-				<label
-					for="points-suffix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $suffix ); ?></label>
-				<input class="widefat" type="text"
-				       id="points-suffix-<?php echo esc_attr( $slug ); ?>"
-				       name="points-suffix"
-				       value="<?php echo esc_attr( $points_type['suffix'] ); ?>"/>
+				<label for="points-suffix-<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $suffix ); ?></label>
+				<input
+					class="widefat"
+					type="text"
+					id="points-suffix-<?php echo esc_attr( $slug ); ?>"
+					name="points-suffix"
+					value="<?php echo esc_attr( $points_type['suffix'] ); ?>"
+				/>
 			</p>
 
 			<?php
@@ -323,10 +344,8 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 			?>
 
-			<input type="hidden" name="points-slug"
-			       value="<?php echo esc_attr( $slug ); ?>"/>
-			<input type="hidden" name="add_new" class="add_new"
-			       value="<?php echo esc_attr( $add_new ); ?>"/>
+			<input type="hidden" name="points-slug" value="<?php echo esc_attr( $slug ); ?>" />
+			<input type="hidden" name="add_new" class="add_new" value="<?php echo esc_attr( $add_new ); ?>" />
 
 			<div class="hook-control-actions">
 				<div class="alignleft">
@@ -465,7 +484,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		}
 
 		/** @var WordPoints_Hook_ReactorI $reactor */
-		$reactor = $this->hooks->get_sub_app( 'reactors' )->get( 'points' );
+		$reactor              = $this->hooks->get_sub_app( 'reactors' )->get( 'points' );
 		$reactor_action_types = array_fill_keys( $reactor->get_action_types(), true );
 
 		$event_action_types = wordpoints_hooks_ui_get_script_data_event_action_types();
@@ -540,6 +559,10 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			}
 		}
 
+		if ( ! empty( $data ) ) {
+			$this->had_reactions = true;
+		}
+
 		$event_data = array( 'args' => array() );
 
 		foreach ( $this->event_args->get_children( $event_slug ) as $slug => $arg ) {
@@ -549,7 +572,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			);
 
 			if ( $arg instanceof WordPoints_Hook_ArgI ) {
-				$event_data['args'][ $slug ]['title'] = $arg->get_title();
+				$event_data['args'][ $slug ]['title']       = $arg->get_title();
 				$event_data['args'][ $slug ]['is_stateful'] = $arg->is_stateful();
 			}
 		}
@@ -833,6 +856,55 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	}
 
 	/**
+	 * Shows a message to create demo reactions.
+	 *
+	 * @since 2.4.0
+	 */
+	public function show_demo_reactions_message() {
+
+		if ( $this->had_reactions || ! $this->current_points_type ) {
+			return;
+		}
+
+		?>
+
+		<div class="notice notice-info is-dismissible">
+			<p>
+				<?php esc_html_e( 'Let us help you get started by creating some example reactions. (Don&#8217;t worry, each reaction will only award points once it has been enabled.)', 'wordpoints' ); ?>
+			</p>
+			<form method="post" action="<?php echo esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_types&tab=' . $this->current_points_type ) ); ?>">
+				<p>
+					<button class="button-primary">
+						<?php esc_html_e( 'Create Reactions', 'wordpoints' ); ?>
+					</button>
+				</p>
+				<?php wp_nonce_field( 'create_demo_reactions', 'create_demo_reactions' ); ?>
+			</form>
+		</div>
+
+		<?php
+	}
+
+	/**
+	 * Creates demo reactions for this points type.
+	 *
+	 * @since 2.4.0
+	 */
+	public function create_demo_reactions() {
+
+		if ( wordpoints_verify_nonce( 'create_demo_reactions', 'create_demo_reactions', null, 'post' ) ) {
+
+			wordpoints_points_create_demo_reactions( $this->current_points_type );
+
+			wordpoints_show_admin_message(
+				__( 'Example reactions created successfully! You can now edit them to your liking, and then enable them to start awarding points. Feel free to delete any that you don&#8217;t want, and to create additional ones as needed.', 'wordpoints' )
+				, 'success'
+				, array( 'dismissible' => true )
+			);
+		}
+	}
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function display_content() {
@@ -845,15 +917,15 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		do_action( 'wordpoints_admin_points_events_head' );
 
 		if ( is_network_admin() ) {
-			$title = __( 'Network Events', 'wordpoints' );
+			$title       = __( 'Network Events', 'wordpoints' );
 			$description = __( 'Add reactions to these events to award points whenever they take place on this network.', 'wordpoints' );
 		} else {
-			$title = __( 'Events', 'wordpoints' );
+			$title       = __( 'Events', 'wordpoints' );
 			$description = __( 'Add reactions to these events to award points whenever they take place on this site.', 'wordpoints' );
 		}
 
 		if ( isset( $this->current_points_type ) ) {
-			$points_type = wordpoints_get_points_type( $this->current_points_type );
+			$points_type         = wordpoints_get_points_type( $this->current_points_type );
 			$points_type['slug'] = $this->current_points_type;
 		} else {
 			$points_type = false;

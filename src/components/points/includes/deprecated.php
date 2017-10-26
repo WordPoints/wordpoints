@@ -139,11 +139,11 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 		$this->init(
 			_x( 'Comment Removed', 'points hook name', 'wordpoints' )
 			, array(
-				'description' => __( 'Comment removed from the site.', 'wordpoints' ),
+				'description'           => __( 'Comment removed from the site.', 'wordpoints' ),
 				// translators: Singular post type name.
 				'post_type_description' => __( 'Comment on a %s removed from the site.', 'wordpoints' ),
-				'post_type_filter' => array( $this, 'post_type_supports_comments' ),
-				'points_label' => __( 'Points subtracted if comment removed:', 'wordpoints' ),
+				'post_type_filter'      => array( $this, 'post_type_supports_comments' ),
+				'points_label'          => __( 'Points subtracted if comment removed:', 'wordpoints' ),
 			)
 		);
 
@@ -233,10 +233,12 @@ class WordPoints_Comment_Removed_Points_Hook extends WordPoints_Post_Type_Points
 		switch ( $comment->comment_approved ) {
 
 			// Comment hasn't been approved yet.
-			case 0: return;
+			case 0:
+				return;
 
 			// Comment is approved.
-			case 1: return;
+			case 1:
+				return;
 
 			// Comment is 'spam' (or 'trash').
 			default:
@@ -341,9 +343,9 @@ class WordPoints_Post_Delete_Points_Hook extends WordPoints_Post_Type_Points_Hoo
 
 		$this->init(
 			_x( 'Post Delete', 'points hook name', 'wordpoints' )
-			,array(
-				'description'  => __( 'A post is permanently deleted.', 'wordpoints' ),
-				'points_label' => __( 'Points removed when deleted:', 'wordpoints' ),
+			, array(
+				'description'           => __( 'A post is permanently deleted.', 'wordpoints' ),
+				'points_label'          => __( 'Points removed when deleted:', 'wordpoints' ),
 				// translators: Singular post type name.
 				'post_type_description' => __( '%s permanently deleted.', 'wordpoints' ),
 			)

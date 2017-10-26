@@ -13,6 +13,8 @@
  * @since 1.8.0
  *
  * @group update
+ *
+ * @coversNothing
  */
 class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
@@ -21,12 +23,22 @@ class WordPoints_Ranks_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @covers WordPoints_Ranks_Un_Installer::update_site_to_1_8_0
-	 *
 	 * @requires WordPress multisite
 	 * @requires WordPoints !network-active
 	 */
 	public function test_installed_site_ids_added() {
+
+		$this->mock_apps();
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->register(
+			'component'
+			, 'ranks'
+			, 'WordPoints_Ranks_Installable'
+			, WORDPOINTS_VERSION
+			, is_wordpoints_network_active()
+		);
 
 		// Create a second site on the network.
 		$blog_id = $this->factory->blog->create();

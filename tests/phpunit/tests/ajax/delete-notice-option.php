@@ -30,7 +30,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 		update_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -55,7 +55,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 		update_site_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -102,7 +102,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 		update_option( 'wordpoints_incompatible_modules', 'test' );
 
 		$_POST['wordpoints_notice'] = 'wordpoints_incompatible_modules';
-		$_POST['_wpnonce'] = wp_create_nonce(
+		$_POST['_wpnonce']          = wp_create_nonce(
 			"wordpoints_dismiss_notice-{$_POST['wordpoints_notice']}"
 		);
 
@@ -127,7 +127,7 @@ class WordPoints_Delete_Notice_Option_Ajax_Test extends WordPoints_PHPUnit_TestC
 		update_option( 'test', 'test' );
 
 		$_POST['wordpoints_notice'] = 'test';
-		$_POST['_wpnonce'] = 'invalid';
+		$_POST['_wpnonce']          = 'invalid';
 
 		try {
 			$this->_handleAjax( 'wordpoints-delete-admin-notice-option' );

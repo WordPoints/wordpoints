@@ -59,7 +59,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 	 */
 	public function test_get() {
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( array(), '' );
+		$shortcode            = new WordPoints_PHPUnit_Mock_Shortcode( array(), '' );
 		$shortcode->shortcode = 'test_shortcode';
 
 		$this->assertSame( $shortcode->shortcode, $shortcode->get() );
@@ -76,7 +76,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'test' => 'default' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$filtered_atts = array( 'test' => 'filtered' );
@@ -113,7 +113,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$shortcode->expand();
@@ -136,7 +136,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$shortcode->expand();
@@ -159,7 +159,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$shortcode->expand();
@@ -182,7 +182,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'test' => 'default' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$shortcode->expand();
@@ -200,7 +200,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		global $post;
 
 		$user_id = $this->factory->user->create();
-		$post = $this->factory->post->create_and_get(
+		$post    = $this->factory->post->create_and_get(
 			array( 'post_author' => $user_id )
 		);
 
@@ -208,7 +208,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$shortcode->expand();
@@ -229,7 +229,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$result = $shortcode->expand();
@@ -253,7 +253,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$result = $shortcode->expand();
@@ -273,7 +273,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$result = $shortcode->expand();
@@ -295,7 +295,7 @@ class WordPoints_Shortcode_Test extends WordPoints_PHPUnit_TestCase {
 		$pairs   = array( 'user_id' => '' );
 		$content = 'Content';
 
-		$shortcode = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
+		$shortcode        = new WordPoints_PHPUnit_Mock_Shortcode( $atts, $content );
 		$shortcode->pairs = $pairs;
 
 		$result = $shortcode->expand();

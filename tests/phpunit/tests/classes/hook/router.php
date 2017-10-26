@@ -23,7 +23,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$router->add_action( 'test', array( 'action' => __METHOD__ ) );
 
@@ -40,7 +40,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_priority() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$router->add_action(
 			'test'
@@ -60,7 +60,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_remove_action() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$router->add_action( 'test', array( 'action' => __METHOD__ ) );
 
@@ -83,7 +83,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_remove_action_priority() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$router->add_action(
 			'test'
@@ -110,7 +110,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_remove_action_still_others() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$router->add_action( 'test', array( 'action' => __METHOD__ ) );
 		$router->add_action( 'test_2', array( 'action' => __METHOD__ ) );
@@ -159,7 +159,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_route_nonexistent_action() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$this->assertNull( $router->{'action,10'}() );
 	}
@@ -171,7 +171,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_route_filter() {
 
-		$router = new WordPoints_Hook_Router;
+		$router = new WordPoints_Hook_Router();
 
 		$this->assertSame( 'arg', $router->{'filter,10'}( 'arg' ) );
 	}
@@ -320,7 +320,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_arg_number() {
 
-		$apps = $this->mock_apps();
+		$apps     = $this->mock_apps();
 		$entities = wordpoints_entities();
 
 		$apps->sub_apps()->register( 'hooks', 'WordPoints_PHPUnit_Mock_Hooks' );
@@ -329,7 +329,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 			array(
 				'action'     => __CLASS__,
 				'arg_number' => 2,
-				'data'   => array(
+				'data'       => array(
 					'arg_index' => array(
 						'1:test_entity' => 0,
 						'2:test_entity' => 1,
@@ -378,7 +378,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_arg_number_from_index() {
 
-		$apps = $this->mock_apps();
+		$apps     = $this->mock_apps();
 		$entities = wordpoints_entities();
 
 		$apps->sub_apps()->register( 'hooks', 'WordPoints_PHPUnit_Mock_Hooks' );
@@ -435,7 +435,7 @@ class WordPoints_Hook_Router_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_add_action_arg_number_from_requirements() {
 
-		$apps = $this->mock_apps();
+		$apps     = $this->mock_apps();
 		$entities = wordpoints_entities();
 
 		$apps->sub_apps()->register( 'hooks', 'WordPoints_PHPUnit_Mock_Hooks' );

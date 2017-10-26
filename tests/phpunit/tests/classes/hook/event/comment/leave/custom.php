@@ -29,7 +29,7 @@ class WordPoints_Hook_Event_Comment_Leave_Custom_Test
 
 		WordPoints_PHPUnit_Factory::$factory->post_type->create(
 			array(
-				'name' => $this->dynamic_slug,
+				'name'     => $this->dynamic_slug,
 				'supports' => array( 'title', 'editor', 'comments' ),
 			)
 		);

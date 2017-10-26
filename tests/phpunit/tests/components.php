@@ -17,25 +17,13 @@
 class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
-	 * Set up for the tests.
-	 *
-	 * @since 1.0.1
-	 */
-	public function setUp() {
-
-		parent::setUp();
-
-		remove_filter( 'wordpoints_component_active', '__return_true', 100 );
-	}
-
-	/**
-	 * Clean up after the tests.
-	 *
-	 * @since 1.0.1
+	 * @since 2.4.0
 	 */
 	public function tearDown() {
 
-		add_filter( 'wordpoints_component_active', '__return_true', 100 );
+		$components = WordPoints_Components::instance();
+		$components->deregister( 'test' );
+		$components->deregister( 'test_2' );
 
 		parent::tearDown();
 	}
@@ -114,21 +102,94 @@ class WordPoints_Components_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test that load() registers an installable if active.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Components::register
+	 * @covers WordPoints_Components::load
+	 */
+	public function test_load_registers_installable_if_active() {
+
+		$this->mock_apps();
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
+
+		add_filter( 'wordpoints_component_active', '__return_true' );
+
+		$components = WordPoints_Components::instance();
+		$components->register(
+			array(
+				'slug'        => 'test',
+				'name'        => 'Test',
+				'file'        => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'installable' => array( $mock, 'filter' ),
+			)
+		);
+
+		$components->load();
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->maybe_update();
+
+		$this->assertSame( 1, $mock->call_count );
+	}
+
+	/**
+	 * Test that load() doesn't register an installable if inactive.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers WordPoints_Components::register
+	 * @covers WordPoints_Components::load
+	 */
+	public function test_register_not_registers_installable_inactive() {
+
+		$this->mock_apps();
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
+
+		$components = WordPoints_Components::instance();
+		$components->register(
+			array(
+				'slug'        => 'test',
+				'name'        => 'Test',
+				'file'        => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'installable' => array( $mock, 'filter' ),
+			)
+		);
+
+		$components->load();
+
+		/** @var WordPoints_Installables_App $installables */
+		$installables = wordpoints_apps()->get_sub_app( 'installables' );
+		$installables->maybe_update();
+
+		$this->assertSame( 0, $mock->call_count );
+	}
+
+	/**
 	 * Test activation.
 	 *
 	 * @since 1.0.1
 	 *
 	 * @covers WordPoints_Components::activate
 	 * @covers WordPoints_Components::is_active
+	 *
+	 * @expectedDeprecated WordPoints_Installables::register
+	 * @expectedDeprecated WordPoints_Un_Installer_Base::__construct
 	 */
 	public function test_activation() {
+
+		$this->mock_apps();
 
 		$components = WordPoints_Components::instance();
 		$components->register(
 			array(
-				'slug' => 'test_2',
-				'name' => 'Test 2',
-				'file' => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
+				'slug'         => 'test_2',
+				'name'         => 'Test 2',
+				'file'         => WORDPOINTS_TESTS_DIR . '/data/components/test/test.php',
 				'un_installer' => WORDPOINTS_TESTS_DIR . '/data/components/test/un-installer.php',
 			)
 		);

@@ -19,14 +19,12 @@
  */
 function wordpoints_register_installer() {
 
-	WordPoints_Installables::register(
+	wordpoints_apps()->get_sub_app( 'installables' )->register(
 		'plugin'
 		, 'wordpoints'
-		, array(
-			'version'      => WORDPOINTS_VERSION,
-			'un_installer' => WORDPOINTS_DIR . '/includes/class-un-installer.php',
-			'network_wide' => is_wordpoints_network_active(),
-		)
+		, 'WordPoints_Installable_Core'
+		, WORDPOINTS_VERSION
+		, is_wordpoints_network_active()
 	);
 }
 
@@ -41,10 +39,39 @@ function wordpoints_register_installer() {
  */
 function wordpoints_activate( $network_active ) {
 
-	// The installer won't be registered yet.
-	wordpoints_register_installer();
+	$filter_func = ( $network_active ) ? '__return_true' : '__return_false';
+	add_filter( 'is_wordpoints_network_active', $filter_func );
 
-	WordPoints_Installables::install( 'plugin', 'wordpoints', $network_active );
+	// Check if the plugin has been activated/installed before.
+	$installed = (bool) wordpoints_get_maybe_network_option( 'wordpoints_data' );
+
+	$installer = new WordPoints_Installer(
+		new WordPoints_Installable_Core()
+		, $network_active
+	);
+
+	$installer->run();
+
+	// Activate the Points component, if this is the first activation.
+	if ( false === $installed ) {
+		$wordpoints_components = WordPoints_Components::instance();
+		$wordpoints_components->load();
+		$wordpoints_components->activate( 'points' );
+	}
+
+	remove_filter( 'is_wordpoints_network_active', $filter_func );
+}
+
+/**
+ * Performs actions when the plugin is deactivated.
+ *
+ * @since 2.4.0
+ *
+ * @WordPress\action deactivate_wordpoints/wordpoints.php
+ */
+function wordpoints_deactivate() {
+
+	wp_clear_scheduled_hook( 'wordpoints_check_for_extension_updates' );
 }
 
 /**
@@ -74,8 +101,8 @@ function wordpoints_breaking_update() {
 		return;
 	}
 
-	$updater = new WordPoints_Breaking_Updater( 'wordpoints_breaking', WORDPOINTS_VERSION );
-	$updater->update();
+	$updater = new WordPoints_Updater_Core_Breaking();
+	$updater->run();
 }
 
 /**
@@ -154,6 +181,27 @@ function wordpoints_maintenance_filter_modules( $modules ) {
 	return $modules;
 }
 
+/**
+ * Whether WordPoints is uninstalling something.
+ *
+ * @since 2.4.0
+ *
+ * @return bool Whether an uninstall routine is being run.
+ */
+function wordpoints_is_uninstalling() {
+
+	$uninstalling = class_exists( 'WordPoints_Uninstaller', false );
+
+	/**
+	 * Filters whether WordPoints is running an uninstall routine.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param bool $uninstalling Whether or not we are uninstalling something.
+	 */
+	return (bool) apply_filters( 'wordpoints_is_uninstalling', $uninstalling );
+}
+
 //
 // Sanitizing Functions.
 //
@@ -181,7 +229,8 @@ function wordpoints_int( &$maybe_int ) {
 
 	switch ( $type ) {
 
-		case 'integer': break;
+		case 'integer':
+			break;
 
 		case 'string':
 			if ( (string) (int) $maybe_int === $maybe_int ) {
@@ -778,6 +827,14 @@ function wordpoints_list_post_types( $options, $args = array() ) {
  */
 function is_wordpoints_network_active() {
 
+	if ( wordpoints_is_uninstalling() ) {
+		_doing_it_wrong(
+			__FUNCTION__
+			, 'You can\'t check activation status during uninstall.'
+			, '2.4.0'
+		);
+	}
+
 	require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
 	$network_active = is_plugin_active_for_network(
@@ -869,10 +926,11 @@ function wordpoints_shortcode_error( $message ) {
 function wordpoints_get_custom_caps() {
 
 	return array(
-		'install_wordpoints_modules'        => 'install_plugins',
-		'manage_network_wordpoints_modules' => 'manage_network_plugins',
-		'activate_wordpoints_modules'       => 'activate_plugins',
-		'delete_wordpoints_modules'         => 'delete_plugins',
+		'install_wordpoints_extensions'        => 'install_plugins',
+		'update_wordpoints_extensions'         => 'update_plugins',
+		'manage_network_wordpoints_extensions' => 'manage_network_plugins',
+		'activate_wordpoints_extensions'       => 'activate_plugins',
+		'delete_wordpoints_extensions'         => 'delete_plugins',
 	);
 }
 
@@ -933,8 +991,27 @@ function wordpoints_remove_custom_caps( $capabilities ) {
  */
 function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 
+	$deprecated = array(
+		'install_wordpoints_modules'        => 'install_wordpoints_extensions',
+		'manage_network_wordpoints_modules' => 'manage_network_wordpoints_extensions',
+		'activate_wordpoints_modules'       => 'activate_wordpoints_extensions',
+		'delete_wordpoints_modules'         => 'delete_wordpoints_extensions',
+	);
+
+	if ( isset( $deprecated[ $cap ] ) ) {
+
+		_deprecated_argument(
+			'current_user_can'
+			, '2.4.0'
+			, esc_html( "{$cap} is deprecated, use {$deprecated[ $cap ]} instead." )
+		);
+
+		$caps[] = $deprecated[ $cap ];
+	}
+
 	switch ( $cap ) {
-		case 'install_wordpoints_modules':
+		case 'install_wordpoints_extensions':
+		case 'update_wordpoints_extensions':
 			if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
 				$caps[] = 'do_not_allow';
 			} elseif ( is_multisite() && ! is_super_admin( $user_id ) ) {
@@ -1001,7 +1078,7 @@ function wordpoints_points_component_register() {
 			'component_uri' => 'https://wordpoints.org/',
 			'description'   => __( 'Enables a points system for your site.', 'wordpoints' ),
 			'file'          => WORDPOINTS_DIR . 'components/points/points.php',
-			'un_installer'  => WORDPOINTS_DIR . 'components/points/includes/class-un-installer.php',
+			'installable'   => 'WordPoints_Points_Installable',
 		)
 	);
 }
@@ -1017,15 +1094,15 @@ function wordpoints_ranks_component_register() {
 
 	wordpoints_component_register(
 		array(
-			'slug'           => 'ranks',
-			'name'           => _x( 'Ranks', 'component name', 'wordpoints' ),
-			'version'        => WORDPOINTS_VERSION,
-			'author'         => _x( 'WordPoints', 'component author', 'wordpoints' ),
-			'author_uri'     => 'https://wordpoints.org/',
-			'component_uri'  => 'https://wordpoints.org/',
-			'description'    => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
-			'file'           => WORDPOINTS_DIR . 'components/ranks/ranks.php',
-			'un_installer'   => WORDPOINTS_DIR . 'components/ranks/includes/class-un-installer.php',
+			'slug'          => 'ranks',
+			'name'          => _x( 'Ranks', 'component name', 'wordpoints' ),
+			'version'       => WORDPOINTS_VERSION,
+			'author'        => _x( 'WordPoints', 'component author', 'wordpoints' ),
+			'author_uri'    => 'https://wordpoints.org/',
+			'component_uri' => 'https://wordpoints.org/',
+			'description'   => __( 'Assign users ranks based on their points levels.', 'wordpoints' ),
+			'file'          => WORDPOINTS_DIR . 'components/ranks/ranks.php',
+			'installable'   => 'WordPoints_Ranks_Installable',
 		)
 	);
 }
@@ -1104,9 +1181,10 @@ function wordpoints_hash( $data ) {
  * Construct a class with a variable number of args.
  *
  * @since 2.1.0
+ * @since 2.4.0 Up to 5 args are now accepted, instead of just 4.
  *
  * @param string $class_name The name of the class to construct.
- * @param array  $args       Up to 4 args to pass to the constructor.
+ * @param array  $args       Up to 5 args to pass to the constructor.
  *
  * @return object|false The constructed object, or false if to many args were passed.
  */
@@ -1123,6 +1201,8 @@ function wordpoints_construct_class_with_args( $class_name, array $args ) {
 			return new $class_name( $args[0], $args[1], $args[2] );
 		case 4:
 			return new $class_name( $args[0], $args[1], $args[2], $args[3] );
+		case 5:
+			return new $class_name( $args[0], $args[1], $args[2], $args[3], $args[4] );
 		default:
 			return false;
 	}
@@ -1144,6 +1224,81 @@ function wordpoints_is_function_disabled( $function ) {
 	}
 
 	return in_array( $function, explode( ',', ini_get( 'disable_functions' ) ), true );
+}
+
+/**
+ * Prevents any interruptions from occurring during a lengthy operation.
+ *
+ * @since 2.4.0
+ */
+function wordpoints_prevent_interruptions() {
+
+	// Don't stop script execution if the client disconnects.
+	ignore_user_abort( true );
+
+	// Don't let the script time-out.
+	if ( ! wordpoints_is_function_disabled( 'set_time_limit' ) ) {
+		set_time_limit( 0 );
+	}
+
+	/**
+	 * Fires when preventing interruptions to a lengthy operation.
+	 *
+	 * @since 2.4.0
+	 */
+	do_action( 'wordpoints_prevent_interruptions' );
+}
+
+/**
+ * Maps context shortcuts to their canonical elements.
+ *
+ * For arrays of elements for particular contexts, some shortcuts are provided.
+ * These reduce duplication across the contexts, 'single', 'site', and 'network'.
+ * These shortcuts make it possible to define, e.g., an option to be uninstalled
+ * on a single site and as a network option on multisite installs, in just a
+ * single location, using the 'global' shortcut, rather than having to add it to
+ * both the 'single' and 'network' arrays.
+ *
+ * @since 2.4.0
+ *
+ * @param array $array The array to map the shortcuts for.
+ *
+ * @return array The mapped array.
+ */
+function wordpoints_map_context_shortcuts( array $array ) {
+
+	// shortcut => canonicals
+	$map = array(
+		'local'     => array( 'single', 'site'  /*  -  */ ),
+		'global'    => array( 'single', /* - */ 'network' ),
+		'universal' => array( 'single', 'site', 'network' ),
+	);
+
+	foreach ( $map as $shortcut => $canonicals ) {
+
+		if ( ! isset( $array[ $shortcut ] ) ) {
+			continue;
+		}
+
+		foreach ( $canonicals as $canonical ) {
+
+			if ( ! isset( $array[ $canonical ] ) ) {
+
+				$array[ $canonical ] = $array[ $shortcut ];
+
+			} else {
+
+				$array[ $canonical ] = array_merge(
+					$array[ $canonical ]
+					, $array[ $shortcut ]
+				);
+			}
+		}
+
+		unset( $array[ $shortcut ] );
+	}
+
+	return $array;
 }
 
 // EOF

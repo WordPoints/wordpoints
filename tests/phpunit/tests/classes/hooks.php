@@ -23,7 +23,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function test_does_action_on_construct() {
 
-		$mock = new WordPoints_PHPUnit_Mock_Filter;
+		$mock = new WordPoints_PHPUnit_Mock_Filter();
 
 		add_action( 'wordpoints_init_app-hooks', array( $mock, 'action' ) );
 
@@ -247,7 +247,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		);
 
 		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $reactor */
-		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
+		$reactor   = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$reactions = $this->factory->wordpoints->hook_reaction->create_many( 2 );
 
 		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $other_reactor */
@@ -298,13 +298,13 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 
 		$slug = $this->factory->wordpoints->hook_reaction_store->create(
 			array(
-				'slug' => 'contexted',
+				'slug'  => 'contexted',
 				'class' => 'WordPoints_PHPUnit_Mock_Hook_Reaction_Store_Contexted',
 			)
 		);
 
 		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $reactor */
-		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
+		$reactor   = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$reactions = $this->factory->wordpoints->hook_reaction->create_many(
 			2
 			, array( 'reaction_store' => $slug )
@@ -363,7 +363,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		);
 
 		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $reactor */
-		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
+		$reactor               = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$reactor->action_types = array( 'other' );
 
 		$reactions = $this->factory->wordpoints->hook_reaction->create_many( 2 );
@@ -673,7 +673,7 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 		);
 
 		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $reactor */
-		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get();
+		$reactor  = $this->factory->wordpoints->hook_reactor->create_and_get();
 		$reaction = $this->factory->wordpoints->hook_reaction->create();
 
 		$this->fire_event();

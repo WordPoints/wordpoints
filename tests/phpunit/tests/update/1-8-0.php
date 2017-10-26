@@ -14,7 +14,7 @@
  *
  * @group update
  *
- * @covers WordPoints_Un_Installer::update_site_to_1_8_0
+ * @coversNothing
  */
 class WordPoints_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 
@@ -32,6 +32,10 @@ class WordPoints_1_8_0_Update_Test extends WordPoints_PHPUnit_TestCase {
 	 * @requires WordPoints !network-active
 	 */
 	public function test_installed_site_ids_added() {
+
+		$this->mock_apps();
+
+		wordpoints_register_installer();
 
 		// Create a second site on the network.
 		$blog_id = $this->factory->blog->create();

@@ -147,7 +147,7 @@ function wordpoints_points_htgp_shortcode_hide_disabled_reactions(
 function wordpoints_points_register_scripts() {
 
 	$assets_url = WORDPOINTS_URL . '/components/points/assets';
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
+	$suffix     = SCRIPT_DEBUG ? '' : '.min';
 
 	wp_register_style(
 		'wordpoints-top-users'
@@ -163,7 +163,7 @@ function wordpoints_points_register_scripts() {
 		, WORDPOINTS_VERSION
 	);
 
-	$styles = wp_styles();
+	$styles     = wp_styles();
 	$rtl_styles = array( 'wordpoints-top-users', 'wordpoints-points-logs' );
 
 	foreach ( $rtl_styles as $rtl_style ) {
@@ -185,10 +185,20 @@ function wordpoints_points_register_scripts() {
  */
 function wordpoints_points_get_custom_caps() {
 
+	$manage_points_types_cap = 'manage_options';
+
+	/*
+	 * If we're uninstalling we can't call the network active function, but we don't
+	 * actually need the value anyway, just the key, so that is OK.
+	 */
+	if ( ! wordpoints_is_uninstalling() && is_wordpoints_network_active() ) {
+		$manage_points_types_cap = 'manage_network_options';
+	}
+
 	return array(
 		'set_wordpoints_points'                  => 'manage_options',
 		'manage_network_wordpoints_points_hooks' => 'manage_network_options',
-		'manage_wordpoints_points_types'         => ( is_wordpoints_network_active() ) ? 'manage_network_options' : 'manage_options',
+		'manage_wordpoints_points_types'         => $manage_points_types_cap,
 	);
 }
 
@@ -214,7 +224,7 @@ function wordpoints_format_points_filter( $formatted, $points, $type ) {
 
 		if ( $points < 0 ) {
 
-			$points = abs( $points );
+			$points                = abs( $points );
 			$points_type['prefix'] = '-' . $points_type['prefix'];
 		}
 
@@ -293,8 +303,8 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 	// Now delete the logs.
 	$wpdb->delete(
 		$wpdb->wordpoints_points_logs
-		,$where
-		,'%d'
+		, $where
+		, '%d'
 	);
 
 	wordpoints_flush_points_logs_caches( array( 'user_id' => $user_id ) );
@@ -323,8 +333,8 @@ function wordpoints_delete_points_logs_for_blog( $blog_id ) {
 	// Now delete the logs.
 	$wpdb->delete(
 		$wpdb->wordpoints_points_logs
-		,array( 'blog_id' => $blog_id )
-		,'%d'
+		, array( 'blog_id' => $blog_id )
+		, '%d'
 	);
 
 	wordpoints_flush_points_logs_caches();
@@ -422,6 +432,162 @@ function wordpoints_register_points_widgets() {
 
 	// Points logs widget.
 	register_widget( 'WordPoints_Points_Widget_Logs' );
+}
+
+/**
+ * Creates demo reactions for a points type.
+ *
+ * @since 2.4.0
+ *
+ * @param string $points_type The points type to create the demo reactions for.
+ */
+function wordpoints_points_create_demo_reactions( $points_type ) {
+
+	$reactions = array(
+		'user_register' => array(
+			'event'       => 'user_register',
+			'target'      => array( 'user' ),
+			'points'      => 100,
+			'description' => __( 'Registering with the site.', 'wordpoints' ),
+			'log_text'    => __( 'Registering with the site.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+		),
+		'user_visit_daily' => array(
+			'event'       => 'user_visit',
+			'target'      => array( 'current:user' ),
+			'points'      => 5,
+			'description' => __( 'Visiting the site daily.', 'wordpoints' ),
+			'log_text'    => __( 'Visited the site.', 'wordpoints' ),
+			'periods'     => array(
+				'fire' => array(
+					array(
+						'length' => DAY_IN_SECONDS,
+						'args'   => array( array( 'current:user' ) ),
+					),
+				),
+			),
+		),
+		'media_upload' => array(
+			'event'       => 'media_upload',
+			'target'      => array( 'post\\attachment', 'author', 'user' ),
+			'points'      => 10,
+			'description' => __( 'Uploading an attachment.', 'wordpoints' ),
+			'log_text'    => __( 'Uploaded an attachment.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+		),
+		'post_publish\\post' => array(
+			'event'       => 'post_publish\\post',
+			'target'      => array( 'post\\post', 'author', 'user' ),
+			'points'      => 50,
+			'description' => __( 'Publishing a post.', 'wordpoints' ),
+			'log_text'    => __( 'Published a post.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+		),
+		'post_publish\\post_happy_tag' => array(
+			'event'       => 'post_publish\\post',
+			'target'      => array( 'post\\post', 'author', 'user' ),
+			'points'      => 50,
+			'description' => __( 'Publishing a post with the #happy tag.', 'wordpoints' ),
+			'log_text'    => __( 'Published a happy post.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+			'conditions'  => array(
+				'toggle_on' => array(
+					'post\\post' => array(
+						'terms\\post_tag' => array(
+							'term\\post_tag{}' => array(
+								'_conditions' => array(
+									array(
+										'type'     => 'contains',
+										'settings' => array(
+											'min'        => 1,
+											'conditions' => array(
+												'term\\post_tag' => array(
+													'name' => array(
+														'_conditions' => array(
+															array(
+																'type' => 'equals',
+																'settings' => array(
+																	'value' => 'happy',
+																),
+															),
+														),
+													),
+												),
+											),
+										),
+									),
+								),
+							),
+						),
+					),
+				),
+			),
+		),
+		'comment_leave\\post_leave' => array(
+			'event'       => 'comment_leave\\post',
+			'target'      => array( 'comment\\post', 'author', 'user' ),
+			'points'      => 5,
+			'description' => __( 'Leaving a comment on a post.', 'wordpoints' ),
+			'log_text'    => __( 'Left a comment on a post.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+		),
+		'comment_leave\\post_mention_wordpoints' => array(
+			'event'       => 'comment_leave\\post',
+			'target'      => array( 'comment\\post', 'author', 'user' ),
+			'points'      => 5,
+			'description' => __( 'Mentioning WordPoints in a comment on a post.', 'wordpoints' ),
+			'log_text'    => __( 'Left a comment mentioning WordPoints.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+			'conditions'  => array(
+				'toggle_on' => array(
+					'comment\\post' => array(
+						'content' => array(
+							'_conditions' => array(
+								array(
+									'type'     => 'contains',
+									'settings' => array( 'value' => 'WordPoints' ),
+								),
+							),
+						),
+					),
+				),
+			),
+		),
+		'comment_leave\\post_receive' => array(
+			'event'       => 'comment_leave\\post',
+			'target'      => array( 'comment\\post', 'post\\post', 'post\\post', 'author', 'user' ),
+			'points'      => 5,
+			'description' => __( 'Receiving a comment on a post.', 'wordpoints' ),
+			'log_text'    => __( 'Received a comment on a post.', 'wordpoints' ),
+			'reversals'   => array( 'toggle_off' => 'toggle_on' ),
+		),
+	);
+
+	/**
+	 * Filters the list of demo reactions.
+	 *
+	 * The reactor and points type settings will automatically be added to each
+	 * reaction's settings before it is created. Settings will also be added so that
+	 * the reaction will be disabled.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param array[] $reactions   The settings for the demo reactions to create.
+	 * @param string  $points_type The points type the demo reactions are being
+	 *                             created for.
+	 */
+	$reactions = apply_filters( 'wordpoints_points_demo_reactions', $reactions, $points_type );
+
+	$reaction_store = wordpoints_hooks()->get_reaction_store( 'points' );
+
+	foreach ( $reactions as $i => $reaction ) {
+
+		$reaction['reactor']     = 'points';
+		$reaction['points_type'] = $points_type;
+		$reaction['disable']     = true;
+
+		$reaction_store->create_reaction( $reaction );
+	}
 }
 
 // EOF

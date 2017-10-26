@@ -35,9 +35,9 @@ class WordPoints_Parse_Dynamic_Slug_Functions_Test extends WordPoints_PHPUnit_Te
 	 */
 	public function data_provider_slugs() {
 		return array(
-			'not_dynamic' => array( 'slug', array( 'dynamic' => false, 'generic' => false ) ),
-			'dynamic' => array( 'slug\dynamic', array( 'dynamic' => 'dynamic', 'generic' => 'slug' ) ),
-			'empty' => array( '', array( 'dynamic' => false, 'generic' => false ) ),
+			'not_dynamic'   => array( 'slug', array( 'dynamic' => false, 'generic' => false ) ),
+			'dynamic'       => array( 'slug\dynamic', array( 'dynamic' => 'dynamic', 'generic' => 'slug' ) ),
+			'empty'         => array( '', array( 'dynamic' => false, 'generic' => false ) ),
 			'empty_dynamic' => array( 'slug\\', array( 'dynamic' => '', 'generic' => 'slug' ) ),
 			'empty_generic' => array( '\slug', array( 'dynamic' => 'slug', 'generic' => '' ) ),
 		);

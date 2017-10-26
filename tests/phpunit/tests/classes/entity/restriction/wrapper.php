@@ -271,7 +271,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 			, true
 		);
 
-		$context_slug = $context->get_slug();
+		$context_slug             = $context->get_slug();
 		$mock->listen_for_context = $context_slug;
 
 		$restriction = new WordPoints_Entity_Restriction_Wrapper(
@@ -311,7 +311,7 @@ class WordPoints_Entity_Restriction_Wrapper_Test
 			, array( 'post\post' )
 		);
 
-		$context_slug = $context->get_slug();
+		$context_slug             = $context->get_slug();
 		$mock->listen_for_context = $context_slug;
 
 		$restriction = new WordPoints_Entity_Restriction_Wrapper(

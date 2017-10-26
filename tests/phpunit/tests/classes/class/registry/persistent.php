@@ -23,7 +23,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_register() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -44,7 +44,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_register_overwrite() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -76,7 +76,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_is_registered_not_registered() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertFalse( $registry->is_registered( 'test' ) );
 	}
@@ -88,7 +88,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_all() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -127,7 +127,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_all_new_registered() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -170,7 +170,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -197,7 +197,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertFalse( $registry->get( 'test' ) );
 	}
@@ -209,7 +209,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_twice() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -239,7 +239,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_with_args() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -269,7 +269,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_all_with_args() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -308,7 +308,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_get_all_with_args_already_constructed() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -346,7 +346,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_deregister() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertTrue(
 			$registry->register( 'test', 'WordPoints_PHPUnit_Mock_Object' )
@@ -373,7 +373,7 @@ class WordPoints_Class_Registry_Persistent_Test extends PHPUnit_Framework_TestCa
 	 */
 	public function test_deregister_unregistered() {
 
-		$registry = new WordPoints_Class_Registry_Persistent;
+		$registry = new WordPoints_Class_Registry_Persistent();
 
 		$this->assertNull( $registry->deregister( 'test' ) );
 

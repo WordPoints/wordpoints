@@ -21,7 +21,7 @@ class WordPoints_Class_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_R
 	 */
 	protected function create_registry() {
 
-		return new WordPoints_Class_Registry;
+		return new WordPoints_Class_Registry();
 	}
 
 	/**
@@ -32,7 +32,7 @@ class WordPoints_Class_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_R
 	public function test_construct_with_args_no_slugs() {
 
 		$classes = array(
-			'test' => 'WordPoints_PHPUnit_Mock_Object',
+			'test'   => 'WordPoints_PHPUnit_Mock_Object',
 			'test_2' => 'WordPoints_PHPUnit_Mock_Object2',
 		);
 
@@ -63,7 +63,7 @@ class WordPoints_Class_Registry_Test extends WordPoints_PHPUnit_TestCase_Class_R
 	public function test_construct_with_args_no_slugs_args() {
 
 		$classes = array(
-			'test' => 'WordPoints_PHPUnit_Mock_Object',
+			'test'   => 'WordPoints_PHPUnit_Mock_Object',
 			'test_2' => 'WordPoints_PHPUnit_Mock_Object2',
 		);
 

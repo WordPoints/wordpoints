@@ -57,11 +57,10 @@ class WordPoints_Dropdown_Builder_Test extends WordPoints_PHPUnit_TestCase {
 
 		$dropdown = $this->get_dropdown_html( $args, $options );
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $dropdown );
-		$xpath    = new DOMXPath( $document );
 
-		return $xpath;
+		return new DOMXPath( $document );
 	}
 
 	//

@@ -109,18 +109,18 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->assertSameSetsWithIndex(
 			array(
-				'id' => $reaction->get_id(),
-				'event' => $reaction->get_event_slug(),
+				'id'             => $reaction->get_id(),
+				'event'          => $reaction->get_event_slug(),
 				'reaction_store' => $reaction->get_store_slug(),
-				'reactor' => $reaction->get_reactor_slug(),
-				'nonce' => wp_create_nonce(
+				'reactor'        => $reaction->get_reactor_slug(),
+				'nonce'          => wp_create_nonce(
 					"wordpoints_update_hook_reaction|{$reaction_guid}"
 				),
-				'delete_nonce' => wp_create_nonce(
+				'delete_nonce'   => wp_create_nonce(
 					"wordpoints_delete_hook_reaction|{$reaction_guid}"
 				),
-				'test' => 'value',
-				'target' => array( 'test_entity' ),
+				'test'           => 'value',
+				'target'         => array( 'test_entity' ),
 			)
 			, WordPoints_Admin_Ajax_Hooks::prepare_hook_reaction( $reaction )
 		);
@@ -163,7 +163,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 			, $response->data->reaction_store
 		);
 
-		$reaction = $this->reaction_store->get_reaction( $response->data->id );
+		$reaction      = $this->reaction_store->get_reaction( $response->data->id );
 		$reaction_guid = wp_json_encode( $reaction->get_guid() );
 
 		$this->assertObjectHasAttribute( 'nonce', $response->data );
@@ -225,7 +225,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 
 		$this->reaction_store = $this->factory->wordpoints->hook_reaction_store->create_and_get();
 
-		$request = $this->create_request_spec;
+		$request    = $this->create_request_spec;
 		$request[3] = 'posts_invalid_event';
 
 		$this->generate_request( $request );
@@ -240,7 +240,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 		$this->assertSameProperties(
 			(object) array(
 				'message' => 'Event is invalid.',
-				'field' => array( 'event' ),
+				'field'   => array( 'event' ),
 			)
 			, $response->data->errors[0]
 		);
@@ -358,7 +358,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 			, $this->reaction->get_meta( 'target' )
 		);
 
-		$request = $this->update_request_spec;
+		$request    = $this->update_request_spec;
 		$request[4] = 'posts_invalid_event';
 
 		$this->generate_request( $request );
@@ -373,7 +373,7 @@ class WordPoints_Admin_Ajax_Hooks_Test extends WordPoints_PHPUnit_TestCase_Ajax 
 		$this->assertSameProperties(
 			(object) array(
 				'message' => 'Event is invalid.',
-				'field' => array( 'event' ),
+				'field'   => array( 'event' ),
 			)
 			, $response->data->errors[0]
 		);

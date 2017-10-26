@@ -23,7 +23,7 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 
 		parent::setUp();
 
-		add_filter( 'wordpoints_modules_dir', 'wordpointstests_modules_dir' );
+		add_filter( 'wordpoints_extensions_dir', 'wordpoints_phpunit_extensions_dir' );
 	}
 
 	/**
@@ -34,13 +34,13 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_paths_normalized() {
 
 		$result = WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '///test-4\test-4.php'
+			wordpoints_extensions_dir() . '///test-4\test-4.php'
 		);
 
 		$this->assertTrue( $result );
 
 		$result = WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '/\/test-3.php'
+			wordpoints_extensions_dir() . '/\/test-3.php'
 		);
 
 		$this->assertFalse( $result );
@@ -54,7 +54,7 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_single_file_module() {
 
 		$result = WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '/test-3.php'
+			wordpoints_extensions_dir() . '/test-3.php'
 		);
 
 		$this->assertFalse( $result );
@@ -68,14 +68,14 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_resolve_from_realpath() {
 
 		WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '/test-4/test-4.php'
+			wordpoints_extensions_dir() . '/test-4/test-4.php'
 		);
 
 		$file = WordPoints_Module_Paths::resolve(
-			dirname( wordpoints_modules_dir() ) . '/modules/symlink-modules/test-4/test-4.php'
+			dirname( wordpoints_extensions_dir() ) . '/modules/symlink-modules/test-4/test-4.php'
 		);
 
-		$this->assertSame( wordpoints_modules_dir() . 'test-4/test-4.php', $file );
+		$this->assertSame( wordpoints_extensions_dir() . 'test-4/test-4.php', $file );
 	}
 
 	/**
@@ -88,18 +88,18 @@ class WordPoints_Module_Paths_Test extends WordPoints_PHPUnit_TestCase {
 	public function test_paths_do_not_tangle() {
 
 		WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '/test-4/test-4.php'
+			wordpoints_extensions_dir() . '/test-4/test-4.php'
 		);
 
 		WordPoints_Module_Paths::register(
-			wordpoints_modules_dir() . '/test-5/test-5.php'
+			wordpoints_extensions_dir() . '/test-5/test-5.php'
 		);
 
 		$file = WordPoints_Module_Paths::resolve(
-			wordpoints_modules_dir() . '/symlink-modules/test-5/test-5.php'
+			wordpoints_extensions_dir() . '/symlink-modules/test-5/test-5.php'
 		);
 
-		$this->assertSame( wordpoints_modules_dir() . 'test-5/test-5.php', $file );
+		$this->assertSame( wordpoints_extensions_dir() . 'test-5/test-5.php', $file );
 	}
 }
 

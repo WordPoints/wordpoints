@@ -28,7 +28,7 @@ class WordPoints_Hook_Action_Comment_New_Test
 			array(
 				'comment_approved' => '1',
 				// We supply a post because some code always expects one.
-				'comment_post_ID' => $this->factory->post->create(),
+				'comment_post_ID'  => $this->factory->post->create(),
 			)
 		);
 
@@ -72,7 +72,7 @@ class WordPoints_Hook_Action_Comment_New_Test
 			array(
 				'comment_approved' => '1',
 				// We supply a post because some code always expects one.
-				'comment_post_ID' => $this->factory->post->create(),
+				'comment_post_ID'  => $this->factory->post->create(),
 			)
 		);
 
@@ -110,7 +110,7 @@ class WordPoints_Hook_Action_Comment_New_Test
 		$comment = $this->factory->comment->create_and_get(
 			array(
 				'comment_approved' => '1',
-				'comment_post_ID' => $this->factory->post->create(),
+				'comment_post_ID'  => $this->factory->post->create(),
 			)
 		);
 
@@ -119,7 +119,7 @@ class WordPoints_Hook_Action_Comment_New_Test
 			, array( 'a', $comment )
 			, array(
 				'requirements' => array( 0 => 'a' ),
-				'arg_index' => array( 'comment\\post' => 1 ),
+				'arg_index'    => array( 'comment\\post' => 1 ),
 			)
 		);
 
@@ -136,7 +136,7 @@ class WordPoints_Hook_Action_Comment_New_Test
 		$comment = $this->factory->comment->create_and_get(
 			array(
 				'comment_approved' => '1',
-				'comment_post_ID' => $this->factory->post->create(),
+				'comment_post_ID'  => $this->factory->post->create(),
 			)
 		);
 
@@ -145,7 +145,7 @@ class WordPoints_Hook_Action_Comment_New_Test
 			, array( 'a', $comment )
 			, array(
 				'requirements' => array( 0 => 'b' ),
-				'arg_index' => array( 'comment\\post' => 1 ),
+				'arg_index'    => array( 'comment\\post' => 1 ),
 			)
 		);
 

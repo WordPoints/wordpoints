@@ -43,7 +43,7 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 		$options = array();
 
-		while ( list( $i, $arg ) = each( $argv ) ) {
+		while ( list( $i, $arg ) = each( $argv ) ) { // @codingStandardsIgnoreLine
 
 			try {
 
@@ -65,14 +65,14 @@ class WordPoints_PHPUnit_Util_Getopt extends PHPUnit_Util_Getopt {
 
 				switch ( $option[0] ) {
 
-					case '--exclude-group' :
+					case '--exclude-group':
 						$ui_message = false;
 					continue 2;
 
-					case '--group' :
+					case '--group':
 						$groups = explode( ',', $option[1] );
 
-						$ui_message        = ! in_array( 'ui', $groups, true );
+						$ui_message = ! in_array( 'ui', $groups, true );
 					continue 2;
 				}
 			}

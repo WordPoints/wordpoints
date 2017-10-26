@@ -17,13 +17,14 @@ $I->see( 'Slug: points' );
 $I->canSeeInFormFields(
 	'#settings form'
 	, array(
-		'points-name' => 'Points',
+		'points-name'   => 'Points',
 		'points-prefix' => '',
 		'points-suffix' => '',
 	)
 );
 $I->click( 'Delete' );
 $I->seeJQueryDialog( 'Are you sure?' );
+$I->fillField( '.wordpoints-points-delete-confirm-input', 'Points' );
 $I->click( 'Delete', '.wordpoints-delete-type-dialog' );
 $I->seeSuccessMessage();
 $I->see( 'Points Types' );

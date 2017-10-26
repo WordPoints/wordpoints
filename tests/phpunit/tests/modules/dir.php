@@ -20,6 +20,8 @@ class WordPoints_Modules_Dir_Test extends WordPoints_PHPUnit_TestCase {
 	 * Test that it is filterable.
 	 *
 	 * @since 2.2.0
+	 *
+	 * @expectedDeprecated wordpoints_modules_dir
 	 */
 	public function test_filter() {
 

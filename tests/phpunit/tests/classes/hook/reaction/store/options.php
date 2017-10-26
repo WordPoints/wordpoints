@@ -371,8 +371,8 @@ class WordPoints_Hook_Reaction_Store_Options_Test extends WordPoints_PHPUnit_Tes
 		$this->assertSame( 2, $reactions[1]->get_id() );
 		$this->assertSame( 3, $reactions[2]->get_id() );
 
-		$slug         = $reaction_store->get_slug();
-		$option_name  = "wordpoints_hook_reaction_last_id-{$slug}-standard";
+		$slug        = $reaction_store->get_slug();
+		$option_name = "wordpoints_hook_reaction_last_id-{$slug}-standard";
 
 		// When the index max is equal to the next ID as calculated from the option.
 		$reaction_store->update_option( $option_name, 2 );

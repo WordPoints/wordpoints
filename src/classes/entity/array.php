@@ -54,7 +54,7 @@ class WordPoints_Entity_Array extends WordPoints_Entityish {
 	 */
 	public function __construct( $entity_slug ) {
 
-		$this->entity_slug = $entity_slug;
+		$this->entity_slug   = $entity_slug;
 		$this->entity_object = wordpoints_entities()->get( $this->entity_slug );
 
 		parent::__construct( $this->entity_slug . '{}' );
@@ -82,7 +82,7 @@ class WordPoints_Entity_Array extends WordPoints_Entityish {
 	 */
 	public function set_the_value( $values ) {
 
-		$this->the_value = array();
+		$this->the_value    = array();
 		$this->the_entities = array();
 
 		if ( ! ( $this->entity_object instanceof WordPoints_Entity ) ) {
@@ -95,7 +95,7 @@ class WordPoints_Entity_Array extends WordPoints_Entityish {
 
 			if ( $entity->set_the_value( $value ) ) {
 				$this->the_entities[] = $entity;
-				$this->the_value[] = $entity->get_the_id();
+				$this->the_value[]    = $entity->get_the_id();
 			}
 		}
 

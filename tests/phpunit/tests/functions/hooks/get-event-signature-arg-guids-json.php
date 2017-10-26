@@ -65,9 +65,9 @@ class Wordpoints_Hooks_Get_Event_Signature_Arg_GUIDs_JSON_Function_Test
 
 		$entity_slug = $this->factory->wordpoints->entity->create();
 
-		$arg = new WordPoints_PHPUnit_Mock_Hook_Arg( $entity_slug );
-		$arg_2 = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:' . $entity_slug );
-		$arg->value = 5;
+		$arg          = new WordPoints_PHPUnit_Mock_Hook_Arg( $entity_slug );
+		$arg_2        = new WordPoints_PHPUnit_Mock_Hook_Arg( 'another:' . $entity_slug );
+		$arg->value   = 5;
 		$arg_2->value = 7;
 
 		$event_args = new WordPoints_Hook_Event_Args( array( $arg, $arg_2 ) );

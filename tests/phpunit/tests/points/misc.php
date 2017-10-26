@@ -110,7 +110,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		$this->assertSame( 3, $query->count() );
 
 		// Get the ID of the log on this site.
-		$query = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
+		$query  = new WordPoints_Points_Logs_Query( array( 'meta_key' => 'test' ) );
 		$log_id = $query->get( 'row' )->id;
 
 		// Now we'll delete the user, but just from this blog.
@@ -222,7 +222,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		}
 
 		// Test that the meta_key points type setting takes precendence when set.
-		$settings = wordpoints_get_points_type( 'points' );
+		$settings             = wordpoints_get_points_type( 'points' );
 		$settings['meta_key'] = 'credits';
 		wordpoints_update_points_type( 'points', $settings );
 
@@ -267,7 +267,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		// Check that the log was updated.
-		$log = new WordPoints_Points_Logs_Query;
+		$log = new WordPoints_Points_Logs_Query();
 		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
@@ -298,7 +298,7 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		// Check that the log was updated.
-		$log = new WordPoints_Points_Logs_Query;
+		$log = new WordPoints_Points_Logs_Query();
 		$log = $log->get( 'row' );
 
 		$this->assertInternalType( 'object', $log );
@@ -376,6 +376,34 @@ class WordPoints_Points_Misc_Test extends WordPoints_PHPUnit_TestCase_Points {
 		);
 
 		$this->assertSame( "You've got Points! &#x1f60e;", $query->get( 'var' ) );
+	}
+
+	/**
+	 * Tests points log regeneration of a log that has no generator registered.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @covers ::wordpoints_regenerate_points_logs
+	 */
+	public function test_wordpoints_regenerate_points_logs_no_generator() {
+
+		$this->factory->wordpoints->points_log->create( array( 'text' => 'Test' ) );
+
+		// Get the log from the database.
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		// Check that all is as expected.
+		$this->assertInternalType( 'object', $log );
+		$this->assertSame( 'Test', $log->text );
+
+		// Now, regenerate it.
+		wordpoints_regenerate_points_logs( array( $log ) );
+
+		// Check that the log was regenerated.
+		$log = wordpoints_get_points_logs_query( 'points' )->get( 'row' );
+
+		$this->assertInternalType( 'object', $log );
+		$this->assertSame( 'Test', $log->text );
 	}
 }
 

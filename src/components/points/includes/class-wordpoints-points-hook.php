@@ -494,7 +494,7 @@ abstract class WordPoints_Points_Hook {
 			$all_instances[ $this->number ] = $instance;
 		}
 
-		$this->_save_instances( $all_instances );
+		$this->save_instances( $all_instances );
 	}
 
 	/**
@@ -521,7 +521,7 @@ abstract class WordPoints_Points_Hook {
 
 			unset( $all_instances[ $number ] );
 
-			$this->_save_instances( $all_instances );
+			$this->save_instances( $all_instances );
 		}
 	}
 
@@ -712,7 +712,7 @@ abstract class WordPoints_Points_Hook {
 		} elseif ( is_string( $number ) && 'network_' === substr( $number, 0, 8 ) ) {
 
 			$network_mode = true;
-			$number = (int) substr( $number, 8 );
+			$number       = (int) substr( $number, 8 );
 		}
 
 		$current_mode = WordPoints_Points_Hooks::get_network_mode();
@@ -775,7 +775,7 @@ abstract class WordPoints_Points_Hook {
 			, $options
 		);
 
-		$this->options['_classname']   = $this->option_name;
+		$this->options['_classname'] = $this->option_name;
 	}
 
 	//
@@ -789,7 +789,7 @@ abstract class WordPoints_Points_Hook {
 	 *
 	 * @param array $instances All settings, indexed by instance number.
 	 */
-	final private function _save_instances( $instances ) {
+	final private function save_instances( $instances ) {
 
 		// This needs to start at 1.
 		unset( $instances[0] );

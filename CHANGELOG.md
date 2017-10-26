@@ -8,6 +8,10 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 ## [Unreleased]
 
+Nothing documented yet.
+
+## [2.4.0] - 2017-10-26
+
 ### Requires
 
 - WordPress: 4.7+
@@ -57,7 +61,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
   - Installer, one-site-only installer, updater, and uninstaller routines.
   - Database table, custom caps installer classes.
   - Database table, custom caps, callback, wildcard options, network wildcard options, and metadata uninstaller classes.
-  - Single, network, and site uninstaller factory interfaces, and caps, metadata, widgets, options, transients, admin screens with meta boxes, admin screens with list tables, points hooks, and DB tables uninstaller factories.
+  - Single, network, and site uninstaller factory interfaces, and generic, caps, metadata, widgets, options, transients, admin screens with meta boxes, admin screens with list tables, points hooks, and DB tables uninstaller factories.
   - `WordPoints_Updater_FactoryI` interface and implementation. 
   - `wordpoints_map_context_shortcuts()` function for mapping context shortcuts.
   - Installables app and class.
@@ -94,6 +98,8 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Entities API to retrieve entity children based on the parent entity's context, instead of assuming that the current context is correct. #536
 - `is_wordpoints_network_active()` to give an error when used during uninstallation. #399
 - Extension upgrader to check for errors after bulk upgrading extensions, the same as when upgrading a single extension. #676
+- All uses of `red` and `#f00` in CSS to be WordPress red (`#dc3232`). #728
+- Dynamic entities to set the post type/taxonomy in the constructor, for better extensibility. #719
 
 ### Deprecated
 
@@ -137,6 +143,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Dittography everywhere.
 - Uninstall routine to not rely on `is_wordpoints_network_active()`. #399
 - Plugin icon to use the correct URIs in the XML. #655
+- Fatal errors when viewing points logs after deactivating the BuddyPress plugin. #735
 
 ## [2.3.0] - 2017-03-14
 
@@ -518,6 +525,7 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/master...develop
+[2.4.0]: https://github.com/WordPoints/wordpoints/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/WordPoints/wordpoints/compare/2.2.2...2.3.0
 [2.2.2]: https://github.com/WordPoints/wordpoints/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/WordPoints/wordpoints/compare/2.2.0...2.2.1

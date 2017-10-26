@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WordPoints package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPoints 2.4.0-beta-1\n"
+"Project-Id-Version: WordPoints 2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-09-20 14:28:34+00:00\n"
+"POT-Creation-Date: 2017-10-25 20:17:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -201,7 +201,7 @@ msgstr ""
 msgid "Activate %s"
 msgstr ""
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.0-beta-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:340
@@ -1143,7 +1143,7 @@ msgctxt "comment entity"
 msgid "Parent Comment"
 msgstr ""
 
-#: classes/entity/comment.php:60
+#: classes/entity/comment.php:81
 msgid "Comment"
 msgstr ""
 

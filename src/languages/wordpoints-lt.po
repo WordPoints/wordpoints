@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-09-20 14:28:34+00:00\n"
+"POT-Creation-Date: 2017-10-25 20:17:50+00:00\n"
 "PO-Revision-Date: 2015-06-22 19:24+0200\n"
 "Last-Translator: Rimantas <info@auksinas.lt>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/wordpoints/"
@@ -220,7 +220,7 @@ msgstr "Atjungti"
 msgid "Activate %s"
 msgstr "Aktyvuoti"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.0-beta-1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:340
@@ -1228,7 +1228,7 @@ msgctxt "comment entity"
 msgid "Parent Comment"
 msgstr ""
 
-#: classes/entity/comment.php:60
+#: classes/entity/comment.php:81
 msgid "Comment"
 msgstr ""
 

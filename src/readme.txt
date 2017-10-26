@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, credits, gamify, ranks, games
 Requires at least: 4.7
-Tested up to: 4.9-alpha-40870
-Stable tag: 2.3.0
+Tested up to: 4.9-beta4-42020
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,7 @@ This plugin adheres to [Semantic Versioning](http://semver.org/).
 - The Max setting of the Contains condition for Reactions now interprets an empty max
   to mean no maximum, rather than a maximum of 0.
 - Corrected the invalid HTML that was breaking the user profile admin screen.
+- Fatal errors when viewing points logs after deactivating the BuddyPress plugin.
 
 = 2.3.0 — 2017-03-14 =
 

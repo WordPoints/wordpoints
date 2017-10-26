@@ -22,7 +22,7 @@ $wpdb->wordpoints_hook_periods = $wpdb->base_prefix . 'wordpoints_hook_periods';
  *
  * @const WORDPOINTS_VERSION
  */
-define( 'WORDPOINTS_VERSION', '2.4.0-beta-1' );
+define( 'WORDPOINTS_VERSION', '2.4.0' );
 
 /**
  * The full path to the plugin's main directory.

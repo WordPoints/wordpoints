@@ -450,7 +450,7 @@ class WordPoints_Hook_Extension_Periods
 	 * @param string               $signature The period signature.
 	 * @param WordPoints_Hook_Fire $fire      The fire object.
 	 *
-	 * @return false|object The period data, or false if not found.
+	 * @return int|false The period ID, or false on failure.
 	 */
 	protected function add_period( $signature, WordPoints_Hook_Fire $fire ) {
 

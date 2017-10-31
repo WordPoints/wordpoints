@@ -129,7 +129,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 
 		wp_reset_vars( array( 'orderby', 'order', 's' ) );
 
-		$modules = array(
+		$modules = array( // WPCS: prefix OK.
 			/**
 			 * All of the modules to be displayed in the list table.
 			 *
@@ -137,7 +137,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 			 *
 			 * @param array $modules All of the installed modules.
 			 */
-			'all'                => apply_filters( 'all_wordpoints_modules', wordpoints_get_modules() ),
+			'all'                => apply_filters( 'all_wordpoints_modules', wordpoints_get_modules() ), // WPCS: prefix OK.
 			'search'             => array(),
 			'active'             => array(),
 			'inactive'           => array(),
@@ -212,7 +212,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 			) {
 
 				if ( $show_network_active ) {
-					$modules['inactive'][ $module_file ] = $module_data;
+					$modules['inactive'][ $module_file ] = $module_data; // WPCS: prefix OK.
 				} else {
 					unset( $modules['all'][ $module_file ] );
 				}
@@ -223,7 +223,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 			) {
 
 				if ( $show_network_active ) {
-					$modules['active'][ $module_file ] = $module_data;
+					$modules['active'][ $module_file ] = $module_data; // WPCS: prefix OK.
 				} else {
 					unset( $modules['all'][ $module_file ] );
 				}
@@ -238,16 +238,16 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 				)
 			) {
 
-				$modules['active'][ $module_file ] = $module_data;
+				$modules['active'][ $module_file ] = $module_data; // WPCS: prefix OK.
 
 			} else {
 
 				// Was the module recently activated?
 				if ( ! $this->screen->in_admin( 'network' ) && isset( $recently_activated[ $module_file ] ) ) {
-					$modules['recently_activated'][ $module_file ] = $module_data;
+					$modules['recently_activated'][ $module_file ] = $module_data; // WPCS: prefix OK.
 				}
 
-				$modules['inactive'][ $module_file ] = $module_data;
+				$modules['inactive'][ $module_file ] = $module_data; // WPCS: prefix OK.
 
 			} // End if ().
 
@@ -256,7 +256,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 			 * for modules that have an available update.
 			 */
 			if ( $user_can_update && $updates->has_update( $module_file ) ) {
-				$modules['upgrade'][ $module_file ] = $modules['all'][ $module_file ];
+				$modules['upgrade'][ $module_file ] = $modules['all'][ $module_file ]; // WPCS: prefix OK.
 			}
 
 		} // End foreach ( modules ).
@@ -264,7 +264,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		if ( $s ) {
 
 			$status            = 'search';
-			$modules['search'] = array_filter( $modules['all'], array( $this, 'search_callback' ) );
+			$modules['search'] = array_filter( $modules['all'], array( $this, 'search_callback' ) ); // WPCS: prefix OK.
 		}
 
 		/**
@@ -283,7 +283,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		 *        @type array $upgrade            Modules that have an update available.
 		 * }
 		 */
-		$modules = apply_filters( 'wordpoints_modules_list_table_items', $modules );
+		$modules = apply_filters( 'wordpoints_modules_list_table_items', $modules ); // WPCS: prefix OK.
 
 		// Calculate the totals.
 		$totals = array();
@@ -996,7 +996,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		 * @param array  $module_data The module's info.
 		 * @param string $context     The status of the modules being displayed.
 		 */
-		$actions = apply_filters( $prefix . 'wordpoints_module_action_links', array_filter( $actions ), $module_file, $module_data, $context );
+		$actions = apply_filters( $prefix . 'wordpoints_module_action_links', array_filter( $actions ), $module_file, $module_data, $context ); // WPCS: prefix OK.
 
 		/**
 		 * Filter the action links for a specific module.
@@ -1005,7 +1005,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		 *
 		 * @since 1.1.0
 		 */
-		return apply_filters( $prefix . "wordpoints_module_action_links_{$module_file}", $actions, $module_file, $module_data, $context );
+		return apply_filters( $prefix . "wordpoints_module_action_links_{$module_file}", $actions, $module_file, $module_data, $context ); // WPCS: prefix OK.
 	}
 
 } // class WordPoints_Admin_List_Table_Extensions

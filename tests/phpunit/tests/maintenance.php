@@ -45,7 +45,7 @@ class WordPoints_Maintenance_Test extends WordPoints_PHPUnit_TestCase {
 		require WORDPOINTS_DIR . '/includes/maintenance.php';
 
 		/** @var int $time */
-		$this->assertSame( $time - 10 * MINUTE_IN_SECONDS, $upgrading );
+		$this->assertSameWithDelta( time() - 10 * MINUTE_IN_SECONDS, $upgrading );
 	}
 
 	/**

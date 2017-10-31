@@ -283,7 +283,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		/**
 		 * This action is documented in /wp-admin/includes/class-wp-upgrader.php.
 		 */
-		do_action( 'upgrader_process_complete', $this, $details, $extensions );
+		do_action( 'upgrader_process_complete', $this, $details, $extensions ); // WPCS: prefix OK.
 	}
 
 	/**

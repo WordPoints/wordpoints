@@ -1731,7 +1731,7 @@ function wordpoints_extension_license_row( $extension_file, $extension ) {
 function wordpoints_iframe_extension_changelog() {
 
 	if ( ! defined( 'IFRAME_REQUEST' ) ) {
-		define( 'IFRAME_REQUEST', true );
+		define( 'IFRAME_REQUEST', true ); // WPCS: prefix OK.
 	}
 
 	if ( ! current_user_can( 'update_wordpoints_extensions' ) ) {

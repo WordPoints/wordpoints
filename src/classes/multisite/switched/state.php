@@ -65,13 +65,13 @@ class WordPoints_Multisite_Switched_State {
 		switch_to_blog( $this->backup['original_blog_id'] );
 
 		if ( isset( $this->backup['switched_stack'] ) ) {
-			$GLOBALS['_wp_switched_stack'] = $this->backup['switched_stack'];
+			$GLOBALS['_wp_switched_stack'] = $this->backup['switched_stack']; // WPCS: prefix OK.
 		} else {
 			unset( $GLOBALS['_wp_switched_stack'] );
 		}
 
 		if ( isset( $this->backup['switched'] ) ) {
-			$GLOBALS['switched'] = $this->backup['switched'];
+			$GLOBALS['switched'] = $this->backup['switched']; // WPCS: prefix OK.
 		} else {
 			unset( $GLOBALS['switched'] );
 		}

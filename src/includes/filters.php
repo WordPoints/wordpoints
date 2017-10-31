@@ -43,13 +43,12 @@ if ( isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) { // WPC
 
 	add_action( 'shutdown', 'wordpoints_maintenance_shutdown_print_rand_str' );
 
-	if ( is_network_admin() ) {
-		$filter = 'pre_site_option_wordpoints_sitewide_active_modules';
-	} else {
-		$filter = 'pre_option_wordpoints_active_modules';
-	}
-
-	add_filter( $filter, 'wordpoints_maintenance_filter_modules' );
+	add_filter(
+		is_network_admin()
+			? 'pre_site_option_wordpoints_sitewide_active_modules'
+			: 'pre_option_wordpoints_active_modules'
+		, 'wordpoints_maintenance_filter_modules'
+	);
 }
 
 add_action( 'wordpoints_init_app-apps', 'wordpoints_apps_init' );

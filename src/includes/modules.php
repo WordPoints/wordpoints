@@ -84,7 +84,7 @@ function is_wordpoints_module_active_for_network( $module ) {
  *
  * @return bool True if the module is network only, false otherwise.
  */
-function is_network_only_wordpoints_module( $module ) {
+function is_network_only_wordpoints_module( $module ) { // @codingStandardsIgnoreLine
 
 	$module_data = wordpoints_get_module_data( wordpoints_extensions_dir() . '/' . $module );
 
@@ -100,7 +100,7 @@ function is_network_only_wordpoints_module( $module ) {
  *
  * @return bool True if the module has an uninstall script, false otherwise.
  */
-function is_uninstallable_wordpoints_module( $module ) {
+function is_uninstallable_wordpoints_module( $module ) { // @codingStandardsIgnoreLine
 
 	return ( file_exists( wordpoints_extensions_dir() . '/' . dirname( wordpoints_module_basename( $module ) ) . '/uninstall.php' ) );
 }

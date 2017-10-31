@@ -12,10 +12,8 @@
 /** @var int $upgrading */
 global $upgrading;
 
-$time = time();
-
 // Don't lock the user out of their site if the file fails to delete for some reason.
-if ( $time - $upgrading >= 10 * MINUTE_IN_SECONDS ) {
+if ( time() - $upgrading >= 10 * MINUTE_IN_SECONDS ) {
 	return;
 }
 
@@ -28,6 +26,6 @@ if ( ! isset( $_GET['wordpoints_module_check'], $_GET['check_module'] ) ) { // W
 // pluggable and so won't be loaded until much later.
 
 // Trick wp_maintenance() into not showing the maintenance message.
-$upgrading = $time - 10 * MINUTE_IN_SECONDS;
+$upgrading = time() - 10 * MINUTE_IN_SECONDS;
 
 // EOF

@@ -176,6 +176,67 @@ class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 	}
 
 	/**
+	 * Tests getting the Ed25519 public key for an extension.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_get_extension_public_key_ed25519() {
+
+		$server = new WordPoints_Extension_Server( 'example.com' );
+
+		$api = $this->get_server_api( $server );
+
+		$filter = new WordPoints_PHPUnit_Mock_Filter( 'test' );
+		$filter->add_filter(
+			'wordpoints_extension_server_api_edd_sl_ed25519_public_key'
+			, 10
+			, 6
+		);
+
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
+
+		$this->assertSame( 'test', $api->get_extension_public_key_ed25519( $data ) );
+
+		$this->assertSame( array( array( false, $server, $data ) ), $filter->calls );
+	}
+
+	/**
+	 * Tests getting the Ed25519 public key for an extension when none is provided.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_get_extension_public_key_ed25519_no_value() {
+
+		$api = $this->get_server_api();
+
+		$this->assertFalse(
+			$api->get_extension_public_key_ed25519(
+				new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data()
+			)
+		);
+	}
+
+	/**
+	 * Tests getting the Ed25519 package signature for an extension.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_get_extension_package_signature_ed25519() {
+
+		$api = $this->get_server_api();
+
+		$signature = 'test';
+
+		$data = new WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data();
+		$data->set( 'ed25519_signature', $signature );
+
+		$this->assertSame(
+			$signature
+			, $api->get_extension_package_signature_ed25519( $data )
+		);
+	}
+
+	/**
 	 * Tests getting a piece of info about an extension will return the cached value.
 	 *
 	 * @since 2.4.0
@@ -211,6 +272,11 @@ class WordPoints_Extension_Server_API_EDD_SL_Test extends WP_HTTP_TestCase {
 
 		$this->assertSame( null, $api->get_extension_info( $data, 'test' ) );
 		$this->assertSame( '1.2.3', $api->get_extension_info( $data, 'latest_version' ) );
+		$this->assertSame(
+			'test_signature'
+			, $api->get_extension_info( $data, 'ed25519_signature' )
+		);
+
 		$this->assertStringMatchesFormat(
 			'%aA test changelog.%a'
 			, $api->get_extension_info( $data, 'changelog' )

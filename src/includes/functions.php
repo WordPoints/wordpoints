@@ -441,6 +441,46 @@ function wordpoints_escape_mysql_identifier( $identifier ) {
 	return '`' . str_replace( '`', '``', $identifier ) . '`';
 }
 
+/**
+ * Verifies the Ed25519 signature of a file for a given public key.
+ *
+ * @since 2.5.0
+ *
+ * @param string $file       The full path to the file.
+ * @param string $public_key The public key.
+ * @param string $signature  The Ed25519 signature to check against.
+ *
+ * @return bool|object WP_Error on failure, true on success.
+ */
+function wordpoints_verify_file_ed25519( $file, $public_key, $signature ) {
+
+	if ( ParagonIE_Sodium_Core_Util::strlen( $public_key ) === ParagonIE_Sodium_Compat::CRYPTO_SIGN_PUBLICKEYBYTES * 2 ) {
+		$public_key = ParagonIE_Sodium_Compat::hex2bin( $public_key );
+	}
+
+	if ( ParagonIE_Sodium_Core_Util::strlen( $signature ) === ParagonIE_Sodium_Compat::CRYPTO_SIGN_BYTES * 2 ) {
+		$signature = ParagonIE_Sodium_Compat::hex2bin( $signature );
+	}
+
+	$file_contents = file_get_contents( $file ); // @codingStandardsIgnoreLine
+
+	$verified = ParagonIE_Sodium_Compat::crypto_sign_verify_detached( $signature, $file_contents, $public_key );
+
+	if ( $verified ) {
+		return true;
+	}
+
+	return new WP_Error(
+		'ed25519_mismatch'
+		, sprintf(
+			// translators: 1. File signature; 2. Public key.
+			__( 'The signature of the file (%1$s) is not valid for the given public key (%2$s).', 'wordpoints' )
+			, bin2hex( $signature )
+			, bin2hex( $public_key )
+		)
+	);
+}
+
 //
 // Database Helpers.
 //

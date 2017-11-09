@@ -33,6 +33,7 @@ return array(
 	'wordpoints_extension_serveri' => 'extension/serveri.php',
 	'wordpoints_extension_server_apii' => 'extension/server/apii.php',
 	'wordpoints_extension_server_api_updatesi' => 'extension/server/api/updatesi.php',
+	'wordpoints_extension_server_api_updates_signed_ed25519i' => 'extension/server/api/updates/signed/ed25519i.php',
 	'wordpoints_extension_server_api_updates_installablei' => 'extension/server/api/updates/installablei.php',
 	'wordpoints_extension_server_api_updates_changelogi' => 'extension/server/api/updates/changelogi.php',
 	'wordpoints_extension_server_api_licensesi' => 'extension/server/api/licensesi.php',

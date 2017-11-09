@@ -85,7 +85,24 @@ class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Tes
 		}
 
 		$api = $this->createMock(
-			'WordPoints_Extension_Server_API_Updates_InstallableI'
+			'WordPoints_Extension_Server_API_EDD_SL'
+		);
+
+		// We hard-code the key here so that the tests won't be broken if the actual
+		// key is ever updated.
+		$api->method( 'get_extension_public_key_ed25519' )->willReturn(
+			'9c564cdb1763a72a81f2ddee1e27230ea4c18748ee14324ac4671d4be701492e'
+		);
+
+		$signatures = array(
+			'module-7-update' => 'ff6910b2f3760d62bf6cccda5c5d558bf8544a783757bcff2f4625e039c7b1231b14de3bdceec2f385841c90f77bbc0bfd1f93a859ae24ff2fc0e42eb712f608',
+			'no-module'       => '6d319e5c561f0caf97ed83b37693b3009be14a4bfbb304c2c8bbdbf4b508f0505d851c727334445f693f8e2e3624ce246bcc71082f014452fe8e047558228205',
+		);
+
+		$signature = $signatures[ $this->package_name ];
+
+		$api->method( 'get_extension_package_signature_ed25519' )->willReturn(
+			$signature
 		);
 
 		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
@@ -111,6 +128,104 @@ class WordPoints_Extension_Upgrader_Test extends WordPoints_Module_Installer_Tes
 		$this->assertCount( 0, $this->skin->errors );
 		$this->assertSame( 1, $this->skin->header_shown );
 		$this->assertSame( 1, $this->skin->footer_shown );
+	}
+
+	/**
+	 * Test the upgrader with an API that doesn't support Ed25519 verification.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @expectedIncorrectUsage WordPoints_Extension_Upgrader::verify_package_signature
+	 */
+	public function test_upgrade_no_ed25519_verification() {
+
+		$api = $this->createMock(
+			'WordPoints_Extension_Server_API_Updates_InstallableI'
+		);
+
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
+		$server->method( 'get_api' )->willReturn( $api );
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );
+		$mock->add_filter( 'wordpoints_server_object_for_extension' );
+
+		$result = $this->upgrade_test_extension(
+			'module-7/module-7.php'
+			, 'module-7-update'
+		);
+
+		$this->assertTrue( $result );
+
+		$this->assertCount( 0, $this->skin->errors );
+		$this->assertSame( 1, $this->skin->header_shown );
+		$this->assertSame( 1, $this->skin->footer_shown );
+	}
+
+	/**
+	 * Test the upgrader with an API without an Ed25519 public key for an extension.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @expectedIncorrectUsage WordPoints_Extension_Upgrader::verify_package_signature
+	 */
+	public function test_upgrade_no_ed25519_public_key() {
+
+		$api = $this->createMock(
+			'WordPoints_Extension_Server_API_EDD_SL'
+		);
+
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
+		$server->method( 'get_api' )->willReturn( $api );
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );
+		$mock->add_filter( 'wordpoints_server_object_for_extension' );
+
+		$result = $this->upgrade_test_extension(
+			'module-7/module-7.php'
+			, 'module-7-update'
+		);
+
+		$this->assertTrue( $result );
+
+		$this->assertCount( 0, $this->skin->errors );
+		$this->assertSame( 1, $this->skin->header_shown );
+		$this->assertSame( 1, $this->skin->footer_shown );
+	}
+
+	/**
+	 * Test the upgrader with an invalid Ed25519 signature for an extension.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_upgrade_invalid_ed25519_package_signature() {
+
+		$api = $this->createMock(
+			'WordPoints_Extension_Server_API_EDD_SL'
+		);
+
+		$api->method( 'get_extension_public_key_ed25519' )->willReturn(
+			'9c564cdb1763a72a81f2ddee1e27230ea4c18748ee14324ac4671d4be701492e'
+		);
+
+		$api->method( 'get_extension_package_signature_ed25519' )->willReturn(
+			'6d319e5c561f0caf97ed83b37693b3009be14a4bfbb304c2c8bbdbf4b508f0505d851c727334445f693f8e2e3624ce246bcc71082f014452fe8e047558228205'
+		);
+
+		$server = $this->createMock( 'WordPoints_Extension_ServerI' );
+		$server->method( 'get_api' )->willReturn( $api );
+
+		$mock = new WordPoints_PHPUnit_Mock_Filter( $server );
+		$mock->add_filter( 'wordpoints_server_object_for_extension' );
+
+		$result = $this->upgrade_test_extension(
+			'module-7/module-7.php'
+			, 'module-7-update'
+		);
+
+		$this->assertWPError( $result );
+		$this->assertSame( 'ed25519_mismatch', $result->get_error_code() );
+
+		$this->assertCount( 1, $this->skin->errors );
 	}
 
 	/**

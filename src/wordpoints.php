@@ -102,6 +102,17 @@ require_once WORDPOINTS_DIR . 'classes/class/autoloader.php';
 // Register the classes to autoload.
 WordPoints_Class_Autoloader::register_dir( WORDPOINTS_DIR . 'classes' );
 
+// Set up autoloading for Sodium Compat, if not already loaded by something else.
+if ( ! function_exists( 'sodiumCompatAutoader' ) ) {
+
+	/**
+	 * Class autoloader for the Sodium Compat library.
+	 *
+	 * @since 2.5.0
+	 */
+	require_once WORDPOINTS_DIR . 'library/sodium_compat/autoload.php';
+}
+
 // Set up the components class.
 WordPoints_Components::set_up();
 

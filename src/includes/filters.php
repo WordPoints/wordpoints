@@ -79,4 +79,6 @@ add_filter( 'wordpoints_extensions_url', 'wordpoints_legacy_modules_path', 5 );
 
 add_filter( 'wordpoints_extension_data', 'wordpoints_extension_data_missing_server_headers_filter' );
 
+add_filter( 'wordpoints_extension_server_api_edd_sl_ed25519_public_key', 'wordpoints_extension_server_ed25519_public_keys', 10, 2 );
+
 // EOF

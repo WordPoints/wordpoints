@@ -16,6 +16,7 @@ class WordPoints_Extension_Server_API_EDD_SL
 	implements WordPoints_Extension_Server_APII,
 		WordPoints_Extension_Server_API_Updates_InstallableI,
 		WordPoints_Extension_Server_API_Updates_ChangelogI,
+		WordPoints_Extension_Server_API_Updates_Signed_Ed25519I,
 		WordPoints_Extension_Server_API_LicensesI {
 
 	/**
@@ -104,6 +105,39 @@ class WordPoints_Extension_Server_API_EDD_SL
 		WordPoints_Extension_Server_API_Extension_DataI $extension_data
 	) {
 		return $this->get_extension_info( $extension_data, 'changelog' );
+	}
+
+	/**
+	 * @since 2.5.0
+	 */
+	public function get_extension_public_key_ed25519(
+		WordPoints_Extension_Server_API_Extension_DataI $extension_data
+	) {
+
+		/**
+		 * Filters the Ed25519 public key to use when verifying an extension.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param string|false                                    $public_key     The key, or false.
+		 * @param WordPoints_Extension_ServerI                    $server         The server object.
+		 * @param WordPoints_Extension_Server_API_Extension_DataI $extension_data The extension data.
+		 */
+		return apply_filters(
+			'wordpoints_extension_server_api_edd_sl_ed25519_public_key'
+			, false
+			, $this->server
+			, $extension_data
+		);
+	}
+
+	/**
+	 * @since 2.5.0
+	 */
+	public function get_extension_package_signature_ed25519(
+		WordPoints_Extension_Server_API_Extension_DataI $extension_data
+	) {
+		return $this->get_extension_info( $extension_data, 'ed25519_signature' );
 	}
 
 	/**
@@ -207,6 +241,10 @@ class WordPoints_Extension_Server_API_EDD_SL
 
 		if ( isset( $response['package'] ) ) {
 			$extension_data->set( 'package', $response['package'] );
+		}
+
+		if ( isset( $response['ed25519_signature'] ) ) {
+			$extension_data->set( 'ed25519_signature', $response['ed25519_signature'] );
 		}
 
 		if ( isset( $response['homepage'] ) ) {

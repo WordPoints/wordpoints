@@ -42,4 +42,13 @@ define( 'WORDPOINTS_DIR', dirname( dirname( __FILE__ ) ) . '/' );
  */
 define( 'WORDPOINTS_URL', plugins_url( '', WORDPOINTS_DIR . 'wordpoints.php' ) );
 
+/**
+ * The Ed25519 public key used to verify extension packages from wordpoints.org.
+ *
+ * @since 2.5.0
+ *
+ * @const WORDPOINTS_ORG_EXTENSIONS_ED25519_PUBLIC_KEY
+ */
+define( 'WORDPOINTS_ORG_EXTENSIONS_ED25519_PUBLIC_KEY', '9c564cdb1763a72a81f2ddee1e27230ea4c18748ee14324ac4671d4be701492e' );
+
 // EOF

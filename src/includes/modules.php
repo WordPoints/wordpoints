@@ -1625,4 +1625,26 @@ function wordpoints_extension_data_missing_server_headers_filter( $data ) {
 	return $data;
 }
 
+/**
+ * Filters the public key for an extension server.
+ *
+ * @since 2.5.0
+ *
+ * @WordPress\filter wordpoints_extension_server_api_edd_sl_ed25519_public_key
+ *
+ * @param string|false                 $public_key The public key for the server, or
+ *                                                 false if none.
+ * @param WordPoints_Extension_ServerI $server     The server.
+ *
+ * @return string|false The public key, or false if none.
+ */
+function wordpoints_extension_server_ed25519_public_keys( $public_key, $server ) {
+
+	if ( 'wordpoints.org' === $server->get_slug() ) {
+		$public_key = WORDPOINTS_ORG_EXTENSIONS_ED25519_PUBLIC_KEY;
+	}
+
+	return $public_key;
+}
+
 // EOF

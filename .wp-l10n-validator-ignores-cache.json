@@ -1408,7 +1408,7 @@
             }
         },
         "points": {
-            "1073": {
+            "1113": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1417,7 +1417,7 @@
             }
         },
         "ranks": {
-            "1097": {
+            "1137": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1426,7 +1426,7 @@
             }
         },
         "single": {
-            "1274": {
+            "1314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1435,7 +1435,7 @@
             }
         },
         "site": {
-            "1274": {
+            "1314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1444,14 +1444,14 @@
             }
         },
         "network": {
-            "1273": {
+            "1313": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "1274": {
+            "1314": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -3209,14 +3209,14 @@
     },
     "\/classes\/extension\/server\/api\/edd\/sl.php": {
         "package": {
-            "97": {
+            "98": {
                 "name": "WordPoints_Extension_Server_API_EDD_SL::get_extension_info",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "209": {
+            "243": {
                 "name": "$extension_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -3225,14 +3225,14 @@
             }
         },
         "changelog": {
-            "106": {
+            "107": {
                 "name": "WordPoints_Extension_Server_API_EDD_SL::get_extension_info",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 1,
                 "parentheses": 1
             },
-            "217": {
+            "255": {
                 "name": "$extension_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -3241,7 +3241,7 @@
             }
         },
         "homepage": {
-            "213": {
+            "251": {
                 "name": "$extension_data->set",
                 "type": "unknown",
                 "args_started": true,
@@ -3291,7 +3291,7 @@
     },
     "\/classes\/extension\/upgrader.php": {
         "update": {
-            "278": {
+            "304": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,

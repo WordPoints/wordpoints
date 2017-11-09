@@ -38,6 +38,24 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 	protected $bailed_early = false;
 
 	/**
+	 * The extension server API being used for the extension currently being updated.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var WordPoints_Extension_Server_APII
+	 */
+	protected $wordpoints_extension_api;
+
+	/**
+	 * The extension server API data for the extension currently being updated.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var WordPoints_Extension_Server_API_Extension_DataI
+	 */
+	protected $wordpoints_extension_data;
+
+	/**
 	 * Sets up the strings for an extension upgrade.
 	 *
 	 * @since 2.4.0
@@ -52,6 +70,9 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			'api_updates_not_supported' => esc_html__( 'That extension cannot be updated, because the API used to communicate with that server does not support updates.', 'wordpoints' ),
 			// translators: Update package URL.
 			'downloading_package'       => sprintf( esc_html__( 'Downloading update from %s&#8230;', 'wordpoints' ), '<span class="code">%s</span>' ),
+			'verifying_package'         => esc_html__( 'Verifying the update&#8230;', 'wordpoints' ),
+			// translators: Support forums link.
+			'verifying_package_failed'  => wp_kses_data( sprintf( __( 'Verifying the update failed. The update was not installed, because the package may have been modified by an attacker. Please <a href="%s">report this failure</a>.', 'wordpoints' ), 'https://wordpress.org/support/plugin/wordpoints' ) ),
 			'unpack_package'            => esc_html__( 'Unpacking the update&#8230;', 'wordpoints' ),
 			'remove_old'                => esc_html__( 'Removing the old version of the extension&#8230;', 'wordpoints' ),
 			'remove_old_failed'         => esc_html__( 'Could not remove the old extension.', 'wordpoints' ),
@@ -172,6 +193,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		add_filter( 'upgrader_clear_destination', array( $this, 'delete_old_extension' ), 10, 4 );
 		add_filter( 'upgrader_source_selection', array( $this, 'check_package' ) );
 		add_filter( 'upgrader_source_selection', array( $this, 'correct_extension_dir_name' ), 10, 4 );
+		add_filter( 'upgrader_pre_download', array( $this, 'verify_package_signature' ), 10, 3 );
 		add_filter( 'upgrader_pre_install', array( $this, 'deactivate_extension_before_upgrade' ), 10, 2 );
 
 		return $args;
@@ -235,6 +257,9 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 			, $server
 		);
 
+		$this->wordpoints_extension_api  = $api;
+		$this->wordpoints_extension_data = $extension_data;
+
 		return $this->run(
 			array(
 				'package'           => $api->get_extension_package_url( $extension_data ),
@@ -263,6 +288,7 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		remove_filter( 'upgrader_source_selection', array( $this, 'check_package' ) );
 		remove_filter( 'upgrader_source_selection', array( $this, 'correct_extension_dir_name' ) );
 		remove_filter( 'upgrader_clear_destination', array( $this, 'delete_old_extension' ) );
+		remove_filter( 'upgrader_pre_download', array( $this, 'verify_package_signature' ) );
 		remove_filter( 'upgrader_pre_install', array( $this, 'deactivate_extension_before_upgrade' ) );
 
 		if ( ! $this->bulk ) {
@@ -472,6 +498,92 @@ class WordPoints_Extension_Upgrader extends WordPoints_Module_Installer {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Verifies the signature of the update package before unpacking it.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @WordPress\filter upgrader_pre_download Added by self::upgrade().
+	 *
+	 * @param bool|WP_Error $return   True if we should do the upgrade, a WP_Error
+	 *                                otherwise.
+	 * @param string        $package  The package URL.
+	 * @param WP_Upgrader   $upgrader The upgrader.
+	 *
+	 * @return bool|WP_Error A WP_Error on failure, otherwise nothing.
+	 */
+	public function verify_package_signature( $return, $package, $upgrader ) {
+
+		if ( is_wp_error( $return ) ) {
+			return $return;
+		}
+
+		if ( $upgrader !== $this ) {
+			return $return;
+		}
+
+		// WARNING: In 3.0.0 we will change this to abort the update.
+		if ( ! $this->wordpoints_extension_api instanceof WordPoints_Extension_Server_API_Updates_Signed_Ed25519I ) {
+
+			_doing_it_wrong(
+				__METHOD__
+				, 'Extension server APIs should use digital signatures to verify packages.'
+				, '2.5.0'
+			);
+
+			return $return;
+		}
+
+		$public_key = $this->wordpoints_extension_api->get_extension_public_key_ed25519(
+			$this->wordpoints_extension_data
+		);
+
+		// WARNING: In 3.0.0 we will change this to abort the update.
+		if ( ! $public_key ) {
+
+			_doing_it_wrong(
+				__METHOD__
+				, 'Extension server APIs should use digital signatures to verify packages.'
+				, '2.5.0'
+			);
+
+			return $return;
+		}
+
+		remove_filter( 'upgrader_pre_download', array( $this, 'verify_package_signature' ) );
+
+		$download_file = $this->download_package( $package );
+
+		add_filter( 'upgrader_pre_download', array( $this, 'verify_package_signature' ), 10, 3 );
+
+		if ( is_wp_error( $download_file ) ) {
+			return $download_file;
+		}
+
+		$this->skin->feedback( 'verifying_package' );
+
+		$ed25519_check = wordpoints_verify_file_ed25519(
+			$download_file
+			, $public_key
+			, $this->wordpoints_extension_api->get_extension_package_signature_ed25519(
+				$this->wordpoints_extension_data
+			)
+		);
+
+		if ( is_wp_error( $ed25519_check ) ) {
+
+			/** @var WP_Error $ed25519_check */
+			$ed25519_check->add(
+				'verifying_package_failed'
+				, $this->strings['verifying_package_failed']
+			);
+
+			return $ed25519_check;
+		}
+
+		return $download_file;
 	}
 
 } // End class WordPoints_Extension_Upgrader.

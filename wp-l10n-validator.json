@@ -1,6 +1,7 @@
 {
 	"textdomain": { "wordpoints": true, "default": true },
 	"basedir": "./src",
+	"ignored-paths": [ "/library" ],
 	"bootstrap": "dev-lib/l10n-validator/bootstrap.php",
 	"cache": "./.wp-l10n-validator-cache.json",
 	"ignores-cache": "./.wp-l10n-validator-ignores-cache.json",

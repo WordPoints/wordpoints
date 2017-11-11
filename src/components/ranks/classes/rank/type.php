@@ -272,6 +272,10 @@ abstract class WordPoints_Rank_Type {
 
 		$rank_type = WordPoints_Rank_Types::get_type( $next_rank->type );
 
+		if ( ! $rank_type ) {
+			return $rank;
+		}
+
 		if ( ! $rank_type->can_transition_user_rank( $user_id, $next_rank, $args ) ) {
 			return $rank;
 		}
@@ -299,6 +303,10 @@ abstract class WordPoints_Rank_Type {
 		}
 
 		$rank_type = WordPoints_Rank_Types::get_type( $next_rank->type );
+
+		if ( ! $rank_type ) {
+			return array();
+		}
 
 		// If the rank type supports bulk increases, use that.
 		if ( $rank_type instanceof WordPoints_Rank_Type_Bulk_CheckI ) {
@@ -354,6 +362,10 @@ abstract class WordPoints_Rank_Type {
 
 		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
 
+		if ( ! $rank_type ) {
+			return $rank;
+		}
+
 		if ( $rank_type->can_transition_user_rank( $user_id, $rank, $args ) ) {
 			return $rank;
 		}
@@ -387,6 +399,10 @@ abstract class WordPoints_Rank_Type {
 		}
 
 		$rank_type = WordPoints_Rank_Types::get_type( $rank->type );
+
+		if ( ! $rank_type ) {
+			return array();
+		}
 
 		// If the rank type supports bulk checks, use that.
 		if ( $rank_type instanceof WordPoints_Rank_Type_Bulk_CheckI ) {

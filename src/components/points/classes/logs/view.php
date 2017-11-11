@@ -202,9 +202,9 @@ abstract class WordPoints_Points_Logs_View {
 
 		foreach ( $this->logs as $log ) {
 
-			if ( isset( $current_site_id ) && $current_site_id !== $log->blog_id ) {
+			if ( isset( $current_site_id ) && $current_site_id !== (int) $log->blog_id ) {
 				switch_to_blog( $log->blog_id );
-				$current_site_id = $log->blog_id;
+				$current_site_id = (int) $log->blog_id;
 			}
 
 			$this->restriction = $viewing_restrictions->get_restriction( $log );

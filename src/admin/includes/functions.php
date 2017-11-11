@@ -1463,6 +1463,7 @@ function wordpoints_admin_save_extension_licenses( $extensions ) {
 			if ( true === $result ) {
 				wordpoints_show_admin_message( esc_html__( 'License activated.', 'wordpoints' ) );
 				$extension_data->set( 'license_key', $license_key );
+				wordpoints_check_for_extension_updates_now();
 			} elseif ( is_wp_error( $result ) ) {
 				// translators: Error message.
 				wordpoints_show_admin_error( sprintf( esc_html__( 'Sorry, there was an error while trying to activate the license: %s', 'wordpoints' ), $result->get_error_message() ) );

@@ -13,8 +13,8 @@ php:
 env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=develop
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.9
     - TRAVISCI_RUN=phpunit WP_VERSION=4.8
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.7
 
 dist: trusty
 
@@ -34,19 +34,19 @@ matrix:
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop
     - php: 5.3
       dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9
     - php: 5.3
       dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8
     - php: 5.2
       dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop
     - php: 5.2
       dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9
     - php: 5.2
       dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8
     # Only run nightly against trunk.
     - php: nightly
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop

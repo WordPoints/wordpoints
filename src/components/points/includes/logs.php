@@ -434,7 +434,7 @@ function wordpoints_flush_points_logs_caches( $args = array() ) {
 function wordpoints_user_can_view_points_log( $user_id, $log ) {
 
 	// We do this just once here for optimization, as otherwise it would run 3 times.
-	if ( $log->blog_id && get_current_blog_id() !== $log->blog_id ) {
+	if ( $log->blog_id && get_current_blog_id() !== (int) $log->blog_id ) {
 		$switched = switch_to_blog( $log->blog_id );
 	}
 

@@ -10,6 +10,14 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 Nothing documented yet.
 
+## [2.4.1] - 2017-11-13
+
+### Fixed
+
+- More fatal errors when viewing the points logs after deactivating the BuddyPress plugin. #745
+- Fatal errors when a rank type is not known. #744
+- Stale extension data not being refreshed when after activating the extension's license. #749
+
 ## [2.4.0] - 2017-10-26
 
 ### Requires
@@ -525,6 +533,7 @@ Nothing documented yet.
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/master...develop
+[2.4.1]: https://github.com/WordPoints/wordpoints/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/WordPoints/wordpoints/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/WordPoints/wordpoints/compare/2.2.2...2.3.0
 [2.2.2]: https://github.com/WordPoints/wordpoints/compare/2.2.1...2.2.2

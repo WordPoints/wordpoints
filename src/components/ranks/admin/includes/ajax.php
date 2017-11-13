@@ -195,7 +195,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$type = $this->get_rank_type()->get_slug();
 
 		if ( $type !== $rank->type ) {
-			wp_send_json_error( array( 'message' => __( 'This rank does not match any rank in the database, perhaps it was deleted. Refresh the page to update the list of ranks.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'This rank does not match any rank in the database, perhaps it was deleted. Refresh the page to update the list of ranks.', 'wordpoints' ) ), 400 );
 		}
 
 		$result = wordpoints_update_rank(
@@ -229,7 +229,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$result = wordpoints_delete_rank( $rank->ID );
 
 		if ( ! $result ) {
-			wp_send_json_error( array( 'message' => __( 'There was an error deleting the rank. Please try again.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'There was an error deleting the rank. Please try again.', 'wordpoints' ) ), 500 );
 		}
 
 		wp_send_json_success();
@@ -257,6 +257,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 				'message' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
 				'debug'   => $debug_context,
 			)
+			, 400
 		);
 	}
 
@@ -271,7 +272,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 	private function verify_user_can() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sorry, you are not allowed to perform this action. Maybe you have been logged out?', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Sorry, you are not allowed to perform this action. Maybe you have been logged out?', 'wordpoints' ) ), 403 );
 		}
 	}
 
@@ -292,6 +293,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		) {
 			wp_send_json_error(
 				array( 'message' => __( 'Your security token for this action has expired. Refresh the page and try again.', 'wordpoints' ) )
+				, 403
 			);
 		}
 	}
@@ -312,7 +314,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$group = WordPoints_Rank_Groups::get_group( sanitize_key( $_POST['group'] ) ); // WPCS: CSRF OK.
 
 		if ( ! $group ) {
-			wp_send_json_error( array( 'message' => __( 'The rank group passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'The rank group passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ), 400 );
 		}
 
 		return $group;
@@ -334,7 +336,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$rank = wordpoints_get_rank( wordpoints_int( $_POST['id'] ) ); // WPCS: CSRF OK.
 
 		if ( ! $rank ) {
-			wp_send_json_error( array( 'message' => __( 'The rank ID passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'The rank ID passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ), 400 );
 		}
 
 		return $rank;
@@ -361,6 +363,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 					'message' => __( 'Please enter a name for this rank.', 'wordpoints' ),
 					'field'   => 'name',
 				)
+				, 400
 			);
 		}
 
@@ -383,7 +386,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 		$type = sanitize_text_field( wp_unslash( $_POST['type'] ) ); // WPCS: CSRF OK.
 
 		if ( ! WordPoints_Rank_Types::is_type_registered( $type ) ) {
-			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'That rank type was not recognized. It may no longer be available. Try reloading the page.', 'wordpoints' ) ), 400 );
 		}
 
 		$this->rank_type = WordPoints_Rank_Types::get_type( $type );
@@ -443,7 +446,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 				$message = __( 'There was an error updating the rank. Please try again.', 'wordpoints' );
 			}
 
-			wp_send_json_error( array( 'message' => $message ) );
+			wp_send_json_error( array( 'message' => $message ), 500 );
 
 		} elseif ( is_wp_error( $result ) ) {
 
@@ -452,6 +455,7 @@ final class WordPoints_Ranks_Admin_Screen_Ajax {
 					'message' => $result->get_error_message(),
 					'data'    => $result->get_error_data(),
 				)
+				, 400
 			);
 		}
 

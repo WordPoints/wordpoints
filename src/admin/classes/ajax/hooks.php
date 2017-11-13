@@ -258,7 +258,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		$result = $reaction_store->delete_reaction( $reaction->get_id() );
 
 		if ( ! $result ) {
-			wp_send_json_error( array( 'message' => __( 'There was an error deleting the reaction. Please try again.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'There was an error deleting the reaction. Please try again.', 'wordpoints' ) ), 500 );
 		}
 
 		wp_send_json_success();
@@ -286,6 +286,7 @@ class WordPoints_Admin_Ajax_Hooks {
 				'message' => __( 'There was an unexpected error. Try reloading the page.', 'wordpoints' ),
 				'debug'   => $debug_context,
 			)
+			, 400
 		);
 	}
 
@@ -300,7 +301,7 @@ class WordPoints_Admin_Ajax_Hooks {
 	private function verify_user_can() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Sorry, you are not allowed to perform this action. Maybe you have been logged out?', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Sorry, you are not allowed to perform this action. Maybe you have been logged out?', 'wordpoints' ) ), 403 );
 		}
 	}
 
@@ -321,6 +322,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		) {
 			wp_send_json_error(
 				array( 'message' => __( 'Your security token for this action has expired. Refresh the page and try again.', 'wordpoints' ) )
+				, 403
 			);
 		}
 	}
@@ -370,7 +372,7 @@ class WordPoints_Admin_Ajax_Hooks {
 		);
 
 		if ( ! $reaction ) {
-			wp_send_json_error( array( 'message' => __( 'The reaction ID passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ) );
+			wp_send_json_error( array( 'message' => __( 'The reaction ID passed to the server is invalid. Perhaps it has been deleted. Try reloading the page.', 'wordpoints' ) ), 400 );
 		}
 
 		return $reaction;
@@ -410,11 +412,11 @@ class WordPoints_Admin_Ajax_Hooks {
 				$message = __( 'There was an error updating the reaction. Please try again.', 'wordpoints' );
 			}
 
-			wp_send_json_error( array( 'message' => $message ) );
+			wp_send_json_error( array( 'message' => $message ), 500 );
 
 		} elseif ( $result instanceof WordPoints_Hook_Reaction_Validator ) {
 
-			wp_send_json_error( array( 'errors' => $result->get_errors() ) );
+			wp_send_json_error( array( 'errors' => $result->get_errors() ), 400 );
 		}
 
 		$data = null;

@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, credits, gamify, ranks, games
 Requires at least: 4.7
-Tested up to: 4.9-beta4-42020
-Stable tag: 2.4.0
+Tested up to: 4.9
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,14 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.4.1 — 2017-11-13 =
+
+##### Fixed
+
+- Fatal errors when a rank type was not recognized. This should usually never happen.
+- More fatal errors when viewing the points logs after deactivating BuddyPress.
+- "Update package not found" errors when attempting to update an extension.
 
 = 2.4.0 — 2017-10-26 =
 
@@ -186,6 +194,9 @@ This plugin adheres to [Semantic Versioning](http://semver.org/).
 If you'd like to view the changelog for older versions, see the [changelog.txt](https://plugins.svn.wordpress.org/wordpoints/trunk/changelog.txt) file included with the plugin.
 
 == Upgrade Notice ==
+
+= 2.4.1 =
+Fixes a few errors that occurred under rare circumstances.
 
 = 2.4.0 =
 Adds support for extension updates, a shortcode to display available ranks, the

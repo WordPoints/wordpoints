@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPoints 1.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-10-25 20:17:50+00:00\n"
+"POT-Creation-Date: 2017-11-11 21:42:25+00:00\n"
 "PO-Revision-Date: 2015-06-22 19:24+0200\n"
 "Last-Translator: Rimantas <info@auksinas.lt>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/wordpoints/"
@@ -161,7 +161,7 @@ msgstr "Išvalyti sąraša"
 
 #. translators: Extension name.
 #: admin/classes/list/table/extensions.php:751
-#: admin/includes/functions.php:1871
+#: admin/includes/functions.php:1872
 msgid "Select %s"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgstr "Atjungti"
 msgid "Activate %s"
 msgstr "Aktyvuoti"
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:340
@@ -455,7 +455,7 @@ msgstr ""
 
 #: admin/includes/functions.php:1069 admin/includes/functions.php:1109
 #: admin/includes/functions.php:1164 admin/includes/functions.php:1209
-#: admin/includes/functions.php:1738
+#: admin/includes/functions.php:1739
 #, fuzzy
 msgid ""
 "Sorry, you are not allowed to update WordPoints extensions for this site."
@@ -520,160 +520,160 @@ msgid "License activated."
 msgstr "Atjungti"
 
 #. translators: Error message.
-#: admin/includes/functions.php:1468
+#: admin/includes/functions.php:1469
 msgid "Sorry, there was an error while trying to activate the license: %s"
 msgstr ""
 
-#: admin/includes/functions.php:1470
+#: admin/includes/functions.php:1471
 msgid "That license key is invalid."
 msgstr ""
 
-#: admin/includes/functions.php:1475 admin/includes/functions.php:1479
+#: admin/includes/functions.php:1476 admin/includes/functions.php:1480
 msgid "Sorry, that license key is expired, and must be renewed."
 msgstr ""
 
-#: admin/includes/functions.php:1476 admin/includes/functions.php:1712
-#: admin/includes/functions.php:2650
+#: admin/includes/functions.php:1477 admin/includes/functions.php:1713
+#: admin/includes/functions.php:2651
 #, fuzzy
 msgid "Renew License"
 msgstr "Atjungti"
 
-#: admin/includes/functions.php:1482
+#: admin/includes/functions.php:1483
 msgid "Sorry, that license key is expired."
 msgstr ""
 
-#: admin/includes/functions.php:1487
+#: admin/includes/functions.php:1488
 msgid "Sorry, that license key cannot be activated."
 msgstr ""
 
-#: admin/includes/functions.php:1510
+#: admin/includes/functions.php:1511
 #, fuzzy
 msgid "License deactivated."
 msgstr "Atjungti"
 
 #. translators: Error message.
-#: admin/includes/functions.php:1513
+#: admin/includes/functions.php:1514
 msgid "Sorry, there was an error while trying to deactivate the license: %s"
 msgstr ""
 
-#: admin/includes/functions.php:1515
+#: admin/includes/functions.php:1516
 msgid ""
 "Sorry, there was an unknown error while trying to deactivate that license "
 "key."
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:1658
+#: admin/includes/functions.php:1659
 msgid "License key for %s"
 msgstr ""
 
-#: admin/includes/functions.php:1666
+#: admin/includes/functions.php:1667
 msgid "License key:"
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:1684
+#: admin/includes/functions.php:1685
 #, fuzzy
 msgid "Deactivate License for %s"
 msgstr "Atjungti"
 
-#: admin/includes/functions.php:1687
+#: admin/includes/functions.php:1688
 #, fuzzy
 msgid "Deactivate License"
 msgstr "Atjungti"
 
 #. translators: Extension name.
-#: admin/includes/functions.php:1695
+#: admin/includes/functions.php:1696
 #, fuzzy
 msgid "Activate License for %s"
 msgstr "Aktyvuoti"
 
-#: admin/includes/functions.php:1698 admin/includes/functions.php:2715
+#: admin/includes/functions.php:1699 admin/includes/functions.php:2716
 #, fuzzy
 msgid "Activate License"
 msgstr "Aktyvuoti"
 
-#: admin/includes/functions.php:1704
+#: admin/includes/functions.php:1705
 msgid "This license key is expired and must be renewed."
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:1709
+#: admin/includes/functions.php:1710
 msgid "Renew License for %s"
 msgstr ""
 
-#: admin/includes/functions.php:1715
+#: admin/includes/functions.php:1716
 msgid "This license key is expired."
 msgstr ""
 
-#: admin/includes/functions.php:1742
+#: admin/includes/functions.php:1743
 msgid "No extension supplied."
 msgstr ""
 
-#: admin/includes/functions.php:1750
+#: admin/includes/functions.php:1751
 msgid "That extension does not exist."
 msgstr ""
 
-#: admin/includes/functions.php:1756
+#: admin/includes/functions.php:1757
 msgid "There is no server specified for this extension."
 msgstr ""
 
-#: admin/includes/functions.php:1762
+#: admin/includes/functions.php:1763
 msgid "The server for this extension uses an unsupported API."
 msgstr ""
 
-#: admin/includes/functions.php:1833 admin/screens/modules.php:159
+#: admin/includes/functions.php:1834 admin/screens/modules.php:159
 #, fuzzy
 msgid "WordPoints Extensions"
 msgstr "WordPoints - Moduliai"
 
-#: admin/includes/functions.php:1836
+#: admin/includes/functions.php:1837
 msgid "Your extensions are all up to date."
 msgstr ""
 
-#: admin/includes/functions.php:1840
+#: admin/includes/functions.php:1841
 msgid ""
 "The following extensions have new versions available. Check the ones you "
 "want to update and then click &#8220;Update Extensions&#8221;."
 msgstr ""
 
-#: admin/includes/functions.php:1845 admin/includes/functions.php:1925
+#: admin/includes/functions.php:1846 admin/includes/functions.php:1926
 #, fuzzy
 msgid "Update Extensions"
 msgstr "Įkrauti WordPoints modulį"
 
-#: admin/includes/functions.php:1854 admin/includes/functions.php:1920
+#: admin/includes/functions.php:1855 admin/includes/functions.php:1921
 msgid "Select All"
 msgstr ""
 
 #. translators: 1. Installed version number; 2. Update version number.
-#: admin/includes/functions.php:1888
+#: admin/includes/functions.php:1889
 msgid "You have version %1$s installed. Update to %2$s."
 msgstr ""
 
 #. translators: Version number.
-#: admin/includes/functions.php:1901
+#: admin/includes/functions.php:1902
 msgid "View version %1$s details."
 msgstr ""
 
-#: admin/includes/functions.php:1987
+#: admin/includes/functions.php:1988
 msgid ""
 "This appears to be a WordPoints extension archive. Try installing it on the "
 "WordPoints extension install screen instead."
 msgstr ""
 
-#: admin/includes/functions.php:2017
+#: admin/includes/functions.php:2018
 msgid "Like this plugin?"
 msgstr "Ar patinka šis įskiepis?"
 
 #. translators: URL for leaving a review of WordPoints on WordPress.org.
-#: admin/includes/functions.php:2024
+#: admin/includes/functions.php:2025
 msgid ""
 "If you think WordPoints is great, let everyone know by giving it a <a href="
 "\"%s\">5 star rating</a>."
 msgstr ""
 
-#: admin/includes/functions.php:2032
+#: admin/includes/functions.php:2033
 msgid ""
 "If you don&#8217;t think this plugin deserves 5 stars, please let us know "
 "how we can improve it."
@@ -681,110 +681,110 @@ msgstr ""
 "Jei manote, kad šis įskiepis nevertas 5 žvaigždučių, prašome mums pranešti, "
 "kaip galėtumėme jį pagerinti."
 
-#: admin/includes/functions.php:2035
+#: admin/includes/functions.php:2036
 msgid "Need help?"
 msgstr "Ar reikia pagalbos?"
 
 #. translators: URL of WordPoints plugin support forums WordPress.org.
-#: admin/includes/functions.php:2042
+#: admin/includes/functions.php:2043
 msgid ""
 "Post your feature request or support question in the <a href=\"%s\">support "
 "forums</a>"
 msgstr "Skelbkite savo prašymus ir klausimus <a href=\"%s\">support forums</a>"
 
-#: admin/includes/functions.php:2050
+#: admin/includes/functions.php:2051
 msgid "Thank you for using WordPoints!"
 msgstr "Ačiū, kad naudojatės WordPoints!"
 
 #. translators: 1. Plugin version; 2. List of extensions.
-#: admin/includes/functions.php:2078
+#: admin/includes/functions.php:2079
 msgid ""
 "WordPoints has deactivated the following extensions because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
 #. translators: 1. Plugin version; 2. List of extensions.
-#: admin/includes/functions.php:2095
+#: admin/includes/functions.php:2096
 msgid ""
 "WordPoints has deactivated the following network-active extensions because "
 "of incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
 #. translators: 1. Plugin version; 2. List of extensions.
-#: admin/includes/functions.php:2114
+#: admin/includes/functions.php:2115
 msgid ""
 "WordPoints has deactivated the following extensions on this site because of "
 "incompatibilities with WordPoints %1$s: %2$s"
 msgstr ""
 
 #. translators: 1. Plugin version; 2. List of extensions.
-#: admin/includes/functions.php:2153
+#: admin/includes/functions.php:2154
 msgid ""
 "WordPoints has deactivated the following extensions because their features "
 "have now been merged into WordPoints %1$s: %2$s."
 msgstr ""
 
-#: admin/includes/functions.php:2159
+#: admin/includes/functions.php:2160
 msgid "You can now safely delete these extensions."
 msgstr ""
 
-#: admin/includes/functions.php:2172
+#: admin/includes/functions.php:2173
 msgid "Delete Unneeded Extensions"
 msgstr ""
 
-#: admin/includes/functions.php:2476
+#: admin/includes/functions.php:2477
 msgid ""
 "A WordPoints update is available, but your system is not compatible because "
 "it is running an outdated version of PHP."
 msgstr ""
 
 #. translators: URL of WordPoints PHP Compatibility docs.
-#: admin/includes/functions.php:2482
+#: admin/includes/functions.php:2483
 msgid "See <a href=\"%s\">the WordPoints user guide</a> for more information."
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:2616
+#: admin/includes/functions.php:2617
 msgid ""
 "Please fill in your license key for the %s extension for WordPoints, so that "
 "you can receive updates."
 msgstr ""
 
-#: admin/includes/functions.php:2619 admin/includes/functions.php:2635
-#: admin/includes/functions.php:2661 admin/includes/functions.php:2673
+#: admin/includes/functions.php:2620 admin/includes/functions.php:2636
+#: admin/includes/functions.php:2662 admin/includes/functions.php:2674
 #, fuzzy
 msgid "WordPoints Extensions screen &raquo;"
 msgstr "WordPoints - Moduliai"
 
 #. translators: Extension name.
-#: admin/includes/functions.php:2632
+#: admin/includes/functions.php:2633
 msgid ""
 "Your license key for the %s extension for WordPoints appears to be invalid. "
 "Please enter a valid license key so that you can receive updates."
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:2647 admin/includes/functions.php:2658
+#: admin/includes/functions.php:2648 admin/includes/functions.php:2659
 msgid ""
 "Your license key for the %s extension for WordPoints is expired. Please "
 "renew your license key so that you can receive updates."
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:2670
+#: admin/includes/functions.php:2671
 msgid ""
 "Your license key for the %s extension for WordPoints is expired. Please "
 "enter a valid license key so that you can receive updates."
 msgstr ""
 
 #. translators: Extension name.
-#: admin/includes/functions.php:2683
+#: admin/includes/functions.php:2684
 #, fuzzy
 msgid "Activate License for %s WordPoints Extension"
 msgstr "Įkrauti WordPoints modulį"
 
 #. translators: Extension name.
-#: admin/includes/functions.php:2693
+#: admin/includes/functions.php:2694
 msgid ""
 "Your license key for the %s extension for WordPoints is not active. Please "
 "activate it so that you can receive updates."
@@ -792,7 +792,7 @@ msgstr ""
 
 #. translators: 1. Extension/plugin name; 2. "extension", "plugin", or
 #. "component".
-#: admin/includes/functions.php:2747
+#: admin/includes/functions.php:2748
 msgid ""
 "WordPoints detected a large network and has skipped part of the installation "
 "process for &#8220;%1$s&#8221; %2$s."
@@ -800,28 +800,28 @@ msgstr ""
 
 #. translators: 1. Extension/plugin name; 2. "extension", "plugin", or
 #. "component"; 3. Version number.
-#: admin/includes/functions.php:2750
+#: admin/includes/functions.php:2751
 msgid ""
 "WordPoints detected a large network and has skipped part of the update "
 "process for &#8220;%1$s&#8221; %2$s for version %3$s (and possibly later "
 "versions)."
 msgstr ""
 
-#: admin/includes/functions.php:2772
+#: admin/includes/functions.php:2773
 #, fuzzy
 msgid "(extension)"
 msgstr "Versija"
 
-#: admin/includes/functions.php:2776
+#: admin/includes/functions.php:2777
 #, fuzzy
 msgid "(component)"
 msgstr "Komponentas"
 
-#: admin/includes/functions.php:2780
+#: admin/includes/functions.php:2781
 msgid "(plugin)"
 msgstr ""
 
-#: admin/includes/functions.php:2804
+#: admin/includes/functions.php:2805
 #, fuzzy
 msgid ""
 "The rest of the process needs to be completed manually. If this has not been "
@@ -830,7 +830,7 @@ msgstr ""
 "Likusi proceso dalis turi būti užbaigta rankiniu būdu. Jei tai nepadaryta, "
 "kai kurios įskiepio dalys gali funkcionuoti nepilnai."
 
-#: admin/includes/functions.php:2805
+#: admin/includes/functions.php:2806
 msgid "Learn more."
 msgstr "Sužinokite daugiau."
 

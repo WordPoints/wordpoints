@@ -91,7 +91,7 @@ class WordPoints_Points_Logs_Viewing_Restriction_Wrapper
 	 */
 	public function user_can( $user_id ) {
 
-		if ( $this->log->blog_id && get_current_blog_id() !== $this->log->blog_id ) {
+		if ( $this->log->blog_id && get_current_blog_id() !== (int) $this->log->blog_id ) {
 			$switched = switch_to_blog( $this->log->blog_id );
 		}
 

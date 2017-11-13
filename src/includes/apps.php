@@ -633,8 +633,7 @@ function wordpoints_is_network_context() {
 
 	// See https://core.trac.wordpress.org/ticket/22589
 	if (
-		defined( 'DOING_AJAX' )
-		&& DOING_AJAX
+		wp_doing_ajax()
 		&& isset( $_SERVER['HTTP_REFERER'] )
 		&& preg_match(
 			'#^' . preg_quote( network_admin_url(), '#' ) . '#i'

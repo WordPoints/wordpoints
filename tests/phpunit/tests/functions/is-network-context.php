@@ -69,9 +69,7 @@ class WordPoints_Is_Network_Context_Function_Test extends WordPoints_PHPUnit_Tes
 
 		$_SERVER['HTTP_REFERER'] = network_admin_url() . '/admin-ajax.php';
 
-		if ( ! defined( 'DOING_AJAX' ) ) {
-			define( 'DOING_AJAX', true );
-		}
+		add_filter( 'wp_doing_ajax', '__return_true' );
 
 		$this->assertTrue( wordpoints_is_network_context() );
 	}

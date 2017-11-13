@@ -2220,7 +2220,7 @@ function wordpoints_delete_admin_notice_option() {
 		}
 	}
 
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	if ( wp_doing_ajax() ) {
 		wp_die( '', 200 );
 	}
 }
@@ -2297,7 +2297,7 @@ function wordpoints_admin_ajax_breaking_module_check() {
  */
 function wordpoints_hooks_admin_ajax() {
 
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	if ( wp_doing_ajax() ) {
 		new WordPoints_Admin_Ajax_Hooks();
 	}
 }

@@ -367,7 +367,7 @@ WordPointsHooks = {
 				self.addHook( chooser );
 				self.closeChooser();
 
-			} else if ( $target.hasClass('button-secondary') ) {
+			} else if ( $target.hasClass('button') ) {
 
 				self.closeChooser();
 			}
@@ -376,7 +376,7 @@ WordPointsHooks = {
 
 			if ( event.which === $.ui.keyCode.ENTER ) {
 
-				if ( $( event.target ).hasClass('button-secondary') ) {
+				if ( ! $( event.target ).hasClass('button-primary') ) {
 					// Close instead of adding when pressing Enter on the Cancel button
 					self.closeChooser();
 				} else {

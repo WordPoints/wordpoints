@@ -136,10 +136,10 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 				</div>
 				<div class="action-buttons">
 					<button class="save button-primary" disabled><?php esc_html_e( 'Save', 'wordpoints' ); ?></button>
-					<button class="cancel button-secondary"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></button>
-					<button class="close button-secondary"><?php esc_html_e( 'Close', 'wordpoints' ); ?></button>
+					<button class="cancel button"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></button>
+					<button class="close button"><?php esc_html_e( 'Close', 'wordpoints' ); ?></button>
 					<?php if ( 'base' !== $rank_type ) : ?>
-						<button class="delete button-secondary"><?php esc_html_e( 'Delete', 'wordpoints' ); ?></button>
+						<button class="delete button"><?php esc_html_e( 'Delete', 'wordpoints' ); ?></button>
 					<?php endif; ?>
 				</div>
 			</div>

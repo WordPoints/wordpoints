@@ -259,7 +259,7 @@ jQuery( function ( $ ) {
 					buttons: [
 						{
 							text: ranks.l10n.cancelText,
-							'class': 'button-secondary',
+							'class': 'button',
 							click: function() {
 								$( this ).dialog( 'close' );
 							}

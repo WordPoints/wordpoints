@@ -155,7 +155,7 @@ do_action( 'wordpoints_admin_components_top' );
 					<input type="hidden" name="wordpoints_component_action" value="<?php echo esc_attr( $action ); ?>" />
 					<input type="hidden" name="wordpoints_component" value="<?php echo esc_attr( $component['slug'] ); ?>" />
 					<?php wp_nonce_field( "wordpoints_{$action}_component-{$component['slug']}" ); ?>
-					<?php submit_button( $button, "secondary wordpoints-component-{$action}", "wordpoints-component-{$action}_{$component['slug']}", false ); ?>
+					<?php submit_button( $button, "wordpoints-component-{$action}", "wordpoints-component-{$action}_{$component['slug']}", false ); ?>
 				</form>
 			</td>
 		</tr>

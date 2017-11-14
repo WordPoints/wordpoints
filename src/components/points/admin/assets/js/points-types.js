@@ -45,7 +45,7 @@ jQuery( document ).ready( function ( $ ) {
 					buttons: [
 						{
 							text: WordPointsPointsTypesL10n.cancelText,
-							'class': 'button-secondary',
+							'class': 'button',
 							click: function() {
 								$( this ).dialog( 'destroy' );
 								$currentDelete = false;

@@ -262,7 +262,7 @@ if ( is_network_admin() ) {
 		<h3><?php esc_html_e( 'Choose a points type:', 'wordpoints' ); ?></h3>
 		<ul class="hooks-chooser-points-types"></ul>
 		<div class="hooks-chooser-actions">
-			<button class="button-secondary"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></button>
+			<button class="button"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></button>
 			<button class="button-primary"><?php esc_html_e( 'Add Hook', 'wordpoints' ); ?></button>
 		</div>
 	</div>

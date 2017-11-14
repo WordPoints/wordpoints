@@ -172,8 +172,8 @@
  * - New.
  */
 
-/* The .button-secondary is to override the default display styles for that class */
-.wordpoints-rank.new .delete.button-secondary {
+/* The .button is to override the default display styles for that class */
+.wordpoints-rank.new .delete.button {
 	display: none;
 }
 
@@ -213,8 +213,8 @@
 	float: right;
 }
 
-/* The .button-secondary is to override the default display styles for that class */
-.wordpoints-rank .cancel.button-secondary {
+/* The .button is to override the default display styles for that class */
+.wordpoints-rank .cancel.button {
 	display: none;
 }
 

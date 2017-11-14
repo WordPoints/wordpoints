@@ -312,7 +312,7 @@ Reaction = Base.extend({
 				buttons: [
 					{
 						text: l10n.cancelText,
-						'class': 'button-secondary',
+						'class': 'button',
 						click: function() {
 							$( this ).dialog( 'destroy' );
 						}

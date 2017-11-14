@@ -359,10 +359,10 @@ function wordpoints_register_admin_scripts() {
 		<script type="text/template" id="tmpl-wordpoints-hook-reaction">
 			<div class="view">
 				<div class="title"></div>
-				<button type="button" class="edit button-secondary">
+				<button type="button" class="edit button">
 					' . esc_html__( 'Edit', 'wordpoints' ) . '
 				</button>
-				<button type="button" class="close button-secondary">
+				<button type="button" class="close button">
 					' . esc_html__( 'Close', 'wordpoints' ) . '
 				</button>
 			</div>
@@ -384,13 +384,13 @@ function wordpoints_register_admin_scripts() {
 							<button type="button" class="save button-primary" disabled>
 								' . esc_html__( 'Save', 'wordpoints' ) . '
 							</button>
-							<button type="button" class="cancel button-secondary">
+							<button type="button" class="cancel button">
 								' . esc_html__( 'Cancel', 'wordpoints' ) . '
 							</button>
-							<button type="button" class="close button-secondary">
+							<button type="button" class="close button">
 								' . esc_html__( 'Close', 'wordpoints' ) . '
 							</button>
-							<button type="button" class="delete button-secondary">
+							<button type="button" class="delete button">
 								' . esc_html__( 'Delete', 'wordpoints' ) . '
 							</button>
 						</div>
@@ -451,7 +451,7 @@ function wordpoints_register_admin_scripts() {
 			<script type="text/template" id="tmpl-wordpoints-hook-condition-groups">
 				<div class="conditions-title section-title">
 					<h4>' . esc_html__( 'Conditions', 'wordpoints' ) . '</h4>
-					<button type="button" class="add-new button-secondary wordpoints-hooks-icon-button">
+					<button type="button" class="add-new button wordpoints-hooks-icon-button">
 						<span class="screen-reader-text">' . esc_html__( 'Add New Condition', 'wordpoints' ) . '</span>
 						<span class="dashicons dashicons-plus"></span>
 					</button>
@@ -464,10 +464,10 @@ function wordpoints_register_admin_scripts() {
 						<div class="arg-selectors"></div>
 						<div class="condition-selector"></div>
 					</div>
-					<button type="button" class="confirm-add-new button-secondary" disabled aria-label="' . esc_attr__( 'Add Condition', 'wordpoints' ) . '">
+					<button type="button" class="confirm-add-new button" disabled aria-label="' . esc_attr__( 'Add Condition', 'wordpoints' ) . '">
 						' . esc_html_x( 'Add', 'reaction condition', 'wordpoints' ) . '
 					</button>
-					<button type="button" class="cancel-add-new button-secondary" aria-label="' . esc_attr__( 'Cancel Adding New Condition', 'wordpoints' ) . '">
+					<button type="button" class="cancel-add-new button" aria-label="' . esc_attr__( 'Cancel Adding New Condition', 'wordpoints' ) . '">
 						' . esc_html_x( 'Cancel', 'reaction condition', 'wordpoints' ) . '
 					</button>
 				</div>
@@ -481,7 +481,7 @@ function wordpoints_register_admin_scripts() {
 			<script type="text/template" id="tmpl-wordpoints-hook-reaction-condition">
 				<div class="condition-controls">
 					<div class="condition-title"></div>
-					<button type="button" class="delete button-secondary wordpoints-hooks-icon-button">
+					<button type="button" class="delete button wordpoints-hooks-icon-button">
 						<span class="screen-reader-text">' . esc_html__( 'Remove Condition', 'wordpoints' ) . '</span>
 						<span class="dashicons dashicons-no"></span>
 					</button>
@@ -903,7 +903,7 @@ function wordpoints_show_admin_message( $message, $type = 'success', array $args
 			<form method="post" class="wordpoints-notice-dismiss-form" style="padding-bottom: 5px;">
 				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
 				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>
-				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), 'secondary', 'wordpoints_dismiss_notice', false ); ?>
+				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), '', 'wordpoints_dismiss_notice', false ); ?>
 			</form>
 		<?php endif; ?>
 	</div>
@@ -1685,7 +1685,7 @@ function wordpoints_extension_license_row( $extension_file, $extension ) {
 							$aria_label = __( 'Deactivate License for %s', 'wordpoints' );
 
 							?>
-							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>" />
+							<input type="submit" name="deactivate-license-<?php echo esc_attr( $extension_id ); ?>" class="button" value="<?php esc_attr_e( 'Deactivate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>" />
 						<?php endif; ?>
 					<?php elseif ( empty( $license_key ) || $license->is_activatable() ) : ?>
 						<?php
@@ -1696,7 +1696,7 @@ function wordpoints_extension_license_row( $extension_file, $extension ) {
 						$aria_label = __( 'Activate License for %s', 'wordpoints' );
 
 						?>
-						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button-secondary" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>" />
+						<input type="submit" name="activate-license-<?php echo esc_attr( $extension_id ); ?>" class="button" value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>" aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension['name'] ) ); ?>" />
 					<?php endif; ?>
 				<?php endif; ?>
 					<?php if ( $license instanceof WordPoints_Extension_Server_API_Extension_License_ExpirableI ) : ?>
@@ -2712,7 +2712,7 @@ function wordpoints_admin_show_extension_license_notices() {
 						<input
 							type="submit"
 							name="activate-license-<?php echo esc_attr( $extension_id ); ?>"
-							class="button-secondary"
+							class="button"
 							value="<?php esc_attr_e( 'Activate License', 'wordpoints' ); ?>"
 							aria-label="<?php echo esc_attr( sprintf( $aria_label, $extension_data['name'] ) ); ?>"
 						/>

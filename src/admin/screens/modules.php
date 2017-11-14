@@ -155,29 +155,31 @@ if ( isset( $_GET['error'] ) ) {
 ?>
 
 <div class="wrap">
-	<h1>
+	<h1 class="wp-heading-inline">
 		<?php esc_html_e( 'WordPoints Extensions', 'wordpoints' ); ?>
-
-		<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_extensions' ) ) : ?>
-			<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_extensions' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'extension', 'wordpoints' ); ?></a>
-		<?php endif; ?>
-
-		<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
-			<span class="subtitle">
-				<?php
-
-				echo esc_html(
-					sprintf(
-						// translators: Search term.
-						__( 'Search results for &#8220;%s&#8221;', 'wordpoints' )
-						, sanitize_text_field( wp_unslash( $_REQUEST['s'] ) )
-					)
-				);
-
-				?>
-			</span>
-		<?php endif; ?>
 	</h1>
+
+	<?php if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_wordpoints_extensions' ) ) : ?>
+		<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_install_extensions' ) ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'extension', 'wordpoints' ); ?></a>
+	<?php endif; ?>
+
+	<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
+		<span class="subtitle">
+			<?php
+
+			echo esc_html(
+				sprintf(
+					// translators: Search term.
+					__( 'Search results for &#8220;%s&#8221;', 'wordpoints' )
+					, sanitize_text_field( wp_unslash( $_REQUEST['s'] ) )
+				)
+			);
+
+			?>
+		</span>
+	<?php endif; ?>
+
+	<hr class="wp-header-end">
 
 	<?php
 

@@ -133,10 +133,10 @@ $name = esc_html( $hook->get_name() );
 				<?php if ( isset( $_GET['addnew'] ) ) : /* WPCS: CSRF OK. */ ?>
 					<a href="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_hooks' ) ); ?>" class="button alignleft"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></a>
 				<?php else : ?>
-					<?php submit_button( _x( 'Delete', 'points hook', 'wordpoints' ), 'button alignleft', 'removehook', false ); ?>
+					<?php submit_button( _x( 'Delete', 'points hook', 'wordpoints' ), 'alignleft', 'removehook', false ); ?>
 				<?php endif; ?>
 
-				<?php submit_button( __( 'Save Hook', 'wordpoints' ), 'button-primary alignright', 'savehook', false ); ?>
+				<?php submit_button( __( 'Save Hook', 'wordpoints' ), 'primary alignright', 'savehook', false ); ?>
 
 				<input type="hidden" name="hook-id" class="hook-id" value="<?php echo esc_attr( $hook_id ); ?>" />
 				<input type="hidden" name="id_base" class="id_base" value="<?php echo esc_attr( $id_base ); ?>" />

@@ -641,7 +641,7 @@ final class WordPoints_Points_Hooks {
 							<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 						</div>
 						<div class="alignright">
-							<?php submit_button( _x( 'Save', 'points type', 'wordpoints' ), 'button-primary hook-control-save right', 'save-points-type', false, array( 'id' => "points-{$slug}-save" ) ); ?>
+							<?php submit_button( _x( 'Save', 'points type', 'wordpoints' ), 'primary hook-control-save right', 'save-points-type', false, array( 'id' => "points-{$slug}-save" ) ); ?>
 							<span class="spinner"></span>
 						</div>
 						<br class="clear" />
@@ -753,7 +753,7 @@ final class WordPoints_Points_Hooks {
 						<a class="hook-control-close" href="#close"><?php esc_html_e( 'Close', 'wordpoints' ); ?></a>
 					</div>
 					<div class="alignright<?php echo ( false === $has_form ) ? ' hook-control-noform' : ''; ?>">
-						<?php submit_button( __( 'Save', 'wordpoints' ), 'button-primary hook-control-save right', 'savehook', false, array( 'id' => "hook-{$id_format}-savehook" ) ); ?>
+						<?php submit_button( __( 'Save', 'wordpoints' ), 'primary hook-control-save right', 'savehook', false, array( 'id' => "hook-{$id_format}-savehook" ) ); ?>
 						<span class="spinner"></span>
 					</div>
 					<br class="clear" />

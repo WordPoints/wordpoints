@@ -359,7 +359,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 					?>
 				</div>
 				<div class="alignright">
-					<?php submit_button( _x( 'Save', 'points type', 'wordpoints' ), 'button-primary hook-control-save right', 'save-points-type', false, array( 'id' => "points-{$slug}-save" ) ); ?>
+					<?php submit_button( _x( 'Save', 'points type', 'wordpoints' ), 'primary hook-control-save right', 'save-points-type', false, array( 'id' => "points-{$slug}-save" ) ); ?>
 					<span class="spinner"></span>
 				</div>
 				<br class="clear"/>

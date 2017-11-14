@@ -415,10 +415,10 @@ switch ( $action ) {
 						<input type="hidden" name="checked[]" value="<?php echo esc_attr( $module ); ?>" />
 					<?php endforeach; ?>
 					<?php wp_nonce_field( 'bulk-modules' ); ?>
-					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), 'button', 'submit', false ); ?>
+					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), '', 'submit', false ); ?>
 				</form>
 				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" style="display:inline;">
-					<?php submit_button( __( 'No, Return me to the extension list', 'wordpoints' ), 'button', 'submit', false ); ?>
+					<?php submit_button( __( 'No, Return me to the extension list', 'wordpoints' ), '', 'submit', false ); ?>
 				</form>
 
 				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>

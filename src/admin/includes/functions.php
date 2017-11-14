@@ -1001,7 +1001,7 @@ function wordpoints_install_modules_upload() {
 			<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
 			<label class="screen-reader-text" for="modulezip"><?php esc_html_e( 'Extension zip file', 'wordpoints' ); ?></label>
 			<input type="file" id="modulezip" name="modulezip" />
-			<?php submit_button( __( 'Install Now', 'wordpoints' ), 'button', 'install-module-submit', false ); ?>
+			<?php submit_button( __( 'Install Now', 'wordpoints' ), '', 'install-module-submit', false ); ?>
 		</form>
 	</div>
 

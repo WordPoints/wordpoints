@@ -585,7 +585,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 		echo '<div class="alignleft actions">';
 
 		if ( ! $this->screen->in_admin( 'network' ) ) {
-			submit_button( __( 'Clear List', 'wordpoints' ), 'button', 'clear-recent-list', false );
+			submit_button( __( 'Clear List', 'wordpoints' ), '', 'clear-recent-list', false );
 		}
 
 		echo '</div>';

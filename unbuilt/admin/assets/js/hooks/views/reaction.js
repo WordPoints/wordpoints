@@ -319,7 +319,7 @@ Reaction = Base.extend({
 					},
 					{
 						text: l10n.deleteText,
-						'class': 'button-primary',
+						'class': 'button button-primary',
 						click: function() {
 							$( this ).dialog( 'destroy' );
 							view.destroy();

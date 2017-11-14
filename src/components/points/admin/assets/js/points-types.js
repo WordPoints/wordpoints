@@ -53,7 +53,7 @@ jQuery( document ).ready( function ( $ ) {
 						},
 						{
 							text: WordPointsPointsTypesL10n.deleteText,
-							'class': 'button-primary',
+							'class': 'button button-primary',
 							click: function() {
 
 								var $this = $( this );

@@ -381,7 +381,7 @@ function wordpoints_register_admin_scripts() {
 							<span class="spinner is-active"></span>
 						</div>
 						<div class="action-buttons">
-							<button type="button" class="save button-primary" disabled>
+							<button type="button" class="save button button-primary" disabled>
 								' . esc_html__( 'Save', 'wordpoints' ) . '
 							</button>
 							<button type="button" class="cancel button">

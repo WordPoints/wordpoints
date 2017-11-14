@@ -59,7 +59,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			<span class="spinner is-active"></span>
 		</div>
 		<div class="controls">
-			<button class="add-rank button-primary"><?php esc_html_e( 'Add Rank', 'wordpoints' ); ?></button>
+			<button class="add-rank button button-primary"><?php esc_html_e( 'Add Rank', 'wordpoints' ); ?></button>
 			<label class="wordpoints-rank-types">
 				<?php esc_html_e( 'Rank Type:', 'wordpoints' ); ?>
 				<select>
@@ -135,7 +135,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 					<span class="spinner is-active"></span>
 				</div>
 				<div class="action-buttons">
-					<button class="save button-primary" disabled><?php esc_html_e( 'Save', 'wordpoints' ); ?></button>
+					<button class="save button button-primary" disabled><?php esc_html_e( 'Save', 'wordpoints' ); ?></button>
 					<button class="cancel button"><?php esc_html_e( 'Cancel', 'wordpoints' ); ?></button>
 					<button class="close button"><?php esc_html_e( 'Close', 'wordpoints' ); ?></button>
 					<?php if ( 'base' !== $rank_type ) : ?>

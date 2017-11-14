@@ -266,7 +266,7 @@ jQuery( function ( $ ) {
 						},
 						{
 							text: ranks.l10n.deleteText,
-							'class': 'button-primary',
+							'class': 'button button-primary',
 							click: function() {
 								$( this ).dialog( 'close' );
 								view.destroy();

@@ -501,11 +501,15 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 			, 'toggle_off'
 		);
 
+		$this->listen_for_filter( 'query', array( $this, 'is_points_logs_query' ) );
+
 		$this->reactor->reverse_hit( $fire );
 
 		$fire->data[ $this->reversal_extension_slug ] = array();
 
 		$this->reactor->reverse_hit( $fire );
+
+		$this->assertSame( 0, $this->filter_was_called( 'query' ) );
 	}
 }
 

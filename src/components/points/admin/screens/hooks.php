@@ -156,12 +156,10 @@ if ( is_network_admin() ) {
 										sprintf(
 											// translators: URL of Points Types admin screen.
 											__( 'You can edit this points type&#8219;s settings on the <a href="%s">Points Types screen</a>.', 'wordpoints' )
-											, esc_attr(
-												esc_url(
-													self_admin_url(
-														'admin.php?page=wordpoints_points_types&tab='
-															. $slug
-													)
+											, esc_url(
+												self_admin_url(
+													'admin.php?page=wordpoints_points_types&tab='
+														. $slug
 												)
 											)
 										)
@@ -207,11 +205,9 @@ if ( is_network_admin() ) {
 									sprintf(
 										// translators: URL of Points Types admin screen.
 										__( 'You can create new points types on the <a href="%s">Points Types screen</a>.', 'wordpoints' )
-										, esc_attr(
-											esc_url(
-												self_admin_url(
-													'admin.php?page=wordpoints_points_types&tab=add-new'
-												)
+										, esc_url(
+											self_admin_url(
+												'admin.php?page=wordpoints_points_types&tab=add-new'
 											)
 										)
 									)

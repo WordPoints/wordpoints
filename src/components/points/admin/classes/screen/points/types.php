@@ -872,7 +872,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			<p>
 				<?php esc_html_e( 'Let us help you get started by creating some example reactions. (Don&#8217;t worry, each reaction will only award points once it has been enabled.)', 'wordpoints' ); ?>
 			</p>
-			<form method="post" action="<?php echo esc_attr( self_admin_url( 'admin.php?page=wordpoints_points_types&tab=' . $this->current_points_type ) ); ?>">
+			<form method="post" action="<?php echo esc_url( self_admin_url( 'admin.php?page=wordpoints_points_types&tab=' . $this->current_points_type ) ); ?>">
 				<p>
 					<button class="button button-primary">
 						<?php esc_html_e( 'Create Reactions', 'wordpoints' ); ?>

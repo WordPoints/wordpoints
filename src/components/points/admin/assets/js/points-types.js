@@ -5,12 +5,19 @@
  * @since 2.1.0
  */
 
-/* global WordPointsPointsTypesL10n, jQuery */
+/* global WordPointsPointsTypesL10n, WordPointsPointsTypesScreenID, jQuery, postboxes */
 
 jQuery( document ).ready( function ( $ ) {
 
 	var $currentDelete;
 	var $pointsTypeName = $( '#settings [name=points-name]' );
+
+	// Set up meta boxes.
+	$( '.if-js-closed' )
+		.removeClass( 'if-js-closed' )
+		.addClass( 'closed' );
+
+	postboxes.add_postbox_toggles( WordPointsPointsTypesScreenID );
 
 	// Require confirmation for points type delete.
 	$( '#settings .delete' ).click( function( event ) {

@@ -116,30 +116,13 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 		wp_enqueue_script( 'postbox' );
 		wp_enqueue_script( 'wordpoints-admin-points-types' );
 
+		wp_localize_script(
+			'wordpoints-admin-points-types'
+			, 'WordPointsPointsTypesScreenID'
+			, $this->id
+		);
+
 		wordpoints_hooks_ui_setup_script_data();
-	}
-
-	/**
-	 * @since 2.1.0
-	 */
-	public function footer_scripts() {
-
-		?>
-
-		<script type="text/javascript">
-			jQuery( document ).ready( function ( $ ) {
-
-				$( '.if-js-closed' )
-					.removeClass( 'if-js-closed' )
-					.addClass( 'closed' );
-
-				postboxes.add_postbox_toggles(
-					<?php echo wp_json_encode( $this->id ); ?>
-				);
-			} );
-		</script>
-
-		<?php
 	}
 
 	/**

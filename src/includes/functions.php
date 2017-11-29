@@ -1052,7 +1052,7 @@ function wordpoints_map_custom_meta_caps( $caps, $cap, $user_id ) {
 	switch ( $cap ) {
 		case 'install_wordpoints_extensions':
 		case 'update_wordpoints_extensions':
-			if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
+			if ( ! wp_is_file_mod_allowed( "capability_{$cap}" ) ) {
 				$caps[] = 'do_not_allow';
 			} elseif ( is_multisite() && ! is_super_admin( $user_id ) ) {
 				$caps[] = 'do_not_allow';

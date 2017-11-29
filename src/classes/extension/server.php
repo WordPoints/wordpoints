@@ -132,7 +132,24 @@ class WordPoints_Extension_Server implements WordPoints_Extension_ServerI {
 	 * @return string|false The API slug, or false if unknown.
 	 */
 	protected function get_api_slug() {
-		return $this->get_api_header();
+
+		$server_apis = wordpoints_apps()->get_sub_app( 'extension_server_apis' );
+
+		$api_header = $this->get_api_header();
+		$slug       = $api_header;
+
+		$slugs = explode( ',', $api_header );
+
+		foreach ( $slugs as $slug ) {
+
+			$slug = trim( $slug );
+
+			if ( $server_apis->is_registered( $slug ) ) {
+				break;
+			}
+		}
+
+		return $slug;
 	}
 
 	/**

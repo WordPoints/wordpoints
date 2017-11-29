@@ -263,6 +263,70 @@ class WordPoints_Extension_Server_Test extends WordPoints_PHPUnit_TestCase {
 	}
 
 	/**
+	 * Test getting the server API when there are multiple specified in the header.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_get_api_multiple() {
+
+		$this->mock_apps();
+
+		$server_apis = wordpoints_apps()->get_sub_app( 'extension_server_apis' );
+		$server_apis->register( 'test', 'WordPoints_PHPUnit_Mock_Object' );
+		$server_apis->register( 'another', 'stdClass' );
+
+		$mock = $this->createPartialMock(
+			'WordPoints_Extension_Server'
+			, array( 'get_api_header' )
+		);
+
+		$mock->method( 'get_api_header' )->willReturn( 'test, another' );
+
+		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Object', $mock->get_api() );
+	}
+
+	/**
+	 * Test getting the server API when there are multiple specified in the header.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_get_api_multiple_not_registered() {
+
+		$this->mock_apps();
+
+		$server_apis = wordpoints_apps()->get_sub_app( 'extension_server_apis' );
+		$server_apis->register( 'test', 'WordPoints_PHPUnit_Mock_Object' );
+
+		$mock = $this->createPartialMock(
+			'WordPoints_Extension_Server'
+			, array( 'get_api_header' )
+		);
+
+		$mock->method( 'get_api_header' )->willReturn( 'unregistered, test' );
+
+		$this->assertInstanceOf( 'WordPoints_PHPUnit_Mock_Object', $mock->get_api() );
+	}
+
+	/**
+	 * Test getting the server API when there are multiple specified in the header.
+	 *
+	 * @since 2.5.0
+	 */
+	public function test_get_api_multiple_none_registered() {
+
+		$this->mock_apps();
+
+		$mock = $this->createPartialMock(
+			'WordPoints_Extension_Server'
+			, array( 'get_api_header' )
+		);
+
+		$mock->method( 'get_api_header' )->willReturn( 'unregistered, another' );
+
+		$this->assertFalse( $mock->get_api() );
+	}
+
+	/**
 	 * Test retrieving the API header from the remote server.
 	 *
 	 * @since 2.4.0

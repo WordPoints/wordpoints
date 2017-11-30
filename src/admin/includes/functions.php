@@ -122,20 +122,18 @@ function wordpoints_admin_menu() {
 	);
 
 	// Back-compat for extensions page when the slug was "modules".
-	add_menu_page(
-		__( 'WordPoints — Extensions', 'wordpoints' )
+	add_submenu_page(
+		$main_menu
+		, __( 'WordPoints — Extensions', 'wordpoints' )
 		, esc_html__( 'Extensions', 'wordpoints' )
 		, 'activate_wordpoints_extensions'
 		, 'wordpoints_modules'
 		, 'wordpoints_admin_screen_modules'
 	);
 
-	// Hack so that this page isn't displayed in the menu.
-	remove_menu_page( 'wordpoints_modules' );
-
 	// Extensions install page.
 	add_submenu_page(
-		'_wordpoints_extensions' // Fake menu.
+		$main_menu
 		, __( 'WordPoints — Install Extensions', 'wordpoints' )
 		, esc_html__( 'Install Extensions', 'wordpoints' )
 		, 'install_wordpoints_extensions'
@@ -145,13 +143,47 @@ function wordpoints_admin_menu() {
 
 	// Back-compat for extensions install page when the slug was "modules".
 	add_submenu_page(
-		'_wordpoints_extensions' // Fake menu.
+		$main_menu
 		, __( 'WordPoints — Install Extensions', 'wordpoints' )
 		, esc_html__( 'Install Extensions', 'wordpoints' )
 		, 'install_wordpoints_extensions'
 		, 'wordpoints_install_modules'
 		, 'wordpoints_admin_screen_install_modules'
 	);
+}
+
+/**
+ * Corrects the display of "hidden" submenu items.
+ *
+ * @since 2.5.0
+ *
+ * @WordPress\filter submenu_file
+ *
+ * @param string $submenu_file The submenu file/slug.
+ *
+ * @return string The filtered submenu file/slug.
+ */
+function wordpoints_admin_submenu_filter( $submenu_file ) {
+
+	global $plugin_page;
+
+	$hidden_submenus = array(
+		'wordpoints_install_extensions' => true,
+		'wordpoints_install_modules'    => true,
+		'wordpoints_modules'            => true,
+	);
+
+	if ( $plugin_page && isset( $hidden_submenus[ $plugin_page ] ) ) {
+		$submenu_file = 'wordpoints_extensions';
+	}
+
+	$menu_slug = wordpoints_get_main_admin_menu();
+
+	foreach ( $hidden_submenus as $submenu => $unused ) {
+		remove_submenu_page( $menu_slug, $submenu );
+	}
+
+	return $submenu_file;
 }
 
 /**

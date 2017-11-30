@@ -21,6 +21,8 @@ add_filter( 'script_loader_tag', 'wordpoints_script_templates_filter', 10, 2 );
 add_action( 'admin_menu', 'wordpoints_admin_menu' );
 add_action( 'network_admin_menu', 'wordpoints_admin_menu' );
 
+add_filter( 'submenu_file', 'wordpoints_admin_submenu_filter' );
+
 add_action( 'load-wordpoints_page_wordpoints_extensions', 'wordpoints_admin_screen_modules_load' );
 add_action( 'load-toplevel_page_wordpoints_extensions', 'wordpoints_admin_screen_modules_load' );
 

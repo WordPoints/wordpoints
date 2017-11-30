@@ -14,19 +14,6 @@ if ( empty( $tab ) ) {
 }
 
 ?>
-<script type="text/javascript">
-jQuery( document ).ready( function() {
-
-	jQuery( '#toplevel_page_wordpoints_configure, #toplevel_page_wordpoints_configure > a' )
-		.addClass( 'wp-has-current-submenu wp-menu-open' );
-
-	jQuery( '#toplevel_page_wordpoints_configure' )
-		.find( 'a[href="admin.php?page=wordpoints_extensions"]' )
-			.parent()
-			.addBack()
-			.addClass( 'current' );
-});
-</script>
 <div class="wrap">
 	<h1><?php esc_html_e( 'Install Extensions', 'wordpoints' ); ?></h1>
 	<?php

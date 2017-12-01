@@ -2525,20 +2525,45 @@ function wordpoints_admin_not_running_php_version_required_for_update_plugin_row
 	</tr>
 
 	<?php
+}
 
-	// JavaScript to disable the bulk upgrade checkbox.
-	// See WP_Plugins_List_Table::single_row().
-	$checkbox_id = 'checkbox_' . md5( $plugin_data['Name'] );
+/**
+ * Prevents updates when they require a greater PHP version than is in use.
+ *
+ * @since 2.5.0
+ *
+ * @WordPress\filter upgrader_pre_install
+ *
+ * @param WP_Error|true $result     Whether or not to install the package.
+ * @param array         $hook_extra Information about the package being installed.
+ *
+ * @return WP_Error|true Whether or not to install the package.
+ */
+function wordpoints_admin_maybe_prevent_plugin_updates( $result, $hook_extra ) {
 
-	?>
+	$plugin_basename = plugin_basename( WORDPOINTS_DIR . '/wordpoints.php' );
 
-	<script type="text/javascript">
-		document.getElementById(
-			<?php echo wp_json_encode( $checkbox_id ); ?>
-		).disabled = true;
-	</script>
+	if (
+		isset( $hook_extra['plugin'] )
+		&& $plugin_basename === $hook_extra['plugin']
+		&& ! wordpoints_admin_is_running_php_version_required_for_update()
+	) {
 
-	<?php
+		$message  = esc_html__( 'Your system is not compatible with this WordPoints update because it is running an outdated version of PHP.', 'wordpoints' );
+		$message .= ' ';
+		$message .= sprintf(
+			// translators: URL of WordPoints PHP Compatibility docs.
+			__( 'See the WordPoints user guide for more information: %s', 'wordpoints' )
+			, 'https://wordpoints.org/user-guide/php-compatibility/'
+		);
+
+		$result = new WP_Error(
+			'wordpoints_php_version_incompatible'
+			, $message
+		);
+	}
+
+	return $result;
 }
 
 /**

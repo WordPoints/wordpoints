@@ -62,6 +62,7 @@ add_action( 'wp_ajax_wordpoints-delete-admin-notice-option', 'wordpoints_delete_
 add_action( 'load-plugins.php', 'wordpoints_admin_maybe_disable_update_row_for_php_version_requirement', 100 );
 add_action( 'load-update-core.php', 'wordpoints_admin_maybe_remove_from_updates_screen' );
 add_action( 'install_plugins_pre_plugin-information', 'wordpoints_admin_maybe_remove_from_updates_screen', 9 );
+add_filter( 'upgrader_pre_install', 'wordpoints_admin_maybe_prevent_plugin_updates', 10, 2 );
 
 add_filter( 'wp_kses_allowed_html', 'wordpoints_extension_changelog_allowed_html', 10, 2 );
 

@@ -41,7 +41,7 @@ function wordpoints_points_admin_register_scripts() {
 	wp_register_script(
 		'wordpoints-admin-points-types'
 		, "{$assets_url}/js/points-types{$suffix}.js"
-		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
+		, array( 'backbone', 'jquery-ui-dialog', 'wp-util', 'postbox' )
 		, WORDPOINTS_VERSION
 	);
 

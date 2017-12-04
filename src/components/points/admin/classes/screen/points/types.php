@@ -113,7 +113,6 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 
 		wp_enqueue_style( 'wordpoints-hooks-admin' );
 
-		wp_enqueue_script( 'postbox' );
 		wp_enqueue_script( 'wordpoints-admin-points-types' );
 
 		wp_localize_script(

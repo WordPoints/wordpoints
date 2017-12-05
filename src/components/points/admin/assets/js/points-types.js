@@ -19,6 +19,12 @@ jQuery( document ).ready( function ( $ ) {
 
 	postboxes.add_postbox_toggles( WordPointsPointsTypesScreenID );
 
+	// Auto-select shortcode examples.
+	$( '.wordpoints-shortcode-example' )
+		.click( function () {
+			this.select();
+		} );
+
 	// Require confirmation for points type delete.
 	$( '#settings .delete' ).click( function( event ) {
 

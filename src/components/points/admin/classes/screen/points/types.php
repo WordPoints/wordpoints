@@ -405,8 +405,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			<label><?php esc_html_e( 'Display the user&#8217;s points:', 'wordpoints' ); ?>
 				<input
 					type="text"
-					class="widefat"
-					onfocus="this.select()"
+					class="widefat wordpoints-shortcode-example"
 					readonly
 					value="[wordpoints_points points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
 				/>
@@ -417,8 +416,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			<label><?php esc_html_e( 'Display a table of the top 5 users:', 'wordpoints' ); ?>
 				<input
 					type="text"
-					class="widefat"
-					onfocus="this.select()"
+					class="widefat wordpoints-shortcode-example"
 					readonly
 					value="[wordpoints_points_top users=&quot;5&quot; points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
 				/>
@@ -429,8 +427,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			<label><?php esc_html_e( 'Display the points logs:', 'wordpoints' ); ?>
 				<input
 					type="text"
-					class="widefat"
-					onfocus="this.select()"
+					class="widefat wordpoints-shortcode-example"
 					readonly
 					value="[wordpoints_points_logs points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
 				/>
@@ -441,8 +438,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			<label><?php esc_html_e( 'Display a list of ways to earn points:', 'wordpoints' ); ?>
 				<input
 					type="text"
-					class="widefat"
-					onfocus="this.select()"
+					class="widefat wordpoints-shortcode-example"
 					readonly
 					value="[wordpoints_how_to_get_points points_type=&quot;<?php echo esc_html( $this->current_points_type ); ?>&quot;]"
 				/>

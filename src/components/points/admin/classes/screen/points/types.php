@@ -73,6 +73,28 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	protected $had_reactions = false;
 
 	/**
+	 * Data for the reactions being displayed.
+	 *
+	 * Stored here so that we can add it to the JS script all at once.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var array
+	 */
+	protected $reactions_data;
+
+	/**
+	 * Data for the events being displayed.
+	 *
+	 * Stored here so that we can add it to the JS script all at once.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var array
+	 */
+	protected $events_data;
+
+	/**
 	 * @since 2.1.0
 	 */
 	public function __construct() {
@@ -109,7 +131,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	/**
 	 * @since 2.1.0
 	 */
-	public function enqueue_scripts() {
+	public function footer_scripts() {
 
 		wp_enqueue_style( 'wordpoints-hooks-admin' );
 
@@ -121,7 +143,10 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			, $this->id
 		);
 
-		wordpoints_hooks_ui_setup_script_data();
+		wordpoints_hooks_ui_setup_script_data(
+			$this->reactions_data
+			, $this->events_data
+		);
 	}
 
 	/**
@@ -559,12 +584,10 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			}
 		}
 
-		?>
+		$this->events_data[ $event_slug ]    = $event_data;
+		$this->reactions_data[ $event_slug ] = $data;
 
-		<script>
-			WordPointsHooksAdminData.events[<?php echo wp_json_encode( $event_slug ); ?>] = <?php echo wp_json_encode( $event_data ); ?>;
-			WordPointsHooksAdminData.reactions[<?php echo wp_json_encode( $event_slug ); ?>] = <?php echo wp_json_encode( $data ); ?>;
-		</script>
+		?>
 
 		<div class="wordpoints-hook-reaction-group-container">
 			<p class="description wordpoints-hook-reaction-group-description">

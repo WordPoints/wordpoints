@@ -609,8 +609,15 @@ function wordpoints_register_admin_scripts() {
  * Export the data for the scripts needed to make the hooks UI work.
  *
  * @since 2.1.0
+ * @since 2.5.0 The $reactions_data and $events_data args were added.
+ *
+ * @param array $reactions_data Reaction data to send to the script.
+ * @param array $events_data    Event data to send to the script.
  */
-function wordpoints_hooks_ui_setup_script_data() {
+function wordpoints_hooks_ui_setup_script_data(
+	array $reactions_data = array(),
+	array $events_data = array()
+) {
 
 	$hooks = wordpoints_hooks();
 
@@ -629,8 +636,8 @@ function wordpoints_hooks_ui_setup_script_data() {
 
 	$data = array(
 		'fields'             => (object) array(),
-		'reactions'          => (object) array(),
-		'events'             => (object) array(),
+		'reactions'          => (object) $reactions_data,
+		'events'             => (object) $events_data,
 		'extensions'         => $extensions_data,
 		'entities'           => $entities_data,
 		'reactors'           => $reactor_data,

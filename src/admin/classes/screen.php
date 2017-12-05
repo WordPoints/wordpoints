@@ -63,7 +63,7 @@ abstract class WordPoints_Admin_Screen {
 
 		/* Load the JavaScript needed for the settings screen. */
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'admin_print_footer_scripts', array( $this, 'footer_scripts' ) );
+		add_action( 'admin_print_footer_scripts', array( $this, 'footer_scripts' ), 5 );
 	}
 
 	/**

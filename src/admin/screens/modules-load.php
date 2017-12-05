@@ -304,15 +304,13 @@ switch ( $action ) {
 
 				$module_dir               = wordpoints_extensions_dir();
 				$module_info              = array();
-				$files_to_delete          = array();
 				$have_non_network_modules = false;
 
 				foreach ( $modules as $module ) {
 
 					if ( '.' === dirname( $module ) ) {
 
-						$files_to_delete[] = $module_dir . '/' . $module;
-						$data              = wordpoints_get_module_data( $module_dir . '/' . $module );
+						$data = wordpoints_get_module_data( $module_dir . '/' . $module );
 
 						if ( ! empty( $data ) ) {
 
@@ -325,13 +323,6 @@ switch ( $action ) {
 						}
 
 					} else {
-
-						// Locate all the files in that folder.
-						$files = list_files( $module_dir . '/' . dirname( $module ) );
-
-						if ( $files ) {
-							$files_to_delete = array_merge( $files_to_delete, $files );
-						}
 
 						// Get modules list from that folder.
 						$folder_modules = wordpoints_get_modules( '/' . dirname( $module ) );
@@ -420,15 +411,6 @@ switch ( $action ) {
 				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" style="display:inline;">
 					<?php submit_button( __( 'No, Return me to the extension list', 'wordpoints' ), '', 'submit', false ); ?>
 				</form>
-
-				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php esc_html_e( 'Click to view entire list of files which will be deleted', 'wordpoints' ); ?></a></p>
-				<div id="files-list" class="hidden">
-					<ul class="code">
-						<?php foreach ( (array) $files_to_delete as $file ) : ?>
-							<li><?php echo esc_html( str_replace( $module_dir, '', $file ) ); ?></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
 			</div>
 
 			<?php

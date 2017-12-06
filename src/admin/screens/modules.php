@@ -55,6 +55,8 @@ if ( isset( $_GET['error'] ) ) {
 			&& wordpoints_verify_nonce( '_error_nonce', 'module-activation-error_%s', array( 'module' ) )
 		) {
 
+			wp_enqueue_style( 'wordpoints-admin-general' );
+
 			$url = self_admin_url(
 				'admin.php?page=wordpoints_extensions&action=error_scrape&amp;module='
 					. sanitize_text_field( wp_unslash( $_GET['module'] ) )
@@ -66,7 +68,7 @@ if ( isset( $_GET['error'] ) ) {
 			<div class="notice notice-error is-dismissible">
 				<p>
 					<?php echo wp_kses( $error_message, '' ); ?>
-					<iframe style="border:0" width="100%" height="70px" src="<?php echo esc_url( $url ); ?>"></iframe>
+					<iframe class="wordpoints-borderless-frame" width="100%" height="70px" src="<?php echo esc_url( $url ); ?>"></iframe>
 				</p>
 			</div>
 

@@ -6,8 +6,8 @@
             "errors": false
         },
         "\/admin\/classes\/ajax\/hooks.php": {
-            "size": 10670,
-            "hash": "6f4d917ce3627c7bfc42576e2d87b517",
+            "size": 10714,
+            "hash": "8f838597e9bf949a15e3986e0f0746a9",
             "errors": false
         },
         "\/admin\/classes\/index.php": {
@@ -16,13 +16,13 @@
             "errors": false
         },
         "\/admin\/classes\/list\/table\/extensions.php": {
-            "size": 30413,
-            "hash": "f0b45a1670ef02339fcd4025758ebc1b",
+            "size": 30440,
+            "hash": "8c87973b83f7740ed83f9a25d2e92169",
             "errors": false
         },
         "\/admin\/classes\/screen.php": {
-            "size": 2113,
-            "hash": "cc5ae0566f704e5ff1ce48d1646581b5",
+            "size": 2116,
+            "hash": "d742fe9001243cb66778f83f619b38ee",
             "errors": false
         },
         "\/admin\/classes\/screens.php": {
@@ -46,13 +46,13 @@
             "errors": false
         },
         "\/admin\/includes\/filters.php": {
-            "size": 4213,
-            "hash": "51e1c79601b9410985942bab4c2b71f9",
+            "size": 4373,
+            "hash": "0caec1f205c0d892fd3f49aa8d5cfadf",
             "errors": false
         },
         "\/admin\/includes\/functions.php": {
-            "size": 85104,
-            "hash": "681607abeb99e674da47fc17453d9dba",
+            "size": 86905,
+            "hash": "b6743daf0a70940fe4bfca5d1096e2d8",
             "errors": false
         },
         "\/admin\/includes\/index.php": {
@@ -66,8 +66,8 @@
             "errors": false
         },
         "\/admin\/screens\/configure-components.php": {
-            "size": 5579,
-            "hash": "5973cf757518b87268140a301a4db0d4",
+            "size": 5569,
+            "hash": "118cc2c51a1d35fd0a2726e3a73b1508",
             "errors": false
         },
         "\/admin\/screens\/configure-settings-load.php": {
@@ -86,18 +86,18 @@
             "errors": false
         },
         "\/admin\/screens\/module-install.php": {
-            "size": 2023,
-            "hash": "c160433ea3ae53653d714f1218b1bcbe",
+            "size": 1629,
+            "hash": "a5640074c556df47219756bdd421fdb9",
             "errors": false
         },
         "\/admin\/screens\/modules-load.php": {
-            "size": 18082,
-            "hash": "27fac213498b9dc16f146aad64a9d980",
+            "size": 17364,
+            "hash": "ae71542d764421ddcc9c9bb7f61fc862",
             "errors": false
         },
         "\/admin\/screens\/modules.php": {
-            "size": 5874,
-            "hash": "366e0e18e2341f554d8345b903fe76a5",
+            "size": 5984,
+            "hash": "e00c75012b4ffc326cfa64ff2a20fa6b",
             "errors": false
         },
         "\/classes\/app\/registry.php": {
@@ -566,8 +566,8 @@
             "errors": false
         },
         "\/classes\/extension\/server.php": {
-            "size": 3905,
-            "hash": "219e1a00dd90a97b2ad4850ae7b6bf11",
+            "size": 4207,
+            "hash": "f46f395d58199fd9c5d28f644b180afa",
             "errors": false
         },
         "\/classes\/extension\/serveri.php": {
@@ -591,13 +591,13 @@
             "errors": false
         },
         "\/classes\/extension\/upgrader\/skin\/bulk.php": {
-            "size": 4300,
-            "hash": "f78e01077e1d65d25021290ed592af1b",
+            "size": 4330,
+            "hash": "6b5a574216698cb47834d798b0ebf8a4",
             "errors": false
         },
         "\/classes\/extension\/upgrader\/skin.php": {
-            "size": 4281,
-            "hash": "bbc4d620d396d714589758eb0c25953d",
+            "size": 4363,
+            "hash": "02831065ef8b3237bf2cf2f63bf8f7f7",
             "errors": false
         },
         "\/classes\/extension\/upgrader.php": {
@@ -1186,8 +1186,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/classes\/screen\/points\/types.php": {
-            "size": 23446,
-            "hash": "c1f20c6c99e4a440328078358c26818f",
+            "size": 23428,
+            "hash": "1ac0c8361872999bd83be6e49e447aeb",
             "errors": false
         },
         "\/components\/points\/admin\/deprecated.php": {
@@ -1206,8 +1206,8 @@
             "errors": false
         },
         "\/components\/points\/admin\/includes\/functions.php": {
-            "size": 15459,
-            "hash": "c24371c4249d56cf7d050cc018f7a99d",
+            "size": 15470,
+            "hash": "d53bf6ff019efe74e683219bc374efbc",
             "errors": false
         },
         "\/components\/points\/admin\/screens\/hooks-load.php": {
@@ -1221,13 +1221,13 @@
             "errors": false
         },
         "\/components\/points\/admin\/screens\/hooks-no-js.php": {
-            "size": 4359,
-            "hash": "9bbdb998a571eae9378b0e733a2782ab",
+            "size": 4345,
+            "hash": "efd645d2e8c4bcbfa6509da5d92286de",
             "errors": false
         },
         "\/components\/points\/admin\/screens\/hooks.php": {
-            "size": 7060,
-            "hash": "9f7f8378bf56713b5ebd7f03bdb25fa8",
+            "size": 6980,
+            "hash": "777811fb9123038e35d2bdae40d71c03",
             "errors": false
         },
         "\/components\/points\/admin\/screens\/logs.php": {
@@ -1446,8 +1446,8 @@
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-hooks.php": {
-            "size": 22331,
-            "hash": "cdd28983fc6bbea798ac80ee9bcd7de4",
+            "size": 22317,
+            "hash": "51aa325eb329247f93ddcde11a7b45b0",
             "errors": false
         },
         "\/components\/points\/includes\/class-wordpoints-points-logs-query.php": {
@@ -1546,8 +1546,8 @@
             "errors": false
         },
         "\/components\/ranks\/admin\/includes\/ajax.php": {
-            "size": 11657,
-            "hash": "3f882fd9551718118e48e0c7a56a2899",
+            "size": 11731,
+            "hash": "a44a12817113ba9f04600d55443cedb7",
             "errors": false
         },
         "\/components\/ranks\/admin\/includes\/filters.php": {
@@ -1561,8 +1561,8 @@
             "errors": false
         },
         "\/components\/ranks\/admin\/screens\/ranks.php": {
-            "size": 4709,
-            "hash": "361ffab87a9d34cdee10e702164d2277",
+            "size": 4693,
+            "hash": "03b0a1c5ad67aadcfb01129b91c67214",
             "errors": false
         },
         "\/components\/ranks\/classes\/index.php": {
@@ -1756,8 +1756,8 @@
             "errors": false
         },
         "\/includes\/apps.php": {
-            "size": 19648,
-            "hash": "8b41c874ae5327f8bc21ab8267002d3f",
+            "size": 19624,
+            "hash": "44f1fcee666783a3364967412e0e8a56",
             "errors": false
         },
         "\/includes\/class-breaking-updater.php": {
@@ -1816,8 +1816,8 @@
             "errors": false
         },
         "\/includes\/functions.php": {
-            "size": 37242,
-            "hash": "ad802d759c391b0652e5e63fcaa1e587",
+            "size": 37236,
+            "hash": "77fc556fb7ba3ba4bd7d135c695ec3e4",
             "errors": false
         },
         "\/includes\/hooks.php": {

@@ -293,7 +293,9 @@ switch ( $action ) {
 
 		if ( ! isset( $_REQUEST['verify-delete'] ) ) {
 
+			wp_enqueue_style( 'wordpoints-admin-general' );
 			wp_enqueue_script( 'jquery' );
+
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 
 			?>
@@ -399,7 +401,7 @@ switch ( $action ) {
 					?>
 				</p>
 
-				<form method="post" style="display:inline;">
+				<form method="post" class="wordpoints-inline">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php foreach ( (array) $modules as $module ) : ?>
@@ -408,7 +410,7 @@ switch ( $action ) {
 					<?php wp_nonce_field( 'bulk-modules' ); ?>
 					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data', 'wordpoints' ) : __( 'Yes, Delete these files', 'wordpoints' ), '', 'submit', false ); ?>
 				</form>
-				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" style="display:inline;">
+				<form method="post" action="<?php echo esc_url( wp_get_referer() ); ?>" class="wordpoints-inline">
 					<?php submit_button( __( 'No, Return me to the extension list', 'wordpoints' ), '', 'submit', false ); ?>
 				</form>
 			</div>

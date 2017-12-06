@@ -305,6 +305,13 @@ function wordpoints_register_admin_scripts() {
 	// CSS
 
 	wp_register_style(
+		'wordpoints-admin-general'
+		, "{$assets_url}/css/admin{$suffix}.css"
+		, array()
+		, WORDPOINTS_VERSION
+	);
+
+	wp_register_style(
 		'wordpoints-admin-extensions-list-table'
 		, "{$assets_url}/css/extensions-list-table{$suffix}.css"
 		, array()
@@ -326,12 +333,20 @@ function wordpoints_register_admin_scripts() {
 	);
 
 	$styles = wp_styles();
-	$styles->add_data( 'wordpoints-admin-extensions-list-table', 'rtl', 'replace' );
-	$styles->add_data( 'wordpoints-hooks-admin', 'rtl', 'replace' );
 
-	if ( $suffix ) {
-		$styles->add_data( 'wordpoints-admin-extensions-list-table', 'suffix', $suffix );
-		$styles->add_data( 'wordpoints-hooks-admin', 'suffix', $suffix );
+	$rtl_styles = array(
+		'wordpoints-admin-general',
+		'wordpoints-admin-extensions-list-table',
+		'wordpoints-hooks-admin',
+	);
+
+	foreach ( $rtl_styles as $handle ) {
+
+		$styles->add_data( $handle, 'rtl', 'replace' );
+
+		if ( $suffix ) {
+			$styles->add_data( $handle, 'suffix', $suffix );
+		}
 	}
 
 	// JS
@@ -923,6 +938,7 @@ function wordpoints_show_admin_message( $message, $type = 'success', array $args
 	}
 
 	if ( $args['dismissible'] && $args['option'] ) {
+		wp_enqueue_style( 'wordpoints-admin-general' );
 		wp_enqueue_script( 'wordpoints-admin-dismiss-notice' );
 	}
 
@@ -939,7 +955,7 @@ function wordpoints_show_admin_message( $message, $type = 'success', array $args
 			<?php echo wp_kses( $message, 'wordpoints_admin_message' ); ?>
 		</p>
 		<?php if ( $args['dismissible'] && $args['option'] ) : ?>
-			<form method="post" class="wordpoints-notice-dismiss-form" style="padding-bottom: 5px;">
+			<form method="post" class="wordpoints-notice-dismiss-form">
 				<input type="hidden" name="wordpoints_notice" value="<?php echo esc_html( $args['option'] ); ?>" />
 				<?php wp_nonce_field( "wordpoints_dismiss_notice-{$args['option']}" ); ?>
 				<?php submit_button( __( 'Hide This Notice', 'wordpoints' ), '', 'wordpoints_dismiss_notice', false ); ?>
@@ -1026,15 +1042,11 @@ function wordpoints_admin_show_tabs( $tabs, $show_heading = true ) {
  */
 function wordpoints_install_modules_upload() {
 
+	wp_enqueue_style( 'wordpoints-admin-general' );
+
 	?>
 
-	<style type="text/css">
-		.wordpoints-upload-module {
-			display: block;
-		}
-	</style>
-
-	<div class="upload-plugin wordpoints-upload-module">
+	<div class="upload-plugin wordpoints-upload-module wordpoints-upload-extension">
 		<p class="install-help"><?php esc_html_e( 'If you have an extension in a .zip format, you may install it by uploading it here.', 'wordpoints' ); ?></p>
 		<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo esc_url( self_admin_url( 'update.php?action=upload-wordpoints-module' ) ); ?>">
 			<?php wp_nonce_field( 'wordpoints-module-upload' ); ?>
@@ -1222,12 +1234,14 @@ function wordpoints_admin_screen_update_selected_extensions() {
 
 	require_once ABSPATH . 'wp-admin/admin-header.php';
 
+	wp_enqueue_style( 'wordpoints-admin-general' );
+
 	?>
 
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Update WordPoints Extensions', 'wordpoints' ); ?></h1>
 
-		<iframe name="wordpoints_extension_updates" src="<?php echo esc_url( $url ); ?>" style="width: 100%; height:100%; min-height:850px;"></iframe>
+		<iframe name="wordpoints_extension_updates" src="<?php echo esc_url( $url ); ?>" class="wordpoints-extension-updates-iframe"></iframe>
 	</div>
 
 	<?php
@@ -1809,7 +1823,7 @@ function wordpoints_iframe_extension_changelog() {
 
 	iframe_header();
 
-	echo '<div style="margin-left: 10px;">';
+	echo '<div>';
 	echo wp_kses(
 		$api->get_extension_changelog( $extension_data )
 		, 'wordpoints_extension_changelog'
@@ -2050,10 +2064,12 @@ function wordpoints_plugin_upload_error_filter( $source ) {
  */
 function wordpoints_admin_settings_screen_sidebar() {
 
+	wp_enqueue_style( 'wordpoints-admin-general' );
+
 	?>
 
-	<div class="notice notice-info inline" style="height: 120px; margin-top: 50px;">
-		<div style="width:48%;float:left;">
+	<div class="notice notice-info inline wordpoints-settings-help-notice">
+		<div>
 			<h3><?php esc_html_e( 'Like this plugin?', 'wordpoints' ); ?></h3>
 			<p>
 				<?php
@@ -2071,7 +2087,7 @@ function wordpoints_admin_settings_screen_sidebar() {
 			</p>
 			<p><?php esc_html_e( 'If you don&#8217;t think this plugin deserves 5 stars, please let us know how we can improve it.', 'wordpoints' ); ?></p>
 		</div>
-		<div style="width:48%;float:left;">
+		<div>
 			<h3><?php esc_html_e( 'Need help?', 'wordpoints' ); ?></h3>
 			<p>
 				<?php

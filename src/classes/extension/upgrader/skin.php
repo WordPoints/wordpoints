@@ -93,11 +93,13 @@ class WordPoints_Extension_Upgrader_Skin extends WP_Upgrader_Skin {
 
 		if ( ! empty( $this->extension ) && ! is_wp_error( $this->result ) && $this->extension_active ) {
 
+			wp_enqueue_style( 'wordpoints-admin-general' );
+
 			$url = wp_nonce_url( self_admin_url( 'update.php?action=wordpoints-reactivate-extension&network_wide=' . $this->extension_network_active . '&extension=' . rawurlencode( $this->extension ) ), "reactivate-extension_{$this->extension}" );
 
 			?>
 
-			<iframe name="wordpoints_extension_reactivation" style="border: 0; overflow: hidden;" width="100%" height="170px" src="<?php echo esc_url( $url ); ?>"></iframe>
+			<iframe name="wordpoints_extension_reactivation" class="wordpoints-borderless-frame wordpoints-non-scrolling-frame" width="100%" height="170px" src="<?php echo esc_url( $url ); ?>"></iframe>
 
 			<?php
 		}

@@ -127,19 +127,37 @@
             }
         },
         ".manifested": {
-            "271": false
+            "303": false
         },
-        "wordpoints-admin-extensions-list-table": {
-            "301": {
-                "name": "$styles->add_data",
+        "wordpoints-admin-general": {
+            "338": {
+                "name": "array",
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 0,
                 "parentheses": 1
             }
         },
+        "wordpoints-admin-extensions-list-table": {
+            "339": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 1,
+                "parentheses": 1
+            }
+        },
+        "wordpoints-hooks-admin": {
+            "340": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 2,
+                "parentheses": 1
+            }
+        },
         "rtl": {
-            "298": {
+            "345": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -148,7 +166,7 @@
             }
         },
         "replace": {
-            "298": {
+            "345": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -156,17 +174,8 @@
                 "parentheses": 1
             }
         },
-        "wordpoints-hooks-admin": {
-            "302": {
-                "name": "$styles->add_data",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 0,
-                "parentheses": 1
-            }
-        },
         "suffix": {
-            "302": {
+            "348": {
                 "name": "$styles->add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -175,7 +184,7 @@
             }
         },
         "\u00ab": {
-            "341": {
+            "388": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -184,7 +193,7 @@
             }
         },
         "\u00bb": {
-            "341": {
+            "388": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -193,7 +202,7 @@
             }
         },
         "{{ data.length }}": {
-            "515": {
+            "562": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -202,7 +211,7 @@
             }
         },
         "{{ data.length_in_units_label }}": {
-            "515": {
+            "562": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -211,7 +220,7 @@
             }
         },
         "{{ data.length_in_units }}": {
-            "532": {
+            "579": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -220,7 +229,7 @@
             }
         },
         "1": {
-            "556": {
+            "603": {
                 "name": "wp_script_add_data",
                 "type": "unknown",
                 "args_started": true,
@@ -229,13 +238,13 @@
             }
         },
         "attr": {
-            "686": false
+            "740": false
         },
         "relationship": {
-            "691": false
+            "745": false
         },
         "entity": {
-            "716": {
+            "770": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -244,17 +253,17 @@
             }
         },
         "success": {
-            "877": false,
-            "1641": false
+            "931": false,
+            "1695": false
         },
         "is-dismissible": {
-            "893": false
+            "948": false
         },
         "data-nonce=\"": {
-            "895": false
+            "950": false
         },
         "upload": {
-            "1043": {
+            "1094": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -263,7 +272,7 @@
             }
         },
         "update.php?action=wordpoints-upgrade-extension&extension=": {
-            "1088": {
+            "1139": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -272,7 +281,7 @@
             }
         },
         "bulk-update-extensions": {
-            "1228": {
+            "1281": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -281,7 +290,7 @@
             }
         },
         "update.php?action=update-selected-wordpoints-extensions&amp;extensions=": {
-            "1229": {
+            "1282": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -290,43 +299,45 @@
             }
         },
         "active": {
-            "1310": false,
-            "1661": false,
-            "2459": false
+            "1363": false,
+            "1715": false,
+            "2513": false,
+            "2515": false
         },
         "inactive": {
-            "1310": false,
-            "1661": false
+            "1363": false,
+            "1715": false
         },
         "wordpoints-extension-has-license": {
-            "1566": false
+            "1620": false
         },
         "wordpoints-extension-license-valid": {
-            "1574": false
+            "1628": false
         },
         "wordpoints-extension-license-invalid": {
-            "1576": false
+            "1630": false
         },
         "wordpoints-extension-license-active": {
-            "1581": false
+            "1635": false
         },
         "wordpoints-extension-license-inactive": {
-            "1583": false
+            "1637": false
         },
         "wordpoints-extension-license-expired": {
-            "1591": false
+            "1645": false
         },
         "error": {
-            "1643": false
+            "1691": false,
+            "1697": false
         },
         "warning": {
-            "1651": false
+            "1705": false
         },
         "&checked[]=": {
-            "2167": false
+            "2223": false
         },
         "wordpoints": {
-            "2337": {
+            "2393": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -335,7 +346,7 @@
             }
         },
         "\/requires php (\\d+\\.\\d+(?:\\.\\d)?)\/i": {
-            "2349": {
+            "2405": {
                 "name": "preg_match",
                 "type": "unknown",
                 "args_started": true,
@@ -344,7 +355,7 @@
             }
         },
         "-update": {
-            "2466": {
+            "2522": {
                 "name": "esc_attr",
                 "type": "unknown",
                 "args_started": true,
@@ -353,13 +364,7 @@
             }
         },
         "\"\n\t\t\tclass=\"plugin-update colspanchange\"\n\t\t>": {
-            "2471": false
-        },
-        "document.getElementById(": {
-            "2501": false
-        },
-        ").disabled = true;": {
-            "2505": false
+            "2527": false
         }
     },
     "\/admin\/screens\/configure-components.php": {
@@ -380,13 +385,13 @@
             "13": false
         },
         "1": {
-            "409": false
+            "402": false
         },
         "delete-selected": {
-            "409": false
+            "402": false
         },
         "compatibility-problems": {
-            "490": {
+            "474": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -510,13 +515,13 @@
             "128": false
         },
         "closed": {
-            "196": false
+            "194": false
         },
         "save-network-wordpoints-points-hooks": {
-            "238": false
+            "234": false
         },
         "save-wordpoints-points-hooks": {
-            "240": false
+            "236": false
         }
     },
     "\/components\/points\/admin\/screens\/logs.php": {
@@ -840,7 +845,7 @@
             }
         },
         "group": {
-            "309": {
+            "311": {
                 "name": "WordPoints_Ranks_Admin_Screen_Ajax::unexpected_error",
                 "type": "unknown",
                 "args_started": true,
@@ -849,7 +854,7 @@
             }
         },
         "name": {
-            "362": {
+            "364": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -858,7 +863,7 @@
             }
         },
         "type": {
-            "380": {
+            "383": {
                 "name": "WordPoints_Ranks_Admin_Screen_Ajax::unexpected_error",
                 "type": "unknown",
                 "args_started": true,
@@ -867,7 +872,7 @@
             }
         },
         "order": {
-            "407": {
+            "410": {
                 "name": "WordPoints_Ranks_Admin_Screen_Ajax::unexpected_error",
                 "type": "unknown",
                 "args_started": true,
@@ -1682,10 +1687,10 @@
             "138": false
         },
         "autofocus": {
-            "307": false
+            "314": false
         },
         "points-": {
-            "362": {
+            "369": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1694,7 +1699,7 @@
             }
         },
         "-save": {
-            "362": {
+            "369": {
                 "name": "array",
                 "type": "unknown",
                 "args_started": true,
@@ -1706,10 +1711,10 @@
             "435": false
         },
         "&quot;]\"\n\t\t\t\t\/>": {
-            "440": false
+            "443": false
         },
         "points": {
-            "487": {
+            "490": {
                 "name": "(unknown)->get",
                 "type": "unknown",
                 "args_started": true,
@@ -1727,10 +1732,10 @@
             "583": false
         },
         "1": {
-            "945": false
+            "946": false
         },
         "2": {
-            "945": false
+            "946": false
         }
     },
     "\/components\/points\/classes\/hook\/reactor.php": {

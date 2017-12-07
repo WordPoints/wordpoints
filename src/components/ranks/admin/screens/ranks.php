@@ -55,7 +55,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 			data-nonce="<?php echo esc_attr( wp_create_nonce( "wordpoints_get_ranks-{$rank_group->slug}" ) ); ?>"
 		>
 		</ul>
-		<div class="spinner-overlay" style="display: block;">
+		<div class="spinner-overlay">
 			<span class="spinner is-active"></span>
 		</div>
 		<div class="controls">
@@ -131,7 +131,7 @@ $rank_group = $rank_groups[ wordpoints_admin_get_current_tab( $rank_groups ) ];
 				<div class="err"></div>
 			</div>
 			<div class="actions">
-				<div class="spinner-overlay">
+				<div class="spinner-overlay hidden">
 					<span class="spinner is-active"></span>
 				</div>
 				<div class="action-buttons">

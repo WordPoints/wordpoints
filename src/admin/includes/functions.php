@@ -424,7 +424,7 @@ function wordpoints_register_admin_scripts() {
 						<div class="err"></div>
 					</div>
 					<div class="actions">
-						<div class="spinner-overlay">
+						<div class="spinner-overlay hidden">
 							<span class="spinner is-active"></span>
 						</div>
 						<div class="action-buttons">

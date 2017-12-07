@@ -598,7 +598,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 				data-wordpoints-hooks-reactor="points">
 			</div>
 
-			<div class="spinner-overlay" style="display: block;">
+			<div class="spinner-overlay">
 				<span class="spinner is-active"></span>
 			</div>
 

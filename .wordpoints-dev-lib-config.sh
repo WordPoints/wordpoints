@@ -30,6 +30,8 @@ function wordpoints-dev-lib-config() {
 		'!' -path './assets/icon.svg' \
 		# Uses script tags for testing purposes.
 		'!' -path './tests/phpunit/tests/sanitization.php' \
+		# Uses inline styles, but is deprecated.
+		'!' -path './src/components/points/admin/screens/hooks-no-js.php' \
 	)
 
 	# Ignore some dittography that is expected.

@@ -28,6 +28,8 @@ function wordpoints-dev-lib-config() {
 		'!' -path './tests/phpunit/tests/classes/extension/server.php' \
 		# Needs to use non-HTTPS for XML URIs.
 		'!' -path './assets/icon.svg' \
+		# Uses script tags for testing purposes.
+		'!' -path './tests/phpunit/tests/sanitization.php' \
 	)
 
 	# Ignore some dittography that is expected.

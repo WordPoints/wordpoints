@@ -58,7 +58,7 @@ class WordPoints_Points_Shortcode_HTGP extends WordPoints_Points_Shortcode {
 
 		$html = '<table class="wordpoints-how-to-get-points ' . esc_attr( implode( ' ', $extra_classes ) ) . '">
 			<thead>
-				<tr><th style="padding-right: 10px">' . esc_html( $points_heading ) . '</th>
+				<tr><th>' . esc_html( $points_heading ) . '</th>
 				<th>' . esc_html_x( 'Action', 'column name', 'wordpoints' ) . '</th></tr>
 			</thead>
 			<tbody>';

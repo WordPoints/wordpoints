@@ -74,7 +74,7 @@ class WordPoints_User_Ranks_Query extends WordPoints_DB_Query {
 	 *        @type string       $rank_group__compare The comparison operator to use with the above value.
 	 *        @type string[]     $rank_group__in      A list of rank groups to query for.
 	 *        @type string[]     $rank_group__not_in  A list of rank groups to exclude.
-	 *        @type int          $blog_id             Limit results to those from this blog within the network (multisite). Default is $wpdb->blogid (current blog).
+	 *        @type int          $blog_id             Limit results to those from this blog within the network (multisite). Default is get_current_blog_id() (current blog).
 	 *        @type string       $blog_id__compare    Comparison operator for the above value.
 	 *        @type int[]        $blog_id__in         Limit results to these blogs.
 	 *        @type int[]        $blog_id__not_in     Exclude these blogs.
@@ -97,7 +97,7 @@ class WordPoints_User_Ranks_Query extends WordPoints_DB_Query {
 
 		$this->table_name = $wpdb->wordpoints_user_ranks;
 
-		$this->defaults['blog_id'] = $wpdb->blogid;
+		$this->defaults['blog_id'] = get_current_blog_id();
 		$this->defaults['site_id'] = $wpdb->siteid;
 
 		parent::__construct( $args );
@@ -207,7 +207,7 @@ class WordPoints_User_Ranks_Query extends WordPoints_DB_Query {
 				"
 				, $rank->ID
 				, $rank->rank_group
-				, $wpdb->blogid
+				, get_current_blog_id()
 				, $wpdb->siteid
 				, $rank->rank_group
 			)

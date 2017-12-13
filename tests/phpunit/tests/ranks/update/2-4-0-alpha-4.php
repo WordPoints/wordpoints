@@ -189,7 +189,7 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 				'user_id'    => (string) $user_id,
 				'rank_id'    => (string) $another_rank_id,
 				'rank_group' => 'points_type-points',
-				'blog_id'    => is_multisite() ? (string) $wpdb->blogid : '0',
+				'blog_id'    => is_multisite() ? (string) get_current_blog_id() : '0',
 				'site_id'    => is_multisite() ? (string) $wpdb->siteid : '0',
 			)
 			, $duplicates[ $user_rank_id_1 ]
@@ -201,7 +201,7 @@ class WordPoints_Ranks_2_4_0_Alpha_4_Update_Test extends WordPoints_PHPUnit_Test
 				'user_id'    => (string) $user_id,
 				'rank_id'    => (string) $third_rank_id,
 				'rank_group' => 'points_type-points',
-				'blog_id'    => is_multisite() ? (string) $wpdb->blogid : '0',
+				'blog_id'    => is_multisite() ? (string) get_current_blog_id() : '0',
 				'site_id'    => is_multisite() ? (string) $wpdb->siteid : '0',
 			)
 			, $duplicates[ $user_rank_id_2 ]

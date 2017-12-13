@@ -162,7 +162,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *        @type string       $text__compare       Comparison operator for $text. May be any of these:  '=', '<>', '!=', 'LIKE', 'NOT LIKE'. Default is 'LIKE'.
 	 *        @type string[]     $text__in            Return only logs with these texts.
 	 *        @type string[]     $text__not_in        Exclude logs with these texts from the results.
-	 *        @type int          $blog_id             Limit results to those from this blog within the network (multisite). Default is $wpdb->blogid (current blog).
+	 *        @type int          $blog_id             Limit results to those from this blog within the network (multisite). Default is get_current_blog_id() (current blog).
 	 *        @type string       $blog_id__compare    Comparison operator for $text. May be any of these:  '=', '<>', '!=', 'LIKE', 'NOT LIKE'. Default is 'LIKE'.
 	 *        @type int[]        $blog_id__in         Limit results to these blogs.
 	 *        @type int[]        $blog_id__not_in     Exclude these blogs.

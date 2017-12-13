@@ -29,7 +29,7 @@ class WordPoints_User_Ranks_Query_Test extends WordPoints_PHPUnit_TestCase_Ranks
 
 		$query = new WordPoints_User_Ranks_Query();
 
-		$this->assertSame( get_current_blog_id(), $query->get_arg( 'blog_id' ) );
+		$this->assertSame( is_multisite() ? get_current_blog_id() : '0', $query->get_arg( 'blog_id' ) );
 		$this->assertSame( $wpdb->siteid, $query->get_arg( 'site_id' ) );
 	}
 

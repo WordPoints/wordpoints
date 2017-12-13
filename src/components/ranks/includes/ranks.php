@@ -55,7 +55,7 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 			'name'       => $name,
 			'type'       => $type,
 			'rank_group' => $group,
-			'blog_id'    => get_current_blog_id(),
+			'blog_id'    => is_multisite() ? get_current_blog_id() : '0',
 			'site_id'    => $wpdb->siteid,
 		)
 	);
@@ -481,7 +481,7 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 				"
 				, $user_id
 				, $group
-				, get_current_blog_id()
+				, is_multisite() ? get_current_blog_id() : '0'
 				, $wpdb->siteid
 			)
 		);
@@ -558,7 +558,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 			"
 				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
 					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
-				VALUES 
+				VALUES
 					(%d, %d, %s, %d, %d)
 				ON DUPLICATE KEY
 					UPDATE `rank_id` = %d
@@ -566,7 +566,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 			, $user_id
 			, $rank_id
 			, $rank->rank_group
-			, get_current_blog_id()
+			, is_multisite() ? get_current_blog_id() : '0'
 			, $wpdb->siteid
 			, $rank_id
 		)
@@ -637,7 +637,7 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
 		', %d, %s, %d, %d'
 		, $to_rank_id
 		, $rank->rank_group
-		, get_current_blog_id()
+		, is_multisite() ? get_current_blog_id() : '0'
 		, $wpdb->siteid
 	);
 
@@ -646,7 +646,7 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
 			"
 				INSERT INTO `{$wpdb->wordpoints_user_ranks}`
 					(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
-				VALUES 
+				VALUES
 					(" . implode( array_map( 'absint', $user_ids ), "{$prepared}),\n\t\t\t\t\t(" ) . "{$prepared})
 				ON DUPLICATE KEY
 					UPDATE `rank_id` = %d
@@ -804,7 +804,7 @@ function wordpoints_set_new_user_ranks( $user_id ) {
 					"
 						INSERT INTO `{$wpdb->wordpoints_user_ranks}`
 							(`user_id`, `rank_id`, `rank_group`, `blog_id`, `site_id`)
-						VALUES 
+						VALUES
 							(%d, %d, %s, %d, %d)
 						ON DUPLICATE KEY
 							UPDATE `rank_id` = %d
@@ -812,7 +812,7 @@ function wordpoints_set_new_user_ranks( $user_id ) {
 					, $user_id
 					, $base_rank->ID
 					, $base_rank->rank_group
-					, get_current_blog_id()
+					, is_multisite() ? get_current_blog_id() : '0'
 					, $wpdb->siteid
 					, $base_rank->ID
 				)
@@ -839,7 +839,7 @@ function wordpoints_delete_user_ranks( $user_id ) {
 		$wpdb->wordpoints_user_ranks
 		, array(
 			'user_id' => $user_id,
-			'blog_id' => get_current_blog_id(),
+			'blog_id' => is_multisite() ? get_current_blog_id() : '0',
 			'site_id' => $wpdb->siteid,
 		)
 		, '%d'

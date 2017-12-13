@@ -37,7 +37,7 @@ class WordPoints_Ranks_Updater_2_4_0_User_Ranks implements WordPoints_RoutineI {
 						AND `blog_id` = %d
 						AND `site_id` = %d
 				"
-				, get_current_blog_id()
+				, is_multisite() ? get_current_blog_id() : '0'
 				, $wpdb->siteid
 			)
 		);

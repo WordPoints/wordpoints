@@ -297,7 +297,7 @@ function wordpoints_delete_points_logs_for_user( $user_id ) {
 	$where = array( 'user_id' => $user_id );
 
 	if ( ! isset( $query_args['blog_id'] ) ) {
-		$where['blog_id'] = get_current_blog_id();
+		$where['blog_id'] = is_multisite() ? get_current_blog_id() : '0';
 	}
 
 	// Now delete the logs.

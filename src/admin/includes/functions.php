@@ -2292,7 +2292,7 @@ function wordpoints_delete_admin_notice_option() {
  *
  * @since 2.0.0
  *
- * @WordPress\action set-screen-option
+ * @WordPress\filter set-screen-option
  *
  * @param mixed  $sanitized The sanitized option value, or false if not sanitized.
  * @param string $option    The option being saved.

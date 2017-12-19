@@ -352,6 +352,13 @@ function wordpoints_register_admin_scripts() {
 	// JS
 
 	wp_register_script(
+		'wordpoints-admin-utils'
+		, "{$assets_url}/js/utils{$suffix}.js"
+		, array( 'wp-util' )
+		, WORDPOINTS_VERSION
+	);
+
+	wp_register_script(
 		'wordpoints-admin-dismiss-notice'
 		, "{$assets_url}/js/dismiss-notice{$suffix}.js"
 		, array( 'jquery', 'wp-util' )
@@ -361,7 +368,7 @@ function wordpoints_register_admin_scripts() {
 	wp_register_script(
 		'wordpoints-hooks-models'
 		, "{$assets_url}/js/hooks/models{$manifested_suffix}.js"
-		, array( 'backbone', 'jquery-ui-dialog', 'wp-util' )
+		, array( 'backbone', 'jquery-ui-dialog', 'wordpoints-admin-utils' )
 		, WORDPOINTS_VERSION
 	);
 

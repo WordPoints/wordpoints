@@ -197,29 +197,18 @@ _.extend( hooks, {
 	 *
 	 * Fetch a JavaScript template for an id, and return a templating function for it.
 	 *
-	 * See wp.template() in `wp-includes/js/wp-util.js`.
+	 * @borrows wp.wordpoints.utils.template as template
 	 */
-	template: function ( id ) {
-		return wp.template( 'wordpoints-' + id );
-	},
+	template: wp.wordpoints.utils.template,
 
 	/**
 	 * hooks.textTemplate( text )
 	 *
 	 * Returns a WordPress-style templating function for a text string.
 	 *
-	 * See wp.template() in `wp-includes/js/wp-util.js`.
+	 * @borrows wp.wordpoints.utils.textTemplate as textTemplate
 	 */
-	textTemplate: function ( text ) {
-		var options = {
-			evaluate:    /<#([\s\S]+?)#>/g,
-			interpolate: /\{\{\{([\s\S]+?)\}\}\}/g,
-			escape:      /\{\{([^\}]+?)\}\}(?!\})/g,
-			variable:    'data'
-		};
-
-		return _.template( text, options );
-	},
+	textTemplate: wp.wordpoints.utils.textTemplate,
 
 	/**
 	 * hooks.post( [action], [data] )

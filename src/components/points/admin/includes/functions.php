@@ -29,11 +29,27 @@ function wordpoints_points_admin_register_scripts() {
 		, WORDPOINTS_VERSION
 	);
 
-	$styles = wp_styles();
-	$styles->add_data( 'wordpoints-admin-points-hooks', 'rtl', 'replace' );
+	wp_register_style(
+		'wordpoints-admin-user-points'
+		, "{$assets_url}/css/user-points{$suffix}.css"
+		, array( 'wp-jquery-ui-dialog' )
+		, WORDPOINTS_VERSION
+	);
 
-	if ( $suffix ) {
-		$styles->add_data( 'wordpoints-admin-points-hooks', 'suffix', $suffix );
+	$styles = wp_styles();
+
+	$rtl_styles = array(
+		'wordpoints-admin-points-hooks',
+		'wordpoints-admin-user-points',
+	);
+
+	foreach ( $rtl_styles as $handle ) {
+
+		$styles->add_data( $handle, 'rtl', 'replace' );
+
+		if ( $suffix ) {
+			$styles->add_data( $handle, 'suffix', $suffix );
+		}
 	}
 
 	// JS
@@ -72,6 +88,73 @@ function wordpoints_points_admin_register_scripts() {
 		, "{$assets_url}/js/hooks{$suffix}.js"
 		, array( 'jquery', 'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-dialog' )
 		, WORDPOINTS_VERSION
+	);
+
+	wp_register_script(
+		'wordpoints-admin-user-points'
+		, "{$assets_url}/js/user-points{$suffix}.js"
+		, array(
+			'wordpoints-admin-utils',
+			'jquery-ui-dialog',
+			'jquery-effects-highlight',
+			'wp-a11y',
+		)
+		, WORDPOINTS_VERSION
+	);
+
+	wp_localize_script(
+		'wordpoints-admin-user-points'
+		, 'WordPointsUserPointsTableL10n'
+		, array(
+			'addButtonText'      => __( 'Add Points', 'wordpoints' ),
+			'subtractButtonText' => __( 'Subtract Points', 'wordpoints' ),
+			'closeButtonText'    => __( 'Close', 'wordpoints' ),
+			'cancelButtonText'   => __( 'Cancel', 'wordpoints' ),
+			'waitMessage'        => __( 'Please wait&hellip;', 'wordpoints' ),
+			'successMessage'     => __( 'Points updated successfully!', 'wordpoints' ),
+			'errorMessage'       => __( 'Sorry, an unknown error occurred. Please try again.', 'wordpoints' ),
+			'invalidInputText'   => __( 'Please enter a positive integer value.', 'wordpoints' ),
+			'invalidInputTitle'  => __( 'Invalid input', 'wordpoints' ),
+			'lessThanMinimum'    => sprintf(
+				// translators: The minimum number of points.
+				__( 'Users cannot have less than %s points.', 'wordpoints' )
+				, '{{ data.minimum }}'
+			),
+		)
+	);
+
+	wp_script_add_data(
+		'wordpoints-admin-user-points'
+		, 'wordpoints-templates'
+		, '
+			<script type="text/template" id="tmpl-wordpoints-user-points-dialog">
+				<div title="' . esc_attr__( 'Are you sure?', 'wordpoints' ) . '">
+					<p>
+						' . esc_html__( 'Please review the change you are about to make.', 'wordpoints' ) . '
+					</p>
+					<p class="wordpoints-points-user">
+						<strong>
+							' . esc_html__( 'User:', 'wordpoints' ) . '
+						</strong>
+					</p>
+					<p class="wordpoints-points-total">
+						<strong>
+							' . esc_html__( 'Total:', 'wordpoints' ) . '
+						</strong>
+						{{ data.total }}
+					</p>
+					<p class="wordpoints-points-reason">
+						' . esc_html__( 'If you would like to provide a reason for the change, you can add a message in the field below. This is optional.', 'wordpoints' ) . '
+					</p>
+					<p>
+						<label>
+							' . esc_html__( 'Reason:', 'wordpoints' ) . '
+							<input type="text" />
+						</label>
+					</p>
+				</div>
+			</script>
+		'
 	);
 }
 
@@ -137,6 +220,22 @@ function wordpoints_points_admin_menu() {
 		, 'wordpoints_points_logs'
 		, 'wordpoints_points_admin_screen_logs'
 	);
+
+	// User Points screen.
+	if ( ! is_network_admin() && current_user_can( 'list_users' ) ) {
+		$id = add_submenu_page(
+			$wordpoints_menu
+			, __( 'WordPoints — User Points', 'wordpoints' )
+			, __( 'User Points', 'wordpoints' )
+			, 'set_wordpoints_points'
+			, 'wordpoints_user_points'
+			, array( $admin_screens, 'display' )
+		);
+
+		if ( $id ) {
+			$admin_screens->register( $id, 'WordPoints_Points_Admin_Screen_User_Points' );
+		}
+	}
 }
 
 /**
@@ -550,6 +649,31 @@ function wordpoints_points_admin_notices() {
 			, 'info'
 		);
 	}
+}
+
+/**
+ * Sanitizes the screen options on save.
+ *
+ * @since 2.5.0
+ *
+ * @WordPress\filter set-screen-option
+ *
+ * @param mixed  $sanitized The sanitized option value, or false if not sanitized.
+ * @param string $option    The option being saved.
+ * @param mixed  $value     The raw value supplied by the user.
+ *
+ * @return mixed The option value, sanitized if it is for one of the plugin's screens.
+ */
+function wordpoints_points_admin_set_screen_option( $sanitized, $option, $value ) {
+
+	switch ( $option ) {
+
+		case 'wordpoints_page_wordpoints_user_points_per_page':
+			$sanitized = wordpoints_posint( $value );
+		break;
+	}
+
+	return $sanitized;
 }
 
 // EOF

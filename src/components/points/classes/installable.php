@@ -405,6 +405,14 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			)
 		);
 
+		$factories[] = new WordPoints_Uninstaller_Factory_Admin_Screens_With_List_Tables(
+			array(
+				'local' => array(
+					'wordpoints_user_points' => array(),
+				),
+			)
+		);
+
 		return $factories;
 	}
 }

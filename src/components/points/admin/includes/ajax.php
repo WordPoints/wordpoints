@@ -256,4 +256,68 @@ function wordpoints_ajax_save_points_hook() {
 	wp_die( '', '', array( 'response' => 200 ) );
 }
 
+/**
+ * Handles an Ajax request to update a user's points.
+ *
+ * @since 2.5.0
+ */
+function wordpoints_points_ajax_user_points_alter() {
+
+	if (
+		! check_ajax_referer( 'wordpoints-points-alter-user-points', false, false )
+		|| ! current_user_can( 'set_wordpoints_points' )
+	) {
+		wp_send_json_error( null, 403 );
+	}
+
+	if (
+		empty( $_POST['points'] )
+		|| ! wordpoints_posint( $_POST['points'] )
+		|| empty( $_POST['type'] )
+		|| ! wordpoints_is_points_type( sanitize_key( $_POST['type'] ) )
+		|| empty( $_POST['user_id'] )
+		|| ! wordpoints_posint( $_POST['user_id'] )
+		|| ! get_userdata( (int) $_POST['user_id'] )
+		|| empty( $_POST['alter'] )
+	) {
+		wp_send_json_error( null, 400 );
+	}
+
+	$type    = sanitize_key( $_POST['type'] );
+	$points  = (int) $_POST['points'];
+	$user_id = (int) $_POST['user_id'];
+	$reason  = ( ! empty( $_POST['reason'] ) )
+		? sanitize_text_field( wp_unslash( $_POST['reason'] ) )
+		: '';
+
+	switch ( sanitize_key( $_POST['alter'] ) ) {
+
+		case 'add':
+			break;
+
+		case 'subtract':
+			$points = -$points;
+		break;
+
+		default:
+			wp_send_json_error( null, 400 );
+	}
+
+	$result = wordpoints_alter_points(
+		$user_id
+		, $points
+		, $type
+		, 'profile_edit'
+		, array( 'user_id' => get_current_user_id(), 'reason' => trim( $reason ) )
+	);
+
+	if ( ! $result ) {
+		wp_send_json_error( null, 500 );
+	}
+
+	wp_send_json_success(
+		array( 'points' => wordpoints_get_points( $user_id, $type ) )
+	);
+}
+
 // EOF

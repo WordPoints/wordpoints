@@ -1,0 +1,53 @@
+/**
+ * Styles for the User Points administration screen.
+ *
+ * @package WordPoints\Points
+ * @since 2.5.0
+ */
+
+/*
+ * Table.
+ */
+
+p.search-box {
+	margin-top: 10px;
+}
+
+.wordpoints-searching-for {
+	float: right;
+	font-size: 16px;
+}
+
+.wp-list-table .tr .avatar {
+	vertical-align: middle;
+}
+
+.wp-list-table .button {
+	margin-right: 5px;
+}
+
+/*
+ * Dialogs.
+ */
+
+.wp-dialog .wordpoints-points-total,
+.wp-dialog .wordpoints-points-user {
+	padding: 10px;
+	border: 1px solid #ddd;
+	background-color: #eee;
+}
+
+.wp-dialog .wordpoints-points-total div,
+.wp-dialog .wordpoints-points-user div {
+	margin: 0 auto;
+}
+
+.wp-dialog .wordpoints-points-user .avatar {
+	vertical-align: middle;
+}
+
+.wp-dialog .spinner {
+	float: right;
+}
+
+/* EOF */

@@ -624,7 +624,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 				'text'        => $log_text,
 				'date'        => current_time( 'mysql', 1 ),
 				'site_id'     => $wpdb->siteid,
-				'blog_id'     => $wpdb->blogid,
+				'blog_id'     => is_multisite() ? get_current_blog_id() : '0',
 			),
 			array( '%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d' )
 		);
@@ -1091,7 +1091,7 @@ function wordpoints_points_get_top_users( $num_users, $points_type ) {
 		$multisite_join = '';
 		if ( is_multisite() && ! is_wordpoints_network_active() ) {
 
-			$prefix = $wpdb->get_blog_prefix( get_current_blog_id() );
+			$prefix = $wpdb->get_blog_prefix( is_multisite() ? get_current_blog_id() : '0' );
 
 			$multisite_join = "
 					INNER JOIN `{$wpdb->usermeta}` AS `cap`

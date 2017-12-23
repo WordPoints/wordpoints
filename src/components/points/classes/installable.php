@@ -313,6 +313,28 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			);
 		}
 
+		// 2.5.0-alpha-2.
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.5.0-alpha-2'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Updater_Core_Extension_Merge',
+						'args'  => array( 'user-points-table/user-points-table.php' ),
+					),
+				),
+				'site' => array(
+					array(
+						'class' => 'WordPoints_Uninstaller_Callback',
+						'args'  => array(
+							'wordpoints_deactivate_modules',
+							array( 'user-points-table/user-points-table.php' ),
+						),
+					),
+				),
+			)
+		);
+
 		return $factories;
 	}
 

@@ -54,6 +54,9 @@ function wordpoints-dev-lib-config() {
 
 	# Disable code coverage for now, it takes to long to run.
 	export DO_CODE_COVERAGE=0
+	
+	export DO_WP_CEPT=1
+
 }
 
 # EOF

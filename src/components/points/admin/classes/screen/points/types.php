@@ -602,10 +602,6 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 				<span class="spinner is-active"></span>
 			</div>
 
-			<div class="error hidden">
-				<p></p>
-			</div>
-
 			<div class="controls">
 				<button type="button" class="button button-primary add-reaction">
 					<?php esc_html_e( 'Add New Reaction', 'wordpoints' ); ?>

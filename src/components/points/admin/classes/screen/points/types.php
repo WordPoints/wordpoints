@@ -81,7 +81,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	 *
 	 * @var array
 	 */
-	protected $reactions_data;
+	protected $reactions_data = array();
 
 	/**
 	 * Data for the events being displayed.
@@ -92,7 +92,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 	 *
 	 * @var array
 	 */
-	protected $events_data;
+	protected $events_data = array();
 
 	/**
 	 * @since 2.1.0

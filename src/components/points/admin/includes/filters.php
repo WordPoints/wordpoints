@@ -25,11 +25,6 @@ add_filter( 'set-screen-option', 'wordpoints_points_admin_set_screen_option', 10
 
 add_action( 'wordpoints_in_points_hook_form', 'wordpoints_points_hook_description_form', 10, 3 );
 
-add_action( 'personal_options', 'wordpoints_points_profile_options', 20 );
-
-add_action( 'personal_options_update', 'wordpoints_points_profile_options_update' );
-add_action( 'edit_user_profile_update', 'wordpoints_points_profile_options_update' );
-
 add_action( 'wordpoints_admin_settings_top', 'wordpoints_points_admin_settings' );
 
 add_action( 'wordpoints_admin_settings_update', 'wordpoints_points_admin_settings_save' );

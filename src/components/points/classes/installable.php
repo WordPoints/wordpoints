@@ -335,6 +335,23 @@ class WordPoints_Points_Installable extends WordPoints_Installable_Component {
 			)
 		);
 
+		// 2.5.0-alpha-3
+		$factories[] = new WordPoints_Updater_Factory(
+			'2.5.0-alpha-3'
+			, array(
+				'global' => array(
+					array(
+						'class' => 'WordPoints_Installer_Option',
+						'args'  => array(
+							'wordpoints_points_admin_profile_options_extension_offer',
+							true,
+							null,
+						),
+					),
+				),
+			)
+		);
+
 		return $factories;
 	}
 

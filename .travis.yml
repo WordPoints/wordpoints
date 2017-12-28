@@ -41,6 +41,7 @@ before_script:
 
       cd -
 
+    - phantomjs -v
     - export WORDPOINTS_PROJECT_TYPE=wordpoints
 #    - export DEV_LIB_DEBUG=1
     - export DEV_LIB_PATH=dev-lib

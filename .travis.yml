@@ -23,7 +23,7 @@ addons:
 
 before_script:
     - |
-      PHANTOM_VERSION="phantomjs-2.0.0"
+      PHANTOM_VERSION="phantomjs-1.9.8"
       ARCH=$(uname -m)
 
       if ! [ $ARCH = "x86_64" ]; then

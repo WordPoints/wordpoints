@@ -39,6 +39,7 @@ before_script:
       sudo mv $PHANTOM_JS /usr/local/share
       sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
+      alias phantomjs=/usr/local/share/$PHANTOM_JS/bin/phantomjs
       cd -
 
     - phantomjs -v

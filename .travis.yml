@@ -39,6 +39,8 @@ before_script:
       sudo mv $PHANTOM_JS /usr/local/share
       sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
+      cd -
+
     - export WORDPOINTS_PROJECT_TYPE=wordpoints
 #    - export DEV_LIB_DEBUG=1
     - export DEV_LIB_PATH=dev-lib

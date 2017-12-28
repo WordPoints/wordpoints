@@ -10,9 +10,10 @@ env:
 
 dist: trusty
 
-sudo: required
+sudo: false
+#sudo: required
 
-group: deprecated-2017Q4
+#group: deprecated-2017Q4
 
 addons:
   apt:

@@ -29,6 +29,7 @@ before_script:
     - source $DEV_LIB_PATH/travis/before_script.sh
     - sleep 20
     - phantomjs -v
+    - mkdir -p /tmp/wordpress/src/wp-content/wordpoints-extensions/
     - export DO_WP_CEPT=1
 
 script:

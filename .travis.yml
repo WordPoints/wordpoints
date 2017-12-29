@@ -10,8 +10,8 @@ env:
 
 dist: trusty
 
-#sudo: false
-sudo: required
+sudo: false
+#sudo: required
 
 #group: deprecated-2017Q4
 
@@ -22,30 +22,13 @@ addons:
       - libxml2-utils
 
 before_script:
-    - |
-      PHANTOM_VERSION="phantomjs-1.9.8"
-      ARCH=$(uname -m)
-
-      if ! [ $ARCH = "x86_64" ]; then
-          $ARCH="i686"
-      fi
-
-      PHANTOM_JS="$PHANTOM_VERSION-linux-$ARCH"
-
-      cd /tmp/
-      wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
-      sudo tar xvjf $PHANTOM_JS.tar.bz2
-
-      # alias phantomjs="/tmp/$PHANTOM_JS/bin/phantomjs"
-      cd -
-
-    - phantomjs -v
     - export WORDPOINTS_PROJECT_TYPE=wordpoints
 #    - export DEV_LIB_DEBUG=1
     - export DEV_LIB_PATH=dev-lib
     - if [ -e .wordpoints-dev-lib-config.sh ]; then source .wordpoints-dev-lib-config.sh; fi
     - source $DEV_LIB_PATH/travis/before_script.sh
     - sleep 20
+    - phantomjs -v
     - export DO_WP_CEPT=1
 
 script:

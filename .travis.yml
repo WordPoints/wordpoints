@@ -18,7 +18,10 @@ env:
 
 dist: trusty
 
-sudo: false
+# See https://github.com/WordPoints/wordpoints/issues/757
+group: deprecated-2017Q4
+
+sudo: true
 
 addons:
   apt:

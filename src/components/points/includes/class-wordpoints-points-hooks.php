@@ -723,10 +723,10 @@ final class WordPoints_Points_Hooks {
 				<a class="hook-control-edit hide-if-js" href="<?php echo esc_url( add_query_arg( $query_arg ) ); ?>">
 					<span class="edit"><?php echo esc_html_x( 'Edit', 'hook', 'wordpoints' ); ?></span>
 					<span class="add"><?php echo esc_html_x( 'Add', 'hook', 'wordpoints' ); ?></span>
-					<span class="screen-reader-text"><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?></span>
+					<span class="screen-reader-text"><?php echo esc_html( wp_strip_all_tags( $hook->get_name() ) ); ?></span>
 				</a>
 			</div>
-			<div class="hook-title"><h3><?php echo esc_html( strip_tags( $hook->get_name() ) ); ?><span class="in-hook-title"></span></h3></div>
+			<div class="hook-title"><h3><?php echo esc_html( wp_strip_all_tags( $hook->get_name() ) ); ?><span class="in-hook-title"></span></h3></div>
 		</div>
 
 		<div class="hook-inside">

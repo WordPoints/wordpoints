@@ -206,7 +206,7 @@ abstract class WordPoints_Widget extends WP_Widget {
 	 * @since 2.0.0
 	 */
 	public function update_title() {
-		$this->instance['title'] = strip_tags( $this->instance['title'] );
+		$this->instance['title'] = wp_strip_all_tags( $this->instance['title'] );
 	}
 
 	/**

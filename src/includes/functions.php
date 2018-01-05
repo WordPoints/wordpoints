@@ -361,7 +361,7 @@ function wordpoints_verify_nonce(
 
 	$is_valid = wp_verify_nonce(
 		sanitize_key( $request[ $nonce_key ] )
-		, strip_tags( $action_format )
+		, wp_strip_all_tags( $action_format )
 	);
 
 	if ( 1 === $is_valid || 2 === $is_valid ) {

@@ -348,7 +348,7 @@ class WordPoints_Admin_List_Table_Extensions extends WP_List_Table {
 
 		foreach ( $module_data as $value ) {
 
-			if ( false !== stripos( strip_tags( $value ), $term ) ) {
+			if ( false !== stripos( wp_strip_all_tags( $value ), $term ) ) {
 				return true;
 			}
 		}

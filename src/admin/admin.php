@@ -20,6 +20,13 @@
 require_once WORDPOINTS_DIR . '/admin/includes/functions.php';
 
 /**
+ * Admin-side extension-related functions.
+ *
+ * @since 2.5.0
+ */
+require_once WORDPOINTS_DIR . '/admin/includes/extensions.php';
+
+/**
  * Admin-side hooks.
  *
  * @since 2.1.0

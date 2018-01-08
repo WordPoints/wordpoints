@@ -1,24 +1,4 @@
 {
-    "\/admin\/includes\/functions.php": {
-        "\u00ab": {
-            "395": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 8,
-                "parentheses": 1
-            }
-        },
-        "\u00bb": {
-            "395": {
-                "name": "array",
-                "type": "unknown",
-                "args_started": true,
-                "arg_count": 8,
-                "parentheses": 1
-            }
-        }
-    },
     "\/classes\/db\/query.php": {
         "WordPoints Debug Error: invalid get method %s, possible values are %s": {
             "367": {
@@ -188,6 +168,26 @@
                 "type": "unknown",
                 "args_started": true,
                 "arg_count": 15,
+                "parentheses": 1
+            }
+        }
+    },
+    "\/admin\/includes\/scripts.php": {
+        "\u00ab": {
+            "113": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 8,
+                "parentheses": 1
+            }
+        },
+        "\u00bb": {
+            "113": {
+                "name": "array",
+                "type": "unknown",
+                "args_started": true,
+                "arg_count": 8,
                 "parentheses": 1
             }
         }

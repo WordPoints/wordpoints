@@ -34,6 +34,13 @@ require_once WORDPOINTS_DIR . '/admin/includes/scripts.php';
 require_once WORDPOINTS_DIR . '/admin/includes/extensions.php';
 
 /**
+ * Functions relating to checking the PHP version requirements for updates.
+ *
+ * @since 2.5.0
+ */
+require_once WORDPOINTS_DIR . '/admin/includes/updates-php-version-check.php';
+
+/**
  * Admin-side hooks.
  *
  * @since 2.1.0

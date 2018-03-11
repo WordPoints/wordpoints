@@ -519,7 +519,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 
 	if (
 		! wordpoints_posint( $user_id )
-		|| ! wordpoints_int( $points )
+		|| wordpoints_int( $points ) === false
 		|| ! wordpoints_is_points_type( $points_type )
 		|| empty( $log_type )
 	) {

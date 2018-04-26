@@ -357,7 +357,7 @@ class WordPoints_Hook_Extension_Periods
 		$period = $wpdb->get_row(
 			$wpdb->prepare(
 				"
-					SELECT *, `period`.`id` AS `id`
+					SELECT `period`.`id`, `hit`.`date`, `hit`.`id` AS `hit_id`
 					FROM `{$wpdb->wordpoints_hook_periods}` AS `period`
 					INNER JOIN `{$wpdb->wordpoints_hook_hits}` AS `hit`
 						ON `hit`.`id` = period.`hit_id`
@@ -382,6 +382,13 @@ class WordPoints_Hook_Extension_Periods
 		if ( ! $period ) {
 			return false;
 		}
+
+		$period->signature           = $signature;
+		$period->reaction_mode       = $reaction_guid['mode'];
+		$period->reaction_store      = $reaction_guid['store'];
+		$period->reaction_context_id = wp_json_encode( $reaction_guid['context_id'] );
+		$period->reaction_id         = $reaction_guid['id'];
+		$period->action_type         = $this->action_type;
 
 		wp_cache_set( $cache_key, $period->id, 'wordpoints_hook_period_ids_by_reaction' );
 		wp_cache_set( $period->id, $period, 'wordpoints_hook_periods' );

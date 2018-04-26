@@ -1640,7 +1640,7 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 
 		return false !== strpos(
 			$sql
-			, "SELECT *, `period`.`id` AS `id`
+			, "SELECT `period`.`id`, `hit`.`date`, `hit`.`id` AS `hit_id`
 					FROM `{$wpdb->wordpoints_hook_periods}` AS `period`
 					INNER JOIN `{$wpdb->wordpoints_hook_hits}` AS `hit`
 						ON `hit`.`id` = period.`hit_id`

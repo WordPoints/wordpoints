@@ -1572,6 +1572,98 @@ class WordPoints_Hook_Extension_Periods_Test extends WordPoints_PHPUnit_TestCase
 	}
 
 	/**
+	 * Test caching when there are no matching periods in the DB.
+	 *
+	 * @since 2.4.2
+	 */
+	public function test_should_hit_cache_no_hit() {
+
+		$this->mock_apps();
+
+		$hooks = wordpoints_hooks();
+
+		$extensions = $hooks->get_sub_app( 'extensions' );
+		$extensions->register( $this->extension_slug, $this->extension_class );
+		$extensions->register( 'blocker', 'WordPoints_PHPUnit_Mock_Hook_Extension' );
+
+		// Get this first so that it will run before the blocker extension.
+		$extensions->get( $this->extension_slug );
+
+		// Set up the blocker extension.
+		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $blocker */
+		$blocker = $extensions->get( 'blocker' );
+
+		$blocker->should_hit = false;
+
+		$settings = array(
+			$this->extension_slug => array( 'test_fire' => array( array( 'length' => DAY_IN_SECONDS ) ) ),
+			'target'              => array( 'test_entity' ),
+		);
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create( $settings );
+
+		$this->assertIsReaction( $reaction );
+
+		$event_args = new WordPoints_Hook_Event_Args(
+			array( new WordPoints_Hook_Arg( 'test_entity' ) )
+		);
+
+		$get_period_queries = new WordPoints_PHPUnit_Mock_Filter();
+		$get_period_queries->count_callback = array( $this, 'is_get_period_query' );
+		add_filter( 'query', array( $get_period_queries, 'filter' ) );
+
+		$get_by_reaction_queries = new WordPoints_PHPUnit_Mock_Filter();
+		$get_by_reaction_queries->count_callback = array( $this, 'is_get_period_by_reaction_query' );
+		add_filter( 'query', array( $get_by_reaction_queries, 'filter' ) );
+
+		// Run once, to show normal behavior.
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 1, $get_by_reaction_queries->call_count );
+
+		$test_reactor = $hooks->get_sub_app( 'reactors' )->get( 'test_reactor' );
+
+		$this->assertCount( 0, $test_reactor->hits );
+
+		// Flush the cache and run again, to demonstrate un-cached behavior.
+		$this->flush_cache();
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
+
+		$this->assertCount( 0, $test_reactor->hits );
+
+		// Now run again, to show the cache's effect.
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
+
+		$this->assertCount( 0, $test_reactor->hits );
+
+		// Turn the blocker off, to show what happens when a hit eventually occurs.
+		$blocker->should_hit = true;
+
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertSame( 0, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
+
+		$this->assertCount( 1, $test_reactor->hits );
+
+		// Finally, run again, to show that the cache was updated correctly.
+		$hooks->fire( 'test_event', $event_args, 'test_fire' );
+
+		$this->assertSame( 1, $get_period_queries->call_count );
+		$this->assertSame( 2, $get_by_reaction_queries->call_count );
+
+		$this->assertCount( 1, $test_reactor->hits );
+	}
+
+	/**
 	 * Travel forward in time by modifying the hit time of a period.
 	 *
 	 * @since 2.1.0

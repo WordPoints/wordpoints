@@ -19,6 +19,7 @@ return array(
 	'wordpoints_hook_ui_script_data_provideri' => 'hook/ui/script/data/provideri.php',
 	'wordpoints_hook_settingsi' => 'hook/settingsi.php',
 	'wordpoints_hook_reactori' => 'hook/reactori.php',
+	'wordpoints_hook_reactor_target_validatori' => 'hook/reactor/target/validatori.php',
 	'wordpoints_hook_reactioni' => 'hook/reactioni.php',
 	'wordpoints_hook_reaction_storei' => 'hook/reaction/storei.php',
 	'wordpoints_hook_extensioni' => 'hook/extensioni.php',

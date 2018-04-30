@@ -225,6 +225,17 @@ class WordPoints_Hooks extends WordPoints_App {
 
 		unset( $validator );
 
+		if ( $reactor instanceof WordPoints_Hook_Reactor_Target_ValidatorI ) {
+
+			$target = $fire->event_args->get_from_hierarchy(
+				$fire->reaction->get_meta( 'target' )
+			);
+
+			if ( ! $reactor->can_hit( $target, $fire ) ) {
+				return;
+			}
+		}
+
 		/** @var WordPoints_Hook_ExtensionI[] $extensions */
 		$extensions = $this->get_sub_app( 'extensions' )->get_all();
 

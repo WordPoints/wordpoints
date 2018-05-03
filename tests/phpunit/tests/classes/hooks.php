@@ -826,9 +826,29 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function fire_event() {
 
-		$args = new WordPoints_Hook_Event_Args( array() );
+		$args = new WordPoints_Hook_Event_Args(
+			array(
+				'test_entity' => new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity' ),
+			)
+		);
 
 		wordpoints_hooks()->fire( 'test_event', $args, 'test_fire' );
+	}
+
+	/**
+	 * @since 2.4.2
+	 */
+	public function assertHitsLogged(
+		array $data,
+		$count = 1,
+		$signature_arg_guids = null
+	) {
+
+		if ( null === $signature_arg_guids ) {
+			$signature_arg_guids = '{"test_entity":1,"site":1,"network":1}';
+		}
+
+		parent::assertHitsLogged( $data, $count, $signature_arg_guids );
 	}
 }
 

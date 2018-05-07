@@ -248,6 +248,80 @@ class WordPoints_Hook_Reactor_Points_Test extends WordPoints_PHPUnit_TestCase_Ho
 	}
 
 	/**
+	 * Test checking if the target can be hit.
+	 *
+	 * @since 2.4.2
+	 */
+	public function test_can_hit() {
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		/** @var WordPoints_Entity_User $entity */
+		$entity = wordpoints_entities()->get( 'user' );
+
+		$user_id = $this->factory->user->create();
+
+		$entity->set_the_value( $user_id );
+
+		$event_args->add_entity( $entity );
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create();
+
+		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
+		$fire->hit();
+
+		$this->assertTrue( $this->reactor->can_hit( $entity, $fire ) );
+	}
+
+	/**
+	 * Test checking if the target can be hit when a reversal action is occurring.
+	 *
+	 * @since 2.4.2
+	 */
+	public function test_can_hit_reversal() {
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		/** @var WordPoints_Entity_User $entity */
+		$entity = wordpoints_entities()->get( 'user' );
+
+		$user_id = $this->factory->user->create();
+
+		$entity->set_the_value( $user_id );
+
+		$event_args->add_entity( $entity );
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create();
+
+		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'toggle_off' );
+		$fire->hit();
+
+		$this->assertTrue( $this->reactor->can_hit( $entity, $fire ) );
+	}
+
+	/**
+	 * Test checking if the target can be hit when the entity ID isn't set.
+	 *
+	 * @since 2.4.2
+	 */
+	public function test_can_hit_value_not_set() {
+
+		$event_args = new WordPoints_Hook_Event_Args( array() );
+
+		/** @var WordPoints_Entity_User $entity */
+		$entity = wordpoints_entities()->get( 'user' );
+
+		$event_args->add_entity( $entity );
+
+		$reaction = $this->factory->wordpoints->hook_reaction->create();
+
+		$fire = new WordPoints_Hook_Fire( $event_args, $reaction, 'test_fire' );
+		$fire->hit();
+
+		$this->assertFalse( $this->reactor->can_hit( $entity, $fire ) );
+	}
+
+	/**
 	 * Test hitting the target.
 	 *
 	 * @since 2.1.0

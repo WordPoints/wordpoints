@@ -565,6 +565,114 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	}
 
 	/**
+	 * Test firing an event when the reactor must validate the target.
+	 *
+	 * @since 2.4.2
+	 */
+	public function test_fire_event_target_validator() {
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $extension */
+		$extension = $this->factory->wordpoints->hook_extension->create_and_get();
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $other_extension */
+		$other_extension = $this->factory->wordpoints->hook_extension->create_and_get(
+			array( 'slug' => 'another' )
+		);
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor_Target_Validator $reactor */
+		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get(
+			array( 'class' => 'WordPoints_PHPUnit_Mock_Hook_Reactor_Target_Validator' )
+		);
+
+		$reactions = $this->factory->wordpoints->hook_reaction->create_many( 2 );
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $other_reactor */
+		$other_reactor = $this->factory->wordpoints->hook_reactor->create_and_get(
+			array( 'slug' => 'another' )
+		);
+
+		$other_reaction = $this->factory->wordpoints->hook_reaction->create(
+			array( 'reactor' => 'another' )
+		);
+
+		$this->fire_event();
+
+		// The extensions should have each been checked.
+		$this->assertCount( 3, $extension->hit_checks );
+		$this->assertCount( 3, $extension->hits );
+
+		$this->assertCount( 3, $other_extension->hit_checks );
+		$this->assertCount( 3, $other_extension->hits );
+
+		// The reactors should have been hit.
+		$this->assertCount( 2, $reactor->hits );
+
+		$this->assertHitsLogged( array( 'reaction_id' => $reactions[0]->get_id() ) );
+		$this->assertHitsLogged( array( 'reaction_id' => $reactions[1]->get_id() ) );
+
+		$this->assertCount( 1, $other_reactor->hits );
+
+		$this->assertHitsLogged(
+			array( 'reactor' => 'another', 'reaction_id' => $other_reaction->get_id() )
+		);
+	}
+
+	/**
+	 * Test firing an event when the reactor cannot hit the target.
+	 *
+	 * @since 2.4.2
+	 */
+	public function test_fire_event_target_invalid() {
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $extension */
+		$extension = $this->factory->wordpoints->hook_extension->create_and_get();
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Extension $other_extension */
+		$other_extension = $this->factory->wordpoints->hook_extension->create_and_get(
+			array( 'slug' => 'another' )
+		);
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor_Target_Validator $reactor */
+		$reactor = $this->factory->wordpoints->hook_reactor->create_and_get(
+			array( 'class' => 'WordPoints_PHPUnit_Mock_Hook_Reactor_Target_Validator' )
+		);
+
+		$reactor->target_validated = false;
+
+		$reactions = $this->factory->wordpoints->hook_reaction->create_many( 2 );
+
+		/** @var WordPoints_PHPUnit_Mock_Hook_Reactor $other_reactor */
+		$other_reactor = $this->factory->wordpoints->hook_reactor->create_and_get(
+			array( 'slug' => 'another' )
+		);
+
+		$other_reaction = $this->factory->wordpoints->hook_reaction->create(
+			array( 'reactor' => 'another' )
+		);
+
+		$this->fire_event();
+
+		// The extensions should have each been checked.
+		$this->assertCount( 1, $extension->hit_checks );
+		$this->assertCount( 1, $extension->hits );
+
+		$this->assertCount( 1, $other_extension->hit_checks );
+		$this->assertCount( 1, $other_extension->hits );
+
+		// The first reactor should not have been hit.
+		$this->assertCount( 0, $reactor->hits );
+
+		$this->assertHitsLogged( array( 'reaction_id' => $reactions[0]->get_id() ), 0 );
+		$this->assertHitsLogged( array( 'reaction_id' => $reactions[1]->get_id() ), 0 );
+
+		$this->assertCount( 1, $other_reactor->hits );
+
+		$this->assertHitsLogged(
+			array( 'reactor' => 'another', 'reaction_id' => $other_reaction->get_id() )
+		);
+	}
+
+	/**
 	 * Test firing an event that an extension aborts.
 	 *
 	 * @since 2.1.0
@@ -718,9 +826,29 @@ class WordPoints_Hooks_Test extends WordPoints_PHPUnit_TestCase_Hooks {
 	 */
 	public function fire_event() {
 
-		$args = new WordPoints_Hook_Event_Args( array() );
+		$args = new WordPoints_Hook_Event_Args(
+			array(
+				'test_entity' => new WordPoints_PHPUnit_Mock_Hook_Arg( 'test_entity' ),
+			)
+		);
 
 		wordpoints_hooks()->fire( 'test_event', $args, 'test_fire' );
+	}
+
+	/**
+	 * @since 2.4.2
+	 */
+	public function assertHitsLogged(
+		array $data,
+		$count = 1,
+		$signature_arg_guids = null
+	) {
+
+		if ( null === $signature_arg_guids ) {
+			$signature_arg_guids = '{"test_entity":1,"site":1,"network":1}';
+		}
+
+		parent::assertHitsLogged( $data, $count, $signature_arg_guids );
 	}
 }
 

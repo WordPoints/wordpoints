@@ -344,11 +344,15 @@ class WordPoints_Hook_Extension_Periods
 		$cache_key = wp_json_encode( $reaction_guid ) . "-{$signature}-{$this->action_type}";
 
 		// Before we run the query, we try to lookup the ID in the cache.
-		$period_id = wp_cache_get( $cache_key, 'wordpoints_hook_period_ids_by_reaction' );
+		$period_id = wp_cache_get( $cache_key, 'wordpoints_hook_period_ids_by_reaction', false, $found );
 
 		// If we found it, we can retrieve the period by ID instead.
 		if ( $period_id ) {
 			return $this->get_period( $period_id );
+		} elseif ( $found ) {
+			// If the cache was set to false, then we have already checked if there
+			// are any hits for this period, and haven't found any.
+			return false;
 		}
 
 		global $wpdb;
@@ -357,7 +361,7 @@ class WordPoints_Hook_Extension_Periods
 		$period = $wpdb->get_row(
 			$wpdb->prepare(
 				"
-					SELECT *, `period`.`id` AS `id`
+					SELECT `period`.`id`, `hit`.`date`, `hit`.`id` AS `hit_id`
 					FROM `{$wpdb->wordpoints_hook_periods}` AS `period`
 					INNER JOIN `{$wpdb->wordpoints_hook_hits}` AS `hit`
 						ON `hit`.`id` = period.`hit_id`
@@ -380,8 +384,20 @@ class WordPoints_Hook_Extension_Periods
 		);
 
 		if ( ! $period ) {
+
+			// Cache the result anyway, so we know that no periods have been created
+			// matching this yet, and can avoid re-running this query.
+			wp_cache_set( $cache_key, false, 'wordpoints_hook_period_ids_by_reaction' );
+
 			return false;
 		}
+
+		$period->signature           = $signature;
+		$period->reaction_mode       = $reaction_guid['mode'];
+		$period->reaction_store      = $reaction_guid['store'];
+		$period->reaction_context_id = wp_json_encode( $reaction_guid['context_id'] );
+		$period->reaction_id         = $reaction_guid['id'];
+		$period->action_type         = $this->action_type;
 
 		wp_cache_set( $cache_key, $period->id, 'wordpoints_hook_period_ids_by_reaction' );
 		wp_cache_set( $period->id, $period, 'wordpoints_hook_periods' );

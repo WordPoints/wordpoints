@@ -639,7 +639,7 @@ class WordPoints_Points_Admin_Screen_Points_Types extends WordPoints_Admin_Scree
 			$this->current_points_type = $tab;
 		}
 
-		do_action( 'add_meta_boxes', $this->id );
+		do_action( 'add_meta_boxes', $this->id, $this->current_points_type );
 
 		$this->tabs = $tabs;
 	}

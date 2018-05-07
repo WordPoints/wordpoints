@@ -1,14 +1,14 @@
-# Copyright (C) 2017 WordPoints
+# Copyright (C) 2018 WordPoints
 # This file is distributed under the same license as the WordPoints package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPoints 2.4.1\n"
+"Project-Id-Version: WordPoints 2.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpoints\n"
-"POT-Creation-Date: 2017-11-11 21:42:25+00:00\n"
+"POT-Creation-Date: 2018-05-07 21:50:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -201,7 +201,7 @@ msgstr ""
 msgid "Activate %s"
 msgstr ""
 
-#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.1)  #-#-#-#-#
+#. #-#-#-#-#  wordpoints.pot (WordPoints 2.4.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/includes/functions.php:69
 #: components/points/admin/includes/functions.php:340
@@ -1519,11 +1519,11 @@ msgid "This type of condition does not work for the selected attribute."
 msgstr ""
 
 #. translators: Condition type slug.
-#: classes/hook/extension/conditions.php:185
+#: classes/hook/extension/conditions.php:186
 msgid "Unknown condition type &#8220;%s&#8221;."
 msgstr ""
 
-#: classes/hook/extension/conditions.php:195
+#: classes/hook/extension/conditions.php:196
 msgid "Condition settings are missing."
 msgstr ""
 
@@ -2176,53 +2176,53 @@ msgctxt "post type"
 msgid "%s deleted."
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:61
+#: components/points/classes/hook/reactor.php:63
 #: components/ranks/includes/rank-types/points.php:59
 msgctxt "form label"
 msgid "Points"
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:62
+#: components/points/classes/hook/reactor.php:64
 msgctxt "form label"
 msgid "Log Text"
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:63
+#: components/points/classes/hook/reactor.php:65
 msgctxt "form label"
 msgid "Description"
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:75
+#: components/points/classes/hook/reactor.php:77
 msgid "Award To"
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:76
+#: components/points/classes/hook/reactor.php:78
 msgid "Award each user no more than once in:"
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:91
+#: components/points/classes/hook/reactor.php:93
 msgid "Points must be an integer."
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:95
+#: components/points/classes/hook/reactor.php:97
 msgid "Invalid points type."
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:99
+#: components/points/classes/hook/reactor.php:101
 msgid "Description is required."
 msgstr ""
 
-#: components/points/classes/hook/reactor.php:103
+#: components/points/classes/hook/reactor.php:105
 msgid "Log Text is required."
 msgstr ""
 
 #. translators: 1. Log text for reversed transaction; 2. Reason for reversal.
-#: components/points/classes/hook/reactor.php:230
+#: components/points/classes/hook/reactor.php:251
 msgid "Reversed &#8220;%1$s&#8221; (%2$s)"
 msgstr ""
 
 #. translators: 1. Log text for reversed transaction.
-#: components/points/classes/hook/reactor.php:237
+#: components/points/classes/hook/reactor.php:258
 msgid "Reversed &#8220;%1$s&#8221;"
 msgstr ""
 

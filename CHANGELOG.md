@@ -10,6 +10,13 @@ This is the developer changelog for WordPoints. For a user-centric changelog, se
 
 Nothing documented yet.
 
+## [2.4.2] - 2018-05-08
+
+### Fixed
+
+- Improved performance of the Periods hook extension. #762
+- Better meta boxes API compatibility on the Points Types admin screen. #765
+
 ## [2.4.1] - 2017-11-13
 
 ### Fixed
@@ -533,6 +540,7 @@ Nothing documented yet.
 - Notices for ophaned comments in comment points hooks. #436
 
 [unreleased]: https://github.com/WordPoints/wordpoints/compare/master...develop
+[2.4.2]: https://github.com/WordPoints/wordpoints/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/WordPoints/wordpoints/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/WordPoints/wordpoints/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/WordPoints/wordpoints/compare/2.2.2...2.3.0

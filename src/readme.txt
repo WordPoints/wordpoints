@@ -3,8 +3,8 @@ Contributors: jdgrimes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TPXS6B98HURLJ&lc=US&item_name=WordPoints&item_number=wordpressorg&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: points, awards, rewards, credits, gamify, ranks, games
 Requires at least: 4.7
-Tested up to: 4.9
-Stable tag: 2.4.1
+Tested up to: 5.0-alpha-42970
+Stable tag: 2.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,15 @@ screens.
 == Changelog ==
 
 This plugin adheres to [Semantic Versioning](http://semver.org/).
+
+= 2.4.2 — 2018-05-08 =
+
+##### Fixed
+
+- Conflicts with some plugins (PayPal for WooCommerce, WCMp) causing fatal errors
+  on the Points Types admin screen.
+- Performance improvements of the code that powers the Rate Limits for the Visit
+  event.
 
 = 2.4.1 — 2017-11-13 =
 
@@ -195,6 +204,10 @@ If you'd like to view the changelog for older versions, see the [changelog.txt](
 
 == Upgrade Notice ==
 
+= 2.4.2 =
+Fixes a few conflicts and improves performance of the code for the Rate Limits used
+by the Visit event.
+
 = 2.4.1 =
 Fixes a few errors that occurred under rare circumstances.
 
@@ -207,53 +220,3 @@ creating ranks.
 **Includes minor security hardening.** Adds the ability to disable reactions,
 provides more possibilities for reaction conditions, and improves the display of the
 widgets on narrow sidebars.
-
-= 2.2.2 =
-* Fixes a bug that caused event reactions not to award points for some custom post
-types, like bbPress forum topics.
-
-= 2.2.1 =
-* Fixes a bug that could cause the Points Types screen to lock up in some
-circumstances.
-
-= 2.2.0 =
-* Introduces greater flexibility for Rate Limits for event reactions, and now
-differentiates points log entries that are hidden from some users.
-
-= 2.1.5 =
-* Fixes a bug on multisite that caused network-activated modules to not always be
-loaded on all sites on the network.
-
-= 2.1.4 =
-* Fixes an issue with points being removed when a published post was updated. Also
-includes some minor security hardening.
-
-= 2.1.3 =
-* Fixes issues when deleting a module, when deleting a reaction condition, and when
-cancelling editing a reaction (on the Points Types screen).
-
-= 2.1.2 =
-* Fixes a bug that caused two Rate Limit forms to be displayed for the Visit event
-reactions.
-
-= 2.1.1 =
-* Fixes the Rate Limits for the Visit event.
-
-= 2.1.0 =
-* Introduces a new admin screen for managing points types and how points are awarded.
-The old Points Hooks screen remains for now on legacy sites, and continues to work.
-
-= 2.0.2 =
-* Fixes a bug in version 2.0.0 that has caused the plugin not to run its installation
-script when it was activated. Updating will cause the installation script to be run
-automatically if it hasn't been run yet.
-
-= 2.0.1 =
-* This is a security hardening release, which fixes a small bug and strengthens two
-very minor security weaknesses.
-
-= 2.0.0 =
-* This is a breaking update that includes emoji support, some bug fixes, and many
-internal code improvements in preparation for new features. Some old code has been
-removed, so you should test before upgrading if you are using your own custom
-modules.

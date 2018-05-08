@@ -862,8 +862,8 @@ function wordpoints_list_extension_updates() {
 
 	<?php if ( empty( $new_versions ) ) : ?>
 		<p><?php esc_html_e( 'Your extensions are all up to date.', 'wordpoints' ); ?></p>
-		<?php return; // @codingStandardsIgnoreLine ?>
-	<?php endif; ?>
+		<?php return; ?>
+	<?php endif; // @codingStandardsIgnoreLine ?>
 
 	<p><?php esc_html_e( 'The following extensions have new versions available. Check the ones you want to update and then click &#8220;Update Extensions&#8221;.', 'wordpoints' ); ?></p>
 

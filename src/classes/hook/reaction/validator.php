@@ -174,6 +174,7 @@ final class WordPoints_Hook_Reaction_Validator {
 			$this->event_args = new WordPoints_Hook_Event_Args( $event_args );
 			$this->event_args->set_validator( $this );
 
+			/** @var WordPoints_Hook_ReactorI $reactor */
 			$reactor = $reactors->get( $this->reactor_slug );
 
 			$this->settings = $reactor->validate_settings( $this->settings, $this, $this->event_args );

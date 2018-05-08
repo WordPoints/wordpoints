@@ -12,7 +12,9 @@
  *
  * @since 2.1.0
  */
-class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
+class WordPoints_Points_Hook_Reactor
+	extends WordPoints_Hook_Reactor
+	implements WordPoints_Hook_Reactor_Target_ValidatorI {
 
 	/**
 	 * @since 2.1.0
@@ -120,6 +122,25 @@ class WordPoints_Points_Hook_Reactor extends WordPoints_Hook_Reactor {
 		$reaction->update_meta( 'points_type', $settings['points_type'] );
 		$reaction->update_meta( 'description', $settings['description'] );
 		$reaction->update_meta( 'log_text', $settings['log_text'] );
+	}
+
+	/**
+	 * @since 2.4.2
+	 */
+	public function can_hit(
+		WordPoints_EntityishI $target,
+		WordPoints_Hook_Fire $fire
+	) {
+
+		if ( 'toggle_off' === $fire->action_type ) {
+			return true;
+		}
+
+		if ( ! $target instanceof WordPoints_Entity || ! $target->get_the_id() ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

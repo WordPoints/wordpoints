@@ -78,7 +78,7 @@ class WordPoints_User_Ranks_Query extends WordPoints_DB_Query {
 	 *        @type string       $blog_id__compare    Comparison operator for the above value.
 	 *        @type int[]        $blog_id__in         Limit results to these blogs.
 	 *        @type int[]        $blog_id__not_in     Exclude these blogs.
-	 *        @type int          $site_id             Limit results to this network. Default is $wpdb->siteid (current network). There isn't currently
+	 *        @type int          $site_id             Limit results to this network. Default is get_current_network_id() (current network). There isn't currently
 	 *                                                a use for this one, but its possible in future that WordPress will allow multi-network installs.
 	 *        @type string       $site_id__compare    Comparison operator for the above value.
 	 *        @type int[]        $site_id__in         Limit results to these sites.
@@ -98,7 +98,7 @@ class WordPoints_User_Ranks_Query extends WordPoints_DB_Query {
 		$this->table_name = $wpdb->wordpoints_user_ranks;
 
 		$this->defaults['blog_id'] = is_multisite() ? get_current_blog_id() : '0';
-		$this->defaults['site_id'] = $wpdb->siteid;
+		$this->defaults['site_id'] = get_current_network_id();
 
 		parent::__construct( $args );
 	}
@@ -208,7 +208,7 @@ class WordPoints_User_Ranks_Query extends WordPoints_DB_Query {
 				, $rank->ID
 				, $rank->rank_group
 				, is_multisite() ? get_current_blog_id() : '0'
-				, $wpdb->siteid
+				, get_current_network_id()
 				, $rank->rank_group
 			)
 		); // WPCS: cache OK.

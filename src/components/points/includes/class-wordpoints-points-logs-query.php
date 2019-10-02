@@ -166,7 +166,7 @@ class WordPoints_Points_Logs_Query extends WordPoints_DB_Query {
 	 *        @type string       $blog_id__compare    Comparison operator for $text. May be any of these:  '=', '<>', '!=', 'LIKE', 'NOT LIKE'. Default is 'LIKE'.
 	 *        @type int[]        $blog_id__in         Limit results to these blogs.
 	 *        @type int[]        $blog_id__not_in     Exclude these blogs.
-	 *        @type int          $site_id             Limit results to this network. Default is $wpdb->siteid (current network). There isn't currently
+	 *        @type int          $site_id             Limit results to this network. Default is get_current_network_id() (current network). There isn't currently
 	 *                                                a use for this one, but its possible in future that WordPress will allow multi-network installs.
 	 *        @type string       $site_id__compare    Comparison operator for $text. May be any of these:  '=', '<>', '!=', 'LIKE', 'NOT LIKE'. Default is 'LIKE'.
 	 *        @type int[]        $site_id__in         Limit results to these sites.

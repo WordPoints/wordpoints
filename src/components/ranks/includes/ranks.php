@@ -56,7 +56,7 @@ function wordpoints_add_rank( $name, $type, $group, $position, array $meta = arr
 			'type'       => $type,
 			'rank_group' => $group,
 			'blog_id'    => is_multisite() ? get_current_blog_id() : '0',
-			'site_id'    => $wpdb->siteid,
+			'site_id'    => get_current_network_id(),
 		)
 	);
 
@@ -482,7 +482,7 @@ function wordpoints_get_user_rank( $user_id, $group ) {
 				, $user_id
 				, $group
 				, is_multisite() ? get_current_blog_id() : '0'
-				, $wpdb->siteid
+				, get_current_network_id()
 			)
 		);
 
@@ -567,7 +567,7 @@ function wordpoints_update_user_rank( $user_id, $rank_id ) {
 			, $rank_id
 			, $rank->rank_group
 			, is_multisite() ? get_current_blog_id() : '0'
-			, $wpdb->siteid
+			, get_current_network_id()
 			, $rank_id
 		)
 	);
@@ -638,7 +638,7 @@ function wordpoints_update_users_to_rank( array $user_ids, $to_rank_id, $from_ra
 		, $to_rank_id
 		, $rank->rank_group
 		, is_multisite() ? get_current_blog_id() : '0'
-		, $wpdb->siteid
+		, get_current_network_id()
 	);
 
 	$result = $wpdb->query( // WPCS: unprepared SQL OK.
@@ -813,7 +813,7 @@ function wordpoints_set_new_user_ranks( $user_id ) {
 					, $base_rank->ID
 					, $base_rank->rank_group
 					, is_multisite() ? get_current_blog_id() : '0'
-					, $wpdb->siteid
+					, get_current_network_id()
 					, $base_rank->ID
 				)
 			); // WPCS: cache OK.
@@ -840,7 +840,7 @@ function wordpoints_delete_user_ranks( $user_id ) {
 		, array(
 			'user_id' => $user_id,
 			'blog_id' => is_multisite() ? get_current_blog_id() : '0',
-			'site_id' => $wpdb->siteid,
+			'site_id' => get_current_network_id(),
 		)
 		, '%d'
 	);

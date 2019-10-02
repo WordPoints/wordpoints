@@ -623,7 +623,7 @@ function wordpoints_alter_points( $user_id, $points, $points_type, $log_type, $m
 				'log_type'    => $log_type,
 				'text'        => $log_text,
 				'date'        => current_time( 'mysql', 1 ),
-				'site_id'     => $wpdb->siteid,
+				'site_id'     => get_current_network_id(),
 				'blog_id'     => is_multisite() ? get_current_blog_id() : '0',
 			),
 			array( '%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d' )

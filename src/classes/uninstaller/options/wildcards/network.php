@@ -49,7 +49,7 @@ class WordPoints_Uninstaller_Options_Wildcards_Network implements WordPoints_Rou
 						AND `site_id` = %d
 				"
 				, $this->option_name_pattern
-				, $wpdb->siteid
+				, get_current_network_id()
 			)
 		); // WPCS: cache pass.
 

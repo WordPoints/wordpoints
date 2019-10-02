@@ -1710,7 +1710,7 @@ abstract class WordPoints_Un_Installer_Base {
 							AND `site_id` = %d
 					"
 					, $option
-					, $wpdb->siteid
+					, get_current_network_id()
 				)
 			); // WPCS: cache pass.
 
